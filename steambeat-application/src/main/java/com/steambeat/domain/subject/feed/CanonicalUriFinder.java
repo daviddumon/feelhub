@@ -15,6 +15,7 @@ public class CanonicalUriFinder {
         try {
             return doFollow(uri, client);
         } catch (Exception e) {
+            System.out.println("ERREUR");
             throw new FeedException(e);
         } finally {
             Clients.stop(client);

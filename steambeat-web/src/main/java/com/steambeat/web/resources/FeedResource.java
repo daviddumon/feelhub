@@ -22,11 +22,14 @@ public class FeedResource extends ServerResource {
 
     @Override
     protected void doInit() throws ResourceException {
+        System.out.println("PARAM" + getRequestAttributes().get("uri").toString());
         uri = new Uri(getRequestAttributes().get("uri").toString());
+        System.out.println("URI:" + uri.toString());
         try {
             feed = feedService.lookUpFeed(uri);
             preparePage();
         } catch (FeedNotYetCreatedException e) {
+            System.out.println("NEW!");
             mustCreateFeed = true;
         }
     }
