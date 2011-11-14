@@ -1,0 +1,48 @@
+package com.steambeat.web;
+
+import com.steambeat.repositories.*;
+import fr.bodysplash.mongolink.MongoSessionManager;
+import org.restlet.*;
+import org.restlet.routing.Filter;
+
+import javax.inject.Inject;
+
+public class OpenSessionInViewFilter extends Filter {
+
+    @Inject
+    public OpenSessionInViewFilter(SessionProvider provider) {
+        this.provider = provider;
+    }
+
+    @Override
+    public void start() throws Exception {
+        if (!isStarted()) {
+            doStart();
+        }
+        super.start();
+    }
+
+    protected void doStart() {
+        Repositories.initialize(new MongoRepositories(provider));
+    }
+
+    @Override
+    protected int beforeHandle(Request request, Response response) {
+        provider.start();
+        return CONTINUE;
+    }
+
+    @Override
+    protected void afterHandle(Request request, Response response) {
+        provider.stop();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        provider.close();
+    }
+
+    private MongoSessionManager manager;
+    private SessionProvider provider;
+}

@@ -1,0 +1,14 @@
+*.ipr
+*.iws
+*.iml
+.classpath
+.project
+.settings
+*.iml
+.idea
+target
+*~
+.DS_Store
+done
+TEST-*
+classes

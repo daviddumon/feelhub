@@ -1,0 +1,12 @@
+export KIKIYOO_DIR=/Users/david/dev/kikiyoo
+export JAVA_HOME=/Library/Java/Home
+export EC2_HOME=$KIKIYOO_DIR/aws/ec2tools/
+export EC2_PRIVATE_KEY=$KIKIYOO_DIR/aws/certifications/pk-57WGPY3YMRPJLPEPSX75ZXRGE5ZQC5HU.pem
+export EC2_CERT=$KIKIYOO_DIR/aws/certifications/cert-57WGPY3YMRPJLPEPSX75ZXRGE5ZQC5HU.pem
+export EC2_URL=https://ec2.us-east-1.amazonaws.com
+export PATH=$PATH:/$EC2_HOME/bin
+export AWS_CLOUDFORMATION_HOME=$KIKIYOO_DIR/aws/cloudFormationTools/
+export AWS_CREDENTIAL_FILE=/$AWS_CLOUDFORMATION_HOME/credential-file-path.template
+export PATH=$PATH:/$AWS_CLOUDFORMATION_HOME/bin
+export BEANSTALK_HOME=$KIKIYOO_DIR/aws/elasticbeanstalk-cli/
+export PATH=$PATH:/$BEANSTALK_HOME/bin

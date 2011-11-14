@@ -1,0 +1,10 @@
+#feed {
+    position: relative;
+    margin: 100px 0px;
+}
+
+.opinion {
+    width: 20%;
+    padding: 10px;
+    margin: 20px;
+}

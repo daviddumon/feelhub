@@ -1,0 +1,154 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "Mongo Stack creation",
+
+  "Resources" : {
+  
+  "MongoServer" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "SecurityGroups" : [ { "Ref" : "MongoSecurityGroup" } ],
+        "KeyName" : "kikiyoo",
+        "ImageId" : "ami-63be790a",
+        "InstanceType" : "t1.micro",
+        "AvailabilityZone" : "us-east-1c",
+        "Tags" : [ {
+            "Key" : "Name",
+            "Value" : "Mongo"
+        } ],
+        "Volumes" : [ 
+           { "VolumeId" : {"Ref" : "Vol1"},
+           "Device" : "/dev/sdh" },
+           { "VolumeId" :  {"Ref" : "Vol2"},
+           "Device" : "/dev/sdi" },
+            { "VolumeId" :  {"Ref" : "Vol3"},
+           "Device" : "/dev/sdj" },
+            { "VolumeId" :  {"Ref" : "Vol4"},
+           "Device" : "/dev/sdk" }
+        ]
+      },
+"DependsOn" : "Vol1",
+"DependsOn" : "Vol2",
+"DependsOn" : "Vol3",
+"DependsOn" : "Vol4"
+    },
+
+    "MongoSecurityGroup" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Mongo security group",
+        "SecurityGroupIngress" : [ {
+          "IpProtocol" : "tcp",
+          "FromPort" : "22",
+          "ToPort" : "22",
+          "CidrIp" : "0.0.0.0/0"
+        } ,
+        {
+          "IpProtocol" : "tcp",
+          "FromPort" : "27017",
+          "ToPort" : "27018",
+          "CidrIp" : "sg-b1d289d8"
+        },
+ {
+          "IpProtocol" : "tcp",
+          "FromPort" : "27017",
+          "ToPort" : "27018",
+          "CidrIp" : "sg-75bce71c"
+        }
+ ]      
+      }
+    },
+    
+    "Vol1" : {
+      "Type" : "AWS::EC2::Volume",
+      "Properties" : {
+        "Size" : "2",
+        "AvailabilityZone" : "us-east-1c"
+      }
+    },
+    
+    "Vol2" : {
+      "Type" : "AWS::EC2::Volume",
+      "Properties" : {
+        "Size" : "2",
+        "AvailabilityZone" : "us-east-1c"
+      }
+    },
+    
+    "Vol3" : {
+      "Type" : "AWS::EC2::Volume",
+      "Properties" : {
+        "Size" : "2",
+        "AvailabilityZone" : "us-east-1c"
+      }
+    },
+    
+    "Vol4" : {
+      "Type" : "AWS::EC2::Volume",
+      "Properties" : {
+        "Size" : "2",
+        "AvailabilityZone" : "us-east-1c"
+      }
+    },
+
+    "MongoSNS" : {
+    "Type" : "AWS::SNS::Topic",
+    "Properties" : {
+        "Subscription" : [ {
+            "Endpoint" : "monitoring@kikiyoo.com",
+            "Protocol" : "email"
+        	} ]
+    	}
+	},
+	
+	"MongoCpuAlarm" : {
+	"Type" : "AWS::CloudWatch::Alarm",
+	"Properties" : {
+       "AlarmDescription" : "Alarm if CPU too high or metric disappears indicating instance is down",
+        "AlarmActions" : [ { "Ref" : "MongoSNS" } ],
+        "InsufficientDataActions" : [ { "Ref" : "MongoSNS" } ],
+        "MetricName" : "CPUUtilization",
+        "Namespace" : "AWS/EC2",
+        "Statistic" : "Average",
+        "Period" : "300",
+        "EvaluationPeriods" : "2",
+        "Threshold" : "80",
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "Dimensions" : [ {
+          "Name" : "InstanceId",
+          "Value" : { "Ref" : "MongoServer" }
+        } ]
+		},
+		"DependsOn" : "MongoServer"
+	},
+	
+	"MyEIP" : {
+    "Type" : "AWS::EC2::EIP",
+    "Properties" : {
+        "InstanceId" : { "Ref" : "MongoServer" }
+    	},
+	"DependsOn" : "MongoServer"
+	}
+	
+  },
+
+  "Outputs" : {
+  
+    "InstanceId" : {
+      "Description" : "InstanceId of the newly created EC2 instance",
+      "Value" : { "Ref" : "MongoServer" }
+    },
+    
+    "AZ" : {
+      "Description" : "Availability Zone of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "MongoServer", "AvailabilityZone" ] }
+    },
+    
+    "PublicIP" : {
+      "Description" : "Public IP address of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "MongoServer", "PublicIp" ] }
+    }
+    
+  }
+}

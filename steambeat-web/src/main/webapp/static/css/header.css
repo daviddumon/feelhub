@@ -1,0 +1,192 @@
+/* Copyright bytedojo 2011 */
+header {
+    background-color: #7BAFD1;
+}
+
+div#inneralwaysshow {
+    height: 45px;
+}
+
+div#innerheader {
+    display: block;
+    min-height: 45px;
+    width: 100%;
+}
+
+#slogan {
+    position: relative;
+    float: left;
+    top: 4px;
+    left: 100px;
+    font-weight: bold;
+    color: #FFFFFF;
+    font-size: 32px;
+    text-decoration: none;
+}
+
+#slogan:hover {
+    color: #355F7A;
+}
+
+#formsearch {
+    position: relative;
+    float: right;
+    top: 10px;
+    right: 100px;
+}
+
+#searchstring {
+    float: left;
+    width: 200px;
+    height: 24px;
+    padding: 0px 70px 0px 20px;
+    background-color: #FFFFFF;
+    color: #7BAFD1;
+    font-size: 12px;
+    font-weight: normal;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    --moz-border-radius: 10px;
+    --webkit-border-radius: 10px;
+}
+
+#submitsearch {
+    float: left;
+    height: 24px;
+    width: 50px;
+    margin-left: -49px;
+    background-color: #FFFFFF;
+    font-size: 20px;
+    text-decoration: none;
+    color: #7BAFD1;
+    cursor: pointer;
+    border: none;
+    border-left: 5px solid #7BAFD1;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    --moz-border-radius-bottom-right: 10px;
+    --moz-border-radius-top-right: 10px;
+    --webkit-border-bottom-right-radius: 10px;
+    --webkit-border-top-right-radius: 10px;
+}
+
+#counter {
+    position: relative;
+    float: left;
+    left: 50%;
+    width: 160px;
+    margin-left: -80px;
+    padding: 5px;
+    background-color: #7BAFD1;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    --moz-border-radius-bottom-right: 10px;
+    --moz-border-radius-bottom-left: 10px;
+    --webkit-border-bottom-right-radius: 10px;
+    --webkit-border-bottom-left-radius: 10px;
+}
+
+#helpbar {
+    position: relative;
+    float: right;
+    height: 25px;
+    width: 4px;
+    right: 15%;
+    background-color: #7BAFD1;
+}
+
+#helpbutton {
+    position: relative;
+    float: right;
+    top: 15px;
+    right: 15%;
+    width: 36px;
+    padding: 5px 0px 5px 0px;
+    margin-right: -20px;
+    background-color: #7BAFD1;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 100%;
+    --moz-border-radius: 10px;
+    --webkit-border-radius: 10px;
+    cursor: pointer;
+}
+
+#helpbutton:hover {
+    color: #355F7A;
+}
+
+#help {
+    display: none;
+}
+
+.parentheaderbox {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.childheaderbox {
+    display: inline-block;
+    margin: 0% 1%;
+    width: 250px;
+    height: 150px;
+    vertical-align: top;
+    background-color: #355F7A;
+    border-radius: 10px;
+    --moz-border-radius: 10px;
+    --webkit-border-radius: 10px;
+}
+
+.insideheaderbox {
+    text-align: top;
+    height: 100%;
+    margin: 0px 10px 0px 10px;
+    overflow: hidden;
+}
+
+.insideheaderbox p {
+    font-weight: normal;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 10px 30px 10px;
+    line-height: 130%;
+}
+
+em.steps {
+    float: left;
+    padding-left: 20px;
+    padding-top: 57px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 3em;
+}
+
+img.arrowsteps {
+    float: left;
+    margin-top: 61px;
+    padding-left: 8px;
+    height: 28px;
+    border: 0px;
+}
+
+a#bookmarklet {
+    background-color: #7BAFD1;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 10px;
+    --moz-border-radius: 10px;
+    --webkit-border-radius: 10px;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
