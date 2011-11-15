@@ -47,7 +47,7 @@ public class TestsSitemap {
     public void canGetKikiyooPath() {
         String path = sitemap.getPath();
 
-        assertThat("http://www.kikiyoo.com/sitemap_" + String.format("%05d", sitemapIndex) + ".xml.gz", is(path));
+        assertThat("http://www.steambeat.com/sitemap_" + String.format("%05d", sitemapIndex) + ".xml.gz", is(path));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class TestsSitemap {
     @Test
     public void canAddAPageToSitemap() {
         XmlTransformer xmlTransformer = new XmlTransformer();
-        String uri = "http://www.kikiyoo.com/test";
+        String uri = "http://www.steambeat.com/test";
 
         sitemap.add(uri, Frequence.hourly, 0.5);
         sitemap.writeToFile();
@@ -85,7 +85,7 @@ public class TestsSitemap {
     @Test
     public void canLoadExistingSitemap() {
         XmlTransformer xmlTransformer = new XmlTransformer();
-        String uri = "http://www.kikiyoo.com/test";
+        String uri = "http://www.steambeat.com/test";
         sitemap.add(uri, Frequence.hourly, 0.5);
         sitemap.writeToFile();
 

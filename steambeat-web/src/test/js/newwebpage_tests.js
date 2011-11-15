@@ -10,7 +10,7 @@ NewFeedTests.prototype = {
             var xhr = {
                 getResponseHeader : function(key) {
                     if (key == "Location") {
-                        return "kikiyoo location";
+                        return "steambeat location";
                     }
                 }
             };
@@ -32,7 +32,7 @@ NewFeedTests.prototype = {
 
         assertEquals("http://localhost/webpages", postUrl);
         assertEquals("uritocreate", postData.uri);
-        assertEquals("kikiyoo location", redirectUri);
+        assertEquals("steambeat location", redirectUri);
     }
 };
 

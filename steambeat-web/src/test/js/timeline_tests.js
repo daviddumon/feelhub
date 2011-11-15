@@ -378,6 +378,6 @@ var timelineHeight = 300;
 var spacer = 5;
 var stroke = 3;
 var blockNumber = 5;
-var baseSource = "http://localhost:8080/kikiyoo/dummy/";
+var baseSource = "http://localhost:8080/steambeat/dummy/";
 var originalGetJSON = $.getJSON;
 var testDate;

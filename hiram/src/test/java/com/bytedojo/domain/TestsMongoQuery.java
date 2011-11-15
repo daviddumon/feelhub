@@ -18,7 +18,7 @@ public class TestsMongoQuery {
     public void setUp() throws Exception {
         //session = fakePersistentContext.getSession();
         final HiramProperties hiramProperties = new HiramProperties();
-        ContextBuilder contextBuilder = new ContextBuilder("com.kikiyoo.repositories.context");
+        ContextBuilder contextBuilder = new ContextBuilder("com.steambeat.repositories.context");
         mongoSessionManager = MongoSessionManager.create(contextBuilder, hiramProperties.getDbSettings());
         session = mongoSessionManager.createSession();
     }

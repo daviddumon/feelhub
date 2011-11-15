@@ -58,7 +58,7 @@ public class TestsHiramScheduler {
         File file = new File(directory, "sitemap_00001.xml.gz");
         Document document = xmlTransformer.readFromFile(file);
         assertThat(document.getElementsByTagName("url").getLength(), is(1));
-        assertThat(document.getElementsByTagName("loc").item(0).getTextContent(), is("http://www.kikiyoo.com"));
+        assertThat(document.getElementsByTagName("loc").item(0).getTextContent(), is("http://www.steambeat.com"));
         assertThat(document.getElementsByTagName("changefreq").item(0).getTextContent(), is(Frequence.always.toString()));
         assertThat(document.getElementsByTagName("priority").item(0).getTextContent(), is(String.valueOf(0.9)));
     }

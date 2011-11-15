@@ -86,7 +86,7 @@ public class SitemapIndex {
     }
 
     public String getPath() {
-        return "http://www.kikiyoo.com/" + file.getName();
+        return "http://www.steambeat.com/" + file.getName();
     }
 
     public String getFileName() {

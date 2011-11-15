@@ -90,7 +90,7 @@ var timeline = {};
         var graph = instance.buildGraph(start, end);
         var jqxhrCurrent = instance.loadBlocksFor(graph);
         jqxhrCurrent.complete(function() {
-            graph.draw(instance.displaySvg, offsetX + x, offsetY + y, kikiyoo.colors, instance.checkAnimate);
+            graph.draw(instance.displaySvg, offsetX + x, offsetY + y, steambeat.colors, instance.checkAnimate);
         });
         instance.graphs[instance.granularity].add(graph);
         return graph;
@@ -111,12 +111,12 @@ var timeline = {};
             var graph = instance.buildGraph(current.startInterval.previousInterval(5), current.endInterval.previousInterval(5));
             var jqxhr = instance.loadBlocksFor(graph);
             jqxhr.complete(function() {
-                graph.draw(instance.displaySvg, -instance.displayWidth * 2, 0, kikiyoo.colors, instance.checkAnimate);
+                graph.draw(instance.displaySvg, -instance.displayWidth * 2, 0, steambeat.colors, instance.checkAnimate);
             });
             instance.graphs[instance.granularity].add(graph);
         } else {
             var graph = instance.graphs[instance.granularity].previous();
-            graph.draw(instance.displaySvg, -instance.displayWidth * 2, 0, kikiyoo.colors, instance.animate);
+            graph.draw(instance.displaySvg, -instance.displayWidth * 2, 0, steambeat.colors, instance.animate);
         }
         graphToHide.remove();
     };
@@ -137,12 +137,12 @@ var timeline = {};
             var graph = instance.buildGraph(current.startInterval.nextInterval(5), current.endInterval.nextInterval(5));
             var jqxhr = instance.loadBlocksFor(graph);
             jqxhr.complete(function() {
-                graph.draw(instance.displaySvg, 1200, 0, kikiyoo.colors, instance.checkAnimate);
+                graph.draw(instance.displaySvg, 1200, 0, steambeat.colors, instance.checkAnimate);
             });
             instance.graphs[instance.granularity].add(graph);
         } else {
             var graph = instance.graphs[instance.granularity].next();
-            graph.draw(instance.displaySvg, 1200, 0, kikiyoo.colors, instance.animate);
+            graph.draw(instance.displaySvg, 1200, 0, steambeat.colors, instance.animate);
         }
         graphToHide.remove();
     };
@@ -168,7 +168,7 @@ var timeline = {};
                 var previous = instance.buildGraph(start, end);
                 var jqxhrPrevious = instance.loadBlocksFor(previous);
                 jqxhrPrevious.complete(function() {
-                    previous.draw(instance.displaySvg, -600, -250, kikiyoo.colors, instance.checkAnimate);
+                    previous.draw(instance.displaySvg, -600, -250, steambeat.colors, instance.checkAnimate);
                 });
                 instance.graphs[newGranularity].add(previous);
 
@@ -177,7 +177,7 @@ var timeline = {};
                 var current = instance.buildGraph(start, end);
                 var jqxhrCurrent = instance.loadBlocksFor(current);
                 jqxhrCurrent.complete(function() {
-                    current.draw(instance.displaySvg, 0, -250, kikiyoo.colors, instance.checkAnimate);
+                    current.draw(instance.displaySvg, 0, -250, steambeat.colors, instance.checkAnimate);
                 });
                 instance.graphs[newGranularity].add(current);
 
@@ -188,23 +188,23 @@ var timeline = {};
                 var next = instance.buildGraph(start, end);
                 var jqxhrNext = instance.loadBlocksFor(next);
                 jqxhrNext.complete(function() {
-                    next.draw(instance.displaySvg, 600, -250, kikiyoo.colors, instance.checkAnimate);
+                    next.draw(instance.displaySvg, 600, -250, steambeat.colors, instance.checkAnimate);
                 });
                 instance.graphs[newGranularity].add(next);
 
             } else {
 
                 instance.graphs[newGranularity].setCurrent(graph);
-                graph.draw(instance.displaySvg, 0, -250, kikiyoo.colors, instance.animate);
+                graph.draw(instance.displaySvg, 0, -250, steambeat.colors, instance.animate);
 
                 if(instance.graphs[newGranularity].previous() != null) {
-                    instance.graphs[newGranularity].previous().draw(instance.displaySvg, -600, -250, kikiyoo.colors, instance.animate);
+                    instance.graphs[newGranularity].previous().draw(instance.displaySvg, -600, -250, steambeat.colors, instance.animate);
                 } else {
                     // on charge previous
                 }
 
                 if(instance.graphs[newGranularity].next() != null) {
-                    instance.graphs[newGranularity].next().draw(instance.displaySvg, 600, -250, kikiyoo.colors, instance.animate);
+                    instance.graphs[newGranularity].next().draw(instance.displaySvg, 600, -250, steambeat.colors, instance.animate);
                 } else {
                     // on charge next
                 }
@@ -250,7 +250,7 @@ var timeline = {};
                 var previous = instance.buildGraph(start, end);
                 var jqxhrPrevious = instance.loadBlocksFor(previous);
                 jqxhrPrevious.complete(function() {
-                    previous.draw(instance.displaySvg, -600, 250, kikiyoo.colors, instance.checkAnimate);
+                    previous.draw(instance.displaySvg, -600, 250, steambeat.colors, instance.checkAnimate);
                 });
                 instance.graphs[newGranularity].add(previous);
 
@@ -259,7 +259,7 @@ var timeline = {};
                 var current = instance.buildGraph(start, end);
                 var jqxhrCurrent = instance.loadBlocksFor(current);
                 jqxhrCurrent.complete(function() {
-                    current.draw(instance.displaySvg, 0, 250, kikiyoo.colors, instance.checkAnimate);
+                    current.draw(instance.displaySvg, 0, 250, steambeat.colors, instance.checkAnimate);
                 });
                 instance.graphs[newGranularity].add(current);
 
@@ -270,23 +270,23 @@ var timeline = {};
                 var next = instance.buildGraph(start, end);
                 var jqxhrNext = instance.loadBlocksFor(next);
                 jqxhrNext.complete(function() {
-                    next.draw(instance.displaySvg, 600, 250, kikiyoo.colors, instance.checkAnimate);
+                    next.draw(instance.displaySvg, 600, 250, steambeat.colors, instance.checkAnimate);
                 });
                 instance.graphs[newGranularity].add(next);
                 
             } else {
 
                 instance.graphs[newGranularity].setCurrent(graph);
-                graph.draw(instance.displaySvg, 0, 250, kikiyoo.colors, instance.animate);
+                graph.draw(instance.displaySvg, 0, 250, steambeat.colors, instance.animate);
 
                 if(instance.graphs[newGranularity].previous() != null) {
-                    instance.graphs[newGranularity].previous().draw(instance.displaySvg, -600, 250, kikiyoo.colors, instance.animate);
+                    instance.graphs[newGranularity].previous().draw(instance.displaySvg, -600, 250, steambeat.colors, instance.animate);
                 } else {
                     // on charge previous
                 }
 
                 if(instance.graphs[newGranularity].next() != null) {
-                    instance.graphs[newGranularity].next().draw(instance.displaySvg, 600, 250, kikiyoo.colors, instance.animate);
+                    instance.graphs[newGranularity].next().draw(instance.displaySvg, 600, 250, steambeat.colors, instance.animate);
                 } else {
                     // on charge next
                 }

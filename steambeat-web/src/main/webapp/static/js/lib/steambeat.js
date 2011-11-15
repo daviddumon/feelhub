@@ -1,5 +1,5 @@
 /* Copyright bytedojo 2011 */
-var kikiyoo = {
+var steambeat = {
     colors: {
         bad: {
             plain: "#FF6733",

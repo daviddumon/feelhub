@@ -38,7 +38,7 @@ public class HiramScheduler {
         SitemapBuilder sitemapBuilder = new SitemapBuilder();
         List uris = Lists.newArrayList();
         Map uri = new HashMap();
-        uri.put("value", "http://www.kikiyoo.com");
+        uri.put("value", "http://www.steambeat.com");
         uri.put("frequence", Frequence.always);
         uri.put("priority", 0.9);
         uris.add(uri);

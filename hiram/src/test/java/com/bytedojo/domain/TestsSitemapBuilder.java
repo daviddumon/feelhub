@@ -91,7 +91,7 @@ public class TestsSitemapBuilder {
         File file = new File(directoryName, sitemapBuilder.getCurrentSitemapIndex().getFileName());
         Document document = xmlTransformer.readFromFile(file);
         assertThat(document.getElementsByTagName("sitemap").getLength(), is(1));
-        assertThat(document.getElementsByTagName("loc").item(0).getTextContent(), is("http://www.kikiyoo.com/sitemap_00001.xml.gz"));
+        assertThat(document.getElementsByTagName("loc").item(0).getTextContent(), is("http://www.steambeat.com/sitemap_00001.xml.gz"));
     }
 
     @Test

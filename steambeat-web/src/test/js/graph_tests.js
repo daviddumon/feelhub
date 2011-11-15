@@ -90,7 +90,7 @@ GraphTests.prototype = {
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
-        graph.draw(svg, 100, 100, kikiyoo.colors);
+        graph.draw(svg, 100, 100, steambeat.colors);
 
         var paths = document.getElementById("svg").getElementsByTagName('path');
         assertEquals(9, paths.length);
@@ -116,7 +116,7 @@ GraphTests.prototype = {
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
-        graph.draw(svg, 100, 100, kikiyoo.colors);
+        graph.draw(svg, 100, 100, steambeat.colors);
 
         var labels = document.getElementById("svg").getElementsByTagName('text');
         assertEquals(105, parseInt(labels[0].getAttribute("x")));
@@ -128,7 +128,7 @@ GraphTests.prototype = {
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocksWithEmptySignLabels);
 
-        graph.draw(svg, 100, 100, kikiyoo.colors);
+        graph.draw(svg, 100, 100, steambeat.colors);
 
         var labels = document.getElementById("svg").getElementsByTagName('text');
         assertEquals(4, labels.length);
@@ -139,7 +139,7 @@ GraphTests.prototype = {
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
-        graph.draw(svg, 100, 100, kikiyoo.colors);
+        graph.draw(svg, 100, 100, steambeat.colors);
 
         assertNotUndefined(graph.set);
         assertEquals(15, graph.set.length);
@@ -149,7 +149,7 @@ GraphTests.prototype = {
         var svg = new Raphael("svg",800,800);
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
-        graph.draw(svg, 100, 100, kikiyoo.colors);
+        graph.draw(svg, 100, 100, steambeat.colors);
 
         graph.remove();
 
@@ -176,7 +176,7 @@ GraphTests.prototype = {
         var svg = new Raphael("svg",800,800);
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
-        graph.draw(svg, 100, 100, kikiyoo.colors, function(){
+        graph.draw(svg, 100, 100, steambeat.colors, function(){
             call = true;
         });
 

@@ -77,7 +77,7 @@ public class TestsSitemapIndex {
 
     @Test
     public void canGetPath() {
-        assertThat("http://www.kikiyoo.com/sitemap_index_00001.xml.gz", is(sitemapIndex.getPath()));
+        assertThat("http://www.steambeat.com/sitemap_index_00001.xml.gz", is(sitemapIndex.getPath()));
     }
 
     @Test
