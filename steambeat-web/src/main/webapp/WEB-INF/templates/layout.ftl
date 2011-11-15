@@ -19,7 +19,7 @@
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
         </#if>
         <#if dev>
-            <script type="text/javascript" src="${root}/static/js/lib/jquery-1.6.2.min.js"></script>
+            <script type="text/javascript" src="${root}/static/js/lib/jquery-1.7.min.js"></script>
         </#if>
         <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js"></script>
         <script type="text/javascript" src="${root}/static/js/lib/raphael-2.0.0.min.js"></script>
