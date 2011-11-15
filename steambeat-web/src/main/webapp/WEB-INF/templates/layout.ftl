@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <div id="counter">${counter} opinions</div>
+        <div id="counter">${counter!0} opinions</div>
         <div id="helpbar"></div>
         <div id="helpbutton">?</div>
 

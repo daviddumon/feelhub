@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<!-- Copyright Bytedojo SAS 2011 -->
-<html lang="en">
-<head>
-    <title>Kikiyoo</title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="${root}/static/css/reset.css"/>
-    <link rel="stylesheet" href="${root}/static/css/newfeed.css"/>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script type="text/javascript" src="${root}/static/js/steambeat.jquery.js"></script>
-    <script type="text/javascript" src="${root}/static/js/newfeed.js"></script>
-    <script type="text/javascript">
-        var root = "${root}";
-    </script>
-</head>
-<body>
+<@layout.withHeader>
+
+<script type="text/javascript" src="${root}/static/js/newfeed.js"></script>
 
 <script type="text/javascript">
     $(function(){
-        newfeed.create("${uri}");
+        setTimeout(newfeed.create("${uri}"), 2000);
     });
 </script>
 
@@ -25,5 +12,4 @@
     <p>Creating this awesome subject for you !</p>
 </div>
 
-</body>
-</html>
+</@layout.withHeader>
