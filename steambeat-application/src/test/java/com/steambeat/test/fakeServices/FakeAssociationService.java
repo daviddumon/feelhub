@@ -11,7 +11,8 @@ public class FakeAssociationService extends AssociationService {
     }
 
     @Override
-    public Association lookUp(final String address) {
+    public Association lookUp(final Uri uri) {
+        String address = uri.toString();
         if (address.startsWith("http://404url")) {
             throw new WebPageException();
         }

@@ -44,7 +44,7 @@ public class TestsAssociationService {
     public void canUseEncodedResources() throws UnsupportedEncodingException {
         final Uri uri = fakeInternet.uri(URLEncoder.encode("http://www.lemonde.fr", "UTF-8"));
 
-        final Association association = associationService.lookUp(uri.toString());
+        final Association association = associationService.lookUp(uri);
 
         assertThat(association.getCanonicalUri(), is(uri.toString()));
     }
@@ -56,7 +56,7 @@ public class TestsAssociationService {
         final Association association = TestFactories.associations().newAssociation(address, canonicalAddress);
         final Uri uri = fakeInternet.uri(URLEncoder.encode("http://lemonde.fr", "UTF-8"));
 
-        final Association associationFound = associationService.lookUp(uri.toString());
+        final Association associationFound = associationService.lookUp(uri);
 
         assertThat(associationFound, is(association));
     }
@@ -65,7 +65,7 @@ public class TestsAssociationService {
     public void canSaveToRepository() {
         final Uri uri = fakeInternet.uri("http://www.gameblog.fr");
 
-        final Association firstAssociation = associationService.lookUp(uri.toString());
+        final Association firstAssociation = associationService.lookUp(uri);
 
         assertThat(Repositories.associations().getAll().size(), is(1));
         assertThat(Repositories.associations().get(uri.toString()), notNullValue());
@@ -78,7 +78,7 @@ public class TestsAssociationService {
         final Association oldAssociation = TestFactories.associations().newAssociation(uri.toString(), "http://www.liberation.fr");
 
         time.waitDays(8);
-        final Association associationFound = associationService.lookUp(uri.toString());
+        final Association associationFound = associationService.lookUp(uri);
 
         assertThat(associationFound, is(oldAssociation));
         assertThat(associationFound.isAlive(), is(true));

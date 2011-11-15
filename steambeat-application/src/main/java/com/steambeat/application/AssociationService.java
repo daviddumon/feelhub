@@ -11,8 +11,7 @@ public class AssociationService {
         this.finder = finder;
     }
 
-    public Association lookUp(final String address) {
-        final Uri uri = new Uri(address);
+    public Association lookUp(final Uri uri) {
         Association association = Repositories.associations().get(uri.toString());
         if (association != null) {
             association.update(finder);

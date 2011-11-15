@@ -13,7 +13,7 @@ public class WebPageService {
     }
 
     public WebPage lookUpWebPage(final Uri uri) {
-        final Association association = associationService.lookUp(uri.toString());
+        final Association association = associationService.lookUp(uri);
         final WebPage webPage = Repositories.webPages().get(association.getCanonicalUri());
         if (webPage == null) {
             throw new WebPageNotYetCreatedException();
@@ -22,7 +22,7 @@ public class WebPageService {
     }
 
     public WebPage addWebPage(final Uri uri) {
-        final Association association = associationService.lookUp(uri.toString());
+        final Association association = associationService.lookUp(uri);
         final WebPage result = webPageFactory.buildWebPage(association);
         Repositories.webPages().add(result);
         return result;
