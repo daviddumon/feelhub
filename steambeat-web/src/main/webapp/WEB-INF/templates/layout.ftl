@@ -43,14 +43,14 @@
 
     <body>
     <img src="${root}/static/images/alpha.png" alt="alpha" id="alpha"/>
-    <a id="feedback" href="${root}/feeds/http://www.steambeat.com"></a>
+    <a id="feedback" href="${root}/webpages/http://www.steambeat.com"></a>
 
     <header>
         <div id="innerheader">
             <div id="inneralwaysshow">
                 <a id="slogan" href="${root}/">Free speech everywhere</a>
 
-                <form id="formsearch" action="${root}/feeds/" method="get" autocomplete="off" autofocus="on">
+                <form id="formsearch" action="${root}/webpages/" method="get" autocomplete="off" autofocus="on">
                     <input id="searchstring" value="search">
                     <input id="submitsearch" type="submit" value="&rarr;">
                 </form>

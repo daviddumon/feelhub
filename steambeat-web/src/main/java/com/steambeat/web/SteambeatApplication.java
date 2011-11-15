@@ -38,10 +38,10 @@ public class SteambeatApplication extends Application {
 
     @Override
     public Restlet createInboundRoot() {
-        Router router = new Router(getContext());
+        final Router router = new Router(getContext());
         router.attach("/static", new Directory(getContext(), "war:///static"));
         final SteambeatRouter steambeatRouter = new SteambeatRouter(getContext(), injector);
-        Filter openSession = injector.getInstance(OpenSessionInViewFilter.class);
+        final Filter openSession = injector.getInstance(OpenSessionInViewFilter.class);
         openSession.setContext(getContext());
         openSession.setNext(steambeatRouter);
         router.attach(openSession);

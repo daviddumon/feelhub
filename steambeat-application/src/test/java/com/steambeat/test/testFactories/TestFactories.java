@@ -7,16 +7,16 @@ public class TestFactories {
     private TestFactories() {
     }
 
-    public static FeedFactoryForTest feeds() {
-        return new FeedFactoryForTest();
+    public static WebPageFactoryForTest webPages() {
+        return new WebPageFactoryForTest();
     }
 
     public static AssociationFactoryForTest associations() {
         return new AssociationFactoryForTest();
     }
 
-    public static FeedStatFactoryForTest statistics() {
-        return new FeedStatFactoryForTest();
+    public static WebPageStatFactoryForTest statistics() {
+        return new WebPageStatFactoryForTest();
     }
 
     public static StubCanonicalUriFinder canonicalUriFinder() {

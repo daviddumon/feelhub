@@ -4,7 +4,7 @@ try {
 if (!body) {
 throw(0);
 }
-var url = 'http://${domain}${root}/feeds/' + document.location.href;
+var url = 'http://${domain}${root}/webpages/' + document.location.href;
 if (!window.open(url)) {
 location.href = url;
 }

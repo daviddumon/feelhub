@@ -4,7 +4,7 @@ FlowPositionTests.prototype = {
 
     setUp: function() {
         createDocumentForFlowPositionTests();
-        flow = new Flow("flow.css","feed","li",".opinion");
+        flow = new Flow("flow.css","webpage","li",".opinion");
     },
 
     testCanCreateALine: function() {
@@ -368,10 +368,10 @@ FlowPositionTests.prototype = {
 };
 
 function createDocumentForFlowPositionTests() {
-    var feedUL = document.createElement('feedUL');
-    feedUL.setAttribute("id","feed");
-    feedUL.style.width = "800px";
-    document.body.appendChild(feedUL);
+    var webpageUL = document.createElement('webpageUL');
+    webpageUL.setAttribute("id","webpage");
+    webpageUL.style.width = "800px";
+    document.body.appendChild(webpageUL);
 }
 
 function fakeMaxBox(flow) {

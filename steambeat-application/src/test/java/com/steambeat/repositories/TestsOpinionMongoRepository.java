@@ -1,9 +1,9 @@
 package com.steambeat.repositories;
 
+import com.mongodb.*;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.testFactories.TestFactories;
-import com.mongodb.*;
 import org.hamcrest.Matchers;
 import org.junit.*;
 

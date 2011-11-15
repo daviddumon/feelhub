@@ -3,15 +3,14 @@ package com.steambeat.repositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
-import com.steambeat.domain.subject.feed.*;
-import fr.bodysplash.mongolink.MongoSession;
+import com.steambeat.domain.subject.webpage.*;
 
 import javax.inject.Inject;
 
 public class MongoRepositories extends Repositories {
 
     @Inject
-    public MongoRepositories(SessionProvider provider) {
+    public MongoRepositories(final SessionProvider provider) {
         this.provider = provider;
     }
 
@@ -26,8 +25,8 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
-    protected Repository<Feed> getFeedRepository() {
-        return new FeedMongoRepository(provider.get());
+    protected Repository<WebPage> getWebPageRepository() {
+        return new WebPageMongoRepository(provider.get());
     }
 
     @Override
@@ -35,9 +34,5 @@ public class MongoRepositories extends Repositories {
         return new AssociationMongoRepository(provider.get());
     }
 
-    public MongoSession getSession() {
-        return provider.get();
-    }
-
-    private SessionProvider provider;
+    private final SessionProvider provider;
 }

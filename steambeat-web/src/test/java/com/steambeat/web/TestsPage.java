@@ -1,6 +1,6 @@
 package com.steambeat.web;
 
-import com.steambeat.domain.subject.feed.Feed;
+import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.fakeSearches.FakeOpinionSearch;
 import com.steambeat.test.testFactories.TestFactories;
@@ -22,8 +22,8 @@ public class TestsPage {
 
     @Test
     public void testPageHasTotalOpinionsNumber() {
-        final Feed feed = TestFactories.feeds().newFeedWithLotOfOpinions("http://www.fake.com", 30);
-        List<Page> pages = Page.forContextAndFeed(Context.getCurrent(), feed, new FakeOpinionSearch());
+        final WebPage webPage = TestFactories.webPages().newWebPageWithLotOfOpinions("http://www.fake.com", 30);
+        final List<Page> pages = Page.forContextAndSubject(Context.getCurrent(), webPage, new FakeOpinionSearch());
 
         assertThat(pages.size(), is(2));
         assertThat(pages.get(0).getMax(), is(30));
@@ -32,24 +32,24 @@ public class TestsPage {
 
     @Test
     public void canParseAndReplaceLinkToOpinion() {
-        final Feed feed = TestFactories.feeds().newFeedWithLotOfOpinions("http://www.fake.com", 30);
+        final WebPage webPage = TestFactories.webPages().newWebPageWithLotOfOpinions("http://www.fake.com", 30);
         final String value = "I really like what @10 said !";
         final Context context = new Context();
         context.getAttributes().put("org.restlet.ext.servlet.ServletContext", restlet.mockServletContext());
 
-        String result = Page.parse(feed, value, context);
+        final String result = Page.parse(webPage, value, context);
 
-        assertThat(result, is("I really like what <a href=\"http://thedomain//feeds/http://www.fake.com/opinions/10\">@10</a> said !"));
+        assertThat(result, is("I really like what <a href=\"http://thedomain//webpages/http://www.fake.com/opinions/10\">@10</a> said !"));
     }
 
     @Test
     public void parseOnlyNumbers() {
-        final Feed feed = TestFactories.feeds().newFeedWithLotOfOpinions("http://www.fake.com", 30);
+        final WebPage webPage = TestFactories.webPages().newWebPageWithLotOfOpinions("http://www.fake.com", 30);
         final String value = "I really like what @10mistake said !";
         final Context context = new Context();
         context.getAttributes().put("org.restlet.ext.servlet.ServletContext", restlet.mockServletContext());
 
-        String result = Page.parse(feed, value, context);
+        final String result = Page.parse(webPage, value, context);
 
         assertThat(result, is(value));
     }

@@ -57,5 +57,5 @@ public class SteambeatTemplateRepresentation extends OutputRepresentation {
     }
 
     private final TemplateRepresentation representation;
-    private Context context;
+    private final Context context;
 }

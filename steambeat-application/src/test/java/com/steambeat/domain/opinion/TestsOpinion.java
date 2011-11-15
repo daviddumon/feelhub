@@ -1,7 +1,6 @@
 package com.steambeat.domain.opinion;
 
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.feed.Feed;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
@@ -20,18 +19,18 @@ public class TestsOpinion {
 
     @Test
     public void canCreateAnOpinion() {
-        final String value = "opinion";
+        final String text = "my opinion";
         final Feeling feeling = Feeling.good;
-        final Feed feed = TestFactories.feeds().newFeed();
+        final Subject subject = TestFactories.webPages().newWebPage();
 
-        final Opinion opinion = new Opinion(value, feeling, feed);
+        final Opinion opinion = new Opinion(text, feeling, subject);
 
         assertThat(opinion, notNullValue());
-        assertThat(opinion.getText(), is(value));
+        assertThat(opinion.getText(), is(text));
         assertThat(opinion.getFeeling(), is(feeling));
         assertThat(opinion.getCreationDate(), notNullValue());
         assertThat(opinion.getCreationDate(), is(time.getNow()));
-        assertThat(opinion.getSubject(), is((Subject) feed));
+        assertThat(opinion.getSubject(), is(subject));
     }
 
 }

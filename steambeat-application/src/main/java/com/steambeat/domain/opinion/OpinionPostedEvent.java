@@ -25,7 +25,7 @@ public class OpinionPostedEvent implements DomainEvent {
         return date;
     }
 
-    private Subject subject;
-    private Opinion opinion;
-    private DateTime date;
+    private final Subject subject;
+    private final Opinion opinion;
+    private final DateTime date;
 }

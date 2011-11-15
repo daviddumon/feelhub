@@ -1,7 +1,7 @@
 package com.steambeat.web;
 
 import com.google.common.collect.Maps;
-import com.steambeat.domain.subject.feed.*;
+import com.steambeat.domain.subject.webpage.*;
 import org.restlet.*;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
@@ -12,8 +12,8 @@ import java.util.Map;
 public class StatusServiceSteambeat extends StatusService {
 
     public StatusServiceSteambeat() {
-        resolvers.put(FeedException.class, new FeedExceptionResolver());
-        resolvers.put(FeedAlreadyExistsException.class, new FeedExceptionResolver());
+        resolvers.put(WebPageException.class, new WebPageExceptionResolver());
+        resolvers.put(WebPageAlreadyExistsException.class, new WebPageExceptionResolver());
     }
 
     @Override

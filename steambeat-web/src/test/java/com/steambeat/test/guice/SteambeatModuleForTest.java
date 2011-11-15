@@ -2,8 +2,8 @@ package com.steambeat.test.guice;
 
 import com.google.inject.*;
 import com.steambeat.application.AssociationService;
-import com.steambeat.domain.subject.feed.FeedFactory;
-import com.steambeat.test.fakeFactories.FakeFeedFactory;
+import com.steambeat.domain.subject.webpage.WebPageFactory;
+import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeSearches.FakeOpinionSearch;
 import com.steambeat.test.fakeServices.FakeAssociationService;
 import com.steambeat.tools.Hiram;
@@ -14,7 +14,7 @@ public class SteambeatModuleForTest extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(FeedFactory.class).to(FakeFeedFactory.class);
+        bind(WebPageFactory.class).to(FakeWebPageFactory.class);
         bind(AssociationService.class).to(FakeAssociationService.class);
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
         bind(OpinionSearch.class).to(FakeOpinionSearch.class);
@@ -28,7 +28,7 @@ public class SteambeatModuleForTest extends AbstractModule {
         return hiram;
     }
 
-    public void setHiram(Hiram hiram) {
+    public void setHiram(final Hiram hiram) {
         this.hiram = hiram;
     }
 

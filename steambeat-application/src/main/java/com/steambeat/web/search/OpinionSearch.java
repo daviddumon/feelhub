@@ -14,7 +14,7 @@ import java.util.List;
 public class OpinionSearch {
 
     @Inject
-    public OpinionSearch(SessionProvider provider) {
+    public OpinionSearch(final SessionProvider provider) {
         this.provider = provider;
     }
 
@@ -25,7 +25,7 @@ public class OpinionSearch {
         return criteria.list();
     }
 
-    public List<Opinion> forInterval(Interval interval) {
+    public List<Opinion> forInterval(final Interval interval) {
         final MongoSession session = provider.get();
         final Criteria criteria = session.createCriteria(Opinion.class);
         criteria.add(Restrictions.between("creationDate", interval.getStartMillis(), interval.getEndMillis()));
@@ -51,5 +51,5 @@ public class OpinionSearch {
         return Lists.newArrayList();
     }
 
-    private SessionProvider provider;
+    private final SessionProvider provider;
 }

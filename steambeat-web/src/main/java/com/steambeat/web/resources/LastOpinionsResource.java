@@ -25,13 +25,13 @@ public class LastOpinionsResource extends ServerResource {
     @Get
     public Representation represent() throws JSONException {
         final JSONArray result = new JSONArray();
-        for (Opinion opinion : lastOpinions) {
+        for (final Opinion opinion : lastOpinions) {
             result.put(toJson(opinion));
         }
         return new JsonRepresentation(result);
     }
 
-    private JSONObject toJson(Opinion opinion) throws JSONException {
+    private JSONObject toJson(final Opinion opinion) throws JSONException {
         final JSONObject json = new JSONObject();
         json.put("uri", opinion.getSubjectId());
         json.put("text", opinion.getText());
@@ -40,5 +40,5 @@ public class LastOpinionsResource extends ServerResource {
     }
 
     private List<Opinion> lastOpinions;
-    private OpinionSearch opinionSearch;
+    private final OpinionSearch opinionSearch;
 }

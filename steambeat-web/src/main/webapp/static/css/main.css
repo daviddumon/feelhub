@@ -19,12 +19,12 @@ input:focus {
     border: 1px solid #7BAFD1;
 }
 
-span#feedRoot {
+span#webpageRoot {
     font-weight: bold;
     font-size: 20px;
 }
 
-span#feedTitle a {
+span#webpageTitle a {
     text-decoration: none;
 }
 
@@ -61,12 +61,12 @@ span#feedTitle a {
     box-shadow: 0px 0px 10px #A8F261;
 }
 
-#feed {
+#webpage {
     position: relative;
     margin: 10px 50px 100px 50px;
 }
 
-#feedselector {
+#webpageselector {
     display: block;
     margin: 0px auto;
     width: 90%;
@@ -247,7 +247,7 @@ ul#pages li#currentPage {
     z-index: 100;
 }
 
-div#newfeed {
+div#newwebpage {
     width:600px;
     height:100px;
     position:absolute;
@@ -261,7 +261,7 @@ div#newfeed {
     text-align: center;
 }
 
-div#newfeed p {
+div#newwebpage p {
     padding-top: 36px;
     font-size: 28px;
     color: #FFFFFF;

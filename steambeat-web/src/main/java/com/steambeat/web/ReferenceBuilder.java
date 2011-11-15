@@ -7,11 +7,11 @@ import javax.servlet.ServletContext;
 
 public class ReferenceBuilder {
 
-    public ReferenceBuilder(Context context) {
+    public ReferenceBuilder(final Context context) {
         this.context = context;
     }
 
-    public String buildUri(String uri) {
+    public String buildUri(final String uri) {
         final SteambeatProperties props = new SteambeatProperties();
         return "http://" + props.getDomain() + servletContext().getContextPath() + uri;
     }
@@ -20,5 +20,5 @@ public class ReferenceBuilder {
         return (ServletContext) context.getAttributes().get("org.restlet.ext.servlet.ServletContext");
     }
 
-    private Context context;
+    private final Context context;
 }

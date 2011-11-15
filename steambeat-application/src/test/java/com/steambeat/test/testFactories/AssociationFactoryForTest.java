@@ -1,7 +1,7 @@
 package com.steambeat.test.testFactories;
 
+import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.domain.subject.feed.*;
 
 public class AssociationFactoryForTest {
 

@@ -1,7 +1,7 @@
 package com.steambeat.test.fakeServices;
 
 import com.steambeat.application.AssociationService;
-import com.steambeat.domain.subject.feed.*;
+import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.test.testFactories.TestFactories;
 
 public class FakeAssociationService extends AssociationService {
@@ -13,7 +13,7 @@ public class FakeAssociationService extends AssociationService {
     @Override
     public Association lookUp(final String address) {
         if (address.startsWith("http://404url")) {
-            throw new FeedException();
+            throw new WebPageException();
         }
         if (address.startsWith("http://slate.fr")) {
             return TestFactories.associations().newAssociation(address, address.replace("http://slate.fr", "http://www.slate.fr"));

@@ -1,6 +1,6 @@
 package com.steambeat.test;
 
-import com.steambeat.domain.subject.feed.*;
+import com.steambeat.domain.subject.webpage.*;
 
 public class StubCanonicalUriFinder extends CanonicalUriFinder {
 

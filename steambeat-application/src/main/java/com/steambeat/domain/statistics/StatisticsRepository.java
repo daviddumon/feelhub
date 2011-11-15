@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StatisticsRepository extends Repository<Statistics> {
 
-    List<Statistics> forFeed(Subject subject, Granularity granularity);
+    List<Statistics> forSubject(Subject subject, Granularity granularity);
 
-    List<Statistics> forFeed(Subject subject, Granularity granularity, Interval interval);
+    List<Statistics> forSubject(Subject subject, Granularity granularity, Interval interval);
 }

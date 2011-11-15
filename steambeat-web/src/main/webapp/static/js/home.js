@@ -1,11 +1,11 @@
 /* Copyright bytedojo 2011 */
 $(function() {
 
-    var flow = new Flow("main.css","feed","li",".opinion");
+    var flow = new Flow("main.css","webpage","li",".opinion");
     $.getJSON(root + "/lastopinions", function(data) {
         data.reverse();
         $.each(data, function(index, opinion) {
-            var id = flow.drawBoxLink(opinion.text, "opinion " + "opinion_" + opinion.feeling, root + "/feeds/" + opinion.uri);
+            var id = flow.drawBoxLink(opinion.text, "opinion " + "opinion_" + opinion.feeling, root + "/webpages/" + opinion.uri);
             flow.compute(id);
         });
     });

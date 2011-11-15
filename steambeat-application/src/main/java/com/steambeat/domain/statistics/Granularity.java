@@ -5,7 +5,7 @@ import org.joda.time.*;
 public enum Granularity {
     hour {
         @Override
-        public Interval intervalFor(DateTime date) {
+        public Interval intervalFor(final DateTime date) {
             return date.hourOfDay().toInterval();
         }
 
@@ -15,7 +15,7 @@ public enum Granularity {
         }
     }, day {
         @Override
-        public Interval intervalFor(DateTime date) {
+        public Interval intervalFor(final DateTime date) {
             return date.dayOfMonth().toInterval();
         }
 
@@ -25,7 +25,7 @@ public enum Granularity {
         }
     }, month {
         @Override
-        public Interval intervalFor(DateTime date) {
+        public Interval intervalFor(final DateTime date) {
             return date.monthOfYear().toInterval();
         }
 
@@ -35,7 +35,7 @@ public enum Granularity {
         }
     }, year {
         @Override
-        public Interval intervalFor(DateTime date) {
+        public Interval intervalFor(final DateTime date) {
             return date.year().toInterval();
         }
 
@@ -45,7 +45,7 @@ public enum Granularity {
         }
     }, all {
         @Override
-        public Interval intervalFor(DateTime date) {
+        public Interval intervalFor(final DateTime date) {
             return date.centuryOfEra().toInterval();
         }
 

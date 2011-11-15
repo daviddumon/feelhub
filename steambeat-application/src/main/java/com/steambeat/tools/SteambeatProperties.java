@@ -49,5 +49,5 @@ public class SteambeatProperties {
         return properties.getProperty("hiram");
     }
 
-    private Properties properties;
+    private final Properties properties;
 }

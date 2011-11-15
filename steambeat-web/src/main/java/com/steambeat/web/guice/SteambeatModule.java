@@ -2,7 +2,7 @@ package com.steambeat.web.guice;
 
 import com.google.inject.*;
 import com.steambeat.application.StatisticsService;
-import com.steambeat.domain.subject.feed.CanonicalUriFinder;
+import com.steambeat.domain.subject.webpage.CanonicalUriFinder;
 import com.steambeat.repositories.SessionProvider;
 
 public class SteambeatModule extends AbstractModule {

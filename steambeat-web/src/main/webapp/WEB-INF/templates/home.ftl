@@ -2,8 +2,8 @@
 
 <script type="text/javascript" src="${root}/static/js/home.js"></script>
 
-<span id="feedselector">LAST OPINIONS</span>
-<ul id="feed"></ul>
+<span id="webpageselector">LAST OPINIONS</span>
+<ul id="webpage"></ul>
 
 <footer>
     <span class="copyright">&copy; steambeat.com 2011</span>

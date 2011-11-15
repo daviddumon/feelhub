@@ -34,7 +34,7 @@ public class SessionProvider {
         manager.close();
     }
 
-    private ThreadLocal<MongoSession> sessionContainer = new ThreadLocal<MongoSession>() {
+    private final ThreadLocal<MongoSession> sessionContainer = new ThreadLocal<MongoSession>() {
 
     };
     private MongoSessionManager manager;

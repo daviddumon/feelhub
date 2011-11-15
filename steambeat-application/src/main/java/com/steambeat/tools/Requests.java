@@ -7,8 +7,8 @@ import java.util.*;
 
 public final class Requests {
 
-    public static Request create(final Method method, final String uri) {
-        final Request request = new Request(method, uri);
+    public static Request create(final Method method, final String address) {
+        final Request request = new Request(method, address);
         Requests.clientInfo = new ClientInfo();
         setEncodings();
         setMediaTypes();

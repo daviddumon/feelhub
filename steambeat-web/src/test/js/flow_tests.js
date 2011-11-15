@@ -4,14 +4,14 @@ FlowTests.prototype = {
 
     setUp: function() {
         createDocumentForFlowTests();
-        flow = new Flow("flow.css","feed","li",".opinion");
+        flow = new Flow("flow.css","webpage","li",".opinion");
     },
 
     testCanCreateAFlow: function() {
         assertNotUndefined(flow);
         assertNotUndefined(flow.cssIndex);
         assertSame(0, flow.cssIndex);
-        assertNotUndefined(flow.feed);
+        assertNotUndefined(flow.webpage);
     },
 
     testCanFindStyleSheetIndex: function() {
@@ -38,7 +38,7 @@ FlowTests.prototype = {
     testCanDrawABox: function() {
         flow.drawBox("myopinion","opinion opinion_good");
 
-        var box = document.getElementById("feed").getElementsByTagName('li');
+        var box = document.getElementById("webpage").getElementsByTagName('li');
         assertEquals(1, box.length);
         assertEquals("myopinion", box[0].innerHTML);
         assertEquals("opinion opinion_good", box[0].className);
@@ -47,7 +47,7 @@ FlowTests.prototype = {
     testCanDrawABoxLink: function() {
         flow.drawBoxLink("myopinion","opinion opinion_good","fakelink");
 
-        var opinionlink = document.getElementById("feed").getElementsByTagName('a');
+        var opinionlink = document.getElementById("webpage").getElementsByTagName('a');
         assertEquals(1, opinionlink.length);
         assertEquals("opinionlink", opinionlink[0].className);
         assertEquals(1, opinionlink[0].childElementCount);
@@ -58,7 +58,7 @@ FlowTests.prototype = {
     testCanSetInitialMaxWidthWithCSS: function() {
         flow.drawBox("myopinion", "opinion");
 
-        var box = document.getElementById("feed").getElementsByTagName('li');
+        var box = document.getElementById("webpage").getElementsByTagName('li');
         assertEquals(0, getWidth(box[0]));
     },
 
@@ -79,14 +79,14 @@ FlowTests.prototype = {
 
         flow.compute(id);
 
-        var box = document.getElementById("feed").getElementsByTagName('li');
+        var box = document.getElementById("webpage").getElementsByTagName('li');
         var width = getWidth(box[0]);
         assertEquals(width, getHeight(box[0]));
     },
 
     testDoNotMinimizeHeightIfSuperiorToWidth: function() {
         var id = flow.drawBox(infinystring, "opinion");
-        var box = document.getElementById("feed").getElementsByTagName('li');
+        var box = document.getElementById("webpage").getElementsByTagName('li');
         var initialWidth = getWidth(box[0]);
 
         flow.compute(id);
@@ -141,10 +141,10 @@ FlowTests.prototype = {
 };
 
 function createDocumentForFlowTests() {
-    var feedUL = document.createElement('feedUL');
-    feedUL.setAttribute("id","feed");
-    feedUL.style.width = "400px";
-    document.body.appendChild(feedUL);
+    var webpageUL = document.createElement('webpageUL');
+    webpageUL.setAttribute("id","webpage");
+    webpageUL.style.width = "400px";
+    document.body.appendChild(webpageUL);
 }
 
 function getWidth(item) {

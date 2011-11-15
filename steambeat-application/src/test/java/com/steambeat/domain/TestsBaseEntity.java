@@ -57,13 +57,13 @@ public class TestsBaseEntity {
         assertThat(equals, is(false));
     }
 
-    private OtherFakeEntity createOtherFakeEntity(int id) {
+    private OtherFakeEntity createOtherFakeEntity(final int id) {
         final OtherFakeEntity entity2 = new OtherFakeEntity();
         entity2.id = id;
         return entity2;
     }
 
-    private FakeEntity createEntity(int id) {
+    private FakeEntity createEntity(final int id) {
         final FakeEntity entity1 = new FakeEntity();
         entity1.id = id;
         return entity1;

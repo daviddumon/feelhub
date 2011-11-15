@@ -1,10 +1,10 @@
 package com.steambeat.application;
 
+import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.domain.subject.feed.*;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
-import com.steambeat.test.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
@@ -51,9 +51,9 @@ public class TestsAssociationService {
 
     @Test
     public void canUseAssociationFromRepository() throws UnsupportedEncodingException {
-        final String adress = "http://localhost:6162/http://lemonde.fr";
-        final String canonicalAdress = "http://www.liberation.fr";
-        final Association association = TestFactories.associations().newAssociation(adress, canonicalAdress);
+        final String address = "http://localhost:6162/http://lemonde.fr";
+        final String canonicalAddress = "http://www.liberation.fr";
+        final Association association = TestFactories.associations().newAssociation(address, canonicalAddress);
         final Uri uri = fakeInternet.uri(URLEncoder.encode("http://lemonde.fr", "UTF-8"));
 
         final Association associationFound = associationService.lookUp(uri.toString());

@@ -1,6 +1,6 @@
 package com.steambeat.test;
 
-import com.steambeat.domain.subject.feed.Uri;
+import com.steambeat.domain.subject.webpage.Uri;
 import com.steambeat.test.fakeResources.*;
 import org.restlet.*;
 import org.restlet.data.Protocol;
@@ -18,11 +18,11 @@ public class FakeInternet {
     }
 
     private Restlet createApplication() {
-        Application application = new Application() {
+        final Application application = new Application() {
 
             @Override
             public Restlet createInboundRoot() {
-                Router router = new Router();
+                final Router router = new Router();
                 router.attach("/http://www.stackoverflow.com", FakeStackOverflowResource.class);
                 router.attach("/http://www.badurlunknowhost.com", FakeBadurlResource.class);
                 router.attach("/http://www.steambeat.com/404", Fake404urlResource.class);

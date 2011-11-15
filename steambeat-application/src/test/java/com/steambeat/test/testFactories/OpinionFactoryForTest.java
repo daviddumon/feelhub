@@ -1,21 +1,21 @@
 package com.steambeat.test.testFactories;
 
-import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.feed.Feed;
-import com.steambeat.repositories.Repositories;
 import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.repositories.Repositories;
 
 public class OpinionFactoryForTest {
 
     public Opinion newOpinion() {
-        final Feed feed = TestFactories.feeds().newFeed();
-        final Opinion opinion = feed.createOpinion("myopinion", Feeling.good);
+        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final Opinion opinion = webPage.createOpinion("my good opinion", Feeling.good);
         Repositories.opinions().add(opinion);
         return opinion;
     }
 
     public Opinion newOpinionForSubject(final Subject subject) {
-        final Opinion opinion = ((Feed) subject).createOpinion("myopinion", Feeling.good);
+        final Opinion opinion = subject.createOpinion("my good opinion", Feeling.good);
         Repositories.opinions().add(opinion);
         return opinion;
     }

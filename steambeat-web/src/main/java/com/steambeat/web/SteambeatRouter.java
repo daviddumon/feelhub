@@ -31,19 +31,19 @@ public class SteambeatRouter extends Router {
         attach("/", HomeResource.class);
         attach("/sitemap_{number}.xml.gz", SitemapResource.class);
         attach("/lastopinions", LastOpinionsResource.class);
-        attach("/feeds", FeedsResource.class);
+        attach("/webpages", WebPagesResource.class);
         attach("/stats:{start}.{end};{granularity}", GlobalStatistics.class);
         attachUriResources();
     }
 
     private void attachUriResources() {
-        attachUriResource("/feeds/{uri}/stats:{start}.{end};{granularity}", FeedStatisticsResource.class);
-        attachUriResource("/feeds/{uri}/opinions", FeedOpinionsResource.class);
-        attachUriResource("/feeds/{uri}/opinions/{opinion}", FeedOpinionsResource.class);
-        final TemplateRoute route = attachUriResource("/feeds/{uri}/{page}", FeedResource.class);
+        attachUriResource("/webpages/{uri}/stats:{start}.{end};{granularity}", WebPageStatisticsResource.class);
+        attachUriResource("/webpages/{uri}/opinions", WebPageOpinionsResource.class);
+        attachUriResource("/webpages/{uri}/opinions/{opinion}", WebPageOpinionsResource.class);
+        final TemplateRoute route = attachUriResource("/webpages/{uri}/{page}", WebPageResource.class);
         final Map<String, Variable> variables = route.getTemplate().getVariables();
         variables.put("page", new Variable(Variable.TYPE_DIGIT));
-        attachUriResource("/feeds/{uri}", FeedResource.class);
+        attachUriResource("/webpages/{uri}", WebPageResource.class);
     }
 
     private TemplateRoute attachUriResource(final String path, final Class<? extends ServerResource> resource) {
@@ -53,5 +53,5 @@ public class SteambeatRouter extends Router {
         return route;
     }
 
-    private Injector injector;
+    private final Injector injector;
 }

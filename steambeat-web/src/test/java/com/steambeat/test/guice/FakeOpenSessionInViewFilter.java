@@ -20,12 +20,12 @@ public class FakeOpenSessionInViewFilter extends OpenSessionInViewFilter {
     }
 
     @Override
-    protected int beforeHandle(Request request, Response response) {
+    protected int beforeHandle(final Request request, final Response response) {
         return CONTINUE;
     }
 
     @Override
-    protected void afterHandle(Request request, Response response) {
+    protected void afterHandle(final Request request, final Response response) {
 
     }
 }

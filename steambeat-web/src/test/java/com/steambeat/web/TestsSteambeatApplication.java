@@ -3,7 +3,7 @@ package com.steambeat.web;
 import com.google.inject.AbstractModule;
 import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.guice.SteambeatModuleForTest;
-import com.steambeat.web.resources.FeedResource;
+import com.steambeat.web.resources.WebPageResource;
 import freemarker.template.Configuration;
 import org.junit.Test;
 import org.restlet.Context;
@@ -40,13 +40,13 @@ public class TestsSteambeatApplication extends TestWithMongoRepository {
     private class TestModule extends AbstractModule {
         @Override
         protected void configure() {
-            bind(FeedResource.class).to(StubFeedResource.class);
+            bind(WebPageResource.class).to(StubWebPageResource.class);
         }
     }
 
-    public static class StubFeedResource extends FeedResource {
+    public static class StubWebPageResource extends WebPageResource {
 
-        public StubFeedResource() {
+        public StubWebPageResource() {
             super(null, null);
         }
     }

@@ -22,15 +22,15 @@ public class WithDomainEvent extends ExternalResource {
     public <T extends DomainEvent> void capture(final Class<T> type) {
         DomainEventBus.INSTANCE.register(new DomainEventListener<T>() {
             @Override
-            public void notify(T event) {
+            public void notify(final T event) {
                 eventsCaptured.put(type, event);
             }
         }, type);
     }
 
-    public <T extends DomainEvent> T lastEvent(Class<T> type) {
+    public <T extends DomainEvent> T lastEvent(final Class<T> type) {
         return (T) eventsCaptured.get(type);
     }
 
-    private Map<Class<? extends DomainEvent>, Object> eventsCaptured = Maps.newHashMap();
+    private final Map<Class<? extends DomainEvent>, Object> eventsCaptured = Maps.newHashMap();
 }

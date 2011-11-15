@@ -22,7 +22,6 @@ public class TestsHiram {
         fakeInternet.stop();
     }
 
-
     @Test
     public void canGetSitemap() throws Exception {
         final Hiram hiram = new Hiram();

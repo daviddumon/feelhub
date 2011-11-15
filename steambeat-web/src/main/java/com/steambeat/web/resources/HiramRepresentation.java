@@ -8,7 +8,7 @@ import java.io.*;
 
 class HiramRepresentation extends StreamRepresentation {
 
-    public HiramRepresentation(InputStream sitemap) {
+    public HiramRepresentation(final InputStream sitemap) {
         super(MediaType.TEXT_XML);
         this.sitemap = sitemap;
     }
@@ -19,7 +19,7 @@ class HiramRepresentation extends StreamRepresentation {
     }
 
     @Override
-    public void write(OutputStream outputStream) throws IOException {
+    public void write(final OutputStream outputStream) throws IOException {
         ByteStreams.copy(sitemap, outputStream);
         Closeables.closeQuietly(sitemap);
     }

@@ -43,6 +43,6 @@ public class ClientResource extends UniformResource {
         return getResponse().getEntity();
     }
 
-    private Reference reference;
+    private final Reference reference;
     private final Restlet application;
 }

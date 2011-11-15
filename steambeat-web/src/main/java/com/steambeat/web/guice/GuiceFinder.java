@@ -16,5 +16,5 @@ public class GuiceFinder extends Finder {
         return (ServerResource) injector.getInstance(getTargetClass());
     }
 
-    private Injector injector;
+    private final Injector injector;
 }

@@ -49,7 +49,7 @@ public class WebApplicationTester extends ExternalResource {
         return new ClientResource(uri, application);
     }
 
-    public void setHiram(Hiram hiram) {
+    public void setHiram(final Hiram hiram) {
         module.setHiram(hiram);
     }
 

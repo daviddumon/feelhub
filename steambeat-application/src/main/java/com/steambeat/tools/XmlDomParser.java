@@ -48,5 +48,5 @@ public class XmlDomParser {
 
     private Document document;
 
-    private static XPathFactory xPathFactory = XPathFactory.newInstance();
+    private static final XPathFactory xPathFactory = XPathFactory.newInstance();
 }

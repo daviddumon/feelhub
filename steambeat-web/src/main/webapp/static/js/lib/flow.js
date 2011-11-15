@@ -8,7 +8,7 @@ function Flow(css, container, itemTag, className) {
         opinion.setAttribute("id", id);
         opinion.style.position = "absolute";
         opinion.innerHTML = text;
-        this.feed.appendChild(opinion);
+        this.webpage.appendChild(opinion);
         return id;
     };
 
@@ -23,7 +23,7 @@ function Flow(css, container, itemTag, className) {
         opinionlink.setAttribute("href", link);
         opinionlink.appendChild(opinion);
         opinionlink.className = "opinionlink";
-        this.feed.appendChild(opinionlink);
+        this.webpage.appendChild(opinionlink);
         return id;
     };
 
@@ -174,22 +174,22 @@ function Flow(css, container, itemTag, className) {
     };
 
     this.setMaxBox = function() {
-        var feedWidth = parseInt($("#" + container).innerWidth());
-        var result = Math.floor(feedWidth / (this.initial + this.numericalValueFrom(this.margin)));
+        var webpageWidth = parseInt($("#" + container).innerWidth());
+        var result = Math.floor(webpageWidth / (this.initial + this.numericalValueFrom(this.margin)));
         return result;
     };
 
     this.setInitialWidth = function() {
-        var feedwidth = parseInt($("#" + container).innerWidth());
+        var webpagewidth = parseInt($("#" + container).innerWidth());
         var liwidth = this.numericalValueFrom(this.width);
         var paddingwidth = this.numericalValueFrom(this.padding);
-        var result = feedwidth * liwidth + 2 * paddingwidth;
+        var result = webpagewidth * liwidth + 2 * paddingwidth;
         return Math.round(result);
     };
 
     this.setLeftCorner = function() {
-        var feedWidth = $("#" + container).innerWidth();
-        var leftCorner = (feedWidth - this.maxBox * this.initial - (this.maxBox + 1) * this.numericalValueFrom(this.margin)) / 2;
+        var webpageWidth = $("#" + container).innerWidth();
+        var leftCorner = (webpageWidth - this.maxBox * this.initial - (this.maxBox + 1) * this.numericalValueFrom(this.margin)) / 2;
         return leftCorner;
     };
 
@@ -199,7 +199,7 @@ function Flow(css, container, itemTag, className) {
     };
 
     this.cssIndex = this.findStyleSheetIndex();
-    this.feed = document.getElementById(container);
+    this.webpage = document.getElementById(container);
     this.width = this.findValueFromCSS("width");
     this.padding = this.findValueFromCSS("padding");
     this.margin = this.findValueFromCSS("margin");

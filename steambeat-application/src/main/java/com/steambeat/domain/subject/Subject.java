@@ -10,7 +10,7 @@ public abstract class Subject extends BaseEntity {
 
     }
 
-    protected Subject(String id) {
+    protected Subject(final String id) {
         this.creationDate = new DateTime();
         this.id = id;
     }

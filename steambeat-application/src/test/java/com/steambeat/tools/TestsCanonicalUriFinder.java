@@ -1,6 +1,6 @@
 package com.steambeat.tools;
 
-import com.steambeat.domain.subject.feed.*;
+import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.test.FakeInternet;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
@@ -30,13 +30,13 @@ public class TestsCanonicalUriFinder {
 
     @Test
     public void throwsExceptionOn404() {
-        expectedException.expect(FeedException.class);
+        expectedException.expect(WebPageException.class);
         finder.find(fakeInternet.uri("http://www.steambeat.com/404"));
     }
 
     @Test
     public void throwExceptionOnBadHost() {
-        expectedException.expect(FeedException.class);
+        expectedException.expect(WebPageException.class);
         finder.find(fakeInternet.uri("http://www.badurlunknowhost.com"));
     }
 

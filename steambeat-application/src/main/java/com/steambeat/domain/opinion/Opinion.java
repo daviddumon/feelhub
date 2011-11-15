@@ -35,12 +35,12 @@ public class Opinion extends BaseEntity {
         return creationDate.toDate();
     }
 
-    public void setText(String text) {
+    public void setText(final String text) {
         this.text = text;
     }
 
     public Subject getSubject() {
-        return Repositories.feeds().get(subjectId);
+        return Repositories.webPages().get(subjectId);
     }
 
     public Object getSubjectId() {

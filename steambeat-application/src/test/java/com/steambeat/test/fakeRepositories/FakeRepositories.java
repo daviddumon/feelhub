@@ -3,8 +3,8 @@ package com.steambeat.test.fakeRepositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
+import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.domain.subject.feed.*;
 
 public class FakeRepositories extends Repositories {
 
@@ -24,12 +24,12 @@ public class FakeRepositories extends Repositories {
     }
 
     @Override
-    protected Repository<Feed> getFeedRepository() {
-        return feedRepository;
+    protected Repository<WebPage> getWebPageRepository() {
+        return webPageRepository;
     }
 
-    private Repository<Feed> feedRepository = new FakeFeedRepository();
-    private Repository<Association> associationRepository = new FakeAssociationRepository();
-    private FakeStatisticsRepository statisticsRepository = new FakeStatisticsRepository();
-    private Repository<Opinion> opinionRepository = new FakeOpinionRepository();
+    private final Repository<WebPage> webPageRepository = new FakeWebPageRepository();
+    private final Repository<Association> associationRepository = new FakeAssociationRepository();
+    private final FakeStatisticsRepository statisticsRepository = new FakeStatisticsRepository();
+    private final Repository<Opinion> opinionRepository = new FakeOpinionRepository();
 }

@@ -10,7 +10,7 @@ import java.io.*;
 
 public class Hiram {
 
-    public InputStream getSitemap(String index) {
+    public InputStream getSitemap(final String index) {
         final Request request = Requests.create(Method.GET, createUrl(index));
         final Client client = Clients.create();
         try {
@@ -24,7 +24,7 @@ public class Hiram {
         }
     }
 
-    private InputStream copyStream(Response response) throws IOException {
+    private InputStream copyStream(final Response response) throws IOException {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         ByteStreams.copy(response.getEntity().getStream(), output);
         final ByteArrayInputStream result = new ByteArrayInputStream(output.toByteArray());
@@ -32,7 +32,7 @@ public class Hiram {
         return result;
     }
 
-    private String createUrl(String index) {
+    private String createUrl(final String index) {
         return hiramAdress() + "/sitemap_" + index + ".xml.gz";
     }
 

@@ -9,7 +9,7 @@ public final class URIs {
     private URIs() {
     }
 
-    public static String decode(String uri) {
+    public static String decode(final String uri) {
         try {
             return URLDecoder.decode(uri, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -17,28 +17,28 @@ public final class URIs {
         }
     }
 
-    public static String extractProtocol(String uriDecoded) {
+    public static String extractProtocol(final String uriDecoded) {
         return extractFromPattern(uriDecoded, PROTOCOL_PATTERN, "http");
     }
 
-    public static String extractAddress(String uriDecoded) {
+    public static String extractAddress(final String uriDecoded) {
         return extractFromPattern(uriDecoded, ADDRESS_PATTERN);
     }
 
-    public static String extractQuery(String uriDecoded) {
+    public static String extractQuery(final String uriDecoded) {
         return extractFromPattern(uriDecoded, QUERY_PATTERN);
     }
 
-    public static String extractFragment(String uriDecoded) {
+    public static String extractFragment(final String uriDecoded) {
         return extractFromPattern(uriDecoded, FRAGMENT_PATTERN);
     }
 
-    public static String extractFromPattern(String uriDecoded, Pattern pattern) {
+    public static String extractFromPattern(final String uriDecoded, final Pattern pattern) {
         final String defaultValue = "";
         return extractFromPattern(uriDecoded, pattern, defaultValue);
     }
 
-    public static String extractFromPattern(String uriDecoded, Pattern pattern, String defaultValue) {
+    public static String extractFromPattern(final String uriDecoded, final Pattern pattern, final String defaultValue) {
         final Matcher matcher = pattern.matcher(uriDecoded);
         return matcher.matches() ? matcher.group(matcher.groupCount()) : defaultValue;
     }

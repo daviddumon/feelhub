@@ -29,7 +29,7 @@ public class FakeOpinionSearch extends OpinionSearch {
     private Predicate<Opinion> perSubject(final Subject subject) {
         return new Predicate<Opinion>() {
             @Override
-            public boolean apply(Opinion opinion) {
+            public boolean apply(final Opinion opinion) {
                 return opinion.getSubject().equals(subject);
             }
         };

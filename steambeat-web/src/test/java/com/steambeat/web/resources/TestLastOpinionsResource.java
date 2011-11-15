@@ -1,7 +1,7 @@
 package com.steambeat.web.resources;
 
 import com.steambeat.domain.DomainEventBus;
-import com.steambeat.domain.subject.feed.Feed;
+import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.WithDomainEvent;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
@@ -39,8 +39,8 @@ public class TestLastOpinionsResource {
     }
 
     @Test
-    public void canGetAnHotOpinionLink() {
-        final Feed feed = TestFactories.feeds().newFeed("http://www.fake.com");
+    public void canGetAnLastOpinionLink() {
+        final WebPage webPage = TestFactories.webPages().newWebPage("http://www.fake.com");
 
         final JsonRepresentation representation = (JsonRepresentation) resource.get();
 
@@ -48,7 +48,7 @@ public class TestLastOpinionsResource {
     }
 
     @Test
-    public void canGetAllHotOpinionLinks() throws JSONException {
+    public void canGetAlllastOpinionLinks() throws JSONException {
         create3Opinions();
 
         final JsonRepresentation representation = (JsonRepresentation) resource.get();

@@ -20,7 +20,7 @@ public class TestsSteambeatProperties {
     public void canGetHiramAddress() {
         final SteambeatProperties properties = new SteambeatProperties();
 
-        String address = properties.getHiramAddress();
+        final String address = properties.getHiramAddress();
 
         assertThat(address, is("http://localhost:6162/hiram"));
     }

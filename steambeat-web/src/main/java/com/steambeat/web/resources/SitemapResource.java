@@ -10,7 +10,7 @@ import java.io.InputStream;
 public class SitemapResource extends ServerResource {
 
     @Inject
-    public SitemapResource(Hiram hiram) {
+    public SitemapResource(final Hiram hiram) {
         this.hiram = hiram;
     }
 
@@ -21,5 +21,5 @@ public class SitemapResource extends ServerResource {
         return new HiramRepresentation(sitemap);
     }
 
-    private Hiram hiram;
+    private final Hiram hiram;
 }

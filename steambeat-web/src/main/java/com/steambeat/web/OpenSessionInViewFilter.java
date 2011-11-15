@@ -10,7 +10,7 @@ import javax.inject.Inject;
 public class OpenSessionInViewFilter extends Filter {
 
     @Inject
-    public OpenSessionInViewFilter(SessionProvider provider) {
+    public OpenSessionInViewFilter(final SessionProvider provider) {
         this.provider = provider;
     }
 
@@ -27,13 +27,13 @@ public class OpenSessionInViewFilter extends Filter {
     }
 
     @Override
-    protected int beforeHandle(Request request, Response response) {
+    protected int beforeHandle(final Request request, final Response response) {
         provider.start();
         return CONTINUE;
     }
 
     @Override
-    protected void afterHandle(Request request, Response response) {
+    protected void afterHandle(final Request request, final Response response) {
         provider.stop();
     }
 
@@ -44,5 +44,5 @@ public class OpenSessionInViewFilter extends Filter {
     }
 
     private MongoSessionManager manager;
-    private SessionProvider provider;
+    private final SessionProvider provider;
 }
