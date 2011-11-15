@@ -42,7 +42,6 @@
     </head>
 
     <body>
-    <img src="${root}/static/images/alpha.png" alt="alpha" id="alpha"/>
     <a id="feedback" href="${root}/webpages/http://www.steambeat.com"></a>
 
     <header>

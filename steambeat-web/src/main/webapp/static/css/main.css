@@ -239,14 +239,6 @@ ul#pages li#currentPage {
     width: 41px;
 }
 
-#alpha {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 180px;
-    z-index: 100;
-}
-
 div#newwebpage {
     width:600px;
     height:100px;
