@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
     $(function(){
-        setTimeout(newfeed.create("${uri}"), 2000);
+        newfeed.create("${uri}");
     });
 </script>
 

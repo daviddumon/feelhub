@@ -255,9 +255,9 @@ div#newfeed {
     top:50%;
     margin:-50px 0 0 -300px;
     background-color: #BBF288;
-    border-radius: 5px;
-    --moz-border-radius: 5px;
-    --webkit-border-radius: 5px;
+    border-radius: 10px;
+    --moz-border-radius: 10px;
+    --webkit-border-radius: 10px;
     text-align: center;
 }
 

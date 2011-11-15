@@ -1,10 +1,9 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.repositories.Repositories;
-import com.steambeat.domain.subject.feed.*;
-import com.steambeat.web.SteambeatTemplateRepresentation;
 import com.steambeat.domain.statistics.*;
-import org.apache.log4j.Logger;
+import com.steambeat.domain.subject.feed.*;
+import com.steambeat.repositories.Repositories;
+import com.steambeat.web.SteambeatTemplateRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.*;
 
@@ -24,7 +23,6 @@ public class HomeResource extends ServerResource {
 
     private List<Statistics> statistics;
     private int counter;
-    private static final Logger logger = Logger.getLogger(HomeResource.class);
 }
 
 
