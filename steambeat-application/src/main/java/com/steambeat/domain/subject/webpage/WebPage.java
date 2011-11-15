@@ -11,10 +11,6 @@ public class WebPage extends Subject {
         super(association.getCanonicalUri());
     }
 
-    public String getUri() {
-        return getId();
-    }
-
     public Uri getRealUri() {
         return new Uri(getId());
     }

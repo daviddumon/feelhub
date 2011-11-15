@@ -42,7 +42,7 @@ public class WebPageResource extends ServerResource {
 
     private void redirectToUri() {
         setStatus(Status.REDIRECTION_PERMANENT);
-        setLocationRef(new ReferenceBuilder(getContext()).buildUri("/webpages/" + webPage.getUri()));
+        setLocationRef(new ReferenceBuilder(getContext()).buildUri("/webpages/" + webPage.getId()));
     }
 
     private int getPageNumber() {

@@ -3,13 +3,12 @@
 <script type="text/javascript" src="${root}/static/js/webpage.js"></script>
 
 <div id="resource">
-    <span id="webpageRoot"><a href="#" onclick="javascript:window.open('${webPage.uri}');">${webPage.uri}</a></span>
+    <span id="webpageRoot"><a href="#" onclick="javascript:window.open('${webPage.id}');">${webPage.id}</a></span>
 </div>
 
-<form action="${root}/webpages/${webPage.uri}/opinions" method="post" id="post_opinion" autocomplete="off">
+<form action="${root}/webpages/${webPage.id}/opinions" method="post" id="post_opinion" autocomplete="off">
     <div id="opiniontype"></div>
     <textarea id="newopinion" name="value" autofocus="on"></textarea>
-    <!--<input id="opinion_submit" type="submit"/>-->
     <input id="submit_good" type="submit" value="good"/>
     <input id="submit_bad" type="submit" value="bad"/>
     <input id="submit_neutral" type="submit" value="neutral"/>
@@ -18,7 +17,7 @@
 <ul id="webpage"></ul>
 
 <script type="text/javascript">
-    runTimeLine("${root}/webpages/${webPage.uri}/stats:");
+    runTimeLine("${root}/webpages/${webPage.id}/stats:");
 </script>
 
 <footer>

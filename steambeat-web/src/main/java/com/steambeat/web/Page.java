@@ -48,7 +48,7 @@ public class Page {
     private static String transform(final WebPage webPage, final String token, final Context context) {
         final int opinionIndex = Integer.valueOf(token.substring(1, token.length()));
         final String link = "<a href=\""
-                + new ReferenceBuilder(context).buildUri("/webpages/" + webPage.getUri() + "/opinions/" + opinionIndex)
+                + new ReferenceBuilder(context).buildUri("/webpages/" + webPage.getId() + "/opinions/" + opinionIndex)
                 + "\">" + token + "</a>";
         return link;
     }

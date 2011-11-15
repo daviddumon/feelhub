@@ -39,7 +39,6 @@ public class TestsWebPageFactory {
         final WebPage webPage = webPageFactory.buildWebPage(association);
 
         assertThat(webPage, notNullValue());
-        assertThat(webPage.getUri(), is("http://www.lemonde.fr/international"));
         assertThat(webPage.getId(), is("http://www.lemonde.fr/international"));
     }
 

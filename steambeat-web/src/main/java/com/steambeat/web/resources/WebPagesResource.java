@@ -18,7 +18,7 @@ public class WebPagesResource extends ServerResource {
     public void post(final Form form) {
         final WebPage webPage = webPageService.addWebPage(new Uri(form.getFirstValue("uri")));
         setStatus(Status.SUCCESS_CREATED);
-        setLocationRef(new ReferenceBuilder(this.getContext()).buildUri("/webpages/" + webPage.getUri()));
+        setLocationRef(new ReferenceBuilder(this.getContext()).buildUri("/webpages/" + webPage.getId()));
     }
 
     private final WebPageService webPageService;
