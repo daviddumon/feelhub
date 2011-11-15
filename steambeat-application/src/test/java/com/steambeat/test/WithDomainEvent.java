@@ -6,6 +6,7 @@ import org.junit.rules.ExternalResource;
 
 import java.util.Map;
 
+@SuppressWarnings("unchecked")
 public class WithDomainEvent extends ExternalResource {
 
     @Override

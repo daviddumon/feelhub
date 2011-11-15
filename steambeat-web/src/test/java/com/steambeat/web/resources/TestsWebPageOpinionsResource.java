@@ -62,7 +62,7 @@ public class TestsWebPageOpinionsResource {
     public void throwExceptionWhenUnknownWebPage() {
         final ClientResource resource = restlet.newClientResource("/webpages/http://test.net/opinions");
         final Form form = new Form();
-        form.add("value", "my opinion");
+        form.add("text", "my opinion");
         form.add("feeling", "bad");
 
         resource.post(form);
@@ -90,7 +90,7 @@ public class TestsWebPageOpinionsResource {
     @Test
     public void canNotPostAOpinionWithoutFeeling() {
         final Form form = new Form();
-        form.add("value", "my opinion");
+        form.add("text", "my opinion");
         final ClientResource resource = restlet.newClientResource("/webpages/www.lemonde.fr/opinions");
 
         resource.post(form);
@@ -112,7 +112,7 @@ public class TestsWebPageOpinionsResource {
 
     private Form getGoodForm() {
         final Form form = new Form();
-        form.add("value", "my opinion");
+        form.add("text", "my opinion");
         form.add("feeling", "good");
         return form;
     }

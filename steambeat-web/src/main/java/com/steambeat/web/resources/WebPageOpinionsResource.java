@@ -27,7 +27,7 @@ public class WebPageOpinionsResource extends ServerResource {
     public void post(final Form form) {
         checkHasFeeling(form);
         final Feeling feeling = Feeling.valueOf(form.getFirstValue("feeling"));
-        final String text = form.getFirstValue("value");
+        final String text = form.getFirstValue("text");
         final WebPage webPage;
         try {
             webPage = webPageService.lookUpWebPage(uri);

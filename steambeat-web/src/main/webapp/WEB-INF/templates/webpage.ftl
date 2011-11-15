@@ -8,7 +8,7 @@
 
 <form action="${root}/webpages/${webPage.id}/opinions" method="post" id="post_opinion" autocomplete="off">
     <div id="opiniontype"></div>
-    <textarea id="newopinion" name="value" autofocus="on"></textarea>
+    <textarea id="newopinion" name="text" autofocus="on"></textarea>
     <input id="submit_good" type="submit" value="good"/>
     <input id="submit_bad" type="submit" value="bad"/>
     <input id="submit_neutral" type="submit" value="neutral"/>

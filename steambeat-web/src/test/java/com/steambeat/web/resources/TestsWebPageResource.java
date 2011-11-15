@@ -104,7 +104,7 @@ public class TestsWebPageResource {
         assertThat(dataModel, hasKey("page"));
         final Page page = representation.getData("page");
         assertThat(page.getOpinions().size(), is(20));
-        assertThat(page.getOpinions().get(0).getText(), is("comment #29"));
+        assertThat(page.getOpinions().get(0).getText(), is("opinion #29"));
         assertThat(page.getNumber(), is(1));
     }
 
@@ -172,7 +172,7 @@ public class TestsWebPageResource {
         final WebPage webPage = TestFactories.webPages().newWebPage(resource);
         Repositories.webPages().add(webPage);
         for (int i = 0; i < 30; i++) {
-            Repositories.opinions().add(webPage.createOpinion("comment #" + i, Feeling.good));
+            Repositories.opinions().add(webPage.createOpinion("opinion #" + i, Feeling.good));
         }
         return webPage;
     }
