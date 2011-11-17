@@ -65,11 +65,11 @@ public class HiramScheduler {
         }
     }
 
-    public org.quartz.Scheduler getScheduler() {
+    public Scheduler getScheduler() {
         return scheduler;
     }
 
     private HiramProperties hiramProperties;
-    private org.quartz.Scheduler scheduler;
+    private Scheduler scheduler;
     private static final Logger logger = Logger.getLogger(Application.class);
 }

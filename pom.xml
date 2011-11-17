@@ -11,7 +11,7 @@
     <modules>
         <module>steambeat-application</module>
         <module>steambeat-web</module>
-        <module>hiram</module>
+        <module>steambeat-sitemap</module>
     </modules>
 
     <properties>
@@ -91,11 +91,6 @@
                 <groupId>org.freemarker</groupId>
                 <artifactId>freemarker</artifactId>
                 <version>2.3.18</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>2.1</version>
             </dependency>
             <dependency>
                 <groupId>org.jsoup</groupId>

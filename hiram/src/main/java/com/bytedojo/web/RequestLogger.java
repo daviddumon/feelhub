@@ -6,7 +6,6 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-
 public class RequestLogger implements Filter {
 
     @Override
@@ -24,7 +23,6 @@ public class RequestLogger implements Filter {
     public void init(FilterConfig config) throws ServletException {
 
     }
-
 
     private static final Logger logger = Logger.getLogger(RequestLogger.class);
 }

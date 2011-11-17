@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class MongoQuery {
 
     public MongoQuery(final MongoSession mongoSession) {
