@@ -5,7 +5,7 @@
     <artifactId>steambeat-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>steambeat-parent</name>
+    <name>Steambeat</name>
     <description>free speech everywhere</description>
 
     <modules>

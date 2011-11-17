@@ -7,7 +7,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <name>steambeat-web</name>
+    <name>Steambeat-web</name>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>steambeat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
