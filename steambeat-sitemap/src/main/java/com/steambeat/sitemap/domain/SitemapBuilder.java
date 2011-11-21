@@ -42,24 +42,24 @@ public class SitemapBuilder {
 
     private void initializeSitemapIndex(final int urisLastCount) {
         Double fileIndex = Math.floor(urisLastCount / (numberOfSitemapsPerIndex * numberOfUrisPerSitemap)) + 1;
-        currentSitemapIndex = new SitemapIndex(directory, fileIndex.intValue());
+        currentSitemapIndex = new SitemapIndex(fileIndex.intValue());
     }
 
     private void initializeSitemap(final int urisLastCount) {
         Double fileIndex = Math.ceil(urisLastCount / numberOfUrisPerSitemap) + 1;
-        currentSitemap = new Sitemap(directory, fileIndex.intValue());
+        currentSitemap = new Sitemap(fileIndex.intValue());
     }
 
     private void changeCurrentSitemap() {
         currentSitemap.writeToFile();
-        currentSitemap = new Sitemap(directory, currentSitemap.getIndex() + 1);
+        currentSitemap = new Sitemap(currentSitemap.getIndex() + 1);
         currentSitemapIndex.add(currentSitemap);
     }
 
     private void commitChanges() {
         currentSitemap.writeToFile();
-        currentSitemapIndex.mod(currentSitemap);
-        currentSitemapIndex.writeToFile();
+        //currentSitemapIndex.mod(currentSitemap);
+        currentSitemapIndex.getXMLRepresentation();
     }
 
     public SitemapIndex getCurrentSitemapIndex() {

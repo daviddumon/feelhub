@@ -1,6 +1,7 @@
 package com.steambeat.sitemap.domain;
 
 import com.steambeat.sitemap.tools.XmlTransformer;
+import org.joda.time.DateTime;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
@@ -8,14 +9,14 @@ import java.io.*;
 
 public class Sitemap {
 
-    public Sitemap(final File directory, final int index) {
+    public Sitemap(final int index) {
         this.index = index;
-        file = new File(directory, "sitemap_" + String.format("%05d", index) + ".xml.gz");
-        if (file.exists()) {
-            loadSitemap();
-        } else {
-            initializeSitemap();
-        }
+        //file = new File(directory, "sitemap_" + String.format("%05d", index) + ".xml.gz");
+        //if (file.exists()) {
+        //    loadSitemap();
+        //} else {
+        //    initializeSitemap();
+        //}
     }
 
     public Sitemap() {
@@ -27,18 +28,18 @@ public class Sitemap {
     }
 
     private void loadSitemap() {
-        XmlTransformer xmlTransformer = new XmlTransformer();
-        xml = xmlTransformer.readFromFile(file);
-        count = xml.getFirstChild().getChildNodes().getLength();
+        //XmlTransformer xmlTransformer = new XmlTransformer();
+        //xml = xmlTransformer.readFromFile(file);
+        //count = xml.getFirstChild().getChildNodes().getLength();
     }
 
     private void initializeSitemap() {
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-        }
-        createXMLHead();
-        count = 0;
+        //try {
+        //    file.createNewFile();
+        //} catch (IOException e) {
+        //}
+        //createXMLHead();
+        //count = 0;
     }
 
     private void createXMLHead() {
@@ -56,8 +57,8 @@ public class Sitemap {
     }
 
     public void writeToFile() {
-        XmlTransformer xmlTransformer = new XmlTransformer();
-        xmlTransformer.writeToFile(file, xml);
+        //XmlTransformer xmlTransformer = new XmlTransformer();
+        //xmlTransformer.writeToFile(file, xml);
     }
 
     public void add(final String uri, final Frequence frequence, final double priority) {
@@ -76,11 +77,13 @@ public class Sitemap {
     }
 
     public String getPath() {
-        return "http://www.steambeat.com/" + file.getName();
+        //return "http://www.steambeat.com/" + file.getName();
+        return "";
     }
 
     public String getFileName() {
-        return file.getName();
+        //return file.getName();
+        return "";
     }
 
     public int getCount() {
@@ -91,12 +94,11 @@ public class Sitemap {
         return index;
     }
 
-    public String getName() {
-        return name;
+    public String getLastModTime() {
+        return new DateTime().toString();
     }
 
     private int index;
-    private File file;
     private Document xml;
     private int count;
     private String name;
