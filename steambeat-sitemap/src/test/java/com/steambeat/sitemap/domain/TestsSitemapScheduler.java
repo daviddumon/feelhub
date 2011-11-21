@@ -59,7 +59,7 @@ public class TestsSitemapScheduler {
         Document document = xmlTransformer.readFromFile(file);
         assertThat(document.getElementsByTagName("url").getLength(), is(1));
         assertThat(document.getElementsByTagName("loc").item(0).getTextContent(), is("http://www.steambeat.com"));
-        assertThat(document.getElementsByTagName("changefreq").item(0).getTextContent(), is(Frequence.always.toString()));
+        assertThat(document.getElementsByTagName("changefreq").item(0).getTextContent(), is(Frequency.always.toString()));
         assertThat(document.getElementsByTagName("priority").item(0).getTextContent(), is(String.valueOf(0.9)));
     }
 

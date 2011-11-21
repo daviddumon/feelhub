@@ -1,105 +1,79 @@
 package com.steambeat.sitemap.domain;
 
-import com.steambeat.sitemap.tools.XmlTransformer;
+import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
-import java.io.*;
+import java.util.List;
 
 public class Sitemap {
 
     public Sitemap(final int index) {
-        this.index = index;
-        //file = new File(directory, "sitemap_" + String.format("%05d", index) + ".xml.gz");
-        //if (file.exists()) {
-        //    loadSitemap();
-        //} else {
-        //    initializeSitemap();
-        //}
+        name = "sitemap_" + String.format("%05d", index) + ".xml";
     }
 
-    public Sitemap() {
-
+    public void addEntry(final SitemapEntry sitemapEntry) {
+        sitemapEntries.add(sitemapEntry);
     }
 
-    public Sitemap(final String name) {
-        this.name = name;
+    public List<SitemapEntry> getEntries() {
+        return sitemapEntries;
     }
-
-    private void loadSitemap() {
-        //XmlTransformer xmlTransformer = new XmlTransformer();
-        //xml = xmlTransformer.readFromFile(file);
-        //count = xml.getFirstChild().getChildNodes().getLength();
-    }
-
-    private void initializeSitemap() {
-        //try {
-        //    file.createNewFile();
-        //} catch (IOException e) {
-        //}
-        //createXMLHead();
-        //count = 0;
-    }
-
-    private void createXMLHead() {
+    
+    public Document getXMLRepresentation() {
+        Document xml = null;
         try {
             xml = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-            xml.setXmlVersion("1.0");
-            Element root = xml.createElement("urlset");
-            root.setAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
-            root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            root.setAttribute("xsi:schemaLocation", "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd");
-            xml.appendChild(root);
-            xml.setXmlStandalone(true);
+            appendHead(xml);
+            appendEntries(xml);
         } catch (ParserConfigurationException e) {
+
+        }
+        return xml;
+    }
+
+    private void appendHead(Document xml) {
+        xml.setXmlVersion("1.0");
+        Element root = xml.createElement("urlset");
+        root.setAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
+        root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        root.setAttribute("xsi:schemaLocation", "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd");
+        xml.appendChild(root);
+        xml.setXmlStandalone(true);
+    }
+
+    private void appendEntries(final Document xml) {
+        for (SitemapEntry sitemapEntry : sitemapEntries) {
+            appendEntry(xml, sitemapEntry);
         }
     }
 
-    public void writeToFile() {
-        //XmlTransformer xmlTransformer = new XmlTransformer();
-        //xmlTransformer.writeToFile(file, xml);
-    }
-
-    public void add(final String uri, final Frequence frequence, final double priority) {
+    private void appendEntry(final Document xml, SitemapEntry sitemapEntry) {
         Element urlTag = xml.createElement("url");
         Element locTag = xml.createElement("loc");
+        Element lastmodTag = xml.createElement("lastmod");
         Element changefreqTag = xml.createElement("changefreq");
         Element priorityTag = xml.createElement("priority");
-        locTag.setTextContent(uri);
-        changefreqTag.setTextContent(frequence.toString());
-        priorityTag.setTextContent(String.valueOf(priority));
+        locTag.setTextContent(sitemapEntry.getLoc());
+        lastmodTag.setTextContent(sitemapEntry.getLastMod().toString());
+        changefreqTag.setTextContent(sitemapEntry.getFrequency().toString());
+        priorityTag.setTextContent(String.valueOf(sitemapEntry.getPriority()));
         urlTag.appendChild(locTag);
+        urlTag.appendChild(lastmodTag);
         urlTag.appendChild(changefreqTag);
         urlTag.appendChild(priorityTag);
         xml.getElementsByTagName("urlset").item(0).appendChild(urlTag);
-        count++;
     }
 
     public String getPath() {
-        //return "http://www.steambeat.com/" + file.getName();
-        return "";
+        return "http://www.steambeat.com/" + name;
     }
 
-    public String getFileName() {
-        //return file.getName();
-        return "";
+    public DateTime getLastModTime() {
+        return new DateTime();
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public String getLastModTime() {
-        return new DateTime().toString();
-    }
-
-    private int index;
-    private Document xml;
-    private int count;
     private String name;
+    private List<SitemapEntry> sitemapEntries = Lists.newArrayList();
 }

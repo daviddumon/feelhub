@@ -1,6 +1,6 @@
 package com.steambeat.sitemap.tools;
 
-import com.steambeat.sitemap.domain.Frequence;
+import com.steambeat.sitemap.domain.Frequency;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.w3c.dom.*;
@@ -50,7 +50,7 @@ public class TestsXmlTransformer {
             Element locTag = xml.createElement("loc");
             Element changefreqTag = xml.createElement("changefreq");
             locTag.setTextContent("http://www.xmlgzip.com");
-            changefreqTag.setTextContent(Frequence.hourly.toString());
+            changefreqTag.setTextContent(Frequency.hourly.toString());
             urlTag.appendChild(locTag);
             urlTag.appendChild(changefreqTag);
             urlsetTag.appendChild(urlTag);

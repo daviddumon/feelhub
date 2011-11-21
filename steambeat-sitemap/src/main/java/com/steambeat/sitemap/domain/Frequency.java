@@ -1,5 +1,5 @@
 package com.steambeat.sitemap.domain;
 
-public enum Frequence {
+public enum Frequency {
     hourly, always
 }

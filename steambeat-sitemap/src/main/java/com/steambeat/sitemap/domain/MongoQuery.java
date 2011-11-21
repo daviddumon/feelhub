@@ -28,7 +28,7 @@ public class MongoQuery {
             final DBObject next = cursor.next();
             Map uri = new HashMap();
             uri.put("value", "http://www.steambeat.com/webpages/" + next.get("_id"));
-            uri.put("frequence", Frequence.hourly);
+            uri.put("frequence", Frequency.hourly);
             uri.put("priority", 0.5);
             results.add(uri);
         }

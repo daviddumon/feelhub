@@ -31,14 +31,14 @@ public class SitemapScheduler {
 
     @SuppressWarnings("unchecked")
     private void createRootInSitemap() {
-        SitemapBuilder sitemapBuilder = new SitemapBuilder();
-        List uris = Lists.newArrayList();
-        Map uri = new HashMap();
-        uri.put("value", "http://www.steambeat.com");
-        uri.put("frequence", Frequence.always);
-        uri.put("priority", 0.9);
-        uris.add(uri);
-        sitemapBuilder.build(0, uris);
+        //SitemapBuilder sitemapBuilder = new SitemapBuilder();
+        //List uris = Lists.newArrayList();
+        //Map uri = new HashMap();
+        //uri.put("value", "http://www.steambeat.com");
+        //uri.put("frequence", Frequency.always);
+        //uri.put("priority", 0.9);
+        //uris.add(uri);
+        //sitemapBuilder.build(0, uris);
     }
 
     private void run() {

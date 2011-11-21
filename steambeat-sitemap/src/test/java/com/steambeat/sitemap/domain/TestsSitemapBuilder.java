@@ -76,7 +76,7 @@
 //        Document document = xmlTransformer.readFromFile(file);
 //        assertThat(document.getElementsByTagName("url").getLength(), is(1));
 //        assertThat(document.getElementsByTagName("loc").item(0).getTextContent(), is("http://www.test.com"));
-//        assertThat(document.getElementsByTagName("changefreq").item(0).getTextContent(), is(Frequence.hourly.toString()));
+//        assertThat(document.getElementsByTagName("changefreq").item(0).getTextContent(), is(Frequency.hourly.toString()));
 //        assertThat(document.getElementsByTagName("priority").item(0).getTextContent(), is(String.valueOf(0.5)));
 //    }
 //
@@ -104,7 +104,7 @@
 //        for (int i = 1; i <= 50001; i++) {
 //            Map uri = new HashMap();
 //            uri.put("value", "fake" + i);
-//            uri.put("frequence", Frequence.hourly);
+//            uri.put("frequence", Frequency.hourly);
 //            uri.put("priority", 0.5);
 //            uris.add(uri);
 //        }
@@ -141,7 +141,7 @@
 //        List uris = Lists.newArrayList();
 //        Map uri = new HashMap();
 //        uri.put("value", "http://www.test.com");
-//        uri.put("frequence", Frequence.hourly);
+//        uri.put("frequence", Frequency.hourly);
 //        uri.put("priority", 0.5);
 //        uris.add(uri);
 //        return uris;
