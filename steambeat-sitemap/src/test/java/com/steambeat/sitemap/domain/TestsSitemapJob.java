@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class TestsHiramJob {
+public class TestsSitemapJob {
 
     @Rule
     public FakePersistentContext fakePersistentContext = new FakePersistentContext("com.steambeat.repositories.mapping");
@@ -40,12 +40,12 @@ public class TestsHiramJob {
         SitemapBuilder sitemapBuilder = mock(SitemapBuilder.class);
         MongoQuery mongoQuery = mock(MongoQuery.class);
         when(mongoQuery.execute(null)).thenReturn(new ArrayList());
-        HiramJob hiramJob = new HiramJob(sitemapBuilder, mongoQuery);
+        SitemapJob sitemapJob = new SitemapJob(sitemapBuilder, mongoQuery);
 
-        hiramJob.execute(null);
+        sitemapJob.execute(null);
 
-        assertThat(hiramJob.getLastBuildDate(), notNullValue());
-        assertThat(hiramJob.getLastBuildDate(), is(time.getNow()));
+        assertThat(sitemapJob.getLastBuildDate(), notNullValue());
+        assertThat(sitemapJob.getLastBuildDate(), is(time.getNow()));
     }
 
     @Test
@@ -53,12 +53,12 @@ public class TestsHiramJob {
         SitemapBuilder sitemapBuilder = mock(SitemapBuilder.class);
         MongoQuery mongoQuery = mock(MongoQuery.class);
         when(mongoQuery.execute(null)).thenReturn(new ArrayList());
-        HiramJob hiramJob = new HiramJob(sitemapBuilder, mongoQuery);
-        hiramJob.execute(null);
+        SitemapJob sitemapJob = new SitemapJob(sitemapBuilder, mongoQuery);
+        sitemapJob.execute(null);
 
-        HiramJob hiramJob2 = new HiramJob(sitemapBuilder, new MongoQuery(null));
+        SitemapJob sitemapJob2 = new SitemapJob(sitemapBuilder, new MongoQuery(null));
 
-        assertThat(hiramJob.getLastBuildDate(), is(hiramJob2.getLastBuildDate()));
+        assertThat(sitemapJob.getLastBuildDate(), is(sitemapJob2.getLastBuildDate()));
     }
 
     @Test
@@ -66,9 +66,9 @@ public class TestsHiramJob {
         SitemapBuilder sitemapBuilder = mock(SitemapBuilder.class);
         MongoQuery mongoQuery = mock(MongoQuery.class);
         when(mongoQuery.execute(null)).thenReturn(new ArrayList());
-        HiramJob hiramJob = new HiramJob(sitemapBuilder, mongoQuery);
+        SitemapJob sitemapJob = new SitemapJob(sitemapBuilder, mongoQuery);
 
-        hiramJob.execute(null);
+        sitemapJob.execute(null);
 
         verify(sitemapBuilder, times(1)).build(0, Lists.newArrayList());
     }
@@ -83,12 +83,12 @@ public class TestsHiramJob {
         uris.add(uri);
         SitemapBuilder sitemapBuilder = mock(SitemapBuilder.class);
         MongoQuery mongoQuery = mock(MongoQuery.class);
-        HiramJob hiramJob = new HiramJob(sitemapBuilder, mongoQuery);
-        when(mongoQuery.execute(hiramJob.getLastBuildDate())).thenReturn(uris);
+        SitemapJob sitemapJob = new SitemapJob(sitemapBuilder, mongoQuery);
+        when(mongoQuery.execute(sitemapJob.getLastBuildDate())).thenReturn(uris);
 
-        hiramJob.execute(null);
+        sitemapJob.execute(null);
 
-        assertThat(hiramJob.getLastUrisCount(), is(1));
+        assertThat(sitemapJob.getLastUrisCount(), is(1));
     }
 
     @SuppressWarnings("unchecked")
@@ -101,12 +101,12 @@ public class TestsHiramJob {
         uris.add(uri);
         SitemapBuilder sitemapBuilder = mock(SitemapBuilder.class);
         MongoQuery mongoQuery = mock(MongoQuery.class);
-        HiramJob hiramJob = new HiramJob(sitemapBuilder, mongoQuery);
-        when(mongoQuery.execute(hiramJob.getLastBuildDate())).thenReturn(uris);
-        hiramJob.setLastUrisCount(0);
-        hiramJob.execute(null);
+        SitemapJob sitemapJob = new SitemapJob(sitemapBuilder, mongoQuery);
+        when(mongoQuery.execute(sitemapJob.getLastBuildDate())).thenReturn(uris);
+        sitemapJob.setLastUrisCount(0);
+        sitemapJob.execute(null);
 
-        HiramJob secondJob = new HiramJob();
+        SitemapJob secondJob = new SitemapJob();
 
         assertThat(secondJob.getLastUrisCount(), is(1));
     }

@@ -11,7 +11,7 @@
 
     <servlet>
         <servlet-name>restlet</servlet-name>
-        <servlet-class>com.steambeat.sitemap.web.HiramServlet</servlet-class>
+        <servlet-class>com.steambeat.sitemap.web.SitemapServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -22,7 +22,7 @@
 
     <context-param>
         <param-name>org.restlet.application</param-name>
-        <param-value>com.steambeat.sitemap.web.HiramApplication</param-value>
+        <param-value>com.steambeat.sitemap.web.SitemapApplication</param-value>
     </context-param>
 
     <filter>

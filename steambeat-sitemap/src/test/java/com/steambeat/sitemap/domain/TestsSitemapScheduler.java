@@ -13,7 +13,7 @@ import java.io.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-public class TestsHiramScheduler {
+public class TestsSitemapScheduler {
 
     @Rule
     public SystemTime time = SystemTime.fixed();
@@ -23,8 +23,8 @@ public class TestsHiramScheduler {
         try {
             FileUtils.deleteDirectory(directory);
             FileUtils.deleteQuietly(new File("hiram.log"));
-            if (hiramScheduler.getScheduler().isInStandbyMode() || hiramScheduler.getScheduler().isStarted()) {
-                hiramScheduler.getScheduler().shutdown();
+            if (sitemapScheduler.getScheduler().isInStandbyMode() || sitemapScheduler.getScheduler().isStarted()) {
+                sitemapScheduler.getScheduler().shutdown();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -33,26 +33,26 @@ public class TestsHiramScheduler {
 
     @Test
     public void canRunApplication() throws InterruptedException, SchedulerException, ServletException {
-        HiramProperties hiramProperties = new HiramProperties();
+        SitemapProperties sitemapProperties = new SitemapProperties();
         JobKey hiramJob = new JobKey("hiramJob");
         TriggerKey triggerKey = new TriggerKey("hiramTrigger");
 
-        hiramScheduler = new HiramScheduler();
+        sitemapScheduler = new SitemapScheduler();
         Thread.sleep(1500);
 
-        assertTrue(hiramScheduler.getScheduler().isStarted());
-        assertTrue(hiramScheduler.getScheduler().checkExists(hiramJob));
-        assertTrue(hiramScheduler.getScheduler().checkExists(triggerKey));
-        assertThat(hiramScheduler.getScheduler().getTrigger(triggerKey).getFinalFireTime(), nullValue());
-        assertThat(hiramScheduler.getScheduler().getTrigger(triggerKey).getPreviousFireTime(), is(time.getNow().toDate()));
-        assertThat(hiramScheduler.getScheduler().getTrigger(triggerKey).getNextFireTime(), is(time.getNow().plusSeconds(hiramProperties.getDelay()).toDate()));
+        assertTrue(sitemapScheduler.getScheduler().isStarted());
+        assertTrue(sitemapScheduler.getScheduler().checkExists(hiramJob));
+        assertTrue(sitemapScheduler.getScheduler().checkExists(triggerKey));
+        assertThat(sitemapScheduler.getScheduler().getTrigger(triggerKey).getFinalFireTime(), nullValue());
+        assertThat(sitemapScheduler.getScheduler().getTrigger(triggerKey).getPreviousFireTime(), is(time.getNow().toDate()));
+        assertThat(sitemapScheduler.getScheduler().getTrigger(triggerKey).getNextFireTime(), is(time.getNow().plusSeconds(sitemapProperties.getDelay()).toDate()));
     }
 
     @Test
     public void addRootOnlyFirstTime() throws InterruptedException, ServletException {
         XmlTransformer xmlTransformer = new XmlTransformer();
 
-        hiramScheduler = new HiramScheduler();
+        sitemapScheduler = new SitemapScheduler();
         Thread.sleep(1500);
 
         File file = new File(directory, "sitemap_00001.xml.gz");
@@ -63,7 +63,7 @@ public class TestsHiramScheduler {
         assertThat(document.getElementsByTagName("priority").item(0).getTextContent(), is(String.valueOf(0.9)));
     }
 
-    private HiramScheduler hiramScheduler;
+    private SitemapScheduler sitemapScheduler;
     private String directoryName = "/hiram/sitemaps";
     private File directory = new File(directoryName);
 }

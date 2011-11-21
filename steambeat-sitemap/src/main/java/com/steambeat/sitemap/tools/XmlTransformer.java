@@ -1,6 +1,5 @@
 package com.steambeat.sitemap.tools;
 
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.*;
@@ -21,15 +20,10 @@ public class XmlTransformer {
             StreamResult result = new StreamResult(gzipOutputStream);
             transformer.transform(xmlSource, result);
             gzipOutputStream.close();
-            logger.debug("writing XML Document to file " + file.getName());
         } catch (TransformerConfigurationException e) {
-            logger.error(e.getMessage());
         } catch (TransformerException e) {
-            logger.error(e.getMessage());
         } catch (FileNotFoundException e) {
-            logger.error(e.getMessage());
         } catch (IOException e) {
-            logger.error(e.getMessage());
         }
     }
 
@@ -43,19 +37,13 @@ public class XmlTransformer {
             DOMResult result = new DOMResult(xml);
             transformer.transform(source, result);
             gzipInputStream.close();
-            logger.debug("reading XML Document from file " + file.getName());
             return xml;
         } catch (TransformerException e) {
-            logger.error(e.getMessage());
         } catch (ParserConfigurationException e) {
-            logger.error(e.getMessage());
         } catch (FileNotFoundException e) {
-            logger.error(e.getMessage());
         } catch (IOException e) {
-            logger.error(e.getMessage());
         }
         return null;
     }
 
-    private static final Logger logger = Logger.getLogger(XmlTransformer.class);
 }

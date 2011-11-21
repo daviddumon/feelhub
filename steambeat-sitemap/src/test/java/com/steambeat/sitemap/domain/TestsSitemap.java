@@ -1,6 +1,5 @@
 package com.steambeat.sitemap.domain;
 
-import com.steambeat.sitemap.domain.*;
 import com.steambeat.sitemap.tools.XmlTransformer;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;

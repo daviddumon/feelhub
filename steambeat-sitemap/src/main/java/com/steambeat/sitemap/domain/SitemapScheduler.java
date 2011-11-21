@@ -1,12 +1,10 @@
 package com.steambeat.sitemap.domain;
 
-import com.steambeat.sitemap.tools.HiramProperties;
 import com.google.common.collect.Lists;
-import org.apache.log4j.Logger;
+import com.steambeat.sitemap.tools.SitemapProperties;
 import org.joda.time.DateTime;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
-import org.restlet.Application;
 
 import java.util.*;
 
@@ -14,22 +12,20 @@ import static org.quartz.JobBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.*;
 import static org.quartz.TriggerBuilder.*;
 
-public class HiramScheduler {
+public class SitemapScheduler {
 
-    public HiramScheduler() {
+    public SitemapScheduler() {
         initialize();
         createRootInSitemap();
         run();
     }
 
     private void initialize() {
-        logger.info("application started");
-        hiramProperties = new HiramProperties();
+        sitemapProperties = new SitemapProperties();
         try {
             scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
         } catch (SchedulerException e) {
-            logger.error(e.getMessage());
         }
     }
 
@@ -46,14 +42,14 @@ public class HiramScheduler {
     }
 
     private void run() {
-        JobDetail hiramJob = newJob(HiramJob.class)
+        JobDetail hiramJob = newJob(SitemapJob.class)
                 .withIdentity("hiramJob")
                 .build();
 
         Trigger hiramTrigger = newTrigger()
                 .withIdentity("hiramTrigger")
                 .withSchedule(simpleSchedule()
-                        .withIntervalInSeconds(hiramProperties.getDelay())
+                        .withIntervalInSeconds(sitemapProperties.getDelay())
                         .repeatForever())
                 .startAt(new DateTime().toDate())
                 .build();
@@ -61,7 +57,6 @@ public class HiramScheduler {
         try {
             scheduler.scheduleJob(hiramJob, hiramTrigger);
         } catch (SchedulerException e) {
-            logger.error(e.getMessage());
         }
     }
 
@@ -69,7 +64,6 @@ public class HiramScheduler {
         return scheduler;
     }
 
-    private HiramProperties hiramProperties;
+    private SitemapProperties sitemapProperties;
     private Scheduler scheduler;
-    private static final Logger logger = Logger.getLogger(Application.class);
 }

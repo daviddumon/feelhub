@@ -1,8 +1,7 @@
 package com.steambeat.sitemap.domain;
 
-import com.steambeat.sitemap.domain.*;
-import com.steambeat.sitemap.tools.XmlTransformer;
 import com.google.common.collect.Lists;
+import com.steambeat.sitemap.tools.XmlTransformer;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.*;
 import org.junit.*;

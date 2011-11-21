@@ -3,7 +3,6 @@ package com.steambeat.sitemap.domain;
 import com.google.common.collect.Lists;
 import com.mongodb.*;
 import fr.bodysplash.mongolink.MongoSession;
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
 import java.util.*;
@@ -16,7 +15,6 @@ public class MongoQuery {
     }
 
     public List execute(final DateTime lastBuildDate) {
-        logger.info("Execution de la query");
         mongoSession.start();
         BasicDBObject query = new BasicDBObject();
         BasicDBObject criteria = new BasicDBObject();
@@ -35,10 +33,8 @@ public class MongoQuery {
             results.add(uri);
         }
         mongoSession.stop();
-        logger.info("Fin de la query");
         return results;
     }
 
     private final MongoSession mongoSession;
-    private static final Logger logger = Logger.getLogger(MongoQuery.class);
 }

@@ -1,7 +1,6 @@
 package com.steambeat.sitemap.domain;
 
 import com.steambeat.sitemap.tools.XmlTransformer;
-import org.apache.log4j.Logger;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
@@ -14,10 +13,8 @@ public class Sitemap {
         file = new File(directory, "sitemap_" + String.format("%05d", index) + ".xml.gz");
         if (file.exists()) {
             loadSitemap();
-            logger.info(file.getName() + " loaded");
         } else {
             initializeSitemap();
-            logger.info(file.getName() + " has been created in directory " + directory.getName());
         }
     }
 
@@ -39,7 +36,6 @@ public class Sitemap {
         try {
             file.createNewFile();
         } catch (IOException e) {
-            logger.error(e.getMessage());
         }
         createXMLHead();
         count = 0;
@@ -56,7 +52,6 @@ public class Sitemap {
             xml.appendChild(root);
             xml.setXmlStandalone(true);
         } catch (ParserConfigurationException e) {
-            logger.error(e.getMessage());
         }
     }
 
@@ -77,7 +72,6 @@ public class Sitemap {
         urlTag.appendChild(changefreqTag);
         urlTag.appendChild(priorityTag);
         xml.getElementsByTagName("urlset").item(0).appendChild(urlTag);
-        logger.info("append uri \"" + uri + "\" to file " + file.getName());
         count++;
     }
 
@@ -105,6 +99,5 @@ public class Sitemap {
     private File file;
     private Document xml;
     private int count;
-    private static final Logger logger = Logger.getLogger(Sitemap.class);
     private String name;
 }

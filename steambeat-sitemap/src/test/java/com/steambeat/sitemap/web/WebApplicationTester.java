@@ -18,7 +18,7 @@ public class WebApplicationTester extends ExternalResource {
     protected void before() throws Throwable {
         final Context context = new Context();
         context.getAttributes().put("org.restlet.ext.servlet.ServletContext", mockServletContext());
-        application = new HiramApplication(context);
+        application = new SitemapApplication(context);
         application.start();
     }
 
@@ -45,6 +45,6 @@ public class WebApplicationTester extends ExternalResource {
         return new ClientResource(uri, application);
     }
 
-    private HiramApplication application;
+    private SitemapApplication application;
     public static final String SERVER_ROOT = "http://localhost";
 }

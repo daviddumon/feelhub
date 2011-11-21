@@ -4,9 +4,9 @@ import org.restlet.*;
 
 import javax.servlet.ServletContext;
 
-public class HiramApplication extends Application {
+public class SitemapApplication extends Application {
 
-    public HiramApplication(final Context context) {
+    public SitemapApplication(final Context context) {
         super(context);
     }
 
@@ -17,7 +17,7 @@ public class HiramApplication extends Application {
 
     @Override
     public Restlet createInboundRoot() {
-        return new HiramRouter(getContext());
+        return new SitemapRouter(getContext());
     }
 
     private ServletContext servletContext() {

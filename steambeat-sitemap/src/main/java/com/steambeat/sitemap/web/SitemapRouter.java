@@ -4,9 +4,9 @@ import org.restlet.Context;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 
-public class HiramRouter extends Router {
+public class SitemapRouter extends Router {
 
-    public HiramRouter(final Context context) {
+    public SitemapRouter(final Context context) {
         super(context);
         createRoot();
     }

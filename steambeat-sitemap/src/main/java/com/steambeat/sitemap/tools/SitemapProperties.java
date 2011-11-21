@@ -5,12 +5,12 @@ import fr.bodysplash.mongolink.Settings;
 import java.io.IOException;
 import java.util.Properties;
 
-public class HiramProperties {
+public class SitemapProperties {
 
-    public HiramProperties() {
+    public SitemapProperties() {
         properties = new Properties();
         try {
-            properties.load(getClass().getResourceAsStream("/hiram.properties"));
+            properties.load(getClass().getResourceAsStream("/sitemap.properties"));
         } catch (IOException e) {
             throw new RuntimeException("Error loading properties", e);
         }

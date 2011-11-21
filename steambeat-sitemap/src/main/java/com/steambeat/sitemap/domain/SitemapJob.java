@@ -1,46 +1,38 @@
 package com.steambeat.sitemap.domain;
 
-import com.steambeat.sitemap.tools.HiramProperties;
+import com.steambeat.sitemap.tools.SitemapProperties;
 import fr.bodysplash.mongolink.MongoSessionManager;
 import fr.bodysplash.mongolink.domain.mapper.ContextBuilder;
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.quartz.*;
 
 import java.util.List;
 
-public class HiramJob implements Job {
+public class SitemapJob implements Job {
 
-    public HiramJob() {
-        logger.info("Starting new job");
+    public SitemapJob() {
         this.sitemapBuilder = new SitemapBuilder();
-        final HiramProperties hiramProperties = new HiramProperties();
-        ContextBuilder contextBuilder = new ContextBuilder("com.bytedojo.context");
-        mongoSessionManager = MongoSessionManager.create(contextBuilder, hiramProperties.getDbSettings());
+        final SitemapProperties sitemapProperties = new SitemapProperties();
+        ContextBuilder contextBuilder = new ContextBuilder("com.steambeat.repositories.mapping");
+        mongoSessionManager = MongoSessionManager.create(contextBuilder, sitemapProperties.getDbSettings());
         this.mongoQuery = new MongoQuery(mongoSessionManager.createSession());
     }
 
-    public HiramJob(SitemapBuilder sitemapBuilder, MongoQuery mongoQuery) {
-        logger.info("Starting new job");
+    public SitemapJob(SitemapBuilder sitemapBuilder, MongoQuery mongoQuery) {
         this.sitemapBuilder = sitemapBuilder;
         this.mongoQuery = mongoQuery;
-        final HiramProperties hiramProperties = new HiramProperties();
-        ContextBuilder contextBuilder = new ContextBuilder("com.bytedojo.context");
-        mongoSessionManager = MongoSessionManager.create(contextBuilder, hiramProperties.getDbSettings());
+        final SitemapProperties sitemapProperties = new SitemapProperties();
+        ContextBuilder contextBuilder = new ContextBuilder("com.steambeat.repositories.mapping");
+        mongoSessionManager = MongoSessionManager.create(contextBuilder, sitemapProperties.getDbSettings());
     }
 
     @Override
     public void execute(final JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.info("job started");
-        if (lastBuildDate != null) {
-            logger.info("last build date : " + lastBuildDate);
-        }
         List uris = mongoQuery.execute(lastBuildDate);
         lastBuildDate = new DateTime();
         sitemapBuilder.build(lastUrisCount, uris);
         lastUrisCount += uris.size();
         mongoSessionManager.close();
-        logger.info("job finished. Uris added : " + uris.size() + ". Total uris : " + lastUrisCount);
     }
 
     public DateTime getLastBuildDate() {
@@ -59,6 +51,5 @@ public class HiramJob implements Job {
     private MongoQuery mongoQuery;
     private static int lastUrisCount;
     private static DateTime lastBuildDate = new DateTime(1L);
-    private static final Logger logger = Logger.getLogger(HiramJob.class);
     private MongoSessionManager mongoSessionManager;
 }

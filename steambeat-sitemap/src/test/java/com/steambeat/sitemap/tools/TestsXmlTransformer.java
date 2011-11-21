@@ -2,7 +2,6 @@ package com.steambeat.sitemap.tools;
 
 import com.steambeat.sitemap.domain.Frequence;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 import org.junit.*;
 import org.w3c.dom.*;
 
@@ -58,10 +57,7 @@ public class TestsXmlTransformer {
             xml.appendChild(urlsetTag);
             return xml;
         } catch (ParserConfigurationException e) {
-            logger.error(e.getMessage());
         }
         return null;
     }
-
-    private static final Logger logger = Logger.getLogger(TestsXmlTransformer.class);
 }

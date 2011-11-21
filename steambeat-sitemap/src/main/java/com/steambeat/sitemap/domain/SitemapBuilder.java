@@ -1,7 +1,6 @@
 package com.steambeat.sitemap.domain;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.*;
@@ -36,10 +35,8 @@ public class SitemapBuilder {
         try {
             if (!directory.exists()) {
                 FileUtils.forceMkdir(directory);
-                logger.info("creation of directory : " + directoryName);
             }
         } catch (IOException e) {
-            logger.error(e.getMessage());
         }
     }
 
@@ -78,5 +75,4 @@ public class SitemapBuilder {
     private SitemapIndex currentSitemapIndex;
     private static final int numberOfUrisPerSitemap = 50000;
     private static final int numberOfSitemapsPerIndex = 50000;
-    private static final Logger logger = Logger.getLogger(SitemapBuilder.class);
 }
