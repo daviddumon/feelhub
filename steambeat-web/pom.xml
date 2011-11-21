@@ -7,9 +7,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <name>Steambeat-web</name>
+    <name>steambeat-web</name>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>steambeat</artifactId>
+    <artifactId>steambeat-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <description>free speech everywhere</description>
