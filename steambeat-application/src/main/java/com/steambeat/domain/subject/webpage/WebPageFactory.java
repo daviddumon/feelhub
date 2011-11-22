@@ -1,15 +1,11 @@
 package com.steambeat.domain.subject.webpage;
 
-import com.google.inject.Inject;
 import com.steambeat.domain.DomainEventBus;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.tools.HtmlParser;
 
 public class WebPageFactory {
 
-    @Inject
-    public WebPageFactory(final HtmlParser parser) {
-        this.parser = parser;
+    public WebPageFactory() {
     }
 
     public WebPage buildWebPage(final Association association) {
@@ -24,6 +20,4 @@ public class WebPageFactory {
             throw new WebPageAlreadyExistsException(association.getCanonicalUri());
         }
     }
-
-    private final HtmlParser parser;
 }

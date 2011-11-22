@@ -4,13 +4,11 @@ import com.steambeat.domain.DomainEventBus;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
-import com.steambeat.tools.HtmlParser;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
 
 public class TestsWebPageFactory {
 
@@ -28,8 +26,7 @@ public class TestsWebPageFactory {
 
     @Before
     public void before() {
-        final HtmlParser parser = mock(HtmlParser.class);
-        webPageFactory = new WebPageFactory(parser);
+        webPageFactory = new WebPageFactory();
     }
 
     @Test
