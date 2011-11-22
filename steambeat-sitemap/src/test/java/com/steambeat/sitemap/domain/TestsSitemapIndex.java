@@ -2,12 +2,16 @@ package com.steambeat.sitemap.domain;
 
 import com.steambeat.test.SystemTime;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 import org.w3c.dom.Document;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 public class TestsSitemapIndex {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Rule
     public SystemTime time = SystemTime.fixed();
@@ -47,6 +51,26 @@ public class TestsSitemapIndex {
     @Test
     public void canGetPath() {
         assertThat(sitemapIndex.getPath(), is("http://www.steambeat.com/sitemap_index_00001.xml"));
+    }
+
+    @Test
+    public void canGetLastSitemapOfIndex() {
+        final Sitemap sitemap = new Sitemap(1);
+        final Sitemap lastSitemap = new Sitemap(2);
+
+        sitemapIndex.add(sitemap);
+        sitemapIndex.add(lastSitemap);
+
+        assertThat(sitemapIndex.getLastSitemap(), is(lastSitemap));
+    }
+
+    @Test
+    public void canThrowCapacityException() {
+        exception.expect(SitemapIndexCapacityException.class);
+        
+        for (int i = 0; i < 50001; i++) {
+            sitemapIndex.add(new Sitemap(i));
+        }
     }
 
     private SitemapIndex sitemapIndex;

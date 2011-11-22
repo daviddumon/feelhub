@@ -14,6 +14,9 @@ public class Sitemap {
     }
 
     public void addEntry(final SitemapEntry sitemapEntry) {
+        if (sitemapEntries.size() >= capacity) {
+            throw new SitemapCapacityException();
+        }
         sitemapEntries.add(sitemapEntry);
     }
 
@@ -76,4 +79,5 @@ public class Sitemap {
 
     private String name;
     private List<SitemapEntry> sitemapEntries = Lists.newArrayList();
+    private final int capacity = 50000;
 }

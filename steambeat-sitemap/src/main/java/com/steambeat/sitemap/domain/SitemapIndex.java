@@ -13,6 +13,9 @@ public class SitemapIndex {
     }
 
     public void add(final Sitemap sitemap) {
+        if (sitemaps.size() >= capacity) {
+            throw new SitemapIndexCapacityException();
+        }
         sitemaps.add(sitemap);
     }
 
@@ -63,6 +66,11 @@ public class SitemapIndex {
         return sitemaps;
     }
 
+    public Sitemap getLastSitemap() {
+        return sitemaps.get(sitemaps.size() - 1);
+    }
+
     private String name;
     private List<Sitemap> sitemaps = Lists.newArrayList();
+    private int capacity = 50000;
 }

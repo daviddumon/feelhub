@@ -2,12 +2,16 @@ package com.steambeat.sitemap.domain;
 
 import com.steambeat.test.SystemTime;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 import org.w3c.dom.Document;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 public class TestsSitemap {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Rule
     public SystemTime time = SystemTime.fixed();
@@ -18,7 +22,7 @@ public class TestsSitemap {
     }
 
     @Test
-    public void canCreateASitemap() {
+    public void canGetPath() {
         assertThat(sitemap.getPath(), is("http://www.steambeat.com/sitemap_" + String.format("%05d", 1) + ".xml"));
     }
 
@@ -44,6 +48,15 @@ public class TestsSitemap {
         assertThat(xml.getElementsByTagName("lastmod").item(0).getTextContent(), is(time.getNow().toString()));
         assertThat(xml.getElementsByTagName("changefreq").item(0).getTextContent(), is("hourly"));
         assertThat(xml.getElementsByTagName("priority").item(0).getTextContent(), is(String.valueOf(0.5)));
+    }
+
+    @Test
+    public void canThrowSitemapCapacityException() {
+        exception.expect(SitemapCapacityException.class);
+
+        for (int i = 0; i < 50001; i++) {
+            sitemap.addEntry(new SitemapEntry(String.valueOf(i), Frequency.hourly, 0.5));
+        }
     }
 
     private Sitemap sitemap;

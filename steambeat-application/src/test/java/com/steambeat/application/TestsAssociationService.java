@@ -17,9 +17,6 @@ import static org.hamcrest.Matchers.*;
 public class TestsAssociationService {
 
     @Rule
-    public ExpectedException exception = ExpectedException.none();
-
-    @Rule
     public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
 
     @Rule
