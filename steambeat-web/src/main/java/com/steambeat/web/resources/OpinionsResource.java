@@ -10,15 +10,17 @@ import org.restlet.resource.*;
 import javax.inject.Inject;
 import java.util.List;
 
-public class LastOpinionsResource extends ServerResource {
+public class OpinionsResource extends ServerResource {
 
     @Inject
-    public LastOpinionsResource(final OpinionSearch opinionSearch) {
+    public OpinionsResource(final OpinionSearch opinionSearch) {
         this.opinionSearch = opinionSearch;
     }
 
     @Override
     protected void doInit() {
+        System.out.println(getRequestAttributes().containsKey("subject"));
+        System.out.println(getQuery());
         lastOpinions = opinionSearch.last();
     }
 
@@ -33,7 +35,7 @@ public class LastOpinionsResource extends ServerResource {
 
     private JSONObject toJson(final Opinion opinion) throws JSONException {
         final JSONObject json = new JSONObject();
-        json.put("uri", opinion.getSubjectId());
+        json.put("subjectId", opinion.getSubjectId());
         json.put("text", opinion.getText());
         json.put("feeling", opinion.getFeeling());
         return json;

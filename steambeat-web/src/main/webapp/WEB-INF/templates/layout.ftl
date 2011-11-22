@@ -49,10 +49,10 @@
             <div id="inneralwaysshow">
                 <a id="slogan" href="${root}/">Free speech everywhere</a>
 
-                <form id="formsearch" action="${root}/webpages/" method="get" autocomplete="off" autofocus="on">
-                    <input id="searchstring" value="search">
-                    <input id="submitsearch" type="submit" value="&rarr;">
-                </form>
+                <!--<form id="formsearch" action="${root}/webpages/" method="get" autocomplete="off" autofocus="on">-->
+                    <!--<input id="searchstring" value="search">-->
+                    <!--<input id="submitsearch" type="submit" value="&rarr;">-->
+                <!--</form>-->
             </div>
             <div id="help">
                 <div class="parentheaderbox">

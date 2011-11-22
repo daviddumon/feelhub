@@ -1,7 +1,6 @@
 package com.steambeat.web.resources;
 
 import com.steambeat.domain.DomainEventBus;
-import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.WithDomainEvent;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
@@ -15,7 +14,7 @@ import org.restlet.ext.json.JsonRepresentation;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestLastOpinionsResource {
+public class TestOpinionsResource {
 
     @Rule
     public WithDomainEvent withDomainEvent = new WithDomainEvent();
@@ -26,29 +25,27 @@ public class TestLastOpinionsResource {
     @Rule
     public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
 
-    @Before
-    public void setUp() throws Exception {
-        resource = restlet.newClientResource("/lastopinions");
-    }
-
     @Test
     public void isMapped() {
+        ClientResource resource = restlet.newClientResource("/opinions");
+        
         resource.get();
 
         assertThat(resource.getStatus(), is(Status.SUCCESS_OK));
     }
 
     @Test
-    public void canGetAnLastOpinionLink() {
-        final WebPage webPage = TestFactories.webPages().newWebPage("http://www.fake.com");
-
+    public void canGetAnOpinion() {
+        ClientResource resource = restlet.newClientResource("/opinions");
+        
         final JsonRepresentation representation = (JsonRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
     }
 
     @Test
-    public void canGetAlllastOpinionLinks() throws JSONException {
+    public void canGetMultipleOpinions() throws JSONException {
+        ClientResource resource = restlet.newClientResource("/opinions");
         create3Opinions();
 
         final JsonRepresentation representation = (JsonRepresentation) resource.get();
@@ -64,6 +61,4 @@ public class TestLastOpinionsResource {
         TestFactories.opinions().newOpinion();
         DomainEventBus.INSTANCE.flush();
     }
-
-    private ClientResource resource;
 }

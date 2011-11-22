@@ -17,9 +17,9 @@ public class Page {
         int count = 1;
         for (final List<Opinion> opinions : partitions) {
             final Page page = new Page();
-            for (final Opinion opinion : opinions) {
-                opinion.setText(Page.parse(webPage, opinion.getText(), context));
-            }
+            //for (final Opinion opinion : opinions) {
+            //    opinion.setText(Page.parse(webPage, opinion.getText(), context));
+            //}
             page.opinions = opinions;
             page.number = count;
             page.max = webPageOpinions.size();
