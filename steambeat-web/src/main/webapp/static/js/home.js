@@ -19,6 +19,6 @@ $(function() {
     });
 
     var width = $("#timeline_display") != null ? $("#timeline_display").width() : 0;
-    timeline.init("day", root + "/stats:", width, 60, 5, 0, 15, "timeline");
+    timeline.init("day", root + "/stats:", width, 100, 5, 2, 15, "timeline");
     timeline.loadInitialGraphs(0,0);
 });
