@@ -18,33 +18,19 @@ public class SteambeatRouter extends Router {
         createRoot();
     }
 
-    @Override
-    public Finder createFinder(final Class<?> targetClass) {
-        return new GuiceFinder(getContext(), targetClass, injector);
-    }
-
     private void createRoot() {
         attachResources();
     }
 
     private void attachResources() {
-        attach("/", HomeResource.class);
-        attach("/sitemap_{number}.xml.gz", SitemapResource.class);
-        attach("/opinions", OpinionsResource.class);
-        attach("/opinions?{query}", OpinionsResource.class);
-        attach("/webpages", WebPagesResource.class);
-        attach("/stats:{start}.{end};{granularity}", GlobalStatistics.class);
-        attachUriResources();
-    }
-
-    private void attachUriResources() {
         attachUriResource("/webpages/{uri}/stats:{start}.{end};{granularity}", WebPageStatisticsResource.class);
         attachUriResource("/webpages/{uri}/opinions", WebPageOpinionsResource.class);
-        attachUriResource("/webpages/{uri}/opinions/{opinion}", WebPageOpinionsResource.class);
-        final TemplateRoute route = attachUriResource("/webpages/{uri}/{page}", WebPageResource.class);
-        final Map<String, Variable> variables = route.getTemplate().getVariables();
-        variables.put("page", new Variable(Variable.TYPE_DIGIT));
         attachUriResource("/webpages/{uri}", WebPageResource.class);
+        attach("/webpages", WebPagesResource.class);
+        attach("/stats:{start}.{end};{granularity}", HomeStatistics.class);
+        attach("/opinions", HomeOpinionsResource.class);
+        attach("/sitemap_{number}.xml.gz", SitemapResource.class);
+        attach("/", HomeResource.class);
     }
 
     private TemplateRoute attachUriResource(final String path, final Class<? extends ServerResource> resource) {
@@ -52,6 +38,11 @@ public class SteambeatRouter extends Router {
         final Map<String, Variable> variables = route.getTemplate().getVariables();
         variables.put("uri", new Variable(Variable.TYPE_ALL, "", true, false, true, true));
         return route;
+    }
+
+    @Override
+    public Finder createFinder(final Class<?> targetClass) {
+        return new GuiceFinder(getContext(), targetClass, injector);
     }
 
     private final Injector injector;

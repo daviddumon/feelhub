@@ -19,6 +19,30 @@ public class Opinion extends BaseEntity {
         creationDate = new DateTime();
     }
 
+    //public static String parse(final WebPage webPage, final String value, final Context context) {
+    //    if (value != null) {
+    //        final String[] tokens = value.split(" ");
+    //        final StringBuilder stringBuilder = new StringBuilder();
+    //        for (String token : tokens) {
+    //            if (token.matches("@[0-9]*")) {
+    //                token = transform(webPage, token, context);
+    //            }
+    //            stringBuilder.append(token + " ");
+    //        }
+    //        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+    //        return stringBuilder.toString();
+    //    }
+    //    return null;
+    //}
+    //
+    //private static String transform(final WebPage webPage, final String token, final Context context) {
+    //    final int opinionIndex = Integer.valueOf(token.substring(1, token.length()));
+    //    final String link = "<a href=\""
+    //            + new ReferenceBuilder(context).buildUri("/webpages/" + webPage.getId() + "/opinions/" + opinionIndex)
+    //            + "\">" + token + "</a>";
+    //    return link;
+    //}
+
     public String getText() {
         return text;
     }

@@ -14,7 +14,7 @@ import org.restlet.ext.json.JsonRepresentation;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestOpinionsResource {
+public class TestHomeOpinionsResource {
 
     @Rule
     public WithDomainEvent withDomainEvent = new WithDomainEvent();

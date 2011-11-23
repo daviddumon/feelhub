@@ -33,4 +33,28 @@ public class TestsOpinion {
         assertThat(opinion.getSubject(), is(subject));
     }
 
+    //
+    //@Test
+    //public void canParseAndReplaceLinkToOpinion() {
+    //    final WebPage webPage = TestFactories.webPages().newWebPageWithLotOfOpinions("http://www.fake.com", 30);
+    //    final String value = "I really like what @10 said !";
+    //    final Context context = new Context();
+    //    context.getAttributes().put("org.restlet.ext.servlet.ServletContext", restlet.mockServletContext());
+    //
+    //    final String result = Page.parse(webPage, value, context);
+    //
+    //    assertThat(result, is("I really like what <a href=\"http://thedomain//webpages/http://www.fake.com/opinions/10\">@10</a> said !"));
+    //}
+    //
+    //@Test
+    //public void parseOnlyNumbers() {
+    //    final WebPage webPage = TestFactories.webPages().newWebPageWithLotOfOpinions("http://www.fake.com", 30);
+    //    final String value = "I really like what @10mistake said !";
+    //    final Context context = new Context();
+    //    context.getAttributes().put("org.restlet.ext.servlet.ServletContext", restlet.mockServletContext());
+    //
+    //    final String result = Page.parse(webPage, value, context);
+    //
+    //    assertThat(result, is(value));
+    //}
 }
