@@ -47,9 +47,9 @@ public class WebPageResource extends ServerResource {
                 .with("counter", 0);
     }
 
-    private WebPage webPage;
     private final WebPageService webPageService;
     private final OpinionSearch opinionSearch;
     private Uri uri;
+    private WebPage webPage;
     private boolean mustCreateFeed;
 }
