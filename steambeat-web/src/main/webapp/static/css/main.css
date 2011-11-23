@@ -1,4 +1,24 @@
 /* Copyright bytedojo 2011 */
+
+header {
+
+
+}
+
+#timeline_display {
+    position: fixed;
+    bottom: 10px;
+    margin: 10px auto;
+    width: 100%;
+    cursor: move;
+}
+
+
+
+
+
+
+/*
 body {
     font-family: "Helvetica neue";
     font-size: 12px;
@@ -259,3 +279,4 @@ div#newwebpage p {
     color: #FFFFFF;
     font-weight: bold;
 }
+*/
