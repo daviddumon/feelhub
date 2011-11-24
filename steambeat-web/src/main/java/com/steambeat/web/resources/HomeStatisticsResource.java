@@ -11,7 +11,7 @@ import org.restlet.resource.*;
 
 import java.util.List;
 
-public class HomeStatistics extends ServerResource {
+public class HomeStatisticsResource extends ServerResource {
 
     @Override
     protected void doInit() throws ResourceException {

@@ -6,9 +6,11 @@ import com.steambeat.domain.subject.webpage.WebPageFactory;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
+import com.steambeat.test.fakeSearches.FakeOpinionSearch;
 import com.steambeat.test.fakeServices.FakeAssociationService;
 import com.steambeat.tools.Hiram;
 import com.steambeat.web.OpenSessionInViewFilter;
+import com.steambeat.web.search.OpinionSearch;
 
 public class SteambeatModuleForTest extends AbstractModule {
 
@@ -18,6 +20,7 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(AssociationService.class).to(FakeAssociationService.class);
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
         bind(SessionProvider.class).to(FakeSessionProvider.class);
+        bind(OpinionSearch.class).to(FakeOpinionSearch.class);
     }
 
     @Provides

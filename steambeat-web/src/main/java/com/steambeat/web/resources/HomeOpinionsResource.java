@@ -21,8 +21,9 @@ public class HomeOpinionsResource extends ServerResource {
 
     @Override
     protected void doInit() {
-        //opinions = opinionSearch.last();
-        opinions = Lists.newArrayList();
+        final int skip = Integer.valueOf(getRequestAttributes().get("skip").toString());
+        final int limit = Integer.valueOf(getRequestAttributes().get("limit").toString());
+        opinions = opinionSearch.withSkip(skip).withLimit(limit).execute();
     }
 
     @Get
