@@ -1,5 +1,6 @@
 package com.steambeat.web.resources;
 
+import com.google.common.collect.Lists;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.web.search.OpinionSearch;
 import com.steambeat.web.tools.JsonExtractor;
@@ -20,7 +21,8 @@ public class HomeOpinionsResource extends ServerResource {
 
     @Override
     protected void doInit() {
-        opinions = opinionSearch.last();
+        //opinions = opinionSearch.last();
+        opinions = Lists.newArrayList();
     }
 
     @Get

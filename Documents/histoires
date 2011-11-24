@@ -1,2 +1,3 @@
 encoding/decoding dans le post opinion
 Reconnaitre le code html dans les opinions et l'afficher comme tel (par exemple un lien)
+Input de l'opinion qui cree plusieurs opinions (par item identifié)

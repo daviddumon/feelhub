@@ -1,55 +1,45 @@
 package com.steambeat.web.search;
 
-import com.google.common.collect.Lists;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.SessionProvider;
-import fr.bodysplash.mongolink.MongoSession;
 import fr.bodysplash.mongolink.domain.criteria.*;
-import org.joda.time.Interval;
 
 import javax.inject.Inject;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 public class OpinionSearch {
 
     @Inject
     public OpinionSearch(final SessionProvider provider) {
-        this.provider = provider;
+        criteria = provider.get().createCriteria(Opinion.class);
+        criteria.add(Restrictions.notEquals("text", ""));
     }
 
-    public List<Opinion> last() {
-        final MongoSession session = provider.get();
-        final Criteria criteria = session.createCriteria(Opinion.class);
-        criteria.limit(50);
+    public List<Opinion> execute() {
         return criteria.list();
     }
 
-    public List<Opinion> forInterval(final Interval interval) {
-        final MongoSession session = provider.get();
-        final Criteria criteria = session.createCriteria(Opinion.class);
-        criteria.add(Restrictions.between("creationDate", interval.getStartMillis(), interval.getEndMillis()));
-        return criteria.list();
+    public OpinionSearch withSkip(final int skip) {
+        criteria.skip(skip);
+        return this;
     }
 
-    public List<Opinion> forSubject(final Subject subject) {
-        final MongoSession session = provider.get();
-        final Criteria criteria = session.createCriteria(Opinion.class);
-        criteria.add(Restrictions.eq("subjectId", subject.getId()));
-        return criteria.list();
+    public OpinionSearch withLimit(final int limit) {
+        criteria.limit(limit);
+        return this;
     }
 
-    public List<Opinion> forIntervalSubjectSkipAndLimit(final Interval interval, final Subject subject, final int skipNumber, final int limitNumber) {
-        //final Criteria criteria = session.createCriteria(Opinion.class, skipNumber, limitNumber);
-        //criteria.add(Restrictions.between("creationDate", interval.getStartMillis(), interval.getEndMillis()));
-        //criteria.add(Restrictions.eq("subject", subject.getId()));
-        //return criteria.list();
-
-//        final Criteria criteria = session.createCriteria(Opinion.class);
-//        criteria.add(Restrictions.eq("subject", subject));
-//        return criteria.list();
-        return Lists.newArrayList();
+    public OpinionSearch withSort(final String sortField, final int sortOrder) {
+        criteria.sort(sortField, sortOrder);
+        return this;
     }
 
-    private final SessionProvider provider;
+    public OpinionSearch withSubject(final Subject subject) {
+        criteria.add(Restrictions.equals("subjectId", subject.getId()));
+        return this;
+    }
+
+    private Criteria criteria;
 }

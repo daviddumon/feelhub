@@ -15,8 +15,8 @@ public abstract class Subject extends BaseEntity {
         this.id = id;
     }
 
-    public Opinion createOpinion(final String value, final Feeling feeling) {
-        final Opinion opinion = new Opinion(value, feeling, this);
+    public Opinion createOpinion(final String text, final Feeling feeling) {
+        final Opinion opinion = new Opinion(text, feeling, this);
         DomainEventBus.INSTANCE.spread(new OpinionPostedEvent(this, opinion));
         return opinion;
     }

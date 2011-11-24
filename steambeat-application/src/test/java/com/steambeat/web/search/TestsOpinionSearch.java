@@ -1,13 +1,10 @@
 package com.steambeat.web.search;
 
 import com.steambeat.domain.opinion.Opinion;
-import com.steambeat.domain.statistics.Granularity;
-import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.testFactories.TestFactories;
-import org.joda.time.Interval;
 import org.junit.*;
 
 import java.util.List;
@@ -26,76 +23,84 @@ public class TestsOpinionSearch extends TestWithMongoRepository {
     }
 
     @Test
-    public void canGetLastOpinions() {
-        for (int i = 0; i < 51; i++) {
-            TestFactories.opinions().newOpinion();
-        }
+    public void canGetAllOpinions() {
+        TestFactories.opinions().newOpinions(20);
 
-        final List<Opinion> lastOpinions = opinionSearch.last();
+        final List<Opinion> opinions = opinionSearch.execute();
 
-        assertThat(lastOpinions.size(), is(50));
+        assertThat(opinions.size(), is(20));
     }
 
     @Test
-    public void canGetForAnHourInterval() {
-        final Interval interval = Granularity.hour.intervalFor(time.getNow());
-        final Opinion opinion1 = TestFactories.opinions().newOpinion();
-        final Opinion opinion2 = TestFactories.opinions().newOpinion();
-        time.waitHours(2);
+    public void canSkip() {
+        TestFactories.opinions().newOpinions(20);
 
-        final List<Opinion> opinions = opinionSearch.forInterval(interval);
+        opinionSearch.withSkip(10);
 
-        assertThat(opinions, notNullValue());
-        assertThat(opinions.size(), is(2));
-        assertThat(opinions.get(0), is(opinion1));
-        assertThat(opinions.get(1), is(opinion2));
+        final List<Opinion> opinions = opinionSearch.execute();
+        assertThat(opinions.size(), is(10));
     }
 
     @Test
-    public void canGetForASubject() {
+    public void canLimit() {
+        TestFactories.opinions().newOpinions(20);
+
+        opinionSearch.withLimit(5);
+
+        final List<Opinion> opinions = opinionSearch.execute();
+        assertThat(opinions.size(), is(5));
+    }
+
+    @Test
+    public void canLimitAndSkip() {
+        TestFactories.opinions().newOpinions(30);
+
+        opinionSearch.withLimit(5).withSkip(10);
+
+        final List<Opinion> opinions = opinionSearch.execute();
+        assertThat(opinions.size(), is(5));
+        assertThat(opinions.get(0).getText(), is("i10"));
+        assertThat(opinions.get(1).getText(), is("i11"));
+        assertThat(opinions.get(2).getText(), is("i12"));
+        assertThat(opinions.get(3).getText(), is("i13"));
+        assertThat(opinions.get(4).getText(), is("i14"));
+    }
+
+    @Test
+    public void canGetOpinionsForSubject() {
         final WebPage webPage = TestFactories.webPages().newWebPage();
-        final WebPage webPage2 = TestFactories.webPages().newWebPage();
-        final Opinion opinion1 = addOpinionForSubject(webPage);
-        final Opinion opinion2 = addOpinionForSubject(webPage2);
+        TestFactories.opinions().newOpinions(webPage, 10);
+        TestFactories.opinions().newOpinions(20);
 
-        final List<Opinion> opinions = opinionSearch.forSubject(opinion1.getSubject());
+        opinionSearch.withSubject(webPage);
 
-        assertThat(opinions, notNullValue());
-        assertThat(opinions.size(), is(1));
-        assertThat(opinions.get(0), is(opinion1));
+        final List<Opinion> opinions = opinionSearch.execute();
+        assertThat(opinions.size(), is(10));
     }
 
     @Test
-    public void canGetForSubjectIntervalSkipAndLimit() {
-        //final Subject subject = TestFactories.webPages().newWebPage();
-        //Repositories.opinions().add(new Opinion("1", Feeling.good, subject));
-        //time.waitHours(10);
-        //final Opinion opinionStart = addOpinionForSubject(subject);
-        //Repositories.opinions().add(new Opinion("2", Feeling.good, subject));
-        ////final Opinion result0 = addOpinionForSubject(subject);
-        ////final Opinion result1 = addOpinionForSubject(subject);
-        ////final Opinion result2 = addOpinionForSubject(subject);
-        //Repositories.opinions().add(new Opinion("3", Feeling.good, subject));
-        //Repositories.opinions().add(new Opinion("4", Feeling.good, subject));
-        //Repositories.opinions().add(new Opinion("5", Feeling.good, subject));
-        //time.waitHours(10);
-        //addOpinionForSubject(subject);
-        //final Interval interval = Granularity.hour.intervalFor(opinionStart.getCreationDate());
-        //
-        //final List<Opinion> opinions = Repositories.opinions().forIntervalSubjectSkipAndLimit(interval, subject, 2, 3);
-        //
-        //assertThat(opinions, notNullValue());
-        //assertThat(opinions.size(), is(3));
-        ////assertThat(opinions.get(0), is(result0));
-        ////assertThat(opinions.get(1), is(result1));
-        ////assertThat(opinions.get(2), is(result2));
-        //System.out.println(opinions.get(0).getText());
-        //System.out.println(opinions.get(1).getText());
-        //System.out.println(opinions.get(2).getText());
+    public void canLimitAndSkipForSubject() {
+        final WebPage webPage = TestFactories.webPages().newWebPage();
+        TestFactories.opinions().newOpinions(webPage, 10);
+        TestFactories.opinions().newOpinions(20);
+
+        opinionSearch.withSubject(webPage).withSkip(3).withLimit(4);
+
+        final List<Opinion> opinions = opinionSearch.execute();
+        assertThat(opinions.size(), is(4));
+        assertThat(opinions.get(0).getText(), is("i3"));
+        assertThat(opinions.get(1).getText(), is("i4"));
+        assertThat(opinions.get(2).getText(), is("i5"));
+        assertThat(opinions.get(3).getText(), is("i6"));
     }
 
-    private Opinion addOpinionForSubject(final Subject subject) {
-        return TestFactories.opinions().newOpinionForSubject(subject);
+    @Test
+    public void alwaysIgnoreEmptyOpinions() {
+        TestFactories.opinions().newOpinions(10);
+        TestFactories.opinions().newOpinionWithText("");
+
+        final List<Opinion> opinions = opinionSearch.execute();
+        assertThat(opinions.size(), is(10));
     }
 
     private OpinionSearch opinionSearch;

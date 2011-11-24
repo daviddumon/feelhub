@@ -6,7 +6,6 @@ import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
-import org.junit.rules.ExpectedException;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

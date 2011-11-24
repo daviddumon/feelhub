@@ -1,7 +1,6 @@
 package com.steambeat.web;
 
 import com.steambeat.repositories.*;
-import fr.bodysplash.mongolink.MongoSessionManager;
 import org.restlet.*;
 import org.restlet.routing.Filter;
 
@@ -43,6 +42,5 @@ public class OpenSessionInViewFilter extends Filter {
         provider.close();
     }
 
-    private MongoSessionManager manager;
     private final SessionProvider provider;
 }

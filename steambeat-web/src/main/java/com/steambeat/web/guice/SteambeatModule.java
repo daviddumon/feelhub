@@ -16,8 +16,8 @@ public class SteambeatModule extends AbstractModule {
     @Provides
     @Singleton
     public SessionProvider sessionProvider() {
-        final SessionProvider result = new SessionProvider();
-        result.init();
-        return result;
+        final SessionProvider sessionProvider = new SessionProvider();
+        sessionProvider.init();
+        return sessionProvider;
     }
 }

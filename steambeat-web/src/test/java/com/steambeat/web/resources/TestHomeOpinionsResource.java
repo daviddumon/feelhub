@@ -28,7 +28,7 @@ public class TestHomeOpinionsResource {
     @Test
     public void isMapped() {
         ClientResource resource = restlet.newClientResource("/opinions");
-        
+
         resource.get();
 
         assertThat(resource.getStatus(), is(Status.SUCCESS_OK));
@@ -37,7 +37,7 @@ public class TestHomeOpinionsResource {
     @Test
     public void canGetAnOpinion() {
         ClientResource resource = restlet.newClientResource("/opinions");
-        
+
         final JsonRepresentation representation = (JsonRepresentation) resource.get();
 
         assertThat(representation, notNullValue());

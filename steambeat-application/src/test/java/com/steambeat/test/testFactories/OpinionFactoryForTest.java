@@ -14,9 +14,22 @@ public class OpinionFactoryForTest {
         return opinion;
     }
 
-    public Opinion newOpinionForSubject(final Subject subject) {
-        final Opinion opinion = subject.createOpinion("my good opinion", Feeling.good);
+    public Opinion newOpinionWithText(final String text) {
+        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final Opinion opinion = webPage.createOpinion(text, Feeling.good);
         Repositories.opinions().add(opinion);
         return opinion;
+    }
+
+    public void newOpinions(final int quantity) {
+        final WebPage webPage = TestFactories.webPages().newWebPage();
+        newOpinions(webPage, quantity);
+    }
+
+    public void newOpinions(final Subject subject, final int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            final Opinion opinion = subject.createOpinion("i" + i, Feeling.good);
+            Repositories.opinions().add(opinion);
+        }
     }
 }

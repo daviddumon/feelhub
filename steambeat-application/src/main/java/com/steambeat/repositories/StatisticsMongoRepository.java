@@ -30,8 +30,8 @@ public class StatisticsMongoRepository extends BaseMongoRepository<Statistics> i
 
     private Criteria criteriaForSubjectAndGranularity(final Subject subject, final Granularity granularity) {
         final Criteria criteria = getSession().createCriteria(Statistics.class);
-        criteria.add(Restrictions.eq("subjectId", subject.getId()));
-        criteria.add(Restrictions.eq("granularity", granularity));
+        criteria.add(Restrictions.equals("subjectId", subject.getId()));
+        criteria.add(Restrictions.equals("granularity", granularity));
         return criteria;
     }
 }

@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
     $(function(){
-        newwebpage.create("${uri}");
+    newwebpage.create("${uri}");
     });
 </script>
 
