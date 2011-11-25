@@ -8,6 +8,7 @@ import com.steambeat.web.*;
 import org.json.*;
 import org.junit.*;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 
@@ -15,6 +16,9 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class TestHomeOpinionsResource {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Rule
     public WithDomainEvent withDomainEvent = new WithDomainEvent();
@@ -53,6 +57,16 @@ public class TestHomeOpinionsResource {
         final JSONArray jsonArray = representation.getJsonArray();
         assertThat(jsonArray, notNullValue());
         assertThat(jsonArray.length(), is(3));
+    }
+
+    @Ignore
+    @Test
+    public void canThrowException() {
+        exception.expect(SteambeatJsonException.class);
+
+        ClientResource resource = restlet.newClientResource("/opinions;0;200");
+
+        resource.get();
     }
 
     private void create3Opinions() {

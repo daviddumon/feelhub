@@ -1,6 +1,5 @@
 package com.steambeat.web.resources;
 
-import com.google.common.collect.Lists;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.web.search.OpinionSearch;
 import com.steambeat.web.tools.JsonExtractor;
@@ -21,8 +20,19 @@ public class HomeOpinionsResource extends ServerResource {
 
     @Override
     protected void doInit() {
-        final int skip = Integer.valueOf(getRequestAttributes().get("skip").toString());
-        final int limit = Integer.valueOf(getRequestAttributes().get("limit").toString());
+        getParameters();
+        getOpinions();
+    }
+
+    private void getParameters() {
+        skip = Integer.valueOf(getRequestAttributes().get("skip").toString());
+        limit = Integer.valueOf(getRequestAttributes().get("limit").toString());
+        if (limit > 100) {
+            throw new SteambeatJsonException();
+        }
+    }
+
+    private void getOpinions() {
         opinions = opinionSearch.withSkip(skip).withLimit(limit).execute();
     }
 
@@ -37,4 +47,6 @@ public class HomeOpinionsResource extends ServerResource {
 
     protected List<Opinion> opinions;
     protected final OpinionSearch opinionSearch;
+    private int skip;
+    private int limit;
 }
