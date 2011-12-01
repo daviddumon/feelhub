@@ -1,0 +1,121 @@
+body {
+    font-family:  'Droid Serif', serif;
+    font-size: 12px;
+    background-color: #E6EAEF;
+}
+
+a {
+    font-family: 'Droid Sans';, Sans-Serif;
+    text-decoration: none;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+    width: 30%;
+    background-color: #CCC;
+    height: 100%;
+    margin-left: 5%;
+    padding-left: 4px;
+    padding-right: 4px;
+    overflow: hidden;
+}
+
+header #inner {
+    background-color: #DDD;
+    height: 100%;
+    border-left: 2px solid #EFEFEF;
+    border-right: 2px solid #EFEFEF;
+    text-align: center;
+}
+
+footer {
+    position: fixed;
+    width: 30%;
+    margin-left: 5%;
+    bottom: 10px;
+}
+
+footer div#footerlinks {
+    text-align: center;
+}
+
+footer div#copyright {
+    color: #999;
+    font-size: 11px;
+    margin-top: 20px;
+    text-align: center
+}
+
+footer a {
+    color: #000000;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+a#feedback {
+    position:fixed;
+    top: 50%;
+    left: 0px;
+    width: 100px;
+    margin-top: 16px;
+    background-color: #DDD;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    --moz-border-radius-bottom-right: 10px;
+    --moz-border-radius-bottom-left: 10px;
+    --webkit-border-bottom-right-radius: 10px;
+    --webkit-border-bottom-left-radius: 10px;
+    z-index: 100;
+    color: #AAA;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+a#feedback:hover {
+    color: #EEE;
+}
+
+.vertical {
+    transform:rotate(-90deg);
+    transform-origin: top left;
+    -webkit-transform: rotate(-90deg);
+    -webkit-transform-origin: top left;
+    -moz-transform: rotate(-90deg);
+    -moz-transform-origin: top left;
+    -o-transform: rotate(-90deg);
+    -o-transform-origin: top left;
+    -ms-transform: rotate(-90deg);
+    -ms-transform-origin: top left;
+}
+
+.rounded {
+    border-radius: 10px;
+    --moz-border-radius: 10px;
+    --webkit-border-radius: 10px;
+}
+
+#right {
+    width: 60%;
+    margin-left: 35%;
+    margin-top: 50px;
+}
+
+.opinion {
+    position: relative;
+    width: 100px;
+    padding: 15px;
+    margin: 15px;
+    border: 1px solid #BBB;
+    background-color: #FFFFFF;
+}
+
+#newwebpage {
+
+}
+
+#error {
+
+}

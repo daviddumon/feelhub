@@ -23,17 +23,4 @@ $(function() {
             location.href = jqXHR.getResponseHeader("Location");
         });
     }
-
-    var doReload;
-    $(window).resize(function() {
-        clearTimeout(doReload);
-        doReload = setTimeout(function(){
-            window.location.reload();
-        }, 200);
-    });
 });
-
-function runTimeLine(uri) {
-    timeline.init("day", uri, $("#timeline_display").width(), 100, 5, 1, 15, "timeline");
-    timeline.loadInitialGraphs(0,0);
-}

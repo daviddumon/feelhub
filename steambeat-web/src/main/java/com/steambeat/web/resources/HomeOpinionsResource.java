@@ -33,7 +33,7 @@ public class HomeOpinionsResource extends ServerResource {
     }
 
     private void getOpinions() {
-        opinions = opinionSearch.withSkip(skip).withLimit(limit).execute();
+        opinions = opinionSearch.withSkip(skip).withLimit(limit).withSort("creationDate", OpinionSearch.REVERSE_ORDER).execute();
     }
 
     @Get

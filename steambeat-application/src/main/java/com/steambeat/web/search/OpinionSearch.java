@@ -42,4 +42,6 @@ public class OpinionSearch {
     }
 
     private Criteria criteria;
+    public static final int NATURAL_ORDER = 1;
+    public static final int REVERSE_ORDER = -1;
 }

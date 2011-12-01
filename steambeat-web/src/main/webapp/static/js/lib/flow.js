@@ -1,33 +1,15 @@
 /* Copyright bytedojo 2011 */
-function Flow(css, container, itemTag, className) {
+function Flow(cssSheet, containerName, itemTag, className) {
 
-    this.drawBox = function(text, classes) {
+    this.drawBox = function(opinion, classes) {
         var id = "opinion_" + this.id++;
-        var opinion = document.createElement(itemTag);
-        opinion.className = classes;
-        opinion.setAttribute("id", id);
-        opinion.style.position = "absolute";
-        opinion.innerHTML = text;
-        this.webpage.appendChild(opinion);
-        return id;
-    };
-
-    this.drawBoxLink = function(text, classes, link) {
-        var id = "opinion_" + this.id++;
-        var opinion = document.createElement(itemTag);
-        opinion.className = classes;
-        opinion.setAttribute("id", id);
-        opinion.style.position = "absolute";
-        opinion.innerHTML = text;
-        var opinionlink = document.createElement("a");
-        opinionlink.setAttribute("href", link);
-        opinionlink.appendChild(opinion);
-        opinionlink.className = "opinionlink";
-        this.webpage.appendChild(opinionlink);
-        return id;
-    };
-
-    this.compute = function(id) {
+        var opinionElement = document.createElement(itemTag);
+        opinionElement.className = classes;
+        opinionElement.setAttribute("id", id);
+        opinionElement.style.position = "absolute";
+        opinionElement.innerHTML = opinion.text;
+        this.container.appendChild(opinionElement);
+        
         var element = $("#" + id);
         var boxSize = 1;
         if(element.height() < element.width()) {
@@ -47,49 +29,6 @@ function Flow(css, container, itemTag, className) {
 
     this.findNextWidth = function(actual) {
         return actual + this.numericalValueFrom(this.margin) + this.initial - 2 * this.numericalValueFrom(this.padding);
-    };
-
-    this.getTopPosition = function(line) {
-        return (this.initial + this.numericalValueFrom(this.margin)) * line;
-    };
-
-    this.getLeftPosition = function(index) {
-        return this.leftCorner + (this.initial + this.numericalValueFrom(this.margin)) * index;
-    };
-
-    this.putBox = function(line, index, size) {
-        for(var i = line; i < line + size; i++) {
-            if(this.lines[i] == null) { this.createLine();};
-            for(var j = index; j < index + size; j++ ){
-                this.lines[i][j] = 1;
-            }
-            this.checkForFullLine(line);
-        }
-    };
-
-    this.createLine = function() {
-        var line = new Array();
-        for(var i = 0; i < this.maxBox; i++) {
-            line.push(0);
-        }
-        this.lines.push(line);
-        this.freeLines.push(1);
-        this.increaseFooter();
-    };
-
-    this.increaseFooter = function() {
-        this.footerTop += (this.initial + this.numericalValueFrom(this.margin));
-        $("footer").css("top", this.footerTop);
-    };
-
-    this.checkForFullLine = function(line) {
-        var index = 0;
-        while(this.lines[line][index] == 1) {
-            index++;
-        }
-        if(index == this.maxBox) {
-            this.freeLines[line] = 0;
-        }
     };
 
     this.findNextFreeSpace = function(size) {
@@ -137,6 +76,43 @@ function Flow(css, container, itemTag, className) {
         return free;
     };
 
+    this.putBox = function(line, index, size) {
+        for(var i = line; i < line + size; i++) {
+            if(this.lines[i] == null) { this.createLine();};
+            for(var j = index; j < index + size; j++ ){
+                this.lines[i][j] = 1;
+            }
+            this.checkForFullLine(line);
+        }
+    };
+
+    this.createLine = function() {
+        var line = new Array();
+        for(var i = 0; i < this.maxBox; i++) {
+            line.push(0);
+        }
+        this.lines.push(line);
+        this.freeLines.push(1);
+    };
+
+    this.checkForFullLine = function(line) {
+        var index = 0;
+        while(this.lines[line][index] == 1) {
+            index++;
+        }
+        if(index == this.maxBox) {
+            this.freeLines[line] = 0;
+        }
+    };
+
+    this.getTopPosition = function(line) {
+        return this.topCorner + (this.initial + this.numericalValueFrom(this.margin)) * line;
+    };
+
+    this.getLeftPosition = function(index) {
+        return this.leftCorner + (this.initial + this.numericalValueFrom(this.margin)) * index;
+    };
+
     this.numericalValueFrom = function(value) {
         if(value == "" || value == null) {
             return 0;
@@ -150,10 +126,13 @@ function Flow(css, container, itemTag, className) {
     this.findStyleSheetIndex = function() {
         var styleSheets = document.styleSheets;
         for(var i = 0; i < styleSheets.length; i++) {
-            var styleSheet = styleSheets[i].href;
-            if(styleSheet.substring(styleSheet.length - css.length, styleSheet.length) == css) {
+            if(extractCssSheetName(styleSheets[i].href) == cssSheet) {
                 return i;
             }
+        }
+
+        function extractCssSheetName(styleSheet) {
+            return styleSheet.substring(styleSheet.length - cssSheet.length, styleSheet.length);
         }
     };
 
@@ -173,41 +152,35 @@ function Flow(css, container, itemTag, className) {
         }
     };
 
+    this.setInitialWidth = function() {
+        var opinionWidth = this.numericalValueFrom(this.width);
+        var paddingwidth = this.numericalValueFrom(this.padding);
+        var result = (opinionWidth + 2 * paddingwidth);
+        return Math.round(result);
+    };
+
     this.setMaxBox = function() {
-        var webpageWidth = parseInt($("#" + container).innerWidth());
+        var webpageWidth = parseInt($("#" + containerName).innerWidth());
         var result = Math.floor(webpageWidth / (this.initial + this.numericalValueFrom(this.margin)));
         return result;
     };
 
-    this.setInitialWidth = function() {
-        var webpagewidth = parseInt($("#" + container).innerWidth());
-        var liwidth = this.numericalValueFrom(this.width);
-        var paddingwidth = this.numericalValueFrom(this.padding);
-        var result = webpagewidth * liwidth + 2 * paddingwidth;
-        return Math.round(result);
-    };
-
     this.setLeftCorner = function() {
-        var webpageWidth = $("#" + container).innerWidth();
-        var leftCorner = (webpageWidth - this.maxBox * this.initial - (this.maxBox + 1) * this.numericalValueFrom(this.margin)) / 2;
+        var webpageWidth = $("#" + containerName).innerWidth();
+        var leftCorner = (webpageWidth - this.maxBox * this.initial - (this.maxBox + 1) * this.numericalValueFrom(this.margin)) / 2 + this.container.offsetLeft;
         return leftCorner;
     };
 
-    this.setFooterTop = function() {
-        var margin = $("#" + container).css("margin-top");
-        return this.numericalValueFrom(margin);
-    };
-
+    this.id = 1;
+    this.container = document.getElementById(containerName);
     this.cssIndex = this.findStyleSheetIndex();
-    this.webpage = document.getElementById(container);
     this.width = this.findValueFromCSS("width");
     this.padding = this.findValueFromCSS("padding");
     this.margin = this.findValueFromCSS("margin");
-    this.id = 1;
     this.lines = new Array();
     this.freeLines = new Array();
     this.initial = this.setInitialWidth();
     this.maxBox = this.setMaxBox();
     this.leftCorner = this.setLeftCorner();
-    this.footerTop = this.setFooterTop();
+    this.topCorner = this.container.offsetTop;
 };
