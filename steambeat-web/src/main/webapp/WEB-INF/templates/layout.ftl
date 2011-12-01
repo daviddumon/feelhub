@@ -1,12 +1,19 @@
 <#macro left>
     <body>
-
-    <a id="feedback" class="vertical" href="${root}/webpages/http://www.steambeat.com">feedback</a>
+    <!--<a id="feedback" class="vertical roundeddown" href="${root}/webpages/http://www.steambeat.com">feedback</a>-->
 
     <header>
         <div id="inner">
-            <img src="${root}/static/images/steambeat.png" alt="steambeat logo" id="logo"/>
-            <#nested/>
+            <div id="innerleft">
+                <img src="${root}/static/images/steambeat.png" alt="steambeat logo" id="logo"/>
+                <#nested/>
+            </div>
+            <div id="innerright">
+
+            </div>
+        </div>
+        <div id="more" class="roundeddown vertical">
+            <div id="innermore" class="roundeddown">more</div>
         </div>
     </header>
 

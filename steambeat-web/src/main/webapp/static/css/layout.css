@@ -12,13 +12,14 @@ a {
 header {
     position: fixed;
     top: 0px;
-    width: 30%;
+    width: 28%;
     background-color: #CCC;
     height: 100%;
-    margin-left: 5%;
+    margin-left: 2%;
     padding-left: 4px;
     padding-right: 4px;
     overflow: hidden;
+    z-index: 100;
 }
 
 header #inner {
@@ -31,9 +32,10 @@ header #inner {
 
 footer {
     position: fixed;
-    width: 30%;
-    margin-left: 5%;
+    width: 28%;
+    margin-left: 2%;
     bottom: 10px;
+    z-index: 100;
 }
 
 footer div#footerlinks {
@@ -58,14 +60,8 @@ a#feedback {
     top: 50%;
     left: 0px;
     width: 100px;
-    margin-top: 16px;
+    margin-top: 50px;
     background-color: #DDD;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    --moz-border-radius-bottom-right: 10px;
-    --moz-border-radius-bottom-left: 10px;
-    --webkit-border-bottom-right-radius: 10px;
-    --webkit-border-bottom-left-radius: 10px;
     z-index: 100;
     color: #AAA;
     font-size: 16px;
@@ -97,9 +93,18 @@ a#feedback:hover {
     --webkit-border-radius: 10px;
 }
 
+.roundeddown {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    --moz-border-radius-bottom-right: 10px;
+    --moz-border-radius-bottom-left: 10px;
+    --webkit-border-bottom-right-radius: 10px;
+    --webkit-border-bottom-left-radius: 10px;
+}
+
 #right {
-    width: 60%;
-    margin-left: 35%;
+    width: 65%;
+    margin-left: 30%;
     margin-top: 50px;
 }
 
@@ -123,4 +128,37 @@ a#feedback:hover {
 #logo {
     width: 32px;
     border: 0px;
+}
+
+#more {
+    position: fixed;
+    background-color: #CCC;
+    top: 50%;
+    left: 30%;
+    width: 100px;
+    height: 20px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 4px;
+    overflow: hidden;
+    margin-top: 50px;
+    margin-left: 10px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#innermore {
+    background-color: #DDD;
+    border-left: 2px solid #EFEFEF;
+    border-right: 2px solid #EFEFEF;
+    border-bottom: 2px solid #EFEFEF;
+    height: 100%;
+    text-align: center;
+    z-index: 100;
+    color: #AAA;
+    font-size: 16px;
+}
+
+#innermore:hover {
+    color: #EEE;
 }
