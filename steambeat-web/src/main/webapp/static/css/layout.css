@@ -119,3 +119,8 @@ a#feedback:hover {
 #error {
 
 }
+
+#logo {
+    width: 32px;
+    border: 0px;
+}

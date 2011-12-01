@@ -5,12 +5,7 @@
 
     <header>
         <div id="inner">
-            <div style="float: left;border: 1px solid white">
-                <div style="width: 14px; height: 14px; background-color: #66CC33; float: left;border: 1px solid white; border-bottom-right-radius: 5px"></div>
-                <div style="width: 14px; height: 14px; background-color: #FF3333; float: left;border: 1px solid white; border-bottom-left-radius: 5px"></div>
-                <div style="clear: both;width: 14px; height: 14px; background-color: #FF3333; float: left;border: 1px solid white; border-top-right-radius: 5px"></div>
-                <div style="width: 14px; height: 14px; background-color: #66CC33; float: left;border: 1px solid white; border-top-left-radius: 5px"></div>
-            </div>
+            <img src="${root}/static/images/steambeat.png" alt="steambeat logo" id="logo"/>
             <#nested/>
         </div>
     </header>
