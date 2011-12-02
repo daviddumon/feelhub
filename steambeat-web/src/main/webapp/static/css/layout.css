@@ -162,3 +162,17 @@ a#feedback:hover {
 #innermore:hover {
     color: #EEE;
 }
+
+#help {
+    position: fixed;
+    top: 10px;
+    left: 20%;
+    z-index: 1000;
+    width: 20%;
+    height: 20%;
+    background-color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    color: #AAA;
+    border: 2px solid black;
+}

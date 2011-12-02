@@ -2,6 +2,11 @@
     <body>
     <!--<a id="feedback" class="vertical roundeddown" href="${root}/webpages/http://www.steambeat.com">feedback</a>-->
 
+    <div id="help">
+        To post opinion about webpages, drag this button to your bookmark bar !!
+        <a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" title="Say it !">Say it !</a>
+    </div>
+
     <header>
         <div id="inner">
             <div id="innerleft">

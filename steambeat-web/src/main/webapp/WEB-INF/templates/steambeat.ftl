@@ -3,7 +3,6 @@
 </@header.withHeader>
 
 <@layout.left>
-<a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" title="Say it !">Say it !</a>
 <div id="counter">${counter!0} opinions</div>
 </@layout.left>
 
