@@ -2,4 +2,4 @@
 // Apparition de webpage, disparition de feed
 // index sur la collection d'opinion dans le bon sens
 // db.opinion.ensureIndex({creationDate:1})
-// opinion = ensemble de feeling sur un sujet
+// opinion = ensemble de jugements

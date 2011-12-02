@@ -54,4 +54,17 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
         assertThat(opinions.size(), is(1));
         assertThat(opinions.get(0), Matchers.is(opinion));
     }
+
+    @Test
+    public void canPersistMapOfJudgments() {
+        final Opinion opinion = TestFactories.opinions().newOpinion();
+
+        Repositories.opinions().add(opinion);
+
+        final DBCollection opinions = mongo.getCollection("opinion");
+        final DBObject query = new BasicDBObject();
+        query.put("_id", opinion.getId());
+        final DBObject opinionFound = opinions.findOne(query);
+        assertThat(opinionFound.get("judgments"), notNullValue());
+    }
 }

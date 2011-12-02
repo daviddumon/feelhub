@@ -1,11 +1,12 @@
 package com.steambeat.domain.opinion;
 
+import com.google.common.collect.Lists;
 import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.Repositories;
 import org.joda.time.DateTime;
 
-import java.util.Date;
+import java.util.*;
 
 public class Opinion extends BaseEntity {
 
@@ -17,6 +18,13 @@ public class Opinion extends BaseEntity {
         this.feeling = feeling;
         this.subjectId = subject.getId();
         creationDate = new DateTime();
+        this.judgments = Lists.newArrayList();
+    }
+
+    public Opinion(final String text, final List<Judgment> judgments) {
+        this.text = text;
+        creationDate = new DateTime();
+        this.judgments = judgments;
     }
 
     public String getText() {
@@ -52,9 +60,14 @@ public class Opinion extends BaseEntity {
         return id;
     }
 
+    public List<Judgment> getJudgments() {
+        return judgments;
+    }
+
     private String text;
     private Feeling feeling;
     private Object subjectId;
     private DateTime creationDate;
     private String id;
+    private List<Judgment> judgments;
 }

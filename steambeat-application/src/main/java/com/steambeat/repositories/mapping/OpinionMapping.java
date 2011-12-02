@@ -16,5 +16,6 @@ public class OpinionMapping extends EntityMap<Opinion> {
         property(element().getText());
         property(element().getFeeling());
         property(element().getSubjectId());
+        collection(element().getJudgments());
     }
 }
