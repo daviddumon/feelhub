@@ -1,0 +1,4 @@
+sudo dd if=/dev/zero of=/var/swapfile bs=1M count=1024
+sudo mkswap /var/swapfile
+sudo swapon /var/swapfile
+/var/swapfile none swap sw 0 0
