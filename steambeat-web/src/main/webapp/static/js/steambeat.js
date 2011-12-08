@@ -1,10 +1,10 @@
-$(function() {
-    var flow = new Flow("layout.css","right","li",".opinion");
-    $.getJSON(root + "/opinions;0;50", function(data) {
-        $.each(data, function(index, opinion) {
-            flow.drawBox(opinion, "opinion rounded");
-        });
-    });
+$(function () {
+    //var flow = new Flow("core.css", "right", "li", ".opinion");
+    //$.getJSON(root + "/opinions;0;50", function (data) {
+    //    $.each(data, function (index, opinion) {
+    //        flow.drawBox(opinion, "opinion rounded");
+    //    });
+    //});
 
     //var doReload;
     //$(window).resize(function() {

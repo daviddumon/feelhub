@@ -1,32 +1,17 @@
-$(function(){
-    $("#more").click(function(){
-    $("header").animate({width: "90%"}, 600);
-    $("#more").animate({left: "95%"}, 600);
-    //$("header").animate({width: "90%"}, 600);
-
-        console.log($("header").css("width"));
-        if($("header").css("width") == '30%') {
-            console.log("ok");
-            $("header").animate({top: "100px"}, 1000);
-            //$("#helpbutton").animate({top: '+=10'}, 200, function() {
-            //    $("#helpbutton").animate({top: '-=10'}, 100, function(){
-            //        $("#help").css("height","250px");
-            //        $("#help").slideDown("slow", function(){});
-            //    });
-            //});
+$(function () {
+    $("#expand_button").click(function () {
+        if ($("#expand_button").css("left") == '34%') {
+            $("header").animate({width:"92%"}, 600);
+            $("#expand_button").animate({left:"96%"}, 600);
+            $("#expand_button_inner").html("less");
         } else {
-            //$("#helpbutton").animate({top: '-=10'}, 200, function() {
-            //    $("#helpbutton").animate({top: '+=10'}, 100, function(){
-            //        $("#help").slideUp("slow", function() {
-            //            $("#help").css("height","0px");
-            //        });
-            //    });
-            //});
+            $("header").animate({width:"30%"}, 600);
+            $("#expand_button").animate({left:"34%"}, 600);
+            $("#expand_button_inner").html("more");
         }
     });
-
-    $("#help").delay(2000).queue(function(){
-        $("#help").hide();
-        $(".opinion").animate({top: '+=200'}, 500);
-    });
+    //$("#help").delay(2000).queue(function(){
+    $("#help").hide();
+    //$(".opinion").animate({top: '+=200'}, 500);
+    //});
 });

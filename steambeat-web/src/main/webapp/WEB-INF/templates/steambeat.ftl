@@ -3,7 +3,7 @@
 </@header.withHeader>
 
 <@layout.left>
-<div id="counter">${counter!0} opinions</div>
+<#--<div id="counter">${counter!0} opinions</div>-->
 </@layout.left>
 
 <@layout.right>

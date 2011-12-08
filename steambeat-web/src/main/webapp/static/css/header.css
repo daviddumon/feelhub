@@ -1,0 +1,64 @@
+/* Copyright bytedojo 2011 */
+header {
+    position: fixed;
+    top: 0px;
+    width: 30%;
+    background-color: #CCC;
+    height: 100%;
+    margin-left: 4%;
+    padding-left: 4px;
+    padding-right: 4px;
+    overflow: hidden;
+    z-index: 100;
+}
+
+header #inner {
+    background-color: #DDD;
+    height: 100%;
+    border-left: 2px solid #EFEFEF;
+    border-right: 2px solid #EFEFEF;
+    text-align: center;
+}
+
+#innerleft {
+
+}
+
+#logo {
+    width: 32px;
+    border: 0px;
+}
+
+#expand_button {
+    position: fixed;
+    top: 50%;
+    left: 34%;
+    background-color: #CCC;
+    width: 100px;
+    height: 22px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 4px;
+    overflow: hidden;
+    margin-top: 50px;
+    margin-left: 10px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#expand_button_inner {
+    background-color: #DDD;
+    border-left: 2px solid #EFEFEF;
+    border-right: 2px solid #EFEFEF;
+    border-bottom: 2px solid #EFEFEF;
+    text-align: center;
+    color: #AAA;
+    font-size: 16px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    z-index: 100;
+}
+
+#expand_button_inner:hover {
+    color: #EEE;
+}

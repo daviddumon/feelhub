@@ -1,11 +1,7 @@
 package com.steambeat.web;
 
-import com.google.common.collect.Lists;
-import com.steambeat.domain.opinion.*;
 import org.restlet.data.*;
 import org.restlet.resource.*;
-
-import java.util.*;
 
 public class OpinionsResource extends ServerResource {
 
