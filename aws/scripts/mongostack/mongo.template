@@ -9,8 +9,8 @@
       "Type" : "AWS::EC2::Instance",
       "Properties" : {
         "SecurityGroups" : [ { "Ref" : "MongoSecurityGroup" } ],
-        "KeyName" : "kikiyoo",
-        "ImageId" : "ami-63be790a",
+        "KeyName" : "steambeat",
+        "ImageId" : "ami-ad36fbc4",
         "InstanceType" : "t1.micro",
         "AvailabilityZone" : "us-east-1c",
         "Tags" : [ {
@@ -48,13 +48,7 @@
           "IpProtocol" : "tcp",
           "FromPort" : "27017",
           "ToPort" : "27018",
-          "CidrIp" : "sg-b1d289d8"
-        },
- {
-          "IpProtocol" : "tcp",
-          "FromPort" : "27017",
-          "ToPort" : "27018",
-          "CidrIp" : "sg-75bce71c"
+          "CidrIp" : "0.0.0.0/0"
         }
  ]      
       }
@@ -96,7 +90,7 @@
     "Type" : "AWS::SNS::Topic",
     "Properties" : {
         "Subscription" : [ {
-            "Endpoint" : "monitoring@kikiyoo.com",
+            "Endpoint" : "monitoring@steambeat.com",
             "Protocol" : "email"
         	} ]
     	}
