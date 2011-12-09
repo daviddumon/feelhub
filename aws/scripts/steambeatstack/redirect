@@ -1,4 +1,6 @@
 RewriteEngine on
-RewriteCond %{HTTP_HOST}   ^kikiyoo.* [NC,OR]
-RewriteCond %{HTTP_HOST}   ^www.kikiyoo.(es|de|us|fr|org|net|in|eu) [NC]
-RewriteRule ^/(.*)         http://www.kikiyoo.com$1 [L,R=301]
+RewriteCond %{THE_REQUEST} !/_hostmanager/.* [NC]
+RewriteCond %{HTTP_HOST}   ^steambeat.com$ [NC,OR]
+RewriteCond %{HTTP_HOST}   steambeat.elasticbeanstalk.com* [NC,OR]
+RewriteCond %{HTTP_HOST} ec2* [NC]
+RewriteRule ^/(.*)         http://www.steambeat.com$1 [L,R=301]
