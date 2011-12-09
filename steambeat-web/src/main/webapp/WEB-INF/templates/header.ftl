@@ -39,6 +39,10 @@
     <#if !dev>
         <script type="text/javascript">
 
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-27608970-1']);
+            _gaq.push(['_trackPageview']);
+
             (function () {
                 var ga = document.createElement('script');
                 ga.type = 'text/javascript';
@@ -47,10 +51,6 @@
                 var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(ga, s);
             })();
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-27608970-1']);
-
-            _gaq.push(['_trackPageview']);
 
         </script>
     </#if>
