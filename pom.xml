@@ -30,7 +30,7 @@
         <profile>
             <id>production</id>
             <properties>
-                <dbHost>ec2-184-73-214-27.compute-1.amazonaws.com</dbHost>
+                <dbHost>ec2-50-16-1-248.compute-1.amazonaws.com</dbHost>
                 <dbName>steambeat</dbName>
                 <dbPort>27017</dbPort>
                 <dev>false</dev>
