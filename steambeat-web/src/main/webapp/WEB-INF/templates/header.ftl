@@ -35,12 +35,9 @@
     <script type="text/javascript" src="${root}/static/js/lib/timeline.js"></script>
     <script type="text/javascript" src="${root}/static/js/lib/flow.js"></script>
     <script type="text/javascript" src="${root}/static/js/layout.js"></script>
+    <#nested/>
     <#if !dev>
         <script type="text/javascript">
-
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-27608970-1']);
-            _gaq.push(['_trackPageview']);
 
             (function () {
                 var ga = document.createElement('script');
@@ -50,9 +47,12 @@
                 var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(ga, s);
             })();
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-27608970-1']);
+
+            _gaq.push(['_trackPageview']);
 
         </script>
     </#if>
-    <#nested/>
 </head>
 </#macro>
