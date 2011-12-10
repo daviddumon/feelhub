@@ -1,5 +1,3 @@
-// les données globales "kikiyoo" deviennent données du subject "steambeat"
-// Apparition de webpage, disparition de feed
-// index sur la collection d'opinion dans le bon sens
-// db.opinion.ensureIndex({creationDate:1})
-// opinion = ensemble de jugements
+db.subject.find().forEach(function (subject) {
+    db.subject.update({"_id":subject._id}, {$set:{"__discriminator":"WebPage"}}, false, true);
+});

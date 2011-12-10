@@ -1,4 +1,5 @@
 $(function () {
+
     $("#expand_button").click(function () {
         if ($("#expand_button").css("left") == '34%') {
             $("header").animate({width:"92%"}, 600);
@@ -10,6 +11,7 @@ $(function () {
             $("#expand_button_inner").html("more");
         }
     });
+
     //$("#help").delay(2000).queue(function(){
     $("#help").hide();
     //$(".opinion").animate({top: '+=200'}, 500);

@@ -12,7 +12,7 @@ import java.util.List;
 public class StatisticsService implements DomainEventListener<OpinionPostedEvent> {
 
     public StatisticsService() {
-        DomainEventBus.INSTANCE.register(this, OpinionPostedEvent.class);
+        //DomainEventBus.INSTANCE.register(this, OpinionPostedEvent.class);
     }
 
     @Override
