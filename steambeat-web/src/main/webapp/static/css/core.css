@@ -82,6 +82,18 @@ a#feedback:hover {
     --webkit-border-bottom-left-radius: 10px;
 }
 
+.shadow {
+    -moz-box-shadow: 0px 0px 2px #BBB;
+    -webkit-box-shadow: 0px 0px 2px #BBB;
+    box-shadow: 0px 0px 2px #BBB;
+}
+
+.shadow:hover {
+    -moz-box-shadow: 0px 0px 6px #BBB;
+    -webkit-box-shadow: 0px 0px 6px #BBB;
+    box-shadow: 0px 0px 6px #BBB;
+}
+
 #right {
     width: 58%;
     margin-left: 38%;
@@ -94,7 +106,7 @@ a#feedback:hover {
     width: 100px;
     padding: 20px;
     margin: 10px;
-    /*border: 1px solid #BBB;*/
+    border: 1px solid #BBB;
     background-color: #FFFFFF;
     list-style-type: none;
     overflow: hidden;
