@@ -9,6 +9,7 @@ function Flow(cssSheet, containerName, itemTag, className) {
         element.insertBefore($("#" + containerName));
         setTimeout(function () {
             var boxSize = 1;
+
             if (element.height() < element.width()) {
                 element.css("height", element.width());
             } else {
@@ -18,12 +19,23 @@ function Flow(cssSheet, containerName, itemTag, className) {
                 }
                 element.css("height", element.width());
             }
+
+            element.show();
+
+            if (document.getElementById(id).scrollWidth > element.outerWidth()) {
+                while (boxSize < THIS.maxBox && document.getElementById(id).scrollWidth > element.outerWidth()) {
+                    element.css("width", THIS.findNextWidth(element.innerWidth()));
+                    boxSize++;
+                }
+                element.css("height", element.width());
+            }
+
             var position = THIS.findNextFreeSpace(boxSize);
             THIS.putBox(position.line, position.index, boxSize);
             element.css("top", THIS.getTopPosition(position.line));
             element.css("left", THIS.getLeftPosition(position.index));
-            element.show();
         }, 100);
+
     };
 
     this.findNextWidth = function (actual) {

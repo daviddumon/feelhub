@@ -89,13 +89,15 @@ a#feedback:hover {
 }
 
 .opinion {
+    display: block;
     position: relative;
     width: 100px;
-    padding: 10px;
-    margin: 15px;
+    padding: 20px;
+    margin: 10px;
     border: 1px solid #BBB;
     background-color: #FFFFFF;
     list-style-type: none;
+    overflow: hidden;
 }
 
 #newwebpage {
