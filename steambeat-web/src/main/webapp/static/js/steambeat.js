@@ -1,9 +1,11 @@
 function loadFlow(flow, skip, limit) {
+    $("#loadmore_button").hide();
     $.getJSON(root + "/opinions;" + skip + ";" + limit, function (data) {
       $.each(data, function (index, opinion) {
             flow.drawBox(opinion, "opinion rounded");
         });
     });
+    $("#loadmore_button").show();
 }
 
 $(function () {
