@@ -94,7 +94,7 @@ a#feedback:hover {
     width: 100px;
     padding: 20px;
     margin: 10px;
-    border: 1px solid #BBB;
+    /*border: 1px solid #BBB;*/
     background-color: #FFFFFF;
     list-style-type: none;
     overflow: hidden;
@@ -120,4 +120,26 @@ a#feedback:hover {
     font-size: 16px;
     color: #AAA;
     border: 2px solid black;
+}
+
+#loadmore {
+    position: absolute;
+    left: 57%;
+    width: 20%;
+    height: 10%;
+}
+
+#loadmore_button {
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #DDD;
+    color: #AAA;
+    font-size: 20px;
+}
+
+#loadmore_button:hover {
+    color: #EEE;
 }

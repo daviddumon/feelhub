@@ -6,7 +6,8 @@ function Flow(cssSheet, containerName, itemTag, className) {
         var id = "opinion_" + this.id++;
         var element = $("<li class='" + classes + "' id='" + id + "' style='position: absolute'>" + opinion.text + "</li>");
         element.hide();
-        element.insertBefore($("#" + containerName));
+        //element.insertBefore($("#" + containerName));
+        $("#" + containerName).append(element);
         setTimeout(function () {
             var boxSize = 1;
 
@@ -110,6 +111,11 @@ function Flow(cssSheet, containerName, itemTag, className) {
         }
         this.lines.push(line);
         this.freeLines.push(1);
+        this.setCorrectTopValueForLoadMoreButton();
+    };
+
+    this.setCorrectTopValueForLoadMoreButton = function() {
+        $("#loadmore").css("top", this.lines.length * (this.initial + this.numericalValueFrom(this.margin)) + parseInt(this.topCorner) * 2);
     };
 
     this.checkForFullLine = function (line) {
