@@ -91,10 +91,11 @@ a#feedback:hover {
 .opinion {
     position: relative;
     width: 100px;
-    padding: 15px;
+    padding: 10px;
     margin: 15px;
     border: 1px solid #BBB;
     background-color: #FFFFFF;
+    list-style-type: none;
 }
 
 #newwebpage {

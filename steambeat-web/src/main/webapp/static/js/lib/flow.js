@@ -1,43 +1,42 @@
 /* Copyright bytedojo 2011 */
 function Flow(cssSheet, containerName, itemTag, className) {
 
-    this.drawBox = function(opinion, classes) {
+    this.drawBox = function (opinion, classes) {
+        var THIS = this;
         var id = "opinion_" + this.id++;
-        var opinionElement = document.createElement(itemTag);
-        opinionElement.className = classes;
-        opinionElement.setAttribute("id", id);
-        opinionElement.style.position = "absolute";
-        opinionElement.innerHTML = opinion.text;
-        this.container.appendChild(opinionElement);
-        
-        var element = $("#" + id);
-        var boxSize = 1;
-        if(element.height() < element.width()) {
-            element.css("height", element.width());
-        } else {
-            while(boxSize < this.maxBox && element.height() > element.width()) {
-                element.css("width", this.findNextWidth(element.innerWidth()));
-                boxSize++;
+        var element = $("<li class='" + classes + "' id='" + id + "' style='position: absolute'>" + opinion.text + "</li>");
+        element.hide();
+        element.insertBefore($("#" + containerName));
+        setTimeout(function () {
+            var boxSize = 1;
+            if (element.height() < element.width()) {
+                element.css("height", element.width());
+            } else {
+                while (boxSize < THIS.maxBox && element.height() > element.width()) {
+                    element.css("width", THIS.findNextWidth(element.innerWidth()));
+                    boxSize++;
+                }
+                element.css("height", element.width());
             }
-            element.css("height", element.width());
-        }
-        var position = this.findNextFreeSpace(boxSize);
-        this.putBox(position.line, position.index, boxSize);
-        element.css("top", this.getTopPosition(position.line));
-        element.css("left", this.getLeftPosition(position.index));
+            var position = THIS.findNextFreeSpace(boxSize);
+            THIS.putBox(position.line, position.index, boxSize);
+            element.css("top", THIS.getTopPosition(position.line));
+            element.css("left", THIS.getLeftPosition(position.index));
+            element.show();
+        }, 100);
     };
 
-    this.findNextWidth = function(actual) {
+    this.findNextWidth = function (actual) {
         return actual + this.numericalValueFrom(this.margin) + this.initial - 2 * this.numericalValueFrom(this.padding);
     };
 
-    this.findNextFreeSpace = function(size) {
-        var position = { index: 0, line: this.lines.length > 0 ? this.lines.length : 0};
-        for(var line = 0; line < this.lines.length; line++) {
-            if(this.freeLines[line] == 1) {
-                for(var index = 0; index <= this.lines[line].length - size; index++) {
-                    if(this.isBlockFree(line, index, 1)) {
-                        if(this.testForSquare(line, index, size)) {
+    this.findNextFreeSpace = function (size) {
+        var position = { index:0, line:this.lines.length > 0 ? this.lines.length : 0};
+        for (var line = 0; line < this.lines.length; line++) {
+            if (this.freeLines[line] == 1) {
+                for (var index = 0; index <= this.lines[line].length - size; index++) {
+                    if (this.isBlockFree(line, index, 1)) {
+                        if (this.testForSquare(line, index, size)) {
                             position.line = line;
                             position.index = index;
                             return position;
@@ -50,11 +49,11 @@ function Flow(cssSheet, containerName, itemTag, className) {
         return position;
     };
 
-    this.testForSquare = function(line, index, size) {
+    this.testForSquare = function (line, index, size) {
         var isSquare = this.isBlockFree(line, index, size);
         var i = 1;
-        while(isSquare) {
-            if(this.lines[++line] != null && i < size) {
+        while (isSquare) {
+            if (this.lines[++line] != null && i < size) {
                 isSquare = this.isBlockFree(line, index, size);
                 i++;
             } else {
@@ -64,11 +63,14 @@ function Flow(cssSheet, containerName, itemTag, className) {
         return isSquare;
     };
 
-    this.isBlockFree = function(line, index, size) {
+    this.isBlockFree = function (line, index, size) {
         var free = true;
-        if(size < 0 || size > this.maxBox) { return false; };
-        for(var i = index; i < index + size; i++) {
-            if(this.lines[line][i] == 1) {
+        if (size < 0 || size > this.maxBox) {
+            return false;
+        }
+        ;
+        for (var i = index; i < index + size; i++) {
+            if (this.lines[line][i] == 1) {
                 free = false;
                 break;
             }
@@ -76,57 +78,60 @@ function Flow(cssSheet, containerName, itemTag, className) {
         return free;
     };
 
-    this.putBox = function(line, index, size) {
-        for(var i = line; i < line + size; i++) {
-            if(this.lines[i] == null) { this.createLine();};
-            for(var j = index; j < index + size; j++ ){
+    this.putBox = function (line, index, size) {
+        for (var i = line; i < line + size; i++) {
+            if (this.lines[i] == null) {
+                this.createLine();
+            }
+            ;
+            for (var j = index; j < index + size; j++) {
                 this.lines[i][j] = 1;
             }
             this.checkForFullLine(line);
         }
     };
 
-    this.createLine = function() {
+    this.createLine = function () {
         var line = new Array();
-        for(var i = 0; i < this.maxBox; i++) {
+        for (var i = 0; i < this.maxBox; i++) {
             line.push(0);
         }
         this.lines.push(line);
         this.freeLines.push(1);
     };
 
-    this.checkForFullLine = function(line) {
+    this.checkForFullLine = function (line) {
         var index = 0;
-        while(this.lines[line][index] == 1) {
+        while (this.lines[line][index] == 1) {
             index++;
         }
-        if(index == this.maxBox) {
+        if (index == this.maxBox) {
             this.freeLines[line] = 0;
         }
     };
 
-    this.getTopPosition = function(line) {
+    this.getTopPosition = function (line) {
         return this.topCorner + (this.initial + this.numericalValueFrom(this.margin)) * line;
     };
 
-    this.getLeftPosition = function(index) {
+    this.getLeftPosition = function (index) {
         return this.leftCorner + (this.initial + this.numericalValueFrom(this.margin)) * index;
     };
 
-    this.numericalValueFrom = function(value) {
-        if(value == "" || value == null) {
+    this.numericalValueFrom = function (value) {
+        if (value == "" || value == null) {
             return 0;
-        } else if(value.substring(value.length -1, value.length) == '%') {
+        } else if (value.substring(value.length - 1, value.length) == '%') {
             return parseInt(value.substring(0, value.length - 1)) / 100;
         } else {
             return parseInt(value.substring(0, value.length - 2));
         }
     };
 
-    this.findStyleSheetIndex = function() {
+    this.findStyleSheetIndex = function () {
         var styleSheets = document.styleSheets;
-        for(var i = 0; i < styleSheets.length; i++) {
-            if(extractCssSheetName(styleSheets[i].href) == cssSheet) {
+        for (var i = 0; i < styleSheets.length; i++) {
+            if (extractCssSheetName(styleSheets[i].href) == cssSheet) {
                 return i;
             }
         }
@@ -136,13 +141,13 @@ function Flow(cssSheet, containerName, itemTag, className) {
         }
     };
 
-    this.findValueFromCSS = function(property) {
-        if(document.styleSheets[this.cssIndex] != undefined) {
+    this.findValueFromCSS = function (property) {
+        if (document.styleSheets[this.cssIndex] != undefined) {
             var rules = document.styleSheets[this.cssIndex].rules || document.styleSheets[this.cssIndex].cssRules;
-            for(var i = 0; i < rules.length ; i++) {
-                if(rules[i].selectorText == className) {
+            for (var i = 0; i < rules.length; i++) {
+                if (rules[i].selectorText == className) {
                     var value = rules[i].style.getPropertyValue(property);
-                    if(value != "" && value != null ) {
+                    if (value != "" && value != null) {
                         return value;
                     } else {
                         return "";
@@ -152,20 +157,20 @@ function Flow(cssSheet, containerName, itemTag, className) {
         }
     };
 
-    this.setInitialWidth = function() {
+    this.setInitialWidth = function () {
         var opinionWidth = this.numericalValueFrom(this.width);
         var paddingwidth = this.numericalValueFrom(this.padding);
         var result = (opinionWidth + 2 * paddingwidth);
         return Math.round(result);
     };
 
-    this.setMaxBox = function() {
+    this.setMaxBox = function () {
         var webpageWidth = parseInt($("#" + containerName).innerWidth());
         var result = Math.floor(webpageWidth / (this.initial + this.numericalValueFrom(this.margin)));
         return result;
     };
 
-    this.setLeftCorner = function() {
+    this.setLeftCorner = function () {
         var webpageWidth = $("#" + containerName).innerWidth();
         var leftCorner = (webpageWidth - this.maxBox * this.initial - (this.maxBox + 1) * this.numericalValueFrom(this.margin)) / 2 + this.container.offsetLeft;
         return leftCorner;
@@ -183,4 +188,5 @@ function Flow(cssSheet, containerName, itemTag, className) {
     this.maxBox = this.setMaxBox();
     this.leftCorner = this.setLeftCorner();
     this.topCorner = this.container.offsetTop;
-};
+}
+;
