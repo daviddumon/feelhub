@@ -17,6 +17,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+@Ignore
 public class TestsStatisticsService {
 
     @Rule
