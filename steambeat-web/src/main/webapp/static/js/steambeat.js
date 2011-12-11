@@ -1,11 +1,13 @@
 function loadFlow(flow, skip, limit) {
-    $("#loadmore_button").hide();
+    $("#loadmore_button").html("loading");
     $.getJSON(root + "/opinions;" + skip + ";" + limit, function (data) {
-      $.each(data, function (index, opinion) {
+        $("#loadmore_button").toggle();
+        $.each(data, function (index, opinion) {
             flow.drawBox(opinion, "opinion shadow");
         });
     });
-    $("#loadmore_button").show();
+    $("#loadmore_button").html("load more");
+    $("#loadmore_button").toggle();
 }
 
 $(function () {
@@ -14,7 +16,7 @@ $(function () {
     var flow = new Flow("core.css", "right", "li", ".opinion");
     loadFlow(flow, skip, limit);
 
-    $("#loadmore_button").click(function() {
+    $("#loadmore_button").click(function () {
         skip += limit;
         loadFlow(flow, skip, limit);
     });
