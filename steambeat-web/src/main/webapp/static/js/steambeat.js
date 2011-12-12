@@ -1,24 +1,10 @@
-function loadFlow(flow, skip, limit) {
-    $("#loadmore_button").html("loading");
-    $.getJSON(root + "/opinions;" + skip + ";" + limit, function (data) {
-        $("#loadmore_button").toggle();
-        $.each(data, function (index, opinion) {
-            flow.drawBox(opinion, "opinion shadow");
-        });
-    });
-    $("#loadmore_button").html("load more");
-    $("#loadmore_button").toggle();
-}
-
 $(function () {
-    var skip = 0;
-    var limit = 50;
-    var flow = new Flow("core.css", "right", "li", ".opinion");
-    loadFlow(flow, skip, limit);
+    var button = $("<div id='loadmore_button' class='rounded shadow'>load more</div>");
+    $("#main").append(button);
+    var flow = new Flow("core.css", "opinions", ".opinion", "loadmore_button");
 
-    $("#loadmore_button").click(function () {
-        skip += limit;
-        loadFlow(flow, skip, limit);
+    $(button).click(function() {
+        flow.next();
     });
 
     //var doReload;

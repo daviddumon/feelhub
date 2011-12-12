@@ -8,42 +8,34 @@
 <#--</div>-->
 
 <header>
+<#--<img src="${root}/static/images/steambeat.png" alt="steambeat logo" id="logo"/>-->
+<#--<div id="help_button" class="footer_button">?</div>-->
+<#--<div id="about_button" class="footer_button">i</div>-->
+</header>
 
-    <div id="left_panel">
-        <img src="${root}/static/images/steambeat.png" alt="steambeat logo" id="logo"/>
-
-        <form action="" method="post" id="post_opinion" autocomplete="off">
-            <textarea id="newopinion" name="text"></textarea>
-            <input id="submit_opinion" type="submit" value="ok"/>
-        </form>
-
-        <div id="inner_left_panel">
-            <#nested/>
-        </div>
-    </div>
+<div id="left_panel" class="rounded_top_left">
+    <#nested/>
+</div>
 
 </#macro>
 
 <#macro right>
-    <div id="right_panel">
-        <#nested/>
-    </div>
-
-    <div id="expand_button" class="roundeddown vertical">more</div>
-
-</header>
-
-<div id="main">
-    <ul id="right"></ul>
-    <div id="loadmore">
-        <div id="loadmore_button" class="rounded">load more</div>
-    </div>
+<div id="right_panel" class="rounded_top_right">
+    <#nested/>
 </div>
 
-<footer>
-    <div id="help_button" class="footer_button">?</div>
-    <div id="about_button" class="footer_button">i</div>
-</footer>
+<div id="expand_button" class="rounded_down vertical">more</div>
+
+<div id="main">
+<#--<div id="add_opinion"></div>-->
+
+<#--<form action="" method="post" id="post_opinion" autocomplete="off">-->
+<#--<textarea id="newopinion" name="text"></textarea>-->
+<#--<input id="submit_opinion" type="submit" value="ok"/>-->
+<#--</form>-->
+    <ul id="opinions">
+    </ul>
+</div>
 
 </body>
 </html>

@@ -10,9 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
     <meta name="keywords" content="sentiment analysis"/>
     <link rel="stylesheet" href="${root}/static/css/reset.css"/>
-    <link rel="stylesheet" href="${root}/static/css/core.css"/>
     <link rel="stylesheet" href="${root}/static/css/header.css"/>
-    <link rel="stylesheet" href="${root}/static/css/footer.css"/>
+    <link rel="stylesheet" href="${root}/static/css/panel.css"/>
+    <link rel="stylesheet" href="${root}/static/css/core.css"/>
     <link rel="icon" href="${root}/favicon.ico">
     <script type="text/javascript">
         var root = "http://${domain}${root}";
