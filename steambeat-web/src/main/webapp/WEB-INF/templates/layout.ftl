@@ -1,6 +1,6 @@
 <#macro panel>
 <body>
-<a id="feedback" class="vertical rounded_down" href="${root}/webpages/http://www.steambeat.com">feedback</a>
+<a id="feedback" class="vertical rounded_down greybutton" href="${root}/webpages/http://www.steambeat.com">feedback</a>
 
 <#--<div id="help">-->
 <#--To post opinion about webpages, drag this button to your bookmark bar !!-->
@@ -8,8 +8,7 @@
 <#--</div>-->
 
 <header>
-<#--<div id="help_button" class="footer_button">?</div>-->
-<#--<div id="about_button" class="footer_button">i</div>-->
+    <a id="steambeat" class="greybutton" href="${root}">steambeat</a>
 </header>
 
 <div id="panel" class="rounded_top">
@@ -17,7 +16,7 @@
 </div>
 
 <div id="main">
-<#--<div id="add_opinion"></div>-->
+<div id="add_opinion"></div>
 
 <#--<form action="" method="post" id="post_opinion" autocomplete="off">-->
 <#--<textarea id="newopinion" name="text"></textarea>-->
@@ -26,8 +25,13 @@
     <ul id="opinions">
     </ul>
 
-    <div id="arrow_up" class="rounded" style="display: none"><p>&uarr;</p><br>top</div>
+    <div id="arrow_up" class="rounded greybutton" style="display: none"><p>&uarr;</p><br>top</div>
 </div>
+
+<footer>
+    <a id="help_button" class="footer_button greybutton" href="">help</a>
+    <a id="about_button" class="footer_button greybutton" href="">about</a>
+</footer>
 
 </body>
 </html>

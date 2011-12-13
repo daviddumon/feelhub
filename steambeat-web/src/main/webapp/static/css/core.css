@@ -6,7 +6,6 @@ body {
 }
 
 a {
-    font-family: 'Droid Sans';, Sans-Serif;
     text-decoration: none;
 }
 
@@ -24,26 +23,18 @@ a {
     height: 10%;
 }
 
-a#feedback {
+#feedback {
     position: fixed;
     top: 50%;
     left: 0px;
     width: 100px;
     margin-top: 50px;
-    background-color: #DDD;
-    z-index: 100;
-    color: #777;
-    font-size: 16px;
+    background-color: #FFFFFF;
+    z-index: 200;
+    font-size: 14px;
     text-align: center;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-right: 1px solid #BBB;
-    border-left: 1px solid #BBB;
-    border-bottom: 1px solid #BBB;
-}
-
-a#feedback:hover {
-    color: #EEE;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 .vertical {
@@ -98,32 +89,23 @@ a#feedback:hover {
 #opinions {
     position: relative;
     top: 200px;
-    left: 36%;
-    width: 58%;
+    left: 33%;
+    width: 67%;
+    background-color: #0F0;
 }
 
 .opinion {
     display: block;
     width: 80px;
-    padding: 15px;
-    margin: 10px;
-    border: 1px solid #BBB;
+    padding: 10px;
+    margin: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #BBB;
     background-color: #FFFFFF;
     list-style-type: none;
     overflow: hidden;
 }
-
-.opinion:hover {
-
-}
-
-/*#newwebpage {*/
-/**/
-/*}*/
-/**/
-/*#error {*/
-/**/
-/*}*/
 
 /*#help {*/
 /*position: fixed;*/
@@ -145,19 +127,13 @@ a#feedback:hover {
 
 #loadmore_button {
     position: absolute;
-    cursor: pointer;
     width: 20%;
     left: 57%;
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #DDD;
-    color: #AAA;
+    background-color: #E9E9E9;
     font-size: 20px;
-}
-
-#loadmore_button:hover {
-    color: #EEE;
 }
 
 .subjects {
@@ -195,22 +171,26 @@ a#feedback:hover {
 
 #arrow_up {
     position: fixed;
-    cursor: pointer;
-    top: 40%;
-    left: 95%;
-    background-color: #DDD;
+    top: 20%;
+    right: 20px;
+    background-color: #FFFFFF;
     text-align: center;
-    color: #777;
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
-    width: 4%;
-}
-
-#arrow_up:hover {
-    color: #EEE;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 50px;
 }
 
 #arrow_up p {
-    font-size: 1.5em;
+    font-size: 16px;
     font-weight: bold;
+}
+
+.greybutton {
+    cursor: pointer;
+    font-family: 'Droid Sans';, Sans-Serif;
+    color: #BBB;
+}
+
+.greybutton:hover {
+    color: #888;
 }

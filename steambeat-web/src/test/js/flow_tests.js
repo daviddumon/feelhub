@@ -115,21 +115,21 @@ FlowTests.prototype = {
         var margin = flow.numericalValueFrom(flow.margin);
         var padding = flow.numericalValueFrom(flow.padding);
 
-        var next = flow.findNextWidth(100);
+        var next = flow.findWidthForSize(100);
         
         assertEquals(100 + margin + flow.initial - 2 * padding, next);
     },
 
     testCanGrowOnlyToMaxBox: function() {
-        var _findNextWidth = flow.findNextWidth;
+        var _findNextWidth = flow.findWidthForSize;
         var count = 0;
-        flow.findNextWidth = function() {count++};
+        flow.findWidthForSize = function() {count++};
         var id = flow.drawBox(infinystring, "opinion");
 
         flow.compute(id);
 
         assertEquals(flow.maxBox - 1, count);
-        flow.findNextWidth = _findNextWidth;
+        flow.findWidthForSize = _findNextWidth;
     },
 
     testEnsurePositionAbsolute: function() {

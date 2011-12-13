@@ -11,8 +11,11 @@ $(function () {
     });
 
     $(window).scroll(function () {
-        if ($(window).scrollTop() > 100) {
+        if ($(window).scrollTop() > 200 && $("#arrow_up").is(":hidden")) {
             $("#arrow_up").fadeIn(300);
+        }
+        if ($(window).scrollTop() < 200 && $("#arrow_up").is(":visible")) {
+            $("#arrow_up").fadeOut(300);
         }
     });
 

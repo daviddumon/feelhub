@@ -8,10 +8,11 @@ function Flow(cssSheet, containerName, className, loadButtonName) {
     this.width = this.findValueFromCSS(className, "width");
     this.padding = this.findValueFromCSS(className, "padding");
     this.margin = this.findValueFromCSS(className, "margin");
+    this.border = this.findValueFromCSS(className, "border-width");
     this.lines = new Array();
     this.freeLines = new Array();
-    this.initial = this.setInitialWidth();
-    this.maxBox = this.setMaxBox();
+    this.initial = this.getInitialWidth();
+    this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
     this.topCorner = this.container.offset().top;
     this.skip = 0;
@@ -67,13 +68,13 @@ Flow.prototype.drawBox = function (opinion, classes) {
     this.container.append(element);
     setTimeout(function () {
         var boxSize = 1;
-
+        console.log(element.width() + " " + element.height() + " " + element.outerWidth() + " " + element.innerWidth() + " " + THIS.initial);
         if (element.height() < element.width()) {
             element.css("height", element.width());
         } else {
             while (boxSize < THIS.maxBox && element.height() > element.width()) {
-                element.css("width", THIS.findNextWidth(element.innerWidth()));
                 boxSize++;
+                element.css("width", THIS.findWidthForSize(boxSize));
             }
             element.css("height", element.width());
         }
@@ -82,8 +83,8 @@ Flow.prototype.drawBox = function (opinion, classes) {
 
         if (document.getElementById(id).scrollWidth > element.outerWidth()) {
             while (boxSize < THIS.maxBox && document.getElementById(id).scrollWidth > element.outerWidth()) {
-                element.css("width", THIS.findNextWidth(element.innerWidth()));
                 boxSize++;
+                element.css("width", THIS.findWidthForSize(boxSize));
             }
             element.css("height", element.width());
         }
@@ -95,8 +96,8 @@ Flow.prototype.drawBox = function (opinion, classes) {
     }, 100);
 };
 
-Flow.prototype.findNextWidth = function (actual) {
-    return actual + this.numericalValueFrom(this.margin) + this.initial - 2 * this.numericalValueFrom(this.padding);
+Flow.prototype.findWidthForSize = function (size) {
+    return (size * this.initial) - (2 * (this.numericalValueFrom(this.padding) + this.numericalValueFrom(this.margin) + this.numericalValueFrom(this.border)));
 };
 
 Flow.prototype.findNextFreeSpace = function (size) {
@@ -190,11 +191,11 @@ Flow.prototype.checkForFullLine = function (line) {
 };
 
 Flow.prototype.getTopPosition = function (line) {
-    return (this.initial + this.numericalValueFrom(this.margin)) * line;
+    return this.initial * line;
 };
 
 Flow.prototype.getLeftPosition = function (index) {
-    return (this.initial + this.numericalValueFrom(this.margin)) * index;
+    return this.initial * index;
 };
 
 Flow.prototype.numericalValueFrom = function (value) {
@@ -236,17 +237,25 @@ Flow.prototype.findValueFromCSS = function (className, property) {
     }
 };
 
-Flow.prototype.setInitialWidth = function () {
+Flow.prototype.getInitialWidth = function () {
     var opinionWidth = this.numericalValueFrom(this.width);
     var paddingwidth = this.numericalValueFrom(this.padding);
-    var result = (opinionWidth + 2 * paddingwidth);
+    var marginWidth = this.numericalValueFrom(this.margin);
+    var borderWidth = this.numericalValueFrom(this.border);
+    var result = (opinionWidth + 2 * (paddingwidth + marginWidth + borderWidth));
+    console.log(result);
     return Math.round(result);
 };
 
-Flow.prototype.setMaxBox = function () {
+Flow.prototype.getMaxBox = function () {
     var webpageWidth = this.container.innerWidth();
-    var result = Math.floor(webpageWidth / (this.initial + this.numericalValueFrom(this.margin)));
+    var result = Math.floor((webpageWidth - 180) / this.initial);
+    this.setContainerWidth(result);
     return result;
+};
+
+Flow.prototype.setContainerWidth = function(numberOfBoxes) {
+    this.container.css("width", numberOfBoxes * this.initial);
 };
 
 Flow.prototype.setLeftCorner = function () {

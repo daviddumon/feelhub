@@ -1,0 +1,15 @@
+/* Copyright bytedojo 2011 */
+footer {
+    position: fixed;
+    top: 34px;
+    left: 60%;
+    width: 40%;
+    z-index: 200;
+}
+
+.footer_button {
+    float: right;
+    margin-left: 40px;
+    margin-right: 40px;
+    padding: 5px;
+}
