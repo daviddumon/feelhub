@@ -1,5 +1,5 @@
 $(function () {
-    var button = $("<div id='loadmore_button' class='rounded shadow'>load more</div>");
+    var button = $("<div id='loadmore_button' class='rounded'>load more</div>");
     $("#main").append(button);
     var flow = new Flow("core.css", "opinions", ".opinion", "loadmore_button");
 

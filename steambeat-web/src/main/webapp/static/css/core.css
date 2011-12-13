@@ -24,24 +24,27 @@ a {
     height: 10%;
 }
 
-/*a#feedback {*/
-/*position: fixed;*/
-/*top: 50%;*/
-/*left: 0px;*/
-/*width: 100px;*/
-/*margin-top: 50px;*/
-/*background-color: #DDD;*/
-/*z-index: 100;*/
-/*color: #AAA;*/
-/*font-size: 16px;*/
-/*text-align: center;*/
-/*padding-top: 8px;*/
-/*padding-bottom: 8px;*/
-/*}*/
-/**/
-/*a#feedback:hover {*/
-/*color: #EEE;*/
-/*}*/
+a#feedback {
+    position: fixed;
+    top: 50%;
+    left: 0px;
+    width: 100px;
+    margin-top: 50px;
+    background-color: #DDD;
+    z-index: 100;
+    color: #777;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-right: 1px solid #BBB;
+    border-left: 1px solid #BBB;
+    border-bottom: 1px solid #BBB;
+}
+
+a#feedback:hover {
+    color: #EEE;
+}
 
 .vertical {
     transform: rotate(-90deg);
@@ -71,25 +74,13 @@ a {
     --webkit-border-bottom-left-radius: 10px;
 }
 
-/*.rounded_top {*/
-/*border-top-right-radius: 10px;*/
-/*border-top-left-radius: 10px;*/
-/*--moz-border-radius-top-right: 10px;*/
-/*--moz-border-radius-top-left: 10px;*/
-/*--webkit-border-top-right-radius: 10px;*/
-/*--webkit-border-top-left-radius: 10px;*/
-/*}*/
-
-.rounded_top_left {
-    border-top-left-radius: 10px;
-    --moz-border-radius-top-left: 10px;
-    --webkit-border-top-left-radius: 10px;
-}
-
-.rounded_top_right {
+.rounded_top {
     border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
     --moz-border-radius-top-right: 10px;
+    --moz-border-radius-top-left: 10px;
     --webkit-border-top-right-radius: 10px;
+    --webkit-border-top-left-radius: 10px;
 }
 
 .shadow {
@@ -107,19 +98,23 @@ a {
 #opinions {
     position: relative;
     top: 200px;
-    left: 38%;
+    left: 36%;
     width: 58%;
 }
 
 .opinion {
     display: block;
-    width: 100px;
-    padding: 20px;
+    width: 80px;
+    padding: 15px;
     margin: 10px;
     border: 1px solid #BBB;
     background-color: #FFFFFF;
     list-style-type: none;
     overflow: hidden;
+}
+
+.opinion:hover {
+
 }
 
 /*#newwebpage {*/
@@ -196,4 +191,26 @@ a {
 
 .bad {
     background-color: rgba(255, 51, 51, 0.8);
+}
+
+#arrow_up {
+    position: fixed;
+    cursor: pointer;
+    top: 40%;
+    left: 95%;
+    background-color: #DDD;
+    text-align: center;
+    color: #777;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    width: 4%;
+}
+
+#arrow_up:hover {
+    color: #EEE;
+}
+
+#arrow_up p {
+    font-size: 1.5em;
+    font-weight: bold;
 }
