@@ -1,41 +1,56 @@
 /* Copyright bytedojo 2011 */
-function Flow(cssSheet, containerName, className, loadButtonName) {
+function Flow(cssSheet, containerName, className) {
     var THIS = this;
     this.id = 1;
     this.container = $("#" + containerName);
-    this.loadButton = $("#" + loadButtonName);
     this.cssIndex = this.findStyleSheetIndex(cssSheet);
-    this.width = this.findValueFromCSS(className, "width");
-    this.padding = this.findValueFromCSS(className, "padding");
-    this.margin = this.findValueFromCSS(className, "margin");
-    this.border = this.findValueFromCSS(className, "border-width");
+    this.width = this.numericalValueFrom(this.extractValueFromCSS(className, "width"));
+    this.padding = this.numericalValueFrom(this.extractValueFromCSS(className, "padding"));
+    this.margin = this.numericalValueFrom(this.extractValueFromCSS(className, "margin"));
+    this.border = this.numericalValueFrom(this.extractValueFromCSS(className, "border-width"));
     this.lines = new Array();
     this.freeLines = new Array();
     this.initial = this.getInitialWidth();
     this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
-    this.topCorner = this.container.offset().top;
     this.skip = 0;
     this.limit = 50;
+    this.hasData = true;
 
     this.drawData();
+
+    $(window).scroll(function () {
+        var top = $(window).scrollTop();
+        var trigger = $(document).height() / 2;
+        if (top > trigger) {
+            THIS.next(trigger);
+        }
+        console.log($(document).height());
+    });
 }
 ;
 
-Flow.prototype.next = function () {
-    this.skip += this.limit;
-    this.drawData();
+Flow.prototype.next = function (trigger) {
+    if (this.canDraw && this.hasData) {
+        this.skip += this.limit;
+        this.drawData();
+    }
 };
 
 Flow.prototype.drawData = function () {
+    this.canDraw = false;
     var THIS = this;
     $.getJSON(root + "/opinions;" + this.skip + ";" + this.limit, function (data) {
-        $("#loadmore_button").hide();
         $.each(data, function (index, opinion) {
             THIS.drawBox(opinion, "opinion shadow");
         });
-        $("#loadmore_button").show();
+        if (data.length != THIS.limit) {
+            THIS.hasData = false;
+        }
     });
+    setTimeout(function () {
+        THIS.canDraw = true;
+    }, 100);
 };
 
 Flow.prototype.drawBox = function (opinion, classes) {
@@ -68,7 +83,6 @@ Flow.prototype.drawBox = function (opinion, classes) {
     this.container.append(element);
     setTimeout(function () {
         var boxSize = 1;
-        console.log(element.width() + " " + element.height() + " " + element.outerWidth() + " " + element.innerWidth() + " " + THIS.initial);
         if (element.height() < element.width()) {
             element.css("height", element.width());
         } else {
@@ -97,7 +111,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
 };
 
 Flow.prototype.findWidthForSize = function (size) {
-    return (size * this.initial) - (2 * (this.numericalValueFrom(this.padding) + this.numericalValueFrom(this.margin) + this.numericalValueFrom(this.border)));
+    return (size * this.initial) - (2 * (this.padding + this.margin + this.border));
 };
 
 Flow.prototype.findNextFreeSpace = function (size) {
@@ -169,15 +183,10 @@ Flow.prototype.createLine = function () {
     this.lines.push(line);
     this.freeLines.push(1);
     this.setCorrectHeightValue();
-    this.setLoadButton();
-};
-
-Flow.prototype.setLoadButton = function () {
-    this.loadButton.css("top", this.lines.length * (this.initial + this.numericalValueFrom(this.margin)) + parseInt(this.topCorner) + 80);
 };
 
 Flow.prototype.setCorrectHeightValue = function () {
-    this.container.css("height", this.lines.length * (this.initial + this.numericalValueFrom(this.margin)) + 200);
+    this.container.css("height", this.lines.length * this.initial + 100);
 };
 
 Flow.prototype.checkForFullLine = function (line) {
@@ -195,7 +204,7 @@ Flow.prototype.getTopPosition = function (line) {
 };
 
 Flow.prototype.getLeftPosition = function (index) {
-    return this.initial * index;
+    return this.leftCorner + this.initial * index;
 };
 
 Flow.prototype.numericalValueFrom = function (value) {
@@ -221,7 +230,7 @@ Flow.prototype.findStyleSheetIndex = function (cssSheet) {
     }
 };
 
-Flow.prototype.findValueFromCSS = function (className, property) {
+Flow.prototype.extractValueFromCSS = function (className, property) {
     if (document.styleSheets[this.cssIndex] != undefined) {
         var rules = document.styleSheets[this.cssIndex].rules || document.styleSheets[this.cssIndex].cssRules;
         for (var i = 0; i < rules.length; i++) {
@@ -238,28 +247,20 @@ Flow.prototype.findValueFromCSS = function (className, property) {
 };
 
 Flow.prototype.getInitialWidth = function () {
-    var opinionWidth = this.numericalValueFrom(this.width);
-    var paddingwidth = this.numericalValueFrom(this.padding);
-    var marginWidth = this.numericalValueFrom(this.margin);
-    var borderWidth = this.numericalValueFrom(this.border);
-    var result = (opinionWidth + 2 * (paddingwidth + marginWidth + borderWidth));
-    console.log(result);
+    var result = (this.width + 2 * (this.padding + this.margin + this.border));
     return Math.round(result);
 };
 
 Flow.prototype.getMaxBox = function () {
     var webpageWidth = this.container.innerWidth();
-    var result = Math.floor((webpageWidth - 180) / this.initial);
-    this.setContainerWidth(result);
-    return result;
-};
-
-Flow.prototype.setContainerWidth = function(numberOfBoxes) {
-    this.container.css("width", numberOfBoxes * this.initial);
+    var maxBox = Math.floor((webpageWidth - 70) / this.initial);
+    return maxBox;
 };
 
 Flow.prototype.setLeftCorner = function () {
-    var webpageWidth = this.container.innerWidth();
-    var leftCorner = (webpageWidth - this.maxBox * this.initial - (this.maxBox + 1) * this.numericalValueFrom(this.margin)) / 2 + this.container.offset().left;
+    var availableSpace = this.container.innerWidth() - 70;
+    var maxBox = Math.floor(availableSpace / this.initial);
+    var usedSpace = maxBox * this.initial;
+    var leftCorner = (availableSpace - usedSpace) / 2;
     return leftCorner;
 };

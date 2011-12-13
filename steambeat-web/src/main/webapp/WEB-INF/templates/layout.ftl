@@ -16,7 +16,7 @@
 </div>
 
 <div id="main">
-<div id="add_opinion"></div>
+<#--<div id="add_opinion"></div>-->
 
 <#--<form action="" method="post" id="post_opinion" autocomplete="off">-->
 <#--<textarea id="newopinion" name="text"></textarea>-->

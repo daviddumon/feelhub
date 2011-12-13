@@ -1,11 +1,7 @@
 $(function () {
-    var button = $("<div id='loadmore_button' class='rounded greybutton'>load more</div>");
-    $("#main").append(button);
-    var flow = new Flow("core.css", "opinions", ".opinion", "loadmore_button");
+    var flow = new Flow("core.css", "opinions", ".opinion");
 
-    $(button).click(function() {
-        flow.next();
-    });
+    console.log($(document).height());
 
     //var doReload;
     //$(window).resize(function() {

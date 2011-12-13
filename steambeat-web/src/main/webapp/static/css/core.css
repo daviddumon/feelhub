@@ -91,14 +91,13 @@ a {
     top: 200px;
     left: 33%;
     width: 67%;
-    background-color: #0F0;
 }
 
 .opinion {
     display: block;
-    width: 80px;
-    padding: 10px;
-    margin: 5px;
+    width: 120px;
+    padding: 20px;
+    margin: 10px;
     border-width: 1px;
     border-style: solid;
     border-color: #BBB;
@@ -121,25 +120,25 @@ a {
 /*border: 2px solid black;*/
 /*}*/
 
-#loadmore_button:before {
-    display: none;
-}
-
-#loadmore_button {
-    position: absolute;
-    width: 20%;
-    left: 57%;
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #E9E9E9;
-    font-size: 20px;
-}
+/*#loadmore_button:before {*/
+    /*display: none;*/
+/*}*/
+/**/
+/*#loadmore_button {*/
+    /*position: absolute;*/
+    /*width: 20%;*/
+    /*left: 57%;*/
+    /*text-align: center;*/
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
+    /*background-color: #E9E9E9;*/
+    /*font-size: 20px;*/
+/*}*/
 
 .subjects {
     border-top: 1px dashed #AAA;
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 .subject {
@@ -172,7 +171,7 @@ a {
 #arrow_up {
     position: fixed;
     top: 20%;
-    right: 20px;
+    right: 10px;
     background-color: #FFFFFF;
     text-align: center;
     padding-top: 5px;

@@ -21,7 +21,7 @@ FlowTests.prototype = {
     },
 
     testCanFindPropertyValueFromCSS: function() {
-        var padding = flow.findValueFromCSS("padding");
+        var padding = flow.extractValueFromCSS("padding");
 
         assertSame("10px", padding);
     },
