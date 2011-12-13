@@ -1,7 +1,7 @@
 $(function () {
     var flow = new Flow("core.css", "opinions", ".opinion");
 
-    console.log($(document).height());
+    //console.log($(document).height());
 
     //var doReload;
     //$(window).resize(function() {

@@ -25,7 +25,7 @@ function Flow(cssSheet, containerName, className) {
         if (top > trigger) {
             THIS.next(trigger);
         }
-        console.log($(document).height());
+        //console.log($(document).height());
     });
 }
 ;

@@ -6,10 +6,39 @@
     width: 30%;
     height: 100%;
     margin-top: 100px;
-    background-color: #E9E9E9;
+    /*background-color: #E9E9E9;*/
     overflow: hidden;
     z-index: 100;
-    -moz-box-shadow: 0px 0px 5px 1px #C9C9C9;
-    -webkit-box-shadow: 0px 0px 5px 1px #C9C9C9;
-    box-shadow: 0px 0px 5px 1px #C9C9C9;
+    /*-moz-box-shadow: 0px 0px 5px 1px #C9C9C9;*/
+    /*-webkit-box-shadow: 0px 0px 5px 1px #C9C9C9;*/
+    /*box-shadow: 0px 0px 5px 1px #C9C9C9;*/
+}
+
+.panel_box {
+    padding: 10px;
+    text-align: center;
+}
+
+.counter {
+    /*height: 60px;*/
+    width: 30%;
+    display: inline-block;
+    /*margin: 20px;*/
+}
+
+.counter_text {
+    /*position: relative;*/
+    /*top: 10px;*/
+    color: #FFFFFF;
+    font-size: 24px;
+    font-family: 'Droid Sans';, Sans-Serif;
+}
+
+.colored_box {
+    background-color: #E9E9E9;
+}
+
+.smiley {
+    border: none;
+    width: 64px;
 }

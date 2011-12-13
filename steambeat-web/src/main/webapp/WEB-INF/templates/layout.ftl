@@ -29,8 +29,8 @@
 </div>
 
 <footer>
-    <a id="help_button" class="footer_button greybutton" href="">help</a>
     <a id="about_button" class="footer_button greybutton" href="">about</a>
+    <a id="help_button" class="footer_button greybutton" href="">help</a>
 </footer>
 
 </body>
