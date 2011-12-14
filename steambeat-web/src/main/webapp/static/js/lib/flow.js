@@ -17,13 +17,18 @@ function Flow(cssSheet, containerName, className) {
     this.limit = 10;
     this.hasData = true;
 
+    var rightCorner = this.getRightCorner();
+    var width = this.container.width();
+    var arrowRight = (width - rightCorner - 50 + this.margin) / 2;
+    $("#arrow_up").css("right", arrowRight);
+
     this.drawData();
 
     $(window).scroll(function () {
         THIS.drawData();
     });
 }
-;
+
 
 Flow.prototype.drawData = function () {
     var THIS = this;
@@ -270,4 +275,8 @@ Flow.prototype.setLeftCorner = function () {
     var usedSpace = maxBox * this.initial;
     var leftCorner = (availableSpace - usedSpace) / 2;
     return leftCorner;
+};
+
+Flow.prototype.getRightCorner = function() {
+    return this.leftCorner + (this.initial * this.maxBox);
 };

@@ -138,21 +138,6 @@ a {
 /*border: 2px solid black;*/
 /*}*/
 
-/*#loadmore_button:before {*/
-/*display: none;*/
-/*}*/
-/**/
-/*#loadmore_button {*/
-/*position: absolute;*/
-/*width: 20%;*/
-/*left: 57%;*/
-/*text-align: center;*/
-/*padding-top: 10px;*/
-/*padding-bottom: 10px;*/
-/*background-color: #E9E9E9;*/
-/*font-size: 20px;*/
-/*}*/
-
 .subjects {
     border-top: 1px dashed #AAA;
     margin-top: 10px;
@@ -179,12 +164,10 @@ a {
 }
 
 .good {
-    /*background-color: rgba(102, 204, 51, 0.8);*/
     background-color: #6C3;
 }
 
 .bad {
-    /*background-color: rgba(255, 51, 51, 0.8);*/
     background-color: #F33;
 }
 
