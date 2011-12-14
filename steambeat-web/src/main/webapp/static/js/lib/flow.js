@@ -13,44 +13,51 @@ function Flow(cssSheet, containerName, className) {
     this.initial = this.getInitialWidth();
     this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
-    this.skip = 0;
-    this.limit = 50;
+    this.skip = -10;
+    this.limit = 10;
     this.hasData = true;
 
     this.drawData();
 
     $(window).scroll(function () {
-        var top = $(window).scrollTop();
-        var trigger = $(document).height() / 2;
-        if (top > trigger) {
-            THIS.next(trigger);
-        }
-        //console.log($(document).height());
+        THIS.drawData();
     });
 }
 ;
 
-Flow.prototype.next = function (trigger) {
-    if (this.canDraw && this.hasData) {
-        this.skip += this.limit;
-        this.drawData();
-    }
-};
-
 Flow.prototype.drawData = function () {
-    this.canDraw = false;
     var THIS = this;
-    $.getJSON(root + "/opinions;" + this.skip + ";" + this.limit, function (data) {
-        $.each(data, function (index, opinion) {
-            THIS.drawBox(opinion, "opinion shadow");
+    if (needData() && this.hasData) {
+        THIS.skip += THIS.limit;
+        loadData();
+    }
+
+    function needData() {
+        var docHeight = THIS.container.height();
+        var scrollTop = $(window).scrollTop()
+        var trigger = $(window).height() * 1.5;
+        return (docHeight - scrollTop) < trigger;
+    }
+
+    function loadData() {
+        $.getJSON(root + "/opinions;" + THIS.skip + ";" + THIS.limit, function (data) {
+
+            $.each(data, function (index, opinion) {
+                THIS.drawBox(opinion, "opinion shadow");
+            });
+
+            if (data.length != THIS.limit) {
+                THIS.hasData = false;
+            }
+
+            setTimeout(function () {
+                if (needData() && THIS.hasData) {
+                    THIS.skip += THIS.limit;
+                    loadData();
+                }
+            }, 200);
         });
-        if (data.length != THIS.limit) {
-            THIS.hasData = false;
-        }
-    });
-    setTimeout(function () {
-        THIS.canDraw = true;
-    }, 100);
+    }
 };
 
 Flow.prototype.drawBox = function (opinion, classes) {
