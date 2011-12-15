@@ -8,7 +8,7 @@
 <#--</div>-->
 
 <header>
-    <a id="steambeat" class="greybutton" href="${root}">steambeat</a>
+    <a id="steambeat" class="greybutton" href="http://${domain}${root}">steambeat</a>
 </header>
 
 <div id="panel" class="rounded_top">

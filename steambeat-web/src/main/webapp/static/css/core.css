@@ -196,3 +196,11 @@ a {
 .greybutton:hover {
     color: #888;
 }
+
+.font_text {
+    font-family: 'Droid Serif', serif;
+}
+
+.font_title {
+    font-family: 'Droid Sans';, Sans-Serif;
+}
