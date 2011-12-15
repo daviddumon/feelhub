@@ -1,0 +1,23 @@
+/* Copyright bytedojo 2011 */
+#newwebpage {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    width: 40%;
+    margin-left: -15%;
+    margin-top: -10%;
+}
+
+#newwebpage img {
+    width: 64px;
+    margin-top: -8%;
+    margin-bottom: 2%;
+}
+
+#newwebpage p {
+    font-size: 2em;
+    color: #FFFFFF;
+}

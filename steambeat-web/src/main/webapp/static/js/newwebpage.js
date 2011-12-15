@@ -1,13 +1,13 @@
 /* Copyright bytedojo 2011 */
 var newwebpage = {};
 
-(function($) {
+(function ($) {
 
-    this.create = function(uri) {
-        var postData  = {
-            uri : uri
+    this.create = function (uri) {
+        var postData = {
+            uri:uri
         };
-        $.post(root + "/webpages", postData, function(data, text, xhr) {
+        $.post(root + "/webpages", postData, function (data, text, xhr) {
             $.redirect(xhr.getResponseHeader("Location"));
         });
     };
