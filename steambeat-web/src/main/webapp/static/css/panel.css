@@ -34,11 +34,15 @@
     font-family: 'Droid Sans';, Sans-Serif;
 }
 
-.colored_box {
-    background-color: #E9E9E9;
-}
-
 .smiley {
     border: none;
     width: 64px;
+}
+
+.panel_resource {
+
+}
+
+#webpageRoot {
+
 }

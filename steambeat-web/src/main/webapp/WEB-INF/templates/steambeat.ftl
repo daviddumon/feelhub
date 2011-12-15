@@ -1,10 +1,10 @@
 <@header.withHeader>
+<link rel="stylesheet" href="${root}/static/css/panel.css"/>
 <script type="text/javascript" src="${root}/static/js/steambeat.js"></script>
 </@header.withHeader>
 
 <@layout.panel>
 <#--<div id="counter">${counter!0} opinions</div>-->
-<#--<div class="panel_box colored_box"></div>-->
 <div class="panel_box">
     <div class="counter good rounded">
         <img class="smiley" src="${root}/static/images/smiley_good_white.png"/>

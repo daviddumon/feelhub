@@ -74,7 +74,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
     var subjects = $("<div class='subjects'></div>");
     var subject = $("<div class='subject'></div>");
 
-    var subjectTag = $("<span class='subject_tag " + opinion.feeling + "'>webpage</span>");
+    var subjectTag = $("<a class='subject_tag " + opinion.feeling + "' href='" + root + "/webpages/" + opinion.subjectId + "'>webpage</a>");
     subjectTag.mouseover(function (event) {
         var info = $(this).parent("div").find(".subject_info");
         info.css("top", event.pageY - 60 - $(window).scrollTop());

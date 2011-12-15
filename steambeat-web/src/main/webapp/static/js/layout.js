@@ -18,9 +18,4 @@ $(function () {
             $("#arrow_up").fadeOut(300);
         }
     });
-
-    //$("#help").delay(2000).queue(function(){
-    //$("#help").hide();
-    //$(".opinion").animate({top: '+=200'}, 500);
-    //});
 });
