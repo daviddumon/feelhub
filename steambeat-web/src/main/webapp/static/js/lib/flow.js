@@ -13,6 +13,7 @@ function Flow(cssSheet, containerName, className) {
     this.initial = this.getInitialWidth();
     this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
+    this.setAddOpinionButton();
     this.skip = -10;
     this.limit = 10;
     this.hasData = true;
@@ -74,7 +75,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
     var subjects = $("<div class='subjects'></div>");
     var subject = $("<div class='subject'></div>");
 
-    var subjectTag = $("<a class='subject_tag " + opinion.feeling + "' href='" + root + "/webpages/" + opinion.subjectId + "'>webpage</a>");
+    var subjectTag = $("<a class='subject_tag font_title " + opinion.feeling + "' href='" + root + "/webpages/" + opinion.subjectId + "'>webpage</a>");
     subjectTag.mouseover(function (event) {
         var info = $(this).parent("div").find(".subject_info");
         info.css("top", event.pageY - 60 - $(window).scrollTop());
@@ -85,7 +86,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
         $(this).parent("div").find(".subject_info").hide();
     });
 
-    var subjectInfo = $("<span class='subject_info' style='display: none'>" + opinion.subjectId + "</span>");
+    var subjectInfo = $("<span class='subject_info font_title'>" + opinion.subjectId + "</span>");
 
     subject.append(subjectTag);
     subject.append(subjectInfo);
@@ -279,4 +280,10 @@ Flow.prototype.setLeftCorner = function () {
 
 Flow.prototype.getRightCorner = function() {
     return this.leftCorner + (this.initial * this.maxBox);
+};
+
+Flow.prototype.setAddOpinionButton = function() {
+    $("#add_opinion_form").css("left", this.container.position().left + this.leftCorner + (this.initial * this.maxBox) / 4);
+    $("#add_opinion_form").css("width",(this.initial * this.maxBox) / 2);
+    $("#add_opinion_form").show();
 };

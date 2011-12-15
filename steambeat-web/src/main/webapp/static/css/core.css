@@ -9,18 +9,60 @@ a {
     text-decoration: none;
 }
 
-#add_opinion {
+#add_opinion_form {
     position: relative;
     top: 100px;
-    left: 50%;
-    width: 200px;
-    height: 50px;
-    background-color: #666;
+    text-align: center;
+    background-color: #E9E9E9;
+    -moz-box-shadow: 0px 0px 2px #BBB;
+    -webkit-box-shadow: 0px 0px 2px #BBB;
+    box-shadow: 0px 0px 2px #BBB;
 }
 
-#post_opinion {
+#add_opinion_form p {
+    color: #BBB;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding-top: 20px;
+    margin-bottom: 20px;
+}
+
+#add_opinion_form_textarea {
+    position: relative;
+    width: 86%;
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-bottom: 20px;
+    outline: none;
+    -moz-outline: none;
+    border: solid 1px #BBB;
+    resize: none;
+    padding: 2%;
+    height: 40px;
+    z-index: 101;
+}
+
+#add_opinion_form_judgments {
+    position: relative;
+    width: 86%;
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-bottom: 20px;
+    margin-top: -25px;
+    padding: 2%;
+    border-top: 1px dashed #BBB;
+    border-right: 1px solid #BBB;
+    border-left: 1px solid #BBB;
+    border-bottom: 1px solid #BBB;
+    background-color: #FFF;
+    z-index: 102;
+}
+
+#add_opinion_form_submit {
+    font-size: 1.2em;
+    font-weight: bold;
     width: 20%;
-    height: 10%;
+    margin-bottom: 20px;
 }
 
 #feedback {
@@ -29,7 +71,6 @@ a {
     left: 0px;
     width: 100px;
     margin-top: 50px;
-    background-color: #E9E9E9;
     z-index: 200;
     font-size: 14px;
     text-align: center;
@@ -152,6 +193,8 @@ a {
     cursor: pointer;
     color: white;
     padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
     line-height: 2em;
 }
 
@@ -160,6 +203,7 @@ a {
     background-color: #FFFFFF;
     border: 1px solid #BBB;
     padding: 5px;
+    display: none;
     z-index: 200;
 }
 
@@ -171,11 +215,14 @@ a {
     background-color: #F33;
 }
 
+.neutral {
+    background-color: #FFF;
+}
+
 #arrow_up {
     position: fixed;
     top: 20%;
     right: 10px;
-    background-color: #E9E9E9;
     text-align: center;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -191,6 +238,8 @@ a {
     cursor: pointer;
     font-family: 'Droid Sans';, Sans-Serif;
     color: #BBB;
+    border: none;
+    background-color: #E9E9E9;
 }
 
 .greybutton:hover {
