@@ -31,8 +31,6 @@ public class SteambeatRouter extends Router {
         attach("/opinions;{skip};{limit}", HomeOpinionsResource.class);
         attach("/opinions", OpinionsResource.class);
         attach("/sitemap_{number}.xml.gz", SitemapResource.class);
-        attach("/about", AboutResource.class);
-        attach("/terms", TermsResource.class);
         attach("/", HomeResource.class);
     }
 

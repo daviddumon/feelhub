@@ -29,9 +29,17 @@
 </div>
 
 <footer>
-    <a id="about_button" class="footer_button greybutton" href="">about</a>
-    <a id="help_button" class="footer_button greybutton" href="">help</a>
+    <span id="about_button" class="footer_button greybutton">about</span>
+    <span id="help_button" class="footer_button greybutton">help</span>
 </footer>
+
+<div id="about_dialog" title="About" style="display: none;">
+    <#include "about.ftl">
+</div>
+
+<div id="help_dialog" title="Help" style="display: none;">
+    <#include "help.ftl">
+</div>
 
 </body>
 </html>
