@@ -66,6 +66,7 @@ Flow.prototype.drawData = function () {
 };
 
 Flow.prototype.drawBox = function (opinion, classes) {
+    console.log(opinion);
     var THIS = this;
     var id = "opinion_" + this.id++;
 

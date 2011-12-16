@@ -8,7 +8,6 @@ import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
-import org.hamcrest.Matchers;
 import org.junit.*;
 import org.restlet.Context;
 import org.restlet.data.*;
@@ -40,8 +39,9 @@ public class TestsWebPageOpinionsResource {
         assertThat(resource.getStatus(), is(Status.SUCCESS_CREATED));
         assertThat(Repositories.opinions().getAll().size(), is(1));
         final Opinion opinion = Repositories.opinions().getAll().get(0);
-        assertThat(opinion.getFeeling(), Matchers.is(Feeling.good));
-        assertThat(opinion.getSubject(), is(subject));
+        final Judgment judgment = opinion.getJudgments().get(0);
+        assertThat(judgment.getFeeling(), is(Feeling.good));
+        assertThat(judgment.getSubjectId(), is(subject.getId()));
     }
 
     @Test
@@ -55,15 +55,14 @@ public class TestsWebPageOpinionsResource {
         assertThat(resource.getStatus(), is(Status.SUCCESS_CREATED));
         final List<Opinion> opinions = Repositories.opinions().getAll();
         assertThat(opinions.size(), is(1));
-        assertThat(opinions.get(0).getSubject(), is((Subject) webPage));
+        final Judgment judgment = opinions.get(0).getJudgments().get(0);
+        assertThat(judgment.getSubjectId(), is(webPage.getId()));
     }
 
     @Test
     public void throwExceptionWhenUnknownWebPage() {
         final ClientResource resource = restlet.newClientResource("/webpages/http://test.net/opinions");
-        final Form form = new Form();
-        form.add("text", "my opinion");
-        form.add("feeling", "bad");
+        final Form form = getGoodForm();
 
         resource.post(form);
 
@@ -84,7 +83,8 @@ public class TestsWebPageOpinionsResource {
 
         final List<Opinion> opinions = Repositories.opinions().getAll();
         assertThat(opinions.size(), is(2));
-        assertThat(opinions.get(0).getSubject(), is((Subject) webPage));
+        final Judgment judgment = opinions.get(0).getJudgments().get(0);
+        assertThat(judgment.getSubjectId(), is(webPage.getId()));
     }
 
     @Test

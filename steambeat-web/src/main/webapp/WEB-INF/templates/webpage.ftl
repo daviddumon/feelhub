@@ -1,6 +1,9 @@
 <@header.withHeader>
 <link rel="stylesheet" href="${root}/static/css/panel.css"/>
 <script type="text/javascript" src="${root}/static/js/webpage.js"></script>
+<script type="text/javascript">
+    var formAction = "http://${domain}${root}/webpages/${webPage.getId()}/opinions";
+</script>
 </@header.withHeader>
 
 <@layout.panel>

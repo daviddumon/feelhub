@@ -5,11 +5,12 @@ import org.json.*;
 
 public class JsonExtractor {
 
+    //todo : on n'a pas prouver que l'extract etait correct
     public static JSONObject extract(final Opinion opinion) throws JSONException {
         final JSONObject json = new JSONObject();
-        json.put("subjectId", opinion.getSubjectId());
         json.put("text", opinion.getText());
-        json.put("feeling", opinion.getFeeling());
+        json.put("subjectId", opinion.getJudgments().get(0).getSubjectId());
+        json.put("feeling", opinion.getJudgments().get(0).getFeeling());
         return json;
     }
 }

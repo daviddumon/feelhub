@@ -2,12 +2,14 @@ package com.steambeat.web.resources;
 
 import com.google.inject.Inject;
 import com.steambeat.application.*;
-import com.steambeat.domain.opinion.Feeling;
+import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.web.ReferenceBuilder;
 import com.steambeat.web.search.OpinionSearch;
 import org.restlet.data.*;
 import org.restlet.resource.*;
+
+import java.util.ArrayList;
 
 public class WebPageOpinionsResource extends ServerResource {
 
@@ -31,7 +33,10 @@ public class WebPageOpinionsResource extends ServerResource {
         final WebPage webPage;
         try {
             webPage = webPageService.lookUpWebPage(uri);
-            opinionService.addOpinion(webPage, feeling, text);
+            final Judgment judgment = webPage.createJudgment(feeling);
+            final ArrayList<Judgment> judgments = new ArrayList<Judgment>();
+            judgments.add(judgment);
+            opinionService.addOpinion(text, judgments);
             setStatus(Status.SUCCESS_CREATED);
             setLocationRef(new ReferenceBuilder(getContext()).buildUri("/webpages/" + uri));
         } catch (WebPageNotYetCreatedException e) {
