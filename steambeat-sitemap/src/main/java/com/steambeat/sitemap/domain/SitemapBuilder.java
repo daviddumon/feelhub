@@ -8,13 +8,13 @@ public class SitemapBuilder {
 
     public SitemapBuilder() {
         currentSitemap = 1;
-        currentSitemapIndex = 1;
+        final int currentSitemapIndex = 1;
         sitemapIndexes.add(new SitemapIndex(currentSitemapIndex));
         getCurrentSitemapIndex().add(new Sitemap(currentSitemap));
     }
 
     public void build(final List<SitemapEntry> sitemapEntries) {
-        for (SitemapEntry sitemapEntry : sitemapEntries) {
+        for (final SitemapEntry sitemapEntry : sitemapEntries) {
             try {
                 getCurrentSitemapIndex().getLastSitemap().addEntry(sitemapEntry);
             } catch (SitemapCapacityException e) {
@@ -32,7 +32,6 @@ public class SitemapBuilder {
         return sitemapIndexes.get(sitemapIndexes.size() - 1);
     }
 
-    private int currentSitemapIndex;
     private int currentSitemap;
-    private List<SitemapIndex> sitemapIndexes = Lists.newArrayList();
+    private final List<SitemapIndex> sitemapIndexes = Lists.newArrayList();
 }

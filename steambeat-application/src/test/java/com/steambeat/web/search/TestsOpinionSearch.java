@@ -12,7 +12,6 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-@Ignore
 public class TestsOpinionSearch extends TestWithMongoRepository {
 
     @Rule
@@ -67,6 +66,7 @@ public class TestsOpinionSearch extends TestWithMongoRepository {
         assertThat(opinions.get(4).getText(), is("i14"));
     }
 
+    @Ignore("Need to implement dotted notation in Mongolink fake criteria")
     @Test
     public void canGetOpinionsForSubject() {
         final WebPage webPage = TestFactories.webPages().newWebPage();
@@ -79,6 +79,7 @@ public class TestsOpinionSearch extends TestWithMongoRepository {
         assertThat(opinions.size(), is(10));
     }
 
+    @Ignore("Need to implement dotted notation in Mongolink fake criteria")
     @Test
     public void canLimitAndSkipForSubject() {
         final WebPage webPage = TestFactories.webPages().newWebPage();

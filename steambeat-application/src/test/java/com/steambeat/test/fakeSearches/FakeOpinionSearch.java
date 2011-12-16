@@ -7,7 +7,7 @@ import com.steambeat.web.search.OpinionSearch;
 
 import java.util.List;
 
-public class FakeOpinionSearch extends OpinionSearch{
+public class FakeOpinionSearch extends OpinionSearch {
 
     @Inject
     public FakeOpinionSearch(final SessionProvider provider) {

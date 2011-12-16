@@ -13,6 +13,7 @@ public class SitemapIndex {
     }
 
     public void add(final Sitemap sitemap) {
+        final int capacity = 50000;
         if (sitemaps.size() >= capacity) {
             throw new SitemapIndexCapacityException();
         }
@@ -31,9 +32,9 @@ public class SitemapIndex {
         return xml;
     }
 
-    private void appendHead(Document xml) {
+    private void appendHead(final Document xml) {
         xml.setXmlVersion("1.0");
-        Element head = xml.createElement("sitemapindex");
+        final Element head = xml.createElement("sitemapindex");
         head.setAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
         head.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
         head.setAttribute("xsi:schemaLocation", "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd");
@@ -42,15 +43,15 @@ public class SitemapIndex {
     }
 
     private void appendSitemaps(final Document xml) {
-        for (Sitemap sitemap : sitemaps) {
+        for (final Sitemap sitemap : sitemaps) {
             appendSitemap(xml, sitemap);
         }
     }
 
-    private void appendSitemap(Document xml, Sitemap sitemap) {
-        Element sitemapTag = xml.createElement("sitemap");
-        Element locTag = xml.createElement("loc");
-        Element lastmodTag = xml.createElement("lastmod");
+    private void appendSitemap(final Document xml, final Sitemap sitemap) {
+        final Element sitemapTag = xml.createElement("sitemap");
+        final Element locTag = xml.createElement("loc");
+        final Element lastmodTag = xml.createElement("lastmod");
         locTag.setTextContent(sitemap.getPath());
         lastmodTag.setTextContent(sitemap.getLastModTime().toString());
         sitemapTag.appendChild(locTag);
@@ -70,7 +71,6 @@ public class SitemapIndex {
         return sitemaps.get(sitemaps.size() - 1);
     }
 
-    private String name;
-    private List<Sitemap> sitemaps = Lists.newArrayList();
-    private int capacity = 50000;
+    private final String name;
+    private final List<Sitemap> sitemaps = Lists.newArrayList();
 }

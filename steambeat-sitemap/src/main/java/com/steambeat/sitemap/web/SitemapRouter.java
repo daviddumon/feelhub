@@ -12,7 +12,7 @@ public class SitemapRouter extends Router {
     }
 
     private void createRoot() {
-        Directory directory = new Directory(getContext(), "file:///hiram/sitemaps");
+        final Directory directory = new Directory(getContext(), "file:///hiram/sitemaps");
         attach("/", directory);
     }
 }

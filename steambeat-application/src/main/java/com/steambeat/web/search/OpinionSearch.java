@@ -37,11 +37,11 @@ public class OpinionSearch {
     }
 
     public OpinionSearch withSubject(final Subject subject) {
-        criteria.add(Restrictions.equals("subjectId", subject.getId()));
+        criteria.add(Restrictions.equals("judgments.subjectId", subject.getId()));
         return this;
     }
 
-    private Criteria criteria;
+    private final Criteria criteria;
     public static final int NATURAL_ORDER = 1;
     public static final int REVERSE_ORDER = -1;
 }

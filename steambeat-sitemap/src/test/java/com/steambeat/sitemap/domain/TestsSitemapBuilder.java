@@ -38,8 +38,8 @@ public class TestsSitemapBuilder {
 
     @Test
     public void addAFirstSitemapToSitemapIndex() {
-        SitemapIndex sitemapIndex = sitemapBuilder.getCurrentSitemapIndex();
-        Sitemap sitemap = sitemapBuilder.getCurrentSitemapIndex().getLastSitemap();
+        final SitemapIndex sitemapIndex = sitemapBuilder.getCurrentSitemapIndex();
+        final Sitemap sitemap = sitemapBuilder.getCurrentSitemapIndex().getLastSitemap();
 
         assertNotNull(sitemapIndex);
         assertNotNull(sitemap);
@@ -53,7 +53,7 @@ public class TestsSitemapBuilder {
 
         sitemapBuilder.build(getEntries());
 
-        SitemapIndex sitemapIndex = sitemapBuilder.getCurrentSitemapIndex();
+        final SitemapIndex sitemapIndex = sitemapBuilder.getCurrentSitemapIndex();
         assertThat(sitemapIndex.getXMLRepresentation().getElementsByTagName("sitemap").getLength(), is(2));
     }
 
@@ -62,13 +62,13 @@ public class TestsSitemapBuilder {
     }
 
     private List<SitemapEntry> getSingleEntry() {
-        List<SitemapEntry> sitemapEntries = Lists.newArrayList();
+        final List<SitemapEntry> sitemapEntries = Lists.newArrayList();
         sitemapEntries.add(new SitemapEntry("http://www.fakeentry.com", Frequency.hourly, 0.5));
         return sitemapEntries;
     }
 
     public List<SitemapEntry> getEntries() {
-        List<SitemapEntry> sitemapEntries = Lists.newArrayList();
+        final List<SitemapEntry> sitemapEntries = Lists.newArrayList();
         for (int i = 0; i < 55000; i++) {
             sitemapEntries.add(new SitemapEntry("http://www.fakeentry.com" + String.valueOf(i), Frequency.hourly, 0.5));
         }

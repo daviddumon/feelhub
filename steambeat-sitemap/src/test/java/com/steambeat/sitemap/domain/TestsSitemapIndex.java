@@ -23,7 +23,7 @@ public class TestsSitemapIndex {
 
     @Test
     public void canAddSitemapToSitemapIndex() {
-        Sitemap sitemap = new Sitemap(1);
+        final Sitemap sitemap = new Sitemap(1);
 
         sitemapIndex.add(sitemap);
 
@@ -33,10 +33,10 @@ public class TestsSitemapIndex {
 
     @Test
     public void canGetXMLRepresentationOfSitemapIndex() {
-        Sitemap sitemap = new Sitemap(2);
+        final Sitemap sitemap = new Sitemap(2);
 
         sitemapIndex.add(sitemap);
-        Document document = sitemapIndex.getXMLRepresentation();
+        final Document document = sitemapIndex.getXMLRepresentation();
 
         assertThat(document.getFirstChild().getNodeName(), is("sitemapindex"));
         assertThat(document.getXmlVersion(), is("1.0"));
@@ -67,7 +67,7 @@ public class TestsSitemapIndex {
     @Test
     public void canThrowCapacityException() {
         exception.expect(SitemapIndexCapacityException.class);
-        
+
         for (int i = 0; i < 50001; i++) {
             sitemapIndex.add(new Sitemap(i));
         }

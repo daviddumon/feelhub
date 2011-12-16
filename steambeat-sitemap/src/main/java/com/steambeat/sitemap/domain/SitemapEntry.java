@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 
 public class SitemapEntry {
 
-    public SitemapEntry(final String loc, Frequency frequency, final double priority) {
+    public SitemapEntry(final String loc, final Frequency frequency, final double priority) {
         this.loc = loc;
         this.frequency = Frequency.hourly;
         lastMod = new DateTime();
@@ -27,8 +27,8 @@ public class SitemapEntry {
         return priority;
     }
 
-    private String loc;
-    private DateTime lastMod;
-    private Frequency frequency;
-    private double priority;
+    private final String loc;
+    private final DateTime lastMod;
+    private final Frequency frequency;
+    private final double priority;
 }

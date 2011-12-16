@@ -11,13 +11,13 @@ public class RequestLogger implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+    public void doFilter(final ServletRequest req, final ServletResponse resp, final FilterChain chain) throws ServletException, IOException {
         final HttpServletRequest httpServletRequest = (HttpServletRequest) req;
         chain.doFilter(req, resp);
     }
 
     @Override
-    public void init(FilterConfig config) throws ServletException {
+    public void init(final FilterConfig config) throws ServletException {
 
     }
 

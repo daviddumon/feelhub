@@ -32,7 +32,7 @@
     </build>
 
     <dependencies>
-        
+
         <dependency>
             <groupId>com.alchemyapi</groupId>
             <artifactId>alchemyapi</artifactId>
@@ -57,7 +57,7 @@
             <artifactId>mongolink-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
     </dependencies>
 
 </project>

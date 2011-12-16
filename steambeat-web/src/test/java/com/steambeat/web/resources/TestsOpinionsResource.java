@@ -2,7 +2,6 @@ package com.steambeat.web.resources;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.opinion.Feeling;
-import com.steambeat.repositories.Repositories;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.*;
@@ -39,7 +38,7 @@ public class TestsOpinionsResource {
     private Form getGoodForm() {
         final Form form = new Form();
         form.add("text", "my opinion");
-        List<Parameter> judgments = Lists.newArrayList();
+        final List<Parameter> judgments = Lists.newArrayList();
         judgments.add(new Parameter("http://www.fake.com", Feeling.good.toString()));
         form.addAll(judgments);
         return form;

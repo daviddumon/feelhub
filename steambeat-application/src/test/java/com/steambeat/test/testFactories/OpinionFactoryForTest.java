@@ -30,7 +30,9 @@ public class OpinionFactoryForTest {
 
     public void newOpinions(final Subject subject, final int quantity) {
         for (int i = 0; i < quantity; i++) {
-            final Opinion opinion = subject.createOpinion("i" + i, Feeling.good);
+            final ArrayList<Judgment> judgments = new ArrayList<Judgment>();
+            judgments.add(subject.createJudgment(Feeling.good));
+            final Opinion opinion = new Opinion("i" + i, judgments);
             Repositories.opinions().add(opinion);
         }
     }

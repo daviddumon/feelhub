@@ -1,6 +1,6 @@
 package com.steambeat.application;
 
-import com.steambeat.domain.*;
+import com.steambeat.domain.DomainEventListener;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.subject.Subject;

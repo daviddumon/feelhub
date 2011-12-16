@@ -9,7 +9,7 @@ public class FakeSessionProvider extends SessionProvider {
 
     @Override
     public MongoSession get() {
-        ContextBuilder context = new ContextBuilder("com.steambeat.repositories.mapping");
+        final ContextBuilder context = new ContextBuilder("com.steambeat.repositories.mapping");
         final MongoSessionManager manager = MongoSessionManager.create(context, Settings.defaultInstance()
                 .withDbFactory(FakeDBFactory.class)
                 .withCriteriaFactory(FakeCriteriaFactory.class));
@@ -18,6 +18,6 @@ public class FakeSessionProvider extends SessionProvider {
 
     @Override
     public void init() {
-        
+
     }
 }

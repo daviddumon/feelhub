@@ -31,7 +31,7 @@ public class TestHomeOpinionsResource {
 
     @Test
     public void isMapped() {
-        ClientResource resource = restlet.newClientResource("/opinions;10;10");
+        final ClientResource resource = restlet.newClientResource("/opinions;10;10");
 
         resource.get();
 
@@ -40,7 +40,7 @@ public class TestHomeOpinionsResource {
 
     @Test
     public void canGetAnOpinion() {
-        ClientResource resource = restlet.newClientResource("/opinions;10;10");
+        final ClientResource resource = restlet.newClientResource("/opinions;10;10");
 
         final JsonRepresentation representation = (JsonRepresentation) resource.get();
 
@@ -49,7 +49,7 @@ public class TestHomeOpinionsResource {
 
     @Test
     public void canGetMultipleOpinions() throws JSONException {
-        ClientResource resource = restlet.newClientResource("/opinions;0;10");
+        final ClientResource resource = restlet.newClientResource("/opinions;0;10");
         create3Opinions();
 
         final JsonRepresentation representation = (JsonRepresentation) resource.get();
@@ -64,7 +64,7 @@ public class TestHomeOpinionsResource {
     public void canThrowException() {
         exception.expect(SteambeatJsonException.class);
 
-        ClientResource resource = restlet.newClientResource("/opinions;0;200");
+        final ClientResource resource = restlet.newClientResource("/opinions;0;200");
 
         resource.get();
     }

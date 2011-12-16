@@ -39,7 +39,7 @@ public class TestsOpinion {
     private List<Judgment> createSimpleListOfJudgments() {
         final WebPage webPage = TestFactories.webPages().newWebPage();
         final Feeling feeling = Feeling.good;
-        List<Judgment> judgments = Lists.newArrayList();
+        final List<Judgment> judgments = Lists.newArrayList();
         judgments.add(new Judgment(webPage.getId(), feeling));
         return judgments;
     }

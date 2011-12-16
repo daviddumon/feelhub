@@ -28,13 +28,13 @@ public class TestsSitemap {
 
     @Test
     public void canAddASitemapEntryToSitemap() {
-        String uri = "http://www.fakeentry.com";
+        final String uri = "http://www.fakeentry.com";
         final SitemapEntry sitemapEntry = new SitemapEntry(uri, Frequency.hourly, 0.5);
 
         sitemap.addEntry(sitemapEntry);
 
         assertThat(sitemap.getEntries().size(), is(1));
-        Document xml = sitemap.getXMLRepresentation();
+        final Document xml = sitemap.getXMLRepresentation();
         assertNotNull(xml);
         assertThat(xml.getFirstChild().getNodeName(), is("urlset"));
         assertThat(xml.getXmlVersion(), is("1.0"));

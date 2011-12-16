@@ -43,5 +43,5 @@ public class ClientResource extends UniformResource {
     }
 
     private final Restlet application;
-    private Reference reference;
+    private final Reference reference;
 }

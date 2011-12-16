@@ -47,6 +47,6 @@ public class WebPageOpinionsResource extends ServerResource {
 
     private final WebPageService webPageService;
     private final OpinionService opinionService;
-    private OpinionSearch opinionSearch;
+    private final OpinionSearch opinionSearch;
     private Uri uri;
 }

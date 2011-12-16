@@ -3,7 +3,7 @@ package com.steambeat.domain.opinion;
 import com.steambeat.domain.DomainEvent;
 import org.joda.time.DateTime;
 
-public class JudgmentPostedEvent implements DomainEvent{
+public class JudgmentPostedEvent implements DomainEvent {
 
     public JudgmentPostedEvent(final Judgment judgment) {
         this.date = new DateTime();
@@ -19,6 +19,6 @@ public class JudgmentPostedEvent implements DomainEvent{
         return judgment;
     }
 
-    private DateTime date;
-    private Judgment judgment;
+    private final DateTime date;
+    private final Judgment judgment;
 }

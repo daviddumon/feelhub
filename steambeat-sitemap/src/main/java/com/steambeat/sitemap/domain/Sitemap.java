@@ -14,6 +14,7 @@ public class Sitemap {
     }
 
     public void addEntry(final SitemapEntry sitemapEntry) {
+        final int capacity = 50000;
         if (sitemapEntries.size() >= capacity) {
             throw new SitemapCapacityException();
         }
@@ -23,7 +24,7 @@ public class Sitemap {
     public List<SitemapEntry> getEntries() {
         return sitemapEntries;
     }
-    
+
     public Document getXMLRepresentation() {
         Document xml = null;
         try {
@@ -36,9 +37,9 @@ public class Sitemap {
         return xml;
     }
 
-    private void appendHead(Document xml) {
+    private void appendHead(final Document xml) {
         xml.setXmlVersion("1.0");
-        Element root = xml.createElement("urlset");
+        final Element root = xml.createElement("urlset");
         root.setAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
         root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
         root.setAttribute("xsi:schemaLocation", "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd");
@@ -47,17 +48,17 @@ public class Sitemap {
     }
 
     private void appendEntries(final Document xml) {
-        for (SitemapEntry sitemapEntry : sitemapEntries) {
+        for (final SitemapEntry sitemapEntry : sitemapEntries) {
             appendEntry(xml, sitemapEntry);
         }
     }
 
-    private void appendEntry(final Document xml, SitemapEntry sitemapEntry) {
-        Element urlTag = xml.createElement("url");
-        Element locTag = xml.createElement("loc");
-        Element lastmodTag = xml.createElement("lastmod");
-        Element changefreqTag = xml.createElement("changefreq");
-        Element priorityTag = xml.createElement("priority");
+    private void appendEntry(final Document xml, final SitemapEntry sitemapEntry) {
+        final Element urlTag = xml.createElement("url");
+        final Element locTag = xml.createElement("loc");
+        final Element lastmodTag = xml.createElement("lastmod");
+        final Element changefreqTag = xml.createElement("changefreq");
+        final Element priorityTag = xml.createElement("priority");
         locTag.setTextContent(sitemapEntry.getLoc());
         lastmodTag.setTextContent(sitemapEntry.getLastMod().toString());
         changefreqTag.setTextContent(sitemapEntry.getFrequency().toString());
@@ -77,7 +78,6 @@ public class Sitemap {
         return new DateTime();
     }
 
-    private String name;
-    private List<SitemapEntry> sitemapEntries = Lists.newArrayList();
-    private final int capacity = 50000;
+    private final String name;
+    private final List<SitemapEntry> sitemapEntries = Lists.newArrayList();
 }
