@@ -11,6 +11,7 @@ import java.util.List;
 
 public class StatisticsService implements DomainEventListener<OpinionPostedEvent> {
 
+    // todo: les statistiques s'occupent uniquement des jugements, pas des opinions qui ne sont qu'un agregat
     public StatisticsService() {
         //DomainEventBus.INSTANCE.register(this, OpinionPostedEvent.class);
     }

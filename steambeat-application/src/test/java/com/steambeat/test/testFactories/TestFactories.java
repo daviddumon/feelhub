@@ -26,4 +26,8 @@ public class TestFactories {
     public static OpinionFactoryForTest opinions() {
         return new OpinionFactoryForTest();
     }
+
+    public static JudgmentFactoryForTest judgments() {
+        return new JudgmentFactoryForTest();
+    }
 }

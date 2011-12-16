@@ -37,30 +37,28 @@ public class TestsSubject {
     }
 
     @Test
-    public void canAddOpinions() {
-        final String text = "my opinion";
+    public void canAddJudgment() {
+        final Feeling feeling = Feeling.good;
 
-        final Opinion opinion = subject.createOpinion(text, Feeling.good);
+        final Judgment judgment = subject.createJudgment(feeling);
 
-        assertThat(opinion.getText(), is(text));
-        assertThat(opinion.getFeeling(), is(Feeling.good));
-        assertThat(opinion.getSubjectId(), is((Object) subject.getId()));
+        assertThat(judgment.getFeeling(), is(Feeling.good));
+        assertThat(judgment.getSubjectId(), is((Object) subject.getId()));
     }
 
     @Test
-    public void canSpreadEvent() {
+    public void canSpreadJudgmentEvent() {
         DomainEventBus.INSTANCE.notifyOnSpread();
         final DomainEventListener eventListener = mock(DomainEventListener.class);
-        DomainEventBus.INSTANCE.register(eventListener, OpinionPostedEvent.class);
+        DomainEventBus.INSTANCE.register(eventListener, JudgmentPostedEvent.class);
 
-        final Opinion opinion = subject.createOpinion("my opinion", Feeling.good);
+        final Judgment judgment = subject.createJudgment(Feeling.good);
 
         final ArgumentCaptor<DomainEvent> captor = ArgumentCaptor.forClass(DomainEvent.class);
         verify(eventListener).notify(captor.capture());
-        assertThat(captor.getValue(), instanceOf(OpinionPostedEvent.class));
-        final OpinionPostedEvent event = (OpinionPostedEvent) captor.getValue();
-        assertThat(event.getSubject(), is(subject));
-        assertThat(event.getOpinion(), is(opinion));
+        assertThat(captor.getValue(), instanceOf(JudgmentPostedEvent.class));
+        final JudgmentPostedEvent event = (JudgmentPostedEvent) captor.getValue();
+        assertThat(event.getJudgment(), is(judgment));
     }
 
     private WebPage getSubjectForTest() {

@@ -29,11 +29,11 @@ public class TestsOpinion {
 
         assertThat(opinion, notNullValue());
         assertThat(opinion.getText(), is(text));
+        assertThat(opinion.getCreationDate(), notNullValue());
+        assertThat(opinion.getCreationDate(), is(time.getNow()));
         assertThat(opinion.getJudgments().size(), is(1));
         assertThat(opinion.getJudgments().get(0).getSubjectId(), is(judgments.get(0).getSubjectId()));
         assertThat(opinion.getJudgments().get(0).getFeeling(), is(judgments.get(0).getFeeling()));
-        assertThat(opinion.getCreationDate(), notNullValue());
-        assertThat(opinion.getCreationDate(), is(time.getNow()));
     }
 
     private List<Judgment> createSimpleListOfJudgments() {

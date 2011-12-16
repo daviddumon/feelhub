@@ -16,6 +16,21 @@ public enum DomainEventBus {
         }
     }
 
+    private void doSpread(final DomainEvent event) {
+        for (final DomainEventListener listener : getListesteners(event.getClass())) {
+            listener.notify(event);
+        }
+    }
+
+    private List<DomainEventListener> getListesteners(final Class<? extends DomainEvent> eventType) {
+        List<DomainEventListener> listenersForEvent = this.listeners.get(eventType);
+        if (listenersForEvent == null) {
+            listenersForEvent = Lists.newArrayList();
+            this.listeners.put(eventType, listenersForEvent);
+        }
+        return listenersForEvent;
+    }
+
     public void clear() {
         listeners.clear();
         events.clear();
@@ -36,26 +51,11 @@ public enum DomainEventBus {
         events.clear();
     }
 
-    private void doSpread(final DomainEvent event) {
-        for (final DomainEventListener listener : getListesteners(event.getClass())) {
-            listener.notify(event);
-        }
-    }
-
     public <T extends DomainEvent> void register(final DomainEventListener<T> listener, final Class<T> eventType) {
         getListesteners(eventType).add(listener);
     }
 
-    private List<DomainEventListener> getListesteners(final Class<? extends DomainEvent> eventType) {
-        List<DomainEventListener> listeners = this.listeners.get(eventType);
-        if (listeners == null) {
-            listeners = Lists.newArrayList();
-            this.listeners.put(eventType, listeners);
-        }
-        return listeners;
-    }
-
     private final Map<Class<? extends DomainEvent>, List<DomainEventListener>> listeners = Maps.newHashMap();
-    private boolean stackOnSpread = false;
     private final List<DomainEvent> events = Lists.newArrayList();
+    private boolean stackOnSpread = false;
 }

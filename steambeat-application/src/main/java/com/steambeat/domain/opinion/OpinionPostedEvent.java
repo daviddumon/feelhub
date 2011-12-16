@@ -6,14 +6,20 @@ import org.joda.time.DateTime;
 
 public class OpinionPostedEvent implements DomainEvent {
 
+    //todo
     public OpinionPostedEvent(final Subject subject, final Opinion opinion) {
-        this.subject = subject;
         this.opinion = opinion;
         this.date = new DateTime();
     }
 
+    public OpinionPostedEvent(final Opinion opinion) {
+        this.opinion = opinion;
+        this.date = new DateTime();
+    }
+
+    //todo
     public Subject getSubject() {
-        return subject;
+        return this.opinion.getSubject();
     }
 
     public Opinion getOpinion() {
@@ -25,7 +31,6 @@ public class OpinionPostedEvent implements DomainEvent {
         return date;
     }
 
-    private final Subject subject;
     private final Opinion opinion;
     private final DateTime date;
 }

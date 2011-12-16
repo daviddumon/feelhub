@@ -13,6 +13,7 @@ public class Opinion extends BaseEntity {
     protected Opinion() {
     }
 
+    //todo
     public Opinion(final String text, final Feeling feeling, final Subject subject) {
         this.text = text;
         this.feeling = feeling;
@@ -31,6 +32,7 @@ public class Opinion extends BaseEntity {
         return text;
     }
 
+    //todo
     public Feeling getFeeling() {
         return feeling;
     }
@@ -47,15 +49,17 @@ public class Opinion extends BaseEntity {
         this.text = text;
     }
 
+    //todo
     public Subject getSubject() {
         return Repositories.webPages().get(subjectId);
     }
 
+    //todo
     public Object getSubjectId() {
         return subjectId;
     }
 
-    @Override
+    //todo
     public String getId() {
         return id;
     }
@@ -65,7 +69,9 @@ public class Opinion extends BaseEntity {
     }
 
     private String text;
+    //todo
     private Feeling feeling;
+    //todo
     private Object subjectId;
     private DateTime creationDate;
     private String id;
