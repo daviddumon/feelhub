@@ -4,7 +4,6 @@ import com.mongodb.*;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.testFactories.TestFactories;
-import org.hamcrest.Matchers;
 import org.junit.*;
 
 import java.util.List;
@@ -28,11 +27,9 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
         query.put("_id", opinion.getId());
         final DBObject opinionFound = opinions.findOne(query);
         assertThat(opinionFound, notNullValue());
-        assertThat(opinionFound.get("_id").toString(), Matchers.is(opinion.getId()));
-        assertThat(opinionFound.get("text").toString(), Matchers.is(opinion.getText()));
-        assertThat(opinionFound.get("feeling").toString(), Matchers.is(opinion.getFeeling().toString()));
+        assertThat(opinionFound.get("_id").toString(), is(opinion.getId()));
+        assertThat(opinionFound.get("text").toString(), is(opinion.getText()));
         assertThat(opinionFound.get("creationDate"), is((Object) opinion.getCreationDate().getMillis()));
-        assertThat(opinionFound.get("subjectId"), is((Object) opinion.getSubject().getId()));
     }
 
     @Test
@@ -42,7 +39,7 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
 
         final Opinion opinionFound = Repositories.opinions().get(opinion.getId());
 
-        assertThat(opinionFound, Matchers.is(opinion));
+        assertThat(opinionFound, is(opinion));
     }
 
     @Test
@@ -52,7 +49,7 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
         final List<Opinion> opinions = Repositories.opinions().getAll();
 
         assertThat(opinions.size(), is(1));
-        assertThat(opinions.get(0), Matchers.is(opinion));
+        assertThat(opinions.get(0), is(opinion));
     }
 
     @Test

@@ -12,6 +12,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+@Ignore
 public class TestsOpinionSearch extends TestWithMongoRepository {
 
     @Rule

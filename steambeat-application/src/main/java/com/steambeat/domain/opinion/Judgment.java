@@ -2,6 +2,11 @@ package com.steambeat.domain.opinion;
 
 public class Judgment {
 
+    // Constructor for mapper : do not delete !
+    protected Judgment() {
+
+    }
+
     public Judgment(final String subjectId, final Feeling feeling) {
         this.subjectId = subjectId;
         this.feeling = feeling;
