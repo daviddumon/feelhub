@@ -1,6 +1,7 @@
 /* Copyright bytedojo 2011 */
 $(function() {
-    //var flow = new Flow("core.css", "opinions", ".opinion");
+    var flow = new Flow();
+    flow.setAddOpinionButton();
 
     //var form = $("#post_opinion");
     //

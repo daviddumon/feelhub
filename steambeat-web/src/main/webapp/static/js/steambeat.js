@@ -1,5 +1,5 @@
 $(function () {
-    var flow = new Flow("core.css", "opinions", ".opinion");
+    var flow = new Flow();
 
     //var doReload;
     //$(window).resize(function() {

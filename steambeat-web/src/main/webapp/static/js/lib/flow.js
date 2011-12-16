@@ -1,19 +1,18 @@
 /* Copyright bytedojo 2011 */
-function Flow(cssSheet, containerName, className) {
+function Flow() {
     var THIS = this;
     this.id = 1;
-    this.container = $("#" + containerName);
-    this.cssIndex = this.findStyleSheetIndex(cssSheet);
-    this.width = this.numericalValueFrom(this.extractValueFromCSS(className, "width"));
-    this.padding = this.numericalValueFrom(this.extractValueFromCSS(className, "padding"));
-    this.margin = this.numericalValueFrom(this.extractValueFromCSS(className, "margin"));
-    this.border = this.numericalValueFrom(this.extractValueFromCSS(className, "border-width"));
+    this.container = $("#opinions");
+    this.cssIndex = this.findStyleSheetIndex("core.css");
+    this.width = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "width"));
+    this.padding = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "padding"));
+    this.margin = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "margin"));
+    this.border = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "border-width"));
     this.lines = new Array();
     this.freeLines = new Array();
     this.initial = this.getInitialWidth();
     this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
-    this.setAddOpinionButton();
     this.skip = -10;
     this.limit = 10;
     this.hasData = true;
@@ -285,5 +284,5 @@ Flow.prototype.getRightCorner = function() {
 Flow.prototype.setAddOpinionButton = function() {
     $("#add_opinion_form").css("left", this.container.position().left + this.leftCorner + (this.initial * this.maxBox) / 4);
     $("#add_opinion_form").css("width",(this.initial * this.maxBox) / 2);
-    $("#add_opinion_form").show();
+    $("#add_opinion_wrapper").show();
 };

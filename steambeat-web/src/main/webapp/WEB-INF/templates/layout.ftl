@@ -17,18 +17,15 @@
 
 <div id="main">
 
-    <div id="add_opinion_wrapper">
-        <form action="" method="post" id="add_opinion_form" autocomplete="off" class="rounded" style="display: none">
+    <div id="add_opinion_wrapper" style="display: none">
+        <form action="" method="post" id="add_opinion_form" autocomplete="off" class="rounded">
             <p class="font_title">GIVE YOUR OPINION !</p>
             <textarea id="add_opinion_form_textarea" name="text" class="font_text"></textarea>
 
             <div id="add_opinion_form_judgments" class="font_title" style="display: none">
-                <span id="add_subject1" class="subject_tag good font_title add_tag">faketag1<span class="subject_info font_title">You like!</span></span>
-                <span id="add_subject2" class="subject_tag bad font_title add_tag">faketag2<span class="subject_info font_title">You don't like!</span></span>
-                <span id="add_subject3" class="subject_tag good font_title add_tag">faketag3<span class="subject_info font_title">You like!</span></span>
-                <span id="add_subject4" class="subject_tag good font_title add_tag">faketag4<span class="subject_info font_title">You like!</span></span>
+                <span id="add_subject1" class="subject_tag good font_title add_tag">this webpage<span class="subject_info font_title">You like!</span><input type="hidden" name="subject" value="good"></input></span>
             </div>
-            <input id="add_opinion_form_submit" type="submit" value="ok" onclick="return false;" class="greybutton font_title rounded"/>
+            <input id="add_opinion_form_submit" type="submit" value="ok" class="greybutton font_title rounded"/>
         </form>
     </div>
 

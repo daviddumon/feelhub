@@ -54,11 +54,21 @@ $(function () {
     $("#add_opinion_form_judgments > .good").click(function () {
         $(this).toggleClass("good");
         $(this).toggleClass("bad");
+        $(this).parent().find("input").attr("value","bad");
     });
 
     $("#add_opinion_form_judgments > .bad").click(function () {
         $(this).toggleClass("bad");
         $(this).toggleClass("good");
+        $(this).parent().find("input").attr("value","good");
+    });
+
+    $("#add_opinion_form_submit").click(function(event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        var form = $("#add_opinion_form").serializeArray();;
+        console.log(form);
+        return false;
     });
 
     //$("#add_opinion_form_judgments > .subject_tag").mouseover(function (event) {
