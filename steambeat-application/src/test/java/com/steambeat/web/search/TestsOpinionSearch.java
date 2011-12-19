@@ -23,6 +23,15 @@ public class TestsOpinionSearch extends TestWithMongoRepository {
     }
 
     @Test
+    public void canGetOneOpinion() {
+        TestFactories.opinions().newOpinion();
+
+        final List<Opinion> opinions = opinionSearch.execute();
+
+        assertThat(opinions.size(), is(1));
+    }
+
+    @Test
     public void canGetAllOpinions() {
         TestFactories.opinions().newOpinions(20);
 

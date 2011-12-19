@@ -37,7 +37,7 @@ public class OpinionSearch {
     }
 
     public OpinionSearch withSubject(final Subject subject) {
-        criteria.add(Restrictions.equals("judgments.subjectId", subject.getId()));
+        //criteria.add(Restrictions.equals("judgments.subjectId", subject.getId()));
         return this;
     }
 
