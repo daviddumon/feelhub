@@ -15,8 +15,7 @@ public class Opinion extends BaseEntity {
 
     public Opinion(final String text, final List<Judgment> judgments) {
         this.text = text;
-        creationDate = new DateTime();
-        this.judgments = judgments;
+        this.judgments.addAll(judgments);
     }
 
     //todo
@@ -24,8 +23,6 @@ public class Opinion extends BaseEntity {
         this.text = text;
         this.feeling = feeling;
         this.subjectId = subject.getId();
-        creationDate = new DateTime();
-        this.judgments = Lists.newArrayList();
     }
 
     public String getText() {
@@ -73,7 +70,7 @@ public class Opinion extends BaseEntity {
     private Feeling feeling;
     //todo
     private Object subjectId;
-    private DateTime creationDate;
+    private DateTime creationDate = new DateTime();
     private String id;
-    private List<Judgment> judgments;
+    private List<Judgment> judgments = Lists.newArrayList();
 }

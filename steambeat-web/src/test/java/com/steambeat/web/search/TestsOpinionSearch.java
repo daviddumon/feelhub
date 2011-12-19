@@ -88,7 +88,7 @@ public class TestsOpinionSearch extends TestWithMongoRepository {
         assertThat(opinions.size(), is(10));
     }
 
-    @Ignore("Need to implement dotted notation in Mongolink fake criteria")
+    @Ignore("Need to implement dotted notation  inMongolink fake criteria")
     @Test
     public void canLimitAndSkipForSubject() {
         final WebPage webPage = TestFactories.webPages().newWebPage();

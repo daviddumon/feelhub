@@ -3,7 +3,7 @@ package com.steambeat.domain.opinion;
 public class Judgment {
 
     // Constructor for mapper : do not delete !
-    public Judgment() {
+    protected Judgment() {
     }
 
     public Judgment(final String subjectId, final Feeling feeling) {
