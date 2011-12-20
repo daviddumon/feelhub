@@ -4,13 +4,18 @@ import com.steambeat.domain.DomainEventBus;
 import com.steambeat.test.WithDomainEvent;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
-import com.steambeat.web.*;
-import org.json.*;
-import org.junit.*;
+import com.steambeat.web.ClientResource;
+import com.steambeat.web.SteambeatTemplateRepresentation;
+import com.steambeat.web.WebApplicationTester;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.restlet.data.Status;
-import org.restlet.ext.json.JsonRepresentation;
+
+import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -42,19 +47,20 @@ public class TestHomeOpinionsResource {
     public void canGetAnOpinion() {
         final ClientResource resource = restlet.newClientResource("/opinions;10;10");
 
-        final JsonRepresentation representation = (JsonRepresentation) resource.get();
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
     }
 
     @Test
-    public void canGetMultipleOpinions() throws JSONException {
+    public void canGetMultipleOpinions() throws JSONException, IOException {
         final ClientResource resource = restlet.newClientResource("/opinions;0;10");
         create3Opinions();
 
-        final JsonRepresentation representation = (JsonRepresentation) resource.get();
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 
-        final JSONArray jsonArray = representation.getJsonArray();
+
+        JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray, notNullValue());
         assertThat(jsonArray.length(), is(3));
     }

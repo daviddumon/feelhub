@@ -18,7 +18,7 @@ public class StatisticsService implements DomainEventListener<OpinionPostedEvent
 
     @Override
     public void notify(final OpinionPostedEvent event) {
-        opinionOn(event.getSubject(), event.getOpinion());
+        opinionOn(event.getOpinion().getJudgments().get(0).getSubject(), event.getOpinion());
     }
 
     public void opinionOn(final Subject subject, final Opinion opinion) {

@@ -22,7 +22,7 @@ public class TestsDomainEventBus {
         final DomainEventListener<OpinionPostedEvent> listener2 = mock(DomainEventListener.class);
         DomainEventBus.INSTANCE.register(listener1, OpinionPostedEvent.class);
         DomainEventBus.INSTANCE.register(listener2, OpinionPostedEvent.class);
-        final OpinionPostedEvent event = new OpinionPostedEvent(null, null);
+        final OpinionPostedEvent event = new OpinionPostedEvent(null);
 
         DomainEventBus.INSTANCE.spread(event);
 
@@ -36,7 +36,7 @@ public class TestsDomainEventBus {
         final DomainEventListener<WebPageCreatedEvent> listener2 = mock(DomainEventListener.class);
         DomainEventBus.INSTANCE.register(listener, OpinionPostedEvent.class);
         DomainEventBus.INSTANCE.register(listener2, WebPageCreatedEvent.class);
-        final OpinionPostedEvent event = new OpinionPostedEvent(null, null);
+        final OpinionPostedEvent event = new OpinionPostedEvent(null);
         DomainEventBus.INSTANCE.spread(event);
 
         DomainEventBus.INSTANCE.flush();

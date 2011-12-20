@@ -49,5 +49,9 @@ public class SteambeatProperties {
         return properties.getProperty("hiram");
     }
 
+    public boolean isTest() {
+        return Boolean.valueOf(properties.getProperty("test", "false"));
+    }
+
     private final Properties properties;
 }

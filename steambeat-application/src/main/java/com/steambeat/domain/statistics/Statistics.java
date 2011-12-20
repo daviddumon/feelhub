@@ -17,7 +17,7 @@ public class Statistics extends BaseEntity {
     }
 
     public void incrementOpinionCount(final Opinion opinion) {
-        incrementOpinionCountForFeeling(opinion.getFeeling());
+        incrementOpinionCountForFeeling(opinion.getJudgments().get(0).getFeeling());
     }
 
     public void incrementOpinionCountForFeeling(final Feeling feeling) {
