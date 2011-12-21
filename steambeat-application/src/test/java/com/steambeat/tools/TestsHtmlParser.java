@@ -12,25 +12,25 @@ public class TestsHtmlParser {
 //
 //    @Test
 //    public void canFetchATag() {
-//        //final String tag = "title";
+//        //final String concept = "title";
 //        final String uri = "http://www.liberation.fr";
 //        //final Association association = TestFactories.associations().newAssociation(uri);
 //
 ////        parser.parse(association);
 ////
-////        assertThat(parser.getSingleNode(tag), is("Toute l'actualité avec Libération"));
+////        assertThat(parser.getSingleNode(concept), is("Toute l'actualité avec Libération"));
 //    }
 //
 //    @Ignore
 //    @Test
 //    public void canFetchAMissingTag() {
-//        final String tag = "title";
+//        final String concept = "title";
 //        final String uri = "http://www.super.com";
 //        //final Association association = TestFactories.associations().newAssociation(uri);
 //
 //        //parser.parse(association);
 //        //
-//        //assertThat(parser.getSingleNode(tag), is(""));
+//        //assertThat(parser.getSingleNode(concept), is(""));
 //    }
 //
 //    private HtmlParser parser;

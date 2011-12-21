@@ -8,7 +8,7 @@ public class WebPageFactory {
     public WebPageFactory() {
     }
 
-    public WebPage buildWebPage(final Association association) {
+    public WebPage newWebPage(final Association association) {
         checkNotExists(association);
         final WebPage result = new WebPage(association);
         DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(result));
