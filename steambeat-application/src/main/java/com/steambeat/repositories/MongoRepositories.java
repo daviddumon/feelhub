@@ -3,7 +3,7 @@ package com.steambeat.repositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
-import com.steambeat.domain.subject.Relation;
+import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.*;
 
@@ -14,6 +14,11 @@ public class MongoRepositories extends Repositories {
     @Inject
     public MongoRepositories(final SessionProvider provider) {
         this.provider = provider;
+    }
+
+    @Override
+    protected Repository<Subject> getSubjectRepository() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
