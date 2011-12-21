@@ -1,12 +1,18 @@
 package com.steambeat.web;
 
-import com.google.inject.*;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 import com.steambeat.tools.SteambeatProperties;
 import com.steambeat.web.guice.SteambeatModule;
-import freemarker.template.*;
-import org.restlet.*;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateModelException;
+import org.restlet.Application;
+import org.restlet.Context;
+import org.restlet.Restlet;
 import org.restlet.resource.Directory;
-import org.restlet.routing.*;
+import org.restlet.routing.Filter;
+import org.restlet.routing.Router;
 
 import javax.servlet.ServletContext;
 import java.util.Locale;

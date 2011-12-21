@@ -36,7 +36,11 @@ public class WebApplicationTester extends ExternalResource {
         when(servletContext.getRealPath(anyString())).thenAnswer(new Answer<String>() {
             @Override
             public String answer(final InvocationOnMock invocation) throws Throwable {
-                return FilenameUtils.concat(new File("src/main/webapp").getAbsolutePath(),
+                File file = new File("steambeat-web/src/main/webapp");
+                if(!file.exists()) {
+                    file = new File("src/main/webapp");
+                }
+                return FilenameUtils.concat(file.getAbsolutePath(),
                         ((String) invocation.getArguments()[0]).substring(1));
             }
         });

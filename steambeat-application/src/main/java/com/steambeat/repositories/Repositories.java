@@ -3,7 +3,11 @@ package com.steambeat.repositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
-import com.steambeat.domain.subject.webpage.*;
+import com.steambeat.domain.subject.Relation;
+import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.concept.Concept;
+import com.steambeat.domain.subject.webpage.Association;
+import com.steambeat.domain.subject.webpage.WebPage;
 
 public abstract class Repositories {
 
@@ -19,6 +23,10 @@ public abstract class Repositories {
         return Repositories.soleInstance.getWebPageRepository();
     }
 
+    public static Repository<Concept> concepts() {
+        return Repositories.soleInstance.getConceptRepository();
+    }
+
     public static Repository<Association> associations() {
         return Repositories.soleInstance.getAssociationRepository();
     }
@@ -27,13 +35,27 @@ public abstract class Repositories {
         return Repositories.soleInstance.getStatisticsRepository();
     }
 
+    public static Repository<Subject> subjects() {
+        return Repositories.soleInstance.getSubjectRepository();
+    }
+
+    public static Repository<Relation> relations() {
+        return Repositories.soleInstance.getRelationRepository();
+    }
+
+    protected abstract Repository<Subject> getSubjectRepository();
+
+    protected abstract Repository<Relation> getRelationRepository();
+
     protected abstract Repository<Opinion> getOpinionRepository();
 
     protected abstract StatisticsRepository getStatisticsRepository();
 
+    protected abstract Repository<Concept> getConceptRepository();
+
     protected abstract Repository<Association> getAssociationRepository();
 
-    protected abstract Repository<WebPage> getWebPageRepository();
 
+    protected abstract Repository<WebPage> getWebPageRepository();
     private static Repositories soleInstance;
 }

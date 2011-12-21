@@ -3,6 +3,8 @@ package com.steambeat.repositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
+import com.steambeat.domain.subject.Relation;
+import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.*;
 
 import javax.inject.Inject;
@@ -12,6 +14,11 @@ public class MongoRepositories extends Repositories {
     @Inject
     public MongoRepositories(final SessionProvider provider) {
         this.provider = provider;
+    }
+
+    @Override
+    protected Repository<Relation> getRelationRepository() {
+        return null;  // todo
     }
 
     @Override
@@ -32,6 +39,11 @@ public class MongoRepositories extends Repositories {
     @Override
     protected Repository<Association> getAssociationRepository() {
         return new AssociationMongoRepository(provider.get());
+    }
+
+    @Override
+    protected Repository<Concept> getConceptRepository() {
+        return null;  // todo
     }
 
     private final SessionProvider provider;

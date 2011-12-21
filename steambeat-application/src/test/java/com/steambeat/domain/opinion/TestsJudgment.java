@@ -18,10 +18,10 @@ public class TestsJudgment {
         final Feeling feeling = Feeling.good;
         final WebPage webPage = TestFactories.webPages().newWebPage();
 
-        final Judgment judgment = new Judgment(webPage.getId(), feeling);
+        final Judgment judgment = new Judgment(webPage, feeling);
 
         assertThat(judgment, notNullValue());
-        assertThat(judgment.getSubjectId(), is(webPage.getId()));
+        assertThat(judgment.getSubject(), is(webPage));
         assertThat(judgment.getFeeling(), is(feeling));
     }
 }

@@ -16,15 +16,16 @@ public abstract class Subject extends BaseEntity {
     }
 
     public Judgment createJudgment(final Feeling feeling) {
-        final Judgment judgment = new Judgment(this.getId(), feeling);
+        final Judgment judgment = new Judgment(this, feeling);
         DomainEventBus.INSTANCE.spread(new JudgmentPostedEvent(judgment));
         return judgment;
     }
 
     //todo
     public Opinion createOpinion(final String text, final Feeling feeling) {
-        final Opinion opinion = new Opinion(text, feeling, this);
-        DomainEventBus.INSTANCE.spread(new OpinionPostedEvent(this, opinion));
+        final Opinion opinion = new Opinion(text);
+        opinion.addJudgment(this, feeling);
+        DomainEventBus.INSTANCE.spread(new OpinionPostedEvent(opinion));
         return opinion;
     }
 

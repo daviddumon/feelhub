@@ -23,7 +23,7 @@ public class WebPageService {
 
     public WebPage addWebPage(final Uri uri) {
         final Association association = associationService.lookUp(uri);
-        final WebPage result = webPageFactory.buildWebPage(association);
+        final WebPage result = webPageFactory.newWebPage(association);
         Repositories.webPages().add(result);
         return result;
     }

@@ -1,26 +1,23 @@
 package com.steambeat.test.testFactories;
 
-import com.steambeat.domain.opinion.*;
+import com.google.common.collect.Lists;
+import com.steambeat.domain.opinion.Feeling;
+import com.steambeat.domain.opinion.Judgment;
+import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class OpinionFactoryForTest {
 
     public Opinion newOpinion() {
-        final ArrayList<Judgment> judgments = getJudgments();
-        final Opinion opinion = new Opinion("my good opinion", judgments);
-        Repositories.opinions().add(opinion);
-        return opinion;
+        return newOpinionWithText("my good opinion");
     }
 
     public Opinion newOpinionWithText(final String text) {
-        final ArrayList<Judgment> judgments = getJudgments();
-        final Opinion opinion = new Opinion(text, judgments);
-        Repositories.opinions().add(opinion);
-        return opinion;
+        return newOpinion(TestFactories.webPages().newWebPage(), text);
     }
 
     public void newOpinions(final int quantity) {
@@ -30,15 +27,18 @@ public class OpinionFactoryForTest {
 
     public void newOpinions(final Subject subject, final int quantity) {
         for (int i = 0; i < quantity; i++) {
-            final ArrayList<Judgment> judgments = new ArrayList<Judgment>();
-            judgments.add(subject.createJudgment(Feeling.good));
-            final Opinion opinion = new Opinion("i" + i, judgments);
-            Repositories.opinions().add(opinion);
+            newOpinion(subject, "i" + i);
         }
     }
 
-    private ArrayList<Judgment> getJudgments() {
-        final ArrayList<Judgment> judgments = new ArrayList<Judgment>();
+    private Opinion newOpinion(Subject subject, String text) {
+        final Opinion opinion = new Opinion(text);
+        opinion.addJudgment(subject, Feeling.bad);
+        Repositories.opinions().add(opinion);
+        return opinion;
+    }
+    private List<Judgment> getJudgments() {
+        final List<Judgment> judgments = Lists.newArrayList();
         final Judgment judgment = TestFactories.judgments().newJudgment();
         judgments.add(judgment);
         return judgments;

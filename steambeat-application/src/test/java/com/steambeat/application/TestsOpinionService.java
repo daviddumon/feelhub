@@ -1,5 +1,6 @@
 package com.steambeat.application;
 
+import com.google.common.collect.Lists;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.Repositories;
@@ -16,16 +17,20 @@ public class TestsOpinionService {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void canAddOpinion() {
+    public void canAddOpinionAndJudgements() {
         final Subject subject = TestFactories.webPages().newWebPage();
         final OpinionService service = new OpinionService();
-
-        service.addOpinion(subject, Feeling.bad, "my opinion");
-
+        final JudgmentDTO judgmentDTO = new JudgmentDTO(subject.getId(), "good");
+        
+        service.addOpinion("Le texte de l'opinion", Lists.newArrayList(judgmentDTO));
+        
         assertThat(Repositories.opinions().getAll().size(), is(1));
         final Opinion opinion = Repositories.opinions().getAll().get(0);
-        assertThat(opinion.getSubject(), is(subject));
-        assertThat(opinion.getText(), is("my opinion"));
-        assertThat(opinion.getFeeling(), is(Feeling.bad));
+        assertThat(opinion.getText(), is("Le texte de l'opinion"));
+        assertThat(opinion.getJudgments().size(), is(1));
+        final Judgment judgment = opinion.getJudgments().get(0);
+        assertThat(judgment.getSubject(), is(subject));
+        assertThat(judgment.getFeeling(), is(Feeling.good));
+
     }
 }

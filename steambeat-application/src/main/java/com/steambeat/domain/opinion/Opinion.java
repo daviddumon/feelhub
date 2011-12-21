@@ -3,35 +3,22 @@ package com.steambeat.domain.opinion;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.repositories.Repositories;
 import org.joda.time.DateTime;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 public class Opinion extends BaseEntity {
 
     protected Opinion() {
     }
 
-    public Opinion(final String text, final List<Judgment> judgments) {
+    public Opinion(String text) {
         this.text = text;
-        this.judgments.addAll(judgments);
-    }
-
-    //todo
-    public Opinion(final String text, final Feeling feeling, final Subject subject) {
-        this.text = text;
-        this.feeling = feeling;
-        this.subjectId = subject.getId();
     }
 
     public String getText() {
         return text;
-    }
-
-    //todo
-    public Feeling getFeeling() {
-        return feeling;
     }
 
     public DateTime getCreationDate() {
@@ -42,21 +29,16 @@ public class Opinion extends BaseEntity {
         return creationDate.toDate();
     }
 
-    public void setText(final String text) {
-        this.text = text;
-    }
-
     //todo
-    public Subject getSubject() {
-        return Repositories.webPages().get(subjectId);
+    public String getSubjectId() {
+        return judgments.get(0).getSubjectId();
     }
-
-    //todo
-    public Object getSubjectId() {
-        return subjectId;
+    
+    //tode
+    public Feeling getFeeling() {
+        return judgments.get(0).getFeeling();
     }
-
-    //todo
+    
     public String getId() {
         return id;
     }
@@ -65,11 +47,11 @@ public class Opinion extends BaseEntity {
         return judgments;
     }
 
+    public void addJudgment(Subject subject, Feeling feeling) {
+        judgments.add(new Judgment(subject, feeling));
+    }
+
     private String text;
-    //todo
-    private Feeling feeling;
-    //todo
-    private Object subjectId;
     private DateTime creationDate = new DateTime();
     private String id;
     private List<Judgment> judgments = Lists.newArrayList();

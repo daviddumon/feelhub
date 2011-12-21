@@ -1,16 +1,22 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.opinion.Feeling;
+import com.steambeat.domain.opinion.Judgment;
+import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
-import com.steambeat.web.*;
-import org.junit.*;
+import com.steambeat.web.ClientResource;
+import com.steambeat.web.ReferenceBuilder;
+import com.steambeat.web.WebApplicationTester;
+import org.junit.Rule;
+import org.junit.Test;
 import org.restlet.Context;
-import org.restlet.data.*;
+import org.restlet.data.Form;
+import org.restlet.data.Status;
 
 import java.util.List;
 
@@ -69,23 +75,7 @@ public class TestsWebPageOpinionsResource {
         assertThat(resource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
 
-    @Test
-    public void postOpinionsToCanonicalUri() {
-        final WebPage webPage = TestFactories.webPages().newWebPage("http://www.lemonde.fr");
-        final String firstUri = "lemonde.fr";
-        final String secondUri = "http://lemonde.fr";
-        final ClientResource firstResource = restlet.newClientResource("/webpages/" + firstUri + "/opinions");
-        final ClientResource secondResource = restlet.newClientResource("/webpages/" + secondUri + "/opinions");
-        final Form form = getGoodForm();
 
-        firstResource.post(form);
-        secondResource.post(form);
-
-        final List<Opinion> opinions = Repositories.opinions().getAll();
-        assertThat(opinions.size(), is(2));
-        final Judgment judgment = opinions.get(0).getJudgments().get(0);
-        assertThat(judgment.getSubjectId(), is(webPage.getId()));
-    }
 
     @Test
     public void canNotPostAOpinionWithoutFeeling() {

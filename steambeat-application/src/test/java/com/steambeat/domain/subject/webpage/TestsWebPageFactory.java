@@ -33,7 +33,7 @@ public class TestsWebPageFactory {
     public void canBuildWebPage() {
         final Association association = associate("http://lemonde.fr/international", "http://www.lemonde.fr/international");
 
-        final WebPage webPage = webPageFactory.buildWebPage(association);
+        final WebPage webPage = webPageFactory.newWebPage(association);
 
         assertThat(webPage, notNullValue());
         assertThat(webPage.getId(), is("http://www.lemonde.fr/international"));
@@ -46,7 +46,7 @@ public class TestsWebPageFactory {
 
         expectedException.expect(WebPageAlreadyExistsException.class);
         expectedException.expect(hasProperty("uri", is("http://lemonde.fr/international")));
-        webPageFactory.buildWebPage(association);
+        webPageFactory.newWebPage(association);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class TestsWebPageFactory {
         final Association association = associate("http://lemonde.fr/international", "http://www.lemonde.fr/international");
         DomainEventBus.INSTANCE.notifyOnSpread();
 
-        final WebPage webPage = webPageFactory.buildWebPage(association);
+        final WebPage webPage = webPageFactory.newWebPage(association);
 
         final WebPageCreatedEvent lastEvent = bus.lastEvent(WebPageCreatedEvent.class);
         assertThat(lastEvent, notNullValue());
