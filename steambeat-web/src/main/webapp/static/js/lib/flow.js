@@ -22,7 +22,7 @@ function Flow() {
     var arrowRight = (width - rightCorner - 50 + this.margin) / 2;
     $("#arrow_up").css("right", arrowRight);
 
-    this.drawData();
+    THIS.drawData();
 
     $(window).scroll(function () {
         THIS.drawData();
@@ -39,14 +39,13 @@ Flow.prototype.drawData = function () {
 
     function needData() {
         var docHeight = THIS.container.height();
-        var scrollTop = $(window).scrollTop()
+        var scrollTop = $(window).scrollTop();
         var trigger = $(window).height() * 1.5;
         return (docHeight - scrollTop) < trigger;
     }
 
     function loadData() {
         $.getJSON(root + "/opinions;" + THIS.skip + ";" + THIS.limit, function (data) {
-
             $.each(data, function (index, opinion) {
                 THIS.drawBox(opinion, "opinion shadow");
             });
@@ -66,7 +65,6 @@ Flow.prototype.drawData = function () {
 };
 
 Flow.prototype.drawBox = function (opinion, classes) {
-    console.log(opinion);
     var THIS = this;
     var id = "opinion_" + this.id++;
 
@@ -278,12 +276,12 @@ Flow.prototype.setLeftCorner = function () {
     return leftCorner;
 };
 
-Flow.prototype.getRightCorner = function() {
+Flow.prototype.getRightCorner = function () {
     return this.leftCorner + (this.initial * this.maxBox);
 };
 
-Flow.prototype.setAddOpinionButton = function() {
+Flow.prototype.setAddOpinionButton = function () {
     $("#add_opinion_form").css("left", this.container.position().left + this.leftCorner + (this.initial * this.maxBox) / 4);
-    $("#add_opinion_form").css("width",(this.initial * this.maxBox) / 2);
+    $("#add_opinion_form").css("width", (this.initial * this.maxBox) / 2);
     $("#add_opinion_wrapper").show();
 };
