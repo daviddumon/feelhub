@@ -14,6 +14,33 @@
     <packaging>war</packaging>
     <description>free speech everywhere</description>
 
+    <profiles>
+        <profile>
+            <id>delivery</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>delivery</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>${basedir}/delivery/test.sh</executable>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
@@ -62,7 +89,7 @@
     </build>
 
     <dependencies>
-        
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -74,7 +101,7 @@
             <artifactId>steambeat-application</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
@@ -99,7 +126,7 @@
             <groupId>org.restlet.jee</groupId>
             <artifactId>org.restlet.ext.json</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>com.steambeat</groupId>
             <artifactId>steambeat-application</artifactId>
@@ -117,7 +144,7 @@
             <artifactId>mongolink-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
     </dependencies>
 
 </project>
