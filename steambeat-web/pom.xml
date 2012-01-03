@@ -17,6 +17,9 @@
     <profiles>
         <profile>
             <id>delivery</id>
+            <properties>
+                <domain>test.bytedojo.com</domain>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
