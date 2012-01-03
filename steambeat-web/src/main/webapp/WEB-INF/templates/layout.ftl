@@ -37,8 +37,8 @@
 </div>
 
 <footer>
-    <span id="about_button" class="footer_button greybutton">about</span>
-    <span id="help_button" class="footer_button greybutton">help</span>
+    <#--<span id="about_button" class="footer_button greybutton">about</span>-->
+    <#--<span id="help_button" class="footer_button greybutton">help</span>-->
 </footer>
 
 <div id="about_dialog" title="About" style="display: none;">

@@ -16,7 +16,7 @@
 
     <profiles>
         <profile>
-            <id>delivery</id>
+            <id>testdelivery</id>
             <properties>
                 <domain>test.bytedojo.com</domain>
             </properties>
@@ -28,7 +28,7 @@
                         <version>1.2.1</version>
                         <executions>
                             <execution>
-                                <id>delivery</id>
+                                <id>testdelivery</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>exec</goal>
