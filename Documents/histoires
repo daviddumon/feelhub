@@ -1,5 +1,0 @@
-encoding/decoding dans le post opinion
-Reconnaitre le code html dans les opinions et l'afficher comme tel (par exemple un lien)
-Input de l'opinion qui cree plusieurs opinions (par item identifié)
-Lorsque l'on poste une image du dur ou a partir d'un lien (fin jpg/gif etc), on la stocke en base et on cree un hash d'identification pour pouvoir la reidentifer !
-dans l'input : pouvoir identifier un tag/un lien etc ... Au fur et a mesure de la gestion des resources dans le systeme il faut rajotuer leurs identifiactions dans l'input

@@ -1,9 +1,0 @@
-Decommenter tous les tests (y comrpis dans feed.js)
-Ne pas envoyer de requete si startinterval > new Date() ...
-Duplication code entre les differentes fonctions de la timeline
-Selecteurs
-bouton now qui apparait quand now n'est plus visible sur la timeline
-Le selecteur centre le graph sur l'interval selectionné
-Pas de sous path bezier entre deux graphs !!!
-Pour l'instant, quand on monte de granularite ,on prend l'interval de debut de graph, au lieu de l'interval du milieu :(
-Aide contextuelle sur la timeline
