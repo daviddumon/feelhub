@@ -8,7 +8,7 @@ var newwebpage = {};
             uri:uri
         };
         $.post(root + "/webpages", postData, function (data, text, xhr) {
-            $.redirect(xhr.getResponseHeader("Location"));
+            window.location = xhr.getResponseHeader("Location");
         });
     };
 }).call(newwebpage, jQuery);

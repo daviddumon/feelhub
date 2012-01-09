@@ -8,7 +8,26 @@
 <#--</div>-->
 
 <header>
-    <a id="steambeat" class="greybutton" href="http://${domain}${root}">steambeat</a>
+    <div id="header_top_wrapper">
+        <a id="logo" class="greybutton" href="http://${domain}${root}">steambeat</a>
+    </div>
+
+    <form action="" method="post" id="add_opinion_form" autocomplete="off" class="rounded_down">
+        <p class="font_title">GIVE YOUR OPINION !</p>
+
+        <div id="form_inner_wrapper" style="display: none">
+            <textarea id="add_opinion_form_textarea" name="text" class="font_text"></textarea>
+
+            <div id="add_opinion_form_judgments" class="font_title">
+            <span id="add_subject1" class="subject_tag good font_title add_tag">this webpage<span class="subject_info font_title">You like!</span><input
+                                type="hidden"
+                                name="feeling"
+                                value="good"></input></span>
+            </div>
+            <input id="add_opinion_form_submit" type="submit" value="ok" class="greybutton font_title rounded"/>
+         </div>
+    </form>
+
 </header>
 
 <div id="panel" class="rounded_top">
@@ -16,18 +35,6 @@
 </div>
 
 <div id="main">
-
-    <div id="add_opinion_wrapper" style="display: none">
-        <form action="" method="post" id="add_opinion_form" autocomplete="off" class="rounded">
-            <p class="font_title">GIVE YOUR OPINION !</p>
-            <textarea id="add_opinion_form_textarea" name="text" class="font_text"></textarea>
-
-            <div id="add_opinion_form_judgments" class="font_title" style="display: none">
-                <span id="add_subject1" class="subject_tag good font_title add_tag">this webpage<span class="subject_info font_title">You like!</span><input type="hidden" name="feeling" value="good"></input></span>
-            </div>
-            <input id="add_opinion_form_submit" type="submit" value="ok" class="greybutton font_title rounded"/>
-        </form>
-    </div>
 
     <ul id="opinions">
 
@@ -37,7 +44,7 @@
 </div>
 
 <footer>
-    <#--<span id="about_button" class="footer_button greybutton">about</span>-->
+<#--<span id="about_button" class="footer_button greybutton">about</span>-->
     <#--<span id="help_button" class="footer_button greybutton">help</span>-->
 </footer>
 

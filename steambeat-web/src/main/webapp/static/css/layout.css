@@ -9,62 +9,6 @@ a {
     text-decoration: none;
 }
 
-#add_opinion_form {
-    position: relative;
-    top: 100px;
-    text-align: center;
-    background-color: #E9E9E9;
-    -moz-box-shadow: 0px 0px 2px #BBB;
-    -webkit-box-shadow: 0px 0px 2px #BBB;
-    box-shadow: 0px 0px 2px #BBB;
-}
-
-#add_opinion_form p {
-    color: #BBB;
-    font-size: 1.5em;
-    font-weight: bold;
-    padding-top: 20px;
-    margin-bottom: 20px;
-}
-
-#add_opinion_form_textarea {
-    position: relative;
-    width: 86%;
-    margin-right: 5%;
-    margin-left: 5%;
-    margin-bottom: 20px;
-    outline: none;
-    -moz-outline: none;
-    border: solid 1px #BBB;
-    resize: none;
-    padding: 2%;
-    height: 40px;
-    z-index: 101;
-}
-
-#add_opinion_form_judgments {
-    position: relative;
-    width: 86%;
-    margin-right: 5%;
-    margin-left: 5%;
-    margin-bottom: 20px;
-    margin-top: -25px;
-    padding: 2%;
-    border-top: 1px dashed #BBB;
-    border-right: 1px solid #BBB;
-    border-left: 1px solid #BBB;
-    border-bottom: 1px solid #BBB;
-    background-color: #FFF;
-    z-index: 102;
-}
-
-#add_opinion_form_submit {
-    font-size: 1.2em;
-    font-weight: bold;
-    width: 20%;
-    margin-bottom: 20px;
-}
-
 #feedback {
     position: fixed;
     top: 50%;
@@ -147,7 +91,7 @@ a {
 
 #opinions {
     position: relative;
-    top: 200px;
+    top: 150px;
     left: 33%;
     width: 67%;
 }
@@ -156,7 +100,7 @@ a {
     display: block;
     width: 120px;
     padding: 20px;
-    margin: 10px;
+    margin: 2px;
     border-width: 1px;
     border-style: solid;
     border-color: #BBB;

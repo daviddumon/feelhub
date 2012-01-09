@@ -3,7 +3,7 @@ function Flow() {
     var THIS = this;
     this.id = 1;
     this.container = $("#opinions");
-    this.cssIndex = this.findStyleSheetIndex("core.css");
+    this.cssIndex = this.findStyleSheetIndex("layout.css");
     this.width = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "width"));
     this.padding = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "padding"));
     this.margin = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "margin"));
@@ -47,7 +47,7 @@ Flow.prototype.drawData = function () {
     function loadData() {
         $.getJSON(root + "/opinions;" + THIS.skip + ";" + THIS.limit, function (data) {
             $.each(data, function (index, opinion) {
-                THIS.drawBox(opinion, "opinion shadow");
+                THIS.drawBox(opinion, "opinion");
             });
 
             if (data.length != THIS.limit) {
@@ -278,10 +278,4 @@ Flow.prototype.setLeftCorner = function () {
 
 Flow.prototype.getRightCorner = function () {
     return this.leftCorner + (this.initial * this.maxBox);
-};
-
-Flow.prototype.setAddOpinionButton = function () {
-    $("#add_opinion_form").css("left", this.container.position().left + this.leftCorner + (this.initial * this.maxBox) / 4);
-    $("#add_opinion_form").css("width", (this.initial * this.maxBox) / 2);
-    $("#add_opinion_wrapper").show();
 };
