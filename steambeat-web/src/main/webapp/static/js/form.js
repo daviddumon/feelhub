@@ -8,7 +8,6 @@ $(function () {
     });
 
     $("#opinion_form").mouseleave(function(){
-        $("#opinion_form_inner_wrapper").clearQueue();
         $("#opinion_form_inner_wrapper").delay(600).slideUp(200);
     });
 
