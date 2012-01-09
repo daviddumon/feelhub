@@ -20,26 +20,17 @@ header {
 }
 
 #logo {
+    position: relative;
     display: block;
-    left: 3%;
     width: 30%;
     font-size: 42px;
-    font-family: 'Droid Sans';, Sans-Serif;
     font-weight: bold;
     text-align: center;
     padding-top: 9px;
     padding-bottom: 9px;
 }
 
-#add_opinion_form p {
-    font-size: 1.5em;
-    font-weight: bold;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: #BBB;
-}
-
-#add_opinion_form {
+#opinion_form {
     margin: 0 auto;
     width: 50%;
     text-align: center;
@@ -51,7 +42,15 @@ header {
     z-index: 1;
 }
 
-#add_opinion_form_textarea {
+#opinion_form p {
+    font-size: 1.5em;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #BBB;
+}
+
+#opinion_form_textarea {
     width: 86%;
     margin-right: 5%;
     margin-left: 5%;
@@ -65,7 +64,7 @@ header {
     z-index: 101;
 }
 
-#add_opinion_form_judgments {
+#opinion_form_judgments {
     width: 86%;
     margin-right: 5%;
     margin-left: 5%;
@@ -80,7 +79,7 @@ header {
     z-index: 102;
 }
 
-#add_opinion_form_submit {
+#opinion_form_submit {
     font-size: 1.2em;
     font-weight: bold;
     width: 20%;

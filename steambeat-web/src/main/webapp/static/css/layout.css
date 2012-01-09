@@ -12,17 +12,30 @@ a {
 #feedback {
     position: fixed;
     top: 50%;
-    left: 0px;
+    right: 0px;
     width: 100px;
-    margin-top: 50px;
+    margin-top: -50px;
     z-index: 200;
-    font-size: 14px;
+    font-size: 16px;
     text-align: center;
     padding-top: 6px;
-    padding-bottom: 6px;
+    padding-bottom: 12px;
 }
 
-.vertical {
+.vertical_right {
+    transform: rotate(-90deg);
+    transform-origin: bottom right;
+    -webkit-transform: rotate(-90deg);
+    -webkit-transform-origin: bottom right;
+    -moz-transform: rotate(-90deg);
+    -moz-transform-origin: bottom right;
+    -o-transform: rotate(-90deg);
+    -o-transform-origin: bottom right;
+    -ms-transform: rotate(-90deg);
+    -ms-transform-origin: bottom right;
+}
+
+.vertical_left {
     transform: rotate(-90deg);
     transform-origin: top left;
     -webkit-transform: rotate(-90deg);
@@ -92,8 +105,9 @@ a {
 #opinions {
     position: relative;
     top: 150px;
-    left: 33%;
-    width: 67%;
+    margin-top: -2px;
+    left: 30%;
+    width: 70%;
 }
 
 .opinion {
@@ -101,27 +115,13 @@ a {
     width: 120px;
     padding: 20px;
     margin: 2px;
-    border-width: 1px;
+    border-width: 0px;
     border-style: solid;
     border-color: #BBB;
     background-color: #FFFFFF;
     list-style-type: none;
     overflow: hidden;
 }
-
-/*#help {*/
-/*position: fixed;*/
-/*top: 10px;*/
-/*left: 20%;*/
-/*z-index: 1000;*/
-/*width: 20%;*/
-/*height: 20%;*/
-/*background-color: #FFFFFF;*/
-/*text-align: center;*/
-/*font-size: 16px;*/
-/*color: #AAA;*/
-/*border: 2px solid black;*/
-/*}*/
 
 .subjects {
     border-top: 1px dashed #AAA;
@@ -165,17 +165,19 @@ a {
 
 #arrow_up {
     position: fixed;
-    top: 20%;
-    right: 10px;
+    top: 150px;
+    left: 60%;
     text-align: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    width: 50px;
-}
-
-#arrow_up p {
-    font-size: 16px;
-    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 10%;
+    z-index: 100;
+    cursor: pointer;
+        font-family: 'Droid Sans';, Sans-Serif;
+        font-size: 16px;
+        color: #BBB;
+        border: none;
+        background-color: #F1F1F1;
 }
 
 .greybutton {

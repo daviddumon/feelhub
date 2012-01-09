@@ -17,11 +17,6 @@ function Flow() {
     this.limit = 10;
     this.hasData = true;
 
-    var rightCorner = this.getRightCorner();
-    var width = this.container.width();
-    var arrowRight = (width - rightCorner - 50 + this.margin) / 2;
-    $("#arrow_up").css("right", arrowRight);
-
     THIS.drawData();
 
     $(window).scroll(function () {
@@ -138,7 +133,6 @@ Flow.prototype.findNextFreeSpace = function (size) {
                     }
                 }
             }
-
         }
     }
     return position;
@@ -264,18 +258,14 @@ Flow.prototype.getInitialWidth = function () {
 
 Flow.prototype.getMaxBox = function () {
     var webpageWidth = this.container.innerWidth();
-    var maxBox = Math.floor((webpageWidth - 70) / this.initial);
+    var maxBox = Math.floor((webpageWidth - 40) / this.initial);
     return maxBox;
 };
 
 Flow.prototype.setLeftCorner = function () {
-    var availableSpace = this.container.innerWidth() - 70;
+    var availableSpace = this.container.innerWidth() - 40;
     var maxBox = Math.floor(availableSpace / this.initial);
     var usedSpace = maxBox * this.initial;
     var leftCorner = (availableSpace - usedSpace) / 2;
     return leftCorner;
-};
-
-Flow.prototype.getRightCorner = function () {
-    return this.leftCorner + (this.initial * this.maxBox);
 };

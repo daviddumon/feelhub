@@ -1,40 +1,39 @@
 /* Copyright bytedojo 2011 */
 $(function () {
 
-    $("#add_opinion_form").mouseover(function(){
-        $("#form_inner_wrapper").slideDown(200);
-        $("#add_opinion_form_textarea").focus();
+    $("#opinion_form").mouseover(function(){
+        $("#opinion_form_inner_wrapper").slideDown(200);
+        $("#opinion_form_textarea").focus();
     });
 
-    $("#add_opinion_form").mouseleave(function(){
-        $("#form_inner_wrapper").delay(200).fadeOut(0);
+    $("#opinion_form").mouseleave(function(){
+        $("#opinion_form_inner_wrapper").hide();
     });
 
-    $("#add_opinion_wrapper").children().click(function () {
-        if (!$("#add_opinion_form_textarea").is(":focus")) {
-            $("#add_opinion_form_textarea").clearQueue();
-            $("#add_opinion_form_textarea").focus();
-            $("#add_opinion_form_judgments").clearQueue();
+    $("#opinion_wrapper").children().click(function () {
+        if (!$("#opinion_form_textarea").is(":focus")) {
+            $("#opinion_form_textarea").clearQueue();
+            $("#opinion_form_textarea").focus();
+            $("#opinion_form_judgments").clearQueue();
         }
     });
 
-    $("#add_opinion_form_judgments > .good").click(function () {
+    $("#opinion_form_judgments > .good").click(function () {
         $(this).toggleClass("good");
         $(this).toggleClass("bad");
         $(this).parent().find("input").attr("value", "bad");
     });
 
-    $("#add_opinion_form_judgments > .bad").click(function () {
+    $("#opinion_form_judgments > .bad").click(function () {
         $(this).toggleClass("bad");
         $(this).toggleClass("good");
         $(this).parent().find("input").attr("value", "good");
     });
 
-    $("#add_opinion_form_submit").click(function (event) {
-    console.log("coucou");
+    $("#opinion_form_submit").click(function (event) {
         event.preventDefault();
         event.stopImmediatePropagation();
-        var form = $("#add_opinion_form").serializeArray();
+        var form = $("#opinion_form").serializeArray();
         $.post(formAction, form, function (data, textStatus, jqXHR) {
             location.href = jqXHR.getResponseHeader("Location");
         });
