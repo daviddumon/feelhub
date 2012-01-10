@@ -12,7 +12,7 @@
         <a id="logo" class="button titlefont" href="http://${domain}${root}">steambeat</a>
     </div>
 
-    <form id="opinion_form" method="post" action="" autocomplete="off" class="rounded_down">
+    <form id="opinion_form" method="post" action="" autocomplete="off" class="rounded_down shadow">
         <div id="opinion_form_title" class="titlefont button">GIVE YOUR OPINION !</div>
 
         <div id="opinion_form_inner_wrapper" style="display: none">

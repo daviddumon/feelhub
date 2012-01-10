@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
     <meta name="keywords" content="sentiment analysis"/>
     <link rel="stylesheet" href="${root}/static/css/reset.css"/>
+    <link rel="stylesheet" href="${root}/static/css/common.css"/>
     <link rel="stylesheet" href="${root}/static/css/dialog.css"/>
     <link rel="stylesheet" href="${root}/static/css/header.css"/>
     <link rel="stylesheet" href="${root}/static/css/footer.css"/>
