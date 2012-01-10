@@ -12,6 +12,6 @@
 
 <div id="newwebpage" class="good rounded">
     <img src="${root}/static/images/smiley_good_white.png" />
-    <p class="font_title">Creating this awesome subject for you !</p>
+    <p class="titlefont">Creating this awesome subject for you !</p>
 </div>
 </@layout.panel>

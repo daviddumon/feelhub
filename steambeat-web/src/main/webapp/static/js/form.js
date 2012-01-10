@@ -1,7 +1,7 @@
 /* Copyright bytedojo 2011 */
 $(function () {
 
-    $("#opinion_form").mouseover(function(){
+    $("#opinion_form").click(function(){
         $("#opinion_form_inner_wrapper").clearQueue();
         $("#opinion_form_inner_wrapper").slideDown(200);
         $("#opinion_form_textarea").focus();

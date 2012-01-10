@@ -20,9 +20,8 @@
 }
 
 .counter_text {
-    color: #FFFFFF;
-    font-size: 24px;
-    font-family: 'Droid Sans';, Sans-Serif;
+    color: #FFFFFF !important;
+    font-size: 24px !important;
 }
 
 .smiley {

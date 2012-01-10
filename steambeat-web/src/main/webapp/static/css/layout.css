@@ -1,8 +1,17 @@
 /* Copyright bytedojo 2011 */
 body {
+    background-color: #F1F1F1;
+}
+
+.textfont {
     font-family: 'Droid Serif', serif;
     font-size: 12px;
-    background-color: #F1F1F1;
+}
+
+.titlefont {
+    font-family: 'Droid Sans';, Sans-Serif;
+    font-size: 16px;
+    color: #BBB;
 }
 
 a {
@@ -173,16 +182,12 @@ a {
     width: 10%;
     z-index: 100;
     cursor: pointer;
-        font-family: 'Droid Sans';, Sans-Serif;
-        font-size: 16px;
-        color: #BBB;
-        border: none;
-        background-color: #F1F1F1;
+    border: none;
+    background-color: #F1F1F1;
 }
 
 .greybutton {
     cursor: pointer;
-    font-family: 'Droid Sans';, Sans-Serif;
     color: #BBB;
     border: none;
     background-color: #E9E9E9;
@@ -190,12 +195,4 @@ a {
 
 .greybutton:hover {
     color: #888;
-}
-
-.font_text {
-    font-family: 'Droid Serif', serif;
-}
-
-.font_title {
-    font-family: 'Droid Sans';, Sans-Serif;
 }

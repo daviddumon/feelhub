@@ -8,11 +8,11 @@
 <div class="panel_box">
     <div class="counter good rounded">
         <img class="smiley" src="${root}/static/images/smiley_good_white.png"/>
-        <p class="counter_text">0</p>
+        <p class="counter_text titlefont">0</p>
     </div>
     <div class="counter bad rounded">
         <img class="smiley" src="${root}/static/images/smiley_bad_white.png"/>
-        <p class="counter_text">0</p>
+        <p class="counter_text titlefont">0</p>
     </div>
 </div>
 </@layout.panel>
