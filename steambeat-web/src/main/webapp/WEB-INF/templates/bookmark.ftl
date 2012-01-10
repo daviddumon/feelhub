@@ -4,9 +4,11 @@ try {
 if (!body) {
 throw(0);
 }
-var url = 'http://${domain}${root}/webpages/' + document.location.href;
-if (!window.open(url)) {
-location.href = url;
+if(document.location.href != 'about:blank') {
+    var url = 'http://${domain}${root}/webpages/' + document.location.href;
+    if (!window.open(url)) {
+    location.href = url;
+    }
 }
 }
 catch(e) {

@@ -17,6 +17,7 @@ header {
     -webkit-box-shadow: 0px 0px 10px 2px #C9C9C9;
     box-shadow: 0px 0px 10px 2px #C9C9C9;
     z-index: 2;
+    overflow: hidden;
 }
 
 #logo {
@@ -32,11 +33,10 @@ header {
 }
 
 #header_right {
-    position: relative;
     float: right;
     display: block;
-    width: 30%;
     padding-top: 22px;
+    margin-right: 100px;
 }
 
 #bookmarklet {
