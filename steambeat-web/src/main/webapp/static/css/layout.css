@@ -14,10 +14,9 @@ a {
     width: 100px;
     margin-top: -50px;
     z-index: 200;
-    font-size: 16px;
     text-align: center;
     padding-top: 6px;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
 }
 
 #opinions {
@@ -81,7 +80,7 @@ a {
     background-color: #BBB;
 }
 
-#arrow_up {
+#scroll_to_top {
     position: fixed;
     top: 150px;
     left: 60%;
@@ -89,8 +88,6 @@ a {
     padding-top: 10px;
     padding-bottom: 10px;
     width: 10%;
+    background-color: #F1F1F1 !important;
     z-index: 100;
-    cursor: pointer;
-    border: none;
-    background-color: #F1F1F1;
 }

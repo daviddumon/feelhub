@@ -21,6 +21,7 @@ header {
 
 #logo {
     position: relative;
+    float: left;
     display: block;
     width: 30%;
     font-size: 42px;
@@ -28,6 +29,19 @@ header {
     text-align: center;
     padding-top: 9px;
     padding-bottom: 9px;
+}
+
+#header_right {
+    position: relative;
+    float: right;
+    display: block;
+    width: 30%;
+    padding-top: 22px;
+}
+
+#bookmarklet {
+    background-color: #FFF;
+    padding: 5px;
 }
 
 #opinion_form {

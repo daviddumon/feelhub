@@ -1,15 +1,14 @@
 <#macro panel>
 <body class="textfont">
-<a id="feedback" class="vertical_right rounded_top button shadow titlefont" href="${root}/webpages/http://www.steambeat.com">feedback</a>
 
-<#--<div id="help">-->
-<#--To post opinion about webpages, drag this button to your bookmark bar !!-->
-<#--<a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" title="Say it !">Say it !</a>-->
-<#--</div>-->
+<a id="feedback" class="vertical_right rounded_top button shadow titlefont" href="${root}/webpages/http://www.steambeat.com">feedback</a>
 
 <header>
     <div id="header_top_wrapper">
         <a id="logo" class="button titlefont" href="http://${domain}${root}">steambeat</a>
+        <div id="header_right">
+            <p class="titlefont">Drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" class="rounded titlefont">Steambeat!</a></p>
+        </div>
     </div>
 
     <form id="opinion_form" method="post" action="" autocomplete="off" class="rounded_down shadow">
@@ -36,7 +35,7 @@
 
 <ul id="opinions">
 </ul>
-<div id="arrow_up" class="rounded_down title button" style="display: none">scroll to top</div>
+<div id="scroll_to_top" class="rounded_down titlefont button" style="display: none">scroll to top</div>
 
 <footer>
     <#--<span id="about_button" class="footer_button button titlefont">about</span>-->
