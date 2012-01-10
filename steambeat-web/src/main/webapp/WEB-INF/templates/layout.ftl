@@ -1,6 +1,6 @@
 <#macro panel>
 <body class="textfont">
-<a id="feedback" class="vertical_right rounded_top greybutton shadow titlefont" href="${root}/webpages/http://www.steambeat.com">feedback</a>
+<a id="feedback" class="vertical_right rounded_top button shadow titlefont" href="${root}/webpages/http://www.steambeat.com">feedback</a>
 
 <#--<div id="help">-->
 <#--To post opinion about webpages, drag this button to your bookmark bar !!-->
@@ -9,11 +9,11 @@
 
 <header>
     <div id="header_top_wrapper">
-        <a id="logo" class="greybutton titlefont" href="http://${domain}${root}">steambeat</a>
+        <a id="logo" class="button titlefont" href="http://${domain}${root}">steambeat</a>
     </div>
 
     <form id="opinion_form" method="post" action="" autocomplete="off" class="rounded_down">
-        <p class="titlefont greybutton">GIVE YOUR OPINION !</p>
+        <div id="opinion_form_title" class="titlefont button">GIVE YOUR OPINION !</div>
 
         <div id="opinion_form_inner_wrapper" style="display: none">
             <textarea id="opinion_form_textarea" name="text" class="textfont"></textarea>
@@ -24,7 +24,7 @@
                                 name="feeling"
                                 value="good"></input></span>
             </div>
-            <input id="opinion_form_submit" type="submit" value="ok" class="greybutton titlefont rounded"/>
+            <input id="opinion_form_submit" type="submit" value="ok" class="button titlefont rounded"/>
          </div>
     </form>
 
@@ -36,11 +36,11 @@
 
 <ul id="opinions">
 </ul>
-<div id="arrow_up" class="rounded_down title" style="display: none">scroll to top</div>
+<div id="arrow_up" class="rounded_down title button" style="display: none">scroll to top</div>
 
 <footer>
-    <#--<span id="about_button" class="footer_button greybutton titlefont">about</span>-->
-    <#--<span id="help_button" class="footer_button greybutton titlefont">help</span>-->
+    <#--<span id="about_button" class="footer_button button titlefont">about</span>-->
+    <#--<span id="help_button" class="footer_button button titlefont">help</span>-->
 </footer>
 
 <div id="about_dialog" title="About" style="display: none;">

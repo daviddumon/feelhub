@@ -3,6 +3,10 @@ body {
     background-color: #F1F1F1;
 }
 
+a {
+    text-decoration: none !important;
+}
+
 .textfont {
     font-family: 'Droid Serif', serif;
     font-size: 12px;
@@ -14,8 +18,15 @@ body {
     color: #BBB;
 }
 
-a {
-    text-decoration: none;
+.button {
+    cursor: pointer;
+    color: #BBB;
+    border: none;
+    background-color: #E9E9E9;
+}
+
+.button:hover {
+    color: #888 !important;
 }
 
 #feedback {
@@ -184,15 +195,4 @@ a {
     cursor: pointer;
     border: none;
     background-color: #F1F1F1;
-}
-
-.greybutton {
-    cursor: pointer;
-    color: #BBB;
-    border: none;
-    background-color: #E9E9E9;
-}
-
-.greybutton:hover {
-    color: #888;
 }

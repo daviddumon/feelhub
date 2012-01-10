@@ -7,6 +7,10 @@ $(function () {
         $("#opinion_form_textarea").focus();
     });
 
+    $("#opinion_form").mouseover(function(){
+        $("#opinion_form_inner_wrapper").clearQueue();
+    });
+
     $("#opinion_form").mouseleave(function(){
         $("#opinion_form_inner_wrapper").delay(600).slideUp(200);
     });
