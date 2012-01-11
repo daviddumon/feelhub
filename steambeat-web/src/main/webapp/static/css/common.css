@@ -8,13 +8,16 @@
     font-family: 'Droid Sans';, Sans-Serif;
     font-size: 16px;
     color: #BBB;
+    //color: #3CF;
 }
 
 .button {
     cursor: pointer;
     color: #BBB;
+    //color: #3CF;
     border: none;
     background-color: #E9E9E9;
+    //background-color: #3CF;
 }
 
 .button:hover {

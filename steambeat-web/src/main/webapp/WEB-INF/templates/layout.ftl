@@ -12,7 +12,7 @@
     </div>
 
     <form id="opinion_form" method="post" action="" autocomplete="off" class="rounded_down shadow">
-        <div id="opinion_form_title" class="titlefont button"><span style="color: #3CF; font-size: 20px">&rarr;</span> GIVE YOUR OPINION ! <span style="color: #3CF; font-size: 20px">&larr;</span></div>
+        <div id="opinion_form_title" class="titlefont button"><span style="color: #FFF; font-size: 20px">&rarr;</span> GIVE YOUR OPINION ! <span style="color: #FFF; font-size: 20px">&larr;</span></div>
 
         <div id="opinion_form_inner_wrapper" style="display: none">
             <textarea id="opinion_form_textarea" name="text" class="textfont"></textarea>
@@ -25,6 +25,9 @@
             </div>
             <input id="opinion_form_submit" type="submit" value="ok" class="button titlefont rounded"/>
          </div>
+
+         <div id="form_arrow"></div>
+         <div id="form_arrow_border"></div>
     </form>
 
 </header>
