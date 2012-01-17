@@ -3,7 +3,7 @@ function Flow() {
     var THIS = this;
     this.id = 1;
     this.container = $("#opinions");
-    this.cssIndex = this.findStyleSheetIndex("layout.css");
+    this.cssIndex = this.findStyleSheetIndex("flow.css");
     this.width = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "width"));
     this.padding = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "padding"));
     this.margin = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "margin"));
@@ -113,7 +113,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
         THIS.putBox(position.line, position.index, boxSize);
         element.css("top", THIS.getTopPosition(position.line));
         element.css("left", THIS.getLeftPosition(position.index));
-    }, 100);
+    }, 80);
 };
 
 Flow.prototype.findWidthForSize = function (size) {
@@ -258,12 +258,14 @@ Flow.prototype.getInitialWidth = function () {
 
 Flow.prototype.getMaxBox = function () {
     var webpageWidth = this.container.innerWidth();
-    var maxBox = Math.floor((webpageWidth - 40) / this.initial);
+//    var maxBox = Math.floor((webpageWidth - 40) / this.initial);
+    var maxBox = Math.floor((webpageWidth) / this.initial);
     return maxBox;
 };
 
 Flow.prototype.setLeftCorner = function () {
-    var availableSpace = this.container.innerWidth() - 40;
+//    var availableSpace = this.container.innerWidth() - 40;
+    var availableSpace = this.container.innerWidth();
     var maxBox = Math.floor(availableSpace / this.initial);
     var usedSpace = maxBox * this.initial;
     var leftCorner = (availableSpace - usedSpace) / 2;

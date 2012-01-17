@@ -1,5 +1,4 @@
 <@header.withHeader>
-<link rel="stylesheet" href="${root}/static/css/panel.css"/>
 <script type="text/javascript" src="${root}/static/js/webpage.js"></script>
 <script type="text/javascript">
     var formAction = "http://${domain}${root}/webpages/${webPage.getId()}/opinions";
@@ -10,7 +9,7 @@
 <#--<a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" title="Say it !">Say it !</a>-->
 <#--<div id="counter">${counter!0} opinions</div>-->
 <div class="panel_box panel_resource">
-    <span id="webpageRoot"><a href="#" onclick="javascript:window.open('${webPage.id}');">${webPage.id}</a></span>
+    <span id="webpageRoot"><span onclick="javascript:window.open('${webPage.id}');" style="cursor: pointer">${webPage.id}</span></span>
 </div>
 <div class="panel_box">
     <div class="counter good rounded">

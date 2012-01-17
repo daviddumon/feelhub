@@ -8,7 +8,6 @@ import fr.bodysplash.mongolink.domain.criteria.*;
 import javax.inject.Inject;
 import java.util.List;
 
-@SuppressWarnings("unchecked")
 public class OpinionSearch {
 
     @Inject
@@ -17,6 +16,7 @@ public class OpinionSearch {
         criteria.add(Restrictions.notEquals("text", ""));
     }
 
+    @SuppressWarnings("unchecked")
     public List<Opinion> execute() {
         return criteria.list();
     }
@@ -37,7 +37,7 @@ public class OpinionSearch {
     }
 
     public OpinionSearch withSubject(final Subject subject) {
-        //criteria.add(Restrictions.equals("judgments.subjectId", subject.getId()));
+        criteria.add(Restrictions.equals("judgments.subjectId", subject.getId()));
         return this;
     }
 

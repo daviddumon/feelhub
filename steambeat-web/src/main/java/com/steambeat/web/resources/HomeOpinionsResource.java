@@ -3,12 +3,10 @@ package com.steambeat.web.resources;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.web.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.OpinionSearch;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.restlet.data.MediaType;
 import org.restlet.representation.Representation;
-import org.restlet.resource.Get;
-import org.restlet.resource.ServerResource;
+import org.restlet.resource.*;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -40,9 +38,7 @@ public class HomeOpinionsResource extends ServerResource {
 
     @Get
     public Representation represent() throws JSONException {
-        final JSONArray result = new JSONArray();
-        final SteambeatTemplateRepresentation template = SteambeatTemplateRepresentation.createNew("opinions.json.ftl", getContext(), MediaType.APPLICATION_JSON);
-        return template.with("opinions", opinions);
+        return SteambeatTemplateRepresentation.createNew("json/opinions.json.ftl", getContext(), MediaType.APPLICATION_JSON).with("opinions", opinions);
     }
 
     protected List<Opinion> opinions;

@@ -21,6 +21,10 @@ public final class URIs {
         return extractFromPattern(uriDecoded, PROTOCOL_PATTERN, "http");
     }
 
+    public static String extractDomain(final String uriDecoded) {
+        return extractFromPattern(uriDecoded, DOMAIN_PATTERN);
+    }
+
     public static String extractAddress(final String uriDecoded) {
         return extractFromPattern(uriDecoded, ADDRESS_PATTERN);
     }
@@ -43,8 +47,9 @@ public final class URIs {
         return matcher.matches() ? matcher.group(matcher.groupCount()) : defaultValue;
     }
 
-    public static final Pattern FRAGMENT_PATTERN = Pattern.compile(".*#(.*)$");
-    public static final Pattern ADDRESS_PATTERN = Pattern.compile("(.*://)?([^#?]*).*$");
-    public static final Pattern QUERY_PATTERN = Pattern.compile(".*\\?([^#]*).*$");
     public static final Pattern PROTOCOL_PATTERN = Pattern.compile("(.*)://.*");
+    public static final Pattern DOMAIN_PATTERN = Pattern.compile("(.*://)?([^/#?]*).*$");
+    public static final Pattern ADDRESS_PATTERN = Pattern.compile("(.*://)?[^/]*([^#?]*).*$");
+    public static final Pattern QUERY_PATTERN = Pattern.compile(".*\\?([^#]*).*$");
+    public static final Pattern FRAGMENT_PATTERN = Pattern.compile(".*#(.*)$");
 }

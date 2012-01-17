@@ -1,11 +1,24 @@
 package com.steambeat.domain.subject.webpage;
 
-import org.junit.Test;
+import org.junit.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 public class TestsUri {
+
+    @Test
+    public void canIsolateDomainFromAddress() {
+        testUri("http://www.lemonde.fr/myaddress/1/29?q#frag");
+        testUri("http://lemonde.fr/myaddress/1/29?q#frag");
+        testUri("lemonde.fr/myaddress/1/29?q#frag", "http://lemonde.fr/myaddress/1/29?q#frag");
+        testUri("www.lemonde.fr/myaddress/1/29?q#frag", "http://www.lemonde.fr/myaddress/1/29?q#frag");
+        testUri("http://www.lemonde.fr");
+        testUri("http://lemonde.fr");
+        testUri("lemonde.fr","http://lemonde.fr");
+        testUri("www.lemonde.fr", "http://www.lemonde.fr");
+        testUri("http://www.lemonde.fr?q");
+    }
 
     @Test
     public void canConvertToString() {
@@ -37,7 +50,7 @@ public class TestsUri {
 
     @Test
     public void canCompareLargerUri() {
-        final Uri uri1 = new Uri("test.com?toto#tata");
+        final Uri uri1 = new Uri("test.com/?toto#tata");
         final Uri uri2 = new Uri("test.com");
 
         assertThat(uri1, not(equalTo(uri2)));
@@ -45,7 +58,7 @@ public class TestsUri {
 
     @Test
     public void hashCodeIsDifferent() {
-        final Uri uri1 = new Uri("test.com?toto#tata");
+        final Uri uri1 = new Uri("test.com/?toto#tata");
         final Uri uri2 = new Uri("test.com");
 
         assertThat(uri1.hashCode(), not(equalTo(uri2.hashCode())));
@@ -60,36 +73,53 @@ public class TestsUri {
     }
 
     @Test
+    public void anUriWithJustADomainIsNotEmpty() {
+        final Uri uri = new Uri("http://www.lemonde.fr");
+        
+        assertThat(uri.isEmpty(), is(false));
+    }
+
+    @Test
     public void canDealWithHttps() {
-        final Uri uri = new Uri("https://lomonde.fr");
+        final Uri uri = new Uri("https://lemonde.fr");
 
         assertThat(uri.toString(), startsWith("https://"));
     }
 
     @Test
-    public void canLowercaseBeforQuery() {
+    public void canLowercaseDomain() {
         testUri("http://wwW.youtube.com/watch?abCdEf", "http://www.youtube.com/watch?abCdEf");
     }
 
     @Test
-    public void canLowerWithoutQuery() {
+    public void dontLowerAddressAfterDomain() {
+        testUri("http://www.youtube.com/Watch?ab","http://www.youtube.com/Watch?ab");
+    }
 
+    @Test
+    public void canLowerWithoutQuery() {
         testUri("http://wwW.YOUTube.com", "http://www.youtube.com");
     }
 
     @Test
     public void dontLowerAfterAnchor() {
-        testUri("http://www.youtube.com#p/u/isruMMM");
+        testUri("http://www.youtube.com/#p/u/isruMMM");
     }
 
     @Test
     public void canDealWithCompleteUri() {
-        testUri("http://www.youtube.com?uieunrstUI#p/u/isruMMM");
+        testUri("http://www.youtube.com/?uieunrstUI#p/u/isruMMM");
     }
 
     @Test
     public void canDealWithUppercaseProtocol() {
         testUri("HTTPS://yourmom", "https://yourmom");
+    }
+
+    @Ignore
+    @Test
+    public void canHaveQueryOrFragmentWithoutAddress() {
+        testUri("http://test.com#p/u/2/xsJ0u7MIxLM");
     }
 
     private void testUri(final String address) {

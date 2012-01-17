@@ -1,12 +1,14 @@
 package com.steambeat.tools;
 
-import com.steambeat.domain.subject.webpage.*;
+import com.steambeat.domain.subject.webpage.CanonicalUriFinder;
+import com.steambeat.domain.subject.webpage.Uri;
+import com.steambeat.domain.subject.webpage.WebPageException;
 import com.steambeat.test.FakeInternet;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class TestsCanonicalUriFinder {
 
@@ -35,7 +37,7 @@ public class TestsCanonicalUriFinder {
     }
 
     @Test
-    public void throwExceptionOnBadHost() {
+    public void throwsExceptionOnBadHost() {
         expectedException.expect(WebPageException.class);
         finder.find(fakeInternet.uri("http://www.badurlunknowhost.com"));
     }

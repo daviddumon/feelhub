@@ -1,27 +1,67 @@
 /* Copyright bytedojo 2011 */
-.textfont {
-    font-family: 'Droid Serif', serif;
+body {
+    background-color: #FFFFFF;
     font-size: 12px;
 }
 
-.titlefont {
-    font-family: 'Droid Sans';, Sans-Serif;
+#overlay_top {
+    position: fixed;
+    top: 50px;
+    left: 2%;
+    width: 96%;
+    height: 150px;
+    background-color: #E1FAFC;
+    z-index: 200;
+    visibility: hidden;
+}
+
+#overlay_bottom {
+    position: fixed;
+    top: 50px;
+    left: 2%;
+    width: 96%;
+    height: 100%;
+    background-color: #E1FAFC;
+    z-index: 101;
+}
+
+#overlay_shadow{
+    position: fixed;
+    top: 50px;
+    left: 2%;
+    width: 96%;
+    height: 100%;
+    z-index: 101;
+}
+
+#feedback {
+    position: fixed;
+    top: 50%;
+    right: 2%;
+    width: 100px;
+    margin-top: -50px;
+    text-align: center;
+    padding-top: 6px;
+    padding-bottom: 10px;
     font-size: 16px;
-    color: #BBB;
-    //color: #3CF;
+    z-index: 200;
+}
+
+a {
+    text-decoration: none !important;
 }
 
 .button {
     cursor: pointer;
-    color: #BBB;
-    //color: #3CF;
-    border: none;
-    background-color: #E9E9E9;
-    //background-color: #3CF;
+    border: none !important;
 }
 
-.button:hover {
-    color: #888 !important;
+.textfont {
+    font-family: 'Droid Serif', serif;
+}
+
+.titlefont {
+    font-family: 'Droid Sans';, Sans-Serif;
 }
 
 .vertical_right {
@@ -75,31 +115,25 @@
 }
 
 .rounded_left {
-    border-top-left-radius: 10px;
-    --moz-border-radius-top-left: 10px;
-    --webkit-border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    --moz-border-radius-bottom-left: 10px;
-    --webkit-border-bottom-left-radius: 10px;
+    border-top-left-radius: 100px;
+    --moz-border-radius-top-left: 100px;
+    --webkit-border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    --moz-border-radius-bottom-left: 100px;
+    --webkit-border-bottom-left-radius: 100px;
 }
 
 .rounded_right {
-    border-top-right-radius: 10px;
-    --moz-border-radius-top-right: 10px;
-    --webkit-border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    --moz-border-radius-bottom-right: 10px;
-    --webkit-border-bottom-right-radius: 10px;
+    border-top-right-radius: 100px;
+    --moz-border-radius-top-right: 100px;
+    --webkit-border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    --moz-border-radius-bottom-right: 100px;
+    --webkit-border-bottom-right-radius: 100px;
 }
 
 .shadow {
     -moz-box-shadow: 0px 0px 5px 1px #C9C9C9;
     -webkit-box-shadow: 0px 0px 5px 1px #C9C9C9;
     box-shadow: 0px 0px 5px 1px #C9C9C9;
-}
-
-.shadow:hover {
-    -moz-box-shadow: 0px 0px 10px 2px #C9C9C9;
-    -webkit-box-shadow: 0px 0px 10px 2px #C9C9C9;
-    box-shadow: 0px 0px 10px 2px #C9C9C9;
 }

@@ -75,7 +75,7 @@ public class TestsOpinionSearch extends TestWithMongoRepository {
         assertThat(opinions.get(4).getText(), is("i14"));
     }
 
-    @Ignore("Need to implement dotted notation in Mongolink fake criteria")
+    @Ignore
     @Test
     public void canGetOpinionsForSubject() {
         final WebPage webPage = TestFactories.webPages().newWebPage();
@@ -86,23 +86,6 @@ public class TestsOpinionSearch extends TestWithMongoRepository {
 
         final List<Opinion> opinions = opinionSearch.execute();
         assertThat(opinions.size(), is(10));
-    }
-
-    @Ignore("Need to implement dotted notation  inMongolink fake criteria")
-    @Test
-    public void canLimitAndSkipForSubject() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
-        TestFactories.opinions().newOpinions(webPage, 10);
-        TestFactories.opinions().newOpinions(20);
-
-        opinionSearch.withSubject(webPage).withSkip(3).withLimit(4);
-
-        final List<Opinion> opinions = opinionSearch.execute();
-        assertThat(opinions.size(), is(4));
-        assertThat(opinions.get(0).getText(), is("i3"));
-        assertThat(opinions.get(1).getText(), is("i4"));
-        assertThat(opinions.get(2).getText(), is("i5"));
-        assertThat(opinions.get(3).getText(), is("i6"));
     }
 
     @Test

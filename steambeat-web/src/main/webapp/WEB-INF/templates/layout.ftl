@@ -1,18 +1,16 @@
 <#macro panel>
 <body class="textfont">
 
+<div id="overlay_top" class="rounded_top shadow"></div>
+<div id="overlay_bottom" class="rounded_top shadow"></div>
+<!--<div id="overlay_shadow" class="rounded_top shadow"></div>-->
+
+<!--
 <a id="feedback" class="vertical_right rounded_top button shadow titlefont" href="${root}/webpages/http://www.steambeat.com">feedback</a>
+-->
 
-<header>
-    <div id="header_top_wrapper">
-        <a id="logo" class="button titlefont" href="http://${domain}${root}">steambeat</a>
-        <div id="header_right">
-            <p class="titlefont">Drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" class="rounded titlefont">Steambeat!</a></p>
-        </div>
-    </div>
-
-    <form id="opinion_form" method="post" action="" autocomplete="off" class="rounded_down shadow">
-        <div id="opinion_form_title" class="titlefont button"><span style="color: #FFF; font-size: 20px">&rarr;</span> GIVE YOUR OPINION ! <span style="color: #FFF; font-size: 20px">&larr;</span></div>
+<form id="opinion_form" method="post" action="" autocomplete="off">
+        <div id="opinion_form_title" class="titlefont button">ADD YOUR OPINION !</div>
 
         <div id="opinion_form_inner_wrapper" style="display: none">
             <textarea id="opinion_form_textarea" name="text" class="textfont"></textarea>
@@ -28,21 +26,30 @@
 
          <div id="form_arrow"></div>
          <div id="form_arrow_border"></div>
-    </form>
+</form>
 
+<header>
+    <a id="homelink" class="button titlefont" href="http://${domain}${root}/">steambeat</a>
+    <p id="header_right" class="titlefont">Drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" class="rounded titlefont">Steambeat!</a></p>
 </header>
 
 <div id="panel">
     <#nested/>
 </div>
 
-<ul id="opinions">
-</ul>
-<div id="scroll_to_top" class="rounded_down titlefont button" style="display: none">scroll to top</div>
+<div class="protector">
+    <h1 class="ribbon_right">
+        <strong class="ribbon_right_content">OPINIONS</strong>
+    </h1>
+</div>
 
+<ul id="opinions"></ul>
+<!--<img src="${root}/static/images/scroll.png" id="scroll_to_top" class="rounded_down button" style="display: none"></img>-->
+
+<!--
 <footer>
-    <#--<span id="about_button" class="footer_button button titlefont">about</span>-->
-    <#--<span id="help_button" class="footer_button button titlefont">help</span>-->
+    <span id="about_button" class="footer_button button titlefont">about</span>
+    <span id="help_button" class="footer_button button titlefont">help</span>
 </footer>
 
 <div id="about_dialog" title="About" style="display: none;">
@@ -52,6 +59,7 @@
 <div id="help_dialog" title="Help" style="display: none;">
     <#include "help.ftl">
 </div>
+-->
 
 </body>
 </html>

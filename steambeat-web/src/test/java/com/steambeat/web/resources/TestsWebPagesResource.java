@@ -59,7 +59,7 @@ public class TestsWebPagesResource {
 
     @Test
     public void keepFragment() {
-        final String uri = "http://test.com#p/u/2/xsJ0u7MIxLM";
+        final String uri = "http://test.com/#p/u/2/xsJ0u7MIxLM";
 
         resource.post(formWith(uri));
 

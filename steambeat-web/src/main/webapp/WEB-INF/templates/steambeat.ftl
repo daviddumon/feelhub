@@ -1,5 +1,4 @@
 <@header.withHeader>
-<link rel="stylesheet" href="${root}/static/css/panel.css"/>
 <script type="text/javascript" src="${root}/static/js/steambeat.js"></script>
 </@header.withHeader>
 
@@ -14,5 +13,6 @@
         <img class="smiley" src="${root}/static/images/smiley_bad_white.png"/>
         <p class="counter_text titlefont">0</p>
     </div>
+
 </div>
 </@layout.panel>

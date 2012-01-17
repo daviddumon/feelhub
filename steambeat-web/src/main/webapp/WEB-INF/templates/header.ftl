@@ -11,10 +11,13 @@
     <meta name="keywords" content="sentiment analysis"/>
     <link rel="stylesheet" href="${root}/static/css/reset.css"/>
     <link rel="stylesheet" href="${root}/static/css/common.css"/>
-    <link rel="stylesheet" href="${root}/static/css/dialog.css"/>
     <link rel="stylesheet" href="${root}/static/css/header.css"/>
+    <link rel="stylesheet" href="${root}/static/css/panel.css"/>
+    <link rel="stylesheet" href="${root}/static/css/form.css"/>
+    <link rel="stylesheet" href="${root}/static/css/flow.css"/>
     <link rel="stylesheet" href="${root}/static/css/footer.css"/>
-    <link rel="stylesheet" href="${root}/static/css/layout.css"/>
+    <link rel="stylesheet" href="${root}/static/css/ribbon.css"/>
+    <link rel="stylesheet" href="${root}/static/css/dialog.css"/>
     <link rel="icon" href="${root}/favicon.ico">
     <script type="text/javascript">
         var root = "http://${domain}${root}";
@@ -22,6 +25,7 @@
     <#if !dev>
         <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <![endif]-->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <#--<script type="text/javascript" src="${root}/static/js/lib/jquery-ui-1.8.16.custom.min.js"></script>-->

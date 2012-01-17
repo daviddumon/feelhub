@@ -34,7 +34,7 @@ public class Opinion extends BaseEntity {
         return judgments.get(0).getSubjectId();
     }
     
-    //tode
+    //todo
     public Feeling getFeeling() {
         return judgments.get(0).getFeeling();
     }

@@ -1,44 +1,38 @@
 /* Copyright bytedojo 2011 */
-body {
-    background-color: #F1F1F1;
-    //background-color: #EEE;
-}
-
-a {
-    text-decoration: none !important;
-}
-
-#feedback {
-    position: fixed;
-    top: 50%;
-    right: 0px;
-    width: 100px;
-    margin-top: -50px;
-    z-index: 200;
-    text-align: center;
-    padding-top: 6px;
-    padding-bottom: 10px;
-}
-
 #opinions {
     position: relative;
     top: 200px;
     margin-top: -2px;
-    left: 30%;
-    width: 70%;
+    left: 53%;
+    width: 45%;
+    z-index: 102;
 }
 
 .opinion {
     display: block;
-    width: 120px;
+    width: 100px;
     padding: 20px;
     margin: 2px;
     border-width: 0px;
     border-style: solid;
-    border-color: #BBB;
-    background-color: #FFFFFF;
+    border-color: #FFF;
+    //background-image: url('../images/noise_bg.png');
+    background-color: #FFF;
     list-style-type: none;
     overflow: hidden;
+}
+
+#scroll_to_top {
+    position: fixed;
+    top: 300px;
+    left: 50%;
+    text-align: center;
+    width: 10%;
+    background-color: #F1F1F1 !important;
+    width: 64px;
+    margin-left: -32px;
+    border: none;
+    z-index: 300;
 }
 
 .subjects {
@@ -66,29 +60,19 @@ a {
     border: 1px solid #BBB;
     padding: 5px;
     display: none;
-    z-index: 200;
+    z-index: 2000;
 }
 
 .good {
     background-color: #6C3;
+    //background-image: url('../images/noise_good.png');
 }
 
 .bad {
     background-color: #F33;
+    //background-image: url('../images/noise_bad.png');
 }
 
 .neutral {
     background-color: #BBB;
-}
-
-#scroll_to_top {
-    position: fixed;
-    top: 200px;
-    left: 60%;
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 10%;
-    background-color: #F1F1F1 !important;
-    z-index: 100;
 }

@@ -1,4 +1,4 @@
+/* Copyright bytedojo 2011 */
 $(function () {
-    $("#opinion_form").hide();
     var flow = new Flow();
 });

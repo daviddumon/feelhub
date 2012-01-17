@@ -2,14 +2,15 @@
 #panel {
     position: fixed;
     top: 0px;
-    width: 30%;
+    left: 5%;
+    width: 40%;
     height: 100%;
-    margin-top: 200px;
     overflow: hidden;
-    z-index: 100;
+    z-index: 101;
 }
 
 .panel_box {
+    margin-top: 200px;
     padding: 10px;
     text-align: center;
 }
@@ -26,7 +27,7 @@
 
 .smiley {
     border: none;
-    width: 64px;
+    width: 48px;
 }
 
 .panel_resource {
