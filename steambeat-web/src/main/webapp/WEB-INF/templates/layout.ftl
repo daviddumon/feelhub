@@ -1,10 +1,10 @@
 <#macro panel>
 <body class="textfont">
 
-<div id="test_header">
-    <a id="homelink" class="button titlefont" href="http://${domain}${root}/">steambeat</a>
-    <p id="header_right" class="titlefont">Drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" class="rounded titlefont">Steambeat!</a></p>
-</div>
+<header>
+    <a id="home-link" class="button over-medblue font-title color-darkblue" href="http://${domain}${root}/">steambeat</a>
+    <p id="header-right" class="font-title color-darkblue">Drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" class="rounded font-title color-darkblue">Steambeat!</a></p>
+</header>
 
 <div id="hider"></div>
 
