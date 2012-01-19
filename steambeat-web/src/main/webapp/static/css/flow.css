@@ -1,22 +1,22 @@
 /* Copyright bytedojo 2011 */
 #opinions {
     position: relative;
-    top: 200px;
-    margin-top: -2px;
-    left: 53%;
-    width: 45%;
-    z-index: 102;
+    margin-top: 200px;
+    //position: fixed;
+    //top: 650px;
+    //margin-top: -2px;
+    left: 2%;
+    width: 96%;
 }
 
 .opinion {
     display: block;
     width: 100px;
     padding: 20px;
-    margin: 2px;
+    margin: 5px;
     border-width: 0px;
     border-style: solid;
     border-color: #FFF;
-    //background-image: url('../images/noise_bg.png');
     background-color: #FFF;
     list-style-type: none;
     overflow: hidden;

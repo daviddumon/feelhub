@@ -1,13 +1,33 @@
 <#macro panel>
 <body class="textfont">
 
-<div id="overlay_top" class="rounded_top shadow"></div>
-<div id="overlay_bottom" class="rounded_top shadow"></div>
-<!--<div id="overlay_shadow" class="rounded_top shadow"></div>-->
+<div id="test_header">
+    <a id="homelink" class="button titlefont" href="http://${domain}${root}/">steambeat</a>
+    <p id="header_right" class="titlefont">Drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" class="rounded titlefont">Steambeat!</a></p>
+</div>
+
+<div id="hider"></div>
+
+<div id="wrapper_form">
+    <div id="test_form">ADD YOUR OPINION</div>
+</div>
+
+<div id="test_panel">
+<!--
+<div id="ribbonright" class="good"></div>
+<div id="ribbonleft" class="bad"></div>
+-->
+</div>
+
+<ul id="opinions"></ul>
+
 
 <!--
+<div id="overlay_top" class="rounded_top shadow"></div>
+<div id="overlay_bottom" class="rounded_top shadow"></div>
+<div id="overlay_shadow" class="rounded_top shadow"></div>
+
 <a id="feedback" class="vertical_right rounded_top button shadow titlefont" href="${root}/webpages/http://www.steambeat.com">feedback</a>
--->
 
 <form id="opinion_form" method="post" action="" autocomplete="off">
         <div id="opinion_form_title" class="titlefont button">ADD YOUR OPINION !</div>
@@ -44,9 +64,8 @@
 </div>
 
 <ul id="opinions"></ul>
-<!--<img src="${root}/static/images/scroll.png" id="scroll_to_top" class="rounded_down button" style="display: none"></img>-->
+<img src="${root}/static/images/scroll.png" id="scroll_to_top" class="rounded_down button" style="display: none"></img>
 
-<!--
 <footer>
     <span id="about_button" class="footer_button button titlefont">about</span>
     <span id="help_button" class="footer_button button titlefont">help</span>

@@ -19,6 +19,7 @@ header {
     text-align: left;
     padding-top: 8px;
     color: #388399;
+    z-index: 20;
 }
 
 #header_right {
@@ -28,6 +29,7 @@ header {
     right: 2%;
     padding-top: 20px;
     color: #388399;
+    z-index: 20;
 }
 
 #bookmarklet {

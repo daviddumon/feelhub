@@ -21,6 +21,29 @@ function Flow() {
 
     $(window).scroll(function () {
         THIS.drawData();
+
+        var scroll = $(window).scrollTop();
+
+        if(scroll <= 50 && scroll > 0)  {
+            //$("#test_form").css("top", - scroll);
+            $("#wrapper_form").css("top",  - scroll);
+        } else if(scroll > 50) {
+            //$("#test_form").css("top", 0);
+            $("#wrapper_form").css("top", -50);
+        } else {
+            $("#wrapper_form").css("top",  0);
+        }
+        /*
+        if(scroll <= 60 && scroll > 0)  {
+            //$("#test_form").css("top", - scroll);
+            $("#wrapper_form").css("top", 60 - scroll);
+        } else if(scroll > 60) {
+            //$("#test_form").css("top", 0);
+            $("#wrapper_form").css("top", 0);
+        } else {
+            $("#wrapper_form").css("top", 60);
+        }
+        */
     });
 }
 
