@@ -13,40 +13,16 @@ function Flow() {
     this.initial = this.getInitialWidth();
     this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
-    this.skip = -10;
-    this.limit = 10;
+    this.skip = -20;
+    this.limit = 20;
     this.hasData = true;
 
     THIS.drawData();
 
     $(window).scroll(function () {
         THIS.drawData();
-
-        var scroll = $(window).scrollTop();
-
-        if(scroll <= 50 && scroll > 0)  {
-            //$("#test_form").css("top", - scroll);
-            $("#wrapper_form").css("top",  - scroll);
-        } else if(scroll > 50) {
-            //$("#test_form").css("top", 0);
-            $("#wrapper_form").css("top", -50);
-        } else {
-            $("#wrapper_form").css("top",  0);
-        }
-        /*
-        if(scroll <= 60 && scroll > 0)  {
-            //$("#test_form").css("top", - scroll);
-            $("#wrapper_form").css("top", 60 - scroll);
-        } else if(scroll > 60) {
-            //$("#test_form").css("top", 0);
-            $("#wrapper_form").css("top", 0);
-        } else {
-            $("#wrapper_form").css("top", 60);
-        }
-        */
     });
 }
-
 
 Flow.prototype.drawData = function () {
     var THIS = this;
@@ -86,7 +62,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
     var THIS = this;
     var id = "opinion_" + this.id++;
 
-    var element = $("<li class='" + classes + "' id='" + id + "' style='position: absolute'>" + "</li>");
+    var element = $("<li class='" + classes + "' id='" + id + "' style='position: absolute'><p>" + "</p></li>");
     element.append(opinion.text);
     var subjects = $("<div class='subjects'></div>");
     var subject = $("<div class='subject'></div>");
@@ -115,7 +91,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
         if (element.height() < element.width()) {
             element.css("height", element.width());
         } else {
-            while (boxSize < THIS.maxBox && element.height() > element.width()) {
+            while (boxSize < THIS.maxBox / 2 && element.height() > element.width()) {
                 boxSize++;
                 element.css("width", THIS.findWidthForSize(boxSize));
             }
@@ -125,7 +101,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
         element.show();
 
         if (document.getElementById(id).scrollWidth > element.outerWidth()) {
-            while (boxSize < THIS.maxBox && document.getElementById(id).scrollWidth > element.outerWidth()) {
+            while (boxSize < THIS.maxBox / 2 && document.getElementById(id).scrollWidth > element.outerWidth()) {
                 boxSize++;
                 element.css("width", THIS.findWidthForSize(boxSize));
             }
@@ -281,13 +257,11 @@ Flow.prototype.getInitialWidth = function () {
 
 Flow.prototype.getMaxBox = function () {
     var webpageWidth = this.container.innerWidth();
-//    var maxBox = Math.floor((webpageWidth - 40) / this.initial);
     var maxBox = Math.floor((webpageWidth) / this.initial);
     return maxBox;
 };
 
 Flow.prototype.setLeftCorner = function () {
-//    var availableSpace = this.container.innerWidth() - 40;
     var availableSpace = this.container.innerWidth();
     var maxBox = Math.floor(availableSpace / this.initial);
     var usedSpace = maxBox * this.initial;

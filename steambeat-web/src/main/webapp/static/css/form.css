@@ -1,91 +1,54 @@
+/* Copyright bytedojo 2011 */
 #opinion_form {
-    //overflow: hidden;
+    position: relative;
+    top: -80px;
+    overflow: hidden;
+    width: 40%;
+    margin: 0 auto;
+    z-index: 100;
+    //background-color: #000 !important;
 }
 
-#opinion_form_title {
-    position: fixed;
+#opinion_title {
     text-align: center;
-    top: 40px;
-    left: 25%;
-    margin-left: -100px;
-    width: 200px;
-    height: 100px;
-    color: #FFF !important;
-    padding-top: 20px;
-    border-left: 5px solid #FFF;
-    border-right: 5px solid #FFFFFF;
-    border-bottom: 5px solid #FFFFFF;
-    border-bottom-right-radius: 300px;
-    border-bottom-left-radius: 300px;
-    --moz-border-radius-bottom-right: 300px;
-    --moz-border-radius-bottom-left: 300px;
-    --webkit-border-bottom-right-radius: 300px;
-    --webkit-border-bottom-left-radius: 300px;
-    background-color: #ADDDEB;
-    font-size: 1.8em;
-    font-weight: bold;
-    z-index: 1000;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: block;
+    padding: 10px;
 }
 
 #opinion_form_textarea {
-    width: 86%;
-    margin-right: 5%;
-    margin-left: 5%;
-    margin-bottom: 10px;
+    width: 80%;
+    margin-left: 8%;
     outline: none;
     -moz-outline: none;
-    border: solid 1px #BBB;
+    border: solid 1px #ADDDEB;
     resize: none;
     padding: 2%;
-    height: 290px;
-    z-index: 1001;
+    height: 40px;
+    z-index: 1;
 }
 
 #opinion_form_judgments {
-    width: 86%;
-    margin-right: 5%;
-    margin-left: 5%;
-    margin-bottom: 10px;
-    margin-top: -25px;
+    position: relative;
+    top: -5px;
+    width: 80%;
+    margin-left: 8%;
     padding: 2%;
-    border-top: 1px dashed #BBB;
-    border-right: 1px solid #BBB;
-    border-left: 1px solid #BBB;
-    border-bottom: 1px solid #BBB;
+    border-top: 1px dashed #ADDDEB;
+    border-right: 1px solid #ADDDEB;
+    border-left: 1px solid #ADDDEB;
+    border-bottom: 1px solid #ADDDEB;
     background-color: #FFF;
-    z-index: 1002;
+    z-index: 2;
 }
 
 #opinion_form_submit {
-    font-size: 1.2em;
+    font-size: 18px;
     font-weight: bold;
     width: 20%;
-    margin-bottom: 10px;
-}
-
-#form_arrow {
-    position:absolute;
-    bottom: -20px;
-    left: 50%;
-    margin-left: -10px;
-    border-color: #ADDDEB transparent transparent transparent;
-    border-style: solid;
-    border-width: 10px;
-    height:0;
-    width:0;
-    z-index: 1000;
-}
-
-#form_arrow_border {
-    position:absolute;
-    bottom: -21px;
-    left: 50%;
-    margin-left: -10px;
-    border-color: #ADDDEB transparent transparent transparent;
-    border-style: solid;
-    border-width: 10px;
-    height:0;
-    width:0;
-    z-index: 999;
+    margin-left: 40%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: transparent;
 }

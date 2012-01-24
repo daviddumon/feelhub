@@ -1,12 +1,9 @@
 /* Copyright bytedojo 2011 */
 #opinions {
     position: relative;
-    margin-top: 200px;
-    //position: fixed;
-    //top: 650px;
-    //margin-top: -2px;
     left: 2%;
     width: 96%;
+    //background-color: #0F0 !important;
 }
 
 .opinion {
@@ -20,19 +17,6 @@
     background-color: #FFF;
     list-style-type: none;
     overflow: hidden;
-}
-
-#scroll_to_top {
-    position: fixed;
-    top: 300px;
-    left: 50%;
-    text-align: center;
-    width: 10%;
-    background-color: #F1F1F1 !important;
-    width: 64px;
-    margin-left: -32px;
-    border: none;
-    z-index: 300;
 }
 
 .subjects {
@@ -65,14 +49,8 @@
 
 .good {
     background-color: #6C3;
-    //background-image: url('../images/noise_good.png');
 }
 
 .bad {
     background-color: #F33;
-    //background-image: url('../images/noise_bad.png');
-}
-
-.neutral {
-    background-color: #BBB;
 }

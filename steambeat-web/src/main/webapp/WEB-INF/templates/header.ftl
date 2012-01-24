@@ -11,14 +11,11 @@
     <meta name="keywords" content="sentiment analysis"/>
     <link rel="stylesheet" href="${root}/static/css/reset.css"/>
     <link rel="stylesheet" href="${root}/static/css/common.css"/>
+    <link rel="stylesheet" href="${root}/static/css/hub.css"/>
     <link rel="stylesheet" href="${root}/static/css/header.css"/>
     <link rel="stylesheet" href="${root}/static/css/panel.css"/>
     <link rel="stylesheet" href="${root}/static/css/form.css"/>
     <link rel="stylesheet" href="${root}/static/css/flow.css"/>
-    <link rel="stylesheet" href="${root}/static/css/footer.css"/>
-    <link rel="stylesheet" href="${root}/static/css/ribbon.css"/>
-    <link rel="stylesheet" href="${root}/static/css/dialog.css"/>
-    <link rel="icon" href="${root}/favicon.ico">
     <script type="text/javascript">
         var root = "http://${domain}${root}";
     </script>
@@ -28,11 +25,9 @@
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <![endif]-->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <#--<script type="text/javascript" src="${root}/static/js/lib/jquery-ui-1.8.16.custom.min.js"></script>-->
     </#if>
     <#if dev>
         <script type="text/javascript" src="${root}/static/js/lib/jquery-1.7.1.min.js"></script>
-        <#--<script type="text/javascript" src="${root}/static/js/lib/jquery-ui-1.8.16.custom.min.js"></script>-->
     </#if>
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js"></script>
     <script type="text/javascript" src="${root}/static/js/lib/raphael-2.0.0.min.js"></script>
@@ -42,7 +37,7 @@
     <script type="text/javascript" src="${root}/static/js/lib/graph.js"></script>
     <script type="text/javascript" src="${root}/static/js/lib/timeline.js"></script>
     <script type="text/javascript" src="${root}/static/js/lib/flow.js"></script>
-    <script type="text/javascript" src="${root}/static/js/layout.js"></script>
+    <script type="text/javascript" src="${root}/static/js/hub.js"></script>
     <script type="text/javascript" src="${root}/static/js/form.js"></script>
     <#nested/>
     <#if !dev>

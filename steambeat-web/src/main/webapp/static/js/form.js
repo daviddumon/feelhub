@@ -1,25 +1,31 @@
 /* Copyright bytedojo 2011 */
 $(function () {
 
-    $("#opinion_form").click(function(){
-        $("#opinion_form_inner_wrapper").clearQueue();
-        $("#opinion_form_inner_wrapper").slideDown(200);
+    $("#opinion_form_textarea").click(function(){
+        $("#opinion_form_judgments").clearQueue();
+        $("#opinion_form_textarea").clearQueue();
+        $("#opinion_form_judgments").slideDown(200);
+        $("#opinion_form_textarea").animate({"height":"80px"}, 200);
         $("#opinion_form_textarea").focus();
     });
 
     $("#opinion_form").mouseover(function(){
-        $("#opinion_form_inner_wrapper").clearQueue();
+        $("#opinion_form_judgments").clearQueue();
+        $("#opinion_form_textarea").clearQueue();
     });
 
     $("#opinion_form").mouseleave(function(){
-        $("#opinion_form_inner_wrapper").delay(600).slideUp(200);
+        if($("#opinion_form_judgments").is(":visible")) {
+            $("#opinion_form_judgments").clearQueue();
+            $("#opinion_form_textarea").clearQueue();
+            $("#opinion_form_judgments").delay(1000).slideUp(200);
+            $("#opinion_form_textarea").delay(1000).animate({"height":"40px"}, 200);
+        }
     });
 
-    $("#opinion_wrapper").children().click(function () {
+    $("#opinion_form").children().click(function () {
         if (!$("#opinion_form_textarea").is(":focus")) {
-            $("#opinion_form_textarea").clearQueue();
             $("#opinion_form_textarea").focus();
-            $("#opinion_form_judgments").clearQueue();
         }
     });
 
@@ -44,17 +50,4 @@ $(function () {
         });
         return false;
     });
-
-    //$("#add_opinion_form_judgments > .subject_tag").mouseover(function (event) {
-    //    console.log("mouseover");
-    //    var info = $(this).parent("div").find(".subject_info");
-    //    info.css("top", event.pageY - 60 - $(window).scrollTop());
-    //    info.css("left", event.pageX - (info.width() / 2));
-    //    info.show();
-    //});
-    //$("#add_opinion_form_judgments > .subject_tag").mouseout(function (event) {
-    //    console.log("mouseout");
-    //    $(this).parent("div").find(".subject_info").hide();
-    //});
-
 });

@@ -5,12 +5,16 @@
 </script>
 </@header.withHeader>
 
+<@layout.hub>
+    <div id="to_top" class="color_darkblue button hover_medblue">add your opinion now !</div>
+</@layout.hub>
+
 <@layout.panel>
-<#--<a id="bookmarklet" href="javascript:<#include 'bookmark.ftl' />" title="Say it !">Say it !</a>-->
-<#--<div id="counter">${counter!0} opinions</div>-->
 <div class="panel_box panel_resource">
     <span id="webpageRoot"><span onclick="javascript:window.open('${webPage.id}');" style="cursor: pointer">${webPage.id}</span></span>
 </div>
+<!--
+<div id="counter">${counter!0} opinions</div>
 <div class="panel_box">
     <div class="counter good rounded">
         <img class="smiley" src="${root}/static/images/smiley_good_white.png"/>
@@ -21,4 +25,5 @@
         <p class="counter_text titlefont">0</p>
     </div>
 </div>
+-->
 </@layout.panel>
