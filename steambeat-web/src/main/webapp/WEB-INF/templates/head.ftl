@@ -30,12 +30,12 @@
         <script type="text/javascript" src="${root}/static/js/lib/jquery-1.7.1.min.js"></script>
     </#if>
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js"></script>
-    <script type="text/javascript" src="${root}/static/js/lib/raphael-2.0.0.min.js"></script>
+    <!--<script type="text/javascript" src="${root}/static/js/lib/raphael-2.0.0.min.js"></script>-->
     <script type="text/javascript" src="${root}/static/js/lib/steambeatglobal.js"></script>
-    <script type="text/javascript" src="${root}/static/js/lib/time.js"></script>
+    <!--<script type="text/javascript" src="${root}/static/js/lib/time.js"></script>-->
     <script type="text/javascript" src="${root}/static/js/lib/orderedlinkedlist.js"></script>
-    <script type="text/javascript" src="${root}/static/js/lib/graph.js"></script>
-    <script type="text/javascript" src="${root}/static/js/lib/timeline.js"></script>
+    <!--<script type="text/javascript" src="${root}/static/js/lib/graph.js"></script>--<
+    <!--<script type="text/javascript" src="${root}/static/js/lib/timeline.js"></script>-->
     <script type="text/javascript" src="${root}/static/js/lib/flow.js"></script>
     <script type="text/javascript" src="${root}/static/js/hub.js"></script>
     <script type="text/javascript" src="${root}/static/js/form.js"></script>
