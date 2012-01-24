@@ -1,15 +1,15 @@
-<@header.withHeader>
+<@head.withHead>
 <script type="text/javascript" src="${root}/static/js/webpage.js"></script>
 <script type="text/javascript">
     var formAction = "http://${domain}${root}/webpages/${webPage.getId()}/opinions";
 </script>
-</@header.withHeader>
+</@head.withHead>
 
-<@layout.hub>
+<@body.hub>
     <div id="to_top" class="color_darkblue button hover_medblue">add your opinion now !</div>
-</@layout.hub>
+</@body.hub>
 
-<@layout.panel>
+<@body.panel>
 <div class="panel_box panel_resource">
     <span id="webpageRoot"><span onclick="javascript:window.open('${webPage.id}');" style="cursor: pointer">${webPage.id}</span></span>
 </div>
@@ -26,4 +26,4 @@
     </div>
 </div>
 -->
-</@layout.panel>
+</@body.panel>

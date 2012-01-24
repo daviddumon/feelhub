@@ -35,8 +35,8 @@ public class SteambeatApplication extends Application {
         final Configuration configuration = new Configuration();
         configuration.setServletContextForTemplateLoading(servletContext(), "WEB-INF/templates");
         configuration.setEncoding(Locale.ROOT, "UTF-8");
-        configuration.addAutoImport("header", "/header.ftl");
-        configuration.addAutoImport("layout", "/layout.ftl");
+        configuration.addAutoImport("head", "/head.ftl");
+        configuration.addAutoImport("body", "/body.ftl");
         configuration.setSharedVariable("root", servletContext().getContextPath());
         configuration.setSharedVariable("dev", steambeatProperties.isDev());
         configuration.setSharedVariable("domain", steambeatProperties.getDomain());

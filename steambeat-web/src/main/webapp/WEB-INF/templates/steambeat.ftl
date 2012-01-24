@@ -1,12 +1,12 @@
-<@header.withHeader>
+<@head.withHead>
 <script type="text/javascript" src="${root}/static/js/steambeat.js"></script>
-</@header.withHeader>
+</@head.withHead>
 
-<@layout.hub>
+<@body.hub>
 
-</@layout.hub>
+</@body.hub>
 
-<@layout.panel>
+<@body.panel>
 <!--
 <div id="counter">${counter!0} opinions</div>
 <div class="panel_box">
@@ -20,4 +20,4 @@
     </div>
 </div>
 -->
-</@layout.panel>
+</@body.panel>
