@@ -1,10 +1,11 @@
-package com.steambeat.web;
+package com.steambeat.web.status;
 
+import com.steambeat.web.*;
 import org.restlet.Context;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
-public class WebPageExceptionResolver implements DomainErrorResolver {
+public class WebPageExceptionResolver implements ErrorResolver {
 
     @Override
     public Status getStatus(final Throwable throwable) {

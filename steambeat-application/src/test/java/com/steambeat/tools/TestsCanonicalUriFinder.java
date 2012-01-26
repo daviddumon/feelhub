@@ -1,29 +1,20 @@
 package com.steambeat.tools;
 
-import com.steambeat.domain.subject.webpage.CanonicalUriFinder;
-import com.steambeat.domain.subject.webpage.Uri;
-import com.steambeat.domain.subject.webpage.WebPageException;
+import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.test.FakeInternet;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsCanonicalUriFinder {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        fakeInternet = new FakeInternet();
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        fakeInternet.stop();
-    }
+    @Rule
+    public FakeInternet fakeInternet = new FakeInternet();
 
     @Before
     public void before() {
@@ -70,5 +61,4 @@ public class TestsCanonicalUriFinder {
     }
 
     private CanonicalUriFinder finder;
-    private static FakeInternet fakeInternet;
 }

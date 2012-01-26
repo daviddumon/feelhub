@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.steambeat.tools.SteambeatProperties;
 import com.steambeat.web.guice.SteambeatModule;
+import com.steambeat.web.status.*;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateModelException;
 import org.restlet.Application;

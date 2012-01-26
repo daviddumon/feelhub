@@ -3,7 +3,7 @@ package com.steambeat.web;
 import org.restlet.*;
 import org.restlet.data.*;
 import org.restlet.representation.Representation;
-import org.restlet.resource.UniformResource;
+import org.restlet.resource.*;
 import org.restlet.service.ConverterService;
 
 public class ClientResource extends UniformResource {

@@ -2,19 +2,30 @@ package com.steambeat.test;
 
 import com.steambeat.domain.subject.webpage.Uri;
 import com.steambeat.test.fakeResources.*;
+import org.junit.rules.ExternalResource;
 import org.restlet.*;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
 
-public class FakeInternet {
+public class FakeInternet extends ExternalResource {
 
-    public FakeInternet() throws Exception {
+    @Override
+    protected void before() throws Throwable {
         if (component == null) {
             component = new Component();
             component.getServers().add(Protocol.HTTP, 6162);
             component.getDefaultHost().attach(createApplication());
         }
         component.start();
+    }
+
+    @Override
+    protected void after() {
+        try {
+            component.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private Restlet createApplication() {
@@ -40,14 +51,6 @@ public class FakeInternet {
 
     public Uri uri(final String address) {
         return new Uri("http://localhost:6162/" + address);
-    }
-
-    public void stop() {
-        try {
-            component.stop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private static Component component;

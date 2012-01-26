@@ -1,7 +1,8 @@
-package com.steambeat.web;
+package com.steambeat.web.status;
 
 import com.google.common.collect.Maps;
 import com.steambeat.domain.subject.webpage.*;
+import com.steambeat.web.resources.*;
 import org.restlet.*;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
@@ -14,6 +15,7 @@ public class SteambeatStatusService extends StatusService {
     public SteambeatStatusService() {
         resolvers.put(WebPageException.class, new WebPageExceptionResolver());
         resolvers.put(WebPageAlreadyExistsException.class, new WebPageExceptionResolver());
+        resolvers.put(SteambeatJsonException.class, new JsonExceptionResolver());
     }
 
     @Override
@@ -31,7 +33,7 @@ public class SteambeatStatusService extends StatusService {
         return false;
     }
 
-    private DomainErrorResolver resolverFor(final Throwable throwable) {
+    private ErrorResolver resolverFor(final Throwable throwable) {
         return resolvers.get(throwable.getClass());
     }
 
@@ -43,5 +45,5 @@ public class SteambeatStatusService extends StatusService {
         return super.getRepresentation(status, request, response);
     }
 
-    private final Map<Class<?>, DomainErrorResolver> resolvers = Maps.newHashMap();
+    private final Map<Class<?>, ErrorResolver> resolvers = Maps.newHashMap();
 }

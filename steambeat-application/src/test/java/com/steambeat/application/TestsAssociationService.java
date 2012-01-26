@@ -21,15 +21,8 @@ public class TestsAssociationService {
     @Rule
     public SystemTime time = SystemTime.fixed();
 
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        fakeInternet = new FakeInternet();
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        fakeInternet.stop();
-    }
+    @Rule
+    public FakeInternet fakeInternet = new FakeInternet();
 
     @Before
     public void before() {
@@ -81,5 +74,4 @@ public class TestsAssociationService {
     }
 
     private AssociationService associationService;
-    private static FakeInternet fakeInternet;
 }

@@ -1,4 +1,4 @@
-package com.steambeat.web;
+package com.steambeat.web.resources;
 
 import org.restlet.data.*;
 import org.restlet.resource.*;

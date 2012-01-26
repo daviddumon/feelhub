@@ -12,15 +12,8 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class TestsHiram {
 
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        fakeInternet = new FakeInternet();
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        fakeInternet.stop();
-    }
+    @Rule
+    public FakeInternet fakeInternet = new FakeInternet();
 
     @Test
     public void canGetSitemap() throws Exception {
@@ -32,6 +25,4 @@ public class TestsHiram {
         final String sitemap = IOUtils.toString(stream);
         assertThat(sitemap, is("index : 00001"));
     }
-
-    private static FakeInternet fakeInternet;
 }
