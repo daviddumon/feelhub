@@ -1,15 +1,15 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.domain.opinion.Opinion;
-import com.steambeat.web.SteambeatTemplateRepresentation;
-import com.steambeat.web.search.OpinionSearch;
-import org.json.JSONException;
-import org.restlet.data.MediaType;
-import org.restlet.representation.Representation;
+import com.steambeat.domain.opinion.*;
+import com.steambeat.web.*;
+import com.steambeat.web.search.*;
+import org.json.*;
+import org.restlet.data.*;
+import org.restlet.representation.*;
 import org.restlet.resource.*;
 
-import javax.inject.Inject;
-import java.util.List;
+import javax.inject.*;
+import java.util.*;
 
 public class HomeOpinionsResource extends ServerResource {
 
@@ -27,9 +27,9 @@ public class HomeOpinionsResource extends ServerResource {
     private void getParameters() {
         skip = Integer.valueOf(getRequestAttributes().get("skip").toString());
         limit = Integer.valueOf(getRequestAttributes().get("limit").toString());
-        if (limit > 100) {
-            throw new SteambeatJsonException();
-        }
+//        if (limit > 100) {
+        throw new SteambeatJsonException();
+//        }
     }
 
     private void getOpinions() {

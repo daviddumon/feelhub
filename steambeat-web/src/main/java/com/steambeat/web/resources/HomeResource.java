@@ -18,7 +18,7 @@ public class HomeResource extends ServerResource {
         for (final Statistics statistic : statistics) {
             counter = statistic.getBadOpinions() + statistic.getGoodOpinions() + statistic.getNeutralOpinions();
         }
-        return SteambeatTemplateRepresentation.createNew("steambeat.ftl", getContext()).with("counter", counter);
+        return SteambeatTemplateRepresentation.createNew("home.ftl", getContext()).with("counter", counter);
     }
 
     private List<Statistics> statistics;

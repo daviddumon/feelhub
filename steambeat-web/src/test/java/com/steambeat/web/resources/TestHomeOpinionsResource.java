@@ -1,21 +1,17 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.domain.DomainEventBus;
-import com.steambeat.test.WithDomainEvent;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
-import com.steambeat.web.ClientResource;
-import com.steambeat.web.SteambeatTemplateRepresentation;
-import com.steambeat.web.WebApplicationTester;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.junit.Ignore;
-import org.junit.Rule;
+import com.steambeat.domain.*;
+import com.steambeat.test.*;
+import com.steambeat.test.fakeRepositories.*;
+import com.steambeat.test.testFactories.*;
+import com.steambeat.web.*;
+import org.json.*;
+import org.junit.*;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.restlet.data.Status;
+import org.junit.rules.*;
+import org.restlet.data.*;
 
-import java.io.IOException;
+import java.io.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -59,18 +55,16 @@ public class TestHomeOpinionsResource {
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 
-
         JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray, notNullValue());
         assertThat(jsonArray.length(), is(3));
     }
 
-    @Ignore
     @Test
     public void canThrowException() {
         exception.expect(SteambeatJsonException.class);
 
-        final ClientResource resource = restlet.newClientResource("/opinions;0;200");
+        final ClientResource resource = restlet.newClientResource("/opinions;0;101");
 
         resource.get();
     }

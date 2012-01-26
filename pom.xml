@@ -15,7 +15,7 @@
     </modules>
 
     <properties>
-        <restlet.version>2.0.10</restlet.version>
+        <restlet.version>2.0.11</restlet.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mongolink.version>0.0.2-SNAPSHOT</mongolink.version>
         <dbHost>127.0.0.1</dbHost>

@@ -16,9 +16,8 @@ public class OpinionSearch {
         criteria.add(Restrictions.notEquals("text", ""));
     }
 
-    @SuppressWarnings("unchecked")
     public List<Opinion> execute() {
-        return criteria.list();
+        return (List<Opinion>) criteria.list();
     }
 
     public OpinionSearch withSkip(final int skip) {

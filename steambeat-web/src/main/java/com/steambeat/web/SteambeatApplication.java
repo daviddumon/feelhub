@@ -21,7 +21,7 @@ public class SteambeatApplication extends Application {
 
     public SteambeatApplication(final Context context) {
         super(context);
-        setStatusService(new StatusServiceSteambeat());
+        setStatusService(new SteambeatStatusService());
     }
 
     @Override

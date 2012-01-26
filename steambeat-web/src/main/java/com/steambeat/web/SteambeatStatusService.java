@@ -9,9 +9,9 @@ import org.restlet.service.StatusService;
 
 import java.util.Map;
 
-public class StatusServiceSteambeat extends StatusService {
+public class SteambeatStatusService extends StatusService {
 
-    public StatusServiceSteambeat() {
+    public SteambeatStatusService() {
         resolvers.put(WebPageException.class, new WebPageExceptionResolver());
         resolvers.put(WebPageAlreadyExistsException.class, new WebPageExceptionResolver());
     }
