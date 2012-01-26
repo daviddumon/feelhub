@@ -28,9 +28,6 @@ public class Statistics extends BaseEntity {
             case bad:
                 badOpinions++;
                 break;
-            case neutral:
-                neutralOpinions++;
-                break;
         }
     }
 
@@ -59,15 +56,10 @@ public class Statistics extends BaseEntity {
         return badOpinions;
     }
 
-    public int getNeutralOpinions() {
-        return neutralOpinions;
-    }
-
     private String id;
     private String subjectId;
     private Granularity granularity;
     private DateTime date;
     private int goodOpinions;
     private int badOpinions;
-    private int neutralOpinions;
 }

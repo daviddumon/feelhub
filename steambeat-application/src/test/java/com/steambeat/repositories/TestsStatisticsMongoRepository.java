@@ -26,7 +26,6 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         final Statistics stat = new Statistics(subject, Granularity.day, date);
         stat.incrementOpinionCount(subject.createOpinion("my good opinion", Feeling.good));
         stat.incrementOpinionCount(subject.createOpinion("my bad opinion", Feeling.bad));
-        stat.incrementOpinionCount(subject.createOpinion("my neutral opinion", Feeling.neutral));
 
         Repositories.statistics().add(stat);
 
@@ -41,7 +40,6 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         assertThat(documentFound.get("granularity"), is((Object) Granularity.day.toString()));
         assertThat(documentFound.get("goodOpinions"), is((Object) 1));
         assertThat(documentFound.get("badOpinions"), is((Object) 1));
-        assertThat(documentFound.get("neutralOpinions"), is((Object) 1));
     }
 
     @Test
@@ -88,7 +86,6 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGoodOpinions(), is(1));
         assertThat(statistics.get(0).getBadOpinions(), is(0));
-        assertThat(statistics.get(0).getNeutralOpinions(), is(0));
     }
 
     @Test
@@ -104,7 +101,6 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGoodOpinions(), is(1));
         assertThat(statistics.get(0).getBadOpinions(), is(0));
-        assertThat(statistics.get(0).getNeutralOpinions(), is(0));
     }
 
     @Test
@@ -120,6 +116,5 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGoodOpinions(), is(1));
         assertThat(statistics.get(0).getBadOpinions(), is(0));
-        assertThat(statistics.get(0).getNeutralOpinions(), is(0));
     }
 }

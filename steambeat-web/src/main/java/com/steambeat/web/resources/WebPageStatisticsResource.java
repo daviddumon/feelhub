@@ -40,7 +40,6 @@ public class WebPageStatisticsResource extends ServerResource {
         final JSONObject opinions = new JSONObject();
         opinions.put("good", stat.getGoodOpinions());
         opinions.put("bad", stat.getBadOpinions());
-        opinions.put("neutral", stat.getNeutralOpinions());
         result.put("opinions", opinions);
         return result;
     }

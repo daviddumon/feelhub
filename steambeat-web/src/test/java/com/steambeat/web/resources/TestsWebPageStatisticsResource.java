@@ -47,8 +47,8 @@ public class TestsWebPageStatisticsResource {
 
     @Test
     public void canFetchSingleHour() throws JSONException {
-        statistics.incrementOpinionCountForFeeling(Feeling.neutral);
-        statistics.incrementOpinionCountForFeeling(Feeling.neutral);
+        statistics.incrementOpinionCountForFeeling(Feeling.bad);
+        statistics.incrementOpinionCountForFeeling(Feeling.bad);
         statistics.incrementOpinionCountForFeeling(Feeling.good);
         final ClientResource resource = restlet.newClientResource("/webpages/" + uri + "/stats:" + new DateTime().minus(1).getMillis() + "." + new DateTime().plus(1).getMillis() + ";hour");
         time.waitMinutes(60);
@@ -64,8 +64,7 @@ public class TestsWebPageStatisticsResource {
         assertThat(stats.getJSONObject(0).getLong("time"), Matchers.is(statistics.getDate().getMillis()));
         final JSONObject opinions = stats.getJSONObject(0).getJSONObject("opinions");
         assertThat(opinions.getInt("good"), is(1));
-        assertThat(opinions.getInt("bad"), is(0));
-        assertThat(opinions.getInt("neutral"), is(2));
+        assertThat(opinions.getInt("bad"), is(2));
     }
 
     @Test

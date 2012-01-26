@@ -59,16 +59,6 @@ public class TestsStatisticsService {
     }
 
     @Test
-    public void canRecordNeutralOpinion() {
-        final Subject subject = TestFactories.webPages().newWebPage();
-        final Opinion opinion = subject.createOpinion("my neutral opinion", Feeling.neutral);
-
-        statisticsService.opinionOn(subject, opinion);
-
-        assertThat(getStatisticsRepository().forSubject(subject).getNeutralOpinions(), is(1));
-    }
-
-    @Test
     public void canCreateFromEvent() {
         final Subject subject = TestFactories.webPages().newWebPage();
         subject.createOpinion("my good opinion", Feeling.good);
