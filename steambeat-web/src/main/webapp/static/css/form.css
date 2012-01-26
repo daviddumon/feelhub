@@ -5,13 +5,14 @@
     overflow: hidden;
     width: 40%;
     margin: 0 auto;
+    min-height: 180px;
     z-index: 100;
 }
 
 #opinion_title {
     text-align: center;
     font-size: 22px;
-    font-weight: block;
+    font-weight: bold;
     padding: 10px;
 }
 
@@ -33,10 +34,8 @@
     width: 80%;
     margin-left: 8%;
     padding: 2%;
-    border-top: 1px dashed #ADDDEB;
-    border-right: 1px solid #ADDDEB;
-    border-left: 1px solid #ADDDEB;
-    border-bottom: 1px solid #ADDDEB;
+    border: 1px solid #ADDDEB;
+    border-top-style: dashed;
     background-color: #FFF;
     z-index: 2;
 }

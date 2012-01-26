@@ -8,13 +8,14 @@
 <#include "header.ftl">
 
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         newwebpage.create("${uri}");
     });
 </script>
 
 <div id="newwebpage" class="good rounded">
-    <img src="${root}/static/images/smiley_good_white.png" />
+    <img src="${root}/static/images/smiley_good_white.png"/>
+
     <p class="titlefont">Creating this awesome subject for you !</p>
 </div>
 
