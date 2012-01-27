@@ -112,6 +112,9 @@ Flow.prototype.drawBox = function (opinion, classes) {
         THIS.putBox(position.line, position.index, boxSize);
         element.css("top", THIS.getTopPosition(position.line));
         element.css("left", THIS.getLeftPosition(position.index));
+        subjects.css("position", "absolute");
+        subjects.css("bottom", "30px");
+        subjects.css("width", element.width());
     }, 80);
 };
 
