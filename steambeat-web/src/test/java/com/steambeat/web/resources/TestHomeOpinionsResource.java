@@ -48,6 +48,7 @@ public class TestHomeOpinionsResource {
         assertThat(representation, notNullValue());
     }
 
+    @Ignore
     @Test
     public void canGetMultipleOpinions() throws JSONException, IOException {
         final ClientResource resource = restlet.newClientResource("/opinions;0;10");

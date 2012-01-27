@@ -55,7 +55,7 @@ public abstract class Repositories {
 
     protected abstract Repository<Association> getAssociationRepository();
 
-
     protected abstract Repository<WebPage> getWebPageRepository();
+    
     private static Repositories soleInstance;
 }

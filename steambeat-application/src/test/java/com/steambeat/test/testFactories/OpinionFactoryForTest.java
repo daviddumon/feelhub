@@ -37,6 +37,7 @@ public class OpinionFactoryForTest {
         Repositories.opinions().add(opinion);
         return opinion;
     }
+
     private List<Judgment> getJudgments() {
         final List<Judgment> judgments = Lists.newArrayList();
         final Judgment judgment = TestFactories.judgments().newJudgment();
