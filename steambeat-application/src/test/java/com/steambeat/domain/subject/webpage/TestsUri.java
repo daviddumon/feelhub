@@ -15,7 +15,7 @@ public class TestsUri {
         testUri("www.lemonde.fr/myaddress/1/29?q#frag", "http://www.lemonde.fr/myaddress/1/29?q#frag");
         testUri("http://www.lemonde.fr");
         testUri("http://lemonde.fr");
-        testUri("lemonde.fr","http://lemonde.fr");
+        testUri("lemonde.fr", "http://lemonde.fr");
         testUri("www.lemonde.fr", "http://www.lemonde.fr");
         testUri("http://www.lemonde.fr?q");
     }
@@ -75,7 +75,7 @@ public class TestsUri {
     @Test
     public void anUriWithJustADomainIsNotEmpty() {
         final Uri uri = new Uri("http://www.lemonde.fr");
-        
+
         assertThat(uri.isEmpty(), is(false));
     }
 
@@ -93,7 +93,7 @@ public class TestsUri {
 
     @Test
     public void dontLowerAddressAfterDomain() {
-        testUri("http://www.youtube.com/Watch?ab","http://www.youtube.com/Watch?ab");
+        testUri("http://www.youtube.com/Watch?ab", "http://www.youtube.com/Watch?ab");
     }
 
     @Test

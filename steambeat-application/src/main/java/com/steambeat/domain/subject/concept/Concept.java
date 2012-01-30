@@ -1,12 +1,11 @@
 package com.steambeat.domain.subject.concept;
 
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.thesaurus.Category;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.*;
 
 public class Concept extends Subject {
 
-    public Concept(String text) {
+    public Concept(final String text) {
         super(text);
     }
 
@@ -18,7 +17,7 @@ public class Concept extends Subject {
         return language;
     }
 
-    void setLanguage(Language language) {
+    void setLanguage(final Language language) {
         this.language = language;
     }
 

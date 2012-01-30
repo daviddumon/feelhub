@@ -4,8 +4,7 @@ import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -19,14 +18,14 @@ public class TestsOpinion {
     public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
 
     @Test
-    public void canCreateWithText(){
+    public void canCreateWithText() {
         final String text = "my opinion";
-        
+
         final Opinion opinion = new Opinion(text);
-        
+
         assertThat(opinion.getText(), is(text));
     }
-    
+
     @Test
     public void canAddJudgementsToOpinion() {
         final Opinion opinion = new Opinion("my opinion");

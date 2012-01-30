@@ -1,14 +1,11 @@
 package com.steambeat.domain.subject;
 
 import com.steambeat.domain.subject.concept.Concept;
-import com.steambeat.domain.subject.webpage.Association;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.domain.textAnalytics.NamedEntity;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -38,7 +35,7 @@ public class TestsSubjectFactory {
         final NamedEntity namedEntity = new NamedEntity();
         namedEntity.text = "Agile";
 
-        Concept concept = subjectFactory.createConcept(namedEntity);
+        final Concept concept = subjectFactory.createConcept(namedEntity);
 
         assertThat(concept, notNullValue());
         assertThat(concept.getText(), is("Agile"));

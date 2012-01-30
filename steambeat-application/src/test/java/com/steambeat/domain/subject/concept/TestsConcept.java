@@ -2,8 +2,8 @@ package com.steambeat.domain.subject.concept;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 public class TestsConcept {
 

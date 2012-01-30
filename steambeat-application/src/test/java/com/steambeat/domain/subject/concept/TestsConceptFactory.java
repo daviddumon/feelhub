@@ -1,8 +1,7 @@
 package com.steambeat.domain.subject.concept;
 
 import com.steambeat.domain.textAnalytics.NamedEntity;
-import com.steambeat.domain.thesaurus.Category;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.*;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.*;
@@ -13,7 +12,7 @@ public class TestsConceptFactory {
     @Test
     public void canCreateNamedEntity() {
         final ConceptFactory conceptFactory = new ConceptFactory();
-        NamedEntity namedEntity = new NamedEntity();
+        final NamedEntity namedEntity = new NamedEntity();
         namedEntity.text = "Agile";
         namedEntity.language = "english";
         namedEntity.type = "Method";

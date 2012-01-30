@@ -1,16 +1,13 @@
 package com.steambeat.domain.textAnalytics;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.subject.Relation;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.List;
 
@@ -31,7 +28,7 @@ public class TestsNamedEntityAnalyzer {
 
     @Test
     public void canCreateConceptFromNonAmbiguousNamedEntity() {
-        WebPage webpage = TestFactories.webPages().newWebPage();
+        final WebPage webpage = TestFactories.webPages().newWebPage();
         when(entityProvider.entitiesFor(webpage)).thenReturn(Lists.newArrayList(simpleNamedEntity()));
 
         analyzer.analyze(webpage);
@@ -43,7 +40,7 @@ public class TestsNamedEntityAnalyzer {
 
     @Test
     public void createRelationsBetweenConceptsAndPages() {
-        WebPage webpage = TestFactories.webPages().newWebPage();
+        final WebPage webpage = TestFactories.webPages().newWebPage();
         when(entityProvider.entitiesFor(webpage)).thenReturn(Lists.newArrayList(simpleNamedEntity()));
 
         analyzer.analyze(webpage);
@@ -55,7 +52,7 @@ public class TestsNamedEntityAnalyzer {
         testRelation(concept, webpage, relations.get(1));
     }
 
-    private void testRelation(Subject left, Subject right, Relation relation) {
+    private void testRelation(final Subject left, final Subject right, final Relation relation) {
         assertThat(relation.getLeft(), is(left));
         assertThat(relation.getRight(), is(right));
     }

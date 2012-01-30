@@ -3,12 +3,10 @@ package com.steambeat.domain.subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsRelation {
 
@@ -16,7 +14,7 @@ public class TestsRelation {
     public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
 
     @Before
-    public void setUp()  {
+    public void setUp() {
         left = TestFactories.webPages().newWebPage("lemonde.fr");
         right = TestFactories.webPages().newWebPage("gameblog.fr");
         relation = new RelationFactory().newRelation(left, right);
@@ -26,7 +24,7 @@ public class TestsRelation {
     public void canGetLeftId() {
         assertThat(relation.getLeftId(), is("http://lemonde.fr"));
     }
-    
+
     @Test
     public void canGetLeft() {
         assertThat(relation.getLeft(), is((Subject) left));

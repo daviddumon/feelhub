@@ -1,7 +1,7 @@
 <@head.withHead>
 <script type="text/javascript" src="${root}/static/js/webpage.js"></script>
 <script type="text/javascript">
-    var formAction = "http://${domain}${root}/webpages/${webPage.getId()}/opinions";
+    var subjectId = "${webPage.getId()}";
 </script>
 </@head.withHead>
 
@@ -34,10 +34,9 @@
     <textarea id="opinion_form_textarea" name="text" class="font_text"></textarea>
 
     <div id="opinion_form_judgments" class="font_title" style="display: none">
-        <span id="add_subject1" class="subject_tag good font_title add_tag">this webpage<span class="subject_info font_title">You like!</span><input
-                type="hidden"
-                name="feeling"
-                value="good"></input></span>
+        <span id="add_subject1" class="subject_tag good font_title add_tag">this webpage<span class="subject_info font_title">You like!</span>
+            <input type="hidden" name="feeling" value="good"/>
+            <input type="hidden" name="subjectId" value="${webPage.getId()}"/></span>
     </div>
     <input id="opinion_form_submit" type="submit" value="ok" class="button font_title color_medblue hover_darkblue"/>
 </form>

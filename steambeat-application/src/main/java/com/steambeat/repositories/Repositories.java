@@ -3,11 +3,9 @@ package com.steambeat.repositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
-import com.steambeat.domain.subject.Relation;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.concept.Concept;
-import com.steambeat.domain.subject.webpage.Association;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.subject.webpage.*;
 
 public abstract class Repositories {
 
@@ -56,6 +54,6 @@ public abstract class Repositories {
     protected abstract Repository<Association> getAssociationRepository();
 
     protected abstract Repository<WebPage> getWebPageRepository();
-    
+
     private static Repositories soleInstance;
 }

@@ -1,9 +1,7 @@
 package com.steambeat.test.testFactories;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.opinion.Feeling;
-import com.steambeat.domain.opinion.Judgment;
-import com.steambeat.domain.opinion.Opinion;
+import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
@@ -31,7 +29,7 @@ public class OpinionFactoryForTest {
         }
     }
 
-    private Opinion newOpinion(Subject subject, String text) {
+    private Opinion newOpinion(final Subject subject, final String text) {
         final Opinion opinion = new Opinion(text);
         opinion.addJudgment(subject, Feeling.bad);
         Repositories.opinions().add(opinion);

@@ -20,10 +20,10 @@ public class TestsOpinionService {
     public void canAddOpinionAndJudgements() {
         final Subject subject = TestFactories.webPages().newWebPage();
         final OpinionService service = new OpinionService();
-        final JudgmentDTO judgmentDTO = new JudgmentDTO(subject.getId(), "good");
-        
+        final JudgmentDTO judgmentDTO = new JudgmentDTO(subject, Feeling.good);
+
         service.addOpinion("Le texte de l'opinion", Lists.newArrayList(judgmentDTO));
-        
+
         assertThat(Repositories.opinions().getAll().size(), is(1));
         final Opinion opinion = Repositories.opinions().getAll().get(0);
         assertThat(opinion.getText(), is("Le texte de l'opinion"));

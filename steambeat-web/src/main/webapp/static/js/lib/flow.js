@@ -39,7 +39,9 @@ Flow.prototype.drawData = function () {
     }
 
     function loadData() {
-        $.getJSON(root + "/opinions;" + THIS.skip + ";" + THIS.limit, function (data) {
+        var subjectParameter = (typeof subjectId === 'undefined') ? "" : ("&subjectId=" + encodeURIComponent(subjectId));
+        console.log(subjectParameter);
+        $.getJSON(root + "/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + subjectParameter , function (data) {
             $.each(data, function (index, opinion) {
                 THIS.drawBox(opinion, "opinion");
             });
@@ -113,7 +115,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
         element.css("top", THIS.getTopPosition(position.line));
         element.css("left", THIS.getLeftPosition(position.index));
         subjects.css("position", "absolute");
-        subjects.css("bottom", "30px");
+        subjects.css("bottom", "20px");
         subjects.css("width", element.width());
     }, 80);
 };

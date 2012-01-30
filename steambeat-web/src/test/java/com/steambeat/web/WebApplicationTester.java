@@ -37,7 +37,7 @@ public class WebApplicationTester extends ExternalResource {
             @Override
             public String answer(final InvocationOnMock invocation) throws Throwable {
                 File file = new File("steambeat-web/src/main/webapp");
-                if(!file.exists()) {
+                if (!file.exists()) {
                     file = new File("src/main/webapp");
                 }
                 return FilenameUtils.concat(file.getAbsolutePath(),

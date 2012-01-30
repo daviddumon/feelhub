@@ -5,15 +5,14 @@ import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.subject.Subject;
 import org.joda.time.DateTime;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Opinion extends BaseEntity {
 
     protected Opinion() {
     }
 
-    public Opinion(String text) {
+    public Opinion(final String text) {
         this.text = text;
     }
 
@@ -33,12 +32,12 @@ public class Opinion extends BaseEntity {
     public String getSubjectId() {
         return judgments.get(0).getSubjectId();
     }
-    
+
     //todo
     public Feeling getFeeling() {
         return judgments.get(0).getFeeling();
     }
-    
+
     public String getId() {
         return id;
     }
@@ -47,12 +46,12 @@ public class Opinion extends BaseEntity {
         return judgments;
     }
 
-    public void addJudgment(Subject subject, Feeling feeling) {
+    public void addJudgment(final Subject subject, final Feeling feeling) {
         judgments.add(new Judgment(subject, feeling));
     }
 
     private String text;
-    private DateTime creationDate = new DateTime();
+    private final DateTime creationDate = new DateTime();
     private String id;
-    private List<Judgment> judgments = Lists.newArrayList();
+    private final List<Judgment> judgments = Lists.newArrayList();
 }

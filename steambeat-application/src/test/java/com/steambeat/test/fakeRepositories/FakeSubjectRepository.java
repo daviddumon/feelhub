@@ -6,11 +6,10 @@ import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FakeSubjectRepository implements Repository<Subject> {
-    public FakeSubjectRepository(Repository<WebPage> webPageRepository, Repository<Concept> conceptRepository) {
+    public FakeSubjectRepository(final Repository<WebPage> webPageRepository, final Repository<Concept> conceptRepository) {
         this.webPageRepository = webPageRepository;
         this.conceptRepository = conceptRepository;
     }
@@ -24,7 +23,7 @@ public class FakeSubjectRepository implements Repository<Subject> {
     }
 
     @Override
-    public void add(Subject x) {
+    public void add(final Subject x) {
     }
 
     @Override
@@ -34,16 +33,16 @@ public class FakeSubjectRepository implements Repository<Subject> {
     }
 
     @Override
-    public Subject get(Object id) {
+    public Subject get(final Object id) {
         final WebPage webPage = webPageRepository.get(id);
         return webPage == null ? conceptRepository.get(id) : webPage;
     }
 
     @Override
-    public boolean exists(Object id) {
+    public boolean exists(final Object id) {
         return webPageRepository.exists(id) || conceptRepository.exists(id);
     }
 
-    private Repository<WebPage> webPageRepository;
-    private Repository<Concept> conceptRepository;
+    private final Repository<WebPage> webPageRepository;
+    private final Repository<Concept> conceptRepository;
 }
