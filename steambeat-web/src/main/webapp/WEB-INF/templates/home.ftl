@@ -3,7 +3,7 @@
 </@head.withHead>
 
 <@body.hub>
-
+<div id="to_top" class="color_darkblue button hover_medblue">back to top !</div>
 </@body.hub>
 
 <@body.panel>
