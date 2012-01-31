@@ -1,5 +1,5 @@
 <@head.withHead>
-<script type="text/javascript" src="${root}/static/js/home.js"></script>
+<script type="text/javascript" src="${root}/static/js/home.js?${buildtime}"></script>
 </@head.withHead>
 
 <@body.hub>

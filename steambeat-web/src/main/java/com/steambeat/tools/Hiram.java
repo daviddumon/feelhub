@@ -37,6 +37,6 @@ public class Hiram {
     }
 
     private String hiramAdress() {
-        return new SteambeatProperties().getHiramAddress();
+        return new SteambeatWebProperties().getHiramAddress();
     }
 }

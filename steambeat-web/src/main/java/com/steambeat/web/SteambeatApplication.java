@@ -1,7 +1,7 @@
 package com.steambeat.web;
 
 import com.google.inject.*;
-import com.steambeat.tools.SteambeatProperties;
+import com.steambeat.tools.*;
 import com.steambeat.web.guice.SteambeatModule;
 import com.steambeat.web.status.SteambeatStatusService;
 import freemarker.template.*;
@@ -26,15 +26,16 @@ public class SteambeatApplication extends Application {
     }
 
     private void initFreemarkerConfiguration() throws TemplateModelException {
-        final SteambeatProperties steambeatProperties = new SteambeatProperties();
+        final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
         final Configuration configuration = new Configuration();
         configuration.setServletContextForTemplateLoading(servletContext(), "WEB-INF/templates");
         configuration.setEncoding(Locale.ROOT, "UTF-8");
         configuration.addAutoImport("head", "/head.ftl");
         configuration.addAutoImport("body", "/body.ftl");
         configuration.setSharedVariable("root", servletContext().getContextPath());
-        configuration.setSharedVariable("dev", steambeatProperties.isDev());
-        configuration.setSharedVariable("domain", steambeatProperties.getDomain());
+        configuration.setSharedVariable("dev", steambeatWebProperties.isDev());
+        configuration.setSharedVariable("domain", steambeatWebProperties.getDomain());
+        configuration.setSharedVariable("buildtime", steambeatWebProperties.getBuildTime());
         getContext().getAttributes().put("org.freemarker.Configuration", configuration);
     }
 

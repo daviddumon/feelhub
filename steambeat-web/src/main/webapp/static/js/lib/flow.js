@@ -5,9 +5,13 @@ function Flow() {
     this.container = $("#opinions");
     this.cssIndex = this.findStyleSheetIndex("flow.css");
     this.width = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "width"));
+    //this.width = 100;
     this.padding = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "padding"));
+    //this.padding = 20;
     this.margin = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "margin"));
+    //this.margin = 5;
     this.border = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "border-width"));
+    this.border = 0;
     this.lines = new Array();
     this.freeLines = new Array();
     this.initial = this.getInitialWidth();
@@ -40,7 +44,6 @@ Flow.prototype.drawData = function () {
 
     function loadData() {
         var subjectParameter = (typeof subjectId === 'undefined') ? "" : ("&subjectId=" + encodeURIComponent(subjectId));
-        console.log(subjectParameter);
         $.getJSON(root + "/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + subjectParameter , function (data) {
             $.each(data, function (index, opinion) {
                 THIS.drawBox(opinion, "opinion");
@@ -235,7 +238,8 @@ Flow.prototype.findStyleSheetIndex = function (cssSheet) {
     }
 
     function extractCssSheetName(styleSheet) {
-        return styleSheet.substring(styleSheet.length - cssSheet.length, styleSheet.length);
+        var buildTimeStringLength = 14;
+        return styleSheet.substring(styleSheet.length - cssSheet.length - buildTimeStringLength, styleSheet.length - buildTimeStringLength);
     }
 };
 

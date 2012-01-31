@@ -24,6 +24,7 @@
         <dev>true</dev>
         <domain>localhost:8080</domain>
         <hiram>http://localhost:6162/hiram</hiram>
+        <buildtime>${maven.build.timestamp}</buildtime>
     </properties>
 
     <profiles>

@@ -1,6 +1,6 @@
 <@head.withHead>
-<link rel="stylesheet" href="${root}/static/css/newwebpage.css"/>
-<script type="text/javascript" src="${root}/static/js/newwebpage.js"></script>
+<link rel="stylesheet" href="${root}/static/css/newwebpage.css?${buildtime}"/>
+<script type="text/javascript" src="${root}/static/js/newwebpage.js?${buildtime}"></script>
 </@head.withHead>
 
 <body class="font_text color_bg_lightblue">

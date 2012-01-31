@@ -1,6 +1,6 @@
 package com.steambeat.web;
 
-import com.steambeat.tools.SteambeatProperties;
+import com.steambeat.tools.SteambeatWebProperties;
 import org.restlet.Context;
 
 import javax.servlet.ServletContext;
@@ -12,8 +12,8 @@ public class ReferenceBuilder {
     }
 
     public String buildUri(final String uri) {
-        final SteambeatProperties props = new SteambeatProperties();
-        return "http://" + props.getDomain() + servletContext().getContextPath() + uri;
+        final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
+        return "http://" + steambeatWebProperties.getDomain() + servletContext().getContextPath() + uri;
     }
 
     private ServletContext servletContext() {

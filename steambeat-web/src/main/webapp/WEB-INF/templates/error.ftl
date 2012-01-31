@@ -1,5 +1,5 @@
 <@head.withHead>
-<link rel="stylesheet" href="${root}/static/css/error.css"/>
+<link rel="stylesheet" href="${root}/static/css/error.css?${buildtime}"/>
 </@head.withHead>
 
 <body class="font_text color_bg_lightblue">

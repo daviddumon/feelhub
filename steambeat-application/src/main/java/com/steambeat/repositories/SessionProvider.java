@@ -1,6 +1,6 @@
 package com.steambeat.repositories;
 
-import com.steambeat.tools.SteambeatProperties;
+import com.steambeat.tools.SteambeatApplicationProperties;
 import fr.bodysplash.mongolink.*;
 import fr.bodysplash.mongolink.domain.mapper.ContextBuilder;
 
@@ -10,7 +10,7 @@ public class SessionProvider {
     }
 
     public void init() {
-        final SteambeatProperties props = new SteambeatProperties();
+        final SteambeatApplicationProperties props = new SteambeatApplicationProperties();
         final ContextBuilder context = new ContextBuilder("com.steambeat.repositories.mapping");
         manager = MongoSessionManager.create(context, props.getDbSettings());
     }

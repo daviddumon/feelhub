@@ -1,5 +1,5 @@
 <@head.withHead>
-<script type="text/javascript" src="${root}/static/js/webpage.js"></script>
+<script type="text/javascript" src="${root}/static/js/webpage.js?${buildtime}"></script>
 <script type="text/javascript">
     var subjectId = "${webPage.getId()}";
 </script>
