@@ -5,13 +5,9 @@ function Flow() {
     this.container = $("#opinions");
     this.cssIndex = this.findStyleSheetIndex("flow.css");
     this.width = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "width"));
-    //this.width = 100;
     this.padding = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "padding"));
-    //this.padding = 20;
     this.margin = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "margin"));
-    //this.margin = 5;
     this.border = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "border-width"));
-    this.border = 0;
     this.lines = new Array();
     this.freeLines = new Array();
     this.initial = this.getInitialWidth();
@@ -71,6 +67,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
     element.append(opinion.text);
     var subjects = $("<div class='subjects'></div>");
     var subject = $("<div class='subject'></div>");
+    var subjectHeader = $("<div class='subjects_header font_title'>related</div>");
 
     var subjectTag = $("<a class='subject_tag font_title " + opinion.feeling + "' href='" + root + "/webpages/" + opinion.subjectId + "'>webpage</a>");
     subjectTag.mouseover(function (event) {
@@ -85,6 +82,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
 
     var subjectInfo = $("<span class='subject_info font_title'>" + opinion.subjectId + "</span>");
 
+    subjects.append(subjectHeader);
     subject.append(subjectTag);
     subject.append(subjectInfo);
     subjects.append(subject);
