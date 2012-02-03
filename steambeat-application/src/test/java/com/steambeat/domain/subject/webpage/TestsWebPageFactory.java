@@ -24,6 +24,9 @@ public class TestsWebPageFactory {
     @Rule
     public SystemTime time = SystemTime.fixed();
 
+    @Rule
+    public FakeInternet internet = new FakeInternet();
+
     @Before
     public void before() {
         webPageFactory = new WebPageFactory();

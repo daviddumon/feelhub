@@ -118,7 +118,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
         subjects.css("position", "absolute");
         subjects.css("bottom", "20px");
         subjects.css("width", element.width());
-    }, 80);
+    }, 200);
 };
 
 Flow.prototype.findWidthForSize = function (size) {

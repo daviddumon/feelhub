@@ -25,6 +25,21 @@ public class Concept extends Subject {
         return category;
     }
 
+    @Override
+    protected String getTitle() {
+        return "";
+    }
+
+    @Override
+    protected String getShortTitle() {
+        return "";  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    protected String getThumbnailUrl() {
+        return "";  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     private Language language;
     Category category;
 }

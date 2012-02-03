@@ -1,8 +1,6 @@
 package com.steambeat.web.resources;
 
 import com.steambeat.domain.statistics.*;
-import com.steambeat.domain.subject.webpage.*;
-import com.steambeat.repositories.Repositories;
 import org.joda.time.DateTime;
 import org.json.*;
 import org.restlet.ext.json.JsonRepresentation;
@@ -15,11 +13,11 @@ public class HomeStatisticsResource extends ServerResource {
 
     @Override
     protected void doInit() throws ResourceException {
-        final WebPage steambeat = new WebPage(new Association(new Uri("steambeat"), null));
+        //final WebPage steambeat = new WebPage(new Association(new Uri("steambeat"), null));
         granularity = Granularity.valueOf(getRequestAttributes().get("granularity").toString());
         final DateTime start = new DateTime(Long.parseLong(getRequestAttributes().get("start").toString()));
         final DateTime end = new DateTime(Long.parseLong(getRequestAttributes().get("end").toString()));
-        statistics = Repositories.statistics().forSubject(steambeat, granularity, granularity.intervalFor(start, end));
+        //statistics = Repositories.statistics().forSubject(steambeat, granularity, granularity.intervalFor(start, end));
     }
 
     @Get

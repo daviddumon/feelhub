@@ -1,6 +1,7 @@
 package com.steambeat.test.fakeFactories;
 
-import com.steambeat.domain.subject.webpage.WebPageFactory;
+import com.steambeat.domain.subject.webpage.*;
+import com.steambeat.test.FakeWebPageScraper;
 
 public class FakeWebPageFactory extends WebPageFactory {
 
@@ -8,4 +9,9 @@ public class FakeWebPageFactory extends WebPageFactory {
         super();
     }
 
+    @Override
+    public WebPage newWebPage(final Association association) {
+        checkNotExists(association);
+        return new WebPage(association, new FakeWebPageScraper());
+    }
 }

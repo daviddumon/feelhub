@@ -17,7 +17,6 @@ import org.restlet.Context;
 import org.restlet.data.*;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;

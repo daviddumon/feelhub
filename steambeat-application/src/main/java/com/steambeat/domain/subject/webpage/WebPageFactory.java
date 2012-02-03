@@ -1,21 +1,21 @@
 package com.steambeat.domain.subject.webpage;
 
 import com.steambeat.domain.DomainEventBus;
+import com.steambeat.domain.scrapers.WebPageScraper;
 import com.steambeat.repositories.Repositories;
 
 public class WebPageFactory {
 
-    public WebPageFactory() {
-    }
-
     public WebPage newWebPage(final Association association) {
         checkNotExists(association);
-        final WebPage result = new WebPage(association);
-        DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(result));
-        return result;
+        final WebPageScraper webPageScraper = new WebPageScraper();
+        webPageScraper.scrapDocument(new Uri(association.getCanonicalUri()));
+        final WebPage webPage = new WebPage(association, webPageScraper);
+        DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(webPage));
+        return webPage;
     }
 
-    private void checkNotExists(final Association association) {
+    protected void checkNotExists(final Association association) {
         if (Repositories.webPages().get(association.getCanonicalUri()) != null) {
             throw new WebPageAlreadyExistsException(association.getCanonicalUri());
         }

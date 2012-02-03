@@ -2,6 +2,8 @@ package com.steambeat.test;
 
 import com.steambeat.domain.subject.webpage.Uri;
 import com.steambeat.test.fakeResources.*;
+import com.steambeat.test.fakeResources.scraper.*;
+import com.steambeat.test.fakeResources.scraper.logo.*;
 import org.junit.rules.ExternalResource;
 import org.restlet.*;
 import org.restlet.data.Protocol;
@@ -43,6 +45,23 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/http://www.lemonde.fr", FakeStatusOkResource.class);
                 router.attach("/http://lemonde.fr", FakeStatusOkResource.class);
                 router.attach("/hiram/sitemap_{index}.xml.gz", FakeHiramResource.class);
+                router.attach("/http://webscraper/fakesimpleuriwithouttitle", FakeSimpleUriWithoutTitle.class);
+                router.attach("/http://webscraper/fakesimpleuriwithtitle", FakeSimpleUriWithTitle.class);
+                router.attach("/http://webscraper/fakesimpleuriwithtitleandbadhtml", FakeSimpleUriWithTitleAndBadHtml.class);
+                router.attach("/http://webscraper/fakesimpleuriwithh1section", FakeSimpleUriWithH1Section.class);
+                router.attach("/http://webscraper/fakesimpleuriwithh2section", FakeSimpleUriWithH2Section.class);
+                router.attach("/http://webscraper/fakesimpleuriwithh3section", FakeSimpleUriWithH3Section.class);
+                router.attach("/http://webscraper/fakesimpleurinonresponsive", FakeSimpleUriNonResponsive.class);
+                router.attach("/http://webscraper/fakesimpleuriwithimage", FakeSimpleUriWithImage.class);
+                router.attach("/http://webscraper/logo/imgClassLogo", FakeLogoImgClassLogo.class);
+                router.attach("/http://webscraper/logo/imgIdLogo", FakeLogoImgIdLogo.class);
+                router.attach("/http://webscraper/logo/imgAltLogo", FakeLogoImgAltLogo.class);
+                router.attach("/http://webscraper/logo/imgClassLogoPattern", FakeLogoImgClassLogoPattern.class);
+                router.attach("/http://webscraper/logo/imgIdLogoPattern", FakeLogoImgIdLogoPattern.class);
+                router.attach("/http://webscraper/logo/imgAltLogoPattern", FakeLogoImgAltLogoPattern.class);
+                router.attach("/http://webscraper/logo/imgSimpleBackground", FakeLogoImgSimpleBackground.class);
+                router.attach("/http://webscraper/logo/imgNestedChildren", FakeLogoNestedChildren.class);
+                router.attach("/http://webscraper/logo/imgParent", FakeLogoParent.class);
                 return router;
             }
         };

@@ -5,6 +5,7 @@ import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.domain.textAnalytics.NamedEntity;
 
 public class SubjectFactory {
+
     public WebPage createWebPage(final Association association) {
         return new WebPageFactory().newWebPage(association);
     }

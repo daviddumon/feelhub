@@ -4,7 +4,6 @@ import com.steambeat.domain.DomainEventListener;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
 
 import java.util.List;
@@ -18,13 +17,13 @@ public class StatisticsService implements DomainEventListener<OpinionPostedEvent
 
     @Override
     public void notify(final OpinionPostedEvent event) {
-        opinionOn(event.getOpinion().getJudgments().get(0).getSubject(), event.getOpinion());
+        //opinionOn(event.getOpinion().getJudgments().get(0).getSubject(), event.getOpinion());
     }
 
     public void opinionOn(final Subject subject, final Opinion opinion) {
         for (final Granularity granularity : Granularity.values()) {
             dealWith(granularity, subject, opinion);
-            dealWith(granularity, steambeat, opinion);
+            //dealWith(granularity, steambeat, opinion);
         }
     }
 
@@ -45,5 +44,5 @@ public class StatisticsService implements DomainEventListener<OpinionPostedEvent
         return stat;
     }
 
-    private final WebPage steambeat = new WebPage(new Association(new Uri("steambeat"), null));
+    //private final WebPage steambeat = new WebPage(new Association(new Uri("steambeat"), null));
 }

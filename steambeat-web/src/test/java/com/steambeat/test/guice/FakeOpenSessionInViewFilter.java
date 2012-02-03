@@ -11,7 +11,6 @@ public class FakeOpenSessionInViewFilter extends OpenSessionInViewFilter {
 
     @Override
     protected void doStart() {
-
     }
 
     @Override
