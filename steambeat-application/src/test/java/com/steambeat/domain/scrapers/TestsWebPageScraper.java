@@ -22,17 +22,29 @@ public class TestsWebPageScraper {
     }
 
     @Test
-    public void canScrapAnUriWithoutTitle() {
-        final Uri uri = internet.uri("http://webscraper/fakesimpleuriwithouttitle");
+    public void canFindTitleTag() {
+        final Uri uri = internet.uri("http://webscraper/titletag");
+
+        webPageScraper.scrapDocument(uri);
+
+        assertThat(webPageScraper.getScrapedTags().get("title"), is("Webpage title"));
+    }
+
+    @Test
+    public void continueIfBadUri() {
+        final Uri uri = internet.uri("unknown");
 
         webPageScraper.scrapDocument(uri);
 
         assertThat(webPageScraper.getScrapedTags().get("title"), is(""));
+        assertThat(webPageScraper.getScrapedTags().get("h1"), is(""));
+        assertThat(webPageScraper.getScrapedTags().get("h2"), is(""));
+        assertThat(webPageScraper.getScrapedTags().get("logo"), is(""));
     }
 
     @Test
-    public void canScrapTitle() {
-        final Uri uri = internet.uri("http://webscraper/fakesimpleuriwithtitle");
+    public void canFindTitleTagWithBadHtml() {
+        final Uri uri = internet.uri("http://webscraper/titletagbadhtml");
 
         webPageScraper.scrapDocument(uri);
 
@@ -40,17 +52,8 @@ public class TestsWebPageScraper {
     }
 
     @Test
-    public void canScrapTitleBadHtml() {
-        final Uri uri = internet.uri("http://webscraper/fakesimpleuriwithtitleandbadhtml");
-
-        webPageScraper.scrapDocument(uri);
-
-        assertThat(webPageScraper.getScrapedTags().get("title"), is("Webpage title"));
-    }
-
-    @Test
-    public void canScrapFirstH1Section() {
-        final Uri uri = internet.uri("http://webscraper/fakesimpleuriwithh1section");
+    public void canFindH1Tag() {
+        final Uri uri = internet.uri("http://webscraper/h1tag");
 
         webPageScraper.scrapDocument(uri);
 
@@ -58,8 +61,8 @@ public class TestsWebPageScraper {
     }
 
     @Test
-    public void canScrapFirstH2Section() {
-        final Uri uri = internet.uri("http://webscraper/fakesimpleuriwithh2section");
+    public void canFindH2Tag() {
+        final Uri uri = internet.uri("http://webscraper/h2tag");
 
         webPageScraper.scrapDocument(uri);
 
@@ -67,110 +70,84 @@ public class TestsWebPageScraper {
     }
 
     @Test
-    public void canScrapFirstH3Section() {
-        final Uri uri = internet.uri("http://webscraper/fakesimpleuriwithh3section");
+    public void canFindLogoWithClass() {
+        final Uri uri = internet.uri("http://webscraper/logo/withclasslogo");
 
         webPageScraper.scrapDocument(uri);
 
-        assertThat(webPageScraper.getScrapedTags().get("h3"), is("First h3 section"));
+        assertThat(webPageScraper.getScrapedTags().get("logo"), is("http://www.image.com/image.jpg"));
     }
 
     @Test
-    public void canScrapFirstImageUrl() {
-        final Uri uri = internet.uri("http://webscraper/fakesimpleuriwithimage");
+    public void canFindImageLogoWithId() {
+        final Uri uri = internet.uri("http://webscraper/logo/withidlogo");
 
         webPageScraper.scrapDocument(uri);
 
-        assertThat(webPageScraper.getScrapedTags().get("firstImageUrl"), is("http://www.google.fr/images/lol.jpg"));
+        assertThat(webPageScraper.getScrapedTags().get("logo"), is("http://www.image.com/image.jpg"));
     }
 
     @Test
-    public void scraperHasATimeout() {
-        expectedException.expect(WebScraperException.class);
-        final Uri uri = internet.uri("http://webscraper/fakesimpleurinonresponsive");
+    public void canFindImageLogoWithAlt() {
+        final Uri uri = internet.uri("http://webscraper/logo/withaltlogo");
 
         webPageScraper.scrapDocument(uri);
+
+        assertThat(webPageScraper.getScrapedTags().get("logo"), is("http://www.image.com/image.jpg"));
     }
 
     @Test
-    public void canScrapImageUrlWithClassContainingLogo() {
-        final Uri uri = internet.uri("http://webscraper/logo/imgClassLogo");
+    public void canFindImageLogoWithClassPattern() {
+        final Uri uri = internet.uri("http://webscraper/logo/withclasslogopattern");
 
         webPageScraper.scrapDocument(uri);
 
-        assertThat(webPageScraper.getScrapedTags().get("logoUrl"), is("http://www.logo.com/logo.jpg"));
+        assertThat(webPageScraper.getScrapedTags().get("logo"), is("http://www.image.com/image.jpg"));
     }
 
     @Test
-    public void canScrapImageUrlWithClassContainingLogoPattern() {
-        final Uri uri = internet.uri("http://webscraper/logo/imgClassLogoPattern");
+    public void canFindImageLogoWithIdPattern() {
+        final Uri uri = internet.uri("http://webscraper/logo/withidlogopattern");
 
         webPageScraper.scrapDocument(uri);
 
-        assertThat(webPageScraper.getScrapedTags().get("logoUrl"), is("http://www.logo.com/logo.jpg"));
+        assertThat(webPageScraper.getScrapedTags().get("logo"), is("http://www.image.com/image.jpg"));
     }
 
     @Test
-    public void canScrapImageUrlWithIdContainingLogo() {
-        final Uri uri = internet.uri("http://webscraper/logo/imgIdLogo");
+    public void canFindImageLogoWithAltPattern() {
+        final Uri uri = internet.uri("http://webscraper/logo/withaltlogopattern");
 
         webPageScraper.scrapDocument(uri);
 
-        assertThat(webPageScraper.getScrapedTags().get("logoUrl"), is("http://www.logo.com/logo.jpg"));
+        assertThat(webPageScraper.getScrapedTags().get("logo"), is("http://www.image.com/image.jpg"));
     }
 
     @Test
-    public void canScrapImageUrlWithIdContainingLogoPattern() {
-        final Uri uri = internet.uri("http://webscraper/logo/imgIdLogoPattern");
+    public void canFindBackgroundImageUrl() {
+        final Uri uri = internet.uri("http://webscraper/logo/backgroundimage");
 
         webPageScraper.scrapDocument(uri);
 
-        assertThat(webPageScraper.getScrapedTags().get("logoUrl"), is("http://www.logo.com/logo.jpg"));
+        assertThat(webPageScraper.getScrapedTags().get("logo"), is("http://www.image.com/image.jpg"));
     }
 
     @Test
-    public void canScrapImageUrlWithAltContainingLogo() {
-        final Uri uri = internet.uri("http://webscraper/logo/imgAltLogo");
+    public void canfindLogoFromNestedElement() {
+        final Uri uri = internet.uri("http://webscraper/logo/logofromnested");
 
         webPageScraper.scrapDocument(uri);
 
-        assertThat(webPageScraper.getScrapedTags().get("logoUrl"), is("http://www.logo.com/logo.jpg"));
+        assertThat(webPageScraper.getScrapedTags().get("logo"), is("http://www.google.fr/images/lol.jpg"));
     }
 
     @Test
-    public void canScrapImageUrlWithAltContainingLogoPattern() {
-        final Uri uri = internet.uri("http://webscraper/logo/imgAltLogoPattern");
+    public void canFindRelevantImageAfterH1Tag() {
+        final Uri uri = internet.uri("http://webscraper/image/withH1tag");
 
         webPageScraper.scrapDocument(uri);
 
-        assertThat(webPageScraper.getScrapedTags().get("logoUrl"), is("http://www.logo.com/logo.jpg"));
-    }
-
-    @Test
-    public void canScrapBackgroundImageUrl() {
-        final Uri uri = internet.uri("http://webscraper/logo/imgSimpleBackground");
-
-        webPageScraper.scrapDocument(uri);
-
-        assertThat(webPageScraper.getScrapedTags().get("logoUrl"), is("http://www.logo.com/logo.jpg"));
-    }
-
-    @Test
-    public void canScrapLogoUrlFromNestedChildrenTags() {
-        final Uri uri = internet.uri("http://webscraper/logo/imgNestedChildren");
-
-        webPageScraper.scrapDocument(uri);
-
-        assertThat(webPageScraper.getScrapedTags().get("logoUrl"), is("http://www.google.fr/images/lol.jpg"));
-    }
-
-    @Test
-    public void canScrapLogoUrlFromParentTags() {
-        final Uri uri = internet.uri("http://webscraper/logo/imgParent");
-
-        webPageScraper.scrapDocument(uri);
-
-        assertThat(webPageScraper.getScrapedTags().get("logoUrl"), is("http://www.google.fr/images/lol.jpg"));
+        assertThat(webPageScraper.getScrapedTags().get("image"), is("http://www.google.fr/images/h1.jpg"));
     }
 
     private WebPageScraper webPageScraper;

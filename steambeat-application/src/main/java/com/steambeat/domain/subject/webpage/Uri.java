@@ -70,6 +70,10 @@ public class Uri {
         return Strings.isNullOrEmpty(domain);
     }
 
+    public String getDomain() {
+        return domain;
+    }
+
     private String protocol;
     private String domain;
     private String address;

@@ -11,26 +11,26 @@ public class WebPageScraper {
 
     public void scrapDocument(final Uri uri) {
         try {
-            document = Jsoup.connect(uri.toString())
-                    .userAgent(userAgent)
-                    .timeout(3000).get();
-            scrapInterestingTagsFromDocument();
+            document = Jsoup.connect(uri.toString()).userAgent(userAgent).timeout(THREE_SECONDS).get();
         } catch (IOException e) {
-            throw new WebScraperException();
+            document = new Document("");
+        } finally {
+            scrapInterestingTagsFromDocument();
         }
     }
 
     private void scrapInterestingTagsFromDocument() {
-        scrapedTags.put("title", scrapTitle());
+        scrapedTags.put("title", document.title());
         scrapedTags.put("h1", scrapFirstTag("h1"));
         scrapedTags.put("h2", scrapFirstTag("h2"));
-        scrapedTags.put("h3", scrapFirstTag("h3"));
-        scrapedTags.put("firstImageUrl", scrapFirstImage());
-        scrapedTags.put("logoUrl", scrapLogo());
+        scrapedTags.put("logo", scrapLogo());
+        scrapedTags.put("image", scrapImage());
     }
 
-    private String scrapTitle() {
-        return document.title();
+    private String scrapImage() {
+        final Element h1 = document.select("h1").first();
+        final Element nestedImage = findNestedImage(h1);
+        return extractImageFrom(nestedImage);
     }
 
     private String scrapFirstTag(final String tag) {
@@ -41,70 +41,40 @@ public class WebPageScraper {
         return "";
     }
 
-    private String scrapFirstImage() {
-        final Element img = document.select("img").first();
-        if (img != null) {
-            return img.absUrl("src");
-        }
-        return "";
+    private String scrapLogo() {
+        return extractImageFrom(findLogoElement());
     }
 
-    private String scrapLogo() {
+    private Element findLogoElement() {
         final String selector = "[class~=(.*)(logo|Logo|LOGO)(.*)], [id~=(.*)(logo|Logo|LOGO)(.*)], [alt~=(.*)(logo|Logo|LOGO)(.*)]";
         final Element element = document.select(selector).first();
         if (element != null) {
-            final String logo = extractLogoFor(element);
-            if (logo.isEmpty()) {
-                return extractFromNested(element);
+            if (element.nodeName().equals("img")) {
+                return element;
+            } else {
+                return findNestedImage(element);
             }
-            return logo;
         }
-        return "";
+        return new EmptyElement();
     }
 
-    private String extractLogoFor(final Element element) {
-        final String srcUrl = element.absUrl("src");
-        if (srcUrl.isEmpty()) {
-            return extractLogoFromBackgroundImage(element);
-        }
-        return srcUrl;
-    }
-
-    private String extractLogoFromBackgroundImage(final Element element) {
-        final String attributeKey = "style";
-        if (element.hasAttr(attributeKey)) {
-            final String styleAttr = element.attr(attributeKey);
-            return styleAttr.substring(styleAttr.indexOf("http://"), styleAttr.indexOf(")"));
-        }
-        return "";
-    }
-
-    private String extractFromNested(final Element element) {
-        String logo = extractFromChildren(element);
-        if (logo.isEmpty()) {
-            logo = extractFromParents(element);
-        }
-        return logo;
-    }
-
-    private String extractFromChildren(final Element element) {
+    private Element findNestedImage(final Element element) {
         for (int i = 0; i < element.children().size(); i++) {
             Element child = element.children().get(i);
-            final String childImage = extractLogoFor(child);
-            if (!childImage.isEmpty()) {
-                return childImage;
+            if (child.nodeName().equals("img")) {
+                return child;
             }
         }
-        return "";
+        return new EmptyElement();
     }
 
-    private String extractFromParents(final Element element) {
-        for (int i = 0; i < element.parents().size(); i++) {
-            Element parent = element.parents().get(i);
-            final String logo = extractLogoFor(parent);
-            if (!logo.isEmpty()) {
-                return logo;
-            }
+
+    private String extractImageFrom(final Element element) {
+        if (element.hasAttr("src")) {
+            return element.absUrl("src");
+        } else if (element.hasAttr("style")) {
+            final String styleAttribute = element.attr("style");
+            return styleAttribute.substring(styleAttribute.indexOf("http://"), styleAttribute.indexOf(")"));
         }
         return "";
     }
@@ -113,7 +83,8 @@ public class WebPageScraper {
         return scrapedTags;
     }
 
-    private HashMap<String, String> scrapedTags = new HashMap<String, String>();
     private Document document;
+    protected HashMap<String, String> scrapedTags = new HashMap<String, String>();
     private String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
+    private final int THREE_SECONDS = 3000;
 }

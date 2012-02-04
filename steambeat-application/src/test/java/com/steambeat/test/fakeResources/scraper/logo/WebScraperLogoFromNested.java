@@ -3,11 +3,11 @@ package com.steambeat.test.fakeResources.scraper.logo;
 import org.restlet.representation.*;
 import org.restlet.resource.*;
 
-public class FakeLogoImgClassLogoPattern extends ServerResource {
+public class WebScraperLogoFromNested extends ServerResource {
 
     @Get
     public Representation represent() {
-        String html = "<html><body><img src='http://www.google.fr/images/lol.jpg' /><img class='myLogo_v1' src='http://www.logo.com/logo.jpg'/></body></html>";
+        String html = "<html><body><div id='logo'><img src='http://www.google.fr/images/lol.jpg'/></div></body></html>";
         return new StringRepresentation(html);
     }
 }

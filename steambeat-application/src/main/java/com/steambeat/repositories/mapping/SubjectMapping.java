@@ -17,6 +17,12 @@ public class SubjectMapping extends EntityMap<Subject> {
         subclass(new SubclassMap<WebPage>(WebPage.class) {
             @Override
             protected void map() {
+                property(element().getTitleTag());
+                property(element().getH1Tag());
+                property(element().getH2Tag());
+                property(element().getH3Tag());
+                property(element().getImageUrlTag());
+                property(element().getLogoUrlTag());
             }
         });
 
