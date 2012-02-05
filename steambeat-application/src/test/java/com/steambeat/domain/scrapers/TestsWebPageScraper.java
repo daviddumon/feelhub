@@ -57,7 +57,7 @@ public class TestsWebPageScraper {
 
         webPageScraper.scrapDocument(uri);
 
-        assertThat(webPageScraper.getScrapedTags().get("h1"), is("First section"));
+        assertThat(webPageScraper.getScrapedTags().get("h1"), is("Second section"));
     }
 
     @Test
@@ -148,6 +148,15 @@ public class TestsWebPageScraper {
         webPageScraper.scrapDocument(uri);
 
         assertThat(webPageScraper.getScrapedTags().get("image"), is("http://www.google.fr/images/h1.jpg"));
+    }
+
+    @Test
+    public void slateFrBug() {
+        final Uri uri = internet.uri("http://webscraper/bug/slatefr");
+
+        webPageScraper.scrapDocument(uri);
+
+        assertThat(webPageScraper.getScrapedTags().get("image"), is("http://www.slate.fr/sites/default/files/sarkozy-tv_0.jpg?1328353776"));
     }
 
     private WebPageScraper webPageScraper;

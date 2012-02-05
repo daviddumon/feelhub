@@ -18,9 +18,8 @@ public class WebPage extends Subject {
         titleTag = scrapedTags.get("title");
         h1Tag = scrapedTags.get("h1");
         h2Tag = scrapedTags.get("h2");
-        h3Tag = scrapedTags.get("h3");
-        imageUrlTag = scrapedTags.get("firstImageUrl");
-        logoUrlTag = scrapedTags.get("logoUrl");
+        imageUrlTag = scrapedTags.get("image");
+        logoUrlTag = scrapedTags.get("logo");
     }
 
     public Uri getRealUri() {
@@ -36,8 +35,6 @@ public class WebPage extends Subject {
             title = h1Tag;
         } else if (!h2Tag.isEmpty() && (h2Tag.length() <= 100)) {
             title = h2Tag;
-        } else if (!h3Tag.isEmpty() && (h3Tag.length() <= 100)) {
-            title = h3Tag;
         }
         return title;
         //String title = "";
@@ -62,8 +59,6 @@ public class WebPage extends Subject {
             title = h1Tag;
         } else if (!h2Tag.isEmpty() && (h2Tag.length() <= 30)) {
             title = h2Tag;
-        } else if (!h3Tag.isEmpty() && (h3Tag.length() <= 30)) {
-            title = h3Tag;
         } else {
             title = extractShortTitleFromUri();
         }
@@ -127,10 +122,6 @@ public class WebPage extends Subject {
         return h2Tag;
     }
 
-    public String getH3Tag() {
-        return h3Tag;
-    }
-
     public String getImageUrlTag() {
         return imageUrlTag;
     }
@@ -145,7 +136,6 @@ public class WebPage extends Subject {
     private String titleTag = "";
     private String h1Tag = "";
     private String h2Tag = "";
-    private String h3Tag = "";
     private String imageUrlTag = "";
     private String logoUrlTag = "";
 }

@@ -28,7 +28,7 @@ public class TestsWebPage {
     }
 
     @Test
-    public void titleIsMoreRelevantThantH1H2H3() {
+    public void titleIsMoreRelevantThantH1H2() {
         tags.put("title", "titletag");
         tags.put("h1", "h1tag");
         tags.put("h2", "h2tag");
@@ -77,8 +77,8 @@ public class TestsWebPage {
 
     @Test
     public void canGetThumbnailUrl() {
-        tags.put("logoUrl", "logoUrl");
-        tags.put("firstImageUrl", "firstImageUrl");
+        tags.put("logo", "logoUrl");
+        tags.put("image", "firstImageUrl");
         fakeWebPageScraper.setScrappedTags(tags);
 
         final WebPage webPage = new WebPage(association, fakeWebPageScraper);
@@ -87,9 +87,9 @@ public class TestsWebPage {
     }
 
     @Test
-    public void useFirstImageIfNoLogo() {
-        tags.put("logoUrl", "");
-        tags.put("firstImageUrl", "firstImageUrl");
+    public void useRelevantImageIfNoLogo() {
+        tags.put("logo", "");
+        tags.put("image", "firstImageUrl");
         fakeWebPageScraper.setScrappedTags(tags);
 
         final WebPage webPage = new WebPage(association, fakeWebPageScraper);
