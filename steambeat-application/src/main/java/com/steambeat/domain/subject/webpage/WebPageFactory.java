@@ -9,7 +9,7 @@ public class WebPageFactory {
     public WebPage newWebPage(final Association association) {
         checkNotExists(association);
         final WebPageScraper webPageScraper = new WebPageScraper();
-        webPageScraper.scrapDocument(new Uri(association.getCanonicalUri()));
+        webPageScraper.scrap(new Uri(association.getCanonicalUri()));
         final WebPage webPage = new WebPage(association, webPageScraper);
         DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(webPage));
         return webPage;

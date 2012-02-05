@@ -3,7 +3,7 @@ package com.steambeat.test;
 import com.steambeat.domain.subject.webpage.Uri;
 import com.steambeat.test.fakeResources.*;
 import com.steambeat.test.fakeResources.scraper.*;
-import com.steambeat.test.fakeResources.scraper.bug.WebScraperSlatefrBug;
+import com.steambeat.test.fakeResources.scraper.bug.*;
 import com.steambeat.test.fakeResources.scraper.image.WebScraperImageWithH1Tag;
 import com.steambeat.test.fakeResources.scraper.logo.*;
 import org.junit.rules.ExternalResource;
@@ -61,6 +61,8 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/http://webscraper/logo/logofromnested", WebScraperLogoFromNested.class);
                 router.attach("/http://webscraper/image/withH1tag", WebScraperImageWithH1Tag.class);
                 router.attach("/http://webscraper/bug/slatefr", WebScraperSlatefrBug.class);
+                router.attach("/http://webscraper/bug/lemondefrnested", WebScraperLemondefrBug.class);
+                router.attach("/http://webscraper/bug/10sportbug", WebScraper10sportBug.class);
                 return router;
             }
         };

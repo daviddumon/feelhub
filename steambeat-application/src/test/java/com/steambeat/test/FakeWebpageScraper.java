@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class FakeWebPageScraper extends WebPageScraper {
 
     @Override
-    public void scrapDocument(final Uri uri) {
+    public void scrap(final Uri uri) {
 
     }
 
