@@ -1,6 +1,6 @@
 package com.steambeat.domain.subject.webpage;
 
-import com.steambeat.test.FakeWebPageScraper;
+import com.steambeat.test.FakeUriScraper;
 import org.junit.*;
 
 import java.util.HashMap;
@@ -13,7 +13,7 @@ public class TestsWebPage {
     @Before
     public void setUp() throws Exception {
         tags = new HashMap<String, String>();
-        fakeWebPageScraper = new FakeWebPageScraper();
+        fakeWebPageScraper = new FakeUriScraper();
         association = new Association(new Uri("http://www.lemonde.fr/lol/yeah/article.html"), null);
     }
 
@@ -122,6 +122,6 @@ public class TestsWebPage {
     }
 
     private HashMap<String, String> tags;
-    private FakeWebPageScraper fakeWebPageScraper;
+    private FakeUriScraper fakeWebPageScraper;
     private Association association;
 }

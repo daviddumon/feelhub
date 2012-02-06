@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.util.*;
 
-public class WebPageScraper {
+public class UriScraper {
 
     public void addExtractor(final Extractor extractor) {
         extractors.add(extractor);
