@@ -43,7 +43,7 @@ public class TestsSubject {
         final Judgment judgment = subject.createJudgment(feeling);
 
         assertThat(judgment.getFeeling(), is(Feeling.good));
-        assertThat(judgment.getSubjectId(), is((Object) subject.getId()));
+        assertThat(judgment.getSubject(), is((Object) subject));
     }
 
     @Test

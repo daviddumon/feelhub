@@ -32,6 +32,5 @@ public class TestsOpinionService {
         final Judgment judgment = opinion.getJudgments().get(0);
         assertThat(judgment.getSubject(), is(subject));
         assertThat(judgment.getFeeling(), is(Feeling.good));
-
     }
 }

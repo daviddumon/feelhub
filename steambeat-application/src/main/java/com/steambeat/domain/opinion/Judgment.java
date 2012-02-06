@@ -11,12 +11,8 @@ public class Judgment {
     }
 
     public Judgment(final Subject subject, final Feeling feeling) {
-        this.subjectId = subject.getId();
+        this.subject = subject;
         this.feeling = feeling;
-    }
-
-    public String getSubjectId() {
-        return subjectId;
     }
 
     public Feeling getFeeling() {
@@ -24,9 +20,9 @@ public class Judgment {
     }
 
     public WebPage getSubject() {
-        return Repositories.webPages().get(subjectId);
+        return Repositories.webPages().get(subject.getId());
     }
 
-    private String subjectId;
     private Feeling feeling;
+    private Subject subject;
 }

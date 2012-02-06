@@ -9,15 +9,15 @@ import java.util.UUID;
 
 public class WebPageFactoryForTest {
 
+    public WebPage newWebPage() {
+        return newWebPage("http://www.fake.com/" + UUID.randomUUID().toString());
+    }
+
     public WebPage newWebPage(final String address) {
         final Association association = new Association(new Uri(address), TestFactories.canonicalUriFinder());
         final WebPage webPage = new WebPage(association, new FakeUriScraper());
         Repositories.webPages().add(webPage);
         return webPage;
-    }
-
-    public WebPage newWebPage() {
-        return newWebPage("http://www.fake.com/" + UUID.randomUUID().toString());
     }
 
     public WebPage newWebPageWithLotOfOpinions(final String address, final int opinionsSize) {

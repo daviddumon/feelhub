@@ -11,7 +11,8 @@
 
 <@body.panel>
 <div class="panel_box panel_resource">
-    <span id="webpageRoot"><span onclick="javascript:window.open('${webPage.id}');" style="cursor: pointer">${webPage.id}</span></span>
+    <span id="webpageRoot"><span onclick="javascript:window.open('${webPage.id}');" style="cursor: pointer">${webPage.description}</span></span>
+    <img src="<#if ''?matches('${webPage.illustration}')>http://${domain}${root}/static/images/empty_illustration.png<#else>${webPage.illustration}</#if>" style="max-height: 100px; border: 10px solid white;"/>
 </div>
 <!--
 <div id="counter">${counter!0} opinions</div>

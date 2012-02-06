@@ -33,17 +33,26 @@ public abstract class Subject extends BaseEntity {
         return creationDate;
     }
 
-    protected abstract String getTitle();
-
-    protected abstract String getShortTitle();
-
-    protected abstract String getThumbnailUrl();
-
     @Override
     public String getId() {
         return id;
     }
 
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getIllustration() {
+        return illustration;
+    }
+
+    protected String shortDescription;
+    protected String description;
+    protected String illustration;
     private DateTime creationDate;
     private String id;
 }

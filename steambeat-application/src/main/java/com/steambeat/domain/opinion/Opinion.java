@@ -28,12 +28,12 @@ public class Opinion extends BaseEntity {
         return creationDate.toDate();
     }
 
-    //todo
+    //todo delete
     public String getSubjectId() {
-        return judgments.get(0).getSubjectId();
+        return judgments.get(0).getSubject().getId();
     }
 
-    //todo
+    //todo delete
     public Feeling getFeeling() {
         return judgments.get(0).getFeeling();
     }

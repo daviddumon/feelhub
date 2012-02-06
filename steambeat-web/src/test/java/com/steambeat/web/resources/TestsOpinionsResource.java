@@ -158,7 +158,7 @@ public class TestsOpinionsResource {
         final Opinion opinion = Repositories.opinions().getAll().get(0);
         final Judgment judgment = opinion.getJudgments().get(0);
         assertThat(judgment.getFeeling(), is(Feeling.good));
-        assertThat(judgment.getSubjectId(), is(subject.getId()));
+        assertThat(judgment.getSubject(), is(subject));
     }
 
     @Test

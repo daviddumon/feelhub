@@ -8,11 +8,16 @@ public class WebPageFactory {
 
     public WebPage newWebPage(final Association association) {
         checkNotExists(association);
-        final UriScraper uriScraper = new UriScraper();
-        uriScraper.scrap(new Uri(association.getCanonicalUri()));
+        final UriScraper uriScraper = getScraper(association);
         final WebPage webPage = new WebPage(association, uriScraper);
         DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(webPage));
         return webPage;
+    }
+
+    private UriScraper getScraper(final Association association) {
+        final UriScraper uriScraper = new UriScraper();
+        uriScraper.scrap(new Uri(association.getCanonicalUri()));
+        return uriScraper;
     }
 
     protected void checkNotExists(final Association association) {
