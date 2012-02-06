@@ -1,7 +1,7 @@
 package com.steambeat.web;
 
 import com.google.inject.*;
-import com.steambeat.tools.*;
+import com.steambeat.tools.SteambeatWebProperties;
 import com.steambeat.web.guice.SteambeatModule;
 import com.steambeat.web.status.SteambeatStatusService;
 import freemarker.template.*;

@@ -71,7 +71,7 @@ public class ImageExtractor extends Extractor {
         if (element.nodeName().equals("img")) {
             return element;
         } else if (element.children().size() > 0) {
-            for(Element child : element.children()) {
+            for (Element child : element.children()) {
                 final Element image = findImageIn(child);
                 if (image != null) {
                     return image;

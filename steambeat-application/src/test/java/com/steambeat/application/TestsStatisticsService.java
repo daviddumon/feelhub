@@ -4,7 +4,6 @@ import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.*;

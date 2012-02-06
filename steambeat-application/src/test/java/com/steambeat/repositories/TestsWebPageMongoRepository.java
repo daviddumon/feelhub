@@ -3,7 +3,7 @@ package com.steambeat.repositories;
 import com.mongodb.*;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.opinion.Feeling;
-import com.steambeat.domain.subject.webpage.*;
+import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.testFactories.TestFactories;
 import org.joda.time.DateTime;
 import org.junit.*;

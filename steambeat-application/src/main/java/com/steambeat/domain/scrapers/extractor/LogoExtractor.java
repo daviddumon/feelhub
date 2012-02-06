@@ -2,7 +2,6 @@ package com.steambeat.domain.scrapers.extractor;
 
 import com.steambeat.domain.scrapers.EmptyElement;
 import org.jsoup.nodes.*;
-import org.jsoup.select.Elements;
 
 public class LogoExtractor extends Extractor {
 

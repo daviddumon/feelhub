@@ -1,13 +1,8 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.domain.statistics.*;
-import com.steambeat.domain.subject.webpage.*;
-import com.steambeat.repositories.Repositories;
 import com.steambeat.web.SteambeatTemplateRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.*;
-
-import java.util.List;
 
 public class HomeResource extends ServerResource {
 
