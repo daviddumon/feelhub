@@ -41,16 +41,10 @@ public class UriScraper implements Scraper {
 
     @Override
     public String getShortDescription() {
-        return "";
-    }
-
-    private String extractShortTitleFromUri() {
-        if (uri.toString().length() < 30) {
-            return uri.toString();
+        if (getDescription().length() < 40 && notEmpty(getDescription())) {
+            return getDescription();
         } else {
-            final String domain = uri.getDomain();
-            final String end = uri.toString().substring(uri.toString().length() - 15, uri.toString().length());
-            return domain + " ... " + end;
+            return uri.condensed();
         }
     }
 

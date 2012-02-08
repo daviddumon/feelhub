@@ -26,19 +26,39 @@ public class Uri {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+        appendProtocol(builder);
+        appendDomain(builder);
+        appendAddress(builder);
+        appendQuery(builder);
+        appendFragment(builder);
+        return builder.toString();
+    }
+
+    private void appendProtocol(final StringBuilder builder) {
         builder.append(protocol);
         builder.append(PROTOCOL_TOKEN);
+    }
+
+    private void appendDomain(final StringBuilder builder) {
         builder.append(domain);
+    }
+
+    private void appendAddress(final StringBuilder builder) {
         builder.append(address);
+    }
+
+    private void appendQuery(final StringBuilder builder) {
         if (!Strings.isNullOrEmpty(query)) {
             builder.append(QUERY_TOKEN);
             builder.append(query);
         }
+    }
+
+    private void appendFragment(final StringBuilder builder) {
         if (!Strings.isNullOrEmpty(fragment)) {
             builder.append(FRAGMENT_TOKEN);
             builder.append(fragment);
         }
-        return builder.toString();
     }
 
     @Override
@@ -70,8 +90,47 @@ public class Uri {
         return Strings.isNullOrEmpty(domain);
     }
 
-    public String getDomain() {
-        return domain;
+    public String condensed() {
+        if (isFirstLevelUri() || toString().length() < 40) {
+            final StringBuilder builder = new StringBuilder();
+            appendDomain(builder);
+            appendAddress(builder);
+            appendQuery(builder);
+            appendFragment(builder);
+            return builder.toString();
+        } else {
+            final String beginningOfUri = getBeginningOfUri();
+            final String endOfUri = getEndOfUri();
+            return beginningOfUri + CONDENSED_TOKEN + getEndOf(endOfUri);
+        }
+    }
+
+    private String getBeginningOfUri() {
+        final StringBuilder builder = new StringBuilder();
+        appendDomain(builder);
+        return builder.toString();
+    }
+
+    private String getEndOfUri() {
+        final StringBuilder builder = new StringBuilder();
+        appendAddress(builder);
+        appendQuery(builder);
+        appendFragment(builder);
+        return builder.toString();
+    }
+
+    private String getEndOf(final String endOfUri) {
+        if (endOfUri.length() > 10) {
+            return endOfUri.substring(endOfUri.length() - 10, endOfUri.length());
+        } else {
+            return endOfUri;
+        }
+    }
+
+    public boolean isFirstLevelUri() {
+        return (this.address.isEmpty() || this.address.equals("/"))
+                && this.query.isEmpty()
+                && this.fragment.isEmpty();
     }
 
     private String protocol;
@@ -82,4 +141,5 @@ public class Uri {
     private static final String PROTOCOL_TOKEN = "://";
     private static final String QUERY_TOKEN = "?";
     private static final String FRAGMENT_TOKEN = "#";
+    private static final String CONDENSED_TOKEN = " [...] ";
 }

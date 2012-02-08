@@ -122,6 +122,43 @@ public class TestsUri {
         testUri("http://test.com#p/u/2/xsJ0u7MIxLM");
     }
 
+    @Test
+    public void canGetCondensedVersionForDomain() {
+        final String address = "http://www.google.fr";
+        final Uri uri = new Uri(address);
+
+        assertThat(uri.condensed(), is("www.google.fr"));
+    }
+
+    @Test
+    public void canGetCondensedVersionForDomainAndShortAddressQueryFragment() {
+        final String address = "http://www.google.fr/address?a#1";
+        final Uri uri = new Uri(address);
+
+        assertThat(uri.condensed(), is("www.google.fr/address?a#1"));
+    }
+
+    @Test
+    public void canGetCondensedVersionForDomainAndLongAddress() {
+        final String address = "http://www.google.fr/this/is/a/real/too/long/address?damn#right";
+        final Uri uri = new Uri(address);
+
+        assertThat(uri.condensed(), is("www.google.fr [...] damn#right"));
+    }
+
+    @Test
+    public void checkFirstLevelUri() {
+        final Uri uri1 = new Uri("http://www.google.fr");
+        final Uri uri2 = new Uri("http://www.google.fr/");
+        final Uri uri3 = new Uri("http://www.google.fr/?query#fragment");
+        final Uri uri4 = new Uri("http://www.google.fr/a");
+
+        assertThat(uri1.isFirstLevelUri(), is(true));
+        assertThat(uri2.isFirstLevelUri(), is(true));
+        assertThat(uri3.isFirstLevelUri(), is(false));
+        assertThat(uri4.isFirstLevelUri(), is(false));
+    }
+
     private void testUri(final String address) {
         testUri(address, address);
     }

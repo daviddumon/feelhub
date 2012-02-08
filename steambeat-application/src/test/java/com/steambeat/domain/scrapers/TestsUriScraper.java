@@ -33,8 +33,24 @@ public class TestsUriScraper {
         uriScraper.scrap(uri);
 
         assertThat(uriScraper.getDescription(), is(""));
-        assertThat(uriScraper.getShortDescription(), is(""));
+        assertThat(uriScraper.getShortDescription(), is("localhost:6162/unknown"));
         assertThat(uriScraper.getIllustration(), is(""));
+    }
+
+    @Test
+    public void canFindShortDescription() {
+        final Uri uri1 = internet.uri("http://webscraper/titletag");
+        final Uri uri2 = internet.uri("http://webscraper/h1tag");
+        final Uri uri3 = internet.uri("http://webscraper/logo/withclasslogo");
+
+        uriScraper.scrap(uri1);
+        assertThat(uriScraper.getShortDescription(), is("Webpage title"));
+
+        uriScraper.scrap(uri2);
+        assertThat(uriScraper.getShortDescription(), is("Second section"));
+
+        uriScraper.scrap(uri3);
+        assertThat(uriScraper.getShortDescription(), is("webscraper [...] hclasslogo"));
     }
 
     @Test

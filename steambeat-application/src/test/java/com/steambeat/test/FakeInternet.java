@@ -4,6 +4,7 @@ import com.steambeat.domain.subject.webpage.Uri;
 import com.steambeat.test.fakeResources.*;
 import com.steambeat.test.fakeResources.scraper.*;
 import com.steambeat.test.fakeResources.scraper.bug.*;
+import com.steambeat.test.fakeResources.scraper.css.CSSScraperSimple;
 import com.steambeat.test.fakeResources.scraper.image.WebScraperImageWithH1Tag;
 import com.steambeat.test.fakeResources.scraper.logo.*;
 import org.junit.rules.ExternalResource;
@@ -63,6 +64,7 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/http://webscraper/bug/slatefr", WebScraperSlatefrBug.class);
                 router.attach("/http://webscraper/bug/lemondefrnested", WebScraperLemondefrBug.class);
                 router.attach("/http://webscraper/bug/10sportbug", WebScraper10sportBug.class);
+                router.attach("/http://cssscraper/css/simple", CSSScraperSimple.class);
                 return router;
             }
         };

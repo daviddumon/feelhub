@@ -1,0 +1,8 @@
+Les DTOs peuvent-ils être des agrégats ?
+Qui construit les DTOS ? La couche service ?
+Avoir un GET et un POST dans une ressource, est ce casser le SRP ?
+Dans Judgment, pouvoir mapper le sujet directement
+En local et test, quand on clique sur le logo on ne revient pas sur la home car il manque un /
+Appels de fake internet dans les logs
+Crash concurrence
+Pour refaire regulierement les données scrapées -> au niveau du webpageservice dans le lookup ?
