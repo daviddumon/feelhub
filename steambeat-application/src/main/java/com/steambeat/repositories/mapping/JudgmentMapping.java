@@ -12,6 +12,6 @@ public class JudgmentMapping extends ComponentMap<Judgment> {
     @Override
     protected void map() {
         property(element().getFeeling());
-        property(element().getSubject());
+        property(element().getSubjectId());
     }
 }
