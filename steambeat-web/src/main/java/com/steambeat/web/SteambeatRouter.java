@@ -14,12 +14,8 @@ public class SteambeatRouter extends Router {
     public SteambeatRouter(final Context context, final Injector injector) {
         super(context);
         this.injector = injector;
-        setDefaultMatchingQuery(true);
-        setDefaultMatchingMode(MODE_BEST_MATCH);
-        createRoot();
-    }
-
-    private void createRoot() {
+        setDefaultMatchingQuery(false);
+        setDefaultMatchingMode(MODE_FIRST_MATCH);
         attachResources();
     }
 

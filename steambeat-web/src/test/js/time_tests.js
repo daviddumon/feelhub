@@ -2,8 +2,8 @@ var TimeTests = new TestCase("TimeTests");
 
 TimeTests.prototype = {
 
-    testCanAddAnHour: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddAnHour:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldHours = date.getUTCHours();
 
         date.plusHour(1);
@@ -12,8 +12,8 @@ TimeTests.prototype = {
         assertEquals(oldHours + 1, newHours);
     },
 
-    testCanSubtractAnHour: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractAnHour:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldHours = date.getUTCHours();
 
         date.minusHour(1);
@@ -22,8 +22,8 @@ TimeTests.prototype = {
         assertEquals(oldHours - 1, newHours);
     },
 
-    testCanAddMultipleHours: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddMultipleHours:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldHours = date.getUTCHours();
 
         date.plusHour(1);
@@ -34,8 +34,8 @@ TimeTests.prototype = {
         assertEquals(oldHours + 9, newHours);
     },
 
-    testCanSubtractMultipleHours: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractMultipleHours:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldHours = date.getUTCHours();
 
         date.minusHour(1);
@@ -46,8 +46,8 @@ TimeTests.prototype = {
         assertEquals(oldHours - 9, newHours);
     },
 
-    testCanAddMoreThan24Hours: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddMoreThan24Hours:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldDay = date.getDate();
         var oldHours = date.getUTCHours();
 
@@ -59,8 +59,8 @@ TimeTests.prototype = {
         assertEquals(oldDay + 2, newDay);
     },
 
-    testCanSubtractMoreThan24Hours: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractMoreThan24Hours:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldDay = date.getDate();
         var oldHours = date.getUTCHours();
 
@@ -72,8 +72,8 @@ TimeTests.prototype = {
         assertEquals(oldDay - 2, newDay);
     },
 
-    testCanAddADay: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddADay:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldDay = date.getDate();
 
         date.plusDay(1);
@@ -82,8 +82,8 @@ TimeTests.prototype = {
         assertEquals(oldDay + 1, newDay);
     },
 
-    testCanAddMultipleDays: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddMultipleDays:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldDay = date.getDate();
 
         date.plusDay(1);
@@ -94,8 +94,8 @@ TimeTests.prototype = {
         assertEquals(oldDay + 9, newDay);
     },
 
-    testCanAddMoreThan31Days: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddMoreThan31Days:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldMonth = date.getMonth();
 
         date.plusDay(40);
@@ -104,8 +104,8 @@ TimeTests.prototype = {
         assertEquals(oldMonth + 1, newMonth);
     },
 
-    testCanSubtractADay: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractADay:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldDay = date.getDate();
 
         date.minusDay(1);
@@ -114,8 +114,8 @@ TimeTests.prototype = {
         assertEquals(oldDay - 1, newDay);
     },
 
-    testCanSubtractMultipleDays: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractMultipleDays:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldDay = date.getDate();
 
         date.minusDay(1);
@@ -126,8 +126,8 @@ TimeTests.prototype = {
         assertEquals(oldDay - 9, newDay);
     },
 
-    testCanSubtractMoreThan31Days: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractMoreThan31Days:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldMonth = date.getMonth();
 
         date.minusDay(40);
@@ -136,8 +136,8 @@ TimeTests.prototype = {
         assertEquals(oldMonth - 1, newMonth);
     },
 
-    testCanAddAMonth: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddAMonth:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldMonth = date.getMonth();
 
         date.plusMonth(1);
@@ -146,8 +146,8 @@ TimeTests.prototype = {
         assertEquals(oldMonth + 1, newMonth);
     },
 
-    testCanAddMultipleMonths: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddMultipleMonths:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldMonth = date.getMonth();
 
         date.plusMonth(1);
@@ -157,8 +157,8 @@ TimeTests.prototype = {
         assertEquals(oldMonth + 4, newMonth);
     },
 
-    testCanAddMoreThan12Months: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddMoreThan12Months:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldYear = date.getYear();
 
         date.plusMonth(13);
@@ -167,8 +167,8 @@ TimeTests.prototype = {
         assertEquals(oldYear + 1, newYear);
     },
 
-    testCanSubtractAMonth: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractAMonth:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldMonth = date.getMonth();
 
         date.minusMonth(1);
@@ -177,8 +177,8 @@ TimeTests.prototype = {
         assertEquals(oldMonth - 1, newMonth);
     },
 
-    testCanSubtractMultipleMonths: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractMultipleMonths:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldMonth = date.getMonth();
 
         date.minusMonth(1);
@@ -188,8 +188,8 @@ TimeTests.prototype = {
         assertEquals(oldMonth - 4, newMonth);
     },
 
-    testCanSubtractMoreThan12Months: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractMoreThan12Months:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldYear = date.getYear();
 
         date.minusMonth(13);
@@ -198,8 +198,8 @@ TimeTests.prototype = {
         assertEquals(oldYear - 1, newYear);
     },
 
-    testCanAddAYear: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddAYear:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldYear = date.getYear();
 
         date.plusYear(1);
@@ -208,8 +208,8 @@ TimeTests.prototype = {
         assertEquals(oldYear + 1, newYear);
     },
 
-    testCanAddMultipleYears: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddMultipleYears:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldYear = date.getYear();
 
         date.plusYear(1);
@@ -220,8 +220,8 @@ TimeTests.prototype = {
         assertEquals(oldYear + 9, newYear);
     },
 
-    testCanAddMoreThan100Years: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanAddMoreThan100Years:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldYear = date.getYear();
 
         date.plusYear(150);
@@ -230,8 +230,8 @@ TimeTests.prototype = {
         assertEquals(oldYear + 150, newYear);
     },
 
-    testCanSubtractAYear: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractAYear:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldYear = date.getYear();
 
         date.minusYear(1);
@@ -240,8 +240,8 @@ TimeTests.prototype = {
         assertEquals(oldYear - 1, newYear);
     },
 
-    testCanSubtractMultipleYears: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractMultipleYears:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldYear = date.getYear();
 
         date.minusYear(1);
@@ -252,8 +252,8 @@ TimeTests.prototype = {
         assertEquals(oldYear - 9, newYear);
     },
 
-    testCanSubtractMoreThan100Years: function() {
-        var date = new Date(2011,6,20,12,0,0);
+    testCanSubtractMoreThan100Years:function () {
+        var date = new Date(2011, 6, 20, 12, 0, 0);
         var oldYear = date.getYear();
 
         date.minusYear(150);
@@ -262,9 +262,9 @@ TimeTests.prototype = {
         assertEquals(oldYear - 150, newYear);
     },
 
-    testIsLeap: function() {
-        var nonLeapDate = new Date(2011,1,20,12,0,0);
-        var leapDate = new Date(2008,1,20,12,0,0);
+    testIsLeap:function () {
+        var nonLeapDate = new Date(2011, 1, 20, 12, 0, 0);
+        var leapDate = new Date(2008, 1, 20, 12, 0, 0);
 
         var responseFor2011 = nonLeapDate.isLeap()
         var responseFor2008 = leapDate.isLeap()
@@ -273,44 +273,44 @@ TimeTests.prototype = {
         assertSame(true, responseFor2008);
     },
 
-    testCanFindLastDayOfJanuary2011: function() {
-        var january = new Date(2011,0,10);
+    testCanFindLastDayOfJanuary2011:function () {
+        var january = new Date(2011, 0, 10);
 
         var lastDay = january.lastDayOfMonth();
 
         assertEquals(31, lastDay);
     },
 
-    testCanFindLastDayOfApril2011: function() {
-        var april = new Date(2011,3,10);
+    testCanFindLastDayOfApril2011:function () {
+        var april = new Date(2011, 3, 10);
 
         var lastDay = april.lastDayOfMonth();
 
         assertEquals(30, lastDay);
     },
 
-    testCanFindLastDayOfFebruary2011: function() {
-        var february2011 = new Date(2011,1,10);
+    testCanFindLastDayOfFebruary2011:function () {
+        var february2011 = new Date(2011, 1, 10);
 
         var lastDay = february2011.lastDayOfMonth();
 
         assertEquals(28, lastDay);
     },
 
-    testCanFindLastDayOfFebruary2008: function() {
-        var february2008 = new Date(2008,1,10);
+    testCanFindLastDayOfFebruary2008:function () {
+        var february2008 = new Date(2008, 1, 10);
 
         var lastDay = february2008.lastDayOfMonth();
 
         assertEquals(29, lastDay);
     },
 
-    testCanGetHourInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetHourInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
-        start.setUTCHours(date.getUTCHours(),0,0,0);
-        end.setUTCHours(date.getUTCHours(),59,59,999);
+        start.setUTCHours(date.getUTCHours(), 0, 0, 0);
+        end.setUTCHours(date.getUTCHours(), 59, 59, 999);
 
         var interval = date.interval("hour");
 
@@ -319,14 +319,14 @@ TimeTests.prototype = {
         assertSame("hour", interval.granularity);
     },
 
-    testCanGetDayInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetDayInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCDate(date.getUTCDate());
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCDate(date.getUTCDate());
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
 
         var interval = date.interval("day");
 
@@ -335,16 +335,16 @@ TimeTests.prototype = {
         assertSame("day", interval.granularity);
     },
 
-    testCanGetMonthInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetMonthInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCMonth(date.getUTCMonth());
         start.setUTCDate(1);
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCMonth(date.getUTCMonth());
         end.setUTCDate(30);
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
 
         var interval = date.interval("month");
 
@@ -353,18 +353,18 @@ TimeTests.prototype = {
         assertSame("month", interval.granularity);
     },
 
-    testCanGetYearInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetYearInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCFullYear(date.getUTCFullYear());
         start.setUTCMonth(0);
         start.setUTCDate(1);
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCFullYear(date.getUTCFullYear());
         end.setUTCMonth(11);
         end.setUTCDate(31);
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
 
         var interval = date.interval("year");
 
@@ -373,8 +373,8 @@ TimeTests.prototype = {
         assertSame("year", interval.granularity);
     },
 
-    testIsDateContainedInHourInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testIsDateContainedInHourInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var startDate = new Date(date.interval("hour").startTime);
         var endDate = new Date(date.interval("hour").endTime);
         var badDate = new Date(date);
@@ -392,8 +392,8 @@ TimeTests.prototype = {
         assertSame(false, isNotContained);
     },
 
-    testIsDateContainedInDayInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testIsDateContainedInDayInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var startDate = new Date(date.interval("day").startTime);
         var endDate = new Date(date.interval("day").endTime);
         var badDate = new Date(date);
@@ -411,8 +411,8 @@ TimeTests.prototype = {
         assertSame(false, isNotContained);
     },
 
-    testIsDateContainedInMonthInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testIsDateContainedInMonthInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var startDate = new Date(date.interval("month").startTime);
         var endDate = new Date(date.interval("month").endTime);
         var badDate = new Date(date);
@@ -430,8 +430,8 @@ TimeTests.prototype = {
         assertSame(false, isNotContained);
     },
 
-    testIsDateContainedInYearInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testIsDateContainedInYearInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var startDate = new Date(date.interval("year").startTime);
         var endDate = new Date(date.interval("year").endTime);
         var badDate = new Date(date);
@@ -449,8 +449,8 @@ TimeTests.prototype = {
         assertSame(false, isNotContained);
     },
 
-    testIsTimeContainedInHourInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testIsTimeContainedInHourInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var startDate = new Date(date.interval("hour").startTime);
         var endDate = new Date(date.interval("hour").endTime);
         var badDate = new Date(date);
@@ -469,8 +469,8 @@ TimeTests.prototype = {
     },
 
 
-    testIsTimeContainedInDayInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testIsTimeContainedInDayInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var startDate = new Date(date.interval("day").startTime);
         var endDate = new Date(date.interval("day").endTime);
         var badDate = new Date(date);
@@ -488,8 +488,8 @@ TimeTests.prototype = {
         assertSame(false, isNotContained);
     },
 
-    testIsTimeContainedInMonthInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testIsTimeContainedInMonthInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var startDate = new Date(date.interval("month").startTime);
         var endDate = new Date(date.interval("month").endTime);
         var badDate = new Date(date);
@@ -507,8 +507,8 @@ TimeTests.prototype = {
         assertSame(false, isNotContained);
     },
 
-    testIsTimeContainedInYearInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testIsTimeContainedInYearInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var startDate = new Date(date.interval("year").startTime);
         var endDate = new Date(date.interval("year").endTime);
         var badDate = new Date(date);
@@ -526,8 +526,8 @@ TimeTests.prototype = {
         assertSame(false, isNotContained);
     },
 
-    testCanCreateNewCopyOfDate: function() {
-        var date1 = new Date(2011,3,3,12,30,0,000);
+    testCanCreateNewCopyOfDate:function () {
+        var date1 = new Date(2011, 3, 3, 12, 30, 0, 000);
         var date1OldTime = date1.getTime();
         var date2 = new Date(date1);
         var date2OldTime = date2.getTime();
@@ -540,12 +540,12 @@ TimeTests.prototype = {
         assertNotEquals(date2OldTime, date2NewTime);
     },
 
-    testCanGetNextHourIntervalFromDate: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetNextHourIntervalFromDate:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
-        start.setUTCHours(date.getUTCHours(),0,0,0);
-        end.setUTCHours(date.getUTCHours(),59,59,999);
+        start.setUTCHours(date.getUTCHours(), 0, 0, 0);
+        end.setUTCHours(date.getUTCHours(), 59, 59, 999);
         start.plusHour(1);
         end.plusHour(1);
 
@@ -556,14 +556,14 @@ TimeTests.prototype = {
     },
 
 
-    testCanGetNextDayIntervalFromDate: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetNextDayIntervalFromDate:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCDate(date.getUTCDate());
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCDate(date.getUTCDate());
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.plusDay(1);
         end.plusDay(1);
 
@@ -573,16 +573,16 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), interval.endTime);
     },
 
-    testCanGetNextMonthIntervalFromDate: function() {
-        var date = new Date(2011,6,3,12,30,0,000);
+    testCanGetNextMonthIntervalFromDate:function () {
+        var date = new Date(2011, 6, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCMonth(date.getUTCMonth());
         start.setUTCDate(1);
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCMonth(date.getUTCMonth());
         end.setUTCDate(31);
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.plusMonth(1);
         end.plusMonth(1);
 
@@ -592,18 +592,18 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), interval.endTime);
     },
 
-    testCanGetNextYearIntervalFromDate: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetNextYearIntervalFromDate:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCFullYear(date.getUTCFullYear());
         start.setUTCMonth(0);
         start.setUTCDate(1);
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCFullYear(date.getUTCFullYear());
         end.setUTCMonth(11);
         end.setUTCDate(31);
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.plusYear(1);
         end.plusYear(1);
 
@@ -613,12 +613,12 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), interval.endTime);
     },
 
-    testCanGetPreviousHourIntervalFromDate: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetPreviousHourIntervalFromDate:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
-        start.setUTCHours(date.getUTCHours(),0,0,0);
-        end.setUTCHours(date.getUTCHours(),59,59,999);
+        start.setUTCHours(date.getUTCHours(), 0, 0, 0);
+        end.setUTCHours(date.getUTCHours(), 59, 59, 999);
         start.minusHour(1);
         end.minusHour(1);
 
@@ -629,14 +629,14 @@ TimeTests.prototype = {
     },
 
 
-    testCanGetPreviousDayIntervalFromDate: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetPreviousDayIntervalFromDate:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCDate(date.getUTCDate());
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCDate(date.getUTCDate());
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.minusDay(1);
         end.minusDay(1);
 
@@ -646,16 +646,16 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), interval.endTime);
     },
 
-    testCanGetPreviousMonthIntervalFromDate: function() {
-        var date = new Date(2011,7,3,12,30,0,000);
+    testCanGetPreviousMonthIntervalFromDate:function () {
+        var date = new Date(2011, 7, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCMonth(date.getUTCMonth());
         start.setUTCDate(1);
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCMonth(date.getUTCMonth());
         end.setUTCDate(31);
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.minusMonth(1);
         end.minusMonth(1);
 
@@ -665,18 +665,18 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), interval.endTime);
     },
 
-    testCanGetPreviousYearIntervalFromDate: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetPreviousYearIntervalFromDate:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCFullYear(date.getUTCFullYear());
         start.setUTCMonth(0);
         start.setUTCDate(1);
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCFullYear(date.getUTCFullYear());
         end.setUTCMonth(11);
         end.setUTCDate(31);
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.minusYear(1);
         end.minusYear(1);
 
@@ -687,13 +687,13 @@ TimeTests.prototype = {
     },
 
 
-    testCanGetNextHourIntervalFromInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetNextHourIntervalFromInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var interval = date.interval("hour");
         var start = new Date(date);
         var end = new Date(date);
-        start.setUTCHours(date.getUTCHours(),0,0,0);
-        end.setUTCHours(date.getUTCHours(),59,59,999);
+        start.setUTCHours(date.getUTCHours(), 0, 0, 0);
+        end.setUTCHours(date.getUTCHours(), 59, 59, 999);
         start.plusHour(1);
         end.plusHour(1);
 
@@ -703,13 +703,13 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), nextInterval.endTime);
     },
 
-    testCanGetDistantNextHourIntervalFromInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetDistantNextHourIntervalFromInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var interval = date.interval("hour");
         var start = new Date(date);
         var end = new Date(date);
-        start.setUTCHours(date.getUTCHours(),0,0,0);
-        end.setUTCHours(date.getUTCHours(),59,59,999);
+        start.setUTCHours(date.getUTCHours(), 0, 0, 0);
+        end.setUTCHours(date.getUTCHours(), 59, 59, 999);
         start.plusHour(3);
         end.plusHour(3);
 
@@ -719,15 +719,15 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), nextInterval.endTime);
     },
 
-    testCanGetNextDayIntervalFromInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetNextDayIntervalFromInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var interval = date.interval("day");
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCDate(date.getUTCDate());
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCDate(date.getUTCDate());
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.plusDay(1);
         end.plusDay(1);
 
@@ -737,17 +737,17 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), nextInterval.endTime);
     },
 
-    testCanGetNextMonthIntervalFromInterval: function() {
-        var date = new Date(2011,6,3,12,30,0,000);
+    testCanGetNextMonthIntervalFromInterval:function () {
+        var date = new Date(2011, 6, 3, 12, 30, 0, 000);
         var interval = date.interval("month");
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCMonth(date.getUTCMonth());
         start.setUTCDate(1);
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCMonth(date.getUTCMonth());
         end.setUTCDate(31);
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.plusMonth(1);
         end.plusMonth(1);
 
@@ -757,19 +757,19 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), nextInterval.endTime);
     },
 
-    testCanGetNextYearIntervalFromInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetNextYearIntervalFromInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var interval = date.interval("year");
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCFullYear(date.getUTCFullYear());
         start.setUTCMonth(0);
         start.setUTCDate(1);
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCFullYear(date.getUTCFullYear());
         end.setUTCMonth(11);
         end.setUTCDate(31);
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.plusYear(1);
         end.plusYear(1);
 
@@ -779,13 +779,13 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), nextInterval.endTime);
     },
 
-    testCanGetPreviousHourIntervalFromInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetPreviousHourIntervalFromInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var interval = date.interval("hour");
         var start = new Date(date);
         var end = new Date(date);
-        start.setUTCHours(date.getUTCHours(),0,0,0);
-        end.setUTCHours(date.getUTCHours(),59,59,999);
+        start.setUTCHours(date.getUTCHours(), 0, 0, 0);
+        end.setUTCHours(date.getUTCHours(), 59, 59, 999);
         start.minusHour(1);
         end.minusHour(1);
 
@@ -795,13 +795,13 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), previousInterval.endTime);
     },
 
-    testCanGetDistantPreviousHourIntervalFromInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetDistantPreviousHourIntervalFromInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var interval = date.interval("hour");
         var start = new Date(date);
         var end = new Date(date);
-        start.setUTCHours(date.getUTCHours(),0,0,0);
-        end.setUTCHours(date.getUTCHours(),59,59,999);
+        start.setUTCHours(date.getUTCHours(), 0, 0, 0);
+        end.setUTCHours(date.getUTCHours(), 59, 59, 999);
         start.minusHour(3);
         end.minusHour(3);
 
@@ -811,15 +811,15 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), previousInterval.endTime);
     },
 
-    testCanGetPreviousDayIntervalFromInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetPreviousDayIntervalFromInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var interval = date.interval("day");
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCDate(date.getUTCDate());
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCDate(date.getUTCDate());
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.minusDay(1);
         end.minusDay(1);
 
@@ -829,17 +829,17 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), previousInterval.endTime);
     },
 
-    testCanGetPreviousMonthIntervalFromInterval: function() {
-        var date = new Date(2011,7,3,12,30,0,000);
+    testCanGetPreviousMonthIntervalFromInterval:function () {
+        var date = new Date(2011, 7, 3, 12, 30, 0, 000);
         var interval = date.interval("month");
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCMonth(date.getUTCMonth());
         start.setUTCDate(1);
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCMonth(date.getUTCMonth());
         end.setUTCDate(31);
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.minusMonth(1);
         end.minusMonth(1);
 
@@ -849,19 +849,19 @@ TimeTests.prototype = {
         assertEquals(end.getTime(), previousInterval.endTime);
     },
 
-    testCanGetPreviousYearIntervalFromInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetPreviousYearIntervalFromInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var interval = date.interval("year");
         var start = new Date(date);
         var end = new Date(date);
         start.setUTCFullYear(date.getUTCFullYear());
         start.setUTCMonth(0);
         start.setUTCDate(1);
-        start.setUTCHours(0,0,0,0);
+        start.setUTCHours(0, 0, 0, 0);
         end.setUTCFullYear(date.getUTCFullYear());
         end.setUTCMonth(11);
         end.setUTCDate(31);
-        end.setUTCHours(23,59,59,999);
+        end.setUTCHours(23, 59, 59, 999);
         start.minusYear(1);
         end.minusYear(1);
 
@@ -870,41 +870,41 @@ TimeTests.prototype = {
         assertEquals(start.getTime(), previousInterval.startTime);
         assertEquals(end.getTime(), previousInterval.endTime);
     },
-    
-    testCanGetHumanReadableHourReference: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+
+    testCanGetHumanReadableHourReference:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
 
         var text = date.readableHour();
 
         assertSame("12H", text);
     },
 
-    testCanGetReadableUTCDayInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetReadableUTCDayInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
 
         var text = date.readableDay();
 
         assertSame("3 Apr", text);
     },
 
-    testCanGetReadableUTCMonthInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetReadableUTCMonthInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
 
         var text = date.readableMonth();
 
         assertSame("Apr", text);
     },
 
-    testCanGetReadableUTCYearInterval: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetReadableUTCYearInterval:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
 
         var text = date.readableYear();
 
         assertEquals(2011, text);
     },
 
-    testCanChainPlusHour: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanChainPlusHour:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var oldHours = date.getUTCHours();
 
         date.plusHour(1).plusHour(1);
@@ -913,8 +913,8 @@ TimeTests.prototype = {
         assertEquals(oldHours + 2, hours);
     },
 
-    testCanChainPlusDay: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanChainPlusDay:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var oldDays = date.getDate();
 
         date.plusDay(1).plusDay(1);
@@ -923,8 +923,8 @@ TimeTests.prototype = {
         assertEquals(oldDays + 2, days);
     },
 
-    testCanChainPlusMonth: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanChainPlusMonth:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var oldMonths = date.getMonth();
 
         date.plusMonth(1).plusMonth(1);
@@ -933,8 +933,8 @@ TimeTests.prototype = {
         assertEquals(oldMonths + 2, months);
     },
 
-    testCanChainPlusYear: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanChainPlusYear:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var oldYears = date.getYear();
 
         date.plusYear(1).plusYear(1);
@@ -943,8 +943,8 @@ TimeTests.prototype = {
         assertEquals(oldYears + 2, years);
     },
 
-    testCanChainMinusHour: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanChainMinusHour:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var oldHours = date.getUTCHours();
 
         date.minusHour(1).minusHour(1);
@@ -953,8 +953,8 @@ TimeTests.prototype = {
         assertEquals(oldHours - 2, hours);
     },
 
-    testCanChainMinusDay: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanChainMinusDay:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var oldDays = date.getDate();
 
         date.minusDay(1).minusDay(1);
@@ -963,8 +963,8 @@ TimeTests.prototype = {
         assertEquals(oldDays - 2, days);
     },
 
-    testCanChainMinusMonth: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanChainMinusMonth:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var oldMonths = date.getMonth();
 
         date.minusMonth(1).minusMonth(1);
@@ -973,8 +973,8 @@ TimeTests.prototype = {
         assertEquals(oldMonths - 2, months);
     },
 
-    testCanChainMinusYear: function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanChainMinusYear:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var oldYears = date.getYear();
 
         date.minusYear(1).minusYear(1);
@@ -983,17 +983,17 @@ TimeTests.prototype = {
         assertEquals(oldYears - 2, years);
     },
 
-    testCanChainOtherCommands: function() {
-        var date1 = new Date(2011,3,3,12,30,0,000);
-        var date2 = new Date(2011,3,3,12,30,0,000);
+    testCanChainOtherCommands:function () {
+        var date1 = new Date(2011, 3, 3, 12, 30, 0, 000);
+        var date2 = new Date(2011, 3, 3, 12, 30, 0, 000);
 
         var time = date1.plusHour(1).getTime();
 
         assertEquals(date2.getTime() + 3600000, time);
     },
 
-    testCanGetHourIntervalForTime:  function() {
-        var date = new Date(2011,3,3,12,30,0,000);
+    testCanGetHourIntervalForTime:function () {
+        var date = new Date(2011, 3, 3, 12, 30, 0, 000);
         var interval = date.interval("hour");
 
         var timeInterval = Date.intervalForTime(date.getTime(), "hour");
@@ -1002,8 +1002,8 @@ TimeTests.prototype = {
         assertEquals(timeInterval.endTime, interval.endTime);
     },
 
-    testCanCompareIntervals: function() {
-        var date = new Date(2011,7,3,12,30,0,000);
+    testCanCompareIntervals:function () {
+        var date = new Date(2011, 7, 3, 12, 30, 0, 000);
         var firstHourInterval = date.interval("hour");
         var secondHourInterval = date.interval("hour");
         var monthInterval = date.interval("month");
@@ -1019,67 +1019,67 @@ TimeTests.prototype = {
         assertFalse(third);
     },
 
-    testCanGetNextGranularityFromHour: function() {
+    testCanGetNextGranularityFromHour:function () {
         var nextGranularity = Date.nextGranularity("hour");
 
         assertSame("day", nextGranularity);
     },
 
-    testCanGetNextGranularityFromDay: function() {
+    testCanGetNextGranularityFromDay:function () {
         var nextGranularity = Date.nextGranularity("day");
 
         assertSame("month", nextGranularity);
     },
 
-    testCanGetNextGranularityFromMonth: function() {
+    testCanGetNextGranularityFromMonth:function () {
         var nextGranularity = Date.nextGranularity("month");
 
         assertSame("year", nextGranularity);
     },
 
-    testNextGranularityFromUpperGranularityIsTheSame: function() {
+    testNextGranularityFromUpperGranularityIsTheSame:function () {
         var nextGranularity = Date.nextGranularity("year");
 
         assertSame("year", nextGranularity);
     },
 
-    testCannotFindNextGranularityFromUnknownGranularity: function() {
+    testCannotFindNextGranularityFromUnknownGranularity:function () {
         var nextGranularity = Date.nextGranularity("unknown");
 
         assertNull(nextGranularity);
     },
 
-    testCanGetPreviousGranularityFromYear: function() {
+    testCanGetPreviousGranularityFromYear:function () {
         var previousGranularity = Date.previousGranularity("year");
 
         assertSame("month", previousGranularity);
     },
 
-    testCanGetPreviousGranularityFromMonth: function() {
+    testCanGetPreviousGranularityFromMonth:function () {
         var previousGranularity = Date.previousGranularity("month");
 
         assertSame("day", previousGranularity);
     },
 
-    testCanGetPreviousGranularityFromDay: function() {
+    testCanGetPreviousGranularityFromDay:function () {
         var previousGranularity = Date.previousGranularity("day");
 
         assertSame("hour", previousGranularity);
     },
 
-    testPreviousGranularityFromLowestGranularityIsTheSame: function() {
+    testPreviousGranularityFromLowestGranularityIsTheSame:function () {
         var previousGranularity = Date.previousGranularity("hour");
 
         assertSame("hour", previousGranularity);
     },
 
-    testCannotGetPreviousGranularityFromUnknown: function() {
+    testCannotGetPreviousGranularityFromUnknown:function () {
         var previousGranularity = Date.previousGranularity("unknown");
 
         assertNull(previousGranularity);
     },
 
-    testCanGetNewGranularityIntervalFromInterval: function() {
+    testCanGetNewGranularityIntervalFromInterval:function () {
         var date = new Date();
         var hourInterval = date.interval("hour");
         var dayInterval = date.interval("day");
@@ -1089,8 +1089,8 @@ TimeTests.prototype = {
         assertTrue(newInterval.equals(dayInterval));
     },
 
-    testIsIntervalBefore: function() {
-        var date = new Date(2011,7,3,12,30,0,000);
+    testIsIntervalBefore:function () {
+        var date = new Date(2011, 7, 3, 12, 30, 0, 000);
         var first = date.interval("hour");
         var second = date.plusHour(1).interval("hour");
         var third = date.plusHour(1).interval("hour");
@@ -1103,8 +1103,8 @@ TimeTests.prototype = {
         assertFalse(first.isBefore(day));
     },
 
-    testIsIntervalAfter: function() {
-        var date = new Date(2011,7,3,12,30,0,000);
+    testIsIntervalAfter:function () {
+        var date = new Date(2011, 7, 3, 12, 30, 0, 000);
         var day = date.interval("day");
         var first = date.interval("hour");
         var second = date.plusHour(1).interval("hour");
@@ -1117,29 +1117,29 @@ TimeTests.prototype = {
         assertFalse(second.isAfter(day));
     },
 
-    testCanGetHourIntervalToString: function() {
-        var date = new Date(2011,7,3,12,30,0,000);
+    testCanGetHourIntervalToString:function () {
+        var date = new Date(2011, 7, 3, 12, 30, 0, 000);
         var hourInterval = date.interval("hour");
 
         assertSame("12H", hourInterval.toString());
     },
 
-    testCanGetDayIntervalToString: function() {
-        var date = new Date(2011,7,3,12,30,0,000);
+    testCanGetDayIntervalToString:function () {
+        var date = new Date(2011, 7, 3, 12, 30, 0, 000);
         var hourInterval = date.interval("day");
 
         assertSame("3 Aug", hourInterval.toString());
     },
 
-    testCanGetMonthIntervalToString: function() {
-        var date = new Date(2011,7,3,12,30,0,000);
+    testCanGetMonthIntervalToString:function () {
+        var date = new Date(2011, 7, 3, 12, 30, 0, 000);
         var hourInterval = date.interval("month");
 
         assertSame("Aug", hourInterval.toString());
     },
 
-    testCanGetYearIntervalToString: function() {
-        var date = new Date(2011,7,3,12,30,0,000);
+    testCanGetYearIntervalToString:function () {
+        var date = new Date(2011, 7, 3, 12, 30, 0, 000);
         var hourInterval = date.interval("year");
 
         assertSame("2011", hourInterval.toString());
