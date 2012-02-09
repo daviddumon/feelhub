@@ -32,6 +32,7 @@ public class TestsBuggedUri {
         uris.add("http://lapiflor.wordpress.com/2011/09/01/test-dell-inspiron-1210-mini");
         uris.add("http://revolutionsociale.wordpress.com/2011/10/25/le-patronat-numerique-passe-encore-une-fois-a-cote-de-lhistoire");
         uris.add("http://lolannonces.fr/2011/09/14/fetichiste-laine-mohair-et-laine-douce");
+        uris.add("http://www.youtube.com/user/joueurdugrenier#p/a/u/2/FUXQjIOnJqA");
         uris.add("http://www.éléphant.com");
 
         for (String uri : uris) {

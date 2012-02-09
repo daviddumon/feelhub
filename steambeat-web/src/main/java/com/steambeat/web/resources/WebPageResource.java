@@ -26,7 +26,7 @@ public class WebPageResource extends ServerResource {
                 redirectToUri();
             }
         } catch (WebPageNotYetCreatedException e) {
-            mustCreateFeed = true;
+            mustCreateWebPage = true;
         }
     }
 
@@ -37,7 +37,7 @@ public class WebPageResource extends ServerResource {
 
     @Get
     public Representation represent() {
-        if (mustCreateFeed) {
+        if (mustCreateWebPage) {
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
             return SteambeatTemplateRepresentation.createNew("newwebpage.ftl", getContext())
                     .with("uri", uri.toString());
@@ -51,5 +51,5 @@ public class WebPageResource extends ServerResource {
     private final OpinionSearch opinionSearch;
     private Uri uri;
     private WebPage webPage;
-    private boolean mustCreateFeed;
+    private boolean mustCreateWebPage;
 }
