@@ -2,7 +2,8 @@ package com.steambeat.tools;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class URIs {
 
@@ -49,7 +50,7 @@ public final class URIs {
 
     public static final Pattern PROTOCOL_PATTERN = Pattern.compile("(.*)://.*");
     public static final Pattern DOMAIN_PATTERN = Pattern.compile("(.*://)?([^/#?]*).*$");
-    public static final Pattern ADDRESS_PATTERN = Pattern.compile("(.*://)?[^/]*([^#?]*).*$");
+    public static final Pattern ADDRESS_PATTERN = Pattern.compile("(.*://)?[^/#?]*([^#?]*).*$");
     public static final Pattern QUERY_PATTERN = Pattern.compile(".*\\?([^#]*).*$");
     public static final Pattern FRAGMENT_PATTERN = Pattern.compile(".*#(.*)$");
 }

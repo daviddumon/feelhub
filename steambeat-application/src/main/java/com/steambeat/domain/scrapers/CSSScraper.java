@@ -63,8 +63,8 @@ public class CSSScraper {
     private void extractBackgroundURl(final String style) {
         final Pattern pattern = Pattern.compile(".*background-url\\:.*\\((.*)\\).*");
         final Matcher matcher = pattern.matcher(style);
-        String temp = matcher.matches() ? matcher.group(matcher.groupCount()) : "";
-        backgroundValue = temp.replaceAll("[\'\"]", "").trim();
+        backgroundValue = matcher.matches() ? matcher.group(matcher.groupCount()) : "";
+        backgroundValue = backgroundValue.replaceAll("[\'\"]", "").trim();
     }
 
     private Uri uri;

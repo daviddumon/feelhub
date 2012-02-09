@@ -21,6 +21,13 @@ public class TestsUri {
     }
 
     @Test
+    public void canGetEncodedString() {
+        final Uri uri = new Uri("http://www.mongodb.org/display/docs/java+language+center");
+        
+        assertThat(uri.toString(), is("http://www.mongodb.org/display/docs/java+language+center"));
+    }
+
+    @Test
     public void canConvertToString() {
         testUri("http://pute");
     }
@@ -116,7 +123,6 @@ public class TestsUri {
         testUri("HTTPS://yourmom", "https://yourmom");
     }
 
-    @Ignore
     @Test
     public void canHaveQueryOrFragmentWithoutAddress() {
         testUri("http://test.com#p/u/2/xsJ0u7MIxLM");

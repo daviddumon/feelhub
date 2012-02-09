@@ -12,7 +12,7 @@ public class Uri {
     }
 
     public Uri(final String uri) {
-        final String uriDecoded = URIs.decode(uri);
+        final String uriDecoded = URIs.decode(uri).replace(" ", "+");
         protocol = URIs.extractProtocol(uriDecoded).toLowerCase(Locale.US);
         domain = URIs.extractDomain(uriDecoded).toLowerCase(Locale.US);
         address = URIs.extractAddress(uriDecoded);

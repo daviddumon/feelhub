@@ -7,7 +7,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UriScraper implements Scraper {
 
@@ -27,7 +29,7 @@ public class UriScraper implements Scraper {
 
     private void getDocument(final Uri uri) {
         try {
-            document = Jsoup.connect(uri.toString()).userAgent(userAgent).timeout(THREE_SECONDS).get();
+            document = Jsoup.connect(uri.toString()).userAgent(USER_AGENT).timeout(THREE_SECONDS).get();
         } catch (IOException e) {
             document = new Document("");
         }
@@ -57,7 +59,7 @@ public class UriScraper implements Scraper {
         } else if (notEmpty(scrapedTags.get("h2"))) {
             return scrapedTags.get("h2");
         }
-        return "";
+        return uri.toString();
     }
 
     @Override
@@ -77,7 +79,7 @@ public class UriScraper implements Scraper {
     private Document document;
     private List<Extractor> extractors = Lists.newArrayList();
     protected Map<String, String> scrapedTags = new HashMap<String, String>();
-    private String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
-    private final int THREE_SECONDS = 3000;
     private Uri uri;
+    private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
+    private final static int THREE_SECONDS = 3000;
 }

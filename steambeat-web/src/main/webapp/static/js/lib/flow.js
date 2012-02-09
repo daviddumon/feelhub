@@ -63,8 +63,8 @@ Flow.prototype.drawBox = function (opinion, classes) {
     var THIS = this;
     var id = "opinion_" + this.id++;
 
-    var element = $("<li class='" + classes + "' id='" + id + "' style='position: absolute'><p>" + "</p></li>");
-    element.append(opinion.text);
+    var element = $("<li class='" + classes + "' id='" + id + "' style='position: absolute'><p><pre>" + "</pre></p></li>");
+    element.find("pre").text(opinion.text);
     var subjects = $("<div class='subjects'></div>");
     var subject = $("<div class='subject'></div>");
     var subjectHeader = $("<div class='subjects_header font_title'>related</div>");

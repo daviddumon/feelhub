@@ -32,8 +32,8 @@ public class TestsUriScraper {
 
         uriScraper.scrap(uri);
 
-        assertThat(uriScraper.getDescription(), is(""));
-        assertThat(uriScraper.getShortDescription(), is("localhost:6162/unknown"));
+        assertThat(uriScraper.getDescription(), is("http://localhost:6162/unknown"));
+        assertThat(uriScraper.getShortDescription(), is("http://localhost:6162/unknown"));
         assertThat(uriScraper.getIllustration(), is(""));
     }
 
