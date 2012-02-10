@@ -2,6 +2,7 @@ package com.steambeat.domain.subject;
 
 import com.steambeat.domain.*;
 import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.scrapers.Scraper;
 import org.joda.time.DateTime;
 
 public abstract class Subject extends BaseEntity {
@@ -38,6 +39,13 @@ public abstract class Subject extends BaseEntity {
         return id;
     }
 
+    public void update(final Scraper scraper) {
+        description = scraper.getDescription();
+        shortDescription = scraper.getShortDescription();
+        illustration = scraper.getIllustration();
+        scrapedDataExpirationDate = new DateTime().plusDays(1);
+    }
+
     public String getShortDescription() {
         return shortDescription;
     }
@@ -50,9 +58,14 @@ public abstract class Subject extends BaseEntity {
         return illustration;
     }
 
+    public DateTime getScrapedDataExpirationDate() {
+        return scrapedDataExpirationDate;
+    }
+
     protected String shortDescription;
     protected String description;
     protected String illustration;
     private DateTime creationDate;
+    protected DateTime scrapedDataExpirationDate;
     private String id;
 }

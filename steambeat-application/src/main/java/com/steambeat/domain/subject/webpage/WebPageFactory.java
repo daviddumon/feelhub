@@ -8,8 +8,8 @@ public class WebPageFactory {
 
     public WebPage newWebPage(final Association association) {
         checkNotExists(association);
-        final UriScraper uriScraper = getScraper(association);
-        final WebPage webPage = new WebPage(association, uriScraper);
+        final WebPage webPage = new WebPage(association);
+        webPage.update(getScraper(association));
         DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(webPage));
         return webPage;
     }

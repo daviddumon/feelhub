@@ -14,12 +14,14 @@ public class SubjectMapping extends EntityMap<Subject> {
     protected void map() {
         id(element().getId()).natural();
         property(element().getCreationDate());
+        property(element().getDescription());
+        property(element().getShortDescription());
+        property(element().getIllustration());
+        property(element().getScrapedDataExpirationDate());
         subclass(new SubclassMap<WebPage>(WebPage.class) {
             @Override
             protected void map() {
-                property(element().getDescription());
-                property(element().getShortDescription());
-                property(element().getIllustration());
+
             }
         });
 
