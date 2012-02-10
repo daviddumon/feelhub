@@ -11,21 +11,21 @@ import java.util.*;
 
 public class UriScraper implements Scraper {
 
-    public UriScraper() {
+    public UriScraper(final Uri uri) {
         this.extractors.add(new TitleExtractor());
         this.extractors.add(new LastElementExtractor("h1", "h1"));
         this.extractors.add(new FirstElementExtractor("h2", "h2"));
         this.extractors.add(new LogoExtractor("logo", uri.withoutTLD()));
         this.extractors.add(new ImageExtractor("image"));
+        this.uri = uri;
     }
 
-    public void scrap(final Uri uri) {
-        this.uri = uri;
-        getJSoupDocument(uri);
+    public void scrap() {
+        getJSoupDocument();
         useExtractors();
     }
 
-    private void getJSoupDocument(final Uri uri) {
+    private void getJSoupDocument() {
         try {
             document = Jsoup.connect(uri.toString()).userAgent(USER_AGENT).timeout(THREE_SECONDS).get();
         } catch (IOException e) {

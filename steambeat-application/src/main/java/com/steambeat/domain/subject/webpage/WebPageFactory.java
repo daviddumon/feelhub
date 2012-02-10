@@ -15,8 +15,8 @@ public class WebPageFactory {
     }
 
     private UriScraper getScraper(final Association association) {
-        final UriScraper uriScraper = new UriScraper();
-        uriScraper.scrap(new Uri(association.getCanonicalUri()));
+        final UriScraper uriScraper = new UriScraper(new Uri(association.getCanonicalUri()));
+        uriScraper.scrap();
         return uriScraper;
     }
 

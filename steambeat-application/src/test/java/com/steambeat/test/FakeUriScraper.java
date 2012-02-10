@@ -5,8 +5,12 @@ import com.steambeat.domain.subject.webpage.Uri;
 
 public class FakeUriScraper extends UriScraper {
 
+    public FakeUriScraper(final Uri uri) {
+        super(uri);
+    }
+
     @Override
-    public void scrap(final Uri uri) {
+    public void scrap() {
 
     }
 

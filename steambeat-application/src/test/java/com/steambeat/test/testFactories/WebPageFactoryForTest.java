@@ -15,14 +15,14 @@ public class WebPageFactoryForTest {
 
     public WebPage newWebPage(final String address) {
         final Association association = new Association(new Uri(address), TestFactories.canonicalUriFinder());
-        final WebPage webPage = new WebPage(association, new FakeUriScraper());
+        final WebPage webPage = new WebPage(association, new FakeUriScraper(Uri.empty()));
         Repositories.webPages().add(webPage);
         return webPage;
     }
 
     public WebPage newWebPageWithLotOfOpinions(final String address, final int opinionsSize) {
         final Association association = new Association(new Uri(address), TestFactories.canonicalUriFinder());
-        final WebPage webPage = new WebPage(association, new FakeUriScraper());
+        final WebPage webPage = new WebPage(association, new FakeUriScraper(Uri.empty()));
         for (int i = 0; i < opinionsSize; i++) {
             Repositories.opinions().add(webPage.createOpinion("my opinion" + i, Feeling.good));
         }
