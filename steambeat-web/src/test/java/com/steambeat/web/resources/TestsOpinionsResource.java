@@ -46,7 +46,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void canGetWithQueryString() {
-        final ClientResource opinionsResource = restlet.newClientResource("/opinions&q=test");
+        final ClientResource opinionsResource = restlet.newClientResource("/opinions?q=test");
 
         opinionsResource.get();
 
