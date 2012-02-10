@@ -33,7 +33,7 @@ public class TestsLogoExtractor {
 
     @Test
     public void canFindLogoWithClass() {
-        final Uri uri = internet.uri("http://webscraper/logo/withclasslogo");
+        final Uri uri = internet.uri("logoextractor/withclasslogo");
         final Document document = getDocument(uri);
 
         final String result = logoExtractor.apply(document);
@@ -43,7 +43,7 @@ public class TestsLogoExtractor {
 
     @Test
     public void canFindImageLogoWithId() {
-        final Uri uri = internet.uri("http://webscraper/logo/withidlogo");
+        final Uri uri = internet.uri("logoextractor/withidlogo");
         final Document document = getDocument(uri);
 
         final String result = logoExtractor.apply(document);
@@ -53,7 +53,7 @@ public class TestsLogoExtractor {
 
     @Test
     public void canFindImageLogoWithAlt() {
-        final Uri uri = internet.uri("http://webscraper/logo/withaltlogo");
+        final Uri uri = internet.uri("logoextractor/withaltlogo");
         final Document document = getDocument(uri);
 
         final String result = logoExtractor.apply(document);
@@ -63,7 +63,7 @@ public class TestsLogoExtractor {
 
     @Test
     public void canFindImageLogoWithClassPattern() {
-        final Uri uri = internet.uri("http://webscraper/logo/withclasslogopattern");
+        final Uri uri = internet.uri("logoextractor/withclasslogopattern");
         final Document document = getDocument(uri);
 
         final String result = logoExtractor.apply(document);
@@ -73,7 +73,7 @@ public class TestsLogoExtractor {
 
     @Test
     public void canFindImageLogoWithIdPattern() {
-        final Uri uri = internet.uri("http://webscraper/logo/withidlogopattern");
+        final Uri uri = internet.uri("logoextractor/withidlogopattern");
         final Document document = getDocument(uri);
 
         final String result = logoExtractor.apply(document);
@@ -83,7 +83,7 @@ public class TestsLogoExtractor {
 
     @Test
     public void canFindImageLogoWithAltPattern() {
-        final Uri uri = internet.uri("http://webscraper/logo/withaltlogopattern");
+        final Uri uri = internet.uri("logoextractor/withaltlogopattern");
         final Document document = getDocument(uri);
 
         final String result = logoExtractor.apply(document);
@@ -93,7 +93,7 @@ public class TestsLogoExtractor {
 
     @Test
     public void canFindBackgroundImageUrl() {
-        final Uri uri = internet.uri("http://webscraper/logo/backgroundimage");
+        final Uri uri = internet.uri("logoextractor/backgroundimage");
         final Document document = getDocument(uri);
 
         final String result = logoExtractor.apply(document);
@@ -103,7 +103,7 @@ public class TestsLogoExtractor {
 
     @Test
     public void canFindLogoFromNestedElement() {
-        final Uri uri = internet.uri("http://webscraper/logo/logofromnested");
+        final Uri uri = internet.uri("logoextractor/logofromnested");
         final Document document = getDocument(uri);
 
         final String result = logoExtractor.apply(document);
@@ -113,7 +113,7 @@ public class TestsLogoExtractor {
 
     @Test
     public void canFindLogoBugTironFr() {
-        final Uri uri = internet.uri("http://webscraper/bug/tironfr");
+        final Uri uri = internet.uri("logoextractor/bug/tironfr");
         final Document document = getDocument(uri);
 
         final String result = logoExtractor.apply(document);

@@ -3,7 +3,7 @@ package com.steambeat.test.fakeResources.scraper.logo;
 import org.restlet.representation.*;
 import org.restlet.resource.*;
 
-public class WebScraperBackgroundImage extends ServerResource {
+public class LogoExtractorResourceWithBackgroundImage extends ServerResource {
 
     @Get
     public Representation represent() {

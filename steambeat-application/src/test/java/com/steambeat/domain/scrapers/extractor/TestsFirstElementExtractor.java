@@ -33,7 +33,7 @@ public class TestsFirstElementExtractor {
 
     @Test
     public void canFindH2Tag() {
-        final Uri uri = internet.uri("http://webscraper/h2tag");
+        final Uri uri = internet.uri("firstelementextractor/h2tag");
         final Document document = getDocument(uri);
 
         final String result = firstElementExtractor.apply(document);

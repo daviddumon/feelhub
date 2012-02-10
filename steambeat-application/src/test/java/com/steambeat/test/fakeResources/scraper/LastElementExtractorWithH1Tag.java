@@ -3,7 +3,7 @@ package com.steambeat.test.fakeResources.scraper;
 import org.restlet.representation.*;
 import org.restlet.resource.*;
 
-public class WebScraperWithH1Tag extends ServerResource {
+public class LastElementExtractorWithH1Tag extends ServerResource {
 
     @Get
     public Representation represent() {

@@ -5,7 +5,7 @@ import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
-public class WebScraperWithTitleTag extends ServerResource {
+public class TitleExtractorResourceWithTitleTag extends ServerResource {
 
     @Get
     public Representation represent() {

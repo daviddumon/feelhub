@@ -24,7 +24,7 @@ public class TestsUriScraper {
 
     @Test
     public void canFindSimpleDescriptionFromTitle() {
-        final Uri uri = internet.uri("http://webscraper/titletag");
+        final Uri uri = internet.uri("titleextractor/titletag");
 
         uriScraper.scrap(uri);
 
@@ -44,9 +44,9 @@ public class TestsUriScraper {
 
     @Test
     public void canFindShortDescription() {
-        final Uri uri1 = internet.uri("http://webscraper/titletag");
-        final Uri uri2 = internet.uri("http://webscraper/h1tag");
-        final Uri uri3 = internet.uri("http://webscraper/logo/withclasslogo");
+        final Uri uri1 = internet.uri("titleextractor/titletag");
+        final Uri uri2 = internet.uri("lastelementextractor/h1tag");
+        final Uri uri3 = internet.uri("logoextractor/withclasslogo");
 
         uriScraper.scrap(uri1);
         assertThat(uriScraper.getShortDescription(), is("Webpage title"));
@@ -55,7 +55,27 @@ public class TestsUriScraper {
         assertThat(uriScraper.getShortDescription(), is("Second section"));
 
         uriScraper.scrap(uri3);
-        assertThat(uriScraper.getShortDescription(), is("webscraper [...] hclasslogo"));
+        assertThat(uriScraper.getShortDescription(), is("localhost:6162 [...] hclasslogo"));
+    }
+
+    @Test
+    public void firstLevelDomainIllustrationPriorityIsLogoThenImage() {
+        final Uri uri = internet.uri("/");
+
+        uriScraper.scrap(uri);
+
+        assertThat(uri.isFirstLevelUri(), is(true));
+        assertThat(uriScraper.getIllustration(), is("http://localhost:6162/logo.jpg"));
+    }
+
+    @Test
+    public void nonFirstLevelDomainIllustrationPriorityIsImageThenLogo() {
+        final Uri uri = internet.uri("uriscraper/logopriority");
+
+        uriScraper.scrap(uri);
+
+        assertThat(uri.isFirstLevelUri(), is(false));
+        assertThat(uriScraper.getIllustration(), is("http://localhost:6162/uriscraper/image.jpg"));
     }
 
     private UriScraper uriScraper;

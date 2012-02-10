@@ -60,8 +60,20 @@ public class UriScraper implements Scraper {
         return uri.toString();
     }
 
+    private boolean notEmpty(final String tag) {
+        return !tag.isEmpty();
+    }
+
     @Override
     public String getIllustration() {
+        if (uri.isFirstLevelUri()) {
+            return getIllustrationForFirstLevelDomain();
+        } else {
+            return getIllustrationForNonFirstLevelDomain();
+        }
+    }
+
+    public String getIllustrationForFirstLevelDomain() {
         if (notEmpty(scrapedTags.get("logo"))) {
             return scrapedTags.get("logo");
         } else if (notEmpty(scrapedTags.get("image"))) {
@@ -70,8 +82,13 @@ public class UriScraper implements Scraper {
         return "";
     }
 
-    private boolean notEmpty(final String tag) {
-        return !tag.isEmpty();
+    public String getIllustrationForNonFirstLevelDomain() {
+        if (notEmpty(scrapedTags.get("image"))) {
+            return scrapedTags.get("image");
+        } else if (notEmpty(scrapedTags.get("logo"))) {
+            return scrapedTags.get("logo");
+        }
+        return "";
     }
 
     private Document document;

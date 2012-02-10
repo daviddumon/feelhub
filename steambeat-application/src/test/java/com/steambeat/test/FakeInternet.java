@@ -5,7 +5,7 @@ import com.steambeat.test.fakeResources.*;
 import com.steambeat.test.fakeResources.scraper.*;
 import com.steambeat.test.fakeResources.scraper.bug.*;
 import com.steambeat.test.fakeResources.scraper.css.CSSScraperSimple;
-import com.steambeat.test.fakeResources.scraper.image.WebScraperImageWithH1Tag;
+import com.steambeat.test.fakeResources.scraper.image.ImageExtractorResourceWithH1Tag;
 import com.steambeat.test.fakeResources.scraper.logo.*;
 import org.junit.rules.ExternalResource;
 import org.restlet.*;
@@ -51,25 +51,31 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/http://www.lemonde.fr", FakeStatusOkResource.class);
                 router.attach("/http://lemonde.fr", FakeStatusOkResource.class);
                 router.attach("/hiram/sitemap_{index}.xml.gz", FakeHiramResource.class);
-                router.attach("/http://webscraper/titletag", WebScraperWithTitleTag.class);
-                router.attach("/http://webscraper/titletagbadhtml", WebScraperWithTitleTagAndBadHtml.class);
-                router.attach("/http://webscraper/h1tag", WebScraperWithH1Tag.class);
-                router.attach("/http://webscraper/h2tag", WebScraperWithH2Tag.class);
-                router.attach("/http://webscraper/logo/withclasslogo", WebScraperLogoWithClass.class);
-                router.attach("/http://webscraper/logo/withidlogo", WebScraperLogoWithId.class);
-                router.attach("/http://webscraper/logo/withaltlogo", WebScraperLogoWithAlt.class);
-                router.attach("/http://webscraper/logo/withclasslogopattern", WebScraperLogoWithClassPattern.class);
-                router.attach("/http://webscraper/logo/withidlogopattern", WebScraperLogoWithIdPattern.class);
-                router.attach("/http://webscraper/logo/withaltlogopattern", WebScraperLogoWithAltPattern.class);
-                router.attach("/http://webscraper/logo/backgroundimage", WebScraperBackgroundImage.class);
-                router.attach("/http://webscraper/logo/logofromnested", WebScraperLogoFromNested.class);
-                router.attach("/http://webscraper/image/withH1tag", WebScraperImageWithH1Tag.class);
-                router.attach("/http://webscraper/bug/slatefr", WebScraperSlatefrBug.class);
-                router.attach("/http://webscraper/bug/lemondefrnested", WebScraperLemondefrBug.class);
-                router.attach("/http://webscraper/bug/10sportbug", WebScraper10sportBug.class);
-                router.attach("/http://cssscraper/css/simple", CSSScraperSimple.class);
-                router.attach("/http://webscraper/bug/tironfr", WebScraperTironfrBug.class);
+                attachScrapersResources(router);
                 return router;
+            }
+
+            private void attachScrapersResources(final Router router) {
+                router.attach("/", UriScraperLogoPriority.class);
+                router.attach("/uriscraper/logopriority", UriScraperLogoPriority.class);
+                router.attach("/titleextractor/titletag", TitleExtractorResourceWithTitleTag.class);
+                router.attach("/titleextractor/titletagbadhtml", TitleExtractorResourceWithBadHtml.class);
+                router.attach("/firstelementextractor/h2tag", FirstElementExtractorResourceWithH2Tag.class);
+                router.attach("/lastelementextractor/h1tag", LastElementExtractorWithH1Tag.class);
+                router.attach("/lastelementextractor/bug/lemondefrnested", LastElementExtractorResourceLemondeBug.class);
+                router.attach("/logoextractor/withclasslogo", LogoExtractorResourceWithClassLogo.class);
+                router.attach("/logoextractor/withidlogo", LogoExtractorResourceWithIdLogo.class);
+                router.attach("/logoextractor/withaltlogo", LogoExtractorResourceWithAltLogo.class);
+                router.attach("/logoextractor/withclasslogopattern", LogoExtractorResourceWithClassLogoPattern.class);
+                router.attach("/logoextractor/withidlogopattern", LogoExtractorResourceWithIdLogoPattern.class);
+                router.attach("/logoextractor/withaltlogopattern", LogoExtractorResourceWithAltLogoPattern.class);
+                router.attach("/logoextractor/backgroundimage", LogoExtractorResourceWithBackgroundImage.class);
+                router.attach("/logoextractor/logofromnested", LogoExtractorResourceFromNested.class);
+                router.attach("/logoextractor/bug/tironfr", LogoExtractorResourceTironBug.class);
+                router.attach("/imageextractor/withH1tag", ImageExtractorResourceWithH1Tag.class);
+                router.attach("/imageextractor/bug/slatefr", ImageExtractorResourceSlatefrBug.class);
+                router.attach("/imageextractor/bug/10sportbug", ImageExtractorResource10SportBug.class);
+                router.attach("/http://cssscraper/css/simple", CSSScraperSimple.class);
             }
         };
         return application;

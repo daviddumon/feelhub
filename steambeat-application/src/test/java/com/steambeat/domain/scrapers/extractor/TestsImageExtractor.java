@@ -33,7 +33,7 @@ public class TestsImageExtractor {
 
     @Test
     public void canFindRelevantImageAfterH1Tag() {
-        final Uri uri = internet.uri("http://webscraper/image/withH1tag");
+        final Uri uri = internet.uri("imageextractor/withH1tag");
         final Document document = getDocument(uri);
 
         final String result = imageExtractor.apply(document);
@@ -43,7 +43,7 @@ public class TestsImageExtractor {
 
     @Test
     public void slateFrBug() {
-        final Uri uri = internet.uri("http://webscraper/bug/slatefr");
+        final Uri uri = internet.uri("imageextractor/bug/slatefr");
         final Document document = getDocument(uri);
 
         final String result = imageExtractor.apply(document);
@@ -53,7 +53,7 @@ public class TestsImageExtractor {
 
     @Test
     public void canFindRelevantImageBeforeH2Heading() {
-        final Uri uri = internet.uri("http://webscraper/bug/10sportbug");
+        final Uri uri = internet.uri("imageextractor/bug/10sportbug");
         final Document document = getDocument(uri);
 
         final String result = imageExtractor.apply(document);
