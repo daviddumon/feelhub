@@ -12,7 +12,7 @@
 <@body.panel>
 <div class="panel_box panel_resource">
     <span id="webpageRoot"><span onclick="javascript:window.open('${webPage.id}');" style="cursor: pointer">${webPage.description}</span></span>
-    <img src="<#if ''?matches('${webPage.illustration}')>http://${domain}${root}/static/images/empty_illustration.png<#else>${webPage.illustration}</#if>" style="max-height: 100px; border: 10px solid white;"/>
+    <img id="illustration" <#if ''?matches('${webPage.illustration}')> style='display: none;' <#else> src="${webPage.illustration}" </#if> />
 </div>
 <!--
 <div id="counter">${counter!0} opinions</div>
