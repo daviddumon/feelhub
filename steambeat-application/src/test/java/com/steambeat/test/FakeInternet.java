@@ -56,8 +56,8 @@ public class FakeInternet extends ExternalResource {
             }
 
             private void attachScrapersResources(final Router router) {
-                router.attach("/", logopriority.class);
-                router.attach("/uriscraper/logopriority", logopriority.class);
+                router.attach("/", UriScraperLogoPriority.class);
+                router.attach("/uriscraper/logopriority", UriScraperLogoPriority.class);
                 router.attach("/titleextractor/titletag", TitleExtractorResourceWithTitleTag.class);
                 router.attach("/titleextractor/titletagbadhtml", TitleExtractorResourceWithBadHtml.class);
                 router.attach("/firstelementextractor/h2tag", FirstElementExtractorResourceWithH2Tag.class);

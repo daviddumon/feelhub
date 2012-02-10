@@ -3,7 +3,7 @@ package com.steambeat.test.fakeResources.scraper;
 import org.restlet.representation.*;
 import org.restlet.resource.*;
 
-public class logopriority extends ServerResource {
+public class UriScraperLogoPriority extends ServerResource {
 
     @Get
     public Representation represent() {
