@@ -3,10 +3,9 @@ package com.steambeat.test;
 import com.steambeat.domain.subject.webpage.Uri;
 import com.steambeat.test.fakeResources.*;
 import com.steambeat.test.fakeResources.scraper.*;
-import com.steambeat.test.fakeResources.scraper.bug.*;
-import com.steambeat.test.fakeResources.scraper.css.CSSScraperSimple;
-import com.steambeat.test.fakeResources.scraper.image.ImageExtractorResourceWithH1Tag;
-import com.steambeat.test.fakeResources.scraper.logo.*;
+import com.steambeat.test.fakeResources.scraper.extractors.*;
+import com.steambeat.test.fakeResources.scraper.extractors.ImageExtractorResourceWithH1Tag;
+import com.steambeat.test.fakeResources.scraper.tools.*;
 import org.junit.rules.ExternalResource;
 import org.restlet.*;
 import org.restlet.data.Protocol;
@@ -72,10 +71,13 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/logoextractor/backgroundimage", LogoExtractorResourceWithBackgroundImage.class);
                 router.attach("/logoextractor/logofromnested", LogoExtractorResourceFromNested.class);
                 router.attach("/logoextractor/bug/tironfr", LogoExtractorResourceTironBug.class);
+                router.attach("/logoextractor/fromcss", LogoExtractorResourceFromCss.class);
                 router.attach("/imageextractor/withH1tag", ImageExtractorResourceWithH1Tag.class);
                 router.attach("/imageextractor/bug/slatefr", ImageExtractorResourceSlatefrBug.class);
                 router.attach("/imageextractor/bug/10sportbug", ImageExtractorResource10SportBug.class);
-                router.attach("/http://cssscraper/css/simple", CSSScraperSimple.class);
+                router.attach("/tools/cssminer/simple", CSSMinerSimple.class);
+                router.attach("/css/css1", CSSMinerCss1.class);
+                router.attach("/css/css2", CSSMinerCss2.class);
             }
         };
         return application;

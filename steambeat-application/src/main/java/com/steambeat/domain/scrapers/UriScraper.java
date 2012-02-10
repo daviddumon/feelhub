@@ -1,7 +1,7 @@
 package com.steambeat.domain.scrapers;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.scrapers.extractor.*;
+import com.steambeat.domain.scrapers.extractors.*;
 import com.steambeat.domain.subject.webpage.Uri;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
