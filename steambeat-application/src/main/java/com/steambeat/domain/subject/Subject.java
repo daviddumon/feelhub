@@ -2,6 +2,7 @@ package com.steambeat.domain.subject;
 
 import com.steambeat.domain.*;
 import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.subject.webpage.Uri;
 import org.joda.time.DateTime;
 
 public abstract class Subject extends BaseEntity {

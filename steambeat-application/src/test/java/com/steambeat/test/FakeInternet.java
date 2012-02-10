@@ -65,6 +65,7 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/http://webscraper/bug/lemondefrnested", WebScraperLemondefrBug.class);
                 router.attach("/http://webscraper/bug/10sportbug", WebScraper10sportBug.class);
                 router.attach("/http://cssscraper/css/simple", CSSScraperSimple.class);
+                router.attach("/http://webscraper/bug/tironfr", WebScraperTironfrBug.class);
                 return router;
             }
         };

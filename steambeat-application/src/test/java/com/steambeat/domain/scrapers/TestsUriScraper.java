@@ -188,5 +188,14 @@ public class TestsUriScraper {
         assertThat(uriScraper.getIllustration(), is("http://www.10sport.com/image.jpg"));
     }
 
+    @Test
+    public void canFindLogoBugTironFr() {
+        final Uri uri = internet.uri("http://webscraper/bug/tironfr");
+
+        uriScraper.scrap(uri);
+
+        assertThat(uriScraper.getIllustration(), is("http://localhost:6162/sites/default/files/tiron_logo.png"));
+    }
+
     private UriScraper uriScraper;
 }

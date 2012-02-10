@@ -8,7 +8,11 @@ import java.util.Locale;
 public class Uri {
 
     private Uri() {
-
+        protocol = "";
+        domain = "";
+        address = "";
+        query = "";
+        fragment = "";
     }
 
     public Uri(final String uri) {
@@ -25,6 +29,9 @@ public class Uri {
 
     @Override
     public String toString() {
+        if (isEmpty()) {
+            return "";
+        }
         final StringBuilder builder = new StringBuilder();
         appendProtocol(builder);
         appendDomain(builder);

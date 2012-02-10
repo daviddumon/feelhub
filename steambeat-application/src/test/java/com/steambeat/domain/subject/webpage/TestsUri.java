@@ -77,6 +77,7 @@ public class TestsUri {
 
         assertThat(uri, notNullValue());
         assertThat(uri.isEmpty(), is(true));
+        assertThat(uri.toString(), is(""));
     }
 
     @Test

@@ -33,9 +33,9 @@ public class LogoExtractor extends Extractor {
 
     private Element findNestedImage(final Element element) {
         for (int i = 0; i < element.children().size(); i++) {
-            Element child = element.children().get(i);
-            if (child.nodeName().equals("img")) {
-                return child;
+            final Element image = findImageIn(element.children().get(i));
+            if (image != null) {
+                return image;
             }
         }
         return new EmptyElement();

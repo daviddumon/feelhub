@@ -67,19 +67,5 @@ public class ImageExtractor extends Extractor {
         return "";
     }
 
-    private Element findImageIn(final Element element) {
-        if (element.nodeName().equals("img")) {
-            return element;
-        } else if (element.children().size() > 0) {
-            for (Element child : element.children()) {
-                final Element image = findImageIn(child);
-                if (image != null) {
-                    return image;
-                }
-            }
-        }
-        return null;
-    }
-
     private String name;
 }
