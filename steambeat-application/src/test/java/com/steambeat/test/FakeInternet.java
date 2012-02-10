@@ -2,9 +2,8 @@ package com.steambeat.test;
 
 import com.steambeat.domain.subject.webpage.Uri;
 import com.steambeat.test.fakeResources.*;
-import com.steambeat.test.fakeResources.scraper.*;
+import com.steambeat.test.fakeResources.scraper.UriScraperLogoPriority;
 import com.steambeat.test.fakeResources.scraper.extractors.*;
-import com.steambeat.test.fakeResources.scraper.extractors.ImageExtractorResourceWithH1Tag;
 import com.steambeat.test.fakeResources.scraper.tools.*;
 import org.junit.rules.ExternalResource;
 import org.restlet.*;
@@ -73,6 +72,7 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/logoextractor/bug/tironfr", LogoExtractorResourceTironBug.class);
                 router.attach("/logoextractor/fromcss", LogoExtractorResourceFromCss.class);
                 router.attach("/logoextractor/withbannerpattern", LogoExtractorResourceWithBannerPattern.class);
+                router.attach("/logoextractor/withoutTLD", LogoExtractorResourceWithoutTLD.class);
                 router.attach("/imageextractor/withH1tag", ImageExtractorResourceWithH1Tag.class);
                 router.attach("/imageextractor/bug/slatefr", ImageExtractorResourceSlatefrBug.class);
                 router.attach("/imageextractor/bug/10sportbug", ImageExtractorResource10SportBug.class);

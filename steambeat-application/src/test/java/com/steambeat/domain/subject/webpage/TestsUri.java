@@ -1,6 +1,6 @@
 package com.steambeat.domain.subject.webpage;
 
-import org.junit.*;
+import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -23,7 +23,7 @@ public class TestsUri {
     @Test
     public void canGetEncodedString() {
         final Uri uri = new Uri("http://www.mongodb.org/display/docs/java+language+center");
-        
+
         assertThat(uri.toString(), is("http://www.mongodb.org/display/docs/java+language+center"));
     }
 
@@ -164,6 +164,22 @@ public class TestsUri {
         assertThat(uri2.isFirstLevelUri(), is(true));
         assertThat(uri3.isFirstLevelUri(), is(false));
         assertThat(uri4.isFirstLevelUri(), is(false));
+    }
+
+    @Test
+    public void canGetDomainWithoutTLD() {
+        final String address = "http://www.google.fr/this/is/a/real/too/long/address?damn#right";
+        final Uri uri = new Uri(address);
+
+        assertThat(uri.withoutTLD(), is("google"));
+    }
+
+    @Test
+    public void canGetDomainWithoutTLDFromUriWithoutSubDomain() {
+        final String address = "http://google.fr/this/is/a/real/too/long/address?damn#right";
+        final Uri uri = new Uri(address);
+
+        assertThat(uri.withoutTLD(), is("google"));
     }
 
     private void testUri(final String address) {

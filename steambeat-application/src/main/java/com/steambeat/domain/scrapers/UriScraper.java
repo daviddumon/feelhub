@@ -15,7 +15,7 @@ public class UriScraper implements Scraper {
         this.extractors.add(new TitleExtractor());
         this.extractors.add(new LastElementExtractor("h1", "h1"));
         this.extractors.add(new FirstElementExtractor("h2", "h2"));
-        this.extractors.add(new LogoExtractor("logo"));
+        this.extractors.add(new LogoExtractor("logo", uri.withoutTLD()));
         this.extractors.add(new ImageExtractor("image"));
     }
 

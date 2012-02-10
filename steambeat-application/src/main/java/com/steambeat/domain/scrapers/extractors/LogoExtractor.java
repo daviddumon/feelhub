@@ -11,7 +11,9 @@ import java.util.List;
 
 public class LogoExtractor extends Extractor {
 
-    public LogoExtractor(final String name) {
+    public LogoExtractor(final String name, final String domainWithoutTLD) {
+        this.validTags = "logo|Logo|LOGO|banner|Banner|BANNER" + (notEmpty(domainWithoutTLD) ? "|" + domainWithoutTLD : "");
+        System.out.println(validTags + "_");
         this.name = name;
     }
 
@@ -31,6 +33,8 @@ public class LogoExtractor extends Extractor {
     }
 
     private Element findLogoElement(final Document document) {
+        final String selector = "[class~=(.*)(" + validTags + ")(.*)], [id~=(.*)(" + validTags + ")(.*)], [alt~=(.*)(" + validTags + ")(.*)]";
+        System.out.println(selector);
         final Element element = document.select(selector).first();
         if (element != null) {
             if (element.nodeName().equals("img")) {
@@ -80,6 +84,5 @@ public class LogoExtractor extends Extractor {
     }
 
     private String name;
-    private String validTags = "logo|Logo|LOGO|banner|Banner|BANNER";
-    private final String selector = "[class~=(.*)(" + validTags + ")(.*)], [id~=(.*)(" + validTags + ")(.*)], [alt~=(.*)(" + validTags + ")(.*)]";
+    private String validTags;
 }

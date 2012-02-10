@@ -140,6 +140,11 @@ public class Uri {
                 && this.fragment.isEmpty();
     }
 
+    public String withoutTLD() {
+        final String[] tokens = domain.split("(\\.|\\:)");
+        return tokens[tokens.length >= 2 ? tokens.length - 2 : 0];
+    }
+
     private String protocol;
     private String domain;
     private String address;

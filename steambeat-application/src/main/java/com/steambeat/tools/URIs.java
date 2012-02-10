@@ -2,8 +2,7 @@ package com.steambeat.tools;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
 public final class URIs {
 

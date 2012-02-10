@@ -18,7 +18,7 @@ public class TestsLogoExtractor {
 
     @Before
     public void before() {
-        logoExtractor = new LogoExtractor("logo");
+        logoExtractor = new LogoExtractor("logo", "");
     }
 
     @AfterClass
@@ -138,6 +138,18 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
+        assertThat(result, is("http://www.image.com/good.jpg"));
+    }
+
+    @Test
+    public void canExtractFromDomainWithoutTLDPattern() {
+        final Uri uri = internet.uri("logoextractor/withoutTLD");
+        final Document document = getDocument(uri);
+        final LogoExtractor extractorWithoutTLD = new LogoExtractor("logo", uri.withoutTLD());
+
+        final String result = extractorWithoutTLD.apply(document);
+
+        assertThat(uri.withoutTLD(), is("localhost"));
         assertThat(result, is("http://www.image.com/good.jpg"));
     }
 
