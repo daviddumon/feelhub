@@ -26,6 +26,9 @@ public class FakeInternet extends ExternalResource {
 
     @Override
     protected void after() {
+    }
+
+    public void stop() {
         try {
             component.stop();
         } catch (Exception e) {

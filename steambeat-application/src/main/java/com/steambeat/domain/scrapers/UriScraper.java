@@ -21,11 +21,11 @@ public class UriScraper implements Scraper {
 
     public void scrap(final Uri uri) {
         this.uri = uri;
-        getDocument(uri);
+        getJSoupDocument(uri);
         useExtractors();
     }
 
-    private void getDocument(final Uri uri) {
+    private void getJSoupDocument(final Uri uri) {
         try {
             document = Jsoup.connect(uri.toString()).userAgent(USER_AGENT).timeout(THREE_SECONDS).get();
         } catch (IOException e) {

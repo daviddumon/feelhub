@@ -24,4 +24,6 @@ public class FakeUriScraper extends UriScraper {
     public String getIllustration() {
         return "";
     }
+
+
 }

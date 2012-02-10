@@ -13,7 +13,12 @@ import static org.hamcrest.Matchers.notNullValue;
 public class TestsHiram {
 
     @Rule
-    public FakeInternet fakeInternet = new FakeInternet();
+    public static FakeInternet internet = new FakeInternet();
+
+    @AfterClass
+    public static void afterClass() {
+        internet.stop();
+    }
 
     @Test
     public void canGetSitemap() throws Exception {

@@ -4,13 +4,18 @@ import com.steambeat.domain.subject.webpage.Uri;
 import com.steambeat.test.FakeInternet;
 import org.junit.*;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.core.Is.*;
 
 public class TestsCSSScraper {
 
     @Rule
-    public FakeInternet internet = new FakeInternet();
+    public static FakeInternet internet = new FakeInternet();
+
+    @AfterClass
+    public static void afterClass() {
+        internet.stop();
+    }
 
     @Test
     public void canOpenADistantCSSFile() {

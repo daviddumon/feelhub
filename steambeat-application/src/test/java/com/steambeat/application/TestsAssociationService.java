@@ -22,16 +22,21 @@ public class TestsAssociationService {
     public SystemTime time = SystemTime.fixed();
 
     @Rule
-    public FakeInternet fakeInternet = new FakeInternet();
+    public static FakeInternet internet = new FakeInternet();
 
     @Before
     public void before() {
         associationService = new AssociationService(new CanonicalUriFinder());
     }
 
+    @AfterClass
+    public static void afterClass() {
+        internet.stop();
+    }
+
     @Test
     public void canUseEncodedResources() throws UnsupportedEncodingException {
-        final Uri uri = fakeInternet.uri(URLEncoder.encode("http://www.lemonde.fr", "UTF-8"));
+        final Uri uri = internet.uri(URLEncoder.encode("http://www.lemonde.fr", "UTF-8"));
 
         final Association association = associationService.lookUp(uri);
 
@@ -43,7 +48,7 @@ public class TestsAssociationService {
         final String address = "http://localhost:6162/http://lemonde.fr";
         final String canonicalAddress = "http://www.liberation.fr";
         final Association association = TestFactories.associations().newAssociation(address, canonicalAddress);
-        final Uri uri = fakeInternet.uri(URLEncoder.encode("http://lemonde.fr", "UTF-8"));
+        final Uri uri = internet.uri(URLEncoder.encode("http://lemonde.fr", "UTF-8"));
 
         final Association associationFound = associationService.lookUp(uri);
 
@@ -52,7 +57,7 @@ public class TestsAssociationService {
 
     @Test
     public void canSaveToRepository() {
-        final Uri uri = fakeInternet.uri("http://www.gameblog.fr");
+        final Uri uri = internet.uri("http://www.gameblog.fr");
 
         final Association firstAssociation = associationService.lookUp(uri);
 
@@ -63,7 +68,7 @@ public class TestsAssociationService {
 
     @Test
     public void updatesOldAssociation() {
-        final Uri uri = fakeInternet.uri("http://www.lemonde.fr");
+        final Uri uri = internet.uri("http://www.lemonde.fr");
         final Association oldAssociation = TestFactories.associations().newAssociation(uri.toString(), "http://www.liberation.fr");
 
         time.waitDays(8);

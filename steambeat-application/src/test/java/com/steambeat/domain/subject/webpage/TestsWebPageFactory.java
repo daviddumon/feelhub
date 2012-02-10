@@ -25,11 +25,16 @@ public class TestsWebPageFactory {
     public SystemTime time = SystemTime.fixed();
 
     @Rule
-    public FakeInternet internet = new FakeInternet();
+    public static FakeInternet internet = new FakeInternet();
 
     @Before
     public void before() {
         webPageFactory = new WebPageFactory();
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        internet.stop();
     }
 
     @Test

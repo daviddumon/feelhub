@@ -14,28 +14,33 @@ public class TestsCanonicalUriFinder {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Rule
-    public FakeInternet fakeInternet = new FakeInternet();
+    public static FakeInternet internet = new FakeInternet();
 
     @Before
     public void before() {
         finder = new CanonicalUriFinder();
     }
 
+    @AfterClass
+    public static void afterClass() {
+        internet.stop();
+    }
+
     @Test
     public void throwsExceptionOn404() {
         expectedException.expect(WebPageException.class);
-        finder.find(fakeInternet.uri("http://www.steambeat.com/404"));
+        finder.find(internet.uri("http://www.steambeat.com/404"));
     }
 
     @Test
     public void throwsExceptionOnBadHost() {
         expectedException.expect(WebPageException.class);
-        finder.find(fakeInternet.uri("http://www.badurlunknowhost.com"));
+        finder.find(internet.uri("http://www.badurlunknowhost.com"));
     }
 
     @Test
     public void canResolveCanonicalDirectly() {
-        final Uri uri = fakeInternet.uri("http://www.gameblog.fr");
+        final Uri uri = internet.uri("http://www.gameblog.fr");
 
         final Uri uriFound = finder.find(uri);
 
@@ -44,16 +49,16 @@ public class TestsCanonicalUriFinder {
 
     @Test
     public void canFollowRedirection() {
-        final Uri uri = fakeInternet.uri("http://liberation.fr");
+        final Uri uri = internet.uri("http://liberation.fr");
 
         final Uri canonicalFound = finder.find(uri);
 
-        assertThat(canonicalFound, is(fakeInternet.uri("http://www.liberation.fr")));
+        assertThat(canonicalFound, is(internet.uri("http://www.liberation.fr")));
     }
 
     @Test
     public void returnOriginalAdressOn5xxError() {
-        final Uri uri = fakeInternet.uri("http://www.stackoverflow.com");
+        final Uri uri = internet.uri("http://www.stackoverflow.com");
 
         final Uri canonical = finder.find(uri);
 
