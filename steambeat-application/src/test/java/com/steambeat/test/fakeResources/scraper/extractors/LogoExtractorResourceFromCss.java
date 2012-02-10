@@ -9,8 +9,8 @@ public class LogoExtractorResourceFromCss extends ServerResource {
     public Representation represent() {
         final String html = "<html><head>" +
                 "<title></title>" +
-                "<link rel='stylesheet' href='http://localhost:6162/css/css1' />" +
-                "<link rel='stylesheet' href='http://localhost:6162/css/css2' />" +
+                "<link rel='StyleSheet' href='http://localhost:6162/css/css1' />" +
+                "<link rel='Stylesheet' href='http://localhost:6162/css/css2' />" +
                 "<body>" +
                 "<div id='logo'>" +
                 "<span id='logoimage'></span>" +

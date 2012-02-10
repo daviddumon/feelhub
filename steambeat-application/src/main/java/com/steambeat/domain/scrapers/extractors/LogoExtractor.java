@@ -1,7 +1,13 @@
 package com.steambeat.domain.scrapers.extractors;
 
+import com.google.common.collect.Lists;
 import com.steambeat.domain.scrapers.EmptyElement;
+import com.steambeat.domain.scrapers.tools.CSSMiner;
+import com.steambeat.domain.subject.webpage.Uri;
 import org.jsoup.nodes.*;
+import org.jsoup.select.Elements;
+
+import java.util.List;
 
 public class LogoExtractor extends Extractor {
 
@@ -16,7 +22,12 @@ public class LogoExtractor extends Extractor {
 
     @Override
     public String apply(final Document document) {
-        return extractImageFrom(findLogoElement(document));
+        final Element logoElement = findLogoElement(document);
+        String logoUrl = extractImageFrom(logoElement);
+        if (logoUrl.isEmpty()) {
+            logoUrl = mineCss(document);
+        }
+        return logoUrl;
     }
 
     private Element findLogoElement(final Document document) {
@@ -31,6 +42,7 @@ public class LogoExtractor extends Extractor {
         return new EmptyElement();
     }
 
+
     private Element findNestedImage(final Element element) {
         for (int i = 0; i < element.children().size(); i++) {
             final Element image = findImageIn(element.children().get(i));
@@ -39,6 +51,32 @@ public class LogoExtractor extends Extractor {
             }
         }
         return new EmptyElement();
+    }
+
+    private String mineCss(final Document document) {
+        final List<String> cssList = findCSSUris(document);
+        String backgroundUrl = "";
+        for (String css : cssList) {
+            final CSSMiner cssMiner = new CSSMiner(new Uri(css));
+            backgroundUrl = cssMiner.scrap("(logo|banner)");
+            if (notEmpty(backgroundUrl)) {
+                return backgroundUrl;
+            }
+        }
+        return backgroundUrl;
+    }
+
+    private boolean notEmpty(final String backgroundUrl) {
+        return !backgroundUrl.isEmpty();
+    }
+
+    private List<String> findCSSUris(final Document document) {
+        final Elements links = document.head().select("link[rel=stylesheet]");
+        List<String> result = Lists.newArrayList();
+        for (Element link : links) {
+            result.add(link.absUrl("href"));
+        }
+        return result;
     }
 
     private String name;
