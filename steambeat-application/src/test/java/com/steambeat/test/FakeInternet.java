@@ -72,6 +72,7 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/logoextractor/logofromnested", LogoExtractorResourceFromNested.class);
                 router.attach("/logoextractor/bug/tironfr", LogoExtractorResourceTironBug.class);
                 router.attach("/logoextractor/fromcss", LogoExtractorResourceFromCss.class);
+                router.attach("/logoextractor/withbannerpattern", LogoExtractorResourceWithBannerPattern.class);
                 router.attach("/imageextractor/withH1tag", ImageExtractorResourceWithH1Tag.class);
                 router.attach("/imageextractor/bug/slatefr", ImageExtractorResourceSlatefrBug.class);
                 router.attach("/imageextractor/bug/10sportbug", ImageExtractorResource10SportBug.class);

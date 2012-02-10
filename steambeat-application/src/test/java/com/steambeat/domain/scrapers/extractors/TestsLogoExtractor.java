@@ -131,6 +131,16 @@ public class TestsLogoExtractor {
         assertThat(result, is("good.png"));
     }
 
+    @Test
+    public void canExtractFromBannerPattern() {
+        final Uri uri = internet.uri("logoextractor/withbannerpattern");
+        final Document document = getDocument(uri);
+
+        final String result = logoExtractor.apply(document);
+
+        assertThat(result, is("http://www.image.com/good.jpg"));
+    }
+
     private Document getDocument(final Uri uri) {
         try {
             return Jsoup.connect(uri.toString()).userAgent("").timeout(3000).get();

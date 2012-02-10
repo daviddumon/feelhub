@@ -71,7 +71,7 @@ public class LogoExtractor extends Extractor {
     }
 
     private List<String> findCSSUris(final Document document) {
-        final Elements links = document.head().select("link[rel=stylesheet]");
+        final Elements links = document.select("link[rel=stylesheet]");
         List<String> result = Lists.newArrayList();
         for (Element link : links) {
             result.add(link.absUrl("href"));
@@ -80,5 +80,6 @@ public class LogoExtractor extends Extractor {
     }
 
     private String name;
-    private final String selector = "[class~=(.*)(logo|Logo|LOGO)(.*)], [id~=(.*)(logo|Logo|LOGO)(.*)], [alt~=(.*)(logo|Logo|LOGO)(.*)]";
+    private String validTags = "logo|Logo|LOGO|banner|Banner|BANNER";
+    private final String selector = "[class~=(.*)(" + validTags + ")(.*)], [id~=(.*)(" + validTags + ")(.*)], [alt~=(.*)(" + validTags + ")(.*)]";
 }
