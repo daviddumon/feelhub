@@ -35,8 +35,13 @@
 }
 
 #illustration {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#illustration img {
     max-height: 150px;
     max-width: 150px;
-    background-color: white;
-    border: 5px solid white;
+    background-color: #E1FAFC;
+    padding: 5px;
 }
