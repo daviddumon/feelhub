@@ -153,6 +153,16 @@ public class TestsLogoExtractor {
         assertThat(result, is("http://www.image.com/good.jpg"));
     }
 
+    @Test
+    public void io9bug() {
+        final Uri uri = internet.uri("logoextractor/io9bug");
+        final Document document = getDocument(uri);
+
+        final String result = logoExtractor.apply(document);
+
+        assertThat(result, is(""));
+    }
+
     private Document getDocument(final Uri uri) {
         try {
             return Jsoup.connect(uri.toString()).userAgent("").timeout(3000).get();
