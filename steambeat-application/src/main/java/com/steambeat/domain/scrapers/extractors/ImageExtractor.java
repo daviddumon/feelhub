@@ -18,9 +18,15 @@ public class ImageExtractor extends Extractor {
         String imageUrl = "";
         final Element heading = getRelevantHeading(document);
         if (heading != null) {
-            imageUrl = extractAfterHeading(heading.parent());
+            imageUrl = extractAfterHeading(heading);
             if (imageUrl.isEmpty()) {
                 imageUrl = extractBeforeHeading(heading);
+            }
+            if (imageUrl.isEmpty()) {
+                imageUrl = extractAfterHeading(heading.parent());
+            }
+            if (imageUrl.isEmpty()) {
+                imageUrl = extractBeforeHeading(heading.parent());
             }
         }
         return imageUrl;

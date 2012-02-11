@@ -61,6 +61,16 @@ public class TestsImageExtractor {
         assertThat(result, is("http://www.10sport.com/image.jpg"));
     }
 
+    @Test
+    public void liberationBug() {
+        final Uri uri = internet.uri("imageextractor/bug/liberation");
+        final Document document = getDocument(uri);
+
+        final String result = imageExtractor.apply(document);
+
+        assertThat(result, is("http://www.liberation.fr/image.jpg"));
+    }
+
     private Document getDocument(final Uri uri) {
         try {
             return Jsoup.connect(uri.toString()).userAgent("").timeout(3000).get();
