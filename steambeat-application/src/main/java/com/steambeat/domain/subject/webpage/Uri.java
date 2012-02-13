@@ -107,8 +107,7 @@ public class Uri {
             return builder.toString();
         } else {
             final String beginningOfUri = getBeginningOfUri();
-            final String endOfUri = getEndOfUri();
-            return beginningOfUri + CONDENSED_TOKEN + getEndOf(endOfUri);
+            return beginningOfUri + CONDENSED_TOKEN;
         }
     }
 
@@ -116,22 +115,6 @@ public class Uri {
         final StringBuilder builder = new StringBuilder();
         appendDomain(builder);
         return builder.toString();
-    }
-
-    private String getEndOfUri() {
-        final StringBuilder builder = new StringBuilder();
-        appendAddress(builder);
-        appendQuery(builder);
-        appendFragment(builder);
-        return builder.toString();
-    }
-
-    private String getEndOf(final String endOfUri) {
-        if (endOfUri.length() > 10) {
-            return endOfUri.substring(endOfUri.length() - 10, endOfUri.length());
-        } else {
-            return endOfUri;
-        }
     }
 
     public boolean isFirstLevelUri() {
@@ -153,5 +136,5 @@ public class Uri {
     private static final String PROTOCOL_TOKEN = "://";
     private static final String QUERY_TOKEN = "?";
     private static final String FRAGMENT_TOKEN = "#";
-    private static final String CONDENSED_TOKEN = " [...] ";
+    private static final String CONDENSED_TOKEN = "[...]";
 }

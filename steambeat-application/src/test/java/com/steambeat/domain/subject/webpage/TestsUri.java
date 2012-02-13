@@ -150,7 +150,7 @@ public class TestsUri {
         final String address = "http://www.google.fr/this/is/a/real/too/long/address?damn#right";
         final Uri uri = new Uri(address);
 
-        assertThat(uri.condensed(), is("www.google.fr [...] damn#right"));
+        assertThat(uri.condensed(), is("www.google.fr[...]"));
     }
 
     @Test

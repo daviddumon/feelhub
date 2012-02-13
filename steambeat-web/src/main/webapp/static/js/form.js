@@ -29,7 +29,7 @@ $(function () {
         }
     });
 
-    $("#opinion_form_judgments > .subject_tag").click(function () {
+    $("#opinion_form_judgments > .judgment_tag").click(function () {
         $(this).toggleClass("good");
         $(this).toggleClass("bad");
         if($(this).hasClass("bad")) {

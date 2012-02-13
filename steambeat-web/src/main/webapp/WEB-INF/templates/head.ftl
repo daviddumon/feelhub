@@ -30,6 +30,7 @@
         <script type="text/javascript" src="${root}/static/js/lib/jquery-1.7.1.min.js?${buildtime}"></script>
     </#if>
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?${buildtime}"></script>
+    <script type="text/javascript" src="${root}/static/js/lib/ICanHaz.min.js?${buildtime}"></script>
     <#--<script type="text/javascript" src="${root}/static/js/lib/raphael-2.0.0.min.js?${buildtime}"></script>-->
     <script type="text/javascript" src="${root}/static/js/lib/steambeatglobal.js?${buildtime}"></script>
     <#--<script type="text/javascript" src="${root}/static/js/lib/time.js?${buildtime}"></script>-->
@@ -58,5 +59,8 @@
 
         </script>
     </#if>
+
+    <#include "icanhaz/judgment.ftl.js">
+    <#include "icanhaz/opinion.ftl.js">
 </head>
 </#macro>

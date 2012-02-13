@@ -52,7 +52,7 @@ public class TestsUriScraper {
         assertThat(uriScraper2.getShortDescription(), is("Second section"));
 
         uriScraper3.scrap();
-        assertThat(uriScraper3.getShortDescription(), is("localhost:6162 [...] hclasslogo"));
+        assertThat(uriScraper3.getShortDescription(), is("localhost:6162[...]"));
     }
 
     @Test

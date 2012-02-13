@@ -13,8 +13,8 @@ function Flow() {
     this.initial = this.getInitialWidth();
     this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
-    this.skip = -20;
-    this.limit = 20;
+    this.skip = -30;
+    this.limit = 30;
     this.hasData = true;
 
     THIS.drawData();
@@ -40,7 +40,7 @@ Flow.prototype.drawData = function () {
 
     function loadData() {
         var subjectParameter = (typeof subjectId === 'undefined') ? "" : ("&subjectId=" + encodeURIComponent(subjectId));
-        $.getJSON(root + "/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + subjectParameter , function (data) {
+        $.getJSON(root + "/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + subjectParameter, function (data) {
             $.each(data, function (index, opinion) {
                 THIS.drawBox(opinion, "opinion");
             });
@@ -63,31 +63,37 @@ Flow.prototype.drawBox = function (opinion, classes) {
     var THIS = this;
     var id = "opinion_" + this.id++;
 
-    var element = $("<li class='" + classes + "' id='" + id + "' style='position: absolute'><p>" + opinion.text + "</p></li>");
-    var subjects = $("<div class='subjects'></div>");
-    var subject = $("<div class='subject'></div>");
-    var subjectHeader = $("<div class='subjects_header font_title'>related</div>");
+    var judgmentsData = [
+        {
+            feeling:opinion.feeling,
+            root:root,
+            subjectId:opinion.subjectId,
+            shortDescription:opinion.shortDescription
+        }
+    ];
 
-    var subjectTag = $("<a class='subject_tag font_title " + opinion.feeling + "' href='" + root + "/webpages/" + opinion.subjectId + "'>" + opinion.shortDescription + "</a>");
-    subjectTag.mouseover(function (event) {
-        var info = $(this).parent("div").find(".subject_info");
+    var opinionData = {
+        id:id,
+        classes:classes,
+        text:opinion.text,
+        judgments: judgmentsData
+    };
+
+    var element = ich.opinion(opinionData);
+
+    element.find(".judgment_tag").mouseover(function (event) {
+        var info = $(this).parent("div").find(".judgment_info");
         info.css("top", event.pageY - 60 - $(window).scrollTop());
         info.css("left", event.pageX - (info.width() / 2));
         info.show();
     });
-    subjectTag.mouseout(function (event) {
-        $(this).parent("div").find(".subject_info").hide();
+
+    element.find(".judgment_tag").mouseout(function (event) {
+        $(this).parent("div").find(".judgment_info").hide();
     });
 
-    var subjectInfo = $("<span class='subject_info font_title'>" + opinion.subjectId + "</span>");
-
-    subjects.append(subjectHeader);
-    subject.append(subjectTag);
-    subject.append(subjectInfo);
-    subjects.append(subject);
-    element.append(subjects);
-    element.hide();
     this.container.append(element);
+
     setTimeout(function () {
         var boxSize = 1;
         if (element.height() < element.width()) {
@@ -114,10 +120,10 @@ Flow.prototype.drawBox = function (opinion, classes) {
         THIS.putBox(position.line, position.index, boxSize);
         element.css("top", THIS.getTopPosition(position.line));
         element.css("left", THIS.getLeftPosition(position.index));
-        subjects.css("position", "absolute");
-        subjects.css("bottom", "20px");
-        subjects.css("width", element.width());
-    }, 200);
+        element.find(".judgments").css("position", "absolute");
+        element.find(".judgments").css("bottom", "20px");
+        element.find(".judgments").css("width", element.width());
+    }, 150);
 };
 
 Flow.prototype.findWidthForSize = function (size) {

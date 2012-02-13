@@ -7,7 +7,7 @@
 
 .opinion {
     display: block;
-    width: 100px;
+    width: 150px;
     padding: 20px;
     margin: 5px;
     border-width: 0px;
@@ -18,7 +18,11 @@
     overflow: hidden;
 }
 
-.subjects_header {
+.opinion p {
+    word-wrap: break-word;
+}
+
+.judgments_header {
     position: relative;
     top: -22px;
     font-size: 10px;
@@ -26,17 +30,16 @@
     text-align: center;
 }
 
-.subjects {
+.judgments {
     border-top: 1px dashed #AAA;
     margin-top: 20px;
     padding-top: 10px;
 }
 
-.subject {
-
+.judgment {
 }
 
-.subject_tag {
+.judgment_tag {
     cursor: pointer;
     color: white;
     padding: 5px;
@@ -46,7 +49,7 @@
     z-index: 100;
 }
 
-.subject_info {
+.judgment_info {
     position: fixed;
     background-color: #FFFFFF;
     border: 1px solid #BBB;

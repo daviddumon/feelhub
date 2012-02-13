@@ -35,8 +35,8 @@
     <textarea id="opinion_form_textarea" name="text" class="font_text"></textarea>
 
     <div id="opinion_form_judgments" class="font_title" style="display: none">
-        <div class='subjects_header font_title'>related</div>
-        <span id="add_subject1" class="subject_tag good font_title add_tag">this webpage<span class="subject_info font_title">You like!</span>
+        <div class='judgments_header font_title'>related</div>
+        <span id="add_judgment1" class="judgment_tag good font_title add_tag">this webpage<span class="judgment_info font_title">You like!</span>
             <input type="hidden" name="feeling" value="good"/>
             <input type="hidden" name="subjectId" value="${webPage.getId()}"/></span>
     </div>
