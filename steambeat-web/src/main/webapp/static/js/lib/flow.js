@@ -61,37 +61,9 @@ Flow.prototype.drawData = function () {
 
 Flow.prototype.drawBox = function (opinion, classes) {
     var THIS = this;
-    var id = "opinion_" + this.id++;
-
-    var judgmentsData = [
-        {
-            feeling:opinion.feeling,
-            root:root,
-            subjectId:opinion.subjectId,
-            shortDescription:opinion.shortDescription
-        }
-    ];
-
-    var opinionData = {
-        id:id,
-        classes:classes,
-        texts: opinion.text.split(/\r\n|\r|\n/),
-        judgments: judgmentsData
-    };
-
+    var opinionData = THIS.getOpinionData(opinion, classes);
     var element = ich.opinion(opinionData);
-
-    element.find(".judgment_tag").mouseover(function (event) {
-        var info = $(this).parent("div").find(".judgment_info");
-        info.css("top", event.pageY - 60 - $(window).scrollTop());
-        info.css("left", event.pageX - (info.width() / 2));
-        info.show();
-    });
-
-    element.find(".judgment_tag").mouseout(function (event) {
-        $(this).parent("div").find(".judgment_info").hide();
-    });
-
+    THIS.appendBehavior(element);
     this.container.append(element);
 
     setTimeout(function () {
@@ -108,8 +80,8 @@ Flow.prototype.drawBox = function (opinion, classes) {
 
         element.show();
 
-        if (document.getElementById(id).scrollWidth > element.outerWidth()) {
-            while (boxSize < THIS.maxBox / 2 && document.getElementById(id).scrollWidth > element.outerWidth()) {
+        if (document.getElementById(opinionData.id).scrollWidth > element.outerWidth()) {
+            while (boxSize < THIS.maxBox / 2 && document.getElementById(opinionData.id).scrollWidth > element.outerWidth()) {
                 boxSize++;
                 element.css("width", THIS.findWidthForSize(boxSize));
             }
@@ -118,12 +90,51 @@ Flow.prototype.drawBox = function (opinion, classes) {
 
         var position = THIS.findNextFreeSpace(boxSize);
         THIS.putBox(position.line, position.index, boxSize);
-        element.css("top", THIS.getTopPosition(position.line));
-        element.css("left", THIS.getLeftPosition(position.index));
-        element.find(".judgments").css("position", "absolute");
-        element.find(".judgments").css("bottom", "20px");
-        element.find(".judgments").css("width", element.width());
+        THIS.setPositionsForElement(element, position);
     }, 150);
+};
+
+Flow.prototype.getOpinionData = function (opinion, classes) {
+    var id = "opinion_" + this.id++;
+
+    var judgmentsData = [
+        {
+            feeling:opinion.feeling,
+            root:root,
+            subjectId:opinion.subjectId,
+            shortDescription:opinion.shortDescription
+        }
+    ];
+
+    var opinionData = {
+        id:id,
+        classes:classes,
+        texts:opinion.text.split(/\r\n|\r|\n/),
+        judgments:judgmentsData
+    };
+
+    return opinionData;
+};
+
+Flow.prototype.appendBehavior = function (element) {
+    element.find(".judgment_tag").mouseover(function (event) {
+        var info = $(this).parent("div").find(".judgment_info");
+        info.css("top", event.pageY - 60 - $(window).scrollTop());
+        info.css("left", event.pageX - (info.width() / 2));
+        info.show();
+    });
+
+    element.find(".judgment_tag").mouseout(function (event) {
+        $(this).parent("div").find(".judgment_info").hide();
+    });
+};
+
+Flow.prototype.setPositionsForElement = function (element, position) {
+    element.css("top", this.getTopPosition(position.line));
+    element.css("left", this.getLeftPosition(position.index));
+    element.find(".judgments").css("position", "absolute");
+    element.find(".judgments").css("bottom", "20px");
+    element.find(".judgments").css("width", element.width());
 };
 
 Flow.prototype.findWidthForSize = function (size) {
