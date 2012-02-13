@@ -75,7 +75,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
     var opinionData = {
         id:id,
         classes:classes,
-        text:opinion.text,
+        texts: opinion.text.split(/\r\n|\r|\n/),
         judgments: judgmentsData
     };
 

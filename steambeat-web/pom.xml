@@ -68,7 +68,7 @@
                 <configuration>
                     <excludes>
                         <exclude>**/*.min.js</exclude>
-                        <exclude>**/*.ftl.js</exclude>
+                        <exclude>**/*.mustache.js</exclude>
                     </excludes>
                     <jswarn>false</jswarn>
                     <nosuffix>true</nosuffix>

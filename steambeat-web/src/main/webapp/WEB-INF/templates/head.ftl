@@ -60,7 +60,9 @@
         </script>
     </#if>
 
-    <#include "icanhaz/judgment.ftl.js">
-    <#include "icanhaz/opinion.ftl.js">
+    <#include "icanhaz/judgment.mustache.js">
+
+    <#include "icanhaz/opinion.mustache.js">
+
 </head>
 </#macro>
