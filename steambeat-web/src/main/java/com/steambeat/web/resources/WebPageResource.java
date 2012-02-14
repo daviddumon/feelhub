@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.web.*;
-import com.steambeat.web.search.OpinionSearch;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 import org.restlet.resource.*;
@@ -12,9 +11,8 @@ import org.restlet.resource.*;
 public class WebPageResource extends ServerResource {
 
     @Inject
-    public WebPageResource(final WebPageService webPageService, final OpinionSearch opinionSearch) {
+    public WebPageResource(final WebPageService webPageService) {
         this.webPageService = webPageService;
-        this.opinionSearch = opinionSearch;
     }
 
     @Override
@@ -48,7 +46,6 @@ public class WebPageResource extends ServerResource {
     }
 
     private final WebPageService webPageService;
-    private final OpinionSearch opinionSearch;
     private Uri uri;
     private WebPage webPage;
     private boolean mustCreateWebPage;

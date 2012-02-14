@@ -47,7 +47,7 @@ public class TestsSteambeatApplication extends TestWithMongoRepository {
     public static class StubWebPageResource extends WebPageResource {
 
         public StubWebPageResource() {
-            super(null, null);
+            super(null);
         }
     }
 }

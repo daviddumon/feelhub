@@ -14,9 +14,8 @@ public class WebPageService {
     }
 
     public WebPage lookUpWebPage(final Uri uri) {
-        WebPage webPage;
         final Association association = associationService.lookUp(uri);
-        webPage = Repositories.webPages().get(association.getCanonicalUri());
+        final WebPage webPage = Repositories.webPages().get(association.getCanonicalUri());
         if (webPage == null) {
             throw new WebPageNotYetCreatedException();
         } else {
