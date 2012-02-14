@@ -11,8 +11,6 @@ import org.joda.time.DateTime;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;

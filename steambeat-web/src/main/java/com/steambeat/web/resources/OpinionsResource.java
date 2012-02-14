@@ -89,6 +89,6 @@ public class OpinionsResource extends ServerResource {
 
     List<Opinion> opinions = Lists.newArrayList();
     private final OpinionSearch opinionSearch;
-    private WebPageService webPageService;
-    private OpinionService opinionService;
+    private final WebPageService webPageService;
+    private final OpinionService opinionService;
 }
