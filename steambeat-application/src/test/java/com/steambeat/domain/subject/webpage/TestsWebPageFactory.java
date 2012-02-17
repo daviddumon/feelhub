@@ -1,11 +1,15 @@
 package com.steambeat.domain.subject.webpage;
 
 import com.steambeat.domain.DomainEventBus;
+import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
+
+import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -24,43 +28,34 @@ public class TestsWebPageFactory {
     @Rule
     public SystemTime time = SystemTime.fixed();
 
-    @Rule
-    public static FakeInternet internet = new FakeInternet();
-
     @Before
     public void before() {
         webPageFactory = new WebPageFactory();
     }
 
-    @AfterClass
-    public static void afterClass() {
-        internet.stop();
-    }
-
     @Test
     public void canBuildWebPage() {
-        final Association association = associate("http://lemonde.fr/international", "http://www.lemonde.fr/international");
+        final Uri uri = new Uri("http://lemonde.fr/international");
+        final Association association = TestFactories.associations().newAssociation(uri);
 
         final WebPage webPage = webPageFactory.newWebPage(association);
 
         assertThat(webPage, notNullValue());
-        assertThat(webPage.getId(), is("http://www.lemonde.fr/international"));
+        assertThat(webPage.getId(), is(association.getSubjectId().toString()));
     }
 
     @Test
     public void cannotCreateAWebPageTwice() {
-        final Association association = associate("http://lemonde.fr/international", "http://lemonde.fr/international");
-        TestFactories.webPages().newWebPage("http://lemonde.fr/international");
+        final WebPage webPage = TestFactories.webPages().newWebPage();
 
         expectedException.expect(WebPageAlreadyExistsException.class);
-        expectedException.expect(hasProperty("uri", is("http://lemonde.fr/international")));
-        webPageFactory.newWebPage(association);
+        webPageFactory.newWebPage(new Association(new Uri("http://lemonde.fr/international"), UUID.fromString(webPage.getId())));
     }
 
     @Test
     public void canSpreadEvent() {
         bus.capture(WebPageCreatedEvent.class);
-        final Association association = associate("http://lemonde.fr/international", "http://www.lemonde.fr/international");
+        final Association association = TestFactories.associations().newAssociation(new Uri("http://www.steambeat.com"));
         DomainEventBus.INSTANCE.notifyOnSpread();
 
         final WebPage webPage = webPageFactory.newWebPage(association);
@@ -69,11 +64,6 @@ public class TestsWebPageFactory {
         assertThat(lastEvent, notNullValue());
         assertThat(lastEvent.getWebPage(), is(webPage));
         assertThat(lastEvent.getDate(), is(time.getNow()));
-    }
-
-    private Association associate(final String uri, final String canonicalUri) {
-        final Association association = TestFactories.associations().newAssociation(uri, canonicalUri);
-        return association;
     }
 
     private WebPageFactory webPageFactory;

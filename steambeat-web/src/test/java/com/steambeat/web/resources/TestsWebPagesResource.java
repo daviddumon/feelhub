@@ -1,12 +1,16 @@
 package com.steambeat.web.resources;
 
+import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
+import com.steambeat.test.FakeUriScraper;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
 import org.junit.*;
 import org.restlet.data.*;
+
+import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -37,7 +41,11 @@ public class TestsWebPagesResource {
 
     @Test
     public void newWebPageCreatedOnlyOnce() {
-        TestFactories.webPages().newWebPage("http://www.google.fr");
+        final WebPage webPage = new WebPage(new Association(new Uri("http://www.google.fr"), UUID.randomUUID()));
+        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
+        fakeUriScraper.scrap();
+        webPage.update(fakeUriScraper);
+        Repositories.webPages().add(webPage);
 
         resource.post(formWith("http://www.google.fr"));
 

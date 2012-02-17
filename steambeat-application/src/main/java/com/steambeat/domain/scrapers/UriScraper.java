@@ -1,8 +1,8 @@
 package com.steambeat.domain.scrapers;
 
 import com.google.common.collect.Lists;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.scrapers.extractors.*;
-import com.steambeat.domain.subject.webpage.Uri;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -11,18 +11,19 @@ import java.util.*;
 
 public class UriScraper implements Scraper {
 
-    public UriScraper(final Uri uri) {
+    public void scrap(final Uri uri) {
+        this.uri = uri;
+        addExtractors();
+        getJSoupDocument();
+        useExtractors();
+    }
+
+    private void addExtractors() {
         this.extractors.add(new TitleExtractor());
         this.extractors.add(new LastElementExtractor("h1", "h1"));
         this.extractors.add(new FirstElementExtractor("h2", "h2"));
         this.extractors.add(new LogoExtractor("logo", uri.withoutTLD()));
         this.extractors.add(new ImageExtractor("image"));
-        this.uri = uri;
-    }
-
-    public void scrap() {
-        getJSoupDocument();
-        useExtractors();
     }
 
     private void getJSoupDocument() {

@@ -1,6 +1,7 @@
 package com.steambeat.application;
 
-import com.steambeat.domain.subject.webpage.*;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
@@ -10,6 +11,8 @@ import com.steambeat.test.testFactories.TestFactories;
 import org.joda.time.DateTime;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
+
+import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -33,9 +36,10 @@ public class TestsWebPageService {
 
     @Test
     public void canGetWebPageFromRepository() {
-        final WebPage webPage = TestFactories.webPages().newWebPage("uri");
+        final WebPage webPage = TestFactories.webPages().newWebPage();
+        Repositories.webPages().add(webPage);
 
-        final WebPage webPageFound = webPageService.lookUpWebPage(new Uri("uri"));
+        final WebPage webPageFound = webPageService.lookUpWebPage(UUID.fromString(webPage.getId()));
 
         assertThat(webPageFound, is(webPage));
     }
@@ -51,22 +55,19 @@ public class TestsWebPageService {
     @Test
     public void throwsExceptionOnFailLookup() {
         exception.expect(WebPageNotYetCreatedException.class);
-        webPageService.lookUpWebPage(badUri());
+        webPageService.lookUpWebPage(UUID.randomUUID());
     }
 
     @Test
     public void updateWebPageIfExpired() {
-        final WebPage webPage = TestFactories.webPages().newWebPage("uri");
+        final WebPage webPage = TestFactories.webPages().newWebPage();
+        Repositories.webPages().add(webPage);
         DateTime firstDate = webPage.getScrapedDataExpirationDate();
         time.waitDays(2);
 
-        final WebPage webPageFound = webPageService.lookUpWebPage(new Uri("uri"));
+        final WebPage webPageFound = webPageService.lookUpWebPage(UUID.fromString(webPage.getId()));
 
         assertThat(firstDate, not(webPageFound.getScrapedDataExpirationDate()));
-    }
-
-    private Uri badUri() {
-        return new Uri("a fail uri");
     }
 
     private WebPageService webPageService;

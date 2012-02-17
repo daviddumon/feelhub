@@ -1,4 +1,4 @@
-package com.steambeat.tools;
+package com.steambeat.domain.analytics.identifiers.uri;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -37,12 +37,12 @@ public final class URIs {
         return extractFromPattern(uriDecoded, FRAGMENT_PATTERN);
     }
 
-    public static String extractFromPattern(final String uriDecoded, final Pattern pattern) {
+    private static String extractFromPattern(final String uriDecoded, final Pattern pattern) {
         final String defaultValue = "";
         return extractFromPattern(uriDecoded, pattern, defaultValue);
     }
 
-    public static String extractFromPattern(final String uriDecoded, final Pattern pattern, final String defaultValue) {
+    private static String extractFromPattern(final String uriDecoded, final Pattern pattern, final String defaultValue) {
         final Matcher matcher = pattern.matcher(uriDecoded);
         return matcher.matches() ? matcher.group(matcher.groupCount()) : defaultValue;
     }

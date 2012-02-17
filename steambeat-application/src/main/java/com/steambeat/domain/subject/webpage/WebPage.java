@@ -1,22 +1,23 @@
 package com.steambeat.domain.subject.webpage;
 
+import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.Subject;
-import org.joda.time.DateTime;
 
 public class WebPage extends Subject {
 
-    protected WebPage() {
+    // Mongolink constructor : do not delete
+    public WebPage() {
     }
 
     public WebPage(final Association association) {
-        super(association.getCanonicalUri());
+        super(association.getSubjectId().toString());
+        this.uri = association.getId();
     }
 
     public Uri getRealUri() {
-        return new Uri(getId());
+        return new Uri(uri);
     }
 
-    public boolean isExpired() {
-        return !scrapedDataExpirationDate.isAfter(new DateTime());
-    }
+    private String uri;
 }

@@ -4,16 +4,16 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.application.dto.JudgmentDTO;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.webpage.Uri;
 import com.steambeat.web.*;
 import com.steambeat.web.search.OpinionSearch;
 import org.json.JSONException;
 import org.restlet.data.*;
 import org.restlet.resource.*;
 
-import java.util.List;
+import java.util.*;
 
 public class OpinionsResource extends ServerResource {
 
@@ -60,7 +60,7 @@ public class OpinionsResource extends ServerResource {
 
     private void setUpSearchForSubjectIdParameter(final Form form) {
         if (form.getQueryString().contains("subjectId")) {
-            opinionSearch.withSubject(webPageService.lookUpWebPage(new Uri(form.getFirstValue("subjectId").trim())));
+            opinionSearch.withSubject(webPageService.lookUpWebPage(UUID.fromString(form.getFirstValue("subjectId").trim())));
         }
     }
 
@@ -77,7 +77,7 @@ public class OpinionsResource extends ServerResource {
         if (form.getFirstValue("feeling") == null) {
             throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
         }
-        subject = webPageService.lookUpWebPage(new Uri(form.getFirstValue("subjectId").trim()));
+        subject = webPageService.lookUpWebPage(UUID.fromString(form.getFirstValue("subjectId").trim()));
         feeling = Feeling.valueOf(form.getFirstValue("feeling").trim());
         text = form.getFirstValue("text").trim();
     }

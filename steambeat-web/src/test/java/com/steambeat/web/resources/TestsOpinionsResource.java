@@ -1,13 +1,15 @@
 package com.steambeat.web.resources;
 
 import com.steambeat.domain.DomainEventBus;
+import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.WithDomainEvent;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.testFactories.*;
 import com.steambeat.web.*;
 import org.json.*;
 import org.junit.*;
@@ -17,6 +19,7 @@ import org.restlet.Context;
 import org.restlet.data.*;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -146,7 +149,12 @@ public class TestsOpinionsResource {
 
     @Test
     public void canPostOpinion() {
-        final Subject subject = TestFactories.webPages().newWebPage("http://test.com");
+        final WebPage webPage = new WebPage(new Association(new Uri("http://test.com"), UUID.randomUUID()));
+        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
+        fakeUriScraper.scrap();
+        webPage.update(fakeUriScraper);
+        Repositories.webPages().add(webPage);
+        final Subject subject = webPage;
         final Form form = getGoodForm();
         form.add("subjectId", "http://test.com");
         final ClientResource resource = restlet.newClientResource("/opinions");
@@ -174,7 +182,12 @@ public class TestsOpinionsResource {
 
     @Test
     public void canNotPostAOpinionWithoutFeeling() {
-        final WebPage webPage = TestFactories.webPages().newWebPage("http://www.lemonde.fr");
+        final WebPage webPage1 = new WebPage(new Association(new Uri("http://www.lemonde.fr"), UUID.randomUUID()));
+        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
+        fakeUriScraper.scrap();
+        webPage1.update(fakeUriScraper);
+        Repositories.webPages().add(webPage1);
+        final WebPage webPage = webPage1;
         final Form form = new Form();
         form.add("text", "my opinion");
         form.add("subjectId", "http://www.lemonde.fr");
@@ -188,7 +201,11 @@ public class TestsOpinionsResource {
 
     @Test
     public void postOpinionRedirectOnFirstPage() {
-        TestFactories.webPages().newWebPage("http://test.com");
+        final WebPage webPage = new WebPage(new Association(new Uri("http://test.com"), UUID.randomUUID()));
+        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
+        fakeUriScraper.scrap();
+        webPage.update(fakeUriScraper);
+        Repositories.webPages().add(webPage);
         final Form form = getGoodForm();
         form.add("subjectId", "http://test.com");
         final ClientResource resource = restlet.newClientResource("/opinions");

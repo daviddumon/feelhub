@@ -1,48 +1,43 @@
 package com.steambeat.application;
 
-import com.steambeat.domain.DomainEventListener;
-import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.*;
+import com.steambeat.domain.opinion.JudgmentPostedEvent;
 import com.steambeat.domain.statistics.*;
-import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.Repositories;
 
 import java.util.List;
 
-public class StatisticsService implements DomainEventListener<OpinionPostedEvent> {
+public class StatisticsService implements DomainEventListener<JudgmentPostedEvent> {
 
-    // todo: les statistiques s'occupent uniquement des jugements, pas des opinions qui ne sont qu'un agregat
     public StatisticsService() {
-        //DomainEventBus.INSTANCE.register(this, OpinionPostedEvent.class);
+        DomainEventBus.INSTANCE.register(this, JudgmentPostedEvent.class);
     }
 
     @Override
-    public void notify(final OpinionPostedEvent event) {
-        //opinionOn(event.getOpinion().getJudgments().get(0).getSubject(), event.getOpinion());
+    public void notify(final JudgmentPostedEvent event) {
+        judgmentOn(event);
     }
 
-    public void opinionOn(final Subject subject, final Opinion opinion) {
+    public void judgmentOn(final JudgmentPostedEvent event) {
         for (final Granularity granularity : Granularity.values()) {
-            dealWith(granularity, subject, opinion);
-            //dealWith(granularity, steambeat, opinion);
+            dealWith(granularity, event);
         }
     }
 
-    private void dealWith(final Granularity granularity, final Subject subject, final Opinion opinion) {
-        final Statistics stat = getOrCreateStat(granularity, subject, opinion);
-        stat.incrementOpinionCount(opinion);
+    private void dealWith(final Granularity granularity, final JudgmentPostedEvent event) {
+        final Statistics stat = getOrCreateStat(granularity, event);
+        stat.incrementJudgmentCount(event.getJudgment());
     }
 
-    private synchronized Statistics getOrCreateStat(final Granularity granularity, final Subject subject, final Opinion opinion) {
-        final List<Statistics> statistics = Repositories.statistics().forSubject(subject, granularity, granularity.intervalFor(opinion.getCreationDate()));
+    private synchronized Statistics getOrCreateStat(final Granularity granularity, final JudgmentPostedEvent event) {
+        final List<Statistics> statistics = Repositories.statistics().forSubject(event.getJudgment().getSubject(), granularity, granularity.intervalFor(event.getDate()));
         final Statistics stat;
-        if (statistics.size() == 0) {
-            stat = new Statistics(subject, granularity, opinion.getCreationDate());
+        if (statistics.isEmpty()) {
+            stat = new Statistics(event.getJudgment().getSubject(), granularity, event.getDate());
             Repositories.statistics().add(stat);
         } else {
             stat = statistics.get(0);
         }
         return stat;
     }
-
-    //private final WebPage steambeat = new WebPage(new Association(new Uri("steambeat"), null));
 }

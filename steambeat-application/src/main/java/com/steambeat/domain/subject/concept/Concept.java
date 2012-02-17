@@ -3,14 +3,17 @@ package com.steambeat.domain.subject.concept;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.thesaurus.*;
 
+import java.util.UUID;
+
 public class Concept extends Subject {
 
     public Concept(final String text) {
-        super(text);
+        super(UUID.randomUUID().toString());
+        this.text = text;
     }
 
     public String getText() {
-        return getId();
+        return text;
     }
 
     public Language getLanguage() {
@@ -25,6 +28,7 @@ public class Concept extends Subject {
         return category;
     }
 
+    private String text;
     private Language language;
     Category category;
 }

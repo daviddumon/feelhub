@@ -13,7 +13,7 @@ public class Relation implements Entity {
 
     @Override
     public Object getId() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     public Subject getLeft() {

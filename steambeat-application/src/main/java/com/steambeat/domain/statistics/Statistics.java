@@ -16,17 +16,17 @@ public class Statistics extends BaseEntity {
         this.granularity = granularity;
     }
 
-    public void incrementOpinionCount(final Opinion opinion) {
-        incrementOpinionCountForFeeling(opinion.getJudgments().get(0).getFeeling());
+    public void incrementJudgmentCount(final Judgment judgment) {
+        incrementJudgmentCountForFeeling(judgment.getFeeling());
     }
 
-    public void incrementOpinionCountForFeeling(final Feeling feeling) {
+    private void incrementJudgmentCountForFeeling(final Feeling feeling) {
         switch (feeling) {
             case good:
-                goodOpinions++;
+                goodJudgments++;
                 break;
             case bad:
-                badOpinions++;
+                badJudgments++;
                 break;
         }
     }
@@ -48,18 +48,18 @@ public class Statistics extends BaseEntity {
         return date;
     }
 
-    public int getGoodOpinions() {
-        return goodOpinions;
+    public int getGoodJudgments() {
+        return goodJudgments;
     }
 
-    public int getBadOpinions() {
-        return badOpinions;
+    public int getBadJudgments() {
+        return badJudgments;
     }
 
     private String id;
     private String subjectId;
     private Granularity granularity;
     private DateTime date;
-    private int goodOpinions;
-    private int badOpinions;
+    private int goodJudgments;
+    private int badJudgments;
 }

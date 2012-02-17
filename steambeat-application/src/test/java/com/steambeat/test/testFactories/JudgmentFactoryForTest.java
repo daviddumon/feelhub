@@ -7,6 +7,16 @@ public class JudgmentFactoryForTest {
 
     public Judgment newJudgment() {
         final WebPage webPage = TestFactories.webPages().newWebPage();
-        return webPage.createJudgment(Feeling.good);
+        return new Judgment(webPage, Feeling.good);
+    }
+
+    public Judgment newBadJudgment() {
+        final WebPage webPage = TestFactories.webPages().newWebPage();
+        return new Judgment(webPage, Feeling.bad);
+    }
+
+    public Judgment newGoodJudgment() {
+        final WebPage webPage = TestFactories.webPages().newWebPage();
+        return new Judgment(webPage, Feeling.good);
     }
 }

@@ -1,5 +1,7 @@
 package com.steambeat.domain.subject;
 
+import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.domain.textAnalytics.NamedEntity;
@@ -21,13 +23,15 @@ public class TestsSubjectFactory {
     }
 
     @Test
-    public void canBuildWebPage() {
-        final Association association = TestFactories.associations().newAssociation("lemonde.fr");
+    public void canCreateAWebPage() {
+        final Uri uri = new Uri("lemonde.fr");
+        final Association association = TestFactories.associations().newAssociation(uri);
 
-        final WebPage webPage = subjectFactory.createWebPage(association);
+        final WebPage webPage = subjectFactory.newWebPage(association);
 
         assertThat(webPage, notNullValue());
-        assertThat(webPage.getId(), is("http://lemonde.fr"));
+        assertThat(webPage.getId(), notNullValue());
+        assertThat(webPage.getRealUri(), is(uri));
     }
 
     @Test
@@ -35,7 +39,7 @@ public class TestsSubjectFactory {
         final NamedEntity namedEntity = new NamedEntity();
         namedEntity.text = "Agile";
 
-        final Concept concept = subjectFactory.createConcept(namedEntity);
+        final Concept concept = subjectFactory.newConcept(namedEntity);
 
         assertThat(concept, notNullValue());
         assertThat(concept.getText(), is("Agile"));

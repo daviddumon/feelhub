@@ -2,8 +2,10 @@ package com.steambeat.test.guice;
 
 import com.google.inject.*;
 import com.steambeat.application.AssociationService;
+import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.webpage.WebPageFactory;
 import com.steambeat.repositories.SessionProvider;
+import com.steambeat.test.FakeUriScraper;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
 import com.steambeat.test.fakeSearches.FakeOpinionSearch;

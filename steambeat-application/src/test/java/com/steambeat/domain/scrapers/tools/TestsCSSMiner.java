@@ -1,6 +1,6 @@
 package com.steambeat.domain.scrapers.tools;
 
-import com.steambeat.domain.subject.webpage.Uri;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.test.FakeInternet;
 import org.junit.*;
 

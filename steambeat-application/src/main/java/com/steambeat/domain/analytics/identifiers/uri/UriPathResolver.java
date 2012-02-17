@@ -1,4 +1,4 @@
-package com.steambeat.domain.subject.webpage;
+package com.steambeat.domain.analytics.identifiers.uri;
 
 import com.google.common.collect.Lists;
 import com.steambeat.tools.*;
@@ -7,10 +7,12 @@ import org.restlet.data.*;
 
 import java.util.List;
 
-public class CanonicalUriFinder {
+public class UriPathResolver {
 
-    public Uri find(final Uri uri) {
-        return followRedirection(uri);
+    public List<Uri> resolve(final Uri uri) {
+        path.add(uri);
+        followRedirection(uri);
+        return path;
     }
 
     private Uri followRedirection(final Uri uri) {
@@ -18,7 +20,7 @@ public class CanonicalUriFinder {
         try {
             return doFollow(uri, client);
         } catch (Exception e) {
-            throw new WebPageException(e);
+            throw new UriPathResolverException(e);
         } finally {
             Clients.stop(client);
         }
@@ -32,9 +34,10 @@ public class CanonicalUriFinder {
             response = client.handle(request);
             if (response.getStatus().isRedirection()) {
                 currentUri = response.getLocationRef().toString();
+                path.add(new Uri(currentUri));
             }
             if (notExistingResource(response)) {
-                throw new WebPageException(uri, response.getStatus());
+                throw new UriPathResolverException(uri, response.getStatus());
             }
         } while (response.getStatus().isRedirection());
         return new Uri(currentUri);
@@ -43,6 +46,8 @@ public class CanonicalUriFinder {
     private boolean notExistingResource(final Response response) {
         return ERROR_STATUS.contains(response.getStatus());
     }
+
+    protected List<Uri> path = Lists.newArrayList();
 
     private static final List<Status> ERROR_STATUS = Lists.newArrayList(Status.CONNECTOR_ERROR_COMMUNICATION,
             Status.CONNECTOR_ERROR_CONNECTION,

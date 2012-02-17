@@ -1,6 +1,6 @@
 package com.steambeat.domain.scrapers.extractors;
 
-import com.steambeat.domain.subject.webpage.Uri;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.test.FakeInternet;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

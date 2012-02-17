@@ -8,7 +8,7 @@ import org.joda.time.Interval;
 
 import java.util.List;
 
-@SuppressWarnings("unchecked")
+
 public class StatisticsMongoRepository extends BaseMongoRepository<Statistics> implements StatisticsRepository {
 
     public StatisticsMongoRepository(final MongoSession mongoSession) {
@@ -16,12 +16,14 @@ public class StatisticsMongoRepository extends BaseMongoRepository<Statistics> i
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Statistics> forSubject(final Subject subject, final Granularity granularity) {
         final Criteria criteria = criteriaForSubjectAndGranularity(subject, granularity);
         return (List<Statistics>) criteria.list();
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Statistics> forSubject(final Subject subject, final Granularity granularity, final Interval interval) {
         final Criteria criteria = criteriaForSubjectAndGranularity(subject, granularity);
         criteria.add(Restrictions.between("date", interval.getStart(), interval.getEnd()));

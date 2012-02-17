@@ -38,8 +38,8 @@ public class WebPageStatisticsResource extends ServerResource {
         final JSONObject result = new JSONObject();
         result.put("time", stat.getDate().getMillis());
         final JSONObject opinions = new JSONObject();
-        opinions.put("good", stat.getGoodOpinions());
-        opinions.put("bad", stat.getBadOpinions());
+        opinions.put("good", stat.getGoodJudgments());
+        opinions.put("bad", stat.getBadJudgments());
         result.put("opinions", opinions);
         return result;
     }

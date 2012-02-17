@@ -9,8 +9,11 @@ public class TestsConcept {
 
     @Test
     public void theIdIsTheText() {
-        final Concept concept = new Concept("Maison Blanche");
+        final String text = "Maison Blanche";
+        final Concept concept = new Concept(text);
 
-        assertThat(concept.getId(), is("Maison Blanche"));
+        assertThat(concept.getId(), notNullValue());
+        assertThat(concept.getId(), not(text));
+        assertThat(concept.getText(), is(text));
     }
 }

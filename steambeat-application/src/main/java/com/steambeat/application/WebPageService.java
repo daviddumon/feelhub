@@ -1,9 +1,13 @@
 package com.steambeat.application;
 
 import com.google.inject.Inject;
+import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
+
+import java.util.UUID;
 
 public class WebPageService {
 
@@ -13,9 +17,8 @@ public class WebPageService {
         this.webPageFactory = webPageFactory;
     }
 
-    public WebPage lookUpWebPage(final Uri uri) {
-        final Association association = associationService.lookUp(uri);
-        final WebPage webPage = Repositories.webPages().get(association.getCanonicalUri());
+    public WebPage lookUpWebPage(final UUID subjectId) {
+        final WebPage webPage = Repositories.webPages().get(subjectId.toString());
         if (webPage == null) {
             throw new WebPageNotYetCreatedException();
         } else {
@@ -26,8 +29,8 @@ public class WebPageService {
 
     private void checkScrapedData(final WebPage webPage) {
         if (webPage.isExpired()) {
-            final UriScraper uriScraper = new UriScraper(webPage.getRealUri());
-            uriScraper.scrap();
+            final UriScraper uriScraper = new UriScraper();
+            uriScraper.scrap(webPage.getRealUri());
             webPage.update(uriScraper);
         }
     }

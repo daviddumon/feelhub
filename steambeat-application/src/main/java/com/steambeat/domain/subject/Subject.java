@@ -1,42 +1,18 @@
 package com.steambeat.domain.subject;
 
-import com.steambeat.domain.*;
-import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.scrapers.Scraper;
 import org.joda.time.DateTime;
 
 public abstract class Subject extends BaseEntity {
 
+    // Mongolink constructor : do not delete
     protected Subject() {
-
     }
 
     protected Subject(final String id) {
-        this.creationDate = new DateTime();
         this.id = id;
-    }
-
-    public Judgment createJudgment(final Feeling feeling) {
-        final Judgment judgment = new Judgment(this, feeling);
-        DomainEventBus.INSTANCE.spread(new JudgmentPostedEvent(judgment));
-        return judgment;
-    }
-
-    //todo
-    public Opinion createOpinion(final String text, final Feeling feeling) {
-        final Opinion opinion = new Opinion(text);
-        opinion.addJudgment(this, feeling);
-        DomainEventBus.INSTANCE.spread(new OpinionPostedEvent(opinion));
-        return opinion;
-    }
-
-    public DateTime getCreationDate() {
-        return creationDate;
-    }
-
-    @Override
-    public String getId() {
-        return id;
+        this.creationDate = new DateTime();
     }
 
     public void update(final Scraper scraper) {
@@ -44,6 +20,15 @@ public abstract class Subject extends BaseEntity {
         shortDescription = scraper.getShortDescription();
         illustration = scraper.getIllustration();
         scrapedDataExpirationDate = new DateTime().plusDays(1);
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    public DateTime getCreationDate() {
+        return creationDate;
     }
 
     public String getShortDescription() {
@@ -62,10 +47,14 @@ public abstract class Subject extends BaseEntity {
         return scrapedDataExpirationDate;
     }
 
-    protected String shortDescription;
-    protected String description;
-    protected String illustration;
-    private DateTime creationDate;
-    protected DateTime scrapedDataExpirationDate;
+    public boolean isExpired() {
+        return !scrapedDataExpirationDate.isAfter(new DateTime());
+    }
+
     private String id;
+    private DateTime creationDate;
+    protected String description;
+    protected String shortDescription;
+    protected String illustration;
+    protected DateTime scrapedDataExpirationDate;
 }

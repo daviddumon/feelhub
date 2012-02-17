@@ -1,16 +1,18 @@
 package com.steambeat.web.resources;
 
+import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.identifiers.uri.*;
 import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.repositories.Repositories;
+import com.steambeat.test.FakeUriScraper;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
-import com.steambeat.tools.URIs;
 import com.steambeat.web.*;
 import org.junit.*;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -25,7 +27,11 @@ public class TestsWebPageResource {
 
     @Test
     public void isMapped() throws IOException {
-        TestFactories.webPages().newWebPage("http://www.google.fr");
+        final WebPage webPage = new WebPage(new Association(new Uri("http://www.google.fr"), UUID.randomUUID()));
+        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
+        fakeUriScraper.scrap();
+        webPage.update(fakeUriScraper);
+        Repositories.webPages().add(webPage);
         final ClientResource resource = restlet.newClientResource("/webpages/http%3A%2F%2Fwww.google.fr");
 
         final Representation response = resource.get();
@@ -35,7 +41,11 @@ public class TestsWebPageResource {
 
     @Test
     public void canDealWithHierarchicalUri() throws IOException {
-        TestFactories.webPages().newWebPage("http://www.slate.fr/story/36777/avenir-home-entertainment");
+        final WebPage webPage = new WebPage(new Association(new Uri("http://www.slate.fr/story/36777/avenir-home-entertainment"), UUID.randomUUID()));
+        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
+        fakeUriScraper.scrap();
+        webPage.update(fakeUriScraper);
+        Repositories.webPages().add(webPage);
         final ClientResource resource = restlet.newClientResource("/webpages/http://www.slate.fr/story/36777/avenir-home-entertainment");
 
         final Representation representation = resource.get();
@@ -45,7 +55,11 @@ public class TestsWebPageResource {
 
     @Test
     public void canDealWithRedirection() {
-        TestFactories.webPages().newWebPage("http://www.slate.fr/story/36777/avenir-home-entertainment");
+        final WebPage webPage = new WebPage(new Association(new Uri("http://www.slate.fr/story/36777/avenir-home-entertainment"), UUID.randomUUID()));
+        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
+        fakeUriScraper.scrap();
+        webPage.update(fakeUriScraper);
+        Repositories.webPages().add(webPage);
         final ClientResource resource = restlet.newClientResource("/webpages/http://slate.fr/story/36777/avenir-home-entertainment");
 
         resource.get();
@@ -81,7 +95,12 @@ public class TestsWebPageResource {
     @Test
     public void canRepresentExistingWebPage() {
         final String uri = "http://test.com";
-        final WebPage webPage = TestFactories.webPages().newWebPage(uri);
+        final WebPage webPage1 = new WebPage(new Association(new Uri(uri), UUID.randomUUID()));
+        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
+        fakeUriScraper.scrap();
+        webPage1.update(fakeUriScraper);
+        Repositories.webPages().add(webPage1);
+        final WebPage webPage = webPage1;
         final ClientResource resource = resourceFor(uri);
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();

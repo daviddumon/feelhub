@@ -3,7 +3,7 @@ package com.steambeat.test.fakeSearches;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 import com.google.inject.Inject;
-import com.steambeat.domain.opinion.Opinion;
+import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.*;
 import com.steambeat.web.search.OpinionSearch;
@@ -37,9 +37,15 @@ public class FakeOpinionSearch extends OpinionSearch {
     @Override
     public OpinionSearch withSubject(final Subject subject) {
         opinions = Lists.newArrayList(Iterables.filter(opinions, new Predicate<Opinion>() {
+
             @Override
             public boolean apply(final Opinion opinion) {
-                return opinion.getSubjectId().equals(subject.getId());
+                for (Judgment judgment : opinion.getJudgments()) {
+                    if (judgment.getSubject().equals(subject)) {
+                        return true;
+                    }
+                }
+                return false;
             }
         }));
         return this;

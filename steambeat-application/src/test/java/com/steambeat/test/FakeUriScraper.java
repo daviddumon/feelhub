@@ -1,16 +1,16 @@
 package com.steambeat.test;
 
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.scrapers.UriScraper;
-import com.steambeat.domain.subject.webpage.Uri;
 
 public class FakeUriScraper extends UriScraper {
 
-    public FakeUriScraper(final Uri uri) {
-        super(uri);
+    public FakeUriScraper() {
+        super();
     }
 
     @Override
-    public void scrap() {
+    public void scrap(final Uri uri) {
 
     }
 
@@ -28,6 +28,4 @@ public class FakeUriScraper extends UriScraper {
     public String getIllustration() {
         return "";
     }
-
-
 }

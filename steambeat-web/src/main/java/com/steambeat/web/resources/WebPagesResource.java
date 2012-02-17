@@ -2,6 +2,7 @@ package com.steambeat.web.resources;
 
 import com.google.inject.Inject;
 import com.steambeat.application.WebPageService;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.web.ReferenceBuilder;
 import org.restlet.data.*;

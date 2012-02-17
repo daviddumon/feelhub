@@ -39,6 +39,10 @@ public class SteambeatApplication extends Application {
         getContext().getAttributes().put("org.freemarker.Configuration", configuration);
     }
 
+    private ServletContext servletContext() {
+        return (ServletContext) getContext().getAttributes().get("org.restlet.ext.servlet.ServletContext");
+    }
+
     @Override
     public Restlet createInboundRoot() {
         final Router router = new Router(getContext());
@@ -49,10 +53,6 @@ public class SteambeatApplication extends Application {
         openSession.setNext(steambeatRouter);
         router.attach(openSession);
         return router;
-    }
-
-    private ServletContext servletContext() {
-        return (ServletContext) getContext().getAttributes().get("org.restlet.ext.servlet.ServletContext");
     }
 
     public void setModule(final Module module) {

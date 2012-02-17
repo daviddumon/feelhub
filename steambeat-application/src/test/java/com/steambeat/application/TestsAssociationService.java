@@ -1,14 +1,15 @@
 package com.steambeat.application;
 
-import com.steambeat.domain.subject.webpage.*;
+import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.identifiers.uri.*;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.*;
+import com.steambeat.test.FakeUriPathResolver;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -18,65 +19,81 @@ public class TestsAssociationService {
     @Rule
     public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
 
-    @Rule
-    public SystemTime time = SystemTime.fixed();
+    @Test
+    public void canCreateANewAssociation() {
+        final AssociationService associationService = new AssociationService(new FakeUriPathResolver());
+        final Uri uri = new Uri("http://www.steambeat.com");
 
-    @Rule
-    public static FakeInternet internet = new FakeInternet();
+        final Association association = associationService.lookUp(uri);
 
-    @Before
-    public void before() {
-        associationService = new AssociationService(new CanonicalUriFinder());
+        assertThat(association, notNullValue());
+        assertThat(association.getId(), is(uri.toString()));
     }
 
-    @AfterClass
-    public static void afterClass() {
-        internet.stop();
+    @Test
+    public void canCreateAllAssociationsInRepository() {
+        final UriPathResolver pathResolver = new FakeUriPathResolver().thatFind(new Uri("http://www.liberation.fr"));
+        final AssociationService associationService = new AssociationService(pathResolver);
+        final Uri uri = new Uri("http://liberation.fr");
+
+        final Association association = associationService.lookUp(uri);
+
+        assertThat(association, notNullValue());
+        final List<Association> associations = Repositories.associations().getAll();
+        assertThat(associations.size(), is(2));
+    }
+
+    @Test
+    public void returnLastAssociation() {
+        final String canonicalAddress = "http://www.liberation.fr";
+        final UriPathResolver pathResolver = new FakeUriPathResolver().thatFind(new Uri(canonicalAddress));
+        final AssociationService associationService = new AssociationService(pathResolver);
+        final Uri uri = new Uri("http://liberation.fr");
+
+        final Association association = associationService.lookUp(uri);
+
+        assertThat(association.getId(), is(canonicalAddress));
+    }
+
+    @Test
+    public void allAssociationsFromAnUriGetSameSubjectId() {
+        final String canonicalAddress = "http://www.liberation.fr";
+        final UriPathResolver pathResolver = new FakeUriPathResolver().thatFind(new Uri(canonicalAddress));
+        final AssociationService associationService = new AssociationService(pathResolver);
+        final Uri uri = new Uri("http://liberation.fr");
+
+        associationService.lookUp(uri);
+
+        final List<Association> associations = Repositories.associations().getAll();
+        assertThat(associations.get(0).getSubjectId(), is(associations.get(1).getSubjectId()));
     }
 
     @Test
     public void canUseEncodedResources() throws UnsupportedEncodingException {
-        final Uri uri = internet.uri(URLEncoder.encode("http://www.lemonde.fr", "UTF-8"));
+        final UriPathResolver pathResolver = new FakeUriPathResolver();
+        final AssociationService associationService = new AssociationService(pathResolver);
+        final Uri uri = new Uri(URLEncoder.encode("http://www.lemonde.fr", "UTF-8"));
 
         final Association association = associationService.lookUp(uri);
 
-        assertThat(association.getCanonicalUri(), is(uri.toString()));
+        assertThat(association.getId(), is(uri.toString()));
     }
 
     @Test
     public void canUseAssociationFromRepository() throws UnsupportedEncodingException {
-        final String address = "http://localhost:6162/http://lemonde.fr";
-        final String canonicalAddress = "http://www.liberation.fr";
-        final Association association = TestFactories.associations().newAssociation(address, canonicalAddress);
-        final Uri uri = internet.uri(URLEncoder.encode("http://lemonde.fr", "UTF-8"));
+        final Association associationForCanonicalUri = createAssociationForCanonicalUri();
+        final UriPathResolver uriPathResolver = new FakeUriPathResolver().thatFind(new Uri("http://www.steambeat.com"));
+        final AssociationService associationService = new AssociationService(uriPathResolver);
+        final Uri uri = new Uri("http://steambeat.com");
 
-        final Association associationFound = associationService.lookUp(uri);
-
-        assertThat(associationFound, is(association));
+        final Association association = associationService.lookUp(uri);
+        
+        assertThat(association.getSubjectId(), is(associationForCanonicalUri.getSubjectId()));
     }
 
-    @Test
-    public void canSaveToRepository() {
-        final Uri uri = internet.uri("http://www.gameblog.fr");
-
-        final Association firstAssociation = associationService.lookUp(uri);
-
-        assertThat(Repositories.associations().getAll().size(), is(1));
-        assertThat(Repositories.associations().get(uri.toString()), notNullValue());
-        assertThat(Repositories.associations().get(uri.toString()), is(firstAssociation));
+    private Association createAssociationForCanonicalUri() {
+        final UriPathResolver uriPathResolver = new FakeUriPathResolver();
+        final AssociationService associationService = new AssociationService(uriPathResolver);
+        return associationService.lookUp(new Uri("http://www.steambeat.com"));
     }
-
-    @Test
-    public void updatesOldAssociation() {
-        final Uri uri = internet.uri("http://www.lemonde.fr");
-        final Association oldAssociation = TestFactories.associations().newAssociation(uri.toString(), "http://www.liberation.fr");
-
-        time.waitDays(8);
-        final Association associationFound = associationService.lookUp(uri);
-
-        assertThat(associationFound, is(oldAssociation));
-        assertThat(associationFound.isAlive(), is(true));
-    }
-
-    private AssociationService associationService;
 }

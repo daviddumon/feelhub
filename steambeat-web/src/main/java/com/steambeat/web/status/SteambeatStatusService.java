@@ -2,6 +2,7 @@ package com.steambeat.web.status;
 
 import com.google.common.collect.Maps;
 import com.steambeat.application.WebPageNotYetCreatedException;
+import com.steambeat.domain.analytics.identifiers.uri.UriPathResolverException;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.web.resources.SteambeatJsonException;
 import org.restlet.*;
@@ -15,6 +16,7 @@ public class SteambeatStatusService extends StatusService {
 
     public SteambeatStatusService() {
         resolvers.put(WebPageException.class, new WebPageExceptionResolver());
+        resolvers.put(UriPathResolverException.class, new WebPageExceptionResolver());
         resolvers.put(WebPageAlreadyExistsException.class, new WebPageExceptionResolver());
         resolvers.put(SteambeatJsonException.class, new JsonExceptionResolver());
         resolvers.put(WebPageNotYetCreatedException.class, new WebPageExceptionResolver());

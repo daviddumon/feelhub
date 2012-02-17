@@ -20,8 +20,8 @@ public class SteambeatRouter extends Router {
     }
 
     private void attachResources() {
-        attachUriResource("/webpages/{uri}/stats:{start}.{end};{granularity}", WebPageStatisticsResource.class);
-        attachUriResource("/webpages/{uri}", WebPageResource.class);
+        attachUriResource("/webpages/{id}/stats:{start}.{end};{granularity}", WebPageStatisticsResource.class);
+        attachUriResource("/webpages/{id}", WebPageResource.class);
         attach("/webpages", WebPagesResource.class);
         attach("/stats:{start}.{end};{granularity}", HomeStatisticsResource.class);
         attach("/opinions", OpinionsResource.class);

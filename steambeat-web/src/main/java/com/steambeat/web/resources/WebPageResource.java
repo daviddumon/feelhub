@@ -2,6 +2,7 @@ package com.steambeat.web.resources;
 
 import com.google.inject.Inject;
 import com.steambeat.application.*;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.web.*;
 import org.restlet.data.Status;
@@ -17,15 +18,15 @@ public class WebPageResource extends ServerResource {
 
     @Override
     protected void doInit() throws ResourceException {
-        uri = new Uri(getRequestAttributes().get("uri").toString());
-        try {
-            webPage = webPageService.lookUpWebPage(uri);
-            if (!webPage.getRealUri().equals(uri)) {
-                redirectToUri();
-            }
-        } catch (WebPageNotYetCreatedException e) {
-            mustCreateWebPage = true;
-        }
+        //uri = new Uri(getRequestAttributes().get("id").toString());
+        //try {
+        //    webPage = webPageService.lookUpWebPage(uri);
+        //    if (!webPage.getRealUri().equals(uri)) {
+        //        redirectToUri();
+        //    }
+        //} catch (WebPageNotYetCreatedException e) {
+        //    mustCreateWebPage = true;
+        //}
     }
 
     private void redirectToUri() {

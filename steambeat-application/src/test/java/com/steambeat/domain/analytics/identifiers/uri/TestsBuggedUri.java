@@ -1,6 +1,7 @@
-package com.steambeat.domain.subject.webpage;
+package com.steambeat.domain.analytics.identifiers.uri;
 
 import com.google.common.collect.Lists;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import org.junit.Test;
 
 import java.util.List;

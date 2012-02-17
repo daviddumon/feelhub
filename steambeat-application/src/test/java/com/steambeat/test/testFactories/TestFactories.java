@@ -1,7 +1,5 @@
 package com.steambeat.test.testFactories;
 
-import com.steambeat.test.StubCanonicalUriFinder;
-
 public class TestFactories {
 
     private TestFactories() {
@@ -19,10 +17,6 @@ public class TestFactories {
         return new WebPageStatFactoryForTest();
     }
 
-    public static StubCanonicalUriFinder canonicalUriFinder() {
-        return new StubCanonicalUriFinder();
-    }
-
     public static OpinionFactoryForTest opinions() {
         return new OpinionFactoryForTest();
     }
@@ -30,4 +24,6 @@ public class TestFactories {
     public static JudgmentFactoryForTest judgments() {
         return new JudgmentFactoryForTest();
     }
+
+    //todo : subjectFactoryForTest and erase all directs appels to newWebPage()
 }

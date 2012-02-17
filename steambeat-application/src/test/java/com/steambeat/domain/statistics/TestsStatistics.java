@@ -1,6 +1,7 @@
 package com.steambeat.domain.statistics;
 
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.repositories.Repositories;
 import com.steambeat.test.WithDomainEvent;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
@@ -20,9 +21,11 @@ public class TestsStatistics {
 
     @Test
     public void canCreateFromSubject() {
-        final Subject subject = TestFactories.webPages().newWebPage("http://www.fakeurl.com");
-        final Statistics statistics = new Statistics(subject, Granularity.hour, new DateTime());
+        final WebPage webPage = TestFactories.webPages().newWebPage();
+        Repositories.webPages().add(webPage);
 
-        assertThat(statistics.getSubjectId(), is("http://www.fakeurl.com"));
+        final Statistics statistics = new Statistics(webPage, Granularity.hour, new DateTime());
+
+        assertThat(statistics.getSubjectId(), is(webPage.getId()));
     }
 }

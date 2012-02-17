@@ -1,13 +1,16 @@
 package com.steambeat.domain.opinion;
 
+import com.steambeat.domain.*;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.test.SystemTime;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
+import org.mockito.ArgumentCaptor;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
 
 public class TestsOpinion {
 
@@ -16,6 +19,9 @@ public class TestsOpinion {
 
     @Rule
     public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
+
+    @Rule
+    public WithDomainEvent events = new WithDomainEvent();
 
     @Test
     public void canCreateWithText() {
@@ -38,6 +44,38 @@ public class TestsOpinion {
         assertThat(opinion.getJudgments().size(), is(1));
         assertThat(opinion.getJudgments().get(0).getSubject(), is(subject));
         assertThat(opinion.getJudgments().get(0).getFeeling(), is(Feeling.good));
+    }
+
+    @Test
+    public void canSpreadJudgmentEvent() {
+        final Opinion opinion = new Opinion("my opinion");
+        final WebPage subject = TestFactories.webPages().newWebPage();
+        DomainEventBus.INSTANCE.notifyOnSpread();
+        final DomainEventListener judgmentEventListener = mock(DomainEventListener.class);
+        DomainEventBus.INSTANCE.register(judgmentEventListener, JudgmentPostedEvent.class);
+
+        opinion.addJudgment(subject, Feeling.good);
+
+        final ArgumentCaptor<DomainEvent> captor = ArgumentCaptor.forClass(DomainEvent.class);
+        verify(judgmentEventListener).notify(captor.capture());
+        assertThat(captor.getValue(), instanceOf(JudgmentPostedEvent.class));
+        final JudgmentPostedEvent event = (JudgmentPostedEvent) captor.getValue();
+        assertThat(event.getJudgment(), is(opinion.getJudgments().get(0)));
+    }
+
+    @Test
+    public void canSpreadOpinionEvent() {
+        DomainEventBus.INSTANCE.notifyOnSpread();
+        final DomainEventListener opinionEventListener = mock(DomainEventListener.class);
+        DomainEventBus.INSTANCE.register(opinionEventListener, OpinionPostedEvent.class);
+
+        final Opinion opinion = new Opinion("my opinion");
+
+        final ArgumentCaptor<DomainEvent> captor = ArgumentCaptor.forClass(DomainEvent.class);
+        verify(opinionEventListener).notify(captor.capture());
+        assertThat(captor.getValue(), instanceOf(OpinionPostedEvent.class));
+        final OpinionPostedEvent event = (OpinionPostedEvent) captor.getValue();
+        assertThat(event.getOpinion(), is(opinion));
     }
 
 }

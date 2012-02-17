@@ -2,14 +2,13 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.opinion.Feeling;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.testFactories.TestFactories;
 import org.joda.time.DateTime;
 import org.junit.*;
 
 import java.net.*;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -24,18 +23,17 @@ public class TestsWebPageMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() throws UnknownHostException, MongoException, MalformedURLException {
-        final WebPage webPage = TestFactories.webPages().newWebPage("http://www.lemonde.fr");
+        final WebPage webPage = TestFactories.webPages().newWebPage();
         final DateTime webPageCreationDate = webPage.getCreationDate();
-        webPage.createOpinion("my opinion", Feeling.good);
 
         repo.add(webPage);
 
         final DBCollection collection = mongo.getCollection("subject");
         final DBObject query = new BasicDBObject();
-        query.put("_id", "http://www.lemonde.fr");
+        query.put("_id", webPage.getId());
         final DBObject webPageFound = collection.findOne(query);
         assertThat(webPageFound, notNullValue());
-        assertThat(webPageFound.get("_id"), is((Object) "http://www.lemonde.fr"));
+        assertThat(webPageFound.get("_id"), is((Object) webPage.getId()));
         assertThat(webPageFound.get("creationDate"), is((Object) webPageCreationDate.getMillis()));
     }
 
@@ -43,11 +41,12 @@ public class TestsWebPageMongoRepository extends TestWithMongoRepository {
     public void canGet() {
         final DBCollection collection = mongo.getCollection("subject");
         final DBObject webPage = new BasicDBObject();
-        webPage.put("_id", "lemonde.fr");
+        final UUID id = UUID.randomUUID();
+        webPage.put("_id", id.toString());
         webPage.put("__discriminator", "WebPage");
         collection.insert(webPage);
 
-        final WebPage webPageFound = repo.get("lemonde.fr");
+        final WebPage webPageFound = repo.get(id.toString());
 
         assertThat(webPageFound, notNullValue());
     }
@@ -56,7 +55,8 @@ public class TestsWebPageMongoRepository extends TestWithMongoRepository {
     public void canGetAll() {
         final DBCollection collection = mongo.getCollection("subject");
         final DBObject webPage = new BasicDBObject();
-        webPage.put("_id", "lemonde.fr");
+        final UUID id = UUID.randomUUID();
+        webPage.put("_id", id.toString());
         webPage.put("__discriminator", "WebPage");
         collection.insert(webPage);
         collection.insert(webPage);

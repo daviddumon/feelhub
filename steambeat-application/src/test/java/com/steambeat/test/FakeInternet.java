@@ -1,6 +1,6 @@
 package com.steambeat.test;
 
-import com.steambeat.domain.subject.webpage.Uri;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.test.fakeResources.*;
 import com.steambeat.test.fakeResources.scraper.UriScraperLogoPriority;
 import com.steambeat.test.fakeResources.scraper.extractors.*;

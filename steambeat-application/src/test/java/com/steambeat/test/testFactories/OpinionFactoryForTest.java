@@ -1,12 +1,9 @@
 package com.steambeat.test.testFactories;
 
-import com.google.common.collect.Lists;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-
-import java.util.List;
 
 public class OpinionFactoryForTest {
 
@@ -34,12 +31,5 @@ public class OpinionFactoryForTest {
         opinion.addJudgment(subject, Feeling.bad);
         Repositories.opinions().add(opinion);
         return opinion;
-    }
-
-    private List<Judgment> getJudgments() {
-        final List<Judgment> judgments = Lists.newArrayList();
-        final Judgment judgment = TestFactories.judgments().newJudgment();
-        judgments.add(judgment);
-        return judgments;
     }
 }
