@@ -3,6 +3,7 @@ package com.steambeat.domain.thesaurus;
 import com.google.common.base.Objects;
 
 public class Category {
+
     public static Category forString(final String type) {
         final Category category = new Category();
         category.text = type;

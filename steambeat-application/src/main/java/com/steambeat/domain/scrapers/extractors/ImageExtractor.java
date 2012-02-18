@@ -73,5 +73,5 @@ public class ImageExtractor extends Extractor {
         return "";
     }
 
-    private String name;
+    private final String name;
 }

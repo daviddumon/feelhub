@@ -17,8 +17,8 @@ public class AssociationService {
 
     public Association lookUp(final Uri uri) {
         final List<Uri> path = pathResolver.resolve(uri);
-        UUID subjectId = generateSubjectId(lastFrom(path));
-        List<Association> associations = createAssociations(path, subjectId);
+        final UUID subjectId = generateSubjectId(lastFrom(path));
+        final List<Association> associations = createAssociations(path, subjectId);
         return lastAssociation(associations);
     }
 
@@ -36,7 +36,7 @@ public class AssociationService {
 
     private List<Association> createAssociations(final List<Uri> path, final UUID subjectId) {
         final ArrayList<Association> associations = Lists.newArrayList();
-        for (Uri uri : path) {
+        for (final Uri uri : path) {
             final Association association = new Association(uri, subjectId);
             associations.add(association);
             Repositories.associations().add(association);

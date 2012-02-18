@@ -7,7 +7,7 @@ public class ImageExtractorResourceSlatefrBug extends ServerResource {
 
     @Get
     public Representation represent() {
-        String html = "<h1>Si Marine le Pen n'a pas les signatures, le jeu reste ouvert pour Sarkozy</h1>" +
+        final String html = "<h1>Si Marine le Pen n'a pas les signatures, le jeu reste ouvert pour Sarkozy</h1>" +
                 "'<div class='article_meta'>" +
                 "<span class='article_author'>Par <a href='/source/jean-marie-colombani'>Jean-Marie Colombani</a></span>" +
                 "<span class='article_date'> | publi&eacute; le 4 f&eacute;vrier 2012</span>" +

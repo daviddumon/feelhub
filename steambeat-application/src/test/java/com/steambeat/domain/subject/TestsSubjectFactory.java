@@ -3,7 +3,7 @@ package com.steambeat.domain.subject;
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.concept.Concept;
-import com.steambeat.domain.subject.webpage.*;
+import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.domain.textAnalytics.NamedEntity;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;

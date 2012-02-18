@@ -19,7 +19,7 @@ public class TestsJudgmentPostedEvent {
     @Test
     public void canPostAJudgmentEvent() {
         final Judgment judgment = TestFactories.judgments().newJudgment();
-        
+
         final JudgmentPostedEvent judgmentPostedEvent = new JudgmentPostedEvent(judgment);
 
         assertThat(judgmentPostedEvent.getDate(), notNullValue());

@@ -30,7 +30,7 @@ public abstract class Extractor {
         if (!element.ownText().isEmpty()) {
             return element.ownText();
         } else {
-            for (Element child : element.children()) {
+            for (final Element child : element.children()) {
                 if (!child.ownText().isEmpty()) {
                     return child.ownText();
                 }
@@ -43,7 +43,7 @@ public abstract class Extractor {
         if (element.nodeName().equals("img")) {
             return element;
         } else if (element.children().size() > 0) {
-            for (Element child : element.children()) {
+            for (final Element child : element.children()) {
                 final Element image = findImageIn(child);
                 if (image != null) {
                     return image;

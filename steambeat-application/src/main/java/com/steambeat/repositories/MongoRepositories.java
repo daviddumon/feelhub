@@ -6,7 +6,7 @@ import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
 import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.concept.Concept;
-import com.steambeat.domain.subject.webpage.*;
+import com.steambeat.domain.subject.webpage.WebPage;
 
 import javax.inject.Inject;
 

@@ -62,7 +62,7 @@ public class TestsWebPageService {
     public void updateWebPageIfExpired() {
         final WebPage webPage = TestFactories.webPages().newWebPage();
         Repositories.webPages().add(webPage);
-        DateTime firstDate = webPage.getScrapedDataExpirationDate();
+        final DateTime firstDate = webPage.getScrapedDataExpirationDate();
         time.waitDays(2);
 
         final WebPage webPageFound = webPageService.lookUpWebPage(UUID.fromString(webPage.getId()));

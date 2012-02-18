@@ -11,7 +11,7 @@ public class CSSMiner {
     public CSSMiner(final Uri uri) {
         this.uri = uri;
         try {
-            BufferedReader distantCss = openDistantCss();
+            final BufferedReader distantCss = openDistantCss();
             copyCssToFile(distantCss);
             closeDistantCss(distantCss);
         } catch (IOException e) {
@@ -25,7 +25,7 @@ public class CSSMiner {
     }
 
     private void copyCssToFile(final BufferedReader distantCss) {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         String line = "";
         try {
             while ((line = distantCss.readLine()) != null) {
@@ -67,7 +67,7 @@ public class CSSMiner {
         backgroundValue = backgroundValue.replaceAll("[\'\"]", "").trim();
     }
 
-    private Uri uri;
+    private final Uri uri;
     private String backgroundValue = "";
     private String css = "";
 }

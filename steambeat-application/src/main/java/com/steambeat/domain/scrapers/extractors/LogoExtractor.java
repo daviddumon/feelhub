@@ -58,7 +58,7 @@ public class LogoExtractor extends Extractor {
     private String mineCss(final Document document) {
         final List<String> cssList = findCSSUris(document);
         String backgroundUrl = "";
-        for (String css : cssList) {
+        for (final String css : cssList) {
             final CSSMiner cssMiner = new CSSMiner(new Uri(css));
             backgroundUrl = cssMiner.scrap("(logo|banner)");
             if (notEmpty(backgroundUrl)) {
@@ -74,13 +74,13 @@ public class LogoExtractor extends Extractor {
 
     private List<String> findCSSUris(final Document document) {
         final Elements links = document.select("link[rel=stylesheet]");
-        List<String> result = Lists.newArrayList();
-        for (Element link : links) {
+        final List<String> result = Lists.newArrayList();
+        for (final Element link : links) {
             result.add(link.absUrl("href"));
         }
         return result;
     }
 
-    private String name;
-    private String validTags;
+    private final String name;
+    private final String validTags;
 }

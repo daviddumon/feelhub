@@ -1,7 +1,6 @@
 package com.steambeat.domain.analytics.identifiers.uri;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import org.junit.Test;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public class TestsBuggedUri {
 
     @Test
     public void testBuggedUri() {
-        List<String> uris = Lists.newArrayList();
+        final List<String> uris = Lists.newArrayList();
         uris.add("http://www.lequipe.fr/Football/directs/Live220452.html");
         uris.add("http://seriouswheels.com/cars/2010/top-2010-Aston-Martin-DBS-Volante.htm");
         uris.add("http://www.lefigaro.fr/flash-actu/2011/08/17/97001-20110817FILWWW00263-gerard-depardieu-urine-dans-un-avion.php");
@@ -36,7 +35,7 @@ public class TestsBuggedUri {
         uris.add("http://www.youtube.com/user/joueurdugrenier#p/a/u/2/FUXQjIOnJqA");
         uris.add("http://www.éléphant.com");
 
-        for (String uri : uris) {
+        for (final String uri : uris) {
             testUri(uri);
         }
     }

@@ -128,11 +128,11 @@ public class Uri extends Identifier {
         return tokens[tokens.length >= 2 ? tokens.length - 2 : 0];
     }
 
-    private String protocol;
-    private String domain;
+    private final String protocol;
+    private final String domain;
     private String address;
-    private String query;
-    private String fragment;
+    private final String query;
+    private final String fragment;
     private static final String PROTOCOL_TOKEN = "://";
     private static final String QUERY_TOKEN = "?";
     private static final String FRAGMENT_TOKEN = "#";

@@ -15,7 +15,6 @@ public final class Clients {
         try {
             client.stop();
         } catch (Exception e) {
-            //VTFF
         }
     }
 

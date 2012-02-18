@@ -28,7 +28,7 @@ public class Concept extends Subject {
         return category;
     }
 
-    private String text;
+    private final String text;
     private Language language;
     Category category;
 }

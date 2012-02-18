@@ -20,7 +20,7 @@ public class TestsUriScraper {
     @Test
     public void canFindSimpleDescriptionFromTitle() {
         final Uri uri = internet.uri("titleextractor/titletag");
-        UriScraper uriScraper = new UriScraper();
+        final UriScraper uriScraper = new UriScraper();
 
         uriScraper.scrap(uri);
 
@@ -30,7 +30,7 @@ public class TestsUriScraper {
     @Test
     public void hasDefaultValuesIfBadUri() {
         final Uri uri = internet.uri("unknown");
-        UriScraper uriScraper = new UriScraper();
+        final UriScraper uriScraper = new UriScraper();
 
         uriScraper.scrap(uri);
 
@@ -41,9 +41,9 @@ public class TestsUriScraper {
 
     @Test
     public void canFindShortDescription() {
-        UriScraper uriScraper1 = new UriScraper();
-        UriScraper uriScraper2 = new UriScraper();
-        UriScraper uriScraper3 = new UriScraper();
+        final UriScraper uriScraper1 = new UriScraper();
+        final UriScraper uriScraper2 = new UriScraper();
+        final UriScraper uriScraper3 = new UriScraper();
 
         uriScraper1.scrap(internet.uri("titleextractor/titletag"));
         assertThat(uriScraper1.getShortDescription(), is("Webpage title"));
@@ -58,7 +58,7 @@ public class TestsUriScraper {
     @Test
     public void firstLevelDomainIllustrationPriorityIsLogoThenImage() {
         final Uri uri = internet.uri("/");
-        UriScraper uriScraper = new UriScraper();
+        final UriScraper uriScraper = new UriScraper();
 
         uriScraper.scrap(uri);
 
@@ -69,7 +69,7 @@ public class TestsUriScraper {
     @Test
     public void nonFirstLevelDomainIllustrationPriorityIsImageThenLogo() {
         final Uri uri = internet.uri("uriscraper/logopriority");
-        UriScraper uriScraper = new UriScraper();
+        final UriScraper uriScraper = new UriScraper();
 
         uriScraper.scrap(uri);
 

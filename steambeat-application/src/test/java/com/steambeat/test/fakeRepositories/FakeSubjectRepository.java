@@ -9,6 +9,7 @@ import com.steambeat.domain.subject.webpage.WebPage;
 import java.util.*;
 
 public class FakeSubjectRepository implements Repository<Subject> {
+
     public FakeSubjectRepository(final Repository<WebPage> webPageRepository, final Repository<Concept> conceptRepository) {
         this.webPageRepository = webPageRepository;
         this.conceptRepository = conceptRepository;

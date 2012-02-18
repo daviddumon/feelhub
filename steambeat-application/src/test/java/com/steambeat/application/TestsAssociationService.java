@@ -87,7 +87,7 @@ public class TestsAssociationService {
         final Uri uri = new Uri("http://steambeat.com");
 
         final Association association = associationService.lookUp(uri);
-        
+
         assertThat(association.getSubjectId(), is(associationForCanonicalUri.getSubjectId()));
     }
 

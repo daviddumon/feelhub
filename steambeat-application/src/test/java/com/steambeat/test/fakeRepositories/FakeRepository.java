@@ -33,7 +33,7 @@ public class FakeRepository<T extends Entity> implements Repository<T> {
     }
 
     private Predicate<T> parId(final Object id) {
-        final Predicate<T> parId = new Predicate<T>() {
+        return new Predicate<T>() {
 
             @Override
             public boolean apply(final T element) {
@@ -41,7 +41,6 @@ public class FakeRepository<T extends Entity> implements Repository<T> {
             }
 
         };
-        return parId;
     }
 
     @Override

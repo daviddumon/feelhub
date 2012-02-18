@@ -23,6 +23,6 @@ public class FirstElementExtractor extends Extractor {
         return "";
     }
 
-    private String name;
-    private String tag;
+    private final String name;
+    private final String tag;
 }

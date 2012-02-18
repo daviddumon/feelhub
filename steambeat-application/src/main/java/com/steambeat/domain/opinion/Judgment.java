@@ -3,7 +3,6 @@ package com.steambeat.domain.opinion;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-import org.joda.time.DateTime;
 
 public class Judgment {
 

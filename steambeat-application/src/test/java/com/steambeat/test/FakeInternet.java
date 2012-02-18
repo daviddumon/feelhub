@@ -35,7 +35,7 @@ public class FakeInternet extends ExternalResource {
     }
 
     private Restlet createApplication() {
-        final Application application = new Application() {
+        return new Application() {
 
             @Override
             public Restlet createInboundRoot() {
@@ -83,7 +83,6 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/css/css2", CSSMinerCss2.class);
             }
         };
-        return application;
     }
 
     public Uri uri(final String address) {

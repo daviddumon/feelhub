@@ -35,7 +35,7 @@ public class UriScraper implements Scraper {
     }
 
     private void useExtractors() {
-        for (Extractor extractor : extractors) {
+        for (final Extractor extractor : extractors) {
             scrapedTags.put(extractor.getName(), extractor.apply(document));
         }
     }
@@ -93,7 +93,7 @@ public class UriScraper implements Scraper {
     }
 
     private Document document;
-    private List<Extractor> extractors = Lists.newArrayList();
+    private final List<Extractor> extractors = Lists.newArrayList();
     protected Map<String, String> scrapedTags = new HashMap<String, String>();
     private Uri uri;
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";

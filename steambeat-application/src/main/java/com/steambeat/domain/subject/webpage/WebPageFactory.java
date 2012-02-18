@@ -17,10 +17,7 @@ public class WebPageFactory {
 
     private boolean checkIfExists(final Association association) {
         final WebPage webPage = Repositories.webPages().get(association.getSubjectId().toString());
-        if (webPage != null) {
-            return true;
-        }
-        return false;
+        return webPage != null;
     }
 
     private WebPage doCreateWebPage(final Association association) {
@@ -31,5 +28,5 @@ public class WebPageFactory {
         return webPage;
     }
 
-    private UriScraper uriScraper = new UriScraper();
+    private final UriScraper uriScraper = new UriScraper();
 }
