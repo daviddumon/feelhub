@@ -25,7 +25,7 @@ public class OpinionService {
     private Subject getSubjectFor(final JudgmentDTO judgment) {
         final WebPage webPage = Repositories.webPages().get(judgment.subjectId);
         if (webPage == null) {
-            throw new WebPageNotYetCreatedException();
+            throw new OpinionCreationException();
         }
         return webPage;
     }

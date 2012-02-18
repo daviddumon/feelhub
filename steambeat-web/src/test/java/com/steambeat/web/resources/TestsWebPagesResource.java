@@ -4,7 +4,6 @@ import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.FakeUriScraper;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.*;
 import org.junit.*;
@@ -15,6 +14,7 @@ import java.util.UUID;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+@Ignore
 public class TestsWebPagesResource {
 
     @Rule

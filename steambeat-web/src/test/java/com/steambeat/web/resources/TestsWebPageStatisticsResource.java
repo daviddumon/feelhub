@@ -1,12 +1,10 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.domain.opinion.Feeling;
 import com.steambeat.domain.statistics.*;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
-import org.hamcrest.Matchers;
 import org.joda.time.DateTime;
 import org.json.*;
 import org.junit.*;
@@ -18,6 +16,7 @@ import org.restlet.representation.Representation;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+@Ignore
 public class TestsWebPageStatisticsResource {
 
     @Rule

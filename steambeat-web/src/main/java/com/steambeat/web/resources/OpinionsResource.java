@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.application.dto.JudgmentDTO;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.web.*;

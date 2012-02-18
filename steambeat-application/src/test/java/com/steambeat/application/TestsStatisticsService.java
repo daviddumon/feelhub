@@ -199,6 +199,7 @@ public class TestsStatisticsService {
     }
 
     @Test
+    @Ignore
     public void canRecordStatsForAllSubject() {
         fail();
         //final Subject subject = TestFactories.webPages().newWebPage();

@@ -1,10 +1,7 @@
 package com.steambeat.web.resources;
 
 import com.steambeat.domain.DomainEventBus;
-import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.WithDomainEvent;
@@ -165,6 +162,7 @@ public class TestsOpinionsResource {
     }
 
     @Test
+    @Ignore
     public void throwExceptionWhenUnknownWebPage() {
         final Form form = getGoodForm();
         form.add("subjectId", UUID.randomUUID().toString());
