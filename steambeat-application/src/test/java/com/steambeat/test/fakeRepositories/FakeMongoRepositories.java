@@ -6,10 +6,11 @@ import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
 import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.concept.Concept;
+import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 
-public class FakeRepositories extends Repositories {
+public class FakeMongoRepositories extends Repositories {
 
     @Override
     protected Repository<Subject> getSubjectRepository() {
@@ -46,10 +47,16 @@ public class FakeRepositories extends Repositories {
         return webPageRepository;
     }
 
+    @Override
+    protected Repository<Steam> getSteamRepository() {
+        return steamRepository;
+    }
+
     private final Repository<WebPage> webPageRepository = new FakeWebPageRepository();
     private final Repository<Association> associationRepository = new FakeAssociationRepository();
     private final FakeStatisticsRepository statisticsRepository = new FakeStatisticsRepository();
     private final Repository<Opinion> opinionRepository = new FakeOpinionRepository();
     private final Repository<Concept> conceptRepository = new FakeRepository<Concept>();
     private final FakeRepository<Relation> relationFakeRepository = new FakeRepository<Relation>();
+    private final Repository<Steam> steamRepository = new FakeSteamRepository();
 }

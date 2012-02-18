@@ -11,6 +11,7 @@ import java.util.*;
 
 public class UriScraper implements Scraper {
 
+    @Override
     public void scrap(final Uri uri) {
         this.uri = uri;
         addExtractors();

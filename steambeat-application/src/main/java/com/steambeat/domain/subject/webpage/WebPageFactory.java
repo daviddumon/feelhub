@@ -2,8 +2,6 @@ package com.steambeat.domain.subject.webpage;
 
 import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
-import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.repositories.Repositories;
 
 public class WebPageFactory {
@@ -22,11 +20,7 @@ public class WebPageFactory {
 
     private WebPage doCreateWebPage(final Association association) {
         final WebPage webPage = new WebPage(association);
-        uriScraper.scrap(new Uri(association.getId()));
-        webPage.update(uriScraper);
         DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(webPage));
         return webPage;
     }
-
-    private final UriScraper uriScraper = new UriScraper();
 }

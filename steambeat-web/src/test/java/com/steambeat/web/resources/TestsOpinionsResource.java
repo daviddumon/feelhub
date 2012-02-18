@@ -7,9 +7,9 @@ import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.*;
+import com.steambeat.test.WithDomainEvent;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.*;
+import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
 import org.json.*;
 import org.junit.*;
@@ -150,9 +150,7 @@ public class TestsOpinionsResource {
     @Test
     public void canPostOpinion() {
         final WebPage webPage = new WebPage(new Association(new Uri("http://test.com"), UUID.randomUUID()));
-        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
-        fakeUriScraper.scrap();
-        webPage.update(fakeUriScraper);
+        webPage.update();
         Repositories.webPages().add(webPage);
         final Subject subject = webPage;
         final Form form = getGoodForm();
@@ -183,9 +181,7 @@ public class TestsOpinionsResource {
     @Test
     public void canNotPostAOpinionWithoutFeeling() {
         final WebPage webPage1 = new WebPage(new Association(new Uri("http://www.lemonde.fr"), UUID.randomUUID()));
-        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
-        fakeUriScraper.scrap();
-        webPage1.update(fakeUriScraper);
+        webPage1.update();
         Repositories.webPages().add(webPage1);
         final WebPage webPage = webPage1;
         final Form form = new Form();
@@ -202,9 +198,7 @@ public class TestsOpinionsResource {
     @Test
     public void postOpinionRedirectOnFirstPage() {
         final WebPage webPage = new WebPage(new Association(new Uri("http://test.com"), UUID.randomUUID()));
-        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
-        fakeUriScraper.scrap();
-        webPage.update(fakeUriScraper);
+        webPage.update();
         Repositories.webPages().add(webPage);
         final Form form = getGoodForm();
         form.add("subjectId", "http://test.com");

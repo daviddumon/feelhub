@@ -3,7 +3,6 @@ package com.steambeat.application;
 import com.google.inject.Inject;
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
-import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
 
@@ -29,9 +28,7 @@ public class WebPageService {
 
     private void checkScrapedData(final WebPage webPage) {
         if (webPage.isExpired()) {
-            final UriScraper uriScraper = new UriScraper();
-            uriScraper.scrap(webPage.getRealUri());
-            webPage.update(uriScraper);
+            webPage.update();
         }
     }
 

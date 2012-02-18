@@ -42,9 +42,7 @@ public class TestsWebPagesResource {
     @Test
     public void newWebPageCreatedOnlyOnce() {
         final WebPage webPage = new WebPage(new Association(new Uri("http://www.google.fr"), UUID.randomUUID()));
-        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
-        fakeUriScraper.scrap();
-        webPage.update(fakeUriScraper);
+        webPage.update();
         Repositories.webPages().add(webPage);
 
         resource.post(formWith("http://www.google.fr"));

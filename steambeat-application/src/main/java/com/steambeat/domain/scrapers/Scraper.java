@@ -1,5 +1,7 @@
 package com.steambeat.domain.scrapers;
 
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
+
 public interface Scraper {
 
     public String getShortDescription();
@@ -7,4 +9,6 @@ public interface Scraper {
     public String getDescription();
 
     public String getIllustration();
+
+    void scrap(Uri uri);
 }

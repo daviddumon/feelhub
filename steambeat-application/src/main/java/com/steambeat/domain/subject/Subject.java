@@ -1,7 +1,6 @@
 package com.steambeat.domain.subject;
 
 import com.steambeat.domain.BaseEntity;
-import com.steambeat.domain.scrapers.Scraper;
 import org.joda.time.DateTime;
 
 public abstract class Subject extends BaseEntity {
@@ -15,12 +14,7 @@ public abstract class Subject extends BaseEntity {
         this.creationDate = new DateTime();
     }
 
-    public void update(final Scraper scraper) {
-        description = scraper.getDescription();
-        shortDescription = scraper.getShortDescription();
-        illustration = scraper.getIllustration();
-        scrapedDataExpirationDate = new DateTime().plusDays(1);
-    }
+    public abstract void update();
 
     @Override
     public String getId() {

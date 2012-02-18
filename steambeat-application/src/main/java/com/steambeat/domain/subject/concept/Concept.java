@@ -12,6 +12,10 @@ public class Concept extends Subject {
         this.text = text;
     }
 
+    @Override
+    public void update() {
+    }
+
     public String getText() {
         return text;
     }

@@ -6,6 +6,7 @@ import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
 import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.concept.Concept;
+import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
 
 import javax.inject.Inject;
@@ -40,6 +41,11 @@ public class MongoRepositories extends Repositories {
     @Override
     protected Repository<WebPage> getWebPageRepository() {
         return new WebPageMongoRepository(provider.get());
+    }
+
+    @Override
+    protected Repository<Steam> getSteamRepository() {
+        return new SteamMongoRepository(provider.get());
     }
 
     @Override

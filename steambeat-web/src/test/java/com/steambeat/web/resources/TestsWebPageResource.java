@@ -28,9 +28,7 @@ public class TestsWebPageResource {
     @Test
     public void isMapped() throws IOException {
         final WebPage webPage = new WebPage(new Association(new Uri("http://www.google.fr"), UUID.randomUUID()));
-        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
-        fakeUriScraper.scrap();
-        webPage.update(fakeUriScraper);
+        webPage.update();
         Repositories.webPages().add(webPage);
         final ClientResource resource = restlet.newClientResource("/webpages/http%3A%2F%2Fwww.google.fr");
 
@@ -42,9 +40,7 @@ public class TestsWebPageResource {
     @Test
     public void canDealWithHierarchicalUri() throws IOException {
         final WebPage webPage = new WebPage(new Association(new Uri("http://www.slate.fr/story/36777/avenir-home-entertainment"), UUID.randomUUID()));
-        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
-        fakeUriScraper.scrap();
-        webPage.update(fakeUriScraper);
+        webPage.update();
         Repositories.webPages().add(webPage);
         final ClientResource resource = restlet.newClientResource("/webpages/http://www.slate.fr/story/36777/avenir-home-entertainment");
 
@@ -56,9 +52,7 @@ public class TestsWebPageResource {
     @Test
     public void canDealWithRedirection() {
         final WebPage webPage = new WebPage(new Association(new Uri("http://www.slate.fr/story/36777/avenir-home-entertainment"), UUID.randomUUID()));
-        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
-        fakeUriScraper.scrap();
-        webPage.update(fakeUriScraper);
+        webPage.update();
         Repositories.webPages().add(webPage);
         final ClientResource resource = restlet.newClientResource("/webpages/http://slate.fr/story/36777/avenir-home-entertainment");
 
@@ -96,9 +90,7 @@ public class TestsWebPageResource {
     public void canRepresentExistingWebPage() {
         final String uri = "http://test.com";
         final WebPage webPage1 = new WebPage(new Association(new Uri(uri), UUID.randomUUID()));
-        final FakeUriScraper fakeUriScraper = new FakeUriScraper(Uri.empty());
-        fakeUriScraper.scrap();
-        webPage1.update(fakeUriScraper);
+        webPage1.update();
         Repositories.webPages().add(webPage1);
         final WebPage webPage = webPage1;
         final ClientResource resource = resourceFor(uri);
