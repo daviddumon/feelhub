@@ -149,28 +149,25 @@ public class TestsOpinionsResource {
 
     @Test
     public void canPostOpinion() {
-        final WebPage webPage = new WebPage(new Association(new Uri("http://test.com"), UUID.randomUUID()));
-        webPage.update();
-        Repositories.webPages().add(webPage);
-        final Subject subject = webPage;
+        final WebPage webPage = TestFactories.webPages().newWebPage();
         final Form form = getGoodForm();
-        form.add("subjectId", "http://test.com");
-        final ClientResource resource = restlet.newClientResource("/opinions");
+        form.add("subjectId", webPage.getId());
+        final ClientResource opinionsResource = restlet.newClientResource("/opinions");
 
-        resource.post(form);
+        opinionsResource.post(form);
 
-        assertThat(resource.getStatus(), is(Status.SUCCESS_CREATED));
+        assertThat(opinionsResource.getStatus(), is(Status.SUCCESS_CREATED));
         assertThat(Repositories.opinions().getAll().size(), is(1));
         final Opinion opinion = Repositories.opinions().getAll().get(0);
         final Judgment judgment = opinion.getJudgments().get(0);
         assertThat(judgment.getFeeling(), is(Feeling.good));
-        assertThat(judgment.getSubject(), is(subject));
+        assertThat(judgment.getSubject(), is(webPage));
     }
 
     @Test
     public void throwExceptionWhenUnknownWebPage() {
         final Form form = getGoodForm();
-        form.add("subjectId", "http://test.net");
+        form.add("subjectId", UUID.randomUUID().toString());
         final ClientResource resource = restlet.newClientResource("/opinions");
 
         resource.post(form);
@@ -180,10 +177,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void canNotPostAOpinionWithoutFeeling() {
-        final WebPage webPage1 = new WebPage(new Association(new Uri("http://www.lemonde.fr"), UUID.randomUUID()));
-        webPage1.update();
-        Repositories.webPages().add(webPage1);
-        final WebPage webPage = webPage1;
+        final WebPage webPage = TestFactories.webPages().newWebPage();
         final Form form = new Form();
         form.add("text", "my opinion");
         form.add("subjectId", "http://www.lemonde.fr");
@@ -197,16 +191,14 @@ public class TestsOpinionsResource {
 
     @Test
     public void postOpinionRedirectOnFirstPage() {
-        final WebPage webPage = new WebPage(new Association(new Uri("http://test.com"), UUID.randomUUID()));
-        webPage.update();
-        Repositories.webPages().add(webPage);
+        final WebPage webPage = TestFactories.webPages().newWebPage();
         final Form form = getGoodForm();
-        form.add("subjectId", "http://test.com");
+        form.add("subjectId", webPage.getId());
         final ClientResource resource = restlet.newClientResource("/opinions");
 
         resource.post(form);
 
-        assertThat(resource.getLocationRef().toString(), is(new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/http://test.com")));
+        assertThat(resource.getLocationRef().toString(), is(new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + webPage.getId())));
     }
 
     private Form getGoodForm() {
