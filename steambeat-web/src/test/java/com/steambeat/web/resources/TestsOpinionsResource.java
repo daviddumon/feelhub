@@ -162,7 +162,6 @@ public class TestsOpinionsResource {
     }
 
     @Test
-    @Ignore
     public void throwExceptionWhenUnknownWebPage() {
         final Form form = getGoodForm();
         form.add("subjectId", UUID.randomUUID().toString());

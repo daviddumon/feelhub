@@ -6,7 +6,7 @@ import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.test.testFactories.TestFactories;
 
 public class FakeAssociationService extends AssociationService {
-
+//todo : delete this class
     public FakeAssociationService() {
         super(null);
     }

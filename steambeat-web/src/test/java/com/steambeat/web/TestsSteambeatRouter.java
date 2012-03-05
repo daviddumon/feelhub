@@ -17,12 +17,10 @@ public class TestsSteambeatRouter {
     public void useGuiceToCreateResource() {
         final Injector injector = Guice.createInjector(new SteambeatModuleForTest());
         final SteambeatRouter router = new SteambeatRouter(new Context(), injector);
-        final Request request = new Request(Method.GET, "/webpages/http://coucou");
+        final Request request = new Request(Method.GET, "/");
 
         final Restlet next = ((TemplateRoute) router.getNext(request, new Response(request))).getNext();
 
         assertThat(next, instanceOf(GuiceFinder.class));
     }
-
-
 }

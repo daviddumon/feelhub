@@ -22,8 +22,8 @@ public class OpinionService {
         }
     }
 
-    private Subject getSubjectFor(final JudgmentDTO judgment) {
-        final WebPage webPage = Repositories.webPages().get(judgment.subjectId);
+    private Subject getSubjectFor(final JudgmentDTO judgmentDTO) {
+        final WebPage webPage = Repositories.webPages().get(judgmentDTO.subjectId);
         if (webPage == null) {
             throw new OpinionCreationException();
         }

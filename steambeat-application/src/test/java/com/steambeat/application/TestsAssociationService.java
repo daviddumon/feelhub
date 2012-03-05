@@ -5,7 +5,9 @@ import com.steambeat.domain.analytics.identifiers.uri.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.FakeUriPathResolver;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -17,14 +19,39 @@ import static org.hamcrest.Matchers.*;
 public class TestsAssociationService {
 
     @Rule
+    public ExpectedException exception = ExpectedException.none();
+
+    @Rule
     public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
+
+    @Test
+    public void canGetAnAssociation() {
+        final Uri uri = new Uri("http://www.steambeat.com");
+        final Association association = TestFactories.associations().newAssociation(uri);
+        final AssociationService associationService = new AssociationService(new FakeUriPathResolver());
+
+        final Association foundAssociation = associationService.lookUp(uri);
+
+        assertThat(foundAssociation, notNullValue());
+        assertThat(foundAssociation.getId(), is(uri.toString()));
+        assertThat(foundAssociation, is(association));
+    }
+
+    @Test
+    public void throwErrorIfNoAssociationForUri() {
+        exception.expect(AssociationNotFound.class);
+        final AssociationService associationService = new AssociationService(new FakeUriPathResolver());
+        final Uri uri = new Uri("http://www.steambeat.com");
+
+        associationService.lookUp(uri);
+    }
 
     @Test
     public void canCreateANewAssociation() {
         final AssociationService associationService = new AssociationService(new FakeUriPathResolver());
         final Uri uri = new Uri("http://www.steambeat.com");
 
-        final Association association = associationService.lookUp(uri);
+        final Association association = associationService.createAssociationsFor(uri);
 
         assertThat(association, notNullValue());
         assertThat(association.getId(), is(uri.toString()));
@@ -36,7 +63,7 @@ public class TestsAssociationService {
         final AssociationService associationService = new AssociationService(pathResolver);
         final Uri uri = new Uri("http://liberation.fr");
 
-        final Association association = associationService.lookUp(uri);
+        final Association association = associationService.createAssociationsFor(uri);
 
         assertThat(association, notNullValue());
         final List<Association> associations = Repositories.associations().getAll();
@@ -50,7 +77,7 @@ public class TestsAssociationService {
         final AssociationService associationService = new AssociationService(pathResolver);
         final Uri uri = new Uri("http://liberation.fr");
 
-        final Association association = associationService.lookUp(uri);
+        final Association association = associationService.createAssociationsFor(uri);
 
         assertThat(association.getId(), is(canonicalAddress));
     }
@@ -62,7 +89,7 @@ public class TestsAssociationService {
         final AssociationService associationService = new AssociationService(pathResolver);
         final Uri uri = new Uri("http://liberation.fr");
 
-        associationService.lookUp(uri);
+        associationService.createAssociationsFor(uri);
 
         final List<Association> associations = Repositories.associations().getAll();
         assertThat(associations.get(0).getSubjectId(), is(associations.get(1).getSubjectId()));
@@ -74,26 +101,8 @@ public class TestsAssociationService {
         final AssociationService associationService = new AssociationService(pathResolver);
         final Uri uri = new Uri(URLEncoder.encode("http://www.lemonde.fr", "UTF-8"));
 
-        final Association association = associationService.lookUp(uri);
+        final Association association = associationService.createAssociationsFor(uri);
 
         assertThat(association.getId(), is(uri.toString()));
-    }
-
-    @Test
-    public void canUseAssociationFromRepository() throws UnsupportedEncodingException {
-        final Association associationForCanonicalUri = createAssociationForCanonicalUri();
-        final UriPathResolver uriPathResolver = new FakeUriPathResolver().thatFind(new Uri("http://www.steambeat.com"));
-        final AssociationService associationService = new AssociationService(uriPathResolver);
-        final Uri uri = new Uri("http://steambeat.com");
-
-        final Association association = associationService.lookUp(uri);
-
-        assertThat(association.getSubjectId(), is(associationForCanonicalUri.getSubjectId()));
-    }
-
-    private Association createAssociationForCanonicalUri() {
-        final UriPathResolver uriPathResolver = new FakeUriPathResolver();
-        final AssociationService associationService = new AssociationService(uriPathResolver);
-        return associationService.lookUp(new Uri("http://www.steambeat.com"));
     }
 }

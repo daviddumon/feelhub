@@ -1,6 +1,6 @@
-var NewFeedTests = TestCase("NewFeedTests");
+var NewSubjectTests = TestCase("NewSubjectTests");
 
-NewFeedTests.prototype = {
+NewSubjectTests.prototype = {
 
     setUp: function() {
 

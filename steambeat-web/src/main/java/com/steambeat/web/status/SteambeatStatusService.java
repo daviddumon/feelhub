@@ -15,12 +15,13 @@ import java.util.Map;
 public class SteambeatStatusService extends StatusService {
 
     public SteambeatStatusService() {
-        resolvers.put(WebPageException.class, new WebPageExceptionResolver());
-        resolvers.put(UriPathResolverException.class, new WebPageExceptionResolver());
-        resolvers.put(WebPageAlreadyExistsException.class, new WebPageExceptionResolver());
+        resolvers.put(WebPageException.class, new ExceptionResolver400());
+        resolvers.put(UriPathResolverException.class, new ExceptionResolver400());
+        resolvers.put(WebPageAlreadyExistsException.class, new ExceptionResolver400());
         resolvers.put(SteambeatJsonException.class, new JsonExceptionResolver());
-        resolvers.put(WebPageNotYetCreatedException.class, new WebPageNotYetCreatedExceptionResolver());
-        resolvers.put(OpinionCreationException.class, new WebPageExceptionResolver());
+        resolvers.put(WebPageNotYetCreatedException.class, new ExceptionResolver404());
+        resolvers.put(OpinionCreationException.class, new ExceptionResolver400());
+        resolvers.put(AssociationNotFound.class, new ExceptionResolver404());
     }
 
     @Override

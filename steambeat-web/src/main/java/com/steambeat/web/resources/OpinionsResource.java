@@ -65,7 +65,11 @@ public class OpinionsResource extends ServerResource {
 
     @Post
     public void post(final Form form) {
-        extractFormParameters(form);
+        try {
+            extractFormParameters(form);
+        } catch (Exception e) {
+            throw new OpinionCreationException();
+        }
         final JudgmentDTO judgmentDTO = new JudgmentDTO(subject, feeling);
         opinionService.addOpinion(text, Lists.newArrayList(judgmentDTO));
         setStatus(Status.SUCCESS_CREATED);
@@ -84,8 +88,6 @@ public class OpinionsResource extends ServerResource {
     private Subject subject;
     private Feeling feeling;
     private String text;
-
-
     List<Opinion> opinions = Lists.newArrayList();
     private final OpinionSearch opinionSearch;
     private final WebPageService webPageService;

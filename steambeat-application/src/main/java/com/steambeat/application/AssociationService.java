@@ -16,6 +16,14 @@ public class AssociationService {
     }
 
     public Association lookUp(final Uri uri) {
+        final Association association = Repositories.associations().get(uri.toString());
+        if (association == null) {
+            throw new AssociationNotFound();
+        }
+        return association;
+    }
+
+    public Association createAssociationsFor(final Uri uri) {
         final List<Uri> path = pathResolver.resolve(uri);
         final UUID subjectId = generateSubjectId(lastFrom(path));
         final List<Association> associations = createAssociations(path, subjectId);

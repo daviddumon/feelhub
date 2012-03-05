@@ -1,11 +1,11 @@
 /* Copyright bytedojo 2011 */
-var newwebpage = {};
+var newsubject = {};
 
 (function ($) {
 
-    this.create = function (uri) {
+    this.create = function (subjectId) {
         var postData = {
-            uri:uri
+            uri:subjectId
         };
         $.post(root + "/webpages", postData, function (data, text, xhr) {
             window.location = xhr.getResponseHeader("Location");

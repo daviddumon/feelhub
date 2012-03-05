@@ -1,6 +1,5 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.domain.analytics.identifiers.uri.URIs;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
@@ -43,20 +42,6 @@ public class TestsWebPageResource {
     }
 
     @Test
-    @Ignore
-    //todo move this test to TestsAssociationResource
-    public void fragmentIsStillHere() {
-        final String uri = "http%3A%2F%2Ftest.com%23thisisafragment";
-        final ClientResource clientResource = restlet.newClientResource("/webpages/" + uri);
-
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
-
-        assertThat(clientResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
-        final Map<String, Object> dataModel = representation.getDataModel();
-        assertThat(dataModel, hasEntry("uri", (Object) URIs.decode(uri)));
-    }
-
-    @Test
     public void canRepresentExistingWebPage() {
         final WebPage webPage = TestFactories.webPages().newWebPage();
         final ClientResource webpageResource = restlet.newClientResource("/webpages/" + webPage.getId());
@@ -65,19 +50,5 @@ public class TestsWebPageResource {
 
         final Map<String, Object> dataModel = representation.getDataModel();
         assertThat(dataModel, hasEntry("webPage", (Object) webPage));
-    }
-
-    @Test
-    @Ignore
-    //todo move to TestsAssociationResource
-    public void canDealWithQueryParamters() {
-        final String uri = "http://test.com?param=tonpere";
-        final ClientResource clientResource = restlet.newClientResource("/webpages/" + uri);
-
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
-
-        assertThat(clientResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
-        final Map<String, Object> dataModel = representation.getDataModel();
-        assertThat(dataModel, hasEntry("uri", (Object) uri));
     }
 }

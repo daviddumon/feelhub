@@ -5,7 +5,7 @@ import org.restlet.Context;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
-public class WebPageNotYetCreatedExceptionResolver implements ErrorResolver {
+public class ExceptionResolver404 implements ErrorResolver {
 
     @Override
     public Status getStatus(final Throwable throwable) {
