@@ -1,8 +1,10 @@
 package com.steambeat.test.guice;
 
 import com.google.inject.*;
+import com.steambeat.domain.analytics.identifiers.uri.UriPathResolver;
 import com.steambeat.domain.subject.webpage.WebPageFactory;
 import com.steambeat.repositories.SessionProvider;
+import com.steambeat.test.FakeUriPathResolver;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
 import com.steambeat.test.fakeSearches.FakeOpinionSearch;
@@ -18,6 +20,7 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
         bind(SessionProvider.class).to(FakeSessionProvider.class);
         bind(OpinionSearch.class).to(FakeOpinionSearch.class);
+        bind(UriPathResolver.class).to(FakeUriPathResolver.class);
     }
 
     @Provides

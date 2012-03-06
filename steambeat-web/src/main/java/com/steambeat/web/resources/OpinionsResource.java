@@ -17,7 +17,7 @@ import java.util.*;
 public class OpinionsResource extends ServerResource {
 
     @Inject
-    public OpinionsResource(final WebPageService webPageService, OpinionService opinionService, final OpinionSearch opinionSearch) {
+    public OpinionsResource(final WebPageService webPageService, final OpinionService opinionService, final OpinionSearch opinionSearch) {
         this.webPageService = webPageService;
         this.opinionService = opinionService;
         this.opinionSearch = opinionSearch;

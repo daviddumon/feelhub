@@ -50,8 +50,8 @@ public class BookmarkletResource extends ServerResource {
         return new EmptyRepresentation();
     }
 
-    private AssociationService associationService;
-    private WebPageService webPageService;
+    private final AssociationService associationService;
+    private final WebPageService webPageService;
     private WebPage webPage;
     private boolean mustCreate = false;
     private String uri;

@@ -1,16 +1,11 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
 import org.junit.*;
 import org.restlet.data.*;
-
-import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -35,40 +30,29 @@ public class TestsWebPagesResource {
         resource.post(formWith(uri));
 
         assertThat(resource.getStatus(), is(Status.SUCCESS_CREATED));
-        assertThat(resource.getLocationRef().toString(), containsString("/webpages/http://www.google.fr"));
         assertThat(Repositories.webPages().getAll().size(), is(1));
+        final WebPage webPage = Repositories.webPages().getAll().get(0);
+        assertThat(resource.getLocationRef().toString(), containsString("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId()));
     }
 
     @Test
-    public void newWebPageCreatedOnlyOnce() {
-        TestFactories.webPages().newWebPageFor(new Association(new Uri("http://www.google.fr"), UUID.randomUUID()));
-
-        resource.post(formWith("http://www.google.fr"));
-
-        assertThat(resource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
-    }
-
-    @Test
-    public void takeIntoAccountQueryParameters() {
-        final String uri = "http://test.com?param=2";
+    public void canCreateFromEncodedUri() {
+        final String uri = "http%3A%2F%2Ftest.com%3Fparam%3D2";
 
         resource.post(formWith(uri));
 
         assertThat(resource.getStatus(), is(Status.SUCCESS_CREATED));
-        assertThat(resource.getLocationRef().toString(), containsString(uri));
         assertThat(Repositories.webPages().getAll().size(), is(1));
-        final WebPage webPage = Repositories.webPages().get(uri);
-        assertThat(webPage, notNullValue());
     }
 
     @Test
-    public void keepFragment() {
-        final String uri = "http://test.com/#p/u/2/xsJ0u7MIxLM";
+    public void canCreateFromEncodedUriWithFragment() {
+        final String uri = "http%3A%2F%2Ftest.com%2F%23p%2Fu%2F2%2FxsJ0u7MIxLM";
 
         resource.post(formWith(uri));
 
-        final WebPage webPage = Repositories.webPages().get(uri);
-        assertThat(webPage, notNullValue());
+        assertThat(resource.getStatus(), is(Status.SUCCESS_CREATED));
+        assertThat(Repositories.webPages().getAll().size(), is(1));
     }
 
     private Form formWith(final String uri) {

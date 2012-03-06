@@ -33,7 +33,7 @@ public class WebPage extends Subject {
     }
 
     private void buildSemanticDescription() {
-        semanticDescription = getRealUri().getDomain().replaceAll("\\.", "-") + "-" + description.replaceAll("\\ ","-");
+        semanticDescription = getRealUri().getDomain().replaceAll("\\.", "-") + "-" + description.replaceAll("\\ ", "-");
     }
 
     public Uri getRealUri() {
