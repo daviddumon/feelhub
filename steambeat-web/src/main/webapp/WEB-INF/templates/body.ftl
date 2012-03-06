@@ -19,7 +19,7 @@
 
 <ul id="opinions"></ul>
 
-<a id="feedback" class="vertical_left rounded_down button font_title color_bg_darkblue color_lightblue" href="${root}/webpages/http://www.steambeat.com">feedback</a>
+<#--<a id="feedback" class="vertical_left rounded_down button font_title color_bg_darkblue color_lightblue" href="${root}/webpages/http://www.steambeat.com">feedback</a>-->
 
 </body>
 </html>

@@ -11,4 +11,4 @@ var newsubject = {};
             window.location = xhr.getResponseHeader("Location");
         });
     };
-}).call(newwebpage, jQuery);
+}).call(newsubject, jQuery);

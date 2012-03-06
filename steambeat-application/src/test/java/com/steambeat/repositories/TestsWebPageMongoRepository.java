@@ -35,6 +35,7 @@ public class TestsWebPageMongoRepository extends TestWithMongoRepository {
         assertThat(webPageFound, notNullValue());
         assertThat(webPageFound.get("_id"), is((Object) webPage.getId()));
         assertThat(webPageFound.get("creationDate"), is((Object) webPageCreationDate.getMillis()));
+        assertThat(webPageFound.get("semanticDescription"), is((Object) webPage.getSemanticDescription()));
     }
 
     @Test
