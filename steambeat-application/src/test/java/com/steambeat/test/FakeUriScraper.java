@@ -16,16 +16,16 @@ public class FakeUriScraper extends UriScraper {
 
     @Override
     public String getShortDescription() {
-        return "";
+        return "fakeshortdescription";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "fakedescription";
     }
 
     @Override
     public String getIllustration() {
-        return "";
+        return "fakeillustration";
     }
 }

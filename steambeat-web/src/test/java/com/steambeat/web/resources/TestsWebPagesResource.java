@@ -5,6 +5,7 @@ import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
 import org.junit.*;
 import org.restlet.data.*;
@@ -41,9 +42,7 @@ public class TestsWebPagesResource {
 
     @Test
     public void newWebPageCreatedOnlyOnce() {
-        final WebPage webPage = new WebPage(new Association(new Uri("http://www.google.fr"), UUID.randomUUID()));
-        webPage.update();
-        Repositories.webPages().add(webPage);
+        TestFactories.webPages().newWebPageFor(new Association(new Uri("http://www.google.fr"), UUID.randomUUID()));
 
         resource.post(formWith("http://www.google.fr"));
 

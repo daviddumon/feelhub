@@ -128,6 +128,10 @@ public class Uri extends Identifier {
         return tokens[tokens.length >= 2 ? tokens.length - 2 : 0];
     }
 
+    public String getDomain() {
+        return domain;
+    }
+
     private final String protocol;
     private final String domain;
     private String address;

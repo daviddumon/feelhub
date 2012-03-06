@@ -20,10 +20,20 @@ public class TestsWebPage {
         final Uri uri = new Uri("http://www.steambeat.com");
         final Association association = TestFactories.associations().newAssociation(uri);
 
-        final WebPage webPage = new WebPage(association);
+        final WebPage webPage = TestFactories.webPages().newWebPageFor(association);
 
         assertThat(webPage.getId(), notNullValue());
         assertThat(webPage.getId(), not(uri.toString()));
         assertThat(webPage.getRealUri(), is(uri));
+    }
+
+    @Test
+    public void hasASemanticDescription() {
+        final Uri uri = new Uri("http://www.steambeat.com");
+        final Association association = TestFactories.associations().newAssociation(uri);
+
+        final WebPage webPage = TestFactories.webPages().newWebPageFor(association);
+
+        assertThat(webPage.getSemanticDescription(), is("www-steambeat-com"));
     }
 }

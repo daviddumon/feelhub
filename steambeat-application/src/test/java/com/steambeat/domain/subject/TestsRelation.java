@@ -5,6 +5,7 @@ import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
 import java.util.UUID;
@@ -19,13 +20,9 @@ public class TestsRelation {
 
     @Before
     public void setUp() {
-        final WebPage webPage1 = new WebPage(new Association(new Uri("lemonde.fr"), UUID.randomUUID()));
-        webPage1.update();
-        Repositories.webPages().add(webPage1);
+        final WebPage webPage1 = TestFactories.webPages().newWebPageFor(new Association(new Uri("lemonde.fr"), UUID.randomUUID()));
         left = webPage1;
-        final WebPage webPage = new WebPage(new Association(new Uri("gameblog.fr"), UUID.randomUUID()));
-        webPage.update();
-        Repositories.webPages().add(webPage);
+        final WebPage webPage = TestFactories.webPages().newWebPageFor(new Association(new Uri("gameblog.fr"), UUID.randomUUID()));
         right = webPage;
         relation = new RelationFactory().newRelation(left, right);
     }

@@ -45,10 +45,15 @@ public abstract class Subject extends BaseEntity {
         return !scrapedDataExpirationDate.isAfter(new DateTime());
     }
 
+    public String getSemanticDescription() {
+        return semanticDescription;
+    }
+
     private String id;
     private DateTime creationDate;
     protected String description;
     protected String shortDescription;
     protected String illustration;
     protected DateTime scrapedDataExpirationDate;
+    protected String semanticDescription;
 }
