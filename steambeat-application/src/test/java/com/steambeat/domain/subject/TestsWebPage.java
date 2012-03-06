@@ -34,6 +34,6 @@ public class TestsWebPage {
 
         final WebPage webPage = TestFactories.webPages().newWebPageFor(association);
 
-        assertThat(webPage.getSemanticDescription(), is("www-steambeat-com"));
+        assertThat(webPage.getSemanticDescription(), is("www-steambeat-com-token1-token2-token3"));
     }
 }

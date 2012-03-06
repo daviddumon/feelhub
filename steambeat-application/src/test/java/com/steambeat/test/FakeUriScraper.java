@@ -21,7 +21,7 @@ public class FakeUriScraper extends UriScraper {
 
     @Override
     public String getDescription() {
-        return "fakedescription";
+        return "token1 token2 token3";
     }
 
     @Override
