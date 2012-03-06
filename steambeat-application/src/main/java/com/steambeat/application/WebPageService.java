@@ -33,7 +33,12 @@ public class WebPageService {
     }
 
     public WebPage addWebPage(final Uri uri) {
-        final Association association = associationService.lookUp(uri);
+        Association association;
+        try {
+            association = associationService.lookUp(uri);
+        } catch (AssociationNotFound e) {
+            association = associationService.createAssociationsFor(uri);
+        }
         final WebPage webPage = webPageFactory.newWebPage(association);
         Repositories.webPages().add(webPage);
         return webPage;

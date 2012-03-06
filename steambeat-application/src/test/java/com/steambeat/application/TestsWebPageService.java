@@ -3,10 +3,9 @@ package com.steambeat.application;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.SystemTime;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.fakeServices.FakeAssociationService;
 import com.steambeat.test.testFactories.TestFactories;
 import org.joda.time.DateTime;
 import org.junit.*;
@@ -31,7 +30,7 @@ public class TestsWebPageService {
 
     @Before
     public void before() {
-        webPageService = new WebPageService(new FakeAssociationService(), new FakeWebPageFactory());
+        webPageService = new WebPageService(new AssociationService(new FakeUriPathResolver()), new FakeWebPageFactory());
     }
 
     @Test
