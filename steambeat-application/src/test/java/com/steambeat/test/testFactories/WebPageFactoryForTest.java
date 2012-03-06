@@ -10,8 +10,10 @@ import java.util.UUID;
 public class WebPageFactoryForTest {
 
     public WebPage newWebPage() {
-        final WebPage webPage = new WebPage(new Association(new Uri("http://www.fake.com/" + UUID.randomUUID().toString()), UUID.randomUUID()));
+        final Association association = new Association(new Uri("http://www.fake.com/" + UUID.randomUUID().toString()), UUID.randomUUID());
+        final WebPage webPage = new WebPage(association);
         webPage.update();
+        Repositories.associations().add(association);
         Repositories.webPages().add(webPage);
         return webPage;
     }

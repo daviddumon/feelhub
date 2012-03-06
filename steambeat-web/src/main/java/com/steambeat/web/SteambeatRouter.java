@@ -3,7 +3,7 @@ package com.steambeat.web;
 import com.google.inject.Injector;
 import com.steambeat.web.guice.GuiceFinder;
 import com.steambeat.web.resources.*;
-import com.steambeat.web.resources.SubjectResource;
+import com.steambeat.web.resources.SubjectsResource;
 import org.restlet.Context;
 import org.restlet.resource.Finder;
 import org.restlet.routing.Router;
@@ -25,7 +25,7 @@ public class SteambeatRouter extends Router {
         attach("/opinions", OpinionsResource.class);
         attach("/sitemap_{number}.xml.gz", SitemapResource.class);
         attach("/associations/uris", AssociationsUrisResource.class);
-        attach("/subject", SubjectResource.class);
+        attach("/subjects", SubjectsResource.class);
         attach("/", HomeResource.class);
     }
 
