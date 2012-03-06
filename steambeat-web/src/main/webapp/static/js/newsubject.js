@@ -3,9 +3,9 @@ var newsubject = {};
 
 (function ($) {
 
-    this.create = function (subjectId) {
+    this.create = function (uri) {
         var postData = {
-            uri:subjectId
+            uri:uri
         };
         $.post(root + "/webpages", postData, function (data, text, xhr) {
             window.location = xhr.getResponseHeader("Location");

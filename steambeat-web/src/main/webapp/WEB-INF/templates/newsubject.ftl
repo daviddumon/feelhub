@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
     $(function () {
-        newsubject.create("${subjectId}");
+        newsubject.create("${uri}");
     });
 </script>
 
