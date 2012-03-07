@@ -3,6 +3,7 @@ package com.steambeat.domain.opinion;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.*;
 import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.steam.Steam;
 import org.joda.time.DateTime;
 
 import java.util.*;
@@ -21,6 +22,7 @@ public class Opinion extends BaseEntity {
         final Judgment judgment = new Judgment(subject, feeling);
         judgments.add(judgment);
         DomainEventBus.INSTANCE.spread(new JudgmentPostedEvent(judgment));
+        DomainEventBus.INSTANCE.spread(new JudgmentPostedEvent(new Judgment(new Steam(), feeling)));
     }
 
     public String getId() {

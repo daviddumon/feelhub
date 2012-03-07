@@ -40,10 +40,6 @@ public class TestsStatisticsService {
         assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getGoodJudgments(), is(1));
     }
 
-    private FakeStatisticsRepository getStatisticsRepository() {
-        return (FakeStatisticsRepository) Repositories.statistics();
-    }
-
     @Test
     public void canRecordBadJudgment() {
         final JudgmentPostedEvent event = new JudgmentPostedEvent(TestFactories.judgments().newBadJudgment());
@@ -135,12 +131,6 @@ public class TestsStatisticsService {
         assertThat(statistics.size(), is(1));
     }
 
-    private JudgmentPostedEvent getGoodJudgmentEvent() {
-        final JudgmentPostedEvent event = new JudgmentPostedEvent(TestFactories.judgments().newGoodJudgment());
-        DomainEventBus.INSTANCE.spread(event);
-        return event;
-    }
-
     @Test
     public void canRecordOpinionsForLastMonth() {
         time.set(time.getNow().minusMonths(3));
@@ -198,19 +188,14 @@ public class TestsStatisticsService {
         assertThat(statistics.get(0).getGoodJudgments(), is(2));
     }
 
-    @Test
-    @Ignore
-    public void canRecordStatsForAllSubject() {
-        fail();
-        //final Subject subject = TestFactories.webPages().newWebPage();
-        //subject.createOpinion("my good opinion", Feeling.good);
-        //time.set(time.getNow().plusYears(1));
-        //
-        //DomainEventBus.INSTANCE.flush();
-        //
-        //final WebPage steambeat = new WebPage(new Association(new Uri("steambeat"), null));
-        //final List<Statistics> statistics = getStatisticsRepository().forSubject(steambeat, Granularity.all);
-        //assertThat(statistics.size(), is(1));
+    private JudgmentPostedEvent getGoodJudgmentEvent() {
+        final JudgmentPostedEvent event = new JudgmentPostedEvent(TestFactories.judgments().newGoodJudgment());
+        DomainEventBus.INSTANCE.spread(event);
+        return event;
+    }
+
+    private FakeStatisticsRepository getStatisticsRepository() {
+        return (FakeStatisticsRepository) Repositories.statistics();
     }
 
     private StatisticsService statisticsService;

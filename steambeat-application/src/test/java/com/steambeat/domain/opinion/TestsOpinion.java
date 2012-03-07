@@ -21,7 +21,7 @@ public class TestsOpinion {
     public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
 
     @Rule
-    public WithDomainEvent events = new WithDomainEvent();
+    public WithDomainEvent bus = new WithDomainEvent();
 
     @Test
     public void canCreateWithText() {
@@ -57,9 +57,9 @@ public class TestsOpinion {
         opinion.addJudgment(subject, Feeling.good);
 
         final ArgumentCaptor<DomainEvent> captor = ArgumentCaptor.forClass(DomainEvent.class);
-        verify(judgmentEventListener).notify(captor.capture());
+        verify(judgmentEventListener, times(2)).notify(captor.capture());
         assertThat(captor.getValue(), instanceOf(JudgmentPostedEvent.class));
-        final JudgmentPostedEvent event = (JudgmentPostedEvent) captor.getValue();
+        final JudgmentPostedEvent event = (JudgmentPostedEvent) captor.getAllValues().get(0);
         assertThat(event.getJudgment(), is(opinion.getJudgments().get(0)));
     }
 
