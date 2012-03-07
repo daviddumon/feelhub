@@ -19,7 +19,7 @@
 
 <ul id="opinions"></ul>
 
-<a id="feedback" class="vertical_left rounded_down button font_title color_bg_darkblue color_lightblue" href="${root}/bookmarklet?q=http%3A%2F%2Fwww.steambeat.com">feedback</a>
+<a id="feedback" class="vertical_left rounded_down button font_title color_bg_darkblue color_lightblue" href="${root}/bookmarklet?q=http%3A%2F%2Fwww.steambeat.com&version=1">feedback</a>
 
 </body>
 </html>
