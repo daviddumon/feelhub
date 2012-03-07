@@ -2,7 +2,6 @@ package com.steambeat.application;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
 
@@ -11,8 +10,7 @@ import java.util.UUID;
 public class WebPageService {
 
     @Inject
-    public WebPageService(final AssociationService associationService, final WebPageFactory webPageFactory) {
-        this.associationService = associationService;
+    public WebPageService(final WebPageFactory webPageFactory) {
         this.webPageFactory = webPageFactory;
     }
 
@@ -32,18 +30,16 @@ public class WebPageService {
         }
     }
 
-    public WebPage addWebPage(final Uri uri) {
-        Association association;
+    public WebPage addWebPage(final Association association) {
+        WebPage webPage;
         try {
-            association = associationService.lookUp(uri);
-        } catch (AssociationNotFound e) {
-            association = associationService.createAssociationsFor(uri);
+            webPage = webPageFactory.newWebPage(association);
+            Repositories.webPages().add(webPage);
+        } catch (WebPageAlreadyExistsException e) {
+            webPage = lookUpWebPage(association.getSubjectId());
         }
-        final WebPage webPage = webPageFactory.newWebPage(association);
-        Repositories.webPages().add(webPage);
         return webPage;
     }
 
-    private final AssociationService associationService;
     private final WebPageFactory webPageFactory;
 }

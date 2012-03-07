@@ -1,9 +1,10 @@
 package com.steambeat.application;
 
+import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.*;
+import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
@@ -30,7 +31,7 @@ public class TestsWebPageService {
 
     @Before
     public void before() {
-        webPageService = new WebPageService(new AssociationService(new FakeUriPathResolver()), new FakeWebPageFactory());
+        webPageService = new WebPageService(new FakeWebPageFactory());
     }
 
     @Test
@@ -45,10 +46,22 @@ public class TestsWebPageService {
 
     @Test
     public void canAddWebPageToRepository() {
-        final WebPage webPageFound = webPageService.addWebPage(new Uri("uri"));
+        final Association association = TestFactories.associations().newAssociation(new Uri("uri"));
+        final WebPage webPageFound = webPageService.addWebPage(association);
 
         assertThat(Repositories.webPages().getAll().size(), is(1));
         assertThat(Repositories.webPages().getAll(), hasItem(webPageFound));
+    }
+
+    @Test
+    public void returnExistingWebPageOnNewAdd() {
+        final Association association = TestFactories.associations().newAssociation(new Uri("uri"));
+        final WebPage webPage1 = webPageService.addWebPage(association);
+
+        final WebPage webPage2 = webPageService.addWebPage(association);
+
+        assertThat(Repositories.webPages().getAll().size(), is(1));
+        assertThat(webPage1, is(webPage2));
     }
 
     @Test

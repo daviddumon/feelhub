@@ -12,6 +12,9 @@ public class FakeWebPageFactory extends WebPageFactory {
 
     @Override
     public WebPage newWebPage(final Association association) {
+        if (checkIfExists(association)) {
+            throw new WebPageAlreadyExistsException(association.getId());
+        }
         final WebPage webPage = new WebPage(association);
         webPage.setScraper(new FakeUriScraper());
         return webPage;
