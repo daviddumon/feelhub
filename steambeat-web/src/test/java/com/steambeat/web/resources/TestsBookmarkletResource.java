@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.junit.*;
 import org.restlet.Context;
 import org.restlet.data.Status;
+import org.restlet.representation.Representation;
 
 import java.io.IOException;
 
@@ -25,7 +26,7 @@ public class TestsBookmarkletResource {
     @Test
     public void canRedirectToWebPage() throws IOException, JSONException {
         final WebPage webPage = TestFactories.webPages().newWebPage();
-        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=" + webPage.getRealUri().toString());
+        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?version=1&q=" + webPage.getRealUri().toString());
 
         bookmarkletResource.get();
 
@@ -36,7 +37,7 @@ public class TestsBookmarkletResource {
 
     @Test
     public void throwAnErrorIfNoParameter() {
-        final ClientResource subjectsResource = restlet.newClientResource("/bookmarklet");
+        final ClientResource subjectsResource = restlet.newClientResource("/bookmarklet?version=1");
 
         subjectsResource.get();
 
@@ -44,8 +45,8 @@ public class TestsBookmarkletResource {
     }
 
     @Test
-    public void canRedirectToNewWebPage() {
-        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr");
+    public void canRedirectToNewWebPageFtl() {
+        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr&version=1");
 
         bookmarkletResource.get();
 
@@ -54,10 +55,38 @@ public class TestsBookmarkletResource {
 
     @Test
     public void throwAnErrorIfEmptyParameter() {
-        final ClientResource subjectsResource = restlet.newClientResource("/bookmarklet?q=");
+        final ClientResource subjectsResource = restlet.newClientResource("/bookmarklet?q=&version=1");
 
         subjectsResource.get();
 
         assertThat(subjectsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+    }
+
+    @Test
+    public void canCheckVersion() {
+        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr&version=1");
+
+        bookmarkletResource.get();
+
+        assertThat(bookmarkletResource.getStatus(), is(Status.SUCCESS_OK));
+    }
+
+    @Test
+    public void throwErrorIfNoVersion() {
+        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr");
+
+        bookmarkletResource.get();
+
+        assertThat(bookmarkletResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+    }
+
+    @Test
+    public void proposeToChangeIfBadVersion() throws IOException {
+        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr&version=2");
+
+        final Representation representation = bookmarkletResource.get();
+
+        assertThat(bookmarkletResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+        assertThat(representation.getText(), containsString("outdated"));
     }
 }

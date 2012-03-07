@@ -23,11 +23,9 @@
 }
 
 #error a {
-    position: absolute;
-    bottom: 10px;
-    display: block;
+    position: relative;
+    top: 20px;
     margin: 0 auto;
-    width: 100%;
     color: #FFFFFF;
     font-size: 1.5em;
     font-weight: bold;

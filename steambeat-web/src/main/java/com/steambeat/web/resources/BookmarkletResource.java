@@ -20,16 +20,31 @@ public class BookmarkletResource extends ServerResource {
 
     @Override
     protected void doInit() throws ResourceException {
+        form = getQuery();
         try {
-            lookUpWebpage();
+            final String queryString = form.getQueryString();
+            checkContainsVersion(queryString);
+            checkContainsUri(queryString);
         } catch (AssociationNotFound e) {
             mustCreate = true;
         }
     }
 
-    private void lookUpWebpage() {
-        final Form form = getQuery();
-        final String queryString = form.getQueryString();
+    private void checkContainsVersion(final String queryString) {
+        if (queryString.contains("version")) {
+            checkForVersion(form.getFirstValue("version").trim());
+        } else {
+            throw new BookmarkletBadVersion();
+        }
+    }
+
+    private void checkForVersion(final String version) {
+        if (!version.equals(currentVersion)) {
+            throw new BookmarkletBadVersion();
+        }
+    }
+
+    private void checkContainsUri(final String queryString) {
         if (queryString.contains("q")) {
             uri = form.getFirstValue("q").trim();
             if (uri.isEmpty()) {
@@ -58,4 +73,6 @@ public class BookmarkletResource extends ServerResource {
     private WebPage webPage;
     private boolean mustCreate = false;
     private String uri;
+    private Form form;
+    private static String currentVersion = "1";
 }

@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import com.steambeat.application.*;
 import com.steambeat.domain.analytics.identifiers.uri.UriPathResolverException;
 import com.steambeat.domain.subject.webpage.*;
-import com.steambeat.web.resources.SteambeatJsonException;
+import com.steambeat.web.resources.*;
 import org.restlet.*;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
@@ -22,6 +22,7 @@ public class SteambeatStatusService extends StatusService {
         resolvers.put(WebPageNotYetCreatedException.class, new ExceptionResolver404());
         resolvers.put(OpinionCreationException.class, new ExceptionResolver400());
         resolvers.put(AssociationNotFound.class, new ExceptionResolver404());
+        resolvers.put(BookmarkletBadVersion.class, new BookmarkletBadVersionResolver());
     }
 
     @Override
