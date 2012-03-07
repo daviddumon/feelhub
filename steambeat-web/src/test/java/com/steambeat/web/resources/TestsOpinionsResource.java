@@ -191,11 +191,12 @@ public class TestsOpinionsResource {
         final WebPage webPage = TestFactories.webPages().newWebPage();
         final Form form = getGoodForm();
         form.add("subjectId", webPage.getId());
-        final ClientResource resource = restlet.newClientResource("/opinions");
+        final ClientResource opinionsResource = restlet.newClientResource("/opinions");
 
-        resource.post(form);
+        opinionsResource.post(form);
 
-        assertThat(resource.getLocationRef().toString(), is(new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + webPage.getId())));
+        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId());
+        assertThat(opinionsResource.getLocationRef().toString(), is(uriToRedirect));
     }
 
     private Form getGoodForm() {
