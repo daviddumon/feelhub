@@ -32,6 +32,9 @@ public class BookmarkletResource extends ServerResource {
         final String queryString = form.getQueryString();
         if (queryString.contains("q")) {
             uri = form.getFirstValue("q").trim();
+            if (uri.isEmpty()) {
+                throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
+            }
             final Association association = associationService.lookUp(new Uri(uri));
             webPage = webPageService.lookUpWebPage(association.getSubjectId());
         } else {

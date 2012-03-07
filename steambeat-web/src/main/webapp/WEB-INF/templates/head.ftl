@@ -41,6 +41,10 @@
     <script type="text/javascript" src="${root}/static/js/hub.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/form.js?${buildtime}"></script>
     <#nested/>
+
+    <#include "icanhaz/judgment.mustache.js">
+    <#include "icanhaz/opinion.mustache.js">
+
     <#if !dev>
         <script type="text/javascript">
 
@@ -59,10 +63,5 @@
 
         </script>
     </#if>
-
-    <#include "icanhaz/judgment.mustache.js">
-
-    <#include "icanhaz/opinion.mustache.js">
-
 </head>
 </#macro>

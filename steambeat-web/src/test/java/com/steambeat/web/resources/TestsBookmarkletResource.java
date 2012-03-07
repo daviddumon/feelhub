@@ -51,4 +51,13 @@ public class TestsBookmarkletResource {
 
         assertThat(bookmarkletResource.getStatus(), is(Status.SUCCESS_OK));
     }
+
+    @Test
+    public void throwAnErrorIfEmptyParameter() {
+        final ClientResource subjectsResource = restlet.newClientResource("/bookmarklet?q=");
+
+        subjectsResource.get();
+
+        assertThat(subjectsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+    }
 }
