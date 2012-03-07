@@ -30,11 +30,6 @@ public class TestsSteambeatApplication extends TestWithMongoRepository {
         assertThat(configuration, notNullValue());
     }
 
-    @Test
-    public void hasASteam() {
-
-    }
-
     private Context createContext() {
         final Context context = new Context();
         final ServletContext servletContext = mock(ServletContext.class);
