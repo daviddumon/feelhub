@@ -3,7 +3,6 @@ package com.steambeat.application;
 import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 
 import java.util.List;
@@ -23,10 +22,10 @@ public class OpinionService {
     }
 
     private Subject getSubjectFor(final JudgmentDTO judgmentDTO) {
-        final WebPage webPage = Repositories.webPages().get(judgmentDTO.subjectId);
-        if (webPage == null) {
+        final Subject subject = Repositories.subjects().get(judgmentDTO.subjectId);
+        if (subject == null) {
             throw new OpinionCreationException();
         }
-        return webPage;
+        return subject;
     }
 }

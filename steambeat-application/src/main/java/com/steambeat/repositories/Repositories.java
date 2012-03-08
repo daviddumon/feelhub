@@ -5,9 +5,6 @@ import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
 import com.steambeat.domain.subject.*;
-import com.steambeat.domain.subject.concept.Concept;
-import com.steambeat.domain.subject.steam.Steam;
-import com.steambeat.domain.subject.webpage.WebPage;
 
 public abstract class Repositories {
 
@@ -15,36 +12,24 @@ public abstract class Repositories {
         Repositories.soleInstance = repositories;
     }
 
+    public static Repository<Subject> subjects() {
+        return Repositories.soleInstance.getSubjectRepository();
+    }
+
     public static Repository<Opinion> opinions() {
         return Repositories.soleInstance.getOpinionRepository();
-    }
-
-    public static Repository<WebPage> webPages() {
-        return Repositories.soleInstance.getWebPageRepository();
-    }
-
-    public static Repository<Concept> concepts() {
-        return Repositories.soleInstance.getConceptRepository();
     }
 
     public static Repository<Association> associations() {
         return Repositories.soleInstance.getAssociationRepository();
     }
 
-    public static StatisticsRepository statistics() {
-        return Repositories.soleInstance.getStatisticsRepository();
-    }
-
-    public static Repository<Subject> subjects() {
-        return Repositories.soleInstance.getSubjectRepository();
-    }
-
     public static Repository<Relation> relations() {
         return Repositories.soleInstance.getRelationRepository();
     }
 
-    public static Repository<Steam> steam() {
-        return Repositories.soleInstance.getSteamRepository();
+    public static StatisticsRepository statistics() {
+        return Repositories.soleInstance.getStatisticsRepository();
     }
 
     protected abstract Repository<Subject> getSubjectRepository();
@@ -55,13 +40,7 @@ public abstract class Repositories {
 
     protected abstract StatisticsRepository getStatisticsRepository();
 
-    protected abstract Repository<Concept> getConceptRepository();
-
     protected abstract Repository<Association> getAssociationRepository();
-
-    protected abstract Repository<WebPage> getWebPageRepository();
-
-    protected abstract Repository<Steam> getSteamRepository();
 
     private static Repositories soleInstance;
 }

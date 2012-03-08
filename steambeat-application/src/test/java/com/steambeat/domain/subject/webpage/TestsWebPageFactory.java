@@ -46,7 +46,7 @@ public class TestsWebPageFactory {
 
     @Test
     public void cannotCreateAWebPageTwice() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
 
         expectedException.expect(WebPageAlreadyExistsException.class);
         webPageFactory.newWebPage(new Association(new Uri("http://lemonde.fr/international"), UUID.fromString(webPage.getId())));

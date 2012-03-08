@@ -28,26 +28,27 @@ public class TestsNamedEntityAnalyzer {
 
     @Test
     public void canCreateConceptFromNonAmbiguousNamedEntity() {
-        final WebPage webpage = TestFactories.webPages().newWebPage();
+        final WebPage webpage = TestFactories.subjects().newWebPage();
         when(entityProvider.entitiesFor(webpage)).thenReturn(Lists.newArrayList(simpleNamedEntity()));
 
         analyzer.analyze(webpage);
 
-        final List<Concept> concepts = Repositories.concepts().getAll();
-        assertThat(concepts.size(), is(1));
-        assertThat(concepts.get(0).getText(), is("Agile"));
+        final List<Subject> subjects = Repositories.subjects().getAll();
+        assertThat(subjects.size(), is(2));
+        final Concept concept = (Concept) subjects.get(1);
+        assertThat(concept.getText(), is("Agile"));
     }
 
     @Test
     public void createRelationsBetweenConceptsAndPages() {
-        final WebPage webpage = TestFactories.webPages().newWebPage();
+        final WebPage webpage = TestFactories.subjects().newWebPage();
         when(entityProvider.entitiesFor(webpage)).thenReturn(Lists.newArrayList(simpleNamedEntity()));
 
         analyzer.analyze(webpage);
 
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.size(), is(2));
-        final Concept concept = Repositories.concepts().getAll().get(0);
+        final Subject concept = Repositories.subjects().getAll().get(1);
         testRelation(webpage, concept, relations.get(0));
         testRelation(concept, webpage, relations.get(1));
     }

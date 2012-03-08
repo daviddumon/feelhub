@@ -30,8 +30,8 @@ public class TestsWebPagesResource {
         resource.post(formWith(uri));
 
         assertThat(resource.getStatus(), is(Status.SUCCESS_CREATED));
-        assertThat(Repositories.webPages().getAll().size(), is(1));
-        final WebPage webPage = Repositories.webPages().getAll().get(0);
+        assertThat(Repositories.subjects().getAll().size(), is(1));
+        final WebPage webPage = (WebPage) Repositories.subjects().getAll().get(0);
         assertThat(resource.getLocationRef().toString(), containsString("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId()));
     }
 
@@ -42,7 +42,7 @@ public class TestsWebPagesResource {
         resource.post(formWith(uri));
 
         assertThat(resource.getStatus(), is(Status.SUCCESS_CREATED));
-        assertThat(Repositories.webPages().getAll().size(), is(1));
+        assertThat(Repositories.subjects().getAll().size(), is(1));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class TestsWebPagesResource {
         resource.post(formWith(uri));
 
         assertThat(resource.getStatus(), is(Status.SUCCESS_CREATED));
-        assertThat(Repositories.webPages().getAll().size(), is(1));
+        assertThat(Repositories.subjects().getAll().size(), is(1));
     }
 
     private Form formWith(final String uri) {

@@ -15,7 +15,7 @@ public class WebPageStatisticsResource extends ServerResource {
 
     @Override
     protected void doInit() throws ResourceException {
-        final WebPage webPage = Repositories.webPages().get(getRequestAttributes().get("uri").toString());
+        final WebPage webPage = (WebPage) Repositories.subjects().get(getRequestAttributes().get("uri").toString());
         granularity = Granularity.valueOf(getRequestAttributes().get("granularity").toString());
         final DateTime start = new DateTime(Long.parseLong(getRequestAttributes().get("start").toString()));
         final DateTime end = new DateTime(Long.parseLong(getRequestAttributes().get("end").toString()));

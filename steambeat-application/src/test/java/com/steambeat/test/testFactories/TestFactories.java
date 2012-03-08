@@ -25,5 +25,7 @@ public class TestFactories {
         return new JudgmentFactoryForTest();
     }
 
-    //todo : subjectFactoryForTest and erase all directs appels to newWebPage()
+    public static SubjectFactoryForTest subjects() {
+        return new SubjectFactoryForTest();
+    }
 }

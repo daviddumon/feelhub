@@ -1,7 +1,6 @@
 package com.steambeat.domain.opinion;
 
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 
 public class Judgment {
@@ -19,8 +18,8 @@ public class Judgment {
         return feeling;
     }
 
-    public WebPage getSubject() {
-        return Repositories.webPages().get(subjectId);
+    public Subject getSubject() {
+        return Repositories.subjects().get(subjectId);
     }
 
     public String getSubjectId() {

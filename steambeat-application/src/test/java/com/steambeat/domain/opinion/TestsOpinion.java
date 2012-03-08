@@ -1,6 +1,7 @@
 package com.steambeat.domain.opinion;
 
 import com.steambeat.domain.*;
+import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
@@ -36,7 +37,7 @@ public class TestsOpinion {
     @Test
     public void canAddJudgementsToOpinion() {
         final Opinion opinion = new Opinion("my opinion");
-        final WebPage subject = TestFactories.webPages().newWebPage();
+        final Subject subject = TestFactories.subjects().newWebPage();
 
         opinion.addJudgment(subject, Feeling.good);
 

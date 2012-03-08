@@ -24,7 +24,7 @@ public class NamedEntityAnalyzer {
 
     private Concept createConcept(final NamedEntity entity) {
         final Concept concept = new ConceptFactory().newConcept(entity);
-        Repositories.concepts().add(concept);
+        Repositories.subjects().add(concept);
         return concept;
     }
 

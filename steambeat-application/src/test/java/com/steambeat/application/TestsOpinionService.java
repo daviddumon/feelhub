@@ -20,7 +20,7 @@ public class TestsOpinionService {
     @Test
     public void canAddOpinionAndJudgements() {
         final OpinionService service = new OpinionService();
-        final Subject subject = TestFactories.webPages().newWebPage();
+        final Subject subject = TestFactories.subjects().newWebPage();
         final JudgmentDTO judgmentDTO = new JudgmentDTO(subject, Feeling.good);
 
         service.addOpinion("Le texte de l'opinion", Lists.newArrayList(judgmentDTO));

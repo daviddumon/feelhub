@@ -8,7 +8,6 @@ public class Relation implements Entity {
     public Relation(final Subject left, final Subject right) {
         this.leftId = left.getId();
         this.rightId = right.getId();
-        final Subject right1 = right;
     }
 
     @Override

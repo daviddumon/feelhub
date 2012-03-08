@@ -1,6 +1,6 @@
 package com.steambeat.domain.opinion;
 
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.subject.Subject;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -16,12 +16,12 @@ public class TestsJudgment {
     @Test
     public void hasASubjectAndFeeling() {
         final Feeling feeling = Feeling.good;
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final Subject subject = TestFactories.subjects().newWebPage();
 
-        final Judgment judgment = new Judgment(webPage, feeling);
+        final Judgment judgment = new Judgment(subject, feeling);
 
         assertThat(judgment, notNullValue());
-        assertThat(judgment.getSubject(), is(webPage));
+        assertThat(judgment.getSubject(), is(subject));
         assertThat(judgment.getFeeling(), is(feeling));
     }
 }

@@ -6,10 +6,10 @@ import com.steambeat.repositories.Repositories;
 public class SubjectService {
 
     public Steam steam() {
-        Steam steam = Repositories.steam().get("steam");
+        Steam steam = (Steam) Repositories.subjects().get("steam");
         if (steam == null) {
             steam = new Steam();
-            Repositories.steam().add(steam);
+            Repositories.subjects().add(steam);
         }
         return steam;
     }

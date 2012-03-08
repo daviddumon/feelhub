@@ -1,22 +1,22 @@
 package com.steambeat.test.testFactories;
 
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.subject.Subject;
 
 public class JudgmentFactoryForTest {
 
     public Judgment newJudgment() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
-        return new Judgment(webPage, Feeling.good);
+        final Subject subject = TestFactories.subjects().newWebPage();
+        return new Judgment(subject, Feeling.good);
     }
 
     public Judgment newBadJudgment() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
-        return new Judgment(webPage, Feeling.bad);
+        final Subject subject = TestFactories.subjects().newWebPage();
+        return new Judgment(subject, Feeling.bad);
     }
 
     public Judgment newGoodJudgment() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
-        return new Judgment(webPage, Feeling.good);
+        final Subject subject = TestFactories.subjects().newWebPage();
+        return new Judgment(subject, Feeling.good);
     }
 }

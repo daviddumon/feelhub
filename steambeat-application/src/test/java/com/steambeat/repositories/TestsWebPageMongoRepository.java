@@ -2,6 +2,7 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.Repository;
+import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.testFactories.TestFactories;
 import org.joda.time.DateTime;
@@ -18,7 +19,7 @@ public class TestsWebPageMongoRepository extends TestWithMongoRepository {
 
     @Before
     public void before() {
-        repo = Repositories.webPages();
+        repo = Repositories.subjects();
     }
 
     @Test
@@ -47,7 +48,7 @@ public class TestsWebPageMongoRepository extends TestWithMongoRepository {
         webPage.put("__discriminator", "WebPage");
         collection.insert(webPage);
 
-        final WebPage webPageFound = repo.get(id.toString());
+        final WebPage webPageFound = (WebPage) repo.get(id.toString());
 
         assertThat(webPageFound, notNullValue());
     }
@@ -63,12 +64,12 @@ public class TestsWebPageMongoRepository extends TestWithMongoRepository {
         collection.insert(webPage);
         collection.insert(webPage);
 
-        final List<WebPage> webPageList = repo.getAll();
+        final List<Subject> webPageList = repo.getAll();
 
         assertThat(webPageList, notNullValue());
         assertThat(webPageList.size(), is(3));
     }
 
-    protected Repository<WebPage> repo;
+    protected Repository<Subject> repo;
 
 }

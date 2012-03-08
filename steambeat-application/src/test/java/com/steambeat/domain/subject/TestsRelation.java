@@ -19,9 +19,9 @@ public class TestsRelation {
 
     @Before
     public void setUp() {
-        final WebPage webPage1 = TestFactories.webPages().newWebPageFor(new Association(new Uri("lemonde.fr"), UUID.randomUUID()));
+        final WebPage webPage1 = TestFactories.subjects().newWebPageFor(new Association(new Uri("lemonde.fr"), UUID.randomUUID()));
         left = webPage1;
-        final WebPage webPage = TestFactories.webPages().newWebPageFor(new Association(new Uri("gameblog.fr"), UUID.randomUUID()));
+        final WebPage webPage = TestFactories.subjects().newWebPageFor(new Association(new Uri("gameblog.fr"), UUID.randomUUID()));
         right = webPage;
         relation = new RelationFactory().newRelation(left, right);
     }

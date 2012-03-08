@@ -2,6 +2,7 @@ package com.steambeat.web.resources;
 
 import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.WithDomainEvent;
@@ -131,7 +132,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void canGetOpinionForSubject() throws IOException, JSONException {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         TestFactories.opinions().newOpinions(10);
         TestFactories.opinions().newOpinions(webPage, 10);
         TestFactories.opinions().newOpinions(10);
@@ -146,7 +147,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void canPostOpinion() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final Form form = getGoodForm();
         form.add("subjectId", webPage.getId());
         final ClientResource opinionsResource = restlet.newClientResource("/opinions");
@@ -158,7 +159,7 @@ public class TestsOpinionsResource {
         final Opinion opinion = Repositories.opinions().getAll().get(0);
         final Judgment judgment = opinion.getJudgments().get(0);
         assertThat(judgment.getFeeling(), is(Feeling.good));
-        assertThat(judgment.getSubject(), is(webPage));
+        assertThat(judgment.getSubject(), is((Subject) webPage));
     }
 
     @Test
@@ -174,7 +175,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void canNotPostAOpinionWithoutFeeling() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final Form form = new Form();
         form.add("text", "my opinion");
         form.add("subjectId", "http://www.lemonde.fr");
@@ -188,7 +189,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void postOpinionRedirectOnFirstPage() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final Form form = getGoodForm();
         form.add("subjectId", webPage.getId());
         final ClientResource opinionsResource = restlet.newClientResource("/opinions");

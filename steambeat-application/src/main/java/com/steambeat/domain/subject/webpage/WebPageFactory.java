@@ -15,7 +15,7 @@ public class WebPageFactory {
     }
 
     protected boolean checkIfExists(final Association association) {
-        final WebPage webPage = Repositories.webPages().get(association.getSubjectId().toString());
+        final WebPage webPage = (WebPage) Repositories.subjects().get(association.getSubjectId().toString());
         return webPage != null;
     }
 

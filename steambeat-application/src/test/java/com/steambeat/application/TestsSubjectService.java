@@ -25,7 +25,7 @@ public class TestsSubjectService {
     @Test
     public void getSteamIfSteamExists() {
         final Steam firstSteam = new Steam();
-        Repositories.steam().add(firstSteam);
+        Repositories.subjects().add(firstSteam);
         final SubjectService subjectService = new SubjectService();
 
         final Steam secondSteam = subjectService.steam();

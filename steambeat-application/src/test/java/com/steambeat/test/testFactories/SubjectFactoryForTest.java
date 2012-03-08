@@ -8,7 +8,7 @@ import com.steambeat.test.FakeUriScraper;
 
 import java.util.UUID;
 
-public class WebPageFactoryForTest {
+public class SubjectFactoryForTest {
 
     public WebPage newWebPage() {
         final Association association = new Association(new Uri("http://www.fake.com/" + UUID.randomUUID().toString()), UUID.randomUUID());
@@ -23,4 +23,3 @@ public class WebPageFactoryForTest {
         return webPage;
     }
 }
-

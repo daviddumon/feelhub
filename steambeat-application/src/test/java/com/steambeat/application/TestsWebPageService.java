@@ -2,6 +2,7 @@ package com.steambeat.application;
 
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.SystemTime;
@@ -36,12 +37,12 @@ public class TestsWebPageService {
 
     @Test
     public void canGetWebPageFromRepository() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
-        Repositories.webPages().add(webPage);
+        final Subject subject = TestFactories.subjects().newWebPage();
+        Repositories.subjects().add(subject);
 
-        final WebPage webPageFound = webPageService.lookUpWebPage(UUID.fromString(webPage.getId()));
+        final WebPage webPageFound = webPageService.lookUpWebPage(UUID.fromString(subject.getId()));
 
-        assertThat(webPageFound, is(webPage));
+        assertThat(webPageFound, is(subject));
     }
 
     @Test
@@ -49,8 +50,8 @@ public class TestsWebPageService {
         final Association association = TestFactories.associations().newAssociation(new Uri("uri"));
         final WebPage webPageFound = webPageService.addWebPage(association);
 
-        assertThat(Repositories.webPages().getAll().size(), is(1));
-        assertThat(Repositories.webPages().getAll(), hasItem(webPageFound));
+        assertThat(Repositories.subjects().getAll().size(), is(1));
+        assertThat(Repositories.subjects().getAll(), hasItem((Subject) webPageFound));
     }
 
     @Test
@@ -60,7 +61,7 @@ public class TestsWebPageService {
 
         final WebPage webPage2 = webPageService.addWebPage(association);
 
-        assertThat(Repositories.webPages().getAll().size(), is(1));
+        assertThat(Repositories.subjects().getAll().size(), is(1));
         assertThat(webPage1, is(webPage2));
     }
 
@@ -72,8 +73,8 @@ public class TestsWebPageService {
 
     @Test
     public void updateWebPageIfExpired() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
-        Repositories.webPages().add(webPage);
+        final WebPage webPage = TestFactories.subjects().newWebPage();
+        Repositories.subjects().add(webPage);
         final DateTime firstDate = webPage.getScrapedDataExpirationDate();
         time.waitDays(2);
 

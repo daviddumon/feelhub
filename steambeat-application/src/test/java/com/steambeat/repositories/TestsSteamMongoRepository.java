@@ -2,6 +2,7 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.Repository;
+import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.steam.Steam;
 import org.junit.*;
 
@@ -12,7 +13,7 @@ public class TestsSteamMongoRepository extends TestWithMongoRepository {
 
     @Before
     public void before() {
-        repo = Repositories.steam();
+        repo = Repositories.subjects();
     }
 
     @Test
@@ -37,10 +38,10 @@ public class TestsSteamMongoRepository extends TestWithMongoRepository {
         steam.put("__discriminator", "Steam");
         collection.insert(steam);
 
-        final Steam steamFound = repo.get("steam");
+        final Subject steamFound = repo.get("steam");
 
         assertThat(steamFound, notNullValue());
     }
 
-    private Repository<Steam> repo;
+    private Repository<Subject> repo;
 }
