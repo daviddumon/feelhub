@@ -5,16 +5,8 @@ public class TestFactories {
     private TestFactories() {
     }
 
-    public static WebPageFactoryForTest webPages() {
-        return new WebPageFactoryForTest();
-    }
-
-    public static AssociationFactoryForTest associations() {
-        return new AssociationFactoryForTest();
-    }
-
-    public static WebPageStatFactoryForTest statistics() {
-        return new WebPageStatFactoryForTest();
+    public static SubjectFactoryForTest subjects() {
+        return new SubjectFactoryForTest();
     }
 
     public static OpinionFactoryForTest opinions() {
@@ -25,7 +17,11 @@ public class TestFactories {
         return new JudgmentFactoryForTest();
     }
 
-    public static SubjectFactoryForTest subjects() {
-        return new SubjectFactoryForTest();
+    public static AssociationFactoryForTest associations() {
+        return new AssociationFactoryForTest();
+    }
+
+    public static WebPageStatFactoryForTest statistics() {
+        return new WebPageStatFactoryForTest();
     }
 }

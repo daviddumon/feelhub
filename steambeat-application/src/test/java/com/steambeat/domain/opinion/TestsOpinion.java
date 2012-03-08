@@ -51,7 +51,7 @@ public class TestsOpinion {
     @Test
     public void canSpreadJudgmentEvent() {
         final Opinion opinion = new Opinion("my opinion");
-        final WebPage subject = TestFactories.webPages().newWebPage();
+        final WebPage subject = TestFactories.subjects().newWebPage();
         DomainEventBus.INSTANCE.notifyOnSpread();
         final DomainEventListener judgmentEventListener = mock(DomainEventListener.class);
         DomainEventBus.INSTANCE.register(judgmentEventListener, JudgmentPostedEvent.class);

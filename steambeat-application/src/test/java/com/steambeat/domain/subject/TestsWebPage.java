@@ -20,7 +20,7 @@ public class TestsWebPage {
         final Uri uri = new Uri("http://www.steambeat.com");
         final Association association = TestFactories.associations().newAssociation(uri);
 
-        final WebPage webPage = TestFactories.webPages().newWebPageFor(association);
+        final WebPage webPage = TestFactories.subjects().newWebPageFor(association);
 
         assertThat(webPage.getId(), notNullValue());
         assertThat(webPage.getId(), not(uri.toString()));
@@ -32,7 +32,7 @@ public class TestsWebPage {
         final Uri uri = new Uri("http://www.steambeat.com");
         final Association association = TestFactories.associations().newAssociation(uri);
 
-        final WebPage webPage = TestFactories.webPages().newWebPageFor(association);
+        final WebPage webPage = TestFactories.subjects().newWebPageFor(association);
 
         assertThat(webPage.getSemanticDescription(), is("www-steambeat-com-token1-token2-token3"));
     }

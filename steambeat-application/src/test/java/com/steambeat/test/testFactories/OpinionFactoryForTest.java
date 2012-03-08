@@ -12,11 +12,11 @@ public class OpinionFactoryForTest {
     }
 
     public Opinion newOpinionWithText(final String text) {
-        return newOpinion(TestFactories.webPages().newWebPage(), text);
+        return newOpinion(TestFactories.subjects().newWebPage(), text);
     }
 
     public void newOpinions(final int quantity) {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         newOpinions(webPage, quantity);
     }
 

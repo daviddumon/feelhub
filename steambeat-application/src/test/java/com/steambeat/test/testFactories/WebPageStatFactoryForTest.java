@@ -12,7 +12,7 @@ public class WebPageStatFactoryForTest {
     }
 
     public Statistics newWebPageStat(final String address, final Granularity granularity) {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final Statistics statistics = new Statistics(webPage, granularity, new DateTime());
         Repositories.statistics().add(statistics);
         return statistics;

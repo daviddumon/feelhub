@@ -24,7 +24,7 @@ public class TestsWebPageMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() throws UnknownHostException, MongoException, MalformedURLException {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final DateTime webPageCreationDate = webPage.getCreationDate();
 
         repo.add(webPage);

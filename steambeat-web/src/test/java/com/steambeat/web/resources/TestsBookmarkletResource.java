@@ -25,7 +25,7 @@ public class TestsBookmarkletResource {
 
     @Test
     public void canRedirectToWebPage() throws IOException, JSONException {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?version=1&q=" + webPage.getRealUri().toString());
 
         bookmarkletResource.get();

@@ -78,7 +78,7 @@ public class TestsOpinionSearch extends TestWithMongoRepository {
     @Ignore
     @Test
     public void canGetOpinionsForSubject() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         TestFactories.opinions().newOpinions(webPage, 10);
         TestFactories.opinions().newOpinions(20);
 

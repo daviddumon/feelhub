@@ -25,7 +25,7 @@ public class TestsWebPageResource {
 
     @Test
     public void isMapped() throws IOException {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final ClientResource webpageResource = restlet.newClientResource("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId());
 
         final Representation response = webpageResource.get();
@@ -44,7 +44,7 @@ public class TestsWebPageResource {
 
     @Test
     public void canRepresentExistingWebPage() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final ClientResource webpageResource = restlet.newClientResource("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId());
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) webpageResource.get();
@@ -55,7 +55,7 @@ public class TestsWebPageResource {
 
     @Test
     public void permanentRedirectOnBadSemantic() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final ClientResource webpageResource = restlet.newClientResource("/webpages/semantic/" + webPage.getId());
 
         webpageResource.get();

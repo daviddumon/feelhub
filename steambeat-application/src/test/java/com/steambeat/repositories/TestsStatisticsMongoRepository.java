@@ -23,7 +23,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     @Test
     public void canPersist() {
         final DateTime date = new DateTime().plusDays(1);
-        final Subject subject = TestFactories.webPages().newWebPage();
+        final Subject subject = TestFactories.subjects().newWebPage();
         final Statistics stat = new Statistics(subject, Granularity.day, date);
         stat.incrementJudgmentCount(new Judgment(subject, Feeling.good));
         stat.incrementJudgmentCount(new Judgment(subject, Feeling.bad));
@@ -45,11 +45,11 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetBySubjectGranularityAndInterval() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         Repositories.statistics().add(new Statistics(webPage, Granularity.hour, new DateTime()));
         time.waitDays(1);
         Repositories.statistics().add(new Statistics(webPage, Granularity.hour, new DateTime()));
-        Repositories.statistics().add(new Statistics(TestFactories.webPages().newWebPage(), Granularity.day, new DateTime()));
+        Repositories.statistics().add(new Statistics(TestFactories.subjects().newWebPage(), Granularity.day, new DateTime()));
 
         final List<Statistics> statistics = Repositories.statistics().forSubject(webPage, Granularity.hour, new Interval(new DateTime().minusDays(1), new DateTime()));
 
@@ -58,7 +58,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetBySubjectGranularityReferenceAndOffset() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final Statistics one = new Statistics(webPage, Granularity.hour, new DateTime());
         one.incrementJudgmentCount(new Judgment(webPage, Feeling.good));
         Repositories.statistics().add(one);
@@ -76,7 +76,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetWithGranularityDay() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final Statistics one = new Statistics(webPage, Granularity.day, new DateTime());
         one.incrementJudgmentCount(new Judgment(webPage, Feeling.good));
         Repositories.statistics().add(one);
@@ -91,7 +91,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetWithGranularityMonth() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final Statistics one = new Statistics(webPage, Granularity.month, new DateTime());
         one.incrementJudgmentCount(new Judgment(webPage, Feeling.good));
         Repositories.statistics().add(one);
@@ -106,7 +106,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetWithGranularityYear() {
-        final WebPage webPage = TestFactories.webPages().newWebPage();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
         final Statistics one = new Statistics(webPage, Granularity.year, new DateTime());
         one.incrementJudgmentCount(new Judgment(webPage, Feeling.good));
         Repositories.statistics().add(one);
