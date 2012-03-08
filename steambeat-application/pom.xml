@@ -53,12 +53,12 @@
         </dependency>
 
         <dependency>
-            <groupId>fr.bodysplash</groupId>
+            <groupId>org.mongolink</groupId>
             <artifactId>mongolink-testtools</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>fr.bodysplash</groupId>
+            <groupId>org.mongolink</groupId>
             <artifactId>mongolink-test</artifactId>
             <scope>test</scope>
         </dependency>

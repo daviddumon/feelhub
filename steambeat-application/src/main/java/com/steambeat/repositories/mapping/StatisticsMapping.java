@@ -1,7 +1,7 @@
 package com.steambeat.repositories.mapping;
 
 import com.steambeat.domain.statistics.Statistics;
-import fr.bodysplash.mongolink.domain.mapper.EntityMap;
+import org.mongolink.domain.mapper.EntityMap;
 
 
 public class StatisticsMapping extends EntityMap<Statistics> {

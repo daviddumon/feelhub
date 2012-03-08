@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public enum DomainEventBus {
 
     INSTANCE;

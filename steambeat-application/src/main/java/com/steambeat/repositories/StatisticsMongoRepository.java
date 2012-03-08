@@ -2,9 +2,9 @@ package com.steambeat.repositories;
 
 import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.subject.Subject;
-import fr.bodysplash.mongolink.MongoSession;
-import fr.bodysplash.mongolink.domain.criteria.*;
 import org.joda.time.Interval;
+import org.mongolink.MongoSession;
+import org.mongolink.domain.criteria.*;
 
 import java.util.List;
 

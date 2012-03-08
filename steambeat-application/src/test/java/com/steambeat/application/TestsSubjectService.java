@@ -17,7 +17,7 @@ public class TestsSubjectService {
     public void buildSteamIfNoSteam() {
         final SubjectService subjectService = new SubjectService();
 
-        Steam steam = subjectService.steam();
+        final Steam steam = subjectService.steam();
 
         assertThat(steam, notNullValue());
     }
@@ -28,7 +28,7 @@ public class TestsSubjectService {
         Repositories.steam().add(firstSteam);
         final SubjectService subjectService = new SubjectService();
 
-        Steam secondSteam = subjectService.steam();
+        final Steam secondSteam = subjectService.steam();
 
         assertThat(secondSteam, is(firstSteam));
     }

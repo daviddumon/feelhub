@@ -17,7 +17,7 @@
     <properties>
         <restlet.version>2.0.11</restlet.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mongolink.version>0.0.2-SNAPSHOT</mongolink.version>
+        <mongolink.version>0.0.4</mongolink.version>
         <dbHost>127.0.0.1</dbHost>
         <dbName>steambeat</dbName>
         <dbPort>27017</dbPort>
@@ -125,13 +125,13 @@
             </dependency>
 
             <dependency>
-                <groupId>fr.bodysplash</groupId>
+                <groupId>org.mongolink</groupId>
                 <artifactId>mongolink-testtools</artifactId>
                 <version>${mongolink.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>fr.bodysplash</groupId>
+                <groupId>org.mongolink</groupId>
                 <artifactId>mongolink-test</artifactId>
                 <version>${mongolink.version}</version>
                 <scope>test</scope>
@@ -158,7 +158,7 @@
             <version>10.0.1</version>
         </dependency>
         <dependency>
-            <groupId>fr.bodysplash</groupId>
+            <groupId>org.mongolink</groupId>
             <artifactId>mongolink</artifactId>
             <version>${mongolink.version}</version>
         </dependency>

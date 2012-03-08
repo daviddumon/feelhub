@@ -1,7 +1,7 @@
 package com.steambeat.tools;
 
-import fr.bodysplash.mongolink.Settings;
 import org.junit.Test;
+import org.mongolink.Settings;
 
 import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;

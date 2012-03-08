@@ -20,7 +20,7 @@ public class WebPagesResource extends ServerResource {
     @Post
     public void post(final Form form) {
         uri = form.getFirstValue("uri");
-        Association association = lookUpAssociation();
+        final Association association = lookUpAssociation();
         final WebPage webPage = webPageService.addWebPage(association);
         final String uriToRedirect = "/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId();
         setLocationRef(new ReferenceBuilder(this.getContext()).buildUri(uriToRedirect));

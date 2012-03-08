@@ -1,9 +1,9 @@
 package com.steambeat.repositories;
 
 import com.mongodb.FakeDB;
-import fr.bodysplash.mongolink.MongoSession;
-import fr.bodysplash.mongolink.test.FakePersistentContext;
 import org.junit.*;
+import org.mongolink.MongoSession;
+import org.mongolink.test.FakePersistentContext;
 
 import java.net.UnknownHostException;
 

@@ -1,6 +1,6 @@
 package com.steambeat.sitemap.tools;
 
-import fr.bodysplash.mongolink.Settings;
+import org.mongolink.Settings;
 
 import java.io.IOException;
 import java.util.Properties;

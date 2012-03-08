@@ -1,8 +1,8 @@
 package com.steambeat.repositories;
 
 import com.steambeat.tools.SteambeatApplicationProperties;
-import fr.bodysplash.mongolink.*;
-import fr.bodysplash.mongolink.domain.mapper.ContextBuilder;
+import org.mongolink.*;
+import org.mongolink.domain.mapper.ContextBuilder;
 
 public class SessionProvider {
 

@@ -1,7 +1,8 @@
 package com.steambeat.tools;
 
-import fr.bodysplash.mongolink.Settings;
-import fr.bodysplash.mongolink.domain.UpdateStrategies;
+
+import org.mongolink.Settings;
+import org.mongolink.domain.UpdateStrategies;
 
 import java.io.IOException;
 import java.util.Properties;

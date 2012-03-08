@@ -3,7 +3,7 @@ package com.steambeat.web.search;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.SessionProvider;
-import fr.bodysplash.mongolink.domain.criteria.*;
+import org.mongolink.domain.criteria.*;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -16,6 +16,7 @@ public class OpinionSearch {
         criteria.add(Restrictions.notEquals("text", ""));
     }
 
+    @SuppressWarnings("unchecked")
     public List<Opinion> execute() {
         return (List<Opinion>) criteria.list();
     }

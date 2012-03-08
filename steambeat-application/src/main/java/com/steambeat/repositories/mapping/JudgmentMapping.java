@@ -1,7 +1,7 @@
 package com.steambeat.repositories.mapping;
 
 import com.steambeat.domain.opinion.Judgment;
-import fr.bodysplash.mongolink.domain.mapper.ComponentMap;
+import org.mongolink.domain.mapper.ComponentMap;
 
 public class JudgmentMapping extends ComponentMap<Judgment> {
 

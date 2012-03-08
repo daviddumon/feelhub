@@ -1,9 +1,9 @@
 package com.steambeat.test.fakeRepositories;
 
 import com.steambeat.repositories.SessionProvider;
-import fr.bodysplash.mongolink.*;
-import fr.bodysplash.mongolink.domain.mapper.ContextBuilder;
-import fr.bodysplash.mongolink.test.*;
+import org.mongolink.*;
+import org.mongolink.domain.mapper.ContextBuilder;
+import org.mongolink.test.*;
 
 public class FakeSessionProvider extends SessionProvider {
 

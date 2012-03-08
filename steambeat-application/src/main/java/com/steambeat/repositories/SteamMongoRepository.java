@@ -2,7 +2,7 @@ package com.steambeat.repositories;
 
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.subject.steam.Steam;
-import fr.bodysplash.mongolink.MongoSession;
+import org.mongolink.MongoSession;
 
 public class SteamMongoRepository extends BaseMongoRepository<Steam> implements Repository<Steam> {
 

@@ -7,7 +7,7 @@ import com.steambeat.domain.subject.Subject;
 import org.joda.time.DateTime;
 
 import java.io.UnsupportedEncodingException;
-import java.net.*;
+import java.net.URLEncoder;
 
 public class WebPage extends Subject {
 

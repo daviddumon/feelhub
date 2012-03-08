@@ -1,7 +1,7 @@
 package com.steambeat.repositories;
 
 import com.steambeat.domain.*;
-import fr.bodysplash.mongolink.MongoSession;
+import org.mongolink.MongoSession;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
