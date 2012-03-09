@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 @SuppressWarnings("unchecked")
-public class TestsWebPageMongoRepository extends TestWithMongoRepository {
+public class TestsSubjectMongoRepository extends TestWithMongoRepository {
 
     @Before
     public void before() {
