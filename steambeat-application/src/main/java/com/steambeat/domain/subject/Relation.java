@@ -6,7 +6,8 @@ import com.steambeat.repositories.Repositories;
 public class Relation implements Entity {
 
     // do not delete constructor for mongolink
-    public Relation() {}
+    public Relation() {
+    }
 
     public Relation(final Subject left, final Subject right) {
         leftId = left.getId();

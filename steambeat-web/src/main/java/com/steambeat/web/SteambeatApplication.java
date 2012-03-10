@@ -22,6 +22,8 @@ public class SteambeatApplication extends Application {
     @Override
     public synchronized void start() throws Exception {
         initFreemarkerConfiguration();
+        final SteambeatBoot steambeatBoot = injector.getInstance(SteambeatBoot.class);
+        steambeatBoot.checkForSteam();
         super.start();
     }
 

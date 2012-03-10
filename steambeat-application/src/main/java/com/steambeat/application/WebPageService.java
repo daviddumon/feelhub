@@ -36,7 +36,7 @@ public class WebPageService {
             webPage = webPageFactory.newWebPage(association);
             Repositories.subjects().add(webPage);
         } catch (WebPageAlreadyExistsException e) {
-            webPage = lookUpWebPage(association.getSubjectId());
+            webPage = lookUpWebPage(UUID.fromString(association.getSubjectId()));
         }
         return webPage;
     }

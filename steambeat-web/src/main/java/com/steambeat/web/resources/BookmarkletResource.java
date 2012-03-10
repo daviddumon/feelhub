@@ -10,6 +10,8 @@ import org.restlet.data.*;
 import org.restlet.representation.*;
 import org.restlet.resource.*;
 
+import java.util.UUID;
+
 public class BookmarkletResource extends ServerResource {
 
     @Inject
@@ -51,7 +53,7 @@ public class BookmarkletResource extends ServerResource {
                 throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
             }
             final Association association = associationService.lookUp(new Uri(uri));
-            webPage = webPageService.lookUpWebPage(association.getSubjectId());
+            webPage = webPageService.lookUpWebPage(UUID.fromString(association.getSubjectId()));
         } else {
             throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
         }

@@ -32,7 +32,7 @@ public class TestsAssociationMongoRepository extends TestWithMongoRepository {
         final DBObject uriFound = getAssociationFromDB();
         assertThat(uriFound, notNullValue());
         assertThat(uriFound.get("_id"), is((Object) identifier.toString()));
-        assertThat(uriFound.get("subjectId"), is((Object) uuid));
+        assertThat(UUID.fromString(uriFound.get("subjectId").toString()), is((Object) uuid));
     }
 
     private DBObject getAssociationFromDB() {

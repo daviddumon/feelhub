@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.repositories.*;
+import com.steambeat.repositories.Repositories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
