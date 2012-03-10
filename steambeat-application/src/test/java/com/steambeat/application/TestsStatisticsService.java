@@ -3,6 +3,7 @@ package com.steambeat.application;
 import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.statistics.*;
+import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.*;
@@ -29,22 +30,23 @@ public class TestsStatisticsService {
     @Before
     public void before() {
         statisticsService = new StatisticsService();
+        Repositories.subjects().add(new Steam());
     }
 
     @Test
     public void canRecordGoodJudgment() {
-        final JudgmentPostedEvent event = new JudgmentPostedEvent(TestFactories.judgments().newGoodJudgment());
+        final JudgmentPostedEvent event = getGoodJudgmentEvent();
 
-        statisticsService.judgmentOn(event);
+        DomainEventBus.INSTANCE.flush();
 
         assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getGoodJudgments(), is(1));
     }
 
     @Test
     public void canRecordBadJudgment() {
-        final JudgmentPostedEvent event = new JudgmentPostedEvent(TestFactories.judgments().newBadJudgment());
+        final JudgmentPostedEvent event = getBadJudgmentEvent();
 
-        statisticsService.judgmentOn(event);
+        DomainEventBus.INSTANCE.flush();
 
         assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getBadJudgments(), is(1));
     }
@@ -188,8 +190,23 @@ public class TestsStatisticsService {
         assertThat(statistics.get(0).getGoodJudgments(), is(2));
     }
 
+    @Test
+    public void recordStatisticsForSteam() {
+        final JudgmentPostedEvent event = getGoodJudgmentEvent();
+
+        DomainEventBus.INSTANCE.flush();
+
+        assertThat(getStatisticsRepository().forSubject(new Steam()).getGoodJudgments(), is(1));
+    }
+
     private JudgmentPostedEvent getGoodJudgmentEvent() {
         final JudgmentPostedEvent event = new JudgmentPostedEvent(TestFactories.judgments().newGoodJudgment());
+        DomainEventBus.INSTANCE.spread(event);
+        return event;
+    }
+
+    private JudgmentPostedEvent getBadJudgmentEvent() {
+        final JudgmentPostedEvent event = new JudgmentPostedEvent(TestFactories.judgments().newBadJudgment());
         DomainEventBus.INSTANCE.spread(event);
         return event;
     }

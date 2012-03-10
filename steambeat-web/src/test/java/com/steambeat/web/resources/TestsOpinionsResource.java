@@ -3,6 +3,7 @@ package com.steambeat.web.resources;
 import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.*;
 import com.steambeat.test.WithDomainEvent;
@@ -31,6 +32,11 @@ public class TestsOpinionsResource extends TestWithMongoRepository {
 
     @Rule
     public WithDomainEvent events = new WithDomainEvent();
+
+    @Before
+    public void before() {
+        Repositories.subjects().add(new Steam());
+    }
 
     @Test
     public void isMapped() {

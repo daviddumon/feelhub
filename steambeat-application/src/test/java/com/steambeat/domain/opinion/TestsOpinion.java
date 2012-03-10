@@ -46,7 +46,7 @@ public class TestsOpinion extends TestWithMongoRepository {
     }
 
     @Test
-    public void canSpreadJudgmentEvent() {
+    public void canSpreadJudgmentEvents() {
         final Opinion opinion = new Opinion("my opinion");
         final WebPage subject = TestFactories.subjects().newWebPage();
         DomainEventBus.INSTANCE.notifyOnSpread();
@@ -63,7 +63,6 @@ public class TestsOpinion extends TestWithMongoRepository {
     }
 
     @Test
-    @Ignore
     public void canSpreadOpinionEvent() {
         DomainEventBus.INSTANCE.notifyOnSpread();
         final DomainEventListener opinionEventListener = mock(DomainEventListener.class);

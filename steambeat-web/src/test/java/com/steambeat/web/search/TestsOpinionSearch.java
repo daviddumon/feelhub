@@ -3,7 +3,7 @@ package com.steambeat.web.search;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.TestWithMongoRepository;
-import com.steambeat.test.SystemTime;
+import com.steambeat.test.*;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
@@ -13,6 +13,9 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class TestsOpinionSearch extends TestWithMongoRepository {
+
+    @Rule
+    public WithDomainEvent event = new WithDomainEvent();
 
     @Rule
     public SystemTime time = SystemTime.fixed();
