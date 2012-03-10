@@ -1,22 +1,19 @@
 package com.steambeat.domain.opinion;
 
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.testFactories.TestFactories;
-import org.junit.*;
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsJudgment {
-
-    @Rule
-    public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
+public class TestsJudgment extends TestWithMongoRepository {
 
     @Test
     public void hasASubjectAndFeeling() {
-        final Feeling feeling = Feeling.good;
         final Subject subject = TestFactories.subjects().newWebPage();
+        final Feeling feeling = Feeling.good;
 
         final Judgment judgment = new Judgment(subject, feeling);
 

@@ -1,20 +1,17 @@
 package com.steambeat.domain.opinion;
 
+import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.SystemTime;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-public class TestsJudgmentPostedEvent {
+public class TestsJudgmentPostedEvent extends TestWithMongoRepository {
 
     @Rule
     public SystemTime time = SystemTime.fixed();
-
-    @Rule
-    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
     public void canPostAJudgmentEvent() {

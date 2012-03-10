@@ -3,17 +3,14 @@ package com.steambeat.domain.subject;
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.testFactories.TestFactories;
-import org.junit.*;
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsWebPage {
-
-    @Rule
-    public WithFakeRepositories repositories = new WithFakeRepositories();
+public class TestsWebPage extends TestWithMongoRepository {
 
     @Test
     public void canCreateAWebPage() {

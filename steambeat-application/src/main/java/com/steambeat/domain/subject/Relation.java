@@ -5,14 +5,17 @@ import com.steambeat.repositories.Repositories;
 
 public class Relation implements Entity {
 
+    // do not delete constructor for mongolink
+    public Relation() {}
+
     public Relation(final Subject left, final Subject right) {
-        this.leftId = left.getId();
-        this.rightId = right.getId();
+        leftId = left.getId();
+        rightId = right.getId();
     }
 
     @Override
     public Object getId() {
-        return null;
+        return id;
     }
 
     public Subject getLeft() {
@@ -31,6 +34,7 @@ public class Relation implements Entity {
         return rightId;
     }
 
-    private final String leftId;
-    private final String rightId;
+    private String leftId;
+    private String rightId;
+    private String id;
 }

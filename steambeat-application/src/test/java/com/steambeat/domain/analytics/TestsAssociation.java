@@ -1,8 +1,7 @@
 package com.steambeat.domain.analytics;
 
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import org.junit.*;
+import org.junit.Test;
 
 import java.util.UUID;
 
@@ -10,9 +9,6 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class TestsAssociation {
-
-    @Rule
-    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
     public void canCreateAnAssociationFromUriAndUUID() {

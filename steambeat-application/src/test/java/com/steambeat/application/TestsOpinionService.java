@@ -4,18 +4,14 @@ import com.google.common.collect.Lists;
 import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.repositories.Repositories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.*;
 import com.steambeat.test.testFactories.TestFactories;
-import org.junit.*;
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsOpinionService {
-
-    @Rule
-    public WithFakeRepositories repositories = new WithFakeRepositories();
+public class TestsOpinionService extends TestWithMongoRepository {
 
     @Test
     public void canAddOpinionAndJudgements() {

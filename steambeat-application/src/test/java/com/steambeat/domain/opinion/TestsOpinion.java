@@ -3,8 +3,8 @@ package com.steambeat.domain.opinion;
 import com.steambeat.domain.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.*;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
@@ -14,13 +14,10 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 @SuppressWarnings("unchecked")
-public class TestsOpinion {
+public class TestsOpinion extends TestWithMongoRepository {
 
     @Rule
     public SystemTime time = SystemTime.fixed();
-
-    @Rule
-    public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
 
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();

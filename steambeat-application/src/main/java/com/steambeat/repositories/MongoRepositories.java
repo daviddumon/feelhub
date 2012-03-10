@@ -22,7 +22,7 @@ public class MongoRepositories extends Repositories {
 
     @Override
     protected Repository<Relation> getRelationRepository() {
-        return null;  // todo
+        return new RelationMongoRepository(provider.get());
     }
 
     @Override

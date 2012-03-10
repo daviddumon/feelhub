@@ -1,17 +1,13 @@
 package com.steambeat.application;
 
 import com.steambeat.domain.subject.steam.Steam;
-import com.steambeat.repositories.Repositories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import org.junit.*;
+import com.steambeat.repositories.*;
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsSubjectService {
-
-    @Rule
-    public WithFakeRepositories repositories = new WithFakeRepositories();
+public class TestsSubjectService extends TestWithMongoRepository {
 
     @Test
     public void buildSteamIfNoSteam() {

@@ -5,17 +5,14 @@ import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.domain.textAnalytics.NamedEntity;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsSubjectFactory {
-
-    @Rule
-    public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
+public class TestsSubjectFactory extends TestWithMongoRepository {
 
     @Before
     public void setUp() throws Exception {

@@ -4,9 +4,8 @@ import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.repositories.Repositories;
+import com.steambeat.repositories.*;
 import com.steambeat.test.WithDomainEvent;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
 import org.json.*;
@@ -22,16 +21,13 @@ import java.util.UUID;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsOpinionsResource {
+public class TestsOpinionsResource extends TestWithMongoRepository {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
-
-    @Rule
-    public WithFakeRepositories fakeRepositories = new WithFakeRepositories();
 
     @Rule
     public WithDomainEvent events = new WithDomainEvent();
