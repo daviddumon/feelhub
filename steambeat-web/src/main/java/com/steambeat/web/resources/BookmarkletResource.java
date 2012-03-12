@@ -15,9 +15,9 @@ import java.util.UUID;
 public class BookmarkletResource extends ServerResource {
 
     @Inject
-    public BookmarkletResource(final AssociationService associationService, final WebPageService webPageService) {
+    public BookmarkletResource(final AssociationService associationService, final SubjectService subjectService) {
         this.associationService = associationService;
-        this.webPageService = webPageService;
+        this.subjectService = subjectService;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class BookmarkletResource extends ServerResource {
                 throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
             }
             final Association association = associationService.lookUp(new Uri(uri));
-            webPage = webPageService.lookUpWebPage(UUID.fromString(association.getSubjectId()));
+            webPage = subjectService.lookUpWebPage(UUID.fromString(association.getSubjectId()));
         } else {
             throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
         }
@@ -71,7 +71,7 @@ public class BookmarkletResource extends ServerResource {
     }
 
     private final AssociationService associationService;
-    private final WebPageService webPageService;
+    private final SubjectService subjectService;
     private WebPage webPage;
     private boolean mustCreate = false;
     private String uri;

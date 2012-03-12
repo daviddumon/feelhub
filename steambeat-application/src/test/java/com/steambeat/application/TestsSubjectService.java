@@ -19,7 +19,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;
 
-public class TestsWebPageService {
+public class TestsSubjectService {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -32,7 +32,7 @@ public class TestsWebPageService {
 
     @Before
     public void before() {
-        webPageService = new WebPageService(new FakeWebPageFactory());
+        subjectService = new SubjectService(new FakeWebPageFactory());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class TestsWebPageService {
         final Subject subject = TestFactories.subjects().newWebPage();
         Repositories.subjects().add(subject);
 
-        final WebPage webPageFound = webPageService.lookUpWebPage(UUID.fromString(subject.getId()));
+        final WebPage webPageFound = subjectService.lookUpWebPage(UUID.fromString(subject.getId()));
 
         assertThat(webPageFound, is(subject));
     }
@@ -48,7 +48,7 @@ public class TestsWebPageService {
     @Test
     public void canAddWebPageToRepository() {
         final Association association = TestFactories.associations().newAssociation(new Uri("uri"));
-        final WebPage webPageFound = webPageService.addWebPage(association);
+        final WebPage webPageFound = subjectService.addWebPage(association);
 
         assertThat(Repositories.subjects().getAll().size(), is(1));
         assertThat(Repositories.subjects().getAll(), hasItem((Subject) webPageFound));
@@ -57,9 +57,9 @@ public class TestsWebPageService {
     @Test
     public void returnExistingWebPageOnNewAdd() {
         final Association association = TestFactories.associations().newAssociation(new Uri("uri"));
-        final WebPage webPage1 = webPageService.addWebPage(association);
+        final WebPage webPage1 = subjectService.addWebPage(association);
 
-        final WebPage webPage2 = webPageService.addWebPage(association);
+        final WebPage webPage2 = subjectService.addWebPage(association);
 
         assertThat(Repositories.subjects().getAll().size(), is(1));
         assertThat(webPage1, is(webPage2));
@@ -68,7 +68,7 @@ public class TestsWebPageService {
     @Test
     public void throwsExceptionOnFailLookup() {
         exception.expect(WebPageNotYetCreatedException.class);
-        webPageService.lookUpWebPage(UUID.randomUUID());
+        subjectService.lookUpWebPage(UUID.randomUUID());
     }
 
     @Test
@@ -78,10 +78,10 @@ public class TestsWebPageService {
         final DateTime firstDate = webPage.getScrapedDataExpirationDate();
         time.waitDays(2);
 
-        final WebPage webPageFound = webPageService.lookUpWebPage(UUID.fromString(webPage.getId()));
+        final WebPage webPageFound = subjectService.lookUpWebPage(UUID.fromString(webPage.getId()));
 
         assertThat(firstDate, not(webPageFound.getScrapedDataExpirationDate()));
     }
 
-    private WebPageService webPageService;
+    private SubjectService subjectService;
 }

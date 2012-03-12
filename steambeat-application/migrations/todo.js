@@ -4,3 +4,4 @@
 // UUID
 // Les associations
 // Associer les opinions aux nouveaux sujets
+// récupérer les opinions orphelines de sujet

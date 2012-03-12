@@ -1,7 +1,7 @@
 package com.steambeat.web.resources;
 
 import com.google.inject.Inject;
-import com.steambeat.application.WebPageService;
+import com.steambeat.application.SubjectService;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.web.*;
 import org.restlet.data.Status;
@@ -13,14 +13,14 @@ import java.util.UUID;
 public class WebPageResource extends ServerResource {
 
     @Inject
-    public WebPageResource(final WebPageService webPageService) {
-        this.webPageService = webPageService;
+    public WebPageResource(final SubjectService subjectService) {
+        this.subjectService = subjectService;
     }
 
     @Override
     protected void doInit() throws ResourceException {
         id = UUID.fromString(getRequestAttributes().get("id").toString());
-        webPage = webPageService.lookUpWebPage(id);
+        webPage = subjectService.lookUpWebPage(id);
         semantic = getRequestAttributes().get("semantic").toString();
         if (!semantic.equals(webPage.getSemanticDescription())) {
             mustRedirect = true;
@@ -39,7 +39,7 @@ public class WebPageResource extends ServerResource {
         }
     }
 
-    private final WebPageService webPageService;
+    private final SubjectService subjectService;
     private UUID id;
     private WebPage webPage;
     private String semantic;

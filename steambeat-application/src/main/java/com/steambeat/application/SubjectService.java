@@ -7,10 +7,10 @@ import com.steambeat.repositories.Repositories;
 
 import java.util.UUID;
 
-public class WebPageService {
+public class SubjectService {
 
     @Inject
-    public WebPageService(final WebPageFactory webPageFactory) {
+    public SubjectService(final WebPageFactory webPageFactory) {
         this.webPageFactory = webPageFactory;
     }
 

@@ -17,8 +17,8 @@ import java.util.*;
 public class OpinionsResource extends ServerResource {
 
     @Inject
-    public OpinionsResource(final WebPageService webPageService, final OpinionService opinionService, final OpinionSearch opinionSearch) {
-        this.webPageService = webPageService;
+    public OpinionsResource(final SubjectService subjectService, final OpinionService opinionService, final OpinionSearch opinionSearch) {
+        this.subjectService = subjectService;
         this.opinionService = opinionService;
         this.opinionSearch = opinionSearch;
     }
@@ -59,7 +59,7 @@ public class OpinionsResource extends ServerResource {
 
     private void setUpSearchForSubjectIdParameter(final Form form) {
         if (form.getQueryString().contains("subjectId")) {
-            opinionSearch.withSubject(webPageService.lookUpWebPage(UUID.fromString(form.getFirstValue("subjectId").trim())));
+            opinionSearch.withSubject(subjectService.lookUpWebPage(UUID.fromString(form.getFirstValue("subjectId").trim())));
         }
     }
 
@@ -80,7 +80,7 @@ public class OpinionsResource extends ServerResource {
         if (form.getFirstValue("feeling") == null) {
             throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
         }
-        subject = webPageService.lookUpWebPage(UUID.fromString(form.getFirstValue("subjectId").trim()));
+        subject = subjectService.lookUpWebPage(UUID.fromString(form.getFirstValue("subjectId").trim()));
         feeling = Feeling.valueOf(form.getFirstValue("feeling").trim());
         text = form.getFirstValue("text").trim();
     }
@@ -90,6 +90,6 @@ public class OpinionsResource extends ServerResource {
     private String text;
     List<Opinion> opinions = Lists.newArrayList();
     private final OpinionSearch opinionSearch;
-    private final WebPageService webPageService;
+    private final SubjectService subjectService;
     private final OpinionService opinionService;
 }
