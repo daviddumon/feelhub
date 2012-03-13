@@ -24,7 +24,7 @@ public class SubjectMapping extends EntityMap<Subject> {
         subclass(new SubclassMap<WebPage>(WebPage.class) {
             @Override
             protected void map() {
-
+                property(element().getUri());
             }
         });
 

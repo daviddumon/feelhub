@@ -48,6 +48,10 @@ public class WebPage extends Subject {
         return new Uri(uri);
     }
 
+    public String getUri() {
+        return uri;
+    }
+
     private String uri;
     private Scraper scraper;
 }

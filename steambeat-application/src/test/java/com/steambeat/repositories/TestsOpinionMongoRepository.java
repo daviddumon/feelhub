@@ -1,7 +1,8 @@
 package com.steambeat.repositories;
 
 import com.mongodb.*;
-import com.steambeat.domain.opinion.Opinion;
+import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -18,7 +19,9 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() {
-        final Opinion opinion = TestFactories.opinions().newOpinion();
+        final WebPage webPage = TestFactories.subjects().newWebPage();
+        final Opinion opinion = new Opinion("yeah");
+        opinion.addJudgment(webPage, Feeling.bad);
 
         Repositories.opinions().add(opinion);
 
@@ -35,7 +38,6 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGet() {
         final Opinion opinion = TestFactories.opinions().newOpinion();
-        Repositories.opinions().add(opinion);
 
         final Opinion opinionFound = Repositories.opinions().get(opinion.getId());
 
@@ -44,12 +46,14 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetAll() {
-        final Opinion opinion = TestFactories.opinions().newOpinion();
+        final Opinion opinion0 = TestFactories.opinions().newOpinion();
+        final Opinion opinion1 = TestFactories.opinions().newOpinion();
 
         final List<Opinion> opinions = Repositories.opinions().getAll();
 
-        assertThat(opinions.size(), is(1));
-        assertThat(opinions.get(0), is(opinion));
+        assertThat(opinions.size(), is(2));
+        assertThat(opinions.get(0), is(opinion0));
+        assertThat(opinions.get(1), is(opinion1));
     }
 
     @Test
