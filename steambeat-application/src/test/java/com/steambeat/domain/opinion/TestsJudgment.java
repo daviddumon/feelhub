@@ -1,14 +1,17 @@
 package com.steambeat.domain.opinion;
 
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.repositories.TestWithMongoRepository;
+import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsJudgment extends TestWithMongoRepository {
+public class TestsJudgment {
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
     public void hasASubjectAndFeeling() {

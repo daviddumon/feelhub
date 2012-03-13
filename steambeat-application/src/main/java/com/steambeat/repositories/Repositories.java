@@ -4,7 +4,7 @@ import com.steambeat.domain.Repository;
 import com.steambeat.domain.analytics.*;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
-import com.steambeat.domain.subject.*;
+import com.steambeat.domain.subject.Subject;
 
 public abstract class Repositories {
 

@@ -1,7 +1,7 @@
 package com.steambeat.web.resources;
 
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.repositories.TestWithMongoRepository;
+import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
 import org.junit.*;
@@ -15,7 +15,10 @@ import java.util.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsWebPageResource extends TestWithMongoRepository {
+public class TestsWebPageResource {
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Rule
     public final WebApplicationTester restlet = new WebApplicationTester();

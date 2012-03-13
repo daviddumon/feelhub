@@ -2,8 +2,9 @@ package com.steambeat.application;
 
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.*;
-import com.steambeat.repositories.*;
+import com.steambeat.repositories.Repositories;
 import com.steambeat.test.FakeUriPathResolver;
+import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
@@ -15,7 +16,10 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsAssociationService extends TestWithMongoRepository {
+public class TestsAssociationService {
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Rule
     public ExpectedException exception = ExpectedException.none();

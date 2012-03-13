@@ -6,8 +6,6 @@ import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.test.testFactories.TestFactories;
-import org.joda.time.DateTime;
 import org.junit.*;
 
 import java.net.*;

@@ -3,8 +3,8 @@ package com.steambeat.domain.subject.webpage;
 import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
-import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.*;
+import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
@@ -14,7 +14,10 @@ import java.util.UUID;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsWebPageFactory extends TestWithMongoRepository {
+public class TestsWebPageFactory {
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();

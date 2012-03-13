@@ -1,11 +1,11 @@
 package com.steambeat.web;
 
 import com.google.inject.AbstractModule;
-import com.steambeat.repositories.TestWithMongoRepository;
+import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.guice.SteambeatModuleForTest;
 import com.steambeat.web.resources.WebPageResource;
 import freemarker.template.Configuration;
-import org.junit.Test;
+import org.junit.*;
 import org.restlet.Context;
 
 import javax.servlet.ServletContext;
@@ -15,7 +15,10 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @SuppressWarnings("deprecation")
-public class TestsSteambeatApplication extends TestWithMongoRepository {
+public class TestsSteambeatApplication {
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
     public void canInitFeemarker() throws Exception {

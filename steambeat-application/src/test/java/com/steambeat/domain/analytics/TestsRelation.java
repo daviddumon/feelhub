@@ -1,10 +1,9 @@
 package com.steambeat.domain.analytics;
 
-import com.steambeat.domain.analytics.*;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.repositories.TestWithMongoRepository;
+import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.hamcrest.Matchers;
 import org.junit.*;
@@ -14,14 +13,15 @@ import java.util.UUID;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsRelation extends TestWithMongoRepository {
+public class TestsRelation {
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Before
     public void setUp() {
-        final WebPage webPage1 = TestFactories.subjects().newWebPageFor(new Association(new Uri("lemonde.fr"), UUID.randomUUID()));
-        left = webPage1;
-        final WebPage webPage = TestFactories.subjects().newWebPageFor(new Association(new Uri("gameblog.fr"), UUID.randomUUID()));
-        right = webPage;
+        left = TestFactories.subjects().newWebPageFor(new Association(new Uri("lemonde.fr"), UUID.randomUUID()));
+        right = TestFactories.subjects().newWebPageFor(new Association(new Uri("gameblog.fr"), UUID.randomUUID()));
         relation = new RelationFactory().newRelation(left, right);
     }
 

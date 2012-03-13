@@ -3,8 +3,8 @@ package com.steambeat.web.resources;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.SystemTime;
+import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
 import org.joda.time.DateTime;
@@ -21,7 +21,10 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 @Ignore
-public class TestsStatisticsResource extends TestWithMongoRepository {
+public class TestsStatisticsResource {
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
