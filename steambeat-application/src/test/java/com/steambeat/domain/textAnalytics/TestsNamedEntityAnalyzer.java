@@ -1,6 +1,7 @@
 package com.steambeat.domain.textAnalytics;
 
 import com.google.common.collect.Lists;
+import com.steambeat.domain.analytics.Relation;
 import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;

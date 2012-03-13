@@ -1,6 +1,7 @@
-package com.steambeat.domain.subject;
+package com.steambeat.domain.analytics;
 
 import com.steambeat.domain.Entity;
+import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.Repositories;
 
 public class Relation implements Entity {

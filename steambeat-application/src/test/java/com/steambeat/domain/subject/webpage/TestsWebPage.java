@@ -1,4 +1,4 @@
-package com.steambeat.domain.subject;
+package com.steambeat.domain.subject.webpage;
 
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;

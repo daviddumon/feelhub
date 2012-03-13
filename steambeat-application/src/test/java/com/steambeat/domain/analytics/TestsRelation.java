@@ -1,10 +1,12 @@
-package com.steambeat.domain.subject;
+package com.steambeat.domain.analytics;
 
-import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.*;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.testFactories.TestFactories;
+import org.hamcrest.Matchers;
 import org.junit.*;
 
 import java.util.UUID;
@@ -30,7 +32,7 @@ public class TestsRelation extends TestWithMongoRepository {
 
     @Test
     public void canGetLeft() {
-        assertThat(relation.getLeft(), is((Subject) left));
+        assertThat(relation.getLeft(), Matchers.is((Subject) left));
     }
 
     @Test

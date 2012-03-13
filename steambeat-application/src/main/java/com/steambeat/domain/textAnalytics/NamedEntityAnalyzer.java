@@ -1,7 +1,7 @@
 package com.steambeat.domain.textAnalytics;
 
 import com.google.inject.Inject;
-import com.steambeat.domain.subject.*;
+import com.steambeat.domain.analytics.*;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
