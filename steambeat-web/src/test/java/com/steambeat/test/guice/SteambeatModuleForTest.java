@@ -7,10 +7,10 @@ import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.FakeUriPathResolver;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
-import com.steambeat.test.fakeSearches.FakeOpinionSearch;
+import com.steambeat.test.fakeSearches.*;
 import com.steambeat.tools.Hiram;
 import com.steambeat.web.OpenSessionInViewFilter;
-import com.steambeat.web.search.OpinionSearch;
+import com.steambeat.web.search.*;
 
 public class SteambeatModuleForTest extends AbstractModule {
 
@@ -20,6 +20,7 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
         bind(SessionProvider.class).to(FakeSessionProvider.class);
         bind(OpinionSearch.class).to(FakeOpinionSearch.class);
+        bind(StatisticsSearch.class).to(FakeStatisticsSearch.class);
         bind(UriPathResolver.class).to(FakeUriPathResolver.class);
     }
 

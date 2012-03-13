@@ -20,7 +20,6 @@ import java.util.UUID;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-@Ignore
 public class TestsStatisticsResource {
 
     @Rule
@@ -97,46 +96,33 @@ public class TestsStatisticsResource {
         assertThat(stats.getJSONObject(0).get("bad").toString(), is("2"));
     }
 
-    //@Test
-    //public void canFetchMultipleHour() throws JSONException {
-    //    final ClientResource resource = restlet.newClientResource("/webpages/" + uri + "/stats:" + new DateTime().minus(1).getMillis() + "." + new DateTime().plus(1).plusHours(1).getMillis() + ";hour");
-    //    time.waitMinutes(60);
-    //    TestFactories.statistics().newWebPageStat(uri);
-    //    time.waitDays(1);
-    //
-    //    final JsonRepresentation representation = (JsonRepresentation) resource.get();
-    //
-    //    final JSONObject json = representation.getJsonObject();
-    //    final JSONArray stats = json.getJSONArray("stats");
-    //    assertThat(stats.length(), is(2));
-    //}
-    //
-    //@Test
-    //public void canFetchMultipleHourWithDifferentDays() throws JSONException {
-    //    time.waitDays(1);
-    //    time.waitMinutes(180);
-    //    final Statistics otherStatistics = TestFactories.statistics().newWebPageStat(uri);
-    //    final ClientResource resource = restlet.newClientResource("/webpages/" + uri + "/stats:" + statistics.getDate().getMillis() + "." + otherStatistics.getDate().plus(1).getMillis() + ";hour");
-    //    time.waitDays(1);
-    //
-    //    final JsonRepresentation representation = (JsonRepresentation) resource.get();
-    //
-    //    final JSONObject json = representation.getJsonObject();
-    //    final JSONArray stats = json.getJSONArray("stats");
-    //    assertThat(stats.length(), is(2));
-    //}
-    //
-    //@Test
-    //public void canFetchGoodGranularity() throws JSONException {
-    //    TestFactories.statistics().newWebPageStat(uri, Granularity.day);
-    //    final ClientResource resource = restlet.newClientResource("/webpages/" + uri + "/stats:" + new DateTime().getMillis() + "." + new DateTime().plus(1).getMillis() + ";day");
-    //    time.waitDays(1);
-    //
-    //    final JsonRepresentation representation = (JsonRepresentation) resource.get();
-    //
-    //    final JSONObject json = representation.getJsonObject();
-    //    assertThat(json.getString("granularity"), is(Granularity.day.toString()));
-    //    final JSONArray stats = json.getJSONArray("stats");
-    //    assertThat(stats.length(), is(1));
-    //}
+    @Test
+    public void canFetchMultipleHour() throws JSONException, IOException {
+        final WebPage webPage = TestFactories.subjects().newWebPage();
+        final Statistics stat1 = TestFactories.statistics().newWebPageStat(webPage, Granularity.hour);
+        time.waitHours(1);
+        final Statistics stat2 = TestFactories.statistics().newWebPageStat(webPage, Granularity.hour);
+        final ClientResource resource = restlet.newClientResource("/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=hour" + "&subjectId=" + webPage.getId());
+        time.waitDays(1);
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+
+        final JSONArray stats = new JSONArray(representation.getText());
+        assertThat(stats.length(), is(2));
+    }
+
+    @Test
+    public void canFetchMultipleHourWithDifferentDays() throws JSONException, IOException {
+        final WebPage webPage = TestFactories.subjects().newWebPage();
+        final Statistics stat1 = TestFactories.statistics().newWebPageStat(webPage, Granularity.day);
+        time.waitMonths(1);
+        final Statistics stat2 = TestFactories.statistics().newWebPageStat(webPage, Granularity.day);
+        final ClientResource resource = restlet.newClientResource("/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=day" + "&subjectId=" + webPage.getId());
+        time.waitDays(1);
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+
+        final JSONArray stats = new JSONArray(representation.getText());
+        assertThat(stats.length(), is(2));
+    }
 }

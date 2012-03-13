@@ -5,21 +5,22 @@ import com.google.inject.Inject;
 import com.steambeat.application.SubjectService;
 import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.repositories.Repositories;
 import com.steambeat.web.SteambeatTemplateRepresentation;
+import com.steambeat.web.search.StatisticsSearch;
 import org.joda.time.Interval;
 import org.json.JSONException;
 import org.restlet.data.*;
 import org.restlet.representation.Representation;
 import org.restlet.resource.*;
 
-import java.util.List;
+import java.util.*;
 
 public class StatisticsResource extends ServerResource {
 
     @Inject
-    public StatisticsResource(final SubjectService subjectService) {
+    public StatisticsResource(final SubjectService subjectService, final StatisticsSearch statisticsSearch) {
         this.subjectService = subjectService;
+        this.statisticsSearch = statisticsSearch;
     }
 
     @Get
@@ -30,8 +31,8 @@ public class StatisticsResource extends ServerResource {
     }
 
     private void fetchStatistics() {
-        final Subject subject = Repositories.subjects().get(subjectId);
-        statistics = Repositories.statistics().forSubject(subject, granularity, new Interval(start, end));
+        final Subject subject = subjectService.lookUpWebPage(UUID.fromString(subjectId));
+        statistics = statisticsSearch.withSubject(subject).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
     }
 
     private void extractParameters(final Form query) {
@@ -50,7 +51,8 @@ public class StatisticsResource extends ServerResource {
     }
 
     private List<Statistics> statistics = Lists.newArrayList();
-    private SubjectService subjectService;
+    private final SubjectService subjectService;
+    private final StatisticsSearch statisticsSearch;
     private Granularity granularity;
     private Long start;
     private Long end;

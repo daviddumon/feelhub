@@ -42,7 +42,7 @@ public abstract class Extractor {
     protected Element findImageIn(final Element element) {
         if (element.nodeName().equals("img")) {
             return element;
-        } else if (element.children().size() > 0) {
+        } else if (!element.children().isEmpty()) {
             for (final Element child : element.children()) {
                 final Element image = findImageIn(child);
                 if (image != null) {
