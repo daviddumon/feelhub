@@ -45,9 +45,14 @@ public class AssociationService {
     private List<Association> createAssociations(final List<Uri> path, final UUID subjectId) {
         final ArrayList<Association> associations = Lists.newArrayList();
         for (final Uri uri : path) {
-            final Association association = new Association(uri, subjectId);
+            Association association;
+            try {
+                association = lookUp(uri);
+            } catch (AssociationNotFound e) {
+                association = new Association(uri, subjectId);
+                Repositories.associations().add(association);
+            }
             associations.add(association);
-            Repositories.associations().add(association);
         }
         return associations;
     }
