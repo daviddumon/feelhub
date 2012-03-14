@@ -22,7 +22,7 @@ public class TestsWebPage {
         final WebPage webPage = TestFactories.subjects().newWebPageFor(association);
 
         assertThat(webPage.getId(), notNullValue());
-        assertThat(webPage.getId(), not(uri.toString()));
+        assertThat(webPage.getId().toString(), not(uri.toString()));
         assertThat(webPage.getRealUri(), is(uri));
     }
 

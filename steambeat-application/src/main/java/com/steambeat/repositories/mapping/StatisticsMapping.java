@@ -11,7 +11,7 @@ public class StatisticsMapping extends EntityMap<Statistics> {
 
     @Override
     protected void map() {
-        id(element().getId()).auto();
+        id(element().getId()).natural();
         property(element().getDate());
         property(element().getSubjectId());
         property(element().getGranularity());

@@ -15,7 +15,7 @@ public class SubjectService {
     }
 
     public WebPage lookUpWebPage(final UUID subjectId) {
-        final WebPage webPage = (WebPage) Repositories.subjects().get(subjectId.toString());
+        final WebPage webPage = (WebPage) Repositories.subjects().get(subjectId);
         if (webPage == null) {
             throw new WebPageNotYetCreatedException();
         } else {
@@ -36,7 +36,7 @@ public class SubjectService {
             webPage = webPageFactory.newWebPage(association);
             Repositories.subjects().add(webPage);
         } catch (WebPageAlreadyExistsException e) {
-            webPage = lookUpWebPage(UUID.fromString(association.getSubjectId()));
+            webPage = lookUpWebPage(association.getSubjectId());
         }
         return webPage;
     }

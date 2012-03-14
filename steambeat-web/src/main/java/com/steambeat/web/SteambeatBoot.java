@@ -1,7 +1,6 @@
 package com.steambeat.web;
 
 import com.google.inject.Inject;
-import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.repositories.*;
 
@@ -13,7 +12,7 @@ public class SteambeatBoot {
     }
 
     public void checkForSteam() {
-        final Subject steam = Repositories.subjects().get("steam");
+        final Steam steam = Repositories.subjects().getSteam();
         if (steam == null) {
             Repositories.subjects().add(new Steam());
         }

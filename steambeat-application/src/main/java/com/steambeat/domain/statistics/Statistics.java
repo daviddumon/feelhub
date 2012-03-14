@@ -5,12 +5,15 @@ import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import org.joda.time.DateTime;
 
+import java.util.UUID;
+
 public class Statistics extends BaseEntity {
 
     protected Statistics() {
     }
 
     public Statistics(final Subject subject, final Granularity granularity, final DateTime date) {
+        this.id = UUID.randomUUID();
         this.date = date;
         subjectId = subject.getId();
         this.granularity = granularity;
@@ -32,11 +35,11 @@ public class Statistics extends BaseEntity {
     }
 
     @Override
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public String getSubjectId() {
+    public UUID getSubjectId() {
         return subjectId;
     }
 
@@ -56,8 +59,8 @@ public class Statistics extends BaseEntity {
         return badJudgments;
     }
 
-    private String id;
-    private String subjectId;
+    private UUID id;
+    private UUID subjectId;
     private Granularity granularity;
     private DateTime date;
     private int goodJudgments;

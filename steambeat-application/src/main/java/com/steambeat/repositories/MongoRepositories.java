@@ -4,7 +4,6 @@ import com.steambeat.domain.Repository;
 import com.steambeat.domain.analytics.*;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
-import com.steambeat.domain.subject.Subject;
 
 import javax.inject.Inject;
 
@@ -16,7 +15,7 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
-    protected Repository<Subject> getSubjectRepository() {
+    protected SubjectMongoRepository getSubjectRepository() {
         return new SubjectMongoRepository(provider.get());
     }
 

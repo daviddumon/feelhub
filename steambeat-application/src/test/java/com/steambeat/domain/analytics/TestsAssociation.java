@@ -19,6 +19,6 @@ public class TestsAssociation {
         final Association association = new Association(uri, uuid);
 
         assertThat(association.getId(), is(uri.toString()));
-        assertThat(UUID.fromString(association.getSubjectId()), is(uuid));
+        assertThat(association.getSubjectId(), is(uuid));
     }
 }

@@ -4,13 +4,12 @@ import com.steambeat.domain.Repository;
 import com.steambeat.domain.analytics.*;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.statistics.StatisticsRepository;
-import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.Repositories;
 
 public class FakeMongoRepositories extends Repositories {
 
     @Override
-    protected Repository<Subject> getSubjectRepository() {
+    protected FakeSubjectMongoRepository getSubjectRepository() {
         return subjectRepository;
     }
 
@@ -34,7 +33,7 @@ public class FakeMongoRepositories extends Repositories {
         return associationRepository;
     }
 
-    private final Repository<Subject> subjectRepository = new FakeRepository<Subject>();
+    private final FakeSubjectMongoRepository subjectRepository = new FakeSubjectMongoRepository();
     private final Repository<Association> associationRepository = new FakeAssociationRepository();
     private final Repository<Opinion> opinionRepository = new FakeOpinionRepository();
     private final FakeRepository<Relation> relationFakeRepository = new FakeRepository<Relation>();

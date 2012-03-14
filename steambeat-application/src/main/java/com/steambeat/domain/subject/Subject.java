@@ -3,13 +3,15 @@ package com.steambeat.domain.subject;
 import com.steambeat.domain.BaseEntity;
 import org.joda.time.DateTime;
 
+import java.util.UUID;
+
 public abstract class Subject extends BaseEntity {
 
     // Mongolink constructor : do not delete
     protected Subject() {
     }
 
-    protected Subject(final String id) {
+    protected Subject(final UUID id) {
         this.id = id;
         this.creationDate = new DateTime();
     }
@@ -17,7 +19,7 @@ public abstract class Subject extends BaseEntity {
     public abstract void update();
 
     @Override
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -49,7 +51,7 @@ public abstract class Subject extends BaseEntity {
         return semanticDescription;
     }
 
-    private String id;
+    private UUID id;
     private DateTime creationDate;
     protected String description;
     protected String shortDescription;

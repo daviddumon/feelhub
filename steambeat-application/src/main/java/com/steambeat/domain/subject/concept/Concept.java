@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Concept extends Subject {
 
     public Concept(final String text) {
-        super(UUID.randomUUID().toString());
+        super(UUID.randomUUID());
         this.text = text;
     }
 

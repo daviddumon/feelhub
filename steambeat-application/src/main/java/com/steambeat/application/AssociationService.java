@@ -33,7 +33,7 @@ public class AssociationService {
     private UUID generateSubjectId(final Uri canonicalAddress) {
         final Association foundAssociation = Repositories.associations().get(canonicalAddress.toString());
         if (foundAssociation != null) {
-            return UUID.fromString(foundAssociation.getSubjectId());
+            return foundAssociation.getSubjectId();
         }
         return UUID.randomUUID();
     }

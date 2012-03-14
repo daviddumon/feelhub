@@ -155,7 +155,7 @@ public class TestsOpinionsResource {
     public void canPostOpinion() {
         final WebPage webPage = TestFactories.subjects().newWebPage();
         final Form form = getGoodForm();
-        form.add("subjectId", webPage.getId());
+        form.add("subjectId", webPage.getId().toString());
         final ClientResource opinionsResource = restlet.newClientResource("/opinions");
 
         opinionsResource.post(form);
@@ -197,7 +197,7 @@ public class TestsOpinionsResource {
     public void postOpinionRedirectOnFirstPage() {
         final WebPage webPage = TestFactories.subjects().newWebPage();
         final Form form = getGoodForm();
-        form.add("subjectId", webPage.getId());
+        form.add("subjectId", webPage.getId().toString());
         final ClientResource opinionsResource = restlet.newClientResource("/opinions");
 
         opinionsResource.post(form);

@@ -9,8 +9,6 @@ import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import java.util.UUID;
-
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -41,7 +39,7 @@ public class TestsWebPageFactory {
         final WebPage webPage = webPageFactory.newWebPage(association);
 
         assertThat(webPage, notNullValue());
-        assertThat(webPage.getId(), is(association.getSubjectId().toString()));
+        assertThat(webPage.getId(), is(association.getSubjectId()));
     }
 
     @Test
@@ -49,7 +47,7 @@ public class TestsWebPageFactory {
         final WebPage webPage = TestFactories.subjects().newWebPage();
 
         expectedException.expect(WebPageAlreadyExistsException.class);
-        webPageFactory.newWebPage(new Association(new Uri("http://lemonde.fr/international"), UUID.fromString(webPage.getId())));
+        webPageFactory.newWebPage(new Association(new Uri("http://lemonde.fr/international"), webPage.getId()));
     }
 
     @Test

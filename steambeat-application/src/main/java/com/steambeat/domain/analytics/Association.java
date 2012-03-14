@@ -13,7 +13,7 @@ public class Association extends BaseEntity {
 
     public Association(final Identifier identifier, final UUID uuid) {
         this.id = identifier.toString();
-        this.subjectId = uuid.toString();
+        this.subjectId = uuid;
     }
 
     @Override
@@ -21,10 +21,10 @@ public class Association extends BaseEntity {
         return id;
     }
 
-    public String getSubjectId() {
+    public UUID getSubjectId() {
         return subjectId;
     }
 
     private String id;
-    private String subjectId;
+    private UUID subjectId;
 }

@@ -3,6 +3,8 @@ package com.steambeat.domain.opinion;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.Repositories;
 
+import java.util.UUID;
+
 public class Judgment {
 
     // Constructor for mapper : do not delete !
@@ -22,10 +24,10 @@ public class Judgment {
         return Repositories.subjects().get(subjectId);
     }
 
-    public String getSubjectId() {
+    public UUID getSubjectId() {
         return subjectId;
     }
 
+    private UUID subjectId;
     private Feeling feeling;
-    private String subjectId;
 }

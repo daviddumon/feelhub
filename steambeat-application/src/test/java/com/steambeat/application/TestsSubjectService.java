@@ -38,9 +38,8 @@ public class TestsSubjectService {
     @Test
     public void canGetWebPageFromRepository() {
         final Subject subject = TestFactories.subjects().newWebPage();
-        Repositories.subjects().add(subject);
 
-        final WebPage webPageFound = subjectService.lookUpWebPage(UUID.fromString(subject.getId()));
+        final WebPage webPageFound = subjectService.lookUpWebPage(subject.getId());
 
         assertThat(webPageFound, is(subject));
     }
@@ -58,7 +57,6 @@ public class TestsSubjectService {
     public void returnExistingWebPageOnNewAdd() {
         final Association association = TestFactories.associations().newAssociation(new Uri("uri"));
         final WebPage webPage1 = subjectService.addWebPage(association);
-
         final WebPage webPage2 = subjectService.addWebPage(association);
 
         assertThat(Repositories.subjects().getAll().size(), is(1));
@@ -74,11 +72,10 @@ public class TestsSubjectService {
     @Test
     public void updateWebPageIfExpired() {
         final WebPage webPage = TestFactories.subjects().newWebPage();
-        Repositories.subjects().add(webPage);
         final DateTime firstDate = webPage.getScrapedDataExpirationDate();
         time.waitDays(2);
 
-        final WebPage webPageFound = subjectService.lookUpWebPage(UUID.fromString(webPage.getId()));
+        final WebPage webPageFound = subjectService.lookUpWebPage(webPage.getId());
 
         assertThat(firstDate, not(webPageFound.getScrapedDataExpirationDate()));
     }

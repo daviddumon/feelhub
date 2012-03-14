@@ -1,11 +1,12 @@
 package com.steambeat.repositories;
 
 import com.mongodb.*;
-import com.steambeat.domain.Repository;
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.*;
+import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
 import java.net.*;
@@ -45,11 +46,11 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
         final DBCollection collection = mongo.getCollection("subject");
         final DBObject webPage = new BasicDBObject();
         final UUID id = UUID.randomUUID();
-        webPage.put("_id", id.toString());
+        webPage.put("_id", id);
         webPage.put("__discriminator", "WebPage");
         collection.insert(webPage);
 
-        final WebPage webPageFound = (WebPage) repo.get(id.toString());
+        final WebPage webPageFound = (WebPage) repo.get(id);
 
         assertThat(webPageFound, notNullValue());
     }
@@ -59,7 +60,7 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
         final DBCollection collection = mongo.getCollection("subject");
         final DBObject webPage = new BasicDBObject();
         final UUID id = UUID.randomUUID();
-        webPage.put("_id", id.toString());
+        webPage.put("_id", id);
         webPage.put("__discriminator", "WebPage");
         collection.insert(webPage);
         collection.insert(webPage);
@@ -71,6 +72,51 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
         assertThat(webPageList.size(), is(3));
     }
 
-    protected Repository<Subject> repo;
+    @Test
+    public void canPersistSteam() {
+        final Steam steam = new Steam();
+
+        repo.add(steam);
+
+        final DBCollection collection = mongo.getCollection("subject");
+        final DBObject query = new BasicDBObject();
+        query.put("_id", steam.getId());
+        final DBObject steamFound = collection.findOne(query);
+        assertThat(steamFound, notNullValue());
+        assertThat(steamFound.get("_id"), is((Object) steam.getId()));
+        assertThat(steamFound.get("creationDate"), is((Object) steam.getCreationDate().getMillis()));
+    }
+
+    @Test
+    public void canGetSteam() {
+        final DBCollection collection = mongo.getCollection("subject");
+        final DBObject steam = new BasicDBObject();
+        final UUID id = UUID.randomUUID();
+        steam.put("_id", id);
+        steam.put("__discriminator", "Steam");
+        collection.insert(steam);
+
+        final Steam steamFound = repo.getSteam();
+
+        assertThat(steamFound, notNullValue());
+    }
+
+    @Test
+    public void canGetSteamWhenAlreadySubjets() {
+        TestFactories.subjects().newWebPage();
+        TestFactories.subjects().newWebPage();
+        final DBCollection collection = mongo.getCollection("subject");
+        final DBObject steam = new BasicDBObject();
+        final UUID id = UUID.randomUUID();
+        steam.put("_id", id);
+        steam.put("__discriminator", "Steam");
+        collection.insert(steam);
+
+        final Steam steamFound = repo.getSteam();
+
+        assertThat(steamFound, notNullValue());
+    }
+
+    protected SubjectRepository repo;
 
 }

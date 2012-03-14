@@ -29,7 +29,7 @@ public class BaseMongoRepository<T extends Entity> implements Repository<T> {
 
     @Override
     public T get(final Object id) {
-        return session.get(id.toString(), getPersistentType());
+        return session.get(id, getPersistentType());
     }
 
     @Override

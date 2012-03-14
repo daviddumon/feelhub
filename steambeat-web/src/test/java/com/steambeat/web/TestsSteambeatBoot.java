@@ -16,7 +16,7 @@ public class TestsSteambeatBoot extends TestWithMongoRepository {
 
         steambeatBoot.checkForSteam();
 
-        assertThat(Repositories.subjects().get("steam"), notNullValue());
+        assertThat(Repositories.subjects().getSteam(), notNullValue());
     }
 
     @Test
@@ -28,7 +28,7 @@ public class TestsSteambeatBoot extends TestWithMongoRepository {
         steambeatBoot.checkForSteam();
 
         assertThat(Repositories.subjects().getAll().size(), is(1));
-        final Subject steamFound = Repositories.subjects().get("steam");
+        final Steam steamFound = Repositories.subjects().getSteam();
         assertThat(steamFound, notNullValue());
         assertThat(steamFound, is(steam));
     }

@@ -3,6 +3,8 @@ package com.steambeat.application.dto;
 import com.steambeat.domain.opinion.Feeling;
 import com.steambeat.domain.subject.Subject;
 
+import java.util.UUID;
+
 public class JudgmentDTO {
 
     public JudgmentDTO(final Subject subject, final Feeling feeling) {
@@ -10,6 +12,6 @@ public class JudgmentDTO {
         this.feeling = feeling.toString();
     }
 
-    public String subjectId;
+    public UUID subjectId;
     public String feeling;
 }

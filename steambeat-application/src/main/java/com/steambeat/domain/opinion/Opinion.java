@@ -13,6 +13,7 @@ public class Opinion extends BaseEntity {
     }
 
     public Opinion(final String text) {
+        this.id = UUID.randomUUID();
         this.text = text;
         DomainEventBus.INSTANCE.spread(new OpinionPostedEvent(this));
     }
@@ -23,7 +24,7 @@ public class Opinion extends BaseEntity {
         DomainEventBus.INSTANCE.spread(new JudgmentPostedEvent(judgment));
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -43,7 +44,7 @@ public class Opinion extends BaseEntity {
         return judgments;
     }
 
-    private String id;
+    private UUID id;
     private String text;
     private final DateTime creationDate = new DateTime();
     private final List<Judgment> judgments = Lists.newArrayList();

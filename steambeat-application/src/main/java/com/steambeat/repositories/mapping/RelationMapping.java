@@ -11,7 +11,7 @@ public class RelationMapping extends EntityMap<Relation> {
 
     @Override
     protected void map() {
-        id(element().getId()).auto();
+        id(element().getId()).natural();
         property(element().getLeftId());
         property(element().getRightId());
     }

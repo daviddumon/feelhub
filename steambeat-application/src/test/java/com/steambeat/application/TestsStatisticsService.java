@@ -196,7 +196,7 @@ public class TestsStatisticsService {
 
         DomainEventBus.INSTANCE.flush();
 
-        assertThat(getStatisticsRepository().forSubject(new Steam()).getGoodJudgments(), is(1));
+        assertThat(getStatisticsRepository().forSubject(Repositories.subjects().getSteam()).getGoodJudgments(), is(1));
     }
 
     private JudgmentPostedEvent getGoodJudgmentEvent() {

@@ -3,7 +3,6 @@ package com.steambeat.application;
 import com.steambeat.domain.*;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.statistics.*;
-import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.repositories.Repositories;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class StatisticsService implements DomainEventListener<JudgmentPostedEven
 
     private void dealWith(final Granularity granularity, final JudgmentPostedEvent event) {
         dealWithSubject(granularity, event);
-        dealWithSteam(granularity, new JudgmentPostedEvent(new Judgment(new Steam(), event.getJudgment().getFeeling())));
+        dealWithSteam(granularity, new JudgmentPostedEvent(new Judgment(Repositories.subjects().getSteam(), event.getJudgment().getFeeling())));
     }
 
     private void dealWithSubject(final Granularity granularity, final JudgmentPostedEvent event) {
@@ -38,6 +37,9 @@ public class StatisticsService implements DomainEventListener<JudgmentPostedEven
     private void dealWithSteam(final Granularity granularity, final JudgmentPostedEvent event) {
         final Statistics stat = getOrCreateStat(granularity, event);
         stat.incrementJudgmentCount(event.getJudgment());
+        if (granularity.equals(Granularity.all)) {
+            System.out.println("STAT:" + stat.getId() + " - " + stat.getBadJudgments() + " - " + stat.getGoodJudgments());
+        }
     }
 
     private synchronized Statistics getOrCreateStat(final Granularity granularity, final JudgmentPostedEvent event) {

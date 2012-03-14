@@ -11,6 +11,6 @@ public class TestsSteam {
     public void canCreateSteam() {
         final Steam steam = new Steam();
 
-        assertThat(steam.getId(), is("steam"));
+        assertThat(steam.getId(), notNullValue());
     }
 }

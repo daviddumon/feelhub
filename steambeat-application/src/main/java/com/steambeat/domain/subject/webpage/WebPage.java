@@ -16,7 +16,7 @@ public class WebPage extends Subject {
     }
 
     public WebPage(final Association association) {
-        super(association.getSubjectId().toString());
+        super(association.getSubjectId());
         uri = association.getId();
     }
 

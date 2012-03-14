@@ -30,7 +30,7 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
         query.put("_id", opinion.getId());
         final DBObject opinionFound = opinions.findOne(query);
         assertThat(opinionFound, notNullValue());
-        assertThat(opinionFound.get("_id").toString(), is(opinion.getId()));
+        assertThat(opinionFound.get("_id"), is((Object) opinion.getId()));
         assertThat(opinionFound.get("text").toString(), is(opinion.getText()));
         assertThat(opinionFound.get("creationDate"), is((Object) opinion.getCreationDate().getMillis()));
     }

@@ -13,7 +13,7 @@ public class TestsConcept {
         final Concept concept = new Concept(text);
 
         assertThat(concept.getId(), notNullValue());
-        assertThat(concept.getId(), not(text));
+        assertThat(concept.getId().toString(), not(text));
         assertThat(concept.getText(), is(text));
     }
 }
