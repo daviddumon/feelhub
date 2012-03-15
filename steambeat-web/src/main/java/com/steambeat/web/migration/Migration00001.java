@@ -20,8 +20,8 @@ public class Migration00001 extends Migration {
 
     @Override
     protected void doRun() {
-        final AssociationService associationService = new AssociationService(new UriPathResolver());
-        final SubjectService subjectService = new SubjectService(new WebPageFactory());
+        final AssociationService associationService = new AssociationService(new MigrationUriPathResolver());
+        final SubjectService subjectService = new SubjectService(new MigrationWebPageFactory());
         final OpinionService opinionService = new OpinionService();
         final DB db = provider.get().getDb();
         final DBCollection oldopinions = db.getCollection("oldopinion");

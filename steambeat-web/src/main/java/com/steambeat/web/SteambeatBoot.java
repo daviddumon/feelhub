@@ -17,8 +17,8 @@ public class SteambeatBoot {
     }
 
     public void boot() {
-        doMigrations();
         checkForSteam();
+        doMigrations();
     }
 
     private void doMigrations() {
