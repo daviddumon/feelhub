@@ -44,10 +44,10 @@ public abstract class Migration {
         final DBCollection migrationCollection = db.getCollection("migration");
         final BasicDBObject query = new BasicDBObject();
         query.put("number", number);
-        query.put("creationDate", new DateTime());
+        query.put("creationDate", new DateTime().getMillis());
         migrationCollection.insert(query);
     }
 
-    private SessionProvider provider;
-    private int number;
+    protected SessionProvider provider;
+    protected int number;
 }
