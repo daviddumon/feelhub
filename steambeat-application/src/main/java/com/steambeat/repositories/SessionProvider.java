@@ -28,6 +28,7 @@ public class SessionProvider {
 
     public void stop() {
         get().stop();
+        sessionContainer.remove();
     }
 
     public void close() {

@@ -37,9 +37,6 @@ public class StatisticsService implements DomainEventListener<JudgmentPostedEven
     private void dealWithSteam(final Granularity granularity, final JudgmentPostedEvent event) {
         final Statistics stat = getOrCreateStat(granularity, event);
         stat.incrementJudgmentCount(event.getJudgment());
-        if (granularity.equals(Granularity.all)) {
-            System.out.println("STAT:" + stat.getId() + " - " + stat.getBadJudgments() + " - " + stat.getGoodJudgments());
-        }
     }
 
     private synchronized Statistics getOrCreateStat(final Granularity granularity, final JudgmentPostedEvent event) {
