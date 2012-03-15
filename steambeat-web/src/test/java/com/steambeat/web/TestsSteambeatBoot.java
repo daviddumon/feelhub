@@ -14,7 +14,7 @@ public class TestsSteambeatBoot extends TestWithMongoRepository {
     public void canCreateSteamIfNotPresent() {
         final SteambeatBoot steambeatBoot = new SteambeatBoot(getProvider());
 
-        steambeatBoot.checkForSteam();
+        steambeatBoot.boot();
 
         assertThat(Repositories.subjects().getSteam(), notNullValue());
     }
@@ -25,7 +25,7 @@ public class TestsSteambeatBoot extends TestWithMongoRepository {
         Repositories.subjects().add(steam);
         final SteambeatBoot steambeatBoot = new SteambeatBoot(getProvider());
 
-        steambeatBoot.checkForSteam();
+        steambeatBoot.boot();
 
         assertThat(Repositories.subjects().getAll().size(), is(1));
         final Steam steamFound = Repositories.subjects().getSteam();

@@ -23,7 +23,7 @@ public class SteambeatApplication extends Application {
     public synchronized void start() throws Exception {
         initFreemarkerConfiguration();
         final SteambeatBoot steambeatBoot = injector.getInstance(SteambeatBoot.class);
-        steambeatBoot.checkForSteam();
+        steambeatBoot.boot();
         super.start();
     }
 

@@ -11,7 +11,11 @@ public class SteambeatBoot {
         Repositories.initialize(new MongoRepositories(provider));
     }
 
-    public void checkForSteam() {
+    public void boot() {
+        checkForSteam();
+    }
+
+    private void checkForSteam() {
         final Steam steam = Repositories.subjects().getSteam();
         if (steam == null) {
             Repositories.subjects().add(new Steam());
