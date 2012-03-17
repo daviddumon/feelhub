@@ -40,6 +40,8 @@
 }
 
 .judgment_tag {
+    display: inline;
+    white-space: nowrap;
     cursor: pointer;
     color: white;
     padding: 5px;
