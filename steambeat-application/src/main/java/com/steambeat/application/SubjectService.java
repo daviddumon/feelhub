@@ -2,6 +2,8 @@ package com.steambeat.application;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.scrapers.UriScraper;
+import com.steambeat.domain.subject.SubjectFactory;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
 
@@ -10,12 +12,12 @@ import java.util.UUID;
 public class SubjectService {
 
     @Inject
-    public SubjectService(final WebPageFactory webPageFactory) {
-        this.webPageFactory = webPageFactory;
+    public SubjectService(final SubjectFactory subjectFactory) {
+        this.subjectFactory = subjectFactory;
     }
 
     public WebPage lookUpWebPage(final UUID subjectId) {
-        final WebPage webPage = (WebPage) Repositories.subjects().get(subjectId);
+        final WebPage webPage = subjectFactory.lookUpWebpage(subjectId);
         if (webPage == null) {
             throw new WebPageNotYetCreatedException();
         } else {
@@ -24,8 +26,9 @@ public class SubjectService {
         return webPage;
     }
 
-    private void checkScrapedData(final WebPage webPage) {
+    protected void checkScrapedData(final WebPage webPage) {
         if (webPage.isExpired()) {
+            webPage.setScraper(new UriScraper());
             webPage.update();
         }
     }
@@ -33,7 +36,7 @@ public class SubjectService {
     public WebPage addWebPage(final Association association) {
         WebPage webPage;
         try {
-            webPage = webPageFactory.newWebPage(association);
+            webPage = subjectFactory.newWebPage(association);
             Repositories.subjects().add(webPage);
         } catch (WebPageAlreadyExistsException e) {
             webPage = lookUpWebPage(association.getSubjectId());
@@ -41,5 +44,5 @@ public class SubjectService {
         return webPage;
     }
 
-    private final WebPageFactory webPageFactory;
+    protected final SubjectFactory subjectFactory;
 }

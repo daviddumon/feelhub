@@ -7,6 +7,7 @@ import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.*;
 import com.steambeat.domain.opinion.Feeling;
+import com.steambeat.domain.subject.SubjectFactory;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.SessionProvider;
 
@@ -21,7 +22,7 @@ public class Migration00001 extends Migration {
     @Override
     protected void doRun() {
         final AssociationService associationService = new AssociationService(new MigrationUriPathResolver());
-        final SubjectService subjectService = new SubjectService(new MigrationWebPageFactory());
+        final SubjectService subjectService = new SubjectService(new SubjectFactory(new MigrationWebPageFactory()));
         final OpinionService opinionService = new OpinionService();
         final DB db = provider.get().getDb();
         final DBCollection oldopinions = db.getCollection("oldopinion");

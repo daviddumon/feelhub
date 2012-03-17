@@ -2,7 +2,7 @@ package com.steambeat.application;
 
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.SystemTime;
@@ -32,7 +32,7 @@ public class TestsSubjectService {
 
     @Before
     public void before() {
-        subjectService = new SubjectService(new FakeWebPageFactory());
+        subjectService = new SubjectService(new SubjectFactory(new FakeWebPageFactory()));
     }
 
     @Test

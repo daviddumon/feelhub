@@ -5,6 +5,7 @@ import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.domain.textAnalytics.NamedEntity;
+import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -19,7 +20,7 @@ public class TestsSubjectFactory {
 
     @Before
     public void setUp() throws Exception {
-        subjectFactory = new SubjectFactory();
+        subjectFactory = new SubjectFactory(new FakeWebPageFactory());
     }
 
     @Test
