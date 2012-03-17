@@ -7,8 +7,11 @@ var newsubject = {};
         var postData = {
             uri:uri
         };
-        $.post(root + "/webpages", postData, function (data, text, xhr) {
-            window.location = xhr.getResponseHeader("Location");
-        });
+        var jqxhr = $.post(root + "/webpages", postData,
+            function (data, text, xhr) {
+                window.location = xhr.getResponseHeader("Location");
+            }).error(function () {
+                window.location = "/error";
+            });
     };
 }).call(newsubject, jQuery);

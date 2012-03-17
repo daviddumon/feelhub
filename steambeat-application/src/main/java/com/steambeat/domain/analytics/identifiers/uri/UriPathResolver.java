@@ -51,6 +51,7 @@ public class UriPathResolver {
 
     private static final List<Status> ERROR_STATUS = Lists.newArrayList(Status.CONNECTOR_ERROR_COMMUNICATION,
             Status.CONNECTOR_ERROR_CONNECTION,
-            Status.CLIENT_ERROR_NOT_FOUND);
+            Status.CLIENT_ERROR_NOT_FOUND,
+            Status.CONNECTOR_ERROR_INTERNAL);
 
 }
