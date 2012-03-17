@@ -10,8 +10,8 @@ import org.restlet.Context;
 
 import javax.servlet.ServletContext;
 
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @SuppressWarnings("deprecation")

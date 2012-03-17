@@ -3,6 +3,7 @@ package com.steambeat.web;
 import com.google.inject.*;
 import com.steambeat.tools.SteambeatWebProperties;
 import com.steambeat.web.guice.SteambeatModule;
+import com.steambeat.web.migration.MigrationRouter;
 import com.steambeat.web.status.SteambeatStatusService;
 import freemarker.template.*;
 import org.restlet.*;
@@ -23,7 +24,8 @@ public class SteambeatApplication extends Application {
     public synchronized void start() throws Exception {
         initFreemarkerConfiguration();
         final SteambeatBoot steambeatBoot = injector.getInstance(SteambeatBoot.class);
-        steambeatBoot.boot();
+        steambeatBoot.checkForSteam();
+        needToMigrate = steambeatBoot.checkForMigration();
         super.start();
     }
 
@@ -49,12 +51,21 @@ public class SteambeatApplication extends Application {
     public Restlet createInboundRoot() {
         final Router router = new Router(getContext());
         router.attach("/static", new Directory(getContext(), "war:///static"));
-        final SteambeatRouter steambeatRouter = new SteambeatRouter(getContext(), injector);
         final Filter openSession = injector.getInstance(OpenSessionInViewFilter.class);
         openSession.setContext(getContext());
-        openSession.setNext(steambeatRouter);
+        setNextWithGoodRouter(openSession);
         router.attach(openSession);
         return router;
+    }
+
+    private void setNextWithGoodRouter(final Filter openSession) {
+        if (needToMigrate) {
+            final MigrationRouter migrationRouter = new MigrationRouter(getContext(), injector);
+            openSession.setNext(migrationRouter);
+        } else {
+            final SteambeatRouter steambeatRouter = new SteambeatRouter(getContext(), injector);
+            openSession.setNext(steambeatRouter);
+        }
     }
 
     public void setModule(final Module module) {
@@ -62,4 +73,5 @@ public class SteambeatApplication extends Application {
     }
 
     private Injector injector = Guice.createInjector(new SteambeatModule());
+    private boolean needToMigrate;
 }

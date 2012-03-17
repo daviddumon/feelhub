@@ -11,7 +11,7 @@ import com.steambeat.test.fakeRepositories.FakeSessionProvider;
 import com.steambeat.test.fakeSearches.*;
 import com.steambeat.test.fakeServices.FakeSubjectService;
 import com.steambeat.tools.Hiram;
-import com.steambeat.web.OpenSessionInViewFilter;
+import com.steambeat.web.*;
 import com.steambeat.web.search.*;
 
 public class SteambeatModuleForTest extends AbstractModule {
@@ -25,6 +25,7 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(StatisticsSearch.class).to(FakeStatisticsSearch.class);
         bind(UriPathResolver.class).to(FakeUriPathResolver.class);
         bind(SubjectService.class).to(FakeSubjectService.class);
+        bind(SteambeatBoot.class).to(FakeSteambeatBoot.class);
     }
 
     @Provides
