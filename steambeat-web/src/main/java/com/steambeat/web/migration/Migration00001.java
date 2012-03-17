@@ -5,10 +5,10 @@ import com.mongodb.*;
 import com.steambeat.application.*;
 import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.identifiers.uri.*;
+import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.opinion.Feeling;
 import com.steambeat.domain.subject.SubjectFactory;
-import com.steambeat.domain.subject.webpage.*;
+import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.SessionProvider;
 
 import java.util.List;

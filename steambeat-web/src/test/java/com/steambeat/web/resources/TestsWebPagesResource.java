@@ -32,7 +32,7 @@ public class TestsWebPagesResource {
         assertThat(resource.getStatus(), is(Status.SUCCESS_CREATED));
         assertThat(Repositories.subjects().getAll().size(), is(1));
         final WebPage webPage = (WebPage) Repositories.subjects().getAll().get(0);
-        assertThat(resource.getLocationRef().toString(), containsString("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId()));
+        assertThat(resource.getLocationRef().toString(), containsString("/webpages/" + webPage.getId()));
     }
 
     @Test

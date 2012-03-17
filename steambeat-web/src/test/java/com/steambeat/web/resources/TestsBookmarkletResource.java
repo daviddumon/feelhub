@@ -31,7 +31,7 @@ public class TestsBookmarkletResource {
         bookmarkletResource.get();
 
         assertThat(bookmarkletResource.getStatus(), is(Status.REDIRECTION_SEE_OTHER));
-        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId());
+        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + webPage.getId());
         assertThat(bookmarkletResource.getLocationRef().toString(), is(uriToRedirect));
     }
 

@@ -6,9 +6,6 @@ import com.steambeat.domain.scrapers.Scraper;
 import com.steambeat.domain.subject.Subject;
 import org.joda.time.DateTime;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 public class WebPage extends Subject {
 
     // Mongolink constructor : do not delete
@@ -32,16 +29,6 @@ public class WebPage extends Subject {
         shortDescription = scraper.getShortDescription();
         illustration = scraper.getIllustration();
         scrapedDataExpirationDate = new DateTime().plusDays(1);
-        buildSemanticDescription();
-    }
-
-    private void buildSemanticDescription() {
-        final String decodedSemanticDescription = getRealUri().getDomain().replaceAll("\\.", "-") + "-" + description.replaceAll("\\ ", "-");
-        try {
-            semanticDescription = URLEncoder.encode(decodedSemanticDescription, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new WebPageException();
-        }
     }
 
     public Uri getRealUri() {

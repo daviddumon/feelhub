@@ -102,8 +102,8 @@ Flow.prototype.getOpinionData = function (opinion, classes) {
             feeling:opinion.feeling,
             root:root,
             subjectId:opinion.subjectId,
-            semantic: opinion.semantic,
-            shortDescription:opinion.shortDescription
+            shortDescription:opinion.shortDescription,
+            description: opinion.description
         }
     ];
 

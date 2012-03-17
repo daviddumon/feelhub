@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
-import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.web.*;
 import org.restlet.data.*;
 import org.restlet.representation.*;
@@ -13,9 +12,8 @@ import org.restlet.resource.*;
 public class BookmarkletResource extends ServerResource {
 
     @Inject
-    public BookmarkletResource(final AssociationService associationService, final SubjectService subjectService) {
+    public BookmarkletResource(final AssociationService associationService) {
         this.associationService = associationService;
-        this.subjectService = subjectService;
     }
 
     @Override
@@ -50,8 +48,7 @@ public class BookmarkletResource extends ServerResource {
             if (uri.isEmpty()) {
                 throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
             }
-            final Association association = associationService.lookUp(new Uri(uri));
-            webPage = subjectService.lookUpWebPage(association.getSubjectId());
+            association = associationService.lookUp(new Uri(uri));
         } else {
             throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
         }
@@ -64,15 +61,14 @@ public class BookmarkletResource extends ServerResource {
             return SteambeatTemplateRepresentation.createNew("newsubject.ftl", getContext()).with("uri", uri);
         }
         setStatus(Status.REDIRECTION_SEE_OTHER);
-        setLocationRef(new ReferenceBuilder(this.getContext()).buildUri("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId()));
+        setLocationRef(new ReferenceBuilder(this.getContext()).buildUri("/webpages/" + association.getSubjectId()));
         return new EmptyRepresentation();
     }
 
     private final AssociationService associationService;
-    private final SubjectService subjectService;
-    private WebPage webPage;
     private boolean mustCreate = false;
     private String uri;
     private Form form;
+    private Association association;
     private static final String currentVersion = "1";
 }

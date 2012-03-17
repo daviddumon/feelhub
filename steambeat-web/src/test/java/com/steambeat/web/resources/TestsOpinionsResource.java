@@ -202,7 +202,7 @@ public class TestsOpinionsResource {
 
         opinionsResource.post(form);
 
-        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId());
+        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + webPage.getId());
         assertThat(opinionsResource.getLocationRef().toString(), is(uriToRedirect));
     }
 

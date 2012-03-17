@@ -19,7 +19,6 @@ public class SubjectMapping extends EntityMap<Subject> {
         property(element().getShortDescription());
         property(element().getIllustration());
         property(element().getScrapedDataExpirationDate());
-        property(element().getSemanticDescription());
 
         subclass(new SubclassMap<WebPage>(WebPage.class) {
             @Override

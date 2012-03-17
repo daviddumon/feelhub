@@ -73,7 +73,7 @@ public class OpinionsResource extends ServerResource {
         final JudgmentDTO judgmentDTO = new JudgmentDTO(subject, feeling);
         opinionService.addOpinion(text, Lists.newArrayList(judgmentDTO));
         setStatus(Status.SUCCESS_CREATED);
-        setLocationRef(new ReferenceBuilder(getContext()).buildUri("/webpages/" + subject.getSemanticDescription() + "/" + subject.getId()));
+        setLocationRef(new ReferenceBuilder(getContext()).buildUri("/webpages/" + subject.getId()));
     }
 
     private void extractFormParameters(final Form form) {

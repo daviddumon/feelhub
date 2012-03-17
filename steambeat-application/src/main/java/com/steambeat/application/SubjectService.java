@@ -29,7 +29,6 @@ public class SubjectService {
     protected void checkScrapedData(final WebPage webPage) {
         if (webPage.isExpired()) {
             webPage.setScraper(new UriScraper());
-            webPage.update();
         }
     }
 

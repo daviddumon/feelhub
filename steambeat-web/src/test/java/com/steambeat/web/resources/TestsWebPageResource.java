@@ -5,7 +5,6 @@ import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
 import org.junit.*;
-import org.restlet.Context;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 
@@ -26,7 +25,7 @@ public class TestsWebPageResource {
     @Test
     public void isMapped() throws IOException {
         final WebPage webPage = TestFactories.subjects().newWebPage();
-        final ClientResource webpageResource = restlet.newClientResource("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId());
+        final ClientResource webpageResource = restlet.newClientResource("/webpages/" + webPage.getId());
 
         final Representation response = webpageResource.get();
 
@@ -35,7 +34,7 @@ public class TestsWebPageResource {
 
     @Test
     public void canRepresentNonExistingWebPage() {
-        final ClientResource clientResource = restlet.newClientResource("/webpages/semantic/" + UUID.randomUUID().toString());
+        final ClientResource clientResource = restlet.newClientResource("/webpages/" + UUID.randomUUID().toString());
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
 
@@ -45,23 +44,11 @@ public class TestsWebPageResource {
     @Test
     public void canRepresentExistingWebPage() {
         final WebPage webPage = TestFactories.subjects().newWebPage();
-        final ClientResource webpageResource = restlet.newClientResource("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId());
+        final ClientResource webpageResource = restlet.newClientResource("/webpages/" + webPage.getId());
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) webpageResource.get();
 
         final Map<String, Object> dataModel = representation.getDataModel();
         assertThat(dataModel, hasEntry("webPage", (Object) webPage));
-    }
-
-    @Test
-    public void permanentRedirectOnBadSemantic() {
-        final WebPage webPage = TestFactories.subjects().newWebPage();
-        final ClientResource webpageResource = restlet.newClientResource("/webpages/semantic/" + webPage.getId());
-
-        webpageResource.get();
-
-        assertThat(webpageResource.getStatus(), is(Status.REDIRECTION_PERMANENT));
-        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + webPage.getSemanticDescription() + "/" + webPage.getId());
-        assertThat(webpageResource.getLocationRef().toString(), is(uriToRedirect));
     }
 }
