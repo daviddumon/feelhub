@@ -13,6 +13,7 @@ public class TestsMigrationResource {
     public WebApplicationTester restlet = new WebApplicationTester();
     
     @Test
+    @Ignore
     public void onlyMigrationResourceIsMapped() {
         final ClientResource anyResource = restlet.newClientResource("/ahaha/yeah");
 
