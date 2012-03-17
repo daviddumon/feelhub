@@ -13,9 +13,10 @@ function Flow() {
     this.initial = this.getInitialWidth();
     this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
-    this.skip = -30;
-    this.limit = 30;
+    this.skip = -20;
+    this.limit = 20;
     this.hasData = true;
+    this.notLoading = true;
 
     THIS.drawData();
 
@@ -26,19 +27,13 @@ function Flow() {
 
 Flow.prototype.drawData = function () {
     var THIS = this;
-    if (needData() && this.hasData) {
+    if (needData() && this.hasData && this.notLoading) {
         THIS.skip += THIS.limit;
         loadData();
     }
 
-    function needData() {
-        var docHeight = THIS.container.height();
-        var scrollTop = $(window).scrollTop();
-        var trigger = $(window).height() * 1.5;
-        return (docHeight - scrollTop) < trigger;
-    }
-
     function loadData() {
+        this.notLoading = false;
         var subjectParameter = (typeof subjectId === 'undefined') ? "" : ("&subjectId=" + encodeURIComponent(subjectId));
         $.getJSON(root + "/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + subjectParameter, function (data) {
             $.each(data, function (index, opinion) {
@@ -54,8 +49,15 @@ Flow.prototype.drawData = function () {
                     THIS.skip += THIS.limit;
                     loadData();
                 }
-            }, 200);
+            }, 500);
         });
+    }
+
+    function needData() {
+        var docHeight = THIS.container.height();
+        var scrollTop = $(window).scrollTop();
+        var trigger = $(window).height() * 1.5;
+        return (docHeight - scrollTop) < trigger;
     }
 };
 
@@ -103,7 +105,7 @@ Flow.prototype.getOpinionData = function (opinion, classes) {
             root:root,
             subjectId:opinion.subjectId,
             shortDescription:opinion.shortDescription,
-            description: opinion.description
+            description:opinion.description
         }
     ];
 
