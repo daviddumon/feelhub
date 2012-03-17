@@ -21,21 +21,25 @@ function Flow() {
     THIS.drawData();
 
     $(window).scroll(function () {
+        console.log("scroll");
         THIS.drawData();
     });
 }
 
 Flow.prototype.drawData = function () {
     var THIS = this;
+
     if (needData() && this.hasData && this.notLoading) {
+        console.log("need " + this.notLoading);
+        this.notLoading = false;
         THIS.skip += THIS.limit;
         loadData();
     }
 
     function loadData() {
-        this.notLoading = false;
         var subjectParameter = (typeof subjectId === 'undefined') ? "" : ("&subjectId=" + encodeURIComponent(subjectId));
         $.getJSON(root + "/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + subjectParameter, function (data) {
+            console.log("data " + THIS.notLoading);
             $.each(data, function (index, opinion) {
                 THIS.drawBox(opinion, "opinion");
             });
@@ -46,10 +50,14 @@ Flow.prototype.drawData = function () {
 
             setTimeout(function () {
                 if (needData() && THIS.hasData) {
+                    console.log("more " + THIS.notLoading);
                     THIS.skip += THIS.limit;
                     loadData();
+                } else {
+                    console.log("end");
+                    THIS.notLoading = true;
                 }
-            }, 500);
+            }, 200);
         });
     }
 
