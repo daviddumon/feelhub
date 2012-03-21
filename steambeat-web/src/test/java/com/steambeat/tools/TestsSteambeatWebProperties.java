@@ -24,4 +24,13 @@ public class TestsSteambeatWebProperties {
 
         assertThat(buildTime, is("buildtime"));
     }
+
+    @Test
+    public void canGetReadyParameter() {
+        final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
+
+        final String buildTime = steambeatWebProperties.getReadyState();
+
+        assertThat(buildTime, is("true"));
+    }
 }

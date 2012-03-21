@@ -30,5 +30,9 @@ public class SteambeatWebProperties {
         return properties.getProperty("buildtime");
     }
 
+    public String getReadyState() {
+        return properties.getProperty("ready");
+    }
+
     private final Properties properties;
 }

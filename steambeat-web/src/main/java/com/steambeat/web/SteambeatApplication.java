@@ -48,7 +48,7 @@ public class SteambeatApplication extends Application {
     }
 
     private void setReadyContext() {
-        getContext().getAttributes().put("com.steambeat.ready", true);
+        getContext().getAttributes().put("com.steambeat.ready", new Boolean(steambeatWebProperties.getReadyState()));
     }
 
     public void setModule(final Module module) {
