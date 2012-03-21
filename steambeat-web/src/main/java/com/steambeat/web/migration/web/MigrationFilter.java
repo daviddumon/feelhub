@@ -1,23 +1,30 @@
 package com.steambeat.web.migration.web;
 
-import com.google.inject.*;
 import com.steambeat.web.SteambeatRouter;
-import com.steambeat.web.guice.SteambeatModule;
 import org.restlet.*;
 import org.restlet.routing.Filter;
 
 public class MigrationFilter extends Filter {
 
+    public void setSteambeatRouter(final SteambeatRouter steambeatRouter) {
+        this.steambeatRouter = steambeatRouter;
+    }
+
+    public void setMigrationRouter(final MigrationRouter migrationRouter) {
+        this.migrationRouter = migrationRouter;
+    }
+
     @Override
     protected int beforeHandle(final Request request, final Response response) {
         final Boolean ready = (Boolean) getContext().getAttributes().get("com.steambeat.ready");
         if (ready) {
-            setNext(new SteambeatRouter(getContext(), injector));
+            setNext(steambeatRouter);
         } else {
-            setNext(new MigrationRouter(getContext(), injector));
+            setNext(migrationRouter);
         }
         return CONTINUE;
     }
 
-    private Injector injector = Guice.createInjector(new SteambeatModule());
+    private SteambeatRouter steambeatRouter;
+    private MigrationRouter migrationRouter;
 }

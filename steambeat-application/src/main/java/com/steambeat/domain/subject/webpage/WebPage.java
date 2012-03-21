@@ -18,13 +18,12 @@ public class WebPage extends Subject {
     }
 
     public void setScraper(final Scraper scraper) {
-        this.scraper = scraper;
         scraper.scrap(getRealUri());
-        update();
+        update(scraper);
     }
 
     @Override
-    public void update() {
+    protected void update(final Scraper scraper) {
         description = scraper.getDescription();
         shortDescription = scraper.getShortDescription();
         illustration = scraper.getIllustration();
@@ -40,5 +39,4 @@ public class WebPage extends Subject {
     }
 
     private String uri;
-    private Scraper scraper;
 }

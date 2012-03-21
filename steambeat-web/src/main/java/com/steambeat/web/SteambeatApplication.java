@@ -4,12 +4,13 @@ import com.google.inject.*;
 import com.steambeat.tools.SteambeatWebProperties;
 import com.steambeat.web.guice.SteambeatModule;
 import com.steambeat.web.migration.MigrationRunner;
-import com.steambeat.web.migration.web.MigrationFilter;
+import com.steambeat.web.migration.web.*;
 import com.steambeat.web.status.SteambeatStatusService;
 import freemarker.template.*;
 import org.restlet.*;
 import org.restlet.resource.Directory;
-import org.restlet.routing.*;
+import org.restlet.routing.Router;
+import org.restlet.service.TaskService;
 
 import javax.servlet.ServletContext;
 import java.util.Locale;
@@ -33,9 +34,10 @@ public class SteambeatApplication extends Application {
 
     private void runMigrations() {
         setReadyContext();
+        final TaskService taskService = getTaskService();
         final MigrationRunner migrationRunner = injector.getInstance(MigrationRunner.class);
         migrationRunner.setContext(getContext());
-        migrationRunner.run();
+        taskService.execute(migrationRunner);
     }
 
     private void initFreemarkerConfiguration() throws TemplateModelException {
@@ -80,11 +82,13 @@ public class SteambeatApplication extends Application {
 
     private MigrationFilter getMigrationFilter() {
         final MigrationFilter filter = injector.getInstance(MigrationFilter.class);
+        filter.setSteambeatRouter(new SteambeatRouter(getContext(), injector));
+        filter.setMigrationRouter(new MigrationRouter(getContext(), injector));
         filter.setContext(getContext());
         filter.setNext(new SteambeatRouter(getContext(), injector));
         return filter;
     }
 
-    private Injector injector = Guice.createInjector(new SteambeatModule());
     private SteambeatWebProperties steambeatWebProperties;
+    private Injector injector = Guice.createInjector(new SteambeatModule());
 }

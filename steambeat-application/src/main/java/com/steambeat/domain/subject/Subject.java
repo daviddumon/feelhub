@@ -1,6 +1,7 @@
 package com.steambeat.domain.subject;
 
 import com.steambeat.domain.BaseEntity;
+import com.steambeat.domain.scrapers.Scraper;
 import org.joda.time.DateTime;
 
 import java.util.UUID;
@@ -16,7 +17,9 @@ public abstract class Subject extends BaseEntity {
         this.creationDate = new DateTime();
     }
 
-    public abstract void update();
+    public abstract void setScraper(final Scraper scraper);
+
+    protected abstract void update(final Scraper scraper);
 
     @Override
     public UUID getId() {

@@ -57,6 +57,10 @@ public class WebApplicationTester extends ExternalResource {
         module.setHiram(hiram);
     }
 
+    public SteambeatApplication getApplication() {
+        return application;
+    }
+
     private SteambeatApplication application;
     private SteambeatModuleForTest module;
     public static final String SERVER_ROOT = "http://localhost";

@@ -18,9 +18,42 @@ public abstract class Migration {
 
     public void run() {
         if (canRun()) {
-            doRun();
-            endOfMigration();
+            try {
+                lockOrPoll();
+                doRun();
+                endOfMigration();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    private void lockOrPoll() throws InterruptedException {
+        final DBCollection collection = getCollection();
+        DBObject status = getStatus(collection);
+        if (status == null) {
+            lock(collection);
+        } else {
+            while (status == null) {
+                status = getStatus(collection);
+                Thread.sleep(TEN_SECONDS);
+            }
+        }
+    }
+
+    private void lock(final DBCollection collection) {
+        final BasicDBObject query = new BasicDBObject();
+        query.put("value", "update");
+        collection.insert(query);
+    }
+
+    private DBCollection getCollection() {
+        final DB db = provider.get().getDb();
+        return db.getCollection("status");
+    }
+
+    private DBObject getStatus(final DBCollection collection) {
+        return collection.findOne();
     }
 
     private boolean canRun() {
@@ -50,4 +83,5 @@ public abstract class Migration {
 
     protected SessionProvider provider;
     protected int number;
+    private final int TEN_SECONDS = 10000;
 }

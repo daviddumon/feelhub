@@ -7,23 +7,32 @@ import org.restlet.Context;
 
 import java.util.List;
 
-public class MigrationRunner {
+public class MigrationRunner implements Runnable {
 
     @Inject
-    public MigrationRunner(final SessionProvider provider) {
-        this.provider = provider;
+    public MigrationRunner(final SessionProvider sessionProvider) {
+        this.sessionProvider = sessionProvider;
     }
 
     public void setContext(final Context context) {
         this.context = context;
     }
 
+    @Override
     public void run() {
         List<Migration> migrations = Lists.newArrayList();
-        //migrations.add(new Migration00001(provider));
+        migrations.add(new Migration00001(sessionProvider));
+        migrations.add(new Migration00002(sessionProvider));
+        for (Migration migration : migrations) {
+            sessionProvider.start();
+            migration.run();
+            sessionProvider.stop();
+        }
         context.getAttributes().replace("com.steambeat.ready", true);
+        Thread.currentThread().interrupt();
+        return;
     }
 
-    private Context context;
-    private SessionProvider provider;
+    protected Context context;
+    private SessionProvider sessionProvider;
 }

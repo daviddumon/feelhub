@@ -1,5 +1,6 @@
 package com.steambeat.domain.subject.concept;
 
+import com.steambeat.domain.scrapers.Scraper;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.thesaurus.*;
 
@@ -13,7 +14,12 @@ public class Concept extends Subject {
     }
 
     @Override
-    public void update() {
+    public void setScraper(final Scraper scraper) {
+        update(scraper);
+    }
+
+    @Override
+    protected void update(final Scraper scraper) {
     }
 
     public String getText() {

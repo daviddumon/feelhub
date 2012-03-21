@@ -1,7 +1,7 @@
 package com.steambeat.learning;
 
 import org.junit.Test;
-import org.restlet.*;
+import org.restlet.Application;
 import org.restlet.routing.*;
 import org.restlet.util.RouteList;
 
@@ -65,9 +65,9 @@ public class TestsRestlet {
     @Test
     public void canStopARouter() throws Exception {
         final Router router = new Router();
-        
+
         router.stop();
-        
+
         assertThat(router.isStopped(), is(true));
     }
 
@@ -80,11 +80,11 @@ public class TestsRestlet {
         application.setInboundRoot(router);
 
         final RouteList routes = ((Router) application.getInboundRoot()).getRoutes();
-        
+
         assertThat(routes.size(), is(1));
 
         ((Router) application.getInboundRoot()).detach(migrationRouter);
-        
+
         assertThat(((Router) application.getInboundRoot()).getRoutes().size(), is(0));
     }
 

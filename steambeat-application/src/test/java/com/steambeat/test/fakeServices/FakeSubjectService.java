@@ -17,7 +17,6 @@ public class FakeSubjectService extends SubjectService {
     protected void checkScrapedData(final WebPage webPage) {
         if (webPage.isExpired()) {
             webPage.setScraper(new FakeUriScraper());
-            webPage.update();
         }
     }
 }
