@@ -53,7 +53,11 @@ public abstract class Migration {
     }
 
     private DBObject getStatus(final DBCollection collection) {
-        return collection.findOne();
+        try {
+            return collection.findOne();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private boolean canRun() {
