@@ -8,12 +8,7 @@ public class SteambeatBoot {
 
     @Inject
     public SteambeatBoot(final SessionProvider provider) {
-        this.provider = provider;
         Repositories.initialize(new MongoRepositories(provider));
-    }
-
-    public boolean checkForMigration() {
-        return false;
     }
 
     public void checkForSteam() {
@@ -22,6 +17,4 @@ public class SteambeatBoot {
             Repositories.subjects().add(new Steam());
         }
     }
-
-    private SessionProvider provider;
 }

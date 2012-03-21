@@ -1,4 +1,4 @@
-package com.steambeat.web.migration;
+package com.steambeat.web.migration.tools;
 
 import com.steambeat.domain.analytics.identifiers.uri.*;
 
