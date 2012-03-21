@@ -10,7 +10,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsJavaMigration extends TestWithMongoRepository {
+public class TestsMigration extends TestWithMongoRepository {
 
     @Test
     public void canRun() {

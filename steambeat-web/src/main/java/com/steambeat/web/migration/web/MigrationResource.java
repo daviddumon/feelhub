@@ -1,4 +1,4 @@
-package com.steambeat.web.migration;
+package com.steambeat.web.migration.web;
 
 import com.steambeat.web.SteambeatTemplateRepresentation;
 import org.restlet.representation.Representation;

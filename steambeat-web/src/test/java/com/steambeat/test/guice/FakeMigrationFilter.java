@@ -1,6 +1,6 @@
 package com.steambeat.test.guice;
 
-import com.steambeat.web.migration.MigrationFilter;
+import com.steambeat.web.migration.web.MigrationFilter;
 import org.restlet.*;
 
 public class FakeMigrationFilter extends MigrationFilter {

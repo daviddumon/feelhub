@@ -1,6 +1,6 @@
 //package com.steambeat.sitemap.domain;
 //
-//import com.steambeat.sitemap.tools.SitemapProperties;
+//import com.steambeat.sitemap.fake.SitemapProperties;
 //import org.joda.time.DateTime;
 //import org.quartz.*;
 //import org.quartz.impl.StdSchedulerFactory;

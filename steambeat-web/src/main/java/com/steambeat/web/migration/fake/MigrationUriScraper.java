@@ -1,4 +1,4 @@
-package com.steambeat.web.migration.tools;
+package com.steambeat.web.migration.fake;
 
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.scrapers.UriScraper;

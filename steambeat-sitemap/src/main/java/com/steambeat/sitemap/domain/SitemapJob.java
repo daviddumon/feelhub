@@ -1,6 +1,6 @@
 //package com.steambeat.sitemap.domain;
 //
-//import com.steambeat.sitemap.tools.SitemapProperties;
+//import com.steambeat.sitemap.fake.SitemapProperties;
 //import fr.bodysplash.mongolink.MongoSessionManager;
 //import fr.bodysplash.mongolink.domain.mapper.ContextBuilder;
 //import org.joda.time.DateTime;

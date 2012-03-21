@@ -34,7 +34,7 @@ public abstract class Migration {
             results.add(cursor.next());
         }
         cursor.close();
-        return results.size() < 1;
+        return results.size() < number;
     }
 
     abstract protected void doRun();

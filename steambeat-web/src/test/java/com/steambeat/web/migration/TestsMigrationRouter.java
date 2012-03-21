@@ -3,6 +3,7 @@ package com.steambeat.web.migration;
 import com.google.inject.*;
 import com.steambeat.test.guice.SteambeatModuleForTest;
 import com.steambeat.web.guice.GuiceFinder;
+import com.steambeat.web.migration.web.MigrationRouter;
 import org.junit.Test;
 import org.restlet.*;
 import org.restlet.data.Method;

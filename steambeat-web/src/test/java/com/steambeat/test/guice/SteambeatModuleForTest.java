@@ -12,7 +12,7 @@ import com.steambeat.test.fakeSearches.*;
 import com.steambeat.test.fakeServices.FakeSubjectService;
 import com.steambeat.tools.Hiram;
 import com.steambeat.web.*;
-import com.steambeat.web.migration.MigrationFilter;
+import com.steambeat.web.migration.web.MigrationFilter;
 import com.steambeat.web.search.*;
 
 public class SteambeatModuleForTest extends AbstractModule {

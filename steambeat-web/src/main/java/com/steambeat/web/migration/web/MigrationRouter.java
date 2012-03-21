@@ -1,4 +1,4 @@
-package com.steambeat.web.migration;
+package com.steambeat.web.migration.web;
 
 import com.google.inject.Injector;
 import com.steambeat.web.guice.GuiceFinder;

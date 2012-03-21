@@ -3,7 +3,8 @@ package com.steambeat.web;
 import com.google.inject.*;
 import com.steambeat.tools.SteambeatWebProperties;
 import com.steambeat.web.guice.SteambeatModule;
-import com.steambeat.web.migration.MigrationFilter;
+import com.steambeat.web.migration.MigrationRunner;
+import com.steambeat.web.migration.web.MigrationFilter;
 import com.steambeat.web.status.SteambeatStatusService;
 import freemarker.template.*;
 import org.restlet.*;
@@ -26,8 +27,15 @@ public class SteambeatApplication extends Application {
         initFreemarkerConfiguration();
         final SteambeatBoot steambeatBoot = injector.getInstance(SteambeatBoot.class);
         steambeatBoot.checkForSteam();
-        setReadyContext();
+        runMigrations();
         super.start();
+    }
+
+    private void runMigrations() {
+        setReadyContext();
+        final MigrationRunner migrationRunner = injector.getInstance(MigrationRunner.class);
+        migrationRunner.setContext(getContext());
+        migrationRunner.run();
     }
 
     private void initFreemarkerConfiguration() throws TemplateModelException {

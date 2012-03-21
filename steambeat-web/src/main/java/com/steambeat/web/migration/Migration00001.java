@@ -10,7 +10,7 @@ import com.steambeat.domain.opinion.Feeling;
 import com.steambeat.domain.subject.SubjectFactory;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.SessionProvider;
-import com.steambeat.web.migration.tools.*;
+import com.steambeat.web.migration.fake.*;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 //package com.steambeat.sitemap.domain;
 //
-//import com.steambeat.sitemap.tools.*;
+//import com.steambeat.sitemap.fake.*;
 //import com.steambeat.test.SystemTime;
 //import org.apache.commons.io.FileUtils;
 //import org.junit.*;
