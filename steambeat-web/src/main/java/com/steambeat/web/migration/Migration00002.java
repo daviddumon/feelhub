@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Migration00002 extends Migration {
 
-
     public Migration00002(final SessionProvider sessionProvider) {
         super(sessionProvider, 2);
     }
@@ -21,14 +20,14 @@ public class Migration00002 extends Migration {
         Repositories.initialize(new MongoRepositories(provider));
         final Steam steam = Repositories.subjects().getSteam();
         final List<Subject> subjects = Repositories.subjects().getAll();
-        System.out.println("Found " + subjects.size() + " subjects to migrate");
+        logger.info("Found " + subjects.size() + " subjects to migrate");
         int count = 1;
         for (Subject subject : subjects) {
-            System.out.println("Looking up subject " + subject.getId());
+            logger.info("Looking up subject " + subject.getId());
             if (subject.isExpired() && !subject.equals(steam)) {
                 subjectService.lookUpWebPage(subject.getId());
             }
-            System.out.println("count : " + count++);
+            logger.info("count : " + count++);
         }
     }
 }
