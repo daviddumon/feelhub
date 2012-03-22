@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Migration00002 extends Migration {
 
+
     public Migration00002(final SessionProvider sessionProvider) {
         super(sessionProvider, 2);
     }
