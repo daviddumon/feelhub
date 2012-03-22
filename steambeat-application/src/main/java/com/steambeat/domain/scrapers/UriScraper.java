@@ -3,10 +3,10 @@ package com.steambeat.domain.scrapers;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.scrapers.extractors.*;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.IOException;
 import java.util.*;
 
 public class UriScraper implements Scraper {
@@ -28,17 +28,21 @@ public class UriScraper implements Scraper {
     }
 
     private void getJSoupDocument() {
+        logger.warn("JSOUP - GET DOCUMENT " + uri.toString());
         try {
             document = Jsoup.connect(uri.toString()).userAgent(USER_AGENT).timeout(THREE_SECONDS).get();
         } catch (Exception e) {
             e.printStackTrace();
             document = new Document("");
         }
+        logger.warn("JSOUP - GET DOCUMENT END");
     }
 
     private void useExtractors() {
         for (final Extractor extractor : extractors) {
+            logger.warn("JSOUP - EXTRACTOR " + extractor.getName());
             scrapedTags.put(extractor.getName(), extractor.apply(document));
+            logger.warn("JSOUP - EXTRACTOR END");
         }
     }
 
@@ -100,4 +104,5 @@ public class UriScraper implements Scraper {
     private Uri uri;
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
     private final static int THREE_SECONDS = 3000;
+    private static Logger logger = Logger.getLogger(UriScraper.class);
 }

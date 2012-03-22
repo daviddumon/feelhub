@@ -29,6 +29,5 @@ public class Migration00002 extends Migration {
                 subjectService.lookUpWebPage(subject.getId());
             }
         }
-        logger.warn("END OF MIGRATION00002");
     }
 }

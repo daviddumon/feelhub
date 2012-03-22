@@ -22,7 +22,7 @@ public class MigrationRunner implements Runnable {
 
     @Override
     public void run() {
-        logger.warn("MIGRATION RUNNER RUN");
+        logger.warn("MIGRATION - RUNNER");
         if (checkUpdateFlag()) {
             List<Migration> migrations = Lists.newArrayList();
             migrations.add(new Migration00001(sessionProvider));
@@ -37,6 +37,7 @@ public class MigrationRunner implements Runnable {
             poll();
         }
         context.getAttributes().replace("com.steambeat.ready", true);
+        logger.warn("MIGRATION - RUNNER END");
         Thread.currentThread().interrupt();
         return;
     }
@@ -45,11 +46,11 @@ public class MigrationRunner implements Runnable {
         final DBCollection collection = getCollection();
         DBObject status = getStatus(collection);
         if (status == null) {
-            logger.warn("CHECK UPDATE TRUE");
+            logger.warn("MIGRATION - CHECK UPDATE TRUE");
             lock(collection);
             return true;
         } else {
-            logger.warn("CHECK UPDATE FALSE");
+            logger.warn("MIGRATION - CHECK UPDATE FALSE");
             return false;
         }
     }
@@ -74,11 +75,11 @@ public class MigrationRunner implements Runnable {
     }
 
     private void poll() {
-        logger.warn("POLLING STATUS");
+        logger.warn("MIGRATION - POLLING");
         final DBCollection collection = getCollection();
         DBObject status = getStatus(collection);
         while (status != null) {
-            logger.warn("STATUS NULL");
+            logger.warn("MIGRATION - POLLING WAIT");
             status = getStatus(collection);
             try {
                 Thread.sleep(ONE_MINUTE);
@@ -86,12 +87,14 @@ public class MigrationRunner implements Runnable {
                 e.printStackTrace();
             }
         }
+        logger.warn("MIGRATION - POLLING END");
     }
 
     private void removeUpdateFlag() {
         final DB db = sessionProvider.get().getDb();
         final DBCollection collection = db.getCollection("status");
         collection.drop();
+        logger.warn("MIGRATION - REMOVE FLAG UPDATE");
     }
 
     protected Context context;

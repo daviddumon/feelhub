@@ -18,10 +18,12 @@ public abstract class Migration {
     }
 
     public void run() {
+        logger.warn("MIGRATION - MIGRATION " + number);
         if (canRun()) {
             doRun();
             endOfMigration();
         }
+        logger.warn("MIGRATION - END OF MIGRATION " + number);
     }
 
     private boolean canRun() {
@@ -35,8 +37,8 @@ public abstract class Migration {
             results.add(cursor.next());
         }
         cursor.close();
-        logger.warn("MIGRATION CAN RUN : " + results.size() + " - " + number);
-        return results.size() < number;
+        logger.warn("MIGRATION CAN RUN : " + results.isEmpty());
+        return results.isEmpty();
     }
 
     abstract protected void doRun();
@@ -48,7 +50,7 @@ public abstract class Migration {
         query.put("number", number);
         query.put("creationDate", new DateTime().getMillis());
         migrationCollection.insert(query);
-        logger.warn("MIGRATION END OF MIGRATION INSERT");
+        logger.warn("MIGRATION - INSERT IN MIGRATION COLLECTION");
     }
 
     protected SessionProvider provider;
