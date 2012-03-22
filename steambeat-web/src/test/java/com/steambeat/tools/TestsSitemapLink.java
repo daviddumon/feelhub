@@ -15,10 +15,10 @@ public class TestsSitemapLink {
     @Rule
     public static FakeInternet internet = new FakeInternet();
 
-    @AfterClass
-    public static void afterClass() {
-        internet.stop();
-    }
+    //@AfterClass
+    //public static void afterClass() {
+    //    internet.stop();
+    //}
 
     @Test
     public void canGetSitemap() throws Exception {
