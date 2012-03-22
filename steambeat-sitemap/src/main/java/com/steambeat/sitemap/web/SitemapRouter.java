@@ -1,18 +1,18 @@
 package com.steambeat.sitemap.web;
 
+import com.steambeat.sitemap.web.resources.RobotsResource;
 import org.restlet.Context;
-import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 
 public class SitemapRouter extends Router {
 
     public SitemapRouter(final Context context) {
         super(context);
-        createRoot();
+        setDefaultMatchingMode(MODE_FIRST_MATCH);
+        attachResources();
     }
 
-    private void createRoot() {
-        final Directory directory = new Directory(getContext(), "file:///hiram/sitemaps");
-        attach("/", directory);
+    private void attachResources() {
+        attach("/robots.txt", RobotsResource.class);
     }
 }

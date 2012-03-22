@@ -1,6 +1,6 @@
 package com.steambeat.sitemap.web;
 
-import freemarker.template.Configuration;
+import freemarker.template.*;
 import org.restlet.*;
 
 import javax.servlet.ServletContext;
@@ -18,10 +18,11 @@ public class SitemapApplication extends Application {
         super.start();
     }
 
-    private void initFreemarkerConfiguration() {
+    private void initFreemarkerConfiguration() throws TemplateModelException {
         final Configuration configuration = new Configuration();
         configuration.setServletContextForTemplateLoading(servletContext(), "WEB-INF/templates");
         configuration.setEncoding(Locale.ROOT, "UTF-8");
+        configuration.setSharedVariable("root", servletContext().getContextPath());
         getContext().getAttributes().put("org.freemarker.Configuration", configuration);
     }
 
