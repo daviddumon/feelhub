@@ -1,5 +1,5 @@
-//package com.steambeat.sitemap.domain;
-//
+package com.steambeat.sitemap.domain;
+
 //import com.steambeat.sitemap.fake.SitemapProperties;
 //import org.joda.time.DateTime;
 //import org.quartz.*;
@@ -8,9 +8,9 @@
 //import static org.quartz.JobBuilder.*;
 //import static org.quartz.SimpleScheduleBuilder.*;
 //import static org.quartz.TriggerBuilder.*;
-//
-//public class SitemapScheduler {
-//
+
+public class SitemapScheduler {
+
 //    public SitemapScheduler() {
 //        initialize();
 //        createRootInSitemap();
@@ -63,4 +63,4 @@
 //
 //    private SitemapProperties sitemapProperties;
 //    private Scheduler scheduler;
-//}
+}

@@ -12,6 +12,10 @@
     <artifactId>steambeat-sitemap</artifactId>
     <name>Steambeat-sitemap</name>
 
+    <properties>
+        <delay>60</delay>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -80,5 +84,5 @@
         </dependency>
 
     </dependencies>
-    
+
 </project>
