@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.mongodb.*;
 import com.steambeat.repositories.SessionProvider;
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
 import java.util.List;
@@ -19,25 +20,35 @@ public abstract class Migration {
     public void run() {
         if (canRun()) {
             try {
-                lockOrPoll();
-                doRun();
-                endOfMigration();
+                if (notRunned()) {
+                    doRun();
+                    endOfMigration();
+                } else {
+                    poll();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void lockOrPoll() throws InterruptedException {
+    private boolean notRunned() {
         final DBCollection collection = getCollection();
         DBObject status = getStatus(collection);
         if (status == null) {
             lock(collection);
+            return true;
         } else {
-            while (status == null) {
-                status = getStatus(collection);
-                Thread.sleep(TEN_SECONDS);
-            }
+            return false;
+        }
+    }
+
+    private void poll() throws InterruptedException {
+        final DBCollection collection = getCollection();
+        DBObject status = getStatus(collection);
+        while (status == null) {
+            status = getStatus(collection);
+            Thread.sleep(TEN_SECONDS);
         }
     }
 
@@ -88,4 +99,5 @@ public abstract class Migration {
     protected SessionProvider provider;
     protected int number;
     private final int TEN_SECONDS = 10000;
+    protected static Logger logger = Logger.getLogger(Migration.class);
 }

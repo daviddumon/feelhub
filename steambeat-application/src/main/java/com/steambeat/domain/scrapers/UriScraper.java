@@ -30,7 +30,8 @@ public class UriScraper implements Scraper {
     private void getJSoupDocument() {
         try {
             document = Jsoup.connect(uri.toString()).userAgent(USER_AGENT).timeout(THREE_SECONDS).get();
-        } catch (IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             document = new Document("");
         }
     }
