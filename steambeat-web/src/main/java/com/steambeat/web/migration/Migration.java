@@ -88,12 +88,19 @@ public abstract class Migration {
     abstract protected void doRun();
 
     private void endOfMigration() {
+        removeUpdateFlag();
         final DB db = provider.get().getDb();
         final DBCollection migrationCollection = db.getCollection("migration");
         final BasicDBObject query = new BasicDBObject();
         query.put("number", number);
         query.put("creationDate", new DateTime().getMillis());
         migrationCollection.insert(query);
+    }
+
+    private void removeUpdateFlag() {
+        final DB db = provider.get().getDb();
+        final DBCollection collection = db.getCollection("status");
+        collection.drop();
     }
 
     protected SessionProvider provider;
