@@ -1,6 +1,7 @@
 package com.steambeat.sitemap.domain;
 
 import com.google.common.collect.Lists;
+import com.steambeat.sitemap.domain.sitemap.Sitemap;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
