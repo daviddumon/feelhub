@@ -82,7 +82,7 @@ public class MigrationRunner implements Runnable {
             logger.warn("MIGRATION - POLLING WAIT");
             status = getStatus(collection);
             try {
-                Thread.sleep(ONE_MINUTE);
+                Thread.sleep(ONE_SECOND);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -99,6 +99,6 @@ public class MigrationRunner implements Runnable {
 
     protected Context context;
     private SessionProvider sessionProvider;
-    private final int ONE_MINUTE = 60000;
+    private final int ONE_SECOND = 1000;
     private static Logger logger = Logger.getLogger(MigrationRunner.class);
 }
