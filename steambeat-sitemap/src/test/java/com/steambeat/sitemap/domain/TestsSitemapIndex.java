@@ -31,21 +31,28 @@ public class TestsSitemapIndex {
     }
 
     @Test
-    public void canAddASitemaop() {
-        final Sitemap sitemap = new Sitemap(1);
-
-        sitemapIndex.add(sitemap);
+    public void canCreateASitemap() {
+        final Sitemap sitemap = sitemapIndex.newSitemap();
 
         assertThat(sitemapIndex.getSitemaps().size(), is(1));
         assertThat(sitemapIndex.getSitemaps().get(0), is(sitemap));
     }
 
     @Test
+    public void canCreateTwoSitemaps() {
+        sitemapIndex.newSitemap();
+        sitemapIndex.newSitemap();
+        
+        assertThat(sitemapIndex.getSitemaps().size(), is(2));
+        assertThat(sitemapIndex.getSitemaps().get(0).getPath(), is("http://www.steambeat.com/sitemap_00001.xml"));
+        assertThat(sitemapIndex.getSitemaps().get(1).getPath(), is("http://www.steambeat.com/sitemap_00002.xml"));
+    }
+
+    @Test
     public void lastModDateChangeWhenAddNewSitemap() {
         time.waitDays(1);
-        final Sitemap sitemap = new Sitemap(1);
 
-        sitemapIndex.add(sitemap);
+        sitemapIndex.newSitemap();
 
         assertThat(sitemapIndex.getLastModTime(), is(time.getNow()));
     }
@@ -53,21 +60,17 @@ public class TestsSitemapIndex {
     @Test
     public void throwACapacityExceptionIfAddingMoreThanCapacity() {
         exception.expect(CapacityException.class);
-        final Sitemap sitemap = new Sitemap(1);
         SitemapIndex.setSitemapIndexCapacity(2);
 
-        sitemapIndex.add(sitemap);
-        sitemapIndex.add(sitemap);
-        sitemapIndex.add(sitemap);
+        sitemapIndex.newSitemap();
+        sitemapIndex.newSitemap();
+        sitemapIndex.newSitemap();
     }
 
     @Test
     public void canGetLastSitemapOfIndex() {
-        final Sitemap sitemap = new Sitemap(1);
-        final Sitemap lastSitemap = new Sitemap(2);
-
-        sitemapIndex.add(sitemap);
-        sitemapIndex.add(lastSitemap);
+        sitemapIndex.newSitemap();
+        final Sitemap lastSitemap = sitemapIndex.newSitemap();
 
         assertThat(sitemapIndex.getLastSitemap(), is(lastSitemap));
     }

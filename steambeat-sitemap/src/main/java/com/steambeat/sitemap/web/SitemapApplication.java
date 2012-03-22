@@ -1,5 +1,6 @@
 package com.steambeat.sitemap.web;
 
+import com.steambeat.sitemap.domain.*;
 import freemarker.template.*;
 import org.restlet.*;
 
@@ -14,6 +15,11 @@ public class SitemapApplication extends Application {
 
     @Override
     public synchronized void start() throws Exception {
+        final SitemapIndex sitemapIndex = RobotsFile.INSTANCE.newSitemapIndex();
+        sitemapIndex.newSitemap();
+        sitemapIndex.newSitemap();
+        sitemapIndex.newSitemap();
+        sitemapIndex.newSitemap();
         initFreemarkerConfiguration();
         super.start();
     }

@@ -1,6 +1,6 @@
 package com.steambeat.sitemap.web;
 
-import com.steambeat.sitemap.web.resources.RobotsResource;
+import com.steambeat.sitemap.web.resources.*;
 import org.restlet.Context;
 import org.restlet.routing.Router;
 
@@ -14,5 +14,6 @@ public class SitemapRouter extends Router {
 
     private void attachResources() {
         attach("/robots.txt", RobotsResource.class);
+        attach("/sitemap_index_{index}.xml", SitemapIndexResource.class);
     }
 }

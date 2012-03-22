@@ -16,12 +16,14 @@ public class SitemapIndex {
         return "http://www.steambeat.com/" + name;
     }
 
-    public void add(final Sitemap sitemap) {
+    public Sitemap newSitemap() {
         if (sitemaps.size() >= SITEMAP_INDEX_CAPACITY) {
             throw new CapacityException();
         }
+        final Sitemap sitemap = new Sitemap(sitemaps.size() + 1);
         sitemaps.add(sitemap);
         lastModTime = new DateTime();
+        return sitemap;
     }
 
     public List<Sitemap> getSitemaps() {
