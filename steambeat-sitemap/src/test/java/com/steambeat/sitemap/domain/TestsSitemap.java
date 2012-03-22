@@ -1,5 +1,6 @@
 package com.steambeat.sitemap.domain;
 
+import com.steambeat.sitemap.domain.sitemap.*;
 import com.steambeat.test.SystemTime;
 import org.junit.*;
 import org.junit.rules.ExpectedException;

@@ -1,4 +1,4 @@
-package com.steambeat.sitemap.domain;
+package com.steambeat.sitemap.domain.sitemap;
 
 import org.joda.time.DateTime;
 
@@ -6,7 +6,7 @@ public class SitemapEntry {
 
     public SitemapEntry(final String loc, final Frequency frequency, final double priority) {
         this.loc = loc;
-        this.frequency = Frequency.hourly;
+        this.frequency = frequency;
         lastMod = new DateTime();
         this.priority = priority;
     }

@@ -1,4 +1,4 @@
-package com.steambeat.sitemap.domain;
+package com.steambeat.sitemap.domain.sitemap;
 
 import com.steambeat.test.SystemTime;
 import org.junit.*;

@@ -22,7 +22,6 @@ public class SitemapApplication extends Application {
         final Configuration configuration = new Configuration();
         configuration.setServletContextForTemplateLoading(servletContext(), "WEB-INF/templates");
         configuration.setEncoding(Locale.ROOT, "UTF-8");
-        configuration.setSharedVariable("root", servletContext().getContextPath());
         getContext().getAttributes().put("org.freemarker.Configuration", configuration);
     }
 
