@@ -20,14 +20,15 @@ public class Migration00002 extends Migration {
         Repositories.initialize(new MongoRepositories(provider));
         final Steam steam = Repositories.subjects().getSteam();
         final List<Subject> subjects = Repositories.subjects().getAll();
-        logger.info("Found " + subjects.size() + " subjects to migrate");
+        logger.warn("Found " + subjects.size() + " subjects to migrate");
         int count = 1;
         for (Subject subject : subjects) {
-            logger.info("Looking up subject " + subject.getId());
+            logger.warn("Looking up subject " + subject.getId());
             if (subject.isExpired() && !subject.equals(steam)) {
+                logger.warn("count : " + count++);
                 subjectService.lookUpWebPage(subject.getId());
             }
-            logger.info("count : " + count++);
         }
+        logger.warn("END OF MIGRATION00002");
     }
 }

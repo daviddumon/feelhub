@@ -19,55 +19,8 @@ public abstract class Migration {
 
     public void run() {
         if (canRun()) {
-            try {
-                if (notRunned()) {
-                    doRun();
-                    endOfMigration();
-                } else {
-                    poll();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private boolean notRunned() {
-        final DBCollection collection = getCollection();
-        DBObject status = getStatus(collection);
-        if (status == null) {
-            lock(collection);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void poll() throws InterruptedException {
-        final DBCollection collection = getCollection();
-        DBObject status = getStatus(collection);
-        while (status == null) {
-            status = getStatus(collection);
-            Thread.sleep(TEN_SECONDS);
-        }
-    }
-
-    private void lock(final DBCollection collection) {
-        final BasicDBObject query = new BasicDBObject();
-        query.put("value", "update");
-        collection.insert(query);
-    }
-
-    private DBCollection getCollection() {
-        final DB db = provider.get().getDb();
-        return db.getCollection("status");
-    }
-
-    private DBObject getStatus(final DBCollection collection) {
-        try {
-            return collection.findOne();
-        } catch (Exception e) {
-            return null;
+            doRun();
+            endOfMigration();
         }
     }
 
@@ -82,29 +35,23 @@ public abstract class Migration {
             results.add(cursor.next());
         }
         cursor.close();
+        logger.warn("MIGRATION CAN RUN : " + results.size() + " - " + number);
         return results.size() < number;
     }
 
     abstract protected void doRun();
 
     private void endOfMigration() {
-        removeUpdateFlag();
         final DB db = provider.get().getDb();
         final DBCollection migrationCollection = db.getCollection("migration");
         final BasicDBObject query = new BasicDBObject();
         query.put("number", number);
         query.put("creationDate", new DateTime().getMillis());
         migrationCollection.insert(query);
-    }
-
-    private void removeUpdateFlag() {
-        final DB db = provider.get().getDb();
-        final DBCollection collection = db.getCollection("status");
-        collection.drop();
+        logger.warn("MIGRATION END OF MIGRATION INSERT");
     }
 
     protected SessionProvider provider;
     protected int number;
-    private final int TEN_SECONDS = 10000;
     protected static Logger logger = Logger.getLogger(Migration.class);
 }
