@@ -1,7 +1,6 @@
-package com.steambeat.sitemap.domain.sitemap;
+package com.steambeat.sitemap.domain;
 
 import com.google.common.collect.Lists;
-import com.steambeat.sitemap.domain.*;
 import org.joda.time.DateTime;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class Sitemap {
 
     public void addEntry(final SitemapEntry sitemapEntry) {
         if (sitemapEntries.size() >= SITEMAP_CAPACITY) {
-            throw new SitemapCapacityException();
+            throw new CapacityException();
         }
         sitemapEntries.add(sitemapEntry);
         lastModTime = new DateTime();

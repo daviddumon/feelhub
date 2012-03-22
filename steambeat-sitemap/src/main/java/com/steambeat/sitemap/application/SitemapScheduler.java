@@ -1,4 +1,4 @@
-package com.steambeat.sitemap.domain;
+package com.steambeat.sitemap.application;
 
 //import com.steambeat.sitemap.fake.SitemapProperties;
 //import org.joda.time.DateTime;

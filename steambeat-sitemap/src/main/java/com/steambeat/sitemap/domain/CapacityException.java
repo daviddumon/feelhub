@@ -1,5 +1,5 @@
 package com.steambeat.sitemap.domain;
 
-public abstract class CapacityException extends RuntimeException {
+public class CapacityException extends RuntimeException {
 
 }

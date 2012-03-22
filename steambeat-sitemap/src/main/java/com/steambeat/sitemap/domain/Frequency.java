@@ -1,4 +1,4 @@
-package com.steambeat.sitemap.domain.sitemap;
+package com.steambeat.sitemap.domain;
 
 public enum Frequency {
     hourly, always

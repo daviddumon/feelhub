@@ -1,6 +1,6 @@
-package com.steambeat.sitemap.domain.sitemap;
+package com.steambeat.sitemap.domain;
 
-import com.steambeat.sitemap.domain.SitemapCapacityException;
+import com.steambeat.sitemap.domain.*;
 import com.steambeat.test.SystemTime;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
@@ -50,29 +50,20 @@ public class TestsSitemap {
         assertThat(sitemap.getLastModTime(), is(time.getNow()));
     }
 
-    private SitemapEntry getEntry() {
-        final String uri = "http://www.fakeentry.com";
-        return new SitemapEntry(uri, Frequency.hourly, 0.5);
-    }
-
     @Test
-    public void canThrowSitemapCapacityException() {
-        exception.expect(SitemapCapacityException.class);
-
-        for (int i = 0; i < 50001; i++) {
-            sitemap.addEntry(new SitemapEntry(String.valueOf(i), Frequency.hourly, 0.5));
-        }
-    }
-
-    @Test
-    public void throwACapacityExceptionIfMoreThan50000Entries() {
-        exception.expect(SitemapCapacityException.class);
+    public void throwACapacityExceptionIfAddingMoreThanCapacity() {
+        exception.expect(CapacityException.class);
         final SitemapEntry entry = getEntry();
         Sitemap.setSitemapCapacity(2);
 
         sitemap.addEntry(entry);
         sitemap.addEntry(entry);
         sitemap.addEntry(entry);
+    }
+
+    private SitemapEntry getEntry() {
+        final String uri = "http://www.fakeentry.com";
+        return new SitemapEntry(uri, Frequency.hourly, 0.5);
     }
 
     private Sitemap sitemap;

@@ -1,10 +1,8 @@
 package com.steambeat.sitemap.domain;
 
-import com.steambeat.sitemap.domain.sitemap.Sitemap;
 import com.steambeat.test.SystemTime;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
-import org.w3c.dom.Document;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -23,7 +21,17 @@ public class TestsSitemapIndex {
     }
 
     @Test
-    public void canAddSitemapToSitemapIndex() {
+    public void canGetPath() {
+        assertThat(sitemapIndex.getPath(), is("http://www.steambeat.com/sitemap_index_00001.xml"));
+    }
+
+    @Test
+    public void hasALastModDate() {
+        assertThat(sitemapIndex.getLastModTime(), is(time.getNow()));
+    }
+
+    @Test
+    public void canAddASitemaop() {
         final Sitemap sitemap = new Sitemap(1);
 
         sitemapIndex.add(sitemap);
@@ -33,25 +41,24 @@ public class TestsSitemapIndex {
     }
 
     @Test
-    public void canGetXMLRepresentationOfSitemapIndex() {
-        final Sitemap sitemap = new Sitemap(2);
+    public void lastModDateChangeWhenAddNewSitemap() {
+        time.waitDays(1);
+        final Sitemap sitemap = new Sitemap(1);
 
         sitemapIndex.add(sitemap);
-        final Document document = sitemapIndex.getXMLRepresentation();
 
-        assertThat(document.getFirstChild().getNodeName(), is("sitemapindex"));
-        assertThat(document.getXmlVersion(), is("1.0"));
-        assertThat(document.getElementsByTagName("sitemapindex").item(0).getFirstChild().getNodeName(), is("sitemap"));
-        assertThat(document.getElementsByTagName("sitemap").getLength(), is(1));
-        assertThat(document.getElementsByTagName("sitemap").item(0).getChildNodes().item(0).getNodeName(), is("loc"));
-        assertThat(document.getElementsByTagName("sitemap").item(0).getChildNodes().item(1).getNodeName(), is("lastmod"));
-        assertThat(document.getElementsByTagName("loc").item(0).getTextContent(), is(sitemap.getPath()));
-        assertThat(document.getElementsByTagName("lastmod").item(0).getTextContent(), is(time.getNow().toString()));
+        assertThat(sitemapIndex.getLastModTime(), is(time.getNow()));
     }
 
     @Test
-    public void canGetPath() {
-        assertThat(sitemapIndex.getPath(), is("http://www.steambeat.com/sitemap_index_00001.xml"));
+    public void throwACapacityExceptionIfAddingMoreThanCapacity() {
+        exception.expect(CapacityException.class);
+        final Sitemap sitemap = new Sitemap(1);
+        SitemapIndex.setSitemapIndexCapacity(2);
+
+        sitemapIndex.add(sitemap);
+        sitemapIndex.add(sitemap);
+        sitemapIndex.add(sitemap);
     }
 
     @Test
@@ -63,15 +70,6 @@ public class TestsSitemapIndex {
         sitemapIndex.add(lastSitemap);
 
         assertThat(sitemapIndex.getLastSitemap(), is(lastSitemap));
-    }
-
-    @Test
-    public void canThrowCapacityException() {
-        exception.expect(SitemapIndexCapacityException.class);
-
-        for (int i = 0; i < 50001; i++) {
-            sitemapIndex.add(new Sitemap(i));
-        }
     }
 
     private SitemapIndex sitemapIndex;

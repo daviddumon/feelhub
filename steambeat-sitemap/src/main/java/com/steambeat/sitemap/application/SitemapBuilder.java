@@ -1,7 +1,7 @@
-package com.steambeat.sitemap.domain;
+package com.steambeat.sitemap.application;
 
 import com.google.common.collect.Lists;
-import com.steambeat.sitemap.domain.sitemap.*;
+import com.steambeat.sitemap.domain.*;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class SitemapBuilder {
         for (final SitemapEntry sitemapEntry : sitemapEntries) {
             try {
                 getCurrentSitemapIndex().getLastSitemap().addEntry(sitemapEntry);
-            } catch (SitemapCapacityException e) {
+            } catch (CapacityException e) {
                 changeCurrentSitemap();
                 getCurrentSitemapIndex().getLastSitemap().addEntry(sitemapEntry);
             }
