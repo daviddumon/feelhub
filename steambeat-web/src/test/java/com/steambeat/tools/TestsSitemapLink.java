@@ -17,7 +17,9 @@ public class TestsSitemapLink {
 
     @AfterClass
     public static void afterClass() {
-        internet.stop();
+        if (internet != null) {
+            internet.stop();
+        }
     }
 
     @Ignore("do not pass on CI but do not know why ...")
