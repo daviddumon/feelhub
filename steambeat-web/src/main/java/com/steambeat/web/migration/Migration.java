@@ -26,7 +26,7 @@ public abstract class Migration {
         logger.warn("MIGRATION - END OF MIGRATION " + number);
     }
 
-    private boolean canRun() {
+    protected boolean canRun() {
         final DB db = provider.get().getDb();
         final DBCollection migrationCollection = db.getCollection("migration");
         final BasicDBObject query = new BasicDBObject();
@@ -43,7 +43,7 @@ public abstract class Migration {
 
     abstract protected void doRun();
 
-    private void endOfMigration() {
+    protected void endOfMigration() {
         final DB db = provider.get().getDb();
         final DBCollection migrationCollection = db.getCollection("migration");
         final BasicDBObject query = new BasicDBObject();
