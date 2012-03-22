@@ -1,6 +1,6 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.tools.Hiram;
+import com.steambeat.tools.SitemapLink;
 import com.steambeat.web.*;
 import org.apache.commons.io.IOUtils;
 import org.junit.*;
@@ -20,13 +20,13 @@ public class TestsSitemapResource {
 
     @Before
     public void setUp() throws Exception {
-        hiram = mock(Hiram.class);
-        restlet.setHiram(hiram);
+        sitemapLink = mock(SitemapLink.class);
+        restlet.setSitemapLink(sitemapLink);
     }
 
     @Test
     public void isMapped() {
-        final ClientResource resource = restlet.newClientResource("/sitemap_00001.xml.gz");
+        final ClientResource resource = restlet.newClientResource("/sitemap_00001.xml");
 
         final Representation representation = resource.get();
 
@@ -35,15 +35,15 @@ public class TestsSitemapResource {
     }
 
     @Test
-    public void doesUseHiram() throws IOException {
-        when(hiram.getSitemap("00001")).thenReturn(IOUtils.toInputStream("your mother"));
-        final ClientResource resource = restlet.newClientResource("/sitemap_00001.xml.gz");
+    public void doesUseSitemapLink() throws IOException {
+        when(sitemapLink.getSitemap("00001")).thenReturn(IOUtils.toInputStream("sitemap"));
+        final ClientResource resource = restlet.newClientResource("/sitemap_00001.xml");
 
         final Representation representation = resource.get();
 
-        verify(hiram).getSitemap("00001");
-        assertThat(representation.getText(), is("your mother"));
+        verify(sitemapLink).getSitemap("00001");
+        assertThat(representation.getText(), is("sitemap"));
     }
 
-    private Hiram hiram;
+    private SitemapLink sitemapLink;
 }

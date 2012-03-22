@@ -1,6 +1,6 @@
 package com.steambeat.web.status;
 
-import com.steambeat.web.SteambeatTemplateRepresentation;
+import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.Context;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;

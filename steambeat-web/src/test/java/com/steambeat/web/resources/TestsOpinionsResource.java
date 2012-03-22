@@ -10,6 +10,7 @@ import com.steambeat.test.WithDomainEvent;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
+import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.json.*;
 import org.junit.*;
 import org.junit.Test;

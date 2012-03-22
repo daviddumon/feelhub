@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class TestsHiram {
+public class TestsSitemapLink {
 
     @Rule
     public static FakeInternet internet = new FakeInternet();
@@ -22,9 +22,9 @@ public class TestsHiram {
 
     @Test
     public void canGetSitemap() throws Exception {
-        final Hiram hiram = new Hiram();
+        final SitemapLink sitemapLink = new SitemapLink();
 
-        final InputStream stream = hiram.getSitemap("00001");
+        final InputStream stream = sitemapLink.getSitemap("00001");
 
         assertThat(stream, notNullValue());
         final String sitemap = IOUtils.toString(stream);

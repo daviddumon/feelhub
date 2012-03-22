@@ -4,6 +4,7 @@ import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
+import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.junit.*;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;

@@ -4,7 +4,7 @@ import org.restlet.data.MediaType;
 import org.restlet.representation.*;
 import org.restlet.resource.*;
 
-public class FakeHiramResource extends ServerResource {
+public class FakeSitemapResource extends ServerResource {
 
     @Get
     public Representation represent() {

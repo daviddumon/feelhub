@@ -7,6 +7,7 @@ import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.web.*;
+import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.OpinionSearch;
 import org.json.JSONException;
 import org.restlet.data.*;

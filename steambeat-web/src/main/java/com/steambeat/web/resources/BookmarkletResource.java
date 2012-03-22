@@ -5,6 +5,7 @@ import com.steambeat.application.*;
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.web.*;
+import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.data.*;
 import org.restlet.representation.*;
 import org.restlet.resource.*;

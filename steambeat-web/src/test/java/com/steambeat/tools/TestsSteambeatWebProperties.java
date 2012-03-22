@@ -8,12 +8,12 @@ import static org.junit.Assert.*;
 public class TestsSteambeatWebProperties {
 
     @Test
-    public void canGetHiramAddress() {
+    public void canGetSitemapBuilderAddress() {
         final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
 
-        final String address = steambeatWebProperties.getHiramAddress();
+        final String address = steambeatWebProperties.getSitemapBuilderAddress();
 
-        assertThat(address, is("http://localhost:6162/hiram"));
+        assertThat(address, is("http://localhost:6162/sitemapbuilder"));
     }
 
     @Test

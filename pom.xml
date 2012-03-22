@@ -23,7 +23,7 @@
         <dbPort>27017</dbPort>
         <dev>true</dev>
         <domain>localhost:8080</domain>
-        <hiram>http://localhost:6162/hiram</hiram>
+        <sitemapBuilder>http://localhost:6162/sitemapbuilder</sitemapBuilder>
         <buildtime>${maven.build.timestamp}</buildtime>
     </properties>
 
@@ -36,7 +36,7 @@
                 <dbPort>27017</dbPort>
                 <dev>false</dev>
                 <domain>www.steambeat.com</domain>
-                <hiram>http://ec2-174-129-21-201.compute-1.amazonaws.com</hiram>
+                <sitemapBuilder>http://ec2-174-129-21-201.compute-1.amazonaws.com</sitemapBuilder>
             </properties>
         </profile>
     </profiles>

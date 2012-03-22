@@ -1,4 +1,4 @@
-package com.steambeat.web;
+package com.steambeat.web.representation;
 
 import com.google.common.collect.Maps;
 import freemarker.template.Configuration;

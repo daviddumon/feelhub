@@ -3,6 +3,7 @@ package com.steambeat.test.guice;
 import com.google.inject.*;
 import com.steambeat.application.SubjectService;
 import com.steambeat.domain.analytics.identifiers.uri.UriPathResolver;
+import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.webpage.WebPageFactory;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
@@ -10,7 +11,7 @@ import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
 import com.steambeat.test.fakeSearches.*;
 import com.steambeat.test.fakeServices.FakeSubjectService;
-import com.steambeat.tools.Hiram;
+import com.steambeat.tools.SitemapLink;
 import com.steambeat.web.*;
 import com.steambeat.web.migration.MigrationRunner;
 import com.steambeat.web.search.*;
@@ -28,19 +29,20 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(SubjectService.class).to(FakeSubjectService.class);
         bind(SteambeatBoot.class).to(FakeSteambeatBoot.class);
         bind(MigrationRunner.class).to(FakeMigrationRunner.class);
+        bind(UriScraper.class).to(FakeUriScraper.class);
     }
 
     @Provides
-    public Hiram getHiram() {
-        if (hiram == null) {
-            return new Hiram();
+    public SitemapLink getSitemapLink() {
+        if (sitemapLink == null) {
+            return new SitemapLink();
         }
-        return hiram;
+        return sitemapLink;
     }
 
-    public void setHiram(final Hiram hiram) {
-        this.hiram = hiram;
+    public void setSitemapLink(final SitemapLink sitemapLink) {
+        this.sitemapLink = sitemapLink;
     }
 
-    private Hiram hiram;
+    private SitemapLink sitemapLink;
 }

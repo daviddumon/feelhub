@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import com.steambeat.application.SubjectService;
 import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.web.SteambeatTemplateRepresentation;
+import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.StatisticsSearch;
 import org.joda.time.Interval;
 import org.json.JSONException;

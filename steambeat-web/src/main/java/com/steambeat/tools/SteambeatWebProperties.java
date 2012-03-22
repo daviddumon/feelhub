@@ -22,8 +22,8 @@ public class SteambeatWebProperties {
         return properties.getProperty("domain");
     }
 
-    public String getHiramAddress() {
-        return properties.getProperty("hiram");
+    public String getSitemapBuilderAddress() {
+        return properties.getProperty("sitemapBuilder");
     }
 
     public String getBuildTime() {

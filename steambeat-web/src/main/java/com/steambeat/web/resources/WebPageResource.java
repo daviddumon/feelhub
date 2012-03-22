@@ -3,7 +3,7 @@ package com.steambeat.web.resources;
 import com.google.inject.Inject;
 import com.steambeat.application.SubjectService;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.web.SteambeatTemplateRepresentation;
+import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.*;
 

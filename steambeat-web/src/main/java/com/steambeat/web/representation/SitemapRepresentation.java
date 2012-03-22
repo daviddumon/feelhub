@@ -1,4 +1,4 @@
-package com.steambeat.web.resources;
+package com.steambeat.web.representation;
 
 import com.google.common.io.*;
 import org.restlet.data.MediaType;
@@ -6,9 +6,9 @@ import org.restlet.representation.StreamRepresentation;
 
 import java.io.*;
 
-class HiramRepresentation extends StreamRepresentation {
+public class SitemapRepresentation extends StreamRepresentation {
 
-    public HiramRepresentation(final InputStream sitemap) {
+    public SitemapRepresentation(final InputStream sitemap) {
         super(MediaType.TEXT_XML);
         this.sitemap = sitemap;
     }

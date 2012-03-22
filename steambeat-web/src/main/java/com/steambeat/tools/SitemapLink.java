@@ -8,7 +8,7 @@ import org.restlet.data.Method;
 
 import java.io.*;
 
-public class Hiram {
+public class SitemapLink {
 
     public InputStream getSitemap(final String index) {
         final Request request = Requests.create(Method.GET, createUrl(index));
@@ -17,7 +17,7 @@ public class Hiram {
             final Response response = client.handle(request);
             return copyStream(response);
         } catch (IOException e) {
-            Logger.getLogger(Hiram.class).error("Error while fetching sitemap from Hiram", e);
+            Logger.getLogger(SitemapLink.class).error("Error while fetching sitemap from sitemap builder", e);
             return new NullInputStream(1L);
         } finally {
             Clients.stop(client);
@@ -33,10 +33,10 @@ public class Hiram {
     }
 
     private String createUrl(final String index) {
-        return hiramAdress() + "/sitemap_" + index + ".xml.gz";
+        return sitemapBuilderAddress() + "/sitemap_" + index + ".xml";
     }
 
-    private String hiramAdress() {
-        return new SteambeatWebProperties().getHiramAddress();
+    private String sitemapBuilderAddress() {
+        return new SteambeatWebProperties().getSitemapBuilderAddress();
     }
 }

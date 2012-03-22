@@ -7,6 +7,7 @@ import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
+import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.joda.time.DateTime;
 import org.json.*;
 import org.junit.*;

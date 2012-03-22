@@ -48,7 +48,7 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/http://www.liberation.fr", FakeStatusOkResource.class);
                 router.attach("/http://www.lemonde.fr", FakeStatusOkResource.class);
                 router.attach("/http://lemonde.fr", FakeStatusOkResource.class);
-                router.attach("/hiram/sitemap_{index}.xml.gz", FakeHiramResource.class);
+                router.attach("/sitemapbuilder/sitemap_{index}.xml", FakeSitemapResource.class);
                 attachScrapersResources(router);
                 return router;
             }
