@@ -27,6 +27,7 @@ public class MigrationRunner implements Runnable {
             List<Migration> migrations = Lists.newArrayList();
             migrations.add(new Migration00001(sessionProvider));
             migrations.add(new Migration00002(sessionProvider));
+            migrations.add(new Migration00003(sessionProvider));
             for (Migration migration : migrations) {
                 sessionProvider.start();
                 migration.run();
