@@ -9,13 +9,8 @@ import static org.hamcrest.core.Is.*;
 
 public class TestsCSSMiner {
 
-    @Rule
+    @ClassRule
     public static FakeInternet internet = new FakeInternet();
-
-    @AfterClass
-    public static void afterClass() {
-        internet.stop();
-    }
 
     @Test
     public void canOpenADistantCSSFile() {

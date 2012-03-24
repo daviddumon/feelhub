@@ -13,17 +13,12 @@ import static org.junit.Assert.*;
 
 public class TestsLogoExtractor {
 
-    @Rule
+    @ClassRule
     public static FakeInternet internet = new FakeInternet();
 
     @Before
     public void before() {
         logoExtractor = new LogoExtractor("logo", "");
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        internet.stop();
     }
 
     @Test

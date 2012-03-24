@@ -14,17 +14,12 @@ public class TestsUriPathResolver {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @Rule
+    @ClassRule
     public static FakeInternet internet = new FakeInternet();
 
     @Before
     public void before() {
         pathResolver = new UriPathResolver();
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        internet.stop();
     }
 
     @Test

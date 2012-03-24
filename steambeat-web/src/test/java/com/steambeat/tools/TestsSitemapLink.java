@@ -12,15 +12,8 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class TestsSitemapLink {
 
-    @Rule
+    @ClassRule
     public static FakeInternet internet = new FakeInternet();
-
-    @AfterClass
-    public static void afterClass() {
-        if (internet != null) {
-            internet.stop();
-        }
-    }
 
     @Test
     public void canGetSitemap() throws Exception {
@@ -28,8 +21,8 @@ public class TestsSitemapLink {
 
         final InputStream stream = sitemapLink.getSitemap("00001");
 
-        //assertThat(stream, notNullValue());
-        //final String sitemap = IOUtils.toString(stream);
-        //assertThat(sitemap, is("index : 00001"));
+        assertThat(stream, notNullValue());
+        final String sitemap = IOUtils.toString(stream);
+        assertThat(sitemap, is("index : 00001"));
     }
 }

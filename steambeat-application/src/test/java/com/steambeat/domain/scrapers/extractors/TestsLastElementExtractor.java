@@ -13,17 +13,12 @@ import static org.junit.Assert.*;
 
 public class TestsLastElementExtractor {
 
-    @Rule
+    @ClassRule
     public static FakeInternet internet = new FakeInternet();
 
     @Before
     public void before() {
         lastElementExtractor = new LastElementExtractor("h1", "h1");
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        internet.stop();
     }
 
     @Test

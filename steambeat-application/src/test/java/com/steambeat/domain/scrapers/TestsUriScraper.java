@@ -9,13 +9,8 @@ import static org.junit.Assert.*;
 
 public class TestsUriScraper {
 
-    @Rule
+    @ClassRule
     public static FakeInternet internet = new FakeInternet();
-
-    @AfterClass
-    public static void afterClass() {
-        internet.stop();
-    }
 
     @Test
     public void canFindSimpleDescriptionFromTitle() {

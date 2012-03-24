@@ -24,9 +24,6 @@ public class FakeInternet extends ExternalResource {
 
     @Override
     protected void after() {
-    }
-
-    public void stop() {
         try {
             component.stop();
         } catch (Exception e) {
@@ -89,5 +86,5 @@ public class FakeInternet extends ExternalResource {
         return new Uri("http://localhost:6162/" + address);
     }
 
-    private static Component component;
+    private Component component;
 }
