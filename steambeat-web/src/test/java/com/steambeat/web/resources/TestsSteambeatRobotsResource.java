@@ -31,7 +31,7 @@ public class TestsSteambeatRobotsResource {
         final Representation representation = resource.get();
 
         assertThat(resource.getStatus(), is(Status.SUCCESS_OK));
-        assertThat(representation.getMediaType(), is(MediaType.TEXT_XML));
+        assertThat(representation.getMediaType(), is(MediaType.TEXT_PLAIN));
     }
 
     @Test
