@@ -16,7 +16,7 @@ public class SitemapLink {
         try {
             final Response response = client.handle(request);
             return copyStream(response);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Logger.getLogger(SitemapLink.class).error("Error while fetching sitemap from sitemap builder", e);
             return new NullInputStream(1L);
         } finally {
@@ -26,10 +26,6 @@ public class SitemapLink {
 
     private InputStream copyStream(final Response response) throws IOException {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
-        System.out.println("output:" + output);
-        System.out.println("response" + response.toString());
-        System.out.println("entity" + response.getEntity().toString());
-        System.out.println("stream:" + response.getEntity().getStream());
         ByteStreams.copy(response.getEntity().getStream(), output);
         final ByteArrayInputStream result = new ByteArrayInputStream(output.toByteArray());
         Closeables.closeQuietly(output);
