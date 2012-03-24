@@ -24,11 +24,11 @@ public class FakeInternet extends ExternalResource {
 
     @Override
     protected void after() {
-        try {
-            component.stop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //try {
+        //    component.stop();
+        //} catch (Exception e) {
+        //    e.printStackTrace();
+        //}
     }
 
     private Restlet createApplication() {
@@ -86,5 +86,5 @@ public class FakeInternet extends ExternalResource {
         return new Uri("http://localhost:6162/" + address);
     }
 
-    private Component component;
+    private static Component component;
 }
