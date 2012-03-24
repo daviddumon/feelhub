@@ -22,7 +22,6 @@ public class TestsSitemapLink {
         }
     }
 
-    @Ignore("do not pass on CI but do not know why ...")
     @Test
     public void canGetSitemap() throws Exception {
         final SitemapLink sitemapLink = new SitemapLink();

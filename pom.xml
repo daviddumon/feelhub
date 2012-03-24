@@ -23,7 +23,7 @@
         <dbPort>27017</dbPort>
         <dev>true</dev>
         <domain>localhost:8080</domain>
-        <sitemapBuilder>http://localhost:6162/sitemapbuilder</sitemapBuilder>
+        <sitemapBuilder>http://localhost:8081/steambeat-sitemap</sitemapBuilder>
         <buildtime>${maven.build.timestamp}</buildtime>
     </properties>
 
