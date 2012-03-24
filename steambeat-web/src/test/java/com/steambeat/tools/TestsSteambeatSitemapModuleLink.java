@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class TestsSitemapLink {
+public class TestsSteambeatSitemapModuleLink {
 
     @ClassRule
     public static FakeInternet internet = new FakeInternet();
@@ -18,9 +18,9 @@ public class TestsSitemapLink {
     @Test
     @Ignore("connection refused on CI")
     public void canGetSitemap() throws Exception {
-        final SitemapLink sitemapLink = new SitemapLink();
+        final SteambeatSitemapModuleLink steambeatSitemapModuleLink = new SteambeatSitemapModuleLink();
 
-        final InputStream stream = sitemapLink.getSitemap("00001");
+        final InputStream stream = steambeatSitemapModuleLink.get("00001");
 
         assertThat(stream, notNullValue());
         final String sitemap = IOUtils.toString(stream);

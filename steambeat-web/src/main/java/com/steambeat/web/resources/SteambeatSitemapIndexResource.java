@@ -8,18 +8,18 @@ import org.restlet.resource.*;
 import javax.inject.Inject;
 import java.io.InputStream;
 
-public class SteambeatSitemapResource extends ServerResource {
+public class SteambeatSitemapIndexResource extends ServerResource {
 
     @Inject
-    public SteambeatSitemapResource(final SteambeatSitemapModuleLink steambeatSitemapModuleLink) {
+    public SteambeatSitemapIndexResource(final SteambeatSitemapModuleLink steambeatSitemapModuleLink) {
         this.steambeatSitemapModuleLink = steambeatSitemapModuleLink;
     }
 
     @Get
     public Representation represent() {
         final String index = getRequestAttributes().get("number").toString();
-        final InputStream sitemap = steambeatSitemapModuleLink.get("/sitemap_" + index + ".xml");
-        return new SteambeatSitemapRepresentation(sitemap);
+        final InputStream sitemapIndex = steambeatSitemapModuleLink.get("/sitemap_index_" + index + ".xml");
+        return new SteambeatSitemapRepresentation(sitemapIndex);
     }
 
     private final SteambeatSitemapModuleLink steambeatSitemapModuleLink;

@@ -1,5 +1,6 @@
 package com.steambeat.sitemap.web;
 
+import com.steambeat.sitemap.domain.*;
 import com.steambeat.sitemap.tools.SitemapProperties;
 import freemarker.template.*;
 import org.restlet.*;
@@ -11,18 +12,17 @@ public class SitemapApplication extends Application {
 
     public SitemapApplication(final Context context) {
         super(context);
-
     }
 
     @Override
     public synchronized void start() throws Exception {
         sitemapProperties = new SitemapProperties();
         initFreemarkerConfiguration();
-        //for (int i = 0; i < 100000; i++) {
-        //    SitemapEntryRepository.add(new SitemapEntry("sitemap" + i, Frequency.hourly, 0.5));
-        //}
-        //SitemapRepository.buildAllSitemaps();
-        //SitemapIndexRepository.buildAllSitemapIndexes();
+        for (int i = 0; i < 100000; i++) {
+            SitemapEntryRepository.add(new SitemapEntry("sitemap" + i, Frequency.hourly, 0.5));
+        }
+        SitemapRepository.buildAllSitemaps();
+        SitemapIndexRepository.buildAllSitemapIndexes();
         super.start();
     }
 

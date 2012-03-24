@@ -13,7 +13,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.mockito.Mockito.*;
 
-public class TestsSteambeatSitemapResource {
+public class TestsSteambeatRobotsResource {
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
@@ -26,7 +26,7 @@ public class TestsSteambeatSitemapResource {
 
     @Test
     public void isMapped() {
-        final ClientResource resource = restlet.newClientResource("/sitemap_00001.xml");
+        final ClientResource resource = restlet.newClientResource("/robots.txt");
 
         final Representation representation = resource.get();
 
@@ -36,13 +36,13 @@ public class TestsSteambeatSitemapResource {
 
     @Test
     public void doesUseSitemapLink() throws IOException {
-        when(steambeatSitemapModuleLink.get("/sitemap_00001.xml")).thenReturn(IOUtils.toInputStream("sitemap"));
-        final ClientResource resource = restlet.newClientResource("/sitemap_00001.xml");
+        when(steambeatSitemapModuleLink.get("/robots.txt")).thenReturn(IOUtils.toInputStream("robots"));
+        final ClientResource resource = restlet.newClientResource("/robots.txt");
 
         final Representation representation = resource.get();
 
-        verify(steambeatSitemapModuleLink).get("/sitemap_00001.xml");
-        assertThat(representation.getText(), is("sitemap"));
+        verify(steambeatSitemapModuleLink).get("/robots.txt");
+        assertThat(representation.getText(), is("robots"));
     }
 
     private SteambeatSitemapModuleLink steambeatSitemapModuleLink;

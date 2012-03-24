@@ -1,7 +1,7 @@
 package com.steambeat.web;
 
 import com.steambeat.test.guice.SteambeatModuleForTest;
-import com.steambeat.tools.SitemapLink;
+import com.steambeat.tools.SteambeatSitemapModuleLink;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.rules.ExternalResource;
 import org.mockito.invocation.InvocationOnMock;
@@ -53,8 +53,8 @@ public class WebApplicationTester extends ExternalResource {
         return new ClientResource(uri, application);
     }
 
-    public void setSitemapLink(final SitemapLink sitemapLink) {
-        module.setSitemapLink(sitemapLink);
+    public void setSitemapLink(final SteambeatSitemapModuleLink steambeatSitemapModuleLink) {
+        module.setSteambeatSitemapModuleLink(steambeatSitemapModuleLink);
     }
 
     public SteambeatApplication getApplication() {

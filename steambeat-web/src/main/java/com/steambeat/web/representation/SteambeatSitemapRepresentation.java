@@ -6,9 +6,9 @@ import org.restlet.representation.StreamRepresentation;
 
 import java.io.*;
 
-public class SitemapRepresentation extends StreamRepresentation {
+public class SteambeatSitemapRepresentation extends StreamRepresentation {
 
-    public SitemapRepresentation(final InputStream sitemap) {
+    public SteambeatSitemapRepresentation(final InputStream sitemap) {
         super(MediaType.TEXT_XML);
         this.sitemap = sitemap;
     }

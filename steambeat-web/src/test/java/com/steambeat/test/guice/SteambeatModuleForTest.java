@@ -11,7 +11,7 @@ import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
 import com.steambeat.test.fakeSearches.*;
 import com.steambeat.test.fakeServices.FakeSubjectService;
-import com.steambeat.tools.SitemapLink;
+import com.steambeat.tools.SteambeatSitemapModuleLink;
 import com.steambeat.web.*;
 import com.steambeat.web.migration.MigrationRunner;
 import com.steambeat.web.search.*;
@@ -33,16 +33,16 @@ public class SteambeatModuleForTest extends AbstractModule {
     }
 
     @Provides
-    public SitemapLink getSitemapLink() {
-        if (sitemapLink == null) {
-            return new SitemapLink();
+    public SteambeatSitemapModuleLink getSteambeatSitemapModuleLink() {
+        if (steambeatSitemapModuleLink == null) {
+            return new SteambeatSitemapModuleLink();
         }
-        return sitemapLink;
+        return steambeatSitemapModuleLink;
     }
 
-    public void setSitemapLink(final SitemapLink sitemapLink) {
-        this.sitemapLink = sitemapLink;
+    public void setSteambeatSitemapModuleLink(final SteambeatSitemapModuleLink steambeatSitemapModuleLink) {
+        this.steambeatSitemapModuleLink = steambeatSitemapModuleLink;
     }
 
-    private SitemapLink sitemapLink;
+    private SteambeatSitemapModuleLink steambeatSitemapModuleLink;
 }
