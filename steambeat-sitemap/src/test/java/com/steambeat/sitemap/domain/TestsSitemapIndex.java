@@ -37,7 +37,7 @@ public class TestsSitemapIndex {
     public void hasALoc() {
         SitemapIndex sitemapIndex = new SitemapIndex(1);
 
-        assertThat(sitemapIndex.getLoc(), is("http://www.steambeat.com/sitemap_index_00001.xml"));
+        assertThat(sitemapIndex.getLoc(), is("sitemap_index_00001.xml"));
     }
 
     @Test

@@ -39,5 +39,9 @@ public class SitemapProperties {
         return Integer.valueOf(properties.getProperty("delay"));
     }
 
+    public String getRoot() {
+        return properties.getProperty("root");
+    }
+
     private final Properties properties;
 }
