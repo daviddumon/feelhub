@@ -17,8 +17,8 @@ public class Sitemap {
     }
 
     private DateTime getLastModFromSitemapEntries(final List<SitemapEntry> sitemapEntries) {
-        List<DateTime> dates = Lists.newArrayList();
-        for (SitemapEntry sitemapEntry : sitemapEntries) {
+        final List<DateTime> dates = Lists.newArrayList();
+        for (final SitemapEntry sitemapEntry : sitemapEntries) {
             dates.add(sitemapEntry.getLastMod());
         }
         return dates.isEmpty() ? new DateTime() : Collections.max(dates);
@@ -49,7 +49,7 @@ public class Sitemap {
     }
 
     private final int index;
-    private DateTime lastMod;
+    private final DateTime lastMod;
     private final String loc;
     private static int CAPACITY = 1000;
 }

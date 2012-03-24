@@ -47,7 +47,7 @@ public class TestsSitemapIndexResource {
         final ClientResource sitemapIndexResource = restlet.newClientResource("/sitemap_index_00010.xml");
 
         final Representation representation = sitemapIndexResource.get();
-        
+
         assertThat(sitemapIndexResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
     }
 }

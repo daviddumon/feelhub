@@ -29,5 +29,5 @@ public class SitemapIndexRepository {
         }
     }
 
-    private static List<SitemapIndex> sitemapIndexes = Lists.newArrayList();
+    private static final List<SitemapIndex> sitemapIndexes = Lists.newArrayList();
 }

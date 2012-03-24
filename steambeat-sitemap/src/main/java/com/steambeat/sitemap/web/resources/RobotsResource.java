@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.steambeat.sitemap.domain.*;
 import com.steambeat.sitemap.web.representation.SitemapTemplateRepresentation;
 import org.restlet.data.MediaType;
-import org.restlet.representation.*;
+import org.restlet.representation.Representation;
 import org.restlet.resource.*;
 
 import java.util.List;

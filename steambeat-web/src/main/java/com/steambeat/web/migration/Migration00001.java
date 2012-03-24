@@ -36,9 +36,9 @@ public class Migration00001 extends Migration {
             final BasicDBObject judgment = (BasicDBObject) judgments.get(0);
             final Association association = associationService.createAssociationsFor(new Uri(judgment.get("subjectId").toString()));
             final WebPage webPage = subjectService.addWebPage(association);
-            String text = opinion.get("text").toString();
+            final String text = opinion.get("text").toString();
             final JudgmentDTO dto = new JudgmentDTO(webPage, Feeling.valueOf(judgment.get("feeling").toString()));
-            List<JudgmentDTO> dtos = Lists.newArrayList();
+            final List<JudgmentDTO> dtos = Lists.newArrayList();
             dtos.add(dto);
             opinionService.addOpinion(text, dtos);
             System.out.println("count:" + count++);

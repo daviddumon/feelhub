@@ -23,7 +23,7 @@ public class TestsSitemapIndexRepository {
 
     @Test
     public void canGetASitemapIndexFromIndex() {
-        SitemapIndex sitemapIndex = SitemapIndexRepository.getSitemapIndex(0);
+        final SitemapIndex sitemapIndex = SitemapIndexRepository.getSitemapIndex(0);
 
         assertThat(sitemapIndex, notNullValue());
         assertThat(sitemapIndex.getIndex(), is(0));

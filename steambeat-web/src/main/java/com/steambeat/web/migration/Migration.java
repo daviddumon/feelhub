@@ -32,7 +32,7 @@ public abstract class Migration {
         final BasicDBObject query = new BasicDBObject();
         query.put("number", number);
         final DBCursor cursor = migrationCollection.find(query);
-        List<Object> results = Lists.newArrayList();
+        final List<Object> results = Lists.newArrayList();
         while (cursor.hasNext()) {
             results.add(cursor.next());
         }

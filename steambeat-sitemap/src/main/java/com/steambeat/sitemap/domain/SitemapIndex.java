@@ -32,7 +32,7 @@ public class SitemapIndex {
         SitemapIndex.CAPACITY = capacity;
     }
 
-    private int index;
-    private String loc;
+    private final int index;
+    private final String loc;
     private static int CAPACITY = 1000;
 }

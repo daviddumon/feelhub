@@ -21,7 +21,7 @@ public class TestsSitemap {
 
     @Test
     public void hasALoc() {
-        Sitemap sitemap = new Sitemap(1);
+        final Sitemap sitemap = new Sitemap(1);
 
         assertThat(sitemap.getLoc(), is("sitemap_00001.xml"));
     }
@@ -29,13 +29,13 @@ public class TestsSitemap {
     @Test
     public void knowsItsIndex() {
         final Sitemap sitemap = new Sitemap(1);
-        
+
         assertThat(sitemap.getIndex(), is(1));
     }
 
     @Test
     public void hasSitemapEntries() {
-        Sitemap sitemap = new Sitemap(1);
+        final Sitemap sitemap = new Sitemap(1);
 
         assertThat(sitemap.getEntries(), notNullValue());
         assertThat(sitemap.getEntries().size(), is(Sitemap.getCapacity()));
@@ -50,8 +50,8 @@ public class TestsSitemap {
         SitemapEntryRepository.add(older);
         time.waitDays(1);
 
-        Sitemap sitemap = new Sitemap(4);
-        
+        final Sitemap sitemap = new Sitemap(4);
+
         assertThat(sitemap.getLastMod(), is(older.getLastMod()));
     }
 

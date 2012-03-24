@@ -21,7 +21,7 @@ public class TestsSitemapIndex {
 
     @Test
     public void canGetASitemapIndexForAnIndex() {
-        SitemapIndex sitemapIndex = new SitemapIndex(1);
+        final SitemapIndex sitemapIndex = new SitemapIndex(1);
 
         assertThat(sitemapIndex, notNullValue());
     }
@@ -29,20 +29,20 @@ public class TestsSitemapIndex {
     @Test
     public void knowsItsIndex() {
         final SitemapIndex sitemapIndex = new SitemapIndex(1);
-        
+
         assertThat(sitemapIndex.getIndex(), is(1));
     }
 
     @Test
     public void hasALoc() {
-        SitemapIndex sitemapIndex = new SitemapIndex(1);
+        final SitemapIndex sitemapIndex = new SitemapIndex(1);
 
         assertThat(sitemapIndex.getLoc(), is("sitemap_index_00001.xml"));
     }
 
     @Test
     public void hasGoodSitemaps() {
-        SitemapIndex sitemapIndex = new SitemapIndex(0);
+        final SitemapIndex sitemapIndex = new SitemapIndex(0);
 
         assertThat(sitemapIndex.getSitemaps(), notNullValue());
         assertThat(sitemapIndex.getSitemaps().size(), is(SitemapIndex.getCapacity()));

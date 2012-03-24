@@ -9,7 +9,7 @@ import java.util.*;
 public class SitemapEntryRepository {
 
     public static List<SitemapEntry> getSitemapEntriesFor(final Sitemap sitemap) {
-        int index = sitemap.getIndex();
+        final int index = sitemap.getIndex();
         final List<List<SitemapEntry>> lists = Lists.partition(sitemapEntries, Sitemap.getCapacity());
         return index < lists.size() ? lists.get(index) : new ArrayList<SitemapEntry>();
     }

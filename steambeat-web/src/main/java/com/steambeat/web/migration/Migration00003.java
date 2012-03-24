@@ -14,7 +14,7 @@ public class Migration00003 extends Migration {
     @Override
     protected void doRun() {
         final List<Subject> subjects = Repositories.subjects().getAll();
-        for (Subject subject : subjects) {
+        for (final Subject subject : subjects) {
             subject.setLastModificationDate(subject.getCreationDate());
         }
     }

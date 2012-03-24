@@ -14,7 +14,7 @@ public class SitemapRepository {
     }
 
     public static List<Sitemap> getSitemapsFor(final SitemapIndex sitemapIndex) {
-        int index = sitemapIndex.getIndex();
+        final int index = sitemapIndex.getIndex();
         final List<List<Sitemap>> partitions = Lists.partition(sitemaps, SitemapIndex.getCapacity());
         return index < partitions.size() ? partitions.get(index) : new ArrayList<Sitemap>();
     }
@@ -39,5 +39,5 @@ public class SitemapRepository {
         return sitemaps.size();
     }
 
-    private static List<Sitemap> sitemaps = Lists.newArrayList();
+    private static final List<Sitemap> sitemaps = Lists.newArrayList();
 }

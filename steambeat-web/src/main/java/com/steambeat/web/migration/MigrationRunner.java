@@ -24,11 +24,11 @@ public class MigrationRunner implements Runnable {
     public void run() {
         logger.warn("MIGRATION - RUNNER");
         if (checkUpdateFlag()) {
-            List<Migration> migrations = Lists.newArrayList();
+            final List<Migration> migrations = Lists.newArrayList();
             migrations.add(new Migration00001(sessionProvider));
             migrations.add(new Migration00002(sessionProvider));
             migrations.add(new Migration00003(sessionProvider));
-            for (Migration migration : migrations) {
+            for (final Migration migration : migrations) {
                 sessionProvider.start();
                 migration.run();
                 sessionProvider.stop();
@@ -45,7 +45,7 @@ public class MigrationRunner implements Runnable {
 
     private boolean checkUpdateFlag() {
         final DBCollection collection = getCollection();
-        DBObject status = getStatus(collection);
+        final DBObject status = getStatus(collection);
         if (status == null) {
             logger.warn("MIGRATION - CHECK UPDATE TRUE");
             lock(collection);

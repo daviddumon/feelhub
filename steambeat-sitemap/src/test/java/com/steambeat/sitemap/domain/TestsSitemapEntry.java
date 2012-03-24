@@ -28,11 +28,11 @@ public class TestsSitemapEntry {
     public void canSetNewLastModDate() {
         final String uri = "http://www.fakeentry.com";
         final SitemapEntry sitemapEntry = new SitemapEntry(uri, Frequency.hourly, 0.8);
-        DateTime oldDate = sitemapEntry.getLastMod();
+        final DateTime oldDate = sitemapEntry.getLastMod();
         time.waitDays(1);
-        
+
         sitemapEntry.setLastMod(new DateTime());
-        
+
         assertThat(oldDate, not(sitemapEntry.getLastMod()));
     }
 }

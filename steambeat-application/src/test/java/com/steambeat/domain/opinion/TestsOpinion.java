@@ -6,7 +6,6 @@ import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
-import org.joda.time.DateTime;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 
@@ -86,9 +85,9 @@ public class TestsOpinion {
         final Opinion opinion = new Opinion("my opinion");
         final Subject subject = TestFactories.subjects().newWebPage();
         time.waitDays(1);
-        
+
         opinion.addJudgment(subject, Feeling.good);
-        
+
         assertThat(subject.getLastModificationDate(), is(time.getNow()));
     }
 }

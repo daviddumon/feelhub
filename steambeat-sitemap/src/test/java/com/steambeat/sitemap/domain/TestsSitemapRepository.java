@@ -27,7 +27,7 @@ public class TestsSitemapRepository {
     public void canGetASitemapFromIndex() {
         SitemapRepository.buildAllSitemaps();
 
-        Sitemap sitemap = SitemapRepository.getSitemap(1);
+        final Sitemap sitemap = SitemapRepository.getSitemap(1);
 
         assertThat(sitemap, notNullValue());
     }

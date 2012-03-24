@@ -22,8 +22,8 @@ public class TestsSitemapScheduler {
 
     @Test
     public void canRunApplication() throws InterruptedException, SchedulerException, ServletException {
-        JobKey hiramJob = new JobKey("hiramJob");
-        TriggerKey triggerKey = new TriggerKey("hiramTrigger");
+        final JobKey hiramJob = new JobKey("hiramJob");
+        final TriggerKey triggerKey = new TriggerKey("hiramTrigger");
 
         sitemapScheduler = new SitemapScheduler();
         sitemapScheduler.run();
@@ -42,6 +42,6 @@ public class TestsSitemapScheduler {
     }
 
     private SitemapScheduler sitemapScheduler;
-    private String directoryName = "/hiram/sitemaps";
-    private File directory = new File(directoryName);
+    private final String directoryName = "/hiram/sitemaps";
+    private final File directory = new File(directoryName);
 }

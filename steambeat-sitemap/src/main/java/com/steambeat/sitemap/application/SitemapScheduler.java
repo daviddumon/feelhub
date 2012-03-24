@@ -32,11 +32,11 @@ public class SitemapScheduler {
     }
 
     public void run() {
-        JobDetail hiramJob = newJob(SitemapJob.class)
+        final JobDetail hiramJob = newJob(SitemapJob.class)
                 .withIdentity("hiramJob")
                 .build();
 
-        Trigger hiramTrigger = newTrigger()
+        final Trigger hiramTrigger = newTrigger()
                 .withIdentity("hiramTrigger")
                 .withSchedule(simpleSchedule()
                         .withIntervalInSeconds(sitemapProperties.getDelay())

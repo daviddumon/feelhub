@@ -28,5 +28,5 @@ public class SubjectFactory {
         return (WebPage) Repositories.subjects().get(subjectId);
     }
 
-    private WebPageFactory webPageFactory;
+    private final WebPageFactory webPageFactory;
 }

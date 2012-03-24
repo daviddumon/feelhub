@@ -24,5 +24,5 @@ public class MigrationRouter extends Router {
         return new GuiceFinder(getContext(), targetClass, injector);
     }
 
-    private Injector injector;
+    private final Injector injector;
 }
