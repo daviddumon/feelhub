@@ -3,41 +3,53 @@ package com.steambeat.sitemap.domain;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 
-import java.util.List;
+import java.util.*;
 
 public class Sitemap {
 
     public Sitemap(final int index) {
-        name = "sitemap_" + String.format("%05d", index) + ".xml";
-        lastModTime = new DateTime();
-    }
-
-    public String getPath() {
-        return "http://www.steambeat.com/" + name;
-    }
-
-    public void addEntry(final SitemapEntry sitemapEntry) {
-        if (sitemapEntries.size() >= SITEMAP_CAPACITY) {
-            throw new CapacityException();
+        if (index < 0) {
+            throw new SitemapCreationException();
         }
-        sitemapEntries.add(sitemapEntry);
-        lastModTime = new DateTime();
+        this.index = index;
+        this.loc = "http://www.steambeat.com/sitemap_" + String.format("%05d", index) + ".xml";
+        this.lastMod = getLastModFromSitemapEntries(SitemapEntryRepository.getSitemapEntriesFor(this));
+    }
+
+    private DateTime getLastModFromSitemapEntries(final List<SitemapEntry> sitemapEntries) {
+        List<DateTime> dates = Lists.newArrayList();
+        for (SitemapEntry sitemapEntry : sitemapEntries) {
+            dates.add(sitemapEntry.getLastMod());
+        }
+        return dates.isEmpty() ? new DateTime() : Collections.max(dates);
     }
 
     public List<SitemapEntry> getEntries() {
-        return sitemapEntries;
+        return SitemapEntryRepository.getSitemapEntriesFor(this);
     }
 
-    public DateTime getLastModTime() {
-        return lastModTime;
+    public DateTime getLastMod() {
+        return lastMod;
     }
 
-    public static void setSitemapCapacity(final int capacity) {
-        SITEMAP_CAPACITY = capacity;
+    public String getLoc() {
+        return loc;
     }
 
-    private final String name;
-    private final List<SitemapEntry> sitemapEntries = Lists.newArrayList();
-    private DateTime lastModTime;
-    private static int SITEMAP_CAPACITY = 50000;
+    public static int getCapacity() {
+        return CAPACITY;
+    }
+
+    public static void setCapacity(final int capacity) {
+        CAPACITY = capacity;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    private final int index;
+    private DateTime lastMod;
+    private final String loc;
+    private static int CAPACITY = 1000;
 }

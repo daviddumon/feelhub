@@ -1,49 +1,38 @@
 package com.steambeat.sitemap.domain;
 
-import com.google.common.collect.Lists;
-import org.joda.time.DateTime;
-
 import java.util.List;
 
 public class SitemapIndex {
 
     public SitemapIndex(final int index) {
-        name = "sitemap_index_" + String.format("%05d", index) + ".xml";
-        lastModTime = new DateTime();
-    }
-
-    public String getPath() {
-        return "http://www.steambeat.com/" + name;
-    }
-
-    public Sitemap newSitemap() {
-        if (sitemaps.size() >= SITEMAP_INDEX_CAPACITY) {
-            throw new CapacityException();
+        if (index < 0) {
+            throw new SitemapIndexCreationException();
         }
-        final Sitemap sitemap = new Sitemap(sitemaps.size() + 1);
-        sitemaps.add(sitemap);
-        lastModTime = new DateTime();
-        return sitemap;
+        this.index = index;
+        this.loc = "http://www.steambeat.com/sitemap_index_" + String.format("%05d", index) + ".xml";
     }
 
     public List<Sitemap> getSitemaps() {
-        return sitemaps;
+        return SitemapRepository.getSitemapsFor(this);
     }
 
-    public Sitemap getLastSitemap() {
-        return sitemaps.get(sitemaps.size() - 1);
+    public String getLoc() {
+        return loc;
     }
 
-    public static void setSitemapIndexCapacity(final int capacity) {
-        SITEMAP_INDEX_CAPACITY = capacity;
+    public int getIndex() {
+        return index;
     }
 
-    public DateTime getLastModTime() {
-        return lastModTime;
+    public static int getCapacity() {
+        return CAPACITY;
     }
 
-    private final String name;
-    private final List<Sitemap> sitemaps = Lists.newArrayList();
-    private DateTime lastModTime;
-    private static int SITEMAP_INDEX_CAPACITY = 50000;
+    public static void setCapacity(final int capacity) {
+        SitemapIndex.CAPACITY = capacity;
+    }
+
+    private int index;
+    private String loc;
+    private static int CAPACITY = 1000;
 }

@@ -1,11 +1,12 @@
 package com.steambeat.sitemap.domain;
 
+import com.steambeat.sitemap.test.WithFakeData;
 import com.steambeat.test.SystemTime;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 public class TestsSitemapIndex {
 
@@ -15,65 +16,42 @@ public class TestsSitemapIndex {
     @Rule
     public SystemTime time = SystemTime.fixed();
 
-    @Before
-    public void setUp() {
-        sitemapIndex = new SitemapIndex(1);
+    @Rule
+    public WithFakeData withFakeData = new WithFakeData();
+
+    @Test
+    public void canGetASitemapIndexForAnIndex() {
+        SitemapIndex sitemapIndex = new SitemapIndex(1);
+
+        assertThat(sitemapIndex, notNullValue());
     }
 
     @Test
-    public void canGetPath() {
-        assertThat(sitemapIndex.getPath(), is("http://www.steambeat.com/sitemap_index_00001.xml"));
-    }
-
-    @Test
-    public void hasALastModDate() {
-        assertThat(sitemapIndex.getLastModTime(), is(time.getNow()));
-    }
-
-    @Test
-    public void canCreateASitemap() {
-        final Sitemap sitemap = sitemapIndex.newSitemap();
-
-        assertThat(sitemapIndex.getSitemaps().size(), is(1));
-        assertThat(sitemapIndex.getSitemaps().get(0), is(sitemap));
-    }
-
-    @Test
-    public void canCreateTwoSitemaps() {
-        sitemapIndex.newSitemap();
-        sitemapIndex.newSitemap();
+    public void knowsItsIndex() {
+        final SitemapIndex sitemapIndex = new SitemapIndex(1);
         
-        assertThat(sitemapIndex.getSitemaps().size(), is(2));
-        assertThat(sitemapIndex.getSitemaps().get(0).getPath(), is("http://www.steambeat.com/sitemap_00001.xml"));
-        assertThat(sitemapIndex.getSitemaps().get(1).getPath(), is("http://www.steambeat.com/sitemap_00002.xml"));
+        assertThat(sitemapIndex.getIndex(), is(1));
     }
 
     @Test
-    public void lastModDateChangeWhenAddNewSitemap() {
-        time.waitDays(1);
+    public void hasALoc() {
+        SitemapIndex sitemapIndex = new SitemapIndex(1);
 
-        sitemapIndex.newSitemap();
-
-        assertThat(sitemapIndex.getLastModTime(), is(time.getNow()));
+        assertThat(sitemapIndex.getLoc(), is("http://www.steambeat.com/sitemap_index_00001.xml"));
     }
 
     @Test
-    public void throwACapacityExceptionIfAddingMoreThanCapacity() {
-        exception.expect(CapacityException.class);
-        SitemapIndex.setSitemapIndexCapacity(2);
+    public void hasGoodSitemaps() {
+        SitemapIndex sitemapIndex = new SitemapIndex(0);
 
-        sitemapIndex.newSitemap();
-        sitemapIndex.newSitemap();
-        sitemapIndex.newSitemap();
+        assertThat(sitemapIndex.getSitemaps(), notNullValue());
+        assertThat(sitemapIndex.getSitemaps().size(), is(SitemapIndex.getCapacity()));
     }
 
     @Test
-    public void canGetLastSitemapOfIndex() {
-        sitemapIndex.newSitemap();
-        final Sitemap lastSitemap = sitemapIndex.newSitemap();
+    public void canNotCreateASitemapIndexWithNegativeIndex() {
+        exception.expect(SitemapIndexCreationException.class);
 
-        assertThat(sitemapIndex.getLastSitemap(), is(lastSitemap));
+        new SitemapIndex(-1);
     }
-
-    private SitemapIndex sitemapIndex;
 }

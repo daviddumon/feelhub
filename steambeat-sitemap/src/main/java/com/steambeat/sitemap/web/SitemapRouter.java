@@ -15,5 +15,6 @@ public class SitemapRouter extends Router {
     private void attachResources() {
         attach("/robots.txt", RobotsResource.class);
         attach("/sitemap_index_{index}.xml", SitemapIndexResource.class);
+        attach("/sitemap_{index}.xml", SitemapResource.class);
     }
 }

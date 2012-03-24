@@ -27,8 +27,12 @@ public class SitemapEntry {
         return priority;
     }
 
+    public void setLastMod(final DateTime dateTime) {
+        this.lastMod = dateTime;
+    }
+
     private final String loc;
-    private final DateTime lastMod;
+    private DateTime lastMod;
     private final Frequency frequency;
     private final double priority;
 }

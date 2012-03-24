@@ -1,11 +1,12 @@
 package com.steambeat.sitemap.web.resources;
 
-import com.steambeat.sitemap.domain.*;
-import com.steambeat.sitemap.test.WithRobotFile;
+import com.steambeat.sitemap.domain.Sitemap;
+import com.steambeat.sitemap.test.WithFakeData;
 import com.steambeat.sitemap.web.*;
 import com.steambeat.sitemap.web.representation.SitemapTemplateRepresentation;
 import org.junit.*;
 import org.restlet.data.Status;
+import org.restlet.representation.Representation;
 
 import java.util.*;
 
@@ -18,7 +19,7 @@ public class TestsSitemapIndexResource {
     public WebApplicationTester restlet = new WebApplicationTester();
 
     @Rule
-    public WithRobotFile robots = new WithRobotFile();
+    public WithFakeData entries = new WithFakeData();
 
     @Test
     public void isMapped() {
@@ -31,16 +32,22 @@ public class TestsSitemapIndexResource {
 
     @Test
     public void hasSitemapIndexes() {
-        final SitemapIndex sitemapIndex = RobotsFile.INSTANCE.newSitemapIndex();
-        sitemapIndex.newSitemap();
-        sitemapIndex.newSitemap();
         final ClientResource sitemapIndexResource = restlet.newClientResource("/sitemap_index_00001.xml");
 
         final SitemapTemplateRepresentation representation = (SitemapTemplateRepresentation) sitemapIndexResource.get();
 
         assertThat(sitemapIndexResource.getStatus(), is(Status.SUCCESS_OK));
-        final Map<String,Object> dataModel = representation.getDataModel();
+        final Map<String, Object> dataModel = representation.getDataModel();
         final List<Sitemap> sitemaps = (List<Sitemap>) dataModel.get("sitemaps");
         assertThat(sitemaps.size(), is(2));
+    }
+
+    @Test
+    public void error404onUnknownSitemapIndex() {
+        final ClientResource sitemapIndexResource = restlet.newClientResource("/sitemap_index_00010.xml");
+
+        final Representation representation = sitemapIndexResource.get();
+        
+        assertThat(sitemapIndexResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
     }
 }

@@ -1,14 +1,13 @@
 package com.steambeat.sitemap.web.resources;
 
-import com.steambeat.sitemap.domain.*;
-import com.steambeat.sitemap.test.WithRobotFile;
+import com.steambeat.sitemap.domain.SitemapIndex;
+import com.steambeat.sitemap.test.WithFakeData;
 import com.steambeat.sitemap.web.*;
 import com.steambeat.sitemap.web.representation.SitemapTemplateRepresentation;
 import org.junit.*;
-import org.restlet.data.*;
+import org.restlet.data.Status;
 
-import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -19,30 +18,26 @@ public class TestsRobotsResource {
     public WebApplicationTester restlet = new WebApplicationTester();
 
     @Rule
-    public WithRobotFile withRobotFile = new WithRobotFile();
+    public WithFakeData withFakeData = new WithFakeData();
 
     @Test
-    public void isMapped() throws IOException {
-        final ClientResource robotsFile = restlet.newClientResource("/robots.txt");
+    public void isMapped() {
+        final ClientResource robots = restlet.newClientResource("/robots.txt");
 
-        final SitemapTemplateRepresentation representation = (SitemapTemplateRepresentation) robotsFile.get();
+        robots.get();
 
-        assertThat(robotsFile.getStatus(), is(Status.SUCCESS_OK));
-        assertThat(representation.getMediaType(), is(MediaType.TEXT_PLAIN));
-        assertThat(representation.getText(), containsString("Disallow"));
+        assertThat(robots.getStatus(), is(Status.SUCCESS_OK));
     }
 
     @Test
-    public void hasGoodDataModel() {
-        RobotsFile.INSTANCE.newSitemapIndex();
-        RobotsFile.INSTANCE.newSitemapIndex();
-        RobotsFile.INSTANCE.newSitemapIndex();
-        final ClientResource robotsFile = restlet.newClientResource("/robots.txt");
+    public void hasAllSitemapIndexesInDataModel() {
+        final ClientResource robots = restlet.newClientResource("/robots.txt");
 
-        final SitemapTemplateRepresentation representation = (SitemapTemplateRepresentation) robotsFile.get();
+        final SitemapTemplateRepresentation representation = (SitemapTemplateRepresentation) robots.get();
 
-        assertThat(robotsFile.getStatus(), is(Status.SUCCESS_OK));
-        final List<SitemapIndex> indexes = (List<SitemapIndex>) representation.getDataModel().get("indexes");
-        assertThat(indexes.size(), is(3));
+        final Map<String, Object> dataModel = representation.getDataModel();
+        final List<SitemapIndex> indexes = (List<SitemapIndex>) dataModel.get("indexes");
+        assertThat(indexes, notNullValue());
+        assertThat(indexes.size(), is(2));
     }
 }

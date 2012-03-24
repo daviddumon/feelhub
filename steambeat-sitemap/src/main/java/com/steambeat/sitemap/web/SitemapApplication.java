@@ -15,12 +15,12 @@ public class SitemapApplication extends Application {
 
     @Override
     public synchronized void start() throws Exception {
-        final SitemapIndex sitemapIndex = RobotsFile.INSTANCE.newSitemapIndex();
-        sitemapIndex.newSitemap();
-        sitemapIndex.newSitemap();
-        sitemapIndex.newSitemap();
-        sitemapIndex.newSitemap();
         initFreemarkerConfiguration();
+        //for (int i = 0; i < 100000; i++) {
+        //    SitemapEntryRepository.add(new SitemapEntry("sitemap" + i, Frequency.hourly, 0.5));
+        //}
+        //SitemapRepository.buildAllSitemaps();
+        //SitemapIndexRepository.buildAllSitemapIndexes();
         super.start();
     }
 

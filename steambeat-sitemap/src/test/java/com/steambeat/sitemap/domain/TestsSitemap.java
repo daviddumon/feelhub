@@ -1,12 +1,12 @@
 package com.steambeat.sitemap.domain;
 
-import com.steambeat.sitemap.domain.*;
+import com.steambeat.sitemap.test.WithFakeData;
 import com.steambeat.test.SystemTime;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 public class TestsSitemap {
 
@@ -16,55 +16,49 @@ public class TestsSitemap {
     @Rule
     public SystemTime time = SystemTime.fixed();
 
-    @Before
-    public void setUp() {
-        sitemap = new Sitemap(1);
+    @Rule
+    public WithFakeData withFakeData = new WithFakeData();
+
+    @Test
+    public void hasALoc() {
+        Sitemap sitemap = new Sitemap(1);
+
+        assertThat(sitemap.getLoc(), is("http://www.steambeat.com/sitemap_00001.xml"));
     }
 
     @Test
-    public void canGetPath() {
-        assertThat(sitemap.getPath(), is("http://www.steambeat.com/sitemap_" + String.format("%05d", 1) + ".xml"));
+    public void knowsItsIndex() {
+        final Sitemap sitemap = new Sitemap(1);
+        
+        assertThat(sitemap.getIndex(), is(1));
     }
 
     @Test
-    public void hasALastModDate() {
-        assertThat(sitemap.getLastModTime(), is(time.getNow()));
+    public void hasSitemapEntries() {
+        Sitemap sitemap = new Sitemap(1);
+
+        assertThat(sitemap.getEntries(), notNullValue());
+        assertThat(sitemap.getEntries().size(), is(Sitemap.getCapacity()));
     }
 
     @Test
-    public void canAddAnEntry() {
-        final SitemapEntry sitemapEntry = getEntry();
-
-        sitemap.addEntry(sitemapEntry);
-
-        assertThat(sitemap.getEntries().size(), is(1));
-    }
-
-    @Test
-    public void lastModDateChangeWhenAddNewEntry() {
+    public void hasLastMod() {
         time.waitDays(1);
-        final SitemapEntry sitemapEntry = getEntry();
+        SitemapEntryRepository.add(new SitemapEntry("one", Frequency.hourly, 0.5));
+        time.waitDays(1);
+        final SitemapEntry older = new SitemapEntry("older", Frequency.hourly, 0.5);
+        SitemapEntryRepository.add(older);
+        time.waitDays(1);
 
-        sitemap.addEntry(sitemapEntry);
-
-        assertThat(sitemap.getLastModTime(), is(time.getNow()));
+        Sitemap sitemap = new Sitemap(4);
+        
+        assertThat(sitemap.getLastMod(), is(older.getLastMod()));
     }
 
     @Test
-    public void throwACapacityExceptionIfAddingMoreThanCapacity() {
-        exception.expect(CapacityException.class);
-        final SitemapEntry entry = getEntry();
-        Sitemap.setSitemapCapacity(2);
+    public void canNotCreateASitemapWithNegativeIndex() {
+        exception.expect(SitemapCreationException.class);
 
-        sitemap.addEntry(entry);
-        sitemap.addEntry(entry);
-        sitemap.addEntry(entry);
+        new Sitemap(-1);
     }
-
-    private SitemapEntry getEntry() {
-        final String uri = "http://www.fakeentry.com";
-        return new SitemapEntry(uri, Frequency.hourly, 0.5);
-    }
-
-    private Sitemap sitemap;
 }
