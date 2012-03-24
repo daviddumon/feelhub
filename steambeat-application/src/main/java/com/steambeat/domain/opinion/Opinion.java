@@ -21,6 +21,7 @@ public class Opinion extends BaseEntity {
     public void addJudgment(final Subject subject, final Feeling feeling) {
         final Judgment judgment = new Judgment(subject, feeling);
         judgments.add(judgment);
+        subject.setLastModificationDate(new DateTime());
         DomainEventBus.INSTANCE.spread(new JudgmentPostedEvent(judgment));
     }
 

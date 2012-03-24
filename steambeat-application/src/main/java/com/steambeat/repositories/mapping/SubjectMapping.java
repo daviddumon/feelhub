@@ -15,6 +15,7 @@ public class SubjectMapping extends EntityMap<Subject> {
     protected void map() {
         id(element().getId()).natural();
         property(element().getCreationDate());
+        property(element().getLastModificationDate());
         property(element().getDescription());
         property(element().getShortDescription());
         property(element().getIllustration());
