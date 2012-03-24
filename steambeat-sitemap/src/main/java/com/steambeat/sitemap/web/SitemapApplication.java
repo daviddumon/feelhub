@@ -1,6 +1,6 @@
 package com.steambeat.sitemap.web;
 
-import com.steambeat.sitemap.domain.*;
+import com.steambeat.sitemap.application.SitemapScheduler;
 import com.steambeat.sitemap.tools.SitemapProperties;
 import freemarker.template.*;
 import org.restlet.*;
@@ -18,11 +18,7 @@ public class SitemapApplication extends Application {
     public synchronized void start() throws Exception {
         sitemapProperties = new SitemapProperties();
         initFreemarkerConfiguration();
-        for (int i = 0; i < 100000; i++) {
-            SitemapEntryRepository.add(new SitemapEntry("sitemap" + i, Frequency.hourly, 0.5));
-        }
-        SitemapRepository.buildAllSitemaps();
-        SitemapIndexRepository.buildAllSitemapIndexes();
+        sitemapScheduler.run();
         super.start();
     }
 
@@ -32,6 +28,10 @@ public class SitemapApplication extends Application {
         configuration.setEncoding(Locale.ROOT, "UTF-8");
         configuration.setSharedVariable("root", sitemapProperties.getRoot());
         getContext().getAttributes().put("org.freemarker.Configuration", configuration);
+    }
+
+    public void setSitemapScheduler(final SitemapScheduler sitemapScheduler) {
+        this.sitemapScheduler = sitemapScheduler;
     }
 
     @Override
@@ -44,4 +44,5 @@ public class SitemapApplication extends Application {
     }
 
     private SitemapProperties sitemapProperties;
+    private SitemapScheduler sitemapScheduler = new SitemapScheduler();
 }
