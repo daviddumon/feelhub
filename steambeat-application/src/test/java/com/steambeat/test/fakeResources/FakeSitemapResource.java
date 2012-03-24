@@ -9,7 +9,7 @@ public class FakeSitemapResource extends ServerResource {
     @Get
     public Representation represent() {
         final String index = getRequestAttributes().get("index").toString();
-        return new StringRepresentation("index : " + index, MediaType.APPLICATION_XML);
+        return new StringRepresentation("index : " + index, MediaType.APPLICATION_GNU_ZIP);
     }
 
 
