@@ -1,6 +1,5 @@
 package com.steambeat.sitemap.web;
 
-import com.steambeat.sitemap.domain.*;
 import com.steambeat.sitemap.tools.SitemapProperties;
 import freemarker.template.*;
 import org.restlet.*;

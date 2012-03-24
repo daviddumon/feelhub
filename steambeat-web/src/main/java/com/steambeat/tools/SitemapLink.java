@@ -26,6 +26,10 @@ public class SitemapLink {
 
     private InputStream copyStream(final Response response) throws IOException {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.out.println("output:" + output);
+        System.out.println("response" + response.toString());
+        System.out.println("entity" + response.getEntity().toString());
+        System.out.println("stream:" + response.getEntity().getStream());
         ByteStreams.copy(response.getEntity().getStream(), output);
         final ByteArrayInputStream result = new ByteArrayInputStream(output.toByteArray());
         Closeables.closeQuietly(output);
