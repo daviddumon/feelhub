@@ -13,7 +13,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.mockito.Mockito.*;
 
-public class TestsSitemapResource {
+public class TestsSteambeatSitemapResource {
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();

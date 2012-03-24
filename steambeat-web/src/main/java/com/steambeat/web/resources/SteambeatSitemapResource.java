@@ -8,10 +8,10 @@ import org.restlet.resource.*;
 import javax.inject.Inject;
 import java.io.InputStream;
 
-public class SitemapResource extends ServerResource {
+public class SteambeatSitemapResource extends ServerResource {
 
     @Inject
-    public SitemapResource(final SitemapLink sitemapLink) {
+    public SteambeatSitemapResource(final SitemapLink sitemapLink) {
         this.sitemapLink = sitemapLink;
     }
 
