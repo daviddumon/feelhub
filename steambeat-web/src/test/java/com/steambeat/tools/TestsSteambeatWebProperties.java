@@ -13,7 +13,7 @@ public class TestsSteambeatWebProperties {
 
         final String address = steambeatWebProperties.getSitemapBuilderAddress();
 
-        assertThat(address, is("http://localhost:6162/sitemapbuilder"));
+        assertThat(address, is("http://localhost:6162"));
     }
 
     @Test

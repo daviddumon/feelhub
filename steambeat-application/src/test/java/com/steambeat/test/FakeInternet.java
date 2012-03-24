@@ -22,15 +22,6 @@ public class FakeInternet extends ExternalResource {
         component.start();
     }
 
-    @Override
-    protected void after() {
-        //try {
-        //    component.stop();
-        //} catch (Exception e) {
-        //    e.printStackTrace();
-        //}
-    }
-
     private Restlet createApplication() {
         return new Application() {
 
@@ -45,7 +36,7 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/http://www.liberation.fr", FakeStatusOkResource.class);
                 router.attach("/http://www.lemonde.fr", FakeStatusOkResource.class);
                 router.attach("/http://lemonde.fr", FakeStatusOkResource.class);
-                router.attach("/sitemapbuilder/sitemap_{index}.xml", FakeSitemapResource.class);
+                router.attach("/sitemap_{index}.xml", FakeSitemapResource.class);
                 attachScrapersResources(router);
                 return router;
             }
