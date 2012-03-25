@@ -1,8 +1,9 @@
 package com.steambeat.sitemap.domain;
 
+import com.steambeat.domain.BaseEntity;
 import org.joda.time.DateTime;
 
-public class SitemapEntry {
+public class SitemapEntry extends BaseEntity {
 
     public SitemapEntry(final String loc, final Frequency frequency, final double priority) {
         this.loc = loc;
@@ -29,6 +30,11 @@ public class SitemapEntry {
 
     public void setLastMod(final DateTime dateTime) {
         this.lastMod = dateTime;
+    }
+
+    @Override
+    public Object getId() {
+        return loc;
     }
 
     private final String loc;

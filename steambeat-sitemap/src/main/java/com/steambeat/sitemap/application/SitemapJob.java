@@ -30,16 +30,22 @@ public class SitemapJob implements Job {
         lastBuildDate = new DateTime();
         logger.info("Beginning new sitemap job");
         session.start();
-        fetchData();
+        List<Subject> list = fetchData();
+        persistSubjects(list);
         session.stop();
     }
 
-    private void fetchData() {
+    private List<Subject> fetchData() {
         final Criteria criteria = session.createCriteria(Subject.class);
-        final List<Subject> list = criteria.list();
-        for (final Subject subject : list) {
+        return criteria.list();
+    }
+
+    private void persistSubjects(final List<Subject> list) {
+        for (Subject subject : list) {
             SitemapEntryRepository.add(new SitemapEntry(subject.getId().toString(), Frequency.hourly, 0.5));
         }
+        SitemapRepository.buildAllSitemaps();
+        SitemapIndexRepository.buildAllSitemapIndexes();
     }
 
     public DateTime getLastBuildDate() {

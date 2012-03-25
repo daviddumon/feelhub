@@ -1,8 +1,8 @@
 package com.steambeat.sitemap.application;
 
-import com.mongodb.FakeDB;
 import com.steambeat.repositories.TestWithMongoRepository;
-import com.steambeat.sitemap.domain.SitemapEntryRepository;
+import com.steambeat.sitemap.domain.*;
+import com.steambeat.sitemap.test.WithFakeData;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -15,6 +15,9 @@ public class TestsSitemapJob extends TestWithMongoRepository {
 
     @Rule
     public SystemTime time = SystemTime.fixed();
+
+    @Rule
+    public WithFakeData data = new WithFakeData();
 
     @Test
     public void canSetLastBuildDate() throws JobExecutionException {
@@ -38,6 +41,7 @@ public class TestsSitemapJob extends TestWithMongoRepository {
 
     @Test
     public void canExecute() throws JobExecutionException {
+        data.clear();
         TestFactories.subjects().newWebPage();
         TestFactories.subjects().newWebPage();
         TestFactories.subjects().newWebPage();
@@ -48,5 +52,17 @@ public class TestsSitemapJob extends TestWithMongoRepository {
         assertThat(SitemapEntryRepository.size(), is(3));
     }
 
-    private FakeDB mongo;
+    @Test
+    public void hasNewSitemapsAndIndexes() throws JobExecutionException {
+        data.clear();
+        TestFactories.subjects().newWebPage();
+        TestFactories.subjects().newWebPage();
+        TestFactories.subjects().newWebPage();
+        final SitemapJob sitemapJob = new SitemapJob(getProvider().get());
+
+        sitemapJob.execute(null);
+
+        assertThat(SitemapRepository.getSitemaps().size(), is(1));
+        assertThat(SitemapIndexRepository.getSitemapIndexes().size(), is(1));
+    }
 }

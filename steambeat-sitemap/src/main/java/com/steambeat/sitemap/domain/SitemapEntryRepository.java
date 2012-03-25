@@ -23,7 +23,12 @@ public class SitemapEntryRepository {
     }
 
     public static void add(final SitemapEntry entry) {
-        sitemapEntries.add(entry);
+        if (sitemapEntries.contains(entry)) {
+            final SitemapEntry sitemapEntry = sitemapEntries.get(sitemapEntries.indexOf(entry));
+            sitemapEntry.setLastMod(entry.getLastMod());
+        } else {
+            sitemapEntries.add(entry);
+        }
     }
 
     public static void clear() {

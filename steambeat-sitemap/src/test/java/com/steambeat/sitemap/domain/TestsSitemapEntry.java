@@ -6,6 +6,7 @@ import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertTrue;
 
 public class TestsSitemapEntry {
 
@@ -34,5 +35,13 @@ public class TestsSitemapEntry {
         sitemapEntry.setLastMod(new DateTime());
 
         assertThat(oldDate, not(sitemapEntry.getLastMod()));
+    }
+
+    @Test
+    public void equalsTo() {
+        final SitemapEntry entry1 = new SitemapEntry("entry", Frequency.hourly, 0.1);
+        final SitemapEntry entry2 = new SitemapEntry("entry", Frequency.always, 0.8);
+
+        assertTrue(entry1.equals(entry2));
     }
 }

@@ -25,4 +25,10 @@ public class WithFakeData extends ExternalResource {
         SitemapRepository.clear();
         SitemapIndexRepository.clear();
     }
+
+    public void clear() {
+        SitemapEntryRepository.clear();
+        SitemapRepository.clear();
+        SitemapIndexRepository.clear();
+    }
 }

@@ -12,8 +12,8 @@ public abstract class BaseEntity implements Entity {
         if (o == null || !getClass().isAssignableFrom(o.getClass())) {
             return false;
         }
-        final Entity opinion = (Entity) o;
-        return Objects.equal(opinion.getId(), this.getId());
+        final Entity entity = (Entity) o;
+        return Objects.equal(entity.getId(), this.getId());
     }
 
     @Override
