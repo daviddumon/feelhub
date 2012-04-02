@@ -1,6 +1,8 @@
 package com.steambeat.sitemap.web;
 
+import com.google.inject.*;
 import com.steambeat.sitemap.application.SitemapScheduler;
+import com.steambeat.sitemap.guice.SitemapModule;
 import com.steambeat.sitemap.tools.SitemapProperties;
 import freemarker.template.*;
 import org.restlet.*;
@@ -16,6 +18,7 @@ public class SitemapApplication extends Application {
 
     @Override
     public synchronized void start() throws Exception {
+        sitemapScheduler = injector.getInstance(SitemapScheduler.class);
         sitemapProperties = new SitemapProperties();
         initFreemarkerConfiguration();
         sitemapScheduler.initialize();
@@ -31,8 +34,8 @@ public class SitemapApplication extends Application {
         getContext().getAttributes().put("org.freemarker.Configuration", configuration);
     }
 
-    public void setSitemapScheduler(final SitemapScheduler sitemapScheduler) {
-        this.sitemapScheduler = sitemapScheduler;
+    public void setModule(final Module module) {
+        injector = Guice.createInjector(module);
     }
 
     @Override
@@ -45,5 +48,6 @@ public class SitemapApplication extends Application {
     }
 
     private SitemapProperties sitemapProperties;
-    private SitemapScheduler sitemapScheduler = new SitemapScheduler();
+    private Injector injector = Guice.createInjector(new SitemapModule());
+    private SitemapScheduler sitemapScheduler;
 }

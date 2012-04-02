@@ -2,6 +2,7 @@ package com.steambeat.sitemap.application;
 
 import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.sitemap.domain.SitemapEntryRepository;
+import com.steambeat.sitemap.test.FakeSitemapJob;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -20,12 +21,13 @@ public class TestsSitemapScheduler extends TestWithMongoRepository {
     @Before
     public void before() {
         sitemapScheduler = new SitemapScheduler();
+        sitemapScheduler.setSitemapJobClass(FakeSitemapJob.class);
     }
 
     @Test
     public void canRunApplication() throws InterruptedException, SchedulerException, ServletException {
-        final JobKey hiramJob = new JobKey("hiramJob");
-        final TriggerKey triggerKey = new TriggerKey("hiramTrigger");
+        final JobKey hiramJob = new JobKey("sitemapJob");
+        final TriggerKey triggerKey = new TriggerKey("sitemapTrigger");
 
         sitemapScheduler.initialize();
         sitemapScheduler.run();
@@ -41,17 +43,6 @@ public class TestsSitemapScheduler extends TestWithMongoRepository {
         sitemapScheduler.initialize();
 
         assertThat(SitemapEntryRepository.get(""), notNullValue());
-    }
-
-    @Test
-    public void grabAllExistingSubjectsOnBoot() {
-        TestFactories.subjects().newWebPage();
-        TestFactories.subjects().newWebPage();
-        TestFactories.subjects().newWebPage();
-
-        sitemapScheduler.initialize();
-
-        assertThat(SitemapEntryRepository.size(), is(4));
     }
 
     private SitemapScheduler sitemapScheduler;

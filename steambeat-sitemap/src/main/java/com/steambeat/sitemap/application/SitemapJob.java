@@ -50,6 +50,12 @@ public class SitemapJob implements Job {
         SitemapIndexRepository.clear();
     }
 
+    private void createSitemapEntriesFromSubjects(final List<Subject> subjects, final String uriToken) {
+        for (Subject subject : subjects) {
+            SitemapEntryRepository.add(new SitemapEntry("/" + uriToken + "/" + subject.getId().toString(), Frequency.hourly, 0.5));
+        }
+    }
+
     private List<Subject> fetchWebpages() {
         final Criteria criteria = session.createCriteria(WebPage.class);
         criteria.add(Restrictions.equals("__discriminator", "WebPage"));
@@ -66,12 +72,6 @@ public class SitemapJob implements Job {
 
     private void addDateRestriction(final Criteria criteria) {
         criteria.add(Restrictions.greaterThanOrEqualTo("lastModificationDate", queryDate));
-    }
-
-    private void createSitemapEntriesFromSubjects(final List<Subject> subjects, final String uriToken) {
-        for (Subject subject : subjects) {
-            SitemapEntryRepository.add(new SitemapEntry("/" + uriToken + "/" + subject.getId().toString(), Frequency.hourly, 0.5));
-        }
     }
 
     private void buildSitemapsAndIndexes() {

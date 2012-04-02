@@ -14,8 +14,8 @@ public class SitemapScheduler {
 
     public void initialize() {
         initializeScheduler();
-        grabExistingSubjects();
         createRootInSitemap();
+        grabExistingSubjects();
     }
 
     private void initializeScheduler() {
@@ -29,9 +29,13 @@ public class SitemapScheduler {
 
     private void grabExistingSubjects() {
         try {
-            final SitemapJob sitemapJob = new SitemapJob();
+            final Job sitemapJob = sitemapJobClass.newInstance();
             sitemapJob.execute(null);
         } catch (JobExecutionException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
     }
@@ -42,12 +46,12 @@ public class SitemapScheduler {
     }
 
     public void run() {
-        final JobDetail hiramJob = newJob(SitemapJob.class)
-                .withIdentity("hiramJob")
+        final JobDetail hiramJob = newJob(sitemapJobClass)
+                .withIdentity("sitemapJob")
                 .build();
 
         final Trigger hiramTrigger = newTrigger()
-                .withIdentity("hiramTrigger")
+                .withIdentity("sitemapTrigger")
                 .withSchedule(simpleSchedule()
                         .withIntervalInSeconds(sitemapProperties.getDelay())
                         .repeatForever())
@@ -60,10 +64,15 @@ public class SitemapScheduler {
         }
     }
 
+    public void setSitemapJobClass(Class<? extends Job> sitemapJobClass) {
+        this.sitemapJobClass = sitemapJobClass;
+    }
+
     public Scheduler getScheduler() {
         return scheduler;
     }
 
     private Scheduler scheduler;
     private SitemapProperties sitemapProperties;
+    private Class<? extends Job> sitemapJobClass = SitemapJob.class;
 }

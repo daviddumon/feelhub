@@ -1,6 +1,6 @@
 package com.steambeat.sitemap.web;
 
-import com.steambeat.sitemap.test.FakeSitemapScheduler;
+import com.steambeat.sitemap.guice.SitemapModuleForTest;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.rules.ExternalResource;
 import org.mockito.invocation.InvocationOnMock;
@@ -20,7 +20,7 @@ public class WebApplicationTester extends ExternalResource {
         final Context context = new Context();
         context.getAttributes().put("org.restlet.ext.servlet.ServletContext", mockServletContext());
         application = new SitemapApplication(context);
-        application.setSitemapScheduler(new FakeSitemapScheduler());
+        application.setModule(new SitemapModuleForTest());
         application.start();
     }
 
