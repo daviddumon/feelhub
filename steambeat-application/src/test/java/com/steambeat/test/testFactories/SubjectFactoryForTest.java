@@ -26,7 +26,7 @@ public class SubjectFactoryForTest {
     }
 
     public Steam newSteam() {
-        final Steam steam = new Steam();
+        final Steam steam = new Steam(UUID.randomUUID());
         steam.setScraper(new FakeUriScraper());
         Repositories.subjects().add(steam);
         return steam;

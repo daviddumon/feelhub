@@ -14,7 +14,7 @@
     <name>Steambeat-sitemap</name>
 
     <properties>
-        <delay>60</delay>
+        <delay>5</delay>
         <root>localhost:8080</root>
     </properties>
 
@@ -23,6 +23,7 @@
             <id>production</id>
             <properties>
                 <root>http://www.steambeat.com/</root>
+                <delay>720</delay>
             </properties>
         </profile>
     </profiles>

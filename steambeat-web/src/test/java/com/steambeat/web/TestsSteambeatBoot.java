@@ -5,6 +5,8 @@ import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.repositories.*;
 import org.junit.Test;
 
+import java.util.UUID;
+
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -21,7 +23,7 @@ public class TestsSteambeatBoot extends TestWithMongoRepository {
 
     @Test
     public void doNotCreateNewSteamIfPresent() {
-        final Subject steam = new Steam();
+        final Subject steam = new Steam(UUID.randomUUID());
         Repositories.subjects().add(steam);
         final SteambeatBoot steambeatBoot = new SteambeatBoot(getProvider());
 

@@ -40,7 +40,7 @@ public class TestsOpinionsResource {
 
     @Before
     public void before() {
-        Repositories.subjects().add(new Steam());
+        Repositories.subjects().add(new Steam(UUID.randomUUID()));
     }
 
     @Test

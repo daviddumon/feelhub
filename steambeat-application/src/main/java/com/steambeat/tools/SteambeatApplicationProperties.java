@@ -1,6 +1,5 @@
 package com.steambeat.tools;
 
-
 import org.mongolink.Settings;
 import org.mongolink.domain.UpdateStrategies;
 

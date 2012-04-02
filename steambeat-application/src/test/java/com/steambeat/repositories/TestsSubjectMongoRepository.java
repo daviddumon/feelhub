@@ -74,7 +74,7 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistSteam() {
-        final Steam steam = new Steam();
+        final Steam steam = new Steam(UUID.randomUUID());
 
         repo.add(steam);
 

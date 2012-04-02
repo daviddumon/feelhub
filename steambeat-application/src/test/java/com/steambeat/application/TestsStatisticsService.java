@@ -11,7 +11,7 @@ import com.steambeat.test.testFactories.TestFactories;
 import org.joda.time.Interval;
 import org.junit.*;
 
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -30,7 +30,7 @@ public class TestsStatisticsService {
     @Before
     public void before() {
         statisticsService = new StatisticsService();
-        Repositories.subjects().add(new Steam());
+        Repositories.subjects().add(new Steam(UUID.randomUUID()));
     }
 
     @Test

@@ -15,7 +15,7 @@ public abstract class Subject extends BaseEntity {
     protected Subject(final UUID id) {
         this.id = id;
         this.creationDate = new DateTime();
-        this.lastModificationDate = creationDate;
+        lastModificationDate = creationDate;
     }
 
     public abstract void setScraper(final Scraper scraper);
@@ -60,8 +60,8 @@ public abstract class Subject extends BaseEntity {
     }
     
     private UUID id;
-    private DateTime lastModificationDate;
-    private DateTime creationDate;
+    protected DateTime lastModificationDate;
+    protected DateTime creationDate;
     protected String description;
     protected String shortDescription;
     protected String illustration;

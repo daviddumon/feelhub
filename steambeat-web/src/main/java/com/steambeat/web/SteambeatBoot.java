@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.repositories.*;
 
+import java.util.UUID;
+
 public class SteambeatBoot {
 
     @Inject
@@ -14,7 +16,7 @@ public class SteambeatBoot {
     public void checkForSteam() {
         final Steam steam = Repositories.subjects().getSteam();
         if (steam == null) {
-            Repositories.subjects().add(new Steam());
+            Repositories.subjects().add(new Steam(UUID.randomUUID()));
         }
     }
 }

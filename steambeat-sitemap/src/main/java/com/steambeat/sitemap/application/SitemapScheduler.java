@@ -15,7 +15,6 @@ public class SitemapScheduler {
     public void initialize() {
         initializeScheduler();
         createRootInSitemap();
-        grabExistingSubjects();
     }
 
     private void initializeScheduler() {
@@ -24,19 +23,6 @@ public class SitemapScheduler {
             scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
         } catch (SchedulerException e) {
-        }
-    }
-
-    private void grabExistingSubjects() {
-        try {
-            final Job sitemapJob = sitemapJobClass.newInstance();
-            sitemapJob.execute(null);
-        } catch (JobExecutionException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
         }
     }
 
