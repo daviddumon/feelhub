@@ -4,7 +4,6 @@ import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.sitemap.domain.SitemapEntryRepository;
 import com.steambeat.sitemap.test.FakeSitemapJob;
 import com.steambeat.test.SystemTime;
-import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 import org.quartz.*;
 

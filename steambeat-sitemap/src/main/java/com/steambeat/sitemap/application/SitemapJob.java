@@ -51,7 +51,7 @@ public class SitemapJob implements Job {
     }
 
     private void createSitemapEntriesFromSubjects(final List<Subject> subjects, final String uriToken) {
-        for (Subject subject : subjects) {
+        for (final Subject subject : subjects) {
             SitemapEntryRepository.add(new SitemapEntry("/" + uriToken + "/" + subject.getId().toString(), Frequency.hourly, 0.5));
         }
     }

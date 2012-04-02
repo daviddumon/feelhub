@@ -64,7 +64,7 @@ public class SitemapScheduler {
         }
     }
 
-    public void setSitemapJobClass(Class<? extends Job> sitemapJobClass) {
+    public void setSitemapJobClass(final Class<? extends Job> sitemapJobClass) {
         this.sitemapJobClass = sitemapJobClass;
     }
 
