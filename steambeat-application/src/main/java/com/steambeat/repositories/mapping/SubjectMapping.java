@@ -1,6 +1,7 @@
 package com.steambeat.repositories.mapping;
 
 import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
 import org.mongolink.domain.mapper.*;
@@ -22,6 +23,7 @@ public class SubjectMapping extends EntityMap<Subject> {
         property(element().getScrapedDataExpirationDate());
 
         subclass(new SubclassMap<WebPage>(WebPage.class) {
+
             @Override
             protected void map() {
                 property(element().getUri());
@@ -29,9 +31,16 @@ public class SubjectMapping extends EntityMap<Subject> {
         });
 
         subclass(new SubclassMap<Steam>(Steam.class) {
+
             @Override
             protected void map() {
+            }
+        });
 
+        subclass(new SubclassMap<Concept>(Concept.class) {
+
+            @Override
+            protected void map() {
             }
         });
 

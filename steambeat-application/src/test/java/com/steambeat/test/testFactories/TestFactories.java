@@ -21,7 +21,7 @@ public class TestFactories {
         return new AssociationFactoryForTest();
     }
 
-    public static WebPageStatFactoryForTest statistics() {
-        return new WebPageStatFactoryForTest();
+    public static StatisticsFactoryForTest statistics() {
+        return new StatisticsFactoryForTest();
     }
 }

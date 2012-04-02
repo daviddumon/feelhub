@@ -4,9 +4,9 @@ import com.steambeat.test.SystemTime;
 import org.joda.time.DateTime;
 import org.junit.*;
 
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TestsSitemapEntry {
 

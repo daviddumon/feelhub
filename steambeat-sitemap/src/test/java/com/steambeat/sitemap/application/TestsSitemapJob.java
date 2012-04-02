@@ -53,16 +53,55 @@ public class TestsSitemapJob extends TestWithMongoRepository {
     }
 
     @Test
-    public void hasNewSitemapsAndIndexes() throws JobExecutionException {
+    public void canFetchWebpages() throws JobExecutionException {
         data.clear();
-        TestFactories.subjects().newWebPage();
         TestFactories.subjects().newWebPage();
         TestFactories.subjects().newWebPage();
         final SitemapJob sitemapJob = new SitemapJob(getProvider().get());
 
         sitemapJob.execute(null);
 
-        assertThat(SitemapRepository.getSitemaps().size(), is(1));
-        assertThat(SitemapIndexRepository.getSitemapIndexes().size(), is(1));
+        assertThat(SitemapEntryRepository.size(), is(2));
+    }
+
+    @Test
+    public void canFetchConcepts() throws JobExecutionException {
+        data.clear();
+        TestFactories.subjects().newConcept();
+        final SitemapJob sitemapJob = new SitemapJob(getProvider().get());
+
+        sitemapJob.execute(null);
+
+        assertThat(SitemapEntryRepository.size(), is(1));
+    }
+
+    @Test
+    public void cleanExistingSitemapsAndIndexesBefore() throws JobExecutionException {
+        data.clear();
+        TestFactories.subjects().newWebPage();
+        final SitemapJob sitemapJob = new SitemapJob(getProvider().get());
+
+        sitemapJob.execute(null);
+        sitemapJob.execute(null);
+
+        assertThat(SitemapRepository.size(), is(1));
+        assertThat(SitemapIndexRepository.size(), is(1));
+    }
+
+    @Test
+    public void canUseLastBuildDateForFetching() throws JobExecutionException {
+        data.clear();
+        final SitemapJob sitemapJob = new SitemapJob(getProvider().get());
+        TestFactories.subjects().newWebPage();
+        TestFactories.subjects().newWebPage();
+        TestFactories.subjects().newWebPage();
+        time.waitDays(1);
+        sitemapJob.execute(null);
+        data.clear();
+        TestFactories.subjects().newWebPage();
+
+        sitemapJob.execute(null);
+
+        assertThat(SitemapEntryRepository.size(), is(1));
     }
 }

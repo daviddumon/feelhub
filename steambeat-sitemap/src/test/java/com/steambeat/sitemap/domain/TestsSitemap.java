@@ -23,7 +23,7 @@ public class TestsSitemap {
     public void hasALoc() {
         final Sitemap sitemap = new Sitemap(1);
 
-        assertThat(sitemap.getLoc(), is("sitemap_00001.xml"));
+        assertThat(sitemap.getLoc(), is("/sitemap_00001.xml"));
     }
 
     @Test

@@ -12,12 +12,13 @@ import static org.quartz.TriggerBuilder.*;
 
 public class SitemapScheduler {
 
-    public SitemapScheduler() {
-        initialize();
+    public void initialize() {
+        initializeScheduler();
+        grabExistingSubjects();
         createRootInSitemap();
     }
 
-    private void initialize() {
+    private void initializeScheduler() {
         sitemapProperties = new SitemapProperties();
         try {
             scheduler = StdSchedulerFactory.getDefaultScheduler();
@@ -26,8 +27,17 @@ public class SitemapScheduler {
         }
     }
 
+    private void grabExistingSubjects() {
+        try {
+            final SitemapJob sitemapJob = new SitemapJob();
+            sitemapJob.execute(null);
+        } catch (JobExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void createRootInSitemap() {
-        final SitemapEntry root = new SitemapEntry("http://www.steambeat.com", Frequency.always, 0.8);
+        final SitemapEntry root = new SitemapEntry("", Frequency.always, 0.8);
         SitemapEntryRepository.add(root);
     }
 

@@ -9,7 +9,7 @@ public class SitemapIndex {
             throw new SitemapIndexCreationException();
         }
         this.index = index;
-        this.loc = "sitemap_index_" + String.format("%05d", index) + ".xml";
+        this.loc = "/sitemap_index_" + String.format("%05d", index) + ".xml";
     }
 
     public List<Sitemap> getSitemaps() {

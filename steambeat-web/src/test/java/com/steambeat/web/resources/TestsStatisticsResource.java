@@ -82,7 +82,7 @@ public class TestsStatisticsResource {
     @Test
     public void canFetchSingleHour() throws JSONException, IOException {
         final WebPage webPage = TestFactories.subjects().newWebPage();
-        final Statistics statistics = TestFactories.statistics().newWebPageStat(webPage, Granularity.hour);
+        final Statistics statistics = TestFactories.statistics().newStatistics(webPage, Granularity.hour);
         statistics.incrementJudgmentCount(new Judgment(webPage, Feeling.good));
         statistics.incrementJudgmentCount(new Judgment(webPage, Feeling.bad));
         statistics.incrementJudgmentCount(new Judgment(webPage, Feeling.bad));
@@ -100,9 +100,9 @@ public class TestsStatisticsResource {
     @Test
     public void canFetchMultipleHour() throws JSONException, IOException {
         final WebPage webPage = TestFactories.subjects().newWebPage();
-        final Statistics stat1 = TestFactories.statistics().newWebPageStat(webPage, Granularity.hour);
+        final Statistics stat1 = TestFactories.statistics().newStatistics(webPage, Granularity.hour);
         time.waitHours(1);
-        final Statistics stat2 = TestFactories.statistics().newWebPageStat(webPage, Granularity.hour);
+        final Statistics stat2 = TestFactories.statistics().newStatistics(webPage, Granularity.hour);
         final ClientResource resource = restlet.newClientResource("/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=hour" + "&subjectId=" + webPage.getId());
         time.waitDays(1);
 
@@ -115,9 +115,9 @@ public class TestsStatisticsResource {
     @Test
     public void canFetchMultipleHourWithDifferentDays() throws JSONException, IOException {
         final WebPage webPage = TestFactories.subjects().newWebPage();
-        final Statistics stat1 = TestFactories.statistics().newWebPageStat(webPage, Granularity.day);
+        final Statistics stat1 = TestFactories.statistics().newStatistics(webPage, Granularity.day);
         time.waitMonths(1);
-        final Statistics stat2 = TestFactories.statistics().newWebPageStat(webPage, Granularity.day);
+        final Statistics stat2 = TestFactories.statistics().newStatistics(webPage, Granularity.day);
         final ClientResource resource = restlet.newClientResource("/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=day" + "&subjectId=" + webPage.getId());
         time.waitDays(1);
 

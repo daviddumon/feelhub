@@ -1,17 +1,20 @@
 package com.steambeat.sitemap.application;
 
 import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.concept.Concept;
+import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.sitemap.domain.*;
 import com.steambeat.sitemap.tools.SitemapProperties;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.mongolink.*;
-import org.mongolink.domain.criteria.Criteria;
+import org.mongolink.domain.criteria.*;
 import org.mongolink.domain.mapper.ContextBuilder;
 import org.quartz.*;
 
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 public class SitemapJob implements Job {
 
     public SitemapJob() {
@@ -27,23 +30,51 @@ public class SitemapJob implements Job {
 
     @Override
     public void execute(final JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        queryDate = lastBuildDate;
         lastBuildDate = new DateTime();
         logger.info("Beginning new sitemap job");
+        rebuildSitemapsAndIndexes();
+    }
+
+    private void rebuildSitemapsAndIndexes() {
         session.start();
-        List<Subject> list = fetchData();
-        persistSubjects(list);
+        clearExistingSitemapsAndIndexes();
+        createSitemapEntriesFromSubjects(fetchWebpages(), "webpages");
+        createSitemapEntriesFromSubjects(fetchConcepts(), "concepts");
+        buildSitemapsAndIndexes();
         session.stop();
     }
 
-    private List<Subject> fetchData() {
-        final Criteria criteria = session.createCriteria(Subject.class);
+    private void clearExistingSitemapsAndIndexes() {
+        SitemapRepository.clear();
+        SitemapIndexRepository.clear();
+    }
+
+    private List<Subject> fetchWebpages() {
+        final Criteria criteria = session.createCriteria(WebPage.class);
+        criteria.add(Restrictions.equals("__discriminator", "WebPage"));
+        addDateRestriction(criteria);
         return criteria.list();
     }
 
-    private void persistSubjects(final List<Subject> list) {
-        for (Subject subject : list) {
-            SitemapEntryRepository.add(new SitemapEntry(subject.getId().toString(), Frequency.hourly, 0.5));
+    private List<Subject> fetchConcepts() {
+        final Criteria criteria = session.createCriteria(Concept.class);
+        criteria.add(Restrictions.equals("__discriminator", "Concept"));
+        addDateRestriction(criteria);
+        return criteria.list();
+    }
+
+    private void addDateRestriction(final Criteria criteria) {
+        criteria.add(Restrictions.greaterThanOrEqualTo("lastModificationDate", queryDate));
+    }
+
+    private void createSitemapEntriesFromSubjects(final List<Subject> subjects, final String uriToken) {
+        for (Subject subject : subjects) {
+            SitemapEntryRepository.add(new SitemapEntry("/" + uriToken + "/" + subject.getId().toString(), Frequency.hourly, 0.5));
         }
+    }
+
+    private void buildSitemapsAndIndexes() {
         SitemapRepository.buildAllSitemaps();
         SitemapIndexRepository.buildAllSitemapIndexes();
     }
@@ -55,5 +86,6 @@ public class SitemapJob implements Job {
     private MongoSessionManager manager;
     private final MongoSession session;
     private static DateTime lastBuildDate = new DateTime(1L);
+    private DateTime queryDate;
     private static final Logger logger = Logger.getLogger(SitemapJob.class);
 }

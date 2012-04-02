@@ -18,6 +18,7 @@ public class SitemapApplication extends Application {
     public synchronized void start() throws Exception {
         sitemapProperties = new SitemapProperties();
         initFreemarkerConfiguration();
+        sitemapScheduler.initialize();
         sitemapScheduler.run();
         super.start();
     }

@@ -12,7 +12,7 @@ public class Sitemap {
             throw new SitemapCreationException();
         }
         this.index = index;
-        this.loc = "sitemap_" + String.format("%05d", index) + ".xml";
+        this.loc = "/sitemap_" + String.format("%05d", index) + ".xml";
         this.lastMod = getLastModFromSitemapEntries(SitemapEntryRepository.getSitemapEntriesFor(this));
     }
 

@@ -34,8 +34,8 @@ public class TestsStatisticsSearch extends TestWithMongoRepository {
     @Test
     public void canGetAStatisticsWithASubjectId() {
         final WebPage webPage = TestFactories.subjects().newWebPage();
-        final Statistics statistics = TestFactories.statistics().newWebPageStat(webPage, Granularity.all);
-        TestFactories.statistics().newWebPageStat();
+        final Statistics statistics = TestFactories.statistics().newStatistics(webPage, Granularity.all);
+        TestFactories.statistics().newStatistics();
 
         final List<Statistics> statisticsList = statisticsSearch.withSubject(webPage).execute();
 
@@ -46,8 +46,8 @@ public class TestsStatisticsSearch extends TestWithMongoRepository {
     @Test
     public void canGetAStatisticsForASubjectAndGranularity() {
         final WebPage webPage = TestFactories.subjects().newWebPage();
-        TestFactories.statistics().newWebPageStat(webPage, Granularity.day);
-        final Statistics statistics = TestFactories.statistics().newWebPageStat(webPage, Granularity.hour);
+        TestFactories.statistics().newStatistics(webPage, Granularity.day);
+        final Statistics statistics = TestFactories.statistics().newStatistics(webPage, Granularity.hour);
 
         final List<Statistics> statisticsList = statisticsSearch.withSubject(webPage).withGranularity(statistics.getGranularity()).execute();
 
@@ -57,9 +57,9 @@ public class TestsStatisticsSearch extends TestWithMongoRepository {
     @Test
     public void canGetAStatisticsForAnInterval() {
         final WebPage webPage = TestFactories.subjects().newWebPage();
-        TestFactories.statistics().newWebPageStat(webPage, Granularity.day);
+        TestFactories.statistics().newStatistics(webPage, Granularity.day);
         time.waitDays(2);
-        final Statistics statistics = TestFactories.statistics().newWebPageStat(webPage, Granularity.day);
+        final Statistics statistics = TestFactories.statistics().newStatistics(webPage, Granularity.day);
 
         final Interval interval = Granularity.hour.intervalFor(statistics.getDate());
         final List<Statistics> statisticsList = statisticsSearch.withInterval(interval).execute();

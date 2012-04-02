@@ -6,15 +6,15 @@ import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import org.joda.time.DateTime;
 
-public class WebPageStatFactoryForTest {
+public class StatisticsFactoryForTest {
 
-    public Statistics newWebPageStat(final Subject subject, final Granularity granularity) {
+    public Statistics newStatistics(final Subject subject, final Granularity granularity) {
         final Statistics statistics = new Statistics(subject, granularity, new DateTime());
         Repositories.statistics().add(statistics);
         return statistics;
     }
 
-    public Statistics newWebPageStat() {
+    public Statistics newStatistics() {
         final WebPage webPage = TestFactories.subjects().newWebPage();
         final Statistics statistics = new Statistics(webPage, Granularity.day, new DateTime());
         Repositories.statistics().add(statistics);

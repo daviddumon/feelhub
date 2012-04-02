@@ -8,6 +8,10 @@ import java.util.UUID;
 
 public class Concept extends Subject {
 
+    // mongolink constructor : do not delete
+    public Concept() {
+    }
+
     public Concept(final String text) {
         super(UUID.randomUUID());
         this.text = text;
@@ -38,7 +42,7 @@ public class Concept extends Subject {
         return category;
     }
 
-    private final String text;
+    private String text;
     private Language language;
     Category category;
 }

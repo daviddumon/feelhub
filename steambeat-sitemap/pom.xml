@@ -15,7 +15,7 @@
 
     <properties>
         <delay>60</delay>
-        <root>localhost:8081/steambeat-sitemap/</root>
+        <root>localhost:8080</root>
     </properties>
 
     <profiles>

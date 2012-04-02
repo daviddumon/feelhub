@@ -58,7 +58,7 @@ public abstract class Subject extends BaseEntity {
     public void setLastModificationDate(final DateTime lastModificationDate) {
         this.lastModificationDate = lastModificationDate;
     }
-
+    
     private UUID id;
     private DateTime lastModificationDate;
     private DateTime creationDate;
