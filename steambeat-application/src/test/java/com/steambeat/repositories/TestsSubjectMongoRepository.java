@@ -6,7 +6,9 @@ import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.test.SystemTime;
 import com.steambeat.test.testFactories.TestFactories;
+import org.joda.time.DateTime;
 import org.junit.*;
 
 import java.net.*;
@@ -17,6 +19,9 @@ import static org.hamcrest.Matchers.*;
 
 @SuppressWarnings("unchecked")
 public class TestsSubjectMongoRepository extends TestWithMongoRepository {
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Before
     public void before() {
@@ -115,6 +120,17 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
         final Steam steamFound = repo.getSteam();
 
         assertThat(steamFound, notNullValue());
+    }
+
+    @Test
+    public void bugCannotChangeDateOfSubject() {
+        final UUID id = TestFactories.subjects().newWebPage().getId();
+
+        final Subject subject = Repositories.subjects().get(id);
+        time.waitDays(1);
+        subject.setLastModificationDate(time.getNow());
+
+        assertThat(Repositories.subjects().get(id).getLastModificationDate(), is(time.getNow()));
     }
 
     protected SubjectRepository repo;
