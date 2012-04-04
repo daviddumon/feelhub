@@ -26,6 +26,34 @@
                 <delay>720</delay>
             </properties>
         </profile>
+        <profile>
+            <id>testdelivery</id>
+            <properties>
+                <root>http://test.bytedojo.com/</root>
+                <delay>10</delay>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>testdelivery</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>${basedir}/delivery/test.sh</executable>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <build>
