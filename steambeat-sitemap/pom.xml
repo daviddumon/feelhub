@@ -22,14 +22,14 @@
         <profile>
             <id>production</id>
             <properties>
-                <root>http://www.steambeat.com/</root>
-                <delay>720</delay>
+                <root>http://www.steambeat.com</root>
+                <delay>360</delay>
             </properties>
         </profile>
         <profile>
             <id>testdelivery</id>
             <properties>
-                <root>http://test.bytedojo.com/sitemaps/</root>
+                <root>http://test.bytedojo.com/sitemaps</root>
                 <delay>10</delay>
             </properties>
             <build>
