@@ -33,7 +33,7 @@
                         <version>1.2.1</version>
                         <executions>
                             <execution>
-                                <id>testdelivery</id>
+                                <id>production</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>exec</goal>
