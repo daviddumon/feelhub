@@ -29,7 +29,7 @@
         <profile>
             <id>testdelivery</id>
             <properties>
-                <root>http://test.bytedojo.com/sitemaps</root>
+                <root>http://test.bytedojo.com/steambeat</root>
                 <delay>10</delay>
             </properties>
             <build>

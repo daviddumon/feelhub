@@ -19,6 +19,7 @@
             <id>testdelivery</id>
             <properties>
                 <domain>test.bytedojo.com</domain>
+                <sitemapBuilder>http://test.bytedojo.com/sitemaps</sitemapBuilder>
             </properties>
             <build>
                 <plugins>
