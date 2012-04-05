@@ -1,11 +1,13 @@
 package com.steambeat.web.representation;
 
+import com.google.common.collect.Lists;
 import com.google.common.io.*;
 import org.joda.time.DateTime;
-import org.restlet.data.MediaType;
+import org.restlet.data.*;
 import org.restlet.representation.StreamRepresentation;
 
 import java.io.*;
+import java.util.List;
 
 public class SteambeatRobotsRepresentation extends StreamRepresentation {
 
@@ -13,6 +15,9 @@ public class SteambeatRobotsRepresentation extends StreamRepresentation {
         super(MediaType.TEXT_PLAIN);
         setExpirationDate(new DateTime().toDate());
         setModificationDate(new DateTime().toDate());
+        List<Encoding> encodings = Lists.newArrayList();
+        encodings.add(new Encoding("UTF-8"));
+        setEncodings(encodings);
         this.sitemap = sitemap;
     }
 
