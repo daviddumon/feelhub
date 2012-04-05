@@ -8,4 +8,4 @@ file=steambeat-$1.war
 s3cmd put target/$file  s3://$bucket/$file
 
 # create a new application for elastic beanstalk
-elastic-beanstalk-create-application-version -a Steambeat -d $file -l $file -s elasticbeanstalk-us-east-1-952638247896/$file
+/opt/elasticbeanstalk-cli/bin/elastic-beanstalk-create-application-version -a Steambeat -d $file -l $file -s elasticbeanstalk-us-east-1-952638247896/$file
