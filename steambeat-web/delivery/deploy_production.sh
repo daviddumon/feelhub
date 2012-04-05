@@ -1,7 +1,7 @@
 #/bin/sh
 
 bucket=elasticbeanstalk-us-east-1-952638247896
-file=steambeat-$0.war
+file=steambeat-$1.war
 
 # upload war to S3 bucket
 s3cmd put $file  s3://$bucket/$file
