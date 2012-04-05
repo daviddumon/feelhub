@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 bucket=elasticbeanstalk-us-east-1-952638247896
 file=steambeat-$1.war
