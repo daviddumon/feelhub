@@ -58,14 +58,14 @@
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
+                                <configuration>
+                                    <executable>${basedir}/delivery/deploy_production.sh</executable>
+                                    <arguments>
+                                        <argument>${maven.build.timestamp}</argument>
+                                    </arguments>
+                                </configuration>
                             </execution>
                         </executions>
-                        <configuration>
-                            <executable>${basedir}/delivery/deploy_production.sh</executable>
-                            <arguments>
-                                <argument>${maven.build.timestamp}</argument>
-                            </arguments>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
