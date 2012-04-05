@@ -26,7 +26,7 @@
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>/favicon.ico</url-pattern>
+        <url-pattern>/robots.txt</url-pattern>
     </servlet-mapping>
 
 </web-app>
