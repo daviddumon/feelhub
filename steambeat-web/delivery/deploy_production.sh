@@ -1,4 +1,5 @@
 #!/bin/sh
+echo 'deploy script argument : $1'
 
 bucket=elasticbeanstalk-us-east-1-952638247896
 file=steambeat-$1.war
