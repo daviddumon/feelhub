@@ -2,13 +2,13 @@ package com.steambeat.sitemap.web;
 
 import com.steambeat.sitemap.web.resources.*;
 import org.restlet.Context;
-import org.restlet.routing.Router;
+import org.restlet.routing.*;
 
 public class SitemapRouter extends Router {
 
     public SitemapRouter(final Context context) {
         super(context);
-        setDefaultMatchingMode(MODE_FIRST_MATCH);
+        setDefaultMatchingMode(MODE_BEST_MATCH);
         attachResources();
     }
 
@@ -16,5 +16,6 @@ public class SitemapRouter extends Router {
         attach("/robots.txt", RobotsResource.class);
         attach("/sitemap_index_{index}.xml", SitemapIndexResource.class);
         attach("/sitemap_{index}.xml", SitemapResource.class);
+        attachDefault(RedirectResource.class);
     }
 }
