@@ -24,6 +24,9 @@
     <profiles>
         <profile>
             <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <dbHost>127.0.0.1</dbHost>
                 <dbName>steambeat</dbName>

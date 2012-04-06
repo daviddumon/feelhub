@@ -16,6 +16,9 @@
     <profiles>
         <profile>
             <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <delay>5</delay>
                 <root>localhost:8080</root>
