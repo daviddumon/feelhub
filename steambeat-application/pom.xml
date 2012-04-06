@@ -39,9 +39,9 @@
             <version>0.7</version>
         </dependency>
         <dependency>
-          <groupId>org.jsoup</groupId>
-          <artifactId>jsoup</artifactId>
-          <version>1.6.1</version>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.6.1</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
