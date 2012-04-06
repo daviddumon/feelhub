@@ -61,6 +61,9 @@
                         </executions>
                         <configuration>
                             <executable>${basedir}/scripts/test-deploy.sh</executable>
+                            <arguments>
+                                <argument>${maven.build.timestamp}</argument>
+                            </arguments>
                         </configuration>
                     </plugin>
                 </plugins>
