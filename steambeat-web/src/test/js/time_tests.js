@@ -36,13 +36,13 @@ TimeTests.prototype = {
 
     testCanSubtractMultipleHours:function () {
         var date = new Date(2011, 6, 20, 12, 0, 0);
-        var oldHours = date.getUTCHours();
+        var oldHours = date.getHours();
 
         date.minusHour(1);
         date.minusHour(3);
         date.minusHour(5);
 
-        var newHours = date.getUTCHours();
+        var newHours = date.getHours();
         assertEquals(oldHours - 9, newHours);
     },
 
