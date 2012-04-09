@@ -13,12 +13,19 @@ function Flow() {
 
     this.initial = this.getInitialWidth();
 
-    this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
     this.skip = -20;
     this.limit = 20;
     this.hasData = true;
     this.notLoading = true;
+
+    this.maxBox = this.getMaxBox();
+
+    this.columns = new Array(this.maxBox);
+    for(var i = 0; i < this.maxBox ; i++) {
+        this.columns[i] = 0;
+    }
+
 
     THIS.drawData();
 
@@ -70,37 +77,35 @@ Flow.prototype.drawBox = function (opinion, classes) {
     var THIS = this;
     var opinionData = THIS.getOpinionData(opinion, classes);
     var element = ich.opinion(opinionData);
-    if($(window).width() > 720) {
+    if ($(window).width() > 720) {
         THIS.appendBehavior(element);
     }
     this.container.append(element);
 
-    setTimeout(function () {
-        var boxSize = 1;
-        if (element.height() < element.width()) {
-            element.css("height", element.width());
-        } else {
-            while (boxSize < THIS.maxBox / 2 && element.height() > element.width()) {
-                boxSize++;
-                element.css("width", THIS.findWidthForSize(boxSize));
-            }
-            element.css("height", element.width());
+    element.find(".judgments").css("width", element.width());
+
+    var column = 0;
+    var column_height = this.columns[0];
+    for (var i = 1; i < this.columns.length; i++) {
+        if (this.columns[i] < column_height) {
+            column_height = this.columns[i];
+            column = i;
         }
+    }
+    element.css("top", column_height);
+    element.css("left", this.leftCorner + this.initial * column);
 
-        element.show();
 
-        if (document.getElementById(opinionData.id).scrollWidth > element.outerWidth()) {
-            while (boxSize < THIS.maxBox / 2 && document.getElementById(opinionData.id).scrollWidth > element.outerWidth()) {
-                boxSize++;
-                element.css("width", THIS.findWidthForSize(boxSize));
-            }
-            element.css("height", element.width());
+    this.columns[column] += (element.height() + 2 * (this.margin + this.padding));
+
+    var max = this.columns[0];
+    for (var i = 1; i < this.columns.length; i++) {
+        if (this.columns[i] > column_height) {
+            max = this.columns[i];
         }
+    }
 
-        var position = THIS.findNextFreeSpace(boxSize);
-        THIS.putBox(position.line, position.index, boxSize);
-        THIS.setPositionsForElement(element, position);
-    }, 150);
+    this.container.css("height", max + 100);
 };
 
 Flow.prototype.getOpinionData = function (opinion, classes) {
@@ -137,110 +142,6 @@ Flow.prototype.appendBehavior = function (element) {
     element.find(".judgment_tag").mouseout(function (event) {
         $(this).parent("div").find(".judgment_info").hide();
     });
-};
-
-Flow.prototype.setPositionsForElement = function (element, position) {
-    element.css("top", this.getTopPosition(position.line));
-    element.css("left", this.getLeftPosition(position.index));
-    element.find(".judgments").css("position", "absolute");
-    element.find(".judgments").css("bottom", "20px");
-    element.find(".judgments").css("width", element.width());
-};
-
-Flow.prototype.findWidthForSize = function (size) {
-    return (size * this.initial) - (2 * (this.padding + this.margin + this.border));
-};
-
-Flow.prototype.findNextFreeSpace = function (size) {
-    var position = { index:0, line:this.lines.length > 0 ? this.lines.length : 0};
-    for (var line = 0; line < this.lines.length; line++) {
-        if (this.freeLines[line] == 1) {
-            for (var index = 0; index <= this.lines[line].length - size; index++) {
-                if (this.isBlockFree(line, index, 1)) {
-                    if (this.testForSquare(line, index, size)) {
-                        position.line = line;
-                        position.index = index;
-                        return position;
-                    }
-                }
-            }
-        }
-    }
-    return position;
-};
-
-Flow.prototype.testForSquare = function (line, index, size) {
-    var isSquare = this.isBlockFree(line, index, size);
-    var i = 1;
-    while (isSquare) {
-        if (this.lines[++line] != null && i < size) {
-            isSquare = this.isBlockFree(line, index, size);
-            i++;
-        } else {
-            break;
-        }
-    }
-    return isSquare;
-};
-
-Flow.prototype.isBlockFree = function (line, index, size) {
-    var free = true;
-    if (size < 0 || size > this.maxBox) {
-        return false;
-    }
-    ;
-    for (var i = index; i < index + size; i++) {
-        if (this.lines[line][i] == 1) {
-            free = false;
-            break;
-        }
-    }
-    return free;
-};
-
-Flow.prototype.putBox = function (line, index, size) {
-    for (var i = line; i < line + size; i++) {
-        if (this.lines[i] == null) {
-            this.createLine();
-        }
-        ;
-        for (var j = index; j < index + size; j++) {
-            this.lines[i][j] = 1;
-        }
-        this.checkForFullLine(line);
-    }
-};
-
-Flow.prototype.createLine = function () {
-    var line = new Array();
-    for (var i = 0; i < this.maxBox; i++) {
-        line.push(0);
-    }
-    this.lines.push(line);
-    this.freeLines.push(1);
-    this.setCorrectHeightValue();
-};
-
-Flow.prototype.setCorrectHeightValue = function () {
-    this.container.css("height", this.lines.length * this.initial + 100);
-};
-
-Flow.prototype.checkForFullLine = function (line) {
-    var index = 0;
-    while (this.lines[line][index] == 1) {
-        index++;
-    }
-    if (index == this.maxBox) {
-        this.freeLines[line] = 0;
-    }
-};
-
-Flow.prototype.getTopPosition = function (line) {
-    return this.initial * line;
-};
-
-Flow.prototype.getLeftPosition = function (index) {
-    return this.leftCorner + this.initial * index;
 };
 
 Flow.prototype.numericalValueFrom = function (value) {
@@ -299,5 +200,5 @@ Flow.prototype.setLeftCorner = function () {
     var availableSpace = this.container.innerWidth();
     var maxBox = Math.floor(availableSpace / this.initial);
     var usedSpace = maxBox * this.initial;
-    return (availableSpace - usedSpace) / 2;;
+    return (availableSpace - usedSpace) / 2;
 };
