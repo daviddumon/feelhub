@@ -133,3 +133,10 @@ a {
     border: 1px solid white;
     z-index: 200;
 }
+
+@media screen and (max-width: 720px) {
+
+    #feedback {
+        display: none;
+    }
+}

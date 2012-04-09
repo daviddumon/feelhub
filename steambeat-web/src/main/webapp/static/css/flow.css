@@ -7,7 +7,7 @@
 
 .opinion {
     display: block;
-    width: 150px;
+    width: 250px;
     padding: 20px;
     margin: 5px;
     border-width: 0px;
@@ -66,4 +66,12 @@
 
 .bad {
     background-color: #F33;
+}
+
+@media screen and (max-width: 720px){
+
+    #opinions {
+        top: 200px;
+    }
+
 }

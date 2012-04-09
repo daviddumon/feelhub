@@ -23,5 +23,13 @@
 </@body.panel>
 
 <@body.form>
-    <div id="spacer" style="height: 180px"></div>
+<form id="opinion_form" method="post" action="" autocomplete="off" class="color_bg_lightblue rounded_top">
+    <div id="opinion_title" class="font_text color_medblue">add your opinion</div>
+    <textarea id="opinion_form_textarea" name="text" class="font_text"></textarea>
+
+    <div id="opinion_form_judgments" class="font_title" style="display: none">
+        <div class='judgments_header font_title'>related</div>
+    </div>
+    <input id="opinion_form_submit" type="submit" value="ok" class="button font_title color_medblue hover_darkblue"/>
+</form>
 </@body.form>

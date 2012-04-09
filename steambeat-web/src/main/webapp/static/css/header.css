@@ -30,3 +30,10 @@ header {
     background-color: #FFFFFF;
     padding: 5px;
 }
+
+@media screen and (max-width: 720px) {
+
+    header {
+        display: none;
+    }
+}

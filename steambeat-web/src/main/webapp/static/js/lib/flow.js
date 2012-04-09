@@ -10,7 +10,9 @@ function Flow() {
     this.border = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "border-width"));
     this.lines = new Array();
     this.freeLines = new Array();
+
     this.initial = this.getInitialWidth();
+
     this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
     this.skip = -20;
@@ -68,7 +70,9 @@ Flow.prototype.drawBox = function (opinion, classes) {
     var THIS = this;
     var opinionData = THIS.getOpinionData(opinion, classes);
     var element = ich.opinion(opinionData);
-    THIS.appendBehavior(element);
+    if($(window).width() > 720) {
+        THIS.appendBehavior(element);
+    }
     this.container.append(element);
 
     setTimeout(function () {

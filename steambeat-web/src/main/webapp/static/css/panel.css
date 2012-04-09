@@ -45,3 +45,10 @@
     background-color: #E1FAFC;
     padding: 5px;
 }
+
+@media screen and (max-width: 720px) {
+
+    #panel {
+        display: none;
+    }
+}
