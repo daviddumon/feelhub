@@ -263,7 +263,8 @@ Flow.prototype.findStyleSheetIndex = function (cssSheet) {
 
     function extractCssSheetName(styleSheet) {
         var buildTimeStringLength = 14;
-        return styleSheet.substring(styleSheet.length - cssSheet.length - buildTimeStringLength, styleSheet.length - buildTimeStringLength);
+        var styleName = styleSheet.substring(styleSheet.length - cssSheet.length - buildTimeStringLength, styleSheet.length - buildTimeStringLength);
+        return styleName;
     }
 };
 
@@ -298,6 +299,5 @@ Flow.prototype.setLeftCorner = function () {
     var availableSpace = this.container.innerWidth();
     var maxBox = Math.floor(availableSpace / this.initial);
     var usedSpace = maxBox * this.initial;
-    var leftCorner = (availableSpace - usedSpace) / 2;
-    return leftCorner;
+    return (availableSpace - usedSpace) / 2;;
 };

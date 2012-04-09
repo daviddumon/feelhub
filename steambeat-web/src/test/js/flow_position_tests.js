@@ -2,22 +2,23 @@ var FlowPositionTests = new TestCase("FlowPositionTests");
 
 FlowPositionTests.prototype = {
 
-    setUp: function() {
+    setUp:function () {
         createDocumentForFlowPositionTests();
-        flow = new Flow("flow.css","webpage","li",".opinion");
+        flow = new Flow();
+        fakeMaxBox(flow);
     },
 
-    testCanCreateALine: function() {
+    testCanCreateALine:function () {
         flow.createLine();
 
         assertNotUndefined(flow.lines);
         assertEquals(1, flow.lines.length);
         assertEquals(flow.maxBox, flow.lines[0].length);
-        for(var i = 0; i < flow.maxBox; i++) {
+        for (var i = 0; i < flow.maxBox; i++) {
             assertEquals(0, flow.lines[0][i]);
         }
     },
-    
+
     testHasFreeLinesFlagArray: function() {
         flow.createLine();
         flow.createLine();
@@ -29,9 +30,8 @@ FlowPositionTests.prototype = {
         assertEquals(1, flow.freeLines[1]);
         assertEquals(1, flow.freeLines[2]);
     },
-    
+
     testCanPutBox: function() {
-        fakeMaxBox(flow);
         flow.createLine();
 
         flow.putBox(0,0,1);
@@ -43,8 +43,6 @@ FlowPositionTests.prototype = {
     },
 
     testPutBoxCreateLine: function() {
-        fakeMaxBox(flow);
-
         flow.putBox(0,0,1);
 
         assertEquals(1, flow.lines[0][0]);
@@ -54,7 +52,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanPut2BoxesInLine: function() {
-        fakeMaxBox(flow);
         flow.createLine();
 
         flow.putBox(0,1,1);
@@ -65,9 +62,8 @@ FlowPositionTests.prototype = {
         assertEquals(1, flow.lines[0][2]);
         assertEquals(0, flow.lines[0][3]);
     },
-    
+
     testCanPutBoxWithSizeOf2: function() {
-        fakeMaxBox(flow);
         flow.createLine();
 
         flow.putBox(0,1,2);
@@ -84,7 +80,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanSetFullLineFlag: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.createLine();
         flow.lines[0][0] = 1;
@@ -103,7 +98,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanTestForFreeBlock: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 1;
@@ -116,9 +110,8 @@ FlowPositionTests.prototype = {
         assertFalse(notFree);
         assertTrue(free);
     },
-    
+
     testCanTestForFreeBlockOfBigSize: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 0;
@@ -133,7 +126,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanTestForFreeBlockWithBadSize: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.lines[0][0] = 0;
         flow.lines[0][1] = 0;
@@ -148,7 +140,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanTestForSquare: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.createLine();
         flow.lines[0][0] = 1;
@@ -168,7 +159,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanTestForSquareWithLessLine: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 0;
@@ -183,7 +173,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanTestForSquareWithFullLine: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.createLine();
         flow.createLine();
@@ -206,7 +195,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanFindNextFreeSpace: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 1;
@@ -220,7 +208,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanFindNextFreeSpaceInner: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.createLine();
         flow.lines[0][0] = 1;
@@ -237,10 +224,8 @@ FlowPositionTests.prototype = {
         assertEquals(0, position.line);
         assertEquals(1, position.index);
     },
-    
-    testCanFindNextFreeSpaceIfNoLines: function() {
-        fakeMaxBox(flow);
 
+    testCanFindNextFreeSpaceIfNoLines: function() {
         var position = flow.findNextFreeSpace(1);
 
         assertEquals(0, position.line);
@@ -248,7 +233,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanFindNextFreeSpaceFullLine: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 1;
@@ -262,7 +246,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanFindNextFreeSpaceOfSize2: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.createLine();
         flow.lines[0][0] = 1;
@@ -281,7 +264,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanFindNextFreeSpaceWithSizeOf2And1Line: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 0;
@@ -293,9 +275,8 @@ FlowPositionTests.prototype = {
         assertEquals(0, position.line);
         assertEquals(1, position.index);
     },
-    
+
     testCanFindNextFreeSpaceWithSizeOfMax: function() {
-        fakeMaxBox(flow);
         flow.createLine();
         flow.lines[0][0] = 0;
         flow.lines[0][1] = 0;
@@ -308,14 +289,7 @@ FlowPositionTests.prototype = {
         assertEquals(0, position.index);
     },
 
-    testCanSetLeftCorner: function() {
-        var leftCorner = (800 - 4 * flow.initial - 5 * flow.numericalValueFrom(flow.margin)) / 2;
-
-        assertEquals(leftCorner, flow.leftCorner);
-    },
-
     testCanGetTopPosition: function() {
-        fakeMaxBox(flow);
         flow.createLine();
 
         var top = flow.getTopPosition(0);
@@ -324,7 +298,6 @@ FlowPositionTests.prototype = {
     },
 
     testCanGetTopPositionForIndexOne: function() {
-        fakeMaxBox(flow);
         flow.createLine();
 
         var top = flow.getTopPosition(1);
@@ -332,44 +305,12 @@ FlowPositionTests.prototype = {
         assertEquals(flow.initial + flow.numericalValueFrom(flow.margin), top);
     },
 
-    testCanGetLeftPosition: function() {
-        fakeMaxBox(flow);
-        flow.createLine();
 
-        var left = flow.getLeftPosition(0);
-
-        assertEquals(flow.leftCorner, left);
-    },
-
-    testCanGetLeftPositionforIndexOne: function() {
-        fakeMaxBox(flow);
-        flow.createLine();
-
-        var left = flow.getLeftPosition(1);
-
-        assertEquals(flow.leftCorner + flow.initial + flow.numericalValueFrom(flow.margin), left);
-    },
-
-    testCanFindInitial: function() {
-        assertEquals(180, flow.initial);
-    },
-
-    testCanInitFooterTopToFeedMargin: function() {
-        assertNotUndefined(flow.footerTop);
-        assertEquals(100, flow.footerTop);
-    },
-
-    testCanIncreateFooterTopWhenNewLine: function() {
-        flow.createLine();
-        flow.createLine();
-
-        assertEquals(2 * (flow.initial + flow.numericalValueFrom(flow.margin)) + 100, flow.footerTop);
-    }
 };
 
 function createDocumentForFlowPositionTests() {
     var webpageUL = document.createElement('webpageUL');
-    webpageUL.setAttribute("id","webpage");
+    webpageUL.setAttribute("id", "opinions");
     webpageUL.style.width = "800px";
     document.body.appendChild(webpageUL);
 }
