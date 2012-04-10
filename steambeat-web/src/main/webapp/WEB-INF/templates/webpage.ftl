@@ -24,3 +24,14 @@
 </div>
 -->
 </@body.panel>
+
+<@body.form>
+<div id="opinion_form_judgments" class="font_title">
+<span id="add_judgment1" class="judgment_tag good font_title add_tag">
+    this webpage
+    <span class="judgment_info font_title">You like!</span>
+    <input type="hidden" name="feeling" value="good"/>
+<input type="hidden" name="subjectId" value="${webPage.getId()}"/>
+</span>
+</div>
+</@body.form>

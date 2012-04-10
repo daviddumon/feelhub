@@ -2,7 +2,7 @@
 #opinion_form {
     position: relative;
     overflow: hidden;
-    width: 40%;
+    width: 80%;
     margin: 0 auto;
     z-index: 100;
 }
@@ -31,10 +31,13 @@
     top: -5px;
     width: 80%;
     margin-left: 8%;
+    margin-bottom: 20px;
+    margin-top: 20px;
     padding: 2%;
-    border: 1px solid #ADDDEB;
-    border-top-style: dashed;
-    background-color: #FFF;
+    /*border: 1px solid #ADDDEB;*/
+    /*border-top-style: dashed;*/
+    /*background-color: #FFF;*/
+    text-align: center;
     z-index: 2;
 }
 

@@ -18,3 +18,7 @@
 -->
 </@body.panel>
 
+<@body.form>
+
+</@body.form>
+
