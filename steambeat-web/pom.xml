@@ -43,7 +43,7 @@
             </properties>
         </profile>
         <profile>
-            <id>test-deploy</id>
+            <id>web-test-deploy</id>
             <build>
                 <plugins>
                     <plugin>
@@ -52,7 +52,7 @@
                         <version>1.2.1</version>
                         <executions>
                             <execution>
-                                <id>test-deploy</id>
+                                <id>web-test-deploy</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>exec</goal>
@@ -60,7 +60,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <executable>${basedir}/scripts/test-deploy.sh</executable>
+                            <executable>${basedir}/scripts/web-test-deploy.sh</executable>
                             <arguments>
                                 <argument>${maven.build.timestamp}</argument>
                             </arguments>
@@ -70,7 +70,7 @@
             </build>
         </profile>
         <profile>
-            <id>production-deploy</id>
+            <id>web-production-deploy</id>
             <build>
                 <plugins>
                     <plugin>
@@ -79,7 +79,7 @@
                         <version>1.2.1</version>
                         <executions>
                             <execution>
-                                <id>production-deploy</id>
+                                <id>web-production-deploy</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>exec</goal>
@@ -87,7 +87,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <executable>${basedir}/scripts/production-deploy.sh</executable>
+                            <executable>${basedir}/scripts/web-production-deploy.sh</executable>
                             <arguments>
                                 <argument>${maven.build.timestamp}</argument>
                             </arguments>
