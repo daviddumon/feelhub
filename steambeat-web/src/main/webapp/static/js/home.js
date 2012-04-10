@@ -27,6 +27,10 @@ $(function () {
         }, 100);
     });
 
+    $(window).on("orientationchange", function() {
+        endOfResize();
+    });
+
     function endOfResize() {
         if ($(window).width() <= 720) {
             lock = true;
