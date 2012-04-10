@@ -108,6 +108,7 @@
                             <server>http://10.0.0.4:9876</server>
                             <port>9876</port>
                             <config>jsTestDriver.conf</config>
+                            <reset>true</reset>
                         </configuration>
                         <executions>
                             <execution>
