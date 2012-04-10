@@ -27,8 +27,11 @@ $(function () {
         }, 100);
     });
 
-    $(window).on("orientationchange", function() {
-        endOfResize();
+    $(window).on("orientationchange", function () {
+        clearTimeout(doit);
+        doit = setTimeout(function () {
+            endOfResize();
+        }, 100);
     });
 
     function endOfResize() {

@@ -5,10 +5,6 @@
 </script>
 </@head.withHead>
 
-<@body.hub>
-<div id="to_top" class="color_darkblue button hover_medblue">add your opinion now !</div>
-</@body.hub>
-
 <@body.panel>
 <div class="panel_box panel_resource">
     <div id="webpageRoot"><span onclick="javascript:window.open('${webPage.uri}');" style="cursor: pointer">${webPage.description}</span></div>
@@ -28,18 +24,3 @@
 </div>
 -->
 </@body.panel>
-
-<@body.form>
-<form id="opinion_form" method="post" action="" autocomplete="off" class="color_bg_lightblue rounded_top">
-    <div id="opinion_title" class="font_text color_medblue">add your opinion</div>
-    <textarea id="opinion_form_textarea" name="text" class="font_text"></textarea>
-
-    <div id="opinion_form_judgments" class="font_title" style="display: none">
-        <div class='judgments_header font_title'>related</div>
-        <span id="add_judgment1" class="judgment_tag good font_title add_tag">this webpage<span class="judgment_info font_title">You like!</span>
-            <input type="hidden" name="feeling" value="good"/>
-            <input type="hidden" name="subjectId" value="${webPage.getId()}"/></span>
-    </div>
-    <input id="opinion_form_submit" type="submit" value="ok" class="button font_title color_medblue hover_darkblue"/>
-</form>
-</@body.form>
