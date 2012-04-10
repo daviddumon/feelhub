@@ -1,6 +1,7 @@
 /* Copyright bytedojo 2011 */
 #opinions {
     position: relative;
+    top: 450px;
     left: 2%;
     width: 96%;
 }
@@ -8,7 +9,7 @@
 .opinion {
     display: block;
     position: absolute;
-    width: 250px;
+    width: 260px;
     padding: 20px;
     margin: 10px;
     border-width: 0px;
@@ -43,13 +44,14 @@
 }
 
 .judgment {
+    text-align: center;
 }
 
 .judgment_tag {
     display: inline;
     white-space: nowrap;
     cursor: pointer;
-    color: white;
+    color: black;
     padding: 5px;
     margin-left: 5px;
     margin-right: 5px;
@@ -66,18 +68,46 @@
     z-index: 2000;
 }
 
+.judgment_smiley {
+    display: block;
+    border: none;
+    width: 14px;
+    margin: 0 auto;
+}
+
+.feeling_smiley {
+    width: 24px;
+    height: 18px;
+    margin: 0 auto;
+}
+
 .good {
     background-color: #6C3;
+}
+
+.good_border {
+    border: 1px solid #6C3;
 }
 
 .bad {
     background-color: #F33;
 }
 
+.bad_border {
+    border: 1px solid #F33;
+}
+
+#fixed_layer {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
 @media screen and (max-width: 720px){
 
     #opinions {
-        top: 200px;
+        top: 150px;
     }
 
 }

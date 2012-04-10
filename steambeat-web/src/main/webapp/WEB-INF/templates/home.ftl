@@ -3,7 +3,7 @@
 </@head.withHead>
 
 <@body.hub>
-<div id="to_top" class="color_darkblue button hover_medblue">back to top !</div>
+<#--<div id="to_top" class="color_darkblue button hover_medblue">back to top !</div>-->
 </@body.hub>
 
 <@body.panel>
@@ -23,13 +23,15 @@
 </@body.panel>
 
 <@body.form>
-<form id="opinion_form" method="post" action="" autocomplete="off" class="color_bg_lightblue rounded_top">
-    <div id="opinion_title" class="font_text color_medblue">add your opinion</div>
-    <textarea id="opinion_form_textarea" name="text" class="font_text"></textarea>
+<div id="blanket" style="display: none;"></div>
+<div id="popup_form" style="display: none;">
+    <a href="" onClick="closeOpinionForm();return false;">close</a>
 
-    <div id="opinion_form_judgments" class="font_title" style="display: none">
-        <div class='judgments_header font_title'>related</div>
-    </div>
-    <input id="opinion_form_submit" type="submit" value="ok" class="button font_title color_medblue hover_darkblue"/>
-</form>
+    <form id="opinion_form" method="post" action="" autocomplete="off">
+        <textarea id="opinion_form_textarea" name="text" class="font_text"></textarea>
+
+        <input id="opinion_form_submit" type="submit" value="ok" class="button font_title"/>
+    </form>
+</div>
+<a href="" onclick="openOpinionForm();return false;" id="form_button" class="color_bg_darkblue rounded_down font_title color_darkblue">add your opinion</a>
 </@body.form>

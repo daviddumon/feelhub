@@ -22,10 +22,9 @@ function Flow() {
     this.maxBox = this.getMaxBox();
 
     this.columns = new Array(this.maxBox);
-    for(var i = 0; i < this.maxBox ; i++) {
+    for (var i = 0; i < this.maxBox; i++) {
         this.columns[i] = 0;
     }
-
 
     THIS.drawData();
 
@@ -201,4 +200,19 @@ Flow.prototype.setLeftCorner = function () {
     var maxBox = Math.floor(availableSpace / this.initial);
     var usedSpace = maxBox * this.initial;
     return (availableSpace - usedSpace) / 2;
+};
+
+Flow.prototype.reset = function () {
+    this.skip = -20;
+    this.limit = 20;
+
+    this.maxBox = this.getMaxBox();
+    this.leftCorner = this.setLeftCorner();
+
+    this.columns = new Array(this.maxBox);
+    for (var i = 0; i < this.maxBox; i++) {
+        this.columns[i] = 0;
+    }
+
+    this.drawData();
 };
