@@ -87,7 +87,7 @@
 }
 
 .good {
-    background-color: #6C3;
+    background: #6C3 url(../images/smiley_good_white_14.png) no-repeat center;
 }
 
 .good_border {
@@ -95,7 +95,7 @@
 }
 
 .bad {
-    background-color: #F33;
+    background: #F33 url(../images/smiley_bad_white_14.png) no-repeat center;
 }
 
 .bad_border {

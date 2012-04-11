@@ -8,7 +8,7 @@
 <@body.subject>
 <div class="judgment button no_select">
     <div class="feeling_smiley good rounded_top">
-        <img class="judgment_smiley" src="${root}/static/images/smiley_good_white.png"/>
+        <#--<img class="judgment_smiley" src="${root}/static/images/smiley_good_white.png"/>-->
     </div>
     <div id="add_judgment1" class="judgment_tag good_border font_title">
     ${webPage.getShortDescription()}
