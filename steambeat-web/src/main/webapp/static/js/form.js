@@ -29,10 +29,12 @@ $(function () {
     //    }
     //});
 
-    $("#opinion_form_judgments > .judgment_tag").click(function () {
-        $(this).toggleClass("good");
-        $(this).toggleClass("bad");
-        if($(this).hasClass("bad")) {
+    $("#opinion_form .judgment").click(function () {
+        $(this).children(".judgment_tag").toggleClass("good_border");
+        $(this).children(".judgment_tag").toggleClass("bad_border");
+        $(this).children(".feeling_smiley").toggleClass("good");
+        $(this).children(".feeling_smiley").toggleClass("bad");
+        if($(this).children().hasClass("bad_border")) {
             $(this).children("[name='feeling']").attr("value", "bad");
         } else {
             $(this).children("[name='feeling']").attr("value", "good");
@@ -52,15 +54,14 @@ $(function () {
 
 function openOpinionForm() {
     $("#blanket").css("height", $(window).height());
-    $("#blanket").css("top", 0);
     $("#blanket").show();
-    $("#popup_form").css("top", 50);
-    $("#popup_form").css("left", ($(window).width() - $("#popup_form").width()) / 2);
-    $("#popup_form").css("height", $(window).height() - 100);
-    $("#popup_form").show();
+    $("#opinion_form").css("top", 50);
+    $("#opinion_form").css("left", ($(window).width() - $("#opinion_form").width()) / 2);
+    $("#opinion_form").css("height", $(window).height() - 100);
+    $("#opinion_form").show();
 }
 
 function closeOpinionForm() {
-    $("#popup_form").hide();
+    $("#opinion_form").hide();
     $("#blanket").hide();
 }

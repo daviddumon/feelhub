@@ -94,7 +94,6 @@ Flow.prototype.drawBox = function (opinion, classes) {
     element.css("top", column_height);
     element.css("left", this.leftCorner + this.initial * column);
 
-
     this.columns[column] += (element.height() + 2 * (this.margin + this.padding));
 
     var max = this.columns[0];

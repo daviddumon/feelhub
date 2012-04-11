@@ -1,5 +1,5 @@
 <script id="judgment" class="partial" type="text/html">
-    <div class="judgment">
+    <div class="judgment button no_select">
         <div class="feeling_smiley {{feeling}} rounded_top">
             <img class="judgment_smiley" src="${root}/static/images/smiley_{{feeling}}_white.png"/>
         </div>

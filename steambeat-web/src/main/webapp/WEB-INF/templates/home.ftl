@@ -2,6 +2,14 @@
 <script type="text/javascript" src="${root}/static/js/home.js?${buildtime}"></script>
 </@head.withHead>
 
+<@body.subject>
+
+</@body.subject>
+
+<@body.related>
+
+</@body.related>
+
 <@body.panel>
 <!--
 <div id="counter">${counter!0} opinions</div>
@@ -17,8 +25,3 @@
 </div>
 -->
 </@body.panel>
-
-<@body.form>
-
-</@body.form>
-

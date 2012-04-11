@@ -1,17 +1,18 @@
 /* Copyright bytedojo 2011 */
 #opinion_form {
-    position: relative;
+    position: fixed;
+    width: 600px;
     overflow: hidden;
-    width: 80%;
-    margin: 0 auto;
-    z-index: 100;
+    z-index: 1000;
+    border: 10px solid #ADDDEB;
+    background-color: #FFFFFF;
 }
 
-#opinion_title {
+.opinion_form_title {
     text-align: center;
     font-size: 22px;
     font-weight: bold;
-    padding: 10px;
+    padding: 20px;
 }
 
 #opinion_form_textarea {
@@ -22,52 +23,52 @@
     border: solid 1px #ADDDEB;
     resize: none;
     padding: 2%;
-    height: 40px;
+    height: 80px;
     z-index: 1;
 }
 
-#opinion_form_judgments {
+#opinion_form_subject {
     position: relative;
-    top: -5px;
     width: 80%;
     margin-left: 8%;
     margin-bottom: 20px;
     margin-top: 20px;
     padding: 2%;
-    /*border: 1px solid #ADDDEB;*/
-    /*border-top-style: dashed;*/
-    /*background-color: #FFF;*/
     text-align: center;
     z-index: 2;
 }
 
-#opinion_form_submit {
-    font-size: 18px;
-    font-weight: bold;
-    width: 40%;
-    margin-left: 30%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: none;
-    background-color: transparent;
-}
-
 #blanket {
     position: fixed;
-    background-color: #111;
-    opacity: 0.20;
-    filter: alpha(opacity = 20);
-    z-index: 500;
+    top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
+    background-color: #111;
+    opacity: 0.40;
+    filter: alpha(opacity = 40);
+    z-index: 500;
 }
 
-#popup_form {
-    position: fixed;
-    background-color: #FFFFFF;
-    width: 600px;
-    z-index: 1000;
+#opinion_form_submit {
+    position: absolute;
+    bottom: -5px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #FFFFFF;
+    border: none;
+    background-color: #ADDDEB;
+}
+
+#opinion_close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
 }
 
 #form_button {

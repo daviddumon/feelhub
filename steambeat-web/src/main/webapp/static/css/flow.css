@@ -4,6 +4,7 @@
     top: 450px;
     left: 2%;
     width: 96%;
+    z-index: 1;
 }
 
 .opinion {
@@ -18,6 +19,7 @@
     background-color: #FFF;
     list-style-type: none;
     overflow: hidden;
+    z-index: 2;
 }
 
 .opinion p {
@@ -45,18 +47,19 @@
 
 .judgment {
     text-align: center;
+    z-index: 300;
 }
 
 .judgment_tag {
     display: inline;
     white-space: nowrap;
-    cursor: pointer;
+    /*cursor: pointer;*/
     color: black;
     padding: 5px;
     margin-left: 5px;
     margin-right: 5px;
     line-height: 2em;
-    z-index: 100;
+    /*z-index: -100;*/
 }
 
 .judgment_info {
@@ -73,12 +76,14 @@
     border: none;
     width: 14px;
     margin: 0 auto;
+    z-index: -100;
 }
 
 .feeling_smiley {
     width: 24px;
     height: 18px;
     margin: 0 auto;
+    z-index: -10;
 }
 
 .good {
@@ -102,6 +107,7 @@
     top: 0px;
     left: 0px;
     width: 100%;
+    z-index: 100;
 }
 
 @media screen and (max-width: 720px){
