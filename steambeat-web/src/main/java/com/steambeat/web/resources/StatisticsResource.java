@@ -30,11 +30,6 @@ public class StatisticsResource extends ServerResource {
         return SteambeatTemplateRepresentation.createNew("json/statistics.json.ftl", getContext(), MediaType.APPLICATION_JSON).with("statistics", statistics);
     }
 
-    private void fetchStatistics() {
-        final Subject subject = subjectService.lookUpWebPage(UUID.fromString(subjectId));
-        statistics = statisticsSearch.withSubject(subject).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
-    }
-
     private void extractParameters(final Form query) {
         granularity = Granularity.valueOf(extract("granularity", query));
         start = Long.valueOf(extract("start", query));
@@ -48,6 +43,11 @@ public class StatisticsResource extends ServerResource {
         } else {
             throw new SteambeatJsonException();
         }
+    }
+
+    private void fetchStatistics() {
+        final Subject subject = subjectService.lookUpSubject(UUID.fromString(subjectId));
+        statistics = statisticsSearch.withSubject(subject).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
     }
 
     private List<Statistics> statistics = Lists.newArrayList();

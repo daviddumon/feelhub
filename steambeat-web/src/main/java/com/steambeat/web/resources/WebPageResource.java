@@ -24,7 +24,7 @@ public class WebPageResource extends ServerResource {
 
     @Get
     public Representation represent() {
-        return SteambeatTemplateRepresentation.createNew("webpage.ftl", getContext()).with("webPage", webPage).with("counter", 0);
+        return SteambeatTemplateRepresentation.createNew("webpage.ftl", getContext()).with("webPage", webPage);
     }
 
     private final SubjectService subjectService;

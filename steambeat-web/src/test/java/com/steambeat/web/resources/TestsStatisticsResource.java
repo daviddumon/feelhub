@@ -2,6 +2,7 @@ package com.steambeat.web.resources;
 
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.statistics.*;
+import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
@@ -125,5 +126,18 @@ public class TestsStatisticsResource {
 
         final JSONArray stats = new JSONArray(representation.getText());
         assertThat(stats.length(), is(2));
+    }
+
+    @Test
+    public void canGetStatisticsForSteam() throws IOException, JSONException {
+        final Steam steam = TestFactories.subjects().newSteam();
+        final Statistics stat = TestFactories.statistics().newStatistics(steam, Granularity.all);
+        time.waitMonths(1);
+        final ClientResource resource = restlet.newClientResource("/statistics?" + "start=" + stat.getDate().minus(1).getMillis() + "&end=" + stat.getDate().plus(1).getMillis() + "&granularity=all" + "&subjectId=" + steam.getId());
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+
+        final JSONArray stats = new JSONArray(representation.getText());
+        assertThat(stats.length(), is(1));
     }
 }

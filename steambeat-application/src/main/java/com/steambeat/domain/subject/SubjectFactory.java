@@ -28,5 +28,9 @@ public class SubjectFactory {
         return (WebPage) Repositories.subjects().get(subjectId);
     }
 
+    public Subject lookUpSubject(final UUID subjectId) {
+        return Repositories.subjects().get(subjectId);
+    }
+
     private final WebPageFactory webPageFactory;
 }

@@ -3,7 +3,7 @@ package com.steambeat.application;
 import com.google.inject.Inject;
 import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.scrapers.UriScraper;
-import com.steambeat.domain.subject.SubjectFactory;
+import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
 
@@ -14,6 +14,14 @@ public class SubjectService {
     @Inject
     public SubjectService(final SubjectFactory subjectFactory) {
         this.subjectFactory = subjectFactory;
+    }
+
+    public Subject lookUpSubject(final UUID subjectId) {
+        final Subject subject = subjectFactory.lookUpSubject(subjectId);
+        if (subject == null) {
+            throw new SubjectNotYetCreatedException();
+        }
+        return subject;
     }
 
     public WebPage lookUpWebPage(final UUID subjectId) {

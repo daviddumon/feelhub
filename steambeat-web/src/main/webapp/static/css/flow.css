@@ -90,12 +90,20 @@
     background: #6C3 url(../images/smiley_good_white_14.png) no-repeat center;
 }
 
+.good_without_image {
+    background-color: #6C3;
+}
+
 .good_border {
     border: 1px solid #6C3;
 }
 
 .bad {
     background: #F33 url(../images/smiley_bad_white_14.png) no-repeat center;
+}
+
+.bad_without_image {
+    background-color: #F33;
 }
 
 .bad_border {
