@@ -34,10 +34,10 @@ $(function () {
         $(this).children(".judgment_tag").toggleClass("bad_border");
         $(this).children(".feeling_smiley").toggleClass("good");
         $(this).children(".feeling_smiley").toggleClass("bad");
-        if($(this).children().hasClass("bad_border")) {
-            $(this).children("[name='feeling']").attr("value", "bad");
+        if($(this).children(".judgment_tag").hasClass("bad_border")) {
+            $(this).find(".judgment_tag > [name='feeling']").attr("value", "bad");
         } else {
-            $(this).children("[name='feeling']").attr("value", "good");
+            $(this).find(".judgment_tag > [name='feeling']").attr("value", "good");
         }
     });
 
