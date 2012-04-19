@@ -5,6 +5,7 @@ import com.steambeat.test.fakeResources.alchemy.FakeAlchemyResource;
 import com.steambeat.test.fakeResources.scraper.UriScraperLogoPriority;
 import com.steambeat.test.fakeResources.scraper.extractors.*;
 import com.steambeat.test.fakeResources.scraper.tools.*;
+import freemarker.template.*;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.rules.ExternalResource;
 import org.mockito.*;
@@ -16,6 +17,7 @@ import org.restlet.routing.Router;
 
 import javax.servlet.ServletContext;
 import java.io.File;
+import java.util.Locale;
 
 public class FakeInternet extends ExternalResource {
 
@@ -55,17 +57,16 @@ public class FakeInternet extends ExternalResource {
         return servletContext;
     }
 
-    private void initializeFreemarker() {
-        //final Configuration configuration = new Configuration();
-        //configuration.setServletContextForTemplateLoading(servletContext(), "WEB-INF/templates");
-        //configuration.setEncoding(Locale.ROOT, "UTF-8");
-        //configuration.addAutoImport("head", "/head.ftl");
-        //configuration.addAutoImport("body", "/body.ftl");
-        //configuration.setSharedVariable("root", servletContext().getContextPath());
-        //configuration.setSharedVariable("dev", steambeatWebProperties.isDev());
-        //configuration.setSharedVariable("domain", steambeatWebProperties.getDomain());
-        //configuration.setSharedVariable("buildtime", steambeatWebProperties.getBuildTime());
-        //getContext().getAttributes().put("org.freemarker.Configuration", configuration);
+    private void initializeFreemarker() throws TemplateModelException {
+        final Configuration configuration = new Configuration();
+        configuration.setServletContextForTemplateLoading(servletContext(), "WEB-INF/templates");
+        configuration.setEncoding(Locale.ROOT, "UTF-8");
+        configuration.setSharedVariable("root", servletContext().getContextPath());
+        component.getContext().getAttributes().put("org.freemarker.Configuration", configuration);
+    }
+
+    private ServletContext servletContext() {
+        return (ServletContext) component.getContext().getAttributes().get("org.restlet.ext.servlet.ServletContext");
     }
 
     private Restlet createApplication() {

@@ -10,10 +10,11 @@ import java.util.List;
 
 public class AlchemyNamedEntityProvider implements NamedEntityProvider {
 
-    public AlchemyNamedEntityProvider() {
+    public AlchemyNamedEntityProvider(final AlchemyAPI alchemyAPI) {
+        this.alchemyAPI = alchemyAPI;
         final SteambeatApplicationProperties steambeatApplicationProperties = new SteambeatApplicationProperties();
         apiKey = steambeatApplicationProperties.getAlchemyApiKey();
-        alchemyAPI = AlchemyAPI.GetInstanceFromString(apiKey);
+        this.alchemyAPI.SetAPIKey(apiKey);
     }
 
     @Override
@@ -35,15 +36,16 @@ public class AlchemyNamedEntityProvider implements NamedEntityProvider {
     }
 
     private List<NamedEntity> getEntitiesFrom(final Document document) {
-        return Lists.newArrayList();
+        List<NamedEntity> results = Lists.newArrayList();
+        final NodeList entities = document.getElementsByTagName("entity");
+        for (int i = 0; i < entities.getLength(); i++) {
+            results.add(new NamedEntity());
+        }
+        return results;
     }
 
     public String getApiKey() {
         return apiKey;
-    }
-
-    public void setRequestUri(final String requestUri) {
-        alchemyAPI.set_requestUri(requestUri);
     }
 
     private String apiKey;
