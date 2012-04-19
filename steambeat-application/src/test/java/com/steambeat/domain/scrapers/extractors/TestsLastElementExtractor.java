@@ -28,7 +28,7 @@ public class TestsLastElementExtractor {
 
     @Test
     public void canFindH1Tag() {
-        final Uri uri = internet.uri("lastelementextractor/h1tag");
+        final Uri uri = new Uri(internet.uri("lastelementextractor/h1tag"));
         final Document document = getDocument(uri);
 
         final String result = lastElementExtractor.apply(document);
@@ -38,7 +38,7 @@ public class TestsLastElementExtractor {
 
     @Test
     public void canFindTextFromNestedElement() {
-        final Uri uri = internet.uri("lastelementextractor/bug/lemondefrnested");
+        final Uri uri = new Uri(internet.uri("lastelementextractor/bug/lemondefrnested"));
         final Document document = getDocument(uri);
 
         final String result = lastElementExtractor.apply(document);

@@ -1,7 +1,6 @@
 package com.steambeat.web.tools;
 
 import com.steambeat.test.FakeInternet;
-import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 import org.apache.commons.io.IOUtils;
 import org.junit.*;
 

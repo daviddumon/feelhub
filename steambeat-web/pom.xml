@@ -212,6 +212,10 @@
             <groupId>org.restlet.jee</groupId>
             <artifactId>org.restlet.ext.json</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.steambeat</groupId>
@@ -228,6 +232,11 @@
         <dependency>
             <groupId>org.mongolink</groupId>
             <artifactId>mongolink-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.steambeat</groupId>
+            <artifactId>steambeat-test-tools</artifactId>
             <scope>test</scope>
         </dependency>
 

@@ -14,7 +14,7 @@ public class TestsCSSMiner {
 
     @Test
     public void canOpenADistantCSSFile() {
-        final Uri uri = internet.uri("tools/cssminer/simple");
+        final Uri uri = new Uri(internet.uri("tools/cssminer/simple"));
         final CSSMiner CSSMiner = new CSSMiner(uri);
 
         final String logoUrl = CSSMiner.scrap("logo");

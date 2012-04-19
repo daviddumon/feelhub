@@ -14,7 +14,7 @@ public class TestsUriScraper {
 
     @Test
     public void canFindSimpleDescriptionFromTitle() {
-        final Uri uri = internet.uri("titleextractor/titletag");
+        final Uri uri = new Uri(internet.uri("titleextractor/titletag"));
         final UriScraper uriScraper = new UriScraper();
 
         uriScraper.scrap(uri);
@@ -24,7 +24,7 @@ public class TestsUriScraper {
 
     @Test
     public void hasDefaultValuesIfBadUri() {
-        final Uri uri = internet.uri("unknown");
+        final Uri uri = new Uri(internet.uri("unknown"));
         final UriScraper uriScraper = new UriScraper();
 
         uriScraper.scrap(uri);
@@ -40,19 +40,19 @@ public class TestsUriScraper {
         final UriScraper uriScraper2 = new UriScraper();
         final UriScraper uriScraper3 = new UriScraper();
 
-        uriScraper1.scrap(internet.uri("titleextractor/titletag"));
+        uriScraper1.scrap(new Uri(internet.uri("titleextractor/titletag")));
         assertThat(uriScraper1.getShortDescription(), is("Webpage title"));
 
-        uriScraper2.scrap(internet.uri("lastelementextractor/h1tag"));
+        uriScraper2.scrap(new Uri(internet.uri("lastelementextractor/h1tag")));
         assertThat(uriScraper2.getShortDescription(), is("Second section"));
 
-        uriScraper3.scrap(internet.uri("logoextractor/withclasslogo"));
+        uriScraper3.scrap(new Uri(internet.uri("logoextractor/withclasslogo")));
         assertThat(uriScraper3.getShortDescription(), is("localhost:6162[...]"));
     }
 
     @Test
     public void firstLevelDomainIllustrationPriorityIsLogoThenImage() {
-        final Uri uri = internet.uri("/");
+        final Uri uri = new Uri(internet.uri("/"));
         final UriScraper uriScraper = new UriScraper();
 
         uriScraper.scrap(uri);
@@ -63,7 +63,7 @@ public class TestsUriScraper {
 
     @Test
     public void nonFirstLevelDomainIllustrationPriorityIsImageThenLogo() {
-        final Uri uri = internet.uri("uriscraper/logopriority");
+        final Uri uri = new Uri(internet.uri("uriscraper/logopriority"));
         final UriScraper uriScraper = new UriScraper();
 
         uriScraper.scrap(uri);

@@ -28,7 +28,7 @@ public class TestsTitleExtractor {
 
     @Test
     public void canExtractSimpleTitle() {
-        final Uri uri = internet.uri("titleextractor/titletag");
+        final Uri uri = new Uri(internet.uri("titleextractor/titletag"));
         final Document document = getDocument(uri);
 
         final String result = titleExtractor.apply(document);
@@ -38,7 +38,7 @@ public class TestsTitleExtractor {
 
     @Test
     public void canFindTitleTagWithBadHtml() {
-        final Uri uri = internet.uri("titleextractor/titletagbadhtml");
+        final Uri uri = new Uri(internet.uri("titleextractor/titletagbadhtml"));
         final Document document = getDocument(uri);
 
         final String result = titleExtractor.apply(document);

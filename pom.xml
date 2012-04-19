@@ -12,6 +12,7 @@
         <module>steambeat-application</module>
         <module>steambeat-web</module>
         <module>steambeat-sitemap</module>
+        <module>steambeat-test-tools</module>
     </modules>
 
     <properties>
@@ -147,6 +148,12 @@
                 <groupId>org.mongolink</groupId>
                 <artifactId>mongolink-test</artifactId>
                 <version>${mongolink.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.steambeat</groupId>
+                <artifactId>steambeat-test-tools</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
                 <scope>test</scope>
             </dependency>
 

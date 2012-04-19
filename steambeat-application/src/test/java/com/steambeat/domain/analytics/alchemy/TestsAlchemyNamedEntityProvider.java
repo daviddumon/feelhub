@@ -23,7 +23,7 @@ public class TestsAlchemyNamedEntityProvider {
     @Before
     public void before() {
         alchemyNamedEntityProvider = new AlchemyNamedEntityProvider();
-        final Uri uri = internet.uri("alchemy");
+        final Uri uri = new Uri(internet.uri("alchemy"));
         alchemyNamedEntityProvider.setRequestUri(uri.toString());
     }
 

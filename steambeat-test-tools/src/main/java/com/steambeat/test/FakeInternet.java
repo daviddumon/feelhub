@@ -1,6 +1,5 @@
 package com.steambeat.test;
 
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.test.fakeResources.*;
 import com.steambeat.test.fakeResources.alchemy.FakeAlchemyResource;
 import com.steambeat.test.fakeResources.scraper.UriScraperLogoPriority;
@@ -8,6 +7,7 @@ import com.steambeat.test.fakeResources.scraper.extractors.*;
 import com.steambeat.test.fakeResources.scraper.tools.*;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.rules.ExternalResource;
+import org.mockito.*;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.restlet.*;
@@ -16,10 +16,6 @@ import org.restlet.routing.Router;
 
 import javax.servlet.ServletContext;
 import java.io.File;
-import java.util.Locale;
-
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
 
 public class FakeInternet extends ExternalResource {
 
@@ -42,8 +38,8 @@ public class FakeInternet extends ExternalResource {
     }
 
     public ServletContext mockServletContext() {
-        final ServletContext servletContext = mock(ServletContext.class);
-        when(servletContext.getRealPath(anyString())).thenAnswer(new Answer<String>() {
+        final ServletContext servletContext = Mockito.mock(ServletContext.class);
+        Mockito.when(servletContext.getRealPath(Matchers.anyString())).thenAnswer(new Answer<String>() {
             @Override
             public String answer(final InvocationOnMock invocation) throws Throwable {
                 File file = new File("steambeat-web/src/main/webapp");
@@ -54,8 +50,8 @@ public class FakeInternet extends ExternalResource {
                         ((String) invocation.getArguments()[0]).substring(1));
             }
         });
-        when(servletContext.getContextPath()).thenReturn(FakeInternet.SERVER_ROOT);
-        when(servletContext.getContextPath()).thenReturn("/");
+        Mockito.when(servletContext.getContextPath()).thenReturn(FakeInternet.SERVER_ROOT);
+        Mockito.when(servletContext.getContextPath()).thenReturn("/");
         return servletContext;
     }
 
@@ -128,8 +124,8 @@ public class FakeInternet extends ExternalResource {
         };
     }
 
-    public Uri uri(final String address) {
-        return new Uri(FakeInternet.SERVER_ROOT + address);
+    public String uri(final String address) {
+        return FakeInternet.SERVER_ROOT + address;
     }
 
     private static String SERVER_ROOT = "http://localhost:6162/";

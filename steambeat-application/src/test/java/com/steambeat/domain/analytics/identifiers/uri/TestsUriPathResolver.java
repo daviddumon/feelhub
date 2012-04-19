@@ -24,18 +24,18 @@ public class TestsUriPathResolver {
 
     @Test
     public void canFollowRedirection() {
-        final Uri uri = internet.uri("http://liberation.fr");
+        final Uri uri = new Uri(internet.uri("http://liberation.fr"));
 
         final List<Uri> path = pathResolver.resolve(uri);
 
         assertThat(path.size(), is(2));
-        assertThat(path.get(0), is(internet.uri("http://liberation.fr")));
-        assertThat(path.get(1), is(internet.uri("http://www.liberation.fr")));
+        assertThat(path.get(0), is(new Uri(internet.uri("http://liberation.fr"))));
+        assertThat(path.get(1), is(new Uri(internet.uri("http://www.liberation.fr"))));
     }
 
     @Test
     public void canResolveCanonicalDirectly() {
-        final Uri uri = internet.uri("http://www.gameblog.fr");
+        final Uri uri = new Uri(internet.uri("http://www.gameblog.fr"));
 
         final List<Uri> path = pathResolver.resolve(uri);
 
@@ -45,18 +45,18 @@ public class TestsUriPathResolver {
     @Test
     public void throwsExceptionOn404() {
         expectedException.expect(UriPathResolverException.class);
-        pathResolver.resolve(internet.uri("http://www.steambeat.com/404"));
+        pathResolver.resolve(new Uri(internet.uri("http://www.steambeat.com/404")));
     }
 
     @Test
     public void throwsExceptionOnBadHost() {
         expectedException.expect(UriPathResolverException.class);
-        pathResolver.resolve(internet.uri("http://www.badurlunknowhost.com"));
+        pathResolver.resolve(new Uri(internet.uri("http://www.badurlunknowhost.com")));
     }
 
     @Test
     public void returnOriginalAdressOn5xxError() {
-        final Uri uri = internet.uri("http://www.stackoverflow.com");
+        final Uri uri = new Uri(internet.uri("http://www.stackoverflow.com"));
 
         final List<Uri> path = pathResolver.resolve(uri);
 
