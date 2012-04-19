@@ -1,4 +1,4 @@
-package com.steambeat.test.guice;
+package com.steambeat.web.test.guice;
 
 import com.google.inject.*;
 import com.steambeat.application.SubjectService;
@@ -9,9 +9,10 @@ import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
-import com.steambeat.test.fakeSearches.*;
 import com.steambeat.test.fakeServices.FakeSubjectService;
-import com.steambeat.tools.SteambeatSitemapModuleLink;
+import com.steambeat.web.test.FakeMigrationRunner;
+import com.steambeat.web.test.fakeSearches.*;
+import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 import com.steambeat.web.*;
 import com.steambeat.web.migration.MigrationRunner;
 import com.steambeat.web.search.*;

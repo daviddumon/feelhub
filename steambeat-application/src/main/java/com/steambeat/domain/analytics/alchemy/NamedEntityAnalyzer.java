@@ -1,4 +1,4 @@
-package com.steambeat.domain.textAnalytics;
+package com.steambeat.domain.analytics.alchemy;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.analytics.*;

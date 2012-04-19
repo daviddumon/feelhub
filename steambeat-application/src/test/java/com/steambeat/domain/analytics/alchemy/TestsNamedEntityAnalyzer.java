@@ -1,4 +1,4 @@
-package com.steambeat.domain.textAnalytics;
+package com.steambeat.domain.analytics.alchemy;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.analytics.Relation;
@@ -52,6 +52,32 @@ public class TestsNamedEntityAnalyzer {
         final Subject concept = Repositories.subjects().getAll().get(1);
         testRelation(webpage, concept, relations.get(0));
         testRelation(concept, webpage, relations.get(1));
+    }
+
+    @Test
+    public void canCreateMultipleConcepts() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        when(entityProvider.entitiesFor(webpage)).thenReturn(complexNamedEntities());
+
+        analyzer.analyze(webpage);
+
+        final List<Subject> subjects = Repositories.subjects().getAll();
+        assertThat(subjects.size(), is(3));
+    }
+
+    private List<NamedEntity> complexNamedEntities() {
+        List<NamedEntity> result = Lists.newArrayList();
+        final NamedEntity namedEntity = new NamedEntity();
+        namedEntity.text = "Agile";
+        namedEntity.language = "english";
+        namedEntity.type = "development";
+        final NamedEntity anotherNamedEntity = new NamedEntity();
+        anotherNamedEntity.text = "Not agile";
+        anotherNamedEntity.language = "french";
+        anotherNamedEntity.type = "boat";
+        result.add(namedEntity);
+        result.add(anotherNamedEntity);
+        return result;
     }
 
     private void testRelation(final Subject left, final Subject right, final Relation relation) {

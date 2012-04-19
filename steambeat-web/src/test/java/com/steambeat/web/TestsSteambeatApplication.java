@@ -2,7 +2,7 @@ package com.steambeat.web;
 
 import com.google.inject.AbstractModule;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.guice.SteambeatModuleForTest;
+import com.steambeat.web.test.guice.SteambeatModuleForTest;
 import com.steambeat.web.resources.WebPageResource;
 import freemarker.template.Configuration;
 import org.junit.*;

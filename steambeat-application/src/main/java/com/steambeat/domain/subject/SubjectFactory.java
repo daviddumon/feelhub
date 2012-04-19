@@ -2,9 +2,9 @@ package com.steambeat.domain.subject;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.alchemy.NamedEntity;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.*;
-import com.steambeat.domain.textAnalytics.NamedEntity;
 import com.steambeat.repositories.Repositories;
 
 import java.util.UUID;

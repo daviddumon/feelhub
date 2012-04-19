@@ -1,7 +1,7 @@
 package com.steambeat.web;
 
 import com.google.inject.*;
-import com.steambeat.tools.SteambeatWebProperties;
+import com.steambeat.web.tools.SteambeatWebProperties;
 import com.steambeat.web.guice.SteambeatModule;
 import com.steambeat.web.migration.MigrationRunner;
 import com.steambeat.web.migration.web.*;

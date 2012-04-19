@@ -1,4 +1,4 @@
-package com.steambeat.learning;
+package com.steambeat.web.learning;
 
 import org.junit.Test;
 import org.restlet.Application;

@@ -2,13 +2,24 @@ package com.steambeat.test;
 
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.test.fakeResources.*;
+import com.steambeat.test.fakeResources.alchemy.FakeAlchemyResource;
 import com.steambeat.test.fakeResources.scraper.UriScraperLogoPriority;
 import com.steambeat.test.fakeResources.scraper.extractors.*;
 import com.steambeat.test.fakeResources.scraper.tools.*;
+import org.apache.commons.io.FilenameUtils;
 import org.junit.rules.ExternalResource;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.restlet.*;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
+
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.util.Locale;
+
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class FakeInternet extends ExternalResource {
 
@@ -16,10 +27,49 @@ public class FakeInternet extends ExternalResource {
     protected void before() throws Throwable {
         if (component == null) {
             component = new Component();
+            createContextForComponent();
             component.getServers().add(Protocol.HTTP, 6162);
             component.getDefaultHost().attach(createApplication());
+            initializeFreemarker();
         }
         component.start();
+    }
+
+    private void createContextForComponent() {
+        final Context context = new Context();
+        context.getAttributes().put("org.restlet.ext.servlet.ServletContext", mockServletContext());
+        component.setContext(context);
+    }
+
+    public ServletContext mockServletContext() {
+        final ServletContext servletContext = mock(ServletContext.class);
+        when(servletContext.getRealPath(anyString())).thenAnswer(new Answer<String>() {
+            @Override
+            public String answer(final InvocationOnMock invocation) throws Throwable {
+                File file = new File("steambeat-web/src/main/webapp");
+                if (!file.exists()) {
+                    file = new File("src/main/webapp");
+                }
+                return FilenameUtils.concat(file.getAbsolutePath(),
+                        ((String) invocation.getArguments()[0]).substring(1));
+            }
+        });
+        when(servletContext.getContextPath()).thenReturn(FakeInternet.SERVER_ROOT);
+        when(servletContext.getContextPath()).thenReturn("/");
+        return servletContext;
+    }
+
+    private void initializeFreemarker() {
+        //final Configuration configuration = new Configuration();
+        //configuration.setServletContextForTemplateLoading(servletContext(), "WEB-INF/templates");
+        //configuration.setEncoding(Locale.ROOT, "UTF-8");
+        //configuration.addAutoImport("head", "/head.ftl");
+        //configuration.addAutoImport("body", "/body.ftl");
+        //configuration.setSharedVariable("root", servletContext().getContextPath());
+        //configuration.setSharedVariable("dev", steambeatWebProperties.isDev());
+        //configuration.setSharedVariable("domain", steambeatWebProperties.getDomain());
+        //configuration.setSharedVariable("buildtime", steambeatWebProperties.getBuildTime());
+        //getContext().getAttributes().put("org.freemarker.Configuration", configuration);
     }
 
     private Restlet createApplication() {
@@ -38,7 +88,12 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/http://lemonde.fr", FakeStatusOkResource.class);
                 router.attach("/sitemap_{index}.xml", FakeSitemapResource.class);
                 attachScrapersResources(router);
+                attachAlchemyResources(router);
                 return router;
+            }
+
+            private void attachAlchemyResources(final Router router) {
+                router.attach("/alchemyurl/URLGetRankedNamedEntities", FakeAlchemyResource.class);
             }
 
             private void attachScrapersResources(final Router router) {
@@ -47,7 +102,7 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/titleextractor/titletag", TitleExtractorResourceWithTitleTag.class);
                 router.attach("/titleextractor/titletagbadhtml", TitleExtractorResourceWithBadHtml.class);
                 router.attach("/firstelementextractor/h2tag", FirstElementExtractorResourceWithH2Tag.class);
-                router.attach("/lastelementextractor/h1tag", LastElementExtractorWithH1Tag.class);
+                router.attach("/lastelementextractor/h1tag", LastElementExtractorWithH1TagResource.class);
                 router.attach("/lastelementextractor/bug/lemondefrnested", LastElementExtractorResourceLemondeBug.class);
                 router.attach("/logoextractor/withclasslogo", LogoExtractorResourceWithClassLogo.class);
                 router.attach("/logoextractor/withidlogo", LogoExtractorResourceWithIdLogo.class);
@@ -74,8 +129,10 @@ public class FakeInternet extends ExternalResource {
     }
 
     public Uri uri(final String address) {
-        return new Uri("http://localhost:6162/" + address);
+        return new Uri(FakeInternet.SERVER_ROOT + address);
     }
+
+    private static String SERVER_ROOT = "http://localhost:6162/";
 
     private static Component component;
 }

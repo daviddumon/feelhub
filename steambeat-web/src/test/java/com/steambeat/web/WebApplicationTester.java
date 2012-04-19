@@ -1,7 +1,7 @@
 package com.steambeat.web;
 
-import com.steambeat.test.guice.SteambeatModuleForTest;
-import com.steambeat.tools.SteambeatSitemapModuleLink;
+import com.steambeat.web.test.guice.SteambeatModuleForTest;
+import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.rules.ExternalResource;
 import org.mockito.invocation.InvocationOnMock;

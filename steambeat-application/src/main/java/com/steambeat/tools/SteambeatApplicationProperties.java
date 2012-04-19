@@ -37,5 +37,9 @@ public class SteambeatApplicationProperties {
         return properties.getProperty("dbName");
     }
 
+    public String getAlchemyApiKey() {
+        return properties.getProperty("alchemyApiKey");
+    }
+
     private final Properties properties;
 }

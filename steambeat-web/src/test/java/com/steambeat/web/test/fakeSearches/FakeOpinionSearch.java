@@ -1,4 +1,4 @@
-package com.steambeat.test.fakeSearches;
+package com.steambeat.web.test.fakeSearches;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;

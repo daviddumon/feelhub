@@ -1,6 +1,6 @@
 package com.steambeat.web;
 
-import com.steambeat.tools.SteambeatWebProperties;
+import com.steambeat.web.tools.SteambeatWebProperties;
 import org.restlet.Context;
 
 import javax.servlet.ServletContext;

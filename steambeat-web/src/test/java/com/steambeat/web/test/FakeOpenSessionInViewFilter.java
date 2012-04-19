@@ -1,4 +1,4 @@
-package com.steambeat.test.guice;
+package com.steambeat.web.test;
 
 import com.steambeat.web.OpenSessionInViewFilter;
 import org.restlet.*;

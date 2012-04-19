@@ -1,4 +1,4 @@
-package com.steambeat.tools;
+package com.steambeat.web.tools;
 
 import java.io.IOException;
 import java.util.Properties;

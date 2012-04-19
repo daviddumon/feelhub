@@ -1,6 +1,6 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.tools.SteambeatSitemapModuleLink;
+import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 import com.steambeat.web.representation.SteambeatSitemapRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.*;

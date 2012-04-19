@@ -68,7 +68,7 @@
     border: 1px solid #BBB;
     padding: 5px;
     display: none;
-    z-index: 2000;
+    z-index: 3000;
 }
 
 .judgment_smiley {

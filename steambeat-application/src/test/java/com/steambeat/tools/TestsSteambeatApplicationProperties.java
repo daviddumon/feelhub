@@ -16,4 +16,13 @@ public class TestsSteambeatApplicationProperties {
 
         assertThat(settings.getDbName(), is("steambeat"));
     }
+
+    @Test
+    public void canGetAlchemyApiKey() {
+        final SteambeatApplicationProperties applicationProperties = new SteambeatApplicationProperties();
+
+        final String alchemyApiKey = applicationProperties.getAlchemyApiKey();
+
+        assertThat(alchemyApiKey, is("testapikey"));
+    }
 }

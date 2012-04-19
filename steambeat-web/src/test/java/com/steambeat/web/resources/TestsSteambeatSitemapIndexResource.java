@@ -1,6 +1,6 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.tools.SteambeatSitemapModuleLink;
+import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 import com.steambeat.web.*;
 import org.apache.commons.io.IOUtils;
 import org.junit.*;

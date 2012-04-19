@@ -1,4 +1,4 @@
-package com.steambeat.test;
+package com.steambeat.web.test;
 
 import com.google.inject.Inject;
 import com.steambeat.repositories.SessionProvider;

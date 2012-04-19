@@ -16,14 +16,22 @@ public class Uri extends Identifier {
     }
 
     public Uri(final String uri) {
-        final String uriDecoded = URIs.decode(uri).replace(" ", "+");
-        protocol = URIs.extractProtocol(uriDecoded).toLowerCase(Locale.US);
-        domain = URIs.extractDomain(uriDecoded).toLowerCase(Locale.US);
-        address = URIs.extractAddress(uriDecoded);
-        query = URIs.extractQuery(uriDecoded);
-        fragment = URIs.extractFragment(uriDecoded);
-        if (Strings.isNullOrEmpty(query) && Strings.isNullOrEmpty(fragment) && address.endsWith("/")) {
-            address = address.substring(0, address.length() - 1);
+        if (uri == null || uri.isEmpty()) {
+            protocol = "";
+            domain = "";
+            address = "";
+            query = "";
+            fragment = "";
+        } else {
+            final String uriDecoded = URIs.decode(uri).replace(" ", "+");
+            protocol = URIs.extractProtocol(uriDecoded).toLowerCase(Locale.US);
+            domain = URIs.extractDomain(uriDecoded).toLowerCase(Locale.US);
+            address = URIs.extractAddress(uriDecoded);
+            query = URIs.extractQuery(uriDecoded);
+            fragment = URIs.extractFragment(uriDecoded);
+            if (Strings.isNullOrEmpty(query) && Strings.isNullOrEmpty(fragment) && address.endsWith("/")) {
+                address = address.substring(0, address.length() - 1);
+            }
         }
     }
 

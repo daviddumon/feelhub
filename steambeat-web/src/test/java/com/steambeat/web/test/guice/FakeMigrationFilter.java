@@ -1,4 +1,4 @@
-package com.steambeat.test.guice;
+package com.steambeat.web.test.guice;
 
 import com.steambeat.web.migration.web.MigrationFilter;
 import org.restlet.*;

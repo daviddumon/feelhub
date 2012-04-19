@@ -182,6 +182,14 @@ public class TestsUri {
         assertThat(uri.withoutTLD(), is("google"));
     }
 
+    @Test
+    public void canCreateEmptyUriFromEmptyString() {
+        final String address = "";
+        final Uri uri = new Uri(address);
+
+        assertThat(uri, is(Uri.empty()));
+    }
+
     private void testUri(final String address) {
         testUri(address, address);
     }

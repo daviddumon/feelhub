@@ -1,4 +1,4 @@
-package com.steambeat.domain.textAnalytics;
+package com.steambeat.domain.analytics.alchemy;
 
 import com.steambeat.domain.subject.webpage.WebPage;
 
