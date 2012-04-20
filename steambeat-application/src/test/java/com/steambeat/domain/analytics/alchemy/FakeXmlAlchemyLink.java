@@ -2,7 +2,7 @@ package com.steambeat.domain.analytics.alchemy;
 
 import java.io.*;
 
-public class FakeAlchemyLink extends AlchemyLink {
+public class FakeXmlAlchemyLink extends AlchemyLink {
 
     @Override
     public InputStream get(final String webPageUri) {

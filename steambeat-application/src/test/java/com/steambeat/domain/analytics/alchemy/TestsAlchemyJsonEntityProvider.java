@@ -1,6 +1,6 @@
 package com.steambeat.domain.analytics.alchemy;
 
-import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyXmlEntity;
+import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
@@ -14,27 +14,27 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsAlchemyNamedEntityProvider {
+public class TestsAlchemyJsonEntityProvider {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Before
     public void before() throws ParserConfigurationException, IOException, SAXException {
-        alchemyNamedEntityProvider = new AlchemyNamedEntityProvider(new FakeAlchemyLink());
+        alchemyNamedJsonEntityProvider = new AlchemyJsonEntityProvider(new FakeJsonAlchemyLink());
     }
 
     @Test
     public void canGetNamedEntitiesForAWebPage() {
         final WebPage webPage = TestFactories.subjects().newWebPage();
 
-        final List<AlchemyXmlEntity> results = alchemyNamedEntityProvider.entitiesFor(webPage);
+        final List<AlchemyJsonEntity> results = alchemyNamedJsonEntityProvider.entitiesFor(webPage);
 
         assertThat(results, notNullValue());
-        assertThat(results.size(), is(37));
-        final AlchemyXmlEntity alchemyXmlEntity = results.get(0);
-        assertThat(alchemyXmlEntity.language, is("english"));
+        assertThat(results.size(), is(19));
+        final AlchemyJsonEntity alchemyJsonEntity = results.get(0);
+        assertThat(alchemyJsonEntity.language, is("english"));
     }
 
-    private AlchemyNamedEntityProvider alchemyNamedEntityProvider;
+    private AlchemyJsonEntityProvider alchemyNamedJsonEntityProvider;
 }

@@ -1,27 +1,20 @@
 package com.steambeat.domain.subject.concept;
 
-import com.google.common.collect.Lists;
 import com.steambeat.domain.analytics.alchemy.readmodel.*;
 import com.steambeat.domain.analytics.alchemy.thesaurus.*;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 
-import java.util.List;
-
 public class ConceptFactory {
 
-    public Concept newConcept(final AlchemyXmlEntity entity) {
+    public Concept newConcept(final AlchemyJsonEntity entity) {
         final Concept concept = new Concept(entity.text);
         concept.setLanguage(Language.forString(entity.language));
         concept.setType(Type.forString(entity.type));
         concept.setRelevance(entity.relevance);
         concept.setCount(entity.count);
-        final AlchemyXmlDisambiguated disambiguated = entity.disambiguated;
+        final AlchemyJsonDisambiguated disambiguated = entity.disambiguated;
         concept.setName(disambiguated.name);
-        List<String> subTypes = Lists.newArrayList();
-        for (AlchemyXmlSubtype alchemyXmlSubtype : disambiguated.subTypes) {
-            subTypes.add(alchemyXmlSubtype.text);
-        }
-        concept.setSubTypes(subTypes);
+        concept.setSubTypes(disambiguated.subType);
         concept.setWebsite(new Uri(disambiguated.website));
         concept.setGeo(disambiguated.geo);
         concept.setDbpedia(new Uri(disambiguated.dbpedia));

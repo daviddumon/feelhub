@@ -2,29 +2,29 @@ package com.steambeat.domain.analytics.alchemy;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.analytics.*;
-import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyXmlEntity;
+import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 
 import java.util.List;
 
-public class NamedEntityAnalyzer {
+public class AlchemyEntityAnalyzer {
 
     @Inject
-    public NamedEntityAnalyzer(final NamedEntityProvider provider) {
+    public AlchemyEntityAnalyzer(final AlchemyEntityProvider provider) {
         this.provider = provider;
     }
 
     public void analyze(final WebPage webpage) {
-        final List<AlchemyXmlEntity> results = provider.entitiesFor(webpage);
-        for (final AlchemyXmlEntity alchemyXmlEntity : results) {
-            link(webpage, createConcept(alchemyXmlEntity));
+        final List<AlchemyJsonEntity> results = provider.entitiesFor(webpage);
+        for (final AlchemyJsonEntity alchemyJsonEntity : results) {
+            link(webpage, createConcept(alchemyJsonEntity));
         }
     }
 
-    private Concept createConcept(final AlchemyXmlEntity alchemyXmlEntity) {
-        final Concept concept = new ConceptFactory().newConcept(alchemyXmlEntity);
+    private Concept createConcept(final AlchemyJsonEntity alchemyJsonEntity) {
+        final Concept concept = new ConceptFactory().newConcept(alchemyJsonEntity);
         Repositories.subjects().add(concept);
         return concept;
     }
@@ -40,5 +40,5 @@ public class NamedEntityAnalyzer {
         return new RelationFactory();
     }
 
-    private final NamedEntityProvider provider;
+    private final AlchemyEntityProvider provider;
 }

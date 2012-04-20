@@ -1,7 +1,7 @@
 package com.steambeat.domain.subject;
 
 import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyXmlEntity;
+import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
@@ -37,10 +37,10 @@ public class TestsSubjectFactory {
 
     @Test
     public void canCreateConceptFromNamedEntity() {
-        final AlchemyXmlEntity alchemyXmlEntity = new AlchemyXmlEntity();
-        alchemyXmlEntity.text = "Agile";
+        final AlchemyJsonEntity alchemyJsonEntity = new AlchemyJsonEntity();
+        alchemyJsonEntity.text = "Agile";
 
-        final Concept concept = subjectFactory.newConcept(alchemyXmlEntity);
+        final Concept concept = subjectFactory.newConcept(alchemyJsonEntity);
 
         assertThat(concept, notNullValue());
         assertThat(concept.getText(), is("Agile"));

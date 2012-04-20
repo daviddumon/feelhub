@@ -1,14 +1,10 @@
 package com.steambeat.domain.analytics.alchemy;
 
 import com.google.common.io.*;
-import com.steambeat.tools.*;
-import org.apache.commons.io.input.NullInputStream;
-import org.apache.log4j.Logger;
-import org.restlet.*;
-import org.restlet.data.Method;
+import com.steambeat.tools.SteambeatApplicationProperties;
 
 import java.io.*;
-import java.net.URLEncoder;
+import java.net.*;
 
 public class AlchemyLink {
 
@@ -18,19 +14,19 @@ public class AlchemyLink {
     }
 
     public InputStream get(final String webPageUri) {
-        final String uri = buildUri(webPageUri);
-        final Request request = Requests.create(Method.GET, webPageUri);
-        final Client client = Clients.create();
+        final String alchemyUri = buildUri(webPageUri);
+        URL url = null;
         try {
-            final Response response = client.handle(request);
-            return copyStream(response);
-        } catch (Exception e) {
+            url = new URL(alchemyUri);
+            HttpURLConnection handle = (HttpURLConnection) url.openConnection();
+            handle.setDoOutput(true);
+            return copyStream(handle);
+        } catch (MalformedURLException e) {
             e.printStackTrace();
-            Logger.getLogger(AlchemyNamedEntityProvider.class).error("Error while fetching data from alchemy API", e);
-            return new NullInputStream(1L);
-        } finally {
-            Clients.stop(client);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     private String buildUri(final String webPageUri) {
@@ -43,14 +39,15 @@ public class AlchemyLink {
         return uri.toString();
     }
 
-    private InputStream copyStream(final Response response) throws IOException {
+    private InputStream copyStream(final HttpURLConnection httpURLConnection) throws IOException {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
-        ByteStreams.copy(response.getEntity().getStream(), output);
+        ByteStreams.copy(httpURLConnection.getInputStream(), output);
         final ByteArrayInputStream result = new ByteArrayInputStream(output.toByteArray());
         Closeables.closeQuietly(output);
+        httpURLConnection.disconnect();
         return result;
     }
 
     private final String apiKey;
-    private final String requestUri = "http://access.alchemyapi.com/calls/url/URLGetRankedNamedEntities?apikey=";
+    private final String requestUri = "http://access.alchemyapi.com/calls/url/URLGetRankedNamedEntities?outputMode=json&apikey=";
 }

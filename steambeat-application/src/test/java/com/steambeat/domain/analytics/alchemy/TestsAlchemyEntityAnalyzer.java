@@ -2,7 +2,7 @@ package com.steambeat.domain.analytics.alchemy;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.analytics.Relation;
-import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyXmlEntity;
+import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
@@ -17,15 +17,15 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class TestsNamedEntityAnalyzer {
+public class TestsAlchemyEntityAnalyzer {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Before
     public void setUp() throws Exception {
-        entityProvider = mock(NamedEntityProvider.class);
-        analyzer = new NamedEntityAnalyzer(entityProvider);
+        entityProvider = mock(AlchemyEntityProvider.class);
+        analyzer = new AlchemyEntityAnalyzer(entityProvider);
     }
 
     @Test
@@ -66,17 +66,17 @@ public class TestsNamedEntityAnalyzer {
         assertThat(subjects.size(), is(3));
     }
 
-    private List<AlchemyXmlEntity> complexNamedEntities() {
-        List<AlchemyXmlEntity> result = Lists.newArrayList();
-        final AlchemyXmlEntity alchemyXmlEntity = new AlchemyXmlEntity();
-        alchemyXmlEntity.text = "Agile";
-        alchemyXmlEntity.language = "english";
-        alchemyXmlEntity.type = "development";
-        final AlchemyXmlEntity anotherEntity = new AlchemyXmlEntity();
+    private List<AlchemyJsonEntity> complexNamedEntities() {
+        List<AlchemyJsonEntity> result = Lists.newArrayList();
+        final AlchemyJsonEntity alchemyJsonEntity = new AlchemyJsonEntity();
+        alchemyJsonEntity.text = "Agile";
+        alchemyJsonEntity.language = "english";
+        alchemyJsonEntity.type = "development";
+        final AlchemyJsonEntity anotherEntity = new AlchemyJsonEntity();
         anotherEntity.text = "Not agile";
         anotherEntity.language = "french";
         anotherEntity.type = "boat";
-        result.add(alchemyXmlEntity);
+        result.add(alchemyJsonEntity);
         result.add(anotherEntity);
         return result;
     }
@@ -86,14 +86,14 @@ public class TestsNamedEntityAnalyzer {
         assertThat(relation.getRight(), is(right));
     }
 
-    private AlchemyXmlEntity simpleEntity() {
-        final AlchemyXmlEntity alchemyXmlEntity = new AlchemyXmlEntity();
-        alchemyXmlEntity.text = "Agile";
-        alchemyXmlEntity.language = "english";
-        alchemyXmlEntity.type = "development";
-        return alchemyXmlEntity;
+    private AlchemyJsonEntity simpleEntity() {
+        final AlchemyJsonEntity alchemyJsonEntity = new AlchemyJsonEntity();
+        alchemyJsonEntity.text = "Agile";
+        alchemyJsonEntity.language = "english";
+        alchemyJsonEntity.type = "development";
+        return alchemyJsonEntity;
     }
 
-    private NamedEntityProvider entityProvider;
-    private NamedEntityAnalyzer analyzer;
+    private AlchemyEntityProvider entityProvider;
+    private AlchemyEntityAnalyzer analyzer;
 }
