@@ -2,6 +2,7 @@ package com.steambeat.domain.analytics.alchemy;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.analytics.*;
+import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyXmlEntity;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
@@ -16,14 +17,14 @@ public class NamedEntityAnalyzer {
     }
 
     public void analyze(final WebPage webpage) {
-        final List<NamedEntity> entities = provider.entitiesFor(webpage);
-        for (final NamedEntity entity : entities) {
-            link(webpage, createConcept(entity));
+        final List<AlchemyXmlEntity> results = provider.entitiesFor(webpage);
+        for (final AlchemyXmlEntity alchemyXmlEntity : results) {
+            link(webpage, createConcept(alchemyXmlEntity));
         }
     }
 
-    private Concept createConcept(final NamedEntity entity) {
-        final Concept concept = new ConceptFactory().newConcept(entity);
+    private Concept createConcept(final AlchemyXmlEntity alchemyXmlEntity) {
+        final Concept concept = new ConceptFactory().newConcept(alchemyXmlEntity);
         Repositories.subjects().add(concept);
         return concept;
     }

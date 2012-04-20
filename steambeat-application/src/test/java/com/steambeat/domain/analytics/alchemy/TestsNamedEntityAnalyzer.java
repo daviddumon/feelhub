@@ -2,6 +2,7 @@ package com.steambeat.domain.analytics.alchemy;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.analytics.Relation;
+import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyXmlEntity;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
@@ -30,7 +31,7 @@ public class TestsNamedEntityAnalyzer {
     @Test
     public void canCreateConceptFromNonAmbiguousNamedEntity() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(Lists.newArrayList(simpleNamedEntity()));
+        when(entityProvider.entitiesFor(webpage)).thenReturn(Lists.newArrayList(simpleEntity()));
 
         analyzer.analyze(webpage);
 
@@ -43,7 +44,7 @@ public class TestsNamedEntityAnalyzer {
     @Test
     public void createRelationsBetweenConceptsAndPages() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(Lists.newArrayList(simpleNamedEntity()));
+        when(entityProvider.entitiesFor(webpage)).thenReturn(Lists.newArrayList(simpleEntity()));
 
         analyzer.analyze(webpage);
 
@@ -65,18 +66,18 @@ public class TestsNamedEntityAnalyzer {
         assertThat(subjects.size(), is(3));
     }
 
-    private List<NamedEntity> complexNamedEntities() {
-        List<NamedEntity> result = Lists.newArrayList();
-        final NamedEntity namedEntity = new NamedEntity();
-        namedEntity.text = "Agile";
-        namedEntity.language = "english";
-        namedEntity.type = "development";
-        final NamedEntity anotherNamedEntity = new NamedEntity();
-        anotherNamedEntity.text = "Not agile";
-        anotherNamedEntity.language = "french";
-        anotherNamedEntity.type = "boat";
-        result.add(namedEntity);
-        result.add(anotherNamedEntity);
+    private List<AlchemyXmlEntity> complexNamedEntities() {
+        List<AlchemyXmlEntity> result = Lists.newArrayList();
+        final AlchemyXmlEntity alchemyXmlEntity = new AlchemyXmlEntity();
+        alchemyXmlEntity.text = "Agile";
+        alchemyXmlEntity.language = "english";
+        alchemyXmlEntity.type = "development";
+        final AlchemyXmlEntity anotherEntity = new AlchemyXmlEntity();
+        anotherEntity.text = "Not agile";
+        anotherEntity.language = "french";
+        anotherEntity.type = "boat";
+        result.add(alchemyXmlEntity);
+        result.add(anotherEntity);
         return result;
     }
 
@@ -85,12 +86,12 @@ public class TestsNamedEntityAnalyzer {
         assertThat(relation.getRight(), is(right));
     }
 
-    private NamedEntity simpleNamedEntity() {
-        final NamedEntity namedEntity = new NamedEntity();
-        namedEntity.text = "Agile";
-        namedEntity.language = "english";
-        namedEntity.type = "development";
-        return namedEntity;
+    private AlchemyXmlEntity simpleEntity() {
+        final AlchemyXmlEntity alchemyXmlEntity = new AlchemyXmlEntity();
+        alchemyXmlEntity.text = "Agile";
+        alchemyXmlEntity.language = "english";
+        alchemyXmlEntity.type = "development";
+        return alchemyXmlEntity;
     }
 
     private NamedEntityProvider entityProvider;
