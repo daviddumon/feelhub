@@ -8,6 +8,7 @@ import org.restlet.*;
 import org.restlet.data.Method;
 
 import java.io.*;
+import java.net.URLEncoder;
 
 public class AlchemyLink {
 
@@ -16,8 +17,9 @@ public class AlchemyLink {
         apiKey = steambeatApplicationProperties.getAlchemyApiKey();
     }
 
-    public InputStream get(final String uri) {
-        final Request request = Requests.create(Method.GET, uri);
+    public InputStream get(final String webPageUri) {
+        final String uri = buildUri(webPageUri);
+        final Request request = Requests.create(Method.GET, webPageUri);
         final Client client = Clients.create();
         try {
             final Response response = client.handle(request);
@@ -31,6 +33,16 @@ public class AlchemyLink {
         }
     }
 
+    private String buildUri(final String webPageUri) {
+        StringBuilder uri = new StringBuilder();
+        try {
+            uri.append(requestUri).append(apiKey).append("&url=").append(URLEncoder.encode(webPageUri, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return uri.toString();
+    }
+
     private InputStream copyStream(final Response response) throws IOException {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         ByteStreams.copy(response.getEntity().getStream(), output);
@@ -39,5 +51,6 @@ public class AlchemyLink {
         return result;
     }
 
-    private String apiKey;
+    private final String apiKey;
+    private final String requestUri = "http://access.alchemyapi.com/calls/url/URLGetRankedNamedEntities?apikey=";
 }

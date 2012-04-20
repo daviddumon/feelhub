@@ -32,6 +32,8 @@ public class TestsAlchemyNamedEntityProvider {
 
         assertThat(results, notNullValue());
         assertThat(results.size(), is(37));
+        final AlchemyXmlEntity alchemyXmlEntity = results.get(0);
+        assertThat(alchemyXmlEntity.language, is("english"));
     }
 
     private AlchemyNamedEntityProvider alchemyNamedEntityProvider;
