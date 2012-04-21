@@ -18,6 +18,7 @@ public class Relation extends BaseEntity {
         leftId = left.getId();
         rightId = right.getId();
         this.creationDate = new DateTime();
+        this.weight = 1;
     }
 
     @Override
@@ -45,6 +46,11 @@ public class Relation extends BaseEntity {
         return creationDate;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
+    private int weight;
     private UUID leftId;
     private UUID rightId;
     private UUID id;

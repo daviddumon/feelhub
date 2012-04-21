@@ -35,6 +35,7 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
         assertThat(relationFound.get("leftId").toString(), is(relation.getLeftId().toString()));
         assertThat(relationFound.get("rightId").toString(), is(relation.getRightId().toString()));
         assertThat(relationFound.get("creationDate"), is((Object)relation.getCreationDate().getMillis()));
+        assertThat(relationFound.get("weight"), is((Object) 1));
     }
 
     @Test

@@ -75,6 +75,18 @@ public class TestsAlchemyEntityAnalyzer {
         assertThat(relations.size(), is(30));
     }
 
+    @Test
+    public void initialRelationsHaveAWeightOfOne() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(1));
+
+        analyzer.analyze(webpage);
+
+        final List<Relation> relations = Repositories.relations().getAll();
+        assertThat(relations.get(0).getWeight(), is(1));
+        assertThat(relations.get(1).getWeight(), is(1));
+    }
+
     private void testRelation(final Subject left, final Subject right, final Relation relation) {
         assertThat(relation.getLeft(), is(left));
         assertThat(relation.getRight(), is(right));
