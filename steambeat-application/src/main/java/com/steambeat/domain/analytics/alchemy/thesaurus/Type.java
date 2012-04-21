@@ -29,5 +29,9 @@ public class Type {
         return Objects.hashCode(description);
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     private String description;
 }

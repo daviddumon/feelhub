@@ -37,7 +37,7 @@ public class AlchemyFactoryForTest {
         entity.disambiguated.umbel = "umbel" + i;
         entity.disambiguated.freebase = "freebase" + i;
         entity.disambiguated.ciaFactbook = "ciafactbook" + i;
-        entity.disambiguated.census = "census" + i;
+        entity.disambiguated.census = ""; // for testing purpose
         entity.disambiguated.geonames = "geonames" + i;
         entity.disambiguated.musicBrainz = "musicbrainz" + i;
         entity.disambiguated.crunchbase = "crunchbase" + i;

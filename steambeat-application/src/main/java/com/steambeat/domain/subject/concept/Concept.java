@@ -32,20 +32,20 @@ public class Concept extends Subject {
         return text;
     }
 
-    public Language getLanguage() {
+    public String getLanguage() {
         return language;
     }
 
     void setLanguage(final Language language) {
-        this.language = language;
+        this.language = language.getCode();
     }
 
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
     public void setType(final Type type) {
-        this.type = type;
+        this.type = type.getDescription();
     }
 
     public double getRelevance() {
@@ -80,12 +80,12 @@ public class Concept extends Subject {
         this.subTypes = subTypes;
     }
 
-    public Uri getWebsite() {
-        return website;
+    public String getWebsite() {
+        return website.toString();
     }
 
     public void setWebsite(final Uri website) {
-        this.website = website;
+        this.website = website.toString();
     }
 
     public String getGeo() {
@@ -96,112 +96,112 @@ public class Concept extends Subject {
         this.geo = geo;
     }
 
-    public Uri getDbpedia() {
-        return dbpedia;
+    public String getDbpedia() {
+        return dbpedia.toString();
     }
 
     public void setDbpedia(final Uri dbpedia) {
-        this.dbpedia = dbpedia;
+        this.dbpedia = dbpedia.toString();
     }
 
-    public Uri getYago() {
-        return yago;
+    public String getYago() {
+        return yago.toString();
     }
 
     public void setYago(final Uri yago) {
-        this.yago = yago;
+        this.yago = yago.toString();
     }
 
-    public Uri getOpencyc() {
-        return opencyc;
+    public String getOpencyc() {
+        return opencyc.toString();
     }
 
     public void setOpencyc(final Uri opencyc) {
-        this.opencyc = opencyc;
+        this.opencyc = opencyc.toString();
     }
 
-    public Uri getUmbel() {
-        return umbel;
+    public String getUmbel() {
+        return umbel.toString();
     }
 
     public void setUmbel(final Uri umbel) {
-        this.umbel = umbel;
+        this.umbel = umbel.toString();
     }
 
-    public Uri getFreebase() {
-        return freebase;
+    public String getFreebase() {
+        return freebase.toString();
     }
 
     public void setFreebase(final Uri freebase) {
-        this.freebase = freebase;
+        this.freebase = freebase.toString();
     }
 
-    public Uri getCiaFactbook() {
-        return ciaFactbook;
+    public String getCiaFactbook() {
+        return ciaFactbook.toString();
     }
 
     public void setCiaFactbook(final Uri ciaFactbook) {
-        this.ciaFactbook = ciaFactbook;
+        this.ciaFactbook = ciaFactbook.toString();
     }
 
-    public Uri getCensus() {
-        return census;
+    public String getCensus() {
+        return census.toString();
     }
 
     public void setCensus(final Uri census) {
-        this.census = census;
+        this.census = census.toString();
     }
 
-    public Uri getGeonames() {
-        return geonames;
+    public String getGeonames() {
+        return geonames.toString();
     }
 
     public void setGeonames(final Uri geonames) {
-        this.geonames = geonames;
+        this.geonames = geonames.toString();
     }
 
-    public Uri getMusicBrainz() {
-        return musicBrainz;
+    public String getMusicBrainz() {
+        return musicBrainz.toString();
     }
 
     public void setMusicBrainz(final Uri musicBrainz) {
-        this.musicBrainz = musicBrainz;
+        this.musicBrainz = musicBrainz.toString();
     }
 
-    public Uri getCrunchbase() {
-        return crunchbase;
+    public String getCrunchbase() {
+        return crunchbase.toString();
     }
 
     public void setCrunchbase(final Uri crunchbase) {
-        this.crunchbase = crunchbase;
+        this.crunchbase = crunchbase.toString();
     }
 
-    public Uri getSemanticCrunchbase() {
-        return semanticCrunchbase;
+    public String getSemanticCrunchbase() {
+        return semanticCrunchbase.toString();
     }
 
     public void setSemanticCrunchbase(final Uri semanticCrunchbase) {
-        this.semanticCrunchbase = semanticCrunchbase;
+        this.semanticCrunchbase = semanticCrunchbase.toString();
     }
 
     private String text;
-    private Language language;
-    private Type type;
+    private String language;
+    private String type;
     private double relevance;
     private int count;
     private String name;
     private List<String> subTypes = Lists.newArrayList();
-    private Uri website;
+    private String website;
     private String geo;
-    private Uri dbpedia;
-    private Uri yago;
-    private Uri opencyc;
-    private Uri umbel;
-    private Uri freebase;
-    private Uri ciaFactbook;
-    private Uri census;
-    private Uri geonames;
-    private Uri musicBrainz;
-    private Uri crunchbase;
-    private Uri semanticCrunchbase;
+    private String dbpedia;
+    private String yago;
+    private String opencyc;
+    private String umbel;
+    private String freebase;
+    private String ciaFactbook;
+    private String census;
+    private String geonames;
+    private String musicBrainz;
+    private String crunchbase;
+    private String semanticCrunchbase;
 }

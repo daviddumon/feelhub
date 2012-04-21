@@ -27,5 +27,9 @@ public class Language {
         return Objects.hashCode(code);
     }
 
+    public String getCode() {
+        return code;
+    }
+
     private String code;
 }

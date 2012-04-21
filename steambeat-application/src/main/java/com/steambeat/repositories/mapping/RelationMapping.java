@@ -14,5 +14,6 @@ public class RelationMapping extends EntityMap<Relation> {
         id(element().getId()).natural();
         property(element().getLeftId());
         property(element().getRightId());
+        property(element().getCreationDate());
     }
 }

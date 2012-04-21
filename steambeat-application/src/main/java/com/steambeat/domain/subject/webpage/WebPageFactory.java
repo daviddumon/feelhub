@@ -24,8 +24,8 @@ public class WebPageFactory {
         final WebPage webPage = new WebPage(association);
         webPage.setScraper(new UriScraper());
         DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(webPage));
-        //final AlchemyEntityAnalyzer alchemyEntityAnalyzer = new AlchemyEntityAnalyzer(new AlchemyJsonEntityProvider(new AlchemyLink()));
-        //alchemyEntityAnalyzer.analyze(webPage);
+        final AlchemyEntityAnalyzer alchemyEntityAnalyzer = new AlchemyEntityAnalyzer(new AlchemyJsonEntityProvider(new AlchemyLink()));
+        alchemyEntityAnalyzer.analyze(webPage);
         return webPage;
     }
 }

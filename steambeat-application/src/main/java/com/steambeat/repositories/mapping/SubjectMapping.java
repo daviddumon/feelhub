@@ -41,6 +41,26 @@ public class SubjectMapping extends EntityMap<Subject> {
 
             @Override
             protected void map() {
+                property(element().getType());
+                property(element().getRelevance());
+                property(element().getText());
+                property(element().getCount());
+                property(element().getLanguage());
+                property(element().getName());
+                collection(element().getSubTypes());
+                property(element().getWebsite());
+                property(element().getGeo());
+                property(element().getDbpedia());
+                property(element().getYago());
+                property(element().getOpencyc());
+                property(element().getUmbel());
+                property(element().getFreebase());
+                property(element().getCiaFactbook());
+                property(element().getCensus());
+                property(element().getGeonames());
+                property(element().getMusicBrainz());
+                property(element().getCrunchbase());
+                property(element().getSemanticCrunchbase());
             }
         });
 
