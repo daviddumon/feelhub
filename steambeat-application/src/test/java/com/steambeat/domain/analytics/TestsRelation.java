@@ -3,6 +3,7 @@ package com.steambeat.domain.analytics;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.hamcrest.Matchers;
@@ -17,6 +18,9 @@ public class TestsRelation {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Before
     public void setUp() {
@@ -43,6 +47,11 @@ public class TestsRelation {
     @Test
     public void canGetRight() {
         assertThat(relation.getRight(), is((Subject) right));
+    }
+
+    @Test
+    public void hasACreationDate() {
+        assertThat(relation.getCreationDate(), is(time.getNow()));
     }
 
     private Relation relation;

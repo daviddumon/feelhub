@@ -3,6 +3,7 @@ package com.steambeat.domain.analytics;
 import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.Repositories;
+import org.joda.time.DateTime;
 
 import java.util.UUID;
 
@@ -16,6 +17,7 @@ public class Relation extends BaseEntity {
         this.id = UUID.randomUUID();
         leftId = left.getId();
         rightId = right.getId();
+        this.creationDate = new DateTime();
     }
 
     @Override
@@ -39,7 +41,12 @@ public class Relation extends BaseEntity {
         return rightId;
     }
 
+    public DateTime getCreationDate() {
+        return creationDate;
+    }
+
     private UUID leftId;
     private UUID rightId;
     private UUID id;
+    private DateTime creationDate;
 }

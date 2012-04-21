@@ -24,4 +24,8 @@ public class TestFactories {
     public static StatisticsFactoryForTest statistics() {
         return new StatisticsFactoryForTest();
     }
+
+    public static AlchemyFactoryForTest alchemy() {
+        return new AlchemyFactoryForTest();
+    }
 }

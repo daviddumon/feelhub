@@ -2,6 +2,7 @@ package com.steambeat.domain.subject.webpage;
 
 import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.alchemy.*;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.repositories.Repositories;
 
