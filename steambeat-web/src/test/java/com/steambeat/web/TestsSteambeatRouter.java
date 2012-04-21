@@ -1,8 +1,8 @@
 package com.steambeat.web;
 
 import com.google.inject.*;
-import com.steambeat.web.test.guice.SteambeatModuleForTest;
 import com.steambeat.web.guice.GuiceFinder;
+import com.steambeat.web.test.guice.SteambeatModuleForTest;
 import org.junit.Test;
 import org.restlet.*;
 import org.restlet.data.Method;

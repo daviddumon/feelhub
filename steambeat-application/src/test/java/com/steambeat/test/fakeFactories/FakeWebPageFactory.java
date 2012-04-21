@@ -1,13 +1,14 @@
 package com.steambeat.test.fakeFactories;
 
 import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.alchemy.FakeAlchemyEntityAnalyzer;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.test.FakeUriScraper;
 
 public class FakeWebPageFactory extends WebPageFactory {
 
     public FakeWebPageFactory() {
-        super();
+        super(new FakeUriScraper(), new FakeAlchemyEntityAnalyzer());
     }
 
     @Override

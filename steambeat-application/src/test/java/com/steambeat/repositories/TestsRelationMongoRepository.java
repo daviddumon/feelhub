@@ -5,7 +5,6 @@ import com.steambeat.domain.Repository;
 import com.steambeat.domain.analytics.Relation;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.testFactories.TestFactories;
-import org.apache.james.mime4j.field.datetime.DateTime;
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -34,7 +33,7 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
         assertThat(relationFound.get("_id").toString(), is(relation.getId().toString()));
         assertThat(relationFound.get("leftId").toString(), is(relation.getLeftId().toString()));
         assertThat(relationFound.get("rightId").toString(), is(relation.getRightId().toString()));
-        assertThat(relationFound.get("creationDate"), is((Object)relation.getCreationDate().getMillis()));
+        assertThat(relationFound.get("creationDate"), is((Object) relation.getCreationDate().getMillis()));
         assertThat(relationFound.get("weight"), is((Object) 1));
     }
 

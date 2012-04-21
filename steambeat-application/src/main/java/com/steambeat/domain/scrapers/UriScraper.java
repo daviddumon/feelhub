@@ -3,7 +3,6 @@ package com.steambeat.domain.scrapers;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.domain.scrapers.extractors.*;
-import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 

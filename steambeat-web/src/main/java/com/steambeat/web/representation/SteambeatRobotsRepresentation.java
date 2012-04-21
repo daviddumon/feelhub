@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.io.*;
 import org.joda.time.DateTime;
 import org.restlet.data.*;
-import org.restlet.representation.*;
+import org.restlet.representation.StreamRepresentation;
 
 import java.io.*;
 import java.util.List;

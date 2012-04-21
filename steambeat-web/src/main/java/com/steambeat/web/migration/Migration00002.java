@@ -5,6 +5,7 @@ import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPageFactory;
 import com.steambeat.repositories.*;
+import com.steambeat.web.migration.fake.*;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Migration00002 extends Migration {
 
     @Override
     protected void doRun() {
-        final SubjectService subjectService = new SubjectService(new SubjectFactory(new WebPageFactory()));
+        final SubjectService subjectService = new SubjectService(new SubjectFactory(new WebPageFactory(new MigrationUriScraper(), new MigrationAlchemyEntityAnalyzer())));
         Repositories.initialize(new MongoRepositories(provider));
         final Steam steam = Repositories.subjects().getSteam();
         final List<Subject> subjects = Repositories.subjects().getAll();

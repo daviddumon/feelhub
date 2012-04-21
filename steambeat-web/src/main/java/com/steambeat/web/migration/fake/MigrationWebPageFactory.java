@@ -7,7 +7,7 @@ import com.steambeat.domain.subject.webpage.*;
 public class MigrationWebPageFactory extends WebPageFactory {
 
     public MigrationWebPageFactory() {
-        super();
+        super(new MigrationUriScraper(), new MigrationAlchemyEntityAnalyzer());
     }
 
     @Override

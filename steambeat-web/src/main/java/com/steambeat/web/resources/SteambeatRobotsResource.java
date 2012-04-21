@@ -1,7 +1,7 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 import com.steambeat.web.representation.SteambeatRobotsRepresentation;
+import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 import org.restlet.representation.Representation;
 import org.restlet.resource.*;
 

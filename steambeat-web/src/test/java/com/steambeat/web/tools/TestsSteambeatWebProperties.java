@@ -1,6 +1,5 @@
 package com.steambeat.web.tools;
 
-import com.steambeat.web.tools.SteambeatWebProperties;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.*;

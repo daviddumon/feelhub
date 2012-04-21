@@ -1,11 +1,11 @@
 package com.steambeat.web;
 
 import com.google.inject.*;
-import com.steambeat.web.tools.SteambeatWebProperties;
 import com.steambeat.web.guice.SteambeatModule;
 import com.steambeat.web.migration.MigrationRunner;
 import com.steambeat.web.migration.web.*;
 import com.steambeat.web.status.SteambeatStatusService;
+import com.steambeat.web.tools.SteambeatWebProperties;
 import freemarker.template.*;
 import org.restlet.*;
 import org.restlet.resource.Directory;

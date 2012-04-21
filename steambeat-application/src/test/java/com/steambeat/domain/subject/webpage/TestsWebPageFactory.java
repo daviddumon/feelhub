@@ -2,6 +2,7 @@ package com.steambeat.domain.subject.webpage;
 
 import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.alchemy.FakeAlchemyEntityAnalyzer;
 import com.steambeat.domain.analytics.identifiers.uri.Uri;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
@@ -28,7 +29,7 @@ public class TestsWebPageFactory {
 
     @Before
     public void before() {
-        webPageFactory = new WebPageFactory();
+        webPageFactory = new WebPageFactory(new FakeUriScraper(), new FakeAlchemyEntityAnalyzer());
     }
 
     @Test

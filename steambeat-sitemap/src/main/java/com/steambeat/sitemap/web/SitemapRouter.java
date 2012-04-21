@@ -2,7 +2,7 @@ package com.steambeat.sitemap.web;
 
 import com.steambeat.sitemap.web.resources.*;
 import org.restlet.Context;
-import org.restlet.routing.*;
+import org.restlet.routing.Router;
 
 public class SitemapRouter extends Router {
 

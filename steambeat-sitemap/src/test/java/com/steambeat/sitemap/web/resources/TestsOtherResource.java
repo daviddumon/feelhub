@@ -4,8 +4,8 @@ import com.steambeat.sitemap.web.*;
 import org.junit.*;
 import org.restlet.data.Status;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsOtherResource {
 

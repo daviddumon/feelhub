@@ -39,7 +39,7 @@ public class AlchemyEntityAnalyzer {
     private void createRelations(final WebPage webpage) {
         for (Concept concept : concepts) {
             link(webpage, concept);
-            for(int i = concepts.lastIndexOf(concept); i < concepts.size(); i++) {
+            for (int i = concepts.lastIndexOf(concept); i < concepts.size(); i++) {
                 Concept otherConcept = concepts.get(i);
                 if (!concept.equals(otherConcept)) {
                     link(concept, otherConcept);
