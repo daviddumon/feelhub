@@ -1,10 +1,12 @@
 package com.steambeat.domain.analytics.alchemy;
 
+import com.steambeat.application.AssociationService;
 import com.steambeat.domain.analytics.Relation;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.concept.*;
+import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.repositories.*;
+import com.steambeat.repositories.Repositories;
+import com.steambeat.test.FakeUriPathResolver;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -15,8 +17,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-@Ignore
-public class TestsAlchemyEntityAnalyzer extends TestWithMongoRepository {
+public class TestsAlchemyEntityAnalyzer {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -24,7 +25,7 @@ public class TestsAlchemyEntityAnalyzer extends TestWithMongoRepository {
     @Before
     public void setUp() throws Exception {
         entityProvider = mock(AlchemyEntityProvider.class);
-        analyzer = new AlchemyEntityAnalyzer(entityProvider, getProvider());
+        analyzer = new AlchemyEntityAnalyzer(entityProvider, new AssociationService(new FakeUriPathResolver()));
     }
 
     @Test
@@ -98,6 +99,16 @@ public class TestsAlchemyEntityAnalyzer extends TestWithMongoRepository {
 
         final List<Subject> subjects = Repositories.subjects().getAll();
         assertThat(subjects.size(), is(3));
+    }
+
+    @Test
+    public void canCreateAssociationFromEntities() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(2));
+
+        analyzer.analyze(webpage);
+
+        assertThat(Repositories.associations().getAll().size(), is(5));
     }
 
     private void testRelation(final Subject left, final Subject right, final Relation relation) {

@@ -3,6 +3,7 @@ package com.steambeat.application;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.analytics.identifiers.tag.Tag;
 import com.steambeat.domain.analytics.identifiers.uri.*;
 import com.steambeat.repositories.Repositories;
 
@@ -20,6 +21,20 @@ public class AssociationService {
         if (association == null) {
             throw new AssociationNotFound();
         }
+        return association;
+    }
+
+    public Association lookUp(final Tag tag) {
+        final Association association = Repositories.associations().get(tag.toString());
+        if (association == null) {
+            throw new AssociationNotFound();
+        }
+        return association;
+    }
+
+    public Association createAssociationFor(final Tag tag, final UUID id) {
+        final Association association = new Association(tag, id);
+        Repositories.associations().add(association);
         return association;
     }
 

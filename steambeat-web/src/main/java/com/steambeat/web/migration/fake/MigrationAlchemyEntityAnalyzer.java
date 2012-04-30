@@ -1,13 +1,13 @@
 package com.steambeat.web.migration.fake;
 
+import com.steambeat.application.AssociationService;
 import com.steambeat.domain.analytics.alchemy.*;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.repositories.SessionProvider;
 
 public class MigrationAlchemyEntityAnalyzer extends AlchemyEntityAnalyzer {
 
     public MigrationAlchemyEntityAnalyzer() {
-        super(new AlchemyJsonEntityProvider(new AlchemyLink()), new SessionProvider());
+        super(new AlchemyJsonEntityProvider(new AlchemyLink()), new AssociationService(new MigrationUriPathResolver()));
     }
 
     @Override
