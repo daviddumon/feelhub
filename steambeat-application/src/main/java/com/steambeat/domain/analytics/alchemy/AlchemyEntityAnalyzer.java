@@ -7,15 +7,17 @@ import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.repositories.Repositories;
+import com.steambeat.repositories.*;
+import org.mongolink.domain.criteria.*;
 
-import java.util.List;
+import java.util.*;
 
 public class AlchemyEntityAnalyzer {
 
     @Inject
-    public AlchemyEntityAnalyzer(final AlchemyEntityProvider provider) {
-        this.provider = provider;
+    public AlchemyEntityAnalyzer(final AlchemyEntityProvider alchemyEntityProvider, final SessionProvider sessionProvider) {
+        this.provider = alchemyEntityProvider;
+        this.sessionProvider = sessionProvider;
     }
 
     public void analyze(final WebPage webpage) {
@@ -31,9 +33,32 @@ public class AlchemyEntityAnalyzer {
     }
 
     private Concept createConcept(final AlchemyJsonEntity alchemyJsonEntity) {
-        final Concept concept = new ConceptFactory().newConcept(alchemyJsonEntity);
-        Repositories.subjects().add(concept);
-        return concept;
+        final UUID id = findExistingConcept(alchemyJsonEntity);
+        if (id == null) {
+            final Concept concept = new ConceptFactory().newConcept(alchemyJsonEntity);
+            Repositories.subjects().add(concept);
+            return concept;
+        } else {
+            return new ConceptFactory().lookUpConcept(id);
+        }
+    }
+
+    private UUID findExistingConcept(final AlchemyJsonEntity alchemyJsonEntity) {
+        final Criteria criteria = sessionProvider.get().createCriteria(Concept.class);
+        criteria.add(Restrictions.equals("text", getGoodText(alchemyJsonEntity)));
+        final List<Concept> concepts = criteria.list();
+        if (concepts.isEmpty()) {
+            return null;
+        } else {
+            return concepts.get(0).getId();
+        }
+    }
+
+    private String getGoodText(final AlchemyJsonEntity entity) {
+        if (entity.disambiguated.name.isEmpty()) {
+            return entity.text;
+        }
+        return entity.disambiguated.name;
     }
 
     private void createRelations(final WebPage webpage) {
@@ -60,5 +85,6 @@ public class AlchemyEntityAnalyzer {
     }
 
     private final AlchemyEntityProvider provider;
+    private SessionProvider sessionProvider;
     private List<Concept> concepts = Lists.newArrayList();
 }

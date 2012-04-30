@@ -150,22 +150,9 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
         assertThat(conceptFound.get("_id"), is((Object) concept.getId()));
         assertThat(conceptFound.get("type"), is((Object) concept.getType()));
         assertThat(conceptFound.get("text"), is((Object) concept.getText()));
-        assertThat(conceptFound.get("count"), is((Object) concept.getCount()));
         assertThat(conceptFound.get("language"), is((Object) concept.getLanguage()));
-        assertThat(conceptFound.get("name"), is((Object) concept.getName()));
         assertThat(conceptFound.get("website"), is((Object) concept.getWebsite()));
         assertThat(conceptFound.get("geo"), is((Object) concept.getGeo()));
-        assertThat(conceptFound.get("dbpedia"), is((Object) concept.getDbpedia()));
-        assertThat(conceptFound.get("yago"), is((Object) concept.getYago()));
-        assertThat(conceptFound.get("opencyc"), is((Object) concept.getOpencyc()));
-        assertThat(conceptFound.get("umbel"), is((Object) concept.getUmbel()));
-        assertThat(conceptFound.get("freebase"), is((Object) concept.getFreebase()));
-        assertThat(conceptFound.get("ciaFactbook"), is((Object) concept.getCiaFactbook()));
-        assertThat(conceptFound.get("census"), is((Object) concept.getCensus()));
-        assertThat(conceptFound.get("geonames"), is((Object) concept.getGeonames()));
-        assertThat(conceptFound.get("musicBrainz"), is((Object) concept.getMusicBrainz()));
-        assertThat(conceptFound.get("crunchbase"), is((Object) concept.getCrunchbase()));
-        assertThat(conceptFound.get("semanticCrunchbase"), is((Object) concept.getSemanticCrunchbase()));
     }
 
     protected SubjectRepository repo;

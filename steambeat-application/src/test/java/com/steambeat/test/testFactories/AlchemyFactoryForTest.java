@@ -44,4 +44,22 @@ public class AlchemyFactoryForTest {
         entity.disambiguated.semanticCrunchbase = "semanticcrunchbase" + i;
         return entity;
     }
+
+    public List<AlchemyJsonEntity> entitiesWithoutDisambiguated(final int quantity) {
+        List<AlchemyJsonEntity> result = Lists.newArrayList();
+        for (int i = 0; i < quantity; i++) {
+            result.add(createEntityWithoutDisambiguated(i));
+        }
+        return result;
+    }
+
+    private AlchemyJsonEntity createEntityWithoutDisambiguated(final int i) {
+        final AlchemyJsonEntity entity = new AlchemyJsonEntity();
+        entity.text = "text" + i;
+        entity.language = "english";
+        entity.type = "type" + i;
+        entity.relevance = 0.5;
+        entity.count = 1;
+        return entity;
+    }
 }

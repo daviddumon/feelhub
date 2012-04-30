@@ -56,22 +56,6 @@ public class Concept extends Subject {
         this.relevance = relevance;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(final int count) {
-        this.count = count;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
     public List<String> getSubTypes() {
         return subTypes;
     }
@@ -96,112 +80,11 @@ public class Concept extends Subject {
         this.geo = geo;
     }
 
-    public String getDbpedia() {
-        return dbpedia.toString();
-    }
-
-    public void setDbpedia(final Uri dbpedia) {
-        this.dbpedia = dbpedia.toString();
-    }
-
-    public String getYago() {
-        return yago.toString();
-    }
-
-    public void setYago(final Uri yago) {
-        this.yago = yago.toString();
-    }
-
-    public String getOpencyc() {
-        return opencyc.toString();
-    }
-
-    public void setOpencyc(final Uri opencyc) {
-        this.opencyc = opencyc.toString();
-    }
-
-    public String getUmbel() {
-        return umbel.toString();
-    }
-
-    public void setUmbel(final Uri umbel) {
-        this.umbel = umbel.toString();
-    }
-
-    public String getFreebase() {
-        return freebase.toString();
-    }
-
-    public void setFreebase(final Uri freebase) {
-        this.freebase = freebase.toString();
-    }
-
-    public String getCiaFactbook() {
-        return ciaFactbook.toString();
-    }
-
-    public void setCiaFactbook(final Uri ciaFactbook) {
-        this.ciaFactbook = ciaFactbook.toString();
-    }
-
-    public String getCensus() {
-        return census.toString();
-    }
-
-    public void setCensus(final Uri census) {
-        this.census = census.toString();
-    }
-
-    public String getGeonames() {
-        return geonames.toString();
-    }
-
-    public void setGeonames(final Uri geonames) {
-        this.geonames = geonames.toString();
-    }
-
-    public String getMusicBrainz() {
-        return musicBrainz.toString();
-    }
-
-    public void setMusicBrainz(final Uri musicBrainz) {
-        this.musicBrainz = musicBrainz.toString();
-    }
-
-    public String getCrunchbase() {
-        return crunchbase.toString();
-    }
-
-    public void setCrunchbase(final Uri crunchbase) {
-        this.crunchbase = crunchbase.toString();
-    }
-
-    public String getSemanticCrunchbase() {
-        return semanticCrunchbase.toString();
-    }
-
-    public void setSemanticCrunchbase(final Uri semanticCrunchbase) {
-        this.semanticCrunchbase = semanticCrunchbase.toString();
-    }
-
     private String text;
     private String language;
     private String type;
     private double relevance;
-    private int count;
-    private String name;
     private List<String> subTypes = Lists.newArrayList();
     private String website;
     private String geo;
-    private String dbpedia;
-    private String yago;
-    private String opencyc;
-    private String umbel;
-    private String freebase;
-    private String ciaFactbook;
-    private String census;
-    private String geonames;
-    private String musicBrainz;
-    private String crunchbase;
-    private String semanticCrunchbase;
 }

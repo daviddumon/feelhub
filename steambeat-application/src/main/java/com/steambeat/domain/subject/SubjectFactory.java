@@ -32,5 +32,9 @@ public class SubjectFactory {
         return Repositories.subjects().get(subjectId);
     }
 
+    public Concept lookUpConcept(final UUID subjectId) {
+        return new ConceptFactory().lookUpConcept(subjectId);
+    }
+
     private final WebPageFactory webPageFactory;
 }
