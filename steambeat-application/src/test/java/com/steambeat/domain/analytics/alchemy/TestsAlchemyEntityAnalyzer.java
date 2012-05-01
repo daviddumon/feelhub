@@ -2,6 +2,7 @@ package com.steambeat.domain.analytics.alchemy;
 
 import com.steambeat.application.AssociationService;
 import com.steambeat.domain.analytics.Relation;
+import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
@@ -78,15 +79,16 @@ public class TestsAlchemyEntityAnalyzer {
     }
 
     @Test
-    public void initialRelationsHaveAWeightOfOne() {
+    public void initialRelationWeightIsRelevanceOfEntityPlusOne() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(1));
+        final List<AlchemyJsonEntity> entities = TestFactories.alchemy().entities(1);
+        when(entityProvider.entitiesFor(webpage)).thenReturn(entities);
 
         analyzer.analyze(webpage);
 
         final List<Relation> relations = Repositories.relations().getAll();
-        assertThat(relations.get(0).getWeight(), is(1));
-        assertThat(relations.get(1).getWeight(), is(1));
+        assertThat(relations.get(0).getWeight(), is(entities.get(0).relevance + 1));
+        assertThat(relations.get(1).getWeight(), is(entities.get(0).relevance + 1));
     }
 
     @Test

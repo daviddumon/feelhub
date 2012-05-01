@@ -5,7 +5,7 @@ import com.steambeat.application.SubjectService;
 import com.steambeat.domain.analytics.Relation;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.resources.SteambeatJsonException;
-import com.steambeat.web.search.RelationSearch;
+import com.steambeat.web.search.*;
 import org.restlet.data.*;
 import org.restlet.representation.Representation;
 import org.restlet.resource.*;
@@ -31,7 +31,7 @@ public class RelationsResource extends ServerResource {
         setUpSearchForLimitParameter(form);
         setUpSearchForSkipParameter(form);
         setUpSearchForFromIdParameter(form);
-        relations = relationSearch.execute();
+        relations = relationSearch.withSort("weight", Search.REVERSE_ORDER).execute();
     }
 
     private void setUpSearchForLimitParameter(final Form form) {

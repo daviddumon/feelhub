@@ -42,7 +42,6 @@ public class SubjectMapping extends EntityMap<Subject> {
             @Override
             protected void map() {
                 property(element().getType());
-                property(element().getRelevance());
                 property(element().getText());
                 property(element().getLanguage());
                 collection(element().getSubTypes());

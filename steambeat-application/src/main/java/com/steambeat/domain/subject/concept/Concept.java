@@ -14,6 +14,10 @@ public class Concept extends Subject {
     public Concept() {
     }
 
+    public Concept(final UUID id) {
+        super(id);
+    }
+
     public Concept(final String text) {
         super(UUID.randomUUID());
         this.text = text;
@@ -48,14 +52,6 @@ public class Concept extends Subject {
         this.type = type.getDescription();
     }
 
-    public double getRelevance() {
-        return relevance;
-    }
-
-    public void setRelevance(final double relevance) {
-        this.relevance = relevance;
-    }
-
     public List<String> getSubTypes() {
         return subTypes;
     }
@@ -83,7 +79,6 @@ public class Concept extends Subject {
     private String text;
     private String language;
     private String type;
-    private double relevance;
     private List<String> subTypes = Lists.newArrayList();
     private String website;
     private String geo;

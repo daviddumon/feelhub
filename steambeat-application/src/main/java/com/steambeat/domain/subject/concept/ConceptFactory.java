@@ -13,7 +13,6 @@ public class ConceptFactory {
         final Concept concept = new Concept(getGoodText(entity));
         concept.setLanguage(Language.forString(entity.language));
         concept.setType(Type.forString(entity.type));
-        concept.setRelevance(entity.relevance);
         final AlchemyJsonDisambiguated disambiguated = entity.disambiguated;
         concept.setSubTypes(disambiguated.subType);
         concept.setWebsite(new Uri(disambiguated.website));

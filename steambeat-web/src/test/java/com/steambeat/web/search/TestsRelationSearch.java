@@ -75,11 +75,11 @@ public class TestsRelationSearch extends TestWithMongoRepository {
         final List<Relation> relations = relationSearch.withSort("weight", Search.REVERSE_ORDER).execute();
 
         assertThat(relations.size(), is(5));
-        assertThat(relations.get(0).getWeight(), is(4));
-        assertThat(relations.get(1).getWeight(), is(3));
-        assertThat(relations.get(2).getWeight(), is(2));
-        assertThat(relations.get(3).getWeight(), is(1));
-        assertThat(relations.get(4).getWeight(), is(0));
+        assertThat(relations.get(0).getWeight(), is(4.0));
+        assertThat(relations.get(1).getWeight(), is(3.0));
+        assertThat(relations.get(2).getWeight(), is(2.0));
+        assertThat(relations.get(3).getWeight(), is(1.0));
+        assertThat(relations.get(4).getWeight(), is(0.0));
     }
 
     @Test
@@ -90,9 +90,9 @@ public class TestsRelationSearch extends TestWithMongoRepository {
         final List<Relation> relations = relationSearch.withSkip(2).execute();
 
         assertThat(relations.size(), is(3));
-        assertThat(relations.get(0).getWeight(), is(2));
-        assertThat(relations.get(1).getWeight(), is(3));
-        assertThat(relations.get(2).getWeight(), is(4));
+        assertThat(relations.get(0).getWeight(), is(2.0));
+        assertThat(relations.get(1).getWeight(), is(3.0));
+        assertThat(relations.get(2).getWeight(), is(4.0));
     }
 
 

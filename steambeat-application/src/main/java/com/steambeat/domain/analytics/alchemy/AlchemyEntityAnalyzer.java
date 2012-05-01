@@ -22,18 +22,19 @@ public class AlchemyEntityAnalyzer {
     }
 
     public void analyze(final WebPage webpage) {
-        final List<AlchemyJsonEntity> results = provider.entitiesFor(webpage);
-        createAssociationsAndConcepts(results);
-        createRelations(webpage);
+        final List<AlchemyJsonEntity> entities = provider.entitiesFor(webpage);
+        analyzeEntities(entities, webpage);
+        createRelationsForConcepts();
     }
 
-    private void createAssociationsAndConcepts(final List<AlchemyJsonEntity> results) {
-        for (final AlchemyJsonEntity alchemyJsonEntity : results) {
-            createAssociationsAndConceptsForEntity(alchemyJsonEntity);
+    private void analyzeEntities(final List<AlchemyJsonEntity> entities, final WebPage webpage) {
+        for (final AlchemyJsonEntity alchemyJsonEntity : entities) {
+            final UUID conceptId = findOrCreateAssociationAndConceptFor(alchemyJsonEntity);
+            link(webpage, new Concept(conceptId), alchemyJsonEntity.relevance);
         }
     }
 
-    private void createAssociationsAndConceptsForEntity(final AlchemyJsonEntity alchemyJsonEntity) {
+    private UUID findOrCreateAssociationAndConceptFor(final AlchemyJsonEntity alchemyJsonEntity) {
         final UUID id = findExistingConcept(alchemyJsonEntity);
         if (id == null) {
             final Concept concept = createConcept(alchemyJsonEntity);
@@ -42,23 +43,10 @@ public class AlchemyEntityAnalyzer {
             if (!alchemyJsonEntity.disambiguated.name.isEmpty() && alchemyJsonEntity.disambiguated.name != alchemyJsonEntity.text) {
                 associationService.createAssociationFor(new Tag(alchemyJsonEntity.disambiguated.name), concept.getId());
             }
+            return concept.getId();
         } else {
             createMissingsAssociations(alchemyJsonEntity, id);
-        }
-    }
-
-    private void createMissingsAssociations(final AlchemyJsonEntity alchemyJsonEntity, final UUID id) {
-        tryToCreateTag(alchemyJsonEntity.text, id);
-        if (!alchemyJsonEntity.disambiguated.name.isEmpty() && alchemyJsonEntity.disambiguated.name != alchemyJsonEntity.text) {
-            tryToCreateTag(alchemyJsonEntity.disambiguated.name, id);
-        }
-    }
-
-    private void tryToCreateTag(final String text, final UUID id) {
-        try {
-            associationService.lookUp(new Tag(text));
-        } catch (AssociationNotFound e) {
-            associationService.createAssociationFor(new Tag(text), id);
+            return id;
         }
     }
 
@@ -77,15 +65,29 @@ public class AlchemyEntityAnalyzer {
         return null;
     }
 
+    private void createMissingsAssociations(final AlchemyJsonEntity alchemyJsonEntity, final UUID id) {
+        tryToCreateAssociation(alchemyJsonEntity.text, id);
+        if (!alchemyJsonEntity.disambiguated.name.isEmpty() && alchemyJsonEntity.disambiguated.name != alchemyJsonEntity.text) {
+            tryToCreateAssociation(alchemyJsonEntity.disambiguated.name, id);
+        }
+    }
+
+    private void tryToCreateAssociation(final String text, final UUID id) {
+        try {
+            associationService.lookUp(new Tag(text));
+        } catch (AssociationNotFound e) {
+            associationService.createAssociationFor(new Tag(text), id);
+        }
+    }
+
     private Concept createConcept(final AlchemyJsonEntity alchemyJsonEntity) {
         final Concept concept = new ConceptFactory().newConcept(alchemyJsonEntity);
         Repositories.subjects().add(concept);
         return concept;
     }
 
-    private void createRelations(final WebPage webpage) {
+    private void createRelationsForConcepts() {
         for (Concept concept : concepts) {
-            link(webpage, concept);
             for (int i = concepts.lastIndexOf(concept); i < concepts.size(); i++) {
                 Concept otherConcept = concepts.get(i);
                 if (!concept.equals(otherConcept)) {
@@ -96,14 +98,18 @@ public class AlchemyEntityAnalyzer {
     }
 
     private void link(final Subject left, final Subject right) {
-        final Relation relation1 = getRelationFactory().newRelation(left, right);
-        final Relation relation2 = getRelationFactory().newRelation(right, left);
-        Repositories.relations().add(relation1);
-        Repositories.relations().add(relation2);
+        link(left, right, 0);
     }
 
-    private RelationFactory getRelationFactory() {
-        return new RelationFactory();
+    private void link(final Subject left, final Subject right, final double additionalWeight) {
+        addRelation(left, right, additionalWeight);
+        addRelation(right, left, additionalWeight);
+    }
+
+    private void addRelation(final Subject from, final Subject to, final double additionalWeight) {
+        final Relation relation1 = new RelationFactory().newRelation(from, to);
+        relation1.addWeight(additionalWeight);
+        Repositories.relations().add(relation1);
     }
 
     private final AlchemyEntityProvider provider;
