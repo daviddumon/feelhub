@@ -13,10 +13,10 @@ public class Relation extends BaseEntity {
     public Relation() {
     }
 
-    public Relation(final Subject left, final Subject right) {
+    public Relation(final Subject from, final Subject to) {
         this.id = UUID.randomUUID();
-        leftId = left.getId();
-        rightId = right.getId();
+        fromId = from.getId();
+        toId = to.getId();
         this.creationDate = new DateTime();
         this.weight = 1;
     }
@@ -27,19 +27,19 @@ public class Relation extends BaseEntity {
     }
 
     public Subject getLeft() {
-        return Repositories.subjects().get(leftId);
+        return Repositories.subjects().get(fromId);
     }
 
     public Subject getRight() {
-        return Repositories.subjects().get(rightId);
+        return Repositories.subjects().get(toId);
     }
 
-    public UUID getLeftId() {
-        return leftId;
+    public UUID getFromId() {
+        return fromId;
     }
 
-    public UUID getRightId() {
-        return rightId;
+    public UUID getToId() {
+        return toId;
     }
 
     public DateTime getCreationDate() {
@@ -50,9 +50,13 @@ public class Relation extends BaseEntity {
         return weight;
     }
 
+    public void setWeight(final int weight) {
+        this.weight = weight;
+    }
+
     private int weight;
-    private UUID leftId;
-    private UUID rightId;
+    private UUID fromId;
+    private UUID toId;
     private UUID id;
     private DateTime creationDate;
 }

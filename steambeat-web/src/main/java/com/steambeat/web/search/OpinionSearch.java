@@ -8,7 +8,7 @@ import org.mongolink.domain.criteria.*;
 import javax.inject.Inject;
 import java.util.List;
 
-public class OpinionSearch {
+public class OpinionSearch implements Search<Opinion> {
 
     @Inject
     public OpinionSearch(final SessionProvider provider) {
@@ -16,21 +16,24 @@ public class OpinionSearch {
         criteria.add(Restrictions.notEquals("text", ""));
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
     public List<Opinion> execute() {
         return (List<Opinion>) criteria.list();
     }
 
+    @Override
     public OpinionSearch withSkip(final int skip) {
         criteria.skip(skip);
         return this;
     }
 
+    @Override
     public OpinionSearch withLimit(final int limit) {
         criteria.limit(limit);
         return this;
     }
 
+    @Override
     public OpinionSearch withSort(final String sortField, final int sortOrder) {
         criteria.sort(sortField, sortOrder);
         return this;
@@ -42,6 +45,4 @@ public class OpinionSearch {
     }
 
     private final Criteria criteria;
-    public static final int NATURAL_ORDER = 1;
-    public static final int REVERSE_ORDER = -1;
 }

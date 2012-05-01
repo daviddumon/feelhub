@@ -31,8 +31,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
         final DBObject relationFound = relations.findOne(query);
         assertThat(relationFound, notNullValue());
         assertThat(relationFound.get("_id").toString(), is(relation.getId().toString()));
-        assertThat(relationFound.get("leftId").toString(), is(relation.getLeftId().toString()));
-        assertThat(relationFound.get("rightId").toString(), is(relation.getRightId().toString()));
+        assertThat(relationFound.get("leftId").toString(), is(relation.getFromId().toString()));
+        assertThat(relationFound.get("rightId").toString(), is(relation.getToId().toString()));
         assertThat(relationFound.get("creationDate"), is((Object) relation.getCreationDate().getMillis()));
         assertThat(relationFound.get("weight"), is((Object) 1));
     }

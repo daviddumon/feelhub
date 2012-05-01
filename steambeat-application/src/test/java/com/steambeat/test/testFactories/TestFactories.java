@@ -28,4 +28,8 @@ public class TestFactories {
     public static AlchemyFactoryForTest alchemy() {
         return new AlchemyFactoryForTest();
     }
+
+    public static RelationFactoryForTest relations() {
+        return new RelationFactoryForTest();
+    }
 }

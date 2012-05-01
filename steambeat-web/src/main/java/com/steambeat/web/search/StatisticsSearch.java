@@ -9,16 +9,31 @@ import org.mongolink.domain.criteria.*;
 
 import java.util.List;
 
-public class StatisticsSearch {
+public class StatisticsSearch implements Search<Statistics> {
 
     @Inject
     public StatisticsSearch(final SessionProvider provider) {
         criteria = provider.get().createCriteria(Statistics.class);
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
     public List<Statistics> execute() {
         return criteria.list();
+    }
+
+    @Override
+    public StatisticsSearch withSkip(final int skip) {
+        return null;
+    }
+
+    @Override
+    public StatisticsSearch withLimit(final int limit) {
+        return null;
+    }
+
+    @Override
+    public StatisticsSearch withSort(final String sortField, final int sortOrder) {
+        return null;
     }
 
     public StatisticsSearch withSubject(final Subject subject) {

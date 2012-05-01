@@ -31,7 +31,7 @@ public class TestsRelation {
 
     @Test
     public void canGetLeftId() {
-        assertThat(relation.getLeftId(), is(left.getId()));
+        assertThat(relation.getFromId(), is(left.getId()));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class TestsRelation {
 
     @Test
     public void canGetRightId() {
-        assertThat(relation.getRightId(), is(right.getId()));
+        assertThat(relation.getToId(), is(right.getId()));
     }
 
     @Test
