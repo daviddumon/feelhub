@@ -21,6 +21,7 @@ public class SteambeatRouter extends Router {
         attach("/webpages/{id}", WebPageResource.class);
         attach("/webpages", WebPagesResource.class);
         attach("/opinions", OpinionsResource.class);
+        attach("/relations", RelationsResource.class);
         attach("/sitemap_index_{number}.xml", SteambeatSitemapIndexResource.class);
         attach("/sitemap_{number}.xml", SteambeatSitemapResource.class);
         attach("/bookmarklet", BookmarkletResource.class);
