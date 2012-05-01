@@ -9,4 +9,9 @@ public class FakeSteambeatBoot extends SteambeatBoot {
     public FakeSteambeatBoot(final SessionProvider provider) {
         super(provider);
     }
+
+    @Override
+    public void checkForSteam() {
+
+    }
 }

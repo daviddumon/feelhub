@@ -7,6 +7,10 @@ import com.steambeat.repositories.Repositories;
 
 public class RelationFactoryForTest {
 
+    public Relation newRelation() {
+        return newRelation(TestFactories.subjects().newWebPage(), TestFactories.subjects().newConcept());
+    }
+
     public Relation newRelation(final Subject from, final Subject to) {
         return newRelation(from, to, 1);
     }

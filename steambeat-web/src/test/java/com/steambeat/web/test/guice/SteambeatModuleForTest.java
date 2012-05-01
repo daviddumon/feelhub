@@ -27,6 +27,7 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(SessionProvider.class).to(FakeSessionProvider.class);
         bind(OpinionSearch.class).to(FakeOpinionSearch.class);
         bind(StatisticsSearch.class).to(FakeStatisticsSearch.class);
+        bind(RelationSearch.class).to(FakeRelationSearch.class);
         bind(UriPathResolver.class).to(FakeUriPathResolver.class);
         bind(SubjectService.class).to(FakeSubjectService.class);
         bind(SteambeatBoot.class).to(FakeSteambeatBoot.class);

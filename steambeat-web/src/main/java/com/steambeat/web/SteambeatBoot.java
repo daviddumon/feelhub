@@ -10,13 +10,16 @@ public class SteambeatBoot {
 
     @Inject
     public SteambeatBoot(final SessionProvider provider) {
-        Repositories.initialize(new MongoRepositories(provider));
+        this.provider = provider;
     }
 
     public void checkForSteam() {
+        Repositories.initialize(new MongoRepositories(provider));
         final Steam steam = Repositories.subjects().getSteam();
         if (steam == null) {
             Repositories.subjects().add(new Steam(UUID.randomUUID()));
         }
     }
+
+    private SessionProvider provider;
 }
