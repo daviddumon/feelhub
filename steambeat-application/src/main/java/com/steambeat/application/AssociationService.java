@@ -2,9 +2,9 @@ package com.steambeat.application;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.identifiers.tag.Tag;
-import com.steambeat.domain.analytics.identifiers.uri.*;
+import com.steambeat.domain.association.Association;
+import com.steambeat.domain.association.tag.Tag;
+import com.steambeat.domain.association.uri.*;
 import com.steambeat.repositories.Repositories;
 
 import java.util.*;

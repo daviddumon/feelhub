@@ -1,9 +1,9 @@
 package com.steambeat.repositories;
 
 import com.mongodb.*;
-import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyJsonEntity;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.Association;
+import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.steam.Steam;

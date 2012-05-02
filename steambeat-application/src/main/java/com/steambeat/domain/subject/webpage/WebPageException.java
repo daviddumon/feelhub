@@ -1,7 +1,7 @@
 package com.steambeat.domain.subject.webpage;
 
 import com.steambeat.domain.DomainException;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.uri.Uri;
 import org.restlet.data.Status;
 
 public class WebPageException extends DomainException {

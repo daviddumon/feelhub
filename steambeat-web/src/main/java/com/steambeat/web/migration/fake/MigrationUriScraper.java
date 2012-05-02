@@ -1,6 +1,6 @@
 package com.steambeat.web.migration.fake;
 
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.scrapers.UriScraper;
 
 public class MigrationUriScraper extends UriScraper {

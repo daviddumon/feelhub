@@ -2,7 +2,7 @@ package com.steambeat.domain.subject.concept;
 
 import com.steambeat.domain.analytics.alchemy.readmodel.*;
 import com.steambeat.domain.analytics.alchemy.thesaurus.*;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.repositories.Repositories;
 
 import java.util.UUID;

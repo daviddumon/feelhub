@@ -1,7 +1,7 @@
-package com.steambeat.domain.analytics;
+package com.steambeat.domain.association;
 
-import com.steambeat.domain.analytics.identifiers.tag.Tag;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.tag.Tag;
+import com.steambeat.domain.association.uri.Uri;
 import org.junit.Test;
 
 import java.util.UUID;

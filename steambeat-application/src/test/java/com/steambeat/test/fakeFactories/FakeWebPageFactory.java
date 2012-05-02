@@ -1,7 +1,7 @@
 package com.steambeat.test.fakeFactories;
 
-import com.steambeat.domain.analytics.Association;
 import com.steambeat.domain.analytics.alchemy.FakeAlchemyEntityAnalyzer;
+import com.steambeat.domain.association.Association;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.test.FakeUriScraper;
 

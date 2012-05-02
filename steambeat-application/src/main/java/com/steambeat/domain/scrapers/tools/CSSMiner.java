@@ -1,6 +1,6 @@
 package com.steambeat.domain.scrapers.tools;
 
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.uri.Uri;
 
 import java.io.*;
 import java.net.*;

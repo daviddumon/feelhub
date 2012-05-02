@@ -1,7 +1,7 @@
 package com.steambeat.application;
 
 import com.google.inject.Inject;
-import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.association.Association;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.webpage.*;

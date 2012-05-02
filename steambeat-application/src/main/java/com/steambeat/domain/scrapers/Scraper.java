@@ -1,6 +1,6 @@
 package com.steambeat.domain.scrapers;
 
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.uri.Uri;
 
 public interface Scraper {
 

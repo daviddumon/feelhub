@@ -1,7 +1,7 @@
 package com.steambeat.domain.subject.webpage;
 
-import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.Association;
+import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;

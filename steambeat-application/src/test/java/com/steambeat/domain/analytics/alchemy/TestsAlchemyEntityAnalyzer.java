@@ -113,6 +113,19 @@ public class TestsAlchemyEntityAnalyzer {
         assertThat(Repositories.associations().getAll().size(), is(5));
     }
 
+    @Test
+    public void addWeightToExistingConcepts() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(1));
+
+        analyzer.analyze(webpage);
+        analyzer.analyze(webpage);
+
+        final List<Relation> relations = Repositories.relations().getAll();
+        assertThat(relations.get(0).getWeight(), is(3.0));
+        // pire que ca si relation(concept,concept) existe il ne faut pas la recréer et sinon il faut addweight
+    }
+
     private void testRelation(final Subject left, final Subject right, final Relation relation) {
         assertThat(relation.getLeft(), is(left));
         assertThat(relation.getRight(), is(right));

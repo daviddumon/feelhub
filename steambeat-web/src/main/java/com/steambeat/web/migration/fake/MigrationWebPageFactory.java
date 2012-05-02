@@ -1,7 +1,7 @@
 package com.steambeat.web.migration.fake;
 
 import com.steambeat.domain.DomainEventBus;
-import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.association.Association;
 import com.steambeat.domain.subject.webpage.*;
 
 public class MigrationWebPageFactory extends WebPageFactory {

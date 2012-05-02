@@ -1,7 +1,7 @@
 package com.steambeat.domain.subject.webpage;
 
-import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.Association;
+import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.scrapers.Scraper;
 import com.steambeat.domain.subject.Subject;
 import org.joda.time.DateTime;

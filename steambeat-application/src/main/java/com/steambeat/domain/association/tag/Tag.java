@@ -1,6 +1,6 @@
-package com.steambeat.domain.analytics.identifiers.tag;
+package com.steambeat.domain.association.tag;
 
-import com.steambeat.domain.analytics.identifiers.Identifier;
+import com.steambeat.domain.association.Identifier;
 
 public class Tag extends Identifier {
 

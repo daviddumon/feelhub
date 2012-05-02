@@ -1,7 +1,7 @@
 package com.steambeat.test.testFactories;
 
-import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.Association;
+import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.repositories.Repositories;
 
 import java.util.UUID;

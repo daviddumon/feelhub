@@ -1,6 +1,6 @@
 package com.steambeat.test;
 
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.scrapers.UriScraper;
 
 public class FakeUriScraper extends UriScraper {

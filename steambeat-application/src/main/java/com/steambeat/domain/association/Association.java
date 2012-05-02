@@ -1,7 +1,6 @@
-package com.steambeat.domain.analytics;
+package com.steambeat.domain.association;
 
 import com.steambeat.domain.BaseEntity;
-import com.steambeat.domain.analytics.identifiers.Identifier;
 
 import java.util.UUID;
 

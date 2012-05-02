@@ -1,7 +1,7 @@
-package com.steambeat.domain.analytics.identifiers.uri;
+package com.steambeat.domain.association.uri;
 
 import com.google.common.base.*;
-import com.steambeat.domain.analytics.identifiers.Identifier;
+import com.steambeat.domain.association.Identifier;
 
 import java.util.Locale;
 

@@ -1,6 +1,6 @@
 package com.steambeat.repositories.mapping;
 
-import com.steambeat.domain.analytics.Association;
+import com.steambeat.domain.association.Association;
 import org.mongolink.domain.mapper.EntityMap;
 
 public class AssociationMapping extends EntityMap<Association> {

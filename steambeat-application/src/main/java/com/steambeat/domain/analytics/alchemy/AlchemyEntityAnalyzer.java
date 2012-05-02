@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.domain.analytics.*;
 import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyJsonEntity;
-import com.steambeat.domain.analytics.identifiers.tag.Tag;
+import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.WebPage;

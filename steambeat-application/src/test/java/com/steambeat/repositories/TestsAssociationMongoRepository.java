@@ -2,9 +2,8 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.analytics.Association;
-import com.steambeat.domain.analytics.identifiers.Identifier;
-import com.steambeat.domain.analytics.identifiers.uri.Uri;
+import com.steambeat.domain.association.*;
+import com.steambeat.domain.association.uri.Uri;
 import org.junit.*;
 
 import java.net.*;

@@ -2,7 +2,7 @@ package com.steambeat.web.status;
 
 import com.google.common.collect.Maps;
 import com.steambeat.application.*;
-import com.steambeat.domain.analytics.identifiers.uri.UriPathResolverException;
+import com.steambeat.domain.association.uri.UriPathResolverException;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.web.resources.*;
 import org.restlet.*;
