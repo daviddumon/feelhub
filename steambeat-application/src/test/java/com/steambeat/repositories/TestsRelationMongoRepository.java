@@ -1,13 +1,12 @@
 package com.steambeat.repositories;
 
 import com.mongodb.*;
-import com.steambeat.domain.Repository;
-import com.steambeat.domain.relation.Relation;
+import com.steambeat.domain.relation.*;
+import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
-import static junit.framework.Assert.fail;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -52,8 +51,15 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canLookupForFromAndTo() {
-        fail();
+        final WebPage from = TestFactories.subjects().newWebPage();
+        final Concept to = TestFactories.subjects().newConcept();
+        final Relation relation = TestFactories.relations().newRelation(from, to);
+
+        final Relation relationFound = repo.lookUp(from, to);
+
+        assertThat(relationFound, notNullValue());
+        assertThat(relation.getId(), is(relationFound.getId()));
     }
 
-    private Repository<Relation> repo;
+    private RelationRepository repo;
 }
