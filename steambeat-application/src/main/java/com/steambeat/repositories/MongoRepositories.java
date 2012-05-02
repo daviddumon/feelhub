@@ -3,7 +3,7 @@ package com.steambeat.repositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.opinion.Opinion;
-import com.steambeat.domain.relation.Relation;
+import com.steambeat.domain.relation.*;
 import com.steambeat.domain.statistics.StatisticsRepository;
 
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
-    protected Repository<Relation> getRelationRepository() {
+    protected RelationRepository getRelationRepository() {
         return new RelationMongoRepository(provider.get());
     }
 

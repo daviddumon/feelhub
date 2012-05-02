@@ -6,7 +6,6 @@ import com.steambeat.application.*;
 import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.relation.*;
 import com.steambeat.domain.relation.alchemy.readmodel.AlchemyJsonEntity;
-import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
@@ -30,7 +29,7 @@ public class AlchemyEntityAnalyzer {
     private void analyzeEntities(final List<AlchemyJsonEntity> entities, final WebPage webpage) {
         for (final AlchemyJsonEntity alchemyJsonEntity : entities) {
             final UUID conceptId = findOrCreateAssociationAndConceptFor(alchemyJsonEntity);
-            link(webpage, new Concept(conceptId), alchemyJsonEntity.relevance);
+            relationBuilder.connectTwoWays(webpage, new Concept(conceptId), alchemyJsonEntity.relevance);
         }
     }
 
@@ -91,27 +90,13 @@ public class AlchemyEntityAnalyzer {
             for (int i = concepts.lastIndexOf(concept); i < concepts.size(); i++) {
                 Concept otherConcept = concepts.get(i);
                 if (!concept.equals(otherConcept)) {
-                    link(concept, otherConcept);
+                    relationBuilder.connectTwoWays(concept, otherConcept);
                 }
             }
         }
     }
 
-    private void link(final Subject left, final Subject right) {
-        link(left, right, 0);
-    }
-
-    private void link(final Subject left, final Subject right, final double additionalWeight) {
-        addRelation(left, right, additionalWeight);
-        addRelation(right, left, additionalWeight);
-    }
-
-    private void addRelation(final Subject from, final Subject to, final double additionalWeight) {
-        final Relation relation1 = new RelationFactory().newRelation(from, to);
-        relation1.addWeight(additionalWeight);
-        Repositories.relations().add(relation1);
-    }
-
+    private final RelationBuilder relationBuilder = new RelationBuilder(new RelationFactory());
     private final AlchemyEntityProvider provider;
     private AssociationService associationService;
     private List<Concept> concepts = Lists.newArrayList();

@@ -7,6 +7,7 @@ import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
+import static junit.framework.Assert.fail;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -21,7 +22,7 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     public void canPersist() {
         final WebPage left = TestFactories.subjects().newWebPage();
         final WebPage right = TestFactories.subjects().newWebPage();
-        final Relation relation = new Relation(left, right);
+        final Relation relation = new Relation(left, right, 1.0);
 
         repo.add(relation);
 
@@ -41,12 +42,17 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     public void canGet() {
         final WebPage left = TestFactories.subjects().newWebPage();
         final WebPage right = TestFactories.subjects().newWebPage();
-        final Relation relation = new Relation(left, right);
+        final Relation relation = new Relation(left, right, 1.0);
         Repositories.relations().add(relation);
 
         final Relation relationFound = repo.get(relation.getId());
 
         assertThat(relationFound, notNullValue());
+    }
+
+    @Test
+    public void canLookupForFromAndTo() {
+        fail();
     }
 
     private Repository<Relation> repo;

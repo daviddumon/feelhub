@@ -16,7 +16,7 @@ public class RelationFactoryForTest {
     }
 
     public Relation newRelation(final Subject from, final Subject to, final int weight) {
-        final Relation relation = new Relation(from, to);
+        final Relation relation = new Relation(from, to, 1.0);
         relation.setWeight(weight);
         Repositories.relations().add(relation);
         return relation;

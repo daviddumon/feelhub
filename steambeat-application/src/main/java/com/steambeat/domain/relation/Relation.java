@@ -13,12 +13,12 @@ public class Relation extends BaseEntity {
     public Relation() {
     }
 
-    public Relation(final Subject from, final Subject to) {
+    public Relation(final Subject from, final Subject to, final double weight) {
         this.id = UUID.randomUUID();
         fromId = from.getId();
         toId = to.getId();
         this.creationDate = new DateTime();
-        this.weight = 1.0;
+        this.weight = weight;
     }
 
     @Override

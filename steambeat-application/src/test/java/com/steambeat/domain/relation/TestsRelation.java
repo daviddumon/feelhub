@@ -27,7 +27,7 @@ public class TestsRelation {
     public void setUp() {
         left = TestFactories.subjects().newWebPageFor(new Association(new Uri("lemonde.fr"), UUID.randomUUID()));
         right = TestFactories.subjects().newWebPageFor(new Association(new Uri("gameblog.fr"), UUID.randomUUID()));
-        relation = new RelationFactory().newRelation(left, right);
+        relation = new RelationFactory().newRelation(left, right, 1.0);
     }
 
     @Test
