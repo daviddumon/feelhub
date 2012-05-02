@@ -1,9 +1,9 @@
 package com.steambeat.test.fakeRepositories;
 
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.analytics.Relation;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.opinion.Opinion;
+import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.statistics.StatisticsRepository;
 import com.steambeat.repositories.Repositories;
 

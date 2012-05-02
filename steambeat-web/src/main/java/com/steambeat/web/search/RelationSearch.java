@@ -1,7 +1,7 @@
 package com.steambeat.web.search;
 
 import com.google.inject.Inject;
-import com.steambeat.domain.analytics.Relation;
+import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.SessionProvider;
 import org.mongolink.domain.criteria.*;

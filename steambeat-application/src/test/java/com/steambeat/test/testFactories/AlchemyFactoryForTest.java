@@ -1,7 +1,7 @@
 package com.steambeat.test.testFactories;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.analytics.alchemy.readmodel.*;
+import com.steambeat.domain.relation.alchemy.readmodel.*;
 
 import java.util.List;
 

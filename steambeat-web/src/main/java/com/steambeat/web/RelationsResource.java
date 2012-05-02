@@ -2,7 +2,7 @@ package com.steambeat.web;
 
 import com.google.inject.Inject;
 import com.steambeat.application.SubjectService;
-import com.steambeat.domain.analytics.Relation;
+import com.steambeat.domain.relation.Relation;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.resources.SteambeatJsonException;
 import com.steambeat.web.search.*;

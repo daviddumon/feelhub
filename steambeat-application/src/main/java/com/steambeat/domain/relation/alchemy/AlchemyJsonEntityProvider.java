@@ -1,7 +1,7 @@
-package com.steambeat.domain.analytics.alchemy;
+package com.steambeat.domain.relation.alchemy;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.steambeat.domain.analytics.alchemy.readmodel.*;
+import com.steambeat.domain.relation.alchemy.readmodel.*;
 import com.steambeat.domain.subject.webpage.WebPage;
 
 import java.io.*;

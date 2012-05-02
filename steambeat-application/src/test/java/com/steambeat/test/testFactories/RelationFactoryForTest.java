@@ -1,6 +1,6 @@
 package com.steambeat.test.testFactories;
 
-import com.steambeat.domain.analytics.Relation;
+import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.repositories.Repositories;

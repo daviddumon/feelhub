@@ -1,4 +1,4 @@
-package com.steambeat.domain.analytics.alchemy;
+package com.steambeat.domain.relation.alchemy;
 
 import com.steambeat.tools.SteambeatApplicationProperties;
 

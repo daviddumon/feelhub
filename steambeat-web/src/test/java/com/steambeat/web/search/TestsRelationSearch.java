@@ -1,6 +1,6 @@
 package com.steambeat.web.search;
 
-import com.steambeat.domain.analytics.Relation;
+import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.TestWithMongoRepository;

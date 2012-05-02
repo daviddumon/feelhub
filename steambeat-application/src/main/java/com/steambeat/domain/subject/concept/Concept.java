@@ -1,8 +1,8 @@
 package com.steambeat.domain.subject.concept;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.analytics.alchemy.thesaurus.*;
 import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.domain.relation.alchemy.thesaurus.*;
 import com.steambeat.domain.scrapers.Scraper;
 import com.steambeat.domain.subject.Subject;
 

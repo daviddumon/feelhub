@@ -1,6 +1,6 @@
-package com.steambeat.domain.analytics.alchemy;
+package com.steambeat.domain.relation.alchemy;
 
-import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyJsonEntity;
+import com.steambeat.domain.relation.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;

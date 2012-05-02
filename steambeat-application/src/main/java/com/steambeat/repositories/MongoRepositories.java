@@ -1,9 +1,9 @@
 package com.steambeat.repositories;
 
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.analytics.Relation;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.opinion.Opinion;
+import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.statistics.StatisticsRepository;
 
 import javax.inject.Inject;

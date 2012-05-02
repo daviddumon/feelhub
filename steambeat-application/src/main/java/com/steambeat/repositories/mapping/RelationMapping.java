@@ -1,6 +1,6 @@
 package com.steambeat.repositories.mapping;
 
-import com.steambeat.domain.analytics.Relation;
+import com.steambeat.domain.relation.Relation;
 import org.mongolink.domain.mapper.EntityMap;
 
 public class RelationMapping extends EntityMap<Relation> {

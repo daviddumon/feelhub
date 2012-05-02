@@ -1,8 +1,8 @@
 package com.steambeat.domain.subject;
 
 import com.google.inject.Inject;
-import com.steambeat.domain.analytics.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.association.Association;
+import com.steambeat.domain.relation.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;

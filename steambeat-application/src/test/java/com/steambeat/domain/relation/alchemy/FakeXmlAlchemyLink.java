@@ -1,4 +1,4 @@
-package com.steambeat.domain.analytics.alchemy;
+package com.steambeat.domain.relation.alchemy;
 
 import java.io.*;
 
@@ -6,9 +6,9 @@ public class FakeXmlAlchemyLink extends AlchemyLink {
 
     @Override
     public InputStream get(final String webPageUri) {
-        File file = new File("steambeat-application/src/test/java/com/steambeat/domain/analytics/alchemy/alchemy.xml");
+        File file = new File("steambeat-application/src/test/java/com/steambeat/domain/relation/alchemy/alchemy.xml");
         if (!file.exists()) {
-            file = new File("src/test/java/com/steambeat/domain/analytics/alchemy/alchemy.xml");
+            file = new File("src/test/java/com/steambeat/domain/relation/alchemy/alchemy.xml");
         }
         try {
             return new FileInputStream(file);

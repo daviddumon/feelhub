@@ -2,7 +2,7 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.analytics.Relation;
+import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;

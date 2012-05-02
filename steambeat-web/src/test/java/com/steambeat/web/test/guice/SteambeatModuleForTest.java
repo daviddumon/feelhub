@@ -2,7 +2,7 @@ package com.steambeat.web.test.guice;
 
 import com.google.inject.*;
 import com.steambeat.application.SubjectService;
-import com.steambeat.domain.analytics.alchemy.*;
+import com.steambeat.domain.relation.alchemy.*;
 import com.steambeat.domain.association.uri.UriPathResolver;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.webpage.WebPageFactory;
