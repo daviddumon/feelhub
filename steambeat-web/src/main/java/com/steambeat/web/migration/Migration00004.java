@@ -17,19 +17,19 @@ public class Migration00004 extends Migration {
 
     @Override
     protected void doRun() {
-        try {
-            System.out.println("Migration 0004 en cours");
-            final List<Subject> webPages = Repositories.subjects().getAll();
-            System.out.println("subjects: " + webPages.size());
-            int i = 0;
-            for(Subject subject : webPages) {
-                final WebPage webPage = (WebPage) subject;
-                System.out.println("webpage " + i + " " + webPage.getUri());
-                final AlchemyEntityAnalyzer alchemyEntityAnalyzer = new AlchemyEntityAnalyzer(new AlchemyJsonEntityProvider(new AlchemyLink()), new AssociationService(new UriPathResolver()));
+        System.out.println("Migration 0004 en cours");
+        final List<Subject> webPages = Repositories.subjects().getAll();
+        System.out.println("subjects: " + webPages.size());
+        int i = 0;
+        final AlchemyEntityAnalyzer alchemyEntityAnalyzer = new AlchemyEntityAnalyzer(new AlchemyJsonEntityProvider(new AlchemyLink()), new AssociationService(new UriPathResolver()));
+        for (Subject subject : webPages) {
+            final WebPage webPage = (WebPage) subject;
+            System.out.println("webpage " + i++ + " " + webPage.getUri());
+            try {
                 alchemyEntityAnalyzer.analyze(webPage);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
