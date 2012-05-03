@@ -46,6 +46,7 @@
 
     <#include "icanhaz/judgment.mustache.js">
     <#include "icanhaz/opinion.mustache.js">
+    <#include "icanhaz/related.mustache.js">
 
     <#if !dev>
         <script type="text/javascript">

@@ -112,8 +112,6 @@ Flow.prototype.getOpinionData = function (opinion, classes) {
     var judgmentsData = [
         {
             feeling:opinion.feeling,
-            //root:root,
-            //subjectId:opinion.subjectId,
             uri:root+opinion.uriToken+opinion.subjectId,
             shortDescription:opinion.shortDescription,
             description:opinion.description
