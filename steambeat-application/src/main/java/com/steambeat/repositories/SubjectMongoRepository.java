@@ -2,6 +2,7 @@ package com.steambeat.repositories;
 
 import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.steam.Steam;
+import com.steambeat.domain.subject.webpage.WebPage;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
 
@@ -22,5 +23,12 @@ public class SubjectMongoRepository extends BaseMongoRepository<Subject> impleme
             return null;
         }
         return (Steam) results.get(0);
+    }
+
+    @Override
+    public List<WebPage> getAllWebPages() {
+        final Criteria criteria = session.createCriteria(Subject.class);
+        criteria.add(Restrictions.equals("__discriminator", "WebPage"));
+        return criteria.list();
     }
 }
