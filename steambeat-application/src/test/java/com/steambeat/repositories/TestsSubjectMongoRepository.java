@@ -149,7 +149,8 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
         assertThat(conceptFound, notNullValue());
         assertThat(conceptFound.get("_id"), is((Object) concept.getId()));
         assertThat(conceptFound.get("type"), is((Object) concept.getType()));
-        assertThat(conceptFound.get("text"), is((Object) concept.getText()));
+        assertThat(conceptFound.get("shortDescription"), is((Object) concept.getShortDescription()));
+        assertThat(conceptFound.get("description"), is((Object) concept.getDescription()));
         assertThat(conceptFound.get("language"), is((Object) concept.getLanguage()));
         assertThat(conceptFound.get("website"), is((Object) concept.getWebsite()));
         assertThat(conceptFound.get("geo"), is((Object) concept.getGeo()));

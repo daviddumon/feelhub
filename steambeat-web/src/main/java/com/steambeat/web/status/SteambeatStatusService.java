@@ -20,6 +20,7 @@ public class SteambeatStatusService extends StatusService {
         resolvers.put(WebPageAlreadyExistsException.class, new ExceptionResolver400());
         resolvers.put(SteambeatJsonException.class, new JsonExceptionResolver());
         resolvers.put(WebPageNotYetCreatedException.class, new ExceptionResolver404());
+        resolvers.put(ConceptNotYetCreatedException.class, new ExceptionResolver404());
         resolvers.put(OpinionCreationException.class, new ExceptionResolver400());
         resolvers.put(AssociationNotFound.class, new ExceptionResolver404());
         resolvers.put(BookmarkletBadVersion.class, new BookmarkletBadVersionResolver());

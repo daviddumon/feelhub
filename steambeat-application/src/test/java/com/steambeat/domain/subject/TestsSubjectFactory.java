@@ -43,7 +43,7 @@ public class TestsSubjectFactory {
         final Concept concept = subjectFactory.newConcept(alchemyJsonEntity);
 
         assertThat(concept, notNullValue());
-        assertThat(concept.getText(), is("Agile"));
+        assertThat(concept.getShortDescription(), is("Agile"));
     }
 
     private SubjectFactory subjectFactory;

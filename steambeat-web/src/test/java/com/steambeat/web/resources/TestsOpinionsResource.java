@@ -3,6 +3,7 @@ package com.steambeat.web.resources;
 import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
@@ -157,6 +158,7 @@ public class TestsOpinionsResource {
         final WebPage webPage = TestFactories.subjects().newWebPage();
         final Form form = getGoodForm();
         form.add("subjectId", webPage.getId().toString());
+        form.add("redirect", "webpages");
         final ClientResource opinionsResource = restlet.newClientResource("/opinions");
 
         opinionsResource.post(form);
@@ -167,6 +169,24 @@ public class TestsOpinionsResource {
         final Judgment judgment = opinion.getJudgments().get(0);
         assertThat(judgment.getFeeling(), is(Feeling.good));
         assertThat(judgment.getSubject(), is((Subject) webPage));
+    }
+
+    @Test
+    public void canPostOpinionForAConcept() {
+        final Concept concept = TestFactories.subjects().newConcept();
+        final Form form = getGoodForm();
+        form.add("subjectId", concept.getId().toString());
+        form.add("redirect", "webpages");
+        final ClientResource opinionsResource = restlet.newClientResource("/opinions");
+
+        opinionsResource.post(form);
+
+        assertThat(opinionsResource.getStatus(), is(Status.SUCCESS_CREATED));
+        assertThat(Repositories.opinions().getAll().size(), is(1));
+        final Opinion opinion = Repositories.opinions().getAll().get(0);
+        final Judgment judgment = opinion.getJudgments().get(0);
+        assertThat(judgment.getFeeling(), is(Feeling.good));
+        assertThat(judgment.getSubject(), is((Subject) concept));
     }
 
     @Test
@@ -199,11 +219,26 @@ public class TestsOpinionsResource {
         final WebPage webPage = TestFactories.subjects().newWebPage();
         final Form form = getGoodForm();
         form.add("subjectId", webPage.getId().toString());
+        form.add("redirect", "webpages");
         final ClientResource opinionsResource = restlet.newClientResource("/opinions");
 
         opinionsResource.post(form);
 
         final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + webPage.getId());
+        assertThat(opinionsResource.getLocationRef().toString(), is(uriToRedirect));
+    }
+
+    @Test
+    public void canRedirectForConcept() {
+        final Concept concept = TestFactories.subjects().newConcept();
+        final Form form = getGoodForm();
+        form.add("subjectId", concept.getId().toString());
+        form.add("redirect", "concepts");
+        final ClientResource opinionsResource = restlet.newClientResource("/opinions");
+
+        opinionsResource.post(form);
+
+        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/concepts/" + concept.getId());
         assertThat(opinionsResource.getLocationRef().toString(), is(uriToRedirect));
     }
 

@@ -20,7 +20,9 @@ public class Concept extends Subject {
 
     public Concept(final String text) {
         super(UUID.randomUUID());
-        this.text = text;
+        this.shortDescription = text;
+        this.description = text;
+        this.illustration = "";
     }
 
     @Override
@@ -30,10 +32,6 @@ public class Concept extends Subject {
 
     @Override
     protected void update(final Scraper scraper) {
-    }
-
-    public String getText() {
-        return text;
     }
 
     public String getLanguage() {
@@ -76,7 +74,6 @@ public class Concept extends Subject {
         this.geo = geo;
     }
 
-    private String text;
     private String language;
     private String type;
     private List<String> subTypes = Lists.newArrayList();

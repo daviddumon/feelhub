@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.*;
+import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.repositories.Repositories;
 
@@ -32,6 +33,16 @@ public class SubjectService {
             checkScrapedData(webPage);
         }
         return webPage;
+    }
+
+    public Concept lookUpConcept(final UUID subjectId) {
+        final Concept concept = subjectFactory.lookUpConcept(subjectId);
+        if (concept == null) {
+            throw new ConceptNotYetCreatedException();
+        } else {
+            //check ?
+        }
+        return concept;
     }
 
     protected void checkScrapedData(final WebPage webPage) {

@@ -39,7 +39,7 @@ public class TestsAlchemyEntityAnalyzer {
         final List<Subject> subjects = Repositories.subjects().getAll();
         assertThat(subjects.size(), is(2));
         final Concept concept = (Concept) subjects.get(1);
-        assertThat(concept.getText(), is("name0"));
+        assertThat(concept.getShortDescription(), is("name0"));
     }
 
     @Test

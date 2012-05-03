@@ -14,6 +14,5 @@ public class TestsConcept {
 
         assertThat(concept.getId(), notNullValue());
         assertThat(concept.getId().toString(), not(text));
-        assertThat(concept.getText(), is(text));
     }
 }

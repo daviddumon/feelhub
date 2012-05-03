@@ -60,7 +60,7 @@ public class OpinionsResource extends ServerResource {
 
     private void setUpSearchForSubjectIdParameter(final Form form) {
         if (form.getQueryString().contains("subjectId")) {
-            opinionSearch.withSubject(subjectService.lookUpWebPage(UUID.fromString(form.getFirstValue("subjectId").trim())));
+            opinionSearch.withSubject(subjectService.lookUpSubject(UUID.fromString(form.getFirstValue("subjectId").trim())));
         }
     }
 
@@ -74,16 +74,17 @@ public class OpinionsResource extends ServerResource {
         final JudgmentDTO judgmentDTO = new JudgmentDTO(subject, feeling);
         opinionService.addOpinion(text, Lists.newArrayList(judgmentDTO));
         setStatus(Status.SUCCESS_CREATED);
-        setLocationRef(new ReferenceBuilder(getContext()).buildUri("/webpages/" + subject.getId()));
+        setLocationRef(new ReferenceBuilder(getContext()).buildUri("/" + redirect + "/" + subject.getId()));
     }
 
     private void extractFormParameters(final Form form) {
         if (form.getFirstValue("feeling") == null) {
             throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
         }
-        subject = subjectService.lookUpWebPage(UUID.fromString(form.getFirstValue("subjectId").trim()));
+        subject = subjectService.lookUpSubject(UUID.fromString(form.getFirstValue("subjectId").trim()));
         feeling = Feeling.valueOf(form.getFirstValue("feeling").trim());
         text = form.getFirstValue("text").trim();
+        redirect = form.getFirstValue("redirect").trim();
     }
 
     private Subject subject;
@@ -93,4 +94,5 @@ public class OpinionsResource extends ServerResource {
     private final OpinionSearch opinionSearch;
     private final SubjectService subjectService;
     private final OpinionService opinionService;
+    private String redirect;
 }
