@@ -1,8 +1,10 @@
 package com.steambeat.web;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.application.SubjectService;
 import com.steambeat.domain.relation.Relation;
+import com.steambeat.domain.subject.Subject;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.resources.SteambeatJsonException;
 import com.steambeat.web.search.*;
@@ -12,10 +14,10 @@ import org.restlet.resource.*;
 
 import java.util.*;
 
-public class RelationsResource extends ServerResource {
+public class RelatedResource extends ServerResource {
 
     @Inject
-    public RelationsResource(final SubjectService subjectService, final RelationSearch relationSearch) {
+    public RelatedResource(final SubjectService subjectService, final RelationSearch relationSearch) {
         this.subjectService = subjectService;
         this.relationSearch = relationSearch;
     }
@@ -23,7 +25,8 @@ public class RelationsResource extends ServerResource {
     @Get
     public Representation represent() {
         doSearchWithQueryParameters();
-        return SteambeatTemplateRepresentation.createNew("json/relations.json.ftl", getContext(), MediaType.APPLICATION_JSON).with("relations", relations);
+        getSubjects();
+        return SteambeatTemplateRepresentation.createNew("json/related.json.ftl", getContext(), MediaType.APPLICATION_JSON).with("subjects", subjects);
     }
 
     private void doSearchWithQueryParameters() {
@@ -60,7 +63,14 @@ public class RelationsResource extends ServerResource {
         }
     }
 
+    private void getSubjects() {
+        for (Relation relation : relations) {
+            subjects.add(subjectService.lookUpSubject(relation.getToId()));
+        }
+    }
+
     private SubjectService subjectService;
     private RelationSearch relationSearch;
-    private List<Relation> relations;
+    private List<Relation> relations = Lists.newArrayList();
+    private List<Subject> subjects = Lists.newArrayList();
 }

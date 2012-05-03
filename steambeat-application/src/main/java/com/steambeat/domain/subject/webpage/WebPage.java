@@ -30,6 +30,11 @@ public class WebPage extends Subject {
         scrapedDataExpirationDate = new DateTime().plusDays(1);
     }
 
+    @Override
+    public String getUriToken() {
+        return "/webpages/";
+    }
+
     public Uri getRealUri() {
         return new Uri(uri);
     }

@@ -34,6 +34,11 @@ public class Concept extends Subject {
     protected void update(final Scraper scraper) {
     }
 
+    @Override
+    public String getUriToken() {
+        return "/concepts/";
+    }
+
     public String getLanguage() {
         return language;
     }

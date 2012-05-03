@@ -25,4 +25,9 @@ public class Steam extends Subject {
         this.shortDescription = "steam";
         this.illustration = "";
     }
+
+    @Override
+    public String getUriToken() {
+        return "";
+    }
 }
