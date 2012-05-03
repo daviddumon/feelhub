@@ -9,7 +9,7 @@ import org.mongolink.domain.criteria.*;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
-public class RelationSearch implements Search<Relation>{
+public class RelationSearch implements Search<Relation> {
 
     @Inject
     public RelationSearch(final SessionProvider provider) {

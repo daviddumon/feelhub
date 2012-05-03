@@ -1,7 +1,6 @@
 package com.steambeat.web.resources;
 
 import com.steambeat.domain.subject.concept.Concept;
-import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;

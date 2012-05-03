@@ -3,7 +3,7 @@ package com.steambeat.repositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.opinion.Opinion;
-import com.steambeat.domain.relation.*;
+import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.statistics.StatisticsRepository;
 import com.steambeat.domain.subject.SubjectRepository;
 
