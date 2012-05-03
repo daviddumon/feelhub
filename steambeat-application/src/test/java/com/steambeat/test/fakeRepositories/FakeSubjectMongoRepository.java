@@ -4,6 +4,9 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.steam.Steam;
+import com.steambeat.domain.subject.webpage.WebPage;
+
+import java.util.List;
 
 public class FakeSubjectMongoRepository extends FakeRepository<Subject> implements SubjectRepository {
 
@@ -16,5 +19,10 @@ public class FakeSubjectMongoRepository extends FakeRepository<Subject> implemen
                 return subject instanceof Steam;
             }
         });
+    }
+
+    @Override
+    public List<WebPage> getAllWebPages() {
+        return null;
     }
 }
