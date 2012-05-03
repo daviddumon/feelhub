@@ -28,6 +28,7 @@ public class MigrationRunner implements Runnable {
             migrations.add(new Migration00001(sessionProvider));
             migrations.add(new Migration00002(sessionProvider));
             migrations.add(new Migration00003(sessionProvider));
+            migrations.add(new Migration00004(sessionProvider));
             for (final Migration migration : migrations) {
                 sessionProvider.start();
                 migration.run();

@@ -8,6 +8,7 @@ public class AlchemyJsonResults {
 
     public AlchemyJsonResults() {
         status = "";
+        statusInfo = "";
         usage = "";
         url = "";
         language = "";
@@ -19,4 +20,5 @@ public class AlchemyJsonResults {
     public String url;
     public String language;
     public List<AlchemyJsonEntity> entities;
+    public String statusInfo;
 }
