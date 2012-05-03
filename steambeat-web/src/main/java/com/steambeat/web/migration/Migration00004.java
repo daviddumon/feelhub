@@ -21,10 +21,9 @@ public class Migration00004 extends Migration {
             System.out.println("Migration 0004 en cours");
             final List<Subject> webPages = Repositories.subjects().getAll();
             System.out.println("subjects: " + webPages.size());
-            for (int i = 0; i < 20; i++) {
-                System.out.println("subject:" + i);
-                final WebPage webPage = (WebPage) webPages.get(i);
-                System.out.println(webPage.getUri());
+            for(Subject subject : webPages) {
+                final WebPage webPage = (WebPage) subject;
+                System.out.println("webpage:" + webPage.getUri());
                 final AlchemyEntityAnalyzer alchemyEntityAnalyzer = new AlchemyEntityAnalyzer(new AlchemyJsonEntityProvider(new AlchemyLink()), new AssociationService(new UriPathResolver()));
                 alchemyEntityAnalyzer.analyze(webPage);
             }
