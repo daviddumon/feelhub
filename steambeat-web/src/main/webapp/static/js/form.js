@@ -1,55 +1,46 @@
 /* Copyright bytedojo 2011 */
 $(function () {
+    if (typeof subjectId !== 'undefined') {
+        $("#form_button").show();
+        $.getJSON(root + "/related?&fromId=" + subjectId + "&limit=6", function (data) {
+            var related_data = {"judgments":[]};
 
-    //$("#opinion_form_textarea").click(function () {
-    //    $("#opinion_form_judgments").clearQueue();
-    //    $("#opinion_form_textarea").clearQueue();
-    //    $("#opinion_form_judgments").slideDown(200);
-    //    $("#opinion_form_textarea").animate({"height":"80px"}, 200);
-    //    $("#opinion_form_textarea").focus();
-    //});
-    //
-    //$("#opinion_form").mouseover(function () {
-    //    $("#opinion_form_judgments").clearQueue();
-    //    $("#opinion_form_textarea").clearQueue();
-    //});
-    //
-    //$("#opinion_form").mouseleave(function () {
-    //    if ($("#opinion_form_judgments").is(":visible")) {
-    //        $("#opinion_form_judgments").clearQueue();
-    //        $("#opinion_form_textarea").clearQueue();
-    //        $("#opinion_form_judgments").delay(1000).slideUp(200);
-    //        $("#opinion_form_textarea").delay(1000).animate({"height":"40px"}, 200);
-    //    }
-    //});
-    //
-    //$("#opinion_form").children().click(function () {
-    //    if (!$("#opinion_form_textarea").is(":focus")) {
-    //        $("#opinion_form_textarea").focus();
-    //    }
-    //});
+            $.each(data, function (index, subject) {
+                var judgment_data = {
+                    id:subject.id,
+                    shortDescription:subject.shortDescription,
+                    description:subject.description,
+                    url:subject.url
+                };
+                related_data.judgments.push(judgment_data);
+            });
 
-    $("#opinion_form .judgment").click(function () {
-        $(this).children(".judgment_tag").toggleClass("good_border");
-        $(this).children(".judgment_tag").toggleClass("bad_border");
-        $(this).children(".feeling_smiley").toggleClass("good");
-        $(this).children(".feeling_smiley").toggleClass("bad");
-        if($(this).children(".judgment_tag").hasClass("bad_border")) {
-            $(this).find(".judgment_tag > [name='feeling']").attr("value", "bad");
-        } else {
-            $(this).find(".judgment_tag > [name='feeling']").attr("value", "good");
-        }
-    });
+            var subjects = ich.form_judgment(related_data);
+            $("#opinion_form_subject").append(subjects);
 
-    $("#opinion_form_submit").click(function (event) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        var form = $("#opinion_form").serializeArray();
-        $.post(root + "/opinions", form, function (data, textStatus, jqXHR) {
-            location.href = jqXHR.getResponseHeader("Location");
+            $("#opinion_form .judgment").click(function () {
+                $(this).children(".judgment_tag").toggleClass("good_border");
+                $(this).children(".judgment_tag").toggleClass("bad_border");
+                $(this).children(".feeling_smiley").toggleClass("good");
+                $(this).children(".feeling_smiley").toggleClass("bad");
+                if ($(this).children(".judgment_tag").hasClass("bad_border")) {
+                    $(this).find(".judgment_tag > [name='feeling']").attr("value", "bad");
+                } else {
+                    $(this).find(".judgment_tag > [name='feeling']").attr("value", "good");
+                }
+            });
+
+            $("#opinion_form_submit").click(function (event) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                var form = $("#opinion_form").serializeArray();
+                $.post(root + "/opinions", form, function (data, textStatus, jqXHR) {
+                    location.href = jqXHR.getResponseHeader("Location");
+                });
+                return false;
+            });
         });
-        return false;
-    });
+    }
 });
 
 function openOpinionForm() {

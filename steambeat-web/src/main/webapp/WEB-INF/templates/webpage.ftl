@@ -5,24 +5,6 @@
 </script>
 </@head.withHead>
 
-<@body.subject>
-<div class="judgment button no_select">
-    <div class="feeling_smiley good rounded_top">
-    <#--<img class="judgment_smiley" src="${root}/static/images/smiley_good_white.png"/>-->
-    </div>
-    <div id="add_judgment1" class="judgment_tag good_border font_title">
-    ${webPage.getShortDescription()}
-        <input type="hidden" name="feeling" value="good"/>
-        <input type="hidden" name="subjectId" value="${webPage.getId()}"/>
-        <input type="hidden" name="redirect" value="webpages"/>
-    </div>
-</div>
-</@body.subject>
-
-<@body.related>
-
-</@body.related>
-
 <@body.panel>
 
 <#--<div id="counter">${counter!0} opinions</div>-->

@@ -5,14 +5,6 @@
 </script>
 </@head.withHead>
 
-<@body.subject>
-
-</@body.subject>
-
-<@body.related>
-
-</@body.related>
-
 <@body.panel>
 <#--<div id="counter">${counter!0} opinions</div>-->
 <div class="panel_box">

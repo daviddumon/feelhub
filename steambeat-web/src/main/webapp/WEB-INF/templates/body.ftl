@@ -1,4 +1,4 @@
-<#macro subject>
+<#macro panel>
 <body class="font_text color_bg_lightblue">
 <div id="blanket" style="display: none;"></div>
 
@@ -12,23 +12,16 @@
     <div class="opinion_form_title color_darkblue">about this subject</div>
 
     <div id="opinion_form_subject" class="font_title">
-        <#nested/>
     </div>
-</#macro>
-
-<#macro related>
 
     <div class="opinion_form_title color_darkblue">and those related subjects</div>
 
     <div id="opinion_form_related">
-        <#nested/>
     </div>
 
     <input id="opinion_form_submit" type="submit" value="OK" class="button font_title hover_darkblue"/>
 </form>
-</#macro>
 
-<#macro panel>
 <div id="fixed_layer">
 
     <#include "header.ftl">
@@ -37,7 +30,7 @@
         <#nested/>
     </div>
 
-    <a href="" onclick="openOpinionForm();return false;" id="form_button" class="color_bg_darkblue rounded_down font_title color_darkblue">add your opinion</a>
+    <a href="" onclick="openOpinionForm();return false;" id="form_button" class="color_bg_darkblue rounded_down font_title color_darkblue" style="display: none">add your opinion</a>
 </div>
 
 <ul id="opinions"></ul>
