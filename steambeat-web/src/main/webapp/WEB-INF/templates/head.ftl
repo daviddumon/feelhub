@@ -49,6 +49,7 @@
     <#include "icanhaz/opinion.mustache.js">
     <#include "icanhaz/related.mustache.js">
     <#include "icanhaz/form_judgment.mustache.js">
+    <#include "icanhaz/form_block.mustache.js">
 
     <#if !dev>
         <script type="text/javascript">
