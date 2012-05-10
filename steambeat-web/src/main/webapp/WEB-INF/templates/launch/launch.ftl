@@ -6,8 +6,6 @@
 <body class="font_text color_bg_lightblue">
 
 <div id="newsubject" class="good rounded">
-    <#--<img src="${root}/static/images/smiley_good_white.png"/>-->
-
     <p class="titlefont">Launching soon !</p>
 </div>
 
