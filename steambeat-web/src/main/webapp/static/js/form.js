@@ -1,5 +1,6 @@
 function Form() {
     var THIS = this;
+    this.id = 1;
 
     this.createFirstBlock();
 
@@ -21,42 +22,36 @@ function Form() {
 }
 
 Form.prototype.createFirstBlock = function () {
-    var data = {id:1};
-    var form_block = ich.form_block(data);
+    var form_block = ich.form_block({id:this.id});
     $("#form").append(form_block);
-    this.addBehaviorFor(1);
+    this.addBehaviorFor();
 };
 
-Form.prototype.addBehaviorFor = function(id) {
+Form.prototype.addBehaviorFor = function() {
     var THIS = this;
-    $("#" + id).keypress(function (event) {
+    $("#form_text_" + this.id).keypress(function (event) {
         var code = event.keyCode || event.which;
         if (code == 13) {
             event.preventDefault();
             event.stopImmediatePropagation();
-            THIS.createBlockFrom(this, $(this).attr("id"));
+            THIS.createBlockFrom(this);
         }
     });
 };
 
-Form.prototype.createBlockFrom = function(element, id) {
-    id++;
-    var data = {id:id};
+Form.prototype.createBlockFrom = function(element) {
+    this.id++;
+    var data = {id:this.id};
     var form_block = ich.form_block(data);
     $(element).parent().after(form_block);
-    this.addBehaviorFor(id);
-    this.setFocusOn($("#" + id));
-};
-
-
-Form.prototype.setFocusOn = function(element) {
-    $(element).focus();
+    this.addBehaviorFor(this.id);
+    $("#form_text_" + this.id).focus();
 };
 
 Form.prototype.show = function () {
     showBlanket();
     showForm();
-    setFocusOnLastFormText();
+    $("#form .form_text:last-child").focus();
 
     function showBlanket() {
         $("#form_blanket").css("height", $(window).height());
@@ -68,10 +63,6 @@ Form.prototype.show = function () {
         $("#form").css("left", ($(window).width() - $("#form").width()) / 2);
         $("#form").css("height", $(window).height() - 100);
         $("#form").show();
-    }
-
-    function setFocusOnLastFormText() {
-        $("#form .form_text:last-child").focus();
     }
 };
 

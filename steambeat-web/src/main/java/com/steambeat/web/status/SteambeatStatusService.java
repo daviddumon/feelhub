@@ -5,6 +5,7 @@ import com.steambeat.application.*;
 import com.steambeat.domain.association.uri.UriPathResolverException;
 import com.steambeat.domain.subject.webpage.*;
 import com.steambeat.web.resources.*;
+import com.steambeat.web.resources.json.SteambeatJsonException;
 import org.restlet.*;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;

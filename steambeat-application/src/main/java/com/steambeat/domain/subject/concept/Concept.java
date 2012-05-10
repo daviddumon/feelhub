@@ -2,9 +2,9 @@ package com.steambeat.domain.subject.concept;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.association.uri.Uri;
-import com.steambeat.domain.relation.alchemy.thesaurus.*;
 import com.steambeat.domain.scrapers.Scraper;
 import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.thesaurus.*;
 
 import java.util.*;
 

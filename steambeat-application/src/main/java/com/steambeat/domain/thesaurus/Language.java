@@ -1,4 +1,4 @@
-package com.steambeat.domain.relation.alchemy.thesaurus;
+package com.steambeat.domain.thesaurus;
 
 import com.google.common.base.Objects;
 

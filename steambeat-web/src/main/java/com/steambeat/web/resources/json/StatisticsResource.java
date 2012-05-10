@@ -1,4 +1,4 @@
-package com.steambeat.web.resources;
+package com.steambeat.web.resources.json;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;

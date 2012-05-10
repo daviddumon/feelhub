@@ -1,4 +1,4 @@
-package com.steambeat.web;
+package com.steambeat.web.resources.json;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -6,7 +6,6 @@ import com.steambeat.application.SubjectService;
 import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import com.steambeat.web.resources.SteambeatJsonException;
 import com.steambeat.web.search.*;
 import org.restlet.data.*;
 import org.restlet.representation.Representation;

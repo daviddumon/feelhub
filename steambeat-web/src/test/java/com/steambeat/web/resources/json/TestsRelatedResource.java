@@ -1,4 +1,4 @@
-package com.steambeat.web.resources;
+package com.steambeat.web.resources.json;
 
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;

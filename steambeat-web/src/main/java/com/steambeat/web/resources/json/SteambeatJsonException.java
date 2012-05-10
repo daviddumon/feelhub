@@ -1,4 +1,4 @@
-package com.steambeat.web.resources;
+package com.steambeat.web.resources.json;
 
 public class SteambeatJsonException extends RuntimeException {
 

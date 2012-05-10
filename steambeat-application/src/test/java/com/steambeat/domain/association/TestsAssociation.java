@@ -2,6 +2,7 @@ package com.steambeat.domain.association;
 
 import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.domain.thesaurus.Language;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -21,11 +22,11 @@ public class TestsAssociation {
 
         assertThat(association.getId(), is(uri.toString()));
         assertThat(association.getSubjectId(), is(uuid));
+        assertThat(association.getLanguage(), is(Language.forString("none")));
     }
 
     @Test
     public void canCreateAnAssociationFromATagAndUUID() {
-        final String address = "http://www.steambeat.com";
         final Tag tag = new Tag("tag");
         final UUID uuid = UUID.randomUUID();
 
@@ -33,5 +34,19 @@ public class TestsAssociation {
 
         assertThat(association.getId(), is(tag.toString()));
         assertThat(association.getSubjectId(), is(uuid));
+        assertThat(association.getLanguage(), is(Language.forString("none")));
+    }
+
+    @Test
+    public void canCreateAnAssociationWithALanguage() {
+        final Tag tag = new Tag("tag");
+        final UUID uuid = UUID.randomUUID();
+        final Language french = Language.forString("french");
+
+        final Association association = new Association(tag, uuid, french);
+
+        assertThat(association.getId(), is(tag.toString()));
+        assertThat(association.getSubjectId(), is(uuid));
+        assertThat(association.getLanguage(), is(french));
     }
 }
