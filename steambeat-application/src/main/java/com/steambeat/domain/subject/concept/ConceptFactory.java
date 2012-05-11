@@ -2,7 +2,7 @@ package com.steambeat.domain.subject.concept;
 
 import com.steambeat.domain.alchemy.readmodel.*;
 import com.steambeat.domain.association.uri.Uri;
-import com.steambeat.domain.thesaurus.*;
+import com.steambeat.domain.thesaurus.Type;
 import com.steambeat.repositories.Repositories;
 
 import java.util.UUID;
@@ -11,7 +11,6 @@ public class ConceptFactory {
 
     public Concept newConcept(final AlchemyJsonEntity entity) {
         final Concept concept = new Concept(getGoodText(entity));
-        concept.setLanguage(Language.forString(entity.language));
         concept.setType(Type.forString(entity.type));
         final AlchemyJsonDisambiguated disambiguated = entity.disambiguated;
         concept.setSubTypes(disambiguated.subType);

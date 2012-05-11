@@ -44,7 +44,6 @@ public class TestsConceptFactory {
         final Concept concept = conceptFactory.newConcept(entity);
 
         final AlchemyJsonDisambiguated disambiguated = entity.disambiguated;
-        assertThat(concept.getLanguage(), is("english"));
         assertThat(concept.getType(), is(entity.type));
         assertThat(concept.getShortDescription(), is(disambiguated.name));
         assertThat(concept.getSubTypes().size(), is(3));

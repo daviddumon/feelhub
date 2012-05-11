@@ -39,14 +39,6 @@ public class Concept extends Subject {
         return "/concepts/";
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    void setLanguage(final Language language) {
-        this.language = language.getCode();
-    }
-
     public String getType() {
         return type;
     }
@@ -79,7 +71,6 @@ public class Concept extends Subject {
         this.geo = geo;
     }
 
-    private String language;
     private String type;
     private List<String> subTypes = Lists.newArrayList();
     private String website;
