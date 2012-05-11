@@ -1,4 +1,4 @@
-package com.steambeat.domain.relation.alchemy;
+package com.steambeat.domain.alchemy;
 
 import com.steambeat.application.AssociationService;
 import com.steambeat.domain.subject.webpage.WebPage;

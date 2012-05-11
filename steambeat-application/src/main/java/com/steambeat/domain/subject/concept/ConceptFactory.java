@@ -1,7 +1,7 @@
 package com.steambeat.domain.subject.concept;
 
+import com.steambeat.domain.alchemy.readmodel.*;
 import com.steambeat.domain.association.uri.Uri;
-import com.steambeat.domain.relation.alchemy.readmodel.*;
 import com.steambeat.domain.thesaurus.*;
 import com.steambeat.repositories.Repositories;
 
@@ -22,9 +22,9 @@ public class ConceptFactory {
 
     private String getGoodText(final AlchemyJsonEntity entity) {
         if (entity.disambiguated.name.isEmpty()) {
-            return entity.text;
+            return entity.text.trim();
         }
-        return entity.disambiguated.name;
+        return entity.disambiguated.name.trim();
     }
 
     public Concept lookUpConcept(final UUID subjectId) {

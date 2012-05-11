@@ -21,4 +21,8 @@ public class AssociationFactoryForTest {
         Repositories.associations().add(association);
         return association;
     }
+
+    public Association newAssociation() {
+        return newAssociation(new Tag("tag"), UUID.randomUUID(), Language.forString("french"));
+    }
 }

@@ -1,16 +1,17 @@
-package com.steambeat.domain.relation.alchemy;
+package com.steambeat.domain.alchemy;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.application.*;
+import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.relation.*;
-import com.steambeat.domain.relation.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 
 import java.util.*;
+import java.util.regex.*;
 
 public class AlchemyEntityAnalyzer {
 
@@ -28,9 +29,31 @@ public class AlchemyEntityAnalyzer {
 
     private void analyzeEntities(final List<AlchemyJsonEntity> entities, final WebPage webpage) {
         for (final AlchemyJsonEntity alchemyJsonEntity : entities) {
-            final UUID conceptId = findOrCreateAssociationAndConceptFor(alchemyJsonEntity);
-            relationBuilder.connectTwoWays(webpage, new Concept(conceptId), alchemyJsonEntity.relevance);
+            if (checkEntity(alchemyJsonEntity)) {
+                final UUID conceptId = findOrCreateAssociationAndConceptFor(alchemyJsonEntity);
+                relationBuilder.connectTwoWays(webpage, new Concept(conceptId), alchemyJsonEntity.relevance);
+            }
         }
+    }
+
+    private boolean checkEntity(final AlchemyJsonEntity alchemyJsonEntity) {
+        if (checkForSmallEntity(alchemyJsonEntity)) {
+            Pattern specialCharactersChecker = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+            final Matcher textChecker = specialCharactersChecker.matcher(alchemyJsonEntity.text);
+            final Matcher nameChecker = specialCharactersChecker.matcher(alchemyJsonEntity.disambiguated.name);
+            if (textChecker.find() || nameChecker.find()) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkForSmallEntity(final AlchemyJsonEntity alchemyJsonEntity) {
+        if (alchemyJsonEntity.text.length() < 3 || alchemyJsonEntity.disambiguated.name.length() < 3) {
+            return false;
+        }
+        return true;
     }
 
     private UUID findOrCreateAssociationAndConceptFor(final AlchemyJsonEntity alchemyJsonEntity) {

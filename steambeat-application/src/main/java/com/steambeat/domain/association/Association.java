@@ -16,6 +16,7 @@ public class Association extends BaseEntity {
         this.identifier = identifier.toString();
         this.subjectId = uuid;
         this.language = Language.forString("all");
+        this.weight = 1;
     }
 
     public Association(final Identifier identifier, final UUID uuid, final Language language) {
@@ -23,6 +24,7 @@ public class Association extends BaseEntity {
         this.identifier = identifier.toString();
         this.subjectId = uuid;
         this.language = language;
+        this.weight = 1;
     }
 
     @Override
@@ -42,8 +44,17 @@ public class Association extends BaseEntity {
         return identifier;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
+    public void use() {
+        this.weight++;
+    }
+
     private UUID id;
     private String identifier;
     private UUID subjectId;
     private Language language;
+    private int weight;
 }

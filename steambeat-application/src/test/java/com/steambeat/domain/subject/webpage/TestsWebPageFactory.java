@@ -1,9 +1,9 @@
 package com.steambeat.domain.subject.webpage;
 
 import com.steambeat.domain.DomainEventBus;
+import com.steambeat.domain.alchemy.FakeAlchemyEntityAnalyzer;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.association.uri.Uri;
-import com.steambeat.domain.relation.alchemy.FakeAlchemyEntityAnalyzer;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;

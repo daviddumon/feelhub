@@ -1,4 +1,4 @@
-package com.steambeat.domain.relation.alchemy.readmodel;
+package com.steambeat.domain.alchemy.readmodel;
 
 public class AlchemyJsonEntity {
 

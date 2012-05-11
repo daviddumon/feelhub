@@ -1,4 +1,4 @@
-package com.steambeat.domain.relation.alchemy;
+package com.steambeat.domain.alchemy;
 
 import java.io.*;
 

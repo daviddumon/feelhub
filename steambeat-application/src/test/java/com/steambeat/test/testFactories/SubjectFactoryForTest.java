@@ -1,8 +1,8 @@
 package com.steambeat.test.testFactories;
 
+import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.association.uri.Uri;
-import com.steambeat.domain.relation.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;

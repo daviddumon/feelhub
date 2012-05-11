@@ -1,8 +1,10 @@
-package com.steambeat.domain.relation.alchemy;
+package com.steambeat.domain.alchemy;
 
+import com.google.common.collect.Lists;
 import com.steambeat.application.AssociationService;
+import com.steambeat.domain.alchemy.readmodel.*;
+import com.steambeat.domain.association.Association;
 import com.steambeat.domain.relation.Relation;
-import com.steambeat.domain.relation.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
@@ -124,6 +126,51 @@ public class TestsAlchemyEntityAnalyzer {
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.size(), is(2));
         assertThat(relations.get(0).getWeight(), is(3.0));
+    }
+
+    @Test
+    public void dontUseBadEntities() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entitiesWithHalfBadOnes(10));
+
+        analyzer.analyze(webpage);
+
+        final List<Subject> subjects = Repositories.subjects().getAll();
+        assertThat(subjects.size(), is(6));
+    }
+
+    @Test
+    public void dontUseSmallEntities() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        final List<AlchemyJsonEntity> entities = Lists.newArrayList();
+        final AlchemyJsonEntity entity = new AlchemyJsonEntity();
+        entity.text = "la";
+        entity.disambiguated = new AlchemyJsonDisambiguated();
+        entity.disambiguated.name = "longtext";
+        entities.add(entity);
+        when(entityProvider.entitiesFor(webpage)).thenReturn(entities);
+
+        analyzer.analyze(webpage);
+
+        final List<Subject> subjects = Repositories.subjects().getAll();
+        assertThat(subjects.size(), is(1));
+    }
+
+    @Test
+    public void trimEntities() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        final List<AlchemyJsonEntity> entities = Lists.newArrayList();
+        final AlchemyJsonEntity entity = new AlchemyJsonEntity();
+        entity.text = " needatrim ";
+        entity.disambiguated = new AlchemyJsonDisambiguated();
+        entity.disambiguated.name = " needatrim ";
+        entities.add(entity);
+        when(entityProvider.entitiesFor(webpage)).thenReturn(entities);
+
+        analyzer.analyze(webpage);
+
+        final List<Association> associations = Repositories.associations().getAll();
+        assertThat(associations.get(1).getIdentifier(), is("needatrim"));
     }
 
     private void testRelation(final Subject left, final Subject right, final Relation relation) {

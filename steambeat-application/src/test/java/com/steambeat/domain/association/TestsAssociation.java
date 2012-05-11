@@ -49,4 +49,26 @@ public class TestsAssociation {
         assertThat(association.getSubjectId(), is(uuid));
         assertThat(association.getLanguage(), is(french));
     }
+
+    @Test
+    public void hasAWeight() {
+        final Tag tag = new Tag("tag");
+        final UUID uuid = UUID.randomUUID();
+        final Language french = Language.forString("french");
+
+        final Association association = new Association(tag, uuid, french);
+        final Association otherAssociation = new Association(tag, uuid);
+
+        assertThat(association.getWeight(), is(1));
+        assertThat(otherAssociation.getWeight(), is(1));
+    }
+
+    @Test
+    public void toUseAssociationIncreaseWeight() {
+        final Association association = new Association(new Tag("tag"), UUID.randomUUID());
+
+        association.use();
+
+        assertThat(association.getWeight(), is(2));
+    }
 }

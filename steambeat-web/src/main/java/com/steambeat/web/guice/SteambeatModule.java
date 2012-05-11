@@ -2,6 +2,7 @@ package com.steambeat.web.guice;
 
 import com.google.inject.*;
 import com.steambeat.application.StatisticsService;
+import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.relation.alchemy.*;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.repositories.SessionProvider;

@@ -2,8 +2,8 @@ package com.steambeat.domain.subject.webpage;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.DomainEventBus;
+import com.steambeat.domain.alchemy.AlchemyEntityAnalyzer;
 import com.steambeat.domain.association.Association;
-import com.steambeat.domain.relation.alchemy.AlchemyEntityAnalyzer;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.repositories.Repositories;
 
