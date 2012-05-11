@@ -1,7 +1,7 @@
 package com.steambeat.repositories;
 
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.association.Association;
+import com.steambeat.domain.association.AssociationRepository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.statistics.StatisticsRepository;
@@ -21,7 +21,7 @@ public abstract class Repositories {
         return Repositories.soleInstance.getOpinionRepository();
     }
 
-    public static Repository<Association> associations() {
+    public static AssociationRepository associations() {
         return Repositories.soleInstance.getAssociationRepository();
     }
 
@@ -41,7 +41,7 @@ public abstract class Repositories {
 
     protected abstract StatisticsRepository getStatisticsRepository();
 
-    protected abstract Repository<Association> getAssociationRepository();
+    protected abstract AssociationRepository getAssociationRepository();
 
     private static Repositories soleInstance;
 }

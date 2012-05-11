@@ -17,7 +17,7 @@ public class WebPageFactory {
 
     public WebPage newWebPage(final Association association) {
         if (checkIfExists(association)) {
-            throw new WebPageAlreadyExistsException(association.getId());
+            throw new WebPageAlreadyExistsException(association.getIdentifier());
         }
         return doCreateWebPage(association);
     }

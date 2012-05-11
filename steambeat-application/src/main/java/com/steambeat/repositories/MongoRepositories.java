@@ -1,7 +1,7 @@
 package com.steambeat.repositories;
 
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.association.Association;
+import com.steambeat.domain.association.*;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.statistics.StatisticsRepository;
@@ -36,7 +36,7 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
-    protected Repository<Association> getAssociationRepository() {
+    protected AssociationRepository getAssociationRepository() {
         return new AssociationMongoRepository(provider.get());
     }
 

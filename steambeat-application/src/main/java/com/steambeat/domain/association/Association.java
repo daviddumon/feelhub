@@ -12,19 +12,21 @@ public class Association extends BaseEntity {
     }
 
     public Association(final Identifier identifier, final UUID uuid) {
-        this.id = identifier.toString();
+        this.id = UUID.randomUUID();
+        this.identifier = identifier.toString();
         this.subjectId = uuid;
-        this.language = Language.forString("none");
+        this.language = Language.forString("all");
     }
 
     public Association(final Identifier identifier, final UUID uuid, final Language language) {
-        this.id = identifier.toString();
+        this.id = UUID.randomUUID();
+        this.identifier = identifier.toString();
         this.subjectId = uuid;
         this.language = language;
     }
 
     @Override
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -36,7 +38,12 @@ public class Association extends BaseEntity {
         return language;
     }
 
-    private String id;
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    private UUID id;
+    private String identifier;
     private UUID subjectId;
     private Language language;
 }

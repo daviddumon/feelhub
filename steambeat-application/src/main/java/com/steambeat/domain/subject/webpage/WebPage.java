@@ -14,7 +14,7 @@ public class WebPage extends Subject {
 
     public WebPage(final Association association) {
         super(association.getSubjectId());
-        uri = association.getId();
+        uri = association.getIdentifier();
     }
 
     public void setScraper(final Scraper scraper) {

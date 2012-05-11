@@ -20,9 +20,9 @@ public class TestsAssociation {
 
         final Association association = new Association(uri, uuid);
 
-        assertThat(association.getId(), is(uri.toString()));
+        assertThat(association.getIdentifier(), is(uri.toString()));
         assertThat(association.getSubjectId(), is(uuid));
-        assertThat(association.getLanguage(), is(Language.forString("none")));
+        assertThat(association.getLanguage(), is(Language.forString("all")));
     }
 
     @Test
@@ -32,9 +32,9 @@ public class TestsAssociation {
 
         final Association association = new Association(tag, uuid);
 
-        assertThat(association.getId(), is(tag.toString()));
+        assertThat(association.getIdentifier(), is(tag.toString()));
         assertThat(association.getSubjectId(), is(uuid));
-        assertThat(association.getLanguage(), is(Language.forString("none")));
+        assertThat(association.getLanguage(), is(Language.forString("all")));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TestsAssociation {
 
         final Association association = new Association(tag, uuid, french);
 
-        assertThat(association.getId(), is(tag.toString()));
+        assertThat(association.getIdentifier(), is(tag.toString()));
         assertThat(association.getSubjectId(), is(uuid));
         assertThat(association.getLanguage(), is(french));
     }

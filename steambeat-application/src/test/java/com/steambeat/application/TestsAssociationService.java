@@ -24,16 +24,20 @@ public class TestsAssociationService {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
+    @Before
+    public void before() {
+        this.associationService = new AssociationService(new FakeUriPathResolver());
+    }
+
     @Test
     public void canGetAnAssociation() {
         final Uri uri = new Uri("http://www.steambeat.com");
         final Association association = TestFactories.associations().newAssociation(uri);
-        final AssociationService associationService = new AssociationService(new FakeUriPathResolver());
 
         final Association foundAssociation = associationService.lookUp(uri);
 
         assertThat(foundAssociation, notNullValue());
-        assertThat(foundAssociation.getId(), is(uri.toString()));
+        assertThat(foundAssociation.getIdentifier(), is(uri.toString()));
         assertThat(foundAssociation, is(association));
     }
 
@@ -54,7 +58,7 @@ public class TestsAssociationService {
         final Association association = associationService.createAssociationsFor(uri);
 
         assertThat(association, notNullValue());
-        assertThat(association.getId(), is(uri.toString()));
+        assertThat(association.getIdentifier(), is(uri.toString()));
     }
 
     @Test
@@ -79,7 +83,7 @@ public class TestsAssociationService {
 
         final Association association = associationService.createAssociationsFor(uri);
 
-        assertThat(association.getId(), is(canonicalAddress));
+        assertThat(association.getIdentifier(), is(canonicalAddress));
     }
 
     @Test
@@ -103,6 +107,8 @@ public class TestsAssociationService {
 
         final Association association = associationService.createAssociationsFor(uri);
 
-        assertThat(association.getId(), is(uri.toString()));
+        assertThat(association.getIdentifier(), is(uri.toString()));
     }
+
+    private AssociationService associationService;
 }

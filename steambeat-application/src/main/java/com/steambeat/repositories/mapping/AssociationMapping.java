@@ -12,6 +12,8 @@ public class AssociationMapping extends EntityMap<Association> {
     @Override
     protected void map() {
         id(element().getId()).natural();
+        property(element().getIdentifier());
         property(element().getSubjectId());
+        property(element().getLanguage());
     }
 }
