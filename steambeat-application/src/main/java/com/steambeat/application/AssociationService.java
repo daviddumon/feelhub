@@ -2,7 +2,7 @@ package com.steambeat.application;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.steambeat.domain.association.Association;
+import com.steambeat.domain.association.*;
 import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.association.uri.*;
 import com.steambeat.repositories.Repositories;
@@ -16,16 +16,8 @@ public class AssociationService {
         this.pathResolver = pathResolver;
     }
 
-    public Association lookUp(final Uri uri) {
-        final Association association = Repositories.associations().get(uri.toString());
-        if (association == null) {
-            throw new AssociationNotFound();
-        }
-        return association;
-    }
-
-    public Association lookUp(final Tag tag) {
-        final Association association = Repositories.associations().get(tag.toString());
+    public Association lookUp(final Identifier identifier) {
+        final Association association = Repositories.associations().forIdentifier(identifier);
         if (association == null) {
             throw new AssociationNotFound();
         }
@@ -46,7 +38,7 @@ public class AssociationService {
     }
 
     private UUID generateSubjectId(final Uri canonicalAddress) {
-        final Association foundAssociation = Repositories.associations().get(canonicalAddress.toString());
+        final Association foundAssociation = Repositories.associations().forIdentifier(canonicalAddress);
         if (foundAssociation != null) {
             return foundAssociation.getSubjectId();
         }

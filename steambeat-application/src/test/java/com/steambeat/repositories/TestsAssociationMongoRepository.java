@@ -79,12 +79,12 @@ public class TestsAssociationMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    @Ignore
-    public void canUseRegexForTagMatching() {
+    public void canGetForIdentifierAndLanguage() {
         final Tag tag = new Tag("tag");
-        TestFactories.associations().newAssociation(tag, UUID.randomUUID(), Language.forString("french"));
+        final Language language = Language.forString("french");
+        TestFactories.associations().newAssociation(tag, UUID.randomUUID(), language);
 
-        final Association associationFound = repo.forIdentifier(new Tag("/tag/"));
+        final Association associationFound = repo.forIdentifierAndLanguage(tag, language);
 
         assertThat(associationFound, notNullValue());
     }

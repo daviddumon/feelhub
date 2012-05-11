@@ -35,7 +35,7 @@ public class FakeMongoRepositories extends Repositories {
     }
 
     private final FakeSubjectMongoRepository subjectRepository = new FakeSubjectMongoRepository();
-    private final AssociationRepository associationRepository = new FakeAssociationRepository();
+    private final FakeAssociationRepository associationRepository = new FakeAssociationRepository();
     private final Repository<Opinion> opinionRepository = new FakeOpinionRepository();
     private final RelationRepository relationFakeRepository = new FakeRelationRepository();
     private final FakeStatisticsRepository statisticsRepository = new FakeStatisticsRepository();
