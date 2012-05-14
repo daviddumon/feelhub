@@ -1,7 +1,7 @@
 package com.steambeat.repositories;
 
 import com.mongodb.*;
-import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
+import com.steambeat.domain.alchemy.NamedEntity;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.subject.*;
@@ -136,9 +136,9 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistConcept() {
-        final List<AlchemyJsonEntity> entities = TestFactories.alchemy().oldEntities(1);
+        final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith1Keyword();
         final ConceptFactory conceptFactory = new ConceptFactory();
-        final Concept concept = conceptFactory.newConcept(entities.get(0));
+        final Concept concept = conceptFactory.newConcept(namedEntities.get(0));
 
         repo.add(concept);
 

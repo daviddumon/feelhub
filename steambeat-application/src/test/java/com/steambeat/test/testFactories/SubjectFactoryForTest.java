@@ -1,6 +1,6 @@
 package com.steambeat.test.testFactories;
 
-import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
+import com.steambeat.domain.alchemy.NamedEntity;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.subject.concept.*;
@@ -34,8 +34,8 @@ public class SubjectFactoryForTest {
     }
 
     public Concept newConcept() {
-        final List<AlchemyJsonEntity> entities = TestFactories.alchemy().oldEntities(1);
-        final Concept concept = new ConceptFactory().newConcept(entities.get(0));
+        final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith1Keyword();
+        final Concept concept = new ConceptFactory().newConcept(namedEntities.get(0));
         concept.setScraper(new FakeUriScraper());
         Repositories.subjects().add(concept);
         return concept;

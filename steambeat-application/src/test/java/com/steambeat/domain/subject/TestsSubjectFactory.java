@@ -1,6 +1,6 @@
 package com.steambeat.domain.subject;
 
-import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
+import com.steambeat.domain.alchemy.NamedEntity;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.subject.concept.Concept;
@@ -37,13 +37,12 @@ public class TestsSubjectFactory {
 
     @Test
     public void canCreateConceptFromNamedEntity() {
-        final AlchemyJsonEntity alchemyJsonEntity = new AlchemyJsonEntity();
-        alchemyJsonEntity.text = "Agile";
+        final NamedEntity namedEntity = TestFactories.alchemy().namedEntityWith1Keyword().get(0);
 
-        final Concept concept = subjectFactory.newConcept(alchemyJsonEntity);
+        final Concept concept = subjectFactory.newConcept(namedEntity);
 
         assertThat(concept, notNullValue());
-        assertThat(concept.getShortDescription(), is("Agile"));
+        assertThat(concept.getShortDescription(), is("text"));
     }
 
     private SubjectFactory subjectFactory;

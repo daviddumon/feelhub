@@ -109,19 +109,6 @@ public class AlchemyFactoryForTest {
         return result;
     }
 
-    //todo delete
-    public List<AlchemyJsonEntity> oldEntities(final int quantity) {
-        return null;
-    }
-
-    public List<AlchemyJsonEntity> entitiesWithoutDisambiguated(final int quantity) {
-        List<AlchemyJsonEntity> result = Lists.newArrayList();
-        for (int i = 0; i < quantity; i++) {
-            result.add(createEntityWithoutDisambiguated(i));
-        }
-        return result;
-    }
-
     private AlchemyJsonEntity createEntityWithoutDisambiguated(final int i) {
         final AlchemyJsonEntity entity = new AlchemyJsonEntity();
         entity.text = "text" + i;

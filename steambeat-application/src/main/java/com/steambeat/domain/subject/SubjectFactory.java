@@ -1,7 +1,7 @@
 package com.steambeat.domain.subject;
 
 import com.google.inject.Inject;
-import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
+import com.steambeat.domain.alchemy.NamedEntity;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.*;
@@ -20,8 +20,8 @@ public class SubjectFactory {
         return webPageFactory.newWebPage(association);
     }
 
-    public Concept newConcept(final AlchemyJsonEntity alchemyJsonEntity) {
-        return new ConceptFactory().newConcept(alchemyJsonEntity);
+    public Concept newConcept(final NamedEntity namedEntity) {
+        return new ConceptFactory().newConcept(namedEntity);
     }
 
     public WebPage lookUpWebpage(final UUID subjectId) {
