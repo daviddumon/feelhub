@@ -13,7 +13,7 @@ public class SteambeatModule extends AbstractModule {
     protected void configure() {
         bind(StatisticsService.class).toInstance(new StatisticsService());
         bind(UriScraper.class).toInstance(new UriScraper());
-        bind(AlchemyEntityProvider.class).toInstance(new AlchemyJsonEntityProvider(new AlchemyLink()));
+        bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new AlchemyLink()));
     }
 
     @Provides

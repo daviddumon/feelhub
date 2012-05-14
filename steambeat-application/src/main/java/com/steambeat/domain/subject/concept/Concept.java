@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.scrapers.Scraper;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.thesaurus.*;
+import com.steambeat.domain.thesaurus.Type;
 
 import java.util.*;
 
@@ -16,13 +16,6 @@ public class Concept extends Subject {
 
     public Concept(final UUID id) {
         super(id);
-    }
-
-    public Concept(final String text) {
-        super(UUID.randomUUID());
-        this.shortDescription = text;
-        this.description = text;
-        this.illustration = "";
     }
 
     @Override

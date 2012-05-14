@@ -22,7 +22,7 @@ public class Migration00004 extends Migration {
         System.out.println("webpages: " + webPages.size());
         int i = 0;
         for (WebPage webpage : webPages) {
-            final AlchemyEntityAnalyzer alchemyEntityAnalyzer = new AlchemyEntityAnalyzer(new AlchemyJsonEntityProvider(new AlchemyLink()), new AssociationService(new UriPathResolver()));
+            final AlchemyEntityAnalyzer alchemyEntityAnalyzer = new AlchemyEntityAnalyzer(new NamedEntityJsonProvider(new AlchemyLink()), new AssociationService(new UriPathResolver()));
             System.out.println("webpage " + i++ + " " + webpage.getUri());
             try {
                 alchemyEntityAnalyzer.analyze(webpage);

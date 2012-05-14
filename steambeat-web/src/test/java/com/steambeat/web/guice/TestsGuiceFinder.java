@@ -36,7 +36,7 @@ public class TestsGuiceFinder {
             bind(SessionProvider.class).to(FakeSessionProvider.class);
             bind(WebPageFactory.class).to(FakeWebPageFactory.class);
             bind(UriScraper.class).to(FakeUriScraper.class);
-            bind(AlchemyEntityProvider.class).toInstance(new AlchemyJsonEntityProvider(new FakeJsonAlchemyLink()));
+            bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink()));
         }
     }
 }

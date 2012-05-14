@@ -5,7 +5,7 @@ import com.steambeat.domain.association.Identifier;
 public class Tag extends Identifier {
 
     public Tag(final String text) {
-        this.text = text.trim().toLowerCase();
+        this.text = text.toLowerCase().trim();
     }
 
     @Override

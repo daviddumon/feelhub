@@ -1,7 +1,7 @@
 package com.steambeat.domain.alchemy;
 
-import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -14,27 +14,27 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsAlchemyJsonEntityProvider {
+public class TestsNamedEntityJsonProvider {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Before
     public void before() throws ParserConfigurationException, IOException, SAXException {
-        alchemyNamedJsonEntityProvider = new AlchemyJsonEntityProvider(new FakeJsonAlchemyLink());
+        alchemyNamedEntityJsonProvider = new NamedEntityJsonProvider(new FakeJsonAlchemyLink());
     }
 
     @Test
     public void canGetNamedEntitiesForAWebPage() {
         final WebPage webPage = TestFactories.subjects().newWebPage();
 
-        final List<AlchemyJsonEntity> results = alchemyNamedJsonEntityProvider.entitiesFor(webPage);
+        final List<NamedEntity> results = alchemyNamedEntityJsonProvider.entitiesFor(webPage);
 
         assertThat(results, notNullValue());
         assertThat(results.size(), is(19));
-        final AlchemyJsonEntity alchemyJsonEntity = results.get(0);
-        assertThat(alchemyJsonEntity.language, is("english"));
+        final NamedEntity namedEntity = results.get(0);
+        assertThat(namedEntity.language, is(Language.forString("english")));
     }
 
-    private AlchemyJsonEntityProvider alchemyNamedJsonEntityProvider;
+    private NamedEntityJsonProvider alchemyNamedEntityJsonProvider;
 }

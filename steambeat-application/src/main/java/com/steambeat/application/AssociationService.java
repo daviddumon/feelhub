@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.steambeat.domain.association.*;
 import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.association.uri.*;
+import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.repositories.Repositories;
 
 import java.util.*;
@@ -24,8 +25,15 @@ public class AssociationService {
         return association;
     }
 
+    //todo delete
     public Association createAssociationFor(final Tag tag, final UUID id) {
         final Association association = new Association(tag, id);
+        Repositories.associations().add(association);
+        return association;
+    }
+
+    public Association createAssociationFor(final Tag tag, final UUID id, Language language) {
+        final Association association = new Association(tag, id, language);
         Repositories.associations().add(association);
         return association;
     }

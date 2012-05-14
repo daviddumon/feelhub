@@ -35,7 +35,7 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(SteambeatBoot.class).to(FakeSteambeatBoot.class);
         bind(MigrationRunner.class).to(FakeMigrationRunner.class);
         bind(UriScraper.class).to(FakeUriScraper.class);
-        bind(AlchemyEntityProvider.class).toInstance(new AlchemyJsonEntityProvider(new FakeJsonAlchemyLink()));
+        bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink()));
     }
 
     @Provides

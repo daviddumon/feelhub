@@ -136,7 +136,7 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistConcept() {
-        final List<AlchemyJsonEntity> entities = TestFactories.alchemy().entities(1);
+        final List<AlchemyJsonEntity> entities = TestFactories.alchemy().oldEntities(1);
         final ConceptFactory conceptFactory = new ConceptFactory();
         final Concept concept = conceptFactory.newConcept(entities.get(0));
 

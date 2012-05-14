@@ -1,12 +1,10 @@
 package com.steambeat.domain.alchemy;
 
-import com.google.common.collect.Lists;
 import com.steambeat.application.AssociationService;
-import com.steambeat.domain.alchemy.readmodel.*;
 import com.steambeat.domain.association.Association;
+import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.FakeUriPathResolver;
@@ -27,27 +25,101 @@ public class TestsAlchemyEntityAnalyzer {
 
     @Before
     public void setUp() throws Exception {
-        entityProvider = mock(AlchemyEntityProvider.class);
+        entityProvider = mock(NamedEntityProvider.class);
         analyzer = new AlchemyEntityAnalyzer(entityProvider, new AssociationService(new FakeUriPathResolver()));
     }
 
     @Test
-    public void canCreateConceptFromNonAmbiguousNamedEntity() {
+    public void ifNoKeywordsCreateNothing() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(1));
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWithoutKeywords());
+
+        analyzer.analyze(webpage);
+
+        final List<Subject> subjects = Repositories.subjects().getAll();
+        assertThat(subjects.size(), is(1));
+        final List<Association> associations = Repositories.associations().getAll();
+        assertThat(associations.size(), is(1));
+        final List<Relation> relations = Repositories.relations().getAll();
+        assertThat(relations.size(), is(0));
+    }
+
+    @Test
+    public void doNotCreateConceptFromExistingConcept() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith1Keyword();
+        when(entityProvider.entitiesFor(webpage)).thenReturn(namedEntities);
+
+        analyzer.analyze(webpage);
+
+        final List<Subject> subjects = Repositories.subjects().getAll();
+        assertThat(subjects.size(), is(1));
+    }
+
+    @Test
+    public void createConceptIfNoPreviousConcept() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
 
         analyzer.analyze(webpage);
 
         final List<Subject> subjects = Repositories.subjects().getAll();
         assertThat(subjects.size(), is(2));
-        final Concept concept = (Concept) subjects.get(1);
-        assertThat(concept.getShortDescription(), is("name0"));
+    }
+
+    @Test
+    public void createAssociationForKeyword() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1Keyword());
+
+        analyzer.analyze(webpage);
+
+        final List<Association> associations = Repositories.associations().getAll();
+        assertThat(associations.size(), is(2));
+    }
+
+    @Test
+    public void createAssociationFor2Keywords() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith2Keywords());
+
+        analyzer.analyze(webpage);
+
+        final List<Association> associations = Repositories.associations().getAll();
+        assertThat(associations.size(), is(3));
+    }
+
+    @Test
+    public void createAssociationFromKeywordOnlyIfNotExisting() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+        final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith2Keywords();
+        final NamedEntity namedEntity = namedEntities.get(0);
+        TestFactories.associations().newAssociation(new Tag(namedEntity.keywords.get(0)), namedEntity.conceptId, namedEntity.language);
+        when(entityProvider.entitiesFor(webpage)).thenReturn(namedEntities);
+
+        analyzer.analyze(webpage);
+
+        final List<Association> associations = Repositories.associations().getAll();
+        assertThat(associations.size(), is(3));
+    }
+
+    @Test
+    public void dontCreateConceptsIfAlreadyExisting() {
+        final WebPage webpage = TestFactories.subjects().newWebPage();
+
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
+        analyzer.analyze(webpage);
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1Keyword());
+        analyzer.analyze(webpage);
+
+        final List<Subject> subjects = Repositories.subjects().getAll();
+        assertThat(subjects.size(), is(2));
     }
 
     @Test
     public void createRelationsBetweenConceptsAndPages() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(1));
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
 
         analyzer.analyze(webpage);
 
@@ -59,20 +131,9 @@ public class TestsAlchemyEntityAnalyzer {
     }
 
     @Test
-    public void canCreateMultipleConcepts() {
-        final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(2));
-
-        analyzer.analyze(webpage);
-
-        final List<Subject> subjects = Repositories.subjects().getAll();
-        assertThat(subjects.size(), is(3));
-    }
-
-    @Test
     public void canCreateRelationsBetweenAllConceptsAndWebpages() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(5));
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntitiesWithoutConcepts(5));
 
         analyzer.analyze(webpage);
 
@@ -83,42 +144,20 @@ public class TestsAlchemyEntityAnalyzer {
     @Test
     public void initialRelationWeightIsRelevanceOfEntityPlusOne() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        final List<AlchemyJsonEntity> entities = TestFactories.alchemy().entities(1);
-        when(entityProvider.entitiesFor(webpage)).thenReturn(entities);
+        final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept();
+        when(entityProvider.entitiesFor(webpage)).thenReturn(namedEntities);
 
         analyzer.analyze(webpage);
 
         final List<Relation> relations = Repositories.relations().getAll();
-        assertThat(relations.get(0).getWeight(), is(entities.get(0).relevance + 1));
-        assertThat(relations.get(1).getWeight(), is(entities.get(0).relevance + 1));
-    }
-
-    @Test
-    public void dontCreateConceptsIfAlreadyExisting() {
-        final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(2));
-
-        analyzer.analyze(webpage);
-        analyzer.analyze(webpage);
-
-        final List<Subject> subjects = Repositories.subjects().getAll();
-        assertThat(subjects.size(), is(3));
-    }
-
-    @Test
-    public void canCreateAssociationFromEntities() {
-        final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(2));
-
-        analyzer.analyze(webpage);
-
-        assertThat(Repositories.associations().getAll().size(), is(5));
+        assertThat(relations.get(0).getWeight(), is(namedEntities.get(0).relevance + 1));
+        assertThat(relations.get(1).getWeight(), is(namedEntities.get(0).relevance + 1));
     }
 
     @Test
     public void addWeightToExistingConcepts() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entities(1));
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
 
         analyzer.analyze(webpage);
         analyzer.analyze(webpage);
@@ -128,56 +167,11 @@ public class TestsAlchemyEntityAnalyzer {
         assertThat(relations.get(0).getWeight(), is(3.0));
     }
 
-    @Test
-    public void dontUseBadEntities() {
-        final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().entitiesWithHalfBadOnes(10));
-
-        analyzer.analyze(webpage);
-
-        final List<Subject> subjects = Repositories.subjects().getAll();
-        assertThat(subjects.size(), is(6));
-    }
-
-    @Test
-    public void dontUseSmallEntities() {
-        final WebPage webpage = TestFactories.subjects().newWebPage();
-        final List<AlchemyJsonEntity> entities = Lists.newArrayList();
-        final AlchemyJsonEntity entity = new AlchemyJsonEntity();
-        entity.text = "la";
-        entity.disambiguated = new AlchemyJsonDisambiguated();
-        entity.disambiguated.name = "longtext";
-        entities.add(entity);
-        when(entityProvider.entitiesFor(webpage)).thenReturn(entities);
-
-        analyzer.analyze(webpage);
-
-        final List<Subject> subjects = Repositories.subjects().getAll();
-        assertThat(subjects.size(), is(1));
-    }
-
-    @Test
-    public void trimEntities() {
-        final WebPage webpage = TestFactories.subjects().newWebPage();
-        final List<AlchemyJsonEntity> entities = Lists.newArrayList();
-        final AlchemyJsonEntity entity = new AlchemyJsonEntity();
-        entity.text = " needatrim ";
-        entity.disambiguated = new AlchemyJsonDisambiguated();
-        entity.disambiguated.name = " needatrim ";
-        entities.add(entity);
-        when(entityProvider.entitiesFor(webpage)).thenReturn(entities);
-
-        analyzer.analyze(webpage);
-
-        final List<Association> associations = Repositories.associations().getAll();
-        assertThat(associations.get(1).getIdentifier(), is("needatrim"));
-    }
-
     private void testRelation(final Subject left, final Subject right, final Relation relation) {
         assertThat(relation.getLeft(), is(left));
         assertThat(relation.getRight(), is(right));
     }
 
-    private AlchemyEntityProvider entityProvider;
+    private NamedEntityProvider entityProvider;
     private AlchemyEntityAnalyzer analyzer;
 }

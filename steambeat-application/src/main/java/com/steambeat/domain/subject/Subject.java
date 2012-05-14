@@ -59,6 +59,14 @@ public abstract class Subject extends BaseEntity {
         this.lastModificationDate = lastModificationDate;
     }
 
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public void setShortDescription(final String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
     public abstract String getUriToken();
 
     private UUID id;

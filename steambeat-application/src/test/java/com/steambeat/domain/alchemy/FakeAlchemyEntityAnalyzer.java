@@ -7,7 +7,7 @@ import com.steambeat.test.FakeUriPathResolver;
 public class FakeAlchemyEntityAnalyzer extends AlchemyEntityAnalyzer {
 
     public FakeAlchemyEntityAnalyzer() {
-        super(new AlchemyJsonEntityProvider(new FakeJsonAlchemyLink()), new AssociationService(new FakeUriPathResolver()));
+        super(new NamedEntityJsonProvider(new FakeJsonAlchemyLink()), new AssociationService(new FakeUriPathResolver()));
     }
 
     @Override

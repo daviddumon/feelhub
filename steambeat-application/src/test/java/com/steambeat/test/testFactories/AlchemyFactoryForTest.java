@@ -1,48 +1,117 @@
 package com.steambeat.test.testFactories;
 
 import com.google.common.collect.Lists;
+import com.steambeat.domain.alchemy.NamedEntity;
 import com.steambeat.domain.alchemy.readmodel.*;
+import com.steambeat.domain.thesaurus.Language;
 
-import java.util.List;
+import java.util.*;
 
 public class AlchemyFactoryForTest {
 
-    public List<AlchemyJsonEntity> entities(final int quantity) {
-        List<AlchemyJsonEntity> result = Lists.newArrayList();
-        for (int i = 0; i < quantity; i++) {
-            result.add(createEntity(i));
-        }
-        return result;
-    }
-
-    private AlchemyJsonEntity createEntity(final int i) {
-        final AlchemyJsonEntity entity = new AlchemyJsonEntity();
-        entity.text = "text" + i;
-        entity.language = "english";
-        entity.type = "type" + i;
-        entity.relevance = 0.5;
-        entity.count = 1;
-        entity.disambiguated = new AlchemyJsonDisambiguated();
-        entity.disambiguated.name = "name" + i;
+    public List<NamedEntity> namedEntityWith2Keywords() {
+        final NamedEntity entity = new NamedEntity();
+        entity.name = "text";
+        entity.language = Language.forString("english");
+        entity.type = "type";
         List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
         subtypes.add("subtype3");
-        entity.disambiguated.subType = subtypes;
-        entity.disambiguated.website = "website" + i;
-        entity.disambiguated.geo = "geo" + i;
-        entity.disambiguated.dbpedia = "dbpedia" + i;
-        entity.disambiguated.yago = "yago" + i;
-        entity.disambiguated.opencyc = "opencyc" + i;
-        entity.disambiguated.umbel = "umbel" + i;
-        entity.disambiguated.freebase = "freebase" + i;
-        entity.disambiguated.ciaFactbook = "ciafactbook" + i;
-        entity.disambiguated.census = ""; // for testing purpose
-        entity.disambiguated.geonames = "geonames" + i;
-        entity.disambiguated.musicBrainz = "musicbrainz" + i;
-        entity.disambiguated.crunchbase = "crunchbase" + i;
-        entity.disambiguated.semanticCrunchbase = "semanticcrunchbase" + i;
-        return entity;
+        entity.subType = subtypes;
+        entity.website = "website";
+        entity.geo = "geo";
+        entity.relevance = 0.5;
+        entity.conceptId = UUID.randomUUID();
+        entity.keywords.add("keyword1");
+        entity.keywords.add("keyword2");
+        List<NamedEntity> result = Lists.newArrayList();
+        result.add(entity);
+        return result;
+    }
+
+    public List<NamedEntity> namedEntityWith1Keyword() {
+        final NamedEntity entity = new NamedEntity();
+        entity.name = "text";
+        entity.language = Language.forString("english");
+        entity.type = "type";
+        List<String> subtypes = Lists.newArrayList();
+        subtypes.add("subtype1");
+        subtypes.add("subtype2");
+        subtypes.add("subtype3");
+        entity.subType = subtypes;
+        entity.website = "website";
+        entity.geo = "geo";
+        entity.relevance = 0.5;
+        entity.conceptId = UUID.randomUUID();
+        entity.keywords.add("keyword1");
+        List<NamedEntity> result = Lists.newArrayList();
+        result.add(entity);
+        return result;
+    }
+
+    public List<NamedEntity> namedEntityWith1KeywordWithoutConcept() {
+        final NamedEntity entity = new NamedEntity();
+        entity.name = "text";
+        entity.language = Language.forString("english");
+        entity.type = "type";
+        List<String> subtypes = Lists.newArrayList();
+        subtypes.add("subtype1");
+        subtypes.add("subtype2");
+        subtypes.add("subtype3");
+        entity.subType = subtypes;
+        entity.website = "website";
+        entity.geo = "geo";
+        entity.relevance = 0.5;
+        entity.keywords.add("keyword1");
+        List<NamedEntity> result = Lists.newArrayList();
+        result.add(entity);
+        return result;
+    }
+
+    public List<NamedEntity> namedEntityWithoutKeywords() {
+        final NamedEntity entity = new NamedEntity();
+        entity.name = "text";
+        entity.language = Language.forString("english");
+        entity.type = "type";
+        List<String> subtypes = Lists.newArrayList();
+        subtypes.add("subtype1");
+        subtypes.add("subtype2");
+        subtypes.add("subtype3");
+        entity.subType = subtypes;
+        entity.website = "website";
+        entity.geo = "geo";
+        entity.relevance = 0.5;
+        entity.conceptId = UUID.randomUUID();
+        List<NamedEntity> result = Lists.newArrayList();
+        result.add(entity);
+        return result;
+    }
+
+    public List<NamedEntity> namedEntitiesWithoutConcepts(final int quantity) {
+        List<NamedEntity> result = Lists.newArrayList();
+        for (int i = 0; i < quantity; i++) {
+            final NamedEntity entity = new NamedEntity();
+            entity.name = "text" + i;
+            entity.language = Language.forString("english");
+            entity.type = "type";
+            List<String> subtypes = Lists.newArrayList();
+            subtypes.add("subtype1");
+            subtypes.add("subtype2");
+            subtypes.add("subtype3");
+            entity.subType = subtypes;
+            entity.website = "website";
+            entity.geo = "geo";
+            entity.relevance = 0.5;
+            entity.keywords.add("keyword1");
+            result.add(entity);
+        }
+        return result;
+    }
+
+    //todo delete
+    public List<AlchemyJsonEntity> oldEntities(final int quantity) {
+        return null;
     }
 
     public List<AlchemyJsonEntity> entitiesWithoutDisambiguated(final int quantity) {
@@ -63,42 +132,30 @@ public class AlchemyFactoryForTest {
         return entity;
     }
 
-    public List<AlchemyJsonEntity> entitiesWithHalfBadOnes(final int quantity) {
-        List<AlchemyJsonEntity> result = Lists.newArrayList();
-        for (int i = 0; i < quantity / 2; i++) {
-            result.add(createEntity(i));
-            result.add(createBadEntity(i));
-        }
-        return result;
-    }
-
-    private AlchemyJsonEntity createBadEntity(final int i) {
-        final AlchemyJsonEntity entity = new AlchemyJsonEntity();
-        entity.text = "text-." + i;
-        entity.language = "english";
-        entity.type = "type" + i;
-        entity.relevance = 0.5;
-        entity.count = 1;
-        entity.disambiguated = new AlchemyJsonDisambiguated();
-        entity.disambiguated.name = "name {}" + i;
+    public AlchemyJsonEntity alchemyJsonEntity() {
+        final AlchemyJsonEntity alchemyJsonEntity = new AlchemyJsonEntity();
+        alchemyJsonEntity.text = "text";
+        alchemyJsonEntity.type = "type";
+        alchemyJsonEntity.language = "english";
+        alchemyJsonEntity.relevance = 0.5;
+        alchemyJsonEntity.disambiguated = new AlchemyJsonDisambiguated();
+        alchemyJsonEntity.disambiguated.name = "name";
+        alchemyJsonEntity.disambiguated.geo = "geo";
+        alchemyJsonEntity.disambiguated.website = "website";
         List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
         subtypes.add("subtype3");
-        entity.disambiguated.subType = subtypes;
-        entity.disambiguated.website = "website" + i;
-        entity.disambiguated.geo = "geo" + i;
-        entity.disambiguated.dbpedia = "dbpedia" + i;
-        entity.disambiguated.yago = "yago" + i;
-        entity.disambiguated.opencyc = "opencyc" + i;
-        entity.disambiguated.umbel = "umbel" + i;
-        entity.disambiguated.freebase = "freebase" + i;
-        entity.disambiguated.ciaFactbook = "ciafactbook" + i;
-        entity.disambiguated.census = ""; // for testing purpose
-        entity.disambiguated.geonames = "geonames" + i;
-        entity.disambiguated.musicBrainz = "musicbrainz" + i;
-        entity.disambiguated.crunchbase = "crunchbase" + i;
-        entity.disambiguated.semanticCrunchbase = "semanticcrunchbase" + i;
-        return entity;
+        alchemyJsonEntity.disambiguated.subType = subtypes;
+        return alchemyJsonEntity;
+    }
+
+    public AlchemyJsonEntity alchemyJsonEntityWithoutDisambiguated() {
+        final AlchemyJsonEntity alchemyJsonEntity = new AlchemyJsonEntity();
+        alchemyJsonEntity.text = "text";
+        alchemyJsonEntity.type = "type";
+        alchemyJsonEntity.language = "english";
+        alchemyJsonEntity.relevance = 0.5;
+        return alchemyJsonEntity;
     }
 }

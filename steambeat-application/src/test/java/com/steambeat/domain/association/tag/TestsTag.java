@@ -8,16 +8,16 @@ import static org.hamcrest.Matchers.*;
 public class TestsTag {
 
     @Test
-    public void trimTag() {
-        final Tag tag = new Tag(" need a trim");
+    public void lowercaseText() {
+        final Tag tag = new Tag("TexT");
 
-        assertThat(tag.toString(), is("need a trim"));
+        assertThat(tag.toString(), is("text"));
     }
 
     @Test
-    public void lowerCaseTag() {
-        final Tag tag = new Tag("TaGs");
+    public void canTrim() {
+        final Tag tag = new Tag(" text ");
 
-        assertThat(tag.toString(), is("tags"));
+        assertThat(tag.toString(), is("text"));
     }
 }

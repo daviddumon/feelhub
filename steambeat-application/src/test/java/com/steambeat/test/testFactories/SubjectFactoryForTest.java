@@ -34,7 +34,7 @@ public class SubjectFactoryForTest {
     }
 
     public Concept newConcept() {
-        final List<AlchemyJsonEntity> entities = TestFactories.alchemy().entities(1);
+        final List<AlchemyJsonEntity> entities = TestFactories.alchemy().oldEntities(1);
         final Concept concept = new ConceptFactory().newConcept(entities.get(0));
         concept.setScraper(new FakeUriScraper());
         Repositories.subjects().add(concept);

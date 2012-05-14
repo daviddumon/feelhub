@@ -1,6 +1,7 @@
 package com.steambeat.domain.subject.concept;
 
-import com.steambeat.domain.alchemy.readmodel.*;
+import com.steambeat.domain.alchemy.NamedEntity;
+import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.thesaurus.Type;
 import com.steambeat.repositories.Repositories;
@@ -9,21 +10,20 @@ import java.util.UUID;
 
 public class ConceptFactory {
 
+    //todo delete
     public Concept newConcept(final AlchemyJsonEntity entity) {
-        final Concept concept = new Concept(getGoodText(entity));
-        concept.setType(Type.forString(entity.type));
-        final AlchemyJsonDisambiguated disambiguated = entity.disambiguated;
-        concept.setSubTypes(disambiguated.subType);
-        concept.setWebsite(new Uri(disambiguated.website));
-        concept.setGeo(disambiguated.geo);
-        return concept;
+        return null;
     }
 
-    private String getGoodText(final AlchemyJsonEntity entity) {
-        if (entity.disambiguated.name.isEmpty()) {
-            return entity.text.trim();
-        }
-        return entity.disambiguated.name.trim();
+    public Concept newConcept(final NamedEntity entity) {
+        final Concept concept = new Concept(entity.conceptId);
+        concept.setShortDescription(entity.name);
+        concept.setDescription(entity.name);
+        concept.setType(Type.forString(entity.type));
+        concept.setSubTypes(entity.subType);
+        concept.setWebsite(new Uri(entity.website));
+        concept.setGeo(entity.geo);
+        return concept;
     }
 
     public Concept lookUpConcept(final UUID subjectId) {

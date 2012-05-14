@@ -5,7 +5,10 @@ import com.steambeat.domain.subject.webpage.WebPage;
 
 import java.util.List;
 
-public interface AlchemyEntityProvider {
+public interface NamedEntityProvider {
 
-    List<AlchemyJsonEntity> entitiesFor(WebPage webpage);
+    //todo delete
+    List<AlchemyJsonEntity> oldentitiesFor(WebPage webpage);
+
+    List<NamedEntity> entitiesFor(WebPage webpage);
 }
