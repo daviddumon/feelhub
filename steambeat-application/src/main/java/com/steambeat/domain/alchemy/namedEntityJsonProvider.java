@@ -18,11 +18,6 @@ public class NamedEntityJsonProvider implements NamedEntityProvider {
     }
 
     @Override
-    public List<AlchemyJsonEntity> oldentitiesFor(final WebPage webpage) {
-        return null;
-    }
-
-    @Override
     public List<NamedEntity> entitiesFor(final WebPage webpage) {
         try {
             final InputStream stream = alchemyLink.get(webpage.getUri());

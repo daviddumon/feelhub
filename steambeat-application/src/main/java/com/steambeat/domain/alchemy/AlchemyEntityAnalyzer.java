@@ -57,13 +57,17 @@ public class AlchemyEntityAnalyzer {
     }
 
     private void createRelations(final WebPage webpage, final NamedEntity namedEntity) {
-        final Concept concept = concepts.get(concepts.size() - 1);
+        final Concept concept = getLastAddedConcept();
         relationBuilder.connectTwoWays(webpage, concept, namedEntity.relevance);
         for (Concept otherConcept : concepts) {
             if (!concept.equals(otherConcept)) {
                 relationBuilder.connectTwoWays(concept, otherConcept);
             }
         }
+    }
+
+    private Concept getLastAddedConcept() {
+        return concepts.get(concepts.size() - 1);
     }
 
     private final NamedEntityProvider namedEntityProvider;

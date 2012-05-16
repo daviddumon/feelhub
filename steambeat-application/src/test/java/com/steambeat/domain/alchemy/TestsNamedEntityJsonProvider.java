@@ -32,8 +32,6 @@ public class TestsNamedEntityJsonProvider {
 
         assertThat(results, notNullValue());
         assertThat(results.size(), is(19));
-        final NamedEntity namedEntity = results.get(0);
-        assertThat(namedEntity.language, is(Language.forString("english")));
     }
 
     private NamedEntityJsonProvider alchemyNamedEntityJsonProvider;

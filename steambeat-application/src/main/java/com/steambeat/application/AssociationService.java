@@ -25,13 +25,6 @@ public class AssociationService {
         return association;
     }
 
-    //todo delete
-    public Association createAssociationFor(final Tag tag, final UUID id) {
-        final Association association = new Association(tag, id);
-        Repositories.associations().add(association);
-        return association;
-    }
-
     public Association createAssociationFor(final Tag tag, final UUID id, Language language) {
         final Association association = new Association(tag, id, language);
         Repositories.associations().add(association);

@@ -22,6 +22,7 @@ public class NamedEntityBuilder {
         addFields(entity, alchemyJsonEntity);
         addName(entity, alchemyJsonEntity);
         addConcept(entity, alchemyJsonEntity);
+        addLanguage(entity, alchemyJsonEntity);
         return entity;
     }
 
@@ -78,7 +79,6 @@ public class NamedEntityBuilder {
 
     private void addFields(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
         entity.type = alchemyJsonEntity.type;
-        entity.language = Language.forString(alchemyJsonEntity.language);
         entity.relevance = alchemyJsonEntity.relevance;
         if (isDisambiguated(alchemyJsonEntity)) {
             entity.subType = alchemyJsonEntity.disambiguated.subType;
@@ -115,6 +115,27 @@ public class NamedEntityBuilder {
             }
         }
         return null;
+    }
+
+    private void addLanguage(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
+        if (alchemyJsonEntity.type.equalsIgnoreCase("Automobile")
+                || alchemyJsonEntity.type.equalsIgnoreCase("Company")
+                || alchemyJsonEntity.type.equalsIgnoreCase("EntertainmentAward")
+                || alchemyJsonEntity.type.equalsIgnoreCase("FinancialMarketIndex")
+                || alchemyJsonEntity.type.equalsIgnoreCase("Movie")
+                || alchemyJsonEntity.type.equalsIgnoreCase("MusicGroup")
+                || alchemyJsonEntity.type.equalsIgnoreCase("OperatingSystem")
+                || alchemyJsonEntity.type.equalsIgnoreCase("Organization")
+                || alchemyJsonEntity.type.equalsIgnoreCase("Person")
+                || alchemyJsonEntity.type.equalsIgnoreCase("PrintMedia")
+                || alchemyJsonEntity.type.equalsIgnoreCase("Technology")
+                || alchemyJsonEntity.type.equalsIgnoreCase("Movie")
+                || alchemyJsonEntity.type.equalsIgnoreCase("TelevisionStation")
+                ) {
+            entity.language = Language.forString("");
+        } else {
+            entity.language = Language.forString(alchemyJsonEntity.language);
+        }
     }
 
     private AssociationService associationService;

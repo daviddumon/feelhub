@@ -163,7 +163,12 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void languageDependsOnType() {
-        fail();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
+        alchemyJsonEntity.type = "Automobile";
+
+        final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
+
+        assertThat(namedEntity.language, is(Language.forString("")));
     }
 
     private NamedEntityBuilder namedEntityBuilder;
