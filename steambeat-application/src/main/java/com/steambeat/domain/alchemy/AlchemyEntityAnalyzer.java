@@ -47,9 +47,8 @@ public class AlchemyEntityAnalyzer {
 
     private void createAssociations(final NamedEntity namedEntity) {
         for (String keyword : namedEntity.keywords) {
-            //todo attention a la langue dans le lookup
             try {
-                associationService.lookUp(new Tag(keyword));
+                associationService.lookUp(new Tag(keyword), namedEntity.language);
             } catch (AssociationNotFound e) {
                 associationService.createAssociationFor(new Tag(keyword), namedEntity.conceptId, namedEntity.language);
             }

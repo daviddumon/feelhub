@@ -150,6 +150,19 @@ public class TestsNamedEntityBuilder {
     }
 
     @Test
+    public void useLanguageForConceptFinding() {
+        final Tag tag = new Tag("text");
+        final UUID uuid = UUID.randomUUID();
+        TestFactories.associations().newAssociation(tag, uuid, Language.forString("english"));
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
+        alchemyJsonEntity.language = "french";
+
+        final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
+
+        assertNull(namedEntity.conceptId);
+    }
+
+    @Test
     public void canFindExistingConceptForAlchemyEntityName() {
         final Tag tag = new Tag("name");
         final UUID uuid = UUID.randomUUID();

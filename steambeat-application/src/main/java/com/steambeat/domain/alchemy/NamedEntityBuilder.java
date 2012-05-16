@@ -104,12 +104,13 @@ public class NamedEntityBuilder {
     }
 
     private UUID findConceptForBothEntities(final AlchemyJsonEntity alchemyJsonEntity) {
+        final Language language = Language.forString(alchemyJsonEntity.language);
         try {
-            return associationService.lookUp(new Tag(alchemyJsonEntity.text)).getSubjectId();
+            return associationService.lookUp(new Tag(alchemyJsonEntity.text), language).getSubjectId();
         } catch (AssociationNotFound textNotFound) {
             if (!alchemyJsonEntity.disambiguated.name.isEmpty() && alchemyJsonEntity.disambiguated.name != alchemyJsonEntity.text) {
                 try {
-                    return associationService.lookUp(new Tag(alchemyJsonEntity.disambiguated.name)).getSubjectId();
+                    return associationService.lookUp(new Tag(alchemyJsonEntity.disambiguated.name), language).getSubjectId();
                 } catch (AssociationNotFound nameNotFound) {
                 }
             }
