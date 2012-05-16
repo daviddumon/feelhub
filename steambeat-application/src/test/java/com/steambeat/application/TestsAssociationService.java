@@ -1,7 +1,9 @@
 package com.steambeat.application;
 
 import com.steambeat.domain.association.Association;
+import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.association.uri.*;
+import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.FakeUriPathResolver;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
@@ -11,7 +13,7 @@ import org.junit.rules.ExpectedException;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -59,6 +61,7 @@ public class TestsAssociationService {
 
         assertThat(association, notNullValue());
         assertThat(association.getIdentifier(), is(uri.toString()));
+        assertThat(association.getLanguage(), is(""));
     }
 
     @Test
@@ -108,6 +111,19 @@ public class TestsAssociationService {
         final Association association = associationService.createAssociationsFor(uri);
 
         assertThat(association.getIdentifier(), is(uri.toString()));
+    }
+
+    @Test
+    public void canGetAnAssociationForAnIdentifierAndLanguage() {
+        final Language language = Language.forString("english");
+        final Tag identifier = new Tag("test");
+        TestFactories.associations().newAssociation(identifier, UUID.randomUUID(), language);
+
+        final Association association = associationService.lookUp(identifier, language);
+
+        assertThat(association, notNullValue());
+        assertThat(association.getIdentifier(), is(identifier.toString()));
+        assertThat(association.getLanguage(), is(language.getCode()));
     }
 
     private AssociationService associationService;

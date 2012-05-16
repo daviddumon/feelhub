@@ -25,6 +25,14 @@ public class AssociationService {
         return association;
     }
 
+    public Association lookUp(final Tag identifier, final Language language) {
+        final Association association = Repositories.associations().forIdentifierAndLanguage(identifier, language);
+        if (association == null) {
+            throw new AssociationNotFound();
+        }
+        return association;
+    }
+
     public Association createAssociationFor(final Tag tag, final UUID id, Language language) {
         final Association association = new Association(tag, id, language);
         Repositories.associations().add(association);
@@ -57,7 +65,7 @@ public class AssociationService {
             try {
                 association = lookUp(uri);
             } catch (AssociationNotFound e) {
-                association = new Association(uri, subjectId);
+                association = new Association(uri, subjectId, Language.forString(""));
                 Repositories.associations().add(association);
             }
             associations.add(association);

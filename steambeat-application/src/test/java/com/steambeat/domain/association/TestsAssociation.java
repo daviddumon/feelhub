@@ -22,7 +22,7 @@ public class TestsAssociation {
 
         assertThat(association.getIdentifier(), is(uri.toString()));
         assertThat(association.getSubjectId(), is(uuid));
-        assertThat(association.getLanguage(), is(Language.forString("all")));
+        assertThat(association.getLanguage(), is(""));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class TestsAssociation {
 
         assertThat(association.getIdentifier(), is(tag.toString()));
         assertThat(association.getSubjectId(), is(uuid));
-        assertThat(association.getLanguage(), is(Language.forString("all")));
+        assertThat(association.getLanguage(), is(""));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class TestsAssociation {
 
         assertThat(association.getIdentifier(), is(tag.toString()));
         assertThat(association.getSubjectId(), is(uuid));
-        assertThat(association.getLanguage(), is(french));
+        assertThat(association.getLanguage(), is(french.getCode()));
     }
 
     @Test

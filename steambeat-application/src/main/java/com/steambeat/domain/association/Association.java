@@ -15,7 +15,7 @@ public class Association extends BaseEntity {
         this.id = UUID.randomUUID();
         this.identifier = identifier.toString();
         this.subjectId = uuid;
-        this.language = Language.forString("all");
+        this.language = "";
         this.weight = 1;
     }
 
@@ -23,7 +23,7 @@ public class Association extends BaseEntity {
         this.id = UUID.randomUUID();
         this.identifier = identifier.toString();
         this.subjectId = uuid;
-        this.language = language;
+        this.language = language.getCode();
         this.weight = 1;
     }
 
@@ -36,7 +36,7 @@ public class Association extends BaseEntity {
         return subjectId;
     }
 
-    public Language getLanguage() {
+    public String getLanguage() {
         return language;
     }
 
@@ -55,6 +55,6 @@ public class Association extends BaseEntity {
     private UUID id;
     private String identifier;
     private UUID subjectId;
-    private Language language;
+    private String language;
     private int weight;
 }

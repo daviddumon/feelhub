@@ -35,7 +35,7 @@ public class FakeAssociationRepository extends FakeRepository<Association> imple
 
                 @Override
                 public boolean apply(@Nullable final Association input) {
-                    if (input.getIdentifier().equals(identifier.toString()) && input.getLanguage().equals(language)) {
+                    if (input.getIdentifier().equals(identifier.toString()) && input.getLanguage().equals(language.getCode())) {
                         return true;
                     } else {
                         return false;

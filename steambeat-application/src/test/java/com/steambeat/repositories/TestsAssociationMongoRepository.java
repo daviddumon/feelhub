@@ -35,7 +35,7 @@ public class TestsAssociationMongoRepository extends TestWithMongoRepository {
         assertThat(associationFound, notNullValue());
         assertThat(associationFound.get("identifier"), is((Object) identifier.toString()));
         assertThat(UUID.fromString(associationFound.get("subjectId").toString()), is((Object) uuid));
-        assertThat(associationFound.get("language"), is((Object) french));
+        assertThat(associationFound.get("language"), is((Object) french.getCode()));
     }
 
     private DBObject getAssociationFromDB() {
@@ -85,6 +85,16 @@ public class TestsAssociationMongoRepository extends TestWithMongoRepository {
         TestFactories.associations().newAssociation(tag, UUID.randomUUID(), language);
 
         final Association associationFound = repo.forIdentifierAndLanguage(tag, language);
+
+        assertThat(associationFound, notNullValue());
+    }
+
+    @Test
+    public void canGetIfNoLanguage() {
+        final Tag tag = new Tag("tag");
+        TestFactories.associations().newAssociation(tag, UUID.randomUUID(), Language.forString(""));
+
+        final Association associationFound = repo.forIdentifierAndLanguage(tag, Language.forString("french"));
 
         assertThat(associationFound, notNullValue());
     }
