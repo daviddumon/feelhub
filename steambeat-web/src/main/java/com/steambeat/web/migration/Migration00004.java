@@ -3,7 +3,6 @@ package com.steambeat.web.migration;
 import com.steambeat.application.AssociationService;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.association.uri.UriPathResolver;
-import com.steambeat.domain.relation.alchemy.*;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.*;
 

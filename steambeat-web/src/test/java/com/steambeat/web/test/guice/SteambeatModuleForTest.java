@@ -1,11 +1,9 @@
 package com.steambeat.web.test.guice;
 
 import com.google.inject.*;
-import com.steambeat.domain.alchemy.FakeJsonAlchemyLink;
 import com.steambeat.application.SubjectService;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.association.uri.UriPathResolver;
-import com.steambeat.domain.relation.alchemy.*;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.webpage.WebPageFactory;
 import com.steambeat.repositories.SessionProvider;

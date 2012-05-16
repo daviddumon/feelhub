@@ -1,7 +1,6 @@
 package com.steambeat.domain.alchemy;
 
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
