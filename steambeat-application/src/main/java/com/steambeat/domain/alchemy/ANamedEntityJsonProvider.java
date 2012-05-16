@@ -10,9 +10,9 @@ import com.steambeat.domain.subject.webpage.WebPage;
 import java.io.*;
 import java.util.List;
 
-public class NamedEntityJsonProvider implements NamedEntityProvider {
+public class ANamedEntityJsonProvider implements ANamedEntityProvider {
 
-    public NamedEntityJsonProvider(final AlchemyLink alchemyLink) {
+    public ANamedEntityJsonProvider(final AlchemyLink alchemyLink) {
         this.alchemyLink = alchemyLink;
         this.namedEntityBuilder = new NamedEntityBuilder(new AssociationService(new UriPathResolver()));
     }

@@ -20,7 +20,7 @@ public class TestsNamedEntityJsonProvider {
 
     @Before
     public void before() throws ParserConfigurationException, IOException, SAXException {
-        alchemyNamedEntityJsonProvider = new NamedEntityJsonProvider(new FakeJsonAlchemyLink());
+        alchemyNamedEntityJsonProvider = new ANamedEntityJsonProvider(new FakeJsonAlchemyLink());
     }
 
     @Test
@@ -33,5 +33,5 @@ public class TestsNamedEntityJsonProvider {
         assertThat(results.size(), is(19));
     }
 
-    private NamedEntityJsonProvider alchemyNamedEntityJsonProvider;
+    private ANamedEntityJsonProvider alchemyNamedEntityJsonProvider;
 }

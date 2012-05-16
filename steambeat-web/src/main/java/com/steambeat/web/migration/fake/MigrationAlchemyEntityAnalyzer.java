@@ -7,7 +7,7 @@ import com.steambeat.domain.subject.webpage.WebPage;
 public class MigrationAlchemyEntityAnalyzer extends AlchemyEntityAnalyzer {
 
     public MigrationAlchemyEntityAnalyzer() {
-        super(new NamedEntityJsonProvider(new AlchemyLink()), new AssociationService(new MigrationUriPathResolver()));
+        super(new ANamedEntityJsonProvider(new AlchemyLink()), new AssociationService(new MigrationUriPathResolver()));
     }
 
     @Override
