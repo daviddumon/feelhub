@@ -5,6 +5,7 @@ import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.association.uri.UriPathResolver;
 import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.test.FakeMicrosoftTranslator;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -21,7 +22,7 @@ public class TestsNamedEntityBuilder {
 
     @Before
     public void before() {
-        namedEntityBuilder = new NamedEntityBuilder(new AssociationService(new UriPathResolver()));
+        namedEntityBuilder = new NamedEntityBuilder(new AssociationService(new UriPathResolver(), new FakeMicrosoftTranslator()));
     }
 
     @Test

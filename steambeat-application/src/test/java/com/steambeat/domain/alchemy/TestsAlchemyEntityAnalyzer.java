@@ -7,7 +7,7 @@ import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.FakeUriPathResolver;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -25,14 +25,14 @@ public class TestsAlchemyEntityAnalyzer {
 
     @Before
     public void setUp() throws Exception {
-        entityProviderA = mock(ANamedEntityProvider.class);
-        analyzer = new AlchemyEntityAnalyzer(entityProviderA, new AssociationService(new FakeUriPathResolver()));
+        entityProvider = mock(NamedEntityProvider.class);
+        analyzer = new AlchemyEntityAnalyzer(entityProvider, new AssociationService(new FakeUriPathResolver(), new FakeMicrosoftTranslator()));
     }
 
     @Test
     public void ifNoKeywordsCreateNothing() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWithoutKeywords());
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWithoutKeywords());
 
         analyzer.analyze(webpage);
 
@@ -48,7 +48,7 @@ public class TestsAlchemyEntityAnalyzer {
     public void doNotCreateConceptFromExistingConcept() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
         final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith1Keyword();
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(namedEntities);
+        when(entityProvider.entitiesFor(webpage)).thenReturn(namedEntities);
 
         analyzer.analyze(webpage);
 
@@ -59,7 +59,7 @@ public class TestsAlchemyEntityAnalyzer {
     @Test
     public void createConceptIfNoPreviousConcept() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
 
         analyzer.analyze(webpage);
 
@@ -70,7 +70,7 @@ public class TestsAlchemyEntityAnalyzer {
     @Test
     public void createAssociationForKeyword() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1Keyword());
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1Keyword());
 
         analyzer.analyze(webpage);
 
@@ -81,7 +81,7 @@ public class TestsAlchemyEntityAnalyzer {
     @Test
     public void createAssociationFor2Keywords() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith2Keywords());
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith2Keywords());
 
         analyzer.analyze(webpage);
 
@@ -95,7 +95,7 @@ public class TestsAlchemyEntityAnalyzer {
         final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith2Keywords();
         final NamedEntity namedEntity = namedEntities.get(0);
         TestFactories.associations().newAssociation(new Tag(namedEntity.keywords.get(0)), namedEntity.conceptId, namedEntity.language);
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(namedEntities);
+        when(entityProvider.entitiesFor(webpage)).thenReturn(namedEntities);
 
         analyzer.analyze(webpage);
 
@@ -107,9 +107,9 @@ public class TestsAlchemyEntityAnalyzer {
     public void dontCreateConceptsIfAlreadyExisting() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
 
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
         analyzer.analyze(webpage);
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1Keyword());
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1Keyword());
         analyzer.analyze(webpage);
 
         final List<Subject> subjects = Repositories.subjects().getAll();
@@ -119,7 +119,7 @@ public class TestsAlchemyEntityAnalyzer {
     @Test
     public void createRelationsBetweenConceptsAndPages() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
 
         analyzer.analyze(webpage);
 
@@ -133,7 +133,7 @@ public class TestsAlchemyEntityAnalyzer {
     @Test
     public void canCreateRelationsBetweenAllConceptsAndWebpages() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntitiesWithoutConcepts(5));
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntitiesWithoutConcepts(5));
 
         analyzer.analyze(webpage);
 
@@ -145,7 +145,7 @@ public class TestsAlchemyEntityAnalyzer {
     public void initialRelationWeightIsRelevanceOfEntityPlusOne() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
         final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept();
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(namedEntities);
+        when(entityProvider.entitiesFor(webpage)).thenReturn(namedEntities);
 
         analyzer.analyze(webpage);
 
@@ -157,7 +157,7 @@ public class TestsAlchemyEntityAnalyzer {
     @Test
     public void addWeightToExistingConcepts() {
         final WebPage webpage = TestFactories.subjects().newWebPage();
-        when(entityProviderA.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
+        when(entityProvider.entitiesFor(webpage)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
 
         analyzer.analyze(webpage);
         analyzer.analyze(webpage);
@@ -172,6 +172,6 @@ public class TestsAlchemyEntityAnalyzer {
         assertThat(relation.getRight(), is(right));
     }
 
-    private ANamedEntityProvider entityProviderA;
+    private NamedEntityProvider entityProvider;
     private AlchemyEntityAnalyzer analyzer;
 }

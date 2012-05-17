@@ -1,11 +1,12 @@
 package com.steambeat.web.test.guice;
 
 import com.google.inject.*;
-import com.steambeat.application.SubjectService;
+import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.association.uri.UriPathResolver;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.webpage.WebPageFactory;
+import com.steambeat.domain.translation.MicrosoftTranslator;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
@@ -33,7 +34,9 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(SteambeatBoot.class).to(FakeSteambeatBoot.class);
         bind(MigrationRunner.class).to(FakeMigrationRunner.class);
         bind(UriScraper.class).to(FakeUriScraper.class);
-        bind(ANamedEntityProvider.class).toInstance(new ANamedEntityJsonProvider(new FakeJsonAlchemyLink()));
+        bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new AssociationService(new FakeUriPathResolver(), new FakeMicrosoftTranslator()))));
+        bind(MicrosoftTranslator.class).to(FakeMicrosoftTranslator.class);
+        bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
     }
 
     @Provides

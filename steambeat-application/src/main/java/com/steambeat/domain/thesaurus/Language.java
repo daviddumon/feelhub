@@ -6,7 +6,7 @@ public class Language {
 
     public static Language forString(final String language) {
         final Language result = new Language();
-        result.code = language;
+        result.code = language.toLowerCase().trim();
         return result;
     }
 

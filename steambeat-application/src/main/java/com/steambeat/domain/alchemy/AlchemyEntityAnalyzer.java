@@ -14,13 +14,13 @@ import java.util.*;
 public class AlchemyEntityAnalyzer {
 
     @Inject
-    public AlchemyEntityAnalyzer(final ANamedEntityProvider ANamedEntityProvider, final AssociationService associationService) {
-        this.ANamedEntityProvider = ANamedEntityProvider;
+    public AlchemyEntityAnalyzer(final NamedEntityProvider NamedEntityProvider, final AssociationService associationService) {
+        this.NamedEntityProvider = NamedEntityProvider;
         this.associationService = associationService;
     }
 
     public void analyze(final WebPage webpage) {
-        List<NamedEntity> namedEntities = ANamedEntityProvider.entitiesFor(webpage);
+        List<NamedEntity> namedEntities = NamedEntityProvider.entitiesFor(webpage);
         for (NamedEntity namedEntity : namedEntities) {
             if (!namedEntity.keywords.isEmpty()) {
                 handle(webpage, namedEntity);
@@ -69,7 +69,7 @@ public class AlchemyEntityAnalyzer {
         return concepts.get(concepts.size() - 1);
     }
 
-    private final ANamedEntityProvider ANamedEntityProvider;
+    private final NamedEntityProvider NamedEntityProvider;
     private AssociationService associationService;
     private final RelationBuilder relationBuilder = new RelationBuilder(new RelationFactory());
     private List<Concept> concepts = Lists.newArrayList();

@@ -5,7 +5,7 @@ import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.association.uri.*;
 import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.FakeUriPathResolver;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -28,7 +28,7 @@ public class TestsAssociationService {
 
     @Before
     public void before() {
-        this.associationService = new AssociationService(new FakeUriPathResolver());
+        this.associationService = new AssociationService(new FakeUriPathResolver(), new FakeMicrosoftTranslator());
     }
 
     @Test
@@ -46,7 +46,6 @@ public class TestsAssociationService {
     @Test
     public void throwErrorIfNoAssociationForUri() {
         exception.expect(AssociationNotFound.class);
-        final AssociationService associationService = new AssociationService(new FakeUriPathResolver());
         final Uri uri = new Uri("http://www.steambeat.com");
 
         associationService.lookUp(uri);
@@ -54,7 +53,6 @@ public class TestsAssociationService {
 
     @Test
     public void canCreateANewAssociation() {
-        final AssociationService associationService = new AssociationService(new FakeUriPathResolver());
         final Uri uri = new Uri("http://www.steambeat.com");
 
         final Association association = associationService.createAssociationsFor(uri);
@@ -67,7 +65,7 @@ public class TestsAssociationService {
     @Test
     public void canCreateAllAssociationsInRepository() {
         final UriPathResolver pathResolver = new FakeUriPathResolver().thatFind(new Uri("http://www.liberation.fr"));
-        final AssociationService associationService = new AssociationService(pathResolver);
+        final AssociationService associationService = new AssociationService(pathResolver, new FakeMicrosoftTranslator());
         final Uri uri = new Uri("http://liberation.fr");
 
         final Association association = associationService.createAssociationsFor(uri);
@@ -81,7 +79,7 @@ public class TestsAssociationService {
     public void returnLastAssociation() {
         final String canonicalAddress = "http://www.liberation.fr";
         final UriPathResolver pathResolver = new FakeUriPathResolver().thatFind(new Uri(canonicalAddress));
-        final AssociationService associationService = new AssociationService(pathResolver);
+        final AssociationService associationService = new AssociationService(pathResolver, new FakeMicrosoftTranslator());
         final Uri uri = new Uri("http://liberation.fr");
 
         final Association association = associationService.createAssociationsFor(uri);
@@ -93,7 +91,7 @@ public class TestsAssociationService {
     public void allAssociationsFromAnUriGetSameSubjectId() {
         final String canonicalAddress = "http://www.liberation.fr";
         final UriPathResolver pathResolver = new FakeUriPathResolver().thatFind(new Uri(canonicalAddress));
-        final AssociationService associationService = new AssociationService(pathResolver);
+        final AssociationService associationService = new AssociationService(pathResolver, new FakeMicrosoftTranslator());
         final Uri uri = new Uri("http://liberation.fr");
 
         associationService.createAssociationsFor(uri);
@@ -104,8 +102,6 @@ public class TestsAssociationService {
 
     @Test
     public void canUseEncodedResources() throws UnsupportedEncodingException {
-        final UriPathResolver pathResolver = new FakeUriPathResolver();
-        final AssociationService associationService = new AssociationService(pathResolver);
         final Uri uri = new Uri(URLEncoder.encode("http://www.lemonde.fr", "UTF-8"));
 
         final Association association = associationService.createAssociationsFor(uri);
@@ -124,6 +120,21 @@ public class TestsAssociationService {
         assertThat(association, notNullValue());
         assertThat(association.getIdentifier(), is(identifier.toString()));
         assertThat(association.getLanguage(), is(language.getCode()));
+    }
+
+    @Test
+    public void alwaysCreateTheEnglishTag() {
+        final Tag tag = new Tag("tag");
+        final UUID uuid = UUID.randomUUID();
+
+        associationService.createAssociationFor(tag, uuid, Language.forString("french"));
+
+        final List<Association> associations = Repositories.associations().getAll();
+        assertThat(associations.size(), is(2));
+        assertThat(associations.get(1).getSubjectId(), is(uuid));
+        assertThat(associations.get(1).getLanguage(), is("french"));
+        assertThat(associations.get(0).getSubjectId(), is(uuid));
+        assertThat(associations.get(0).getLanguage(), is("english"));
     }
 
     private AssociationService associationService;

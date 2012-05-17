@@ -2,19 +2,19 @@ package com.steambeat.domain.alchemy;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
-import com.steambeat.application.AssociationService;
+import com.google.inject.Inject;
 import com.steambeat.domain.alchemy.readmodel.*;
-import com.steambeat.domain.association.uri.UriPathResolver;
 import com.steambeat.domain.subject.webpage.WebPage;
 
 import java.io.*;
 import java.util.List;
 
-public class ANamedEntityJsonProvider implements ANamedEntityProvider {
+public class NamedEntityJsonProvider implements NamedEntityProvider {
 
-    public ANamedEntityJsonProvider(final AlchemyLink alchemyLink) {
+    @Inject
+    public NamedEntityJsonProvider(final AlchemyLink alchemyLink, final NamedEntityBuilder namedEntityBuilder) {
         this.alchemyLink = alchemyLink;
-        this.namedEntityBuilder = new NamedEntityBuilder(new AssociationService(new UriPathResolver()));
+        this.namedEntityBuilder = namedEntityBuilder;
     }
 
     @Override

@@ -3,11 +3,12 @@ package com.steambeat.web.migration.fake;
 import com.steambeat.application.AssociationService;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.translation.MicrosoftTranslator;
 
 public class MigrationAlchemyEntityAnalyzer extends AlchemyEntityAnalyzer {
 
     public MigrationAlchemyEntityAnalyzer() {
-        super(new ANamedEntityJsonProvider(new AlchemyLink()), new AssociationService(new MigrationUriPathResolver()));
+        super(new NamedEntityJsonProvider(new AlchemyLink(), new NamedEntityBuilder(new AssociationService(new MigrationUriPathResolver(), new MicrosoftTranslator()))), new AssociationService(new MigrationUriPathResolver(), new MicrosoftTranslator()));
     }
 
     @Override

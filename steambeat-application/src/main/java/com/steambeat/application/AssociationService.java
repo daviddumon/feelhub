@@ -6,6 +6,7 @@ import com.steambeat.domain.association.*;
 import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.association.uri.*;
 import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.translation.MicrosoftTranslator;
 import com.steambeat.repositories.Repositories;
 
 import java.util.*;
@@ -13,8 +14,9 @@ import java.util.*;
 public class AssociationService {
 
     @Inject
-    public AssociationService(final UriPathResolver pathResolver) {
+    public AssociationService(final UriPathResolver pathResolver, final MicrosoftTranslator microsoftTranslator) {
         this.pathResolver = pathResolver;
+        this.microsoftTranslator = microsoftTranslator;
     }
 
     public Association lookUp(final Identifier identifier) {
@@ -34,9 +36,17 @@ public class AssociationService {
     }
 
     public Association createAssociationFor(final Tag tag, final UUID id, Language language) {
+        addEnglishAssociationIfNeeded(tag, id, language);
         final Association association = new Association(tag, id, language);
         Repositories.associations().add(association);
         return association;
+    }
+
+    private void addEnglishAssociationIfNeeded(final Tag tag, final UUID id, final Language language) {
+        if (!language.getCode().equalsIgnoreCase("english") && !language.getCode().equalsIgnoreCase("")) {
+            final String translatedTag = microsoftTranslator.translate(tag.toString(), language.getCode());
+            createAssociationFor(new Tag(translatedTag), id, Language.forString("english"));
+        }
     }
 
     public Association createAssociationsFor(final Uri uri) {
@@ -78,4 +88,5 @@ public class AssociationService {
     }
 
     private final UriPathResolver pathResolver;
+    private MicrosoftTranslator microsoftTranslator;
 }

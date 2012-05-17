@@ -1,6 +1,8 @@
 package com.steambeat.domain.alchemy;
 
+import com.steambeat.application.AssociationService;
 import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
@@ -20,7 +22,7 @@ public class TestsNamedEntityJsonProvider {
 
     @Before
     public void before() throws ParserConfigurationException, IOException, SAXException {
-        alchemyNamedEntityJsonProvider = new ANamedEntityJsonProvider(new FakeJsonAlchemyLink());
+        alchemyNamedEntityJsonProvider = new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new AssociationService(new FakeUriPathResolver(), new FakeMicrosoftTranslator())));
     }
 
     @Test
@@ -33,5 +35,5 @@ public class TestsNamedEntityJsonProvider {
         assertThat(results.size(), is(19));
     }
 
-    private ANamedEntityJsonProvider alchemyNamedEntityJsonProvider;
+    private NamedEntityJsonProvider alchemyNamedEntityJsonProvider;
 }
