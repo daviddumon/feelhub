@@ -1,3 +1,2 @@
 User-agent: *
 Disallow:
-Sitemap: http://www.steambeat.com/sitemap_index_00000.xml

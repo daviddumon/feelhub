@@ -76,7 +76,7 @@ public class TestsAssociationService {
     }
 
     @Test
-    public void returnLastAssociation() {
+    public void associationIdentifierIsCanonicalUri() {
         final String canonicalAddress = "http://www.liberation.fr";
         final UriPathResolver pathResolver = new FakeUriPathResolver().thatFind(new Uri(canonicalAddress));
         final AssociationService associationService = new AssociationService(pathResolver, new FakeMicrosoftTranslator());
