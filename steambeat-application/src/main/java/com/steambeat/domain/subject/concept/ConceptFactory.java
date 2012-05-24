@@ -18,8 +18,8 @@ public class ConceptFactory {
         concept.setSubTypes(entity.subType);
         concept.setWebsite(new Uri(entity.website));
         concept.setGeo(entity.geo);
-        final YahooBossLink yahooBossLink = new YahooBossLink();
-        yahooBossLink.getIllustration(concept);
+        //final YahooBossLink yahooBossLink = new YahooBossLink();
+        //yahooBossLink.getIllustration(concept);
         return concept;
     }
 
