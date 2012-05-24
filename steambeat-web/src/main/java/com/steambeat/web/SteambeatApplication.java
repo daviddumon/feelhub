@@ -2,6 +2,7 @@ package com.steambeat.web;
 
 import com.google.inject.*;
 import com.steambeat.web.guice.SteambeatModule;
+import com.steambeat.web.launch.LaunchRouter;
 import com.steambeat.web.migration.MigrationRunner;
 import com.steambeat.web.migration.web.*;
 import com.steambeat.web.status.SteambeatStatusService;
@@ -26,9 +27,9 @@ public class SteambeatApplication extends Application {
     public synchronized void start() throws Exception {
         steambeatWebProperties = new SteambeatWebProperties();
         initFreemarkerConfiguration();
-        final SteambeatBoot steambeatBoot = injector.getInstance(SteambeatBoot.class);
-        steambeatBoot.checkForSteam();
-        runMigrations();
+        //final SteambeatBoot steambeatBoot = injector.getInstance(SteambeatBoot.class);
+        //steambeatBoot.checkForSteam();
+        //runMigrations();
         super.start();
     }
 
@@ -69,7 +70,8 @@ public class SteambeatApplication extends Application {
     public Restlet createInboundRoot() {
         final Router router = new Router(getContext());
         router.attach("/static", new Directory(getContext(), "war:///static"));
-        router.attach(getOpenSessionInViewFilter());
+        //router.attach(getOpenSessionInViewFilter());
+        router.attach(new LaunchRouter(getContext(), injector));
         return router;
     }
 

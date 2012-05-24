@@ -26,7 +26,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js?${buildtime}"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?${buildtime}"></script>
         <![endif]-->
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js?${buildtime}"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     </#if>
     <#if dev>
         <script type="text/javascript" src="${root}/static/js/lib/jquery-1.7.1.min.js?${buildtime}"></script>

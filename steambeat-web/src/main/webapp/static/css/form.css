@@ -33,6 +33,24 @@
     background-color: #FFFFFF;
 }
 
+#form_related {
+    position: fixed;
+    width: 100px;
+    overflow: hidden;
+    z-index: 1000;
+    border: 10px solid #ADDDEB;
+    background-color: #FFFFFF;
+}
+
+#form_help {
+    position: fixed;
+    width: 100px;
+    overflow: hidden;
+    z-index: 1000;
+    border: 10px solid #ADDDEB;
+    background-color: #FFFFFF;
+}
+
 #form_close {
     position: absolute;
     top: 10px;
@@ -55,48 +73,44 @@
 }
 
 /*.opinion_form_title {*/
-    /*text-align: center;*/
-    /*font-size: 22px;*/
-    /*font-weight: bold;*/
-    /*padding: 20px;*/
+/*text-align: center;*/
+/*font-size: 22px;*/
+/*font-weight: bold;*/
+/*padding: 20px;*/
 /*}*/
-
-
 
 /*#opinion_form_subject {*/
-    /*position: relative;*/
-    /*width: 80%;*/
-    /*margin-left: 8%;*/
-    /*margin-bottom: 20px;*/
-    /*margin-top: 20px;*/
-    /*padding: 2%;*/
-    /*text-align: center;*/
-    /*z-index: 2;*/
+/*position: relative;*/
+/*width: 80%;*/
+/*margin-left: 8%;*/
+/*margin-bottom: 20px;*/
+/*margin-top: 20px;*/
+/*padding: 2%;*/
+/*text-align: center;*/
+/*z-index: 2;*/
 /*}*/
 
-
-
 /*#opinion_form_submit {*/
-    /*position: absolute;*/
-    /*bottom: -5px;*/
-    /*font-size: 24px;*/
-    /*font-weight: bold;*/
-    /*width: 100%;*/
-    /*text-align: center;*/
-    /*padding-top: 20px;*/
-    /*padding-bottom: 20px;*/
-    /*color: #FFFFFF;*/
-    /*border: none;*/
-    /*background-color: #ADDDEB;*/
+/*position: absolute;*/
+/*bottom: -5px;*/
+/*font-size: 24px;*/
+/*font-weight: bold;*/
+/*width: 100%;*/
+/*text-align: center;*/
+/*padding-top: 20px;*/
+/*padding-bottom: 20px;*/
+/*color: #FFFFFF;*/
+/*border: none;*/
+/*background-color: #ADDDEB;*/
 /*}*/
 
 /*@media screen and (max-width: 720px) {*/
 
-    /*#form_button {*/
-        /*top: -210px;*/
-    /*}*/
+/*#form_button {*/
+/*top: -210px;*/
+/*}*/
 
-    /*#popup_form {*/
-        /*width: 300px;*/
-    /*}*/
+/*#popup_form {*/
+/*width: 300px;*/
+/*}*/
 /*}*/
