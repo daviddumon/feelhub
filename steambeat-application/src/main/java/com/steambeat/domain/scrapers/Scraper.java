@@ -1,6 +1,6 @@
 package com.steambeat.domain.scrapers;
 
-import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.domain.association.Identifier;
 
 public interface Scraper {
 
@@ -10,5 +10,5 @@ public interface Scraper {
 
     public String getIllustration();
 
-    void scrap(Uri uri);
+    void scrap(Identifier identifier);
 }

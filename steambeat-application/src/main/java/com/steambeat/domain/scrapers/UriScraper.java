@@ -1,6 +1,7 @@
 package com.steambeat.domain.scrapers;
 
 import com.google.common.collect.Lists;
+import com.steambeat.domain.association.Identifier;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.scrapers.extractors.*;
 import org.jsoup.Jsoup;
@@ -11,8 +12,8 @@ import java.util.*;
 public class UriScraper implements Scraper {
 
     @Override
-    public void scrap(final Uri uri) {
-        this.uri = uri;
+    public void scrap(final Identifier identifier) {
+        this.uri = (Uri) identifier;
         addExtractors();
         getJSoupDocument();
         useExtractors();

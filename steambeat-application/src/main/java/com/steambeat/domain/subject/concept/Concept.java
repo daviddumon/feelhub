@@ -25,6 +25,7 @@ public class Concept extends Subject {
 
     @Override
     protected void update(final Scraper scraper) {
+        illustration = scraper.getIllustration();
     }
 
     @Override

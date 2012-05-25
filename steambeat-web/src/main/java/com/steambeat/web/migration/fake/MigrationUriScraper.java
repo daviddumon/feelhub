@@ -1,6 +1,6 @@
 package com.steambeat.web.migration.fake;
 
-import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.domain.association.Identifier;
 import com.steambeat.domain.scrapers.UriScraper;
 
 public class MigrationUriScraper extends UriScraper {
@@ -10,7 +10,7 @@ public class MigrationUriScraper extends UriScraper {
     }
 
     @Override
-    public void scrap(final Uri uri) {
+    public void scrap(final Identifier identifier) {
 
     }
 

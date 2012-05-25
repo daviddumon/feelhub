@@ -7,6 +7,6 @@ public class FakeBingLink extends BingLink {
 
     @Override
     public String getIllustration(final Concept concept) {
-        return "";
+        return "fake";
     }
 }
