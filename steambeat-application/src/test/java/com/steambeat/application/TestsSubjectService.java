@@ -6,7 +6,7 @@ import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.SystemTime;
-import com.steambeat.test.fakeFactories.FakeWebPageFactory;
+import com.steambeat.test.fakeFactories.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.joda.time.DateTime;
@@ -32,7 +32,7 @@ public class TestsSubjectService {
 
     @Before
     public void before() {
-        subjectService = new SubjectService(new SubjectFactory(new FakeWebPageFactory()));
+        subjectService = new SubjectService(new SubjectFactory(new FakeWebPageFactory(), new FakeConceptFactory()));
     }
 
     @Test

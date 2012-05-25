@@ -8,7 +8,7 @@ import com.steambeat.domain.subject.*;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.test.SystemTime;
+import com.steambeat.test.*;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
@@ -137,7 +137,7 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
     @Test
     public void canPersistConcept() {
         final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith1Keyword();
-        final ConceptFactory conceptFactory = new ConceptFactory();
+        final ConceptFactory conceptFactory = new ConceptFactory(new FakeBingLink());
         final Concept concept = conceptFactory.newConcept(namedEntities.get(0));
 
         repo.add(concept);

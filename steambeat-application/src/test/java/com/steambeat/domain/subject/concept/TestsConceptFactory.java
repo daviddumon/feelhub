@@ -2,6 +2,7 @@ package com.steambeat.domain.subject.concept;
 
 import com.steambeat.domain.alchemy.NamedEntity;
 import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.test.FakeBingLink;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
@@ -12,7 +13,7 @@ public class TestsConceptFactory {
 
     @Before
     public void before() {
-        conceptFactory = new ConceptFactory();
+        conceptFactory = new ConceptFactory(new FakeBingLink());
     }
 
     @Test

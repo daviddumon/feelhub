@@ -4,6 +4,7 @@ import com.google.inject.*;
 import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.association.uri.UriPathResolver;
+import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.webpage.WebPageFactory;
 import com.steambeat.domain.translation.MicrosoftTranslator;
@@ -37,6 +38,7 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new AssociationService(new FakeUriPathResolver(), new FakeMicrosoftTranslator()))));
         bind(MicrosoftTranslator.class).to(FakeMicrosoftTranslator.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
+        bind(BingLink.class).to(FakeBingLink.class);
     }
 
     @Provides

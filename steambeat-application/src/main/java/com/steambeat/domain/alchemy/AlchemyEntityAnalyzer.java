@@ -14,9 +14,10 @@ import java.util.*;
 public class AlchemyEntityAnalyzer {
 
     @Inject
-    public AlchemyEntityAnalyzer(final NamedEntityProvider NamedEntityProvider, final AssociationService associationService) {
+    public AlchemyEntityAnalyzer(final NamedEntityProvider NamedEntityProvider, final AssociationService associationService, final ConceptFactory conceptFactory) {
         this.NamedEntityProvider = NamedEntityProvider;
         this.associationService = associationService;
+        this.conceptFactory = conceptFactory;
     }
 
     public void analyze(final WebPage webpage) {
@@ -37,7 +38,7 @@ public class AlchemyEntityAnalyzer {
     private void createConcept(final NamedEntity namedEntity) {
         if (namedEntity.conceptId == null) {
             namedEntity.conceptId = UUID.randomUUID();
-            final Concept concept = new ConceptFactory().newConcept(namedEntity);
+            final Concept concept = conceptFactory.newConcept(namedEntity);
             Repositories.subjects().add(concept);
             concepts.add(concept);
         } else {
@@ -71,6 +72,7 @@ public class AlchemyEntityAnalyzer {
 
     private final NamedEntityProvider NamedEntityProvider;
     private AssociationService associationService;
+    private ConceptFactory conceptFactory;
     private final RelationBuilder relationBuilder = new RelationBuilder(new RelationFactory());
     private List<Concept> concepts = Lists.newArrayList();
 }

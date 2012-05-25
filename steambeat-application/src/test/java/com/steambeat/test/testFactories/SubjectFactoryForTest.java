@@ -7,7 +7,7 @@ import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.FakeUriScraper;
+import com.steambeat.test.*;
 
 import java.util.*;
 
@@ -35,7 +35,7 @@ public class SubjectFactoryForTest {
 
     public Concept newConcept() {
         final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith1Keyword();
-        final Concept concept = new ConceptFactory().newConcept(namedEntities.get(0));
+        final Concept concept = new ConceptFactory(new FakeBingLink()).newConcept(namedEntities.get(0));
         concept.setScraper(new FakeUriScraper());
         Repositories.subjects().add(concept);
         return concept;

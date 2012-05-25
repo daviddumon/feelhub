@@ -1,5 +1,6 @@
 package com.steambeat.domain.subject.concept;
 
+import com.google.inject.Inject;
 import com.steambeat.domain.alchemy.NamedEntity;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.bingsearch.BingLink;
@@ -10,6 +11,11 @@ import java.util.UUID;
 
 public class ConceptFactory {
 
+    @Inject
+    public ConceptFactory(final BingLink bingLink) {
+        this.bingLink = bingLink;
+    }
+
     public Concept newConcept(final NamedEntity entity) {
         final Concept concept = new Concept(entity.conceptId);
         concept.setShortDescription(entity.name);
@@ -18,12 +24,17 @@ public class ConceptFactory {
         concept.setSubTypes(entity.subType);
         concept.setWebsite(new Uri(entity.website));
         concept.setGeo(entity.geo);
-        final BingLink bingLink = new BingLink();
-        System.out.println(bingLink.getIllustration(concept));
+        scrap(concept);
         return concept;
+    }
+
+    private void scrap(final Concept concept) {
+
     }
 
     public Concept lookUpConcept(final UUID subjectId) {
         return (Concept) Repositories.subjects().get(subjectId);
     }
+
+    private BingLink bingLink;
 }

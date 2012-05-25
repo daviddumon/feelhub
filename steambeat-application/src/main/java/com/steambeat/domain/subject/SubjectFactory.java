@@ -12,8 +12,9 @@ import java.util.UUID;
 public class SubjectFactory {
 
     @Inject
-    public SubjectFactory(final WebPageFactory webPageFactory) {
+    public SubjectFactory(final WebPageFactory webPageFactory, final ConceptFactory conceptFactory) {
         this.webPageFactory = webPageFactory;
+        this.conceptFactory = conceptFactory;
     }
 
     public WebPage newWebPage(final Association association) {
@@ -21,7 +22,7 @@ public class SubjectFactory {
     }
 
     public Concept newConcept(final NamedEntity namedEntity) {
-        return new ConceptFactory().newConcept(namedEntity);
+        return conceptFactory.newConcept(namedEntity);
     }
 
     public WebPage lookUpWebpage(final UUID subjectId) {
@@ -33,8 +34,9 @@ public class SubjectFactory {
     }
 
     public Concept lookUpConcept(final UUID subjectId) {
-        return new ConceptFactory().lookUpConcept(subjectId);
+        return conceptFactory.lookUpConcept(subjectId);
     }
 
     private final WebPageFactory webPageFactory;
+    private ConceptFactory conceptFactory;
 }
