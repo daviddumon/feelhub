@@ -27,7 +27,6 @@
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/robots.txt</url-pattern>
-        <url-pattern>/sQxDFfFNZQMWt_mJOZIsjg--.html</url-pattern>
     </servlet-mapping>
 
 </web-app>

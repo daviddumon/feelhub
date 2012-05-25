@@ -2,8 +2,8 @@ package com.steambeat.domain.subject.concept;
 
 import com.steambeat.domain.alchemy.NamedEntity;
 import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.thesaurus.Type;
-import com.steambeat.domain.yahooboss.YahooBossLink;
 import com.steambeat.repositories.Repositories;
 
 import java.util.UUID;
@@ -18,8 +18,8 @@ public class ConceptFactory {
         concept.setSubTypes(entity.subType);
         concept.setWebsite(new Uri(entity.website));
         concept.setGeo(entity.geo);
-        //final YahooBossLink yahooBossLink = new YahooBossLink();
-        //yahooBossLink.getIllustration(concept);
+        final BingLink bingLink = new BingLink();
+        System.out.println(bingLink.getIllustration(concept));
         return concept;
     }
 
