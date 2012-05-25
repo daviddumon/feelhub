@@ -2,13 +2,15 @@ package com.steambeat.web.migration.fake;
 
 import com.steambeat.application.AssociationService;
 import com.steambeat.domain.alchemy.*;
+import com.steambeat.domain.bingsearch.BingLink;
+import com.steambeat.domain.subject.concept.ConceptFactory;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.domain.translation.MicrosoftTranslator;
 
 public class MigrationAlchemyEntityAnalyzer extends AlchemyEntityAnalyzer {
 
     public MigrationAlchemyEntityAnalyzer() {
-        super(new NamedEntityJsonProvider(new AlchemyLink(), new NamedEntityBuilder(new AssociationService(new MigrationUriPathResolver(), new MicrosoftTranslator()))), new AssociationService(new MigrationUriPathResolver(), new MicrosoftTranslator()));
+        super(new NamedEntityJsonProvider(new AlchemyLink(), new NamedEntityBuilder(new AssociationService(new MigrationUriPathResolver(), new MicrosoftTranslator()))), new AssociationService(new MigrationUriPathResolver(), new MicrosoftTranslator()), new ConceptFactory(new BingLink()));
     }
 
     @Override

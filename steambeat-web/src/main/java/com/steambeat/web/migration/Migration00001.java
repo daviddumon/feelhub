@@ -6,8 +6,10 @@ import com.steambeat.application.*;
 import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.opinion.Feeling;
 import com.steambeat.domain.subject.SubjectFactory;
+import com.steambeat.domain.subject.concept.ConceptFactory;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.domain.translation.MicrosoftTranslator;
 import com.steambeat.repositories.SessionProvider;
@@ -24,7 +26,7 @@ public class Migration00001 extends Migration {
     @Override
     protected void doRun() {
         final AssociationService associationService = new AssociationService(new MigrationUriPathResolver(), new MicrosoftTranslator());
-        final SubjectService subjectService = new SubjectService(new SubjectFactory(new MigrationWebPageFactory()));
+        final SubjectService subjectService = new SubjectService(new SubjectFactory(new MigrationWebPageFactory(), new ConceptFactory(new BingLink())));
         final OpinionService opinionService = new OpinionService();
         final DB db = provider.get().getDb();
         final DBCollection oldopinions = db.getCollection("oldopinion");
