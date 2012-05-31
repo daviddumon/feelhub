@@ -98,6 +98,7 @@ public class UriScraper implements Scraper {
     private final List<Extractor> extractors = Lists.newArrayList();
     protected Map<String, String> scrapedTags = new HashMap<String, String>();
     private Uri uri;
+    private Identifier identifier;
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
     private final static int THREE_SECONDS = 3000;
 }

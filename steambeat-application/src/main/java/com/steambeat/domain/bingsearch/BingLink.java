@@ -1,16 +1,16 @@
 package com.steambeat.domain.bingsearch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.bingsearch.readmodel.BingResults;
-import com.steambeat.domain.subject.concept.Concept;
 
 import java.io.*;
 import java.net.*;
 
 public class BingLink {
 
-    public String getIllustration(final Concept concept) {
-        final String query = getQuery(concept);
+    public String getIllustration(final Tag tag) {
+        final String query = getQuery(tag);
         try {
             URL url = new URL(query);
             URLConnection uc = url.openConnection();
@@ -24,11 +24,11 @@ public class BingLink {
         return "";
     }
 
-    private String getQuery(final Concept concept) {
+    private String getQuery(final Tag tag) {
         try {
             final StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(queryRoot);
-            stringBuilder.append(URLEncoder.encode(concept.getDescription(), "UTF-8"));
+            stringBuilder.append(URLEncoder.encode(tag.toString(), "UTF-8"));
             stringBuilder.append(queryOptions);
             return stringBuilder.toString();
         } catch (Exception e) {

@@ -27,7 +27,6 @@ public class ConceptFactory {
         concept.setGeo(entity.geo);
         final ConceptScraper scraper = new ConceptScraper();
         scraper.setBingLink(bingLink);
-        scraper.setConcept(concept);
         concept.setScraper(scraper);
         return concept;
     }

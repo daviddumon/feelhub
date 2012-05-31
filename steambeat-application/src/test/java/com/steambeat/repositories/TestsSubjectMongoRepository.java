@@ -153,6 +153,8 @@ public class TestsSubjectMongoRepository extends TestWithMongoRepository {
         assertThat(conceptFound.get("description"), is((Object) concept.getDescription()));
         assertThat(conceptFound.get("website"), is((Object) concept.getWebsite()));
         assertThat(conceptFound.get("geo"), is((Object) concept.getGeo()));
+        assertThat(conceptFound.get("illustration"), is((Object) concept.getIllustration()));
+        assertThat(conceptFound.get("illustration"), is((Object) "fake"));
     }
 
     protected SubjectRepository repo;

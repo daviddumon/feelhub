@@ -8,6 +8,4 @@ public class FakeConceptFactory extends ConceptFactory {
     public FakeConceptFactory() {
         super(new FakeBingLink());
     }
-
-
 }

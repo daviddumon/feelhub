@@ -1,6 +1,7 @@
 package com.steambeat.domain.subject.concept;
 
 import com.google.common.collect.Lists;
+import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.scrapers.Scraper;
 import com.steambeat.domain.subject.Subject;
@@ -20,6 +21,7 @@ public class Concept extends Subject {
 
     @Override
     public void setScraper(final Scraper scraper) {
+        scraper.scrap(new Tag(this.description));
         update(scraper);
     }
 
