@@ -19,7 +19,7 @@ function loadCounters() {
 function loadRelated() {
     $.getJSON(root + "/related?&fromId=" + subjectId + "&limit=10", function (data) {
         $.each(data, function (index, subject) {
-            $("#related_list").append(ich.related(subject));
+            $(".related_box").append(ich.related(subject));
         });
     });
 }

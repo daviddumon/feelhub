@@ -26,6 +26,5 @@
 </div>
 <div class="panel_box related_box">
     <span>related</span>
-    <ul id="related_list"></ul>
 </div>
 </@body.panel>

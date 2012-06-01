@@ -41,6 +41,7 @@
     <#--<script type="text/javascript" src="${root}/static/js/lib/timeline.js?${buildtime}"></script>-->
     <script type="text/javascript" src="${root}/static/js/responsive.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/lib/flow.js?${buildtime}"></script>
+    <script type="text/javascript" src="${root}/static/js/lib/scaling.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/hub.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/form.js?${buildtime}"></script>
     <#nested/>

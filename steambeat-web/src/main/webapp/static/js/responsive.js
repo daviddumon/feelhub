@@ -40,6 +40,8 @@ $(function () {
         }
         $("#opinions").empty();
         $("#opinions").css("height", "0px");
-        flow.reset();
+        if(typeof flow !== 'undefined') {
+            flow.reset();
+        }
     }
 });
