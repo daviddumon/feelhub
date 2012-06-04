@@ -26,10 +26,13 @@ public class Statistics extends BaseEntity {
     private void incrementJudgmentCountForFeeling(final Feeling feeling) {
         switch (feeling) {
             case good:
-                goodJudgments++;
+                good++;
                 break;
             case bad:
-                badJudgments++;
+                bad++;
+                break;
+            case neutral:
+                neutral++;
                 break;
         }
     }
@@ -51,18 +54,23 @@ public class Statistics extends BaseEntity {
         return date;
     }
 
-    public int getGoodJudgments() {
-        return goodJudgments;
+    public int getGood() {
+        return good;
     }
 
-    public int getBadJudgments() {
-        return badJudgments;
+    public int getBad() {
+        return bad;
+    }
+
+    public int getNeutral() {
+        return neutral;
     }
 
     private UUID id;
     private UUID subjectId;
     private Granularity granularity;
     private DateTime date;
-    private int goodJudgments;
-    private int badJudgments;
+    private int good;
+    private int bad;
+    private int neutral;
 }

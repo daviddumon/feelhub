@@ -15,7 +15,8 @@ public class StatisticsMapping extends EntityMap<Statistics> {
         property(element().getDate());
         property(element().getSubjectId());
         property(element().getGranularity());
-        property(element().getBadJudgments());
-        property(element().getGoodJudgments());
+        property(element().getBad());
+        property(element().getGood());
+        property(element().getNeutral());
     }
 }

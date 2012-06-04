@@ -27,6 +27,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         final Statistics stat = new Statistics(subject, Granularity.day, date);
         stat.incrementJudgmentCount(new Judgment(subject, Feeling.good));
         stat.incrementJudgmentCount(new Judgment(subject, Feeling.bad));
+        stat.incrementJudgmentCount(new Judgment(subject, Feeling.neutral));
 
         Repositories.statistics().add(stat);
 
@@ -39,8 +40,9 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         assertThat(documentFound.get("date"), is((Object) date.getMillis()));
         assertThat(documentFound.get("subjectId"), is((Object) subject.getId()));
         assertThat(documentFound.get("granularity"), is((Object) Granularity.day.toString()));
-        assertThat(documentFound.get("goodJudgments"), is((Object) 1));
-        assertThat(documentFound.get("badJudgments"), is((Object) 1));
+        assertThat(documentFound.get("good"), is((Object) 1));
+        assertThat(documentFound.get("bad"), is((Object) 1));
+        assertThat(documentFound.get("neutral"), is((Object) 1));
     }
 
     @Test
@@ -70,8 +72,8 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         final List<Statistics> statistics = Repositories.statistics().forSubject(webPage, Granularity.hour, Granularity.hour.intervalFor(one.getDate(), two.getDate()));
 
         assertThat(statistics.size(), is(2));
-        assertThat(statistics.get(0).getGoodJudgments(), is(1));
-        assertThat(statistics.get(1).getGoodJudgments(), is(1));
+        assertThat(statistics.get(0).getGood(), is(1));
+        assertThat(statistics.get(1).getGood(), is(1));
     }
 
     @Test
@@ -85,8 +87,8 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         final List<Statistics> statistics = Repositories.statistics().forSubject(webPage, Granularity.day, Granularity.day.intervalFor(one.getDate(), one.getDate()));
 
         assertThat(statistics.size(), is(1));
-        assertThat(statistics.get(0).getGoodJudgments(), is(1));
-        assertThat(statistics.get(0).getBadJudgments(), is(0));
+        assertThat(statistics.get(0).getGood(), is(1));
+        assertThat(statistics.get(0).getBad(), is(0));
     }
 
     @Test
@@ -100,8 +102,8 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         final List<Statistics> statistics = Repositories.statistics().forSubject(webPage, Granularity.month, Granularity.month.intervalFor(one.getDate(), one.getDate()));
 
         assertThat(statistics.size(), is(1));
-        assertThat(statistics.get(0).getGoodJudgments(), is(1));
-        assertThat(statistics.get(0).getBadJudgments(), is(0));
+        assertThat(statistics.get(0).getGood(), is(1));
+        assertThat(statistics.get(0).getBad(), is(0));
     }
 
     @Test
@@ -115,7 +117,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         final List<Statistics> statistics = Repositories.statistics().forSubject(webPage, Granularity.year, Granularity.year.intervalFor(one.getDate(), one.getDate()));
 
         assertThat(statistics.size(), is(1));
-        assertThat(statistics.get(0).getGoodJudgments(), is(1));
-        assertThat(statistics.get(0).getBadJudgments(), is(0));
+        assertThat(statistics.get(0).getGood(), is(1));
+        assertThat(statistics.get(0).getBad(), is(0));
     }
 }

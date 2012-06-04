@@ -39,7 +39,7 @@ public class TestsStatisticsService {
 
         DomainEventBus.INSTANCE.flush();
 
-        assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getGoodJudgments(), is(1));
+        assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getGood(), is(1));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class TestsStatisticsService {
 
         DomainEventBus.INSTANCE.flush();
 
-        assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getBadJudgments(), is(1));
+        assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getBad(), is(1));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class TestsStatisticsService {
 
         DomainEventBus.INSTANCE.flush();
 
-        assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getGoodJudgments(), is(1));
+        assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getGood(), is(1));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class TestsStatisticsService {
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(), Granularity.hour, new Interval(time.getNow().minusDays(2), time.getNow()));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.hour));
-        assertThat(statistics.get(0).getGoodJudgments(), is(1));
+        assertThat(statistics.get(0).getGood(), is(1));
     }
 
     @Test
@@ -187,7 +187,7 @@ public class TestsStatisticsService {
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(), Granularity.all);
         assertThat(statistics.size(), is(1));
-        assertThat(statistics.get(0).getGoodJudgments(), is(2));
+        assertThat(statistics.get(0).getGood(), is(2));
     }
 
     @Test
@@ -196,7 +196,7 @@ public class TestsStatisticsService {
 
         DomainEventBus.INSTANCE.flush();
 
-        assertThat(getStatisticsRepository().forSubject(Repositories.subjects().getSteam()).getGoodJudgments(), is(1));
+        assertThat(getStatisticsRepository().forSubject(Repositories.subjects().getSteam()).getGood(), is(1));
     }
 
     private JudgmentPostedEvent getGoodJudgmentEvent() {
