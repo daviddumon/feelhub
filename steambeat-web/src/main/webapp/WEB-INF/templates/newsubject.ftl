@@ -8,15 +8,15 @@
 <#include "header.ftl">
 
 <script type="text/javascript">
-    $(function () {
-        newsubject.create("${uri}");
-    });
+    <#--$(function () {-->
+        <#--newsubject.create("${uri}");-->
+    <#--});-->
 </script>
 
-<div id="newsubject" class="good rounded">
+<div id="newsubject" class="good_without_image rounded">
     <img src="${root}/static/images/smiley_good_white.png"/>
-
     <p class="titlefont">Creating this awesome subject for you !</p>
+    <p class="">ceci est un test</p>
 </div>
 
 </body>
