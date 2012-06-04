@@ -63,13 +63,13 @@ public class RelatedResource extends ServerResource {
     }
 
     private void getSubjects() {
-        for (Relation relation : relations) {
+        for (final Relation relation : relations) {
             subjects.add(subjectService.lookUpSubject(relation.getToId()));
         }
     }
 
-    private SubjectService subjectService;
-    private RelationSearch relationSearch;
+    private final SubjectService subjectService;
+    private final RelationSearch relationSearch;
     private List<Relation> relations = Lists.newArrayList();
-    private List<Subject> subjects = Lists.newArrayList();
+    private final List<Subject> subjects = Lists.newArrayList();
 }

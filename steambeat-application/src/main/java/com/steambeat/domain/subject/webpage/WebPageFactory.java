@@ -35,6 +35,6 @@ public class WebPageFactory {
         return webPage;
     }
 
-    private UriScraper uriScraper;
-    private AlchemyEntityAnalyzer alchemyEntityAnalyzer;
+    private final UriScraper uriScraper;
+    private final AlchemyEntityAnalyzer alchemyEntityAnalyzer;
 }

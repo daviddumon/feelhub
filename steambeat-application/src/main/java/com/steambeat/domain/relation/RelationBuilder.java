@@ -21,7 +21,7 @@ public class RelationBuilder {
     }
 
     private void connectOneWay(final Subject left, final Subject right, final double additionalWeight) {
-        Relation relation = Repositories.relations().lookUp(left, right);
+        final Relation relation = Repositories.relations().lookUp(left, right);
         if (relation == null) {
             createNewRelation(left, right, additionalWeight);
         } else {
@@ -34,5 +34,5 @@ public class RelationBuilder {
         Repositories.relations().add(relation);
     }
 
-    private RelationFactory relationFactory;
+    private final RelationFactory relationFactory;
 }

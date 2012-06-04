@@ -30,10 +30,10 @@ public class NamedEntityJsonProvider implements NamedEntityProvider {
 
     private List<NamedEntity> unmarshall(final InputStream stream) {
         final ObjectMapper objectMapper = new ObjectMapper();
-        List<NamedEntity> results = Lists.newArrayList();
+        final List<NamedEntity> results = Lists.newArrayList();
         try {
             final AlchemyJsonResults alchemyJsonResults = objectMapper.readValue(stream, AlchemyJsonResults.class);
-            for (AlchemyJsonEntity entity : alchemyJsonResults.entities) {
+            for (final AlchemyJsonEntity entity : alchemyJsonResults.entities) {
                 entity.language = alchemyJsonResults.language;
                 results.add(namedEntityBuilder.build(entity));
             }

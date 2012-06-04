@@ -31,7 +31,7 @@ public class AssociationMongoRepository extends BaseMongoRepository<Association>
     public Association forIdentifierAndLanguage(final Identifier identifier, final Language language) {
         final Criteria criteria = getSession().createCriteria(Association.class);
         criteria.add(Restrictions.equals("identifier", identifier.toString()));
-        List<String> languages = Lists.newArrayList();
+        final List<String> languages = Lists.newArrayList();
         languages.add(language.getCode());
         languages.add("");
         criteria.add(Restrictions.in("language", languages));

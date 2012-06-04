@@ -14,7 +14,7 @@ public class AlchemyFactoryForTest {
         entity.name = "text";
         entity.language = Language.forString("english");
         entity.type = "type";
-        List<String> subtypes = Lists.newArrayList();
+        final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
         subtypes.add("subtype3");
@@ -25,7 +25,7 @@ public class AlchemyFactoryForTest {
         entity.conceptId = UUID.randomUUID();
         entity.keywords.add("keyword1");
         entity.keywords.add("keyword2");
-        List<NamedEntity> result = Lists.newArrayList();
+        final List<NamedEntity> result = Lists.newArrayList();
         result.add(entity);
         return result;
     }
@@ -35,7 +35,7 @@ public class AlchemyFactoryForTest {
         entity.name = "text";
         entity.language = Language.forString("english");
         entity.type = "type";
-        List<String> subtypes = Lists.newArrayList();
+        final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
         subtypes.add("subtype3");
@@ -45,7 +45,7 @@ public class AlchemyFactoryForTest {
         entity.relevance = 0.5;
         entity.conceptId = UUID.randomUUID();
         entity.keywords.add("keyword1");
-        List<NamedEntity> result = Lists.newArrayList();
+        final List<NamedEntity> result = Lists.newArrayList();
         result.add(entity);
         return result;
     }
@@ -55,7 +55,7 @@ public class AlchemyFactoryForTest {
         entity.name = "text";
         entity.language = Language.forString("english");
         entity.type = "type";
-        List<String> subtypes = Lists.newArrayList();
+        final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
         subtypes.add("subtype3");
@@ -64,7 +64,7 @@ public class AlchemyFactoryForTest {
         entity.geo = "geo";
         entity.relevance = 0.5;
         entity.keywords.add("keyword1");
-        List<NamedEntity> result = Lists.newArrayList();
+        final List<NamedEntity> result = Lists.newArrayList();
         result.add(entity);
         return result;
     }
@@ -74,7 +74,7 @@ public class AlchemyFactoryForTest {
         entity.name = "text";
         entity.language = Language.forString("english");
         entity.type = "type";
-        List<String> subtypes = Lists.newArrayList();
+        final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
         subtypes.add("subtype3");
@@ -83,19 +83,19 @@ public class AlchemyFactoryForTest {
         entity.geo = "geo";
         entity.relevance = 0.5;
         entity.conceptId = UUID.randomUUID();
-        List<NamedEntity> result = Lists.newArrayList();
+        final List<NamedEntity> result = Lists.newArrayList();
         result.add(entity);
         return result;
     }
 
     public List<NamedEntity> namedEntitiesWithoutConcepts(final int quantity) {
-        List<NamedEntity> result = Lists.newArrayList();
+        final List<NamedEntity> result = Lists.newArrayList();
         for (int i = 0; i < quantity; i++) {
             final NamedEntity entity = new NamedEntity();
             entity.name = "text" + i;
             entity.language = Language.forString("english");
             entity.type = "type";
-            List<String> subtypes = Lists.newArrayList();
+            final List<String> subtypes = Lists.newArrayList();
             subtypes.add("subtype1");
             subtypes.add("subtype2");
             subtypes.add("subtype3");
@@ -129,7 +129,7 @@ public class AlchemyFactoryForTest {
         alchemyJsonEntity.disambiguated.name = "name";
         alchemyJsonEntity.disambiguated.geo = "geo";
         alchemyJsonEntity.disambiguated.website = "website";
-        List<String> subtypes = Lists.newArrayList();
+        final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
         subtypes.add("subtype3");

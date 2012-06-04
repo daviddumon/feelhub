@@ -27,7 +27,7 @@ public class ConceptResource extends ServerResource {
         return SteambeatTemplateRepresentation.createNew("concept.ftl", getContext()).with("concept", concept);
     }
 
-    private SubjectService subjectService;
+    private final SubjectService subjectService;
     private UUID id;
     private Concept concept;
 }

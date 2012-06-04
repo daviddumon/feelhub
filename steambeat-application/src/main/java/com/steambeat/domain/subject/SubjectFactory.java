@@ -38,5 +38,5 @@ public class SubjectFactory {
     }
 
     private final WebPageFactory webPageFactory;
-    private ConceptFactory conceptFactory;
+    private final ConceptFactory conceptFactory;
 }

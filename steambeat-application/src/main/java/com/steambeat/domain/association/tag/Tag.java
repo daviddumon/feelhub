@@ -13,5 +13,5 @@ public class Tag extends Identifier {
         return text;
     }
 
-    private String text;
+    private final String text;
 }

@@ -15,7 +15,7 @@ public class SteambeatRobotsRepresentation extends StreamRepresentation {
         super(MediaType.TEXT_PLAIN);
         setExpirationDate(new DateTime().toDate());
         setModificationDate(new DateTime().toDate());
-        List<Encoding> encodings = Lists.newArrayList();
+        final List<Encoding> encodings = Lists.newArrayList();
         encodings.add(new Encoding("UTF-8"));
         setEncodings(encodings);
         this.sitemap = sitemap;

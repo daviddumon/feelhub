@@ -35,5 +35,5 @@ public class ConceptFactory {
         return (Concept) Repositories.subjects().get(subjectId);
     }
 
-    private BingLink bingLink;
+    private final BingLink bingLink;
 }

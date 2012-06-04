@@ -21,5 +21,5 @@ public class SteambeatBoot {
         }
     }
 
-    private SessionProvider provider;
+    private final SessionProvider provider;
 }

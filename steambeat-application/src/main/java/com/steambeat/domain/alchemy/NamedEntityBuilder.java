@@ -58,7 +58,7 @@ public class NamedEntityBuilder {
     }
 
     private void checkForSpecialCharacters(final String text) throws Exception {
-        Pattern specialCharactersChecker = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        final Pattern specialCharactersChecker = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         final Matcher matcher = specialCharactersChecker.matcher(text);
         if (matcher.find()) {
             throw new Exception();

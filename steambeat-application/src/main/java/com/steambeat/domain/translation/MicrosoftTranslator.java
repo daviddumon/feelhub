@@ -13,7 +13,7 @@ public class MicrosoftTranslator implements Translator {
     @Override
     public String translate(final String text, final String from) {
         try {
-            Language language = getLanguage(from);
+            final Language language = getLanguage(from);
             return Translate.execute(text, language, Language.ENGLISH);
         } catch (Exception e) {
             return "";

@@ -21,8 +21,8 @@ public class AlchemyEntityAnalyzer {
     }
 
     public void analyze(final WebPage webpage) {
-        List<NamedEntity> namedEntities = NamedEntityProvider.entitiesFor(webpage);
-        for (NamedEntity namedEntity : namedEntities) {
+        final List<NamedEntity> namedEntities = NamedEntityProvider.entitiesFor(webpage);
+        for (final NamedEntity namedEntity : namedEntities) {
             if (!namedEntity.keywords.isEmpty()) {
                 handle(webpage, namedEntity);
             }
@@ -47,7 +47,7 @@ public class AlchemyEntityAnalyzer {
     }
 
     private void createAssociations(final NamedEntity namedEntity) {
-        for (String keyword : namedEntity.keywords) {
+        for (final String keyword : namedEntity.keywords) {
             try {
                 associationService.lookUp(new Tag(keyword), namedEntity.language);
             } catch (AssociationNotFound e) {
@@ -59,7 +59,7 @@ public class AlchemyEntityAnalyzer {
     private void createRelations(final WebPage webpage, final NamedEntity namedEntity) {
         final Concept concept = getLastAddedConcept();
         relationBuilder.connectTwoWays(webpage, concept, namedEntity.relevance);
-        for (Concept otherConcept : concepts) {
+        for (final Concept otherConcept : concepts) {
             if (!concept.equals(otherConcept)) {
                 relationBuilder.connectTwoWays(concept, otherConcept);
             }
@@ -71,8 +71,8 @@ public class AlchemyEntityAnalyzer {
     }
 
     private final NamedEntityProvider NamedEntityProvider;
-    private AssociationService associationService;
-    private ConceptFactory conceptFactory;
+    private final AssociationService associationService;
+    private final ConceptFactory conceptFactory;
     private final RelationBuilder relationBuilder = new RelationBuilder(new RelationFactory());
-    private List<Concept> concepts = Lists.newArrayList();
+    private final List<Concept> concepts = Lists.newArrayList();
 }

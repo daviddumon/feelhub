@@ -12,8 +12,8 @@ public class BingLink {
     public String getIllustration(final Tag tag) {
         final String query = getQuery(tag);
         try {
-            URL url = new URL(query);
-            URLConnection uc = url.openConnection();
+            final URL url = new URL(query);
+            final URLConnection uc = url.openConnection();
             addAuthorizationHeader(uc);
             return unmarshall(uc.getInputStream());
         } catch (MalformedURLException e) {
@@ -37,7 +37,7 @@ public class BingLink {
     }
 
     private void addAuthorizationHeader(final URLConnection uc) {
-        String basicAuth = "Basic OmQ1MllKNGlPWjBKTzZscWI3NnhHcndWV3BETzVDeXJ1bC9ETldtZk40NHM9";
+        final String basicAuth = "Basic OmQ1MllKNGlPWjBKTzZscWI3NnhHcndWV3BETzVDeXJ1bC9ETldtZk40NHM9";
         uc.setRequestProperty("Authorization", basicAuth);
     }
 

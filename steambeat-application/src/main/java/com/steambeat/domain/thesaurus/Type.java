@@ -33,5 +33,5 @@ public class Type {
         return description;
     }
 
-    private String description;
+    private final String description;
 }

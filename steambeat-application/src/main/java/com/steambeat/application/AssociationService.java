@@ -35,7 +35,7 @@ public class AssociationService {
         return association;
     }
 
-    public Association createAssociationFor(final Tag tag, final UUID id, Language language) {
+    public Association createAssociationFor(final Tag tag, final UUID id, final Language language) {
         addEnglishAssociationIfNeeded(tag, id, language);
         final Association association = new Association(tag, id, language);
         Repositories.associations().add(association);
@@ -88,5 +88,5 @@ public class AssociationService {
     }
 
     private final UriPathResolver pathResolver;
-    private MicrosoftTranslator microsoftTranslator;
+    private final MicrosoftTranslator microsoftTranslator;
 }

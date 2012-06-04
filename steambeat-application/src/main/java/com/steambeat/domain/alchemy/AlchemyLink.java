@@ -17,7 +17,7 @@ public class AlchemyLink {
         URL url = null;
         try {
             url = new URL(alchemyUri);
-            HttpURLConnection handle = (HttpURLConnection) url.openConnection();
+            final HttpURLConnection handle = (HttpURLConnection) url.openConnection();
             handle.setDoOutput(true);
             return handle.getInputStream();
         } catch (MalformedURLException e) {
@@ -29,7 +29,7 @@ public class AlchemyLink {
     }
 
     private String buildUri(final String webPageUri) {
-        StringBuilder uri = new StringBuilder();
+        final StringBuilder uri = new StringBuilder();
         try {
             uri.append(requestUri).append(apiKey).append("&url=").append(URLEncoder.encode(webPageUri, "UTF-8")).append("&linkedData=0");
         } catch (UnsupportedEncodingException e) {

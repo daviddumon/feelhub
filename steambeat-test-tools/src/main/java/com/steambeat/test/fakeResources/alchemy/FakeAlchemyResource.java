@@ -2,7 +2,7 @@ package com.steambeat.test.fakeResources.alchemy;
 
 import com.steambeat.test.TestTemplateRepresentation;
 import org.restlet.data.MediaType;
-import org.restlet.representation.*;
+import org.restlet.representation.Representation;
 import org.restlet.resource.*;
 
 public class FakeAlchemyResource extends ServerResource {
