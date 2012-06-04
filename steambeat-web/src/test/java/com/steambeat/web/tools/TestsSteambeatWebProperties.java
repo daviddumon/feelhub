@@ -33,4 +33,13 @@ public class TestsSteambeatWebProperties {
 
         assertThat(buildTime, is("true"));
     }
+
+    @Test
+    public void canGetStatusParameter() {
+        final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
+
+        final String status = steambeatWebProperties.getStatus();
+
+        assertThat(status, is("start"));
+    }
 }
