@@ -28,9 +28,11 @@ public class SteambeatApplication extends Application {
         steambeatWebProperties = new SteambeatWebProperties();
         initFreemarkerConfiguration();
         setStatus();
-        final SteambeatBoot steambeatBoot = injector.getInstance(SteambeatBoot.class);
-        steambeatBoot.checkForSteam();
-        runMigrations();
+        if (!getContext().getAttributes().get("com.steambeat.status").equals("launch")) {
+            final SteambeatBoot steambeatBoot = injector.getInstance(SteambeatBoot.class);
+            steambeatBoot.checkForSteam();
+            runMigrations();
+        }
         super.start();
     }
 
