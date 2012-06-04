@@ -14,8 +14,8 @@ function Flow() {
     this.initial = this.getInitialWidth();
 
     this.leftCorner = this.setLeftCorner();
-    this.skip = -20;
-    this.limit = 20;
+    this.skip = -30;
+    this.limit = 30;
     this.hasData = true;
     this.notLoading = true;
 
@@ -67,7 +67,7 @@ Flow.prototype.drawData = function () {
     function needData() {
         var docHeight = THIS.container.height();
         var scrollTop = $(window).scrollTop();
-        var trigger = $(window).height() * 2;
+        var trigger = $(window).height() * 3;
         return (docHeight - scrollTop) < trigger;
     }
 };
@@ -201,8 +201,8 @@ Flow.prototype.setLeftCorner = function () {
 };
 
 Flow.prototype.reset = function () {
-    this.skip = -20;
-    this.limit = 20;
+    this.skip = -30;
+    this.limit = 30;
 
     this.maxBox = this.getMaxBox();
     this.leftCorner = this.setLeftCorner();
