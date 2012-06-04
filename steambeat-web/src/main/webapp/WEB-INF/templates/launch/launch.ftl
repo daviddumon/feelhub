@@ -5,7 +5,7 @@
 
 <body class="font_text color_bg_lightblue">
 
-<div id="newsubject" class="good rounded">
+<div id="newsubject" class="good_without_image rounded">
     <p class="titlefont">Launching soon !</p>
 </div>
 
