@@ -110,6 +110,18 @@
     border: 1px solid #F33;
 }
 
+.neutral {
+    background: #03F url(../images/smiley_neutral_white_14.png) no-repeat center;
+}
+
+.neutral_without_image {
+    background-color: #03F;
+}
+
+.neutral_border {
+    border: 1px solid #03F;
+}
+
 #fixed_layer {
     position: fixed;
     top: 0px;

@@ -14,6 +14,11 @@
 
         <p id="counter_good" class="counter_text titlefont">0</p>
     </div>
+    <div class="counter neutral_without_image rounded">
+        <img class="smiley" src="${root}/static/images/smiley_neutral_white.png"/>
+
+        <p id="counter_neutral" class="counter_text titlefont">0</p>
+    </div>
     <div class="counter bad_without_image rounded">
         <img class="smiley" src="${root}/static/images/smiley_bad_white.png"/>
 
@@ -22,8 +27,8 @@
 </div>
 <div class="panel_box panel_resource">
     <div id="webpageRoot">${concept.getShortDescription()}</div>
-    <#--<div id="webpageRoot"><span onclick="javascript:window.open('${webPage.uri}');" style="cursor: pointer">${webPage.description}</span></div>-->
-    <#--<div id="illustration"><img <#if ''?matches('${webPage.illustration}')> style='display: none;' <#else> src="${webPage.illustration}" </#if> /></div>-->
+<#--<div id="webpageRoot"><span onclick="javascript:window.open('${webPage.uri}');" style="cursor: pointer">${webPage.description}</span></div>-->
+<#--<div id="illustration"><img <#if ''?matches('${webPage.illustration}')> style='display: none;' <#else> src="${webPage.illustration}" </#if> /></div>-->
 </div>
 <div class="panel_box related_box">
     <span>related</span>

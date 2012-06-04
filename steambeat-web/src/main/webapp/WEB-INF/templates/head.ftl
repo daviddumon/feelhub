@@ -34,7 +34,6 @@
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/lib/ICanHaz.min.js?${buildtime}"></script>
     <#--<script type="text/javascript" src="${root}/static/js/lib/raphael-2.0.0.min.js?${buildtime}"></script>-->
-    <script type="text/javascript" src="${root}/static/js/lib/steambeatglobal.js?${buildtime}"></script>
     <#--<script type="text/javascript" src="${root}/static/js/lib/time.js?${buildtime}"></script>-->
     <#--<script type="text/javascript" src="${root}/static/js/lib/orderedlinkedlist.js?${buildtime}"></script>-->
     <#--<script type="text/javascript" src="${root}/static/js/lib/graph.js?${buildtime}"></script>-->
