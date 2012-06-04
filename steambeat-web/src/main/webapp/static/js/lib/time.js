@@ -1,4 +1,4 @@
-/* Copyright bytedojo 2011 */
+/* Copyright Steambeat 2012 */
 function Interval(startTime, endTime, granularity) {
     this.startTime = startTime;
     this.endTime = endTime;

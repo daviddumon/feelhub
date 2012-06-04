@@ -1,4 +1,4 @@
-/* Copyright bytedojo 2011 */
+/* Copyright Steambeat 2012 */
 function OrderedLinkedList(sortableProperty) {
 
     this.add = function(element) {

@@ -1,3 +1,4 @@
+/* Copyright Steambeat 2012 */
 function Form() {
     var THIS = this;
     this.id = 1;

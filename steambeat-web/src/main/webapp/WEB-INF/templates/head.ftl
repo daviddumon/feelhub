@@ -1,6 +1,6 @@
 <#macro withHead>
 <!DOCTYPE html>
-<!-- Copyright Bytedojo SAS 2011 -->
+<!-- Copyright Steambeat 2012 -->
 <html lang="en">
 <head>
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>

@@ -1,3 +1,4 @@
+/* Copyright Steambeat 2012 */
 function ScaleImage(srcwidth, srcheight, targetwidth, targetheight, fLetterBox) {
     var result = { width: 0, height: 0, fScaleToTargetWidth: true };
 

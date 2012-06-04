@@ -1,3 +1,4 @@
+/* Copyright Steambeat 2012 */
 $(function () {
 
     var lock = false;
