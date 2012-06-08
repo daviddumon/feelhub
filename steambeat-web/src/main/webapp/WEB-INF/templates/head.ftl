@@ -3,8 +3,8 @@
 <!-- Copyright Steambeat 2012 -->
 <html lang="en">
 <head>
-    <link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <title>Steambeat</title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
@@ -22,10 +22,10 @@
         <link rel="stylesheet" href="${root}/static/css/form.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/flow.css?${buildtime}"/>
         <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js?${buildtime}"></script>
-        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?${buildtime}"></script>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js?${buildtime}"></script>
+        <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?${buildtime}"></script>
         <![endif]-->
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     </#if>
     <#if dev>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reset.less?${buildtime}"/>
