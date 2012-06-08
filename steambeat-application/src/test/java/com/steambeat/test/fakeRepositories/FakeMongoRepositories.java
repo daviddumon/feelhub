@@ -5,6 +5,7 @@ import com.steambeat.domain.association.AssociationRepository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.statistics.StatisticsRepository;
+import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
 
 public class FakeMongoRepositories extends Repositories {
@@ -32,6 +33,11 @@ public class FakeMongoRepositories extends Repositories {
     @Override
     protected AssociationRepository getAssociationRepository() {
         return associationRepository;
+    }
+
+    @Override
+    protected Repository<User> getUserRepository() {
+        return null;
     }
 
     private final FakeSubjectMongoRepository subjectRepository = new FakeSubjectMongoRepository();
