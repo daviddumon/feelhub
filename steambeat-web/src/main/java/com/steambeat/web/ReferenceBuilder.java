@@ -13,7 +13,7 @@ public class ReferenceBuilder {
 
     public String buildUri(final String uri) {
         final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
-        return "http://" + steambeatWebProperties.getDomain() + servletContext().getContextPath() + uri;
+        return "https://" + steambeatWebProperties.getDomain() + servletContext().getContextPath() + uri;
     }
 
     private ServletContext servletContext() {

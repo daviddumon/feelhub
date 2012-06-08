@@ -35,7 +35,7 @@
             <id>production</id>
             <properties>
                 <delay>360</delay>
-                <root>http://www.steambeat.com</root>
+                <root>https://www.steambeat.com</root>
             </properties>
         </profile>
         <profile>

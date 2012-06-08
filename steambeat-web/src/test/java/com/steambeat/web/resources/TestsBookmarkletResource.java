@@ -26,7 +26,7 @@ public class TestsBookmarkletResource {
     @Test
     public void canRedirectToWebPage() throws IOException, JSONException {
         final WebPage webPage = TestFactories.subjects().newWebPage();
-        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?version=1&q=" + webPage.getRealUri().toString());
+        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?version=" + BookmarkletResource.currentVersion + "&q=" + webPage.getRealUri().toString());
 
         bookmarkletResource.get();
 
@@ -37,7 +37,7 @@ public class TestsBookmarkletResource {
 
     @Test
     public void throwAnErrorIfNoParameter() {
-        final ClientResource subjectsResource = restlet.newClientResource("/bookmarklet?version=1");
+        final ClientResource subjectsResource = restlet.newClientResource("/bookmarklet?version=" + BookmarkletResource.currentVersion);
 
         subjectsResource.get();
 
@@ -46,7 +46,7 @@ public class TestsBookmarkletResource {
 
     @Test
     public void canRedirectToNewWebPageFtl() {
-        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr&version=1");
+        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr&version=" + BookmarkletResource.currentVersion);
 
         bookmarkletResource.get();
 
@@ -55,7 +55,7 @@ public class TestsBookmarkletResource {
 
     @Test
     public void throwAnErrorIfEmptyParameter() {
-        final ClientResource subjectsResource = restlet.newClientResource("/bookmarklet?q=&version=1");
+        final ClientResource subjectsResource = restlet.newClientResource("/bookmarklet?q=&version=" + BookmarkletResource.currentVersion);
 
         subjectsResource.get();
 
@@ -64,7 +64,7 @@ public class TestsBookmarkletResource {
 
     @Test
     public void canCheckVersion() {
-        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr&version=1");
+        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr&version=" + BookmarkletResource.currentVersion);
 
         bookmarkletResource.get();
 
@@ -82,7 +82,7 @@ public class TestsBookmarkletResource {
 
     @Test
     public void proposeToChangeIfBadVersion() throws IOException {
-        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr&version=2");
+        final ClientResource bookmarkletResource = restlet.newClientResource("/bookmarklet?q=http://www.lemonde.Fr&version=" + BookmarkletResource.currentVersion + 1);
 
         final Representation representation = bookmarkletResource.get();
 

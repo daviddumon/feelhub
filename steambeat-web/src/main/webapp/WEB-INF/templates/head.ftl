@@ -11,7 +11,7 @@
     <meta name="keywords" content="sentiment analysis"/>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <script type="text/javascript">
-        var root = "http://${domain}${root}";
+        var root = "${root}";
     </script>
     <#if !dev>
         <link rel="stylesheet" href="${root}/static/css/reset.css?${buildtime}"/>

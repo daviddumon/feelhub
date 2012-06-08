@@ -71,5 +71,5 @@ public class BookmarkletResource extends ServerResource {
     private String uri;
     private Form form;
     private Association association;
-    private static final String currentVersion = "1";
+    public static final String currentVersion = "2";
 }
