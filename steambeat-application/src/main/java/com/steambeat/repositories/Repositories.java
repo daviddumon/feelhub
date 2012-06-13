@@ -4,6 +4,7 @@ import com.steambeat.domain.Repository;
 import com.steambeat.domain.association.AssociationRepository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
+import com.steambeat.domain.session.Session;
 import com.steambeat.domain.statistics.StatisticsRepository;
 import com.steambeat.domain.subject.SubjectRepository;
 import com.steambeat.domain.user.User;
@@ -37,6 +38,12 @@ public abstract class Repositories {
     public static Repository<User> users() {
         return Repositories.soleInstance.getUserRepository();
     }
+
+    public static Repository<Session> sessions() {
+        return Repositories.soleInstance.getSessionRepository();
+    }
+
+    protected abstract Repository<Session> getSessionRepository();
 
     protected abstract SubjectRepository getSubjectRepository();
 

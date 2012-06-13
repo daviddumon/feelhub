@@ -38,5 +38,9 @@ public class SteambeatWebProperties {
         return properties.getProperty("status");
     }
 
+    public String getCookie() {
+        return properties.getProperty("cookie");
+    }
+
     private final Properties properties;
 }

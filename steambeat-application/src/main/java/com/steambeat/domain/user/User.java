@@ -2,6 +2,7 @@ package com.steambeat.domain.user;
 
 import com.steambeat.domain.BaseEntity;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class User extends BaseEntity {
 
@@ -23,5 +24,18 @@ public class User extends BaseEntity {
         return email;
     }
 
+    public void setPassword(final String password) {
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public boolean checkPassword(final String password) {
+        return BCrypt.checkpw(password, this.password);
+    }
+
     private String email;
+    private String password;
 }

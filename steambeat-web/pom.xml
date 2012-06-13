@@ -22,8 +22,9 @@
             </activation>
             <properties>
                 <dev>true</dev>
-                <domain>http://localhost:8080</domain>
+                <domain>http://test.localhost:8080</domain>
                 <sitemapBuilder>http://localhost:8081/steambeat-sitemap</sitemapBuilder>
+                <cookie>.test.localhost</cookie>
             </properties>
         </profile>
         <profile>
@@ -32,6 +33,7 @@
                 <dev>false</dev>
                 <domain>http://test.bytedojo.com</domain>
                 <sitemapBuilder>http://test.bytedojo.com/sitemaps</sitemapBuilder>
+                <cookie>http://test.bytedojo.com/sitemaps</cookie>
             </properties>
         </profile>
         <profile>
@@ -40,6 +42,7 @@
                 <dev>false</dev>
                 <domain>https://www.steambeat.com</domain>
                 <sitemapBuilder>http://23.21.113.241</sitemapBuilder>
+                <cookie>.steambeat.com</cookie>
             </properties>
         </profile>
         <profile>

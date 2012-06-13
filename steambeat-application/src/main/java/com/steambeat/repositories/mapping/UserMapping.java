@@ -11,6 +11,7 @@ public class UserMapping extends EntityMap<User> {
 
     @Override
     protected void map() {
-        id(element().getId()).natural();
+        id(element().getEmail()).natural();
+        property(element().getPassword());
     }
 }

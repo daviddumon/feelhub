@@ -26,6 +26,7 @@ public class SteambeatApplication extends Application {
     @Override
     public synchronized void start() throws Exception {
         steambeatWebProperties = new SteambeatWebProperties();
+        setCookieDomainInContext();
         initFreemarkerConfiguration();
         setStatus();
         if (!getContext().getAttributes().get("com.steambeat.status").equals("launch")) {
@@ -34,6 +35,10 @@ public class SteambeatApplication extends Application {
             runMigrations();
         }
         super.start();
+    }
+
+    private void setCookieDomainInContext() {
+        getContext().getAttributes().put("com.steambeat.cookie", steambeatWebProperties.getCookie());
     }
 
     private void setStatus() {

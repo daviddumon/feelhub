@@ -19,6 +19,7 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
     public void canPersistAnUser() {
         final User user = new User();
         user.setEmail("email@email.com");
+        user.setPassword("password");
 
         repository.add(user);
 
@@ -26,6 +27,7 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         assertThat(userFound, notNullValue());
         assertThat(userFound.get("_id"), is(user.getId()));
         assertThat(userFound.get("_id"), is((Object)user.getEmail()));
+        assertThat(userFound.get("password"), is((Object) user.getPassword()));
     }
 
     @Test

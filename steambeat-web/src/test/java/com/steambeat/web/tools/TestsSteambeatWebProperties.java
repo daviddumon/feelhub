@@ -42,4 +42,13 @@ public class TestsSteambeatWebProperties {
 
         assertThat(status, is("start"));
     }
+
+    @Test
+    public void canGetCookieDomain() {
+        final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
+
+        final String status = steambeatWebProperties.getCookie();
+
+        assertThat(status, is(".test.localhost"));
+    }
 }

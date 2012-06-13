@@ -32,4 +32,8 @@ public class TestFactories {
     public static RelationFactoryForTest relations() {
         return new RelationFactoryForTest();
     }
+
+    public static UserFactoryForTest users() {
+        return new UserFactoryForTest();
+    }
 }
