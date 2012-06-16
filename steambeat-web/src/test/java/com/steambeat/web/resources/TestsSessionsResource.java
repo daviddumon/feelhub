@@ -176,7 +176,7 @@ public class TestsSessionsResource {
         assertThat(id.getVersion(), is(0));
         assertThat(id.getValue(), is(session.getToken().toString()));
         assertThat(id.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie").toString()));
-        assertThat(id.getMaxAge(), is((int)new Interval(time.getNow(), session.getExpirationDate()).toDurationMillis()/1000));
+        assertThat(id.getMaxAge(), is((int) new Interval(time.getNow(), session.getExpirationDate()).toDurationMillis() / 1000));
         assertThat(id.getPath(), is("/"));
     }
 }

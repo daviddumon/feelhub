@@ -1,12 +1,34 @@
-<@head.withHead>
+<@head.begin>
+</@head.begin>
+
+<@head.cssprod>
+</@head.cssprod>
+
+<@head.cssdev>
+</@head.cssdev>
+
+<@head.jsprod>
+</@head.jsprod>
+
+<@head.jsdev>
+</@head.jsdev>
+
+<@head.js>
 <script type="text/javascript" src="${root}/static/js/home.js?${buildtime}"></script>
 <script type="text/javascript">
     var steamId = "${steam.getId()}";
 </script>
-</@head.withHead>
+</@head.js>
 
-<@body.panel>
-<#--<div id="counter">${counter!0} opinions</div>-->
+<@head.mustache>
+
+</@head.mustache>
+
+<@head.end>
+
+</@head.end>
+
+<@normal.panel>
 <div class="panel_box">
     <div class="counter good_without_image rounded">
         <img class="smiley" src="${root}/static/images/smiley_good_white.png"/>
@@ -24,4 +46,4 @@
         <p id="counter_bad" class="counter_text titlefont">0</p>
     </div>
 </div>
-</@body.panel>
+</@normal.panel>

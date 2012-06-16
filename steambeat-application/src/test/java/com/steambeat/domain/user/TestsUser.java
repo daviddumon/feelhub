@@ -78,4 +78,24 @@ public class TestsUser {
         assertFalse(helloTest);
         assertTrue(passwordTest);
     }
+
+    @Test
+    public void canSetFullname() {
+        final User user = new User();
+        final String fullname = "John doe";
+
+        user.setFullname(fullname);
+
+        assertThat(user.getFullname(), is(fullname));
+    }
+
+    @Test
+    public void canSetLanguage() {
+        final User user = new User();
+        final String language = "English";
+
+        user.setLanguage(language);
+
+        assertThat(user.getLanguage(), is(language));
+    }
 }

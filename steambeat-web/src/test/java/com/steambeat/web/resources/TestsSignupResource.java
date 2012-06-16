@@ -23,6 +23,8 @@ public class TestsSignupResource {
         final ClientResource signup = restlet.newClientResource("/signup");
         final Form parameters = new Form();
         final String email = "mail@mail.com";
+        parameters.add("fullname", "");
+        parameters.add("language", "");
         parameters.add("email", email);
         parameters.add("password", "password");
 
@@ -41,9 +43,39 @@ public class TestsSignupResource {
         final Form parameters = new Form();
         parameters.add("email", email);
         parameters.add("password", "password");
+        parameters.add("fullname", "");
+        parameters.add("language", "");
 
         signup.post(parameters);
 
         assertThat(signup.getStatus(), is(Status.CLIENT_ERROR_CONFLICT));
+    }
+
+    @Test
+    public void returnErrorOnBadEmail() {
+        final ClientResource signup = restlet.newClientResource("/signup");
+        final Form parameters = new Form();
+        parameters.add("email", "mail.com");
+        parameters.add("password", "password");
+        parameters.add("fullname", "");
+        parameters.add("language", "");
+
+        signup.post(parameters);
+
+        assertThat(signup.getStatus(), is(Status.CLIENT_ERROR_PRECONDITION_FAILED));
+    }
+
+    @Test
+    public void returnBadRequestIfMissingParameter() {
+        final ClientResource signup = restlet.newClientResource("/signup");
+        final Form parameters = new Form();
+        final String email = "mail@mail.com";
+        parameters.add("fullname", "");
+        parameters.add("email", email);
+        parameters.add("password", "password");
+
+        signup.post(parameters);
+
+        assertThat(signup.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
 }

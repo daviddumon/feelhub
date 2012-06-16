@@ -5,11 +5,13 @@ import com.steambeat.repositories.Repositories;
 
 public class UserService {
 
-    public void createUser(final String email, final String password) {
+    public void createUser(final String email, final String password, final String fullname, final String language) {
         CheckForExistingEmail(email);
         final User user = new User();
         user.setEmail(email);
         user.setPassword(password);
+        user.setFullname(fullname);
+        user.setLanguage(language);
         Repositories.users().add(user);
     }
 

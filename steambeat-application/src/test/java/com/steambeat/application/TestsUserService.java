@@ -1,5 +1,6 @@
 package com.steambeat.application;
 
+import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
@@ -8,6 +9,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertTrue;
 
 public class TestsUserService {
 
@@ -26,10 +28,17 @@ public class TestsUserService {
     public void canCreateAnUser() {
         final String email = "mail@mail.com";
         final String password = "password";
+        final String fullname = "David John";
+        final String language = "English";
 
-        userService.createUser(email, password);
+        userService.createUser(email, password, fullname, language);
 
         assertThat(Repositories.users().getAll().size(), is(1));
+        final User user = Repositories.users().getAll().get(0);
+        assertThat(user.getFullname(), is(fullname));
+        assertThat(user.getEmail(), is(email));
+        assertThat(user.getLanguage(), is(language));
+        assertTrue(user.checkPassword(password));
     }
 
     @Test
@@ -37,9 +46,11 @@ public class TestsUserService {
         exception.expect(EmailAlreadyUsed.class);
         final String email = "mail@mail.com";
         final String password = "password";
+        final String fullname = "David John";
+        final String language = "English";
         TestFactories.users().createUser(email);
 
-        userService.createUser(email, password);
+        userService.createUser(email, password, fullname, language);
     }
 
     @Test
@@ -47,9 +58,11 @@ public class TestsUserService {
         exception.expect(EmailAlreadyUsed.class);
         final String email = "Mail@mail.com ";
         final String password = "password";
+        final String fullname = "David John";
+        final String language = "English";
         TestFactories.users().createUser("mail@mail.com");
 
-        userService.createUser(email, password);
+        userService.createUser(email, password, fullname, language);
     }
 
     private UserService userService;

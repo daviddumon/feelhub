@@ -20,6 +20,8 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         final User user = new User();
         user.setEmail("email@email.com");
         user.setPassword("password");
+        user.setFullname("fullname");
+        user.setLanguage("English");
 
         repository.add(user);
 
@@ -28,6 +30,8 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         assertThat(userFound.get("_id"), is(user.getId()));
         assertThat(userFound.get("_id"), is((Object)user.getEmail()));
         assertThat(userFound.get("password"), is((Object) user.getPassword()));
+        assertThat(userFound.get("fullname"), is((Object) user.getFullname()));
+        assertThat(userFound.get("language"), is((Object) user.getLanguage()));
     }
 
     @Test

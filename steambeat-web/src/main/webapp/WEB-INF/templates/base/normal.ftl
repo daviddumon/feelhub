@@ -2,11 +2,11 @@
 <body class="font_text color_bg_lightblue">
 <div id="form_blanket" style="display: none;"></div>
 
-<#include "form.ftl">
+<#include "../includes/form.ftl">
 
 <div id="fixed_layer">
 
-    <#include "header.ftl">
+    <#include "../includes/header.ftl">
 
     <div id="panel" class="color_bg_darkblue">
         <#nested/>
@@ -16,8 +16,6 @@
 </div>
 
 <ul id="opinions"></ul>
-
-<a id="feedback" class="vertical_left rounded_down button font_title color_bg_darkblue color_lightblue" href="${root}/bookmarklet?q=http%3A%2F%2Fwww.steambeat.com&version=1">feedback</a>
 
 </body>
 </html>

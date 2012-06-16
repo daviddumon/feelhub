@@ -1,0 +1,1 @@
+<p id="header_right" class="font_title color_darkblue">Drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include '../bookmarklet.js' />" class="rounded font_title color_darkblue">Steambeat!</a></p>

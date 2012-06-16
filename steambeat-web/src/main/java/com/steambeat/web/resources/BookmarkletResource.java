@@ -59,7 +59,7 @@ public class BookmarkletResource extends ServerResource {
     public Representation represent() {
         if (mustCreate) {
             setStatus(Status.SUCCESS_OK);
-            return SteambeatTemplateRepresentation.createNew("newsubject.ftl", getContext()).with("uri", uri);
+            return SteambeatTemplateRepresentation.createNew("/newsubject.ftl", getContext()).with("uri", uri);
         }
         setStatus(Status.REDIRECTION_SEE_OTHER);
         setLocationRef(new ReferenceBuilder(this.getContext()).buildUri("/webpages/" + association.getSubjectId()));

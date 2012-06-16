@@ -13,5 +13,7 @@ public class UserMapping extends EntityMap<User> {
     protected void map() {
         id(element().getEmail()).natural();
         property(element().getPassword());
+        property(element().getFullname());
+        property(element().getLanguage());
     }
 }

@@ -36,6 +36,24 @@ public class User extends BaseEntity {
         return BCrypt.checkpw(password, this.password);
     }
 
+    public void setFullname(final String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setLanguage(final String language) {
+        this.language = language;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
     private String email;
     private String password;
+    private String fullname;
+    private String language;
 }
