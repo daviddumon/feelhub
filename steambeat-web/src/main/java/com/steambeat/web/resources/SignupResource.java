@@ -34,8 +34,6 @@ public class SignupResource extends ServerResource {
                 setStatus(Status.CLIENT_ERROR_CONFLICT);
             } catch (BadEmail badEmail) {
                 setStatus(Status.CLIENT_ERROR_PRECONDITION_FAILED);
-            } finally {
-                setLocationRef(getReferrerRef());
             }
         } else {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);

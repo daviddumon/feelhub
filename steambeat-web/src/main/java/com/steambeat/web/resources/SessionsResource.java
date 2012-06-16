@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.domain.session.Session;
 import com.steambeat.domain.user.User;
+import com.steambeat.web.ReferenceBuilder;
 import org.joda.time.*;
 import org.restlet.data.*;
 import org.restlet.resource.*;
@@ -24,8 +25,9 @@ public class SessionsResource extends ServerResource {
             try {
                 user = userService.authentificate(email, password);
                 session = sessionService.getSessionFor(user);
-                setStatus(Status.SUCCESS_CREATED);
                 setCookiesInResponse();
+                setStatus(Status.SUCCESS_CREATED);
+                setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));
             } catch (UserException userException) {
                 setStatus(Status.CLIENT_ERROR_FORBIDDEN);
             }

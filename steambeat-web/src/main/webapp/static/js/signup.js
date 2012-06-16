@@ -24,8 +24,8 @@ $(function () {
         e.preventDefault();
         e.stopPropagation();
         if (checkForm()) {
-            $.post(root + "/signup?", $("#signup").serialize(),function (data,status, jqXHR) {
-                document.location.href = jqXHR.getResponseHeader("Location");
+            $.post(root + "/signup?", $("#signup").serialize(),function (data, status, jqXHR) {
+                loginAfterSignup();
             }).error(function (jqXHR) {
                     if (jqXHR.status == 412) {
                         $("[name='email']").parent().find(".error_text").text("Please enter a real email!");
@@ -74,4 +74,16 @@ function checkPassword() {
         $("[name='password']").parent().find(".error_text").text("");
         return true;
     }
+}
+
+function loginAfterSignup() {
+    var email = $("[name='email']").val();
+    var password = $("[name='password']").val();
+    var request = "email=" + email + "&password=" + password;
+    $.post(root + "/sessions?", request, function(data, status, jqXHR) {
+        console.log("succes");
+        document.location.href = jqXHR.getResponseHeader("Location");
+    }).error(function() {
+            console.log("error");
+        });
 }
