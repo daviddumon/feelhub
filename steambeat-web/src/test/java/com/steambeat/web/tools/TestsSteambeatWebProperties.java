@@ -44,11 +44,20 @@ public class TestsSteambeatWebProperties {
     }
 
     @Test
-    public void canGetCookieDomain() {
+    public void canGetCookieDomainParameter() {
         final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
 
         final String status = steambeatWebProperties.getCookie();
 
         assertThat(status, is(".test.localhost"));
+    }
+
+    @Test
+    public void canGetSecureModeParameter() {
+        final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
+
+        final String status = steambeatWebProperties.getSecureMode();
+
+        assertThat(status, is("false"));
     }
 }

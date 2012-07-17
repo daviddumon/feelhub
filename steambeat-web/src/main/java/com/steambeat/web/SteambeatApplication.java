@@ -1,6 +1,7 @@
 package com.steambeat.web;
 
 import com.google.inject.*;
+import com.steambeat.web.filter.*;
 import com.steambeat.web.guice.SteambeatModule;
 import com.steambeat.web.launch.LaunchRouter;
 import com.steambeat.web.migration.MigrationRunner;
@@ -26,7 +27,7 @@ public class SteambeatApplication extends Application {
     @Override
     public synchronized void start() throws Exception {
         steambeatWebProperties = new SteambeatWebProperties();
-        setCookieDomainInContext();
+        setCookieParametersInContext();
         initFreemarkerConfiguration();
         setStatus();
         if (!getContext().getAttributes().get("com.steambeat.status").equals("launch")) {
@@ -37,8 +38,9 @@ public class SteambeatApplication extends Application {
         super.start();
     }
 
-    private void setCookieDomainInContext() {
-        getContext().getAttributes().put("com.steambeat.cookie", steambeatWebProperties.getCookie());
+    private void setCookieParametersInContext() {
+        getContext().getAttributes().put("com.steambeat.cookie.domain", steambeatWebProperties.getCookie());
+        getContext().getAttributes().put("com.steambeat.cookie.secure", steambeatWebProperties.getSecureMode());
     }
 
     private void setStatus() {
@@ -96,6 +98,13 @@ public class SteambeatApplication extends Application {
 
     private OpenSessionInViewFilter getOpenSessionInViewFilter() {
         final OpenSessionInViewFilter filter = injector.getInstance(OpenSessionInViewFilter.class);
+        filter.setContext(getContext());
+        filter.setNext(getIdentityFilter());
+        return filter;
+    }
+
+    private IdentityFilter getIdentityFilter() {
+        final IdentityFilter filter = injector.getInstance(IdentityFilter.class);
         filter.setContext(getContext());
         filter.setNext(getMigrationFilter());
         return filter;

@@ -1,4 +1,4 @@
-package com.steambeat.web.resources;
+package com.steambeat.web.resources.authentification;
 
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;

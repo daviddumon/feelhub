@@ -2,6 +2,7 @@ package com.steambeat.web;
 
 import org.restlet.*;
 import org.restlet.data.*;
+import org.restlet.engine.util.CookieSeries;
 import org.restlet.representation.Representation;
 import org.restlet.resource.UniformResource;
 import org.restlet.service.ConverterService;
@@ -26,6 +27,14 @@ public class ClientResource extends UniformResource {
     public Representation post(final Object entity) {
         initHandling(Method.POST);
         getRequest().setEntity(getRepresentation(entity));
+        return handle();
+    }
+
+    public Representation delete(final CookieSeries cookies) {
+        initHandling(Method.DELETE);
+        if (cookies != null) {
+            getRequest().setCookies(cookies);
+        }
         return handle();
     }
 

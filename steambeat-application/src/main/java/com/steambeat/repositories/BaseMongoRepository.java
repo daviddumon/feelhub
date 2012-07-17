@@ -37,6 +37,11 @@ public class BaseMongoRepository<T extends Entity> implements Repository<T> {
         return false;
     }
 
+    @Override
+    public void delete(final T element) {
+        session.delete(element);
+    }
+
     protected final Class<T> getPersistentType() {
         final ParameterizedType superclass = (ParameterizedType) getClass().getGenericSuperclass();
         return (Class<T>) superclass.getActualTypeArguments()[0];

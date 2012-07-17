@@ -1,4 +1,4 @@
-package com.steambeat.web.resources;
+package com.steambeat.web.resources.authentification;
 
 import com.google.inject.Inject;
 import com.steambeat.application.*;
@@ -17,7 +17,7 @@ public class SignupResource extends ServerResource {
 
     @Get
     public Representation represent() {
-        return SteambeatTemplateRepresentation.createNew("signup.ftl", getContext());
+        return SteambeatTemplateRepresentation.createNew("signup.ftl", getContext()).with("identity", getContext().getAttributes().get("com.steambeat.identity"));
     }
 
     @Post

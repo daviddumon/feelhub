@@ -36,4 +36,8 @@ public class TestFactories {
     public static UserFactoryForTest users() {
         return new UserFactoryForTest();
     }
+
+    public static SessionFactoryForTest sessions() {
+        return new SessionFactoryForTest();
+    }
 }

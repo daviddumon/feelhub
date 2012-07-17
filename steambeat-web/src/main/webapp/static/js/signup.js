@@ -80,10 +80,8 @@ function loginAfterSignup() {
     var email = $("[name='email']").val();
     var password = $("[name='password']").val();
     var request = "email=" + email + "&password=" + password;
-    $.post(root + "/sessions?", request, function(data, status, jqXHR) {
-        console.log("succes");
+    $.post(root + "/sessions?", request,function (data, status, jqXHR) {
         document.location.href = jqXHR.getResponseHeader("Location");
-    }).error(function() {
-            console.log("error");
+    }).error(function () {
         });
 }

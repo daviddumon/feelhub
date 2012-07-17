@@ -1,4 +1,4 @@
-package com.steambeat.web;
+package com.steambeat.web.filter;
 
 import com.steambeat.repositories.*;
 import org.restlet.*;

@@ -3,6 +3,7 @@ package com.steambeat.web;
 import com.google.inject.Injector;
 import com.steambeat.web.guice.GuiceFinder;
 import com.steambeat.web.resources.*;
+import com.steambeat.web.resources.authentification.*;
 import com.steambeat.web.resources.json.*;
 import org.restlet.Context;
 import org.restlet.resource.Finder;

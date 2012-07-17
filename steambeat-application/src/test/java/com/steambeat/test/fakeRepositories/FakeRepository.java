@@ -48,5 +48,10 @@ public class FakeRepository<T extends Entity> implements Repository<T> {
         return get(id) != null;
     }
 
+    @Override
+    public void delete(final T element) {
+        list.remove(element);
+    }
+
     private final List<T> list = Lists.newArrayList();
 }

@@ -28,7 +28,7 @@ public class UserService {
         return user;
     }
 
-    private User getUser(final String email) {
+    public User getUser(final String email) {
         User user = Repositories.users().get(email);
         if (user == null) {
             throw new BadUserException();
@@ -40,5 +40,13 @@ public class UserService {
         if (!user.checkPassword(password)) {
             throw new BadPasswordException();
         }
+    }
+
+    public String getName(final String email) {
+        final User user = Repositories.users().get(email.toLowerCase().trim());
+        if (user != null) {
+            return user.getFullname();
+        }
+        return "";
     }
 }

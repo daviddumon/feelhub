@@ -14,6 +14,7 @@ import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
 import com.steambeat.test.fakeServices.FakeSubjectService;
 import com.steambeat.web.*;
+import com.steambeat.web.filter.*;
 import com.steambeat.web.migration.MigrationRunner;
 import com.steambeat.web.search.*;
 import com.steambeat.web.test.FakeMigrationRunner;
@@ -26,6 +27,7 @@ public class SteambeatModuleForTest extends AbstractModule {
     protected void configure() {
         bind(WebPageFactory.class).to(FakeWebPageFactory.class);
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
+        bind(IdentityFilter.class).to(FakeIdentityFilter.class);
         bind(SessionProvider.class).to(FakeSessionProvider.class);
         bind(OpinionSearch.class).to(FakeOpinionSearch.class);
         bind(StatisticsSearch.class).to(FakeStatisticsSearch.class);

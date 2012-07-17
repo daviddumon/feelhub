@@ -24,4 +24,11 @@ public class SessionService {
     private Session lookUpSession(final User user) {
         return Repositories.sessions().get(user.getEmail());
     }
+
+    public void deleteSessionFor(final User user) {
+        final Session session = lookUpSession(user);
+        if (session != null) {
+            Repositories.sessions().delete(session);
+        }
+    }
 }

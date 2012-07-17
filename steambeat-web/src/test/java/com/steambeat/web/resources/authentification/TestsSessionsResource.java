@@ -1,4 +1,4 @@
-package com.steambeat.web.resources;
+package com.steambeat.web.resources.authentification;
 
 import com.steambeat.domain.session.Session;
 import com.steambeat.domain.user.User;
@@ -10,8 +10,8 @@ import com.steambeat.web.*;
 import org.joda.time.Interval;
 import org.junit.*;
 import org.restlet.data.*;
+import org.restlet.engine.util.CookieSeries;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -145,11 +145,11 @@ public class TestsSessionsResource {
         assertThat(id, notNullValue());
         assertThat(id.getComment(), is("id cookie"));
         assertThat(id.getName(), is("id"));
-        assertTrue(id.isSecure());
         assertTrue(id.isAccessRestricted());
+        assertThat(id.isSecure(), is(Boolean.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.secure").toString())));
         assertThat(id.getVersion(), is(0));
         assertThat(id.getValue(), is(user.getEmail()));
-        assertThat(id.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie").toString()));
+        assertThat(id.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.domain").toString()));
         assertThat(id.getMaxAge(), is(157680000));
         assertThat(id.getPath(), is("/"));
     }
@@ -167,16 +167,62 @@ public class TestsSessionsResource {
         final Session session = Repositories.sessions().getAll().get(0);
         assertThat(sessions.getStatus(), is(Status.SUCCESS_CREATED));
         assertFalse(sessions.getResponse().getCookieSettings().isEmpty());
-        final CookieSetting id = sessions.getResponse().getCookieSettings().getFirst("token");
-        assertThat(id, notNullValue());
-        assertThat(id.getComment(), is("token cookie"));
-        assertThat(id.getName(), is("token"));
-        assertTrue(id.isSecure());
-        assertTrue(id.isAccessRestricted());
-        assertThat(id.getVersion(), is(0));
-        assertThat(id.getValue(), is(session.getToken().toString()));
-        assertThat(id.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie").toString()));
-        assertThat(id.getMaxAge(), is((int) new Interval(time.getNow(), session.getExpirationDate()).toDurationMillis() / 1000));
-        assertThat(id.getPath(), is("/"));
+        final CookieSetting token = sessions.getResponse().getCookieSettings().getFirst("token");
+        assertThat(token, notNullValue());
+        assertThat(token.getComment(), is("token cookie"));
+        assertThat(token.getName(), is("token"));
+        assertTrue(token.isAccessRestricted());
+        assertThat(token.getVersion(), is(0));
+        assertThat(token.getValue(), is(session.getToken().toString()));
+        assertThat(token.isSecure(), is(Boolean.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.secure").toString())));
+        assertThat(token.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.domain").toString()));
+        assertThat(token.getMaxAge(), is((int) new Interval(time.getNow(), session.getExpirationDate()).toDurationMillis() / 1000));
+        assertThat(token.getPath(), is("/"));
+    }
+
+    @Test
+    public void deleteSessionWhenSessionIsDeletedWithCorrectParameters() {
+        final User user = TestFactories.users().createUser("mail@mail.com");
+        final ClientResource sessions = restlet.newClientResource("/sessions");
+        final Session session = TestFactories.sessions().createSessionFor(user);
+        final CookieSeries cookies = getGoodCookies(user, session);
+
+        sessions.delete(cookies);
+
+        assertThat(Repositories.sessions().getAll().size(), is(0));
+        assertThat(sessions.getStatus(), is(Status.SUCCESS_ACCEPTED));
+    }
+
+    @Test
+    public void deleteCookieWhenSessionIsDeletedWithCorrectParameters() {
+        final User user = TestFactories.users().createUser("mail@mail.com");
+        final ClientResource sessions = restlet.newClientResource("/sessions");
+        final Session session = TestFactories.sessions().createSessionFor(user);
+        final CookieSeries cookies = getGoodCookies(user, session);
+
+        sessions.delete(cookies);
+
+        assertFalse(sessions.getResponse().getCookieSettings().isEmpty());
+    }
+
+    @Test
+    public void cannotDeleteWithoutGoodCookies() {
+        final User user = TestFactories.users().createUser("mail@mail.com");
+        final ClientResource sessions = restlet.newClientResource("/sessions");
+        final Session session = TestFactories.sessions().createSessionFor(user);
+
+        sessions.delete(null);
+
+        assertThat(sessions.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+        assertThat(Repositories.sessions().getAll().size(), is(1));
+    }
+
+    private CookieSeries getGoodCookies(final User user, final Session session) {
+        final Cookie id = new Cookie(1, "id", user.getEmail());
+        final Cookie token = new Cookie(1, "token", session.getToken().toString());
+        final CookieSeries cookies = new CookieSeries();
+        cookies.add(id);
+        cookies.add(token);
+        return cookies;
     }
 }

@@ -42,5 +42,9 @@ public class SteambeatWebProperties {
         return properties.getProperty("cookie");
     }
 
+    public String getSecureMode() {
+        return properties.getProperty("secureMode");
+    }
+
     private final Properties properties;
 }

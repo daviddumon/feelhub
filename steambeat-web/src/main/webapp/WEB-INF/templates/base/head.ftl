@@ -80,6 +80,7 @@
     <script type="text/javascript" src="${root}/static/js/responsive.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/hub.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/form.js?${buildtime}"></script>
+    <script type="text/javascript" src="${root}/static/js/authentification.js?${buildtime}"></script>
     <#nested/>
 
 </#macro>

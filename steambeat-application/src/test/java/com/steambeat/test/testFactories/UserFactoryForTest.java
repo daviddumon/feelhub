@@ -12,4 +12,13 @@ public class UserFactoryForTest {
         Repositories.users().add(user);
         return user;
     }
+
+    public User createUser(final String email, final String fullName) {
+        final User user = new User();
+        user.setEmail(email);
+        user.setPassword("password");
+        user.setFullname(fullName);
+        Repositories.users().add(user);
+        return user;
+    }
 }

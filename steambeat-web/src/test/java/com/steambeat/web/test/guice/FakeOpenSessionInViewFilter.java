@@ -1,6 +1,6 @@
 package com.steambeat.web.test.guice;
 
-import com.steambeat.web.OpenSessionInViewFilter;
+import com.steambeat.web.filter.OpenSessionInViewFilter;
 import org.restlet.*;
 
 public class FakeOpenSessionInViewFilter extends OpenSessionInViewFilter {
