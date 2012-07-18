@@ -9,6 +9,7 @@ public class UserFactoryForTest {
         final User user = new User();
         user.setEmail(email);
         user.setPassword("password");
+        user.setFullname("full name");
         Repositories.users().add(user);
         return user;
     }

@@ -12,9 +12,9 @@ import org.restlet.resource.*;
 public class SignupResource extends ServerResource {
 
     @Inject
-    public SignupResource(final UserService userService, final ValidationMailBuilder validationMailBuilder) {
+    public SignupResource(final UserService userService, final ActivationMailBuilder activationMailBuilder) {
         this.userService = userService;
-        this.validationMailBuilder = validationMailBuilder;
+        this.activationMailBuilder = activationMailBuilder;
     }
 
     @Get
@@ -31,8 +31,8 @@ public class SignupResource extends ServerResource {
             final String language = form.getFirstValue("language");
             try {
                 final User user = userService.createUser(email, password, fullname, language);
-                validationMailBuilder.setContext(getContext());
-                validationMailBuilder.sendValidationTo(user);
+                activationMailBuilder.setContext(getContext());
+                activationMailBuilder.sendValidationTo(user);
                 setStatus(Status.SUCCESS_CREATED);
             } catch (EmailAlreadyUsed emailAlreadyUsed) {
                 setStatus(Status.CLIENT_ERROR_CONFLICT);
@@ -52,5 +52,5 @@ public class SignupResource extends ServerResource {
     }
 
     private UserService userService;
-    private ValidationMailBuilder validationMailBuilder;
+    private ActivationMailBuilder activationMailBuilder;
 }

@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.mockito.Mockito.*;
 
-public class TestsValidationMailBuilder {
+public class TestsActivationMailBuilder {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -26,15 +26,15 @@ public class TestsValidationMailBuilder {
     @Before
     public void before() {
         mailSender = mock(FakeMailSender.class);
-        validationMailBuilder = new ValidationMailBuilder(mailSender);
-        validationMailBuilder.setContext(restlet.getApplication().getContext());
+        activationMailBuilder = new ActivationMailBuilder(mailSender);
+        activationMailBuilder.setContext(restlet.getApplication().getContext());
     }
 
     @Test
     public void canSendAnEmail() {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final MimeMessage mimeMessage = validationMailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = activationMailBuilder.sendValidationTo(user);
 
         verify(mailSender, times(1)).send(mimeMessage);
     }
@@ -43,38 +43,38 @@ public class TestsValidationMailBuilder {
     public void emailAsARecipient() throws MessagingException {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final MimeMessage mimeMessage = validationMailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = activationMailBuilder.sendValidationTo(user);
 
         assertThat(mimeMessage.getRecipients(Message.RecipientType.TO)[0].toString(), is(user.getEmail()));
     }
 
     @Test
-    public void validationEmailAsAFromAddress() throws MessagingException {
+    public void activationEmailAsAFromAddress() throws MessagingException {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final MimeMessage mimeMessage = validationMailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = activationMailBuilder.sendValidationTo(user);
 
         assertThat(mimeMessage.getFrom()[0].toString(), is("register@steambeat.com"));
     }
 
     @Test
-    public void validationEmailAsASubject() throws MessagingException {
+    public void activationEmailAsASubject() throws MessagingException {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final MimeMessage mimeMessage = validationMailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = activationMailBuilder.sendValidationTo(user);
 
         assertThat(mimeMessage.getSubject(), is("Welcome to Steambeat !"));
     }
 
     @Test
-    public void validationEmailAsABody() throws IOException, MessagingException {
+    public void activationEmailAsABody() throws IOException, MessagingException {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final MimeMessage mimeMessage = validationMailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = activationMailBuilder.sendValidationTo(user);
 
         assertThat(mimeMessage.getContent(), notNullValue());
     }
 
-    private ValidationMailBuilder validationMailBuilder;
+    private ActivationMailBuilder activationMailBuilder;
     private FakeMailSender mailSender;
 }

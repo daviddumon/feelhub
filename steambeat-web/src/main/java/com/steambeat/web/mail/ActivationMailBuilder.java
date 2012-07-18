@@ -12,10 +12,10 @@ import javax.mail.internet.*;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ValidationMailBuilder {
+public class ActivationMailBuilder {
 
     @Inject
-    public ValidationMailBuilder(final MailSender mailSender) {
+    public ActivationMailBuilder(final MailSender mailSender) {
         this.mailSender = mailSender;
     }
 
@@ -50,9 +50,9 @@ public class ValidationMailBuilder {
     }
 
     private void setContent(final MimeMessage mimeMessage) {
-        final SteambeatTemplateRepresentation content = SteambeatTemplateRepresentation.createNew("mail/validation.ftl", context)
+        final SteambeatTemplateRepresentation content = SteambeatTemplateRepresentation.createNew("mail/activation.ftl", context)
                 .with("name", user.getFullname())
-                .with("validation_link", new ReferenceBuilder(context).buildUri("/"));
+                .with("activation_link", new ReferenceBuilder(context).buildUri("/"));
         try {
             mimeMessage.setText(content.getText());
         } catch (MessagingException e) {
