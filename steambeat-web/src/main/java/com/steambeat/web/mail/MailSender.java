@@ -1,4 +1,4 @@
-package com.steambeat.tools.mail;
+package com.steambeat.web.mail;
 
 import javax.mail.*;
 

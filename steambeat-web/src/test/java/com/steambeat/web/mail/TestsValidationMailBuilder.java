@@ -1,8 +1,9 @@
-package com.steambeat.tools.mail;
+package com.steambeat.web.mail;
 
 import com.steambeat.domain.user.User;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.web.WebApplicationTester;
 import org.junit.*;
 
 import javax.mail.*;
@@ -19,10 +20,14 @@ public class TestsValidationMailBuilder {
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
+    @Rule
+    public WebApplicationTester restlet = new WebApplicationTester();
+
     @Before
     public void before() {
         mailSender = mock(FakeMailSender.class);
         validationMailBuilder = new ValidationMailBuilder(mailSender);
+        validationMailBuilder.setContext(restlet.getApplication().getContext());
     }
 
     @Test

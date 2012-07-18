@@ -1,11 +1,15 @@
-package com.steambeat.tools.mail;
+package com.steambeat.web.mail;
 
 
 import com.google.inject.Inject;
 import com.steambeat.domain.user.User;
+import com.steambeat.web.ReferenceBuilder;
+import com.steambeat.web.representation.SteambeatTemplateRepresentation;
+import org.restlet.Context;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.io.IOException;
 import java.util.Properties;
 
 public class ValidationMailBuilder {
@@ -16,9 +20,10 @@ public class ValidationMailBuilder {
     }
 
     public MimeMessage sendValidationTo(final User user) {
+        this.user = user;
         try {
             final Session mailSession = getMailSession();
-            final MimeMessage mimeMessage = getValidationMessage(mailSession, user);
+            final MimeMessage mimeMessage = getValidationMessage(mailSession);
             mailSender.send(mimeMessage);
             return mimeMessage;
         } catch (Exception e) {
@@ -31,17 +36,32 @@ public class ValidationMailBuilder {
         return Session.getDefaultInstance(mailProperties, new CustomAuthenticator());
     }
 
-    private MimeMessage getValidationMessage(final Session mailSession, final User user) {
+    private MimeMessage getValidationMessage(final Session mailSession) {
         final MimeMessage mimeMessage = new MimeMessage(mailSession);
         try {
             mimeMessage.setFrom(new InternetAddress("register@steambeat.com"));
             mimeMessage.setSubject("Welcome to Steambeat !");
-            mimeMessage.setText("Thank you for registering to Steambeat");
-            mimeMessage.setRecipients(Message.RecipientType.TO,InternetAddress.parse(user.getEmail()));
+            setContent(mimeMessage);
+            mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
         } catch (MessagingException e) {
             throw new EmailException();
         }
         return mimeMessage;
+    }
+
+    private void setContent(final MimeMessage mimeMessage) {
+        final SteambeatTemplateRepresentation content = SteambeatTemplateRepresentation.createNew("mail/validation.ftl", context)
+                .with("name", user.getFullname())
+                .with("validation_link", new ReferenceBuilder(context).buildUri("/"));
+        try {
+            mimeMessage.setText(content.getText());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            throw new EmailException();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new EmailException();
+        }
     }
 
     private Properties getProperties() {
@@ -54,5 +74,11 @@ public class ValidationMailBuilder {
         return mailProperties;
     }
 
+    public void setContext(final Context context) {
+        this.context = context;
+    }
+
     private MailSender mailSender;
+    private User user;
+    private Context context;
 }

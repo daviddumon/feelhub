@@ -2,11 +2,10 @@ package com.steambeat.application;
 
 import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.tools.mail.*;
 
 public class UserService {
 
-    public void createUser(final String email, final String password, final String fullname, final String language) {
+    public User createUser(final String email, final String password, final String fullname, final String language) {
         CheckForExistingEmail(email);
         final User user = new User();
         user.setEmail(email);
@@ -14,8 +13,7 @@ public class UserService {
         user.setFullname(fullname);
         user.setLanguage(language);
         Repositories.users().add(user);
-        final ValidationMailBuilder validationMailBuilder = new ValidationMailBuilder(new MailSender());
-        validationMailBuilder.sendValidationTo(user);
+        return user;
     }
 
     private void CheckForExistingEmail(final String email) {
