@@ -7,7 +7,7 @@ import org.mongolink.domain.criteria.*;
 import java.util.*;
 
 @SuppressWarnings("unchecked")
-public class UserMongoRepository extends BaseMongoRepository<User> implements UserRepository{
+public class UserMongoRepository extends BaseMongoRepository<User> implements UserRepository {
 
     public UserMongoRepository(final MongoSession mongoSession) {
         super(mongoSession);

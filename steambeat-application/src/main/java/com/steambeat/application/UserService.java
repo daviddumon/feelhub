@@ -27,6 +27,7 @@ public class UserService {
 
     public User authentificate(final String email, final String password) {
         final User user = getUser(email);
+        checkUser(user);
         checkPassword(user, password);
         return user;
     }
@@ -37,6 +38,12 @@ public class UserService {
             throw new BadUserException();
         }
         return user;
+    }
+
+    private void checkUser(final User user) {
+        if (!user.isActive()) {
+            throw new BadUserException();
+        }
     }
 
     private void checkPassword(final User user, final String password) {

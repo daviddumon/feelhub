@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 
 import java.util.UUID;
 
-public class Session extends BaseEntity{
+public class Session extends BaseEntity {
 
     public Session() {
         this.expirationDate = new DateTime().plusHours(1);

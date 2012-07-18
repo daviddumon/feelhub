@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.mockito.Mockito.*;
 
-public class TestsActivationMailBuilder {
+public class TestsMailBuilder {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -26,15 +26,15 @@ public class TestsActivationMailBuilder {
     @Before
     public void before() {
         mailSender = mock(FakeMailSender.class);
-        activationMailBuilder = new ActivationMailBuilder(mailSender);
-        activationMailBuilder.setContext(restlet.getApplication().getContext());
+        mailBuilder = new MailBuilder(mailSender);
+        mailBuilder.setContext(restlet.getApplication().getContext());
     }
 
     @Test
     public void canSendAnEmail() {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final MimeMessage mimeMessage = activationMailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
 
         verify(mailSender, times(1)).send(mimeMessage);
     }
@@ -43,7 +43,7 @@ public class TestsActivationMailBuilder {
     public void emailAsARecipient() throws MessagingException {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final MimeMessage mimeMessage = activationMailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
 
         assertThat(mimeMessage.getRecipients(Message.RecipientType.TO)[0].toString(), is(user.getEmail()));
     }
@@ -52,7 +52,7 @@ public class TestsActivationMailBuilder {
     public void activationEmailAsAFromAddress() throws MessagingException {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final MimeMessage mimeMessage = activationMailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
 
         assertThat(mimeMessage.getFrom()[0].toString(), is("register@steambeat.com"));
     }
@@ -61,7 +61,7 @@ public class TestsActivationMailBuilder {
     public void activationEmailAsASubject() throws MessagingException {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final MimeMessage mimeMessage = activationMailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
 
         assertThat(mimeMessage.getSubject(), is("Welcome to Steambeat !"));
     }
@@ -70,11 +70,11 @@ public class TestsActivationMailBuilder {
     public void activationEmailAsABody() throws IOException, MessagingException {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final MimeMessage mimeMessage = activationMailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
 
         assertThat(mimeMessage.getContent(), notNullValue());
     }
 
-    private ActivationMailBuilder activationMailBuilder;
+    private MailBuilder mailBuilder;
     private FakeMailSender mailSender;
 }

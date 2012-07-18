@@ -9,8 +9,12 @@ $(function () {
         $(this).parent().find(".help_text").css("color", "#CCCCCC");
     });
 
-    $("input").keypress(function () {
+    $("input").keypress(function (event) {
         $(this).parent().find(".help_text").hide();
+        var code = event.keyCode || event.which;
+        if (code == 13) {
+            login();
+        }
     });
 
     $("input").focusout(function () {
@@ -20,40 +24,17 @@ $(function () {
         $(this).parent().find(".help_text").css("color", "#999999");
     });
 
-    $("#signup_submit").click(function (e) {
+    $("#login_submit").click(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        if (checkForm()) {
-            $.post(root + "/signup?", $("#signup").serialize(),function (data, status, jqXHR) {
-                document.location.href = root;
-            }).error(function (jqXHR) {
-                    if (jqXHR.status == 412) {
-                        $("[name='email']").parent().find(".error_text").text("Please enter a real email!");
-                    } else if (jqXHR.status == 409) {
-                        $("[name='email']").parent().find(".error_text").text("This email is already used!");
-                    } else if (jqXHR.status == 400) {
-                        console.log("error : " + jqXHR.status + " while posting on " + root + "/signup");
-                    }
-                });
-        }
+        login();
     });
 });
 
 function checkForm() {
-    var name_check = checkName();
     var email_check = checkEmail();
     var password_check = checkPassword();
-    return name_check && email_check && password_check;
-}
-
-function checkName() {
-    if ($("[name='fullname']").val().length == 0) {
-        $("[name='fullname']").parent().find(".error_text").text("Please enter your name!");
-        return false;
-    } else {
-        $("[name='fullname']").parent().find(".error_text").text("");
-        return true;
-    }
+    return email_check && password_check;
 }
 
 function checkEmail() {
@@ -73,5 +54,21 @@ function checkPassword() {
     } else {
         $("[name='password']").parent().find(".error_text").text("");
         return true;
+    }
+}
+
+function login() {
+    if (checkForm()) {
+        $.post(root + "/sessions?", $("#login").serialize(),function (data, status, jqXHR) {
+            document.location.href = root;
+        }).error(function (jqXHR) {
+                if (jqXHR.status == 403) {
+                    $("[name='email']").parent().find(".error_text").text("This user is unknown");
+                } else if (jqXHR.status == 401) {
+                    $("[name='password']").parent().find(".error_text").text("Wrong password");
+                } else if (jqXHR.status == 400) {
+                    console.log("error : " + jqXHR.status + " while posting on " + root + "/sessions");
+                }
+            });
     }
 }

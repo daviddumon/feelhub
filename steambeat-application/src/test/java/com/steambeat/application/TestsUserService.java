@@ -7,9 +7,9 @@ import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TestsUserService {
 
@@ -63,6 +63,14 @@ public class TestsUserService {
         TestFactories.users().createUser("mail@mail.com");
 
         userService.createUser(email, password, fullname, language);
+    }
+
+    @Test
+    public void cannotAuthenticateIfAccountNotActive() {
+        exception.expect(BadUserException.class);
+        final User user = TestFactories.users().createUser("mail@mail.com");
+
+        userService.authentificate("mail@mail.com", "password");
     }
 
     private UserService userService;

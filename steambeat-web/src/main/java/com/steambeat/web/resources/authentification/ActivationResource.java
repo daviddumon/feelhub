@@ -21,9 +21,13 @@ public class ActivationResource extends ServerResource {
     public Representation createActivation() {
         final UUID secret = UUID.fromString(getRequestAttributes().get("secret").toString());
         final User user = userService.getUserForSecret(secret);
-        user.activate();
-        setStatus(Status.SUCCESS_OK);
-        return SteambeatTemplateRepresentation.createNew("thankyou.ftl", getContext());
+        if (!user.isActive()) {
+            user.activate();
+            setStatus(Status.SUCCESS_OK);
+            return SteambeatTemplateRepresentation.createNew("activation.ftl", getContext());
+        } else {
+            throw new AccountAlreadyActivatedException();
+        }
     }
 
     private UserService userService;

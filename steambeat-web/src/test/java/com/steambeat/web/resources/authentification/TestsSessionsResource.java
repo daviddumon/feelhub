@@ -28,7 +28,7 @@ public class TestsSessionsResource {
 
     @Test
     public void canRequestToken() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
         parameters.add("email", user.getEmail());
@@ -41,7 +41,7 @@ public class TestsSessionsResource {
 
     @Test
     public void sessionsNeedAnEmail() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
         parameters.add("password", "password");
@@ -53,7 +53,7 @@ public class TestsSessionsResource {
 
     @Test
     public void sessionsNeedAPassword() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
         parameters.add("email", user.getEmail());
@@ -77,7 +77,7 @@ public class TestsSessionsResource {
 
     @Test
     public void doNotCreateSessionIfBadPassword() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
         parameters.add("email", user.getEmail());
@@ -85,12 +85,12 @@ public class TestsSessionsResource {
 
         sessions.post(parameters);
 
-        assertThat(sessions.getStatus(), is(Status.CLIENT_ERROR_FORBIDDEN));
+        assertThat(sessions.getStatus(), is(Status.CLIENT_ERROR_UNAUTHORIZED));
     }
 
     @Test
     public void setCookieOnSuccessfulLogin() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
         parameters.add("email", user.getEmail());
@@ -104,11 +104,11 @@ public class TestsSessionsResource {
 
     @Test
     public void doNotSetCookieIfErrorForbidden() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
-        parameters.add("email", user.getEmail());
-        parameters.add("password", "password2");
+        parameters.add("email", "fake@mail.com");
+        parameters.add("password", "password");
 
         sessions.post(parameters);
 
@@ -118,7 +118,7 @@ public class TestsSessionsResource {
 
     @Test
     public void doNotSetCookieIfBadRequest() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
         parameters.add("email", user.getEmail());
@@ -131,7 +131,7 @@ public class TestsSessionsResource {
 
     @Test
     public void setIdCookie() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
         parameters.add("email", user.getEmail());
@@ -156,7 +156,7 @@ public class TestsSessionsResource {
 
     @Test
     public void setTokenCookie() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
         parameters.add("email", user.getEmail());
@@ -182,7 +182,7 @@ public class TestsSessionsResource {
 
     @Test
     public void deleteSessionWhenSessionIsDeletedWithCorrectParameters() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Session session = TestFactories.sessions().createSessionFor(user);
         final CookieSeries cookies = getGoodCookies(user, session);
@@ -195,7 +195,7 @@ public class TestsSessionsResource {
 
     @Test
     public void deleteCookieWhenSessionIsDeletedWithCorrectParameters() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Session session = TestFactories.sessions().createSessionFor(user);
         final CookieSeries cookies = getGoodCookies(user, session);
@@ -207,7 +207,7 @@ public class TestsSessionsResource {
 
     @Test
     public void cannotDeleteWithoutGoodCookies() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Session session = TestFactories.sessions().createSessionFor(user);
 

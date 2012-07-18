@@ -1,7 +1,7 @@
 package com.steambeat.repositories.mapping;
 
 import com.steambeat.domain.session.Session;
-import org.mongolink.domain.mapper.*;
+import org.mongolink.domain.mapper.EntityMap;
 
 public class SessionMapping extends EntityMap<Session> {
 

@@ -30,7 +30,7 @@
 
 </@head.end>
 
-<@simple.panel>
+<@info.panel>
 
 <form id="signup">
     <h1 class="font_title">JOIN TODAY !</h1>
@@ -71,4 +71,4 @@
         <a id="signup_submit" href="" class="color_bg_darkblue rounded font_title color_darkblue">Create my account</a>
     </div>
 </form>
-</@simple.panel>
+</@info.panel>
