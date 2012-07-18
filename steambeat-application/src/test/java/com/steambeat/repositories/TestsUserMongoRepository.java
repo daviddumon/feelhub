@@ -32,6 +32,8 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         assertThat(userFound.get("password"), is((Object) user.getPassword()));
         assertThat(userFound.get("fullname"), is((Object) user.getFullname()));
         assertThat(userFound.get("language"), is((Object) user.getLanguage()));
+        assertThat(userFound.get("active"), is((Object) user.isActive()));
+        assertThat(userFound.get("secret"), is((Object) user.getSecret()));
     }
 
     @Test

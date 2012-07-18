@@ -15,5 +15,7 @@ public class UserMapping extends EntityMap<User> {
         property(element().getPassword());
         property(element().getFullname());
         property(element().getLanguage());
+        property(element().getActive());
+        property(element().getSecret());
     }
 }

@@ -98,4 +98,22 @@ public class TestsUser {
 
         assertThat(user.getLanguage(), is(language));
     }
+
+    @Test
+    public void canActivate() {
+        final User user = new User();
+
+        assertThat(user.isActive(), is(false));
+
+        user.activate();
+
+        assertThat(user.isActive(), is(true));
+    }
+
+    @Test
+    public void hasSecret() {
+        final User user = new User();
+
+        assertThat(user.getSecret(), notNullValue());
+    }
 }

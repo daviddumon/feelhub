@@ -52,7 +52,7 @@ public class ActivationMailBuilder {
     private void setContent(final MimeMessage mimeMessage) {
         final SteambeatTemplateRepresentation content = SteambeatTemplateRepresentation.createNew("mail/activation.ftl", context)
                 .with("name", user.getFullname())
-                .with("activation_link", new ReferenceBuilder(context).buildUri("/"));
+                .with("activation_link", new ReferenceBuilder(context).buildUri("/activation/" + user.getSecret()));
         try {
             mimeMessage.setText(content.getText());
         } catch (MessagingException e) {

@@ -7,7 +7,7 @@ import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
 import com.steambeat.domain.statistics.StatisticsRepository;
 import com.steambeat.domain.subject.SubjectRepository;
-import com.steambeat.domain.user.User;
+import com.steambeat.domain.user.UserRepository;
 
 public abstract class Repositories {
 
@@ -35,7 +35,7 @@ public abstract class Repositories {
         return Repositories.soleInstance.getStatisticsRepository();
     }
 
-    public static Repository<User> users() {
+    public static UserRepository users() {
         return Repositories.soleInstance.getUserRepository();
     }
 
@@ -55,7 +55,7 @@ public abstract class Repositories {
 
     protected abstract AssociationRepository getAssociationRepository();
 
-    protected abstract Repository<User> getUserRepository();
+    protected abstract UserRepository getUserRepository();
 
     private static Repositories soleInstance;
 }

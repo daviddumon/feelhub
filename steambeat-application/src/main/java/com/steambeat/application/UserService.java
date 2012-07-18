@@ -3,6 +3,8 @@ package com.steambeat.application;
 import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
 
+import java.util.UUID;
+
 public class UserService {
 
     public User createUser(final String email, final String password, final String fullname, final String language) {
@@ -49,5 +51,13 @@ public class UserService {
             return user.getFullname();
         }
         return "";
+    }
+
+    public User getUserForSecret(final UUID secret) {
+        final User user = Repositories.users().forSecret(secret);
+        if (user == null) {
+            throw new BadUserException();
+        }
+        return user;
     }
 }

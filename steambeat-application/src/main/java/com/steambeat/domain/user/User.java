@@ -4,7 +4,14 @@ import com.steambeat.domain.BaseEntity;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.UUID;
+
 public class User extends BaseEntity {
+
+    public User() {
+        this.active = false;
+        this.secret = UUID.randomUUID().toString();
+    }
 
     public void setEmail(String email) {
         email = email.toLowerCase().trim();
@@ -52,8 +59,26 @@ public class User extends BaseEntity {
         return language;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void activate() {
+        active = true;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
     private String email;
     private String password;
     private String fullname;
     private String language;
+    private boolean active;
+    private String secret;
 }
