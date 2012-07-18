@@ -13,6 +13,7 @@ import com.steambeat.test.*;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
 import com.steambeat.test.fakeServices.FakeSubjectService;
+import com.steambeat.tools.mail.*;
 import com.steambeat.web.*;
 import com.steambeat.web.filter.*;
 import com.steambeat.web.migration.MigrationRunner;
@@ -41,6 +42,7 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(MicrosoftTranslator.class).to(FakeMicrosoftTranslator.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
+        bind(MailSender.class).to(FakeMailSender.class);
     }
 
     @Provides
