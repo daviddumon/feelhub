@@ -6,7 +6,7 @@ import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
 import org.junit.*;
-import org.restlet.data.*;
+import org.restlet.data.Status;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;

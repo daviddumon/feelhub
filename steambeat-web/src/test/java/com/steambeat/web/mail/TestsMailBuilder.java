@@ -8,7 +8,6 @@ import org.junit.*;
 
 import javax.mail.*;
 import javax.mail.internet.MimeMessage;
-
 import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.*;

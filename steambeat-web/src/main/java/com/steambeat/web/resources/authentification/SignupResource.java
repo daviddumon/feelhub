@@ -3,7 +3,7 @@ package com.steambeat.web.resources.authentification;
 import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.domain.user.*;
-import com.steambeat.web.mail.*;
+import com.steambeat.web.mail.MailBuilder;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.data.*;
 import org.restlet.representation.Representation;
