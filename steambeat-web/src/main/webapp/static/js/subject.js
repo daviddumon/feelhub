@@ -7,7 +7,6 @@ $(function () {
 });
 
 function loadCounters() {
-
     $.getJSON(root + "/statistics?granularity=all&start=0&end=" + new Date().getTime() + "&subjectId=" + subjectId, function (data) {
         $.each(data, function (index, stat) {
             $("#counter_good").text(stat.good);

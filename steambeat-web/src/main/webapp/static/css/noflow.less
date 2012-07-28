@@ -28,6 +28,19 @@
     margin: 0 auto;
     background-color: @color !important;
     .rounded();
+
+    h1 {
+        font-weight: bold;
+        font-size: 2em;
+        color: @blue-3 !important;
+        margin: 20px;
+        .font_title();
+    }
+
+    a {
+        color: @blue-3 !important;
+        text-decoration: underline !important;
+    }
 }
 
 body {
@@ -98,14 +111,6 @@ body {
 
     #login, #signup {
         .relative_info(@blue-1);
-
-        h1 {
-            font-weight: bold;
-            font-size: 2em;
-            color: @blue-3 !important;
-            margin: 20px;
-            .font_title();
-        }
 
         .holder {
             position: relative;

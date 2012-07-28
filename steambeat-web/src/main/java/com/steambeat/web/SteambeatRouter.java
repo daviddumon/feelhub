@@ -5,7 +5,7 @@ import com.steambeat.web.guice.GuiceFinder;
 import com.steambeat.web.resources.*;
 import com.steambeat.web.resources.authentification.*;
 import com.steambeat.web.resources.json.*;
-import com.steambeat.web.resources.testResources.FreemarkerResource;
+import com.steambeat.web.resources.staticftl.FreemarkerResource;
 import org.restlet.Context;
 import org.restlet.resource.Finder;
 import org.restlet.routing.Router;
@@ -36,6 +36,7 @@ public class SteambeatRouter extends Router {
         attach("/activation/{secret}", ActivationResource.class);
         attach("/login", LoginResource.class);
         attach("/help", HelpResource.class);
+        attach("/welcome", WelcomeResource.class);
         attach("/", HomeResource.class);
     }
 

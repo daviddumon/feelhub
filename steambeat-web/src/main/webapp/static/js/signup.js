@@ -25,7 +25,7 @@ $(function () {
         e.stopPropagation();
         if (checkForm()) {
             $.post(root + "/signup?", $("#signup").serialize(),function (data, status, jqXHR) {
-                document.location.href = root;
+                document.location.href = root + "/welcome";
             }).error(function (jqXHR) {
                     if (jqXHR.status == 412) {
                         $("[name='email']").parent().find(".error_text").text("Please enter a real email!");

@@ -1,4 +1,4 @@
-package com.steambeat.web.resources.testResources;
+package com.steambeat.web.resources.staticftl;
 
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.representation.Representation;
