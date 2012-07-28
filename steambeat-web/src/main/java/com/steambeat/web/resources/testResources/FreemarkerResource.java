@@ -4,7 +4,7 @@ import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.*;
 
-public class FreemarkerResource extends ServerResource{
+public class FreemarkerResource extends ServerResource {
 
     @Get
     public Representation get() {
