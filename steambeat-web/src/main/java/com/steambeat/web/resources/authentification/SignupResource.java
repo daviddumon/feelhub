@@ -19,7 +19,7 @@ public class SignupResource extends ServerResource {
 
     @Get
     public Representation represent() {
-        return SteambeatTemplateRepresentation.createNew("signup.ftl", getContext()).with("identity", getContext().getAttributes().get("com.steambeat.identity"));
+        return SteambeatTemplateRepresentation.createNew("signup.ftl", getContext());
     }
 
     @Post

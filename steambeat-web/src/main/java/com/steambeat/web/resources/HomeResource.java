@@ -9,9 +9,7 @@ public class HomeResource extends ServerResource {
 
     @Get
     public Representation represent() {
-        return SteambeatTemplateRepresentation.createNew("home.ftl", getContext())
-                .with("steam", Repositories.subjects().getSteam())
-                .with("identity", getContext().getAttributes().get("com.steambeat.identity"));
+        return SteambeatTemplateRepresentation.createNew("home.ftl", getContext()).with("steam", Repositories.subjects().getSteam());
     }
 }
 
