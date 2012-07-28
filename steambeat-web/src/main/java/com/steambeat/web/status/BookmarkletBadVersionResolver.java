@@ -14,6 +14,6 @@ public class BookmarkletBadVersionResolver implements ErrorResolver {
 
     @Override
     public Representation getRepresentation(final Context context) {
-        return SteambeatTemplateRepresentation.createNew("/old/version.ftl", context);
+        return SteambeatTemplateRepresentation.createNew("version.ftl", context);
     }
 }
