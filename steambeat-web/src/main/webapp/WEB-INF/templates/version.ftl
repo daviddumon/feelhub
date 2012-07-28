@@ -16,7 +16,6 @@
 </@layout.jsdev>
 
 <@layout.js>
-<script type="text/javascript" src="${root}/static/js/activation.js?${buildtime}"></script>
 </@layout.js>
 
 <@layout.mustache>
@@ -31,7 +30,9 @@
 </@layout.fixed>
 
 <@layout.body>
-<div id="thankyou">
-    <p>Thank you !</p>
+<div id="error">
+    <img src="${root}/static/images/smiley_bad_white.png"/>
+    <p>Your bookmarklet is outdated ! Please drag this bookmarklet to your bookmarks bar !</p>
+    <a id="bookmarklet" href="javascript:<#include 'bookmarklet/bookmarklet.js' />">Steambeat!</a>
 </div>
 </@layout.body>

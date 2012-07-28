@@ -1,16 +1,163 @@
 /* Copyright Steambeat 2012 */
-@good:#6C3;
+@import "import/variables.less";
+@import "import/colors.less";
+@import "import/mixins.less";
 
-.good_without_image {
-    background-color: @good;
+body {
+    background-color: @blue-1 !important;
+
+    #fixed_layer {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        z-index: 100;
+
+        #panel {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            border-bottom: 5px solid white;
+            z-index: 190;
+            text-align: center;
+            background-color: @blue-2 !important;
+
+            .panel_box {
+                display: inline-block;
+                padding: 10px;
+                text-align: center;
+
+                .counter {
+                    width: 100px;
+                    display: inline-block;
+                    .rounded();
+
+                    .counter_text {
+                        color: @white !important;
+                        font-size: 24px !important;
+                        .font_title();
+                    }
+
+                    .smiley {
+                        border: none;
+                        width: 48px;
+                    }
+                }
+
+                #counter_good {
+                    background-color: @good !important;
+                }
+
+                #counter_bad {
+                    background-color: @bad !important;
+                }
+
+                #counter_neutral {
+                    background-color: @neutral !important;
+                }
+
+                #illustration {
+                    text-align: center;
+                    margin-top: 20px;
+                }
+
+                #illustration img {
+                    max-height: 150px;
+                    max-width: 150px;
+                    background-color: @blue-1 !important;
+                    padding: 5px;
+                }
+            }
+
+        }
+
+        #form_button {
+            position: relative;
+            display: block;
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            width: 40%;
+            margin: 0 auto;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            z-index: 190;
+            .font_title();
+            .rounded_down();
+            background-color: @blue-2 !important;
+            color: @blue-3 !important;
+        }
+    }
+
+    #form_blanket {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: @grey-3 !important;
+        opacity: 0.40;
+        filter: ~"alpha(opacity = 40)";
+        z-index: 500;
+    }
+
+    #form_related {
+        position: fixed;
+        width: 100px;
+        overflow: hidden;
+        z-index: 1000;
+        border: 10px solid @blue-2 !important;
+        background-color: @white !important;
+    }
+
+    #form {
+        position: fixed;
+        width: 600px;
+        overflow: hidden;
+        z-index: 1000;
+        border: 10px solid @blue-2 !important;
+        background-color: @white !important;
+
+        #form_close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: block;
+        }
+    }
+
+    #form_help {
+        position: fixed;
+        width: 100px;
+        overflow: hidden;
+        z-index: 1000;
+        border: 10px solid @blue-2 !important;
+        background-color: @white !important;
+    }
+
+    #opinions {
+        position: relative;
+        top: 450px;
+        left: 2%;
+        width: 96%;
+        z-index: 1;
+    }
 }
 
-#opinions {
-    position: relative;
-    top: 450px;
-    left: 2%;
-    width: 96%;
-    z-index: 1;
+@media screen and (max-width: 720px) {
+
+    #opinions {
+        top: 150px;
+    }
+
+    #hud {
+        display: none;
+    }
+
+    #panel {
+        top: -210px;
+    }
 }
 
 .opinion {
@@ -21,8 +168,8 @@
     margin: 10px;
     border-width: 0px;
     border-style: solid;
-    border-color: #FFF;
-    background-color: #FFF;
+    border-color: @white !important;
+    background-color: @white !important;
     list-style-type: none;
     overflow: hidden;
     z-index: 2;
@@ -41,7 +188,7 @@
 }
 
 .judgments {
-    border-top: 1px dashed #AAA;
+    border-top: 1px dashed @grey-1 !important;
     margin-top: 40px;
     padding-top: 10px;
 }
@@ -59,19 +206,19 @@
 .judgment_tag {
     display: inline;
     white-space: nowrap;
-    /*cursor: pointer;*/
+/*cursor: pointer;*/
     color: black;
     padding: 5px;
     margin-left: 5px;
     margin-right: 5px;
     line-height: 2em;
-    /*z-index: -100;*/
+/*z-index: -100;*/
 }
 
 .judgment_info {
     position: fixed;
-    background-color: #FFFFFF;
-    border: 1px solid #BBB;
+    background-color: @white !important;
+    border: 1px solid @grey-2 !important;
     padding: 5px;
     display: none;
     z-index: 3000;
@@ -92,51 +239,87 @@
     z-index: -10;
 }
 
-
-.good {
-    background: #6C3 url(../images/smiley_good_white_14.png) no-repeat center;
+.form_text {
+    width: 80%;
+    margin-left: 8%;
+    outline: none;
+    -moz-outline: none;
+/*border: solid 1px #ADDDEB;*/
+/*resize: none;*/
+    padding: 2%;
+/*height: 80px;*/
+    z-index: 1;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.good_border {
-    border: 1px solid #6C3;
-}
+/*.opinion_form_title {*/
+/*text-align: center;*/
+/*font-size: 22px;*/
+/*font-weight: bold;*/
+/*padding: 20px;*/
+/*}*/
 
-.bad {
-    background: #F33 url(../images/smiley_bad_white_14.png) no-repeat center;
-}
+/*#opinion_form_subject {*/
+/*position: relative;*/
+/*width: 80%;*/
+/*margin-left: 8%;*/
+/*margin-bottom: 20px;*/
+/*margin-top: 20px;*/
+/*padding: 2%;*/
+/*text-align: center;*/
+/*z-index: 2;*/
+/*}*/
 
-.bad_without_image {
-    background-color: #F33;
-}
+/*#opinion_form_submit {*/
+/*position: absolute;*/
+/*bottom: -5px;*/
+/*font-size: 24px;*/
+/*font-weight: bold;*/
+/*width: 100%;*/
+/*text-align: center;*/
+/*padding-top: 20px;*/
+/*padding-bottom: 20px;*/
+/*color: #FFFFFF;*/
+/*border: none;*/
+/*background-color: #ADDDEB;*/
+/*}*/
 
-.bad_border {
-    border: 1px solid #F33;
-}
+/*@media screen and (max-width: 720px) {*/
 
-.neutral {
-    background: #03F url(../images/smiley_neutral_white_14.png) no-repeat center;
-}
+/*#form_button {*/
+/*top: -210px;*/
+/*}*/
 
-.neutral_without_image {
-    background-color: #03F;
-}
+/*#popup_form {*/
+/*width: 300px;*/
+/*}*/
+/*}*/
 
-.neutral_border {
-    border: 1px solid #03F;
-}
-
-#fixed_layer {
+#hud {
     position: fixed;
     top: 0px;
-    left: 0px;
     width: 100%;
-    z-index: 100;
+    height: 80px;
+    z-index: 10;
 }
 
-@media screen and (max-width: 720px){
+#to_top {
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 30px;
+    text-align: center;
+    font-size: 20px;
+}
 
-    #opinions {
-        top: 150px;
-    }
+.related_illustration {
+    float: left;
+}
 
+.related_illustration:hover {
+    -webkit-transform: scale(1.1, 1.1);
+    -moz-transform: scale(1.1, 1.1);
+    -o-transform: scale(1.1, 1.1);
+    -ms-transform: scale(1.1, 1.1);
+    transform: scale(1.1, 1.1);
 }

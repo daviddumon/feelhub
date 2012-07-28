@@ -4,7 +4,7 @@
             throw(0);
         }
         if (document.location.href != 'about:blank') {
-            var url = 'https://${root}/bookmarklet?q=' + encodeURIComponent(document.location.href) + '&version=2';
+            var url = '${root}/bookmarklet?q=' + encodeURIComponent(document.location.href) + '&version=2';
             if (!window.open(url)) {
                 location.href = url;
             }

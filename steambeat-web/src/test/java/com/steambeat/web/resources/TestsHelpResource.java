@@ -1,0 +1,23 @@
+package com.steambeat.web.resources;
+
+import com.steambeat.web.*;
+import org.junit.*;
+import org.restlet.data.Status;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+public class TestsHelpResource {
+
+    @Rule
+    public WebApplicationTester restlet = new WebApplicationTester();
+
+    @Test
+    public void isMapped() {
+        final ClientResource help = restlet.newClientResource("/help");
+
+        help.get();
+
+        assertThat(help.getStatus(), is(Status.SUCCESS_OK));
+    }
+}

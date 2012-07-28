@@ -1,0 +1,137 @@
+.rounded(@radius: 10px) {
+    border-radius: @radius;
+    --moz-border-radius: @radius;
+    --webkit-border-radius: @radius;
+}
+
+.rounded_down(@radius: 10px) {
+    border-bottom-right-radius: @radius;
+    border-bottom-left-radius: @radius;
+    --moz-border-radius-bottom-right: @radius;
+    --moz-border-radius-bottom-left: @radius;
+    --webkit-border-bottom-right-radius: @radius;
+    --webkit-border-bottom-left-radius: @radius;
+}
+
+.font_text {
+    font-family: 'Droid Serif', serif;
+}
+
+.font_title {
+    font-family: 'Droid Sans', Sans-Serif;
+}
+
+
+
+
+
+
+
+
+
+
+.button {
+    cursor: pointer;
+}
+
+
+.good_without_image {
+    background-color: @good !important;
+}
+
+.good {
+    background: @good url(../images/smiley_good_white_14.png) no-repeat center;
+}
+
+.good_border {
+    border: 1px solid @good !important;
+}
+
+.bad {
+    background: @bad url(../images/smiley_bad_white_14.png) no-repeat center;
+}
+
+.bad_border {
+    border: 1px solid @bad !important;
+}
+
+.neutral {
+    background: @neutral url(../images/smiley_neutral_white_14.png) no-repeat center;
+}
+
+.neutral_without_image {
+    background-color: @neutral !important;
+}
+
+.neutral_border {
+    border: 1px solid @neutral !important;
+}
+
+
+
+
+
+
+
+
+
+.vertical_right {
+    transform: rotate(-90deg);
+    transform-origin: bottom right;
+    -webkit-transform: rotate(-90deg);
+    -webkit-transform-origin: bottom right;
+    -moz-transform: rotate(-90deg);
+    -moz-transform-origin: bottom right;
+    -o-transform: rotate(-90deg);
+    -o-transform-origin: bottom right;
+    -ms-transform: rotate(-90deg);
+    -ms-transform-origin: bottom right;
+}
+
+.vertical_left {
+    transform: rotate(-90deg);
+    transform-origin: top left;
+    -webkit-transform: rotate(-90deg);
+    -webkit-transform-origin: top left;
+    -moz-transform: rotate(-90deg);
+    -moz-transform-origin: top left;
+    -o-transform: rotate(-90deg);
+    -o-transform-origin: top left;
+    -ms-transform: rotate(-90deg);
+    -ms-transform-origin: top left;
+}
+
+
+
+.rounded_top {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    --moz-border-radius-top-right: 10px;
+    --moz-border-radius-top-left: 10px;
+    --webkit-border-top-right-radius: 10px;
+    --webkit-border-top-left-radius: 10px;
+}
+
+.rounded_left {
+    border-top-left-radius: 100px;
+    --moz-border-radius-top-left: 100px;
+    --webkit-border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    --moz-border-radius-bottom-left: 100px;
+    --webkit-border-bottom-left-radius: 100px;
+}
+
+.rounded_right {
+    border-top-right-radius: 100px;
+    --moz-border-radius-top-right: 100px;
+    --webkit-border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    --moz-border-radius-bottom-right: 100px;
+    --webkit-border-bottom-right-radius: 100px;
+}
+
+.no_select {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}

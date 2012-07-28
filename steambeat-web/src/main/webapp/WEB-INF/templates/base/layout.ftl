@@ -1,4 +1,4 @@
-<#macro begin>
+<#macro headbegin>
 <!DOCTYPE html>
 <!-- Copyright Steambeat 2012 -->
 <html lang="en">
@@ -23,11 +23,6 @@
     <#if !dev>
         <link rel="stylesheet" href="${root}/static/css/reset.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/common.css?${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/hub.css?${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/header.css?${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/panel.css?${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/form.css?${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/flow.css?${buildtime}"/>
         <#nested/>
     </#if>
 
@@ -38,11 +33,6 @@
     <#if dev>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reset.less?${buildtime}"/>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/common.less?${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/hub.less?${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/header.less?${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/panel.less?${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/form.less?${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/flow.less?${buildtime}"/>
         <#nested/>
     </#if>
 
@@ -75,11 +65,8 @@
 
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/lib/ICanHaz.min.js?${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/lib/flow.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/lib/scaling.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/responsive.js?${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/hub.js?${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/form.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/authentification.js?${buildtime}"></script>
     <#nested/>
 
@@ -87,16 +74,11 @@
 
 <#macro mustache>
 
-    <#include "../mustache/judgment.mustache.js">
-    <#include "../mustache/opinion.mustache.js">
-    <#include "../mustache/related.mustache.js">
-    <#include "../mustache/form_judgment.mustache.js">
-    <#include "../mustache/form_block.mustache.js">
     <#nested/>
 
 </#macro>
 
-<#macro end>
+<#macro headend>
 
     <#nested/>
 
@@ -119,4 +101,40 @@
         </script>
     </#if>
 </head>
+</#macro>
+
+<#macro fixed>
+<body>
+
+<div id="form_blanket" style="display: none;"></div>
+
+<div id="fixed_layer">
+
+    <header>
+        <a id="home_link" href="${root}">steambeat</a>
+
+        <div id="id_panel">
+            <#if identity?has_content>
+                <p>Hello ${identity} <a href="javascript:void(0);" id="logout">logout</a></p>
+            <#else>
+                <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
+            </#if>
+        </div>
+
+        <div id="help_panel">
+            <a href="${root}/help">help</a>
+        </div>
+
+    </header>
+
+    <#nested/>
+</div>
+</#macro>
+
+<#macro body>
+
+    <#nested/>
+
+</body>
+</html>
 </#macro>

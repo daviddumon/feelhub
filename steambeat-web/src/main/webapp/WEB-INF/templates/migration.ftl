@@ -16,7 +16,11 @@
 </@layout.jsdev>
 
 <@layout.js>
-<script type="text/javascript" src="${root}/static/js/activation.js?${buildtime}"></script>
+<script type="text/javascript">
+    $(function () {
+        $("header").hide();
+    });
+</script>
 </@layout.js>
 
 <@layout.mustache>
@@ -31,7 +35,11 @@
 </@layout.fixed>
 
 <@layout.body>
-<div id="thankyou">
-    <p>Thank you !</p>
+<div id="migration">
+    <img id="loading_gif" src="${root}/static/images/ajax-loader.gif"/>
+
+    <p>We are updating Steambeat !</p>
+
+    <p>We apologize for the inconvenience</p>
 </div>
 </@layout.body>

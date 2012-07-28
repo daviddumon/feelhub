@@ -19,10 +19,13 @@
 </@layout.jsdev>
 
 <@layout.js>
-<script type="text/javascript" src="${root}/static/js/home.js?${buildtime}"></script>
 <script type="text/javascript" src="${root}/static/js/hub.js?${buildtime}"></script>
 <script type="text/javascript" src="${root}/static/js/form.js?${buildtime}"></script>
 <script type="text/javascript" src="${root}/static/js/lib/flow.js?${buildtime}"></script>
+<script type="text/javascript" src="${root}/static/js/subject.js?${buildtime}"></script>
+<script type="text/javascript">
+    var subjectId = "${concept.getId()}";
+</script>
 </@layout.js>
 
 <@layout.mustache>
@@ -42,6 +45,15 @@
 
     <#include "includes/counters.ftl"/>
 
+    <div class="panel_box">
+        <div id="webpageRoot">${concept.getShortDescription()}</div>
+    <#--<div id="webpageRoot"><span onclick="javascript:window.open('${webPage.uri}');" style="cursor: pointer">${webPage.description}</span></div>-->
+    <#--<div id="illustration"><img <#if ''?matches('${webPage.illustration}')> style='display: none;' <#else> src="${webPage.illustration}" </#if> /></div>-->
+    </div>
+    <div class="panel_box">
+        <span>related</span>
+        <ul id="related_list"></ul>
+    </div>
 </div>
 
 <a href="" id="form_button" style="display: none">add your opinion</a>

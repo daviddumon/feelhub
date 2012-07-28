@@ -16,7 +16,11 @@
 </@layout.jsdev>
 
 <@layout.js>
-<script type="text/javascript" src="${root}/static/js/activation.js?${buildtime}"></script>
+<script type="text/javascript">
+    $(function() {
+        $("header").hide();
+    });
+</script>
 </@layout.js>
 
 <@layout.mustache>
@@ -31,7 +35,7 @@
 </@layout.fixed>
 
 <@layout.body>
-<div id="thankyou">
-    <p>Thank you !</p>
+<div id="launch">
+    <p>Launching soon !</p>
 </div>
 </@layout.body>

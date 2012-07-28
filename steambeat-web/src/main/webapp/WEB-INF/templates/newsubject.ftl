@@ -16,7 +16,12 @@
 </@layout.jsdev>
 
 <@layout.js>
-<script type="text/javascript" src="${root}/static/js/activation.js?${buildtime}"></script>
+<script type="text/javascript" src="${root}/static/js/newsubject.js?${buildtime}"></script>
+<script type="text/javascript">
+    $(function () {
+        newsubject.create("${uri!''}");
+    });
+</script>
 </@layout.js>
 
 <@layout.mustache>
@@ -31,7 +36,9 @@
 </@layout.fixed>
 
 <@layout.body>
-<div id="thankyou">
-    <p>Thank you !</p>
+<div id="newsubject">
+    <img id="loading_gif" src="${root}/static/images/ajax-loader.gif"/>
+
+    <p>Steambeat is creating this awesome subject for you !</p>
 </div>
 </@layout.body>

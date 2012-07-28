@@ -16,7 +16,6 @@
 </@layout.jsdev>
 
 <@layout.js>
-<script type="text/javascript" src="${root}/static/js/activation.js?${buildtime}"></script>
 </@layout.js>
 
 <@layout.mustache>
@@ -31,7 +30,10 @@
 </@layout.fixed>
 
 <@layout.body>
-<div id="thankyou">
-    <p>Thank you !</p>
+<div id="error">
+    <img src="${root}/static/images/smiley_bad_white.png"/>
+
+    <p>There is a great disturbance in the Force</p>
+    <a href="${root}/">return to home</a>
 </div>
 </@layout.body>

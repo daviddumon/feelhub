@@ -1,54 +1,53 @@
-<@head.begin>
-</@head.begin>
+<@layout.headbegin>
+</@layout.headbegin>
 
-<@head.cssprod>
-<link rel="stylesheet" href="${root}/static/css/login.css?${buildtime}"/>
-</@head.cssprod>
+<@layout.cssprod>
+<link rel="stylesheet" href="${root}/static/css/noflow.css?${buildtime}"/>
+</@layout.cssprod>
 
-<@head.cssdev>
-<link rel="stylesheet/less" type="text/css" href="${root}/static/css/login.less?${buildtime}"/>
-</@head.cssdev>
+<@layout.cssdev>
+<link rel="stylesheet/less" type="text/css" href="${root}/static/css/noflow.less?${buildtime}"/>
+</@layout.cssdev>
 
-<@head.jsprod>
-</@head.jsprod>
+<@layout.jsprod>
+</@layout.jsprod>
 
-<@head.jsdev>
-</@head.jsdev>
+<@layout.jsdev>
+</@layout.jsdev>
 
-<@head.js>
+<@layout.js>
 <script type="text/javascript" src="${root}/static/js/login.js?${buildtime}"></script>
-<script type="text/javascript">
+</@layout.js>
 
-</script>
-</@head.js>
+<@layout.mustache>
+</@layout.mustache>
 
-<@head.mustache>
+<@layout.headend>
 
-</@head.mustache>
+</@layout.headend>
 
-<@head.end>
+<@layout.fixed>
 
-</@head.end>
+</@layout.fixed>
 
-<@info.panel>
-
+<@layout.body>
 <form id="login">
-    <h1 class="font_title">WELCOME</h1>
+    <h1>WELCOME</h1>
 
     <div class="holder">
-        <span class="help_text font_text">Email</span>
-        <input name="email" value="" type="text" class="font_text" autocomplete="off" maxlength="100" aria-required="true"/>
-
-        <div class="error_text"></div>
-    </div>
-    <div class="holder">
-        <span class="help_text font_text">Password</span>
-        <input name="password" value="" type="password" class="font_text" autocomplete="off" maxlength="100" aria-required="true"/>
+        <span class="help_text">Email</span>
+        <input name="email" value="" type="text" autocomplete="off" maxlength="100" aria-required="true"/>
 
         <div class="error_text"></div>
     </div>
     <div class="holder">
-        <a id="login_submit" href="" class="color_bg_darkblue rounded font_title color_darkblue">login</a>
+        <span class="help_text">Password</span>
+        <input name="password" value="" type="password" autocomplete="off" maxlength="100" aria-required="true"/>
+
+        <div class="error_text"></div>
+    </div>
+    <div class="holder">
+        <a id="login_submit" href="">login</a>
     </div>
 </form>
-</@info.panel>
+</@layout.body>
