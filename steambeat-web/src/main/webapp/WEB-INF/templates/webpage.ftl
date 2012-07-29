@@ -1,7 +1,4 @@
 <@layout.headbegin>
-<script type="text/javascript">
-    var steamId = "${steam.getId()}";
-</script>
 </@layout.headbegin>
 
 <@layout.cssprod>

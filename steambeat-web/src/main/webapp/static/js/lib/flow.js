@@ -3,11 +3,15 @@ function Flow() {
     var THIS = this;
     this.id = 1;
     this.container = $("#opinions");
-    this.cssIndex = this.findStyleSheetIndex("flow.css");
-    this.width = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "width"));
-    this.padding = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "padding"));
-    this.margin = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "margin"));
-    this.border = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "border-width"));
+    //this.cssIndex = this.findStyleSheetIndex("flow.css");
+    //this.width = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "width"));
+    //this.padding = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "padding"));
+    //this.margin = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "margin"));
+    //this.border = this.numericalValueFrom(this.extractValueFromCSS(".opinion", "border-width"));
+    this.width = 240;
+    this.padding = 20;
+    this.margin = 10;
+    this.border = 0;
     this.lines = new Array();
     this.freeLines = new Array();
 

@@ -37,7 +37,6 @@ public class SitemapTemplateRepresentation extends OutputRepresentation {
         return this;
     }
 
-    @SuppressWarnings("unchecked")
     public Map<String, Object> getDataModel() {
         return (Map<String, Object>) representation.getDataModel();
     }
@@ -47,7 +46,6 @@ public class SitemapTemplateRepresentation extends OutputRepresentation {
         representation.write(arg0);
     }
 
-    @SuppressWarnings("unchecked")
     public <T> T getData(final String key) {
         return (T) getDataModel().get(key);
     }

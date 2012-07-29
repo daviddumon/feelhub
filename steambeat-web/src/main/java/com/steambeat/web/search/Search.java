@@ -2,7 +2,6 @@ package com.steambeat.web.search;
 
 import java.util.List;
 
-@SuppressWarnings("unchecked")
 public interface Search<T> {
 
     List<T> execute();

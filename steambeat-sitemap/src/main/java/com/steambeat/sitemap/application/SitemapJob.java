@@ -14,7 +14,6 @@ import org.quartz.*;
 
 import java.util.List;
 
-@SuppressWarnings("unchecked")
 public class SitemapJob implements Job {
 
     public SitemapJob() {

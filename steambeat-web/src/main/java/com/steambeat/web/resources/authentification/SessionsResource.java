@@ -56,7 +56,7 @@ public class SessionsResource extends ServerResource {
         id.setValue(user.getEmail());
         id.setSecure(Boolean.valueOf(getContext().getAttributes().get("com.steambeat.cookie.secure").toString()));
         id.setDomain(getContext().getAttributes().get("com.steambeat.cookie.domain").toString());
-        id.setMaxAge(COOKIE_ID_MAX_AGE);
+        id.setMaxAge(FIVE_YEARS);
         id.setPath("/");
         this.getResponse().getCookieSettings().add(id);
     }
@@ -69,10 +69,13 @@ public class SessionsResource extends ServerResource {
         token.setAccessRestricted(true);
         token.setValue(session.getToken().toString());
         token.setDomain(getContext().getAttributes().get("com.steambeat.cookie.domain").toString());
-        final int maxage = ((int) new Interval(new DateTime(), session.getExpirationDate()).toDurationMillis()) / 1000;
-        token.setMaxAge(maxage);
+        token.setMaxAge(oneHour());
         token.setPath("/");
         this.getResponse().getCookieSettings().add(token);
+    }
+
+    private int oneHour() {
+        return ((int) new Interval(new DateTime(), session.getExpirationDate()).toDurationMillis()) / 1000;
     }
 
     @Delete
@@ -123,5 +126,5 @@ public class SessionsResource extends ServerResource {
     private SessionService sessionService;
     private User user;
     private Session session;
-    private static int COOKIE_ID_MAX_AGE = 157680000;
+    private static int FIVE_YEARS = 157680000;
 }

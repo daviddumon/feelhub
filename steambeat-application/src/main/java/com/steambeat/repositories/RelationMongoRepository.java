@@ -13,7 +13,6 @@ public class RelationMongoRepository extends BaseMongoRepository<Relation> imple
         super(mongoSession);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Relation lookUp(final Subject from, final Subject to) {
         final Criteria criteria = getSession().createCriteria(Relation.class);

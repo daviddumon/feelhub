@@ -16,9 +16,13 @@ function loadCounters() {
 }
 
 function loadRelated() {
+    $("#related_list").empty();
     $.getJSON(root + "/related?&fromId=" + subjectId + "&limit=10", function (data) {
         $.each(data, function (index, subject) {
             $("#related_list").append(ich.related(subject));
         });
     });
+    setTimeout(function () {
+        loadRelated();
+    }, 15000);
 }

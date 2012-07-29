@@ -8,7 +8,6 @@ import org.mongolink.domain.criteria.*;
 
 import java.util.List;
 
-@SuppressWarnings("unchecked")
 public class AssociationMongoRepository extends BaseMongoRepository<Association> implements AssociationRepository {
 
     public AssociationMongoRepository(final MongoSession mongoSession) {

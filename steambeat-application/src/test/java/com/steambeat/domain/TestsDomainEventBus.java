@@ -8,7 +8,6 @@ import org.mockito.internal.verification.VerificationModeFactory;
 
 import static org.mockito.Mockito.*;
 
-@SuppressWarnings("unchecked")
 public class TestsDomainEventBus {
 
     @Rule

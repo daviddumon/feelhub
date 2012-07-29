@@ -31,7 +31,6 @@ public class WebPageFactory {
         final WebPage webPage = new WebPage(association);
         webPage.setScraper(uriScraper);
         DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(webPage));
-        alchemyEntityAnalyzer.analyze(webPage);
         return webPage;
     }
 

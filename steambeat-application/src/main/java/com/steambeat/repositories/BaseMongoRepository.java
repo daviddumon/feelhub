@@ -6,7 +6,6 @@ import org.mongolink.MongoSession;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-@SuppressWarnings("unchecked")
 public class BaseMongoRepository<T extends Entity> implements Repository<T> {
 
     public BaseMongoRepository(final MongoSession mongoSession) {
