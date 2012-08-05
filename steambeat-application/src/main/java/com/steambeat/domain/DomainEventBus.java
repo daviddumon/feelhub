@@ -1,61 +1,32 @@
 package com.steambeat.domain;
 
-import com.google.common.collect.*;
+import com.google.common.collect.Lists;
+import com.google.common.eventbus.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.concurrent.Executors;
 
 public enum DomainEventBus {
 
     INSTANCE;
 
-    public void spread(final DomainEvent event) {
-        if (stackOnSpread) {
-            events.add(event);
-        } else {
-            doSpread(event);
-        }
+    private DomainEventBus() {
+        eventBus = new AsyncEventBus(Executors.newFixedThreadPool(20));
     }
 
-    private void doSpread(final DomainEvent event) {
-        for (final DomainEventListener listener : getListeners(event.getClass())) {
-            listener.notify(event);
-        }
+    public void setEventBus(final EventBus eventBus) {
+        this.eventBus = eventBus;
     }
 
-    private List<DomainEventListener> getListeners(final Class<? extends DomainEvent> eventType) {
-        List<DomainEventListener> listenersForEvent = this.listeners.get(eventType);
-        if (listenersForEvent == null) {
-            listenersForEvent = Lists.newArrayList();
-            this.listeners.put(eventType, listenersForEvent);
-        }
-        return listenersForEvent;
+    public void register(final Object listener) {
+        eventBus.register(listener);
+        listeners.add(listener);
     }
 
-    public void clear() {
-        listeners.clear();
-        events.clear();
+    public void post(final DomainEvent event) {
+        eventBus.post(event);
     }
 
-    public void stackOnSpread() {
-        stackOnSpread = true;
-    }
-
-    public void notifyOnSpread() {
-        stackOnSpread = false;
-    }
-
-    public void flush() {
-        for (final DomainEvent event : events) {
-            doSpread(event);
-        }
-        events.clear();
-    }
-
-    public <T extends DomainEvent> void register(final DomainEventListener<T> listener, final Class<T> eventType) {
-        getListeners(eventType).add(listener);
-    }
-
-    private final Map<Class<? extends DomainEvent>, List<DomainEventListener>> listeners = Maps.newHashMap();
-    private final List<DomainEvent> events = Lists.newArrayList();
-    private boolean stackOnSpread = false;
+    private final List<Object> listeners = Lists.newArrayList();
+    private EventBus eventBus;
 }

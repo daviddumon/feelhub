@@ -1,6 +1,7 @@
 package com.steambeat.domain.opinion;
 
-import com.steambeat.domain.*;
+import com.google.common.eventbus.Subscribe;
+import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.test.*;
@@ -51,31 +52,29 @@ public class TestsOpinion {
     public void canSpreadJudgmentEvents() {
         final Opinion opinion = new Opinion("my opinion");
         final WebPage subject = TestFactories.subjects().newWebPage();
-        DomainEventBus.INSTANCE.notifyOnSpread();
-        final DomainEventListener judgmentEventListener = mock(DomainEventListener.class);
-        DomainEventBus.INSTANCE.register(judgmentEventListener, JudgmentPostedEvent.class);
+        final SimpleJudgmentListener judgmentEventListener = mock(SimpleJudgmentListener.class);
+        DomainEventBus.INSTANCE.register(judgmentEventListener);
 
         opinion.addJudgment(subject, Feeling.good);
 
-        final ArgumentCaptor<DomainEvent> captor = ArgumentCaptor.forClass(DomainEvent.class);
-        verify(judgmentEventListener, times(1)).notify(captor.capture());
+        final ArgumentCaptor<JudgmentPostedEvent> captor = ArgumentCaptor.forClass(JudgmentPostedEvent.class);
+        verify(judgmentEventListener, times(1)).handle(captor.capture());
         assertThat(captor.getValue(), instanceOf(JudgmentPostedEvent.class));
-        final JudgmentPostedEvent event = (JudgmentPostedEvent) captor.getAllValues().get(0);
+        final JudgmentPostedEvent event = captor.getAllValues().get(0);
         assertThat(event.getJudgment(), is(opinion.getJudgments().get(0)));
     }
 
     @Test
     public void canSpreadOpinionEvent() {
-        DomainEventBus.INSTANCE.notifyOnSpread();
-        final DomainEventListener opinionEventListener = mock(DomainEventListener.class);
-        DomainEventBus.INSTANCE.register(opinionEventListener, OpinionPostedEvent.class);
+        final SimpleOpinionListener opinionEventListener = mock(SimpleOpinionListener.class);
+        DomainEventBus.INSTANCE.register(opinionEventListener);
 
         final Opinion opinion = new Opinion("my opinion");
 
-        final ArgumentCaptor<DomainEvent> captor = ArgumentCaptor.forClass(DomainEvent.class);
-        verify(opinionEventListener).notify(captor.capture());
+        final ArgumentCaptor<OpinionPostedEvent> captor = ArgumentCaptor.forClass(OpinionPostedEvent.class);
+        verify(opinionEventListener).handle(captor.capture());
         assertThat(captor.getValue(), instanceOf(OpinionPostedEvent.class));
-        final OpinionPostedEvent event = (OpinionPostedEvent) captor.getValue();
+        final OpinionPostedEvent event = captor.getValue();
         assertThat(event.getOpinion(), is(opinion));
     }
 
@@ -89,4 +88,21 @@ public class TestsOpinion {
 
         assertThat(subject.getLastModificationDate(), is(time.getNow()));
     }
+
+    private class SimpleJudgmentListener {
+
+        @Subscribe
+        public void handle(JudgmentPostedEvent judgmentPostedEvent) {
+
+        }
+    }
+
+    private class SimpleOpinionListener {
+
+        @Subscribe
+        public void handle(OpinionPostedEvent opinionPostedEvent) {
+
+        }
+    }
+
 }

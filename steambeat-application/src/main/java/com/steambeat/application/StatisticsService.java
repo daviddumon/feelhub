@@ -1,20 +1,22 @@
 package com.steambeat.application;
 
-import com.steambeat.domain.*;
+import com.google.common.eventbus.*;
+import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.statistics.*;
 import com.steambeat.repositories.Repositories;
 
 import java.util.List;
 
-public class StatisticsService implements DomainEventListener<JudgmentPostedEvent> {
+public class StatisticsService {
 
     public StatisticsService() {
-        DomainEventBus.INSTANCE.register(this, JudgmentPostedEvent.class);
+        DomainEventBus.INSTANCE.register(this);
     }
 
-    @Override
-    public void notify(final JudgmentPostedEvent event) {
+    @Subscribe
+    @AllowConcurrentEvents
+    public void handle(final JudgmentPostedEvent event) {
         judgmentOn(event);
     }
 

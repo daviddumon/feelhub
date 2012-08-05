@@ -1,6 +1,5 @@
 package com.steambeat.web.resources.json;
 
-import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.Concept;
@@ -105,7 +104,6 @@ public class TestsOpinionsResource {
         TestFactories.opinions().newOpinion();
         TestFactories.opinions().newOpinion();
         TestFactories.opinions().newOpinion();
-        DomainEventBus.INSTANCE.flush();
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 
@@ -119,7 +117,6 @@ public class TestsOpinionsResource {
         TestFactories.opinions().newOpinion();
         TestFactories.opinions().newOpinion();
         TestFactories.opinions().newOpinion();
-        DomainEventBus.INSTANCE.flush();
         final ClientResource resource = restlet.newClientResource("/opinions?skip=1");
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();

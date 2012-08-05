@@ -1,6 +1,7 @@
 package com.steambeat.test;
 
 import com.google.common.collect.Maps;
+import com.google.common.eventbus.*;
 import com.steambeat.domain.*;
 import org.junit.rules.ExternalResource;
 
@@ -10,22 +11,24 @@ public class WithDomainEvent extends ExternalResource {
 
     @Override
     protected void before() throws Throwable {
-        DomainEventBus.INSTANCE.stackOnSpread();
-    }
-
-    @Override
-    protected void after() {
-        DomainEventBus.INSTANCE.clear();
-        DomainEventBus.INSTANCE.notifyOnSpread();
+        DomainEventBus.INSTANCE.setEventBus(new EventBus());
     }
 
     public <T extends DomainEvent> void capture(final Class<T> type) {
-        DomainEventBus.INSTANCE.register(new DomainEventListener<T>() {
+        DomainEventBus.INSTANCE.register(new SimpleEventListerner<T>() {
+
             @Override
-            public void notify(final T event) {
+            public void handle(final T event) {
                 eventsCaptured.put(type, event);
             }
-        }, type);
+        });
+    }
+
+    private class SimpleEventListerner<T extends DomainEvent> {
+
+        @Subscribe
+        public void handle(final T event) {
+        }
     }
 
     public <T extends DomainEvent> T lastEvent(final Class<T> type) {

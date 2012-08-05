@@ -15,14 +15,14 @@ public class Opinion extends BaseEntity {
     public Opinion(final String text) {
         this.id = UUID.randomUUID();
         this.text = text;
-        DomainEventBus.INSTANCE.spread(new OpinionPostedEvent(this));
+        DomainEventBus.INSTANCE.post(new OpinionPostedEvent(this));
     }
 
     public void addJudgment(final Subject subject, final Feeling feeling) {
         final Judgment judgment = new Judgment(subject, feeling);
         judgments.add(judgment);
         subject.setLastModificationDate(new DateTime());
-        DomainEventBus.INSTANCE.spread(new JudgmentPostedEvent(judgment));
+        DomainEventBus.INSTANCE.post(new JudgmentPostedEvent(judgment));
     }
 
     public UUID getId() {

@@ -1,7 +1,5 @@
 package com.steambeat.domain.subject.webpage;
 
-import com.steambeat.domain.DomainEventBus;
-import com.steambeat.domain.alchemy.FakeAlchemyEntityAnalyzer;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.test.*;
@@ -29,7 +27,7 @@ public class TestsWebPageFactory {
 
     @Before
     public void before() {
-        webPageFactory = new WebPageFactory(new FakeUriScraper(), new FakeAlchemyEntityAnalyzer());
+        webPageFactory = new WebPageFactory(new FakeUriScraper());
     }
 
     @Test
@@ -55,7 +53,6 @@ public class TestsWebPageFactory {
     public void canSpreadEvent() {
         bus.capture(WebPageCreatedEvent.class);
         final Association association = TestFactories.associations().newAssociation(new Uri("http://www.steambeat.com"));
-        DomainEventBus.INSTANCE.notifyOnSpread();
 
         final WebPage webPage = webPageFactory.newWebPage(association);
 

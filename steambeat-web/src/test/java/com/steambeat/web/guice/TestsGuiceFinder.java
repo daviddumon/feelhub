@@ -7,10 +7,9 @@ import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.webpage.WebPageFactory;
 import com.steambeat.domain.translation.MicrosoftTranslator;
 import com.steambeat.repositories.SessionProvider;
-import com.steambeat.test.FakeUriScraper;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
-import com.steambeat.web.migration.fake.MigrationUriPathResolver;
 import com.steambeat.web.resources.WebPageResource;
 import org.junit.Test;
 import org.restlet.Context;
@@ -37,7 +36,7 @@ public class TestsGuiceFinder {
             bind(SessionProvider.class).to(FakeSessionProvider.class);
             bind(WebPageFactory.class).to(FakeWebPageFactory.class);
             bind(UriScraper.class).to(FakeUriScraper.class);
-            bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new AssociationService(new MigrationUriPathResolver(), new MicrosoftTranslator()))));
+            bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new AssociationService(new FakeUriPathResolver(), new MicrosoftTranslator()))));
         }
     }
 }

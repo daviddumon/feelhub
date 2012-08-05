@@ -2,7 +2,6 @@ package com.steambeat.domain.subject.webpage;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.DomainEventBus;
-import com.steambeat.domain.alchemy.AlchemyEntityAnalyzer;
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.repositories.Repositories;
@@ -10,9 +9,8 @@ import com.steambeat.repositories.Repositories;
 public class WebPageFactory {
 
     @Inject
-    public WebPageFactory(final UriScraper uriScraper, final AlchemyEntityAnalyzer alchemyEntityAnalyzer) {
+    public WebPageFactory(final UriScraper uriScraper) {
         this.uriScraper = uriScraper;
-        this.alchemyEntityAnalyzer = alchemyEntityAnalyzer;
     }
 
     public WebPage newWebPage(final Association association) {
@@ -30,10 +28,10 @@ public class WebPageFactory {
     private WebPage doCreateWebPage(final Association association) {
         final WebPage webPage = new WebPage(association);
         webPage.setScraper(uriScraper);
-        DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(webPage));
+        //DomainEventBus.INSTANCE.spread(new WebPageCreatedEvent(webPage));
+        DomainEventBus.INSTANCE.post(new WebPageCreatedEvent(webPage));
         return webPage;
     }
 
     private final UriScraper uriScraper;
-    private final AlchemyEntityAnalyzer alchemyEntityAnalyzer;
 }

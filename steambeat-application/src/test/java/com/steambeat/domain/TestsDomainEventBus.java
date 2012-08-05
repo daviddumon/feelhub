@@ -1,10 +1,9 @@
 package com.steambeat.domain;
 
+import com.google.common.eventbus.*;
 import com.steambeat.domain.opinion.OpinionPostedEvent;
-import com.steambeat.domain.subject.webpage.WebPageCreatedEvent;
 import com.steambeat.test.WithDomainEvent;
 import org.junit.*;
-import org.mockito.internal.verification.VerificationModeFactory;
 
 import static org.mockito.Mockito.*;
 
@@ -14,33 +13,36 @@ public class TestsDomainEventBus {
     public WithDomainEvent bus = new WithDomainEvent();
 
     @Test
-    public void canSpreadEventToMultipleListeners() {
-        DomainEventBus.INSTANCE.notifyOnSpread();
+    public void canUseAsyncEventBus() {
+        final SimpleEventListener simpleEventListener = mock(SimpleEventListener.class);
+        final OpinionPostedEvent opinionPostedEvent = new OpinionPostedEvent(null);
+        DomainEventBus.INSTANCE.register(simpleEventListener);
 
-        final DomainEventListener<OpinionPostedEvent> listener1 = mock(DomainEventListener.class);
-        final DomainEventListener<OpinionPostedEvent> listener2 = mock(DomainEventListener.class);
-        DomainEventBus.INSTANCE.register(listener1, OpinionPostedEvent.class);
-        DomainEventBus.INSTANCE.register(listener2, OpinionPostedEvent.class);
-        final OpinionPostedEvent event = new OpinionPostedEvent(null);
+        DomainEventBus.INSTANCE.post(opinionPostedEvent);
 
-        DomainEventBus.INSTANCE.spread(event);
-
-        verify(listener1).notify(event);
-        verify(listener2).notify(event);
+        verify(simpleEventListener, times(1)).handle(opinionPostedEvent);
     }
 
     @Test
-    public void canRegisterForOneEventType() {
-        final DomainEventListener<OpinionPostedEvent> listener = mock(DomainEventListener.class);
-        final DomainEventListener<WebPageCreatedEvent> listener2 = mock(DomainEventListener.class);
-        DomainEventBus.INSTANCE.register(listener, OpinionPostedEvent.class);
-        DomainEventBus.INSTANCE.register(listener2, WebPageCreatedEvent.class);
-        final OpinionPostedEvent event = new OpinionPostedEvent(null);
-        DomainEventBus.INSTANCE.spread(event);
+    public void canSpreadEventToMultipleListeners() {
+        final SimpleEventListener listener1 = mock(SimpleEventListener.class);
+        final SimpleEventListener listener2 = mock(SimpleEventListener.class);
+        final OpinionPostedEvent opinionPostedEvent = new OpinionPostedEvent(null);
+        DomainEventBus.INSTANCE.register(listener1);
+        DomainEventBus.INSTANCE.register(listener2);
 
-        DomainEventBus.INSTANCE.flush();
+        DomainEventBus.INSTANCE.post(opinionPostedEvent);
 
-        verify(listener).notify(event);
-        verify(listener2, VerificationModeFactory.times(0)).notify(any(WebPageCreatedEvent.class));
+        verify(listener1, times(1)).handle(opinionPostedEvent);
+        verify(listener2, times(1)).handle(opinionPostedEvent);
+    }
+
+    private class SimpleEventListener {
+
+        @Subscribe
+        @AllowConcurrentEvents
+        public void handle(OpinionPostedEvent opinionPostedEvent) {
+
+        }
     }
 }
