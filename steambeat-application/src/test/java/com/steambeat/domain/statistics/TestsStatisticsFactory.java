@@ -1,8 +1,7 @@
-package com.steambeat.application;
+package com.steambeat.domain.statistics;
 
 import com.steambeat.domain.DomainEventBus;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.SystemTime;
@@ -16,7 +15,7 @@ import java.util.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-public class TestsStatisticsService {
+public class TestsStatisticsFactory {
 
     @Rule
     public WithFakeRepositories repos = new WithFakeRepositories();
@@ -26,7 +25,7 @@ public class TestsStatisticsService {
 
     @Before
     public void before() {
-        statisticsService = new StatisticsService();
+        statisticsFactory = new StatisticsFactory();
         Repositories.subjects().add(new Steam(UUID.randomUUID()));
     }
 
@@ -34,7 +33,7 @@ public class TestsStatisticsService {
     public void canRecordGoodJudgment() {
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
 
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getGood(), is(1));
     }
@@ -43,7 +42,7 @@ public class TestsStatisticsService {
     public void canRecordBadJudgment() {
         final JudgmentPostedEvent event = getBadJudgmentEvent();
 
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getBad(), is(1));
     }
@@ -52,7 +51,7 @@ public class TestsStatisticsService {
     public void canCreateFromEvent() {
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
 
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         assertThat(getStatisticsRepository().forSubject(event.getJudgment().getSubject()).getGood(), is(1));
     }
@@ -63,7 +62,7 @@ public class TestsStatisticsService {
 
         time.waitDays(1);
 
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(), Granularity.hour, new Interval(time.getNow().minusDays(2), time.getNow()));
         assertThat(statistics.size(), is(1));
@@ -75,7 +74,7 @@ public class TestsStatisticsService {
     public void canRecordForDay() {
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
 
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(), Granularity.day, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
@@ -86,7 +85,7 @@ public class TestsStatisticsService {
     public void canRecordForMonth() {
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
 
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(), Granularity.month, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
@@ -97,7 +96,7 @@ public class TestsStatisticsService {
     public void canRecordForYear() {
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
 
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(), Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
@@ -109,7 +108,7 @@ public class TestsStatisticsService {
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
         DomainEventBus.INSTANCE.post(event);
 
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(),
                 Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
@@ -123,7 +122,7 @@ public class TestsStatisticsService {
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
 
         time.set(time.getNow().plusYears(3));
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(),
                 Granularity.year, new Interval(time.getNow().minusYears(4), time.getNow().minusYears(2)));
@@ -135,10 +134,10 @@ public class TestsStatisticsService {
         time.set(time.getNow().minusMonths(3));
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusMonths(5));
-        statisticsService.handle(new JudgmentPostedEvent(new Judgment(event.getJudgment().getSubject(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentPostedEvent(new Judgment(event.getJudgment().getSubject(), Feeling.good)));
 
         time.set(time.getNow().plusMonths(8));
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(), Granularity.month, new Interval(time.getNow().minusMonths(12), time.getNow()));
         assertThat(statistics.size(), is(2));
@@ -149,10 +148,10 @@ public class TestsStatisticsService {
         time.set(time.getNow().minusDays(3));
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusDays(5));
-        statisticsService.handle(new JudgmentPostedEvent(new Judgment(event.getJudgment().getSubject(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentPostedEvent(new Judgment(event.getJudgment().getSubject(), Feeling.good)));
 
         time.set(time.getNow().plusDays(8));
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(), Granularity.day, new Interval(time.getNow().minusDays(12), time.getNow()));
         assertThat(statistics.size(), is(2));
@@ -163,10 +162,10 @@ public class TestsStatisticsService {
         time.set(time.getNow().minusHours(3));
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsService.handle(new JudgmentPostedEvent(new Judgment(event.getJudgment().getSubject(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentPostedEvent(new Judgment(event.getJudgment().getSubject(), Feeling.good)));
 
         time.set(time.getNow().plusHours(8));
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(), Granularity.hour, new Interval(time.getNow().minusHours(12), time.getNow()));
         assertThat(statistics.size(), is(2));
@@ -177,10 +176,10 @@ public class TestsStatisticsService {
         time.set(time.getNow().minusHours(3));
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsService.handle(new JudgmentPostedEvent(new Judgment(event.getJudgment().getSubject(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentPostedEvent(new Judgment(event.getJudgment().getSubject(), Feeling.good)));
 
         time.set(time.getNow().plusHours(8));
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         final List<Statistics> statistics = getStatisticsRepository().forSubject(event.getJudgment().getSubject(), Granularity.all);
         assertThat(statistics.size(), is(1));
@@ -191,7 +190,7 @@ public class TestsStatisticsService {
     public void recordStatisticsForSteam() {
         final JudgmentPostedEvent event = getGoodJudgmentEvent();
 
-        statisticsService.handle(event);
+        statisticsFactory.handle(event);
 
         assertThat(getStatisticsRepository().forSubject(Repositories.subjects().getSteam()).getGood(), is(1));
     }
@@ -210,5 +209,5 @@ public class TestsStatisticsService {
         return (FakeStatisticsRepository) Repositories.statistics();
     }
 
-    private StatisticsService statisticsService;
+    private StatisticsFactory statisticsFactory;
 }

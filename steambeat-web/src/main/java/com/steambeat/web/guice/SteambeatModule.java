@@ -1,11 +1,12 @@
 package com.steambeat.web.guice;
 
 import com.google.inject.*;
-import com.steambeat.application.*;
+import com.steambeat.application.AssociationService;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.association.uri.UriPathResolver;
 import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.scrapers.UriScraper;
+import com.steambeat.domain.statistics.StatisticsFactory;
 import com.steambeat.domain.subject.concept.ConceptFactory;
 import com.steambeat.domain.translation.MicrosoftTranslator;
 import com.steambeat.repositories.SessionProvider;
@@ -14,7 +15,7 @@ public class SteambeatModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(StatisticsService.class).toInstance(new StatisticsService());
+        bind(StatisticsFactory.class).toInstance(new StatisticsFactory());
         bind(AlchemyEntityAnalyzer.class).toInstance(new AlchemyEntityAnalyzer(new NamedEntityJsonProvider(new AlchemyLink(), new NamedEntityBuilder(new AssociationService(new UriPathResolver(), new MicrosoftTranslator()))), new AssociationService(new UriPathResolver(), new MicrosoftTranslator()), new ConceptFactory(new BingLink())));
         bind(UriScraper.class).toInstance(new UriScraper());
         bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new AlchemyLink(), new NamedEntityBuilder(new AssociationService(new UriPathResolver(), new MicrosoftTranslator()))));
