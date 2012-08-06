@@ -6,7 +6,7 @@ import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.WithDomainEvent;
+import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
@@ -45,7 +45,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void isMapped() {
-        final ClientResource opinionsResource = restlet.newClientResource("/opinions");
+        final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
 
         opinionsResource.get();
 
@@ -54,7 +54,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void canGetWithQueryString() {
-        final ClientResource opinionsResource = restlet.newClientResource("/opinions?q=test");
+        final ClientResource opinionsResource = restlet.newClientResource("/json/opinions?q=test");
 
         opinionsResource.get();
 
@@ -64,7 +64,7 @@ public class TestsOpinionsResource {
     @Test
     public void canGetAnOpinion() throws IOException, JSONException {
         TestFactories.opinions().newOpinion();
-        final ClientResource resource = restlet.newClientResource("/opinions?skip=0&limit=1");
+        final ClientResource resource = restlet.newClientResource("/json/opinions?skip=0&limit=1");
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 
@@ -77,7 +77,7 @@ public class TestsOpinionsResource {
     @Test
     public void defaultLimitIs100() throws IOException, JSONException {
         TestFactories.opinions().newOpinions(150);
-        final ClientResource clientResource = restlet.newClientResource("/opinions?skip=0");
+        final ClientResource clientResource = restlet.newClientResource("/json/opinions?skip=0");
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
 
@@ -89,7 +89,7 @@ public class TestsOpinionsResource {
     @Test
     public void defaultSkipIs0() throws IOException, JSONException {
         TestFactories.opinions().newOpinions(100);
-        final ClientResource clientResource = restlet.newClientResource("/opinions?limit=10");
+        final ClientResource clientResource = restlet.newClientResource("/json/opinions?limit=10");
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
 
@@ -100,7 +100,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void canGetMultipleOpinions() throws JSONException, IOException {
-        final ClientResource resource = restlet.newClientResource("/opinions?skip=0&limit=10");
+        final ClientResource resource = restlet.newClientResource("/json/opinions?skip=0&limit=10");
         TestFactories.opinions().newOpinion();
         TestFactories.opinions().newOpinion();
         TestFactories.opinions().newOpinion();
@@ -117,7 +117,7 @@ public class TestsOpinionsResource {
         TestFactories.opinions().newOpinion();
         TestFactories.opinions().newOpinion();
         TestFactories.opinions().newOpinion();
-        final ClientResource resource = restlet.newClientResource("/opinions?skip=1");
+        final ClientResource resource = restlet.newClientResource("/json/opinions?skip=1");
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 
@@ -128,7 +128,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void canThrowSteambeatJsonException() {
-        final ClientResource resource = restlet.newClientResource("/opinions?skip=0&limit=101");
+        final ClientResource resource = restlet.newClientResource("/json/opinions?skip=0&limit=101");
 
         resource.get();
 
@@ -141,7 +141,7 @@ public class TestsOpinionsResource {
         TestFactories.opinions().newOpinions(10);
         TestFactories.opinions().newOpinions(webPage, 10);
         TestFactories.opinions().newOpinions(10);
-        final ClientResource clientResource = restlet.newClientResource("/opinions?subjectId=" + webPage.getId());
+        final ClientResource clientResource = restlet.newClientResource("/json/opinions?subjectId=" + webPage.getId());
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
 
@@ -156,7 +156,7 @@ public class TestsOpinionsResource {
         final Form form = getGoodForm();
         form.add("subjectId", webPage.getId().toString());
         form.add("redirect", "webpages");
-        final ClientResource opinionsResource = restlet.newClientResource("/opinions");
+        final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
 
         opinionsResource.post(form);
 
@@ -174,7 +174,7 @@ public class TestsOpinionsResource {
         final Form form = getGoodForm();
         form.add("subjectId", concept.getId().toString());
         form.add("redirect", "webpages");
-        final ClientResource opinionsResource = restlet.newClientResource("/opinions");
+        final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
 
         opinionsResource.post(form);
 
@@ -190,7 +190,7 @@ public class TestsOpinionsResource {
     public void throwExceptionWhenUnknownWebPage() {
         final Form form = getGoodForm();
         form.add("subjectId", UUID.randomUUID().toString());
-        final ClientResource resource = restlet.newClientResource("/opinions");
+        final ClientResource resource = restlet.newClientResource("/json/opinions");
 
         resource.post(form);
 
@@ -203,7 +203,7 @@ public class TestsOpinionsResource {
         final Form form = new Form();
         form.add("text", "my opinion");
         form.add("subjectId", "http://www.lemonde.fr");
-        final ClientResource resource = restlet.newClientResource("/opinions");
+        final ClientResource resource = restlet.newClientResource("/json/opinions");
 
         resource.post(form);
 
@@ -217,7 +217,7 @@ public class TestsOpinionsResource {
         final Form form = getGoodForm();
         form.add("subjectId", webPage.getId().toString());
         form.add("redirect", "webpages");
-        final ClientResource opinionsResource = restlet.newClientResource("/opinions");
+        final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
 
         opinionsResource.post(form);
 
@@ -231,7 +231,7 @@ public class TestsOpinionsResource {
         final Form form = getGoodForm();
         form.add("subjectId", concept.getId().toString());
         form.add("redirect", "concepts");
-        final ClientResource opinionsResource = restlet.newClientResource("/opinions");
+        final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
 
         opinionsResource.post(form);
 

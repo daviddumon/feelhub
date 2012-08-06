@@ -1,8 +1,7 @@
-package com.steambeat.domain;
+package com.steambeat.domain.eventbus;
 
 import com.google.common.eventbus.*;
 import com.steambeat.domain.opinion.OpinionPostedEvent;
-import com.steambeat.test.WithDomainEvent;
 import org.junit.*;
 
 import static org.mockito.Mockito.*;

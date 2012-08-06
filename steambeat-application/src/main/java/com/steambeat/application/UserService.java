@@ -1,19 +1,21 @@
 package com.steambeat.application;
 
-import com.steambeat.domain.user.User;
+import com.google.inject.Inject;
+import com.steambeat.domain.user.*;
 import com.steambeat.repositories.Repositories;
 
 import java.util.UUID;
 
 public class UserService {
 
+    @Inject
+    public UserService(final UserFactory userFactory) {
+        this.userFactory = userFactory;
+    }
+
     public User createUser(final String email, final String password, final String fullname, final String language) {
         CheckForExistingEmail(email);
-        final User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setFullname(fullname);
-        user.setLanguage(language);
+        final User user = userFactory.createUser(email, password, fullname, language);
         Repositories.users().add(user);
         return user;
     }
@@ -67,4 +69,6 @@ public class UserService {
         }
         return user;
     }
+
+    private UserFactory userFactory;
 }

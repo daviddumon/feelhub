@@ -4,6 +4,7 @@ import com.google.inject.*;
 import com.steambeat.web.filter.*;
 import com.steambeat.web.guice.SteambeatModule;
 import com.steambeat.web.launch.LaunchRouter;
+import com.steambeat.web.mail.MailBuilder;
 import com.steambeat.web.migration.MigrationRunner;
 import com.steambeat.web.migration.web.*;
 import com.steambeat.web.status.SteambeatStatusService;
@@ -35,6 +36,8 @@ public class SteambeatApplication extends Application {
             steambeatBoot.checkForSteam();
             runMigrations();
         }
+        final MailBuilder mailBuilder = injector.getInstance(MailBuilder.class);
+        mailBuilder.setContext(getContext());
         super.start();
     }
 

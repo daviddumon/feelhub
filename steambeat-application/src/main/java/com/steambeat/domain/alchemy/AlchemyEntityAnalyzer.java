@@ -1,10 +1,11 @@
 package com.steambeat.domain.alchemy;
 
 import com.google.common.collect.Lists;
+import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import com.steambeat.application.*;
-import com.steambeat.domain.*;
 import com.steambeat.domain.association.tag.Tag;
+import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.relation.*;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.webpage.*;
@@ -12,7 +13,7 @@ import com.steambeat.repositories.Repositories;
 
 import java.util.*;
 
-public class AlchemyEntityAnalyzer implements DomainEventListener<WebPageCreatedEvent> {
+public class AlchemyEntityAnalyzer {
 
     @Inject
     public AlchemyEntityAnalyzer(final NamedEntityProvider NamedEntityProvider, final AssociationService associationService, final ConceptFactory conceptFactory) {
@@ -22,7 +23,8 @@ public class AlchemyEntityAnalyzer implements DomainEventListener<WebPageCreated
         DomainEventBus.INSTANCE.register(this);
     }
 
-    @Override
+    @Subscribe
+    @AllowConcurrentEvents
     public void handle(final WebPageCreatedEvent event) {
         analyze(event.getWebPage());
     }

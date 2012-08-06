@@ -1,4 +1,4 @@
-package com.steambeat.domain;
+package com.steambeat.domain.eventbus;
 
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
@@ -11,7 +11,7 @@ public enum DomainEventBus {
     INSTANCE;
 
     private DomainEventBus() {
-        eventBus = new AsyncEventBus(Executors.newFixedThreadPool(20));
+        eventBus = new AsyncEventBus(Executors.newFixedThreadPool(50));
     }
 
     public void setEventBus(final EventBus eventBus) {
@@ -25,8 +25,14 @@ public enum DomainEventBus {
 
     public void post(final DomainEvent event) {
         eventBus.post(event);
+        events.add(event);
+    }
+
+    public List<DomainEvent> getEvents() {
+        return events;
     }
 
     private final List<Object> listeners = Lists.newArrayList();
     private EventBus eventBus;
+    private List<DomainEvent> events = Lists.newArrayList();
 }

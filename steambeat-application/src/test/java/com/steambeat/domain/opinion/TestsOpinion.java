@@ -1,10 +1,10 @@
 package com.steambeat.domain.opinion;
 
 import com.google.common.eventbus.Subscribe;
-import com.steambeat.domain.DomainEventBus;
+import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.test.*;
+import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;

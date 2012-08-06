@@ -1,6 +1,6 @@
 package com.steambeat.domain.opinion;
 
-import com.steambeat.domain.DomainEvent;
+import com.steambeat.domain.eventbus.DomainEvent;
 import org.joda.time.DateTime;
 
 public class JudgmentPostedEvent implements DomainEvent {
@@ -13,6 +13,18 @@ public class JudgmentPostedEvent implements DomainEvent {
     @Override
     public DateTime getDate() {
         return date;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(date.toString());
+        stringBuilder.append(" - ");
+        stringBuilder.append("Judgment ");
+        stringBuilder.append(judgment.getFeeling());
+        stringBuilder.append(" on ");
+        stringBuilder.append(judgment.getSubject().getId());
+        return stringBuilder.toString();
     }
 
     public Judgment getJudgment() {

@@ -1,7 +1,8 @@
 package com.steambeat.domain.opinion;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.*;
+import com.steambeat.domain.BaseEntity;
+import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.subject.Subject;
 import org.joda.time.DateTime;
 

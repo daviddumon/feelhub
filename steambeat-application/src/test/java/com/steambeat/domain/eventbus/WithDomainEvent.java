@@ -1,8 +1,7 @@
-package com.steambeat.test;
+package com.steambeat.domain.eventbus;
 
 import com.google.common.collect.Maps;
 import com.google.common.eventbus.*;
-import com.steambeat.domain.*;
 import org.junit.rules.ExternalResource;
 
 import java.util.Map;

@@ -1,5 +1,6 @@
 package com.steambeat.web.search;
 
+import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.TestWithMongoRepository;

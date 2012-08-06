@@ -25,7 +25,7 @@ public class TestsRelatedResource {
 
     @Test
     public void isMapped() {
-        final ClientResource relatedResource = restlet.newClientResource("/related");
+        final ClientResource relatedResource = restlet.newClientResource("/json/related");
 
         relatedResource.get();
 
@@ -34,7 +34,7 @@ public class TestsRelatedResource {
 
     @Test
     public void canGetWithQueryString() {
-        final ClientResource relatedResource = restlet.newClientResource("/related?q=test");
+        final ClientResource relatedResource = restlet.newClientResource("/json/related?q=test");
 
         relatedResource.get();
 
@@ -44,7 +44,7 @@ public class TestsRelatedResource {
     @Test
     public void canGetARelation() throws IOException, JSONException {
         TestFactories.relations().newRelation();
-        final ClientResource resource = restlet.newClientResource("/related?skip=0&limit=1");
+        final ClientResource resource = restlet.newClientResource("/json/related?skip=0&limit=1");
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 
@@ -59,7 +59,7 @@ public class TestsRelatedResource {
         final WebPage from = TestFactories.subjects().newWebPage();
         TestFactories.relations().newRelations(5, from);
         TestFactories.relations().newRelations(20);
-        final ClientResource resource = restlet.newClientResource("/related?fromId=" + from.getId());
+        final ClientResource resource = restlet.newClientResource("/json/related?fromId=" + from.getId());
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 
@@ -72,7 +72,7 @@ public class TestsRelatedResource {
     @Test
     public void canGetRelationsWithSkip() throws IOException, JSONException {
         TestFactories.relations().newRelations(5);
-        final ClientResource resource = restlet.newClientResource("/related?skip=2");
+        final ClientResource resource = restlet.newClientResource("/json/related?skip=2");
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 
@@ -85,7 +85,7 @@ public class TestsRelatedResource {
     @Test
     public void canGetRelationsWithLimit() throws IOException, JSONException {
         TestFactories.relations().newRelations(5);
-        final ClientResource resource = restlet.newClientResource("/related?limit=2");
+        final ClientResource resource = restlet.newClientResource("/json/related?limit=2");
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 
@@ -98,7 +98,7 @@ public class TestsRelatedResource {
     @Test
     public void defaultLimitIs100() throws IOException, JSONException {
         TestFactories.relations().newRelations(150);
-        final ClientResource resource = restlet.newClientResource("/related");
+        final ClientResource resource = restlet.newClientResource("/json/related");
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
 

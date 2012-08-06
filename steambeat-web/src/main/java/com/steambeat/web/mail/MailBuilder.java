@@ -1,8 +1,9 @@
 package com.steambeat.web.mail;
 
-
+import com.google.common.eventbus.*;
 import com.google.inject.Inject;
-import com.steambeat.domain.user.User;
+import com.steambeat.domain.eventbus.DomainEventBus;
+import com.steambeat.domain.user.*;
 import com.steambeat.web.ReferenceBuilder;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.Context;
@@ -17,6 +18,13 @@ public class MailBuilder {
     @Inject
     public MailBuilder(final MailSender mailSender) {
         this.mailSender = mailSender;
+        DomainEventBus.INSTANCE.register(this);
+    }
+
+    @Subscribe
+    @AllowConcurrentEvents
+    public void handle(final UserCreatedEvent event) {
+        sendValidationTo(event.getUser());
     }
 
     public MimeMessage sendValidationTo(final User user) {
@@ -50,10 +58,10 @@ public class MailBuilder {
     }
 
     private void setContent(final MimeMessage mimeMessage) {
-        final SteambeatTemplateRepresentation content = SteambeatTemplateRepresentation.createNew("mail/welcome.ftl", context)
-                .with("name", user.getFullname())
-                .with("activation_link", new ReferenceBuilder(context).buildUri("/activation/" + user.getSecret()));
         try {
+            final SteambeatTemplateRepresentation content = SteambeatTemplateRepresentation.createNew("mail/welcome.ftl", context)
+                    .with("name", user.getFullname())
+                    .with("activation_link", new ReferenceBuilder(context).buildUri("/activation/" + user.getSecret()));
             mimeMessage.setText(content.getText());
         } catch (MessagingException e) {
             e.printStackTrace();

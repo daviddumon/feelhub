@@ -2,8 +2,7 @@ package com.steambeat.web.resources.authentification;
 
 import com.google.inject.Inject;
 import com.steambeat.application.*;
-import com.steambeat.domain.user.*;
-import com.steambeat.web.mail.MailBuilder;
+import com.steambeat.domain.user.BadEmail;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.data.*;
 import org.restlet.representation.Representation;
@@ -12,9 +11,8 @@ import org.restlet.resource.*;
 public class SignupResource extends ServerResource {
 
     @Inject
-    public SignupResource(final UserService userService, final MailBuilder mailBuilder) {
+    public SignupResource(final UserService userService) {
         this.userService = userService;
-        this.mailBuilder = mailBuilder;
     }
 
     @Get
@@ -30,9 +28,7 @@ public class SignupResource extends ServerResource {
             final String fullname = form.getFirstValue("fullname");
             final String language = form.getFirstValue("language");
             try {
-                final User user = userService.createUser(email, password, fullname, language);
-                mailBuilder.setContext(getContext());
-                mailBuilder.sendValidationTo(user);
+                userService.createUser(email, password, fullname, language);
                 setStatus(Status.SUCCESS_CREATED);
             } catch (EmailAlreadyUsed emailAlreadyUsed) {
                 setStatus(Status.CLIENT_ERROR_CONFLICT);
@@ -52,5 +48,4 @@ public class SignupResource extends ServerResource {
     }
 
     private UserService userService;
-    private MailBuilder mailBuilder;
 }

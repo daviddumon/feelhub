@@ -1,6 +1,6 @@
 package com.steambeat.domain.statistics;
 
-import com.steambeat.domain.DomainEventBus;
+import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.repositories.Repositories;

@@ -1,6 +1,6 @@
 package com.steambeat.application;
 
-import com.steambeat.domain.user.User;
+import com.steambeat.domain.user.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
@@ -21,7 +21,7 @@ public class TestsUserService {
 
     @Before
     public void before() {
-        userService = new UserService();
+        userService = new UserService(new UserFactory());
     }
 
     @Test

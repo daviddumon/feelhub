@@ -1,17 +1,13 @@
-package com.steambeat.domain.opinion;
+package com.steambeat.domain.user;
 
 import com.steambeat.domain.eventbus.DomainEvent;
 import org.joda.time.DateTime;
 
-public class OpinionPostedEvent implements DomainEvent {
+public class UserCreatedEvent implements DomainEvent {
 
-    public OpinionPostedEvent(final Opinion opinion) {
-        this.opinion = opinion;
+    public UserCreatedEvent(final User user) {
         this.date = new DateTime();
-    }
-
-    public Opinion getOpinion() {
-        return opinion;
+        this.user = user;
     }
 
     @Override
@@ -24,12 +20,16 @@ public class OpinionPostedEvent implements DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("Opinion ");
-        stringBuilder.append(opinion.getId());
+        stringBuilder.append("User ");
+        stringBuilder.append(user.toString());
         stringBuilder.append(" created");
         return stringBuilder.toString();
     }
 
-    private final Opinion opinion;
-    private final DateTime date;
+    public User getUser() {
+        return user;
+    }
+
+    private User user;
+    private DateTime date;
 }

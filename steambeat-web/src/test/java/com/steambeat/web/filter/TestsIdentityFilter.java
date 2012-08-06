@@ -1,6 +1,7 @@
 package com.steambeat.web.filter;
 
 import com.steambeat.application.UserService;
+import com.steambeat.domain.user.UserFactory;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.WebApplicationTester;
@@ -24,7 +25,7 @@ public class TestsIdentityFilter {
     public void before() {
         request = new Request();
         TestFactories.users().createUser("mail@mail.com", "full name");
-        identityFilter = new IdentityFilter(new UserService());
+        identityFilter = new IdentityFilter(new UserService(new UserFactory()));
         identityFilter.setContext(restlet.getApplication().getContext());
     }
 

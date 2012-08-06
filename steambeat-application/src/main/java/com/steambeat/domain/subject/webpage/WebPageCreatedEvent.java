@@ -1,6 +1,6 @@
 package com.steambeat.domain.subject.webpage;
 
-import com.steambeat.domain.DomainEvent;
+import com.steambeat.domain.eventbus.DomainEvent;
 import org.joda.time.DateTime;
 
 public class WebPageCreatedEvent implements DomainEvent {
@@ -12,6 +12,18 @@ public class WebPageCreatedEvent implements DomainEvent {
     @Override
     public DateTime getDate() {
         return date;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(date.toString());
+        stringBuilder.append(" - ");
+        stringBuilder.append("Webpage ");
+        stringBuilder.append(webPage.getDescription());
+        stringBuilder.append(" created. ");
+        stringBuilder.append("<a href='/webpages/" + webPage.getId() + "'>link</a>");
+        return stringBuilder.toString();
     }
 
     public WebPage getWebPage() {

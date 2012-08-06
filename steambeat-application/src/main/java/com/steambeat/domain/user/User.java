@@ -31,6 +31,19 @@ public class User extends BaseEntity {
         return email;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
+        stringBuilder.append(email);
+        stringBuilder.append(" - ");
+        stringBuilder.append(fullname);
+        stringBuilder.append(" - ");
+        stringBuilder.append(language);
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
     public void setPassword(final String password) {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }

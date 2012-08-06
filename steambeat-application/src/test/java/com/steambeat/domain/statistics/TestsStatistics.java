@@ -1,8 +1,8 @@
 package com.steambeat.domain.statistics;
 
+import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.WithDomainEvent;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import org.joda.time.DateTime;

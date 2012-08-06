@@ -1,4 +1,4 @@
-package com.steambeat.domain;
+package com.steambeat.domain.eventbus;
 
 import org.joda.time.DateTime;
 
