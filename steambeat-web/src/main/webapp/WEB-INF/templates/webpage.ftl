@@ -44,7 +44,7 @@
 
     <div class="panel_box">
         <div id="webpageRoot"><span onclick="javascript:window.open('${webPage.uri}');" style="cursor: pointer">${webPage.description!"no description"}</span></div>
-        <#--<div id="illustration"><img <#if ''?matches('${webPage.illustration}')> style='display: none;' <#else> src="${webPage.illustration}" </#if> /></div>-->
+        <div id="illustration"><img <#if ''?matches('${webPage.illustration}')> style='display: none;' <#else> src="${webPage.illustration}" </#if> /></div>
     </div>
     <div id="related_list" class="panel_box">
         <span>related</span>

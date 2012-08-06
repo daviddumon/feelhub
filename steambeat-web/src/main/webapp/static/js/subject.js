@@ -7,7 +7,7 @@ $(function () {
 });
 
 function loadCounters() {
-    $.getJSON(root + "/statistics?granularity=all&start=0&end=" + new Date().getTime() + "&subjectId=" + subjectId, function (data) {
+    $.getJSON(root + "/json/statistics?granularity=all&start=0&end=" + new Date().getTime() + "&subjectId=" + subjectId, function (data) {
         $.each(data, function (index, stat) {
             $("#counter_good").text(stat.good);
             $("#counter_bad").text(stat.bad);
@@ -17,7 +17,7 @@ function loadCounters() {
 
 function loadRelated() {
     $("#related_list").empty();
-    $.getJSON(root + "/related?&fromId=" + subjectId + "&limit=10", function (data) {
+    $.getJSON(root + "/json/related?&fromId=" + subjectId + "&limit=10", function (data) {
         $.each(data, function (index, subject) {
             $("#related_list").append(ich.related(subject));
         });
