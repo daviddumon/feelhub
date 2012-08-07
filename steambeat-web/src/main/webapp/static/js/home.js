@@ -6,7 +6,7 @@ $(function () {
 });
 
 function loadCounters() {
-    $.getJSON(root + "/statistics?granularity=all&start=0&end=" + new Date().getTime() + "&subjectId=" + steamId, function(data) {
+    $.getJSON(root + "/json/statistics?granularity=all&start=0&end=" + new Date().getTime() + "&subjectId=" + steamId, function(data) {
         $.each(data, function(index, stat) {
             $("#counter_good").text(stat.good);
             $("#counter_bad").text(stat.bad);

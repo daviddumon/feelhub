@@ -26,8 +26,8 @@ public class SteambeatRouter extends Router {
         attach("/json/opinions", OpinionsResource.class);
         attach("/json/related", RelatedResource.class);
 
-        attachUri("/topic/{language}/{keyword}", KeywordResource.class);
-        attachUri("/topic/{keyword}", KeywordResource.class);
+        attachUriForKeywordAndLanguage();
+        attachUriForKeyword();
 
         attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
         attach("/admin/events", AdminEventsResource.class);
@@ -45,8 +45,15 @@ public class SteambeatRouter extends Router {
         attach("/", HomeResource.class);
     }
 
-    private void attachUri(final String pathTemplate, final Class<KeywordResource> targetClass) {
-        final TemplateRoute route = attach(pathTemplate, targetClass);
+    private void attachUriForKeywordAndLanguage() {
+        final TemplateRoute route = attach("/topic/{language}/{keyword}", KeywordResource.class);
+        final Map<String, Variable> variables = route.getTemplate().getVariables();
+        variables.put("keyword", new Variable(Variable.TYPE_URI_ALL, "", true, false, true, true));
+        variables.put("language", new Variable(Variable.TYPE_ALPHA, "", true, false, true, true));
+    }
+
+    private void attachUriForKeyword() {
+        final TemplateRoute route = attach("/topic/{keyword}", KeywordResource.class);
         final Map<String, Variable> variables = route.getTemplate().getVariables();
         variables.put("keyword", new Variable(Variable.TYPE_URI_ALL, "", true, false, true, true));
     }
