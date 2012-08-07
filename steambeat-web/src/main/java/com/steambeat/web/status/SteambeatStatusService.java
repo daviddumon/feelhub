@@ -1,10 +1,8 @@
 package com.steambeat.web.status;
 
 import com.google.common.collect.Maps;
-import com.steambeat.application.*;
+import com.steambeat.application.OpinionCreationException;
 import com.steambeat.domain.association.uri.UriPathResolverException;
-import com.steambeat.domain.subject.webpage.*;
-import com.steambeat.web.resources.BookmarkletBadVersion;
 import com.steambeat.web.resources.json.SteambeatJsonException;
 import org.restlet.*;
 import org.restlet.data.Status;
@@ -16,15 +14,9 @@ import java.util.Map;
 public class SteambeatStatusService extends StatusService {
 
     public SteambeatStatusService() {
-        resolvers.put(WebPageException.class, new ExceptionResolver400());
         resolvers.put(UriPathResolverException.class, new ExceptionResolver400());
-        resolvers.put(WebPageAlreadyExistsException.class, new ExceptionResolver400());
         resolvers.put(SteambeatJsonException.class, new JsonExceptionResolver());
-        resolvers.put(WebPageNotYetCreatedException.class, new ExceptionResolver404());
-        resolvers.put(ConceptNotYetCreatedException.class, new ExceptionResolver404());
         resolvers.put(OpinionCreationException.class, new ExceptionResolver400());
-        resolvers.put(AssociationNotFound.class, new ExceptionResolver404());
-        resolvers.put(BookmarkletBadVersion.class, new BookmarkletBadVersionResolver());
     }
 
     @Override

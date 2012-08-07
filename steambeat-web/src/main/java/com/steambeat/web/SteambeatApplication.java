@@ -2,7 +2,6 @@ package com.steambeat.web;
 
 import com.google.inject.*;
 import com.steambeat.web.filter.*;
-import com.steambeat.web.guice.SteambeatModule;
 import com.steambeat.web.launch.LaunchRouter;
 import com.steambeat.web.mail.MailBuilder;
 import com.steambeat.web.migration.MigrationRunner;
@@ -23,6 +22,10 @@ public class SteambeatApplication extends Application {
     public SteambeatApplication(final Context context) {
         super(context);
         setStatusService(new SteambeatStatusService());
+    }
+
+    public void initializeGuice(final Module module) {
+        injector = Guice.createInjector(module);
     }
 
     @Override
@@ -77,10 +80,6 @@ public class SteambeatApplication extends Application {
         getContext().getAttributes().put("com.steambeat.ready", new Boolean(steambeatWebProperties.getReadyState()));
     }
 
-    public void setModule(final Module module) {
-        injector = Guice.createInjector(module);
-    }
-
     @Override
     public Restlet createInboundRoot() {
         final Router router = new Router(getContext());
@@ -121,5 +120,5 @@ public class SteambeatApplication extends Application {
     }
 
     private SteambeatWebProperties steambeatWebProperties;
-    private Injector injector = Guice.createInjector(new SteambeatModule());
+    private Injector injector;
 }

@@ -5,8 +5,10 @@ import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.association.uri.UriPathResolver;
 import com.steambeat.domain.bingsearch.BingLink;
+import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.webpage.WebPageFactory;
+import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.domain.translation.MicrosoftTranslator;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
@@ -22,7 +24,9 @@ import com.steambeat.web.test.FakeMigrationRunner;
 import com.steambeat.web.test.fakeSearches.*;
 import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 
-public class SteambeatModuleForTest extends AbstractModule {
+import static org.mockito.Mockito.*;
+
+public class TestGuiceModule extends AbstractModule {
 
     @Override
     protected void configure() {
@@ -42,7 +46,15 @@ public class SteambeatModuleForTest extends AbstractModule {
         bind(MicrosoftTranslator.class).to(FakeMicrosoftTranslator.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
-        bind(MailSender.class).to(FakeMailSender.class);
+        bind(MailBuilder.class).toInstance(new MailBuilder(new FakeMailSender()));
+    }
+
+    @Provides
+    public KeywordService keywordService() {
+        keywordService = mock(KeywordService.class);
+        final Language en = Language.forString("en");
+        when(keywordService.lookUp("cool", en)).thenReturn(new Keyword("cool", en));
+        return keywordService;
     }
 
     @Provides
@@ -57,5 +69,10 @@ public class SteambeatModuleForTest extends AbstractModule {
         this.steambeatSitemapModuleLink = steambeatSitemapModuleLink;
     }
 
+    public KeywordService getKeywordService() {
+        return keywordService;
+    }
+
     private SteambeatSitemapModuleLink steambeatSitemapModuleLink;
+    private KeywordService keywordService;
 }

@@ -13,7 +13,7 @@ import com.steambeat.domain.translation.MicrosoftTranslator;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.web.mail.*;
 
-public class SteambeatModule extends AbstractModule {
+public class ProductionGuiceModule extends AbstractModule {
 
     @Override
     protected void configure() {

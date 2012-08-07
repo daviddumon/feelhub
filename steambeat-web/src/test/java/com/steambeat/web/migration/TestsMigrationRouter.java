@@ -3,7 +3,7 @@ package com.steambeat.web.migration;
 import com.google.inject.*;
 import com.steambeat.web.guice.GuiceFinder;
 import com.steambeat.web.migration.web.MigrationRouter;
-import com.steambeat.web.test.guice.SteambeatModuleForTest;
+import com.steambeat.web.test.guice.TestGuiceModule;
 import org.junit.Test;
 import org.restlet.*;
 import org.restlet.data.Method;
@@ -16,7 +16,7 @@ public class TestsMigrationRouter {
 
     @Test
     public void useGuiceToCreateResource() {
-        final Injector injector = Guice.createInjector(new SteambeatModuleForTest());
+        final Injector injector = Guice.createInjector(new TestGuiceModule());
         final MigrationRouter router = new MigrationRouter(new Context(), injector);
         final Request request = new Request(Method.GET, "/");
 

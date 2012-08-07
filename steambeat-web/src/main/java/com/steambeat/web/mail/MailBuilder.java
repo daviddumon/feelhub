@@ -28,10 +28,9 @@ public class MailBuilder {
     }
 
     public MimeMessage sendValidationTo(final User user) {
-        this.user = user;
         try {
             final Session mailSession = getMailSession();
-            final MimeMessage mimeMessage = getValidationMessage(mailSession);
+            final MimeMessage mimeMessage = getValidationMessage(mailSession, user);
             mailSender.send(mimeMessage);
             return mimeMessage;
         } catch (Exception e) {
@@ -44,12 +43,12 @@ public class MailBuilder {
         return Session.getDefaultInstance(mailProperties, new CustomAuthenticator());
     }
 
-    private MimeMessage getValidationMessage(final Session mailSession) {
+    private MimeMessage getValidationMessage(final Session mailSession, final User user) {
         final MimeMessage mimeMessage = new MimeMessage(mailSession);
         try {
             mimeMessage.setFrom(new InternetAddress("register@steambeat.com"));
             mimeMessage.setSubject("Welcome to Steambeat !");
-            setContent(mimeMessage);
+            setContent(mimeMessage, user);
             mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
         } catch (MessagingException e) {
             throw new EmailException();
@@ -57,7 +56,7 @@ public class MailBuilder {
         return mimeMessage;
     }
 
-    private void setContent(final MimeMessage mimeMessage) {
+    private void setContent(final MimeMessage mimeMessage, final User user) {
         try {
             final SteambeatTemplateRepresentation content = SteambeatTemplateRepresentation.createNew("mail/welcome.ftl", context)
                     .with("name", user.getFullname())
@@ -87,6 +86,5 @@ public class MailBuilder {
     }
 
     private MailSender mailSender;
-    private User user;
     private Context context;
 }

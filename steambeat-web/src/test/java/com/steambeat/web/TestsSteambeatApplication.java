@@ -1,9 +1,7 @@
 package com.steambeat.web;
 
-import com.google.inject.AbstractModule;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.web.resources.WebPageResource;
-import com.steambeat.web.test.guice.SteambeatModuleForTest;
+import com.steambeat.web.test.guice.TestGuiceModule;
 import freemarker.template.Configuration;
 import org.junit.*;
 import org.restlet.Context;
@@ -24,7 +22,7 @@ public class TestsSteambeatApplication {
     public void canInitFeemarker() throws Exception {
         final Context context = createContext();
         final SteambeatApplication application = new SteambeatApplication(context);
-        application.setModule(new SteambeatModuleForTest());
+        application.initializeGuice(new TestGuiceModule());
 
         application.start();
 
@@ -38,19 +36,5 @@ public class TestsSteambeatApplication {
         final ServletContext servletContext = mock(ServletContext.class);
         context.getAttributes().put("org.restlet.ext.servlet.ServletContext", servletContext);
         return context;
-    }
-
-    private class TestModule extends AbstractModule {
-        @Override
-        protected void configure() {
-            bind(WebPageResource.class).to(StubWebPageResource.class);
-        }
-    }
-
-    public static class StubWebPageResource extends WebPageResource {
-
-        public StubWebPageResource() {
-            super(null);
-        }
     }
 }

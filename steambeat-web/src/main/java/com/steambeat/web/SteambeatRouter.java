@@ -8,7 +8,9 @@ import com.steambeat.web.resources.authentification.*;
 import com.steambeat.web.resources.json.*;
 import org.restlet.Context;
 import org.restlet.resource.Finder;
-import org.restlet.routing.Router;
+import org.restlet.routing.*;
+
+import java.util.Map;
 
 public class SteambeatRouter extends Router {
 
@@ -24,15 +26,11 @@ public class SteambeatRouter extends Router {
         attach("/json/opinions", OpinionsResource.class);
         attach("/json/related", RelatedResource.class);
 
-        attach("/webpages/{id}", WebPageResource.class);
-        attach("/concepts/{id}", ConceptResource.class);
-        attach("/webpages", WebPagesResource.class);
-        attach("/association", AssociationResource.class);
-        attach("/bookmarklet", BookmarkletResource.class);
+        attachUri("/topic/{language}/{keyword}", KeywordResource.class);
+        attachUri("/topic/{keyword}", KeywordResource.class);
 
         attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
         attach("/admin/events", AdminEventsResource.class);
-
 
         attach("/signup", SignupResource.class);
         attach("/sessions", SessionsResource.class);
@@ -43,7 +41,14 @@ public class SteambeatRouter extends Router {
 
         attach("/sitemap_index_{number}.xml", SteambeatSitemapIndexResource.class);
         attach("/sitemap_{number}.xml", SteambeatSitemapResource.class);
+
         attach("/", HomeResource.class);
+    }
+
+    private void attachUri(final String pathTemplate, final Class<KeywordResource> targetClass) {
+        final TemplateRoute route = attach(pathTemplate, targetClass);
+        final Map<String, Variable> variables = route.getTemplate().getVariables();
+        variables.put("keyword", new Variable(Variable.TYPE_URI_ALL, "", true, false, true, true));
     }
 
     @Override

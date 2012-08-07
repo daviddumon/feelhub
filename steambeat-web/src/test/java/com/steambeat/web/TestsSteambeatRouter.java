@@ -2,7 +2,7 @@ package com.steambeat.web;
 
 import com.google.inject.*;
 import com.steambeat.web.guice.GuiceFinder;
-import com.steambeat.web.test.guice.SteambeatModuleForTest;
+import com.steambeat.web.test.guice.TestGuiceModule;
 import org.junit.Test;
 import org.restlet.*;
 import org.restlet.data.Method;
@@ -15,7 +15,7 @@ public class TestsSteambeatRouter {
 
     @Test
     public void useGuiceToCreateResource() {
-        final Injector injector = Guice.createInjector(new SteambeatModuleForTest());
+        final Injector injector = Guice.createInjector(new TestGuiceModule());
         final SteambeatRouter router = new SteambeatRouter(new Context(), injector);
         final Request request = new Request(Method.GET, "/");
 

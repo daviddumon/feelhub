@@ -1,5 +1,6 @@
 package com.steambeat.web.resources.authentification;
 
+import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
@@ -18,13 +19,16 @@ public class TestsSignupResource {
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
+
     @Test
     public void canSignup() {
         final ClientResource signup = restlet.newClientResource("/signup");
         final Form parameters = new Form();
         final String email = "mail@mail.com";
-        parameters.add("fullname", "");
-        parameters.add("language", "");
+        parameters.add("fullname", "fullname");
+        parameters.add("language", "en");
         parameters.add("email", email);
         parameters.add("password", "password");
 

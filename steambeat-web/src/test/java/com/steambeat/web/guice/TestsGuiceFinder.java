@@ -10,7 +10,7 @@ import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
-import com.steambeat.web.resources.WebPageResource;
+import com.steambeat.web.resources.HomeResource;
 import org.junit.Test;
 import org.restlet.Context;
 import org.restlet.resource.ServerResource;
@@ -23,11 +23,11 @@ public class TestsGuiceFinder {
     @Test
     public void canRetrieveResource() {
         final Injector injector = Guice.createInjector(new TestModule());
-        final GuiceFinder finder = new GuiceFinder(new Context(), WebPageResource.class, injector);
+        final GuiceFinder finder = new GuiceFinder(new Context(), HomeResource.class, injector);
 
         final ServerResource serverResource = finder.create(null, null);
 
-        assertThat(serverResource, instanceOf(WebPageResource.class));
+        assertThat(serverResource, instanceOf(HomeResource.class));
     }
 
     private class TestModule extends AbstractModule {

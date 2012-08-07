@@ -1,12 +1,12 @@
 package com.steambeat.web.resources.json;
 
+import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.Concept;
 import com.steambeat.domain.subject.steam.Steam;
 import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
