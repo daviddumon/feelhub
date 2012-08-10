@@ -1,7 +1,7 @@
 package com.steambeat.web.search;
 
 import com.steambeat.domain.opinion.Opinion;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.repositories.SessionProvider;
 import org.mongolink.domain.criteria.*;
 
@@ -39,8 +39,8 @@ public class OpinionSearch implements Search<Opinion> {
         return this;
     }
 
-    public OpinionSearch withSubject(final Subject subject) {
-        criteria.add(Restrictions.equals("judgments.subjectId", subject.getId()));
+    public OpinionSearch withTopic(final Topic topic) {
+        criteria.add(Restrictions.equals("judgments.topicId", topic.getId()));
         return this;
     }
 

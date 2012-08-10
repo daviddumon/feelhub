@@ -6,9 +6,8 @@ import org.junit.*;
 
 import java.util.UUID;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNull.notNullValue;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class TestsTopic {
 
@@ -38,4 +37,25 @@ public class TestsTopic {
 
         assertThat(topic.getLastModificationDate(), is(time.getNow()));
     }
+
+    //@Test
+    //    public void cannotCreateAWebPageTwice() {
+    //        final WebPage webPage = TestFactories.subjects().newWebPage();
+    //
+    //        expectedException.expect(WebPageAlreadyExistsException.class);
+    //        webPageFactory.newWebPage(new Association(new Uri("http://lemonde.fr/international"), webPage.getId()));
+    //    }
+    //
+    //    @Test
+    //    public void canSpreadEvent() {
+    //        bus.capture(WebPageCreatedEvent.class);
+    //        final Association association = TestFactories.associations().newAssociation(new Uri("http://www.steambeat.com"));
+    //
+    //        final WebPage webPage = webPageFactory.newWebPage(association);
+    //
+    //        final WebPageCreatedEvent lastEvent = bus.lastEvent(WebPageCreatedEvent.class);
+    //        assertThat(lastEvent, notNullValue());
+    //        assertThat(lastEvent.getWebPage(), is(webPage));
+    //        assertThat(lastEvent.getDate(), is(time.getNow()));
+    //    }
 }

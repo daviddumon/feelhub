@@ -4,8 +4,8 @@ import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.test.FakeInternet;
 import org.junit.*;
 
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.core.Is.*;
 
 public class TestsCSSMiner {
 

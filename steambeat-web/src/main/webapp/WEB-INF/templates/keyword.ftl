@@ -21,7 +21,7 @@
 <script type="text/javascript" src="${root}/static/js/lib/flow.js?${buildtime}"></script>
 <#--<script type="text/javascript" src="${root}/static/js/keyword.js?${buildtime}"></script>-->
 <script type="text/javascript">
-    <#--var subjectId = "${webPage.getId()}";-->
+    <#--var topicId = "${webPage.getId()}";-->
 </script>
 </@layout.js>
 

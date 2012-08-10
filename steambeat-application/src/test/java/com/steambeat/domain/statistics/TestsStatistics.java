@@ -1,15 +1,14 @@
 package com.steambeat.domain.statistics;
 
 import com.steambeat.domain.eventbus.WithDomainEvent;
-import com.steambeat.domain.subject.Subject;
-import com.steambeat.repositories.Repositories;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.joda.time.DateTime;
 import org.junit.*;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class TestsStatistics {
 
@@ -21,11 +20,10 @@ public class TestsStatistics {
 
     @Test
     public void canCreateFromSubject() {
-        final Subject subject = TestFactories.subjects().newWebPage();
-        Repositories.subjects().add(subject);
+        final Topic topic = TestFactories.topics().newTopic();
 
-        final Statistics statistics = new Statistics(subject, Granularity.hour, new DateTime());
+        final Statistics statistics = new Statistics(topic, Granularity.hour, new DateTime());
 
-        assertThat(statistics.getSubjectId(), is(subject.getId()));
+        assertThat(statistics.getTopicId(), is(topic.getId()));
     }
 }

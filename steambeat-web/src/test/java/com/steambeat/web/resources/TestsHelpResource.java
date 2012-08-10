@@ -4,8 +4,8 @@ import com.steambeat.web.*;
 import org.junit.*;
 import org.restlet.data.Status;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsHelpResource {
 
@@ -13,7 +13,7 @@ public class TestsHelpResource {
     public WebApplicationTester restlet = new WebApplicationTester();
 
     @Test
-    public void isMapped() {
+    public void helpResourceIsMapped() {
         final ClientResource help = restlet.newClientResource("/help");
 
         help.get();

@@ -1,8 +1,8 @@
 package com.steambeat.web.mail;
 
 import com.steambeat.domain.user.User;
+import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.WebApplicationTester;
 import org.junit.*;
 
@@ -10,8 +10,8 @@ import javax.mail.*;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 public class TestsMailBuilder {

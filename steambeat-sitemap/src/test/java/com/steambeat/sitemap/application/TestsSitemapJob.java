@@ -4,7 +4,7 @@ import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.sitemap.domain.*;
 import com.steambeat.sitemap.test.WithFakeData;
 import com.steambeat.test.SystemTime;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 import org.quartz.JobExecutionException;
 

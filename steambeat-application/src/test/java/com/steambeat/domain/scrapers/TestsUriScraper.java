@@ -5,7 +5,7 @@ import com.steambeat.test.FakeInternet;
 import org.junit.*;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class TestsUriScraper {
 

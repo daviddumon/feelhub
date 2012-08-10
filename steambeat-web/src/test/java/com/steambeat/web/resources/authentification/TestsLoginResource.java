@@ -5,8 +5,8 @@ import com.steambeat.web.*;
 import org.junit.*;
 import org.restlet.data.Status;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsLoginResource {
 
@@ -17,7 +17,7 @@ public class TestsLoginResource {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void isMapped() {
+    public void loginResourceIsMapped() {
         final ClientResource login = restlet.newClientResource("/login");
 
         login.get();

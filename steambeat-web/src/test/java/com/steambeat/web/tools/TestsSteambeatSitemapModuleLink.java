@@ -6,9 +6,8 @@ import org.junit.*;
 
 import java.io.InputStream;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 public class TestsSteambeatSitemapModuleLink {
 

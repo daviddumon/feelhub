@@ -1,7 +1,7 @@
 package com.steambeat.domain.relation;
 
 import com.steambeat.domain.BaseEntity;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.repositories.Repositories;
 import org.joda.time.DateTime;
 
@@ -13,7 +13,7 @@ public class Relation extends BaseEntity {
     public Relation() {
     }
 
-    public Relation(final Subject from, final Subject to, final double weight) {
+    public Relation(final Topic from, final Topic to, final double weight) {
         this.id = UUID.randomUUID();
         fromId = from.getId();
         toId = to.getId();
@@ -26,12 +26,12 @@ public class Relation extends BaseEntity {
         return id;
     }
 
-    public Subject getLeft() {
-        return Repositories.subjects().get(fromId);
+    public Topic getLeft() {
+        return Repositories.topics().get(fromId);
     }
 
-    public Subject getRight() {
-        return Repositories.subjects().get(toId);
+    public Topic getRight() {
+        return Repositories.topics().get(toId);
     }
 
     public UUID getFromId() {

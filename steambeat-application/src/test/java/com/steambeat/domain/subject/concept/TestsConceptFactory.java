@@ -3,11 +3,11 @@ package com.steambeat.domain.subject.concept;
 import com.steambeat.domain.alchemy.NamedEntity;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.test.FakeBingLink;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class TestsConceptFactory {
 
@@ -22,10 +22,7 @@ public class TestsConceptFactory {
 
         final Concept concept = conceptFactory.newConcept(entity);
 
-        assertThat(concept.getId(), is(entity.conceptId));
         assertThat(concept.getType(), is(entity.type));
-        assertThat(concept.getShortDescription(), is(entity.name));
-        assertThat(concept.getDescription(), is(entity.name));
         assertThat(concept.getSubTypes().size(), is(3));
         assertThat(concept.getSubTypes().get(0), is("subtype1"));
         assertThat(concept.getWebsite(), is(new Uri(entity.website).toString()));

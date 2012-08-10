@@ -1,8 +1,6 @@
 package com.steambeat.sitemap.application;
 
-import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.subject.concept.Concept;
-import com.steambeat.domain.subject.webpage.WebPage;
 import com.steambeat.sitemap.domain.*;
 import com.steambeat.sitemap.tools.SitemapProperties;
 import org.apache.log4j.Logger;

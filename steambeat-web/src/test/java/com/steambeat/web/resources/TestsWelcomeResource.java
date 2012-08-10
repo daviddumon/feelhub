@@ -5,7 +5,7 @@ import org.junit.*;
 import org.restlet.data.Status;
 
 import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.core.Is.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsWelcomeResource {
 
@@ -13,7 +13,7 @@ public class TestsWelcomeResource {
     public WebApplicationTester restlet = new WebApplicationTester();
 
     @Test
-    public void isMapped() {
+    public void welcomeResourceIsMapped() {
         final ClientResource welcome = restlet.newClientResource("/welcome");
 
         welcome.get();

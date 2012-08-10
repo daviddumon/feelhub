@@ -1,12 +1,17 @@
 package com.steambeat.domain.keyword;
 
 import com.steambeat.domain.thesaurus.Language;
-import org.junit.Test;
+import com.steambeat.test.SystemTime;
+import org.junit.*;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.junit.Assert.assertNotNull;
 
 public class TestsKeywordFactory {
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Test
     public void canCreateAKeyword() {
@@ -19,10 +24,9 @@ public class TestsKeywordFactory {
         assertNotNull(keyword);
         assertThat(keyword.getValue(), is(value));
         assertThat(keyword.getLanguage(), is(language));
-    }
-
-    @Test
-    public void keywordHasATopic() {
-
+        assertThat(keyword.getId(), notNullValue());
+        assertThat(keyword.getTopic(), notNullValue());
+        assertThat(keyword.getCreationDate(), is(time.getNow()));
+        assertThat(keyword.getLastModificationDate(), is(time.getNow()));
     }
 }

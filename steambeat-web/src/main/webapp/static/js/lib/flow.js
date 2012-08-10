@@ -47,7 +47,7 @@ Flow.prototype.drawData = function () {
     }
 
     function loadData() {
-        var subjectParameter = (typeof subjectId === 'undefined') ? "" : ("&subjectId=" + encodeURIComponent(subjectId));
+        var subjectParameter = (typeof subjectId === 'undefined') ? "" : ("&topicId=" + encodeURIComponent(subjectId));
         $.getJSON(root + "/json/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + subjectParameter, function (data) {
             $.each(data, function (index, opinion) {
                 THIS.drawBox(opinion, "opinion");

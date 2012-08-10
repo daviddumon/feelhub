@@ -1,10 +1,9 @@
 package com.steambeat.web.search;
 
 import com.steambeat.domain.relation.Relation;
-import com.steambeat.domain.subject.concept.Concept;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.repositories.TestWithMongoRepository;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 
 import java.util.List;
@@ -21,8 +20,8 @@ public class TestsRelationSearch extends TestWithMongoRepository {
 
     @Test
     public void canGetARelation() {
-        final WebPage from = TestFactories.subjects().newWebPage();
-        final Concept to = TestFactories.subjects().newConcept();
+        final Topic from = TestFactories.topics().newTopic();
+        final Topic to = TestFactories.topics().newTopic();
         TestFactories.relations().newRelation(from, to);
 
         final List<Relation> relations = relationSearch.execute();
@@ -32,8 +31,8 @@ public class TestsRelationSearch extends TestWithMongoRepository {
 
     @Test
     public void canGetARelationForASubject() {
-        final WebPage from = TestFactories.subjects().newWebPage();
-        final Concept to = TestFactories.subjects().newConcept();
+        final Topic from = TestFactories.topics().newTopic();
+        final Topic to = TestFactories.topics().newTopic();
         TestFactories.relations().newRelation(from, to);
         TestFactories.relations().newRelations(10);
 
@@ -46,7 +45,7 @@ public class TestsRelationSearch extends TestWithMongoRepository {
 
     @Test
     public void canGetRelationsForASubject() {
-        final WebPage from = TestFactories.subjects().newWebPage();
+        final Topic from = TestFactories.topics().newTopic();
         TestFactories.relations().newRelations(10, from);
         TestFactories.relations().newRelations(20);
 
@@ -57,7 +56,7 @@ public class TestsRelationSearch extends TestWithMongoRepository {
 
     @Test
     public void canLimitResults() {
-        final WebPage from = TestFactories.subjects().newWebPage();
+        final Topic from = TestFactories.topics().newTopic();
         TestFactories.relations().newRelations(10, from);
         TestFactories.relations().newRelations(20);
 
@@ -69,7 +68,7 @@ public class TestsRelationSearch extends TestWithMongoRepository {
     @Test
     @Ignore
     public void canOrderWithWeight() {
-        final WebPage from = TestFactories.subjects().newWebPage();
+        final Topic from = TestFactories.topics().newTopic();
         TestFactories.relations().newRelations(5, from);
 
         final List<Relation> relations = relationSearch.withSort("weight", Search.REVERSE_ORDER).execute();
@@ -84,7 +83,7 @@ public class TestsRelationSearch extends TestWithMongoRepository {
 
     @Test
     public void canSkipResults() {
-        final WebPage from = TestFactories.subjects().newWebPage();
+        final Topic from = TestFactories.topics().newTopic();
         TestFactories.relations().newRelations(5, from);
 
         final List<Relation> relations = relationSearch.withSkip(2).execute();

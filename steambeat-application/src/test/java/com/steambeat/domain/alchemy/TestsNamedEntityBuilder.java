@@ -7,7 +7,7 @@ import com.steambeat.domain.association.uri.UriPathResolver;
 import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.test.FakeMicrosoftTranslator;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 
 import java.util.UUID;

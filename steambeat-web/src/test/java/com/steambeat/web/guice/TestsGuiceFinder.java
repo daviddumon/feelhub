@@ -4,19 +4,17 @@ import com.google.inject.*;
 import com.steambeat.application.AssociationService;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.scrapers.UriScraper;
-import com.steambeat.domain.subject.webpage.WebPageFactory;
 import com.steambeat.domain.translation.MicrosoftTranslator;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
-import com.steambeat.test.fakeFactories.FakeWebPageFactory;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
 import com.steambeat.web.resources.HomeResource;
 import org.junit.Test;
 import org.restlet.Context;
 import org.restlet.resource.ServerResource;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsGuiceFinder {
 
@@ -34,7 +32,6 @@ public class TestsGuiceFinder {
         @Override
         protected void configure() {
             bind(SessionProvider.class).to(FakeSessionProvider.class);
-            bind(WebPageFactory.class).to(FakeWebPageFactory.class);
             bind(UriScraper.class).to(FakeUriScraper.class);
             bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new AssociationService(new FakeUriPathResolver(), new MicrosoftTranslator()))));
         }

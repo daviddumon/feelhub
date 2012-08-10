@@ -1,10 +1,9 @@
 package com.steambeat.domain.relation;
 
-import com.steambeat.domain.subject.concept.Concept;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 
 import java.util.List;
@@ -24,8 +23,8 @@ public class TestsRelationBuilder {
 
     @Test
     public void canConnectTwoSubjectWithNoPreviousConnection() {
-        final WebPage from = TestFactories.subjects().newWebPage();
-        final Concept to = TestFactories.subjects().newConcept();
+        final Topic from = TestFactories.topics().newTopic();
+        final Topic to = TestFactories.topics().newTopic();
 
         relationBuilder.connectTwoWays(from, to);
 
@@ -37,8 +36,8 @@ public class TestsRelationBuilder {
 
     @Test
     public void canConnectTwoSubjectWithAnExistingOneWayRelation() {
-        final WebPage from = TestFactories.subjects().newWebPage();
-        final Concept to = TestFactories.subjects().newConcept();
+        final Topic from = TestFactories.topics().newTopic();
+        final Topic to = TestFactories.topics().newTopic();
         TestFactories.relations().newRelation(from, to);
 
         relationBuilder.connectTwoWays(from, to);

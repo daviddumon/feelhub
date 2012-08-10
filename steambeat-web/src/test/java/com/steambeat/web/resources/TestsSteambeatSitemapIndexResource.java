@@ -9,8 +9,8 @@ import org.restlet.representation.Representation;
 
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 public class TestsSteambeatSitemapIndexResource {
@@ -25,7 +25,7 @@ public class TestsSteambeatSitemapIndexResource {
     }
 
     @Test
-    public void isMapped() {
+    public void steambeatSitemapIndexResourceIsMapped() {
         final ClientResource resource = restlet.newClientResource("/sitemap_index_00001.xml");
 
         final Representation representation = resource.get();

@@ -5,7 +5,7 @@ import com.steambeat.domain.association.*;
 import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.thesaurus.Language;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 
 import java.net.*;
@@ -33,7 +33,7 @@ public class TestsAssociationMongoRepository extends TestWithMongoRepository {
         final DBObject associationFound = getAssociationFromDB();
         assertThat(associationFound, notNullValue());
         assertThat(associationFound.get("identifier"), is((Object) identifier.toString()));
-        assertThat(UUID.fromString(associationFound.get("subjectId").toString()), is((Object) uuid));
+        assertThat(UUID.fromString(associationFound.get("topicId").toString()), is((Object) uuid));
         assertThat(associationFound.get("language"), is((Object) french.getCode()));
     }
 

@@ -2,9 +2,8 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.relation.*;
-import com.steambeat.domain.subject.concept.Concept;
-import com.steambeat.domain.subject.webpage.WebPage;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.domain.topic.Topic;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -19,8 +18,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() {
-        final WebPage left = TestFactories.subjects().newWebPage();
-        final WebPage right = TestFactories.subjects().newWebPage();
+        final Topic left = TestFactories.topics().newTopic();
+        final Topic right = TestFactories.topics().newTopic();
         final Relation relation = new Relation(left, right, 1.0);
 
         repo.add(relation);
@@ -39,8 +38,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGet() {
-        final WebPage left = TestFactories.subjects().newWebPage();
-        final WebPage right = TestFactories.subjects().newWebPage();
+        final Topic left = TestFactories.topics().newTopic();
+        final Topic right = TestFactories.topics().newTopic();
         final Relation relation = new Relation(left, right, 1.0);
         Repositories.relations().add(relation);
 
@@ -51,8 +50,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canLookupForFromAndTo() {
-        final WebPage from = TestFactories.subjects().newWebPage();
-        final Concept to = TestFactories.subjects().newConcept();
+        final Topic from = TestFactories.topics().newTopic();
+        final Topic to = TestFactories.topics().newTopic();
         final Relation relation = TestFactories.relations().newRelation(from, to);
 
         final Relation relationFound = repo.lookUp(from, to);

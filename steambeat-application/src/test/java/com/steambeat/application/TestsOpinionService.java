@@ -1,12 +1,11 @@
 package com.steambeat.application;
 
 import com.google.common.collect.Lists;
-import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.repositories.Repositories;
+import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -20,8 +19,8 @@ public class TestsOpinionService {
     @Test
     public void canAddOpinionAndJudgements() {
         final OpinionService service = new OpinionService();
-        final Subject subject = TestFactories.subjects().newWebPage();
-        final JudgmentDTO judgmentDTO = new JudgmentDTO(subject, Feeling.good);
+        final Topic topic = TestFactories.topics().newTopic();
+        final JudgmentDTO judgmentDTO = new JudgmentDTO(topic, Feeling.good);
 
         service.addOpinion("Le texte de l'opinion", Lists.newArrayList(judgmentDTO));
 
@@ -30,7 +29,7 @@ public class TestsOpinionService {
         assertThat(opinion.getText(), is("Le texte de l'opinion"));
         assertThat(opinion.getJudgments().size(), is(1));
         final Judgment judgment = opinion.getJudgments().get(0);
-        assertThat(judgment.getSubject(), is(subject));
+        assertThat(judgment.getTopic(), is(topic));
         assertThat(judgment.getFeeling(), is(Feeling.good));
     }
 }

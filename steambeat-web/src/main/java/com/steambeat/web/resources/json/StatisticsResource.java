@@ -2,9 +2,9 @@ package com.steambeat.web.resources.json;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.steambeat.application.SubjectService;
+import com.steambeat.application.TopicService;
 import com.steambeat.domain.statistics.*;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.StatisticsSearch;
 import org.joda.time.Interval;
@@ -18,8 +18,8 @@ import java.util.*;
 public class StatisticsResource extends ServerResource {
 
     @Inject
-    public StatisticsResource(final SubjectService subjectService, final StatisticsSearch statisticsSearch) {
-        this.subjectService = subjectService;
+    public StatisticsResource(final TopicService topicService, final StatisticsSearch statisticsSearch) {
+        this.topicService = topicService;
         this.statisticsSearch = statisticsSearch;
     }
 
@@ -34,7 +34,7 @@ public class StatisticsResource extends ServerResource {
         granularity = Granularity.valueOf(extract("granularity", query));
         start = Long.valueOf(extract("start", query));
         end = Long.valueOf(extract("end", query));
-        subjectId = extract("subjectId", query);
+        topicId = extract("topicId", query);
     }
 
     private String extract(final String value, final Form query) {
@@ -46,15 +46,15 @@ public class StatisticsResource extends ServerResource {
     }
 
     private void fetchStatistics() {
-        final Subject subject = subjectService.lookUpSubject(UUID.fromString(subjectId));
-        statistics = statisticsSearch.withSubject(subject).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
+        final Topic topic = topicService.lookUp(UUID.fromString(topicId));
+        statistics = statisticsSearch.withTopic(topic).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
     }
 
     private List<Statistics> statistics = Lists.newArrayList();
-    private final SubjectService subjectService;
+    private final TopicService topicService;
     private final StatisticsSearch statisticsSearch;
     private Granularity granularity;
     private Long start;
     private Long end;
-    private String subjectId;
+    private String topicId;
 }

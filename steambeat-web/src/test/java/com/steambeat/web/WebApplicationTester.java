@@ -1,6 +1,6 @@
 package com.steambeat.web;
 
-import com.steambeat.web.test.guice.TestGuiceModule;
+import com.steambeat.web.guice.TestGuiceModule;
 import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.rules.ExternalResource;

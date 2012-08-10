@@ -2,9 +2,9 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.test.SystemTime;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 
 import java.util.List;
@@ -19,9 +19,9 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() {
-        final WebPage webPage = TestFactories.subjects().newWebPage();
+        final Topic topic = TestFactories.topics().newTopic();
         final Opinion opinion = new Opinion("yeah");
-        opinion.addJudgment(webPage, Feeling.bad);
+        opinion.addJudgment(topic, Feeling.bad);
 
         Repositories.opinions().add(opinion);
 

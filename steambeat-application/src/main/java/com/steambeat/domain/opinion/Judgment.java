@@ -1,6 +1,6 @@
 package com.steambeat.domain.opinion;
 
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.repositories.Repositories;
 
 import java.util.UUID;
@@ -11,8 +11,8 @@ public class Judgment {
     protected Judgment() {
     }
 
-    public Judgment(final Subject subject, final Feeling feeling) {
-        this.subjectId = subject.getId();
+    public Judgment(final Topic topic, final Feeling feeling) {
+        this.topicId = topic.getId();
         this.feeling = feeling;
     }
 
@@ -20,14 +20,14 @@ public class Judgment {
         return feeling;
     }
 
-    public Subject getSubject() {
-        return Repositories.subjects().get(subjectId);
+    public Topic getTopic() {
+        return Repositories.topics().get(topicId);
     }
 
-    public UUID getSubjectId() {
-        return subjectId;
+    public UUID getTopicId() {
+        return topicId;
     }
 
-    private UUID subjectId;
+    private UUID topicId;
     private Feeling feeling;
 }

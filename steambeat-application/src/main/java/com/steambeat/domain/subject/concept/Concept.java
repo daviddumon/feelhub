@@ -1,38 +1,19 @@
 package com.steambeat.domain.subject.concept;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.association.uri.Uri;
-import com.steambeat.domain.scrapers.Scraper;
-import com.steambeat.domain.subject.Subject;
 import com.steambeat.domain.thesaurus.Type;
 
 import java.util.*;
 
-public class Concept extends Subject {
+public class Concept {
 
     // mongolink constructor : do not delete
     public Concept() {
     }
 
     public Concept(final UUID id) {
-        super(id);
-    }
-
-    @Override
-    public void setScraper(final Scraper scraper) {
-        scraper.scrap(new Tag(this.description));
-        update(scraper);
-    }
-
-    @Override
-    protected void update(final Scraper scraper) {
-        illustration = scraper.getIllustration();
-    }
-
-    @Override
-    public String getUriToken() {
-        return "/concepts/";
+        this.id = id;
     }
 
     public String getType() {
@@ -71,4 +52,5 @@ public class Concept extends Subject {
     private List<String> subTypes = Lists.newArrayList();
     private String website;
     private String geo;
+    private UUID id;
 }

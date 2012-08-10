@@ -1,9 +1,8 @@
 package com.steambeat.web;
 
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.web.test.guice.TestGuiceModule;
+import com.steambeat.web.guice.TestGuiceModule;
 import freemarker.template.Configuration;
-import org.junit.*;
+import org.junit.Test;
 import org.restlet.Context;
 
 import javax.servlet.ServletContext;
@@ -12,11 +11,7 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
-@SuppressWarnings("deprecation")
 public class TestsSteambeatApplication {
-
-    @Rule
-    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
     public void canInitFeemarker() throws Exception {

@@ -2,10 +2,9 @@ package com.steambeat.web.search;
 
 import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.opinion.Opinion;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.repositories.TestWithMongoRepository;
-import com.steambeat.test.SystemTime;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.*;
 import org.junit.*;
 
 import java.util.List;
@@ -82,11 +81,11 @@ public class TestsOpinionSearch extends TestWithMongoRepository {
     @Ignore
     @Test
     public void canGetOpinionsForSubject() {
-        final WebPage webPage = TestFactories.subjects().newWebPage();
-        TestFactories.opinions().newOpinions(webPage, 10);
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.opinions().newOpinions(topic, 10);
         TestFactories.opinions().newOpinions(20);
 
-        opinionSearch.withSubject(webPage);
+        opinionSearch.withTopic(topic);
 
         final List<Opinion> opinions = opinionSearch.execute();
         assertThat(opinions.size(), is(10));

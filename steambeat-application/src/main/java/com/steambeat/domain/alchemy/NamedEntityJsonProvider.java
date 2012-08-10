@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.domain.alchemy.readmodel.*;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.association.uri.Uri;
 
 import java.io.*;
 import java.util.List;
@@ -18,9 +18,9 @@ public class NamedEntityJsonProvider implements NamedEntityProvider {
     }
 
     @Override
-    public List<NamedEntity> entitiesFor(final WebPage webpage) {
+    public List<NamedEntity> entitiesFor(final Uri uri) {
         try {
-            final InputStream stream = alchemyLink.get(webpage.getUri());
+            final InputStream stream = alchemyLink.get(uri.toString());
             return unmarshall(stream);
         } catch (Exception e) {
             e.printStackTrace();

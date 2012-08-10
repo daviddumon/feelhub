@@ -2,11 +2,10 @@ package com.steambeat.domain.opinion;
 
 import com.google.common.eventbus.Subscribe;
 import com.steambeat.domain.eventbus.*;
-import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 
@@ -37,25 +36,25 @@ public class TestsOpinion {
     @Test
     public void canAddJudgementsToOpinion() {
         final Opinion opinion = new Opinion("my opinion");
-        final Subject subject = TestFactories.subjects().newWebPage();
+        final Topic topic = TestFactories.topics().newTopic();
 
-        opinion.addJudgment(subject, Feeling.good);
+        opinion.addJudgment(topic, Feeling.good);
 
         assertThat(opinion.getCreationDate(), notNullValue());
         assertThat(opinion.getCreationDate(), is(time.getNow()));
         assertThat(opinion.getJudgments().size(), is(1));
-        assertThat(opinion.getJudgments().get(0).getSubject(), is(subject));
+        assertThat(opinion.getJudgments().get(0).getTopic(), is(topic));
         assertThat(opinion.getJudgments().get(0).getFeeling(), is(Feeling.good));
     }
 
     @Test
     public void canSpreadJudgmentEvents() {
         final Opinion opinion = new Opinion("my opinion");
-        final WebPage subject = TestFactories.subjects().newWebPage();
+        final Topic topic = TestFactories.topics().newTopic();
         final SimpleJudgmentListener judgmentEventListener = mock(SimpleJudgmentListener.class);
         DomainEventBus.INSTANCE.register(judgmentEventListener);
 
-        opinion.addJudgment(subject, Feeling.good);
+        opinion.addJudgment(topic, Feeling.good);
 
         final ArgumentCaptor<JudgmentPostedEvent> captor = ArgumentCaptor.forClass(JudgmentPostedEvent.class);
         verify(judgmentEventListener, times(1)).handle(captor.capture());
@@ -81,12 +80,12 @@ public class TestsOpinion {
     @Test
     public void setLastModificationDateOnJudgmentCreation() {
         final Opinion opinion = new Opinion("my opinion");
-        final Subject subject = TestFactories.subjects().newWebPage();
+        final Topic topic = TestFactories.topics().newTopic();
         time.waitDays(1);
 
-        opinion.addJudgment(subject, Feeling.good);
+        opinion.addJudgment(topic, Feeling.good);
 
-        assertThat(subject.getLastModificationDate(), is(time.getNow()));
+        assertThat(topic.getLastModificationDate(), is(time.getNow()));
     }
 
     private class SimpleJudgmentListener {

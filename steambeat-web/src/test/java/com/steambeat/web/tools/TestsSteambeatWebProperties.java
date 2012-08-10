@@ -2,8 +2,8 @@ package com.steambeat.web.tools;
 
 import org.junit.Test;
 
-import static org.hamcrest.core.Is.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsSteambeatWebProperties {
 

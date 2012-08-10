@@ -3,8 +3,8 @@ package com.steambeat.tools;
 import org.junit.Test;
 import org.mongolink.Settings;
 
-import static org.hamcrest.core.Is.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class TestsSteambeatApplicationProperties {
 

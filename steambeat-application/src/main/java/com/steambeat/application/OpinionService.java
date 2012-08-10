@@ -1,8 +1,7 @@
 package com.steambeat.application;
 
-import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.repositories.Repositories;
 
 import java.util.List;
@@ -17,15 +16,15 @@ public class OpinionService {
 
     private void createJudgments(final List<JudgmentDTO> judgmentDTOs, final Opinion opinion) {
         for (final JudgmentDTO judgmentDTO : judgmentDTOs) {
-            opinion.addJudgment(getSubjectFor(judgmentDTO), Feeling.valueOf(judgmentDTO.feeling));
+            opinion.addJudgment(getTopicFor(judgmentDTO), Feeling.valueOf(judgmentDTO.feeling));
         }
     }
 
-    private Subject getSubjectFor(final JudgmentDTO judgmentDTO) {
-        final Subject subject = Repositories.subjects().get(judgmentDTO.subjectId);
-        if (subject == null) {
+    private Topic getTopicFor(final JudgmentDTO judgmentDTO) {
+        final Topic topic = Repositories.topics().get(judgmentDTO.topicId);
+        if (topic == null) {
             throw new OpinionCreationException();
         }
-        return subject;
+        return topic;
     }
 }

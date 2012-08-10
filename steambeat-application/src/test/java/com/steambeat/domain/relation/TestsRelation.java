@@ -2,11 +2,10 @@ package com.steambeat.domain.relation;
 
 import com.steambeat.domain.association.Association;
 import com.steambeat.domain.association.uri.Uri;
-import com.steambeat.domain.subject.Subject;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.test.SystemTime;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.hamcrest.Matchers;
 import org.junit.*;
 
@@ -25,8 +24,8 @@ public class TestsRelation {
 
     @Before
     public void setUp() {
-        left = TestFactories.subjects().newWebPageFor(new Association(new Uri("lemonde.fr"), UUID.randomUUID()));
-        right = TestFactories.subjects().newWebPageFor(new Association(new Uri("gameblog.fr"), UUID.randomUUID()));
+        left = TestFactories.topics().newWebPageFor(new Association(new Uri("lemonde.fr"), UUID.randomUUID()));
+        right = TestFactories.topics().newWebPageFor(new Association(new Uri("gameblog.fr"), UUID.randomUUID()));
         relation = new RelationFactory().newRelation(left, right, 1.0);
     }
 
@@ -37,7 +36,7 @@ public class TestsRelation {
 
     @Test
     public void canGetLeft() {
-        assertThat(relation.getLeft(), Matchers.is((Subject) left));
+        assertThat(relation.getLeft(), Matchers.is(left));
     }
 
     @Test
@@ -47,7 +46,7 @@ public class TestsRelation {
 
     @Test
     public void canGetRight() {
-        assertThat(relation.getRight(), is((Subject) right));
+        assertThat(relation.getRight(), is(right));
     }
 
     @Test
@@ -56,6 +55,6 @@ public class TestsRelation {
     }
 
     private Relation relation;
-    private WebPage right;
-    private WebPage left;
+    private Topic right;
+    private Topic left;
 }

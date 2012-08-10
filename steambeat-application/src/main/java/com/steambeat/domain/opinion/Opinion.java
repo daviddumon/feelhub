@@ -3,7 +3,7 @@ package com.steambeat.domain.opinion;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.topic.Topic;
 import org.joda.time.DateTime;
 
 import java.util.*;
@@ -19,10 +19,10 @@ public class Opinion extends BaseEntity {
         DomainEventBus.INSTANCE.post(new OpinionPostedEvent(this));
     }
 
-    public void addJudgment(final Subject subject, final Feeling feeling) {
-        final Judgment judgment = new Judgment(subject, feeling);
+    public void addJudgment(final Topic topic, final Feeling feeling) {
+        final Judgment judgment = new Judgment(topic, feeling);
         judgments.add(judgment);
-        subject.setLastModificationDate(new DateTime());
+        topic.setLastModificationDate(new DateTime());
         DomainEventBus.INSTANCE.post(new JudgmentPostedEvent(judgment));
     }
 

@@ -1,8 +1,8 @@
 package com.steambeat.domain.opinion;
 
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,13 +15,13 @@ public class TestsJudgment {
 
     @Test
     public void hasASubjectAndFeeling() {
-        final Subject subject = TestFactories.subjects().newWebPage();
+        final Topic topic = TestFactories.topics().newTopic();
         final Feeling feeling = Feeling.good;
 
-        final Judgment judgment = new Judgment(subject, feeling);
+        final Judgment judgment = new Judgment(topic, feeling);
 
         assertThat(judgment, notNullValue());
-        assertThat(judgment.getSubject(), is(subject));
+        assertThat(judgment.getTopic(), is(topic));
         assertThat(judgment.getFeeling(), is(feeling));
     }
 }

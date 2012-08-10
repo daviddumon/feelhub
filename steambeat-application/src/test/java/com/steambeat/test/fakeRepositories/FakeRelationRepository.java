@@ -3,14 +3,14 @@ package com.steambeat.test.fakeRepositories;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.steambeat.domain.relation.*;
-import com.steambeat.domain.subject.Subject;
+import com.steambeat.domain.topic.Topic;
 
 import javax.annotation.Nullable;
 
 public class FakeRelationRepository extends FakeRepository<Relation> implements RelationRepository {
 
     @Override
-    public Relation lookUp(final Subject from, final Subject to) {
+    public Relation lookUp(final Topic from, final Topic to) {
         try {
             return Iterables.find(getAll(), new Predicate<Relation>() {
 

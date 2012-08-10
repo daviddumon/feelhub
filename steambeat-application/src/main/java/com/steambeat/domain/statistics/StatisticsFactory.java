@@ -2,7 +2,7 @@ package com.steambeat.domain.statistics;
 
 import com.google.common.eventbus.*;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.opinion.JudgmentPostedEvent;
 import com.steambeat.repositories.Repositories;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class StatisticsFactory {
 
     private void dealWith(final Granularity granularity, final JudgmentPostedEvent event) {
         dealWithSubject(granularity, event);
-        dealWithSteam(granularity, new JudgmentPostedEvent(new Judgment(Repositories.subjects().getSteam(), event.getJudgment().getFeeling())));
+        //dealWithSteam(granularity, new JudgmentPostedEvent(new Judgment(Repositories.subjects().getSteam(), event.getJudgment().getFeeling())));
     }
 
     private void dealWithSubject(final Granularity granularity, final JudgmentPostedEvent event) {
@@ -41,10 +41,10 @@ public class StatisticsFactory {
     }
 
     private synchronized Statistics getOrCreateStat(final Granularity granularity, final JudgmentPostedEvent event) {
-        final List<Statistics> statistics = Repositories.statistics().forSubject(event.getJudgment().getSubject(), granularity, granularity.intervalFor(event.getDate()));
+        final List<Statistics> statistics = Repositories.statistics().forTopic(event.getJudgment().getTopic(), granularity, granularity.intervalFor(event.getDate()));
         final Statistics stat;
         if (statistics.isEmpty()) {
-            stat = new Statistics(event.getJudgment().getSubject(), granularity, event.getDate());
+            stat = new Statistics(event.getJudgment().getTopic(), granularity, event.getDate());
             Repositories.statistics().add(stat);
         } else {
             stat = statistics.get(0);

@@ -1,8 +1,8 @@
 package com.steambeat.web.resources.json;
 
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.topic.Topic;
+import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.*;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.json.*;
@@ -24,7 +24,7 @@ public class TestsRelatedResource {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void isMapped() {
+    public void relatedResourceIsMapped() {
         final ClientResource relatedResource = restlet.newClientResource("/json/related");
 
         relatedResource.get();
@@ -56,7 +56,7 @@ public class TestsRelatedResource {
 
     @Test
     public void canGetRelationsForASubject() throws IOException, JSONException {
-        final WebPage from = TestFactories.subjects().newWebPage();
+        final Topic from = TestFactories.topics().newTopic();
         TestFactories.relations().newRelations(5, from);
         TestFactories.relations().newRelations(20);
         final ClientResource resource = restlet.newClientResource("/json/related?fromId=" + from.getId());

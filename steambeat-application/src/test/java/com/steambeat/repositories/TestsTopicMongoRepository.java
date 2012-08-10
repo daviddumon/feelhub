@@ -48,5 +48,17 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound, notNullValue());
     }
 
+    //
+    //@Test
+    //public void bugCannotChangeDateOfSubject() {
+    //    final UUID id = TestFactories.subjects().newWebPage().getId();
+    //
+    //    final Subject subject = Repositories.subjects().get(id);
+    //    time.waitDays(1);
+    //    subject.setLastModificationDate(time.getNow());
+    //
+    //    assertThat(Repositories.subjects().get(id).getLastModificationDate(), is(time.getNow()));
+    //}
+
     private Repository<Topic> repo;
 }

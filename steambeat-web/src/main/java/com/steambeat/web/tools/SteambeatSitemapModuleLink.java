@@ -1,6 +1,5 @@
 package com.steambeat.web.tools;
 
-
 import com.google.common.io.*;
 import com.steambeat.tools.*;
 import org.apache.commons.io.input.NullInputStream;

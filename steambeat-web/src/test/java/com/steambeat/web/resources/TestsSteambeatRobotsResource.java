@@ -9,8 +9,8 @@ import org.restlet.representation.Representation;
 
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 @Ignore("non understandable compression on tomcat ...")
@@ -26,7 +26,7 @@ public class TestsSteambeatRobotsResource {
     }
 
     @Test
-    public void isMapped() {
+    public void steambeatRobotsResourceIsMapped() {
         final ClientResource resource = restlet.newClientResource("/robots.txt");
 
         final Representation representation = resource.get();

@@ -35,8 +35,6 @@ public class SteambeatApplication extends Application {
         initFreemarkerConfiguration();
         setStatus();
         if (!getContext().getAttributes().get("com.steambeat.status").equals("launch")) {
-            final SteambeatBoot steambeatBoot = injector.getInstance(SteambeatBoot.class);
-            steambeatBoot.checkForSteam();
             runMigrations();
         }
         final MailBuilder mailBuilder = injector.getInstance(MailBuilder.class);

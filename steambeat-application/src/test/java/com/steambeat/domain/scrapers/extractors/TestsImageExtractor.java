@@ -9,7 +9,7 @@ import org.junit.*;
 import java.io.IOException;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class TestsImageExtractor {
 

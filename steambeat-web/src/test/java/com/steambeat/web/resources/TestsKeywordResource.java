@@ -1,15 +1,13 @@
 package com.steambeat.web.resources;
 
 import com.steambeat.application.KeywordService;
-import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.web.*;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.junit.*;
 import org.restlet.data.Status;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -43,7 +41,7 @@ public class TestsKeywordResource {
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) keywordResource.get();
 
         assertTrue(representation.getDataModel().containsKey("keyword"));
-        assertThat(new Keyword("cool", Language.forString("en")), is((Keyword) representation.getDataModel().get("keyword")));
+        assertThat(representation.getDataModel().get("keyword"), notNullValue());
     }
 
     @Test

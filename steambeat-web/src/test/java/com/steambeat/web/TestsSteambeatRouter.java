@@ -1,15 +1,14 @@
 package com.steambeat.web;
 
 import com.google.inject.*;
-import com.steambeat.web.guice.GuiceFinder;
-import com.steambeat.web.test.guice.TestGuiceModule;
+import com.steambeat.web.guice.*;
 import org.junit.Test;
 import org.restlet.*;
 import org.restlet.data.Method;
 import org.restlet.routing.TemplateRoute;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsSteambeatRouter {
 

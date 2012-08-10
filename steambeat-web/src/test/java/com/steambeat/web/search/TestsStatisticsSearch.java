@@ -1,10 +1,9 @@
 package com.steambeat.web.search;
 
 import com.steambeat.domain.statistics.*;
-import com.steambeat.domain.subject.webpage.WebPage;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.repositories.TestWithMongoRepository;
-import com.steambeat.test.SystemTime;
-import com.steambeat.test.testFactories.TestFactories;
+import com.steambeat.test.*;
 import org.joda.time.Interval;
 import org.junit.*;
 
@@ -33,11 +32,11 @@ public class TestsStatisticsSearch extends TestWithMongoRepository {
 
     @Test
     public void canGetAStatisticsWithASubjectId() {
-        final WebPage webPage = TestFactories.subjects().newWebPage();
-        final Statistics statistics = TestFactories.statistics().newStatistics(webPage, Granularity.all);
+        final Topic topic = TestFactories.topics().newTopic();
+        final Statistics statistics = TestFactories.statistics().newStatistics(topic, Granularity.all);
         TestFactories.statistics().newStatistics();
 
-        final List<Statistics> statisticsList = statisticsSearch.withSubject(webPage).execute();
+        final List<Statistics> statisticsList = statisticsSearch.withTopic(topic).execute();
 
         assertThat(statisticsList.size(), is(1));
         assertThat(statisticsList.get(0), is(statistics));
@@ -45,21 +44,21 @@ public class TestsStatisticsSearch extends TestWithMongoRepository {
 
     @Test
     public void canGetAStatisticsForASubjectAndGranularity() {
-        final WebPage webPage = TestFactories.subjects().newWebPage();
-        TestFactories.statistics().newStatistics(webPage, Granularity.day);
-        final Statistics statistics = TestFactories.statistics().newStatistics(webPage, Granularity.hour);
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.statistics().newStatistics(topic, Granularity.day);
+        final Statistics statistics = TestFactories.statistics().newStatistics(topic, Granularity.hour);
 
-        final List<Statistics> statisticsList = statisticsSearch.withSubject(webPage).withGranularity(statistics.getGranularity()).execute();
+        final List<Statistics> statisticsList = statisticsSearch.withTopic(topic).withGranularity(statistics.getGranularity()).execute();
 
         assertThat(statisticsList.size(), is(1));
     }
 
     @Test
     public void canGetAStatisticsForAnInterval() {
-        final WebPage webPage = TestFactories.subjects().newWebPage();
-        TestFactories.statistics().newStatistics(webPage, Granularity.day);
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.statistics().newStatistics(topic, Granularity.day);
         time.waitDays(2);
-        final Statistics statistics = TestFactories.statistics().newStatistics(webPage, Granularity.day);
+        final Statistics statistics = TestFactories.statistics().newStatistics(topic, Granularity.day);
 
         final Interval interval = Granularity.hour.intervalFor(statistics.getDate());
         final List<Statistics> statisticsList = statisticsSearch.withInterval(interval).execute();

@@ -2,14 +2,15 @@ package com.steambeat.web.filter;
 
 import com.steambeat.application.UserService;
 import com.steambeat.domain.user.UserFactory;
+import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.testFactories.TestFactories;
 import com.steambeat.web.WebApplicationTester;
 import org.junit.*;
 import org.restlet.*;
 import org.restlet.data.Cookie;
 import org.restlet.engine.util.CookieSeries;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 

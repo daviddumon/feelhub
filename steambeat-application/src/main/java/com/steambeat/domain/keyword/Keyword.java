@@ -1,26 +1,30 @@
 package com.steambeat.domain.keyword;
 
 import com.google.common.base.Objects;
+import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.thesaurus.Language;
+import org.joda.time.DateTime;
 
-public class Keyword {
+import java.util.UUID;
 
-    public Keyword(final String value, final Language language) {
+public class Keyword extends BaseEntity {
+
+    //mongolink constructor do not delete
+    public Keyword() {
+    }
+
+    public Keyword(final String value, final Language language, final UUID topic) {
+        this.topic = topic;
+        this.id = UUID.randomUUID();
         this.value = value;
         this.language = language;
+        this.creationDate = new DateTime();
+        this.lastModificationDate = this.creationDate;
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final Keyword keyword = (Keyword) o;
-        return Objects.equal(keyword.value, value)
-                && Objects.equal(keyword.language, language);
+    public Object getId() {
+        return id;
     }
 
     @Override
@@ -41,6 +45,22 @@ public class Keyword {
         return language;
     }
 
+    public UUID getTopic() {
+        return topic;
+    }
+
+    public DateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public DateTime getLastModificationDate() {
+        return lastModificationDate;
+    }
+
+    private UUID id;
     private String value;
     private Language language;
+    private UUID topic;
+    private DateTime creationDate;
+    private DateTime lastModificationDate;
 }

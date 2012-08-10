@@ -2,6 +2,7 @@ package com.steambeat.repositories;
 
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.association.AssociationRepository;
+import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
@@ -19,6 +20,11 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
+    protected Repository<Keyword> getKeywordRepository() {
+        return new KeywordMongoRepository(provider.get());
+    }
+
+    @Override
     protected Repository<Topic> getTopicRepository() {
         return new TopicMongoRepository(provider.get());
     }
@@ -26,11 +32,6 @@ public class MongoRepositories extends Repositories {
     @Override
     protected Repository<Session> getSessionRepository() {
         return new SessionMongoRepository(provider.get());
-    }
-
-    @Override
-    protected SubjectMongoRepository getSubjectRepository() {
-        return new SubjectMongoRepository(provider.get());
     }
 
     @Override
