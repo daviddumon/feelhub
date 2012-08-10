@@ -6,10 +6,16 @@ import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
 import com.steambeat.domain.statistics.StatisticsRepository;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.domain.user.UserRepository;
 import com.steambeat.repositories.Repositories;
 
 public class FakeMongoRepositories extends Repositories {
+
+    @Override
+    protected Repository<Topic> getTopicRepository() {
+        return topicRepository;
+    }
 
     @Override
     protected Repository<Session> getSessionRepository() {
@@ -53,4 +59,5 @@ public class FakeMongoRepositories extends Repositories {
     private final FakeStatisticsRepository statisticsRepository = new FakeStatisticsRepository();
     private final FakeUserRepository userRepository = new FakeUserRepository();
     private final FakeSessionRepository sessionRepository = new FakeSessionRepository();
+    private final FakeTopicRepository topicRepository = new FakeTopicRepository();
 }

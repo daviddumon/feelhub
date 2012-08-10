@@ -6,6 +6,7 @@ import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
 import com.steambeat.domain.statistics.StatisticsRepository;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.domain.user.UserRepository;
 
 import javax.inject.Inject;
@@ -15,6 +16,11 @@ public class MongoRepositories extends Repositories {
     @Inject
     public MongoRepositories(final SessionProvider provider) {
         this.provider = provider;
+    }
+
+    @Override
+    protected Repository<Topic> getTopicRepository() {
+        return new TopicMongoRepository(provider.get());
     }
 
     @Override

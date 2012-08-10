@@ -1,11 +1,19 @@
 package com.steambeat.application;
 
-import com.steambeat.domain.keyword.Keyword;
+import com.google.inject.Inject;
+import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.Language;
 
 public class KeywordService {
 
-    public Keyword lookUp(final String value, final Language language) {
-        return new Keyword(value, language);
+    @Inject
+    public KeywordService(final KeywordFactory keywordFactory) {
+        this.keywordFactory = keywordFactory;
     }
+
+    public Keyword lookUp(final String value, final Language language) {
+        return keywordFactory.createKeyword(value, language);
+    }
+
+    private KeywordFactory keywordFactory;
 }
