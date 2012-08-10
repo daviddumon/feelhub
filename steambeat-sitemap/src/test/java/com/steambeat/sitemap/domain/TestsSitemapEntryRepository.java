@@ -72,7 +72,7 @@ public class TestsSitemapEntryRepository {
     }
 
     @Test
-    public void doNotAddAlreadyExistingSubjects() {
+    public void doNotAddAlreadyExistingTopics() {
         data.clear();
         final SitemapEntry firstSitemapEntry = new SitemapEntry("sitemap", Frequency.hourly, 0.5);
         final SitemapEntry anotherSitemapEntry = new SitemapEntry("sitemap", Frequency.always, 0.5);

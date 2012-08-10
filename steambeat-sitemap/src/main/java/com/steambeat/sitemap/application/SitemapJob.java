@@ -1,6 +1,6 @@
 package com.steambeat.sitemap.application;
 
-import com.steambeat.domain.subject.concept.Concept;
+import com.steambeat.domain.topic.Topic;
 import com.steambeat.sitemap.domain.*;
 import com.steambeat.sitemap.tools.SitemapProperties;
 import org.apache.log4j.Logger;
@@ -36,8 +36,7 @@ public class SitemapJob implements Job {
     private void rebuildSitemapsAndIndexes() {
         session.start();
         clearExistingSitemapsAndIndexes();
-        createSitemapEntriesFromSubjects(fetchWebpages(), "webpages");
-        createSitemapEntriesFromSubjects(fetchConcepts(), "concepts");
+        createSitemapEntriesFromTopics(fetchtopics(), "topics");
         buildSitemapsAndIndexes();
         session.stop();
     }
@@ -47,22 +46,14 @@ public class SitemapJob implements Job {
         SitemapIndexRepository.clear();
     }
 
-    private void createSitemapEntriesFromSubjects(final List<Subject> subjects, final String uriToken) {
-        for (final Subject subject : subjects) {
-            SitemapEntryRepository.add(new SitemapEntry("/" + uriToken + "/" + subject.getId().toString(), Frequency.hourly, 0.5));
+    private void createSitemapEntriesFromTopics(final List<Topic> topics, final String uriToken) {
+        for (final Topic topic : topics) {
+            SitemapEntryRepository.add(new SitemapEntry("/" + uriToken + "/" + topic.getId().toString(), Frequency.hourly, 0.5));
         }
     }
 
-    private List<Subject> fetchWebpages() {
-        final Criteria criteria = session.createCriteria(WebPage.class);
-        criteria.add(Restrictions.equals("__discriminator", "WebPage"));
-        addDateRestriction(criteria);
-        return criteria.list();
-    }
-
-    private List<Subject> fetchConcepts() {
-        final Criteria criteria = session.createCriteria(Concept.class);
-        criteria.add(Restrictions.equals("__discriminator", "Concept"));
+    private List<Topic> fetchtopics() {
+        final Criteria criteria = session.createCriteria(Topic.class);
         addDateRestriction(criteria);
         return criteria.list();
     }
