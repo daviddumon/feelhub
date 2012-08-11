@@ -1,6 +1,6 @@
 package com.steambeat.test;
 
-import com.steambeat.domain.association.Identifier;
+import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.scrapers.UriScraper;
 
 public class FakeUriScraper extends UriScraper {
@@ -10,7 +10,7 @@ public class FakeUriScraper extends UriScraper {
     }
 
     @Override
-    public void scrap(final Identifier identifier) {
+    public void scrap(final Keyword identifier) {
 
     }
 

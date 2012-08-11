@@ -1,11 +1,10 @@
-package com.steambeat.domain.association.uri;
+package com.steambeat.domain.uri;
 
 import com.google.common.base.*;
-import com.steambeat.domain.association.Identifier;
 
 import java.util.Locale;
 
-public class Uri extends Identifier {
+public class Uri {
 
     private Uri() {
         protocol = "";

@@ -1,5 +1,6 @@
-package com.steambeat.domain.association.uri;
+package com.steambeat.domain.uri;
 
+import com.steambeat.domain.uri.Uri;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;

@@ -3,7 +3,7 @@ package com.steambeat.web.guice;
 import com.google.inject.*;
 import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.*;
-import com.steambeat.domain.association.uri.UriPathResolver;
+import com.steambeat.domain.uri.UriPathResolver;
 import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.scrapers.UriScraper;

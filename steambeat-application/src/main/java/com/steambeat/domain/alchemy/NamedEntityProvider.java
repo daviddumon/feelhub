@@ -1,6 +1,6 @@
 package com.steambeat.domain.alchemy;
 
-import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.domain.uri.Uri;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.steambeat.domain.subject.concept;
 
 import com.steambeat.domain.alchemy.NamedEntity;
-import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.domain.uri.Uri;
 import com.steambeat.test.FakeBingLink;
 import com.steambeat.test.TestFactories;
 import org.junit.*;

@@ -20,10 +20,6 @@ public abstract class Repositories {
         return Repositories.soleInstance.getOpinionRepository();
     }
 
-    public static AssociationRepository associations() {
-        return Repositories.soleInstance.getAssociationRepository();
-    }
-
     public static RelationRepository relations() {
         return Repositories.soleInstance.getRelationRepository();
     }
@@ -59,8 +55,6 @@ public abstract class Repositories {
     protected abstract Repository<Opinion> getOpinionRepository();
 
     protected abstract StatisticsRepository getStatisticsRepository();
-
-    protected abstract AssociationRepository getAssociationRepository();
 
     protected abstract UserRepository getUserRepository();
 

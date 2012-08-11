@@ -1,5 +1,6 @@
-package com.steambeat.domain.association.uri;
+package com.steambeat.domain.uri;
 
+import com.steambeat.domain.uri.*;
 import com.steambeat.test.FakeInternet;
 import org.junit.*;
 import org.junit.rules.ExpectedException;

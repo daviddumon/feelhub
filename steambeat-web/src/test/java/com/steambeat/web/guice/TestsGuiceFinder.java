@@ -1,7 +1,6 @@
 package com.steambeat.web.guice;
 
 import com.google.inject.*;
-import com.steambeat.application.AssociationService;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.translation.MicrosoftTranslator;

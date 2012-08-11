@@ -1,6 +1,7 @@
-package com.steambeat.domain.association.uri;
+package com.steambeat.domain.uri;
 
 import com.google.common.collect.Lists;
+import com.steambeat.domain.uri.Uri;
 import org.junit.Test;
 
 import java.util.List;

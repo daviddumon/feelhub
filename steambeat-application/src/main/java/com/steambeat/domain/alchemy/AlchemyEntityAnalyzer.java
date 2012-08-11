@@ -4,18 +4,17 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import com.steambeat.application.*;
-import com.steambeat.domain.association.tag.Tag;
-import com.steambeat.domain.association.uri.*;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.relation.*;
 import com.steambeat.domain.subject.concept.*;
+import com.steambeat.domain.uri.*;
 
 import java.util.*;
 
 public class AlchemyEntityAnalyzer {
 
     @Inject
-    public AlchemyEntityAnalyzer(final NamedEntityProvider NamedEntityProvider, final AssociationService associationService, final ConceptFactory conceptFactory) {
+    public AlchemyEntityAnalyzer(final NamedEntityProvider NamedEntityProvider, final KeywordService associationService, final ConceptFactory conceptFactory) {
         this.NamedEntityProvider = NamedEntityProvider;
         this.associationService = associationService;
         this.conceptFactory = conceptFactory;
@@ -57,9 +56,9 @@ public class AlchemyEntityAnalyzer {
     private void createAssociations(final NamedEntity namedEntity) {
         for (final String keyword : namedEntity.keywords) {
             try {
-                associationService.lookUp(new Tag(keyword), namedEntity.language);
+                associationService.lookUp(keyword, namedEntity.language);
             } catch (AssociationNotFound e) {
-                associationService.createAssociationFor(new Tag(keyword), namedEntity.conceptId, namedEntity.language);
+                //associationService.createAssociationFor(new Tag(keyword), namedEntity.conceptId, namedEntity.language);
             }
         }
     }
@@ -79,7 +78,7 @@ public class AlchemyEntityAnalyzer {
     }
 
     private final NamedEntityProvider NamedEntityProvider;
-    private final AssociationService associationService;
+    private final KeywordService associationService;
     private final ConceptFactory conceptFactory;
     private final RelationBuilder relationBuilder = new RelationBuilder(new RelationFactory());
     private final List<Concept> concepts = Lists.newArrayList();

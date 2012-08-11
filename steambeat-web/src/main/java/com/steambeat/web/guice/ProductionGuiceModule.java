@@ -1,9 +1,8 @@
 package com.steambeat.web.guice;
 
 import com.google.inject.*;
-import com.steambeat.application.AssociationService;
 import com.steambeat.domain.alchemy.*;
-import com.steambeat.domain.association.uri.UriPathResolver;
+import com.steambeat.domain.uri.UriPathResolver;
 import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.eventbus.DeadEventCatcher;
 import com.steambeat.domain.scrapers.UriScraper;

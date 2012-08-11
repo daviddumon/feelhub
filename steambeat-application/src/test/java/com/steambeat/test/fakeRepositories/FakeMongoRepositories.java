@@ -1,7 +1,6 @@
 package com.steambeat.test.fakeRepositories;
 
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.association.AssociationRepository;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
@@ -44,16 +43,10 @@ public class FakeMongoRepositories extends Repositories {
     }
 
     @Override
-    protected AssociationRepository getAssociationRepository() {
-        return associationRepository;
-    }
-
-    @Override
     protected UserRepository getUserRepository() {
         return userRepository;
     }
 
-    private final FakeAssociationRepository associationRepository = new FakeAssociationRepository();
     private final Repository<Opinion> opinionRepository = new FakeOpinionRepository();
     private final RelationRepository relationFakeRepository = new FakeRelationRepository();
     private final FakeStatisticsRepository statisticsRepository = new FakeStatisticsRepository();

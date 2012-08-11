@@ -1,15 +1,10 @@
 package com.steambeat.domain.relation;
 
-import com.steambeat.domain.association.Association;
-import com.steambeat.domain.association.uri.Uri;
 import com.steambeat.domain.topic.Topic;
-import com.steambeat.test.SystemTime;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.TestFactories;
 import org.hamcrest.Matchers;
 import org.junit.*;
-
-import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -24,8 +19,8 @@ public class TestsRelation {
 
     @Before
     public void setUp() {
-        left = TestFactories.topics().newWebPageFor(new Association(new Uri("lemonde.fr"), UUID.randomUUID()));
-        right = TestFactories.topics().newWebPageFor(new Association(new Uri("gameblog.fr"), UUID.randomUUID()));
+        left = TestFactories.topics().newTopic();
+        right = TestFactories.topics().newTopic();
         relation = new RelationFactory().newRelation(left, right, 1.0);
     }
 

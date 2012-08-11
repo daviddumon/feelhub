@@ -1,14 +1,13 @@
 package com.steambeat.test;
 
 import com.steambeat.domain.alchemy.AlchemyTestFactory;
-import com.steambeat.domain.association.AssociationTestFactory;
-import com.steambeat.domain.association.uri.UriTestFactory;
 import com.steambeat.domain.keyword.KeywordTestFactory;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.relation.RelationTestFactory;
 import com.steambeat.domain.session.SessionTestFactory;
 import com.steambeat.domain.statistics.StatisticsTestFactory;
 import com.steambeat.domain.topic.TopicTestFactory;
+import com.steambeat.domain.uri.UriTestFactory;
 import com.steambeat.domain.user.UserTestFactory;
 
 public class TestFactories {
@@ -22,10 +21,6 @@ public class TestFactories {
 
     public static JudgmentTestFactory judgments() {
         return new JudgmentTestFactory();
-    }
-
-    public static AssociationTestFactory associations() {
-        return new AssociationTestFactory();
     }
 
     public static StatisticsTestFactory statistics() {

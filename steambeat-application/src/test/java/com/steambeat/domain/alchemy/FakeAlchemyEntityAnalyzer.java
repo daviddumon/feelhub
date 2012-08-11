@@ -1,14 +1,15 @@
 package com.steambeat.domain.alchemy;
 
-import com.steambeat.application.AssociationService;
-import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.application.KeywordService;
+import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.subject.concept.FakeConceptFactory;
-import com.steambeat.test.*;
+import com.steambeat.domain.uri.Uri;
+import com.steambeat.test.FakeBingLink;
 
 public class FakeAlchemyEntityAnalyzer extends AlchemyEntityAnalyzer {
 
     public FakeAlchemyEntityAnalyzer() {
-        super(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new AssociationService(new FakeUriPathResolver(), new FakeMicrosoftTranslator()))), new AssociationService(new FakeUriPathResolver(), new FakeMicrosoftTranslator()), new FakeConceptFactory(new FakeBingLink()));
+        super(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory()))), new KeywordService(new KeywordFactory()), new FakeConceptFactory(new FakeBingLink()));
     }
 
     @Override

@@ -1,13 +1,11 @@
 package com.steambeat.domain.alchemy;
 
-import com.steambeat.application.AssociationService;
+import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
-import com.steambeat.domain.association.tag.Tag;
-import com.steambeat.domain.association.uri.UriPathResolver;
+import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.thesaurus.Language;
-import com.steambeat.test.FakeMicrosoftTranslator;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
+import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 
 import java.util.UUID;
@@ -22,7 +20,7 @@ public class TestsNamedEntityBuilder {
 
     @Before
     public void before() {
-        namedEntityBuilder = new NamedEntityBuilder(new AssociationService(new UriPathResolver(), new FakeMicrosoftTranslator()));
+        namedEntityBuilder = new NamedEntityBuilder(new KeywordService(new KeywordFactory()));
     }
 
     @Test
@@ -140,9 +138,9 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void canFindExistingConceptForAlchemyEntityText() {
-        final Tag tag = new Tag("text");
+        //final Tag tag = new Tag("text");
         final UUID uuid = UUID.randomUUID();
-        TestFactories.associations().newAssociation(tag, uuid, Language.forString("english"));
+        //TestFactories.associations().newAssociation(tag, uuid, Language.forString("english"));
         final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
@@ -152,9 +150,9 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void useLanguageForConceptFinding() {
-        final Tag tag = new Tag("text");
+        //final Tag tag = new Tag("text");
         final UUID uuid = UUID.randomUUID();
-        TestFactories.associations().newAssociation(tag, uuid, Language.forString("english"));
+        //TestFactories.associations().newAssociation(tag, uuid, Language.forString("english"));
         final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
         alchemyJsonEntity.language = "french";
 
@@ -165,9 +163,9 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void canFindExistingConceptForAlchemyEntityName() {
-        final Tag tag = new Tag("name");
+        //final Tag tag = new Tag("name");
         final UUID uuid = UUID.randomUUID();
-        TestFactories.associations().newAssociation(tag, uuid, Language.forString("english"));
+        //TestFactories.associations().newAssociation(tag, uuid, Language.forString("english"));
         final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);

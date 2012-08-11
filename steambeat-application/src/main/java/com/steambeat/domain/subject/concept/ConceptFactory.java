@@ -2,7 +2,7 @@ package com.steambeat.domain.subject.concept;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.alchemy.NamedEntity;
-import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.domain.uri.Uri;
 import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.scrapers.ConceptScraper;
 import com.steambeat.domain.thesaurus.Type;
@@ -23,7 +23,7 @@ public class ConceptFactory {
         concept.setWebsite(new Uri(entity.website));
         concept.setGeo(entity.geo);
         final ConceptScraper scraper = new ConceptScraper();
-        scraper.setBingLink(bingLink);
+        //scraper.setBingLink(bingLink);
         return concept;
     }
 

@@ -1,15 +1,15 @@
 package com.steambeat.domain.bingsearch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.bingsearch.readmodel.BingResults;
+import com.steambeat.domain.keyword.Keyword;
 
 import java.io.*;
 import java.net.*;
 
 public class BingLink {
 
-    public String getIllustration(final Tag tag) {
+    public String getIllustration(final Keyword tag) {
         final String query = getQuery(tag);
         try {
             final URL url = new URL(query);
@@ -24,7 +24,7 @@ public class BingLink {
         return "";
     }
 
-    private String getQuery(final Tag tag) {
+    private String getQuery(final Keyword tag) {
         try {
             final StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(queryRoot);

@@ -1,9 +1,9 @@
 package com.steambeat.domain.scrapers;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.association.Identifier;
-import com.steambeat.domain.association.uri.Uri;
+import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.scrapers.extractors.*;
+import com.steambeat.domain.uri.Uri;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -12,8 +12,8 @@ import java.util.*;
 public class UriScraper implements Scraper {
 
     @Override
-    public void scrap(final Identifier identifier) {
-        this.uri = (Uri) identifier;
+    public void scrap(final Keyword identifier) {
+        this.uri = new Uri(identifier.getValue());
         addExtractors();
         getJSoupDocument();
         useExtractors();
@@ -98,7 +98,7 @@ public class UriScraper implements Scraper {
     private final List<Extractor> extractors = Lists.newArrayList();
     protected Map<String, String> scrapedTags = new HashMap<String, String>();
     private Uri uri;
-    private Identifier identifier;
+    private Keyword identifier;
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
     private final static int THREE_SECONDS = 3000;
 }

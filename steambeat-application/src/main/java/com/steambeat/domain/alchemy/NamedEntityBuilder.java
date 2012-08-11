@@ -3,7 +3,6 @@ package com.steambeat.domain.alchemy;
 import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
-import com.steambeat.domain.association.tag.Tag;
 import com.steambeat.domain.thesaurus.Language;
 
 import java.util.UUID;
@@ -12,7 +11,7 @@ import java.util.regex.*;
 public class NamedEntityBuilder {
 
     @Inject
-    public NamedEntityBuilder(final AssociationService associationService) {
+    public NamedEntityBuilder(final KeywordService associationService) {
         this.associationService = associationService;
     }
 
@@ -106,11 +105,11 @@ public class NamedEntityBuilder {
     private UUID findConceptForBothEntities(final AlchemyJsonEntity alchemyJsonEntity) {
         final Language language = Language.forString(alchemyJsonEntity.language);
         try {
-            return associationService.lookUp(new Tag(alchemyJsonEntity.text), language).getSubjectId();
+            return associationService.lookUp(alchemyJsonEntity.text, language).getTopic();
         } catch (AssociationNotFound textNotFound) {
             if (!alchemyJsonEntity.disambiguated.name.isEmpty() && alchemyJsonEntity.disambiguated.name != alchemyJsonEntity.text) {
                 try {
-                    return associationService.lookUp(new Tag(alchemyJsonEntity.disambiguated.name), language).getSubjectId();
+                    return associationService.lookUp(alchemyJsonEntity.disambiguated.name, language).getTopic();
                 } catch (AssociationNotFound nameNotFound) {
                 }
             }
@@ -139,7 +138,7 @@ public class NamedEntityBuilder {
         }
     }
 
-    private AssociationService associationService;
+    private KeywordService associationService;
 
     private static int TOO_SMALL = 3;
 }
