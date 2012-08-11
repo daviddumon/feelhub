@@ -2,10 +2,10 @@ package com.steambeat.domain.subject.concept;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.alchemy.NamedEntity;
-import com.steambeat.domain.uri.Uri;
 import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.scrapers.ConceptScraper;
 import com.steambeat.domain.thesaurus.Type;
+import com.steambeat.domain.uri.Uri;
 
 import java.util.UUID;
 

@@ -3,16 +3,15 @@ package com.steambeat.domain.statistics;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.SystemTime;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.*;
-import com.steambeat.test.TestFactories;
 import org.joda.time.Interval;
 import org.junit.*;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsStatisticsFactory {
 

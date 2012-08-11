@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 
 import java.util.UUID;
 
-public class Topic extends BaseEntity{
+public class Topic extends BaseEntity {
 
     //mongolink constructor do not delete!
     protected Topic() {

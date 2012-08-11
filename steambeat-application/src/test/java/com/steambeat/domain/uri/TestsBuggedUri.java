@@ -1,13 +1,12 @@
 package com.steambeat.domain.uri;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.uri.Uri;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsBuggedUri {
 

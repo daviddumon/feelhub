@@ -1,4 +1,4 @@
-package com.steambeat.application;
+package com.steambeat.application.dto;
 
 import com.steambeat.domain.opinion.Feeling;
 import com.steambeat.domain.topic.Topic;

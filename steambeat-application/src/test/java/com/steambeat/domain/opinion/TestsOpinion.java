@@ -3,9 +3,8 @@ package com.steambeat.domain.opinion;
 import com.google.common.eventbus.Subscribe;
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.topic.Topic;
-import com.steambeat.test.SystemTime;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.TestFactories;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 

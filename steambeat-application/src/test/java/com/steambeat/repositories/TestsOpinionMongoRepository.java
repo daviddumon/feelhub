@@ -3,8 +3,7 @@ package com.steambeat.repositories;
 import com.mongodb.*;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.topic.Topic;
-import com.steambeat.test.SystemTime;
-import com.steambeat.test.TestFactories;
+import com.steambeat.test.*;
 import org.junit.*;
 
 import java.util.List;

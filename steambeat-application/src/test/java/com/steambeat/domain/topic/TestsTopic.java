@@ -6,8 +6,8 @@ import org.junit.*;
 
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsTopic {
 

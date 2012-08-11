@@ -10,6 +10,12 @@ public class Language {
         return result;
     }
 
+    public static Language none() {
+        final Language language = new Language();
+        language.code = "none";
+        return language;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

@@ -2,12 +2,11 @@ package com.steambeat.domain.subject.concept;
 
 import com.steambeat.domain.alchemy.NamedEntity;
 import com.steambeat.domain.uri.Uri;
-import com.steambeat.test.FakeBingLink;
-import com.steambeat.test.TestFactories;
+import com.steambeat.test.*;
 import org.junit.*;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsConceptFactory {
 

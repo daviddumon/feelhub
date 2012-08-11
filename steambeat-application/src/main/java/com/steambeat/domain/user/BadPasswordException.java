@@ -1,4 +1,4 @@
-package com.steambeat.application;
+package com.steambeat.domain.user;
 
 public class BadPasswordException extends UserException {
 }

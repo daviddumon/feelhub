@@ -1,45 +1,29 @@
 package com.steambeat.test.fakeRepositories;
 
-import com.steambeat.domain.keyword.Keyword;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.inject.internal.Nullable;
+import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.thesaurus.Language;
 
-public class FakeKeywordRepository extends FakeRepository<Keyword> {
+public class FakeKeywordRepository extends FakeRepository<Keyword> implements KeywordRepository {
 
-    //@Override
-    //    public Association forIdentifier(final Identifier identifier) {
-    //        try {
-    //            return Iterables.find(getAll(), new Predicate<Association>() {
-    //
-    //                @Override
-    //                public boolean apply(@Nullable final Association input) {
-    //                    if (input.getIdentifier().equals(identifier.toString())) {
-    //                        return true;
-    //                    } else {
-    //                        return false;
-    //                    }
-    //                }
-    //            });
-    //        } catch (Exception e) {
-    //            return null;
-    //        }
-    //    }
-    //
-    //    @Override
-    //    public Association forIdentifierAndLanguage(final Identifier identifier, final Language language) {
-    //        try {
-    //            return Iterables.find(getAll(), new Predicate<Association>() {
-    //
-    //                @Override
-    //                public boolean apply(@Nullable final Association input) {
-    //                    if (input.getIdentifier().equals(identifier.toString()) && input.getLanguage().equals(language.getCode())) {
-    //                        return true;
-    //                    } else {
-    //                        return false;
-    //                    }
-    //                }
-    //            });
-    //        } catch (Exception e) {
-    //            return null;
-    //        }
-    //    }
+    @Override
+    public Keyword forValueAndLanguage(final String value, final Language language) {
+        try {
+            return Iterables.find(getAll(), new Predicate<Keyword>() {
 
+                @Override
+                public boolean apply(@Nullable final Keyword input) {
+                    if (input.getValue().equals(value) && input.getLanguage().equals(language)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

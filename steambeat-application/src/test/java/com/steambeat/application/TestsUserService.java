@@ -1,5 +1,6 @@
 package com.steambeat.application;
 
+import com.steambeat.domain.session.EmailAlreadyUsed;
 import com.steambeat.domain.user.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;

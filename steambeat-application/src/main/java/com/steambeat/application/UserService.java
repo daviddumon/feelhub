@@ -1,6 +1,7 @@
 package com.steambeat.application;
 
 import com.google.inject.Inject;
+import com.steambeat.domain.session.EmailAlreadyUsed;
 import com.steambeat.domain.user.*;
 import com.steambeat.repositories.Repositories;
 

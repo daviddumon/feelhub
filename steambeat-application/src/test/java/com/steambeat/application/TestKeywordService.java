@@ -1,59 +1,59 @@
 package com.steambeat.application;
 
+import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.repositories.Repositories;
+import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
+
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestKeywordService {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
-    @Test
-    public void canLookUpAKeyword() {
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
+    @Before
+    public void before() {
+        keywordService = new KeywordService(new KeywordFactory());
     }
 
-    //@Rule
-    //public WithFakeRepositories repositories = new WithFakeRepositories();
-    //
-    //@Rule
-    //public ExpectedException exception = ExpectedException.none();
-    //
-    //@Before
-    //public void before() {
-    //    this.associationService = new AssociationService(new FakeUriPathResolver(), new FakeMicrosoftTranslator());
-    //}
-    //
-    //@Test
-    //public void canGetAnAssociation() {
-    //    final Uri uri = new Uri("http://www.steambeat.com");
-    //    final Association association = TestFactories.associations().newAssociation(uri);
-    //
-    //    final Association foundAssociation = associationService.lookUp(uri);
-    //
-    //    assertThat(foundAssociation, notNullValue());
-    //    assertThat(foundAssociation.getIdentifier(), is(uri.toString()));
-    //    assertThat(foundAssociation, is(association));
-    //}
-    //
-    //@Test
-    //public void throwErrorIfNoAssociationForUri() {
-    //    exception.expect(AssociationNotFound.class);
-    //    final Uri uri = new Uri("http://www.steambeat.com");
-    //
-    //    associationService.lookUp(uri);
-    //}
-    //
-    //@Test
-    //public void canCreateANewAssociation() {
-    //    final Uri uri = new Uri("http://www.steambeat.com");
-    //
-    //    final Association association = associationService.createAssociationsFor(uri);
-    //
-    //    assertThat(association, notNullValue());
-    //    assertThat(association.getIdentifier(), is(uri.toString()));
-    //    assertThat(association.getLanguage(), is(""));
-    //}
+    @Test
+    public void canLookUpAKeyword() {
+        final Keyword keyword = TestFactories.keywords().newKeyword();
+
+        final Keyword foundKeyword = keywordService.lookUp(keyword.getValue(), keyword.getLanguage());
+
+        assertThat(foundKeyword, notNullValue());
+    }
+
+    @Test
+    public void throwExceptionOnKeywordNotFound() {
+        exception.expect(KeywordNotFound.class);
+
+        keywordService.lookUp("any", Language.forString("any"));
+    }
+
+    @Test
+    public void canCreateAKeyword() {
+        final String value = "value";
+        final Language language = Language.forString("none");
+
+        final Keyword keyword = keywordService.createKeyword(value, language);
+
+        assertThat(keyword, notNullValue());
+        assertThat(keyword.getValue(), is(value));
+        assertThat(keyword.getLanguage(), is(language));
+        assertThat(Repositories.keywords().getAll().size(), is(1));
+    }
+
+
     //
     //@Test
     //public void canCreateAllAssociationsInRepository() {
@@ -131,4 +131,5 @@ public class TestKeywordService {
     //}
     //
     //private AssociationService associationService;
+    private KeywordService keywordService;
 }

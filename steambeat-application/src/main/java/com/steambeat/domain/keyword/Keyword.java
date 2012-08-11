@@ -14,10 +14,10 @@ public class Keyword extends BaseEntity {
     }
 
     public Keyword(final String value, final Language language, final UUID topic) {
-        this.topic = topic;
         this.id = UUID.randomUUID();
         this.value = value;
         this.language = language;
+        this.topic = topic;
         this.creationDate = new DateTime();
         this.lastModificationDate = this.creationDate;
     }
@@ -25,6 +25,19 @@ public class Keyword extends BaseEntity {
     @Override
     public Object getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Keyword keyword = (Keyword) o;
+        return Objects.equal(keyword.value, value)
+                && Objects.equal(keyword.language, language);
     }
 
     @Override

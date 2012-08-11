@@ -1,7 +1,7 @@
 package com.steambeat.test.fakeRepositories;
 
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.keyword.KeywordRepository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
@@ -13,7 +13,7 @@ import com.steambeat.repositories.Repositories;
 public class FakeMongoRepositories extends Repositories {
 
     @Override
-    protected Repository<Keyword> getKeywordRepository() {
+    protected KeywordRepository getKeywordRepository() {
         return keywordRepository;
     }
 
@@ -53,5 +53,5 @@ public class FakeMongoRepositories extends Repositories {
     private final FakeUserRepository userRepository = new FakeUserRepository();
     private final FakeSessionRepository sessionRepository = new FakeSessionRepository();
     private final FakeTopicRepository topicRepository = new FakeTopicRepository();
-    private final Repository<Keyword> keywordRepository = new FakeKeywordRepository();
+    private final FakeKeywordRepository keywordRepository = new FakeKeywordRepository();
 }

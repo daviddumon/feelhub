@@ -3,8 +3,9 @@ package com.steambeat.domain.alchemy;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
-import com.steambeat.application.*;
+import com.steambeat.application.KeywordService;
 import com.steambeat.domain.eventbus.DomainEventBus;
+import com.steambeat.domain.keyword.KeywordNotFound;
 import com.steambeat.domain.relation.*;
 import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.uri.*;
@@ -57,7 +58,7 @@ public class AlchemyEntityAnalyzer {
         for (final String keyword : namedEntity.keywords) {
             try {
                 associationService.lookUp(keyword, namedEntity.language);
-            } catch (AssociationNotFound e) {
+            } catch (KeywordNotFound e) {
                 //associationService.createAssociationFor(new Tag(keyword), namedEntity.conceptId, namedEntity.language);
             }
         }

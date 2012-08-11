@@ -1,7 +1,7 @@
 package com.steambeat.repositories;
 
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.keyword.KeywordRepository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
@@ -19,7 +19,7 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
-    protected Repository<Keyword> getKeywordRepository() {
+    protected KeywordRepository getKeywordRepository() {
         return new KeywordMongoRepository(provider.get());
     }
 

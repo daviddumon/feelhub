@@ -8,8 +8,8 @@ import org.junit.*;
 
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsLogoExtractor {
 

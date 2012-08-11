@@ -3,6 +3,7 @@ package com.steambeat.web.resources.json;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.application.*;
+import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.topic.Topic;
 import com.steambeat.web.ReferenceBuilder;

@@ -3,6 +3,7 @@ package com.steambeat.application;
 import com.google.inject.Inject;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.repositories.Repositories;
 
 public class KeywordService {
 
@@ -12,32 +13,21 @@ public class KeywordService {
     }
 
     public Keyword lookUp(final String value, final Language language) {
-        return keywordFactory.createKeyword(value, language);
+        final Keyword keyword = Repositories.keywords().forValueAndLanguage(value, language);
+        if (keyword == null) {
+            throw new KeywordNotFound();
+        }
+        return keyword;
+    }
+
+    public Keyword createKeyword(final String value, final Language language) {
+        final Keyword keyword = keywordFactory.createKeyword(value, language);
+        Repositories.keywords().add(keyword);
+        return keyword;
     }
 
     private KeywordFactory keywordFactory;
 
-    //@Inject
-    //public AssociationService(final UriPathResolver pathResolver, final MicrosoftTranslator microsoftTranslator) {
-    //    this.pathResolver = pathResolver;
-    //    this.microsoftTranslator = microsoftTranslator;
-    //}
-    //
-    //public Association lookUp(final Identifier identifier) {
-    //    final Association association = Repositories.associations().forIdentifier(identifier);
-    //    if (association == null) {
-    //        throw new AssociationNotFound();
-    //    }
-    //    return association;
-    //}
-    //
-    //public Association lookUp(final Tag identifier, final Language language) {
-    //    final Association association = Repositories.associations().forIdentifierAndLanguage(identifier, language);
-    //    if (association == null) {
-    //        throw new AssociationNotFound();
-    //    }
-    //    return association;
-    //}
     //
     //public Association createAssociationFor(final Tag tag, final UUID id, final Language language) {
     //    addEnglishAssociationIfNeeded(tag, id, language);
@@ -90,7 +80,4 @@ public class KeywordService {
     //private Association lastAssociation(final List<Association> associations) {
     //    return associations.get(associations.size() - 1);
     //}
-    //
-    //private final UriPathResolver pathResolver;
-    //private final MicrosoftTranslator microsoftTranslator;
 }

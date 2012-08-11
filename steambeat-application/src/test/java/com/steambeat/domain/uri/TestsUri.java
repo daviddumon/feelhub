@@ -1,10 +1,9 @@
 package com.steambeat.domain.uri;
 
-import com.steambeat.domain.uri.Uri;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsUri {
 

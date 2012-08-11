@@ -2,6 +2,7 @@ package com.steambeat.web.resources.authentification;
 
 import com.google.inject.Inject;
 import com.steambeat.application.*;
+import com.steambeat.domain.session.EmailAlreadyUsed;
 import com.steambeat.domain.user.BadEmail;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.data.*;

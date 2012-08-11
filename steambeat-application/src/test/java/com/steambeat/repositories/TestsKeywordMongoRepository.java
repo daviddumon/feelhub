@@ -1,10 +1,9 @@
 package com.steambeat.repositories;
 
 import com.mongodb.*;
-import com.steambeat.domain.Repository;
-import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.Language;
-import com.steambeat.test.SystemTime;
+import com.steambeat.test.*;
 import org.junit.*;
 
 import java.util.UUID;
@@ -51,6 +50,17 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
         assertThat(keywordFound, notNullValue());
     }
 
+    @Test
+    public void canGetForValueAndLanguage() {
+        final String value = "value";
+        final Language english = Language.forString("english");
+        TestFactories.keywords().newKeyword(value, english);
+
+        final Keyword keyword = repository.forValueAndLanguage(value, english);
+
+        assertThat(keyword, notNullValue());
+    }
+
     private DBObject getUserFromDB(final Object id) {
         final DBCollection collection = mongo.getCollection("keyword");
         final DBObject query = new BasicDBObject();
@@ -58,89 +68,5 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
         return collection.findOne(query);
     }
 
-    //@Before
-    //public void before() throws UnknownHostException {
-    //    repo = Repositories.associations();
-    //}
-    //
-    //@Test
-    //public void canPersist() throws UnknownHostException, MongoException, MalformedURLException {
-    //    final Identifier identifier = new Uri("www.lemonde.fr");
-    //    final UUID uuid = UUID.randomUUID();
-    //    final Language french = Language.forString("french");
-    //    final Association association = new Association(identifier, uuid, french);
-    //
-    //    repo.add(association);
-    //
-    //    final DBObject associationFound = getAssociationFromDB();
-    //    assertThat(associationFound, notNullValue());
-    //    assertThat(associationFound.get("identifier"), is((Object) identifier.toString()));
-    //    assertThat(UUID.fromString(associationFound.get("topicId").toString()), is((Object) uuid));
-    //    assertThat(associationFound.get("language"), is((Object) french.getCode()));
-    //}
-    //
-    //private DBObject getAssociationFromDB() {
-    //    final DBCollection collection = mongo.getCollection("association");
-    //    final DBObject query = new BasicDBObject();
-    //    query.put("identifier", "http://www.lemonde.fr");
-    //    return collection.findOne(query);
-    //}
-    //
-    //@Test
-    //public void canGet() {
-    //    final DBCollection collection = mongo.getCollection("association");
-    //    final DBObject association = new BasicDBObject();
-    //    final UUID uuid = UUID.randomUUID();
-    //    association.put("_id", uuid);
-    //    collection.insert(association);
-    //
-    //    final Association associationFound = repo.get(uuid);
-    //
-    //    assertThat(associationFound, notNullValue());
-    //}
-    //
-    //@Test
-    //public void canGetForTag() {
-    //    final Tag tag = new Tag("tag");
-    //    TestFactories.associations().newAssociation(tag, UUID.randomUUID(), Language.forString("french"));
-    //
-    //    final Association associationFound = repo.forIdentifier(tag);
-    //
-    //    assertThat(associationFound, notNullValue());
-    //}
-    //
-    //@Test
-    //public void canGetForUri() {
-    //    final Uri uri = new Uri("http://www.mongo.com");
-    //    TestFactories.associations().newAssociation(uri, UUID.randomUUID(), Language.forString("french"));
-    //
-    //    final Association associationFound = repo.forIdentifier(uri);
-    //
-    //    assertThat(associationFound, notNullValue());
-    //}
-    //
-    //@Test
-    //public void canGetForIdentifierAndLanguage() {
-    //    final Tag tag = new Tag("tag");
-    //    final Language language = Language.forString("french");
-    //    TestFactories.associations().newAssociation(tag, UUID.randomUUID(), language);
-    //
-    //    final Association associationFound = repo.forIdentifierAndLanguage(tag, language);
-    //
-    //    assertThat(associationFound, notNullValue());
-    //}
-    //
-    //@Test
-    //public void canGetIfNoLanguage() {
-    //    final Tag tag = new Tag("tag");
-    //    TestFactories.associations().newAssociation(tag, UUID.randomUUID(), Language.forString(""));
-    //
-    //    final Association associationFound = repo.forIdentifierAndLanguage(tag, Language.forString("french"));
-    //
-    //    assertThat(associationFound, notNullValue());
-    //}
-    //
-    //private AssociationRepository repo;
-
-    private Repository<Keyword> repository;
+    private KeywordRepository repository;
 }

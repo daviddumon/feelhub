@@ -1,7 +1,7 @@
 package com.steambeat.repositories;
 
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.keyword.KeywordRepository;
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
@@ -39,11 +39,11 @@ public abstract class Repositories {
         return Repositories.soleInstance.getTopicRepository();
     }
 
-    public static Repository<Keyword> keywords() {
+    public static KeywordRepository keywords() {
         return Repositories.soleInstance.getKeywordRepository();
     }
 
-    protected abstract Repository<Keyword> getKeywordRepository();
+    protected abstract KeywordRepository getKeywordRepository();
 
     protected abstract Repository<Topic> getTopicRepository();
 

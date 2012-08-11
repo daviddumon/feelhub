@@ -3,7 +3,7 @@ package com.steambeat.web.resources.authentification;
 import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.domain.session.Session;
-import com.steambeat.domain.user.User;
+import com.steambeat.domain.user.*;
 import com.steambeat.web.ReferenceBuilder;
 import org.joda.time.*;
 import org.restlet.data.*;

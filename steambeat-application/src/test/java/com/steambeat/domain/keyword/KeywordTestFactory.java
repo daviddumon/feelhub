@@ -14,4 +14,10 @@ public class KeywordTestFactory {
         Repositories.keywords().add(keyword);
         return keyword;
     }
+
+    public Keyword newKeyword(final String value, final Language language) {
+        final Keyword keyword = new Keyword(value, language, UUID.randomUUID());
+        Repositories.keywords().add(keyword);
+        return keyword;
+    }
 }

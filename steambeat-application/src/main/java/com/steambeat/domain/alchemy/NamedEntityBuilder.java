@@ -1,8 +1,9 @@
 package com.steambeat.domain.alchemy;
 
 import com.google.inject.Inject;
-import com.steambeat.application.*;
+import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
+import com.steambeat.domain.keyword.KeywordNotFound;
 import com.steambeat.domain.thesaurus.Language;
 
 import java.util.UUID;
@@ -106,11 +107,11 @@ public class NamedEntityBuilder {
         final Language language = Language.forString(alchemyJsonEntity.language);
         try {
             return associationService.lookUp(alchemyJsonEntity.text, language).getTopic();
-        } catch (AssociationNotFound textNotFound) {
+        } catch (KeywordNotFound textNotFound) {
             if (!alchemyJsonEntity.disambiguated.name.isEmpty() && alchemyJsonEntity.disambiguated.name != alchemyJsonEntity.text) {
                 try {
                     return associationService.lookUp(alchemyJsonEntity.disambiguated.name, language).getTopic();
-                } catch (AssociationNotFound nameNotFound) {
+                } catch (KeywordNotFound nameNotFound) {
                 }
             }
         }

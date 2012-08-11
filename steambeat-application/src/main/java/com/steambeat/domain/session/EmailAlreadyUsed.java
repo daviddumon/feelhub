@@ -1,4 +1,4 @@
-package com.steambeat.application;
+package com.steambeat.domain.session;
 
 import com.steambeat.domain.DomainException;
 

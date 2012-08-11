@@ -1,39 +1,28 @@
 package com.steambeat.repositories;
 
-import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.thesaurus.Language;
 import org.mongolink.MongoSession;
+import org.mongolink.domain.criteria.*;
 
-public class KeywordMongoRepository extends BaseMongoRepository<Keyword> {
+import java.util.List;
+
+public class KeywordMongoRepository extends BaseMongoRepository<Keyword> implements KeywordRepository {
 
     public KeywordMongoRepository(final MongoSession mongoSession) {
         super(mongoSession);
     }
 
-    //@Override
-    //public Association forIdentifier(final Identifier identifier) {
-    //    final Criteria criteria = getSession().createCriteria(Association.class);
-    //    criteria.add(Restrictions.equals("identifier", identifier.toString()));
-    //    final List<Association> results = criteria.list();
-    //    if (results.isEmpty()) {
-    //        return null;
-    //    } else {
-    //        return results.get(0);
-    //    }
-    //}
-    //
-    //@Override
-    //public Association forIdentifierAndLanguage(final Identifier identifier, final Language language) {
-    //    final Criteria criteria = getSession().createCriteria(Association.class);
-    //    criteria.add(Restrictions.equals("identifier", identifier.toString()));
-    //    final List<String> languages = Lists.newArrayList();
-    //    languages.add(language.getCode());
-    //    languages.add("");
-    //    criteria.add(Restrictions.in("language", languages));
-    //    final List<Association> results = criteria.list();
-    //    if (results.isEmpty()) {
-    //        return null;
-    //    } else {
-    //        return results.get(0);
-    //    }
-    //}
+    @Override
+    public Keyword forValueAndLanguage(final String value, final Language language) {
+        final Criteria criteria = getSession().createCriteria(Keyword.class);
+        criteria.add(Restrictions.equals("value", value));
+        criteria.add(Restrictions.equals("language", language));
+        final List<Keyword> results = criteria.list();
+        if (results.isEmpty()) {
+            return null;
+        } else {
+            return results.get(0);
+        }
+    }
 }

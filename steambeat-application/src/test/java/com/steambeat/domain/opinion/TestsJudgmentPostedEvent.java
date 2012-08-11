@@ -1,12 +1,11 @@
 package com.steambeat.domain.opinion;
 
-import com.steambeat.test.SystemTime;
+import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.TestFactories;
 import org.junit.*;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsJudgmentPostedEvent {
 
