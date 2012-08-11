@@ -13,6 +13,7 @@ import java.util.UUID;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+@Ignore
 public class TestsNamedEntityBuilder {
 
     @Rule

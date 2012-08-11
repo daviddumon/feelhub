@@ -1,14 +1,14 @@
 package com.steambeat.web.guice;
 
 import com.google.inject.*;
-import com.steambeat.application.*;
+import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.*;
-import com.steambeat.domain.uri.UriPathResolver;
 import com.steambeat.domain.bingsearch.BingLink;
-import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.domain.translation.MicrosoftTranslator;
+import com.steambeat.domain.uri.UriPathResolver;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
@@ -38,7 +38,7 @@ public class TestGuiceModule extends AbstractModule {
         bind(MigrationRunner.class).to(FakeMigrationRunner.class);
         bind(MigrationFilter.class).to(FakeMigrationFilter.class);
         bind(UriScraper.class).to(FakeUriScraper.class);
-        bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new AssociationService(new FakeUriPathResolver(), new FakeMicrosoftTranslator()))));
+        bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory()))));
         bind(MicrosoftTranslator.class).to(FakeMicrosoftTranslator.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
