@@ -14,7 +14,7 @@ public class TestsSteambeatRouter {
 
     @Test
     public void useGuiceToCreateResource() {
-        final Injector injector = Guice.createInjector(new TestGuiceModule());
+        final Injector injector = Guice.createInjector(new GuiceTestModule());
         final SteambeatRouter router = new SteambeatRouter(new Context(), injector);
         final Request request = new Request(Method.GET, "/");
 

@@ -2,7 +2,7 @@ package com.steambeat.web.resources;
 
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
-import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.representation.Representation;
@@ -19,7 +19,12 @@ public class KeywordResource extends ServerResource {
     public Representation get() {
         extractLanguageFromUri();
         extractKeywordValueFromUri();
-        final Keyword keyword = keywordService.lookUp(keywordValue, language);
+        Keyword keyword;
+        try {
+            keyword = keywordService.lookUp(keywordValue, language);
+        } catch (KeywordNotFound e) {
+            keyword = keywordService.createKeyword(keywordValue, language);
+        }
         return SteambeatTemplateRepresentation.createNew("keyword.ftl", getContext())
                 .with("keyword", keyword)
                 .with("language", language);
@@ -29,7 +34,7 @@ public class KeywordResource extends ServerResource {
         if (getRequestAttributes().containsKey("language")) {
             language = Language.forString(getRequestAttributes().get("language").toString());
         } else {
-            language = Language.forString("none");
+            language = Language.none();
         }
     }
 

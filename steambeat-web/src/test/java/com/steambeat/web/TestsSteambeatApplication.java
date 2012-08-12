@@ -1,6 +1,6 @@
 package com.steambeat.web;
 
-import com.steambeat.web.guice.TestGuiceModule;
+import com.steambeat.web.guice.GuiceTestModule;
 import freemarker.template.Configuration;
 import org.junit.Test;
 import org.restlet.Context;
@@ -17,7 +17,7 @@ public class TestsSteambeatApplication {
     public void canInitFeemarker() throws Exception {
         final Context context = createContext();
         final SteambeatApplication application = new SteambeatApplication(context);
-        application.initializeGuice(new TestGuiceModule());
+        application.initializeGuice(new GuiceTestModule());
 
         application.start();
 

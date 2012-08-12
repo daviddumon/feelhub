@@ -2,6 +2,8 @@ package com.steambeat.web.resources;
 
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.test.TestFactories;
+import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.*;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.junit.*;
@@ -12,6 +14,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class TestsKeywordResource {
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
@@ -56,12 +61,24 @@ public class TestsKeywordResource {
 
     @Test
     public void lookUpKeyword() {
+        TestFactories.keywords().newKeyword("keyword", Language.forString("de"));
         final ClientResource keywordResource = restlet.newClientResource("/topic/de/keyword");
 
         keywordResource.get();
 
-        final KeywordService keywordService = restlet.getModuleGuiceModule().getKeywordService();
+        final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
         verify(keywordService).lookUp("keyword", Language.forString("de"));
+    }
+
+    @Test
+    public void lookUpWithNoLanguage() {
+        TestFactories.keywords().newKeyword("keyword", Language.none());
+        final ClientResource keywordResource = restlet.newClientResource("/topic/keyword");
+
+        keywordResource.get();
+
+        final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
+        verify(keywordService).lookUp("keyword", Language.none());
     }
 
     @Test
@@ -70,7 +87,17 @@ public class TestsKeywordResource {
 
         keywordResource.get();
 
-        final KeywordService keywordService = restlet.getModuleGuiceModule().getKeywordService();
+        final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
         verify(keywordService).lookUp("anotherkeyword", Language.forString("fr"));
+    }
+
+    @Test
+    public void createKeywordIfItDoesNotExist() {
+        final ClientResource keywordResource = restlet.newClientResource("/topic/es/keyword");
+
+        keywordResource.get();
+
+        final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
+        verify(keywordService).createKeyword("keyword", Language.forString("es"));
     }
 }

@@ -7,7 +7,7 @@ import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.thesaurus.Language;
-import com.steambeat.domain.translation.MicrosoftTranslator;
+import com.steambeat.domain.translation.*;
 import com.steambeat.domain.uri.UriPathResolver;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
@@ -24,7 +24,7 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
-public class TestGuiceModule extends AbstractModule {
+public class GuiceTestModule extends AbstractModule {
 
     @Override
     protected void configure() {
@@ -50,6 +50,7 @@ public class TestGuiceModule extends AbstractModule {
         keywordService = mock(KeywordService.class);
         final Language en = Language.forString("en");
         when(keywordService.lookUp("cool", en)).thenReturn(new Keyword("cool", en, UUID.randomUUID()));
+        when(keywordService.lookUp("keyword", Language.forString("es"))).thenThrow(new KeywordNotFound());
         return keywordService;
     }
 

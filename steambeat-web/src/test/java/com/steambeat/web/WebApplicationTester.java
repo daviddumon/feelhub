@@ -1,6 +1,6 @@
 package com.steambeat.web;
 
-import com.steambeat.web.guice.TestGuiceModule;
+import com.steambeat.web.guice.GuiceTestModule;
 import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.rules.ExternalResource;
@@ -21,7 +21,7 @@ public class WebApplicationTester extends ExternalResource {
         final Context context = new Context();
         context.getAttributes().put("org.restlet.ext.servlet.ServletContext", mockServletContext());
         application = new SteambeatApplication(context);
-        application.initializeGuice(moduleGuiceModule);
+        application.initializeGuice(moduleGuiceTestModule);
         application.start();
     }
 
@@ -48,18 +48,18 @@ public class WebApplicationTester extends ExternalResource {
     }
 
     public void setSitemapLink(final SteambeatSitemapModuleLink steambeatSitemapModuleLink) {
-        moduleGuiceModule.setSteambeatSitemapModuleLink(steambeatSitemapModuleLink);
+        moduleGuiceTestModule.setSteambeatSitemapModuleLink(steambeatSitemapModuleLink);
     }
 
     public SteambeatApplication getApplication() {
         return application;
     }
 
-    public TestGuiceModule getModuleGuiceModule() {
-        return moduleGuiceModule;
+    public GuiceTestModule getModuleGuiceTestModule() {
+        return moduleGuiceTestModule;
     }
 
     private SteambeatApplication application;
-    private TestGuiceModule moduleGuiceModule = new TestGuiceModule();
+    private GuiceTestModule moduleGuiceTestModule = new GuiceTestModule();
     public static final String SERVER_ROOT = "http://localhost";
 }

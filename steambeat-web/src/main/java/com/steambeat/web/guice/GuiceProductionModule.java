@@ -12,7 +12,7 @@ import com.steambeat.domain.subject.concept.ConceptFactory;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.web.mail.*;
 
-public class ProductionGuiceModule extends AbstractModule {
+public class GuiceProductionModule extends AbstractModule {
 
     @Override
     protected void configure() {

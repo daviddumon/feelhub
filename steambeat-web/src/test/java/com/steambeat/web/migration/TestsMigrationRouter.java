@@ -15,7 +15,7 @@ public class TestsMigrationRouter {
 
     @Test
     public void useGuiceToCreateResource() {
-        final Injector injector = Guice.createInjector(new TestGuiceModule());
+        final Injector injector = Guice.createInjector(new GuiceTestModule());
         final MigrationRouter router = new MigrationRouter(new Context(), injector);
         final Request request = new Request(Method.GET, "/");
 
