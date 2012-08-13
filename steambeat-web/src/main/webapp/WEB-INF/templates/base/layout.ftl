@@ -121,9 +121,9 @@
             </#if>
         </div>
 
-        <div id="help_panel">
-            <a href="${root}/help">help</a>
-        </div>
+        <#--<div id="help_panel">-->
+            <#--<a href="${root}/help">help</a>-->
+        <#--</div>-->
 
     </header>
 

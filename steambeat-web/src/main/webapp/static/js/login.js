@@ -68,6 +68,8 @@ function login() {
                     $("[name='password']").parent().find(".error_text").text("Wrong password");
                 } else if (jqXHR.status == 400) {
                     console.log("error : " + jqXHR.status + " while posting on " + root + "/sessions");
+                } else if (jqXHR.status == 500) {
+                    $("[name='email']").parent().find(".error_text").text("This user is unknown");
                 }
             });
     }
