@@ -17,6 +17,18 @@ public class TranslationDoneEvent implements DomainEvent {
         return date;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(date.toString());
+        stringBuilder.append(" - ");
+        stringBuilder.append("Keyword ");
+        stringBuilder.append(keyword.getValue() + " " + keyword.getLanguage());
+        stringBuilder.append(" translated into ");
+        stringBuilder.append(result);
+        return stringBuilder.toString();
+    }
+
     public Keyword getKeyword() {
         return keyword;
     }

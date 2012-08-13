@@ -16,7 +16,7 @@ public class Keyword extends BaseEntity {
     public Keyword(final String value, final Language language, final UUID topic) {
         this.id = UUID.randomUUID();
         this.value = value;
-        this.language = language;
+        this.languageCode = language.getCode();
         this.topic = topic;
         this.creationDate = new DateTime();
         this.lastModificationDate = this.creationDate;
@@ -37,12 +37,12 @@ public class Keyword extends BaseEntity {
         }
         final Keyword keyword = (Keyword) o;
         return Objects.equal(keyword.value, value)
-                && Objects.equal(keyword.language, language);
+                && Objects.equal(keyword.languageCode, languageCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(value, language);
+        return Objects.hashCode(value, languageCode);
     }
 
     @Override
@@ -55,7 +55,11 @@ public class Keyword extends BaseEntity {
     }
 
     public Language getLanguage() {
-        return language;
+        return Language.forString(languageCode);
+    }
+
+    public String getLanguageCode() {
+        return languageCode;
     }
 
     public UUID getTopic() {
@@ -70,9 +74,13 @@ public class Keyword extends BaseEntity {
         return lastModificationDate;
     }
 
+    public void setTopic(final UUID topicId) {
+        this.topic = topicId;
+    }
+
     private UUID id;
     private String value;
-    private Language language;
+    private String languageCode;
     private UUID topic;
     private DateTime creationDate;
     private DateTime lastModificationDate;

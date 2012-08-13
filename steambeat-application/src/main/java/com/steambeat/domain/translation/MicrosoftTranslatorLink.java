@@ -3,9 +3,9 @@ package com.steambeat.domain.translation;
 import com.memetix.mst.language.Language;
 import com.memetix.mst.translate.Translate;
 
-public class MicrosoftTranslator {
+public class MicrosoftTranslatorLink {
 
-    public MicrosoftTranslator() {
+    public MicrosoftTranslatorLink() {
         Translate.setClientId("steambeat");
         Translate.setClientSecret("XrLNktvCKuAOe12+TUOLWwJuZiju+5iCwvMRCLGpB8Q=");
     }

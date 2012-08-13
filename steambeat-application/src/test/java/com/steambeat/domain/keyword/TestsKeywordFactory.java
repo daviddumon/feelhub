@@ -5,6 +5,8 @@ import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.test.SystemTime;
 import org.junit.*;
 
+import java.util.UUID;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -50,6 +52,16 @@ public class TestsKeywordFactory {
         assertThat(keywordCreatedEvent, notNullValue());
         assertThat(keywordCreatedEvent.getKeyword(), is(keyword));
         assertThat(keywordCreatedEvent.getDate(), is(time.getNow()));
+    }
+
+    @Test
+    public void canCreateKeywordsWithSameTopic() {
+        final UUID topicId = UUID.randomUUID();
+
+        Keyword keyword1 = keywordFactory.createKeyword("value1", Language.reference(), topicId);
+        Keyword keyword2 = keywordFactory.createKeyword("value2", Language.reference(), topicId);
+
+        assertThat(keyword1.getTopic(), is(keyword2.getTopic()));
     }
 
     private KeywordFactory keywordFactory;

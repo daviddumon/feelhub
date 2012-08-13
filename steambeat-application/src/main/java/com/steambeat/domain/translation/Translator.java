@@ -9,8 +9,8 @@ import com.steambeat.domain.thesaurus.Language;
 public class Translator {
 
     @Inject
-    public Translator(final MicrosoftTranslator microsoftTranslator) {
-        this.microsoftTranslator = microsoftTranslator;
+    public Translator(final MicrosoftTranslatorLink microsoftTranslatorLink) {
+        this.microsoftTranslatorLink = microsoftTranslatorLink;
         DomainEventBus.INSTANCE.register(this);
     }
 
@@ -21,7 +21,7 @@ public class Translator {
         final Language language = keyword.getLanguage();
         if (!language.equals(Language.reference()) && !language.equals(Language.none())) {
             try {
-                final String result = microsoftTranslator.translate(keyword.getValue(), language.getMicrosoftLanguage());
+                final String result = microsoftTranslatorLink.translate(keyword.getValue(), language.getMicrosoftLanguage());
                 final TranslationDoneEvent translationDoneEvent = new TranslationDoneEvent(keyword, result);
                 DomainEventBus.INSTANCE.post(translationDoneEvent);
             } catch (TranslateException e) {
@@ -29,5 +29,5 @@ public class Translator {
         }
     }
 
-    private MicrosoftTranslator microsoftTranslator;
+    private MicrosoftTranslatorLink microsoftTranslatorLink;
 }

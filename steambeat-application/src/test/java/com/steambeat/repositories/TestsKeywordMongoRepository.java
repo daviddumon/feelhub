@@ -31,7 +31,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
         assertThat(keywordFound, notNullValue());
         assertThat(keywordFound.get("_id"), is(keyword.getId()));
         assertThat(keywordFound.get("value"), is((Object) keyword.getValue()));
-        assertThat(keywordFound.get("language"), is((Object) keyword.getLanguage()));
+        assertThat(keywordFound.get("languageCode"), is((Object) keyword.getLanguageCode()));
         assertThat(keywordFound.get("topic"), is((Object) keyword.getTopic()));
         assertThat(keywordFound.get("creationDate"), is((Object) keyword.getCreationDate().getMillis()));
         assertThat(keywordFound.get("lastModificationDate"), is((Object) keyword.getLastModificationDate().getMillis()));

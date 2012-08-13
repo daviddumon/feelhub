@@ -39,7 +39,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(MigrationFilter.class).to(FakeMigrationFilter.class);
         bind(UriScraper.class).to(FakeUriScraper.class);
         bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory()))));
-        bind(MicrosoftTranslator.class).to(FakeMicrosoftTranslator.class);
+        bind(MicrosoftTranslatorLink.class).to(FakeMicrosoftTranslatorLink.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
         bind(MailBuilder.class).toInstance(new MailBuilder(new FakeMailSender()));

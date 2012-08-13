@@ -24,7 +24,7 @@ public class TestsTranslator {
 
     @Before
     public void before() {
-        microsoftTranslator = mock(FakeMicrosoftTranslator.class);
+        microsoftTranslator = mock(FakeMicrosoftTranslatorLink.class);
         translator = new Translator(microsoftTranslator);
     }
 
@@ -68,6 +68,6 @@ public class TestsTranslator {
         assertThat(translationDoneEvent.getResult(), is("translatedValue"));
     }
 
-    private FakeMicrosoftTranslator microsoftTranslator;
+    private FakeMicrosoftTranslatorLink microsoftTranslator;
     private Translator translator;
 }
