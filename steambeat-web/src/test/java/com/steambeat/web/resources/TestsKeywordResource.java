@@ -1,6 +1,7 @@
 package com.steambeat.web.resources;
 
 import com.steambeat.application.KeywordService;
+import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
@@ -23,6 +24,7 @@ public class TestsKeywordResource {
 
     @Test
     public void keywordResourceIsMapped() {
+        TestFactories.keywords().newKeyword("keyword", Language.none());
         final ClientResource keywordResource = restlet.newClientResource("/topic/keyword");
 
         keywordResource.get();
@@ -32,6 +34,7 @@ public class TestsKeywordResource {
 
     @Test
     public void keywordResourceIsMappedWithLanguage() {
+        TestFactories.keywords().newKeyword("keyword", Language.forString("fr"));
         final ClientResource keywordResource = restlet.newClientResource("/topic/fr/keyword");
 
         keywordResource.get();
@@ -92,12 +95,15 @@ public class TestsKeywordResource {
     }
 
     @Test
-    public void createKeywordIfItDoesNotExist() {
+    public void createFakeKeywordIfItDoesNotExist() {
         final ClientResource keywordResource = restlet.newClientResource("/topic/es/keyword");
 
-        keywordResource.get();
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) keywordResource.get();
 
-        final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
-        verify(keywordService).createKeyword("keyword", Language.forString("es"));
+        assertTrue(representation.getDataModel().containsKey("keyword"));
+        final Keyword keyword = (Keyword) representation.getDataModel().get("keyword");
+        assertThat(keyword, notNullValue());
+        assertThat(keyword.getTopic(), nullValue());
+        assertThat(keywordResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
     }
 }

@@ -4,9 +4,8 @@ import com.google.inject.*;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.bingsearch.BingLink;
-import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.scrapers.UriScraper;
-import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.domain.translation.*;
 import com.steambeat.domain.uri.UriPathResolver;
 import com.steambeat.repositories.SessionProvider;
@@ -19,8 +18,6 @@ import com.steambeat.web.migration.web.MigrationFilter;
 import com.steambeat.web.search.*;
 import com.steambeat.web.search.fake.*;
 import com.steambeat.web.tools.SteambeatSitemapModuleLink;
-
-import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
@@ -47,10 +44,7 @@ public class GuiceTestModule extends AbstractModule {
 
     @Provides
     public KeywordService keywordService() {
-        keywordService = mock(KeywordService.class);
-        final Language en = Language.forString("en");
-        when(keywordService.lookUp("cool", en)).thenReturn(new Keyword("cool", en, UUID.randomUUID()));
-        when(keywordService.lookUp("keyword", Language.forString("es"))).thenThrow(new KeywordNotFound());
+        keywordService = spy(new KeywordService(new KeywordFactory()));
         return keywordService;
     }
 

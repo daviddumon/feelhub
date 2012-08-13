@@ -5,6 +5,7 @@ import com.steambeat.application.KeywordService;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
+import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 import org.restlet.resource.*;
 
@@ -23,7 +24,8 @@ public class KeywordResource extends ServerResource {
         try {
             keyword = keywordService.lookUp(keywordValue, language);
         } catch (KeywordNotFound e) {
-            keyword = keywordService.createKeyword(keywordValue, language);
+            keyword = new Keyword(keywordValue, language, null);
+            setStatus(Status.CLIENT_ERROR_NOT_FOUND);
         }
         return SteambeatTemplateRepresentation.createNew("keyword.ftl", getContext())
                 .with("keyword", keyword)
