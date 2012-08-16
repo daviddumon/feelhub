@@ -37,15 +37,15 @@ public class TestsSubjectIdentifier {
     }
 
     @Test
-        public void canPostConceptCreatedEvent() {
-            bus.capture(ConceptCreatedEvent.class);
-            final KeywordCreatedEvent event = getEventForUri("http://www.google.com");
+    public void canPostConceptCreatedEvent() {
+        bus.capture(ConceptCreatedEvent.class);
+        final KeywordCreatedEvent event = getEventForUri("google");
 
-            subjectIdentifier.handle(event);
+        subjectIdentifier.handle(event);
 
-            final UriCreatedEvent uriCreatedEvent = bus.lastEvent(UriCreatedEvent.class);
-            assertThat(uriCreatedEvent, notNullValue());
-        }
+        final ConceptCreatedEvent conceptCreatedEvent = bus.lastEvent(ConceptCreatedEvent.class);
+        assertThat(conceptCreatedEvent, notNullValue());
+    }
 
     @Test
     public void canIdentifyUris() {

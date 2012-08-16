@@ -46,7 +46,7 @@ public class StatisticsResource extends ServerResource {
 
     private void fetchStatistics() {
         final com.steambeat.domain.reference.Reference reference = referenceService.lookUp(UUID.fromString(topicId));
-        statistics = statisticsSearch.withTopic(reference).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
+        statistics = statisticsSearch.withReference(reference).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
     }
 
     private List<Statistics> statistics = Lists.newArrayList();

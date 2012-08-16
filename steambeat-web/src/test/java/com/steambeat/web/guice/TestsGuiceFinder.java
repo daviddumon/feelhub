@@ -4,6 +4,7 @@ import com.google.inject.*;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.keyword.KeywordFactory;
+import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.FakeUriScraper;
@@ -33,7 +34,7 @@ public class TestsGuiceFinder {
         protected void configure() {
             bind(SessionProvider.class).to(FakeSessionProvider.class);
             bind(UriScraper.class).to(FakeUriScraper.class);
-            bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory()))));
+            bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceFactory()))));
         }
     }
 }

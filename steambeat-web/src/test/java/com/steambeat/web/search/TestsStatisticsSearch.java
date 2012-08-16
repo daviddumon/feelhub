@@ -36,7 +36,7 @@ public class TestsStatisticsSearch extends TestWithMongoRepository {
         final Statistics statistics = TestFactories.statistics().newStatistics(reference, Granularity.all);
         TestFactories.statistics().newStatistics();
 
-        final List<Statistics> statisticsList = statisticsSearch.withTopic(reference).execute();
+        final List<Statistics> statisticsList = statisticsSearch.withReference(reference).execute();
 
         assertThat(statisticsList.size(), is(1));
         assertThat(statisticsList.get(0), is(statistics));
@@ -48,7 +48,7 @@ public class TestsStatisticsSearch extends TestWithMongoRepository {
         TestFactories.statistics().newStatistics(reference, Granularity.day);
         final Statistics statistics = TestFactories.statistics().newStatistics(reference, Granularity.hour);
 
-        final List<Statistics> statisticsList = statisticsSearch.withTopic(reference).withGranularity(statistics.getGranularity()).execute();
+        final List<Statistics> statisticsList = statisticsSearch.withReference(reference).withGranularity(statistics.getGranularity()).execute();
 
         assertThat(statisticsList.size(), is(1));
     }

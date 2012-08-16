@@ -6,6 +6,7 @@ import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.eventbus.DeadEventCatcher;
 import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.statistics.StatisticsFactory;
 import com.steambeat.domain.subject.concept.ConceptFactory;
@@ -18,9 +19,9 @@ public class GuiceProductionModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(StatisticsFactory.class).toInstance(new StatisticsFactory());
-        bind(AlchemyEntityAnalyzer.class).toInstance(new AlchemyEntityAnalyzer(new NamedEntityJsonProvider(new AlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory()))), new KeywordService(new KeywordFactory()), new ConceptFactory(new BingLink())));
+        bind(AlchemyEntityAnalyzer.class).toInstance(new AlchemyEntityAnalyzer(new NamedEntityJsonProvider(new AlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceFactory()))), new KeywordService(new KeywordFactory(), new ReferenceFactory()), new ConceptFactory(new BingLink())));
         bind(UriScraper.class).toInstance(new UriScraper());
-        bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new AlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory()))));
+        bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new AlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceFactory()))));
         bind(MailBuilder.class).toInstance(new MailBuilder(new MailSender()));
         bind(DeadEventCatcher.class).toInstance(new DeadEventCatcher());
         bind(Translator.class).toInstance(new Translator(new MicrosoftTranslatorLink()));

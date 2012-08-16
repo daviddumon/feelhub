@@ -5,9 +5,10 @@ import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.keyword.KeywordFactory;
+import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.scrapers.UriScraper;
-import com.steambeat.domain.translation.*;
 import com.steambeat.domain.subject.uri.UriPathResolver;
+import com.steambeat.domain.translation.*;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;
@@ -35,7 +36,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(MigrationRunner.class).to(FakeMigrationRunner.class);
         bind(MigrationFilter.class).to(FakeMigrationFilter.class);
         bind(UriScraper.class).to(FakeUriScraper.class);
-        bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory()))));
+        bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceFactory()))));
         bind(MicrosoftTranslatorLink.class).to(FakeMicrosoftTranslatorLink.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
@@ -44,7 +45,7 @@ public class GuiceTestModule extends AbstractModule {
 
     @Provides
     public KeywordService keywordService() {
-        keywordService = spy(new KeywordService(new KeywordFactory()));
+        keywordService = spy(new KeywordService(new KeywordFactory(), new ReferenceFactory()));
         return keywordService;
     }
 

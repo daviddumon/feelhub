@@ -36,8 +36,8 @@ public class StatisticsSearch implements Search<Statistics> {
         return null;
     }
 
-    public StatisticsSearch withTopic(final Reference reference) {
-        criteria.add(Restrictions.equals("topicId", reference.getId()));
+    public StatisticsSearch withReference(final Reference reference) {
+        criteria.add(Restrictions.equals("referenceId", reference.getId()));
         return this;
     }
 

@@ -50,7 +50,7 @@ public class FakeStatisticsSearch extends StatisticsSearch {
     }
 
     @Override
-    public StatisticsSearch withTopic(final Reference reference) {
+    public StatisticsSearch withReference(final Reference reference) {
         statisticsList = Lists.newArrayList(Iterables.filter(statisticsList, new Predicate<Statistics>() {
 
             @Override
