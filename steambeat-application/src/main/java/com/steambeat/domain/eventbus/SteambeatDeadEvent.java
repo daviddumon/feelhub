@@ -1,18 +1,12 @@
 package com.steambeat.domain.eventbus;
 
 import com.google.common.eventbus.DeadEvent;
-import org.joda.time.DateTime;
 
-public class SteambeatDeadEvent implements DomainEvent {
+public class SteambeatDeadEvent extends DomainEvent {
 
     public SteambeatDeadEvent(DeadEvent deadEvent) {
+        super();
         this.deadEvent = deadEvent;
-        this.date = new DateTime();
-    }
-
-    @Override
-    public DateTime getDate() {
-        return date;
     }
 
     @Override
@@ -25,6 +19,5 @@ public class SteambeatDeadEvent implements DomainEvent {
         return stringBuilder.toString();
     }
 
-    private DateTime date;
     private DeadEvent deadEvent;
 }

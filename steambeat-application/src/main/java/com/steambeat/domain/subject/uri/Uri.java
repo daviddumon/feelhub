@@ -1,4 +1,4 @@
-package com.steambeat.domain.uri;
+package com.steambeat.domain.subject.uri;
 
 import com.google.common.base.*;
 
@@ -14,15 +14,15 @@ public class Uri {
         fragment = "";
     }
 
-    public Uri(final String uri) {
-        if (uri == null || uri.isEmpty()) {
+    public Uri(final String value) {
+        if (value == null || value.isEmpty()) {
             protocol = "";
             domain = "";
             address = "";
             query = "";
             fragment = "";
         } else {
-            final String uriDecoded = URIs.decode(uri).replace(" ", "+");
+            final String uriDecoded = URIs.decode(value).replace(" ", "+");
             protocol = URIs.extractProtocol(uriDecoded).toLowerCase(Locale.US);
             domain = URIs.extractDomain(uriDecoded).toLowerCase(Locale.US);
             address = URIs.extractAddress(uriDecoded);

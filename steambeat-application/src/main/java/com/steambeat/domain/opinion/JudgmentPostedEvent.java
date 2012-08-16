@@ -1,18 +1,12 @@
 package com.steambeat.domain.opinion;
 
 import com.steambeat.domain.eventbus.DomainEvent;
-import org.joda.time.DateTime;
 
-public class JudgmentPostedEvent implements DomainEvent {
+public class JudgmentPostedEvent extends DomainEvent {
 
     public JudgmentPostedEvent(final Judgment judgment) {
-        this.date = new DateTime();
+        super();
         this.judgment = judgment;
-    }
-
-    @Override
-    public DateTime getDate() {
-        return date;
     }
 
     @Override
@@ -31,6 +25,5 @@ public class JudgmentPostedEvent implements DomainEvent {
         return judgment;
     }
 
-    private final DateTime date;
     private final Judgment judgment;
 }

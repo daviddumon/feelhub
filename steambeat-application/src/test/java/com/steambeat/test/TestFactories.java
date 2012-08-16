@@ -7,7 +7,7 @@ import com.steambeat.domain.reference.ReferenceTestFactory;
 import com.steambeat.domain.relation.RelationTestFactory;
 import com.steambeat.domain.session.SessionTestFactory;
 import com.steambeat.domain.statistics.StatisticsTestFactory;
-import com.steambeat.domain.uri.UriTestFactory;
+import com.steambeat.domain.subject.uri.UriTestFactory;
 import com.steambeat.domain.user.UserTestFactory;
 
 public class TestFactories {

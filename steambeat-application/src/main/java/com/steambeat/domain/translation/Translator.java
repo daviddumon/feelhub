@@ -11,7 +11,7 @@ public class Translator {
     @Inject
     public Translator(final MicrosoftTranslatorLink microsoftTranslatorLink) {
         this.microsoftTranslatorLink = microsoftTranslatorLink;
-        DomainEventBus.INSTANCE.register(this);
+        //DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe

@@ -2,7 +2,7 @@ package com.steambeat.domain.subject.concept;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.thesaurus.Type;
-import com.steambeat.domain.uri.Uri;
+import com.steambeat.domain.subject.uri.Uri;
 
 import java.util.*;
 

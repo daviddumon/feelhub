@@ -1,4 +1,4 @@
-package com.steambeat.domain.uri;
+package com.steambeat.domain.subject.uri;
 
 import com.google.common.collect.Lists;
 import com.steambeat.tools.*;

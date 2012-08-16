@@ -8,7 +8,7 @@ import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.KeywordNotFound;
 import com.steambeat.domain.relation.*;
 import com.steambeat.domain.subject.concept.*;
-import com.steambeat.domain.uri.*;
+import com.steambeat.domain.subject.uri.*;
 
 import java.util.*;
 

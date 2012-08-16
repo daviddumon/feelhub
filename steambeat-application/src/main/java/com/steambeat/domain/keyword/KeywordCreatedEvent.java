@@ -1,18 +1,12 @@
 package com.steambeat.domain.keyword;
 
 import com.steambeat.domain.eventbus.DomainEvent;
-import org.joda.time.DateTime;
 
-public class KeywordCreatedEvent implements DomainEvent {
+public class KeywordCreatedEvent extends DomainEvent {
 
     public KeywordCreatedEvent(final Keyword keyword) {
+        super();
         this.keyword = keyword;
-        this.date = new DateTime();
-    }
-
-    @Override
-    public DateTime getDate() {
-        return date;
     }
 
     @Override
@@ -31,5 +25,4 @@ public class KeywordCreatedEvent implements DomainEvent {
     }
 
     private Keyword keyword;
-    private DateTime date;
 }

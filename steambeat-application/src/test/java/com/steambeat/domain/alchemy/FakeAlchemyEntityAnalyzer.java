@@ -4,7 +4,7 @@ import com.steambeat.application.KeywordService;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.subject.concept.FakeConceptFactory;
-import com.steambeat.domain.uri.Uri;
+import com.steambeat.domain.subject.uri.Uri;
 import com.steambeat.test.FakeBingLink;
 
 public class FakeAlchemyEntityAnalyzer extends AlchemyEntityAnalyzer {

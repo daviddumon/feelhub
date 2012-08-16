@@ -1,4 +1,4 @@
-package com.steambeat.domain.uri;
+package com.steambeat.domain.subject.uri;
 
 import org.junit.Test;
 
@@ -29,22 +29,22 @@ public class TestsUri {
 
     @Test
     public void canConvertToString() {
-        testUri("http://pute");
+        testUri("http://pute.fr");
     }
 
     @Test
     public void canDecodeAddress() {
-        testUri("http%3A%2F%2Fpute", "http://pute");
+        testUri("http%3A%2F%2Fpute.com", "http://pute.com");
     }
 
     @Test
     public void canPrefixWithProtocol() {
-        testUri("pute", "http://pute");
+        testUri("pute.de", "http://pute.de");
     }
 
     @Test
     public void removeTrailingSlash() {
-        testUri("pute/", "http://pute");
+        testUri("pute.sk/", "http://pute.sk");
     }
 
     @Test
@@ -121,7 +121,7 @@ public class TestsUri {
 
     @Test
     public void canDealWithUppercaseProtocol() {
-        testUri("HTTPS://yourmom", "https://yourmom");
+        testUri("HTTPS://yourmom.net", "https://yourmom.net");
     }
 
     @Test

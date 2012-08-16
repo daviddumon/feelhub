@@ -1,12 +1,12 @@
-package com.steambeat.domain.user;
+package com.steambeat.domain.subject.uri;
 
 import com.steambeat.domain.eventbus.DomainEvent;
 
-public class UserCreatedEvent extends DomainEvent {
+public class UriCreatedEvent extends DomainEvent {
 
-    public UserCreatedEvent(final User user) {
+    public UriCreatedEvent(final Uri uri) {
         super();
-        this.user = user;
+        this.uri = uri;
     }
 
     @Override
@@ -14,15 +14,15 @@ public class UserCreatedEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("User ");
-        stringBuilder.append(user.toString());
+        stringBuilder.append("Uri ");
+        stringBuilder.append(uri.toString());
         stringBuilder.append(" created");
         return stringBuilder.toString();
     }
 
-    public User getUser() {
-        return user;
+    public Uri getUri() {
+        return uri;
     }
 
-    private User user;
+    private Uri uri;
 }

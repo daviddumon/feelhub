@@ -1,4 +1,4 @@
-package com.steambeat.domain.uri;
+package com.steambeat.domain.subject.uri;
 
 import com.steambeat.domain.DomainException;
 import org.restlet.data.Status;

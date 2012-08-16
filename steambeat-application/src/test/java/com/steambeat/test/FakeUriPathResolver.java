@@ -1,6 +1,6 @@
 package com.steambeat.test;
 
-import com.steambeat.domain.uri.*;
+import com.steambeat.domain.subject.uri.*;
 
 import java.util.List;
 
