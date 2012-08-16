@@ -2,7 +2,7 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.relation.*;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
@@ -18,8 +18,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() {
-        final Topic left = TestFactories.topics().newTopic();
-        final Topic right = TestFactories.topics().newTopic();
+        final Reference left = TestFactories.references().newReference();
+        final Reference right = TestFactories.references().newReference();
         final Relation relation = new Relation(left, right, 1.0);
 
         repo.add(relation);
@@ -38,8 +38,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGet() {
-        final Topic left = TestFactories.topics().newTopic();
-        final Topic right = TestFactories.topics().newTopic();
+        final Reference left = TestFactories.references().newReference();
+        final Reference right = TestFactories.references().newReference();
         final Relation relation = new Relation(left, right, 1.0);
         Repositories.relations().add(relation);
 
@@ -50,8 +50,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canLookupForFromAndTo() {
-        final Topic from = TestFactories.topics().newTopic();
-        final Topic to = TestFactories.topics().newTopic();
+        final Reference from = TestFactories.references().newReference();
+        final Reference to = TestFactories.references().newReference();
         final Relation relation = TestFactories.relations().newRelation(from, to);
 
         final Relation relationFound = repo.lookUp(from, to);

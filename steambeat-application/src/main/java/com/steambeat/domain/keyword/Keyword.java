@@ -13,11 +13,11 @@ public class Keyword extends BaseEntity {
     public Keyword() {
     }
 
-    public Keyword(final String value, final Language language, final UUID topicId) {
+    public Keyword(final String value, final Language language, final UUID referenceId) {
         this.id = UUID.randomUUID();
         this.value = value;
         this.languageCode = language.getCode();
-        this.topicId = topicId;
+        this.referenceId = referenceId;
         this.creationDate = new DateTime();
         this.lastModificationDate = this.creationDate;
     }
@@ -62,8 +62,8 @@ public class Keyword extends BaseEntity {
         return languageCode;
     }
 
-    public UUID getTopicId() {
-        return topicId;
+    public UUID getReferenceId() {
+        return referenceId;
     }
 
     public DateTime getCreationDate() {
@@ -74,14 +74,14 @@ public class Keyword extends BaseEntity {
         return lastModificationDate;
     }
 
-    public void setTopicId(final UUID topicId) {
-        this.topicId = topicId;
+    public void setReferenceId(final UUID referenceId) {
+        this.referenceId = referenceId;
     }
 
     private UUID id;
     private String value;
     private String languageCode;
-    private UUID topicId;
+    private UUID referenceId;
     private DateTime creationDate;
     private DateTime lastModificationDate;
 }

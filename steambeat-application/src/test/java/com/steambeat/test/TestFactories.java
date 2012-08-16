@@ -3,10 +3,10 @@ package com.steambeat.test;
 import com.steambeat.domain.alchemy.AlchemyTestFactory;
 import com.steambeat.domain.keyword.KeywordTestFactory;
 import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.reference.ReferenceTestFactory;
 import com.steambeat.domain.relation.RelationTestFactory;
 import com.steambeat.domain.session.SessionTestFactory;
 import com.steambeat.domain.statistics.StatisticsTestFactory;
-import com.steambeat.domain.topic.TopicTestFactory;
 import com.steambeat.domain.uri.UriTestFactory;
 import com.steambeat.domain.user.UserTestFactory;
 
@@ -43,8 +43,8 @@ public class TestFactories {
         return new SessionTestFactory();
     }
 
-    public static TopicTestFactory topics() {
-        return new TopicTestFactory();
+    public static ReferenceTestFactory references() {
+        return new ReferenceTestFactory();
     }
 
     public static UriTestFactory uris() {

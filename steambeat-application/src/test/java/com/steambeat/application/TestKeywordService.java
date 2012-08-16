@@ -2,7 +2,7 @@ package com.steambeat.application;
 
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.Language;
-import com.steambeat.domain.topic.*;
+import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
@@ -24,7 +24,7 @@ public class TestKeywordService {
 
     @Before
     public void before() {
-        keywordService = new KeywordService(new KeywordFactory(), new TopicFactory());
+        keywordService = new KeywordService(new KeywordFactory(), new ReferenceFactory());
     }
 
     @Test
@@ -57,16 +57,16 @@ public class TestKeywordService {
     }
 
     @Test
-    public void createAndPersistATopicFirst() {
+    public void createAndPersistAReferenceFirst() {
         final String value = "value";
         final Language language = Language.forString("none");
 
         keywordService.createKeyword(value, language);
 
-        final List<Topic> topics = Repositories.topics().getAll();
+        final List<Reference> references = Repositories.references().getAll();
         final List<Keyword> keywords = Repositories.keywords().getAll();
         assertThat(keywords.size(), is(1));
-        assertThat(topics.size(), is(1));
+        assertThat(references.size(), is(1));
     }
 
 

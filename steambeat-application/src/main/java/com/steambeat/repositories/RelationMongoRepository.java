@@ -1,7 +1,7 @@
 package com.steambeat.repositories;
 
 import com.steambeat.domain.relation.*;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
 
@@ -14,7 +14,7 @@ public class RelationMongoRepository extends BaseMongoRepository<Relation> imple
     }
 
     @Override
-    public Relation lookUp(final Topic from, final Topic to) {
+    public Relation lookUp(final Reference from, final Reference to) {
         final Criteria criteria = getSession().createCriteria(Relation.class);
         criteria.add(Restrictions.equals("fromId", from.getId()));
         criteria.add(Restrictions.equals("toId", to.getId()));

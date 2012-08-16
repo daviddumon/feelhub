@@ -2,7 +2,7 @@ package com.steambeat.web.search;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.statistics.*;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.SessionProvider;
 import org.joda.time.Interval;
 import org.mongolink.domain.criteria.*;
@@ -36,8 +36,8 @@ public class StatisticsSearch implements Search<Statistics> {
         return null;
     }
 
-    public StatisticsSearch withTopic(final Topic topic) {
-        criteria.add(Restrictions.equals("topicId", topic.getId()));
+    public StatisticsSearch withTopic(final Reference reference) {
+        criteria.add(Restrictions.equals("topicId", reference.getId()));
         return this;
     }
 

@@ -2,7 +2,7 @@ package com.steambeat.domain.opinion;
 
 import com.google.common.eventbus.Subscribe;
 import com.steambeat.domain.eventbus.*;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
@@ -35,25 +35,25 @@ public class TestsOpinion {
     @Test
     public void canAddJudgementsToOpinion() {
         final Opinion opinion = new Opinion("my opinion");
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
 
-        opinion.addJudgment(topic, Feeling.good);
+        opinion.addJudgment(reference, Feeling.good);
 
         assertThat(opinion.getCreationDate(), notNullValue());
         assertThat(opinion.getCreationDate(), is(time.getNow()));
         assertThat(opinion.getJudgments().size(), is(1));
-        assertThat(opinion.getJudgments().get(0).getTopic(), is(topic));
+        assertThat(opinion.getJudgments().get(0).getReference(), is(reference));
         assertThat(opinion.getJudgments().get(0).getFeeling(), is(Feeling.good));
     }
 
     @Test
     public void canSpreadJudgmentEvents() {
         final Opinion opinion = new Opinion("my opinion");
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
         final SimpleJudgmentListener judgmentEventListener = mock(SimpleJudgmentListener.class);
         DomainEventBus.INSTANCE.register(judgmentEventListener);
 
-        opinion.addJudgment(topic, Feeling.good);
+        opinion.addJudgment(reference, Feeling.good);
 
         final ArgumentCaptor<JudgmentPostedEvent> captor = ArgumentCaptor.forClass(JudgmentPostedEvent.class);
         verify(judgmentEventListener, times(1)).handle(captor.capture());
@@ -79,12 +79,12 @@ public class TestsOpinion {
     @Test
     public void setLastModificationDateOnJudgmentCreation() {
         final Opinion opinion = new Opinion("my opinion");
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
         time.waitDays(1);
 
-        opinion.addJudgment(topic, Feeling.good);
+        opinion.addJudgment(reference, Feeling.good);
 
-        assertThat(topic.getLastModificationDate(), is(time.getNow()));
+        assertThat(reference.getLastModificationDate(), is(time.getNow()));
     }
 
     private class SimpleJudgmentListener {

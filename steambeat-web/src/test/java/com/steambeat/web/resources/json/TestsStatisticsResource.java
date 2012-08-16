@@ -2,7 +2,7 @@ package com.steambeat.web.resources.json;
 
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.statistics.*;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.*;
@@ -33,8 +33,8 @@ public class TestsStatisticsResource {
 
     @Test
     public void statisticsResourceIsMapped() {
-        final Topic topic = TestFactories.topics().newTopic();
-        final ClientResource resource = restlet.newClientResource("/json/statistics?start=0&end=0&granularity=hour&topicId=" + topic.getId());
+        final Reference reference = TestFactories.references().newReference();
+        final ClientResource resource = restlet.newClientResource("/json/statistics?start=0&end=0&granularity=hour&topicId=" + reference.getId());
 
         final Representation representation = resource.get();
 
@@ -80,12 +80,12 @@ public class TestsStatisticsResource {
 
     @Test
     public void canFetchSingleHour() throws JSONException, IOException {
-        final Topic topic = TestFactories.topics().newTopic();
-        final Statistics statistics = TestFactories.statistics().newStatistics(topic, Granularity.hour);
-        statistics.incrementJudgmentCount(new Judgment(topic, Feeling.good));
-        statistics.incrementJudgmentCount(new Judgment(topic, Feeling.bad));
-        statistics.incrementJudgmentCount(new Judgment(topic, Feeling.bad));
-        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + new DateTime().minus(1).getMillis() + "&end=" + new DateTime().plus(1).getMillis() + "&granularity=hour" + "&topicId=" + topic.getId());
+        final Reference reference = TestFactories.references().newReference();
+        final Statistics statistics = TestFactories.statistics().newStatistics(reference, Granularity.hour);
+        statistics.incrementJudgmentCount(new Judgment(reference, Feeling.good));
+        statistics.incrementJudgmentCount(new Judgment(reference, Feeling.bad));
+        statistics.incrementJudgmentCount(new Judgment(reference, Feeling.bad));
+        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + new DateTime().minus(1).getMillis() + "&end=" + new DateTime().plus(1).getMillis() + "&granularity=hour" + "&topicId=" + reference.getId());
         time.waitDays(1);
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
@@ -98,11 +98,11 @@ public class TestsStatisticsResource {
 
     @Test
     public void canFetchMultipleHour() throws JSONException, IOException {
-        final Topic topic = TestFactories.topics().newTopic();
-        final Statistics stat1 = TestFactories.statistics().newStatistics(topic, Granularity.hour);
+        final Reference reference = TestFactories.references().newReference();
+        final Statistics stat1 = TestFactories.statistics().newStatistics(reference, Granularity.hour);
         time.waitHours(1);
-        final Statistics stat2 = TestFactories.statistics().newStatistics(topic, Granularity.hour);
-        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=hour" + "&topicId=" + topic.getId());
+        final Statistics stat2 = TestFactories.statistics().newStatistics(reference, Granularity.hour);
+        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=hour" + "&topicId=" + reference.getId());
         time.waitDays(1);
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
@@ -113,11 +113,11 @@ public class TestsStatisticsResource {
 
     @Test
     public void canFetchMultipleHourWithDifferentDays() throws JSONException, IOException {
-        final Topic topic = TestFactories.topics().newTopic();
-        final Statistics stat1 = TestFactories.statistics().newStatistics(topic, Granularity.day);
+        final com.steambeat.domain.reference.Reference reference = TestFactories.references().newReference();
+        final Statistics stat1 = TestFactories.statistics().newStatistics(reference, Granularity.day);
         time.waitMonths(1);
-        final Statistics stat2 = TestFactories.statistics().newStatistics(topic, Granularity.day);
-        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=day" + "&topicId=" + topic.getId());
+        final Statistics stat2 = TestFactories.statistics().newStatistics(reference, Granularity.day);
+        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=day" + "&topicId=" + reference.getId());
         time.waitDays(1);
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();

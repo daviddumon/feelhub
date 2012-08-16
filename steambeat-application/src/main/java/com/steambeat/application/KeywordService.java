@@ -3,15 +3,15 @@ package com.steambeat.application;
 import com.google.inject.Inject;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.Language;
-import com.steambeat.domain.topic.*;
+import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.Repositories;
 
 public class KeywordService {
 
     @Inject
-    public KeywordService(final KeywordFactory keywordFactory, final TopicFactory topicFactory) {
+    public KeywordService(final KeywordFactory keywordFactory, final ReferenceFactory referenceFactory) {
         this.keywordFactory = keywordFactory;
-        this.topicFactory = topicFactory;
+        this.referenceFactory = referenceFactory;
     }
 
     public Keyword lookUp(final String value, final Language language) {
@@ -23,20 +23,20 @@ public class KeywordService {
     }
 
     public Keyword createKeyword(final String value, final Language language) {
-        final Topic topic = createAndPersistNewTopic();
-        final Keyword keyword = keywordFactory.createKeyword(value, language, topic.getId());
+        final Reference reference = createAndPersistNewReference();
+        final Keyword keyword = keywordFactory.createKeyword(value, language, reference.getId());
         Repositories.keywords().add(keyword);
         return keyword;
     }
 
-    private Topic createAndPersistNewTopic() {
-        final Topic topic = topicFactory.createTopic();
-        Repositories.topics().add(topic);
-        return topic;
+    private Reference createAndPersistNewReference() {
+        final Reference reference = referenceFactory.createReference();
+        Repositories.references().add(reference);
+        return reference;
     }
 
     private KeywordFactory keywordFactory;
-    private TopicFactory topicFactory;
+    private ReferenceFactory referenceFactory;
 
     //
     //public Association createAssociationFor(final Tag tag, final UUID id, final Language language) {

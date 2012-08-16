@@ -1,6 +1,6 @@
 package com.steambeat.web.resources.json;
 
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.*;
@@ -56,7 +56,7 @@ public class TestsRelatedResource {
 
     @Test
     public void canGetRelationsForASubject() throws IOException, JSONException {
-        final Topic from = TestFactories.topics().newTopic();
+        final Reference from = TestFactories.references().newReference();
         TestFactories.relations().newRelations(5, from);
         TestFactories.relations().newRelations(20);
         final ClientResource resource = restlet.newClientResource("/json/related?fromId=" + from.getId());

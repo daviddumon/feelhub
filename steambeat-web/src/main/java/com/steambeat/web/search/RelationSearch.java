@@ -2,7 +2,7 @@ package com.steambeat.web.search;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.relation.Relation;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.SessionProvider;
 import org.mongolink.domain.criteria.*;
 
@@ -38,7 +38,7 @@ public class RelationSearch implements Search<Relation> {
         return this;
     }
 
-    public RelationSearch withFrom(final Topic from) {
+    public RelationSearch withFrom(final Reference from) {
         criteria.add(Restrictions.equals("fromId", from.getId()));
         return this;
     }

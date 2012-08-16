@@ -13,7 +13,7 @@ public class StatisticsMapping extends EntityMap<Statistics> {
     protected void map() {
         id(element().getId()).natural();
         property(element().getDate());
-        property(element().getTopicId());
+        property(element().getReferenceId());
         property(element().getGranularity());
         property(element().getBad());
         property(element().getGood());

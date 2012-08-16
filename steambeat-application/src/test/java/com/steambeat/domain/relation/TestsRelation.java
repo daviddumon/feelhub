@@ -1,6 +1,6 @@
 package com.steambeat.domain.relation;
 
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.hamcrest.Matchers;
@@ -19,8 +19,8 @@ public class TestsRelation {
 
     @Before
     public void setUp() {
-        left = TestFactories.topics().newTopic();
-        right = TestFactories.topics().newTopic();
+        left = TestFactories.references().newReference();
+        right = TestFactories.references().newReference();
         relation = new RelationFactory().newRelation(left, right, 1.0);
     }
 
@@ -50,6 +50,6 @@ public class TestsRelation {
     }
 
     private Relation relation;
-    private Topic right;
-    private Topic left;
+    private Reference right;
+    private Reference left;
 }

@@ -1,22 +1,22 @@
 package com.steambeat.domain.opinion;
 
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.TestFactories;
 
 public class JudgmentTestFactory {
 
     public Judgment newJudgment() {
-        final Topic topic = TestFactories.topics().newTopic();
-        return new Judgment(topic, Feeling.good);
+        final Reference reference = TestFactories.references().newReference();
+        return new Judgment(reference, Feeling.good);
     }
 
     public Judgment newBadJudgment() {
-        final Topic topic = TestFactories.topics().newTopic();
-        return new Judgment(topic, Feeling.bad);
+        final Reference reference = TestFactories.references().newReference();
+        return new Judgment(reference, Feeling.bad);
     }
 
     public Judgment newGoodJudgment() {
-        final Topic topic = TestFactories.topics().newTopic();
-        return new Judgment(topic, Feeling.good);
+        final Reference reference = TestFactories.references().newReference();
+        return new Judgment(reference, Feeling.good);
     }
 }

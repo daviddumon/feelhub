@@ -2,7 +2,7 @@ package com.steambeat.web.resources.json;
 
 import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
@@ -129,11 +129,11 @@ public class TestsOpinionsResource {
 
     @Test
     public void canGetOpinionForSubject() throws IOException, JSONException {
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
         TestFactories.opinions().newOpinions(10);
-        TestFactories.opinions().newOpinions(topic, 10);
+        TestFactories.opinions().newOpinions(reference, 10);
         TestFactories.opinions().newOpinions(10);
-        final ClientResource clientResource = restlet.newClientResource("/json/opinions?topicId=" + topic.getId());
+        final ClientResource clientResource = restlet.newClientResource("/json/opinions?topicId=" + reference.getId());
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
 
@@ -144,9 +144,9 @@ public class TestsOpinionsResource {
 
     @Test
     public void canPostOpinion() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
         final Form form = getGoodForm();
-        form.add("topicId", topic.getId().toString());
+        form.add("topicId", reference.getId().toString());
         form.add("redirect", "webpages");
         final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
 
@@ -157,14 +157,14 @@ public class TestsOpinionsResource {
         final Opinion opinion = Repositories.opinions().getAll().get(0);
         final Judgment judgment = opinion.getJudgments().get(0);
         assertThat(judgment.getFeeling(), is(Feeling.good));
-        assertThat(judgment.getTopic(), is(topic));
+        assertThat(judgment.getReference(), is(reference));
     }
 
     @Test
     public void canPostOpinionForATopic() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
         final Form form = getGoodForm();
-        form.add("topicId", topic.getId().toString());
+        form.add("topicId", reference.getId().toString());
         form.add("redirect", "webpages");
         final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
 
@@ -175,7 +175,7 @@ public class TestsOpinionsResource {
         final Opinion opinion = Repositories.opinions().getAll().get(0);
         final Judgment judgment = opinion.getJudgments().get(0);
         assertThat(judgment.getFeeling(), is(Feeling.good));
-        assertThat(judgment.getTopic(), is(topic));
+        assertThat(judgment.getReference(), is(reference));
     }
 
     @Test
@@ -191,7 +191,7 @@ public class TestsOpinionsResource {
 
     @Test
     public void canNotPostAOpinionWithoutFeeling() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
         final Form form = new Form();
         form.add("text", "my opinion");
         form.add("topicId", "http://www.lemonde.fr");
@@ -205,29 +205,29 @@ public class TestsOpinionsResource {
 
     @Test
     public void postOpinionRedirectOnFirstPage() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
         final Form form = getGoodForm();
-        form.add("topicId", topic.getId().toString());
+        form.add("topicId", reference.getId().toString());
         form.add("redirect", "webpages");
         final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
 
         opinionsResource.post(form);
 
-        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + topic.getId());
+        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + reference.getId());
         assertThat(opinionsResource.getLocationRef().toString(), is(uriToRedirect));
     }
 
     @Test
     public void canRedirectForTopic() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final com.steambeat.domain.reference.Reference reference = TestFactories.references().newReference();
         final Form form = getGoodForm();
-        form.add("topicId", topic.getId().toString());
+        form.add("topicId", reference.getId().toString());
         form.add("redirect", "topics");
         final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
 
         opinionsResource.post(form);
 
-        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/topics/" + topic.getId());
+        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/topics/" + reference.getId());
         assertThat(opinionsResource.getLocationRef().toString(), is(uriToRedirect));
     }
 

@@ -1,17 +1,17 @@
-package com.steambeat.domain.topic;
+package com.steambeat.domain.reference;
 
 import com.steambeat.domain.BaseEntity;
 import org.joda.time.DateTime;
 
 import java.util.UUID;
 
-public class Topic extends BaseEntity {
+public class Reference extends BaseEntity {
 
     //mongolink constructor do not delete!
-    protected Topic() {
+    protected Reference() {
     }
 
-    public Topic(final UUID id) {
+    public Reference(final UUID id) {
         this.id = id;
         this.creationDate = new DateTime();
         this.lastModificationDate = this.creationDate;

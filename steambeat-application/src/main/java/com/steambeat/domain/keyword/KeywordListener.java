@@ -20,9 +20,9 @@ public class KeywordListener {
     public void handle(final TranslationDoneEvent event) {
         final Keyword referenceKeyword = lookUpReferenceKeyword(event.getResult());
         if (referenceKeyword != null) {
-            event.getKeyword().setTopicId(referenceKeyword.getTopicId());
+            event.getKeyword().setReferenceId(referenceKeyword.getReferenceId());
         } else {
-            final Keyword keyword = keywordFactory.createKeyword(event.getResult(), Language.reference(), event.getKeyword().getTopicId());
+            final Keyword keyword = keywordFactory.createKeyword(event.getResult(), Language.reference(), event.getKeyword().getReferenceId());
             Repositories.keywords().add(keyword);
         }
     }

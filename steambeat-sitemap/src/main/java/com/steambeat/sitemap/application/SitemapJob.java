@@ -1,6 +1,6 @@
 package com.steambeat.sitemap.application;
 
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.sitemap.domain.*;
 import com.steambeat.sitemap.tools.SitemapProperties;
 import org.apache.log4j.Logger;
@@ -46,14 +46,14 @@ public class SitemapJob implements Job {
         SitemapIndexRepository.clear();
     }
 
-    private void createSitemapEntriesFromTopics(final List<Topic> topics, final String uriToken) {
-        for (final Topic topic : topics) {
-            SitemapEntryRepository.add(new SitemapEntry("/" + uriToken + "/" + topic.getId().toString(), Frequency.hourly, 0.5));
+    private void createSitemapEntriesFromTopics(final List<Reference> references, final String uriToken) {
+        for (final Reference reference : references) {
+            SitemapEntryRepository.add(new SitemapEntry("/" + uriToken + "/" + reference.getId().toString(), Frequency.hourly, 0.5));
         }
     }
 
-    private List<Topic> fetchtopics() {
-        final Criteria criteria = session.createCriteria(Topic.class);
+    private List<Reference> fetchtopics() {
+        final Criteria criteria = session.createCriteria(Reference.class);
         addDateRestriction(criteria);
         return criteria.list();
     }

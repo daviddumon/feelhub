@@ -4,7 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 import com.google.inject.Inject;
 import com.steambeat.domain.relation.Relation;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.*;
 import com.steambeat.web.search.RelationSearch;
 
@@ -35,7 +35,7 @@ public class FakeRelationSearch extends RelationSearch {
     }
 
     @Override
-    public RelationSearch withFrom(final Topic from) {
+    public RelationSearch withFrom(final Reference from) {
 
         relations = Lists.newArrayList(Iterables.filter(relations, new Predicate<Relation>() {
 

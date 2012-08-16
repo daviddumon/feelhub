@@ -1,12 +1,12 @@
 package com.steambeat.repositories.mapping;
 
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import org.mongolink.domain.mapper.EntityMap;
 
-public class TopicMapping extends EntityMap<Topic> {
+public class ReferenceMapping extends EntityMap<Reference> {
 
-    public TopicMapping() {
-        super(Topic.class);
+    public ReferenceMapping() {
+        super(Reference.class);
     }
 
     @Override

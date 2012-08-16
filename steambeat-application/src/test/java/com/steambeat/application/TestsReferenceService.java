@@ -1,6 +1,6 @@
 package com.steambeat.application;
 
-public class TestsTopicService {
+public class TestsReferenceService {
     //
     //@Rule
     //public WithFakeRepositories repositories = new WithFakeRepositories();

@@ -2,7 +2,7 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.*;
 import org.junit.*;
 
@@ -18,9 +18,9 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
         final Opinion opinion = new Opinion("yeah");
-        opinion.addJudgment(topic, Feeling.bad);
+        opinion.addJudgment(reference, Feeling.bad);
 
         Repositories.opinions().add(opinion);
 

@@ -1,6 +1,6 @@
 package com.steambeat.domain.relation;
 
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
@@ -23,8 +23,8 @@ public class TestsRelationBuilder {
 
     @Test
     public void canConnectTwoSubjectWithNoPreviousConnection() {
-        final Topic from = TestFactories.topics().newTopic();
-        final Topic to = TestFactories.topics().newTopic();
+        final Reference from = TestFactories.references().newReference();
+        final Reference to = TestFactories.references().newReference();
 
         relationBuilder.connectTwoWays(from, to);
 
@@ -36,8 +36,8 @@ public class TestsRelationBuilder {
 
     @Test
     public void canConnectTwoSubjectWithAnExistingOneWayRelation() {
-        final Topic from = TestFactories.topics().newTopic();
-        final Topic to = TestFactories.topics().newTopic();
+        final Reference from = TestFactories.references().newReference();
+        final Reference to = TestFactories.references().newReference();
         TestFactories.relations().newRelation(from, to);
 
         relationBuilder.connectTwoWays(from, to);

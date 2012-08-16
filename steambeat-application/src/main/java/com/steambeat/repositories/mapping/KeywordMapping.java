@@ -14,7 +14,7 @@ public class KeywordMapping extends EntityMap<Keyword> {
         id(element().getId()).natural();
         property(element().getValue());
         property(element().getLanguageCode());
-        property(element().getTopicId());
+        property(element().getReferenceId());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
     }

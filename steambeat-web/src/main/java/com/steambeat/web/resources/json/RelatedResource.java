@@ -2,9 +2,8 @@ package com.steambeat.web.resources.json;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.steambeat.application.TopicService;
+import com.steambeat.application.ReferenceService;
 import com.steambeat.domain.relation.Relation;
-import com.steambeat.domain.topic.Topic;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.*;
 import org.restlet.data.*;
@@ -16,8 +15,8 @@ import java.util.*;
 public class RelatedResource extends ServerResource {
 
     @Inject
-    public RelatedResource(final TopicService topicService, final RelationSearch relationSearch) {
-        this.topicService = topicService;
+    public RelatedResource(final ReferenceService referenceService, final RelationSearch relationSearch) {
+        this.referenceService = referenceService;
         this.relationSearch = relationSearch;
     }
 
@@ -25,7 +24,7 @@ public class RelatedResource extends ServerResource {
     public Representation represent() {
         doSearchWithQueryParameters();
         getTopics();
-        return SteambeatTemplateRepresentation.createNew("json/related.json.ftl", getContext(), MediaType.APPLICATION_JSON).with("topics", topics);
+        return SteambeatTemplateRepresentation.createNew("json/related.json.ftl", getContext(), MediaType.APPLICATION_JSON).with("topics", references);
     }
 
     private void doSearchWithQueryParameters() {
@@ -58,18 +57,18 @@ public class RelatedResource extends ServerResource {
 
     private void setUpSearchForFromIdParameter(final Form form) {
         if (form.getQueryString().contains("fromId")) {
-            relationSearch.withFrom(topicService.lookUp(UUID.fromString(form.getFirstValue("fromId").trim())));
+            relationSearch.withFrom(referenceService.lookUp(UUID.fromString(form.getFirstValue("fromId").trim())));
         }
     }
 
     private void getTopics() {
         for (final Relation relation : relations) {
-            topics.add(topicService.lookUp(relation.getToId()));
+            references.add(referenceService.lookUp(relation.getToId()));
         }
     }
 
-    private final TopicService topicService;
+    private final ReferenceService referenceService;
     private final RelationSearch relationSearch;
     private List<Relation> relations = Lists.newArrayList();
-    private final List<Topic> topics = Lists.newArrayList();
+    private final List<com.steambeat.domain.reference.Reference> references = Lists.newArrayList();
 }

@@ -2,9 +2,8 @@ package com.steambeat.web.resources.json;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.steambeat.application.TopicService;
+import com.steambeat.application.ReferenceService;
 import com.steambeat.domain.statistics.*;
-import com.steambeat.domain.topic.Topic;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.StatisticsSearch;
 import org.joda.time.Interval;
@@ -18,8 +17,8 @@ import java.util.*;
 public class StatisticsResource extends ServerResource {
 
     @Inject
-    public StatisticsResource(final TopicService topicService, final StatisticsSearch statisticsSearch) {
-        this.topicService = topicService;
+    public StatisticsResource(final ReferenceService referenceService, final StatisticsSearch statisticsSearch) {
+        this.referenceService = referenceService;
         this.statisticsSearch = statisticsSearch;
     }
 
@@ -46,12 +45,12 @@ public class StatisticsResource extends ServerResource {
     }
 
     private void fetchStatistics() {
-        final Topic topic = topicService.lookUp(UUID.fromString(topicId));
-        statistics = statisticsSearch.withTopic(topic).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
+        final com.steambeat.domain.reference.Reference reference = referenceService.lookUp(UUID.fromString(topicId));
+        statistics = statisticsSearch.withTopic(reference).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
     }
 
     private List<Statistics> statistics = Lists.newArrayList();
-    private final TopicService topicService;
+    private final ReferenceService referenceService;
     private final StatisticsSearch statisticsSearch;
     private Granularity granularity;
     private Long start;

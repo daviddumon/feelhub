@@ -23,7 +23,7 @@ public class JudgmentPostedEvent implements DomainEvent {
         stringBuilder.append("Judgment ");
         stringBuilder.append(judgment.getFeeling());
         stringBuilder.append(" on ");
-        stringBuilder.append(judgment.getTopic().getId());
+        stringBuilder.append(judgment.getReference().getId());
         return stringBuilder.toString();
     }
 

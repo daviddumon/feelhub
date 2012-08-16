@@ -1,4 +1,4 @@
-package com.steambeat.domain.topic;
+package com.steambeat.domain.reference;
 
 import com.steambeat.test.SystemTime;
 import org.joda.time.DateTime;
@@ -9,33 +9,33 @@ import java.util.UUID;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsTopic {
+public class TestsReference {
 
     @Rule
     public SystemTime time = SystemTime.fixed();
 
     @Test
-    public void canCreateATopic() {
+    public void canCreateAReference() {
         final UUID id = UUID.randomUUID();
 
-        final Topic topic = new Topic(id);
+        final Reference reference = new Reference(id);
 
-        assertThat(topic.getId(), notNullValue());
-        assertThat(topic.getId(), is(id));
-        assertThat(topic.getCreationDate(), is(time.getNow()));
-        assertThat(topic.getCreationDate(), is(topic.getLastModificationDate()));
-        assertThat(topic.isActive(), is(true));
+        assertThat(reference.getId(), notNullValue());
+        assertThat(reference.getId(), is(id));
+        assertThat(reference.getCreationDate(), is(time.getNow()));
+        assertThat(reference.getCreationDate(), is(reference.getLastModificationDate()));
+        assertThat(reference.isActive(), is(true));
     }
 
     @Test
     public void canSetLastModificationDate() {
         final UUID id = UUID.randomUUID();
-        final Topic topic = new Topic(id);
+        final Reference reference = new Reference(id);
         time.waitHours(1);
 
-        topic.setLastModificationDate(new DateTime());
+        reference.setLastModificationDate(new DateTime());
 
-        assertThat(topic.getLastModificationDate(), is(time.getNow()));
+        assertThat(reference.getLastModificationDate(), is(time.getNow()));
     }
 
     //@Test

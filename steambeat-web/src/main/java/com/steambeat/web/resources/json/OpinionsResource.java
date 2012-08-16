@@ -5,7 +5,6 @@ import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.topic.Topic;
 import com.steambeat.web.ReferenceBuilder;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.OpinionSearch;
@@ -18,8 +17,8 @@ import java.util.*;
 public class OpinionsResource extends ServerResource {
 
     @Inject
-    public OpinionsResource(final TopicService topicService, final OpinionService opinionService, final OpinionSearch opinionSearch) {
-        this.topicService = topicService;
+    public OpinionsResource(final ReferenceService referenceService, final OpinionService opinionService, final OpinionSearch opinionSearch) {
+        this.referenceService = referenceService;
         this.opinionService = opinionService;
         this.opinionSearch = opinionSearch;
     }
@@ -60,7 +59,7 @@ public class OpinionsResource extends ServerResource {
 
     private void setUpSearchForSubjectIdParameter(final Form form) {
         if (form.getQueryString().contains("topicId")) {
-            opinionSearch.withTopic(topicService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim())));
+            opinionSearch.withTopic(referenceService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim())));
         }
     }
 
@@ -71,28 +70,28 @@ public class OpinionsResource extends ServerResource {
         } catch (Exception e) {
             throw new OpinionCreationException();
         }
-        final JudgmentDTO judgmentDTO = new JudgmentDTO(topic, feeling);
+        final JudgmentDTO judgmentDTO = new JudgmentDTO(reference, feeling);
         opinionService.addOpinion(text, Lists.newArrayList(judgmentDTO));
         setStatus(Status.SUCCESS_CREATED);
-        setLocationRef(new ReferenceBuilder(getContext()).buildUri("/" + redirect + "/" + topic.getId()));
+        setLocationRef(new ReferenceBuilder(getContext()).buildUri("/" + redirect + "/" + reference.getId()));
     }
 
     private void extractFormParameters(final Form form) {
         if (form.getFirstValue("feeling") == null) {
             throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
         }
-        topic = topicService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim()));
+        reference = referenceService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim()));
         feeling = Feeling.valueOf(form.getFirstValue("feeling").trim());
         text = form.getFirstValue("text").trim();
         redirect = form.getFirstValue("redirect").trim();
     }
 
-    private Topic topic;
+    private com.steambeat.domain.reference.Reference reference;
     private Feeling feeling;
     private String text;
     List<Opinion> opinions = Lists.newArrayList();
     private final OpinionSearch opinionSearch;
-    private final TopicService topicService;
+    private final ReferenceService referenceService;
     private final OpinionService opinionService;
     private String redirect;
 }

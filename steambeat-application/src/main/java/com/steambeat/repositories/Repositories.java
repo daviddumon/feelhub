@@ -6,7 +6,7 @@ import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
 import com.steambeat.domain.statistics.StatisticsRepository;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.user.UserRepository;
 
 public abstract class Repositories {
@@ -35,8 +35,8 @@ public abstract class Repositories {
         return Repositories.soleInstance.getSessionRepository();
     }
 
-    public static Repository<Topic> topics() {
-        return Repositories.soleInstance.getTopicRepository();
+    public static Repository<Reference> references() {
+        return Repositories.soleInstance.getReferenceRepository();
     }
 
     public static KeywordRepository keywords() {
@@ -45,7 +45,7 @@ public abstract class Repositories {
 
     protected abstract KeywordRepository getKeywordRepository();
 
-    protected abstract Repository<Topic> getTopicRepository();
+    protected abstract Repository<Reference> getReferenceRepository();
 
     protected abstract Repository<Session> getSessionRepository();
 

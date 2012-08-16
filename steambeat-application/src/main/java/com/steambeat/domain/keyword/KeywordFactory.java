@@ -7,8 +7,8 @@ import java.util.UUID;
 
 public class KeywordFactory {
 
-    public Keyword createKeyword(final String value, final Language language, final UUID topicId) {
-        final Keyword keyword = new Keyword(value, language, topicId);
+    public Keyword createKeyword(final String value, final Language language, final UUID referenceId) {
+        final Keyword keyword = new Keyword(value, language, referenceId);
         final KeywordCreatedEvent keywordCreatedEvent = new KeywordCreatedEvent(keyword);
         DomainEventBus.INSTANCE.post(keywordCreatedEvent);
         return keyword;

@@ -2,7 +2,7 @@ package com.steambeat.domain.statistics;
 
 import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import org.joda.time.DateTime;
 
 import java.util.UUID;
@@ -12,10 +12,10 @@ public class Statistics extends BaseEntity {
     protected Statistics() {
     }
 
-    public Statistics(final Topic topic, final Granularity granularity, final DateTime date) {
+    public Statistics(final Reference reference, final Granularity granularity, final DateTime date) {
         this.id = UUID.randomUUID();
         this.date = date;
-        topicId = topic.getId();
+        referenceId = reference.getId();
         this.granularity = granularity;
     }
 
@@ -42,8 +42,8 @@ public class Statistics extends BaseEntity {
         return id;
     }
 
-    public UUID getTopicId() {
-        return topicId;
+    public UUID getReferenceId() {
+        return referenceId;
     }
 
     public Granularity getGranularity() {
@@ -67,7 +67,7 @@ public class Statistics extends BaseEntity {
     }
 
     private UUID id;
-    private UUID topicId;
+    private UUID referenceId;
     private Granularity granularity;
     private DateTime date;
     private int good;

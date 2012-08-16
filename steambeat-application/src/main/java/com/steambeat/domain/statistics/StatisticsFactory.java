@@ -41,10 +41,10 @@ public class StatisticsFactory {
     }
 
     private synchronized Statistics getOrCreateStat(final Granularity granularity, final JudgmentPostedEvent event) {
-        final List<Statistics> statistics = Repositories.statistics().forTopic(event.getJudgment().getTopic(), granularity, granularity.intervalFor(event.getDate()));
+        final List<Statistics> statistics = Repositories.statistics().forReference(event.getJudgment().getReference(), granularity, granularity.intervalFor(event.getDate()));
         final Statistics stat;
         if (statistics.isEmpty()) {
-            stat = new Statistics(event.getJudgment().getTopic(), granularity, event.getDate());
+            stat = new Statistics(event.getJudgment().getReference(), granularity, event.getDate());
             Repositories.statistics().add(stat);
         } else {
             stat = statistics.get(0);

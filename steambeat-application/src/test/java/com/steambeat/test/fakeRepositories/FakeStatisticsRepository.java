@@ -3,41 +3,41 @@ package com.steambeat.test.fakeRepositories;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 import com.steambeat.domain.statistics.*;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import org.joda.time.Interval;
 
 import java.util.List;
 
 public class FakeStatisticsRepository extends FakeRepository<Statistics> implements StatisticsRepository {
 
-    public Statistics forTopic(final Topic topic) {
+    public Statistics forReference(final Reference reference) {
         return Iterables.find(getAll(), new Predicate<Statistics>() {
 
             @Override
             public boolean apply(final Statistics input) {
-                return input.getTopicId().equals(topic.getId());
+                return input.getReferenceId().equals(reference.getId());
             }
         });
     }
 
     @Override
-    public List<Statistics> forTopic(final Topic topic, final Granularity granularity) {
+    public List<Statistics> forReference(final Reference reference, final Granularity granularity) {
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Statistics>() {
 
             @Override
             public boolean apply(final Statistics input) {
-                return input.getTopicId().equals(topic.getId()) && input.getGranularity() == granularity;
+                return input.getReferenceId().equals(reference.getId()) && input.getGranularity() == granularity;
             }
         }));
     }
 
     @Override
-    public List<Statistics> forTopic(final Topic topic, final Granularity granularity, final Interval interval) {
+    public List<Statistics> forReference(final Reference reference, final Granularity granularity, final Interval interval) {
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Statistics>() {
 
             @Override
             public boolean apply(final Statistics input) {
-                return input.getTopicId().equals(topic.getId()) && input.getGranularity() == granularity && interval.contains(input.getDate());
+                return input.getReferenceId().equals(reference.getId()) && input.getGranularity() == granularity && interval.contains(input.getDate());
             }
         }));
     }

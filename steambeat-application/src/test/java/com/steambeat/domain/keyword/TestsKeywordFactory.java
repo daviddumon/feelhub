@@ -2,7 +2,7 @@ package com.steambeat.domain.keyword;
 
 import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.thesaurus.Language;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
@@ -31,15 +31,15 @@ public class TestsKeywordFactory {
     public void canCreateAKeyword() {
         final String value = "value";
         final Language language = Language.forString("english");
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
 
-        Keyword keyword = keywordFactory.createKeyword(value, language, topic.getId());
+        Keyword keyword = keywordFactory.createKeyword(value, language, reference.getId());
 
         assertNotNull(keyword);
         assertThat(keyword.getValue(), is(value));
         assertThat(keyword.getLanguage(), is(language));
         assertThat(keyword.getId(), notNullValue());
-        assertThat(keyword.getTopicId(), notNullValue());
+        assertThat(keyword.getReferenceId(), notNullValue());
         assertThat(keyword.getCreationDate(), is(time.getNow()));
         assertThat(keyword.getLastModificationDate(), is(time.getNow()));
     }
@@ -49,9 +49,9 @@ public class TestsKeywordFactory {
         bus.capture(KeywordCreatedEvent.class);
         final String value = "value";
         final Language language = Language.forString("english");
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
 
-        Keyword keyword = keywordFactory.createKeyword(value, language, topic.getId());
+        Keyword keyword = keywordFactory.createKeyword(value, language, reference.getId());
 
         final KeywordCreatedEvent keywordCreatedEvent = bus.lastEvent(KeywordCreatedEvent.class);
         assertThat(keywordCreatedEvent, notNullValue());
@@ -60,13 +60,13 @@ public class TestsKeywordFactory {
     }
 
     @Test
-    public void canCreateKeywordsWithSameTopic() {
-        final Topic topic = TestFactories.topics().newTopic();
+    public void canCreateKeywordsWithSameReference() {
+        final Reference reference = TestFactories.references().newReference();
 
-        Keyword keyword1 = keywordFactory.createKeyword("value1", Language.reference(), topic.getId());
-        Keyword keyword2 = keywordFactory.createKeyword("value2", Language.reference(), topic.getId());
+        Keyword keyword1 = keywordFactory.createKeyword("value1", Language.reference(), reference.getId());
+        Keyword keyword2 = keywordFactory.createKeyword("value2", Language.reference(), reference.getId());
 
-        assertThat(keyword1.getTopicId(), is(keyword2.getTopicId()));
+        assertThat(keyword1.getReferenceId(), is(keyword2.getReferenceId()));
     }
 
     private KeywordFactory keywordFactory;

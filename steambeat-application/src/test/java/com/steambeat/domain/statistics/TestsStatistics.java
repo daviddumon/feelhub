@@ -1,7 +1,7 @@
 package com.steambeat.domain.statistics;
 
 import com.steambeat.domain.eventbus.WithDomainEvent;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.joda.time.DateTime;
@@ -20,10 +20,10 @@ public class TestsStatistics {
 
     @Test
     public void canCreateFromSubject() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final Reference reference = TestFactories.references().newReference();
 
-        final Statistics statistics = new Statistics(topic, Granularity.hour, new DateTime());
+        final Statistics statistics = new Statistics(reference, Granularity.hour, new DateTime());
 
-        assertThat(statistics.getTopicId(), is(topic.getId()));
+        assertThat(statistics.getReferenceId(), is(reference.getId()));
     }
 }

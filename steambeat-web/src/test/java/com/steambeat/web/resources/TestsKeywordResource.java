@@ -103,7 +103,7 @@ public class TestsKeywordResource {
         assertTrue(representation.getDataModel().containsKey("keyword"));
         final Keyword keyword = (Keyword) representation.getDataModel().get("keyword");
         assertThat(keyword, notNullValue());
-        assertThat(keyword.getTopicId(), nullValue());
+        assertThat(keyword.getReferenceId(), nullValue());
         assertThat(keywordResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
     }
 }

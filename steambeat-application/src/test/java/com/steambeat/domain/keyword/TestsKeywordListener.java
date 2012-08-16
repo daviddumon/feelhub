@@ -35,11 +35,11 @@ public class TestsKeywordListener {
         assertThat(Repositories.keywords().getAll().size(), is(2));
         final Keyword translatedKeyword = Repositories.keywords().forValueAndLanguage("translatedValue", Language.reference());
         assertThat(translatedKeyword, notNullValue());
-        assertThat(translatedKeyword.getTopicId(), is(keyword.getTopicId()));
+        assertThat(translatedKeyword.getReferenceId(), is(keyword.getReferenceId()));
     }
 
     @Test
-    public void canUseGoodTopicIfAlreadyExist() {
+    public void canUseGoodReferenceIfAlreadyExist() {
         final Keyword hello = TestFactories.keywords().newKeyword("hello", Language.reference());
         final Keyword coucou = TestFactories.keywords().newKeyword("coucou", Language.forString("fr"));
         final TranslationDoneEvent event = new TranslationDoneEvent(coucou, "hello");
@@ -48,8 +48,8 @@ public class TestsKeywordListener {
 
         final List<Keyword> keywords = Repositories.keywords().getAll();
         assertThat(keywords.size(), is(2));
-        assertThat(keywords.get(0).getTopicId(), is(hello.getTopicId()));
-        assertThat(keywords.get(1).getTopicId(), is(hello.getTopicId()));
+        assertThat(keywords.get(0).getReferenceId(), is(hello.getReferenceId()));
+        assertThat(keywords.get(1).getReferenceId(), is(hello.getReferenceId()));
     }
 
     @Test
