@@ -15,10 +15,9 @@ import java.util.*;
 public class AlchemyEntityAnalyzer {
 
     @Inject
-    public AlchemyEntityAnalyzer(final NamedEntityProvider NamedEntityProvider, final KeywordService associationService, final ConceptFactory conceptFactory) {
+    public AlchemyEntityAnalyzer(final NamedEntityProvider NamedEntityProvider, final KeywordService associationService) {
         this.NamedEntityProvider = NamedEntityProvider;
         this.associationService = associationService;
-        this.conceptFactory = conceptFactory;
         DomainEventBus.INSTANCE.register(this);
     }
 
@@ -46,9 +45,9 @@ public class AlchemyEntityAnalyzer {
     private void createConcept(final NamedEntity namedEntity) {
         if (namedEntity.conceptId == null) {
             namedEntity.conceptId = UUID.randomUUID();
-            final Concept concept = conceptFactory.newConcept(namedEntity);
+            //final Concept concept = conceptFactory.newConcept(namedEntity);
             //Repositories.subjects().add(concept);
-            concepts.add(concept);
+            concepts.add(new Concept());
         } else {
             concepts.add(new Concept(namedEntity.conceptId));
         }
@@ -80,7 +79,6 @@ public class AlchemyEntityAnalyzer {
 
     private final NamedEntityProvider NamedEntityProvider;
     private final KeywordService associationService;
-    private final ConceptFactory conceptFactory;
     private final RelationBuilder relationBuilder = new RelationBuilder(new RelationFactory());
     private final List<Concept> concepts = Lists.newArrayList();
 }
