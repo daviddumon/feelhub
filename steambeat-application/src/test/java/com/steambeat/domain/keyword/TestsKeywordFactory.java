@@ -2,10 +2,10 @@ package com.steambeat.domain.keyword;
 
 import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.thesaurus.Language;
-import com.steambeat.test.SystemTime;
+import com.steambeat.domain.topic.Topic;
+import com.steambeat.test.*;
+import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
-
-import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -19,6 +19,9 @@ public class TestsKeywordFactory {
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
 
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
+
     @Before
     public void before() {
         keywordFactory = new KeywordFactory();
@@ -28,14 +31,15 @@ public class TestsKeywordFactory {
     public void canCreateAKeyword() {
         final String value = "value";
         final Language language = Language.forString("english");
+        final Topic topic = TestFactories.topics().newTopic();
 
-        Keyword keyword = keywordFactory.createKeyword(value, language);
+        Keyword keyword = keywordFactory.createKeyword(value, language, topic.getId());
 
         assertNotNull(keyword);
         assertThat(keyword.getValue(), is(value));
         assertThat(keyword.getLanguage(), is(language));
         assertThat(keyword.getId(), notNullValue());
-        assertThat(keyword.getTopic(), notNullValue());
+        assertThat(keyword.getTopicId(), notNullValue());
         assertThat(keyword.getCreationDate(), is(time.getNow()));
         assertThat(keyword.getLastModificationDate(), is(time.getNow()));
     }
@@ -45,8 +49,9 @@ public class TestsKeywordFactory {
         bus.capture(KeywordCreatedEvent.class);
         final String value = "value";
         final Language language = Language.forString("english");
+        final Topic topic = TestFactories.topics().newTopic();
 
-        Keyword keyword = keywordFactory.createKeyword(value, language);
+        Keyword keyword = keywordFactory.createKeyword(value, language, topic.getId());
 
         final KeywordCreatedEvent keywordCreatedEvent = bus.lastEvent(KeywordCreatedEvent.class);
         assertThat(keywordCreatedEvent, notNullValue());
@@ -56,12 +61,12 @@ public class TestsKeywordFactory {
 
     @Test
     public void canCreateKeywordsWithSameTopic() {
-        final UUID topicId = UUID.randomUUID();
+        final Topic topic = TestFactories.topics().newTopic();
 
-        Keyword keyword1 = keywordFactory.createKeyword("value1", Language.reference(), topicId);
-        Keyword keyword2 = keywordFactory.createKeyword("value2", Language.reference(), topicId);
+        Keyword keyword1 = keywordFactory.createKeyword("value1", Language.reference(), topic.getId());
+        Keyword keyword2 = keywordFactory.createKeyword("value2", Language.reference(), topic.getId());
 
-        assertThat(keyword1.getTopic(), is(keyword2.getTopic()));
+        assertThat(keyword1.getTopicId(), is(keyword2.getTopicId()));
     }
 
     private KeywordFactory keywordFactory;

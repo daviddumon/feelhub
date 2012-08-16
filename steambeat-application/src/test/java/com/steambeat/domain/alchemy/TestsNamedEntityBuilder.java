@@ -4,6 +4,7 @@ import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.topic.TopicFactory;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
@@ -21,7 +22,7 @@ public class TestsNamedEntityBuilder {
 
     @Before
     public void before() {
-        namedEntityBuilder = new NamedEntityBuilder(new KeywordService(new KeywordFactory()));
+        namedEntityBuilder = new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new TopicFactory()));
     }
 
     @Test

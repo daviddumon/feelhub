@@ -2,11 +2,14 @@ package com.steambeat.application;
 
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.topic.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
+
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -21,7 +24,7 @@ public class TestKeywordService {
 
     @Before
     public void before() {
-        keywordService = new KeywordService(new KeywordFactory());
+        keywordService = new KeywordService(new KeywordFactory(), new TopicFactory());
     }
 
     @Test
@@ -51,6 +54,19 @@ public class TestKeywordService {
         assertThat(keyword.getValue(), is(value));
         assertThat(keyword.getLanguage(), is(language));
         assertThat(Repositories.keywords().getAll().size(), is(1));
+    }
+
+    @Test
+    public void createAndPersistATopicFirst() {
+        final String value = "value";
+        final Language language = Language.forString("none");
+
+        keywordService.createKeyword(value, language);
+
+        final List<Topic> topics = Repositories.topics().getAll();
+        final List<Keyword> keywords = Repositories.keywords().getAll();
+        assertThat(keywords.size(), is(1));
+        assertThat(topics.size(), is(1));
     }
 
 

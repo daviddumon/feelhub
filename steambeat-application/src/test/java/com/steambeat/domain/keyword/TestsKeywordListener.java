@@ -35,7 +35,7 @@ public class TestsKeywordListener {
         assertThat(Repositories.keywords().getAll().size(), is(2));
         final Keyword translatedKeyword = Repositories.keywords().forValueAndLanguage("translatedValue", Language.reference());
         assertThat(translatedKeyword, notNullValue());
-        assertThat(translatedKeyword.getTopic(), is(keyword.getTopic()));
+        assertThat(translatedKeyword.getTopicId(), is(keyword.getTopicId()));
     }
 
     @Test
@@ -48,8 +48,8 @@ public class TestsKeywordListener {
 
         final List<Keyword> keywords = Repositories.keywords().getAll();
         assertThat(keywords.size(), is(2));
-        assertThat(keywords.get(0).getTopic(), is(hello.getTopic()));
-        assertThat(keywords.get(1).getTopic(), is(hello.getTopic()));
+        assertThat(keywords.get(0).getTopicId(), is(hello.getTopicId()));
+        assertThat(keywords.get(1).getTopicId(), is(hello.getTopicId()));
     }
 
     @Test

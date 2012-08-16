@@ -7,10 +7,6 @@ import java.util.UUID;
 
 public class KeywordFactory {
 
-    public Keyword createKeyword(final String value, final Language language) {
-        return createKeyword(value, language, UUID.randomUUID());
-    }
-
     public Keyword createKeyword(final String value, final Language language, final UUID topicId) {
         final Keyword keyword = new Keyword(value, language, topicId);
         final KeywordCreatedEvent keywordCreatedEvent = new KeywordCreatedEvent(keyword);

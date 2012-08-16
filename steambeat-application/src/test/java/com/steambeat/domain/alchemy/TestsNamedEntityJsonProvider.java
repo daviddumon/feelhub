@@ -2,7 +2,7 @@ package com.steambeat.domain.alchemy;
 
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.keyword.KeywordFactory;
-import com.steambeat.domain.topic.Topic;
+import com.steambeat.domain.topic.*;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
@@ -18,7 +18,7 @@ public class TestsNamedEntityJsonProvider {
 
     @Before
     public void before() throws ParserConfigurationException, IOException, SAXException {
-        alchemyNamedEntityJsonProvider = new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory())));
+        alchemyNamedEntityJsonProvider = new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new TopicFactory())));
     }
 
     @Test

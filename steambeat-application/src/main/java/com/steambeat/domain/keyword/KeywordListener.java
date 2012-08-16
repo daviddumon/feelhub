@@ -7,8 +7,6 @@ import com.steambeat.domain.thesaurus.Language;
 import com.steambeat.domain.translation.TranslationDoneEvent;
 import com.steambeat.repositories.Repositories;
 
-import java.util.UUID;
-
 public class KeywordListener {
 
     @Inject
@@ -20,19 +18,19 @@ public class KeywordListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handle(final TranslationDoneEvent event) {
-        final UUID topicId = lookUpTopic(event.getResult());
-        if (topicId != null) {
-            event.getKeyword().setTopic(topicId);
+        final Keyword referenceKeyword = lookUpReferenceKeyword(event.getResult());
+        if (referenceKeyword != null) {
+            event.getKeyword().setTopicId(referenceKeyword.getTopicId());
         } else {
-            final Keyword keyword = keywordFactory.createKeyword(event.getResult(), Language.reference(), event.getKeyword().getTopic());
+            final Keyword keyword = keywordFactory.createKeyword(event.getResult(), Language.reference(), event.getKeyword().getTopicId());
             Repositories.keywords().add(keyword);
         }
     }
 
-    private UUID lookUpTopic(final String result) {
+    private Keyword lookUpReferenceKeyword(final String result) {
         final Keyword keyword = Repositories.keywords().forValueAndLanguage(result, Language.reference());
         if (keyword != null) {
-            return keyword.getTopic();
+            return keyword;
         }
         return null;
     }
