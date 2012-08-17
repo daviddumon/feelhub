@@ -1,14 +1,13 @@
 package com.steambeat.domain.translation;
 
 import com.steambeat.domain.eventbus.DomainEvent;
-import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.subject.concept.Concept;
 
 public class TranslationDoneEvent extends DomainEvent {
 
-    public TranslationDoneEvent(final Keyword keyword, final String result) {
+    public TranslationDoneEvent(final Concept concept) {
         super();
-        this.keyword = keyword;
-        this.result = result;
+        this.concept = concept;
     }
 
     @Override
@@ -16,21 +15,14 @@ public class TranslationDoneEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("Keyword ");
-        stringBuilder.append(keyword.getValue() + " " + keyword.getLanguage());
-        stringBuilder.append(" translated into ");
-        stringBuilder.append(result);
+        stringBuilder.append("Translation done for ");
+        stringBuilder.append(concept.getKeywords().get(0).getValue());
         return stringBuilder.toString();
     }
 
-    public Keyword getKeyword() {
-        return keyword;
+    public Concept getConcept() {
+        return concept;
     }
 
-    public String getResult() {
-        return result;
-    }
-
-    private Keyword keyword;
-    private String result;
+    private Concept concept;
 }

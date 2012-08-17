@@ -4,7 +4,7 @@ import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.subject.concept.ConceptCreatedEvent;
 import com.steambeat.domain.subject.uri.UriCreatedEvent;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
@@ -28,7 +28,7 @@ public class TestsSubjectIdentifier {
     @Test
     public void canPostUriCreatedEvent() {
         bus.capture(UriCreatedEvent.class);
-        final KeywordCreatedEvent event = getEventForUri("http://www.google.com");
+        final KeywordCreatedEvent event = getEventFor("http://www.google.com");
 
         subjectIdentifier.handle(event);
 
@@ -39,12 +39,15 @@ public class TestsSubjectIdentifier {
     @Test
     public void canPostConceptCreatedEvent() {
         bus.capture(ConceptCreatedEvent.class);
-        final KeywordCreatedEvent event = getEventForUri("google");
+        final KeywordCreatedEvent event = getEventFor("google");
 
         subjectIdentifier.handle(event);
 
         final ConceptCreatedEvent conceptCreatedEvent = bus.lastEvent(ConceptCreatedEvent.class);
         assertThat(conceptCreatedEvent, notNullValue());
+        assertThat(conceptCreatedEvent.getConcept(), notNullValue());
+        assertThat(conceptCreatedEvent.getConcept().getKeywords(), notNullValue());
+        assertThat(conceptCreatedEvent.getConcept().getKeywords().size(), is(1));
     }
 
     @Test
@@ -84,8 +87,8 @@ public class TestsSubjectIdentifier {
         assertFalse(SubjectIdentifier.isUri("www.%C3%A9l%C3%A9phant."));
     }
 
-    private KeywordCreatedEvent getEventForUri(final String value) {
-        final Keyword keyword = TestFactories.keywords().newKeyword(value, Language.none());
+    private KeywordCreatedEvent getEventFor(final String value) {
+        final Keyword keyword = TestFactories.keywords().newKeyword(value, SteambeatLanguage.none());
         return new KeywordCreatedEvent(keyword);
     }
 

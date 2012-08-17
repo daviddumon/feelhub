@@ -8,7 +8,6 @@ import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.subject.uri.UriPathResolver;
-import com.steambeat.domain.translation.*;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.FakeSessionProvider;

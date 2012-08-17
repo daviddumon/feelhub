@@ -3,7 +3,7 @@ package com.steambeat.web.resources;
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
@@ -22,21 +22,21 @@ public class KeywordResource extends ServerResource {
         extractKeywordValueFromUri();
         Keyword keyword;
         try {
-            keyword = keywordService.lookUp(keywordValue, language);
+            keyword = keywordService.lookUp(keywordValue, steambeatLanguage);
         } catch (KeywordNotFound e) {
-            keyword = new Keyword(keywordValue, language, null);
+            keyword = new Keyword(keywordValue, steambeatLanguage, null);
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
         }
         return SteambeatTemplateRepresentation.createNew("keyword.ftl", getContext())
                 .with("keyword", keyword)
-                .with("language", language);
+                .with("language", steambeatLanguage);
     }
 
     private void extractLanguageFromUri() {
         if (getRequestAttributes().containsKey("language")) {
-            language = Language.forString(getRequestAttributes().get("language").toString());
+            steambeatLanguage = SteambeatLanguage.forString(getRequestAttributes().get("language").toString());
         } else {
-            language = Language.none();
+            steambeatLanguage = SteambeatLanguage.none();
         }
     }
 
@@ -45,6 +45,6 @@ public class KeywordResource extends ServerResource {
     }
 
     private KeywordService keywordService;
-    private Language language;
+    private SteambeatLanguage steambeatLanguage;
     private String keywordValue;
 }

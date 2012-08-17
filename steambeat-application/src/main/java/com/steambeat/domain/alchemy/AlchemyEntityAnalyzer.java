@@ -49,14 +49,14 @@ public class AlchemyEntityAnalyzer {
             //Repositories.subjects().add(concept);
             concepts.add(new Concept());
         } else {
-            concepts.add(new Concept(namedEntity.conceptId));
+            //concepts.add(new Concept(namedEntity.conceptId));
         }
     }
 
     private void createAssociations(final NamedEntity namedEntity) {
         for (final String keyword : namedEntity.keywords) {
             try {
-                associationService.lookUp(keyword, namedEntity.language);
+                associationService.lookUp(keyword, namedEntity.steambeatLanguage);
             } catch (KeywordNotFound e) {
                 //associationService.createAssociationFor(new Tag(keyword), namedEntity.conceptId, namedEntity.language);
             }

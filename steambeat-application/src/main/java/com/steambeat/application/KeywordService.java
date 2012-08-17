@@ -2,7 +2,7 @@ package com.steambeat.application;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.Repositories;
 
@@ -14,17 +14,17 @@ public class KeywordService {
         this.referenceFactory = referenceFactory;
     }
 
-    public Keyword lookUp(final String value, final Language language) {
-        final Keyword keyword = Repositories.keywords().forValueAndLanguage(value, language);
+    public Keyword lookUp(final String value, final SteambeatLanguage steambeatLanguage) {
+        final Keyword keyword = Repositories.keywords().forValueAndLanguage(value, steambeatLanguage);
         if (keyword == null) {
             throw new KeywordNotFound();
         }
         return keyword;
     }
 
-    public Keyword createKeyword(final String value, final Language language) {
+    public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage) {
         final Reference reference = createAndPersistNewReference();
-        final Keyword keyword = keywordFactory.createKeyword(value, language, reference.getId());
+        final Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
         Repositories.keywords().add(keyword);
         return keyword;
     }

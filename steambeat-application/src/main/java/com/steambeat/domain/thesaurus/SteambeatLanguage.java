@@ -1,11 +1,12 @@
 package com.steambeat.domain.thesaurus;
 
 import com.google.common.base.Objects;
+import com.memetix.mst.language.Language;
 
-public class Language {
+public class SteambeatLanguage {
 
-    public static Language forString(final String language) {
-        final Language result = new Language();
+    public static SteambeatLanguage forString(final String language) {
+        final SteambeatLanguage result = new SteambeatLanguage();
         result.code = setCodeFor(language).toLowerCase().trim();
         result.microsoftCode = setMicrosoftCodeFor(language);
         return result;
@@ -33,32 +34,32 @@ public class Language {
         }
     }
 
-    private static com.memetix.mst.language.Language setMicrosoftCodeFor(final String language) {
+    private static Language setMicrosoftCodeFor(final String language) {
         if (language.equalsIgnoreCase("French")) {
-            return com.memetix.mst.language.Language.FRENCH;
+            return Language.FRENCH;
         } else if (language.equalsIgnoreCase("German")) {
-            return com.memetix.mst.language.Language.GERMAN;
+            return Language.GERMAN;
         } else if (language.equalsIgnoreCase("Italian")) {
-            return com.memetix.mst.language.Language.ITALIAN;
+            return Language.ITALIAN;
         } else if (language.equalsIgnoreCase("Portuguese")) {
-            return com.memetix.mst.language.Language.PORTUGUESE;
+            return Language.PORTUGUESE;
         } else if (language.equalsIgnoreCase("Russian")) {
-            return com.memetix.mst.language.Language.RUSSIAN;
+            return Language.RUSSIAN;
         } else if (language.equalsIgnoreCase("Spanish")) {
-            return com.memetix.mst.language.Language.SPANISH;
+            return Language.SPANISH;
         } else if (language.equalsIgnoreCase("Swedish")) {
-            return com.memetix.mst.language.Language.SWEDISH;
+            return Language.SWEDISH;
         } else if (language.equalsIgnoreCase("English")) {
-            return com.memetix.mst.language.Language.ENGLISH;
+            return Language.ENGLISH;
         } else {
-            return com.memetix.mst.language.Language.AUTO_DETECT;
+            return Language.AUTO_DETECT;
         }
     }
 
-    public static Language none() {
-        final Language language = new Language();
-        language.code = "none";
-        return language;
+    public static SteambeatLanguage none() {
+        final SteambeatLanguage steambeatLanguage = new SteambeatLanguage();
+        steambeatLanguage.code = "none";
+        return steambeatLanguage;
     }
 
     @Override
@@ -69,8 +70,8 @@ public class Language {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final Language language = (Language) o;
-        return Objects.equal(language.code, code);
+        final SteambeatLanguage steambeatLanguage = (SteambeatLanguage) o;
+        return Objects.equal(steambeatLanguage.code, code);
     }
 
     @Override
@@ -82,14 +83,14 @@ public class Language {
         return code;
     }
 
-    public com.memetix.mst.language.Language getMicrosoftLanguage() {
+    public Language getMicrosoftLanguage() {
         return microsoftCode;
     }
 
-    public static Language reference() {
-        return Language.forString("English");
+    public static SteambeatLanguage reference() {
+        return SteambeatLanguage.forString("English");
     }
 
     private String code;
-    private com.memetix.mst.language.Language microsoftCode;
+    private Language microsoftCode;
 }

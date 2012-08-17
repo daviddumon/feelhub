@@ -1,9 +1,9 @@
 package com.steambeat.domain.keyword;
 
 import com.steambeat.domain.Repository;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 
 public interface KeywordRepository extends Repository<Keyword> {
 
-    Keyword forValueAndLanguage(final String value, final Language language);
+    Keyword forValueAndLanguage(final String value, final SteambeatLanguage steambeatLanguage);
 }

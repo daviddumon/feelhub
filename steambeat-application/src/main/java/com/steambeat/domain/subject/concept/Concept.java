@@ -1,16 +1,22 @@
 package com.steambeat.domain.subject.concept;
 
-import java.util.UUID;
+import com.google.common.collect.Lists;
+import com.steambeat.domain.keyword.Keyword;
+
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Concept {
 
-    // mongolink constructor : do not delete
     public Concept() {
     }
 
-    public Concept(final UUID id) {
-        this.id = id;
+    public CopyOnWriteArrayList<Keyword> getKeywords() {
+        return keywords;
     }
 
-    private UUID id;
+    public void addIfAbsent(final Keyword keyword) {
+        this.keywords.addIfAbsent(keyword);
+    }
+
+    private CopyOnWriteArrayList<Keyword> keywords = Lists.newCopyOnWriteArrayList();
 }

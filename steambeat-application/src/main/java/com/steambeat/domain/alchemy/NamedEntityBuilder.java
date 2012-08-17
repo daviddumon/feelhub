@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.keyword.KeywordNotFound;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 
 import java.util.UUID;
 import java.util.regex.*;
@@ -104,13 +104,13 @@ public class NamedEntityBuilder {
     }
 
     private UUID findConceptForBothEntities(final AlchemyJsonEntity alchemyJsonEntity) {
-        final Language language = Language.forString(alchemyJsonEntity.language);
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString(alchemyJsonEntity.language);
         try {
-            return associationService.lookUp(alchemyJsonEntity.text, language).getReferenceId();
+            return associationService.lookUp(alchemyJsonEntity.text, steambeatLanguage).getReferenceId();
         } catch (KeywordNotFound textNotFound) {
             if (!alchemyJsonEntity.disambiguated.name.isEmpty() && alchemyJsonEntity.disambiguated.name != alchemyJsonEntity.text) {
                 try {
-                    return associationService.lookUp(alchemyJsonEntity.disambiguated.name, language).getReferenceId();
+                    return associationService.lookUp(alchemyJsonEntity.disambiguated.name, steambeatLanguage).getReferenceId();
                 } catch (KeywordNotFound nameNotFound) {
                 }
             }
@@ -133,9 +133,9 @@ public class NamedEntityBuilder {
                 || alchemyJsonEntity.type.equalsIgnoreCase("Movie")
                 || alchemyJsonEntity.type.equalsIgnoreCase("TelevisionStation")
                 ) {
-            entity.language = Language.forString("");
+            entity.steambeatLanguage = SteambeatLanguage.forString("");
         } else {
-            entity.language = Language.forString(alchemyJsonEntity.language);
+            entity.steambeatLanguage = SteambeatLanguage.forString(alchemyJsonEntity.language);
         }
     }
 

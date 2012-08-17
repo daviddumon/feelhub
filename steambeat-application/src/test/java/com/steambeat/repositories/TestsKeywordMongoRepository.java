@@ -2,7 +2,7 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.test.*;
 import org.junit.*;
 
@@ -23,7 +23,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistAKeyword() {
-        final Keyword keyword = new Keyword("value", Language.forString("english"), UUID.randomUUID());
+        final Keyword keyword = new Keyword("value", SteambeatLanguage.forString("english"), UUID.randomUUID());
 
         repository.add(keyword);
 
@@ -53,7 +53,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetForValueAndLanguage() {
         final String value = "value";
-        final Language english = Language.forString("english");
+        final SteambeatLanguage english = SteambeatLanguage.forString("english");
         TestFactories.keywords().newKeyword(value, english);
 
         final Keyword keyword = repository.forValueAndLanguage(value, english);

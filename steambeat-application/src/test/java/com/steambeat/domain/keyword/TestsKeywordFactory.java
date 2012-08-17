@@ -1,7 +1,7 @@
 package com.steambeat.domain.keyword;
 
 import com.steambeat.domain.eventbus.WithDomainEvent;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
@@ -30,14 +30,14 @@ public class TestsKeywordFactory {
     @Test
     public void canCreateAKeyword() {
         final String value = "value";
-        final Language language = Language.forString("english");
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("english");
         final Reference reference = TestFactories.references().newReference();
 
-        Keyword keyword = keywordFactory.createKeyword(value, language, reference.getId());
+        Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
 
         assertNotNull(keyword);
         assertThat(keyword.getValue(), is(value));
-        assertThat(keyword.getLanguage(), is(language));
+        assertThat(keyword.getLanguage(), is(steambeatLanguage));
         assertThat(keyword.getId(), notNullValue());
         assertThat(keyword.getReferenceId(), notNullValue());
         assertThat(keyword.getCreationDate(), is(time.getNow()));
@@ -48,10 +48,10 @@ public class TestsKeywordFactory {
     public void postEventOnKeywordCreation() {
         bus.capture(KeywordCreatedEvent.class);
         final String value = "value";
-        final Language language = Language.forString("english");
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("english");
         final Reference reference = TestFactories.references().newReference();
 
-        Keyword keyword = keywordFactory.createKeyword(value, language, reference.getId());
+        Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
 
         final KeywordCreatedEvent keywordCreatedEvent = bus.lastEvent(KeywordCreatedEvent.class);
         assertThat(keywordCreatedEvent, notNullValue());
@@ -63,8 +63,8 @@ public class TestsKeywordFactory {
     public void canCreateKeywordsWithSameReference() {
         final Reference reference = TestFactories.references().newReference();
 
-        Keyword keyword1 = keywordFactory.createKeyword("value1", Language.reference(), reference.getId());
-        Keyword keyword2 = keywordFactory.createKeyword("value2", Language.reference(), reference.getId());
+        Keyword keyword1 = keywordFactory.createKeyword("value1", SteambeatLanguage.reference(), reference.getId());
+        Keyword keyword2 = keywordFactory.createKeyword("value2", SteambeatLanguage.reference(), reference.getId());
 
         assertThat(keyword1.getReferenceId(), is(keyword2.getReferenceId()));
     }

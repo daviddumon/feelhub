@@ -1,7 +1,7 @@
 package com.steambeat.repositories;
 
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
 
@@ -14,10 +14,10 @@ public class KeywordMongoRepository extends BaseMongoRepository<Keyword> impleme
     }
 
     @Override
-    public Keyword forValueAndLanguage(final String value, final Language language) {
+    public Keyword forValueAndLanguage(final String value, final SteambeatLanguage steambeatLanguage) {
         final Criteria criteria = getSession().createCriteria(Keyword.class);
         criteria.add(Restrictions.equals("value", value));
-        criteria.add(Restrictions.equals("languageCode", language.getCode()));
+        criteria.add(Restrictions.equals("languageCode", steambeatLanguage.getCode()));
         final List<Keyword> results = criteria.list();
         if (results.isEmpty()) {
             return null;

@@ -2,7 +2,7 @@ package com.steambeat.domain.alchemy;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.alchemy.readmodel.*;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ public class AlchemyTestFactory {
     public List<NamedEntity> namedEntityWith2Keywords() {
         final NamedEntity entity = new NamedEntity();
         entity.name = "text";
-        entity.language = Language.forString("english");
+        entity.steambeatLanguage = SteambeatLanguage.forString("english");
         entity.type = "type";
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
@@ -32,7 +32,7 @@ public class AlchemyTestFactory {
     public List<NamedEntity> namedEntityWith1Keyword() {
         final NamedEntity entity = new NamedEntity();
         entity.name = "text";
-        entity.language = Language.forString("english");
+        entity.steambeatLanguage = SteambeatLanguage.forString("english");
         entity.type = "type";
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
@@ -52,7 +52,7 @@ public class AlchemyTestFactory {
     public List<NamedEntity> namedEntityWith1KeywordWithoutConcept() {
         final NamedEntity entity = new NamedEntity();
         entity.name = "text";
-        entity.language = Language.forString("english");
+        entity.steambeatLanguage = SteambeatLanguage.forString("english");
         entity.type = "type";
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
@@ -71,7 +71,7 @@ public class AlchemyTestFactory {
     public List<NamedEntity> namedEntityWithoutKeywords() {
         final NamedEntity entity = new NamedEntity();
         entity.name = "text";
-        entity.language = Language.forString("english");
+        entity.steambeatLanguage = SteambeatLanguage.forString("english");
         entity.type = "type";
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
@@ -92,7 +92,7 @@ public class AlchemyTestFactory {
         for (int i = 0; i < quantity; i++) {
             final NamedEntity entity = new NamedEntity();
             entity.name = "text" + i;
-            entity.language = Language.forString("english");
+            entity.steambeatLanguage = SteambeatLanguage.forString("english");
             entity.type = "type";
             final List<String> subtypes = Lists.newArrayList();
             subtypes.add("subtype1");

@@ -2,7 +2,7 @@ package com.steambeat.web.resources;
 
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.keyword.Keyword;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.*;
@@ -24,7 +24,7 @@ public class TestsKeywordResource {
 
     @Test
     public void keywordResourceIsMapped() {
-        TestFactories.keywords().newKeyword("keyword", Language.none());
+        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.none());
         final ClientResource keywordResource = restlet.newClientResource("/topic/keyword");
 
         keywordResource.get();
@@ -34,7 +34,7 @@ public class TestsKeywordResource {
 
     @Test
     public void keywordResourceIsMappedWithLanguage() {
-        TestFactories.keywords().newKeyword("keyword", Language.forString("fr"));
+        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.forString("fr"));
         final ClientResource keywordResource = restlet.newClientResource("/topic/fr/keyword");
 
         keywordResource.get();
@@ -59,29 +59,29 @@ public class TestsKeywordResource {
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) keywordResource.get();
 
         assertTrue(representation.getDataModel().containsKey("language"));
-        assertThat(Language.forString("fr"), is(representation.getDataModel().get("language")));
+        assertThat(SteambeatLanguage.forString("fr"), is(representation.getDataModel().get("language")));
     }
 
     @Test
     public void lookUpKeyword() {
-        TestFactories.keywords().newKeyword("keyword", Language.forString("de"));
+        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.forString("de"));
         final ClientResource keywordResource = restlet.newClientResource("/topic/de/keyword");
 
         keywordResource.get();
 
         final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
-        verify(keywordService).lookUp("keyword", Language.forString("de"));
+        verify(keywordService).lookUp("keyword", SteambeatLanguage.forString("de"));
     }
 
     @Test
     public void lookUpWithNoLanguage() {
-        TestFactories.keywords().newKeyword("keyword", Language.none());
+        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.none());
         final ClientResource keywordResource = restlet.newClientResource("/topic/keyword");
 
         keywordResource.get();
 
         final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
-        verify(keywordService).lookUp("keyword", Language.none());
+        verify(keywordService).lookUp("keyword", SteambeatLanguage.none());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class TestsKeywordResource {
         keywordResource.get();
 
         final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
-        verify(keywordService).lookUp("anotherkeyword", Language.forString("fr"));
+        verify(keywordService).lookUp("anotherkeyword", SteambeatLanguage.forString("fr"));
     }
 
     @Test

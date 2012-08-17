@@ -1,6 +1,6 @@
 package com.steambeat.domain.keyword;
 
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.Repositories;
 
@@ -10,12 +10,12 @@ public class KeywordTestFactory {
 
     public Keyword newKeyword() {
         final String value = "value";
-        final Language language = Language.forString("english");
-        return newKeyword(value, language);
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("english");
+        return newKeyword(value, steambeatLanguage);
     }
 
-    public Keyword newKeyword(final String value, final Language language) {
-        final Keyword keyword = new Keyword(value, language, createAndPersistReference().getId());
+    public Keyword newKeyword(final String value, final SteambeatLanguage steambeatLanguage) {
+        final Keyword keyword = new Keyword(value, steambeatLanguage, createAndPersistReference().getId());
         Repositories.keywords().add(keyword);
         return keyword;
     }

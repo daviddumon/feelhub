@@ -1,7 +1,7 @@
 package com.steambeat.application;
 
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
@@ -40,28 +40,28 @@ public class TestKeywordService {
     public void throwExceptionOnKeywordNotFound() {
         exception.expect(KeywordNotFound.class);
 
-        keywordService.lookUp("any", Language.forString("any"));
+        keywordService.lookUp("any", SteambeatLanguage.forString("any"));
     }
 
     @Test
     public void canCreateAKeyword() {
         final String value = "value";
-        final Language language = Language.forString("none");
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("none");
 
-        final Keyword keyword = keywordService.createKeyword(value, language);
+        final Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
 
         assertThat(keyword, notNullValue());
         assertThat(keyword.getValue(), is(value));
-        assertThat(keyword.getLanguage(), is(language));
+        assertThat(keyword.getLanguage(), is(steambeatLanguage));
         assertThat(Repositories.keywords().getAll().size(), is(1));
     }
 
     @Test
     public void createAndPersistAReferenceFirst() {
         final String value = "value";
-        final Language language = Language.forString("none");
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("none");
 
-        keywordService.createKeyword(value, language);
+        keywordService.createKeyword(value, steambeatLanguage);
 
         final List<Reference> references = Repositories.references().getAll();
         final List<Keyword> keywords = Repositories.keywords().getAll();

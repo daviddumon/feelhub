@@ -2,8 +2,8 @@ package com.steambeat.domain.subject;
 
 import com.google.common.eventbus.*;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.keyword.KeywordCreatedEvent;
-import com.steambeat.domain.subject.concept.ConceptCreatedEvent;
+import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.subject.uri.*;
 
 import java.util.regex.Pattern;
@@ -17,12 +17,22 @@ public class SubjectIdentifier {
     @Subscribe
     @AllowConcurrentEvents
     public void handle(final KeywordCreatedEvent event) {
-        final String value = event.getKeyword().getValue();
-        if (SubjectIdentifier.isUri(value)) {
-            DomainEventBus.INSTANCE.post(new UriCreatedEvent(new Uri("")));
+        final Keyword keyword = event.getKeyword();
+        if (SubjectIdentifier.isUri(keyword.getValue())) {
+            createUri();
         } else {
-            DomainEventBus.INSTANCE.post(new ConceptCreatedEvent());
+            createConcept(keyword);
         }
+    }
+
+    private void createUri() {
+        DomainEventBus.INSTANCE.post(new UriCreatedEvent(new Uri("")));
+    }
+
+    private void createConcept(final Keyword keyword) {
+        final Concept concept = new Concept();
+        concept.addIfAbsent(keyword);
+        DomainEventBus.INSTANCE.post(new ConceptCreatedEvent(concept));
     }
 
     public static boolean isUri(final String value) {

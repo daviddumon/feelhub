@@ -4,7 +4,7 @@ import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.ReferenceFactory;
-import com.steambeat.domain.thesaurus.Language;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.test.TestFactories;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
@@ -119,7 +119,7 @@ public class TestsNamedEntityBuilder {
 
         assertThat(namedEntity.name, is(alchemyJsonEntity.text));
         assertThat(namedEntity.type, is(alchemyJsonEntity.type));
-        assertThat(namedEntity.language, is(Language.forString(alchemyJsonEntity.language)));
+        assertThat(namedEntity.steambeatLanguage, is(SteambeatLanguage.forString(alchemyJsonEntity.language)));
         assertThat(namedEntity.relevance, is(alchemyJsonEntity.relevance));
     }
 
@@ -131,7 +131,7 @@ public class TestsNamedEntityBuilder {
 
         assertThat(namedEntity.name, is(alchemyJsonEntity.disambiguated.name));
         assertThat(namedEntity.type, is(alchemyJsonEntity.type));
-        assertThat(namedEntity.language, is(Language.forString(alchemyJsonEntity.language)));
+        assertThat(namedEntity.steambeatLanguage, is(SteambeatLanguage.forString(alchemyJsonEntity.language)));
         assertThat(namedEntity.relevance, is(alchemyJsonEntity.relevance));
         assertThat(namedEntity.subType, is(alchemyJsonEntity.disambiguated.subType));
         assertThat(namedEntity.website, is(alchemyJsonEntity.disambiguated.website));
@@ -182,7 +182,7 @@ public class TestsNamedEntityBuilder {
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.language, is(Language.forString("")));
+        assertThat(namedEntity.steambeatLanguage, is(SteambeatLanguage.forString("")));
     }
 
     private NamedEntityBuilder namedEntityBuilder;
