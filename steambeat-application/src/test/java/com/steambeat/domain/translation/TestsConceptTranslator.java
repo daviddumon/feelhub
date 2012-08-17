@@ -8,8 +8,9 @@ import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 public class TestsConceptTranslator {
 
@@ -62,10 +63,18 @@ public class TestsConceptTranslator {
         assertThat(event.getConcept().getKeywords().size(), is(3));
     }
 
-    //
-    //        @Test
-    //        si une traduction existe deja en base, l'ajouter au concept'
-    //
+    @Test
+    public void lookUpExistingTranslation() {
+        final Concept concept = TestFactories.concepts().newConcept();
+        concept.addIfAbsent(TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr")));
+        final Keyword reference = TestFactories.keywords().newKeyword("valueenglish", SteambeatLanguage.reference());
+        final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
+
+        DomainEventBus.INSTANCE.post(event);
+
+        assertTrue(event.getConcept().getKeywords().contains(reference));
+    }
+
     @Test
     public void doNotTranslateIfLanguageNone() {
         final Keyword keyword = TestFactories.keywords().newKeyword("value", SteambeatLanguage.none());
