@@ -1,4 +1,4 @@
-package com.steambeat.domain.subject.uri;
+package com.steambeat.domain.uri;
 
 import com.steambeat.test.FakeInternet;
 import org.junit.*;

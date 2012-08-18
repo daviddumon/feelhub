@@ -1,8 +1,7 @@
-package com.steambeat.domain.translation;
+package com.steambeat.domain.concept;
 
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.keyword.Keyword;
-import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.test.*;
 import com.steambeat.test.fakeRepositories.WithFakeRepositories;
@@ -99,16 +98,16 @@ public class TestsConceptTranslator {
 
     @Test
     public void spreadEventOnceTranslationDone() {
-        bus.capture(TranslationDoneEvent.class);
+        bus.capture(ConceptTranslatedEvent.class);
         final Keyword keyword = TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr"));
         final Concept concept = TestFactories.concepts().newConcept(keyword);
         final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
 
         DomainEventBus.INSTANCE.post(event);
 
-        final TranslationDoneEvent translationDoneEvent = bus.lastEvent(TranslationDoneEvent.class);
-        assertThat(translationDoneEvent, notNullValue());
-        assertThat(translationDoneEvent.getDate(), is(time.getNow()));
-        assertThat(translationDoneEvent.getConcept(), is(concept));
+        final ConceptTranslatedEvent conceptTranslatedEvent = bus.lastEvent(ConceptTranslatedEvent.class);
+        assertThat(conceptTranslatedEvent, notNullValue());
+        assertThat(conceptTranslatedEvent.getDate(), is(time.getNow()));
+        assertThat(conceptTranslatedEvent.getConcept(), is(concept));
     }
 }

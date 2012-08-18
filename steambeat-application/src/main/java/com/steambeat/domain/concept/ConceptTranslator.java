@@ -1,4 +1,4 @@
-package com.steambeat.domain.translation;
+package com.steambeat.domain.concept;
 
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
@@ -7,7 +7,6 @@ import com.memetix.mst.translate.Translate;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.subject.concept.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 
 public class ConceptTranslator {
@@ -59,8 +58,8 @@ public class ConceptTranslator {
     }
 
     private void postTranslationDoneEvent(final Concept concept) {
-        final TranslationDoneEvent translationDoneEvent = new TranslationDoneEvent(concept);
-        DomainEventBus.INSTANCE.post(translationDoneEvent);
+        final ConceptTranslatedEvent conceptTranslatedEvent = new ConceptTranslatedEvent(concept);
+        DomainEventBus.INSTANCE.post(conceptTranslatedEvent);
     }
 
     private KeywordService keywordService;

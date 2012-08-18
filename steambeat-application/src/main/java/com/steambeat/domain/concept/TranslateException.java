@@ -1,4 +1,4 @@
-package com.steambeat.domain.translation;
+package com.steambeat.domain.concept;
 
 import com.steambeat.domain.DomainException;
 

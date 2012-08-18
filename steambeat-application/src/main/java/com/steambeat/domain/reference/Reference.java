@@ -39,6 +39,10 @@ public class Reference extends BaseEntity {
         this.lastModificationDate = modificationDate;
     }
 
+    public void setActive(final boolean active) {
+        this.active = active;
+    }
+
     private UUID id;
     private DateTime creationDate;
     private boolean active;

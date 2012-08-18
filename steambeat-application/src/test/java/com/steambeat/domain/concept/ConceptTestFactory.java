@@ -1,4 +1,4 @@
-package com.steambeat.domain.subject.concept;
+package com.steambeat.domain.concept;
 
 import com.steambeat.domain.keyword.Keyword;
 

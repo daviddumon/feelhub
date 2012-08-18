@@ -1,4 +1,4 @@
-package com.steambeat.domain.subject.uri;
+package com.steambeat.domain.uri;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

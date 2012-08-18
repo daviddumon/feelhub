@@ -1,4 +1,4 @@
-package com.steambeat.domain.subject.concept;
+package com.steambeat.domain.concept;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.keyword.Keyword;

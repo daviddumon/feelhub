@@ -1,10 +1,11 @@
-package com.steambeat.domain.subject.concept;
+package com.steambeat.domain.concept;
 
 import com.steambeat.domain.eventbus.DomainEvent;
+import com.steambeat.domain.concept.Concept;
 
-public class ConceptCreatedEvent extends DomainEvent {
+public class ConceptTranslatedEvent extends DomainEvent {
 
-    public ConceptCreatedEvent(final Concept concept) {
+    public ConceptTranslatedEvent(final Concept concept) {
         super();
         this.concept = concept;
     }
@@ -14,7 +15,8 @@ public class ConceptCreatedEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("Concept created");
+        stringBuilder.append("Translation done for ");
+        stringBuilder.append(concept.getKeywords().get(0).getValue());
         return stringBuilder.toString();
     }
 

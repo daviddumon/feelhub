@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.domain.alchemy.readmodel.*;
-import com.steambeat.domain.subject.uri.Uri;
+import com.steambeat.domain.uri.Uri;
 
 import java.io.*;
 import java.util.List;
