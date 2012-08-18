@@ -1,4 +1,4 @@
-package com.steambeat.test.fakeRepositories;
+package com.steambeat.repositories.fakeRepositories;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;

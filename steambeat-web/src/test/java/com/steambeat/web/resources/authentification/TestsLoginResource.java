@@ -1,6 +1,6 @@
 package com.steambeat.web.resources.authentification;
 
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.*;
 import org.junit.*;
 import org.restlet.data.Status;

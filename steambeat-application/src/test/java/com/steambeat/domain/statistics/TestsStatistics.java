@@ -3,7 +3,7 @@ package com.steambeat.domain.statistics;
 import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.TestFactories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import org.joda.time.DateTime;
 import org.junit.*;
 

@@ -6,7 +6,7 @@ import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.test.TestFactories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 
 import java.util.UUID;

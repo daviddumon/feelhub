@@ -4,7 +4,7 @@ import com.steambeat.application.KeywordService;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.test.TestFactories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.*;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.junit.*;

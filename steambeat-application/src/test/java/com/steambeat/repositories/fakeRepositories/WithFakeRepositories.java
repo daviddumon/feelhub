@@ -1,4 +1,4 @@
-package com.steambeat.test.fakeRepositories;
+package com.steambeat.repositories.fakeRepositories;
 
 import com.steambeat.repositories.Repositories;
 import org.junit.rules.ExternalResource;

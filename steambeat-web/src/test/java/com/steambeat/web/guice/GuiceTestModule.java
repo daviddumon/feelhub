@@ -11,7 +11,7 @@ import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.domain.uri.UriPathResolver;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.*;
-import com.steambeat.test.fakeRepositories.FakeSessionProvider;
+import com.steambeat.repositories.fakeRepositories.FakeSessionProvider;
 import com.steambeat.web.filter.*;
 import com.steambeat.web.mail.*;
 import com.steambeat.web.migration.*;

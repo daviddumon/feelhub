@@ -4,7 +4,7 @@ import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.*;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;

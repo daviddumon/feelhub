@@ -4,7 +4,7 @@ import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.*;
-import com.steambeat.test.fakeRepositories.*;
+import com.steambeat.repositories.fakeRepositories.*;
 import org.joda.time.Interval;
 import org.junit.*;
 

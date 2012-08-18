@@ -2,7 +2,7 @@ package com.steambeat.web.resources.json;
 
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.TestFactories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.*;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.json.*;

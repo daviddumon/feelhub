@@ -3,7 +3,7 @@ package com.steambeat.web.filter;
 import com.steambeat.application.UserService;
 import com.steambeat.domain.user.UserFactory;
 import com.steambeat.test.TestFactories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.WebApplicationTester;
 import org.junit.*;
 import org.restlet.*;

@@ -4,7 +4,7 @@ import com.steambeat.domain.session.EmailAlreadyUsed;
 import com.steambeat.domain.user.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 

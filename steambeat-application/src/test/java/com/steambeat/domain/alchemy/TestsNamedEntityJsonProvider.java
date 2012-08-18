@@ -4,7 +4,7 @@ import com.steambeat.application.KeywordService;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.*;
 import com.steambeat.test.TestFactories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 import org.xml.sax.SAXException;
 

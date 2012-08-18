@@ -1,13 +1,12 @@
 package com.steambeat.domain;
 
-import com.steambeat.domain.SubjectIdentifier;
 import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.concept.ConceptCreatedEvent;
 import com.steambeat.domain.uri.UriCreatedEvent;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.test.TestFactories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 
 import static org.hamcrest.Matchers.*;

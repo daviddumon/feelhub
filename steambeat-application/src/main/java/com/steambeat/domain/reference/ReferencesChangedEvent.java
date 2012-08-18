@@ -3,12 +3,12 @@ package com.steambeat.domain.reference;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.eventbus.DomainEvent;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ReferencesChangedEvent extends DomainEvent {
 
-    public ReferencesChangedEvent(final Reference reference) {
+    public ReferencesChangedEvent(final UUID reference) {
         this.newReference = reference;
     }
 
@@ -21,18 +21,18 @@ public class ReferencesChangedEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    public List<Reference> getReferences() {
+    public List<UUID> getReferences() {
         return references;
     }
 
-    public void addIfAbsent(final Reference reference) {
+    public void addIfAbsent(final UUID reference) {
         this.references.addIfAbsent(reference);
     }
 
-    public Reference getNewReference() {
+    public UUID getNewReference() {
         return newReference;
     }
 
-    private CopyOnWriteArrayList<Reference> references = Lists.newCopyOnWriteArrayList();
-    private Reference newReference;
+    private CopyOnWriteArrayList<UUID> references = Lists.newCopyOnWriteArrayList();
+    private UUID newReference;
 }

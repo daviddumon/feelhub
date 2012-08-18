@@ -5,7 +5,7 @@ import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
 
-import java.util.List;
+import java.util.*;
 
 public class KeywordMongoRepository extends BaseMongoRepository<Keyword> implements KeywordRepository {
 
@@ -23,6 +23,18 @@ public class KeywordMongoRepository extends BaseMongoRepository<Keyword> impleme
             return null;
         } else {
             return results.get(0);
+        }
+    }
+
+    @Override
+    public List<Keyword> forReferenceId(final UUID referenceId) {
+        final Criteria criteria = getSession().createCriteria(Keyword.class);
+        criteria.add(Restrictions.equals("referenceId", referenceId));
+        final List<Keyword> results = criteria.list();
+        if (results.isEmpty()) {
+            return null;
+        } else {
+            return results;
         }
     }
 }

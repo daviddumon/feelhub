@@ -2,7 +2,7 @@ package com.steambeat.domain.relation;
 
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.test.*;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import org.hamcrest.Matchers;
 import org.junit.*;
 

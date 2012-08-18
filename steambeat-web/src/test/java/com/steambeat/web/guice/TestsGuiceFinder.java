@@ -8,7 +8,7 @@ import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.scrapers.UriScraper;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.test.FakeUriScraper;
-import com.steambeat.test.fakeRepositories.FakeSessionProvider;
+import com.steambeat.repositories.fakeRepositories.FakeSessionProvider;
 import com.steambeat.web.resources.HomeResource;
 import org.junit.Test;
 import org.restlet.Context;

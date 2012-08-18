@@ -2,11 +2,12 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.test.*;
 import org.junit.*;
 
-import java.util.UUID;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -59,6 +60,19 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
         final Keyword keyword = repository.forValueAndLanguage(value, english);
 
         assertThat(keyword, notNullValue());
+    }
+
+    @Test
+    public void canGetForAReference() {
+        final Reference reference = TestFactories.references().newReference();
+        TestFactories.keywords().newKeyword("coucou", SteambeatLanguage.forString("fr"), reference);
+        TestFactories.keywords().newKeyword("hello", SteambeatLanguage.forString("en"), reference);
+        TestFactories.keywords().newKeyword("hola", SteambeatLanguage.forString("es"), reference);
+
+        final List<Keyword> keywords = repository.forReferenceId(reference.getId());
+
+        assertThat(keywords, notNullValue());
+        assertThat(keywords.size(), is(3));
     }
 
     private DBObject getUserFromDB(final Object id) {

@@ -1,7 +1,7 @@
 package com.steambeat.domain.opinion;
 
 import com.steambeat.test.*;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;

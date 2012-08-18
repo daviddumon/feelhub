@@ -1,10 +1,12 @@
-package com.steambeat.test.fakeRepositories;
+package com.steambeat.repositories.fakeRepositories;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
+import com.google.common.collect.*;
 import com.google.inject.internal.Nullable;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
+
+import java.util.*;
 
 public class FakeKeywordRepository extends FakeRepository<Keyword> implements KeywordRepository {
 
@@ -25,5 +27,16 @@ public class FakeKeywordRepository extends FakeRepository<Keyword> implements Ke
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public List<Keyword> forReferenceId(final UUID referenceId) {
+        return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Keyword>() {
+
+            @Override
+            public boolean apply(final Keyword input) {
+                return input.getReferenceId().equals(referenceId);
+            }
+        }));
     }
 }

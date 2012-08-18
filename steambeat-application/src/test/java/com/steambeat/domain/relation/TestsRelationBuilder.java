@@ -3,7 +3,7 @@ package com.steambeat.domain.relation;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 
 import java.util.List;

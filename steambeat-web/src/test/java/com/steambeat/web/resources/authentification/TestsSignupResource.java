@@ -3,7 +3,7 @@ package com.steambeat.web.resources.authentification;
 import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
-import com.steambeat.test.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.web.*;
 import org.junit.*;
 import org.restlet.data.*;
