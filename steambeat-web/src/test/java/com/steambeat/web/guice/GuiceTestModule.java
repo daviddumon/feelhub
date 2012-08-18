@@ -4,6 +4,7 @@ import com.google.inject.*;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.bingsearch.BingLink;
+import com.steambeat.domain.concept.*;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.scrapers.UriScraper;
@@ -36,7 +37,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(MigrationFilter.class).to(FakeMigrationFilter.class);
         bind(UriScraper.class).to(FakeUriScraper.class);
         bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceFactory()))));
-        bind(MicrosoftTranslatorLink.class).to(FakeMicrosoftTranslatorLink.class);
+        bind(ConceptTranslator.class).to(FakeConceptTranslator.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
         bind(MailBuilder.class).toInstance(new MailBuilder(new FakeMailSender()));

@@ -1,7 +1,6 @@
 package com.steambeat.domain.concept;
 
 import com.steambeat.domain.eventbus.DomainEvent;
-import com.steambeat.domain.concept.Concept;
 
 public class ConceptTranslatedEvent extends DomainEvent {
 

@@ -20,8 +20,8 @@ public class ReferenceManager {
     public void handle(final ConceptTranslatedEvent event) {
         getAllReferences(event.getConcept());
         final Reference reference = getOldestReference(event.getConcept());
-        //setReferenceForAllKeywords(event.getConcept(), reference);
         setInactiveReferences(reference);
+        postEvent(reference);
     }
 
     private void getAllReferences(final Concept concept) {
@@ -44,18 +44,22 @@ public class ReferenceManager {
         return result;
     }
 
-    private void setReferenceForAllKeywords(final Concept concept, final Reference reference) {
-        for (Keyword keyword : concept.getKeywords()) {
-            keyword.setReferenceId(reference.getId());
-        }
-    }
-
     private void setInactiveReferences(final Reference reference) {
         for (Reference current : references) {
             if (!current.equals(reference)) {
                 current.setActive(false);
             }
         }
+    }
+
+    private void postEvent(final Reference newReference) {
+        final ReferencesChangedEvent event = new ReferencesChangedEvent(newReference);
+        for (Reference reference : references) {
+            if (!reference.isActive()) {
+                event.addIfAbsent(reference);
+            }
+        }
+        DomainEventBus.INSTANCE.post(event);
     }
 
     private List<Reference> references;
