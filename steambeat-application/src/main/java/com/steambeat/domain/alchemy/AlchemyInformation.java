@@ -1,8 +1,8 @@
 package com.steambeat.domain.alchemy;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.uri.Uri;
 import com.steambeat.domain.thesaurus.Type;
+import com.steambeat.domain.uri.Uri;
 
 import java.util.List;
 

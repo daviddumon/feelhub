@@ -4,10 +4,10 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
+import com.steambeat.domain.concept.Concept;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.KeywordNotFound;
 import com.steambeat.domain.relation.*;
-import com.steambeat.domain.concept.*;
 import com.steambeat.domain.uri.*;
 
 import java.util.*;

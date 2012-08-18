@@ -2,8 +2,8 @@ package com.steambeat.repositories.fakeRepositories;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.steambeat.domain.relation.*;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.relation.*;
 
 import javax.annotation.Nullable;
 

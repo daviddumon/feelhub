@@ -1,11 +1,11 @@
 package com.steambeat.application;
 
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.reference.*;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.TestFactories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 

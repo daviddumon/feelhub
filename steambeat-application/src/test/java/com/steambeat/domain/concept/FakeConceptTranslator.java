@@ -1,7 +1,6 @@
 package com.steambeat.domain.concept;
 
 import com.steambeat.application.KeywordService;
-import com.steambeat.domain.concept.ConceptTranslator;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.reference.ReferenceFactory;
 

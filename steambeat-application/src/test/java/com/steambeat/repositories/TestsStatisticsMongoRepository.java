@@ -2,8 +2,8 @@ package com.steambeat.repositories;
 
 import com.mongodb.*;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.statistics.*;
 import com.steambeat.test.*;
 import org.joda.time.*;
 import org.junit.*;

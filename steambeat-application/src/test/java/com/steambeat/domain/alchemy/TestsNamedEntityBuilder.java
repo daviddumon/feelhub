@@ -5,8 +5,8 @@ import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import com.steambeat.test.TestFactories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 
 import java.util.UUID;

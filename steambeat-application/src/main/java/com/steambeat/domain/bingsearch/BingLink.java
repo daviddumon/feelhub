@@ -9,8 +9,8 @@ import java.net.*;
 
 public class BingLink {
 
-    public String getIllustration(final Keyword tag) {
-        final String query = getQuery(tag);
+    public String getIllustration(final Keyword keyword) {
+        final String query = buildQueryFor(keyword);
         try {
             final URL url = new URL(query);
             final URLConnection uc = url.openConnection();
@@ -24,11 +24,11 @@ public class BingLink {
         return "";
     }
 
-    private String getQuery(final Keyword tag) {
+    private String buildQueryFor(final Keyword keyword) {
         try {
             final StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(queryRoot);
-            stringBuilder.append(URLEncoder.encode(tag.toString(), "UTF-8"));
+            stringBuilder.append(URLEncoder.encode(keyword.toString(), "UTF-8"));
             stringBuilder.append(queryOptions);
             return stringBuilder.toString();
         } catch (Exception e) {

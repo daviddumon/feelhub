@@ -1,12 +1,11 @@
-package com.steambeat.test;
+package com.steambeat.domain.bingsearch;
 
-import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.keyword.Keyword;
 
 public class FakeBingLink extends BingLink {
 
     @Override
-    public String getIllustration(final Keyword tag) {
+    public String getIllustration(final Keyword keyword) {
         return "fake";
     }
 }

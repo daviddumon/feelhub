@@ -1,8 +1,8 @@
 package com.steambeat.domain.relation;
 
 import com.steambeat.domain.reference.Reference;
-import com.steambeat.test.*;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.*;
 import org.hamcrest.Matchers;
 import org.junit.*;
 

@@ -1,12 +1,13 @@
 package com.steambeat.repositories;
 
 import com.steambeat.domain.Repository;
+import com.steambeat.domain.illustration.IllustrationRepository;
 import com.steambeat.domain.keyword.KeywordRepository;
 import com.steambeat.domain.opinion.Opinion;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
 import com.steambeat.domain.statistics.StatisticsRepository;
-import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.user.UserRepository;
 
 public abstract class Repositories {
@@ -42,6 +43,12 @@ public abstract class Repositories {
     public static KeywordRepository keywords() {
         return Repositories.soleInstance.getKeywordRepository();
     }
+
+    public static IllustrationRepository illustrations() {
+        return Repositories.soleInstance.getIllustrationRepository();
+    }
+
+    protected abstract IllustrationRepository getIllustrationRepository();
 
     protected abstract KeywordRepository getKeywordRepository();
 

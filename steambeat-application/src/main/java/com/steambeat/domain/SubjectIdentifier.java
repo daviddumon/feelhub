@@ -1,9 +1,9 @@
 package com.steambeat.domain;
 
 import com.google.common.eventbus.*;
+import com.steambeat.domain.concept.*;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.concept.*;
 import com.steambeat.domain.uri.*;
 
 import java.util.regex.Pattern;

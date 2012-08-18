@@ -2,8 +2,8 @@ package com.steambeat.repositories.fakeRepositories;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
-import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.statistics.*;
 import org.joda.time.Interval;
 
 import java.util.List;

@@ -3,8 +3,8 @@ package com.steambeat.application;
 import com.steambeat.domain.session.EmailAlreadyUsed;
 import com.steambeat.domain.user.*;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.TestFactories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 

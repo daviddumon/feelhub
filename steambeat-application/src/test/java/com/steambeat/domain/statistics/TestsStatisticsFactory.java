@@ -3,8 +3,8 @@ package com.steambeat.domain.statistics;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.test.*;
 import com.steambeat.repositories.fakeRepositories.*;
+import com.steambeat.test.*;
 import org.joda.time.Interval;
 import org.junit.*;
 

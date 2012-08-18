@@ -2,8 +2,8 @@ package com.steambeat.application;
 
 import com.google.inject.Inject;
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.reference.*;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.Repositories;
 
 public class KeywordService {

@@ -1,8 +1,8 @@
 package com.steambeat.repositories;
 
 import com.mongodb.*;
-import com.steambeat.domain.relation.*;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.relation.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 

@@ -3,8 +3,8 @@ package com.steambeat.domain.alchemy;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.*;
-import com.steambeat.test.TestFactories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.TestFactories;
 import org.junit.*;
 import org.xml.sax.SAXException;
 
