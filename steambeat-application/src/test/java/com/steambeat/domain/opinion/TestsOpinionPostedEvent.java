@@ -19,7 +19,7 @@ public class TestsOpinionPostedEvent {
     public void hasADate() {
         final Opinion opinion = TestFactories.opinions().newOpinion();
 
-        final OpinionPostedEvent event = new OpinionPostedEvent(opinion);
+        final OpinionCreatedEvent event = new OpinionCreatedEvent(opinion);
 
         assertThat(event.getDate(), is(time.getNow()));
     }

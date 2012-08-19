@@ -16,8 +16,8 @@ public class KeywordManager {
     @Subscribe
     @AllowConcurrentEvents
     public void handle(final ReferencesChangedEvent referencesChangedEvent) {
-        final UUID newReference = referencesChangedEvent.getNewReference();
-        for (UUID reference : referencesChangedEvent.getReferences()) {
+        final UUID newReference = referencesChangedEvent.getNewReferenceId();
+        for (UUID reference : referencesChangedEvent.getReferenceIds()) {
             final List<Keyword> keywords = Repositories.keywords().forReferenceId(reference);
             for (Keyword keyword : keywords) {
                 keyword.setReferenceId(newReference);

@@ -28,6 +28,10 @@ public class Judgment {
         return referenceId;
     }
 
+    public void setReferenceId(final UUID referenceId) {
+        this.referenceId = referenceId;
+    }
+
     private UUID referenceId;
     private Feeling feeling;
 }

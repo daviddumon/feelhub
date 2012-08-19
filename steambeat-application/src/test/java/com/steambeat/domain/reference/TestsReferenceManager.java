@@ -64,7 +64,7 @@ public class TestsReferenceManager {
 
         final ReferencesChangedEvent referencesChangedEvent = bus.lastEvent(ReferencesChangedEvent.class);
         assertThat(referencesChangedEvent, notNullValue());
-        assertThat(referencesChangedEvent.getReferences().size(), is(1));
-        assertThat(referencesChangedEvent.getNewReference(), notNullValue());
+        assertThat(referencesChangedEvent.getReferenceIds().size(), is(1));
+        assertThat(referencesChangedEvent.getNewReferenceId(), notNullValue());
     }
 }

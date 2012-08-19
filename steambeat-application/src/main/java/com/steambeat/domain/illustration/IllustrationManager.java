@@ -27,7 +27,7 @@ public class IllustrationManager {
         if (illustrations.isEmpty()) {
             addAnIllustration(event);
         } else {
-            migrateExistingIllustrations(illustrations, event.getNewReference());
+            migrateExistingIllustrations(illustrations, event.getNewReferenceId());
             removeDuplicate(illustrations);
         }
     }
@@ -53,14 +53,14 @@ public class IllustrationManager {
     }
 
     private List<UUID> getReferenceIdList(final ReferencesChangedEvent event) {
-        final List<UUID> referenceIdList = event.getReferences();
-        referenceIdList.add(event.getNewReference());
+        final List<UUID> referenceIdList = event.getReferenceIds();
+        referenceIdList.add(event.getNewReferenceId());
         return referenceIdList;
     }
 
     private void addAnIllustration(final ReferencesChangedEvent event) {
         final String link = getLink(event);
-        final Illustration illustration = new Illustration(event.getNewReference(), link);
+        final Illustration illustration = new Illustration(event.getNewReferenceId(), link);
         Repositories.illustrations().add(illustration);
     }
 
@@ -70,7 +70,7 @@ public class IllustrationManager {
     }
 
     private Keyword getKeywordFor(final ReferencesChangedEvent event) {
-        final List<Keyword> keywords = Repositories.keywords().forReferenceId(event.getNewReference());
+        final List<Keyword> keywords = Repositories.keywords().forReferenceId(event.getNewReferenceId());
         if (keywords != null) {
             return keywords.get(0);
         } else {

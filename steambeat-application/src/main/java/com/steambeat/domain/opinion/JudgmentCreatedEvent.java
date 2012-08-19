@@ -2,9 +2,9 @@ package com.steambeat.domain.opinion;
 
 import com.steambeat.domain.eventbus.DomainEvent;
 
-public class JudgmentPostedEvent extends DomainEvent {
+public class JudgmentCreatedEvent extends DomainEvent {
 
-    public JudgmentPostedEvent(final Judgment judgment) {
+    public JudgmentCreatedEvent(final Judgment judgment) {
         super();
         this.judgment = judgment;
     }

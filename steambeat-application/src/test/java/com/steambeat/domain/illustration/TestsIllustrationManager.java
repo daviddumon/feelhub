@@ -38,7 +38,7 @@ public class TestsIllustrationManager {
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size(), is(1));
-        assertThat(illustrations.get(0).getReferenceId(), is(event.getNewReference()));
+        assertThat(illustrations.get(0).getReferenceId(), is(event.getNewReferenceId()));
         assertThat(illustrations.get(0).getLink(), is(first.getValue() + "link"));
     }
 

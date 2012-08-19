@@ -10,6 +10,12 @@ public class OpinionTestFactory {
         return newOpinionWithText("my good opinion");
     }
 
+    public Opinion newOpinionWithoutJudgments() {
+        final Opinion opinion = new Opinion("opinion without judgement");
+        Repositories.opinions().add(opinion);
+        return opinion;
+    }
+
     public Opinion newOpinionWithText(final String text) {
         return newOpinion(TestFactories.references().newReference(), text);
     }

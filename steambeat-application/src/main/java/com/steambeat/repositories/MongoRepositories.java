@@ -3,7 +3,7 @@ package com.steambeat.repositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.illustration.IllustrationRepository;
 import com.steambeat.domain.keyword.KeywordRepository;
-import com.steambeat.domain.opinion.Opinion;
+import com.steambeat.domain.opinion.OpinionRepository;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
@@ -45,7 +45,7 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
-    protected Repository<Opinion> getOpinionRepository() {
+    protected OpinionRepository getOpinionRepository() {
         return new OpinionMongoRepository(provider.get());
     }
 

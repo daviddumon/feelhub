@@ -3,7 +3,7 @@ package com.steambeat.repositories.fakeRepositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.illustration.IllustrationRepository;
 import com.steambeat.domain.keyword.KeywordRepository;
-import com.steambeat.domain.opinion.Opinion;
+import com.steambeat.domain.opinion.OpinionRepository;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
@@ -39,7 +39,7 @@ public class FakeMongoRepositories extends Repositories {
     }
 
     @Override
-    protected Repository<Opinion> getOpinionRepository() {
+    protected OpinionRepository getOpinionRepository() {
         return opinionRepository;
     }
 
@@ -53,7 +53,7 @@ public class FakeMongoRepositories extends Repositories {
         return userRepository;
     }
 
-    private final Repository<Opinion> opinionRepository = new FakeOpinionRepository();
+    private final FakeOpinionRepository opinionRepository = new FakeOpinionRepository();
     private final RelationRepository relationFakeRepository = new FakeRelationRepository();
     private final FakeStatisticsRepository statisticsRepository = new FakeStatisticsRepository();
     private final FakeUserRepository userRepository = new FakeUserRepository();

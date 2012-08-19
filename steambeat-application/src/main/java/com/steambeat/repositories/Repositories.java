@@ -3,7 +3,7 @@ package com.steambeat.repositories;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.illustration.IllustrationRepository;
 import com.steambeat.domain.keyword.KeywordRepository;
-import com.steambeat.domain.opinion.Opinion;
+import com.steambeat.domain.opinion.OpinionRepository;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.relation.RelationRepository;
 import com.steambeat.domain.session.Session;
@@ -16,7 +16,7 @@ public abstract class Repositories {
         Repositories.soleInstance = repositories;
     }
 
-    public static Repository<Opinion> opinions() {
+    public static OpinionRepository opinions() {
         return Repositories.soleInstance.getOpinionRepository();
     }
 
@@ -58,7 +58,7 @@ public abstract class Repositories {
 
     protected abstract RelationRepository getRelationRepository();
 
-    protected abstract Repository<Opinion> getOpinionRepository();
+    protected abstract OpinionRepository getOpinionRepository();
 
     protected abstract StatisticsRepository getStatisticsRepository();
 

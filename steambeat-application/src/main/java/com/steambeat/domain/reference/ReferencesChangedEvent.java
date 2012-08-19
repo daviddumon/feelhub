@@ -8,8 +8,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ReferencesChangedEvent extends DomainEvent {
 
-    public ReferencesChangedEvent(final UUID reference) {
-        this.newReference = reference;
+    public ReferencesChangedEvent(final UUID referenceId) {
+        this.newReferenceId = referenceId;
     }
 
     @Override
@@ -21,18 +21,18 @@ public class ReferencesChangedEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    public List<UUID> getReferences() {
-        return references;
+    public List<UUID> getReferenceIds() {
+        return referenceIds;
     }
 
     public void addReferenceToChange(final UUID reference) {
-        this.references.addIfAbsent(reference);
+        this.referenceIds.addIfAbsent(reference);
     }
 
-    public UUID getNewReference() {
-        return newReference;
+    public UUID getNewReferenceId() {
+        return newReferenceId;
     }
 
-    private CopyOnWriteArrayList<UUID> references = Lists.newCopyOnWriteArrayList();
-    private UUID newReference;
+    private CopyOnWriteArrayList<UUID> referenceIds = Lists.newCopyOnWriteArrayList();
+    private UUID newReferenceId;
 }

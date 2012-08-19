@@ -55,10 +55,10 @@ public class TestsOpinion {
 
         opinion.addJudgment(reference, Feeling.good);
 
-        final ArgumentCaptor<JudgmentPostedEvent> captor = ArgumentCaptor.forClass(JudgmentPostedEvent.class);
+        final ArgumentCaptor<JudgmentCreatedEvent> captor = ArgumentCaptor.forClass(JudgmentCreatedEvent.class);
         verify(judgmentEventListener, times(1)).handle(captor.capture());
-        assertThat(captor.getValue(), instanceOf(JudgmentPostedEvent.class));
-        final JudgmentPostedEvent event = captor.getAllValues().get(0);
+        assertThat(captor.getValue(), instanceOf(JudgmentCreatedEvent.class));
+        final JudgmentCreatedEvent event = captor.getAllValues().get(0);
         assertThat(event.getJudgment(), is(opinion.getJudgments().get(0)));
     }
 
@@ -69,10 +69,10 @@ public class TestsOpinion {
 
         final Opinion opinion = new Opinion("my opinion");
 
-        final ArgumentCaptor<OpinionPostedEvent> captor = ArgumentCaptor.forClass(OpinionPostedEvent.class);
+        final ArgumentCaptor<OpinionCreatedEvent> captor = ArgumentCaptor.forClass(OpinionCreatedEvent.class);
         verify(opinionEventListener).handle(captor.capture());
-        assertThat(captor.getValue(), instanceOf(OpinionPostedEvent.class));
-        final OpinionPostedEvent event = captor.getValue();
+        assertThat(captor.getValue(), instanceOf(OpinionCreatedEvent.class));
+        final OpinionCreatedEvent event = captor.getValue();
         assertThat(event.getOpinion(), is(opinion));
     }
 
@@ -90,7 +90,7 @@ public class TestsOpinion {
     private class SimpleJudgmentListener {
 
         @Subscribe
-        public void handle(JudgmentPostedEvent judgmentPostedEvent) {
+        public void handle(JudgmentCreatedEvent judgmentCreatedEvent) {
 
         }
     }
@@ -98,7 +98,7 @@ public class TestsOpinion {
     private class SimpleOpinionListener {
 
         @Subscribe
-        public void handle(OpinionPostedEvent opinionPostedEvent) {
+        public void handle(OpinionCreatedEvent opinionCreatedEvent) {
 
         }
     }

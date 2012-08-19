@@ -67,4 +67,22 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
         final DBObject opinionFound = opinions.findOne(query);
         assertThat(opinionFound.get("judgments"), notNullValue());
     }
+
+    @Ignore("on doit faire evoluer mongolink pour faire ce test ...")
+    @Test
+    public void canGetAllOpinionsForReference() {
+        final Reference ref1 = TestFactories.references().newReference();
+        final Reference ref2 = TestFactories.references().newReference();
+        final Opinion op1 = TestFactories.opinions().newOpinion();
+        final Opinion op2 = TestFactories.opinions().newOpinion();
+        final Opinion op3 = TestFactories.opinions().newOpinion();
+        op1.addJudgment(ref1, Feeling.good);
+        op1.addJudgment(ref2, Feeling.bad);
+        op2.addJudgment(ref1, Feeling.good);
+        op3.addJudgment(ref2, Feeling.good);
+
+        final List<Opinion> opinions = Repositories.opinions().forReferenceId(ref1.getId());
+
+        assertThat(opinions.size(), is(2));
+    }
 }

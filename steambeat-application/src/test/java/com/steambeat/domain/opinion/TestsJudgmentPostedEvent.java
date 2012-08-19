@@ -19,10 +19,10 @@ public class TestsJudgmentPostedEvent {
     public void canPostAJudgmentEvent() {
         final Judgment judgment = TestFactories.judgments().newJudgment();
 
-        final JudgmentPostedEvent judgmentPostedEvent = new JudgmentPostedEvent(judgment);
+        final JudgmentCreatedEvent judgmentCreatedEvent = new JudgmentCreatedEvent(judgment);
 
-        assertThat(judgmentPostedEvent.getDate(), notNullValue());
-        assertThat(judgmentPostedEvent.getDate(), is(time.getNow()));
-        assertThat(judgmentPostedEvent.getJudgment(), is(judgment));
+        assertThat(judgmentCreatedEvent.getDate(), notNullValue());
+        assertThat(judgmentCreatedEvent.getDate(), is(time.getNow()));
+        assertThat(judgmentCreatedEvent.getJudgment(), is(judgment));
     }
 }
