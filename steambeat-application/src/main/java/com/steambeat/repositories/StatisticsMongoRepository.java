@@ -6,7 +6,7 @@ import org.joda.time.Interval;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
 
-import java.util.List;
+import java.util.*;
 
 
 public class StatisticsMongoRepository extends BaseMongoRepository<Statistics> implements StatisticsRepository {
@@ -16,16 +16,23 @@ public class StatisticsMongoRepository extends BaseMongoRepository<Statistics> i
     }
 
     @Override
+    public List<Statistics> forReferenceId(final UUID reference) {
+        final Criteria criteria = getSession().createCriteria(Statistics.class);
+        criteria.add(Restrictions.equals("referenceId", reference));
+        return criteria.list();
+    }
+
+    @Override
     public List<Statistics> forReference(final Reference reference, final Granularity granularity) {
         final Criteria criteria = criteriaForReferenceAndGranularity(reference, granularity);
-        return (List<Statistics>) criteria.list();
+        return criteria.list();
     }
 
     @Override
     public List<Statistics> forReference(final Reference reference, final Granularity granularity, final Interval interval) {
         final Criteria criteria = criteriaForReferenceAndGranularity(reference, granularity);
         criteria.add(Restrictions.between("date", interval.getStart(), interval.getEnd()));
-        return (List<Statistics>) criteria.list();
+        return criteria.list();
     }
 
     private Criteria criteriaForReferenceAndGranularity(final Reference reference, final Granularity granularity) {

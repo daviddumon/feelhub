@@ -6,18 +6,18 @@ import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.statistics.*;
 import org.joda.time.Interval;
 
-import java.util.List;
+import java.util.*;
 
 public class FakeStatisticsRepository extends FakeRepository<Statistics> implements StatisticsRepository {
 
-    public Statistics forReference(final Reference reference) {
-        return Iterables.find(getAll(), new Predicate<Statistics>() {
+    public List<Statistics> forReferenceId(final UUID referenceId) {
+        return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Statistics>() {
 
             @Override
             public boolean apply(final Statistics input) {
-                return input.getReferenceId().equals(reference.getId());
+                return input.getReferenceId().equals(referenceId);
             }
-        });
+        }));
     }
 
     @Override

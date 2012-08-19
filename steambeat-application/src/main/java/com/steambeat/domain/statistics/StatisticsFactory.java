@@ -26,11 +26,11 @@ public class StatisticsFactory {
     }
 
     private void dealWith(final Granularity granularity, final JudgmentCreatedEvent event) {
-        dealWithSubject(granularity, event);
+        dealWithReference(granularity, event);
         //dealWithSteam(granularity, new JudgmentPostedEvent(new Judgment(Repositories.subjects().getSteam(), event.getJudgment().getFeeling())));
     }
 
-    private void dealWithSubject(final Granularity granularity, final JudgmentCreatedEvent event) {
+    private void dealWithReference(final Granularity granularity, final JudgmentCreatedEvent event) {
         final Statistics stat = getOrCreateStat(granularity, event);
         stat.incrementJudgmentCount(event.getJudgment());
     }

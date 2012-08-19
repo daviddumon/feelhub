@@ -4,9 +4,11 @@ import com.steambeat.domain.Repository;
 import com.steambeat.domain.reference.Reference;
 import org.joda.time.Interval;
 
-import java.util.List;
+import java.util.*;
 
 public interface StatisticsRepository extends Repository<Statistics> {
+
+    List<Statistics> forReferenceId(UUID reference);
 
     List<Statistics> forReference(Reference reference, Granularity granularity);
 

@@ -33,7 +33,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        assertThat(getStatisticsRepository().forReference(event.getJudgment().getReference()).getGood(), is(1));
+        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReference().getId()).get(0).getGood(), is(1));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        assertThat(getStatisticsRepository().forReference(event.getJudgment().getReference()).getBad(), is(1));
+        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReference().getId()).get(0).getBad(), is(1));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        assertThat(getStatisticsRepository().forReference(event.getJudgment().getReference()).getGood(), is(1));
+        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReference().getId()).get(0).getGood(), is(1));
     }
 
     @Test

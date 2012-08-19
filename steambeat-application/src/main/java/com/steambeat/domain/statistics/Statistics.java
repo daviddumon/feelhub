@@ -62,6 +62,10 @@ public class Statistics extends BaseEntity {
         return bad;
     }
 
+    public void setReferenceId(final UUID referenceId) {
+        this.referenceId = referenceId;
+    }
+
     public int getNeutral() {
         return neutral;
     }

@@ -118,4 +118,18 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         assertThat(statistics.get(0).getGood(), is(1));
         assertThat(statistics.get(0).getBad(), is(0));
     }
+
+    @Test
+    public void canGetAllStatisticsForAReference() {
+        final Reference reference = TestFactories.references().newReference();
+        TestFactories.statistics().newStatistics(reference, Granularity.day);
+        TestFactories.statistics().newStatistics(reference, Granularity.all);
+        TestFactories.statistics().newStatistics(reference, Granularity.hour);
+        TestFactories.statistics().newStatistics(reference, Granularity.month);
+        TestFactories.statistics().newStatistics(reference, Granularity.year);
+
+        final List<Statistics> statistics = Repositories.statistics().forReferenceId(reference.getId());
+
+        assertThat(statistics.size(), is(5));
+    }
 }
