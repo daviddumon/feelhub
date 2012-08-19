@@ -40,6 +40,10 @@ public class Illustration extends BaseEntity {
         return referenceId;
     }
 
+    public void setReferenceId(final UUID referenceId) {
+        this.referenceId = referenceId;
+    }
+
     private UUID id;
     private String link;
     private DateTime creationDate;

@@ -25,7 +25,7 @@ public class ReferencesChangedEvent extends DomainEvent {
         return references;
     }
 
-    public void addIfAbsent(final UUID reference) {
+    public void addReferenceToChange(final UUID reference) {
         this.references.addIfAbsent(reference);
     }
 

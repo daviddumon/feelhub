@@ -27,7 +27,7 @@ public class TestsKeywordManager {
         final Keyword first = TestFactories.keywords().newKeyword();
         final Keyword second = TestFactories.keywords().newKeyword();
         final ReferencesChangedEvent event = new ReferencesChangedEvent(first.getReferenceId());
-        event.addIfAbsent(second.getReferenceId());
+        event.addReferenceToChange(second.getReferenceId());
 
         DomainEventBus.INSTANCE.post(event);
 

@@ -6,6 +6,6 @@ public class FakeBingLink extends BingLink {
 
     @Override
     public String getIllustration(final Keyword keyword) {
-        return "fake";
+        return keyword.getValue() + "link";
     }
 }

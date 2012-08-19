@@ -56,7 +56,7 @@ public class ReferenceManager {
         final ReferencesChangedEvent event = new ReferencesChangedEvent(newReference.getId());
         for (Reference reference : references) {
             if (!reference.isActive()) {
-                event.addIfAbsent(reference.getId());
+                event.addReferenceToChange(reference.getId());
             }
         }
         DomainEventBus.INSTANCE.post(event);
