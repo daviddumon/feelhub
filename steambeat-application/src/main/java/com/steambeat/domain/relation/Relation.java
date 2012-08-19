@@ -58,6 +58,14 @@ public class Relation extends BaseEntity {
         this.weight += additionalWeight;
     }
 
+    public void setFromId(final UUID fromId) {
+        this.fromId = fromId;
+    }
+
+    public void setToId(final UUID toId) {
+        this.toId = toId;
+    }
+
     private double weight;
     private UUID fromId;
     private UUID toId;

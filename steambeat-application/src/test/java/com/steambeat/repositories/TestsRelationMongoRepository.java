@@ -6,6 +6,8 @@ import com.steambeat.domain.relation.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -58,6 +60,20 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
         assertThat(relationFound, notNullValue());
         assertThat(relation.getId(), is(relationFound.getId()));
+    }
+
+    @Test
+    public void canGetAllRelationsRelatedToAReferenceID() {
+        final Reference reference1 = TestFactories.references().newReference();
+        final Reference reference2 = TestFactories.references().newReference();
+        TestFactories.relations().newRelation(reference1, reference2);
+        TestFactories.relations().newRelation(reference2, reference1);
+        TestFactories.relations().newRelation(reference2, reference2);
+        TestFactories.relations().newRelation(reference1, reference1);
+
+        final List<Relation> relations = repo.forReferenceId(reference1.getId());
+
+        assertThat(relations.size(), is(3));
     }
 
     private RelationRepository repo;
