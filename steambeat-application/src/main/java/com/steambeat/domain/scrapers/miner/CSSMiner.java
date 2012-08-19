@@ -1,4 +1,4 @@
-package com.steambeat.domain.scrapers.tools;
+package com.steambeat.domain.scrapers.miner;
 
 import com.steambeat.domain.uri.Uri;
 

@@ -1,4 +1,4 @@
-package com.steambeat.domain.scrapers.tools;
+package com.steambeat.domain.scrapers.miner;
 
 import com.steambeat.domain.uri.Uri;
 import com.steambeat.test.FakeInternet;
@@ -14,7 +14,7 @@ public class TestsCSSMiner {
 
     @Test
     public void canOpenADistantCSSFile() {
-        final Uri uri = new Uri(internet.uri("tools/cssminer/simple"));
+        final Uri uri = new Uri(internet.uri("miner/cssminer/simple"));
         final CSSMiner CSSMiner = new CSSMiner(uri);
 
         final String logoUrl = CSSMiner.scrap("logo");

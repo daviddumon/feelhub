@@ -118,7 +118,7 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/imageextractor/bug/slatefr", ImageExtractorResourceSlatefrBug.class);
                 router.attach("/imageextractor/bug/10sportbug", ImageExtractorResource10SportBug.class);
                 router.attach("/imageextractor/bug/liberation", ImageExtractorResourceLiberationBug.class);
-                router.attach("/tools/cssminer/simple", CSSMinerSimple.class);
+                router.attach("/miner/cssminer/simple", CSSMinerSimple.class);
                 router.attach("/css/css1", CSSMinerCss1.class);
                 router.attach("/css/css2", CSSMinerCss2.class);
             }
