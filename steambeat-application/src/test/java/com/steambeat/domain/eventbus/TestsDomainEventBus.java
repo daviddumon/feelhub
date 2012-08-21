@@ -1,15 +1,29 @@
 package com.steambeat.domain.eventbus;
 
 import com.google.common.eventbus.*;
+import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.opinion.OpinionCreatedEvent;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.*;
 import org.junit.*;
 
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
 public class TestsDomainEventBus {
 
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Test
     public void canUseAsyncEventBus() {
@@ -34,6 +48,18 @@ public class TestsDomainEventBus {
 
         verify(listener1, times(1)).handle(opinionCreatedEvent);
         verify(listener2, times(1)).handle(opinionCreatedEvent);
+    }
+
+    @Test
+    public void blockTheSizeOfTheEventsList() {
+        for (int i = 0; i < 1000; i++) {
+            time.waitMinutes(1);
+            DomainEventBus.INSTANCE.post(new KeywordCreatedEvent(TestFactories.keywords().newKeyword("value" + i, SteambeatLanguage.reference())));
+        }
+
+        final List<DomainEvent> events = DomainEventBus.INSTANCE.getEvents();
+        assertThat(events.size(), is(100));
+        assertThat(events.get(99).getDate(), is(time.getNow()));
     }
 
     private class SimpleEventListener {
