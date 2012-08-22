@@ -1,5 +1,7 @@
 package com.steambeat.web;
 
+import com.google.common.eventbus.EventBus;
+import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.web.guice.GuiceTestModule;
 import com.steambeat.web.tools.SteambeatSitemapModuleLink;
 import org.apache.commons.io.FilenameUtils;
@@ -18,6 +20,7 @@ public class WebApplicationTester extends ExternalResource {
 
     @Override
     protected void before() throws Throwable {
+        DomainEventBus.INSTANCE.setEventBus(new EventBus());
         final Context context = new Context();
         context.getAttributes().put("org.restlet.ext.servlet.ServletContext", mockServletContext());
         application = new SteambeatApplication(context);
