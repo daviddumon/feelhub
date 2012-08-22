@@ -14,8 +14,9 @@ public class SteambeatDeadEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("SteambeatDeadEvent ");
+        stringBuilder.append("SteambeatDeadEvent [ ");
         stringBuilder.append(deadEvent.getEvent().toString());
+        stringBuilder.append(" ]");
         return stringBuilder.toString();
     }
 

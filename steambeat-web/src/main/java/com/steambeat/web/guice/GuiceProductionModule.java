@@ -4,8 +4,10 @@ import com.google.inject.*;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.SubjectIdentifier;
 import com.steambeat.domain.alchemy.*;
+import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.concept.ConceptTranslator;
 import com.steambeat.domain.eventbus.DeadEventCatcher;
+import com.steambeat.domain.illustration.IllustrationManager;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.*;
 import com.steambeat.domain.scrapers.UriScraper;
@@ -28,6 +30,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(SubjectIdentifier.class).toInstance(new SubjectIdentifier());
         bind(ConceptTranslator.class).toInstance(new ConceptTranslator(new KeywordService(new KeywordFactory(), new ReferenceFactory())));
         bind(ReferenceManager.class).toInstance(new ReferenceManager());
+        bind(IllustrationManager.class).toInstance(new IllustrationManager(new BingLink()));
     }
 
     @Provides

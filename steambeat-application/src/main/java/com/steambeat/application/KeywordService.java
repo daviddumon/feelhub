@@ -1,6 +1,7 @@
 package com.steambeat.application;
 
 import com.google.inject.Inject;
+import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.reference.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
@@ -26,6 +27,8 @@ public class KeywordService {
         final Reference reference = createAndPersistNewReference();
         final Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
         Repositories.keywords().add(keyword);
+        final KeywordCreatedEvent keywordCreatedEvent = new KeywordCreatedEvent(keyword);
+        DomainEventBus.INSTANCE.post(keywordCreatedEvent);
         return keyword;
     }
 

@@ -1,11 +1,12 @@
 package com.steambeat.application;
 
+import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.reference.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.TestFactories;
+import com.steambeat.test.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
@@ -21,6 +22,12 @@ public class TestKeywordService {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Before
     public void before() {
@@ -67,6 +74,20 @@ public class TestKeywordService {
         final List<Keyword> keywords = Repositories.keywords().getAll();
         assertThat(keywords.size(), is(1));
         assertThat(references.size(), is(1));
+    }
+
+    @Test
+    public void postEventOnKeywordCreation() {
+        bus.capture(KeywordCreatedEvent.class);
+        final String value = "value";
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("english");
+
+        Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
+
+        final KeywordCreatedEvent keywordCreatedEvent = bus.lastEvent(KeywordCreatedEvent.class);
+        assertThat(keywordCreatedEvent, notNullValue());
+        assertThat(keywordCreatedEvent.getKeyword(), is(keyword));
+        assertThat(keywordCreatedEvent.getDate(), is(time.getNow()));
     }
 
 

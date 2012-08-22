@@ -17,9 +17,6 @@ public class TestsKeywordFactory {
     public SystemTime time = SystemTime.fixed();
 
     @Rule
-    public WithDomainEvent bus = new WithDomainEvent();
-
-    @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Before
@@ -42,21 +39,6 @@ public class TestsKeywordFactory {
         assertThat(keyword.getReferenceId(), notNullValue());
         assertThat(keyword.getCreationDate(), is(time.getNow()));
         assertThat(keyword.getLastModificationDate(), is(time.getNow()));
-    }
-
-    @Test
-    public void postEventOnKeywordCreation() {
-        bus.capture(KeywordCreatedEvent.class);
-        final String value = "value";
-        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("english");
-        final Reference reference = TestFactories.references().newReference();
-
-        Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
-
-        final KeywordCreatedEvent keywordCreatedEvent = bus.lastEvent(KeywordCreatedEvent.class);
-        assertThat(keywordCreatedEvent, notNullValue());
-        assertThat(keywordCreatedEvent.getKeyword(), is(keyword));
-        assertThat(keywordCreatedEvent.getDate(), is(time.getNow()));
     }
 
     @Test
