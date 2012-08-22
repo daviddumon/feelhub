@@ -33,6 +33,7 @@ public class TestsReferenceMongoRepository extends TestWithMongoRepository {
         assertThat(referenceFound.get("_id"), is((Object) reference.getId()));
         assertThat(referenceFound.get("creationDate"), is((Object) reference.getCreationDate().getMillis()));
         assertThat(referenceFound.get("lastModificationDate"), is((Object) reference.getLastModificationDate().getMillis()));
+        assertThat(referenceFound.get("active"), is((Object) true));
     }
 
     @Test

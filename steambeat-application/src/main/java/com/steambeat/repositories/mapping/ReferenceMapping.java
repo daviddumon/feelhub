@@ -14,5 +14,6 @@ public class ReferenceMapping extends EntityMap<Reference> {
         id(element().getId()).natural();
         property(element().getCreationDate());
         property(element().getLastModificationDate());
+        property(element().isActive());
     }
 }
