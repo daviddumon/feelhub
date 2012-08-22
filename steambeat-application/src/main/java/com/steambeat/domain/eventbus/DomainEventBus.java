@@ -2,7 +2,7 @@ package com.steambeat.domain.eventbus;
 
 import com.google.common.eventbus.EventBus;
 
-import java.util.List;
+import java.util.*;
 
 public enum DomainEventBus {
 
@@ -24,6 +24,7 @@ public enum DomainEventBus {
     public void post(final DomainEvent event) {
         eventBus.post(event);
         events.add(event);
+        Collections.sort(events);
     }
 
     public List<DomainEvent> getEvents() {
