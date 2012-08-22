@@ -18,7 +18,7 @@ public class OpinionCreatedEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("Opinion ");
+        stringBuilder.append("OpinionCreatedEvent ");
         stringBuilder.append(opinion.getId());
         stringBuilder.append(" created");
         return stringBuilder.toString();

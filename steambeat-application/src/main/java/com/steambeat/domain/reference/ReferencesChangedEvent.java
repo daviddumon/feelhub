@@ -17,7 +17,8 @@ public class ReferencesChangedEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("References changed event");
+        stringBuilder.append("ReferencesChangedEvent ");
+        stringBuilder.append(referenceIds.size());
         return stringBuilder.toString();
     }
 

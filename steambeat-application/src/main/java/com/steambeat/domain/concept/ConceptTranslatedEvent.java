@@ -14,7 +14,7 @@ public class ConceptTranslatedEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("Translation done for ");
+        stringBuilder.append("ConceptTranslatedEvent ");
         stringBuilder.append(concept.getKeywords().get(0).getValue());
         return stringBuilder.toString();
     }

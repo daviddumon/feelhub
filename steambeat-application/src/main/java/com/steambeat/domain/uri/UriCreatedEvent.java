@@ -14,7 +14,7 @@ public class UriCreatedEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("Uri ");
+        stringBuilder.append("UriCreatedEvent ");
         stringBuilder.append(uri.toString());
         stringBuilder.append(" created");
         return stringBuilder.toString();

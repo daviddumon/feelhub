@@ -14,7 +14,7 @@ public class UserCreatedEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("User ");
+        stringBuilder.append("UserCreatedEvent ");
         stringBuilder.append(user.toString());
         stringBuilder.append(" created");
         return stringBuilder.toString();

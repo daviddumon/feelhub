@@ -14,7 +14,7 @@ public class ConceptCreatedEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("Concept created");
+        stringBuilder.append("ConceptCreatedEvent ");
         return stringBuilder.toString();
     }
 

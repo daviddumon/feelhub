@@ -14,7 +14,7 @@ public class JudgmentCreatedEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("Judgment ");
+        stringBuilder.append("JudgmentCreatedEvent ");
         stringBuilder.append(judgment.getFeeling());
         stringBuilder.append(" on ");
         stringBuilder.append(judgment.getReference().getId());
