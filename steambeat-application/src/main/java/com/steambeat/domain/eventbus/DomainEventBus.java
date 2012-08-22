@@ -1,17 +1,16 @@
 package com.steambeat.domain.eventbus;
 
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.EventBus;
 
 import java.util.*;
-import java.util.concurrent.Executors;
 
 public enum DomainEventBus {
 
     INSTANCE;
 
     private DomainEventBus() {
-        eventBus = new AsyncEventBus(Executors.newFixedThreadPool(50));
-        //eventBus = new EventBus();
+        //eventBus = new AsyncEventBus(Executors.newFixedThreadPool(50));
+        eventBus = new EventBus();
     }
 
     public void setEventBus(final EventBus eventBus) {
