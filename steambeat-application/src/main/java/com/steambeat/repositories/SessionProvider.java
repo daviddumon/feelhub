@@ -38,5 +38,5 @@ public class SessionProvider {
     private final ThreadLocal<MongoSession> sessionContainer = new ThreadLocal<MongoSession>() {
 
     };
-    private MongoSessionManager manager;
+    protected MongoSessionManager manager;
 }

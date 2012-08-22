@@ -2,7 +2,7 @@ package com.steambeat.domain.relation;
 
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.reference.*;
-import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
@@ -19,7 +19,7 @@ public class TestsRelationManager {
 
     @Before
     public void before() {
-        new RelationManager();
+        new RelationManager(new FakeSessionProvider());
     }
 
     @Test

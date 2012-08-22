@@ -3,7 +3,7 @@ package com.steambeat.domain.opinion;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.reference.*;
-import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
@@ -22,7 +22,7 @@ public class TestsOpinionManager {
 
     @Before
     public void before() {
-        new OpinionManager();
+        new OpinionManager(new FakeSessionProvider());
     }
 
     @Test

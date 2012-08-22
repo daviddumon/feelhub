@@ -8,21 +8,23 @@ import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.reference.ReferencesChangedEvent;
-import com.steambeat.repositories.Repositories;
+import com.steambeat.repositories.*;
 
 import java.util.*;
 
 public class IllustrationManager {
 
     @Inject
-    public IllustrationManager(final BingLink bingLink) {
+    public IllustrationManager(final BingLink bingLink, final SessionProvider sessionProvider) {
         this.bingLink = bingLink;
+        this.sessionProvider = sessionProvider;
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void handle(final ReferencesChangedEvent event) {
+        sessionProvider.start();
         final List<Illustration> illustrations = getAllIllustrations(event);
         if (illustrations.isEmpty()) {
             addAnIllustration(event);
@@ -30,6 +32,7 @@ public class IllustrationManager {
             migrateExistingIllustrations(illustrations, event.getNewReferenceId());
             removeDuplicate(illustrations);
         }
+        sessionProvider.stop();
     }
 
     private List<Illustration> getAllIllustrations(final ReferencesChangedEvent event) {
@@ -95,4 +98,5 @@ public class IllustrationManager {
     }
 
     private BingLink bingLink;
+    private SessionProvider sessionProvider;
 }

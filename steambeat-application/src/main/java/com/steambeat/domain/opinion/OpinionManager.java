@@ -1,21 +1,25 @@
 package com.steambeat.domain.opinion;
 
 import com.google.common.eventbus.*;
+import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.reference.ReferencesChangedEvent;
-import com.steambeat.repositories.Repositories;
+import com.steambeat.repositories.*;
 
 import java.util.*;
 
 public class OpinionManager {
 
-    public OpinionManager() {
+    @Inject
+    public OpinionManager(final SessionProvider sessionProvider) {
+        this.sessionProvider = sessionProvider;
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void handle(final ReferencesChangedEvent event) {
+        sessionProvider.start();
         for (UUID referenceId : event.getReferenceIds()) {
             final List<Opinion> opinionsForReferenceId = Repositories.opinions().forReferenceId(referenceId);
             if (!opinionsForReferenceId.isEmpty()) {
@@ -28,5 +32,8 @@ public class OpinionManager {
                 }
             }
         }
+        sessionProvider.stop();
     }
+
+    private SessionProvider sessionProvider;
 }

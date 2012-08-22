@@ -20,12 +20,13 @@ public class GuiceProductionModule extends AbstractModule {
         //bind(AlchemyEntityAnalyzer.class).asEagerSingleton();
         //bind(UriScraper.class).asEagerSingleton();
         //bind(NamedEntityProvider.class).asEagerSingleton();
-        bind(MailBuilder.class).asEagerSingleton();
-        bind(DeadEventCatcher.class).asEagerSingleton();
+
         bind(SubjectIdentifier.class).asEagerSingleton();
         bind(ConceptTranslator.class).asEagerSingleton();
         bind(ReferenceManager.class).asEagerSingleton();
         bind(IllustrationManager.class).asEagerSingleton();
+        bind(DeadEventCatcher.class).asEagerSingleton();
+        bind(MailBuilder.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();
         bind(KeywordManager.class).asEagerSingleton();
         bind(OpinionManager.class).asEagerSingleton();

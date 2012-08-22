@@ -2,26 +2,31 @@ package com.steambeat.domain.reference;
 
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
+import com.google.inject.Inject;
 import com.steambeat.domain.concept.*;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.Keyword;
-import com.steambeat.repositories.Repositories;
+import com.steambeat.repositories.*;
 
 import java.util.*;
 
 public class ReferenceManager {
 
-    public ReferenceManager() {
+    @Inject
+    public ReferenceManager(final SessionProvider sessionProvider) {
+        this.sessionProvider = sessionProvider;
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void handle(final ConceptTranslatedEvent event) {
+        sessionProvider.start();
         getAllReferences(event.getConcept());
         final Reference reference = getOldestReference(event.getConcept());
         setInactiveReferences(reference);
         postEvent(reference);
+        sessionProvider.stop();
     }
 
     private void getAllReferences(final Concept concept) {
@@ -63,4 +68,5 @@ public class ReferenceManager {
     }
 
     private List<Reference> references;
+    private SessionProvider sessionProvider;
 }

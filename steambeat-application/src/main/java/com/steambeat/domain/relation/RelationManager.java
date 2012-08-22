@@ -1,27 +1,32 @@
 package com.steambeat.domain.relation;
 
 import com.google.common.eventbus.*;
+import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.reference.ReferencesChangedEvent;
-import com.steambeat.repositories.Repositories;
+import com.steambeat.repositories.*;
 
 import java.util.*;
 
 public class RelationManager {
 
-    public RelationManager() {
+    @Inject
+    public RelationManager(final SessionProvider sessionProvider) {
+        this.sessionProvider = sessionProvider;
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void handle(final ReferencesChangedEvent event) {
+        sessionProvider.start();
         for (UUID referenceId : event.getReferenceIds()) {
             final List<Relation> relations = Repositories.relations().forReferenceId(referenceId);
             if (!relations.isEmpty()) {
                 migrateRelations(event, referenceId, relations);
             }
         }
+        sessionProvider.stop();
     }
 
     private void migrateRelations(final ReferencesChangedEvent event, final UUID referenceId, final List<Relation> relations) {
@@ -42,4 +47,6 @@ public class RelationManager {
             relation.setFromId(event.getNewReferenceId());
         }
     }
+
+    private SessionProvider sessionProvider;
 }

@@ -23,7 +23,7 @@ public class TestsStatisticsFactory {
 
     @Before
     public void before() {
-        statisticsFactory = new StatisticsFactory();
+        statisticsFactory = new StatisticsFactory(new FakeSessionProvider());
         //Repositories.subjects().add(new Steam(UUID.randomUUID()));
     }
 

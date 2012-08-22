@@ -2,7 +2,7 @@ package com.steambeat.domain.keyword;
 
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.reference.ReferencesChangedEvent;
-import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
@@ -19,7 +19,7 @@ public class TestsKeywordManager {
 
     @Before
     public void before() {
-        new KeywordManager();
+        new KeywordManager(new FakeSessionProvider());
     }
 
     @Test

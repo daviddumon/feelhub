@@ -3,7 +3,7 @@ package com.steambeat.domain.statistics;
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
@@ -22,7 +22,7 @@ public class TestsStatisticsManager {
 
     @Before
     public void before() {
-        new StatisticsManager();
+        new StatisticsManager(new FakeSessionProvider());
     }
 
     @Test

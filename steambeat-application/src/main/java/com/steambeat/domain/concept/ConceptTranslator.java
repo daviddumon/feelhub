@@ -8,12 +8,14 @@ import com.steambeat.application.KeywordService;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
+import com.steambeat.repositories.SessionProvider;
 
 public class ConceptTranslator {
 
     @Inject
-    public ConceptTranslator(final KeywordService keywordService) {
+    public ConceptTranslator(final KeywordService keywordService, final SessionProvider sessionProvider) {
         this.keywordService = keywordService;
+        this.sessionProvider = sessionProvider;
         Translate.setClientId("steambeat");
         Translate.setClientSecret("XrLNktvCKuAOe12+TUOLWwJuZiju+5iCwvMRCLGpB8Q=");
         DomainEventBus.INSTANCE.register(this);
@@ -22,7 +24,9 @@ public class ConceptTranslator {
     @Subscribe
     @AllowConcurrentEvents
     public void translate(final ConceptCreatedEvent event) {
+        sessionProvider.start();
         translate(event.getConcept());
+        sessionProvider.stop();
     }
 
     private void translate(final Concept concept) {
@@ -63,4 +67,5 @@ public class ConceptTranslator {
     }
 
     private KeywordService keywordService;
+    private SessionProvider sessionProvider;
 }

@@ -1,22 +1,27 @@
 package com.steambeat.domain.statistics;
 
 import com.google.common.eventbus.*;
+import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.opinion.JudgmentCreatedEvent;
-import com.steambeat.repositories.Repositories;
+import com.steambeat.repositories.*;
 
 import java.util.List;
 
 public class StatisticsFactory {
 
-    public StatisticsFactory() {
+    @Inject
+    public StatisticsFactory(final SessionProvider sessionProvider) {
+        this.sessionProvider = sessionProvider;
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void handle(final JudgmentCreatedEvent event) {
+        sessionProvider.start();
         judgmentOn(event);
+        sessionProvider.stop();
     }
 
     private void judgmentOn(final JudgmentCreatedEvent event) {
@@ -51,4 +56,6 @@ public class StatisticsFactory {
         }
         return stat;
     }
+
+    private SessionProvider sessionProvider;
 }

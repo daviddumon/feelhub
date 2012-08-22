@@ -5,7 +5,7 @@ import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.uri.UriCreatedEvent;
-import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
@@ -22,7 +22,7 @@ public class TestsSubjectIdentifier {
 
     @Before
     public void before() {
-        subjectIdentifier = new SubjectIdentifier();
+        subjectIdentifier = new SubjectIdentifier(new FakeSessionProvider());
     }
 
     @Test

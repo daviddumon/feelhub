@@ -5,7 +5,7 @@ import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.*;
 import org.junit.*;
 
@@ -27,7 +27,7 @@ public class TestsReferenceManager {
 
     @Before
     public void before() {
-        new ReferenceManager();
+        new ReferenceManager(new FakeSessionProvider());
     }
 
     @Test

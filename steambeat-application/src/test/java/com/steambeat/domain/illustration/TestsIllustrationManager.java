@@ -5,7 +5,7 @@ import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
@@ -24,7 +24,7 @@ public class TestsIllustrationManager {
 
     @Before
     public void before() {
-        new IllustrationManager(new FakeBingLink());
+        new IllustrationManager(new FakeBingLink(), new FakeSessionProvider());
     }
 
     @Test
