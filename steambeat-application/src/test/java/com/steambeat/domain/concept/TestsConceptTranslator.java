@@ -24,7 +24,7 @@ public class TestsConceptTranslator {
 
     @Before
     public void before() {
-        new FakeConceptTranslator();
+        fakeConceptTranslator = new FakeConceptTranslator();
     }
 
     @Test
@@ -110,4 +110,19 @@ public class TestsConceptTranslator {
         assertThat(conceptTranslatedEvent.getDate(), is(time.getNow()));
         assertThat(conceptTranslatedEvent.getConcept(), is(concept));
     }
+
+    @Test
+    public void spreadEventOnlyIfTranslated() {
+        bus.capture(ConceptTranslatedEvent.class);
+        final Keyword keyword = TestFactories.keywords().newKeyword("value", SteambeatLanguage.reference());
+        final Concept concept = TestFactories.concepts().newConcept(keyword);
+        final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
+
+        fakeConceptTranslator.translate(event);
+
+        final ConceptTranslatedEvent conceptTranslatedEvent = bus.lastEvent(ConceptTranslatedEvent.class);
+        assertThat(conceptTranslatedEvent, nullValue());
+    }
+
+    private FakeConceptTranslator fakeConceptTranslator;
 }

@@ -15,7 +15,7 @@ public class KeywordCreatedEvent extends DomainEvent {
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
         stringBuilder.append("KeywordCreatedEvent ");
-        stringBuilder.append(keyword.getValue() + " " + keyword.getLanguage());
+        stringBuilder.append(keyword.getValue() + " " + keyword.getLanguage().getCode());
         stringBuilder.append(" created");
         return stringBuilder.toString();
     }

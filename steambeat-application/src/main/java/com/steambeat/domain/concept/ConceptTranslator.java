@@ -23,7 +23,6 @@ public class ConceptTranslator {
     @AllowConcurrentEvents
     public void translate(final ConceptCreatedEvent event) {
         translate(event.getConcept());
-        postTranslationDoneEvent(event.getConcept());
     }
 
     private void translate(final Concept concept) {
@@ -32,6 +31,7 @@ public class ConceptTranslator {
             if (!steambeatLanguage.equals(SteambeatLanguage.reference()) && !steambeatLanguage.equals(SteambeatLanguage.none())) {
                 try {
                     addKeywordFor(translateKeywordToEnglish(keyword), concept);
+                    postTranslationDoneEvent(concept);
                 } catch (Exception e) {
                 }
             }
