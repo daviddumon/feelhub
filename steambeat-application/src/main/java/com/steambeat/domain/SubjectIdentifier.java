@@ -2,7 +2,7 @@ package com.steambeat.domain;
 
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
-import com.steambeat.domain.concept.*;
+import com.steambeat.domain.concept.ConceptEvent;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.uri.*;
@@ -38,9 +38,9 @@ public class SubjectIdentifier {
     }
 
     private void createConcept(final Keyword keyword) {
-        final Concept concept = new Concept();
-        concept.addIfAbsent(keyword);
-        DomainEventBus.INSTANCE.post(new ConceptCreatedEvent(concept));
+        final ConceptEvent event = new ConceptEvent();
+        event.addIfAbsent(keyword);
+        DomainEventBus.INSTANCE.post(event);
     }
 
     public static boolean isUri(final Keyword keyword) {

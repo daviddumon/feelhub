@@ -1,17 +1,13 @@
 package com.steambeat.domain.uri;
 
 import com.steambeat.application.*;
-import com.steambeat.domain.concept.ConceptCreatedEvent;
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
-
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;

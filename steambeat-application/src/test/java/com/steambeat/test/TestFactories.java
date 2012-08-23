@@ -1,7 +1,7 @@
 package com.steambeat.test;
 
 import com.steambeat.domain.alchemy.AlchemyTestFactory;
-import com.steambeat.domain.concept.ConceptTestFactory;
+import com.steambeat.domain.eventbus.DomainEventFactory;
 import com.steambeat.domain.illustration.IllustrationTestFactory;
 import com.steambeat.domain.keyword.KeywordTestFactory;
 import com.steambeat.domain.opinion.*;
@@ -57,11 +57,11 @@ public class TestFactories {
         return new KeywordTestFactory();
     }
 
-    public static ConceptTestFactory concepts() {
-        return new ConceptTestFactory();
-    }
-
     public static IllustrationTestFactory illustrations() {
         return new IllustrationTestFactory();
+    }
+
+    public static DomainEventFactory events() {
+        return new DomainEventFactory();
     }
 }

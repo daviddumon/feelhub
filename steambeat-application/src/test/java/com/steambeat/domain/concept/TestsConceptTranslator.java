@@ -30,93 +30,91 @@ public class TestsConceptTranslator {
     @Test
     public void translateIfNotEnglish() {
         final Keyword keyword = TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr"));
-        final Concept concept = TestFactories.concepts().newConcept(keyword);
-        final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
+        final ConceptEvent event = TestFactories.events().newConceptEvent();
+        event.addIfAbsent(keyword);
 
         DomainEventBus.INSTANCE.post(event);
 
-        assertThat(event.getConcept().getKeywords().size(), is(2));
+        assertThat(event.getKeywords().size(), is(2));
     }
 
     @Test
     public void translateAllKeywords() {
-        final Keyword keyword = TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr"));
-        final Concept concept = TestFactories.concepts().newConcept(keyword);
-        concept.addIfAbsent(TestFactories.keywords().newKeyword("another", SteambeatLanguage.forString("fr")));
-        final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
+        final ConceptEvent event = TestFactories.events().newConceptEvent();
+        event.addIfAbsent(TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr")));
+        event.addIfAbsent(TestFactories.keywords().newKeyword("another", SteambeatLanguage.forString("fr")));
 
         DomainEventBus.INSTANCE.post(event);
 
-        assertThat(event.getConcept().getKeywords().size(), is(4));
+        assertThat(event.getKeywords().size(), is(4));
     }
 
     @Test
     public void doNotCreateSameKeywordTwice() {
-        final Concept concept = TestFactories.concepts().newConcept();
-        concept.addIfAbsent(TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr")));
-        concept.addIfAbsent(TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("de")));
-        final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
+        final ConceptEvent event = TestFactories.events().newConceptEvent();
+        event.addIfAbsent(TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr")));
+        event.addIfAbsent(TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("de")));
 
         DomainEventBus.INSTANCE.post(event);
 
-        assertThat(event.getConcept().getKeywords().size(), is(3));
+        assertThat(event.getKeywords().size(), is(3));
     }
 
     @Test
     public void lookUpExistingTranslation() {
-        final Concept concept = TestFactories.concepts().newConcept();
-        concept.addIfAbsent(TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr")));
+        final ConceptEvent event = TestFactories.events().newConceptEvent();
+        event.addIfAbsent(TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr")));
         final Keyword reference = TestFactories.keywords().newKeyword("valueenglish", SteambeatLanguage.reference());
-        final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
+        event.addIfAbsent(reference);
 
         DomainEventBus.INSTANCE.post(event);
 
-        assertTrue(event.getConcept().getKeywords().contains(reference));
+        assertTrue(event.getKeywords().contains(reference));
     }
 
     @Test
     public void doNotTranslateIfLanguageNone() {
         final Keyword keyword = TestFactories.keywords().newKeyword("value", SteambeatLanguage.none());
-        final Concept concept = TestFactories.concepts().newConcept(keyword);
-        final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
+        final ConceptEvent event = TestFactories.events().newConceptEvent();
+        event.addIfAbsent(keyword);
 
         DomainEventBus.INSTANCE.post(event);
 
-        assertThat(event.getConcept().getKeywords().size(), is(1));
+        assertThat(event.getKeywords().size(), is(1));
     }
 
     @Test
     public void doNotTranslateIfLanguageReference() {
         final Keyword keyword = TestFactories.keywords().newKeyword("value", SteambeatLanguage.reference());
-        final Concept concept = TestFactories.concepts().newConcept(keyword);
-        final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
+        final ConceptEvent event = TestFactories.events().newConceptEvent();
+        event.addIfAbsent(keyword);
 
         DomainEventBus.INSTANCE.post(event);
 
-        assertThat(event.getConcept().getKeywords().size(), is(1));
+        assertThat(event.getKeywords().size(), is(1));
     }
 
     @Test
     public void spreadEventOnceTranslationDone() {
         bus.capture(ConceptTranslatedEvent.class);
         final Keyword keyword = TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr"));
-        final Concept concept = TestFactories.concepts().newConcept(keyword);
-        final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
+        final ConceptEvent event = TestFactories.events().newConceptEvent();
+        event.addIfAbsent(keyword);
 
         DomainEventBus.INSTANCE.post(event);
 
         final ConceptTranslatedEvent conceptTranslatedEvent = bus.lastEvent(ConceptTranslatedEvent.class);
         assertThat(conceptTranslatedEvent, notNullValue());
         assertThat(conceptTranslatedEvent.getDate(), is(time.getNow()));
-        assertThat(conceptTranslatedEvent.getConcept(), is(concept));
+        assertThat(conceptTranslatedEvent.getKeywords(), is(event.getKeywords()));
     }
 
     @Test
     public void spreadEventOnlyIfTranslated() {
         bus.capture(ConceptTranslatedEvent.class);
         final Keyword keyword = TestFactories.keywords().newKeyword("value", SteambeatLanguage.reference());
-        final Concept concept = TestFactories.concepts().newConcept(keyword);
-        final ConceptCreatedEvent event = new ConceptCreatedEvent(concept);
+        final ConceptEvent event = TestFactories.events().newConceptEvent();
+        event.addIfAbsent(keyword);
 
         fakeConceptTranslator.translate(event);
 

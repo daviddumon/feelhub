@@ -1,13 +1,13 @@
 package com.steambeat.domain.concept;
 
+import com.google.common.collect.Lists;
 import com.steambeat.domain.eventbus.DomainEvent;
+import com.steambeat.domain.keyword.Keyword;
+
+import java.util.Collection;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConceptTranslatedEvent extends DomainEvent {
-
-    public ConceptTranslatedEvent(final Concept concept) {
-        super();
-        this.concept = concept;
-    }
 
     @Override
     public String toString() {
@@ -15,13 +15,21 @@ public class ConceptTranslatedEvent extends DomainEvent {
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
         stringBuilder.append("ConceptTranslatedEvent ");
-        stringBuilder.append(concept.getKeywords().get(0).getValue());
+        stringBuilder.append(keywords.size());
         return stringBuilder.toString();
     }
 
-    public Concept getConcept() {
-        return concept;
+    public CopyOnWriteArrayList<Keyword> getKeywords() {
+        return keywords;
     }
 
-    private Concept concept;
+    public void addAllAbsent(Collection<? extends Keyword> newKeywords) {
+        keywords.addAllAbsent(newKeywords);
+    }
+
+    public void addIfAbsent(final Keyword keyword) {
+        this.keywords.addIfAbsent(keyword);
+    }
+
+    private CopyOnWriteArrayList<Keyword> keywords = Lists.newCopyOnWriteArrayList();
 }

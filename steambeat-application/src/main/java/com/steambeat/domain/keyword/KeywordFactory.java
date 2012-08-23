@@ -1,6 +1,5 @@
 package com.steambeat.domain.keyword;
 
-import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 
 import java.util.UUID;

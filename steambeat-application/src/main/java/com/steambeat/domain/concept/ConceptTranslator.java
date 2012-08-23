@@ -23,32 +23,28 @@ public class ConceptTranslator {
 
     @Subscribe
     @AllowConcurrentEvents
-    public void translate(final ConceptCreatedEvent event) {
+    public void translate(final ConceptEvent event) {
         sessionProvider.start();
-        translate(event.getConcept());
-        sessionProvider.stop();
-    }
-
-    private void translate(final Concept concept) {
-        for (Keyword keyword : concept.getKeywords()) {
+        for (Keyword keyword : event.getKeywords()) {
             final SteambeatLanguage steambeatLanguage = keyword.getLanguage();
             if (!steambeatLanguage.equals(SteambeatLanguage.reference()) && !steambeatLanguage.equals(SteambeatLanguage.none())) {
                 try {
-                    addKeywordFor(translateKeywordToEnglish(keyword), concept);
-                    postTranslationDoneEvent(concept);
+                    addKeywordFor(translateKeywordToEnglish(keyword), event);
+                    postTranslationDoneEvent(event);
                 } catch (Exception e) {
                 }
             }
         }
+        sessionProvider.stop();
     }
 
     protected String translateKeywordToEnglish(final Keyword keyword) throws Exception {
         return Translate.execute(keyword.getValue(), keyword.getLanguage().getMicrosoftLanguage(), Language.ENGLISH);
     }
 
-    private void addKeywordFor(final String result, final Concept concept) {
+    private void addKeywordFor(final String result, final ConceptEvent event) {
         Keyword keyword = getOrCreateKeyword(result);
-        concept.addIfAbsent(keyword);
+        event.addIfAbsent(keyword);
     }
 
     private Keyword getOrCreateKeyword(final String result) {
@@ -61,8 +57,9 @@ public class ConceptTranslator {
         return keyword;
     }
 
-    private void postTranslationDoneEvent(final Concept concept) {
-        final ConceptTranslatedEvent conceptTranslatedEvent = new ConceptTranslatedEvent(concept);
+    private void postTranslationDoneEvent(final ConceptEvent event) {
+        final ConceptTranslatedEvent conceptTranslatedEvent = new ConceptTranslatedEvent();
+        conceptTranslatedEvent.addAllAbsent(event.getKeywords());
         DomainEventBus.INSTANCE.post(conceptTranslatedEvent);
     }
 

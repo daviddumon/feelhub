@@ -1,10 +1,8 @@
 package com.steambeat.domain.alchemy;
 
-import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
-import com.steambeat.domain.concept.Concept;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.KeywordNotFound;
 import com.steambeat.domain.relation.*;
@@ -47,7 +45,7 @@ public class AlchemyEntityAnalyzer {
             namedEntity.conceptId = UUID.randomUUID();
             //final Concept concept = conceptFactory.newConcept(namedEntity);
             //Repositories.subjects().add(concept);
-            concepts.add(new Concept());
+            //concepts.add(new Concept());
         } else {
             //concepts.add(new Concept(namedEntity.conceptId));
         }
@@ -64,21 +62,21 @@ public class AlchemyEntityAnalyzer {
     }
 
     private void createRelations(final Uri uri, final NamedEntity namedEntity) {
-        final Concept concept = getLastAddedConcept();
+        //final Concept concept = getLastAddedConcept();
         //relationBuilder.connectTwoWays(uri, concept, namedEntity.relevance);
-        for (final Concept otherConcept : concepts) {
-            if (!concept.equals(otherConcept)) {
-                //relationBuilder.connectTwoWays(concept, otherConcept);
-            }
-        }
+        //for (final Concept otherConcept : concepts) {
+        //    if (!concept.equals(otherConcept)) {
+        //relationBuilder.connectTwoWays(concept, otherConcept);
+        //}
+        //}
     }
 
-    private Concept getLastAddedConcept() {
-        return concepts.get(concepts.size() - 1);
-    }
+    //private Concept getLastAddedConcept() {
+    //    return concepts.get(concepts.size() - 1);
+    //}
 
     private final NamedEntityProvider NamedEntityProvider;
     private final KeywordService associationService;
     private final RelationBuilder relationBuilder = new RelationBuilder(new RelationFactory());
-    private final List<Concept> concepts = Lists.newArrayList();
+    //private final List<Concept> concepts = Lists.newArrayList();
 }

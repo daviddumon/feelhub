@@ -4,8 +4,6 @@ import com.steambeat.test.FakeInternet;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import java.util.List;
-
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 

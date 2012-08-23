@@ -3,7 +3,7 @@ package com.steambeat.domain.reference;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
-import com.steambeat.domain.concept.*;
+import com.steambeat.domain.concept.ConceptTranslatedEvent;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.repositories.*;
@@ -22,23 +22,23 @@ public class ReferenceManager {
     @AllowConcurrentEvents
     public void handle(final ConceptTranslatedEvent event) {
         sessionProvider.start();
-        getAllReferences(event.getConcept());
-        final Reference reference = getOldestReference(event.getConcept());
+        getAllReferences(event);
+        final Reference reference = getOldestReference(event);
         setInactiveReferences(reference);
         postEvent(reference);
         sessionProvider.stop();
     }
 
-    private void getAllReferences(final Concept concept) {
+    private void getAllReferences(final ConceptTranslatedEvent event) {
         references = Lists.newArrayList();
-        for (Keyword keyword : concept.getKeywords()) {
+        for (Keyword keyword : event.getKeywords()) {
             final UUID referenceId = keyword.getReferenceId();
             final Reference reference = Repositories.references().get(referenceId);
             references.add(reference);
         }
     }
 
-    private Reference getOldestReference(final Concept concept) {
+    private Reference getOldestReference(final ConceptTranslatedEvent event) {
         Reference result = references.get(0);
         for (int i = 1; i < references.size(); i++) {
             final Reference current = references.get(i);

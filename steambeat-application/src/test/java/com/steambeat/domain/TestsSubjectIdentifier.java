@@ -1,6 +1,6 @@
 package com.steambeat.domain;
 
-import com.steambeat.domain.concept.ConceptCreatedEvent;
+import com.steambeat.domain.concept.ConceptEvent;
 import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
@@ -40,16 +40,15 @@ public class TestsSubjectIdentifier {
 
     @Test
     public void canPostConceptCreatedEvent() {
-        bus.capture(ConceptCreatedEvent.class);
+        bus.capture(ConceptEvent.class);
         final KeywordCreatedEvent event = getEventFor("google");
 
         subjectIdentifier.handle(event);
 
-        final ConceptCreatedEvent conceptCreatedEvent = bus.lastEvent(ConceptCreatedEvent.class);
-        assertThat(conceptCreatedEvent, notNullValue());
-        assertThat(conceptCreatedEvent.getConcept(), notNullValue());
-        assertThat(conceptCreatedEvent.getConcept().getKeywords(), notNullValue());
-        assertThat(conceptCreatedEvent.getConcept().getKeywords().size(), is(1));
+        final ConceptEvent conceptEvent = bus.lastEvent(ConceptEvent.class);
+        assertThat(conceptEvent, notNullValue());
+        assertThat(conceptEvent.getKeywords(), notNullValue());
+        assertThat(conceptEvent.getKeywords().size(), is(1));
     }
 
     @Test

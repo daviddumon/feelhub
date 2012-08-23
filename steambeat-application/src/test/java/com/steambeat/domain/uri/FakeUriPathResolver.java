@@ -2,8 +2,6 @@ package com.steambeat.domain.uri;
 
 import org.restlet.data.Status;
 
-import java.util.List;
-
 public class FakeUriPathResolver extends UriPathResolver {
 
     @Override

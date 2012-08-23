@@ -1,6 +1,6 @@
 package com.steambeat.domain.eventbus;
 
-import java.util.*;
+import java.util.LinkedList;
 
 public class AutoDiscardingList<E> extends LinkedList<E> {
 

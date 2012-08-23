@@ -1,7 +1,7 @@
 package com.steambeat.domain.eventbus;
 
 import com.google.common.eventbus.*;
-import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.keyword.KeywordCreatedEvent;
 import com.steambeat.domain.opinion.OpinionCreatedEvent;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
@@ -10,8 +10,8 @@ import org.junit.*;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 public class TestsDomainEventBus {

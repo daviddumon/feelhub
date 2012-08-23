@@ -3,7 +3,7 @@ package com.steambeat.domain.uri;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
-import com.steambeat.domain.concept.*;
+import com.steambeat.domain.concept.ConceptEvent;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
@@ -54,10 +54,9 @@ public class UriManager {
     }
 
     private void postConceptCreatedEvent(final UriCreatedEvent event) {
-        final Concept concept = new Concept();
-        concept.addIfAbsent(event.getUri().getKeyword());
-        final ConceptCreatedEvent conceptCreatedEvent = new ConceptCreatedEvent(concept);
-        DomainEventBus.INSTANCE.post(conceptCreatedEvent);
+        final ConceptEvent conceptEvent = new ConceptEvent();
+        conceptEvent.addIfAbsent(event.getUri().getKeyword());
+        DomainEventBus.INSTANCE.post(conceptEvent);
     }
 
     private SessionProvider sessionProvider;
