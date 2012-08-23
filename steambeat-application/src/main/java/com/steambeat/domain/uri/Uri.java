@@ -1,6 +1,7 @@
 package com.steambeat.domain.uri;
 
 import com.google.common.base.*;
+import com.steambeat.domain.keyword.Keyword;
 
 import java.util.Locale;
 
@@ -139,6 +140,15 @@ public class Uri {
         return domain;
     }
 
+    public void setKeyword(final Keyword keyword) {
+        this.keyword = keyword;
+    }
+
+    public Keyword getKeyword() {
+        return keyword;
+    }
+
+    private Keyword keyword;
     private final String protocol;
     private final String domain;
     private String address;

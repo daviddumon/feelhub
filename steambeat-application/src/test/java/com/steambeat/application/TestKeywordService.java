@@ -31,7 +31,7 @@ public class TestKeywordService {
 
     @Before
     public void before() {
-        keywordService = new KeywordService(new KeywordFactory(), new ReferenceFactory());
+        keywordService = new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory()));
     }
 
     @Test

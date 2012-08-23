@@ -34,6 +34,8 @@ public class TestsSubjectIdentifier {
 
         final UriCreatedEvent uriCreatedEvent = bus.lastEvent(UriCreatedEvent.class);
         assertThat(uriCreatedEvent, notNullValue());
+        assertThat(uriCreatedEvent.getUri(), notNullValue());
+        assertThat(uriCreatedEvent.getUri().getKeyword(), notNullValue());
     }
 
     @Test
@@ -52,39 +54,39 @@ public class TestsSubjectIdentifier {
 
     @Test
     public void canIdentifyUris() {
-        assertTrue(SubjectIdentifier.isUri("http://www.google.com"));
-        assertTrue(SubjectIdentifier.isUri("HTTP://www.google.com"));
-        assertTrue(SubjectIdentifier.isUri("http://www.sub.google.com"));
-        assertTrue(SubjectIdentifier.isUri("http://sub-test.google.com"));
-        assertTrue(SubjectIdentifier.isUri("http://www.google.com/"));
-        assertTrue(SubjectIdentifier.isUri("https://www.google.com"));
-        assertTrue(SubjectIdentifier.isUri("https://www.google.com/"));
-        assertTrue(SubjectIdentifier.isUri("www.google.com"));
-        assertTrue(SubjectIdentifier.isUri("www.google.com/"));
-        assertTrue(SubjectIdentifier.isUri("google.com"));
-        assertTrue(SubjectIdentifier.isUri("google.com/"));
-        assertTrue(SubjectIdentifier.isUri("http://google.com"));
-        assertTrue(SubjectIdentifier.isUri("http://google.com/"));
-        assertTrue(SubjectIdentifier.isUri("http://google.com/bin/#"));
-        assertTrue(SubjectIdentifier.isUri("http://google.com/bin/#arf?id=true"));
-        assertTrue(SubjectIdentifier.isUri("yala.fr"));
-        assertTrue(SubjectIdentifier.isUri("yala.fr/"));
-        assertTrue(SubjectIdentifier.isUri("www.%C3%A9l%C3%A9phant.com"));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://www.google.com")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("HTTP://www.google.com")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://www.sub.google.com")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://sub-test.google.com")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://www.google.com/")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("https://www.google.com")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("https://www.google.com/")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("www.google.com")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("www.google.com/")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("google.com")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("google.com/")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://google.com")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://google.com/")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://google.com/bin/#")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://google.com/bin/#arf?id=true")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("yala.fr")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("yala.fr/")));
+        assertTrue(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("www.%C3%A9l%C3%A9phant.com")));
 
-        assertFalse(SubjectIdentifier.isUri("notanuri"));
-        assertFalse(SubjectIdentifier.isUri("httpnotanuri"));
-        assertFalse(SubjectIdentifier.isUri("http:notanuri"));
-        assertFalse(SubjectIdentifier.isUri("http:/notanuri"));
-        assertFalse(SubjectIdentifier.isUri("http://notanuri"));
-        assertFalse(SubjectIdentifier.isUri("http://notanuri/"));
-        assertFalse(SubjectIdentifier.isUri("http://notanuri/zala#lol"));
-        assertFalse(SubjectIdentifier.isUri("notanuri.comm"));
-        assertFalse(SubjectIdentifier.isUri(".com"));
-        assertFalse(SubjectIdentifier.isUri(".fr"));
-        assertFalse(SubjectIdentifier.isUri(".c"));
-        assertFalse(SubjectIdentifier.isUri(".come"));
-        assertFalse(SubjectIdentifier.isUri("ftp://www.google.com"));
-        assertFalse(SubjectIdentifier.isUri("www.%C3%A9l%C3%A9phant."));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("notanuri")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("httpnotanuri")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http:notanuri")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http:/notanuri")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://notanuri")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://notanuri/")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("http://notanuri/zala#lol")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("notanuri.comm")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword(".com")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword(".fr")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword(".c")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword(".come")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("ftp://www.google.com")));
+        assertFalse(SubjectIdentifier.isUri(TestFactories.keywords().newKeyword("www.%C3%A9l%C3%A9phant.")));
     }
 
     private KeywordCreatedEvent getEventFor(final String value) {

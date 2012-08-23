@@ -56,7 +56,7 @@ public class ConceptTranslator {
         try {
             keyword = keywordService.lookUp(result, SteambeatLanguage.reference());
         } catch (KeywordNotFound e) {
-            keyword = keywordService.createKeyword(result, SteambeatLanguage.reference());
+            keyword = keywordService.createKeywordWithoutEvent(result, SteambeatLanguage.reference());
         }
         return keyword;
     }

@@ -1,6 +1,6 @@
 package com.steambeat.domain.alchemy;
 
-import com.steambeat.application.KeywordService;
+import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.ReferenceFactory;
@@ -22,7 +22,7 @@ public class TestsNamedEntityBuilder {
 
     @Before
     public void before() {
-        namedEntityBuilder = new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceFactory()));
+        namedEntityBuilder = new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())));
     }
 
     @Test

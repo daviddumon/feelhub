@@ -14,7 +14,7 @@ public class TestsUriPathResolver {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @ClassRule
+    @Rule
     public static FakeInternet internet = new FakeInternet();
 
     @Before
@@ -26,7 +26,7 @@ public class TestsUriPathResolver {
     public void canFollowRedirection() {
         final Uri uri = new Uri(internet.uri("http://liberation.fr"));
 
-        final List<Uri> path = pathResolver.resolve(uri);
+        final Path path = pathResolver.resolve(uri);
 
         assertThat(path.size(), is(2));
         assertThat(path.get(0), is(new Uri(internet.uri("http://liberation.fr"))));
@@ -37,7 +37,7 @@ public class TestsUriPathResolver {
     public void canResolveCanonicalDirectly() {
         final Uri uri = new Uri(internet.uri("http://www.gameblog.fr"));
 
-        final List<Uri> path = pathResolver.resolve(uri);
+        final Path path = pathResolver.resolve(uri);
 
         assertThat(path.get(0), is(uri));
     }
@@ -58,7 +58,7 @@ public class TestsUriPathResolver {
     public void returnOriginalAdressOn5xxError() {
         final Uri uri = new Uri(internet.uri("http://www.stackoverflow.com"));
 
-        final List<Uri> path = pathResolver.resolve(uri);
+        final Path path = pathResolver.resolve(uri);
 
         assertThat(path.get(0), is(uri));
     }

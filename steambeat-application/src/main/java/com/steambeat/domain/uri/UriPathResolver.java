@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UriPathResolver {
 
-    public List<Uri> resolve(final Uri uri) {
+    public Path resolve(final Uri uri) {
         path.add(uri);
         followRedirection(uri);
         return path;
@@ -47,7 +47,7 @@ public class UriPathResolver {
         return ERROR_STATUS.contains(response.getStatus());
     }
 
-    protected List<Uri> path = Lists.newArrayList();
+    protected Path path = new Path();
 
     private static final List<Status> ERROR_STATUS = Lists.newArrayList(Status.CONNECTOR_ERROR_COMMUNICATION,
             Status.CONNECTOR_ERROR_CONNECTION,

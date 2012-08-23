@@ -3,16 +3,16 @@ package com.steambeat.application;
 import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.reference.*;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.Repositories;
 
 public class KeywordService {
 
     @Inject
-    public KeywordService(final KeywordFactory keywordFactory, final ReferenceFactory referenceFactory) {
+    public KeywordService(final KeywordFactory keywordFactory, final ReferenceService referenceService) {
         this.keywordFactory = keywordFactory;
-        this.referenceFactory = referenceFactory;
+        this.referenceService = referenceService;
     }
 
     public Keyword lookUp(final String value, final SteambeatLanguage steambeatLanguage) {
@@ -24,22 +24,24 @@ public class KeywordService {
     }
 
     public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage) {
-        final Reference reference = createAndPersistNewReference();
-        final Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
-        Repositories.keywords().add(keyword);
-        final KeywordCreatedEvent keywordCreatedEvent = new KeywordCreatedEvent(keyword);
-        DomainEventBus.INSTANCE.post(keywordCreatedEvent);
+        final Keyword keyword = createKeywordWithoutEvent(value, steambeatLanguage);
+        postEvent(keyword);
         return keyword;
     }
 
-    private Reference createAndPersistNewReference() {
-        final Reference reference = referenceFactory.createReference();
-        Repositories.references().add(reference);
-        return reference;
+    public Keyword createKeywordWithoutEvent(final String value, final SteambeatLanguage steambeatLanguage) {
+        final Reference reference = referenceService.newReference();
+        final Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
+        Repositories.keywords().add(keyword);
+        return keyword;
+    }
+
+    private void postEvent(final Keyword keyword) {
+        DomainEventBus.INSTANCE.post(new KeywordCreatedEvent(keyword));
     }
 
     private KeywordFactory keywordFactory;
-    private ReferenceFactory referenceFactory;
+    private ReferenceService referenceService;
 
     //
     //public Association createAssociationFor(final Tag tag, final UUID id, final Language language) {

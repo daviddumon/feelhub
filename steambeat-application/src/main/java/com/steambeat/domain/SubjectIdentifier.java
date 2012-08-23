@@ -23,16 +23,18 @@ public class SubjectIdentifier {
     public void handle(final KeywordCreatedEvent event) {
         sessionProvider.start();
         final Keyword keyword = event.getKeyword();
-        if (SubjectIdentifier.isUri(keyword.getValue())) {
-            createUri();
+        if (SubjectIdentifier.isUri(keyword)) {
+            createUri(keyword);
         } else {
             createConcept(keyword);
         }
         sessionProvider.stop();
     }
 
-    private void createUri() {
-        DomainEventBus.INSTANCE.post(new UriCreatedEvent(new Uri("")));
+    private void createUri(final Keyword keyword) {
+        final Uri uri = new Uri(keyword.getValue());
+        uri.setKeyword(keyword);
+        DomainEventBus.INSTANCE.post(new UriCreatedEvent(uri));
     }
 
     private void createConcept(final Keyword keyword) {
@@ -41,11 +43,11 @@ public class SubjectIdentifier {
         DomainEventBus.INSTANCE.post(new ConceptCreatedEvent(concept));
     }
 
-    public static boolean isUri(final String value) {
-        return URI_PATTERN.matcher(value).matches();
+    public static boolean isUri(final Keyword keyword) {
+        return URI_PATTERN.matcher(keyword.getValue()).matches();
     }
 
     private SessionProvider sessionProvider;
 
-    public static final Pattern URI_PATTERN = Pattern.compile("((http|https)://)?([%a-zA-Z_0-9\\.-]+)(\\.[a-z]{2,3}){1}(/.*$)?", Pattern.CASE_INSENSITIVE);
+    private static final Pattern URI_PATTERN = Pattern.compile("((http|https)://)?([%a-zA-Z_0-9\\.-]+)(\\.[a-z]{2,3}){1}(/.*$)?", Pattern.CASE_INSENSITIVE);
 }

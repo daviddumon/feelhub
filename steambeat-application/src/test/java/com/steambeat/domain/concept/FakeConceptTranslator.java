@@ -1,6 +1,6 @@
 package com.steambeat.domain.concept;
 
-import com.steambeat.application.KeywordService;
+import com.steambeat.application.*;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.repositories.fakeRepositories.FakeSessionProvider;
@@ -8,7 +8,7 @@ import com.steambeat.repositories.fakeRepositories.FakeSessionProvider;
 public class FakeConceptTranslator extends ConceptTranslator {
 
     public FakeConceptTranslator() {
-        super(new KeywordService(new KeywordFactory(), new ReferenceFactory()), new FakeSessionProvider());
+        super(new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())), new FakeSessionProvider());
     }
 
     @Override

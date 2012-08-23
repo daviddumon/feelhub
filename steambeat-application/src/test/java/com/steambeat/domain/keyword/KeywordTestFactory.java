@@ -14,6 +14,10 @@ public class KeywordTestFactory {
         return newKeyword(value, steambeatLanguage);
     }
 
+    public Keyword newKeyword(final String value) {
+        return newKeyword(value, SteambeatLanguage.none());
+    }
+
     public Keyword newKeyword(final String value, final SteambeatLanguage steambeatLanguage) {
         final Keyword keyword = new Keyword(value, steambeatLanguage, createAndPersistReference().getId());
         Repositories.keywords().add(keyword);

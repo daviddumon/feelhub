@@ -2,11 +2,11 @@ package com.steambeat.domain.uri;
 
 import com.steambeat.domain.eventbus.DomainEvent;
 
-public class UriCreatedEvent extends DomainEvent {
+public class PathCreatedEvent extends DomainEvent {
 
-    public UriCreatedEvent(final Uri uri) {
+    public PathCreatedEvent(final Path path) {
         super();
-        this.uri = uri;
+        this.path = path;
     }
 
     @Override
@@ -14,14 +14,14 @@ public class UriCreatedEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("UriCreatedEvent ");
-        stringBuilder.append(uri.toString());
+        stringBuilder.append("PathCreatedEvent ");
+        stringBuilder.append(path.toString());
         return stringBuilder.toString();
     }
 
-    public Uri getUri() {
-        return uri;
+    public Path getPath() {
+        return path;
     }
 
-    private Uri uri;
+    private Path path;
 }
