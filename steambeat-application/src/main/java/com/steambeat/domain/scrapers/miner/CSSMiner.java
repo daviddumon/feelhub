@@ -1,14 +1,12 @@
 package com.steambeat.domain.scrapers.miner;
 
-import com.steambeat.domain.uri.Uri;
-
 import java.io.*;
 import java.net.*;
 import java.util.regex.*;
 
 public class CSSMiner {
 
-    public CSSMiner(final Uri uri) {
+    public CSSMiner(final String uri) {
         this.uri = uri;
         try {
             final BufferedReader distantCss = openDistantCss();
@@ -67,7 +65,7 @@ public class CSSMiner {
         backgroundValue = backgroundValue.replaceAll("[\'\"]", "").trim();
     }
 
-    private final Uri uri;
+    private final String uri;
     private String backgroundValue = "";
     private String css = "";
 }

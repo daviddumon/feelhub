@@ -6,23 +6,13 @@ import com.steambeat.domain.eventbus.DomainEvent;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ReferencesChangedEvent extends DomainEvent {
+public abstract class ReferencesChangedEvent extends DomainEvent{
 
     public ReferencesChangedEvent(final UUID referenceId) {
         this.newReferenceId = referenceId;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(date.toString());
-        stringBuilder.append(" - ");
-        stringBuilder.append("ReferencesChangedEvent ");
-        stringBuilder.append(referenceIds.size());
-        return stringBuilder.toString();
-    }
-
-    public List<UUID> getReferenceIds() {
+    public CopyOnWriteArrayList<UUID> getReferenceIds() {
         return referenceIds;
     }
 
@@ -34,6 +24,6 @@ public class ReferencesChangedEvent extends DomainEvent {
         return newReferenceId;
     }
 
-    private CopyOnWriteArrayList<UUID> referenceIds = Lists.newCopyOnWriteArrayList();
-    private UUID newReferenceId;
+    protected UUID newReferenceId;
+    protected CopyOnWriteArrayList<UUID> referenceIds = Lists.newCopyOnWriteArrayList();
 }

@@ -7,15 +7,15 @@ import com.steambeat.domain.DomainException;
 import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.Keyword;
-import com.steambeat.domain.reference.ReferencesChangedEvent;
+import com.steambeat.domain.reference.ConceptReferencesChangedEvent;
 import com.steambeat.repositories.*;
 
 import java.util.*;
 
-public class IllustrationManager {
+public class ConceptIllustrationManager {
 
     @Inject
-    public IllustrationManager(final BingLink bingLink, final SessionProvider sessionProvider) {
+    public ConceptIllustrationManager(final BingLink bingLink, final SessionProvider sessionProvider) {
         this.bingLink = bingLink;
         this.sessionProvider = sessionProvider;
         DomainEventBus.INSTANCE.register(this);
@@ -23,21 +23,21 @@ public class IllustrationManager {
 
     @Subscribe
     @AllowConcurrentEvents
-    public void handle(final ReferencesChangedEvent event) {
+    public void handle(final ConceptReferencesChangedEvent eventConcept) {
         sessionProvider.start();
-        final List<Illustration> illustrations = getAllIllustrations(event);
+        final List<Illustration> illustrations = getAllIllustrations(eventConcept);
         if (illustrations.isEmpty()) {
-            addAnIllustration(event);
+            addAnIllustration(eventConcept);
         } else {
-            migrateExistingIllustrations(illustrations, event.getNewReferenceId());
+            migrateExistingIllustrations(illustrations, eventConcept.getNewReferenceId());
             removeDuplicate(illustrations);
         }
         sessionProvider.stop();
     }
 
-    private List<Illustration> getAllIllustrations(final ReferencesChangedEvent event) {
+    private List<Illustration> getAllIllustrations(final ConceptReferencesChangedEvent eventConcept) {
         List<Illustration> illustrations = Lists.newArrayList();
-        for (UUID referenceId : getReferenceIdList(event)) {
+        for (UUID referenceId : getReferenceIdList(eventConcept)) {
             final Illustration illustration = getIllustrationFor(referenceId);
             if (illustration != null) {
                 illustrations.add(illustration);
@@ -55,25 +55,25 @@ public class IllustrationManager {
         }
     }
 
-    private List<UUID> getReferenceIdList(final ReferencesChangedEvent event) {
-        final List<UUID> referenceIdList = event.getReferenceIds();
-        referenceIdList.add(event.getNewReferenceId());
+    private List<UUID> getReferenceIdList(final ConceptReferencesChangedEvent eventConcept) {
+        final List<UUID> referenceIdList = eventConcept.getReferenceIds();
+        referenceIdList.add(eventConcept.getNewReferenceId());
         return referenceIdList;
     }
 
-    private void addAnIllustration(final ReferencesChangedEvent event) {
-        final String link = getLink(event);
-        final Illustration illustration = new Illustration(event.getNewReferenceId(), link);
+    private void addAnIllustration(final ConceptReferencesChangedEvent eventConcept) {
+        final String link = getLink(eventConcept);
+        final Illustration illustration = new Illustration(eventConcept.getNewReferenceId(), link);
         Repositories.illustrations().add(illustration);
     }
 
-    private String getLink(final ReferencesChangedEvent event) {
-        final Keyword keyword = getKeywordFor(event);
+    private String getLink(final ConceptReferencesChangedEvent eventConcept) {
+        final Keyword keyword = getKeywordFor(eventConcept);
         return bingLink.getIllustration(keyword);
     }
 
-    private Keyword getKeywordFor(final ReferencesChangedEvent event) {
-        final List<Keyword> keywords = Repositories.keywords().forReferenceId(event.getNewReferenceId());
+    private Keyword getKeywordFor(final ConceptReferencesChangedEvent eventConcept) {
+        final List<Keyword> keywords = Repositories.keywords().forReferenceId(eventConcept.getNewReferenceId());
         if (keywords != null) {
             return keywords.get(0);
         } else {

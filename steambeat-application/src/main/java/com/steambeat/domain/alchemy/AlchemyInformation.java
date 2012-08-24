@@ -2,7 +2,6 @@ package com.steambeat.domain.alchemy;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.thesaurus.Type;
-import com.steambeat.domain.uri.Uri;
 
 import java.util.List;
 
@@ -28,8 +27,8 @@ public class AlchemyInformation {
         return website.toString();
     }
 
-    public void setWebsite(final Uri website) {
-        this.website = website.toString();
+    public void setWebsite(final String website) {
+        this.website = website;
     }
 
     public String getGeo() {

@@ -1,6 +1,5 @@
 package com.steambeat.domain.scrapers.extractors;
 
-import com.steambeat.domain.uri.Uri;
 import com.steambeat.test.FakeInternet;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,7 +27,7 @@ public class TestsLastElementExtractor {
 
     @Test
     public void canFindH1Tag() {
-        final Uri uri = new Uri(internet.uri("lastelementextractor/h1tag"));
+        final String uri = internet.uri("lastelementextractor/h1tag");
         final Document document = getDocument(uri);
 
         final String result = lastElementExtractor.apply(document);
@@ -38,7 +37,7 @@ public class TestsLastElementExtractor {
 
     @Test
     public void canFindTextFromNestedElement() {
-        final Uri uri = new Uri(internet.uri("lastelementextractor/bug/lemondefrnested"));
+        final String uri = internet.uri("lastelementextractor/bug/lemondefrnested");
         final Document document = getDocument(uri);
 
         final String result = lastElementExtractor.apply(document);
@@ -46,9 +45,9 @@ public class TestsLastElementExtractor {
         assertThat(result, is("h1 text"));
     }
 
-    private Document getDocument(final Uri uri) {
+    private Document getDocument(final String uri) {
         try {
-            return Jsoup.connect(uri.toString()).userAgent("").timeout(3000).get();
+            return Jsoup.connect(uri).userAgent("").timeout(3000).get();
         } catch (IOException e) {
             return new Document("");
         }

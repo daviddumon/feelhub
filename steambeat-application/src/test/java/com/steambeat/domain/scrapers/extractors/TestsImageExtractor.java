@@ -1,6 +1,5 @@
 package com.steambeat.domain.scrapers.extractors;
 
-import com.steambeat.domain.uri.Uri;
 import com.steambeat.test.FakeInternet;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,7 +27,7 @@ public class TestsImageExtractor {
 
     @Test
     public void canFindRelevantImageAfterH1Tag() {
-        final Uri uri = new Uri(internet.uri("imageextractor/withH1tag"));
+        final String uri = internet.uri("imageextractor/withH1tag");
         final Document document = getDocument(uri);
 
         final String result = imageExtractor.apply(document);
@@ -38,7 +37,7 @@ public class TestsImageExtractor {
 
     @Test
     public void slateFrBug() {
-        final Uri uri = new Uri(internet.uri("imageextractor/bug/slatefr"));
+        final String uri = internet.uri("imageextractor/bug/slatefr");
         final Document document = getDocument(uri);
 
         final String result = imageExtractor.apply(document);
@@ -48,7 +47,7 @@ public class TestsImageExtractor {
 
     @Test
     public void canFindRelevantImageBeforeH2Heading() {
-        final Uri uri = new Uri(internet.uri("imageextractor/bug/10sportbug"));
+        final String uri = internet.uri("imageextractor/bug/10sportbug");
         final Document document = getDocument(uri);
 
         final String result = imageExtractor.apply(document);
@@ -58,7 +57,7 @@ public class TestsImageExtractor {
 
     @Test
     public void liberationBug() {
-        final Uri uri = new Uri(internet.uri("imageextractor/bug/liberation"));
+        final String uri = internet.uri("imageextractor/bug/liberation");
         final Document document = getDocument(uri);
 
         final String result = imageExtractor.apply(document);
@@ -66,9 +65,9 @@ public class TestsImageExtractor {
         assertThat(result, is("http://www.liberation.fr/image.jpg"));
     }
 
-    private Document getDocument(final Uri uri) {
+    private Document getDocument(final String uri) {
         try {
-            return Jsoup.connect(uri.toString()).userAgent("").timeout(3000).get();
+            return Jsoup.connect(uri).userAgent("").timeout(3000).get();
         } catch (IOException e) {
             return new Document("");
         }

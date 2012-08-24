@@ -14,7 +14,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsIllustrationManager {
+public class TestsConceptIllustrationManager {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -24,21 +24,21 @@ public class TestsIllustrationManager {
 
     @Before
     public void before() {
-        new IllustrationManager(new FakeBingLink(), new FakeSessionProvider());
+        new ConceptIllustrationManager(new FakeBingLink(), new FakeSessionProvider());
     }
 
     @Test
     public void canCreateIllustration() {
         final Keyword first = TestFactories.keywords().newKeyword();
         final Keyword second = TestFactories.keywords().newKeyword();
-        final ReferencesChangedEvent event = new ReferencesChangedEvent(first.getReferenceId());
-        event.addReferenceToChange(second.getReferenceId());
+        final ConceptReferencesChangedEvent eventConcept = TestFactories.events().newConceptReferencesChangedEvent(first.getReferenceId());
+        eventConcept.addReferenceToChange(second.getReferenceId());
 
-        DomainEventBus.INSTANCE.post(event);
+        DomainEventBus.INSTANCE.post(eventConcept);
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size(), is(1));
-        assertThat(illustrations.get(0).getReferenceId(), is(event.getNewReferenceId()));
+        assertThat(illustrations.get(0).getReferenceId(), is(eventConcept.getNewReferenceId()));
         assertThat(illustrations.get(0).getLink(), is(first.getValue() + "link"));
     }
 
@@ -48,10 +48,10 @@ public class TestsIllustrationManager {
         TestFactories.illustrations().newIllustration(first, "link1");
         final Reference second = TestFactories.references().newReference();
         final Illustration illustrationToChange = TestFactories.illustrations().newIllustration(second, "link2");
-        final ReferencesChangedEvent event = new ReferencesChangedEvent(first.getId());
-        event.addReferenceToChange(second.getId());
+        final ConceptReferencesChangedEvent eventConcept = TestFactories.events().newConceptReferencesChangedEvent(first.getId());
+        eventConcept.addReferenceToChange(second.getId());
 
-        DomainEventBus.INSTANCE.post(event);
+        DomainEventBus.INSTANCE.post(eventConcept);
 
         assertThat(illustrationToChange.getReferenceId(), is(first.getId()));
     }
@@ -62,10 +62,10 @@ public class TestsIllustrationManager {
         TestFactories.illustrations().newIllustration(first, "link1");
         final Reference second = TestFactories.references().newReference();
         TestFactories.illustrations().newIllustration(second, "link2");
-        final ReferencesChangedEvent event = new ReferencesChangedEvent(first.getId());
-        event.addReferenceToChange(second.getId());
+        final ConceptReferencesChangedEvent eventConcept = TestFactories.events().newConceptReferencesChangedEvent(first.getId());
+        eventConcept.addReferenceToChange(second.getId());
 
-        DomainEventBus.INSTANCE.post(event);
+        DomainEventBus.INSTANCE.post(eventConcept);
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size(), is(1));
@@ -76,10 +76,10 @@ public class TestsIllustrationManager {
         final Reference first = TestFactories.references().newReference();
         final Illustration illustration = TestFactories.illustrations().newIllustration(first, "link1");
         final Reference second = TestFactories.references().newReference();
-        final ReferencesChangedEvent event = new ReferencesChangedEvent(first.getId());
-        event.addReferenceToChange(second.getId());
+        final ConceptReferencesChangedEvent eventConcept = TestFactories.events().newConceptReferencesChangedEvent(first.getId());
+        eventConcept.addReferenceToChange(second.getId());
 
-        DomainEventBus.INSTANCE.post(event);
+        DomainEventBus.INSTANCE.post(eventConcept);
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size(), is(1));

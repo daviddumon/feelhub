@@ -14,7 +14,7 @@ import java.util.UUID;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsReferenceManager {
+public class TestsConceptReferenceManager {
 
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
@@ -27,7 +27,7 @@ public class TestsReferenceManager {
 
     @Before
     public void before() {
-        new ReferenceManager(new FakeSessionProvider());
+        new ConceptReferenceManager(new FakeSessionProvider());
     }
 
     @Test
@@ -52,17 +52,17 @@ public class TestsReferenceManager {
     }
 
     @Test
-    public void postAReferencesChangedEvent() {
-        bus.capture(ReferencesChangedEvent.class);
+    public void postAConceptReferencesChangedEvent() {
+        bus.capture(ConceptReferencesChangedEvent.class);
         final ConceptTranslatedEvent event = TestFactories.events().newConceptTranslatedEvent();
         event.addIfAbsent(TestFactories.keywords().newKeyword("fr", SteambeatLanguage.forString("fr")));
         event.addIfAbsent(TestFactories.keywords().newKeyword("en", SteambeatLanguage.forString("en")));
 
         DomainEventBus.INSTANCE.post(event);
 
-        final ReferencesChangedEvent referencesChangedEvent = bus.lastEvent(ReferencesChangedEvent.class);
-        assertThat(referencesChangedEvent, notNullValue());
-        assertThat(referencesChangedEvent.getReferenceIds().size(), is(1));
-        assertThat(referencesChangedEvent.getNewReferenceId(), notNullValue());
+        final ConceptReferencesChangedEvent conceptReferencesChangedEvent = bus.lastEvent(ConceptReferencesChangedEvent.class);
+        assertThat(conceptReferencesChangedEvent, notNullValue());
+        assertThat(conceptReferencesChangedEvent.getReferenceIds().size(), is(1));
+        assertThat(conceptReferencesChangedEvent.getNewReferenceId(), notNullValue());
     }
 }

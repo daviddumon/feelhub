@@ -32,7 +32,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(OpinionSearch.class).to(FakeOpinionSearch.class);
         bind(StatisticsSearch.class).to(FakeStatisticsSearch.class);
         bind(RelationSearch.class).to(FakeRelationSearch.class);
-        bind(UriPathResolver.class).to(FakeUriPathResolver.class);
+        bind(UriResolver.class).to(FakeUriResolver.class);
         bind(MigrationRunner.class).to(FakeMigrationRunner.class);
         bind(MigrationFilter.class).to(FakeMigrationFilter.class);
         bind(UriScraper.class).to(FakeUriScraper.class);

@@ -23,12 +23,12 @@ public class TestsRelationManager {
     }
 
     @Test
-    public void canChangeReferencesForRelations() {
+    public void canChangeRelationsReferencesForAConcept() {
         final Reference ref1 = TestFactories.references().newReference();
         final Reference ref2 = TestFactories.references().newReference();
         final Relation relation1 = TestFactories.relations().newRelation(ref1, ref2);
         final Relation relation2 = TestFactories.relations().newRelation(ref2, ref1);
-        final ReferencesChangedEvent event = new ReferencesChangedEvent(ref1.getId());
+        final ConceptReferencesChangedEvent event = TestFactories.events().newConceptReferencesChangedEvent(ref1.getId());
         event.addReferenceToChange(ref2.getId());
 
         DomainEventBus.INSTANCE.post(event);

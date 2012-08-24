@@ -3,7 +3,6 @@ package com.steambeat.domain.scrapers;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.scrapers.extractors.*;
-import com.steambeat.domain.uri.Uri;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -13,7 +12,7 @@ public class UriScraper implements Scraper {
 
     @Override
     public void scrap(final Keyword identifier) {
-        this.uri = new Uri(identifier.getValue());
+        this.uri = identifier.getValue();
         addExtractors();
         getJSoupDocument();
         useExtractors();
@@ -23,7 +22,7 @@ public class UriScraper implements Scraper {
         this.extractors.add(new TitleExtractor());
         this.extractors.add(new LastElementExtractor("h1", "h1"));
         this.extractors.add(new FirstElementExtractor("h2", "h2"));
-        this.extractors.add(new LogoExtractor("logo", uri.withoutTLD()));
+        this.extractors.add(new LogoExtractor("logo", uri));
         this.extractors.add(new ImageExtractor("image"));
     }
 
@@ -47,7 +46,7 @@ public class UriScraper implements Scraper {
         if (getDescription().length() < 40 && notEmpty(getDescription())) {
             return getDescription();
         } else {
-            return uri.condensed();
+            return uri;
         }
     }
 
@@ -69,11 +68,11 @@ public class UriScraper implements Scraper {
 
     @Override
     public String getIllustration() {
-        if (uri.isFirstLevelUri()) {
-            return getIllustrationForFirstLevelDomain();
-        } else {
-            return getIllustrationForNonFirstLevelDomain();
-        }
+        //if (uri.isFirstLevelUri()) {
+        return getIllustrationForFirstLevelDomain();
+        //} else {
+        //    return getIllustrationForNonFirstLevelDomain();
+        //}
     }
 
     public String getIllustrationForFirstLevelDomain() {
@@ -97,7 +96,7 @@ public class UriScraper implements Scraper {
     private Document document;
     private final List<Extractor> extractors = Lists.newArrayList();
     protected Map<String, String> scrapedTags = new HashMap<String, String>();
-    private Uri uri;
+    private String uri;
     private Keyword identifier;
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
     private final static int THREE_SECONDS = 3000;

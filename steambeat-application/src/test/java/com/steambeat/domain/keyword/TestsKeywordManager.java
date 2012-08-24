@@ -1,7 +1,7 @@
 package com.steambeat.domain.keyword;
 
 import com.steambeat.domain.eventbus.*;
-import com.steambeat.domain.reference.ReferencesChangedEvent;
+import com.steambeat.domain.reference.ConceptReferencesChangedEvent;
 import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
@@ -23,10 +23,10 @@ public class TestsKeywordManager {
     }
 
     @Test
-    public void canChangeReferenceForKeywords() {
+    public void canChangeKeywordsReferenceForAConcept() {
         final Keyword first = TestFactories.keywords().newKeyword();
         final Keyword second = TestFactories.keywords().newKeyword();
-        final ReferencesChangedEvent event = new ReferencesChangedEvent(first.getReferenceId());
+        final ConceptReferencesChangedEvent event = TestFactories.events().newConceptReferencesChangedEvent(first.getReferenceId());
         event.addReferenceToChange(second.getReferenceId());
 
         DomainEventBus.INSTANCE.post(event);

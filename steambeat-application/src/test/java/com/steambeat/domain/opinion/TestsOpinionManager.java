@@ -26,7 +26,7 @@ public class TestsOpinionManager {
     }
 
     @Test
-    public void canMigrateJudgmentsReferences() {
+    public void canChangeJudgmentsReferencesForAConcept() {
         final Reference ref1 = TestFactories.references().newReference();
         final Reference ref2 = TestFactories.references().newReference();
         final Opinion op1 = TestFactories.opinions().newOpinionWithoutJudgments();
@@ -35,7 +35,7 @@ public class TestsOpinionManager {
         op2.addJudgment(ref1, Feeling.good);
         op1.addJudgment(ref2, Feeling.bad);
         op2.addJudgment(ref2, Feeling.bad);
-        final ReferencesChangedEvent event = new ReferencesChangedEvent(ref1.getId());
+        final ConceptReferencesChangedEvent event = TestFactories.events().newConceptReferencesChangedEvent(ref1.getId());
         event.addReferenceToChange(ref2.getId());
 
         DomainEventBus.INSTANCE.post(event);

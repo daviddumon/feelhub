@@ -1,6 +1,5 @@
 package com.steambeat.domain.scrapers.extractors;
 
-import com.steambeat.domain.uri.Uri;
 import com.steambeat.test.FakeInternet;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,7 +27,7 @@ public class TestsFirstElementExtractor {
 
     @Test
     public void canFindH2Tag() {
-        final Uri uri = new Uri(internet.uri("firstelementextractor/h2tag"));
+        final String uri = internet.uri("firstelementextractor/h2tag");
         final Document document = getDocument(uri);
 
         final String result = firstElementExtractor.apply(document);
@@ -36,7 +35,7 @@ public class TestsFirstElementExtractor {
         assertThat(result, is("First h2 section"));
     }
 
-    private Document getDocument(final Uri uri) {
+    private Document getDocument(final String uri) {
         try {
             return Jsoup.connect(uri.toString()).userAgent("").timeout(3000).get();
         } catch (IOException e) {

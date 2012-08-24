@@ -2,7 +2,7 @@ package com.steambeat.web.status;
 
 import com.google.common.collect.Maps;
 import com.steambeat.domain.opinion.OpinionCreationException;
-import com.steambeat.domain.uri.UriPathResolverException;
+import com.steambeat.domain.uri.UriException;
 import com.steambeat.web.resources.json.SteambeatJsonException;
 import org.restlet.*;
 import org.restlet.data.Status;
@@ -14,7 +14,7 @@ import java.util.Map;
 public class SteambeatStatusService extends StatusService {
 
     public SteambeatStatusService() {
-        resolvers.put(UriPathResolverException.class, new ExceptionResolver400());
+        resolvers.put(UriException.class, new ExceptionResolver400());
         resolvers.put(SteambeatJsonException.class, new JsonExceptionResolver());
         resolvers.put(OpinionCreationException.class, new ExceptionResolver400());
     }

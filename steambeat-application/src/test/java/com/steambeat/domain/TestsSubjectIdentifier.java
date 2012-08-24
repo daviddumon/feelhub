@@ -4,7 +4,7 @@ import com.steambeat.domain.concept.ConceptEvent;
 import com.steambeat.domain.eventbus.WithDomainEvent;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import com.steambeat.domain.uri.UriCreatedEvent;
+import com.steambeat.domain.uri.UriEvent;
 import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
@@ -26,20 +26,19 @@ public class TestsSubjectIdentifier {
     }
 
     @Test
-    public void canPostUriCreatedEvent() {
-        bus.capture(UriCreatedEvent.class);
+    public void canPostUriEvent() {
+        bus.capture(UriEvent.class);
         final KeywordCreatedEvent event = getEventFor("http://www.google.com");
 
         subjectIdentifier.handle(event);
 
-        final UriCreatedEvent uriCreatedEvent = bus.lastEvent(UriCreatedEvent.class);
-        assertThat(uriCreatedEvent, notNullValue());
-        assertThat(uriCreatedEvent.getUri(), notNullValue());
-        assertThat(uriCreatedEvent.getUri().getKeyword(), notNullValue());
+        final UriEvent uriEvent = bus.lastEvent(UriEvent.class);
+        assertThat(uriEvent, notNullValue());
+        assertThat(uriEvent.getKeyword(), notNullValue());
     }
 
     @Test
-    public void canPostConceptCreatedEvent() {
+    public void canPostConceptEvent() {
         bus.capture(ConceptEvent.class);
         final KeywordCreatedEvent event = getEventFor("google");
 

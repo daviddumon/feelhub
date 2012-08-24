@@ -4,10 +4,10 @@ import com.google.inject.*;
 import com.steambeat.domain.SubjectIdentifier;
 import com.steambeat.domain.concept.ConceptTranslator;
 import com.steambeat.domain.eventbus.DeadEventCatcher;
-import com.steambeat.domain.illustration.IllustrationManager;
+import com.steambeat.domain.illustration.ConceptIllustrationManager;
 import com.steambeat.domain.keyword.KeywordManager;
 import com.steambeat.domain.opinion.OpinionManager;
-import com.steambeat.domain.reference.ReferenceManager;
+import com.steambeat.domain.reference.ConceptReferenceManager;
 import com.steambeat.domain.relation.RelationManager;
 import com.steambeat.domain.statistics.*;
 import com.steambeat.repositories.SessionProvider;
@@ -23,8 +23,8 @@ public class GuiceProductionModule extends AbstractModule {
 
         bind(SubjectIdentifier.class).asEagerSingleton();
         bind(ConceptTranslator.class).asEagerSingleton();
-        bind(ReferenceManager.class).asEagerSingleton();
-        bind(IllustrationManager.class).asEagerSingleton();
+        bind(ConceptReferenceManager.class).asEagerSingleton();
+        bind(ConceptIllustrationManager.class).asEagerSingleton();
         bind(DeadEventCatcher.class).asEagerSingleton();
         bind(MailBuilder.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();

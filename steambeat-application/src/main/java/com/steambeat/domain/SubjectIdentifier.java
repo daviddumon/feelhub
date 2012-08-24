@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import com.steambeat.domain.concept.ConceptEvent;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.uri.*;
+import com.steambeat.domain.uri.UriEvent;
 import com.steambeat.repositories.SessionProvider;
 
 import java.util.regex.Pattern;
@@ -32,9 +32,8 @@ public class SubjectIdentifier {
     }
 
     private void createUri(final Keyword keyword) {
-        final Uri uri = new Uri(keyword.getValue());
-        uri.setKeyword(keyword);
-        DomainEventBus.INSTANCE.post(new UriCreatedEvent(uri));
+        final UriEvent event = new UriEvent(keyword);
+        DomainEventBus.INSTANCE.post(event);
     }
 
     private void createConcept(final Keyword keyword) {

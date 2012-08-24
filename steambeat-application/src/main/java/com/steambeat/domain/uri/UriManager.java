@@ -1,5 +1,6 @@
 package com.steambeat.domain.uri;
 
+import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
@@ -9,57 +10,65 @@ import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.SessionProvider;
 
+import java.util.List;
+
 public class UriManager {
 
     @Inject
-    public UriManager(final SessionProvider sessionProvider, final UriPathResolver uriPathResolver, final KeywordService keywordService) {
+    public UriManager(final SessionProvider sessionProvider, final UriResolver uriResolver, final KeywordService keywordService) {
         this.sessionProvider = sessionProvider;
-        this.uriPathResolver = uriPathResolver;
+        this.uriResolver = uriResolver;
         this.keywordService = keywordService;
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
     @AllowConcurrentEvents
-    public void handle(UriCreatedEvent event) {
+    public void handle(final UriEvent event) {
         sessionProvider.start();
         try {
-            final Path path = uriPathResolver.resolve(event.getUri());
-            postPathCreatedEvent(path);
-        } catch (UriPathResolverException e) {
+            final List<String> uris = uriResolver.resolve(event.getKeyword().getValue());
+            final List<Keyword> keywords = getKeywordsFor(uris);
+            postCompleteUriEvent(keywords);
+        } catch (UriException e) {
             postConceptCreatedEvent(event);
         }
         sessionProvider.stop();
     }
 
-    private void postPathCreatedEvent(final Path path) {
-        final PathCreatedEvent pathCreatedEvent = new PathCreatedEvent(path);
-        DomainEventBus.INSTANCE.post(pathCreatedEvent);
-    }
-
-    private void extractKeywordsFromPath(final UriCreatedEvent event, final Path path) {
-        for (Uri uri : path.getUris()) {
-            if (!uri.equals(event.getUri())) {
-                //event.getUri().addIfAbsent(getOrCreateKeyword(uri));
+    private List<Keyword> getKeywordsFor(final List<String> uris) {
+        List<Keyword> result = Lists.newArrayList();
+        for (String uri : uris) {
+            final UriTokenizer uriTokenizer = new UriTokenizer();
+            final List<String> tokens = uriTokenizer.getTokensFor(uri);
+            for (String token : tokens) {
+                result.add(getOrCreateKeyword(token));
             }
         }
+        return result;
     }
 
-    private Keyword getOrCreateKeyword(final Uri uri) {
+    private Keyword getOrCreateKeyword(final String token) {
         try {
-            return keywordService.lookUp(uri.toString(), SteambeatLanguage.none());
+            return keywordService.lookUp(token.toString(), SteambeatLanguage.none());
         } catch (KeywordNotFound e) {
-            return keywordService.createKeywordWithoutEvent(uri.toString(), SteambeatLanguage.none());
+            return keywordService.createKeywordWithoutEvent(token.toString(), SteambeatLanguage.none());
         }
     }
 
-    private void postConceptCreatedEvent(final UriCreatedEvent event) {
+    private void postCompleteUriEvent(final List<Keyword> keywords) {
+        final CompleteUriEvent completeUriEvent = new CompleteUriEvent();
+        completeUriEvent.addAllAbsent(keywords);
+        DomainEventBus.INSTANCE.post(completeUriEvent);
+    }
+
+    private void postConceptCreatedEvent(final UriEvent event) {
         final ConceptEvent conceptEvent = new ConceptEvent();
-        conceptEvent.addIfAbsent(event.getUri().getKeyword());
+        conceptEvent.addIfAbsent(event.getKeyword());
         DomainEventBus.INSTANCE.post(conceptEvent);
     }
 
     private SessionProvider sessionProvider;
-    private UriPathResolver uriPathResolver;
+    private UriResolver uriResolver;
     private KeywordService keywordService;
 }

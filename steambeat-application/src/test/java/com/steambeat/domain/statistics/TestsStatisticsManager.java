@@ -26,7 +26,7 @@ public class TestsStatisticsManager {
     }
 
     @Test
-    public void canMigrateStatistics() {
+    public void canChangeStatisticsReferencesForAConcept() {
         final Reference ref1 = TestFactories.references().newReference();
         final Reference ref2 = TestFactories.references().newReference();
         TestFactories.statistics().newStatistics(ref1, Granularity.all);
@@ -34,7 +34,7 @@ public class TestsStatisticsManager {
         TestFactories.statistics().newStatistics(ref1, Granularity.hour);
         TestFactories.statistics().newStatistics(ref2, Granularity.hour);
         TestFactories.statistics().newStatistics(ref2, Granularity.month);
-        final ReferencesChangedEvent event = new ReferencesChangedEvent(ref1.getId());
+        final ConceptReferencesChangedEvent event = TestFactories.events().newConceptReferencesChangedEvent(ref1.getId());
         event.addReferenceToChange(ref2.getId());
 
         DomainEventBus.INSTANCE.post(event);

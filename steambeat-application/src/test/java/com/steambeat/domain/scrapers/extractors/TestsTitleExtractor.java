@@ -1,6 +1,5 @@
 package com.steambeat.domain.scrapers.extractors;
 
-import com.steambeat.domain.uri.Uri;
 import com.steambeat.test.FakeInternet;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,7 +27,7 @@ public class TestsTitleExtractor {
 
     @Test
     public void canExtractSimpleTitle() {
-        final Uri uri = new Uri(internet.uri("titleextractor/titletag"));
+        final String uri = internet.uri("titleextractor/titletag");
         final Document document = getDocument(uri);
 
         final String result = titleExtractor.apply(document);
@@ -38,7 +37,7 @@ public class TestsTitleExtractor {
 
     @Test
     public void canFindTitleTagWithBadHtml() {
-        final Uri uri = new Uri(internet.uri("titleextractor/titletagbadhtml"));
+        final String uri = internet.uri("titleextractor/titletagbadhtml");
         final Document document = getDocument(uri);
 
         final String result = titleExtractor.apply(document);
@@ -46,9 +45,9 @@ public class TestsTitleExtractor {
         assertThat(result, is("Webpage title"));
     }
 
-    private Document getDocument(final Uri uri) {
+    private Document getDocument(final String uri) {
         try {
-            return Jsoup.connect(uri.toString()).userAgent("").timeout(3000).get();
+            return Jsoup.connect(uri).userAgent("").timeout(3000).get();
         } catch (IOException e) {
             return new Document("");
         }

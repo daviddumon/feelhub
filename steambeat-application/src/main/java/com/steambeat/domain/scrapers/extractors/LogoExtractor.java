@@ -3,7 +3,6 @@ package com.steambeat.domain.scrapers.extractors;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.scrapers.EmptyElement;
 import com.steambeat.domain.scrapers.miner.CSSMiner;
-import com.steambeat.domain.uri.Uri;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 
@@ -59,7 +58,7 @@ public class LogoExtractor extends Extractor {
         final List<String> cssList = findCSSUris(document);
         String backgroundUrl = "";
         for (final String css : cssList) {
-            final CSSMiner cssMiner = new CSSMiner(new Uri(css));
+            final CSSMiner cssMiner = new CSSMiner(css);
             backgroundUrl = cssMiner.scrap("(logo|banner)");
             if (notEmpty(backgroundUrl)) {
                 return backgroundUrl;
