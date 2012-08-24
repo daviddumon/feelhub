@@ -1,6 +1,6 @@
 package com.steambeat.domain.statistics;
 
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.Subscribe;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.reference.ReferencesChangedEvent;
 import com.steambeat.repositories.*;

@@ -1,6 +1,6 @@
 package com.steambeat.domain.concept;
 
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.memetix.mst.language.Language;
 import com.memetix.mst.translate.Translate;

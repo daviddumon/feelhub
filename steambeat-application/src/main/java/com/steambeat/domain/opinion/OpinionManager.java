@@ -1,6 +1,6 @@
 package com.steambeat.domain.opinion;
 
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.reference.ReferencesChangedEvent;

@@ -8,7 +8,6 @@ import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.scraper.Scraper;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.repositories.fakeRepositories.FakeSessionProvider;
-import com.steambeat.test.FakeScraper;
 import com.steambeat.web.resources.HomeResource;
 import org.junit.Test;
 import org.restlet.Context;

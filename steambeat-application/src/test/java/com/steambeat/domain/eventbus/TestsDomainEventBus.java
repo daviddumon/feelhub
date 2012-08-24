@@ -1,6 +1,6 @@
 package com.steambeat.domain.eventbus;
 
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.Subscribe;
 import com.steambeat.domain.keyword.KeywordCreatedEvent;
 import com.steambeat.domain.opinion.OpinionCreatedEvent;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;

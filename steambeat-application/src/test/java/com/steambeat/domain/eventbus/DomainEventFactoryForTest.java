@@ -2,7 +2,7 @@ package com.steambeat.domain.eventbus;
 
 import com.steambeat.domain.concept.*;
 import com.steambeat.domain.keyword.Keyword;
-import com.steambeat.domain.reference.ConceptReferencesChangedEvent;
+import com.steambeat.domain.reference.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.uri.*;
 import com.steambeat.test.TestFactories;
@@ -12,18 +12,15 @@ import java.util.UUID;
 public class DomainEventFactoryForTest {
 
     public ConceptEvent newConceptEvent() {
-        final ConceptEvent conceptEvent = new ConceptEvent();
-        return conceptEvent;
+        return new ConceptEvent();
     }
 
     public ConceptTranslatedEvent newConceptTranslatedEvent() {
-        final ConceptTranslatedEvent conceptTranslatedEvent = new ConceptTranslatedEvent();
-        return conceptTranslatedEvent;
+        return new ConceptTranslatedEvent();
     }
 
     public CompleteUriEvent newCompleteUriEvent() {
-        final CompleteUriEvent completeUriEvent = new CompleteUriEvent();
-        return completeUriEvent;
+        return new CompleteUriEvent();
     }
 
     public UriEvent newUriEvent(final String address) {
@@ -33,7 +30,10 @@ public class DomainEventFactoryForTest {
     }
 
     public ConceptReferencesChangedEvent newConceptReferencesChangedEvent(final UUID newReference) {
-        final ConceptReferencesChangedEvent conceptReferencesChangedEvent = new ConceptReferencesChangedEvent(newReference);
-        return conceptReferencesChangedEvent;
+        return new ConceptReferencesChangedEvent(newReference);
+    }
+
+    public UriReferencesChangedEvent newUriReferencesChangedEvent(final UUID newReference) {
+        return new UriReferencesChangedEvent(newReference);
     }
 }

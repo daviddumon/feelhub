@@ -1,6 +1,6 @@
 package com.steambeat.domain.alchemy;
 
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.eventbus.DomainEventBus;

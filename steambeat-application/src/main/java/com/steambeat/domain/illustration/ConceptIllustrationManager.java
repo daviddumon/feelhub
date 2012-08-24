@@ -1,7 +1,6 @@
 package com.steambeat.domain.illustration;
 
-import com.google.common.collect.Lists;
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.steambeat.domain.DomainException;
 import com.steambeat.domain.bingsearch.BingLink;
@@ -10,7 +9,7 @@ import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.reference.ConceptReferencesChangedEvent;
 import com.steambeat.repositories.*;
 
-import java.util.*;
+import java.util.List;
 
 public class ConceptIllustrationManager extends IllustrationManager {
 
@@ -22,42 +21,16 @@ public class ConceptIllustrationManager extends IllustrationManager {
     }
 
     @Subscribe
-    public void handle(final ConceptReferencesChangedEvent eventConcept) {
+    public void handle(final ConceptReferencesChangedEvent event) {
         sessionProvider.start();
-        final List<Illustration> illustrations = getAllIllustrations(eventConcept);
+        final List<Illustration> illustrations = getAllIllustrations(event);
         if (illustrations.isEmpty()) {
-            addAnIllustration(eventConcept);
+            addAnIllustration(event);
         } else {
-            migrateExistingIllustrations(illustrations, eventConcept.getNewReferenceId());
+            migrateExistingIllustrations(illustrations, event.getNewReferenceId());
             removeDuplicate(illustrations);
         }
         sessionProvider.stop();
-    }
-
-    private List<Illustration> getAllIllustrations(final ConceptReferencesChangedEvent eventConcept) {
-        List<Illustration> illustrations = Lists.newArrayList();
-        for (UUID referenceId : getReferenceIdList(eventConcept)) {
-            final Illustration illustration = getIllustrationFor(referenceId);
-            if (illustration != null) {
-                illustrations.add(illustration);
-            }
-        }
-        return illustrations;
-    }
-
-    private Illustration getIllustrationFor(final UUID referenceId) {
-        final List<Illustration> illustrations = Repositories.illustrations().forReferenceId(referenceId);
-        if (!illustrations.isEmpty()) {
-            return illustrations.get(0);
-        } else {
-            return null;
-        }
-    }
-
-    private List<UUID> getReferenceIdList(final ConceptReferencesChangedEvent eventConcept) {
-        final List<UUID> referenceIdList = eventConcept.getReferenceIds();
-        referenceIdList.add(eventConcept.getNewReferenceId());
-        return referenceIdList;
     }
 
     private void addAnIllustration(final ConceptReferencesChangedEvent eventConcept) {
@@ -69,31 +42,6 @@ public class ConceptIllustrationManager extends IllustrationManager {
     private String getLink(final ConceptReferencesChangedEvent eventConcept) {
         final Keyword keyword = getKeywordFor(eventConcept);
         return bingLink.getIllustration(keyword);
-    }
-
-    private Keyword getKeywordFor(final ConceptReferencesChangedEvent eventConcept) {
-        final List<Keyword> keywords = Repositories.keywords().forReferenceId(eventConcept.getNewReferenceId());
-        if (keywords != null) {
-            return keywords.get(0);
-        } else {
-            throw new DomainException("the fuck just happens ????");
-        }
-    }
-
-    private void migrateExistingIllustrations(final List<Illustration> illustrations, final UUID newReference) {
-        for (Illustration illustration : illustrations) {
-            if (illustration.getReferenceId() != newReference) {
-                illustration.setReferenceId(newReference);
-            }
-        }
-    }
-
-    private void removeDuplicate(final List<Illustration> illustrations) {
-        if (illustrations.size() > 1) {
-            for (int i = 1; i < illustrations.size(); i++) {
-                Repositories.illustrations().delete(illustrations.get(i));
-            }
-        }
     }
 
     private BingLink bingLink;

@@ -1,6 +1,6 @@
 package com.steambeat.domain.reference;
 
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.steambeat.domain.concept.ConceptTranslatedEvent;
 import com.steambeat.domain.eventbus.DomainEventBus;
