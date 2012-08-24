@@ -1,11 +1,8 @@
 package com.steambeat.web.guice;
 
 import com.google.inject.*;
-import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.*;
-import com.steambeat.domain.keyword.KeywordFactory;
-import com.steambeat.domain.reference.ReferenceFactory;
-import com.steambeat.domain.scraper.Scraper;
+import com.steambeat.domain.scraper.*;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.repositories.fakeRepositories.FakeSessionProvider;
 import com.steambeat.web.resources.HomeResource;
@@ -33,7 +30,7 @@ public class TestsGuiceFinder {
         protected void configure() {
             bind(SessionProvider.class).to(FakeSessionProvider.class);
             bind(Scraper.class).to(FakeScraper.class);
-            bind(NamedEntityProvider.class).toInstance(new NamedEntityProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())))));
+            bind(NamedEntityProvider.class).toInstance(new NamedEntityProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder()));
         }
     }
 }
