@@ -9,7 +9,7 @@ import com.steambeat.domain.uri.UriEvent;
 public class AlchemyEntityAnalyzer {
 
     @Inject
-    public AlchemyEntityAnalyzer(final NamedEntityProvider NamedEntityProvider, final KeywordService associationService) {
+    public AlchemyEntityAnalyzer(final NamedEntityProvider namedEntityProvider, final KeywordService associationService) {
         //this.NamedEntityProvider = NamedEntityProvider;
         //this.associationService = associationService;
         DomainEventBus.INSTANCE.register(this);

@@ -5,7 +5,7 @@ import java.io.*;
 public class FakeJsonAlchemyLink extends AlchemyLink {
 
     @Override
-    public InputStream get(final String webPageUri) {
+    public InputStream get(final String uri) {
         File file = new File("steambeat-application/src/test/java/com/steambeat/domain/alchemy/alchemy.json");
         if (!file.exists()) {
             file = new File("src/test/java/com/steambeat/domain/alchemy/alchemy.json");

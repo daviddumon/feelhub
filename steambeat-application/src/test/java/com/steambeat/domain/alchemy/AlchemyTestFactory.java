@@ -128,6 +128,17 @@ public class AlchemyTestFactory {
         alchemyJsonEntity.disambiguated.name = "name";
         alchemyJsonEntity.disambiguated.geo = "geo";
         alchemyJsonEntity.disambiguated.website = "website";
+        alchemyJsonEntity.disambiguated.dbpedia = "dbpedia";
+        alchemyJsonEntity.disambiguated.yago = "yago";
+        alchemyJsonEntity.disambiguated.opencyc = "opencyc";
+        alchemyJsonEntity.disambiguated.umbel = "umbel";
+        alchemyJsonEntity.disambiguated.freebase = "freebase";
+        alchemyJsonEntity.disambiguated.ciaFactbook = "ciaFactbook";
+        alchemyJsonEntity.disambiguated.census = "census";
+        alchemyJsonEntity.disambiguated.geonames = "geonames";
+        alchemyJsonEntity.disambiguated.musicBrainz = "musicBrainz";
+        alchemyJsonEntity.disambiguated.crunchbase = "crunchbase";
+        alchemyJsonEntity.disambiguated.semanticCrunchbase = "semanticCrunchbase";
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");

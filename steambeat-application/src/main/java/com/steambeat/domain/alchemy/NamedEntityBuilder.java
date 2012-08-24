@@ -1,27 +1,17 @@
 package com.steambeat.domain.alchemy;
 
-import com.google.inject.Inject;
-import com.steambeat.application.KeywordService;
 import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
-import com.steambeat.domain.keyword.KeywordNotFound;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 
-import java.util.UUID;
 import java.util.regex.*;
 
 public class NamedEntityBuilder {
-
-    @Inject
-    public NamedEntityBuilder(final KeywordService associationService) {
-        this.associationService = associationService;
-    }
 
     public NamedEntity build(final AlchemyJsonEntity alchemyJsonEntity) {
         final NamedEntity entity = new NamedEntity();
         addKeywords(entity, alchemyJsonEntity);
         addFields(entity, alchemyJsonEntity);
         addName(entity, alchemyJsonEntity);
-        addConcept(entity, alchemyJsonEntity);
         addLanguage(entity, alchemyJsonEntity);
         return entity;
     }
@@ -84,6 +74,17 @@ public class NamedEntityBuilder {
             entity.subType = alchemyJsonEntity.disambiguated.subType;
             entity.website = alchemyJsonEntity.disambiguated.website;
             entity.geo = alchemyJsonEntity.disambiguated.geo;
+            entity.opencyc = alchemyJsonEntity.disambiguated.opencyc;
+            entity.census = alchemyJsonEntity.disambiguated.census;
+            entity.ciaFactbook = alchemyJsonEntity.disambiguated.ciaFactbook;
+            entity.crunchbase = alchemyJsonEntity.disambiguated.crunchbase;
+            entity.semanticCrunchbase = alchemyJsonEntity.disambiguated.semanticCrunchbase;
+            entity.musicBrainz = alchemyJsonEntity.disambiguated.musicBrainz;
+            entity.dbpedia = alchemyJsonEntity.disambiguated.dbpedia;
+            entity.freebase = alchemyJsonEntity.disambiguated.freebase;
+            entity.geonames = alchemyJsonEntity.disambiguated.geonames;
+            entity.yago = alchemyJsonEntity.disambiguated.yago;
+            entity.umbel = alchemyJsonEntity.disambiguated.umbel;
         }
     }
 
@@ -97,25 +98,6 @@ public class NamedEntityBuilder {
         } else {
             entity.name = alchemyJsonEntity.disambiguated.name;
         }
-    }
-
-    private void addConcept(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
-        entity.conceptId = findConceptForBothEntities(alchemyJsonEntity);
-    }
-
-    private UUID findConceptForBothEntities(final AlchemyJsonEntity alchemyJsonEntity) {
-        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString(alchemyJsonEntity.language);
-        try {
-            return associationService.lookUp(alchemyJsonEntity.text, steambeatLanguage).getReferenceId();
-        } catch (KeywordNotFound textNotFound) {
-            if (!alchemyJsonEntity.disambiguated.name.isEmpty() && alchemyJsonEntity.disambiguated.name != alchemyJsonEntity.text) {
-                try {
-                    return associationService.lookUp(alchemyJsonEntity.disambiguated.name, steambeatLanguage).getReferenceId();
-                } catch (KeywordNotFound nameNotFound) {
-                }
-            }
-        }
-        return null;
     }
 
     private void addLanguage(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
@@ -132,14 +114,13 @@ public class NamedEntityBuilder {
                 || alchemyJsonEntity.type.equalsIgnoreCase("Technology")
                 || alchemyJsonEntity.type.equalsIgnoreCase("Movie")
                 || alchemyJsonEntity.type.equalsIgnoreCase("TelevisionStation")
+                || alchemyJsonEntity.type.equalsIgnoreCase("Brand")
                 ) {
-            entity.steambeatLanguage = SteambeatLanguage.forString("");
+            entity.steambeatLanguage = SteambeatLanguage.none();
         } else {
             entity.steambeatLanguage = SteambeatLanguage.forString(alchemyJsonEntity.language);
         }
     }
-
-    private KeywordService associationService;
 
     private static int TOO_SMALL = 3;
 }

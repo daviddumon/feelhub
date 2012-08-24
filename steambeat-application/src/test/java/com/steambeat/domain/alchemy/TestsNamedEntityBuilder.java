@@ -1,20 +1,14 @@
 package com.steambeat.domain.alchemy;
 
-import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.readmodel.AlchemyJsonEntity;
-import com.steambeat.domain.keyword.KeywordFactory;
-import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
-import java.util.UUID;
-
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-@Ignore
 public class TestsNamedEntityBuilder {
 
     @Rule
@@ -22,7 +16,7 @@ public class TestsNamedEntityBuilder {
 
     @Before
     public void before() {
-        namedEntityBuilder = new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())));
+        namedEntityBuilder = new NamedEntityBuilder();
     }
 
     @Test
@@ -136,43 +130,17 @@ public class TestsNamedEntityBuilder {
         assertThat(namedEntity.subType, is(alchemyJsonEntity.disambiguated.subType));
         assertThat(namedEntity.website, is(alchemyJsonEntity.disambiguated.website));
         assertThat(namedEntity.geo, is(alchemyJsonEntity.disambiguated.geo));
-    }
-
-    @Test
-    public void canFindExistingConceptForAlchemyEntityText() {
-        //final Tag tag = new Tag("text");
-        final UUID uuid = UUID.randomUUID();
-        //TestFactories.associations().newAssociation(tag, uuid, Language.forString("english"));
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
-
-        final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
-
-        assertThat(namedEntity.conceptId, is(uuid));
-    }
-
-    @Test
-    public void useLanguageForConceptFinding() {
-        //final Tag tag = new Tag("text");
-        final UUID uuid = UUID.randomUUID();
-        //TestFactories.associations().newAssociation(tag, uuid, Language.forString("english"));
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
-        alchemyJsonEntity.language = "french";
-
-        final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
-
-        assertNull(namedEntity.conceptId);
-    }
-
-    @Test
-    public void canFindExistingConceptForAlchemyEntityName() {
-        //final Tag tag = new Tag("name");
-        final UUID uuid = UUID.randomUUID();
-        //TestFactories.associations().newAssociation(tag, uuid, Language.forString("english"));
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
-
-        final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
-
-        assertThat(namedEntity.conceptId, is(uuid));
+        assertThat(namedEntity.dbpedia, is(alchemyJsonEntity.disambiguated.dbpedia));
+        assertThat(namedEntity.yago, is(alchemyJsonEntity.disambiguated.yago));
+        assertThat(namedEntity.opencyc, is(alchemyJsonEntity.disambiguated.opencyc));
+        assertThat(namedEntity.umbel, is(alchemyJsonEntity.disambiguated.umbel));
+        assertThat(namedEntity.freebase, is(alchemyJsonEntity.disambiguated.freebase));
+        assertThat(namedEntity.ciaFactbook, is(alchemyJsonEntity.disambiguated.ciaFactbook));
+        assertThat(namedEntity.census, is(alchemyJsonEntity.disambiguated.census));
+        assertThat(namedEntity.geonames, is(alchemyJsonEntity.disambiguated.geonames));
+        assertThat(namedEntity.musicBrainz, is(alchemyJsonEntity.disambiguated.musicBrainz));
+        assertThat(namedEntity.crunchbase, is(alchemyJsonEntity.disambiguated.crunchbase));
+        assertThat(namedEntity.semanticCrunchbase, is(alchemyJsonEntity.disambiguated.semanticCrunchbase));
     }
 
     @Test
@@ -182,7 +150,7 @@ public class TestsNamedEntityBuilder {
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.steambeatLanguage, is(SteambeatLanguage.forString("")));
+        assertThat(namedEntity.steambeatLanguage, is(SteambeatLanguage.none()));
     }
 
     private NamedEntityBuilder namedEntityBuilder;

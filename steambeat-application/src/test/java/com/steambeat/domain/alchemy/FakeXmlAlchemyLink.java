@@ -5,7 +5,7 @@ import java.io.*;
 public class FakeXmlAlchemyLink extends AlchemyLink {
 
     @Override
-    public InputStream get(final String webPageUri) {
+    public InputStream get(final String uri) {
         File file = new File("steambeat-application/src/test/java/com/steambeat/domain/relation/alchemy/alchemy.xml");
         if (!file.exists()) {
             file = new File("src/test/java/com/steambeat/domain/relation/alchemy/alchemy.xml");

@@ -12,8 +12,8 @@ public class AlchemyLink {
         apiKey = steambeatApplicationProperties.getAlchemyApiKey();
     }
 
-    public InputStream get(final String webPageUri) {
-        final String alchemyUri = buildUri(webPageUri);
+    public InputStream get(final String uri) {
+        final String alchemyUri = buildUri(uri);
         URL url = null;
         try {
             url = new URL(alchemyUri);
@@ -28,14 +28,14 @@ public class AlchemyLink {
         return null;
     }
 
-    private String buildUri(final String webPageUri) {
-        final StringBuilder uri = new StringBuilder();
+    private String buildUri(final String uri) {
+        final StringBuilder uriBuilder = new StringBuilder();
         try {
-            uri.append(requestUri).append(apiKey).append("&url=").append(URLEncoder.encode(webPageUri, "UTF-8")).append("&linkedData=0");
+            uriBuilder.append(requestUri).append(apiKey).append("&url=").append(URLEncoder.encode(uri, "UTF-8")).append("&linkedData=0");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return uri.toString();
+        return uriBuilder.toString();
     }
 
     private final String apiKey;

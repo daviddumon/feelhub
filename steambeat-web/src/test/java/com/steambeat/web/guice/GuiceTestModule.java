@@ -35,7 +35,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(MigrationRunner.class).to(FakeMigrationRunner.class);
         bind(MigrationFilter.class).to(FakeMigrationFilter.class);
         bind(Scraper.class).to(FakeScraper.class);
-        bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())))));
+        bind(NamedEntityProvider.class).toInstance(new NamedEntityProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())))));
         bind(ConceptTranslator.class).to(FakeConceptTranslator.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);

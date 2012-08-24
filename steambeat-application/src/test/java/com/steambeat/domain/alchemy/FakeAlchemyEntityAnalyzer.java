@@ -7,7 +7,7 @@ import com.steambeat.domain.reference.ReferenceFactory;
 public class FakeAlchemyEntityAnalyzer extends AlchemyEntityAnalyzer {
 
     public FakeAlchemyEntityAnalyzer() {
-        super(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())))), new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())));
+        super(new NamedEntityProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder()), new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())));
     }
 
     @Override
