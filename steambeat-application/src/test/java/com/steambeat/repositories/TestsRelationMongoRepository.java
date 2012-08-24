@@ -3,7 +3,7 @@ package com.steambeat.repositories;
 import com.mongodb.*;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.relation.*;
-import com.steambeat.test.TestFactories;
+import com.steambeat.test.*;
 import org.junit.*;
 
 import java.util.List;
@@ -12,6 +12,9 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class TestsRelationMongoRepository extends TestWithMongoRepository {
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Before
     public void before() {
@@ -36,6 +39,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
         assertThat(relationFound.get("toId").toString(), is(relation.getToId().toString()));
         assertThat(relationFound.get("creationDate"), is((Object) relation.getCreationDate().getMillis()));
         assertThat(relationFound.get("weight"), is((Object) 1.0));
+        assertThat(relationFound.get("creationDate"), is((Object) time.getNow().getMillis()));
+        assertThat(relationFound.get("lastModificationDate"), is((Object) time.getNow().getMillis()));
     }
 
     @Test

@@ -1,7 +1,6 @@
 package com.steambeat.domain.illustration;
 
 import com.steambeat.domain.BaseEntity;
-import org.joda.time.DateTime;
 
 import java.util.UUID;
 
@@ -15,8 +14,6 @@ public class Illustration extends BaseEntity {
         this.id = UUID.randomUUID();
         this.referenceId = referenceId;
         this.link = link;
-        this.creationDate = new DateTime();
-        this.lastModificationDate = this.creationDate;
     }
 
     @Override
@@ -26,14 +23,6 @@ public class Illustration extends BaseEntity {
 
     public String getLink() {
         return link;
-    }
-
-    public DateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public DateTime getLastModificationDate() {
-        return lastModificationDate;
     }
 
     public UUID getReferenceId() {
@@ -46,7 +35,5 @@ public class Illustration extends BaseEntity {
 
     private UUID id;
     private String link;
-    private DateTime creationDate;
-    private DateTime lastModificationDate;
     private UUID referenceId;
 }

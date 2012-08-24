@@ -12,8 +12,8 @@ public class ReferenceMapping extends EntityMap<Reference> {
     @Override
     protected void map() {
         id(element().getId()).natural();
+        property(element().isActive());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
-        property(element().isActive());
     }
 }

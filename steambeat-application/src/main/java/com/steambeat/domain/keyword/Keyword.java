@@ -3,7 +3,6 @@ package com.steambeat.domain.keyword;
 import com.google.common.base.Objects;
 import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import org.joda.time.DateTime;
 
 import java.util.UUID;
 
@@ -18,8 +17,6 @@ public class Keyword extends BaseEntity {
         this.value = value;
         this.languageCode = steambeatLanguage.getCode();
         this.referenceId = referenceId;
-        this.creationDate = new DateTime();
-        this.lastModificationDate = this.creationDate;
     }
 
     @Override
@@ -66,14 +63,6 @@ public class Keyword extends BaseEntity {
         return referenceId;
     }
 
-    public DateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public DateTime getLastModificationDate() {
-        return lastModificationDate;
-    }
-
     public void setReferenceId(final UUID referenceId) {
         this.referenceId = referenceId;
     }
@@ -82,6 +71,4 @@ public class Keyword extends BaseEntity {
     private String value;
     private String languageCode;
     private UUID referenceId;
-    private DateTime creationDate;
-    private DateTime lastModificationDate;
 }

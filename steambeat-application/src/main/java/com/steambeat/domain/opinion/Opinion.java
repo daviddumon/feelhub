@@ -34,10 +34,6 @@ public class Opinion extends BaseEntity {
         return text;
     }
 
-    public DateTime getCreationDate() {
-        return creationDate;
-    }
-
     public Date getCreationDateAsDate() {
         return creationDate.toDate();
     }
@@ -48,6 +44,5 @@ public class Opinion extends BaseEntity {
 
     private UUID id;
     private String text;
-    private final DateTime creationDate = new DateTime();
     private final List<Judgment> judgments = Lists.newArrayList();
 }

@@ -3,7 +3,6 @@ package com.steambeat.domain.relation;
 import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.Repositories;
-import org.joda.time.DateTime;
 
 import java.util.UUID;
 
@@ -17,7 +16,6 @@ public class Relation extends BaseEntity {
         this.id = UUID.randomUUID();
         fromId = from.getId();
         toId = to.getId();
-        this.creationDate = new DateTime();
         this.weight = weight;
     }
 
@@ -40,10 +38,6 @@ public class Relation extends BaseEntity {
 
     public UUID getToId() {
         return toId;
-    }
-
-    public DateTime getCreationDate() {
-        return creationDate;
     }
 
     public double getWeight() {
@@ -70,5 +64,4 @@ public class Relation extends BaseEntity {
     private UUID fromId;
     private UUID toId;
     private UUID id;
-    private DateTime creationDate;
 }

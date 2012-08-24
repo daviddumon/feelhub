@@ -12,8 +12,9 @@ public class OpinionMapping extends EntityMap<Opinion> {
     @Override
     protected void map() {
         id(element().getId()).natural();
-        property(element().getCreationDate());
         property(element().getText());
         collection(element().getJudgments());
+        property(element().getCreationDate());
+        property(element().getLastModificationDate());
     }
 }

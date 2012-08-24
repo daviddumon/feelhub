@@ -3,12 +3,16 @@ package com.steambeat.repositories;
 import com.mongodb.*;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.user.User;
+import com.steambeat.test.SystemTime;
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class TestsUserMongoRepository extends TestWithMongoRepository {
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Before
     public void before() {
@@ -34,6 +38,8 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         assertThat(userFound.get("language"), is((Object) user.getLanguage()));
         assertThat(userFound.get("active"), is((Object) user.isActive()));
         assertThat(userFound.get("secret"), is((Object) user.getSecret()));
+        assertThat(userFound.get("creationDate"), is((Object) time.getNow().getMillis()));
+        assertThat(userFound.get("lastModificationDate"), is((Object) time.getNow().getMillis()));
     }
 
     @Test

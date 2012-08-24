@@ -13,5 +13,7 @@ public class SessionMapping extends EntityMap<Session> {
     protected void map() {
         id(element().getEmail()).natural();
         property(element().getToken());
+        property(element().getCreationDate());
+        property(element().getLastModificationDate());
     }
 }

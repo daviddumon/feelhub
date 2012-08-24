@@ -3,6 +3,7 @@ package com.steambeat.repositories;
 import com.mongodb.*;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.session.Session;
+import com.steambeat.test.SystemTime;
 import org.junit.*;
 
 import java.util.UUID;
@@ -11,6 +12,9 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class TestsSessionMongoRepository extends TestWithMongoRepository {
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Before
     public void before() {
@@ -31,6 +35,8 @@ public class TestsSessionMongoRepository extends TestWithMongoRepository {
         assertThat(sessionFound.get("_id"), is(session.getId()));
         assertThat(sessionFound.get("_id"), is((Object) session.getEmail()));
         assertThat(sessionFound.get("token"), is((Object) session.getToken()));
+        assertThat(sessionFound.get("creationDate"), is((Object) time.getNow().getMillis()));
+        assertThat(sessionFound.get("lastModificationDate"), is((Object) time.getNow().getMillis()));
     }
 
     @Test

@@ -32,6 +32,7 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
         assertThat(opinionFound.get("_id"), is((Object) opinion.getId()));
         assertThat(opinionFound.get("text").toString(), is(opinion.getText()));
         assertThat(opinionFound.get("creationDate"), is((Object) opinion.getCreationDate().getMillis()));
+        assertThat(opinionFound.get("lastModificationDate"), is((Object) opinion.getCreationDate().getMillis()));
     }
 
     @Test

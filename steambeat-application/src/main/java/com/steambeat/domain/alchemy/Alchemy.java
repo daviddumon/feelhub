@@ -15,8 +15,6 @@ public class Alchemy extends BaseEntity {
     public Alchemy(final UUID referenceId) {
         this.referenceId = referenceId;
         this.id = UUID.randomUUID();
-        this.creationDate = new DateTime();
-        this.lastModificationDate = this.creationDate;
     }
 
     @Override
@@ -152,22 +150,6 @@ public class Alchemy extends BaseEntity {
         this.semanticcrunchbase = semanticcrunchbase;
     }
 
-    public DateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(final DateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public DateTime getLastModificationDate() {
-        return lastModificationDate;
-    }
-
-    public void setLastModificationDate(final DateTime lastModificationDate) {
-        this.lastModificationDate = lastModificationDate;
-    }
-
     private UUID id;
     private UUID referenceId;
     private String type = "";
@@ -185,6 +167,4 @@ public class Alchemy extends BaseEntity {
     private String musicbrainz = "";
     private String crunchbase = "";
     private String semanticcrunchbase = "";
-    private DateTime creationDate;
-    private DateTime lastModificationDate;
 }
