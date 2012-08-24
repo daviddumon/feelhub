@@ -16,7 +16,6 @@ public class AlchemyEntityAnalyzer {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(final UriEvent event) {
         //analyze(event.getUri());
     }

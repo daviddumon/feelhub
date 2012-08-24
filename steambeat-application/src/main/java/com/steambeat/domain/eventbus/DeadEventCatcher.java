@@ -9,7 +9,6 @@ public class DeadEventCatcher {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(DeadEvent deadEvent) {
         final SteambeatDeadEvent steambeatDeadEvent = new SteambeatDeadEvent(deadEvent);
         DomainEventBus.INSTANCE.getEvents().add(steambeatDeadEvent);

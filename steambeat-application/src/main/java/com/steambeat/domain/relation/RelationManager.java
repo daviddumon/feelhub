@@ -1,6 +1,6 @@
 package com.steambeat.domain.relation;
 
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.reference.ReferencesChangedEvent;
@@ -17,7 +17,6 @@ public class RelationManager {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(final ReferencesChangedEvent event) {
         sessionProvider.start();
         for (UUID referenceId : event.getReferenceIds()) {

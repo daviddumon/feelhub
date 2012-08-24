@@ -17,7 +17,6 @@ public class StatisticsFactory {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(final JudgmentCreatedEvent event) {
         sessionProvider.start();
         judgmentOn(event);

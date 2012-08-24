@@ -23,7 +23,6 @@ public class UriManager {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(final UriEvent event) {
         sessionProvider.start();
         try {

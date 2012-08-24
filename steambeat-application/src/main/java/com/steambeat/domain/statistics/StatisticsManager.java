@@ -17,7 +17,6 @@ public class StatisticsManager {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(final ReferencesChangedEvent event) {
         sessionProvider.start();
         for (UUID referenceId : event.getReferenceIds()) {

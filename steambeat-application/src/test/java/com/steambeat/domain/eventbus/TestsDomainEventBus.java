@@ -65,7 +65,6 @@ public class TestsDomainEventBus {
     private class SimpleEventListener {
 
         @Subscribe
-        @AllowConcurrentEvents
         public void handle(OpinionCreatedEvent opinionCreatedEvent) {
 
         }

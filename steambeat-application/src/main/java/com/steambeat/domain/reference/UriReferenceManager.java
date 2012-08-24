@@ -15,7 +15,6 @@ public class UriReferenceManager extends ReferenceManager {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(final CompleteUriEvent event) {
         sessionProvider.start();
         getAllReferences(event);

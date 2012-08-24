@@ -19,7 +19,6 @@ public class SubjectIdentifier {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(final KeywordCreatedEvent event) {
         sessionProvider.start();
         final Keyword keyword = event.getKeyword();

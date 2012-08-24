@@ -22,7 +22,6 @@ public class ConceptTranslator {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void translate(final ConceptEvent event) {
         sessionProvider.start();
         for (Keyword keyword : event.getKeywords()) {

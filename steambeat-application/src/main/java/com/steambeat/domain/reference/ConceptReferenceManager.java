@@ -15,7 +15,6 @@ public class ConceptReferenceManager extends ReferenceManager {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(final ConceptTranslatedEvent event) {
         sessionProvider.start();
         getAllReferences(event);

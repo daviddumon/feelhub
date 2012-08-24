@@ -17,7 +17,6 @@ public class KeywordManager {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(final ReferencesChangedEvent referencesChangedEvent) {
         sessionProvider.start();
         final UUID newReference = referencesChangedEvent.getNewReferenceId();

@@ -12,7 +12,7 @@ import com.steambeat.repositories.*;
 
 import java.util.*;
 
-public class ConceptIllustrationManager {
+public class ConceptIllustrationManager extends IllustrationManager {
 
     @Inject
     public ConceptIllustrationManager(final BingLink bingLink, final SessionProvider sessionProvider) {
@@ -22,7 +22,6 @@ public class ConceptIllustrationManager {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void handle(final ConceptReferencesChangedEvent eventConcept) {
         sessionProvider.start();
         final List<Illustration> illustrations = getAllIllustrations(eventConcept);
