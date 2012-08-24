@@ -1,31 +1,45 @@
 package com.steambeat.domain.alchemy;
 
-public class TestsAlchemyEntityAnalyzer {
+import com.steambeat.application.*;
+import com.steambeat.domain.eventbus.*;
+import com.steambeat.domain.keyword.KeywordFactory;
+import com.steambeat.domain.reference.*;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.TestFactories;
+import org.junit.*;
 
-    //@Rule
-    //public WithFakeRepositories repositories = new WithFakeRepositories();
-    //
-    //@Before
-    //public void setUp() throws Exception {
-    //    entityProvider = mock(NamedEntityProvider.class);
-    //    analyzer = new AlchemyEntityAnalyzer(entityProvider, new AssociationService(new FakeUriPathResolver(), new FakeMicrosoftTranslator()), new FakeConceptFactory());
-    //}
-    //
-    //@Test
-    //public void ifNoKeywordsCreateNothing() {
-    //    final Uri uri = TestFactories.uris().newUri();
-    //    when(entityProvider.entitiesFor(uri)).thenReturn(TestFactories.alchemy().namedEntityWithoutKeywords());
-    //
-    //    analyzer.analyze(uri);
-    //
+import static org.mockito.Mockito.*;
+
+public class TestsAlchemyAnalyzer {
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
+
+    @Before
+    public void setUp() throws Exception {
+        entityProvider = mock(NamedEntityProvider.class);
+        analyzer = new AlchemyAnalyzer(entityProvider, new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())));
+    }
+
+    @Test
+    public void ifNoKeywordsCreateNothing() {
+        when(entityProvider.entitiesFor(anyString())).thenReturn(TestFactories.namedEntities().namedEntityWithoutKeywords());
+        final Reference reference = TestFactories.references().newReference();
+        final UriReferencesChangedEvent event = TestFactories.events().newUriReferencesChangedEvent(reference.getId());
+
+        DomainEventBus.INSTANCE.post(event);
+
     //    final List<Subject> uris = Repositories.uris().getAll();
     //    assertThat(uris.size(), is(1));
     //    final List<Association> associations = Repositories.associations().getAll();
     //    assertThat(associations.size(), is(1));
     //    final List<Relation> relations = Repositories.relations().getAll();
     //    assertThat(relations.size(), is(0));
-    //}
-    //
+    }
+
     //@Test
     //public void doNotCreateConceptFromExistingConcept() {
     //    final Uri uri = TestFactories.uris().newUri();
@@ -154,6 +168,6 @@ public class TestsAlchemyEntityAnalyzer {
     //    assertThat(relation.getRight(), is(right));
     //}
     //
-    //private NamedEntityProvider entityProvider;
-    //private AlchemyEntityAnalyzer analyzer;
+    private NamedEntityProvider entityProvider;
+    private AlchemyAnalyzer analyzer;
 }

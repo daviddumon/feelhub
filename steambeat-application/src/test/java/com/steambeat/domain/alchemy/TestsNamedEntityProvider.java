@@ -1,13 +1,15 @@
 package com.steambeat.domain.alchemy;
 
-import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.TestFactories;
 import org.junit.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsNamedEntityProvider {
 
@@ -21,12 +23,12 @@ public class TestsNamedEntityProvider {
 
     @Test
     public void canGetNamedEntitiesForAWebPage() {
-        final Reference reference = TestFactories.references().newReference();
+        final String uri = "http://www.mypage.com";
 
-        //final List<NamedEntity> results = alchemyNamedEntityJsonProvider.entitiesFor(reference);
-        //
-        //assertThat(results, notNullValue());
-        //assertThat(results.size(), is(19));
+        final List<NamedEntity> results = alchemyNamedEntityProvider.entitiesFor(uri);
+
+        assertThat(results, notNullValue());
+        assertThat(results.size(), is(19));
     }
 
     private NamedEntityProvider alchemyNamedEntityProvider;

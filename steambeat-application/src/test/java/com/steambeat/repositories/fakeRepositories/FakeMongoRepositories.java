@@ -1,6 +1,7 @@
 package com.steambeat.repositories.fakeRepositories;
 
 import com.steambeat.domain.Repository;
+import com.steambeat.domain.alchemy.AlchemyRepository;
 import com.steambeat.domain.illustration.IllustrationRepository;
 import com.steambeat.domain.keyword.KeywordRepository;
 import com.steambeat.domain.opinion.OpinionRepository;
@@ -12,6 +13,11 @@ import com.steambeat.domain.user.UserRepository;
 import com.steambeat.repositories.Repositories;
 
 public class FakeMongoRepositories extends Repositories {
+
+    @Override
+    protected AlchemyRepository getAlchemyRepository() {
+        return alchemyRepository;
+    }
 
     @Override
     protected IllustrationRepository getIllustrationRepository() {
@@ -61,4 +67,5 @@ public class FakeMongoRepositories extends Repositories {
     private final FakeReferenceRepository referenceRepository = new FakeReferenceRepository();
     private final FakeKeywordRepository keywordRepository = new FakeKeywordRepository();
     private final FakeIllustrationRepository illustrationRepository = new FakeIllustrationRepository();
+    private final AlchemyRepository alchemyRepository = new FakeAlchemyRepository();
 }

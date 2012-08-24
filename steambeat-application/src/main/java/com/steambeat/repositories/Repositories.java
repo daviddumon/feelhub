@@ -1,6 +1,7 @@
 package com.steambeat.repositories;
 
 import com.steambeat.domain.Repository;
+import com.steambeat.domain.alchemy.AlchemyRepository;
 import com.steambeat.domain.illustration.IllustrationRepository;
 import com.steambeat.domain.keyword.KeywordRepository;
 import com.steambeat.domain.opinion.OpinionRepository;
@@ -47,6 +48,12 @@ public abstract class Repositories {
     public static IllustrationRepository illustrations() {
         return Repositories.soleInstance.getIllustrationRepository();
     }
+
+    public static AlchemyRepository alchemys() {
+        return Repositories.soleInstance.getAlchemyRepository();
+    }
+
+    protected abstract AlchemyRepository getAlchemyRepository();
 
     protected abstract IllustrationRepository getIllustrationRepository();
 

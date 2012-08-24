@@ -21,7 +21,7 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void canFindKeywordsFromGoodEntity() {
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
 
@@ -34,7 +34,7 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void canFindKeywordsFromGoodEntityWithouDisambiguated() {
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntityWithoutDisambiguated();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntityWithoutDisambiguated();
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
 
@@ -46,7 +46,7 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void addOnlyOneKeywordIfTextAndNameAreTheSame() {
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntityWithoutDisambiguated();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntityWithoutDisambiguated();
         alchemyJsonEntity.disambiguated.name = alchemyJsonEntity.text;
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
@@ -59,7 +59,7 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void checkForSizeOfText() {
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
         alchemyJsonEntity.text = "la";
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
@@ -71,7 +71,7 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void checkForSizeOfName() {
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
         alchemyJsonEntity.disambiguated.name = "la";
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
@@ -83,7 +83,7 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void checkForSpecialCharacterInText() {
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
         alchemyJsonEntity.text = "text-";
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
@@ -95,7 +95,7 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void checkForSpecialCharacterInName() {
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
         alchemyJsonEntity.disambiguated.name = "name{";
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
@@ -107,7 +107,7 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void canReturnGoodValuesForEntityWithoutDisambiguated() {
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntityWithoutDisambiguated();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntityWithoutDisambiguated();
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
 
@@ -119,7 +119,7 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void canReturnGoodValuesForEntityWithDisambiguated() {
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
 
@@ -145,7 +145,7 @@ public class TestsNamedEntityBuilder {
 
     @Test
     public void languageDependsOnType() {
-        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.alchemy().alchemyJsonEntity();
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
         alchemyJsonEntity.type = "Automobile";
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);

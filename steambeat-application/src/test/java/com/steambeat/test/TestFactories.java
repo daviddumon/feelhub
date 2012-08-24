@@ -1,6 +1,6 @@
 package com.steambeat.test;
 
-import com.steambeat.domain.alchemy.AlchemyTestFactory;
+import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.eventbus.DomainEventFactoryForTest;
 import com.steambeat.domain.illustration.IllustrationTestFactory;
 import com.steambeat.domain.keyword.KeywordTestFactory;
@@ -28,8 +28,8 @@ public class TestFactories {
         return new StatisticsTestFactory();
     }
 
-    public static AlchemyTestFactory alchemy() {
-        return new AlchemyTestFactory();
+    public static NamedEntityTestFactory namedEntities() {
+        return new NamedEntityTestFactory();
     }
 
     public static RelationTestFactory relations() {
@@ -58,5 +58,9 @@ public class TestFactories {
 
     public static DomainEventFactoryForTest events() {
         return new DomainEventFactoryForTest();
+    }
+
+    public static AlchemyTestFactory alchemy() {
+        return new AlchemyTestFactory();
     }
 }

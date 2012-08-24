@@ -4,9 +4,9 @@ import com.steambeat.application.*;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.ReferenceFactory;
 
-public class FakeAlchemyEntityAnalyzer extends AlchemyEntityAnalyzer {
+public class FakeAlchemyAnalyzer extends AlchemyAnalyzer {
 
-    public FakeAlchemyEntityAnalyzer() {
+    public FakeAlchemyAnalyzer() {
         super(new NamedEntityProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder()), new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())));
     }
 

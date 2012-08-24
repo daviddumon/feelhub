@@ -6,10 +6,10 @@ import com.steambeat.application.KeywordService;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.uri.UriEvent;
 
-public class AlchemyEntityAnalyzer {
+public class AlchemyAnalyzer {
 
     @Inject
-    public AlchemyEntityAnalyzer(final NamedEntityProvider namedEntityProvider, final KeywordService associationService) {
+    public AlchemyAnalyzer(final NamedEntityProvider namedEntityProvider, final KeywordService associationService) {
         //this.NamedEntityProvider = NamedEntityProvider;
         //this.associationService = associationService;
         DomainEventBus.INSTANCE.register(this);
