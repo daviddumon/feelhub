@@ -4,11 +4,7 @@ import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.keyword.KeywordNotFound;
-import com.steambeat.domain.relation.*;
-import com.steambeat.domain.uri.*;
-
-import java.util.*;
+import com.steambeat.domain.uri.UriEvent;
 
 public class AlchemyEntityAnalyzer {
 
@@ -26,12 +22,12 @@ public class AlchemyEntityAnalyzer {
     }
 
     public void analyze(final String uri) {
-    //    final List<NamedEntity> namedEntities = NamedEntityProvider.entitiesFor(uri);
-    //    for (final NamedEntity namedEntity : namedEntities) {
-    //        if (!namedEntity.keywords.isEmpty()) {
-    //            handle(uri, namedEntity);
-    //        }
-    //    }
+        //    final List<NamedEntity> namedEntities = NamedEntityProvider.entitiesFor(uri);
+        //    for (final NamedEntity namedEntity : namedEntities) {
+        //        if (!namedEntity.keywords.isEmpty()) {
+        //            handle(uri, namedEntity);
+        //        }
+        //    }
     }
     //
     //private void handle(final String uri, final NamedEntity namedEntity) {

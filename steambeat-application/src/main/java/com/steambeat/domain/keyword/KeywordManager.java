@@ -3,7 +3,7 @@ package com.steambeat.domain.keyword;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.reference.*;
+import com.steambeat.domain.reference.ReferencesChangedEvent;
 import com.steambeat.repositories.*;
 
 import java.util.*;

@@ -1,4 +1,4 @@
-package com.steambeat.domain.scrapers.extractors;
+package com.steambeat.domain.scraper.extractors;
 
 import com.steambeat.test.FakeInternet;
 import org.jsoup.Jsoup;
@@ -137,14 +137,13 @@ public class TestsLogoExtractor {
 
     @Test
     public void canExtractFromDomainWithoutTLDPattern() {
-        //final String uri = internet.uri("logoextractor/withoutTLD");
-        //final Document document = getDocument(uri);
-        //final LogoExtractor extractorWithoutTLD = new LogoExtractor("logo", uri.withoutTLD());
-        //
-        //final String result = extractorWithoutTLD.apply(document);
-        //
-        //assertThat(uri.withoutTLD(), is("localhost"));
-        //assertThat(result, is("http://www.image.com/good.jpg"));
+        final String uri = internet.uri("logoextractor/withoutTLD");
+        final Document document = getDocument(uri);
+        final LogoExtractor extractorWithoutTLD = new LogoExtractor("logo", "localhost");
+
+        final String result = extractorWithoutTLD.apply(document);
+
+        assertThat(result, is("http://www.image.com/good.jpg"));
     }
 
     @Test

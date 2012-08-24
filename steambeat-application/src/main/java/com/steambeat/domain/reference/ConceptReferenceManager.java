@@ -4,7 +4,7 @@ import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import com.steambeat.domain.concept.ConceptTranslatedEvent;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.repositories.*;
+import com.steambeat.repositories.SessionProvider;
 
 public class ConceptReferenceManager extends ReferenceManager {
 

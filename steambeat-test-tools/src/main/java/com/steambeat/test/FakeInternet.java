@@ -2,7 +2,7 @@ package com.steambeat.test;
 
 import com.steambeat.test.fakeResources.*;
 import com.steambeat.test.fakeResources.alchemy.FakeAlchemyResource;
-import com.steambeat.test.fakeResources.scraper.UriScraperLogoPriority;
+import com.steambeat.test.fakeResources.scraper.ScraperLogoPriority;
 import com.steambeat.test.fakeResources.scraper.extractors.*;
 import com.steambeat.test.fakeResources.scraper.tools.*;
 import freemarker.template.*;
@@ -94,8 +94,8 @@ public class FakeInternet extends ExternalResource {
             }
 
             private void attachScrapersResources(final Router router) {
-                router.attach("/", UriScraperLogoPriority.class);
-                router.attach("/uriscraper/logopriority", UriScraperLogoPriority.class);
+                router.attach("/", ScraperLogoPriority.class);
+                router.attach("/scraper/logopriority", ScraperLogoPriority.class);
                 router.attach("/titleextractor/titletag", TitleExtractorResourceWithTitleTag.class);
                 router.attach("/titleextractor/titletagbadhtml", TitleExtractorResourceWithBadHtml.class);
                 router.attach("/firstelementextractor/h2tag", FirstElementExtractorResourceWithH2Tag.class);
@@ -129,7 +129,7 @@ public class FakeInternet extends ExternalResource {
         return FakeInternet.SERVER_ROOT + address;
     }
 
-    private static String SERVER_ROOT = "http://localhost:6162/";
+    public static String SERVER_ROOT = "http://localhost:6162/";
 
     private static Component component;
 }

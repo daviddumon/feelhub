@@ -1,4 +1,4 @@
-package com.steambeat.domain.scrapers.miner;
+package com.steambeat.domain.scraper.miner;
 
 import java.io.*;
 import java.net.*;

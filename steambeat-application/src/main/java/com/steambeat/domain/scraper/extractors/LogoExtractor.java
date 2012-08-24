@@ -1,8 +1,8 @@
-package com.steambeat.domain.scrapers.extractors;
+package com.steambeat.domain.scraper.extractors;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.scrapers.EmptyElement;
-import com.steambeat.domain.scrapers.miner.CSSMiner;
+import com.steambeat.domain.scraper.EmptyElement;
+import com.steambeat.domain.scraper.miner.CSSMiner;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 
@@ -10,8 +10,8 @@ import java.util.List;
 
 public class LogoExtractor extends Extractor {
 
-    public LogoExtractor(final String name, final String domainWithoutTLD) {
-        this.validTags = "logo|Logo|LOGO|banner|Banner|BANNER" + (notEmpty(domainWithoutTLD) ? "|" + domainWithoutTLD : "");
+    public LogoExtractor(final String name, final String domain) {
+        this.validTags = "logo|Logo|LOGO|banner|Banner|BANNER" + (notEmpty(domain) ? "|" + domain : "");
         this.name = name;
     }
 

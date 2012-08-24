@@ -1,34 +1,33 @@
-package com.steambeat.domain.scrapers;
+package com.steambeat.domain.scraper;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.keyword.Keyword;
-import com.steambeat.domain.scrapers.extractors.*;
+import com.steambeat.domain.scraper.extractors.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.util.*;
+import java.util.regex.*;
 
-public class UriScraper implements Scraper {
+public class Scraper {
 
-    @Override
-    public void scrap(final Keyword identifier) {
-        this.uri = identifier.getValue();
+    public void scrap(final String uri) {
+        this.uri = uri;
         addExtractors();
         getJSoupDocument();
         useExtractors();
     }
 
     private void addExtractors() {
-        this.extractors.add(new TitleExtractor());
-        this.extractors.add(new LastElementExtractor("h1", "h1"));
-        this.extractors.add(new FirstElementExtractor("h2", "h2"));
+        //this.extractors.add(new TitleExtractor());
+        //this.extractors.add(new LastElementExtractor("h1", "h1"));
+        //this.extractors.add(new FirstElementExtractor("h2", "h2"));
         this.extractors.add(new LogoExtractor("logo", uri));
         this.extractors.add(new ImageExtractor("image"));
     }
 
     private void getJSoupDocument() {
         try {
-            document = Jsoup.connect(uri.toString()).userAgent(USER_AGENT).timeout(THREE_SECONDS).get();
+            document = Jsoup.connect(uri).userAgent(USER_AGENT).timeout(THREE_SECONDS).get();
         } catch (Exception e) {
             e.printStackTrace();
             document = new Document("");
@@ -41,38 +40,25 @@ public class UriScraper implements Scraper {
         }
     }
 
-    @Override
-    public String getShortDescription() {
-        if (getDescription().length() < 40 && notEmpty(getDescription())) {
-            return getDescription();
-        } else {
-            return uri;
-        }
-    }
-
-    @Override
-    public String getDescription() {
-        if (notEmpty(scrapedTags.get("title"))) {
-            return scrapedTags.get("title");
-        } else if (notEmpty(scrapedTags.get("h1"))) {
-            return scrapedTags.get("h1");
-        } else if (notEmpty(scrapedTags.get("h2"))) {
-            return scrapedTags.get("h2");
-        }
-        return uri.toString();
-    }
-
     private boolean notEmpty(final String tag) {
         return !tag.isEmpty();
     }
 
-    @Override
     public String getIllustration() {
-        //if (uri.isFirstLevelUri()) {
-        return getIllustrationForFirstLevelDomain();
-        //} else {
-        //    return getIllustrationForNonFirstLevelDomain();
-        //}
+        if (Scraper.isFirstLevelUri(uri)) {
+            return getIllustrationForFirstLevelDomain();
+        } else {
+            return getIllustrationForNonFirstLevelDomain();
+        }
+    }
+
+    public static boolean isFirstLevelUri(final String uri) {
+        final Pattern first_level_check = Pattern.compile(".*[a-zA-Z0-9]/.+$");
+        final Matcher matcher = first_level_check.matcher(uri);
+        if (matcher.matches()) {
+            return false;
+        }
+        return true;
     }
 
     public String getIllustrationForFirstLevelDomain() {
@@ -97,7 +83,6 @@ public class UriScraper implements Scraper {
     private final List<Extractor> extractors = Lists.newArrayList();
     protected Map<String, String> scrapedTags = new HashMap<String, String>();
     private String uri;
-    private Keyword identifier;
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
     private final static int THREE_SECONDS = 3000;
 }

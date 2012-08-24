@@ -1,4 +1,4 @@
-package com.steambeat.domain.scrapers.extractors;
+package com.steambeat.domain.scraper.extractors;
 
 import com.steambeat.test.FakeInternet;
 import org.jsoup.Jsoup;
@@ -10,39 +10,39 @@ import java.io.IOException;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsLastElementExtractor {
+public class TestsTitleExtractor {
 
     @ClassRule
     public static FakeInternet internet = new FakeInternet();
 
     @Before
     public void before() {
-        lastElementExtractor = new LastElementExtractor("h1", "h1");
+        titleExtractor = new TitleExtractor();
     }
 
     @Test
     public void canGetName() {
-        assertThat(lastElementExtractor.getName(), is("h1"));
+        assertThat(titleExtractor.getName(), is("title"));
     }
 
     @Test
-    public void canFindH1Tag() {
-        final String uri = internet.uri("lastelementextractor/h1tag");
+    public void canExtractSimpleTitle() {
+        final String uri = internet.uri("titleextractor/titletag");
         final Document document = getDocument(uri);
 
-        final String result = lastElementExtractor.apply(document);
+        final String result = titleExtractor.apply(document);
 
-        assertThat(result, is("Second section"));
+        assertThat(result, is("Webpage title"));
     }
 
     @Test
-    public void canFindTextFromNestedElement() {
-        final String uri = internet.uri("lastelementextractor/bug/lemondefrnested");
+    public void canFindTitleTagWithBadHtml() {
+        final String uri = internet.uri("titleextractor/titletagbadhtml");
         final Document document = getDocument(uri);
 
-        final String result = lastElementExtractor.apply(document);
+        final String result = titleExtractor.apply(document);
 
-        assertThat(result, is("h1 text"));
+        assertThat(result, is("Webpage title"));
     }
 
     private Document getDocument(final String uri) {
@@ -53,5 +53,5 @@ public class TestsLastElementExtractor {
         }
     }
 
-    private LastElementExtractor lastElementExtractor;
+    private TitleExtractor titleExtractor;
 }

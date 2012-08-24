@@ -1,4 +1,4 @@
-package com.steambeat.domain.scrapers.extractors;
+package com.steambeat.domain.scraper.extractors;
 
 import org.jsoup.nodes.*;
 

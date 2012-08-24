@@ -5,10 +5,10 @@ import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.ReferenceFactory;
-import com.steambeat.domain.scrapers.UriScraper;
+import com.steambeat.domain.scraper.Scraper;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.repositories.fakeRepositories.FakeSessionProvider;
-import com.steambeat.test.FakeUriScraper;
+import com.steambeat.test.FakeScraper;
 import com.steambeat.web.resources.HomeResource;
 import org.junit.Test;
 import org.restlet.Context;
@@ -33,7 +33,7 @@ public class TestsGuiceFinder {
         @Override
         protected void configure() {
             bind(SessionProvider.class).to(FakeSessionProvider.class);
-            bind(UriScraper.class).to(FakeUriScraper.class);
+            bind(Scraper.class).to(FakeScraper.class);
             bind(NamedEntityProvider.class).toInstance(new NamedEntityJsonProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder(new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())))));
         }
     }

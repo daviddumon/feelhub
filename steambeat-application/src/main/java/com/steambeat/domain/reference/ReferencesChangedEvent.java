@@ -3,10 +3,10 @@ package com.steambeat.domain.reference;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.eventbus.DomainEvent;
 
-import java.util.*;
+import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public abstract class ReferencesChangedEvent extends DomainEvent{
+public abstract class ReferencesChangedEvent extends DomainEvent {
 
     public ReferencesChangedEvent(final UUID referenceId) {
         this.newReferenceId = referenceId;

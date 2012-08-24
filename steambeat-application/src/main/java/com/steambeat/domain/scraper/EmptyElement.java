@@ -1,4 +1,4 @@
-package com.steambeat.domain.scrapers;
+package com.steambeat.domain.scraper;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
