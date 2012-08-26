@@ -24,11 +24,11 @@ public class Relation extends BaseEntity {
         return id;
     }
 
-    public Reference getLeft() {
+    public Reference getFrom() {
         return Repositories.references().get(fromId);
     }
 
-    public Reference getRight() {
+    public Reference getTo() {
         return Repositories.references().get(toId);
     }
 
@@ -58,6 +58,10 @@ public class Relation extends BaseEntity {
 
     public void setToId(final UUID toId) {
         this.toId = toId;
+    }
+
+    public boolean isAutoRelation() {
+        return fromId.equals(toId);
     }
 
     private double weight;

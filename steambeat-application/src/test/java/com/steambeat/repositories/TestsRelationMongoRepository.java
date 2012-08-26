@@ -61,7 +61,7 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
         final Reference to = TestFactories.references().newReference();
         final Relation relation = TestFactories.relations().newRelation(from, to);
 
-        final Relation relationFound = repo.lookUp(from, to);
+        final Relation relationFound = repo.lookUp(from.getId(), to.getId());
 
         assertThat(relationFound, notNullValue());
         assertThat(relation.getId(), is(relationFound.getId()));

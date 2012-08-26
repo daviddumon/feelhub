@@ -1,7 +1,6 @@
 package com.steambeat.repositories;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.relation.*;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
@@ -16,10 +15,10 @@ public class RelationMongoRepository extends BaseMongoRepository<Relation> imple
     }
 
     @Override
-    public Relation lookUp(final Reference from, final Reference to) {
+    public Relation lookUp(final UUID fromId, final UUID toId) {
         final Criteria criteria = getSession().createCriteria(Relation.class);
-        criteria.add(Restrictions.equals("fromId", from.getId()));
-        criteria.add(Restrictions.equals("toId", to.getId()));
+        criteria.add(Restrictions.equals("fromId", fromId));
+        criteria.add(Restrictions.equals("toId", toId));
         final List<Relation> relations = criteria.list();
         if (relations.isEmpty()) {
             return null;

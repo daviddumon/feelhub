@@ -30,20 +30,40 @@ public class RelationManager {
 
     private void migrateRelations(final ReferencesChangedEvent event, final UUID referenceId, final List<Relation> relations) {
         for (Relation relation : relations) {
-            checkFromId(event, referenceId, relation);
-            checkToId(event, referenceId, relation);
+            checkFromId(event.getNewReferenceId(), referenceId, relation);
+            checkToId(event.getNewReferenceId(), referenceId, relation);
         }
     }
 
-    private void checkToId(final ReferencesChangedEvent event, final UUID referenceId, final Relation relation) {
-        if (relation.getToId().equals(referenceId)) {
-            relation.setToId(event.getNewReferenceId());
+    private void checkFromId(final UUID newReference, final UUID referenceToChange, final Relation relation) {
+        if (relation.getFromId().equals(referenceToChange)) {
+            if (relation.getToId().equals(newReference)) {
+                Repositories.relations().delete(relation);
+            } else {
+                final Relation relationFound = Repositories.relations().lookUp(newReference, relation.getToId());
+                if (relationFound != null) {
+                    relationFound.addWeight(relation.getWeight());
+                    Repositories.relations().delete(relation);
+                } else {
+                    relation.setFromId(newReference);
+                }
+            }
         }
     }
 
-    private void checkFromId(final ReferencesChangedEvent event, final UUID referenceId, final Relation relation) {
-        if (relation.getFromId().equals(referenceId)) {
-            relation.setFromId(event.getNewReferenceId());
+    private void checkToId(final UUID newReference, final UUID referenceToChange, final Relation relation) {
+        if (relation.getToId().equals(referenceToChange)) {
+            if (relation.getFromId().equals(newReference)) {
+                Repositories.relations().delete(relation);
+            } else {
+                final Relation relationFound = Repositories.relations().lookUp(relation.getFromId(), newReference);
+                if (relationFound != null) {
+                    relationFound.addWeight(relation.getWeight());
+                    Repositories.relations().delete(relation);
+                } else {
+                    relation.setToId(newReference);
+                }
+            }
         }
     }
 
