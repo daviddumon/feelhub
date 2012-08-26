@@ -13,7 +13,7 @@ public class ConceptReferencesChangedEvent extends ReferencesChangedEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("ReferencesChangedEvent ");
+        stringBuilder.append("ConceptReferencesChangedEvent ");
         stringBuilder.append(getReferenceIds().size());
         return stringBuilder.toString();
     }
