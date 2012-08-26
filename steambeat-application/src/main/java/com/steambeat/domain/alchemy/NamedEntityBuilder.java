@@ -10,6 +10,9 @@ public class NamedEntityBuilder {
     public NamedEntity build(final AlchemyJsonEntity alchemyJsonEntity) {
         final NamedEntity entity = new NamedEntity();
         addKeywords(entity, alchemyJsonEntity);
+        if (entity.keywords.isEmpty()) {
+            return null;
+        }
         addFields(entity, alchemyJsonEntity);
         addLanguage(entity, alchemyJsonEntity);
         return entity;

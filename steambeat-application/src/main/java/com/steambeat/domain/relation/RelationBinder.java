@@ -25,15 +25,8 @@ public class RelationBinder {
         List<Reference> references = getReferencesToBind(conceptGroupReferencesChangedEvent);
         final double relevanceScore = getRelevanceScore(conceptGroupReferencesChangedEvent.getReferenceId());
         bindReferences(references, relevanceScore);
+        postEvents(conceptGroupReferencesChangedEvent);
         sessionProvider.stop();
-    }
-
-    private double getRelevanceScore(final UUID referenceId) {
-        final List<Alchemy> alchemy = Repositories.alchemys().forReferenceId(referenceId);
-        if (!alchemy.isEmpty()) {
-            return alchemy.get(0).getRelevance();
-        }
-        return 0;
     }
 
     private List<Reference> getReferencesToBind(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
@@ -43,6 +36,14 @@ public class RelationBinder {
         }
         references.add(Repositories.references().get(conceptGroupReferencesChangedEvent.getReferenceId()));
         return references;
+    }
+
+    private double getRelevanceScore(final UUID referenceId) {
+        final List<Alchemy> alchemy = Repositories.alchemys().forReferenceId(referenceId);
+        if (!alchemy.isEmpty()) {
+            return alchemy.get(0).getRelevance();
+        }
+        return 0;
     }
 
     private void bindReferences(final List<Reference> references, final double relevanceScore) {
@@ -55,6 +56,12 @@ public class RelationBinder {
     private void connectReference(final Reference currentReference, final List<Reference> references, final int beginningIndex, final double relevanceScore) {
         for (int i = beginningIndex; i < references.size(); i++) {
             relationBuilder.connectTwoWays(currentReference, references.get(i), relevanceScore);
+        }
+    }
+
+    private void postEvents(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
+        for (ConceptReferencesChangedEvent conceptReferencesChangedEvent : conceptGroupReferencesChangedEvent.getConceptReferencesChangedEvents()) {
+            DomainEventBus.INSTANCE.post(conceptReferencesChangedEvent);
         }
     }
 

@@ -9,7 +9,7 @@ public class CompleteUriEvent extends ReferencesToChangeEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("PathEvent ");
+        stringBuilder.append("CompleteUriEvent ");
         stringBuilder.append(keywords.size());
         return stringBuilder.toString();
     }

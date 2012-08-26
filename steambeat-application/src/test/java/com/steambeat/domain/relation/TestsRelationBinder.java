@@ -1,6 +1,5 @@
 package com.steambeat.domain.relation;
 
-import com.steambeat.domain.alchemy.Alchemy;
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.Repositories;
@@ -45,6 +44,17 @@ public class TestsRelationBinder {
 
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.get(0).getWeight(), is(2.0));
+    }
+
+    @Test
+    public void postAllConceptReferencesChangedEvent() {
+        bus.capture(ConceptReferencesChangedEvent.class);
+        final ConceptGroupReferencesChangedEvent event = TestFactories.events().newConceptGroupeReferencesChangedEvent();
+
+        DomainEventBus.INSTANCE.post(event);
+
+        final ConceptReferencesChangedEvent conceptReferencesChangedEvent = bus.lastEvent(ConceptReferencesChangedEvent.class);
+        assertThat(conceptReferencesChangedEvent, notNullValue());
     }
 }
 

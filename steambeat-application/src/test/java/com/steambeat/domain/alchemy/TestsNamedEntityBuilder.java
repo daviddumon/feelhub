@@ -151,5 +151,16 @@ public class TestsNamedEntityBuilder {
         assertThat(namedEntity.steambeatLanguage, is(SteambeatLanguage.none()));
     }
 
+    @Test
+    public void returnNullIfNoKeywords() {
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
+        alchemyJsonEntity.text = "";
+        alchemyJsonEntity.disambiguated.name = "";
+
+        final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
+
+        assertThat(namedEntity, nullValue());
+    }
+
     private NamedEntityBuilder namedEntityBuilder;
 }

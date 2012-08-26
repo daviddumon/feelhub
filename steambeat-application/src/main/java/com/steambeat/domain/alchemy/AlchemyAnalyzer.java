@@ -76,8 +76,9 @@ public class AlchemyAnalyzer {
     }
 
     private void createAlchemy(final NamedEntity namedEntity, final ConceptEvent conceptEvent) {
-        if (conceptEvent.getKeywords().get(0) != null) {
-            final Alchemy alchemy = new Alchemy();
+        final Keyword keyword = conceptEvent.getKeywords().get(0);
+        if (keyword != null) {
+            final Alchemy alchemy = new Alchemy(keyword.getReferenceId());
             alchemy.setCensus(namedEntity.census);
             alchemy.setCiafactbook(namedEntity.ciaFactbook);
             alchemy.setCrunchbase(namedEntity.crunchbase);
@@ -93,7 +94,6 @@ public class AlchemyAnalyzer {
             alchemy.setUmbel(namedEntity.umbel);
             alchemy.setWebsite(namedEntity.website);
             alchemy.setYago(namedEntity.yago);
-            alchemy.setReferenceId(conceptEvent.getKeywords().get(0).getReferenceId());
             alchemy.setRelevance(namedEntity.relevance);
             Repositories.alchemys().add(alchemy);
         }

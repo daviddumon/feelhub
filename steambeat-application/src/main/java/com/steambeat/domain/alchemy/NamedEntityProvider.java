@@ -33,7 +33,10 @@ public class NamedEntityProvider {
             final AlchemyJsonResults alchemyJsonResults = objectMapper.readValue(stream, AlchemyJsonResults.class);
             for (final AlchemyJsonEntity entity : alchemyJsonResults.entities) {
                 entity.language = alchemyJsonResults.language;
-                results.add(namedEntityBuilder.build(entity));
+                final NamedEntity namedEntity = namedEntityBuilder.build(entity);
+                if (namedEntity != null) {
+                    results.add(namedEntity);
+                }
             }
             return results;
         } catch (IOException e) {

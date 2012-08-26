@@ -31,7 +31,7 @@ public class AlchemyLink {
     private String buildUri(final String uri) {
         final StringBuilder uriBuilder = new StringBuilder();
         try {
-            uriBuilder.append(requestUri).append(apiKey).append("&url=").append(URLEncoder.encode(uri, "UTF-8")).append("&linkedData=0");
+            uriBuilder.append(requestUri).append(apiKey).append("&url=").append(URLEncoder.encode(uri, "UTF-8")).append("&linkedData=1");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

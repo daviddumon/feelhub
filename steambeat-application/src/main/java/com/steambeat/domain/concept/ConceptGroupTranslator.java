@@ -2,6 +2,7 @@ package com.steambeat.domain.concept;
 
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.Keyword;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class ConceptGroupTranslator extends Translator {
 
+    @Inject
     public ConceptGroupTranslator(final KeywordService keywordService, final SessionProvider sessionProvider) {
         super(sessionProvider, keywordService);
         DomainEventBus.INSTANCE.register(this);
