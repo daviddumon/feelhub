@@ -36,4 +36,9 @@ public class DomainEventFactoryForTest {
     public UriReferencesChangedEvent newUriReferencesChangedEvent(final UUID newReference) {
         return new UriReferencesChangedEvent(newReference);
     }
+
+    public ConceptGroupTranslatedEvent newConceptGroupTranslatedEvent() {
+        final ConceptGroupTranslatedEvent conceptGroupTranslatedEvent = new ConceptGroupTranslatedEvent();
+        return conceptGroupTranslatedEvent;
+    }
 }

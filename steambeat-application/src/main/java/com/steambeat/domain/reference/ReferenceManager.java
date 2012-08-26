@@ -8,16 +8,17 @@ import java.util.*;
 
 public abstract class ReferenceManager {
 
-    protected void getAllReferences(final ReferencesToChangeEvent event) {
-        references = Lists.newArrayList();
+    protected List<Reference> getAllReferences(final ReferencesToChangeEvent event) {
+        List<Reference> references = Lists.newArrayList();
         for (Keyword keyword : event.getKeywords()) {
             final UUID referenceId = keyword.getReferenceId();
             final Reference reference = Repositories.references().get(referenceId);
             references.add(reference);
         }
+        return references;
     }
 
-    protected Reference getOldestReference(final ReferencesToChangeEvent event) {
+    protected Reference getOldestReference(final ReferencesToChangeEvent event, final List<Reference> references) {
         Reference result = references.get(0);
         for (int i = 1; i < references.size(); i++) {
             final Reference current = references.get(i);
@@ -28,7 +29,7 @@ public abstract class ReferenceManager {
         return result;
     }
 
-    protected void setInactiveReferences(final Reference reference) {
+    protected void setInactiveReferences(final Reference reference, final List<Reference> references) {
         for (Reference current : references) {
             if (!current.equals(reference)) {
                 current.setActive(false);
@@ -36,5 +37,13 @@ public abstract class ReferenceManager {
         }
     }
 
-    protected List<Reference> references;
+    protected ConceptReferencesChangedEvent createConceptReferencesChangedEvent(final Reference newReference, final List<Reference> references) {
+        final ConceptReferencesChangedEvent event = new ConceptReferencesChangedEvent(newReference.getId());
+        for (Reference reference : references) {
+            if (!reference.isActive()) {
+                event.addReferenceToChange(reference.getId());
+            }
+        }
+        return event;
+    }
 }

@@ -6,6 +6,8 @@ import com.steambeat.domain.concept.ConceptTranslatedEvent;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.repositories.SessionProvider;
 
+import java.util.List;
+
 public class ConceptReferenceManager extends ReferenceManager {
 
     @Inject
@@ -17,20 +19,15 @@ public class ConceptReferenceManager extends ReferenceManager {
     @Subscribe
     public void handle(final ConceptTranslatedEvent event) {
         sessionProvider.start();
-        getAllReferences(event);
-        final Reference reference = getOldestReference(event);
-        setInactiveReferences(reference);
-        postConceptReferencesChangedEvent(reference);
+        final List<Reference> allReferences = getAllReferences(event);
+        final Reference reference = getOldestReference(event, allReferences);
+        setInactiveReferences(reference, allReferences);
+        postConceptReferencesChangedEvent(reference, allReferences);
         sessionProvider.stop();
     }
 
-    private void postConceptReferencesChangedEvent(final Reference newReference) {
-        final ConceptReferencesChangedEvent event = new ConceptReferencesChangedEvent(newReference.getId());
-        for (Reference reference : references) {
-            if (!reference.isActive()) {
-                event.addReferenceToChange(reference.getId());
-            }
-        }
+    private void postConceptReferencesChangedEvent(final Reference newReference, final List<Reference> references) {
+        final ConceptReferencesChangedEvent event = createConceptReferencesChangedEvent(newReference, references);
         DomainEventBus.INSTANCE.post(event);
     }
 
