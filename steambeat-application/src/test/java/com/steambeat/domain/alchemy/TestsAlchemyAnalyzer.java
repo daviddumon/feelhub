@@ -26,7 +26,7 @@ public class TestsAlchemyAnalyzer {
     @Before
     public void setUp() throws Exception {
         entityProvider = mock(NamedEntityProvider.class);
-        analyzer = new AlchemyAnalyzer(new FakeSessionProvider(), entityProvider, new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())));
+        new AlchemyAnalyzer(new FakeSessionProvider(), entityProvider, new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())));
     }
 
     @Test
@@ -80,63 +80,19 @@ public class TestsAlchemyAnalyzer {
         assertThat(Repositories.alchemys().getAll().size(), is(1));
     }
 
-    //
-    //@Test
-    //public void createRelationsBetweenConceptsAndPages() {
-    //    final Uri uri = TestFactories.uris().newUri();
-    //    when(entityProvider.entitiesFor(uri)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
-    //
-    //    analyzer.analyze(uri);
-    //
-    //    final List<Relation> relations = Repositories.relations().getAll();
-    //    assertThat(relations.size(), is(2));
-    //    final Subject concept = Repositories.uris().getAll().get(1);
-    //    testRelation(uri, concept, relations.get(0));
-    //    testRelation(concept, uri, relations.get(1));
-    //}
-    //
-    //@Test
-    //public void canCreateRelationsBetweenAllConceptsAndWebpages() {
-    //    final Uri uri = TestFactories.uris().newUri();
-    //    when(entityProvider.entitiesFor(uri)).thenReturn(TestFactories.alchemy().namedEntitiesWithoutConcepts(5));
-    //
-    //    analyzer.analyze(uri);
-    //
-    //    final List<Relation> relations = Repositories.relations().getAll();
-    //    assertThat(relations.size(), is(30));
-    //}
-    //
-    //@Test
-    //public void initialRelationWeightIsRelevanceOfEntityPlusOne() {
-    //    final Uri uri = TestFactories.uris().newUri();
-    //    final List<NamedEntity> namedEntities = TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept();
-    //    when(entityProvider.entitiesFor(uri)).thenReturn(namedEntities);
-    //
-    //    analyzer.analyze(uri);
-    //
-    //    final List<Relation> relations = Repositories.relations().getAll();
-    //    assertThat(relations.get(0).getWeight(), is(namedEntities.get(0).relevance + 1));
-    //    assertThat(relations.get(1).getWeight(), is(namedEntities.get(0).relevance + 1));
-    //}
-    //
-    //@Test
-    //public void addWeightToExistingConcepts() {
-    //    final Uri uri = TestFactories.uris().newUri();
-    //    when(entityProvider.entitiesFor(uri)).thenReturn(TestFactories.alchemy().namedEntityWith1KeywordWithoutConcept());
-    //
-    //    analyzer.analyze(uri);
-    //    analyzer.analyze(uri);
-    //
-    //    final List<Relation> relations = Repositories.relations().getAll();
-    //    assertThat(relations.size(), is(2));
-    //    assertThat(relations.get(0).getWeight(), is(3.0));
-    //}
-    //
-    //private void testRelation(final Uri left, final Uri right, final Relation relation) {
-    //    assertThat(relation.getLeft(), is(left));
-    //    assertThat(relation.getRight(), is(right));
-    //}
-    //
+    @Test
+    public void keepTheUriReferenceId() {
+        bus.capture(ConceptGroupEvent.class);
+        final Reference reference = TestFactories.references().newReference();
+        TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
+        final UriReferencesChangedEvent event = TestFactories.events().newUriReferencesChangedEvent(reference.getId());
+
+        DomainEventBus.INSTANCE.post(event);
+
+        final ConceptGroupEvent conceptGroupEvent = bus.lastEvent(ConceptGroupEvent.class);
+        assertThat(conceptGroupEvent, notNullValue());
+        assertThat(conceptGroupEvent.getReferenceId(), is(event.getNewReferenceId()));
+    }
+
     private NamedEntityProvider entityProvider;
-    private AlchemyAnalyzer analyzer;
 }

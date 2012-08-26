@@ -34,5 +34,6 @@ public class TestsConceptGroupReferenceManager {
 
         final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent = bus.lastEvent(ConceptGroupReferencesChangedEvent.class);
         assertThat(conceptGroupReferencesChangedEvent, notNullValue());
+        assertThat(conceptGroupReferencesChangedEvent.getReferenceId(), is(conceptGroupTranslatedEvent.getReferenceId()));
     }
 }

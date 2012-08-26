@@ -3,10 +3,14 @@ package com.steambeat.domain.concept;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.eventbus.DomainEvent;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConceptGroupTranslatedEvent extends DomainEvent {
+
+    public ConceptGroupTranslatedEvent(final UUID referenceId) {
+        this.referenceId = referenceId;
+    }
 
     @Override
     public String toString() {
@@ -29,5 +33,10 @@ public class ConceptGroupTranslatedEvent extends DomainEvent {
         this.conceptTranslatedEvents.addAllAbsent(conceptEvents);
     }
 
+    public UUID getReferenceId() {
+        return referenceId;
+    }
+
     private CopyOnWriteArrayList<ConceptTranslatedEvent> conceptTranslatedEvents = Lists.newCopyOnWriteArrayList();
+    private UUID referenceId;
 }

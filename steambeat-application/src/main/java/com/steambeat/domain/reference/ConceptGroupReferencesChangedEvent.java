@@ -3,10 +3,14 @@ package com.steambeat.domain.reference;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.eventbus.DomainEvent;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConceptGroupReferencesChangedEvent extends DomainEvent {
+
+    public ConceptGroupReferencesChangedEvent(final UUID referenceId) {
+        this.referenceId = referenceId;
+    }
 
     @Override
     public String toString() {
@@ -29,5 +33,11 @@ public class ConceptGroupReferencesChangedEvent extends DomainEvent {
         this.conceptReferencesChangedEvents.addAllAbsent(conceptEvents);
     }
 
+    public UUID getReferenceId() {
+        return referenceId;
+    }
+
     private CopyOnWriteArrayList<ConceptReferencesChangedEvent> conceptReferencesChangedEvents = Lists.newCopyOnWriteArrayList();
+
+    private UUID referenceId;
 }

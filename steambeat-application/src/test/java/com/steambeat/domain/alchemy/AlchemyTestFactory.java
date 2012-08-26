@@ -33,6 +33,7 @@ public class AlchemyTestFactory {
         alchemy.setUmbel("umbel");
         alchemy.setWebsite("website");
         alchemy.setYago("yago");
+        alchemy.setRelevance(1.0);
         Repositories.alchemys().add(alchemy);
         return alchemy;
     }

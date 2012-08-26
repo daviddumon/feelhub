@@ -31,7 +31,7 @@ public class AlchemyAnalyzer {
             keyword = getFirstKeywordFor(event);
             final List<NamedEntity> namedEntities = namedEntityProvider.entitiesFor(keyword.getValue());
             final List<ConceptEvent> conceptEvents = createConceptEvents(namedEntities);
-            postEvent(conceptEvents);
+            postEvent(conceptEvents, event.getNewReferenceId());
         } catch (AlchemyException e) {
 
         }
@@ -99,8 +99,8 @@ public class AlchemyAnalyzer {
         }
     }
 
-    private void postEvent(final List<ConceptEvent> conceptEvents) {
-        final ConceptGroupEvent event = new ConceptGroupEvent();
+    private void postEvent(final List<ConceptEvent> conceptEvents, final UUID newReferenceId) {
+        final ConceptGroupEvent event = new ConceptGroupEvent(newReferenceId);
         event.addAllAbsent(conceptEvents);
         DomainEventBus.INSTANCE.post(event);
     }
@@ -108,59 +108,4 @@ public class AlchemyAnalyzer {
     private final KeywordService keywordService;
     private SessionProvider sessionProvider;
     private final NamedEntityProvider namedEntityProvider;
-
-
-    //public void analyze(final String uri) {
-    //    final List<NamedEntity> namedEntities = namedEntityProvider.entitiesFor(uri);
-    //    for (final NamedEntity namedEntity : namedEntities) {
-    //        if (!namedEntity.keywords.isEmpty()) {
-    //            handle(uri, namedEntity);
-    //        }
-    //    }
-    //}
-
-    //
-    //private void handle(final String uri, final NamedEntity namedEntity) {
-    //    createConcept(namedEntity);
-    //    createAssociations(namedEntity);
-    //    createRelations(uri, namedEntity);
-    //}
-    //
-    //private void createConcept(final NamedEntity namedEntity) {
-    //    if (namedEntity.conceptId == null) {
-    //        namedEntity.conceptId = UUID.randomUUID();
-    //        //final Concept concept = conceptFactory.newConcept(namedEntity);
-    //        //Repositories.subjects().add(concept);
-    //        //concepts.add(new Concept());
-    //    } else {
-    //        //concepts.add(new Concept(namedEntity.conceptId));
-    //    }
-    //}
-    //
-    //private void createAssociations(final NamedEntity namedEntity) {
-    //    for (final String keyword : namedEntity.keywords) {
-    //        try {
-    //            associationService.lookUp(keyword, namedEntity.steambeatLanguage);
-    //        } catch (KeywordNotFound e) {
-    //            //associationService.createAssociationFor(new Tag(keyword), namedEntity.conceptId, namedEntity.language);
-    //        }
-    //    }
-    //}
-    //
-    //private void createRelations(final Uri uri, final NamedEntity namedEntity) {
-    //    //final Concept concept = getLastAddedConcept();
-    //    //relationBuilder.connectTwoWays(uri, concept, namedEntity.relevance);
-    //    //for (final Concept otherConcept : concepts) {
-    //    //    if (!concept.equals(otherConcept)) {
-    //    //relationBuilder.connectTwoWays(concept, otherConcept);
-    //    //}
-    //    //}
-    //}
-    //
-    ////private Concept getLastAddedConcept() {
-    ////    return concepts.get(concepts.size() - 1);
-    ////}
-    //
-    //private final RelationBuilder relationBuilder = new RelationBuilder(new RelationFactory());
-    ////private final List<Concept> concepts = Lists.newArrayList();
 }

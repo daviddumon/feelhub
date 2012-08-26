@@ -27,8 +27,8 @@ public class ConceptReferenceManager extends ReferenceManager {
     }
 
     private void postConceptReferencesChangedEvent(final Reference newReference, final List<Reference> references) {
-        final ConceptReferencesChangedEvent event = createConceptReferencesChangedEvent(newReference, references);
-        DomainEventBus.INSTANCE.post(event);
+        final ConceptReferencesChangedEvent conceptReferencesChangedEvent = createConceptReferencesChangedEvent(newReference, references);
+        DomainEventBus.INSTANCE.post(conceptReferencesChangedEvent);
     }
 
     private SessionProvider sessionProvider;

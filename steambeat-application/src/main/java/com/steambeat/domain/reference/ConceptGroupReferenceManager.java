@@ -28,13 +28,13 @@ public class ConceptGroupReferenceManager extends ReferenceManager {
             final ConceptReferencesChangedEvent conceptReferencesChangedEvent = createConceptReferencesChangedEvent(reference, allReferences);
             conceptReferencesChangedEvents.add(conceptReferencesChangedEvent);
         }
-        postConceptGroupReferencesChangedEvent(conceptReferencesChangedEvents);
+        postConceptGroupReferencesChangedEvent(conceptReferencesChangedEvents, conceptGroupTranslatedEvent);
         sessionProvider.stop();
     }
 
-    private void postConceptGroupReferencesChangedEvent(final List<ConceptReferencesChangedEvent> conceptGroupTranslatedEvent) {
-        final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent = new ConceptGroupReferencesChangedEvent();
-        conceptGroupReferencesChangedEvent.addAllAbsent(conceptGroupTranslatedEvent);
+    private void postConceptGroupReferencesChangedEvent(final List<ConceptReferencesChangedEvent> conceptReferencesChangedEvents, final ConceptGroupTranslatedEvent conceptGroupTranslatedEvent) {
+        final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent = new ConceptGroupReferencesChangedEvent(conceptGroupTranslatedEvent.getReferenceId());
+        conceptGroupReferencesChangedEvent.addAllAbsent(conceptReferencesChangedEvents);
         DomainEventBus.INSTANCE.post(conceptGroupReferencesChangedEvent);
     }
 

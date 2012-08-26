@@ -33,7 +33,7 @@ public class TestsConceptGroupTranslator {
         event1.addIfAbsent(TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr")));
         final ConceptEvent event2 = TestFactories.events().newConceptEvent();
         event2.addIfAbsent(TestFactories.keywords().newKeyword("another", SteambeatLanguage.forString("fr")));
-        final ConceptGroupEvent conceptGroupEvent = new ConceptGroupEvent();
+        final ConceptGroupEvent conceptGroupEvent = new ConceptGroupEvent(TestFactories.references().newReference().getId());
         conceptGroupEvent.addIfAbsent(event1);
         conceptGroupEvent.addIfAbsent(event2);
 
@@ -49,7 +49,7 @@ public class TestsConceptGroupTranslator {
         event1.addIfAbsent(TestFactories.keywords().newKeyword("value", SteambeatLanguage.forString("fr")));
         final ConceptEvent event2 = TestFactories.events().newConceptEvent();
         event2.addIfAbsent(TestFactories.keywords().newKeyword("another", SteambeatLanguage.forString("fr")));
-        final ConceptGroupEvent conceptGroupEvent = new ConceptGroupEvent();
+        final ConceptGroupEvent conceptGroupEvent = new ConceptGroupEvent(TestFactories.references().newReference().getId());
         conceptGroupEvent.addIfAbsent(event1);
         conceptGroupEvent.addIfAbsent(event2);
 
@@ -57,6 +57,7 @@ public class TestsConceptGroupTranslator {
 
         final ConceptGroupTranslatedEvent conceptGroupTranslatedEvent = bus.lastEvent(ConceptGroupTranslatedEvent.class);
         assertThat(conceptGroupTranslatedEvent, notNullValue());
+        assertThat(conceptGroupTranslatedEvent.getReferenceId(), is(conceptGroupEvent.getReferenceId()));
     }
 
     private FakeConceptGroupTranslator fakeConceptGroupTranslator;

@@ -38,7 +38,18 @@ public class DomainEventFactoryForTest {
     }
 
     public ConceptGroupTranslatedEvent newConceptGroupTranslatedEvent() {
-        final ConceptGroupTranslatedEvent conceptGroupTranslatedEvent = new ConceptGroupTranslatedEvent();
+        final Reference reference = TestFactories.references().newReference();
+        final ConceptGroupTranslatedEvent conceptGroupTranslatedEvent = new ConceptGroupTranslatedEvent(reference.getId());
         return conceptGroupTranslatedEvent;
+    }
+
+    public ConceptGroupReferencesChangedEvent newConceptGroupeReferencesChangedEvent() {
+        final Reference reference = TestFactories.references().newReference();
+        final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent = new ConceptGroupReferencesChangedEvent(reference.getId());
+        for (int i = 0; i < 5; i++) {
+            final ConceptReferencesChangedEvent conceptReferencesChangedEvent = new ConceptReferencesChangedEvent(TestFactories.references().newReference().getId());
+            conceptGroupReferencesChangedEvent.addIfAbsent(conceptReferencesChangedEvent);
+        }
+        return conceptGroupReferencesChangedEvent;
     }
 }

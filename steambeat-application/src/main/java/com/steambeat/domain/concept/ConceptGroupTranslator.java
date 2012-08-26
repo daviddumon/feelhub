@@ -42,7 +42,7 @@ public class ConceptGroupTranslator extends Translator {
             conceptTranslatedEvent.addAllAbsent(conceptEvent.getKeywords());
             conceptTranslatedEvents.add(conceptTranslatedEvent);
         }
-        final ConceptGroupTranslatedEvent conceptGroupTranslatedEvent = new ConceptGroupTranslatedEvent();
+        final ConceptGroupTranslatedEvent conceptGroupTranslatedEvent = new ConceptGroupTranslatedEvent(event.getReferenceId());
         conceptGroupTranslatedEvent.addAllAbsent(conceptTranslatedEvents);
         DomainEventBus.INSTANCE.post(conceptGroupTranslatedEvent);
     }
