@@ -24,15 +24,15 @@ public class ConceptTranslator extends Translator {
             if (!steambeatLanguage.equals(SteambeatLanguage.reference()) && !steambeatLanguage.equals(SteambeatLanguage.none())) {
                 try {
                     addKeywordFor(translateKeywordToEnglish(keyword), event);
-                    postTranslationDoneEvent(event);
                 } catch (Exception e) {
                 }
             }
+            postConceptTranslatedEvent(event);
         }
         sessionProvider.stop();
     }
 
-    private void postTranslationDoneEvent(final ConceptEvent event) {
+    private void postConceptTranslatedEvent(final ConceptEvent event) {
         final ConceptTranslatedEvent conceptTranslatedEvent = new ConceptTranslatedEvent();
         conceptTranslatedEvent.addAllAbsent(event.getKeywords());
         DomainEventBus.INSTANCE.post(conceptTranslatedEvent);

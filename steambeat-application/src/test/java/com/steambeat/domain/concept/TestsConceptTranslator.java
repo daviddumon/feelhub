@@ -109,18 +109,5 @@ public class TestsConceptTranslator {
         assertThat(conceptTranslatedEvent.getKeywords(), is(event.getKeywords()));
     }
 
-    @Test
-    public void spreadEventOnlyIfTranslated() {
-        bus.capture(ConceptTranslatedEvent.class);
-        final Keyword keyword = TestFactories.keywords().newKeyword("value", SteambeatLanguage.reference());
-        final ConceptEvent event = TestFactories.events().newConceptEvent();
-        event.addIfAbsent(keyword);
-
-        fakeConceptTranslator.translate(event);
-
-        final ConceptTranslatedEvent conceptTranslatedEvent = bus.lastEvent(ConceptTranslatedEvent.class);
-        assertThat(conceptTranslatedEvent, nullValue());
-    }
-
     private FakeConceptTranslator fakeConceptTranslator;
 }
