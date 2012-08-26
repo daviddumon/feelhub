@@ -30,5 +30,6 @@ public class AlchemyMapping extends EntityMap<Alchemy> {
         property(element().getGeonames());
         property(element().getMusicbrainz());
         collection(element().getSubtype());
+        property(element().getRelevance());
     }
 }

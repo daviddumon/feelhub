@@ -111,7 +111,6 @@ public class TestsNamedEntityBuilder {
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.name, is(alchemyJsonEntity.text));
         assertThat(namedEntity.type, is(alchemyJsonEntity.type));
         assertThat(namedEntity.steambeatLanguage, is(SteambeatLanguage.forString(alchemyJsonEntity.language)));
         assertThat(namedEntity.relevance, is(alchemyJsonEntity.relevance));
@@ -123,7 +122,6 @@ public class TestsNamedEntityBuilder {
 
         final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.name, is(alchemyJsonEntity.disambiguated.name));
         assertThat(namedEntity.type, is(alchemyJsonEntity.type));
         assertThat(namedEntity.steambeatLanguage, is(SteambeatLanguage.forString(alchemyJsonEntity.language)));
         assertThat(namedEntity.relevance, is(alchemyJsonEntity.relevance));

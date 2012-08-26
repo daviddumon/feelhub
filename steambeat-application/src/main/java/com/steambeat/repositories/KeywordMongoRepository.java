@@ -30,11 +30,6 @@ public class KeywordMongoRepository extends BaseMongoRepository<Keyword> impleme
     public List<Keyword> forReferenceId(final UUID referenceId) {
         final Criteria criteria = getSession().createCriteria(Keyword.class);
         criteria.add(Restrictions.equals("referenceId", referenceId));
-        final List<Keyword> results = criteria.list();
-        if (results.isEmpty()) {
-            return null;
-        } else {
-            return results;
-        }
+        return criteria.list();
     }
 }

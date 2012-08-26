@@ -12,7 +12,7 @@ import java.util.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsAlchemyInformationMongoRepository extends TestWithMongoRepository {
+public class TestsAlchemyMongoRepository extends TestWithMongoRepository {
 
     @Rule
     public SystemTime time = SystemTime.fixed();
@@ -43,6 +43,7 @@ public class TestsAlchemyInformationMongoRepository extends TestWithMongoReposit
         alchemy.setUmbel("umbel");
         alchemy.setWebsite("website");
         alchemy.setYago("yago");
+        alchemy.setRelevance(0.5);
 
         repository.add(alchemy);
 
@@ -67,6 +68,7 @@ public class TestsAlchemyInformationMongoRepository extends TestWithMongoReposit
         assertThat(alchemyFound.get("umbel"), is((Object) alchemy.getUmbel()));
         assertThat(alchemyFound.get("website"), is((Object) alchemy.getWebsite()));
         assertThat(alchemyFound.get("yago"), is((Object) alchemy.getYago()));
+        assertThat(alchemyFound.get("relevance"), is((Object) 0.5));
     }
 
     @Test

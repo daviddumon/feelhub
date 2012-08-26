@@ -2,7 +2,6 @@ package com.steambeat.domain.alchemy;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.BaseEntity;
-import org.joda.time.DateTime;
 
 import java.util.*;
 
@@ -150,6 +149,14 @@ public class Alchemy extends BaseEntity {
         this.semanticcrunchbase = semanticcrunchbase;
     }
 
+    public double getRelevance() {
+        return relevance;
+    }
+
+    public void setRelevance(final double relevance) {
+        this.relevance = relevance;
+    }
+
     private UUID id;
     private UUID referenceId;
     private String type = "";
@@ -167,4 +174,5 @@ public class Alchemy extends BaseEntity {
     private String musicbrainz = "";
     private String crunchbase = "";
     private String semanticcrunchbase = "";
+    private double relevance;
 }

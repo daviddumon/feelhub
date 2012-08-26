@@ -7,9 +7,7 @@ import java.util.*;
 
 public class NamedEntity {
 
-    public String name = "";
     public String type = "";
-    public SteambeatLanguage steambeatLanguage;
     public Double relevance;
     public List<String> subType = Lists.newArrayList();
     public String website = "";
@@ -26,4 +24,5 @@ public class NamedEntity {
     public String musicBrainz = "";
     public String crunchbase = "";
     public String semanticCrunchbase = "";
+    public SteambeatLanguage steambeatLanguage;
 }

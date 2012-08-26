@@ -25,13 +25,13 @@ public class ConceptReferenceManager extends ReferenceManager {
     }
 
     private void postConceptReferencesChangedEvent(final Reference newReference) {
-        final ConceptReferencesChangedEvent eventConcept = new ConceptReferencesChangedEvent(newReference.getId());
+        final ConceptReferencesChangedEvent event = new ConceptReferencesChangedEvent(newReference.getId());
         for (Reference reference : references) {
             if (!reference.isActive()) {
-                eventConcept.addReferenceToChange(reference.getId());
+                event.addReferenceToChange(reference.getId());
             }
         }
-        DomainEventBus.INSTANCE.post(eventConcept);
+        DomainEventBus.INSTANCE.post(event);
     }
 
     private SessionProvider sessionProvider;

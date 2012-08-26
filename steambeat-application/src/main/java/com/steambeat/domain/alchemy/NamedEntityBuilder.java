@@ -11,7 +11,6 @@ public class NamedEntityBuilder {
         final NamedEntity entity = new NamedEntity();
         addKeywords(entity, alchemyJsonEntity);
         addFields(entity, alchemyJsonEntity);
-        addName(entity, alchemyJsonEntity);
         addLanguage(entity, alchemyJsonEntity);
         return entity;
     }
@@ -90,14 +89,6 @@ public class NamedEntityBuilder {
 
     private boolean isDisambiguated(final AlchemyJsonEntity alchemyJsonEntity) {
         return alchemyJsonEntity.disambiguated != null;
-    }
-
-    private void addName(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
-        if (alchemyJsonEntity.disambiguated.name.isEmpty()) {
-            entity.name = alchemyJsonEntity.text;
-        } else {
-            entity.name = alchemyJsonEntity.disambiguated.name;
-        }
     }
 
     private void addLanguage(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
