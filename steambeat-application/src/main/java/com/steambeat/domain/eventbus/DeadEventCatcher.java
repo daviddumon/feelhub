@@ -9,7 +9,7 @@ public class DeadEventCatcher {
     }
 
     @Subscribe
-    public void handle(DeadEvent deadEvent) {
+    public void handle(final DeadEvent deadEvent) {
         final SteambeatDeadEvent steambeatDeadEvent = new SteambeatDeadEvent(deadEvent);
         DomainEventBus.INSTANCE.getEvents().add(steambeatDeadEvent);
     }

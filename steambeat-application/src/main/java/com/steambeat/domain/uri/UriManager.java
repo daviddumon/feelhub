@@ -36,11 +36,11 @@ public class UriManager {
     }
 
     private List<Keyword> getKeywordsFor(final List<String> uris) {
-        List<Keyword> result = Lists.newArrayList();
-        for (String uri : uris) {
+        final List<Keyword> result = Lists.newArrayList();
+        for (final String uri : uris) {
             final UriTokenizer uriTokenizer = new UriTokenizer();
             final List<String> tokens = uriTokenizer.getTokensFor(uri);
-            for (String token : tokens) {
+            for (final String token : tokens) {
                 result.add(getOrCreateKeyword(token));
             }
         }

@@ -19,11 +19,11 @@ public class OpinionManager {
     @Subscribe
     public void handle(final ReferencesChangedEvent event) {
         sessionProvider.start();
-        for (UUID referenceId : event.getReferenceIds()) {
+        for (final UUID referenceId : event.getReferenceIds()) {
             final List<Opinion> opinionsForReferenceId = Repositories.opinions().forReferenceId(referenceId);
             if (!opinionsForReferenceId.isEmpty()) {
-                for (Opinion opinion : opinionsForReferenceId) {
-                    for (Judgment judgment : opinion.getJudgments()) {
+                for (final Opinion opinion : opinionsForReferenceId) {
+                    for (final Judgment judgment : opinion.getJudgments()) {
                         if (judgment.getReferenceId().equals(referenceId)) {
                             judgment.setReferenceId(event.getNewReferenceId());
                         }
@@ -34,5 +34,5 @@ public class OpinionManager {
         sessionProvider.stop();
     }
 
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
 }

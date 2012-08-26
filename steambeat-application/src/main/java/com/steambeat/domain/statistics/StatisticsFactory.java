@@ -56,5 +56,5 @@ public class StatisticsFactory {
         return stat;
     }
 
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
 }

@@ -4,7 +4,7 @@ import com.google.common.eventbus.DeadEvent;
 
 public class SteambeatDeadEvent extends DomainEvent {
 
-    public SteambeatDeadEvent(DeadEvent deadEvent) {
+    public SteambeatDeadEvent(final DeadEvent deadEvent) {
         super();
         this.deadEvent = deadEvent;
     }
@@ -20,5 +20,5 @@ public class SteambeatDeadEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    private DeadEvent deadEvent;
+    private final DeadEvent deadEvent;
 }

@@ -29,7 +29,7 @@ public class RelationMongoRepository extends BaseMongoRepository<Relation> imple
 
     @Override
     public List<Relation> forReferenceId(final UUID referenceId) {
-        CopyOnWriteArrayList<Relation> relations = Lists.newCopyOnWriteArrayList();
+        final CopyOnWriteArrayList<Relation> relations = Lists.newCopyOnWriteArrayList();
         final List<Relation> listWithFromIdEqualsReferenceId = getListWithFromIdEqualsReferenceId(referenceId);
         if (!listWithFromIdEqualsReferenceId.isEmpty()) {
             relations.addAllAbsent(listWithFromIdEqualsReferenceId);

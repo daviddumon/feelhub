@@ -57,7 +57,7 @@ public class TestsAlchemyAnalyzer {
     public void postConceptGroupEvent() {
         bus.capture(ConceptGroupEvent.class);
         final Reference reference = TestFactories.references().newReference();
-        final Keyword keyword = TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
+        TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
         final UriReferencesChangedEvent event = TestFactories.events().newUriReferencesChangedEvent(reference.getId());
 
         DomainEventBus.INSTANCE.post(event);

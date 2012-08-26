@@ -90,7 +90,7 @@ public class TestsOpinion {
     private class SimpleJudgmentListener {
 
         @Subscribe
-        public void handle(JudgmentCreatedEvent judgmentCreatedEvent) {
+        public void handle(final JudgmentCreatedEvent judgmentCreatedEvent) {
 
         }
     }
@@ -98,7 +98,7 @@ public class TestsOpinion {
     private class SimpleOpinionListener {
 
         @Subscribe
-        public void handle(OpinionCreatedEvent opinionCreatedEvent) {
+        public void handle(final OpinionCreatedEvent opinionCreatedEvent) {
 
         }
     }

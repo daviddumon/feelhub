@@ -38,6 +38,6 @@ public class ConceptGroupEvent extends DomainEvent {
         return referenceId;
     }
 
-    private CopyOnWriteArrayList<ConceptEvent> conceptEvents = Lists.newCopyOnWriteArrayList();
-    private UUID referenceId;
+    private final CopyOnWriteArrayList<ConceptEvent> conceptEvents = Lists.newCopyOnWriteArrayList();
+    private final UUID referenceId;
 }

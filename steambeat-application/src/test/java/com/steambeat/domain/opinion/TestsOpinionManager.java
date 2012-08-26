@@ -40,10 +40,10 @@ public class TestsOpinionManager {
 
         DomainEventBus.INSTANCE.post(event);
 
-        List<Judgment> judgments = Lists.newArrayList();
+        final List<Judgment> judgments = Lists.newArrayList();
         judgments.addAll(op1.getJudgments());
         judgments.addAll(op2.getJudgments());
-        for (Judgment judgment : judgments) {
+        for (final Judgment judgment : judgments) {
             assertThat(judgment.getReference(), is(ref1));
         }
     }

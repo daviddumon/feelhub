@@ -26,5 +26,5 @@ public class ConceptEvent extends DomainEvent {
         this.keywords.addIfAbsent(keyword);
     }
 
-    private CopyOnWriteArrayList<Keyword> keywords = Lists.newCopyOnWriteArrayList();
+    private final CopyOnWriteArrayList<Keyword> keywords = Lists.newCopyOnWriteArrayList();
 }

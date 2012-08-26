@@ -19,7 +19,7 @@ public class RelationManager {
     @Subscribe
     public void handle(final ReferencesChangedEvent event) {
         sessionProvider.start();
-        for (UUID referenceId : event.getReferenceIds()) {
+        for (final UUID referenceId : event.getReferenceIds()) {
             final List<Relation> relations = Repositories.relations().forReferenceId(referenceId);
             if (!relations.isEmpty()) {
                 migrateRelations(event, referenceId, relations);
@@ -29,7 +29,7 @@ public class RelationManager {
     }
 
     private void migrateRelations(final ReferencesChangedEvent event, final UUID referenceId, final List<Relation> relations) {
-        for (Relation relation : relations) {
+        for (final Relation relation : relations) {
             checkFromId(event.getNewReferenceId(), referenceId, relation);
             checkToId(event.getNewReferenceId(), referenceId, relation);
         }
@@ -67,5 +67,5 @@ public class RelationManager {
         }
     }
 
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
 }

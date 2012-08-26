@@ -20,8 +20,8 @@ public class ConceptGroupReferenceManager extends ReferenceManager {
     @Subscribe
     public void handle(final ConceptGroupTranslatedEvent conceptGroupTranslatedEvent) {
         sessionProvider.start();
-        List<ConceptReferencesChangedEvent> conceptReferencesChangedEvents = Lists.newArrayList();
-        for (ConceptTranslatedEvent conceptTranslatedEvent : conceptGroupTranslatedEvent.getConceptTranslatedEvents()) {
+        final List<ConceptReferencesChangedEvent> conceptReferencesChangedEvents = Lists.newArrayList();
+        for (final ConceptTranslatedEvent conceptTranslatedEvent : conceptGroupTranslatedEvent.getConceptTranslatedEvents()) {
             final List<Reference> allReferences = getAllReferences(conceptTranslatedEvent);
             final Reference reference = getOldestReference(conceptTranslatedEvent, allReferences);
             setInactiveReferences(reference, allReferences);
@@ -38,5 +38,5 @@ public class ConceptGroupReferenceManager extends ReferenceManager {
         DomainEventBus.INSTANCE.post(conceptGroupReferencesChangedEvent);
     }
 
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
 }

@@ -24,5 +24,5 @@ public class UserCreatedEvent extends DomainEvent {
         return user;
     }
 
-    private User user;
+    private final User user;
 }

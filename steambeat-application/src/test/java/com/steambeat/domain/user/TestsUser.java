@@ -72,8 +72,8 @@ public class TestsUser {
         final User user = new User();
         user.setPassword(password);
 
-        boolean helloTest = user.checkPassword("hello");
-        boolean passwordTest = user.checkPassword(password);
+        final boolean helloTest = user.checkPassword("hello");
+        final boolean passwordTest = user.checkPassword(password);
 
         assertFalse(helloTest);
         assertTrue(passwordTest);

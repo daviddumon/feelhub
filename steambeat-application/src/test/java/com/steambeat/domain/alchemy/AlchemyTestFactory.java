@@ -8,11 +8,6 @@ import java.util.*;
 
 public class AlchemyTestFactory {
 
-    public Alchemy newAlchemy() {
-        final Reference reference = createAndPersistReference();
-        return newAlchemy(reference.getId());
-    }
-
     public Alchemy newAlchemy(final UUID referenceId) {
         final Alchemy alchemy = new Alchemy(referenceId);
         alchemy.setCensus("census");
@@ -25,7 +20,7 @@ public class AlchemyTestFactory {
         alchemy.setMusicbrainz("musicbrainz");
         alchemy.setOpencyc("opencyc");
         alchemy.setSemanticcrunchbase("crunchbase");
-        List<String> subTypes = Lists.newArrayList();
+        final List<String> subTypes = Lists.newArrayList();
         subTypes.add("sub1");
         subTypes.add("sub2");
         alchemy.setSubtype(subTypes);

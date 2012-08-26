@@ -18,9 +18,6 @@ public class Scraper {
     }
 
     private void addExtractors() {
-        //this.extractors.add(new TitleExtractor());
-        //this.extractors.add(new LastElementExtractor("h1", "h1"));
-        //this.extractors.add(new FirstElementExtractor("h2", "h2"));
         this.extractors.add(new LogoExtractor("logo", uri));
         this.extractors.add(new ImageExtractor("image"));
     }

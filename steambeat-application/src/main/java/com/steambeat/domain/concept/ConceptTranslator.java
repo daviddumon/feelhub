@@ -19,7 +19,7 @@ public class ConceptTranslator extends Translator {
     @Subscribe
     public void translate(final ConceptEvent event) {
         sessionProvider.start();
-        for (Keyword keyword : event.getKeywords()) {
+        for (final Keyword keyword : event.getKeywords()) {
             final SteambeatLanguage steambeatLanguage = keyword.getLanguage();
             if (!steambeatLanguage.equals(SteambeatLanguage.reference()) && !steambeatLanguage.equals(SteambeatLanguage.none())) {
                 try {

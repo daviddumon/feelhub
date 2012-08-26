@@ -22,7 +22,7 @@ public class RelationBinder {
     @Subscribe
     public void handle(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
         sessionProvider.start();
-        List<Reference> references = getReferencesToBind(conceptGroupReferencesChangedEvent);
+        final List<Reference> references = getReferencesToBind(conceptGroupReferencesChangedEvent);
         final double relevanceScore = getRelevanceScore(conceptGroupReferencesChangedEvent.getReferenceId());
         bindReferences(references, relevanceScore);
         postEvents(conceptGroupReferencesChangedEvent);
@@ -30,8 +30,8 @@ public class RelationBinder {
     }
 
     private List<Reference> getReferencesToBind(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
-        List<Reference> references = Lists.newArrayList();
-        for (ConceptReferencesChangedEvent conceptReferencesChangedEvent : conceptGroupReferencesChangedEvent.getConceptReferencesChangedEvents()) {
+        final List<Reference> references = Lists.newArrayList();
+        for (final ConceptReferencesChangedEvent conceptReferencesChangedEvent : conceptGroupReferencesChangedEvent.getConceptReferencesChangedEvents()) {
             references.add(Repositories.references().get(conceptReferencesChangedEvent.getNewReferenceId()));
         }
         references.add(Repositories.references().get(conceptGroupReferencesChangedEvent.getReferenceId()));
@@ -48,7 +48,7 @@ public class RelationBinder {
 
     private void bindReferences(final List<Reference> references, final double relevanceScore) {
         for (int i = 0; i < references.size(); i++) {
-            Reference currentReference = references.get(i);
+            final Reference currentReference = references.get(i);
             connectReference(currentReference, references, i + 1, relevanceScore);
         }
     }
@@ -60,11 +60,11 @@ public class RelationBinder {
     }
 
     private void postEvents(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
-        for (ConceptReferencesChangedEvent conceptReferencesChangedEvent : conceptGroupReferencesChangedEvent.getConceptReferencesChangedEvents()) {
+        for (final ConceptReferencesChangedEvent conceptReferencesChangedEvent : conceptGroupReferencesChangedEvent.getConceptReferencesChangedEvents()) {
             DomainEventBus.INSTANCE.post(conceptReferencesChangedEvent);
         }
     }
 
-    private SessionProvider sessionProvider;
-    private RelationBuilder relationBuilder;
+    private final SessionProvider sessionProvider;
+    private final RelationBuilder relationBuilder;
 }

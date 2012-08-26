@@ -60,10 +60,6 @@ public class Relation extends BaseEntity {
         this.toId = toId;
     }
 
-    public boolean isAutoRelation() {
-        return fromId.equals(toId);
-    }
-
     private double weight;
     private UUID fromId;
     private UUID toId;

@@ -82,7 +82,7 @@ public class TestKeywordService {
         final String value = "value";
         final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("english");
 
-        Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
+        final Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
 
         final KeywordCreatedEvent keywordCreatedEvent = bus.lastEvent(KeywordCreatedEvent.class);
         assertThat(keywordCreatedEvent, notNullValue());
@@ -90,83 +90,5 @@ public class TestKeywordService {
         assertThat(keywordCreatedEvent.getDate(), is(time.getNow()));
     }
 
-
-    //
-    //@Test
-    //public void canCreateAllAssociationsInRepository() {
-    //    final UriPathResolver pathResolver = new FakeUriPathResolver().thatFind(new Uri("http://www.liberation.fr"));
-    //    final AssociationService associationService = new AssociationService(pathResolver, new FakeMicrosoftTranslator());
-    //    final Uri uri = new Uri("http://liberation.fr");
-    //
-    //    final Association association = associationService.createAssociationsFor(uri);
-    //
-    //    assertThat(association, notNullValue());
-    //    final List<Association> associations = Repositories.associations().getAll();
-    //    assertThat(associations.size(), is(2));
-    //}
-    //
-    //@Test
-    //public void associationIdentifierIsCanonicalUri() {
-    //    final String canonicalAddress = "http://www.liberation.fr";
-    //    final UriPathResolver pathResolver = new FakeUriPathResolver().thatFind(new Uri(canonicalAddress));
-    //    final AssociationService associationService = new AssociationService(pathResolver, new FakeMicrosoftTranslator());
-    //    final Uri uri = new Uri("http://liberation.fr");
-    //
-    //    final Association association = associationService.createAssociationsFor(uri);
-    //
-    //    assertThat(association.getIdentifier(), is(canonicalAddress));
-    //}
-    //
-    //@Test
-    //public void allAssociationsFromAnUriGetSameSubjectId() {
-    //    final String canonicalAddress = "http://www.liberation.fr";
-    //    final UriPathResolver pathResolver = new FakeUriPathResolver().thatFind(new Uri(canonicalAddress));
-    //    final AssociationService associationService = new AssociationService(pathResolver, new FakeMicrosoftTranslator());
-    //    final Uri uri = new Uri("http://liberation.fr");
-    //
-    //    associationService.createAssociationsFor(uri);
-    //
-    //    final List<Association> associations = Repositories.associations().getAll();
-    //    assertThat(associations.get(0).getSubjectId(), is(associations.get(1).getSubjectId()));
-    //}
-    //
-    //@Test
-    //public void canUseEncodedResources() throws UnsupportedEncodingException {
-    //    final Uri uri = new Uri(URLEncoder.encode("http://www.lemonde.fr", "UTF-8"));
-    //
-    //    final Association association = associationService.createAssociationsFor(uri);
-    //
-    //    assertThat(association.getIdentifier(), is(uri.toString()));
-    //}
-    //
-    //@Test
-    //public void canGetAnAssociationForAnIdentifierAndLanguage() {
-    //    final Language language = Language.forString("english");
-    //    final Tag identifier = new Tag("test");
-    //    TestFactories.associations().newAssociation(identifier, UUID.randomUUID(), language);
-    //
-    //    final Association association = associationService.lookUp(identifier, language);
-    //
-    //    assertThat(association, notNullValue());
-    //    assertThat(association.getIdentifier(), is(identifier.toString()));
-    //    assertThat(association.getLanguage(), is(language.getCode()));
-    //}
-    //
-    //@Test
-    //public void alwaysCreateTheEnglishTag() {
-    //    final Tag tag = new Tag("tag");
-    //    final UUID uuid = UUID.randomUUID();
-    //
-    //    associationService.createAssociationFor(tag, uuid, Language.forString("french"));
-    //
-    //    final List<Association> associations = Repositories.associations().getAll();
-    //    assertThat(associations.size(), is(2));
-    //    assertThat(associations.get(1).getSubjectId(), is(uuid));
-    //    assertThat(associations.get(1).getLanguage(), is("french"));
-    //    assertThat(associations.get(0).getSubjectId(), is(uuid));
-    //    assertThat(associations.get(0).getLanguage(), is("english"));
-    //}
-    //
-    //private AssociationService associationService;
     private KeywordService keywordService;
 }

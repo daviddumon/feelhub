@@ -93,5 +93,5 @@ public class User extends BaseEntity {
     private String fullname;
     private String language;
     private boolean active;
-    private String secret;
+    private final String secret;
 }

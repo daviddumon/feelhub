@@ -28,7 +28,7 @@ public class UriReferenceManager extends ReferenceManager {
 
     private void postUriReferencesChangedEvent(final Reference newReference, final List<Reference> references) {
         final UriReferencesChangedEvent event = new UriReferencesChangedEvent(newReference.getId());
-        for (Reference reference : references) {
+        for (final Reference reference : references) {
             if (!reference.isActive()) {
                 event.addReferenceToChange(reference.getId());
             }
@@ -37,5 +37,5 @@ public class UriReferenceManager extends ReferenceManager {
     }
 
 
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
 }

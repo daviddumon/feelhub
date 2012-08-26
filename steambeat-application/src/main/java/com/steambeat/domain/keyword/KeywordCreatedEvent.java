@@ -24,5 +24,5 @@ public class KeywordCreatedEvent extends DomainEvent {
         return keyword;
     }
 
-    private Keyword keyword;
+    private final Keyword keyword;
 }

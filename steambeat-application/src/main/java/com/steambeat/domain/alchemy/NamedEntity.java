@@ -3,7 +3,7 @@ package com.steambeat.domain.alchemy;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 
-import java.util.*;
+import java.util.List;
 
 public class NamedEntity {
 

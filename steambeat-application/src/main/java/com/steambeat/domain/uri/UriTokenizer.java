@@ -13,7 +13,7 @@ public class UriTokenizer {
     public List<String> getTokensFor(final String uri) {
         final String uriDecoded = decode(uri);
         extractElementsOfUri(uriDecoded);
-        List<String> result = Lists.newArrayList();
+        final List<String> result = Lists.newArrayList();
         result.add(getCompleteAddress());
         result.add(getAddressWithoutProtocol());
         return result;

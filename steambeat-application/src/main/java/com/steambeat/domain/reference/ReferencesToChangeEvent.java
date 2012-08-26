@@ -13,7 +13,7 @@ public abstract class ReferencesToChangeEvent extends DomainEvent {
         return keywords;
     }
 
-    public void addAllAbsent(Collection<? extends Keyword> newKeywords) {
+    public void addAllAbsent(final Collection<? extends Keyword> newKeywords) {
         keywords.addAllAbsent(newKeywords);
     }
 

@@ -53,7 +53,7 @@ public class TestsSessionService {
         final Session session = sessionService.getSessionFor(user);
 
         assertFalse(session.isExpired());
-        //assertThat(Repositories.sessions().getAll().size(), is(1));
+        assertThat(Repositories.sessions().getAll().size(), is(1));
     }
 
     private SessionService sessionService;

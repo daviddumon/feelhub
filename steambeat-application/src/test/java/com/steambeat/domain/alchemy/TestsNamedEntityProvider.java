@@ -22,7 +22,7 @@ public class TestsNamedEntityProvider {
     }
 
     @Test
-    public void canGetNamedEntitiesForAWebPage() {
+    public void canGetNamedEntitiesForAnUri() {
         final String uri = "http://www.mypage.com";
 
         final List<NamedEntity> results = alchemyNamedEntityProvider.entitiesFor(uri);

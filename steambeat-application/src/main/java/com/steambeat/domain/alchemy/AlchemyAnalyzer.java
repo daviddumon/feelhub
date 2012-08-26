@@ -48,8 +48,8 @@ public class AlchemyAnalyzer {
     }
 
     private List<ConceptEvent> createConceptEvents(final List<NamedEntity> namedEntities) {
-        List<ConceptEvent> events = Lists.newArrayList();
-        for (NamedEntity namedEntity : namedEntities) {
+        final List<ConceptEvent> events = Lists.newArrayList();
+        for (final NamedEntity namedEntity : namedEntities) {
             final ConceptEvent conceptEvent = new ConceptEvent();
             addKeywordsToConceptEvent(namedEntity, conceptEvent);
             createAlchemy(namedEntity, conceptEvent);
@@ -59,7 +59,7 @@ public class AlchemyAnalyzer {
     }
 
     private void addKeywordsToConceptEvent(final NamedEntity namedEntity, final ConceptEvent conceptEvent) {
-        for (String value : namedEntity.keywords) {
+        for (final String value : namedEntity.keywords) {
             final Keyword keyword = getOrCreateKeyword(value, namedEntity.steambeatLanguage);
             conceptEvent.addIfAbsent(keyword);
         }
@@ -106,6 +106,6 @@ public class AlchemyAnalyzer {
     }
 
     private final KeywordService keywordService;
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
     private final NamedEntityProvider namedEntityProvider;
 }

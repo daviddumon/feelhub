@@ -3,7 +3,7 @@ package com.steambeat.domain.illustration;
 import com.google.common.collect.Lists;
 import com.steambeat.domain.DomainException;
 import com.steambeat.domain.keyword.Keyword;
-import com.steambeat.domain.reference.*;
+import com.steambeat.domain.reference.ReferencesChangedEvent;
 import com.steambeat.repositories.Repositories;
 
 import java.util.*;
@@ -11,8 +11,8 @@ import java.util.*;
 public abstract class IllustrationManager {
 
     protected List<Illustration> getAllIllustrations(final ReferencesChangedEvent event) {
-        List<Illustration> illustrations = Lists.newArrayList();
-        for (UUID referenceId : getReferenceIdList(event)) {
+        final List<Illustration> illustrations = Lists.newArrayList();
+        for (final UUID referenceId : getReferenceIdList(event)) {
             final Illustration illustration = getIllustrationFor(referenceId);
             if (illustration != null) {
                 illustrations.add(illustration);
@@ -37,7 +37,7 @@ public abstract class IllustrationManager {
     }
 
     protected void migrateExistingIllustrations(final List<Illustration> illustrations, final UUID newReference) {
-        for (Illustration illustration : illustrations) {
+        for (final Illustration illustration : illustrations) {
             if (illustration.getReferenceId() != newReference) {
                 illustration.setReferenceId(newReference);
             }

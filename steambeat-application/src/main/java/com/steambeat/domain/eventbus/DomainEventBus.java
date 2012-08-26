@@ -32,5 +32,5 @@ public enum DomainEventBus {
     }
 
     private EventBus eventBus;
-    private AutoDiscardingList<DomainEvent> events = new AutoDiscardingList<DomainEvent>(100);
+    private final AutoDiscardingList<DomainEvent> events = new AutoDiscardingList<DomainEvent>(100);
 }

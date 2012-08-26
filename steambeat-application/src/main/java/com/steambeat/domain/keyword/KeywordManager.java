@@ -20,14 +20,14 @@ public class KeywordManager {
     public void handle(final ReferencesChangedEvent referencesChangedEvent) {
         sessionProvider.start();
         final UUID newReference = referencesChangedEvent.getNewReferenceId();
-        for (UUID reference : referencesChangedEvent.getReferenceIds()) {
+        for (final UUID reference : referencesChangedEvent.getReferenceIds()) {
             final List<Keyword> keywords = Repositories.keywords().forReferenceId(reference);
-            for (Keyword keyword : keywords) {
+            for (final Keyword keyword : keywords) {
                 keyword.setReferenceId(newReference);
             }
         }
         sessionProvider.stop();
     }
 
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
 }

@@ -22,8 +22,8 @@ public class ConceptGroupTranslator extends Translator {
     @Subscribe
     public void translate(final ConceptGroupEvent event) {
         sessionProvider.start();
-        for (ConceptEvent conceptEvent : event.getConceptEvents()) {
-            for (Keyword keyword : conceptEvent.getKeywords()) {
+        for (final ConceptEvent conceptEvent : event.getConceptEvents()) {
+            for (final Keyword keyword : conceptEvent.getKeywords()) {
                 final SteambeatLanguage steambeatLanguage = keyword.getLanguage();
                 if (!steambeatLanguage.equals(SteambeatLanguage.reference()) && !steambeatLanguage.equals(SteambeatLanguage.none())) {
                     try {
@@ -38,8 +38,8 @@ public class ConceptGroupTranslator extends Translator {
     }
 
     private void postConceptGroupTranslatedEvent(final ConceptGroupEvent event) {
-        List<ConceptTranslatedEvent> conceptTranslatedEvents = Lists.newArrayList();
-        for (ConceptEvent conceptEvent : event.getConceptEvents()) {
+        final List<ConceptTranslatedEvent> conceptTranslatedEvents = Lists.newArrayList();
+        for (final ConceptEvent conceptEvent : event.getConceptEvents()) {
             final ConceptTranslatedEvent conceptTranslatedEvent = new ConceptTranslatedEvent();
             conceptTranslatedEvent.addAllAbsent(conceptEvent.getKeywords());
             conceptTranslatedEvents.add(conceptTranslatedEvent);

@@ -29,7 +29,7 @@ public class TestsKeywordFactory {
         final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("english");
         final Reference reference = TestFactories.references().newReference();
 
-        Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
+        final Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
 
         assertNotNull(keyword);
         assertThat(keyword.getValue(), is(value));
@@ -44,8 +44,8 @@ public class TestsKeywordFactory {
     public void canCreateKeywordsWithSameReference() {
         final Reference reference = TestFactories.references().newReference();
 
-        Keyword keyword1 = keywordFactory.createKeyword("value1", SteambeatLanguage.reference(), reference.getId());
-        Keyword keyword2 = keywordFactory.createKeyword("value2", SteambeatLanguage.reference(), reference.getId());
+        final Keyword keyword1 = keywordFactory.createKeyword("value1", SteambeatLanguage.reference(), reference.getId());
+        final Keyword keyword2 = keywordFactory.createKeyword("value2", SteambeatLanguage.reference(), reference.getId());
 
         assertThat(keyword1.getReferenceId(), is(keyword2.getReferenceId()));
     }

@@ -31,5 +31,5 @@ public class ConceptReferenceManager extends ReferenceManager {
         DomainEventBus.INSTANCE.post(conceptReferencesChangedEvent);
     }
 
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
 }

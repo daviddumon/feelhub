@@ -24,5 +24,5 @@ public class ReferenceService {
 
     }
 
-    private ReferenceFactory referenceFactory;
+    private final ReferenceFactory referenceFactory;
 }

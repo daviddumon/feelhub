@@ -65,7 +65,7 @@ public class TestsDomainEventBus {
     private class SimpleEventListener {
 
         @Subscribe
-        public void handle(OpinionCreatedEvent opinionCreatedEvent) {
+        public void handle(final OpinionCreatedEvent opinionCreatedEvent) {
 
         }
     }

@@ -39,6 +39,6 @@ public class UriIllustrationManager extends IllustrationManager {
         Repositories.illustrations().add(illustration);
     }
 
-    private SessionProvider sessionProvider;
-    private Scraper scraper;
+    private final SessionProvider sessionProvider;
+    private final Scraper scraper;
 }

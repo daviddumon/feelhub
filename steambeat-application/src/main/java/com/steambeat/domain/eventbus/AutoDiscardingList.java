@@ -16,5 +16,5 @@ public class AutoDiscardingList<E> extends LinkedList<E> {
         return super.add(e);
     }
 
-    private int maximumSize;
+    private final int maximumSize;
 }

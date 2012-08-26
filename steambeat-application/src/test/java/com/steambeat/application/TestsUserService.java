@@ -67,7 +67,7 @@ public class TestsUserService {
     }
 
     @Test
-    public void cannotAuthenticateIfAccountNotActive() {
+    public void cannotAuthenticateIfAccountIsNotActive() {
         exception.expect(BadUserException.class);
         final User user = TestFactories.users().createUser("mail@mail.com");
 

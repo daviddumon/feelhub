@@ -36,7 +36,7 @@ public class UserService {
     }
 
     public User getUser(final String email) {
-        User user = Repositories.users().get(email);
+        final User user = Repositories.users().get(email);
         if (user == null) {
             throw new BadUserException();
         }
@@ -71,5 +71,5 @@ public class UserService {
         return user;
     }
 
-    private UserFactory userFactory;
+    private final UserFactory userFactory;
 }

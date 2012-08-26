@@ -15,7 +15,7 @@ public class FakeOpinionRepository extends FakeRepository<Opinion> implements Op
             @Override
             public boolean apply(final Opinion input) {
                 final List<Judgment> judgments = input.getJudgments();
-                for (Judgment judgment : judgments) {
+                for (final Judgment judgment : judgments) {
                     if (judgment.getReferenceId().equals(referenceId)) {
                         return true;
                     }

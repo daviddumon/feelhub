@@ -14,7 +14,7 @@ public class TestsJudgment {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void hasASubjectAndFeeling() {
+    public void hasAReferenceAndAFeeling() {
         final Reference reference = TestFactories.references().newReference();
         final Feeling feeling = Feeling.good;
 

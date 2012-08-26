@@ -27,8 +27,10 @@ public class BingLink {
     private String buildQueryFor(final Keyword keyword) {
         try {
             final StringBuilder stringBuilder = new StringBuilder();
+            final String queryRoot = "https://api.datamarket.azure.com/Data.ashx/Bing/Search/Image?Query='";
             stringBuilder.append(queryRoot);
             stringBuilder.append(URLEncoder.encode(keyword.toString(), "UTF-8"));
+            final String queryOptions = "'&Adult='Off'&$top=1&$format=JSON";
             stringBuilder.append(queryOptions);
             return stringBuilder.toString();
         } catch (Exception e) {
@@ -52,6 +54,4 @@ public class BingLink {
         return "";
     }
 
-    private static String queryRoot = "https://api.datamarket.azure.com/Data.ashx/Bing/Search/Image?Query='";
-    private static String queryOptions = "'&Adult='Off'&$top=1&$format=JSON";
 }

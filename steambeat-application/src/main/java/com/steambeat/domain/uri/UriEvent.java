@@ -23,5 +23,5 @@ public class UriEvent extends DomainEvent {
         return keyword;
     }
 
-    private Keyword keyword;
+    private final Keyword keyword;
 }

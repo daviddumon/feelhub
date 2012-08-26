@@ -2,7 +2,6 @@ package com.steambeat.domain.illustration;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
-import com.steambeat.domain.DomainException;
 import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.Keyword;
@@ -44,6 +43,6 @@ public class ConceptIllustrationManager extends IllustrationManager {
         return bingLink.getIllustration(keyword);
     }
 
-    private BingLink bingLink;
-    private SessionProvider sessionProvider;
+    private final BingLink bingLink;
+    private final SessionProvider sessionProvider;
 }

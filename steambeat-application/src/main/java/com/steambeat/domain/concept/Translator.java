@@ -21,7 +21,7 @@ public abstract class Translator {
     }
 
     protected void addKeywordFor(final String result, final ConceptEvent event) {
-        Keyword keyword = getOrCreateKeyword(result);
+        final Keyword keyword = getOrCreateKeyword(result);
         event.addIfAbsent(keyword);
     }
 

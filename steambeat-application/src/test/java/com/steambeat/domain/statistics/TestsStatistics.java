@@ -19,7 +19,7 @@ public class TestsStatistics {
     public WithDomainEvent withDomainEvent = new WithDomainEvent();
 
     @Test
-    public void canCreateFromSubject() {
+    public void canCreateFromReference() {
         final Reference reference = TestFactories.references().newReference();
 
         final Statistics statistics = new Statistics(reference, Granularity.hour, new DateTime());

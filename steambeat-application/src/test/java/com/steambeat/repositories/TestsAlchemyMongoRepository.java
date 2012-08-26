@@ -35,7 +35,7 @@ public class TestsAlchemyMongoRepository extends TestWithMongoRepository {
         alchemy.setMusicbrainz("musicbrainz");
         alchemy.setOpencyc("opencyc");
         alchemy.setSemanticcrunchbase("crunchbase");
-        List<String> subTypes = Lists.newArrayList();
+        final List<String> subTypes = Lists.newArrayList();
         subTypes.add("sub1");
         subTypes.add("sub2");
         alchemy.setSubtype(subTypes);

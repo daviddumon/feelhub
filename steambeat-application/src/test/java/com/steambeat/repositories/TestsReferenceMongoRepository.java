@@ -3,6 +3,7 @@ package com.steambeat.repositories;
 import com.mongodb.*;
 import com.steambeat.domain.Repository;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.test.*;
 import org.junit.*;
 
 import java.net.*;
@@ -12,6 +13,9 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class TestsReferenceMongoRepository extends TestWithMongoRepository {
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Before
     public void before() {
@@ -49,17 +53,16 @@ public class TestsReferenceMongoRepository extends TestWithMongoRepository {
         assertThat(referenceFound, notNullValue());
     }
 
-    //
-    //@Test
-    //public void bugCannotChangeDateOfSubject() {
-    //    final UUID id = TestFactories.subjects().newWebPage().getId();
-    //
-    //    final Subject subject = Repositories.subjects().get(id);
-    //    time.waitDays(1);
-    //    subject.setLastModificationDate(time.getNow());
-    //
-    //    assertThat(Repositories.subjects().get(id).getLastModificationDate(), is(time.getNow()));
-    //}
+    @Test
+    public void bugCannotChangeDateOfReference() {
+        final UUID id = TestFactories.references().newReference().getId();
+
+        final Reference reference = repo.get(id);
+        time.waitDays(1);
+        reference.setLastModificationDate(time.getNow());
+
+        assertThat(Repositories.references().get(id).getLastModificationDate(), is(time.getNow()));
+    }
 
     private Repository<Reference> repo;
 }

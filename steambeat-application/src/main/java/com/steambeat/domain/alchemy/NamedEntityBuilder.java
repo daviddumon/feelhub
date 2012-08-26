@@ -44,6 +44,7 @@ public class NamedEntityBuilder {
     }
 
     private void checkForSize(final String text) throws Exception {
+        final int TOO_SMALL = 3;
         if (text.length() < TOO_SMALL) {
             throw new Exception();
         }
@@ -116,5 +117,4 @@ public class NamedEntityBuilder {
         }
     }
 
-    private static int TOO_SMALL = 3;
 }

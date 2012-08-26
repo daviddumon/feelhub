@@ -37,6 +37,6 @@ public class ConceptGroupTranslatedEvent extends DomainEvent {
         return referenceId;
     }
 
-    private CopyOnWriteArrayList<ConceptTranslatedEvent> conceptTranslatedEvents = Lists.newCopyOnWriteArrayList();
-    private UUID referenceId;
+    private final CopyOnWriteArrayList<ConceptTranslatedEvent> conceptTranslatedEvents = Lists.newCopyOnWriteArrayList();
+    private final UUID referenceId;
 }

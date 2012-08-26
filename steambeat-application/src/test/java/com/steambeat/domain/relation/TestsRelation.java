@@ -19,29 +19,29 @@ public class TestsRelation {
 
     @Before
     public void setUp() {
-        left = TestFactories.references().newReference();
-        right = TestFactories.references().newReference();
-        relation = new RelationFactory().newRelation(left, right, 1.0);
+        from = TestFactories.references().newReference();
+        to = TestFactories.references().newReference();
+        relation = new RelationFactory().newRelation(from, to, 1.0);
     }
 
     @Test
-    public void canGetLeftId() {
-        assertThat(relation.getFromId(), is(left.getId()));
+    public void canGetFromId() {
+        assertThat(relation.getFromId(), is(from.getId()));
     }
 
     @Test
-    public void canGetLeft() {
-        assertThat(relation.getFrom(), Matchers.is(left));
+    public void canGetFrom() {
+        assertThat(relation.getFrom(), Matchers.is(from));
     }
 
     @Test
-    public void canGetRightId() {
-        assertThat(relation.getToId(), is(right.getId()));
+    public void canGetToId() {
+        assertThat(relation.getToId(), is(to.getId()));
     }
 
     @Test
-    public void canGetRight() {
-        assertThat(relation.getTo(), is(right));
+    public void canGetTo() {
+        assertThat(relation.getTo(), is(to));
     }
 
     @Test
@@ -50,6 +50,6 @@ public class TestsRelation {
     }
 
     private Relation relation;
-    private Reference right;
-    private Reference left;
+    private Reference to;
+    private Reference from;
 }

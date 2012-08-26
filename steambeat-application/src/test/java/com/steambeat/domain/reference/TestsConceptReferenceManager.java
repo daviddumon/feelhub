@@ -38,8 +38,8 @@ public class TestsConceptReferenceManager {
         final ConceptTranslatedEvent event = TestFactories.events().newConceptTranslatedEvent();
         event.addIfAbsent(goodKeyword);
         event.addIfAbsent(badKeyword);
-        UUID oldId = badKeyword.getReferenceId();
-        UUID goodId = goodKeyword.getReferenceId();
+        final UUID oldId = badKeyword.getReferenceId();
+        final UUID goodId = goodKeyword.getReferenceId();
 
         DomainEventBus.INSTANCE.post(event);
 

@@ -19,10 +19,10 @@ public class StatisticsManager {
     @Subscribe
     public void handle(final ReferencesChangedEvent event) {
         sessionProvider.start();
-        for (UUID referenceId : event.getReferenceIds()) {
+        for (final UUID referenceId : event.getReferenceIds()) {
             final List<Statistics> statistics = Repositories.statistics().forReferenceId(referenceId);
             if (!statistics.isEmpty()) {
-                for (Statistics stat : statistics) {
+                for (final Statistics stat : statistics) {
                     stat.setReferenceId(event.getNewReferenceId());
                 }
             }
@@ -30,5 +30,5 @@ public class StatisticsManager {
         sessionProvider.stop();
     }
 
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
 }

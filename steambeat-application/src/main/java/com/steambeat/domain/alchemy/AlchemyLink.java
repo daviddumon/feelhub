@@ -31,6 +31,7 @@ public class AlchemyLink {
     private String buildUri(final String uri) {
         final StringBuilder uriBuilder = new StringBuilder();
         try {
+            final String requestUri = "http://access.alchemyapi.com/calls/url/URLGetRankedNamedEntities?outputMode=json&apikey=";
             uriBuilder.append(requestUri).append(apiKey).append("&url=").append(URLEncoder.encode(uri, "UTF-8")).append("&linkedData=1");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -39,5 +40,4 @@ public class AlchemyLink {
     }
 
     private final String apiKey;
-    private final String requestUri = "http://access.alchemyapi.com/calls/url/URLGetRankedNamedEntities?outputMode=json&apikey=";
 }
