@@ -8,6 +8,6 @@ public class WelcomeResource extends ServerResource {
 
     @Get
     public Representation get() {
-        return SteambeatTemplateRepresentation.createNew("welcome.ftl", getContext());
+        return SteambeatTemplateRepresentation.createNew("welcome.ftl", getContext(), getRequest());
     }
 }

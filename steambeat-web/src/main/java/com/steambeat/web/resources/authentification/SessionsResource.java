@@ -62,16 +62,16 @@ public class SessionsResource extends ServerResource {
     }
 
     private void setTokenCookie() {
-        final CookieSetting token = new CookieSetting();
-        token.setName("token");
-        token.setComment("token cookie");
-        token.setSecure(Boolean.valueOf(getContext().getAttributes().get("com.steambeat.cookie.secure").toString()));
-        token.setAccessRestricted(true);
-        token.setValue(session.getToken().toString());
-        token.setDomain(getContext().getAttributes().get("com.steambeat.cookie.domain").toString());
-        token.setMaxAge(oneHour());
-        token.setPath("/");
-        this.getResponse().getCookieSettings().add(token);
+        final CookieSetting session = new CookieSetting();
+        session.setName("session");
+        session.setComment("session cookie");
+        session.setSecure(Boolean.valueOf(getContext().getAttributes().get("com.steambeat.cookie.secure").toString()));
+        session.setAccessRestricted(true);
+        session.setValue(this.session.getToken().toString());
+        session.setDomain(getContext().getAttributes().get("com.steambeat.cookie.domain").toString());
+        session.setMaxAge(oneHour());
+        session.setPath("/");
+        this.getResponse().getCookieSettings().add(session);
     }
 
     private int oneHour() {
@@ -80,13 +80,13 @@ public class SessionsResource extends ServerResource {
 
     @Delete
     public Representation delete() {
-        final Cookie token = getRequest().getCookies().getFirst("token");
+        final Cookie sessionCookie = getRequest().getCookies().getFirst("session");
         final Cookie id = getRequest().getCookies().getFirst("id");
-        if (token != null && id != null) {
+        if (sessionCookie != null && id != null) {
             final User user = userService.getUser(id.getValue());
             sessionService.deleteSessionFor(user);
             setEraseIdCookie(id.getValue());
-            setEraseTokenCookie(token.getValue());
+            setEraseSessionCookie(sessionCookie.getValue());
             setStatus(Status.SUCCESS_ACCEPTED);
             setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));
         } else {
@@ -108,18 +108,18 @@ public class SessionsResource extends ServerResource {
         this.getResponse().getCookieSettings().add(id);
     }
 
-    private void setEraseTokenCookie(final String value) {
-        final CookieSetting token = new CookieSetting();
-        token.setName("token");
-        token.setComment("token cookie");
-        token.setSecure(true);
-        token.setAccessRestricted(true);
-        token.setValue(value);
-        token.setSecure(Boolean.valueOf(getContext().getAttributes().get("com.steambeat.cookie.secure").toString()));
-        token.setDomain(getContext().getAttributes().get("com.steambeat.cookie.domain").toString());
-        token.setMaxAge(0);
-        token.setPath("/");
-        this.getResponse().getCookieSettings().add(token);
+    private void setEraseSessionCookie(final String value) {
+        final CookieSetting session = new CookieSetting();
+        session.setName("session");
+        session.setComment("session cookie");
+        session.setSecure(true);
+        session.setAccessRestricted(true);
+        session.setValue(value);
+        session.setSecure(Boolean.valueOf(getContext().getAttributes().get("com.steambeat.cookie.secure").toString()));
+        session.setDomain(getContext().getAttributes().get("com.steambeat.cookie.domain").toString());
+        session.setMaxAge(0);
+        session.setPath("/");
+        this.getResponse().getCookieSettings().add(session);
     }
 
     private UserService userService;

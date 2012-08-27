@@ -8,6 +8,6 @@ public class HelpResource extends ServerResource {
 
     @Get
     public Representation get() {
-        return SteambeatTemplateRepresentation.createNew("help.ftl", getContext());
+        return SteambeatTemplateRepresentation.createNew("help.ftl", getContext(), getRequest());
     }
 }

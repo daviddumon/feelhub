@@ -9,6 +9,6 @@ public class AdminEventsResource extends ServerResource {
 
     @Get
     public Representation get() {
-        return SteambeatTemplateRepresentation.createNew("admin/events.ftl", getContext()).with("events", DomainEventBus.INSTANCE.getEvents());
+        return SteambeatTemplateRepresentation.createNew("admin/events.ftl", getContext(), getRequest()).with("events", DomainEventBus.INSTANCE.getEvents());
     }
 }

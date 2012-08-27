@@ -8,6 +8,6 @@ public class HomeResource extends ServerResource {
 
     @Get
     public Representation represent() {
-        return SteambeatTemplateRepresentation.createNew("home.ftl", getContext());
+        return SteambeatTemplateRepresentation.createNew("home.ftl", getContext(), getRequest());
     }
 }

@@ -1,8 +1,8 @@
 package com.steambeat.web.search;
 
 import com.google.inject.Inject;
-import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.statistics.*;
 import com.steambeat.repositories.SessionProvider;
 import org.joda.time.Interval;
 import org.mongolink.domain.criteria.*;

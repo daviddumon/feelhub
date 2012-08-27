@@ -114,8 +114,8 @@
         <a id="home_link" href="${root}">steambeat</a>
 
         <div id="id_panel">
-            <#if identity?has_content>
-                <p>Hello ${identity} <a href="javascript:void(0);" id="logout">logout</a></p>
+            <#if user?has_content>
+                <p>Hello ${user.fullname} <a href="javascript:void(0);" id="logout">logout</a></p>
             <#else>
                 <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
             </#if>

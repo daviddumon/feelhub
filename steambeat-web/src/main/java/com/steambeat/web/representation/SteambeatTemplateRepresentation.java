@@ -2,7 +2,7 @@ package com.steambeat.web.representation;
 
 import com.google.common.collect.Maps;
 import freemarker.template.Configuration;
-import org.restlet.Context;
+import org.restlet.*;
 import org.restlet.data.MediaType;
 import org.restlet.ext.freemarker.TemplateRepresentation;
 import org.restlet.representation.OutputRepresentation;
@@ -12,24 +12,24 @@ import java.util.Map;
 
 public class SteambeatTemplateRepresentation extends OutputRepresentation {
 
-    public static SteambeatTemplateRepresentation createNew(final String template, final Context context) {
-        return createNew(template, context, MediaType.TEXT_HTML);
+    public static SteambeatTemplateRepresentation createNew(final String template, final Context context, final Request request) {
+        return createNew(template, context, MediaType.TEXT_HTML, request);
     }
 
-    public static SteambeatTemplateRepresentation createNew(final String template, final Context context, final MediaType type) {
-        return new SteambeatTemplateRepresentation(template, context, type);
+    public static SteambeatTemplateRepresentation createNew(final String template, final Context context, final MediaType type, final Request request) {
+        return new SteambeatTemplateRepresentation(template, context, type, request);
     }
 
-    public SteambeatTemplateRepresentation(final String template, final Context context, final MediaType type) {
+    private SteambeatTemplateRepresentation(final String template, final Context context, final MediaType type, final Request request) {
         super(type);
         this.context = context;
         final Map<String, Object> data = Maps.newHashMap();
         representation = new TemplateRepresentation(template, getConfiguration(), data, type);
-        setIdentityInRepresentation(context);
+        setIdentityInRepresentation(request);
     }
 
-    private void setIdentityInRepresentation(final Context context) {
-        ((Map<String, Object>) representation.getDataModel()).put("identity", context.getAttributes().get("com.steambeat.identity"));
+    private void setIdentityInRepresentation(final Request request) {
+        ((Map<String, Object>) representation.getDataModel()).put("user", request.getAttributes().get("com.steambeat.user"));
     }
 
     public SteambeatTemplateRepresentation with(final Map<String, Object> data) {

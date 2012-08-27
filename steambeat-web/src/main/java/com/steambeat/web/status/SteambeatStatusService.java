@@ -41,9 +41,9 @@ public class SteambeatStatusService extends StatusService {
     @Override
     public Representation getRepresentation(final Status status, final Request request, final Response response) {
         if (canResolve(status.getThrowable())) {
-            return resolverFor(status.getThrowable()).getRepresentation(getContext());
+            return resolverFor(status.getThrowable()).getRepresentation(getContext(), request);
         }
-        return new GenericExceptionResolver().getRepresentation(getContext());
+        return new GenericExceptionResolver().getRepresentation(getContext(), request);
     }
 
     private final Map<Class<?>, ErrorResolver> resolvers = Maps.newHashMap();

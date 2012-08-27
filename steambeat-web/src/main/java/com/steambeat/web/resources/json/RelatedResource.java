@@ -24,7 +24,7 @@ public class RelatedResource extends ServerResource {
     public Representation represent() {
         doSearchWithQueryParameters();
         getTopics();
-        return SteambeatTemplateRepresentation.createNew("json/related.json.ftl", getContext(), MediaType.APPLICATION_JSON).with("topics", references);
+        return SteambeatTemplateRepresentation.createNew("json/related.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("topics", references);
     }
 
     private void doSearchWithQueryParameters() {

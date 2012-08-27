@@ -8,6 +8,6 @@ public class MigrationResource extends ServerResource {
 
     @Get
     public Representation represent() throws Exception {
-        return SteambeatTemplateRepresentation.createNew("migration.ftl", getContext());
+        return SteambeatTemplateRepresentation.createNew("migration.ftl", getContext(), getRequest());
     }
 }

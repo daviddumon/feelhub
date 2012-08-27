@@ -9,6 +9,6 @@ public class AdminFreemarkerResource extends ServerResource {
     @Get
     public Representation get() {
         final String name = getRequestAttributes().get("name").toString();
-        return SteambeatTemplateRepresentation.createNew(name + ".ftl", getContext());
+        return SteambeatTemplateRepresentation.createNew(name + ".ftl", getContext(), getRequest());
     }
 }

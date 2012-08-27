@@ -8,6 +8,6 @@ public class LoginResource extends ServerResource {
 
     @Get
     public Representation get() {
-        return SteambeatTemplateRepresentation.createNew("login.ftl", getContext());
+        return SteambeatTemplateRepresentation.createNew("login.ftl", getContext(), getRequest());
     }
 }

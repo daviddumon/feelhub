@@ -24,11 +24,10 @@ public class KeywordResource extends ServerResource {
         try {
             keyword = keywordService.lookUp(keywordValue, steambeatLanguage);
         } catch (KeywordNotFound e) {
-            //keyword = new Keyword(keywordValue, steambeatLanguage, null);
-            keyword = keywordService.createKeyword(keywordValue, steambeatLanguage);
+            keyword = new Keyword(keywordValue, steambeatLanguage, null);
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
         }
-        return SteambeatTemplateRepresentation.createNew("keyword.ftl", getContext())
+        return SteambeatTemplateRepresentation.createNew("keyword.ftl", getContext(), getRequest())
                 .with("keyword", keyword)
                 .with("language", steambeatLanguage);
     }

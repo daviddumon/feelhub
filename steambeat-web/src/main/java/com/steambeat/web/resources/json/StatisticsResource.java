@@ -26,7 +26,7 @@ public class StatisticsResource extends ServerResource {
     public Representation represent() throws JSONException {
         extractParameters(getQuery());
         fetchStatistics();
-        return SteambeatTemplateRepresentation.createNew("json/statistics.json.ftl", getContext(), MediaType.APPLICATION_JSON).with("statistics", statistics);
+        return SteambeatTemplateRepresentation.createNew("json/statistics.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("statistics", statistics);
     }
 
     private void extractParameters(final Form query) {

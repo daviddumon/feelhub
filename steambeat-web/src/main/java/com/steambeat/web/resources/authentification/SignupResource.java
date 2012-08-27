@@ -1,7 +1,7 @@
 package com.steambeat.web.resources.authentification;
 
 import com.google.inject.Inject;
-import com.steambeat.application.*;
+import com.steambeat.application.UserService;
 import com.steambeat.domain.session.EmailAlreadyUsed;
 import com.steambeat.domain.user.BadEmail;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
@@ -18,7 +18,7 @@ public class SignupResource extends ServerResource {
 
     @Get
     public Representation represent() {
-        return SteambeatTemplateRepresentation.createNew("signup.ftl", getContext());
+        return SteambeatTemplateRepresentation.createNew("signup.ftl", getContext(), getRequest());
     }
 
     @Post

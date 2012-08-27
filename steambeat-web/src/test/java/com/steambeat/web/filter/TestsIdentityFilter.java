@@ -1,9 +1,10 @@
 package com.steambeat.web.filter;
 
-import com.steambeat.application.UserService;
-import com.steambeat.domain.user.UserFactory;
-import com.steambeat.test.TestFactories;
+import com.steambeat.application.*;
+import com.steambeat.domain.session.Session;
+import com.steambeat.domain.user.*;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.TestFactories;
 import com.steambeat.web.WebApplicationTester;
 import org.junit.*;
 import org.restlet.*;
@@ -25,47 +26,54 @@ public class TestsIdentityFilter {
     @Before
     public void before() {
         request = new Request();
-        TestFactories.users().createUser("mail@mail.com", "full name");
-        identityFilter = new IdentityFilter(new UserService(new UserFactory()));
+        user = TestFactories.users().createUser("mail@mail.com", "full name");
+        final SessionService sessionService = new SessionService();
+        session = sessionService.getSessionFor(user);
+        identityFilter = new IdentityFilter(new UserService(new UserFactory()), new SessionService());
         identityFilter.setContext(restlet.getApplication().getContext());
     }
 
     @Test
-    public void setNameInContextFromCookie() {
+    public void setUserInRequest() {
         setGoodCookieInRequest();
 
         identityFilter.beforeHandle(request, new Response(request));
 
-        final Context context = identityFilter.getContext();
-        assertThat(context.getAttributes().get("com.steambeat.identity").toString(), is("full name"));
+        assertThat((User) request.getAttributes().get("com.steambeat.user"), is(user));
     }
 
     @Test
-    public void setEmptyNameIfNoCookie() {
+    public void setNullUserInEmpty() {
         identityFilter.beforeHandle(request, new Response(request));
 
-        final Context context = identityFilter.getContext();
-        assertTrue(context.getAttributes().get("com.steambeat.identity").toString().isEmpty());
+        assertThat(request.getAttributes().get("com.steambeat.user"), nullValue());
     }
 
     @Test
-    public void setEmptyNameIfBadNamedCookie() {
+    public void setNullUserIfBadNamedCookie() {
         setBadNamedCookieInRequest();
 
         identityFilter.beforeHandle(request, new Response(request));
 
-        final Context context = identityFilter.getContext();
-        assertTrue(context.getAttributes().get("com.steambeat.identity").toString().isEmpty());
+        assertThat(request.getAttributes().get("com.steambeat.user"), nullValue());
     }
 
     @Test
-    public void setIdentityOnlyIfUserExists() {
-        setCookieIfNotExistingUserInRequest();
+    public void setUserOnlyIfUserExists() {
+        setCookieForNonExistingUser();
 
         identityFilter.beforeHandle(request, new Response(request));
 
-        final Context context = identityFilter.getContext();
-        assertTrue(context.getAttributes().get("com.steambeat.identity").toString().isEmpty());
+        assertThat(request.getAttributes().get("com.steambeat.user"), nullValue());
+    }
+
+    @Test
+    public void setSessionInContext() {
+        setGoodCookieInRequest();
+
+        identityFilter.beforeHandle(request, new Response(request));
+
+        assertThat((Session)request.getAttributes().get("com.steambeat.session"), is(session));
     }
 
     private void setGoodCookieInRequest() {
@@ -82,7 +90,7 @@ public class TestsIdentityFilter {
         request.setCookies(cookies);
     }
 
-    private void setCookieIfNotExistingUserInRequest() {
+    private void setCookieForNonExistingUser() {
         final Cookie cookie = new Cookie(1, "id", "john@doe.com");
         final CookieSeries cookies = new CookieSeries();
         cookies.add(cookie);
@@ -91,4 +99,6 @@ public class TestsIdentityFilter {
 
     private Request request;
     private IdentityFilter identityFilter;
+    private User user;
+    private Session session;
 }

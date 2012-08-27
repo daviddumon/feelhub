@@ -26,7 +26,7 @@ public class OpinionsResource extends ServerResource {
     @Get
     public SteambeatTemplateRepresentation represent() throws JSONException {
         doSearchWithQueryParameters();
-        return SteambeatTemplateRepresentation.createNew("json/opinions.json.ftl", getContext(), MediaType.APPLICATION_JSON).with("opinions", opinions);
+        return SteambeatTemplateRepresentation.createNew("json/opinions.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("opinions", opinions);
     }
 
     private void doSearchWithQueryParameters() {

@@ -6,8 +6,9 @@ import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.user.*;
 import com.steambeat.web.ReferenceBuilder;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.restlet.Context;
+import org.restlet.*;
 
+import javax.mail.Message;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.IOException;
@@ -58,7 +59,9 @@ public class MailBuilder {
 
     private void setContent(final MimeMessage mimeMessage, final User user) {
         try {
-            final SteambeatTemplateRepresentation content = SteambeatTemplateRepresentation.createNew("mail/welcome.ftl", context)
+            final Request fakeRequest = new Request();
+            fakeRequest.getAttributes().put("com.steambeat.user", user);
+            final SteambeatTemplateRepresentation content = SteambeatTemplateRepresentation.createNew("mail/welcome.ftl", context, fakeRequest)
                     .with("name", user.getFullname())
                     .with("activation_link", new ReferenceBuilder(context).buildUri("/activation/" + user.getSecret()));
             mimeMessage.setText(content.getText());

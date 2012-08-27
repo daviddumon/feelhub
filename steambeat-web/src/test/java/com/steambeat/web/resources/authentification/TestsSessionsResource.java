@@ -166,17 +166,17 @@ public class TestsSessionsResource {
         final Session session = Repositories.sessions().getAll().get(0);
         assertThat(sessions.getStatus(), is(Status.SUCCESS_CREATED));
         assertFalse(sessions.getResponse().getCookieSettings().isEmpty());
-        final CookieSetting token = sessions.getResponse().getCookieSettings().getFirst("token");
-        assertThat(token, notNullValue());
-        assertThat(token.getComment(), is("token cookie"));
-        assertThat(token.getName(), is("token"));
-        assertTrue(token.isAccessRestricted());
-        assertThat(token.getVersion(), is(0));
-        assertThat(token.getValue(), is(session.getToken().toString()));
-        assertThat(token.isSecure(), is(Boolean.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.secure").toString())));
-        assertThat(token.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.domain").toString()));
-        assertThat(token.getMaxAge(), is((int) new Interval(time.getNow(), session.getExpirationDate()).toDurationMillis() / 1000));
-        assertThat(token.getPath(), is("/"));
+        final CookieSetting sessionCookie = sessions.getResponse().getCookieSettings().getFirst("session");
+        assertThat(sessionCookie, notNullValue());
+        assertThat(sessionCookie.getComment(), is("session cookie"));
+        assertThat(sessionCookie.getName(), is("session"));
+        assertTrue(sessionCookie.isAccessRestricted());
+        assertThat(sessionCookie.getVersion(), is(0));
+        assertThat(sessionCookie.getValue(), is(session.getToken().toString()));
+        assertThat(sessionCookie.isSecure(), is(Boolean.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.secure").toString())));
+        assertThat(sessionCookie.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.domain").toString()));
+        assertThat(sessionCookie.getMaxAge(), is((int) new Interval(time.getNow(), session.getExpirationDate()).toDurationMillis() / 1000));
+        assertThat(sessionCookie.getPath(), is("/"));
     }
 
     @Test
@@ -218,10 +218,10 @@ public class TestsSessionsResource {
 
     private CookieSeries getGoodCookies(final User user, final Session session) {
         final Cookie id = new Cookie(1, "id", user.getEmail());
-        final Cookie token = new Cookie(1, "token", session.getToken().toString());
+        final Cookie sessionCookie = new Cookie(1, "session", session.getToken().toString());
         final CookieSeries cookies = new CookieSeries();
         cookies.add(id);
-        cookies.add(token);
+        cookies.add(sessionCookie);
         return cookies;
     }
 }

@@ -24,7 +24,7 @@ public class ActivationResource extends ServerResource {
         if (!user.isActive()) {
             user.activate();
             setStatus(Status.SUCCESS_OK);
-            return SteambeatTemplateRepresentation.createNew("activation.ftl", getContext());
+            return SteambeatTemplateRepresentation.createNew("activation.ftl", getContext(), getRequest());
         } else {
             throw new AccountAlreadyActivatedException();
         }
