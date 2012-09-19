@@ -26,7 +26,7 @@ public class TestsSessionsResource {
     public WebApplicationTester restlet = new WebApplicationTester();
 
     @Test
-    public void canRequestToken() {
+    public void canRequestSession() {
         final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
@@ -88,7 +88,7 @@ public class TestsSessionsResource {
     }
 
     @Test
-    public void setCookieOnSuccessfulLogin() {
+    public void setCookieOnSuccessLogin() {
         final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
@@ -103,7 +103,7 @@ public class TestsSessionsResource {
 
     @Test
     public void doNotSetCookieIfErrorForbidden() {
-        final User user = TestFactories.users().createActiveUser("mail@mail.com");
+        TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();
         parameters.add("email", "fake@mail.com");

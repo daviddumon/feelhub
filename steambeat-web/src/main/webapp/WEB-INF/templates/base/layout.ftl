@@ -115,7 +115,7 @@
 
         <div id="id_panel">
             <#if user?has_content>
-                <p>Hello ${user.fullname} <a href="javascript:void(0);" id="logout">logout</a></p>
+                <p>Hello ${user.fullname} <#if session?has_content><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
             <#else>
                 <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
             </#if>

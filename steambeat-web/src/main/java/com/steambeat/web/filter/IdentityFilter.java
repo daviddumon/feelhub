@@ -37,7 +37,9 @@ public class IdentityFilter extends Filter {
     private void setSessionInContext(final Request request) {
         final Cookie sessionCookie = getSessionCookie(request);
         if (sessionCookie != null) {
-
+            request.getAttributes().put("com.steambeat.sessiontoken", sessionCookie.getValue());
+        } else {
+            request.getAttributes().put("com.steambeat.sessiontoken", "");
         }
     }
 

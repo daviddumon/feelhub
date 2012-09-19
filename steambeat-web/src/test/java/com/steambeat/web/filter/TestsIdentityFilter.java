@@ -11,9 +11,8 @@ import org.restlet.*;
 import org.restlet.data.Cookie;
 import org.restlet.engine.util.CookieSeries;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 public class TestsIdentityFilter {
 
@@ -73,13 +72,24 @@ public class TestsIdentityFilter {
 
         identityFilter.beforeHandle(request, new Response(request));
 
-        assertThat((Session)request.getAttributes().get("com.steambeat.session"), is(session));
+        assertThat(request.getAttributes().get("com.steambeat.sessiontoken").toString(), is(session.getToken().toString()));
+    }
+
+    @Test
+    public void setNullSessionIfNoSessionCookie() {
+        setBadNamedCookieInRequest();
+
+        identityFilter.beforeHandle(request, new Response(request));
+
+        assertThat(request.getAttributes().get("com.steambeat.sessiontoken").toString(), is(""));
     }
 
     private void setGoodCookieInRequest() {
         final Cookie cookie = new Cookie(1, "id", "mail@mail.com");
+        final Cookie sessionCookie = new Cookie(1, "session", session.getToken().toString());
         final CookieSeries cookies = new CookieSeries();
         cookies.add(cookie);
+        cookies.add(sessionCookie);
         request.setCookies(cookies);
     }
 

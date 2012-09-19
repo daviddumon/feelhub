@@ -88,7 +88,6 @@ public class SessionsResource extends ServerResource {
             setEraseIdCookie(id.getValue());
             setEraseSessionCookie(sessionCookie.getValue());
             setStatus(Status.SUCCESS_ACCEPTED);
-            setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));
         } else {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
         }
