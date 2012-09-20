@@ -1,6 +1,7 @@
 /* Copyright Steambeat 2012 */
 $(function () {
     var flow = new Flow();
+    var form = new Form();
 
     loadCounters();
 });

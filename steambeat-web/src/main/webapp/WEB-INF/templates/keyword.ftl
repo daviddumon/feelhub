@@ -1,4 +1,11 @@
 <@layout.headbegin>
+<script type="text/javascript">
+        <#if authentificated?has_content>
+        var authentificated = ${authentificated?string};
+        <#else >
+        var authentificated = false;
+        </#if>
+</script>
 </@layout.headbegin>
 
 <@layout.cssprod>
@@ -43,7 +50,7 @@
     <#include "includes/counters.ftl"/>
 
     <div class="panel_box">
-        ${keyword}
+    ${keyword}
         <#--<div id="webpageRoot"><span onclick="javascript:window.open('${webPage.uri}');" style="cursor: pointer">${webPage.description!"no description"}</span></div>-->
         <#--<div id="illustration"><img <#if ''?matches('${webPage.illustration}')> style='display: none;' <#else> src="${webPage.illustration}" </#if> /></div>-->
     </div>
@@ -52,7 +59,7 @@
     </div>
 </div>
 
-<a href="" id="form_button" style="display: none">add your opinion</a>
+<a href="javascript:void(0);" id="form_button">add your opinion</a>
 </@layout.fixed>
 
 <@layout.body>

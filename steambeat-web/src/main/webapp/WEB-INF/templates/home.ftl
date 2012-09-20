@@ -1,4 +1,11 @@
 <@layout.headbegin>
+<script type="text/javascript">
+        <#if authentificated?has_content>
+        var authentificated = ${authentificated?string};
+        <#else >
+        var authentificated = false;
+        </#if>
+</script>
 </@layout.headbegin>
 
 <@layout.cssprod>
@@ -41,7 +48,7 @@
 
 </div>
 
-<a href="" id="form_button" style="display: none">add your opinion</a>
+<a href="javascript:void(0);" id="form_button">add your opinion</a>
 </@layout.fixed>
 
 <@layout.body>

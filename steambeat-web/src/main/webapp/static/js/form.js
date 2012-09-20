@@ -12,7 +12,11 @@ function Form() {
     $("#form_button").click(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        THIS.show();
+        if(authentificated) {
+            THIS.show();
+        } else {
+            document.location.href = root + "/login";
+        }
     });
 
     $("#form_close").click(function (e) {
