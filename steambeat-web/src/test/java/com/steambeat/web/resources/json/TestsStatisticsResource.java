@@ -1,10 +1,10 @@
 package com.steambeat.web.resources.json;
 
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.reference.Reference;
-import com.steambeat.test.*;
+import com.steambeat.domain.statistics.*;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
+import com.steambeat.test.*;
 import com.steambeat.web.*;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.joda.time.DateTime;

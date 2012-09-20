@@ -1,7 +1,7 @@
 package com.steambeat.web.search;
 
-import com.steambeat.domain.statistics.*;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.statistics.*;
 import com.steambeat.repositories.TestWithMongoRepository;
 import com.steambeat.test.*;
 import org.joda.time.Interval;

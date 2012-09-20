@@ -3,8 +3,8 @@ package com.steambeat.web.search.fake;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 import com.google.inject.Inject;
-import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.relation.Relation;
 import com.steambeat.repositories.*;
 import com.steambeat.web.search.RelationSearch;
 
