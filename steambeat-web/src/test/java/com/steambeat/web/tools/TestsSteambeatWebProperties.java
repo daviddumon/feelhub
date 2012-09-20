@@ -60,4 +60,40 @@ public class TestsSteambeatWebProperties {
 
         assertThat(status, is("false"));
     }
+
+    @Test
+    public void canGetCookieBaseTime() {
+        final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
+
+        final String cookieBaseTime = steambeatWebProperties.getCookieBaseTime();
+
+        assertThat(cookieBaseTime, is("1"));
+    }
+
+    @Test
+    public void canGetCookiePermanentTime() {
+        final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
+
+        final String cookiePermanentTime = steambeatWebProperties.getCookiePermanentTime();
+
+        assertThat(cookiePermanentTime, is("10"));
+    }
+
+    @Test
+    public void canGetSessionBaseTime() {
+        final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
+
+        final String sessionBaseTime = steambeatWebProperties.getSessionBaseTime();
+
+        assertThat(sessionBaseTime, is("5"));
+    }
+
+    @Test
+    public void canGetSessionPermanentTime() {
+        final SteambeatWebProperties steambeatWebProperties = new SteambeatWebProperties();
+
+        final String sessionPermanentTime = steambeatWebProperties.getSessionPermanentTime();
+
+        assertThat(sessionPermanentTime, is("10"));
+    }
 }

@@ -45,6 +45,10 @@ public class SteambeatApplication extends Application {
     private void setCookieParametersInContext() {
         getContext().getAttributes().put("com.steambeat.cookie.domain", steambeatWebProperties.getCookie());
         getContext().getAttributes().put("com.steambeat.cookie.secure", steambeatWebProperties.getSecureMode());
+        getContext().getAttributes().put("com.steambeat.cookie.cookiebasetime", steambeatWebProperties.getCookieBaseTime());
+        getContext().getAttributes().put("com.steambeat.cookie.cookiepermanenttime", steambeatWebProperties.getCookiePermanentTime());
+        getContext().getAttributes().put("com.steambeat.session.sessionbasetime", steambeatWebProperties.getSessionBaseTime());
+        getContext().getAttributes().put("com.steambeat.session.sessionpermanenttime", steambeatWebProperties.getSessionPermanentTime());
     }
 
     private void setStatus() {

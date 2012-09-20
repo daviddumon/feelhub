@@ -1,46 +1,50 @@
 package com.steambeat.application;
 
-import com.steambeat.domain.session.Session;
+import com.steambeat.domain.session.*;
 import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
-import org.restlet.data.Cookie;
+import org.joda.time.DateTime;
 
 import java.util.UUID;
 
 public class SessionService {
 
-    public Session getOrCreateSessionForUser(final User user) {
-        Session session = lookUpSession(user);
-        if (session == null) {
-            session = new Session();
-            session.setEmail(user.getEmail());
-            session.setToken(UUID.randomUUID());
-            Repositories.sessions().add(session);
-        } else {
-            session.renew();
-        }
+    public Session createSession(final User user, final DateTime expirationDate) {
+        final Session session = new Session(expirationDate);
+        session.setEmail(user.getEmail());
+        Repositories.sessions().add(session);
         return session;
     }
 
-    public boolean validateCookieForUser(final Cookie cookie, final User user) {
-        if (cookie != null) {
-            final Session session = lookUpSession(user);
-            if (session == null) {
-                return false;
-            } else {
-                return session.getToken().toString().equalsIgnoreCase(cookie.getValue());
-            }
-        } else {
+    public boolean authentificate(final User user, final UUID token) {
+        try {
+            final Session session = lookUpSession(token);
+            checkSessionForUser(user, session);
+            checkExpired(session);
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }
 
-    private Session lookUpSession(final User user) {
-        return Repositories.sessions().get(user.getEmail());
+    private void checkSessionForUser(final User user, final Session session) {
+        if (!session.getEmail().equalsIgnoreCase(user.getEmail())) {
+            throw new SessionException();
+        }
     }
 
-    public void deleteSessionFor(final User user) {
-        final Session session = lookUpSession(user);
+    private void checkExpired(final Session session) {
+        if (session.isExpired()) {
+            throw new SessionException();
+        }
+    }
+
+    private Session lookUpSession(final UUID token) {
+        return Repositories.sessions().get(token);
+    }
+
+    public void deleteSession(final UUID token) {
+        final Session session = lookUpSession(token);
         if (session != null) {
             Repositories.sessions().delete(session);
         }

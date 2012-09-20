@@ -46,5 +46,21 @@ public class SteambeatWebProperties {
         return properties.getProperty("secureMode");
     }
 
+    public String getCookieBaseTime() {
+        return properties.getProperty("cookiebasetime");
+    }
+
+    public String getCookiePermanentTime() {
+        return properties.getProperty("cookiepermanenttime");
+    }
+
+    public String getSessionBaseTime() {
+        return properties.getProperty("sessionbasetime");
+    }
+
+    public String getSessionPermanentTime() {
+        return properties.getProperty("sessionpermanenttime");
+    }
+
     private final Properties properties;
 }

@@ -6,6 +6,7 @@ import com.steambeat.domain.user.*;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.web.WebApplicationTester;
+import org.joda.time.DateTime;
 import org.junit.*;
 import org.restlet.*;
 import org.restlet.data.Cookie;
@@ -29,7 +30,7 @@ public class TestsIdentityFilter {
         request = new Request();
         user = TestFactories.users().createUser("mail@mail.com", "full name");
         final SessionService sessionService = new SessionService();
-        session = sessionService.getOrCreateSessionForUser(user);
+        session = sessionService.createSession(user, new DateTime().plusHours(1));
         identityFilter = new IdentityFilter(new UserService(new UserFactory()), new SessionService());
         identityFilter.setContext(restlet.getApplication().getContext());
     }

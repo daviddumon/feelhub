@@ -5,10 +5,12 @@ import com.steambeat.application.*;
 import com.steambeat.domain.session.Session;
 import com.steambeat.domain.user.*;
 import com.steambeat.web.ReferenceBuilder;
-import org.joda.time.*;
+import org.joda.time.DateTime;
 import org.restlet.data.*;
 import org.restlet.representation.*;
 import org.restlet.resource.*;
+
+import java.util.UUID;
 
 public class SessionsResource extends ServerResource {
 
@@ -25,7 +27,7 @@ public class SessionsResource extends ServerResource {
             final String password = form.getFirstValue("password");
             try {
                 user = userService.authentificate(email, password);
-                session = sessionService.getOrCreateSessionForUser(user);
+                session = sessionService.createSession(user, getSessionBaseExpirationTime());
                 setCookiesInResponse();
                 setStatus(Status.SUCCESS_CREATED);
                 setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));
@@ -41,6 +43,11 @@ public class SessionsResource extends ServerResource {
         return form.getQueryString().contains("email") && form.getQueryString().contains("password");
     }
 
+    private DateTime getSessionBaseExpirationTime() {
+        final String sessionBaseTime = getContext().getAttributes().get("com.steambeat.session.sessionbasetime").toString();
+        return new DateTime().plusMillis(Integer.valueOf(sessionBaseTime));
+    }
+
     private void setCookiesInResponse() {
         setIdCookie();
         setTokenCookie();
@@ -54,9 +61,13 @@ public class SessionsResource extends ServerResource {
         id.setValue(user.getEmail());
         id.setSecure(Boolean.valueOf(getContext().getAttributes().get("com.steambeat.cookie.secure").toString()));
         id.setDomain(getContext().getAttributes().get("com.steambeat.cookie.domain").toString());
-        id.setMaxAge(FIVE_YEARS);
+        id.setMaxAge(getCookiePermamentTime());
         id.setPath("/");
         this.getResponse().getCookieSettings().add(id);
+    }
+
+    public int getCookiePermamentTime() {
+        return Integer.valueOf(getContext().getAttributes().get("com.steambeat.cookie.cookiepermanenttime").toString());
     }
 
     private void setTokenCookie() {
@@ -67,13 +78,13 @@ public class SessionsResource extends ServerResource {
         session.setAccessRestricted(true);
         session.setValue(this.session.getToken().toString());
         session.setDomain(getContext().getAttributes().get("com.steambeat.cookie.domain").toString());
-        session.setMaxAge(oneHour());
+        session.setMaxAge(getCookieBaseTime());
         session.setPath("/");
         this.getResponse().getCookieSettings().add(session);
     }
 
-    private int oneHour() {
-        return ((int) new Interval(new DateTime(), session.getExpirationDate()).toDurationMillis()) / 1000;
+    public int getCookieBaseTime() {
+        return Integer.valueOf(getContext().getAttributes().get("com.steambeat.cookie.cookiebasetime").toString());
     }
 
     @Delete
@@ -81,8 +92,7 @@ public class SessionsResource extends ServerResource {
         final Cookie sessionCookie = getRequest().getCookies().getFirst("session");
         final Cookie id = getRequest().getCookies().getFirst("id");
         if (sessionCookie != null && id != null) {
-            final User user = userService.getUser(id.getValue());
-            sessionService.deleteSessionFor(user);
+            sessionService.deleteSession(UUID.fromString(sessionCookie.getValue()));
             setEraseIdCookie(id.getValue());
             setEraseSessionCookie(sessionCookie.getValue());
             setStatus(Status.SUCCESS_ACCEPTED);
@@ -123,5 +133,4 @@ public class SessionsResource extends ServerResource {
     private SessionService sessionService;
     private User user;
     private Session session;
-    private static int FIVE_YEARS = 157680000;
 }

@@ -7,6 +7,8 @@ import org.restlet.*;
 import org.restlet.data.Cookie;
 import org.restlet.routing.Filter;
 
+import java.util.UUID;
+
 public class IdentityFilter extends Filter {
 
     @Inject
@@ -22,7 +24,7 @@ public class IdentityFilter extends Filter {
             try {
                 user = userService.getUser(identityCookie.getValue());
                 request.getAttributes().put("com.steambeat.user", user);
-                request.getAttributes().put("com.steambeat.authentificated", sessionService.validateCookieForUser(getSessionCookie(request), user));
+                request.getAttributes().put("com.steambeat.authentificated", sessionService.authentificate(user, getToken(request)));
             } catch (Exception e) {
 
             }
@@ -34,8 +36,13 @@ public class IdentityFilter extends Filter {
         return request.getCookies().getFirst("id");
     }
 
-    private Cookie getSessionCookie(final Request request) {
-        return request.getCookies().getFirst("session");
+    private UUID getToken(final Request request) {
+        final Cookie session = request.getCookies().getFirst("session");
+        if (session != null) {
+            return UUID.fromString(session.getValue());
+        } else {
+            return null;
+        }
     }
 
     private UserService userService;

@@ -7,7 +7,7 @@ import com.steambeat.domain.keyword.KeywordRepository;
 import com.steambeat.domain.opinion.OpinionRepository;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.relation.RelationRepository;
-import com.steambeat.domain.session.Session;
+import com.steambeat.domain.session.SessionRepository;
 import com.steambeat.domain.statistics.StatisticsRepository;
 import com.steambeat.domain.user.UserRepository;
 import com.steambeat.repositories.Repositories;
@@ -35,7 +35,7 @@ public class FakeMongoRepositories extends Repositories {
     }
 
     @Override
-    protected Repository<Session> getSessionRepository() {
+    protected SessionRepository getSessionRepository() {
         return sessionRepository;
     }
 

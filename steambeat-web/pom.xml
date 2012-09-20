@@ -26,6 +26,10 @@
                 <sitemapBuilder>http://localhost:8081/steambeat-sitemap</sitemapBuilder>
                 <cookie>.test.localhost</cookie>
                 <secureMode>false</secureMode>
+                <cookiebasetime>-1</cookiebasetime>
+                <cookiepermanenttime>600</cookiepermanenttime>
+                <sessionbasetime>30</sessionbasetime>
+                <sessionpermanenttime>1200</sessionpermanenttime>
             </properties>
         </profile>
         <profile>
@@ -36,6 +40,10 @@
                 <sitemapBuilder>http://test.bytedojo.com/sitemaps</sitemapBuilder>
                 <cookie>http://test.bytedojo.com/sitemaps</cookie>
                 <secureMode>false</secureMode>
+                <cookiebasetime>-1</cookiebasetime>
+                <cookiepermanenttime>157680000</cookiepermanenttime>
+                <sessionbasetime>86400</sessionbasetime>
+                <sessionpermanenttime>157680000</sessionpermanenttime>
             </properties>
         </profile>
         <profile>
@@ -46,6 +54,10 @@
                 <sitemapBuilder>http://23.21.113.241</sitemapBuilder>
                 <cookie>.steambeat.com</cookie>
                 <secureMode>true</secureMode>
+                <cookiebasetime>-1</cookiebasetime>
+                <cookiepermanenttime>157680000</cookiepermanenttime>
+                <sessionbasetime>86400</sessionbasetime>
+                <sessionpermanenttime>157680000</sessionpermanenttime>
             </properties>
         </profile>
         <profile>

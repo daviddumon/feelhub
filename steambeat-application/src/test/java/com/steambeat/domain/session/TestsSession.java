@@ -1,6 +1,7 @@
 package com.steambeat.domain.session;
 
 import com.steambeat.test.SystemTime;
+import org.joda.time.DateTime;
 import org.junit.*;
 
 import java.util.UUID;
@@ -16,7 +17,7 @@ public class TestsSession {
 
     @Test
     public void aSessionHasAnExpirationDate() {
-        final Session session = new Session();
+        final Session session = new Session(new DateTime().plusHours(1));
 
         assertThat(session.getExpirationDate(), notNullValue());
         assertThat(session.getExpirationDate(), is(time.getNow().plusHours(1)));
@@ -24,7 +25,7 @@ public class TestsSession {
 
     @Test
     public void canCheckExpiration() {
-        final Session session = new Session();
+        final Session session = new Session(new DateTime().plusHours(1));
 
         time.waitHours(2);
 
@@ -32,24 +33,9 @@ public class TestsSession {
     }
 
     @Test
-    public void canRenewSession() {
-        final Session session = new Session();
-        time.waitHours(2);
+    public void sessionTokenIsTheID() {
+        final Session session = new Session(new DateTime().plusHours(1));
 
-        session.renew();
-
-        assertFalse(session.isExpired());
-        assertThat(session.getExpirationDate(), is(time.getNow().plusHours(1)));
-    }
-
-    @Test
-    public void renewChangeToken() {
-        final Session session = new Session();
-        final UUID initialToken = session.getToken();
-        time.waitHours(2);
-
-        session.renew();
-
-        assertThat(initialToken, not(session.getToken()));
+        assertThat((UUID) session.getId(), is(session.getToken()));
     }
 }

@@ -7,8 +7,18 @@ import java.util.UUID;
 
 public class Session extends BaseEntity {
 
+    //mongolink constructor do not delete
     public Session() {
-        this.expirationDate = new DateTime().plusHours(1);
+    }
+
+    public Session(final DateTime expirationDate) {
+        this.expirationDate = expirationDate;
+        this.token = UUID.randomUUID();
+    }
+
+    @Override
+    public Object getId() {
+        return token;
     }
 
     public String getEmail() {
@@ -23,15 +33,6 @@ public class Session extends BaseEntity {
         return token;
     }
 
-    public void setToken(final UUID token) {
-        this.token = token;
-    }
-
-    @Override
-    public Object getId() {
-        return email;
-    }
-
     public DateTime getExpirationDate() {
         return expirationDate;
     }
@@ -40,12 +41,7 @@ public class Session extends BaseEntity {
         return expirationDate.isBefore(new DateTime());
     }
 
-    public void renew() {
-        this.expirationDate = new DateTime().plusHours(1);
-        this.token = UUID.randomUUID();
-    }
-
-    private String email;
     private UUID token;
+    private String email;
     private DateTime expirationDate;
 }

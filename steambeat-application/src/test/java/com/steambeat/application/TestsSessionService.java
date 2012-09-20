@@ -5,6 +5,7 @@ import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.*;
+import org.joda.time.DateTime;
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,13 +23,12 @@ public class TestsSessionService {
     @Before
     public void before() {
         sessionService = new SessionService();
+        user = TestFactories.users().createActiveUser("mail@mail.com");
     }
 
     @Test
     public void canCreateASessionForAnUser() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
-
-        final Session session = sessionService.getOrCreateSessionForUser(user);
+        final Session session = sessionService.createSession(user, new DateTime().plusHours(1));
 
         assertThat(session, notNullValue());
         assertThat(session.getEmail(), is(user.getEmail()));
@@ -37,24 +37,56 @@ public class TestsSessionService {
 
     @Test
     public void persistSession() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
-
-        final Session session = sessionService.getOrCreateSessionForUser(user);
+        sessionService.createSession(user, new DateTime().plusHours(1));
 
         assertThat(Repositories.sessions().getAll().size(), is(1));
     }
 
     @Test
-    public void renewSessionWhenLogged() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
-        sessionService.getOrCreateSessionForUser(user);
-        time.waitHours(10);
+    public void canDeteleSession() {
+        final Session session = TestFactories.sessions().createSessionFor(user);
 
-        final Session session = sessionService.getOrCreateSessionForUser(user);
+        sessionService.deleteSession(session.getToken());
 
-        assertFalse(session.isExpired());
-        assertThat(Repositories.sessions().getAll().size(), is(1));
+        assertThat(Repositories.sessions().getAll().size(), is(0));
+    }
+
+    @Test
+    public void cannotAuthentificateWithoutSession() {
+        boolean result = sessionService.authentificate(user, null);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void canAuthentificateWithSession() {
+        final Session session = TestFactories.sessions().createSessionFor(user);
+
+        final boolean result = sessionService.authentificate(user, session.getToken());
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void mustHaveAGoodSessionForUser() {
+        final User otherUser = TestFactories.users().createActiveUser("othermail@mail.com");
+        final Session session = TestFactories.sessions().createSessionFor(otherUser);
+
+        final boolean result = sessionService.authentificate(user, session.getToken());
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void cannotAuthentificateForAnExpiredSession() {
+        final Session session = TestFactories.sessions().createSessionFor(user);
+        time.waitDays(1);
+
+        final boolean result = sessionService.authentificate(user, session.getToken());
+
+        assertFalse(result);
     }
 
     private SessionService sessionService;
+    private User user;
 }
