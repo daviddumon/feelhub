@@ -13,7 +13,7 @@ public class ExceptionResolver404 implements ErrorResolver {
     }
 
     @Override
-    public Representation getRepresentation(final Context context, final Request request) {
+    public Representation getRepresentation(final Context context, final Request request, final String message) {
         return SteambeatTemplateRepresentation.createNew("error.ftl", context, request);
     }
 }

@@ -8,5 +8,5 @@ public interface ErrorResolver {
 
     Status getStatus(Throwable throwable);
 
-    Representation getRepresentation(Context context, Request request);
+    Representation getRepresentation(Context context, Request request, final String message);
 }

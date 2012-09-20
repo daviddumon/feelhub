@@ -17,6 +17,7 @@ public class SteambeatStatusService extends StatusService {
         resolvers.put(UriException.class, new ExceptionResolver400());
         resolvers.put(SteambeatJsonException.class, new JsonExceptionResolver());
         resolvers.put(OpinionCreationException.class, new ExceptionResolver400());
+        //resolvers.put(BadUserException.class, new StringExceptionResolver());
     }
 
     @Override
@@ -40,10 +41,19 @@ public class SteambeatStatusService extends StatusService {
 
     @Override
     public Representation getRepresentation(final Status status, final Request request, final Response response) {
+        String message = getMessage(status);
         if (canResolve(status.getThrowable())) {
-            return resolverFor(status.getThrowable()).getRepresentation(getContext(), request);
+            return resolverFor(status.getThrowable()).getRepresentation(getContext(), request, message);
         }
-        return new GenericExceptionResolver().getRepresentation(getContext(), request);
+        return new GenericExceptionResolver().getRepresentation(getContext(), request, message);
+    }
+
+    private String getMessage(final Status status) {
+        String message = "";
+        if (status.getThrowable() != null) {
+            message = status.getThrowable().getMessage();
+        }
+        return message;
     }
 
     private final Map<Class<?>, ErrorResolver> resolvers = Maps.newHashMap();

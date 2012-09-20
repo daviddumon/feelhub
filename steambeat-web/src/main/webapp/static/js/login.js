@@ -62,6 +62,7 @@ function login() {
         $.post(root + "/sessions?", $("#login").serialize(),function (data, status, jqXHR) {
             document.location.href = root;
         }).error(function (jqXHR) {
+                console.log(jqXHR);
                 if (jqXHR.status == 403) {
                     $("[name='email']").parent().find(".error_text").text("This user is unknown");
                 } else if (jqXHR.status == 401) {

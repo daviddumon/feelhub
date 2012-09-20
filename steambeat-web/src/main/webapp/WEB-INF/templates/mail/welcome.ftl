@@ -1,4 +1,4 @@
-Dear ${name}
+Dear ${name},
 
 Thank you for registering with Steambeat!
 
