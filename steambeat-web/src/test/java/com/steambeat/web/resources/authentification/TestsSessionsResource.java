@@ -204,7 +204,7 @@ public class TestsSessionsResource {
         assertThat(sessionCookie.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.domain").toString()));
         assertThat(sessionCookie.getMaxAge(), is(Integer.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.cookiepermanenttime").toString())));
         assertThat(sessionCookie.getPath(), is("/"));
-        assertThat(session.getExpirationDate(), is(new DateTime().plusMillis(Integer.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.session.sessionpermanenttime").toString()))));
+        assertThat(session.getExpirationDate(), is(new DateTime().plusSeconds(Integer.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.session.sessionpermanenttime").toString()))));
     }
 
     @Test
