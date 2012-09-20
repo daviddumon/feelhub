@@ -55,7 +55,7 @@
         <div class="error_text"></div>
     </div>
     <div class="holder">
-        <input name="remember" type="checkbox"/><span style="">remember me</span>
+        <input name="remember" type="checkbox"/><span>remember me</span>
 
         <div class="error_text"></div>
     </div>

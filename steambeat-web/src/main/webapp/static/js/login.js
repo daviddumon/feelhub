@@ -59,6 +59,7 @@ function checkPassword() {
 
 function login() {
     if (checkForm()) {
+        console.log($("#login").serialize());
         $.post(root + "/sessions?", $("#login").serialize(),function (data, status, jqXHR) {
             document.location.href = root;
         }).error(function (jqXHR) {

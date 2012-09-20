@@ -25,9 +25,10 @@ public class SessionsResource extends ServerResource {
         if (checkForm(form)) {
             final String email = form.getFirstValue("email");
             final String password = form.getFirstValue("password");
+            remember = form.getFirstValue("remember");
             try {
                 user = userService.authentificate(email, password);
-                session = sessionService.createSession(user, getSessionBaseExpirationTime());
+                session = sessionService.createSession(user, getSessionTime());
                 setCookiesInResponse();
                 setStatus(Status.SUCCESS_CREATED);
                 setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));
@@ -43,9 +44,14 @@ public class SessionsResource extends ServerResource {
         return form.getQueryString().contains("email") && form.getQueryString().contains("password");
     }
 
-    private DateTime getSessionBaseExpirationTime() {
-        final String sessionBaseTime = getContext().getAttributes().get("com.steambeat.session.sessionbasetime").toString();
-        return new DateTime().plusMillis(Integer.valueOf(sessionBaseTime));
+    private DateTime getSessionTime() {
+        if (remember != null && !remember.isEmpty() && remember.equalsIgnoreCase("on")) {
+            final String expirationTime = getContext().getAttributes().get("com.steambeat.session.sessionpermanenttime").toString();
+            return new DateTime().plusSeconds(Integer.valueOf(expirationTime));
+        } else {
+            final String expirationTime = getContext().getAttributes().get("com.steambeat.session.sessionbasetime").toString();
+            return new DateTime().plusSeconds(Integer.valueOf(expirationTime));
+        }
     }
 
     private void setCookiesInResponse() {
@@ -61,12 +67,12 @@ public class SessionsResource extends ServerResource {
         id.setValue(user.getEmail());
         id.setSecure(Boolean.valueOf(getContext().getAttributes().get("com.steambeat.cookie.secure").toString()));
         id.setDomain(getContext().getAttributes().get("com.steambeat.cookie.domain").toString());
-        id.setMaxAge(getCookiePermamentTime());
+        id.setMaxAge(getIdCookieTime());
         id.setPath("/");
         this.getResponse().getCookieSettings().add(id);
     }
 
-    public int getCookiePermamentTime() {
+    public int getIdCookieTime() {
         return Integer.valueOf(getContext().getAttributes().get("com.steambeat.cookie.cookiepermanenttime").toString());
     }
 
@@ -78,12 +84,15 @@ public class SessionsResource extends ServerResource {
         session.setAccessRestricted(true);
         session.setValue(this.session.getToken().toString());
         session.setDomain(getContext().getAttributes().get("com.steambeat.cookie.domain").toString());
-        session.setMaxAge(getCookieBaseTime());
+        session.setMaxAge(getSessionCookieTime());
         session.setPath("/");
         this.getResponse().getCookieSettings().add(session);
     }
 
-    public int getCookieBaseTime() {
+    public int getSessionCookieTime() {
+        if (remember != null && !remember.isEmpty() && remember.equalsIgnoreCase("on")) {
+            return Integer.valueOf(getContext().getAttributes().get("com.steambeat.cookie.cookiepermanenttime").toString());
+        }
         return Integer.valueOf(getContext().getAttributes().get("com.steambeat.cookie.cookiebasetime").toString());
     }
 
@@ -133,4 +142,5 @@ public class SessionsResource extends ServerResource {
     private SessionService sessionService;
     private User user;
     private Session session;
+    private String remember;
 }

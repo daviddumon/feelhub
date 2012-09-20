@@ -6,6 +6,7 @@ import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.*;
 import com.steambeat.web.*;
+import org.joda.time.DateTime;
 import org.junit.*;
 import org.restlet.data.*;
 import org.restlet.engine.util.CookieSeries;
@@ -176,6 +177,34 @@ public class TestsSessionsResource {
         assertThat(sessionCookie.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.domain").toString()));
         assertThat(sessionCookie.getMaxAge(), is(Integer.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.cookiebasetime").toString())));
         assertThat(sessionCookie.getPath(), is("/"));
+    }
+
+    @Test
+    public void setSessionCookieWithRememberOn() {
+        final User user = TestFactories.users().createActiveUser("mail@mail.com");
+        final ClientResource sessions = restlet.newClientResource("/sessions");
+        final Form parameters = new Form();
+        parameters.add("email", user.getEmail());
+        parameters.add("password", "password");
+        parameters.add("remember", "on");
+
+        sessions.post(parameters);
+
+        final Session session = Repositories.sessions().getAll().get(0);
+        assertThat(sessions.getStatus(), is(Status.SUCCESS_CREATED));
+        assertFalse(sessions.getResponse().getCookieSettings().isEmpty());
+        final CookieSetting sessionCookie = sessions.getResponse().getCookieSettings().getFirst("session");
+        assertThat(sessionCookie, notNullValue());
+        assertThat(sessionCookie.getComment(), is("session cookie"));
+        assertThat(sessionCookie.getName(), is("session"));
+        assertTrue(sessionCookie.isAccessRestricted());
+        assertThat(sessionCookie.getVersion(), is(0));
+        assertThat(sessionCookie.getValue(), is(session.getToken().toString()));
+        assertThat(sessionCookie.isSecure(), is(Boolean.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.secure").toString())));
+        assertThat(sessionCookie.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.domain").toString()));
+        assertThat(sessionCookie.getMaxAge(), is(Integer.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.cookie.cookiepermanenttime").toString())));
+        assertThat(sessionCookie.getPath(), is("/"));
+        assertThat(session.getExpirationDate(), is(new DateTime().plusMillis(Integer.valueOf(restlet.getApplication().getContext().getAttributes().get("com.steambeat.session.sessionpermanenttime").toString()))));
     }
 
     @Test
