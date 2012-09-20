@@ -38,14 +38,14 @@ public class UserService {
     public User getUser(final String email) {
         final User user = Repositories.users().get(email);
         if (user == null) {
-            throw new BadUserException();
+            throw new BadUserException("This user does not exist!");
         }
         return user;
     }
 
     private void checkUser(final User user) {
         if (!user.isActive()) {
-            throw new BadUserException();
+            throw new BadUserException("Not yet activated !");
         }
     }
 
@@ -66,7 +66,7 @@ public class UserService {
     public User getUserForSecret(final UUID secret) {
         final User user = Repositories.users().forSecret(secret);
         if (user == null) {
-            throw new BadUserException();
+            throw new BadUserException("This user does not exist!");
         }
         return user;
     }

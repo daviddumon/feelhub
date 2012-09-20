@@ -112,15 +112,6 @@ body {
     #login, #signup {
         .relative_info(@blue-1);
 
-        p {
-            margin: 20px;
-
-            a {
-                color: @blue-3 !important;
-                text-decoration: underline !important;
-            }
-        }
-
         .holder {
             position: relative;
             text-align: center;
@@ -162,7 +153,7 @@ body {
                 color: red;
             }
 
-            a {
+            #login_submit, #signup_submit {
                 display: block;
                 width: 100%;
                 padding-top: 10px;
@@ -180,6 +171,15 @@ body {
                 &:focus {
                     outline: none;
                     color: @blue-1 !important;
+                }
+            }
+
+            p {
+                margin: 20px;
+
+                a {
+                    color: @blue-3 !important;
+                    text-decoration: underline !important;
                 }
             }
         }

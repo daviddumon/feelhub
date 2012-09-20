@@ -3,6 +3,7 @@ package com.steambeat.web.status;
 import com.google.common.collect.Maps;
 import com.steambeat.domain.opinion.OpinionCreationException;
 import com.steambeat.domain.uri.UriException;
+import com.steambeat.domain.user.BadUserException;
 import com.steambeat.web.resources.json.SteambeatJsonException;
 import org.restlet.*;
 import org.restlet.data.Status;
@@ -17,7 +18,7 @@ public class SteambeatStatusService extends StatusService {
         resolvers.put(UriException.class, new ExceptionResolver400());
         resolvers.put(SteambeatJsonException.class, new JsonExceptionResolver());
         resolvers.put(OpinionCreationException.class, new ExceptionResolver400());
-        //resolvers.put(BadUserException.class, new StringExceptionResolver());
+        resolvers.put(BadUserException.class, new UserExceptionResolver());
     }
 
     @Override
@@ -49,9 +50,11 @@ public class SteambeatStatusService extends StatusService {
     }
 
     private String getMessage(final Status status) {
-        String message = "";
+        String message = "error";
         if (status.getThrowable() != null) {
-            message = status.getThrowable().getMessage();
+            if (status.getThrowable().getMessage() != null && !status.getThrowable().getMessage().isEmpty()) {
+                message = status.getThrowable().getMessage();
+            }
         }
         return message;
     }

@@ -29,8 +29,6 @@ public class SessionsResource extends ServerResource {
                 setCookiesInResponse();
                 setStatus(Status.SUCCESS_CREATED);
                 setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));
-            } catch (BadUserException badUserException) {
-                setStatus(Status.CLIENT_ERROR_FORBIDDEN);
             } catch (BadPasswordException badPasswordException) {
                 setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
             }

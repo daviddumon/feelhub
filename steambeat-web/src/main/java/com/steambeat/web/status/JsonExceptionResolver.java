@@ -14,6 +14,6 @@ public class JsonExceptionResolver implements ErrorResolver {
 
     @Override
     public Representation getRepresentation(final Context context, final Request request, final String message) {
-        return new JsonRepresentation(message);
+        return new JsonRepresentation("");
     }
 }

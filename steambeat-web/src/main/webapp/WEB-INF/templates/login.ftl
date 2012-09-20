@@ -34,23 +34,20 @@
 <form id="login">
     <h1>WELCOME</h1>
 
-    <#if user?has_content>
-        <p>Hello ${user.fullname} ! Please enter your password, or <a href="javascript:void(0);" id="logout">change user</a> !</p>
+    <div class="holder">
+        <#if user?has_content>
+            <p>Hello ${user.fullname} !</p>
 
-        <div class="holder" style="display: none">
-            <span class="help_text">Email</span>
-            <input name="email" value="${user.email}" type="text" autocomplete="off" maxlength="100" aria-required="true"/>
-
-            <div class="error_text"></div>
-        </div>
-    <#else>
-        <div class="holder">
+            <p>Please enter your password, or <a href="javascript:void(0);" id="logout">change user</a> !</p>
+            <input name="email" value="${user.email}" type="text" autocomplete="off" maxlength="100" aria-required="true" style="display: none"/>
+        <#else>
             <span class="help_text">Email</span>
             <input name="email" value="" type="text" autocomplete="off" maxlength="100" aria-required="true"/>
+        </#if>
 
-            <div class="error_text"></div>
-        </div>
-    </#if>
+        <div class="error_text"></div>
+    </div>
+
     <div class="holder">
         <span class="help_text">Password</span>
         <input name="password" value="" type="password" autocomplete="off" maxlength="100" aria-required="true"/>

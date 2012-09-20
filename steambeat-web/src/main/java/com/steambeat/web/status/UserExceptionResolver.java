@@ -4,11 +4,11 @@ import org.restlet.*;
 import org.restlet.data.Status;
 import org.restlet.representation.*;
 
-public class StringExceptionResolver implements ErrorResolver {
+public class UserExceptionResolver implements ErrorResolver {
 
     @Override
     public Status getStatus(final Throwable throwable) {
-        return new Status(Status.CLIENT_ERROR_BAD_REQUEST, throwable);
+        return new Status(Status.CLIENT_ERROR_FORBIDDEN, throwable);
     }
 
     @Override
