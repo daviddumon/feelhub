@@ -11,6 +11,8 @@ import org.restlet.*;
 import org.restlet.data.Cookie;
 import org.restlet.engine.util.CookieSeries;
 
+import java.util.UUID;
+
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -27,14 +29,14 @@ public class TestsIdentityFilter {
         request = new Request();
         user = TestFactories.users().createUser("mail@mail.com", "full name");
         final SessionService sessionService = new SessionService();
-        session = sessionService.getSessionFor(user);
+        session = sessionService.getOrCreateSessionForUser(user);
         identityFilter = new IdentityFilter(new UserService(new UserFactory()), new SessionService());
         identityFilter.setContext(restlet.getApplication().getContext());
     }
 
     @Test
     public void setUserInRequest() {
-        setGoodCookieInRequest();
+        requestWithGoodId();
 
         identityFilter.beforeHandle(request, new Response(request));
 
@@ -50,7 +52,7 @@ public class TestsIdentityFilter {
 
     @Test
     public void setNullUserIfBadNamedCookie() {
-        setBadNamedCookieInRequest();
+        requestWithBadCookie();
 
         identityFilter.beforeHandle(request, new Response(request));
 
@@ -59,7 +61,7 @@ public class TestsIdentityFilter {
 
     @Test
     public void setUserOnlyIfUserExists() {
-        setCookieForNonExistingUser();
+        requestWithBadId();
 
         identityFilter.beforeHandle(request, new Response(request));
 
@@ -67,24 +69,40 @@ public class TestsIdentityFilter {
     }
 
     @Test
-    public void setSessionInContext() {
-        setGoodCookieInRequest();
+    public void canAuthentificate() {
+        requestWithGoodIdAndSession();
 
         identityFilter.beforeHandle(request, new Response(request));
 
-        assertThat(request.getAttributes().get("com.steambeat.sessiontoken").toString(), is(session.getToken().toString()));
+        assertThat((Boolean) request.getAttributes().get("com.steambeat.authentificated"), is(true));
     }
 
     @Test
-    public void setNullSessionIfNoSessionCookie() {
-        setBadNamedCookieInRequest();
+    public void notAuthentificatedIfNoSession() {
+        requestWithGoodId();
 
         identityFilter.beforeHandle(request, new Response(request));
 
-        assertThat(request.getAttributes().get("com.steambeat.sessiontoken").toString(), is(""));
+        assertThat((Boolean) request.getAttributes().get("com.steambeat.authentificated"), is(false));
     }
 
-    private void setGoodCookieInRequest() {
+    @Test
+    public void notAuthentificatedIfBadSession() {
+        requestWithGoodIdAndBadSession();
+
+        identityFilter.beforeHandle(request, new Response(request));
+
+        assertThat((Boolean) request.getAttributes().get("com.steambeat.authentificated"), is(false));
+    }
+
+    private void requestWithGoodId() {
+        final Cookie cookie = new Cookie(1, "id", "mail@mail.com");
+        final CookieSeries cookies = new CookieSeries();
+        cookies.add(cookie);
+        request.setCookies(cookies);
+    }
+
+    private void requestWithGoodIdAndSession() {
         final Cookie cookie = new Cookie(1, "id", "mail@mail.com");
         final Cookie sessionCookie = new Cookie(1, "session", session.getToken().toString());
         final CookieSeries cookies = new CookieSeries();
@@ -93,14 +111,23 @@ public class TestsIdentityFilter {
         request.setCookies(cookies);
     }
 
-    private void setBadNamedCookieInRequest() {
+    private void requestWithGoodIdAndBadSession() {
+        final Cookie cookie = new Cookie(1, "id", "mail@mail.com");
+        final Cookie sessionCookie = new Cookie(1, "session", UUID.randomUUID().toString());
+        final CookieSeries cookies = new CookieSeries();
+        cookies.add(cookie);
+        cookies.add(sessionCookie);
+        request.setCookies(cookies);
+    }
+
+    private void requestWithBadCookie() {
         final Cookie cookie = new Cookie(1, "bad", "mail@mail.com");
         final CookieSeries cookies = new CookieSeries();
         cookies.add(cookie);
         request.setCookies(cookies);
     }
 
-    private void setCookieForNonExistingUser() {
+    private void requestWithBadId() {
         final Cookie cookie = new Cookie(1, "id", "john@doe.com");
         final CookieSeries cookies = new CookieSeries();
         cookies.add(cookie);

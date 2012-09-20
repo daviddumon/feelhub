@@ -28,7 +28,7 @@ public class TestsSessionService {
     public void canCreateASessionForAnUser() {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final Session session = sessionService.getSessionFor(user);
+        final Session session = sessionService.getOrCreateSessionForUser(user);
 
         assertThat(session, notNullValue());
         assertThat(session.getEmail(), is(user.getEmail()));
@@ -39,7 +39,7 @@ public class TestsSessionService {
     public void persistSession() {
         final User user = TestFactories.users().createUser("mail@mail.com");
 
-        final Session session = sessionService.getSessionFor(user);
+        final Session session = sessionService.getOrCreateSessionForUser(user);
 
         assertThat(Repositories.sessions().getAll().size(), is(1));
     }
@@ -47,10 +47,10 @@ public class TestsSessionService {
     @Test
     public void renewSessionWhenLogged() {
         final User user = TestFactories.users().createUser("mail@mail.com");
-        sessionService.getSessionFor(user);
+        sessionService.getOrCreateSessionForUser(user);
         time.waitHours(10);
 
-        final Session session = sessionService.getSessionFor(user);
+        final Session session = sessionService.getOrCreateSessionForUser(user);
 
         assertFalse(session.isExpired());
         assertThat(Repositories.sessions().getAll().size(), is(1));

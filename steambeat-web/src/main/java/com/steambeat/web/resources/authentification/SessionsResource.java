@@ -25,7 +25,7 @@ public class SessionsResource extends ServerResource {
             final String password = form.getFirstValue("password");
             try {
                 user = userService.authentificate(email, password);
-                session = sessionService.getSessionFor(user);
+                session = sessionService.getOrCreateSessionForUser(user);
                 setCookiesInResponse();
                 setStatus(Status.SUCCESS_CREATED);
                 setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));

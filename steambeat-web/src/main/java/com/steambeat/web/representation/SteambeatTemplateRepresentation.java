@@ -25,11 +25,12 @@ public class SteambeatTemplateRepresentation extends OutputRepresentation {
         this.context = context;
         final Map<String, Object> data = Maps.newHashMap();
         representation = new TemplateRepresentation(template, getConfiguration(), data, type);
-        setIdentityInRepresentation(request);
+        setAuthentificationValuesInRepresentation(request);
     }
 
-    private void setIdentityInRepresentation(final Request request) {
+    private void setAuthentificationValuesInRepresentation(final Request request) {
         ((Map<String, Object>) representation.getDataModel()).put("user", request.getAttributes().get("com.steambeat.user"));
+        ((Map<String, Object>) representation.getDataModel()).put("authentificated", request.getAttributes().get("com.steambeat.authentificated"));
     }
 
     public SteambeatTemplateRepresentation with(final Map<String, Object> data) {

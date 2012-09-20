@@ -17,30 +17,17 @@ public class IdentityFilter extends Filter {
 
     @Override
     protected int beforeHandle(final Request request, final Response response) {
-        setUserInContext(request);
-        setSessionInContext(request);
-        return CONTINUE;
-    }
-
-    private void setUserInContext(final Request request) {
         final Cookie identityCookie = getIdentityCookieFrom(request);
         if (identityCookie != null) {
             try {
                 user = userService.getUser(identityCookie.getValue());
                 request.getAttributes().put("com.steambeat.user", user);
+                request.getAttributes().put("com.steambeat.authentificated", sessionService.validateCookieForUser(getSessionCookie(request), user));
             } catch (Exception e) {
 
             }
         }
-    }
-
-    private void setSessionInContext(final Request request) {
-        final Cookie sessionCookie = getSessionCookie(request);
-        if (sessionCookie != null) {
-            request.getAttributes().put("com.steambeat.sessiontoken", sessionCookie.getValue());
-        } else {
-            request.getAttributes().put("com.steambeat.sessiontoken", "");
-        }
+        return CONTINUE;
     }
 
     private Cookie getIdentityCookieFrom(final Request request) {
