@@ -23,7 +23,7 @@ public class JsonRelationsResource extends ServerResource {
     @Get
     public Representation represent() {
         doSearchWithQueryParameters();
-        getTopics();
+        loadReferences();
         return SteambeatTemplateRepresentation.createNew("json/relations.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("references", references);
     }
 
@@ -61,7 +61,7 @@ public class JsonRelationsResource extends ServerResource {
         }
     }
 
-    private void getTopics() {
+    private void loadReferences() {
         for (final Relation relation : relations) {
             references.add(referenceService.lookUp(relation.getToId()));
         }

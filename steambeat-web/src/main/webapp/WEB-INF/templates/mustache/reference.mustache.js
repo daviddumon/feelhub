@@ -3,7 +3,7 @@
     <a href="{{url}}" class="reference {{classes}}">
 {{/url}}
 {{^url}}
-    <div class="reference {{classes}}" style="width: {{width}}px; height: {{height}}px;" onresize="OnImageLoad(event);">
+    <div class="reference {{classes}}">
 {{/url}}
         <img id="{{referenceId}}" src="{{illustration}}" onload="OnImageLoad(event);"/>
         <span>{{keyword}}</span>

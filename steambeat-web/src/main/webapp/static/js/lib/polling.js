@@ -13,15 +13,22 @@ function RequestIllustration(referenceId) {
 function RequestRelations(referenceId) {
     if (referenceId.length != 0) {
         console.log("request relations for " + referenceId);
+        $.getJSON(root + "/json/relations?&referenceId=" + referenceId + "&limit=15", function (data) {
+            $.each(data, function (index, reference) {
+                console.log("relation found " + reference.id);
 
+                var reference_data = {
+                    referenceId:reference.id,
+                    keyword:"related",
+                    classes:"reference_small reference_float reference_zoom",
+                    url:"none"
+                };
+
+                $("#test_related").append(ich.reference(reference_data));
+                RequestIllustration(reference.id);
+            });
+        });
     }
-    //$("#related_list").empty();
-    //$.getJSON(root + "/json/relations?&fromId=" + referenceId + "&limit=10", function (data) {
-    //    $.each(data, function (index, subject) {
-    //        console.log("load relations success");
-    //        $("#related_list").append(ich.related(subject));
-    //    });
-    //});
 }
 
 function RequestCounters(referenceId) {

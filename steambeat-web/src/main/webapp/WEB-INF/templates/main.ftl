@@ -67,7 +67,7 @@
     </div>
 
     <div id="panel_right" class="panel_box">
-
+        <div id="test_related" style="height: 222px; overflow: hidden;"></div>
     </div>
     <#--<div id="related_list" class="panel_box">-->
         <#--<span>related</span>-->

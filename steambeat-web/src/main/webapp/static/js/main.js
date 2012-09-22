@@ -7,11 +7,10 @@ $(function () {
         var reference_data = {
             referenceId:referenceId,
             keyword:keyword,
-            width: 240,
-            height: 160
+            classes:"reference_big reference_center"
         };
 
-        $("#panel_center").append(ich.reference(reference_data));
+        $("#panel_center").prepend(ich.reference(reference_data));
 
         RequestIllustration(referenceId);
         RequestRelations(referenceId);

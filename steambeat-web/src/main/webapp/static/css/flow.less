@@ -11,7 +11,6 @@ body {
         border: 5px solid @blue-1;
         background: url('../images/unknown.png') no-repeat center;
         overflow: hidden;
-        margin: 20px auto;
 
         img {
             position: absolute;
@@ -29,7 +28,32 @@ body {
             background: rgba(0, 0, 0, .5);
             .font_title();
             color: @blue-1;
+            min-height: 10px;
         }
+    }
+
+    .reference_center {
+        margin: 20px auto;
+    }
+
+    .reference_float {
+        float: left;
+        margin: 5px;
+    }
+
+    .reference_small {
+        width: 96px;
+        height: 54px;
+    }
+
+    .reference_medium {
+        width: 128px;
+        height: 72px;
+    }
+
+    .reference_big {
+        width: 320px;
+        height: 180px;
     }
 
     .reference_zoom:hover {
@@ -56,21 +80,23 @@ body {
             background-color: @blue-2 !important;
 
             #counters {
+                position: relative;
+                top: -20px;
 
                 .counter {
-                    width: 70px;
+                    width: 80px;
                     display: inline-block;
                     .rounded_down();
+
+                    .smiley {
+                        border: none;
+                        width: 30px;
+                    }
 
                     .counter_text {
                         color: @white !important;
                         font-size: 16px !important;
                         .font_title();
-                    }
-
-                    .smiley {
-                        border: none;
-                        width: 38px;
                     }
                 }
 
@@ -97,14 +123,14 @@ body {
 
             #panel_right {
                 width: 30%;
+                padding-top: 20px;
             }
 
             .panel_box {
                 float: left;
                 text-align: center;
                 vertical-align: top;
-                height: 100%;
-            //left: 100px;
+                height: 100%; //left: 100px;
             //top: 20px;
             //border-top: 5px white solid;
             //background-color: black;
