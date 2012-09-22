@@ -8,13 +8,10 @@ body {
 
     .reference {
         position: relative;
-        float: left;
-        width: 120px;
-        height: 80px;
-        border: 5px solid #E1FAFC;
-        background-color: #E1FAFC;
+        border: 5px solid @blue-1;
+        background: url('../images/unknown.png') no-repeat center;
         overflow: hidden;
-        margin: 5px;
+        margin: 20px auto;
 
         img {
             position: absolute;
@@ -26,10 +23,12 @@ body {
             width: 100%;
             bottom: 0px;
             left: 0px;
-            background: #333;
-            font-size: 11px;
+            background: @grey-4;
+            font-size: @font-normal;
             padding: 5px;
             background: rgba(0, 0, 0, .5);
+            .font_title();
+            color: @blue-1;
         }
     }
 
@@ -61,7 +60,7 @@ body {
                 .counter {
                     width: 70px;
                     display: inline-block;
-                    .rounded();
+                    .rounded_down();
 
                     .counter_text {
                         color: @white !important;
@@ -102,10 +101,10 @@ body {
 
             .panel_box {
                 float: left;
-                padding: 10px;
                 text-align: center;
                 vertical-align: top;
-                height: 100%; //left: 100px;
+                height: 100%;
+            //left: 100px;
             //top: 20px;
             //border-top: 5px white solid;
             //background-color: black;

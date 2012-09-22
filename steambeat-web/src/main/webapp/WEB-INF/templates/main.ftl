@@ -59,11 +59,11 @@
 <div id="panel">
 
     <div id="panel_left" class="panel_box">
-        <#include "includes/counters.ftl"/>
+
     </div>
 
     <div id="panel_center" class="panel_box">
-
+        <#include "includes/counters.ftl"/>
     </div>
 
     <div id="panel_right" class="panel_box">
