@@ -45,7 +45,7 @@
         <script src="https://html5shim.googlecode.com/svn/trunk/html5.js?${buildtime}"></script>
         <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?${buildtime}"></script>
         <![endif]-->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <#nested/>
     </#if>
 
@@ -54,7 +54,7 @@
 <#macro jsdev>
 
     <#if dev>
-        <script type="text/javascript" src="${root}/static/js/lib/jquery-1.8.1.min.js?${buildtime}"></script>
+        <script type="text/javascript" src="${root}/static/js/lib/jquery-1.8.2.min.js?${buildtime}"></script>
         <script type="text/javascript" src="${root}/static/js/lib/less-1.3.0.min.js?${buildtime}"></script>
         <#nested/>
     </#if>
@@ -65,6 +65,7 @@
 
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/lib/ICanHaz.min.js?${buildtime}"></script>
+    <script type="text/javascript" src="${root}/static/js/lib/polling.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/lib/image-scaling.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/responsive.js?${buildtime}"></script>
     <script type="text/javascript" src="${root}/static/js/authentification.js?${buildtime}"></script>

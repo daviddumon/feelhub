@@ -50,4 +50,6 @@ function OnImageLoad(evt) {
     img.height = result.height;
     $(img).css("left", result.targetleft);
     $(img).css("top", result.targettop);
+
+    console.log("load event for image : " + img.src + " - container:" + divWidth + "," + divHeight + " - result:" + result.width + "," + result.height);
 }

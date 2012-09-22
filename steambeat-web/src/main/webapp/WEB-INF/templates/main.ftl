@@ -48,7 +48,7 @@
 <#--<#include "mustache/related.mustache.js">-->
 <#--<#include "mustache/form_judgment.mustache.js">-->
 <#--<#include "mustache/form_block.mustache.js">-->
-<#include "mustache/illustration.mustache.js">
+<#include "mustache/reference.mustache.js">
 </@layout.mustache>
 
 <@layout.headend>
@@ -69,12 +69,6 @@
     <div id="panel_right" class="panel_box">
 
     </div>
-
-
-
-        <#--<div id="webpageRoot"><span onclick="javascript:window.open('${webPage.uri}');" style="cursor: pointer">${webPage.description!"no description"}</span></div>-->
-        <#--<div id="illustration"><img <#if ''?matches('${webPage.illustration}')> style='display: none;' <#else> src="${webPage.illustration}" </#if> /></div>-->
-    <#--</div>-->
     <#--<div id="related_list" class="panel_box">-->
         <#--<span>related</span>-->
     <#--</div>-->
