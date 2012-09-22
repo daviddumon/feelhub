@@ -17,14 +17,15 @@ public class SteambeatRouter extends Router {
     public SteambeatRouter(final Context context, final Injector injector) {
         super(context);
         this.injector = injector;
-        setDefaultMatchingMode(MODE_BEST_MATCH);
+        setDefaultMatchingMode(MODE_FIRST_MATCH);
         attachResources();
     }
 
     private void attachResources() {
-        attach("/json/statistics", StatisticsResource.class);
-        attach("/json/opinions", OpinionsResource.class);
-        attach("/json/related", RelatedResource.class);
+        attach("/json/statistics", JsonStatisticsResource.class);
+        attach("/json/opinions", JsonOpinionsResource.class);
+        attach("/json/relations", JsonRelationsResource.class);
+        attach("/json/illustrations", JsonIllustrationsResource.class);
 
         attachUriForKeywordAndLanguage();
         attachUriForKeyword();

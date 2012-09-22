@@ -3,6 +3,7 @@ package com.steambeat.web.resources.json;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.application.ReferenceService;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.statistics.*;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.StatisticsSearch;
@@ -14,10 +15,10 @@ import org.restlet.resource.*;
 
 import java.util.*;
 
-public class StatisticsResource extends ServerResource {
+public class JsonStatisticsResource extends ServerResource {
 
     @Inject
-    public StatisticsResource(final ReferenceService referenceService, final StatisticsSearch statisticsSearch) {
+    public JsonStatisticsResource(final ReferenceService referenceService, final StatisticsSearch statisticsSearch) {
         this.referenceService = referenceService;
         this.statisticsSearch = statisticsSearch;
     }
@@ -33,7 +34,7 @@ public class StatisticsResource extends ServerResource {
         granularity = Granularity.valueOf(extract("granularity", query));
         start = Long.valueOf(extract("start", query));
         end = Long.valueOf(extract("end", query));
-        topicId = extract("topicId", query);
+        referenceId = extract("referenceId", query);
     }
 
     private String extract(final String value, final Form query) {
@@ -45,7 +46,7 @@ public class StatisticsResource extends ServerResource {
     }
 
     private void fetchStatistics() {
-        final com.steambeat.domain.reference.Reference reference = referenceService.lookUp(UUID.fromString(topicId));
+        final Reference reference = referenceService.lookUp(UUID.fromString(referenceId));
         statistics = statisticsSearch.withReference(reference).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
     }
 
@@ -55,5 +56,5 @@ public class StatisticsResource extends ServerResource {
     private Granularity granularity;
     private Long start;
     private Long end;
-    private String topicId;
+    private String referenceId;
 }

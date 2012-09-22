@@ -12,10 +12,10 @@ import org.restlet.resource.*;
 
 import java.util.*;
 
-public class RelatedResource extends ServerResource {
+public class JsonRelationsResource extends ServerResource {
 
     @Inject
-    public RelatedResource(final ReferenceService referenceService, final RelationSearch relationSearch) {
+    public JsonRelationsResource(final ReferenceService referenceService, final RelationSearch relationSearch) {
         this.referenceService = referenceService;
         this.relationSearch = relationSearch;
     }
@@ -24,7 +24,7 @@ public class RelatedResource extends ServerResource {
     public Representation represent() {
         doSearchWithQueryParameters();
         getTopics();
-        return SteambeatTemplateRepresentation.createNew("json/related.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("topics", references);
+        return SteambeatTemplateRepresentation.createNew("json/relations.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("references", references);
     }
 
     private void doSearchWithQueryParameters() {
@@ -56,8 +56,8 @@ public class RelatedResource extends ServerResource {
     }
 
     private void setUpSearchForFromIdParameter(final Form form) {
-        if (form.getQueryString().contains("fromId")) {
-            relationSearch.withFrom(referenceService.lookUp(UUID.fromString(form.getFirstValue("fromId").trim())));
+        if (form.getQueryString().contains("referenceId")) {
+            relationSearch.withFrom(referenceService.lookUp(UUID.fromString(form.getFirstValue("referenceId").trim())));
         }
     }
 

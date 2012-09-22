@@ -20,7 +20,7 @@ import java.util.UUID;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsStatisticsResource {
+public class TestsJsonStatisticsResource {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -34,7 +34,7 @@ public class TestsStatisticsResource {
     @Test
     public void statisticsResourceIsMapped() {
         final Reference reference = TestFactories.references().newReference();
-        final ClientResource resource = restlet.newClientResource("/json/statistics?start=0&end=0&granularity=hour&topicId=" + reference.getId());
+        final ClientResource resource = restlet.newClientResource("/json/statistics?start=0&end=0&granularity=hour&referenceId=" + reference.getId());
 
         final Representation representation = resource.get();
 
@@ -44,7 +44,7 @@ public class TestsStatisticsResource {
 
     @Test
     public void throwJsonExceptionIfNoGranularityParameter() {
-        final ClientResource resource = restlet.newClientResource("/json/statistics?start=0&end=0&topicId=" + UUID.randomUUID());
+        final ClientResource resource = restlet.newClientResource("/json/statistics?start=0&end=0&referenceId=" + UUID.randomUUID());
 
         resource.get();
 
@@ -53,7 +53,7 @@ public class TestsStatisticsResource {
 
     @Test
     public void throwJsonExceptionIfNoStartParameter() {
-        final ClientResource resource = restlet.newClientResource("/json/statistics?end=0&granularity=hour&topicId=" + UUID.randomUUID());
+        final ClientResource resource = restlet.newClientResource("/json/statistics?end=0&granularity=hour&referenceId=" + UUID.randomUUID());
 
         resource.get();
 
@@ -62,7 +62,7 @@ public class TestsStatisticsResource {
 
     @Test
     public void throwJsonExceptionIfNoEndParameter() {
-        final ClientResource resource = restlet.newClientResource("/json/statistics?start=0&granularity=hour&topicId=" + UUID.randomUUID());
+        final ClientResource resource = restlet.newClientResource("/json/statistics?start=0&granularity=hour&referenceId=" + UUID.randomUUID());
 
         resource.get();
 
@@ -70,7 +70,7 @@ public class TestsStatisticsResource {
     }
 
     @Test
-    public void throwJsonExceptionIfNoSubjectIdParameter() {
+    public void throwJsonExceptionIfNoReferenceIdParameter() {
         final ClientResource resource = restlet.newClientResource("/json/statistics?start=0&end=0&granularity=hour");
 
         resource.get();
@@ -85,7 +85,7 @@ public class TestsStatisticsResource {
         statistics.incrementJudgmentCount(new Judgment(reference, Feeling.good));
         statistics.incrementJudgmentCount(new Judgment(reference, Feeling.bad));
         statistics.incrementJudgmentCount(new Judgment(reference, Feeling.bad));
-        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + new DateTime().minus(1).getMillis() + "&end=" + new DateTime().plus(1).getMillis() + "&granularity=hour" + "&topicId=" + reference.getId());
+        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + new DateTime().minus(1).getMillis() + "&end=" + new DateTime().plus(1).getMillis() + "&granularity=hour" + "&referenceId=" + reference.getId());
         time.waitDays(1);
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
@@ -102,7 +102,7 @@ public class TestsStatisticsResource {
         final Statistics stat1 = TestFactories.statistics().newStatistics(reference, Granularity.hour);
         time.waitHours(1);
         final Statistics stat2 = TestFactories.statistics().newStatistics(reference, Granularity.hour);
-        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=hour" + "&topicId=" + reference.getId());
+        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=hour" + "&referenceId=" + reference.getId());
         time.waitDays(1);
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
@@ -117,7 +117,7 @@ public class TestsStatisticsResource {
         final Statistics stat1 = TestFactories.statistics().newStatistics(reference, Granularity.day);
         time.waitMonths(1);
         final Statistics stat2 = TestFactories.statistics().newStatistics(reference, Granularity.day);
-        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=day" + "&topicId=" + reference.getId());
+        final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=day" + "&referenceId=" + reference.getId());
         time.waitDays(1);
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
@@ -129,10 +129,10 @@ public class TestsStatisticsResource {
     @Test
     @Ignore
     public void canGetStatisticsForSteam() throws IOException, JSONException {
-        //final Steam steam = TestFactories.topics().newSteam();
+        //final Steam steam = TestFactories.references().newSteam();
         //final Statistics stat = TestFactories.statistics().newStatistics(steam, Granularity.all);
         //time.waitMonths(1);
-        //final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat.getDate().minus(1).getMillis() + "&end=" + stat.getDate().plus(1).getMillis() + "&granularity=all" + "&topicId=" + steam.getId());
+        //final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat.getDate().minus(1).getMillis() + "&end=" + stat.getDate().plus(1).getMillis() + "&granularity=all" + "&referenceId=" + steam.getId());
         //
         //final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
         //

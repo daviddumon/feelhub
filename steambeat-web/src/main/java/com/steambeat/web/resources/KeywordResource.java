@@ -27,7 +27,7 @@ public class KeywordResource extends ServerResource {
             keyword = new Keyword(keywordValue, steambeatLanguage, null);
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
         }
-        return SteambeatTemplateRepresentation.createNew("keyword.ftl", getContext(), getRequest())
+        return SteambeatTemplateRepresentation.createNew("main.ftl", getContext(), getRequest())
                 .with("keyword", keyword)
                 .with("language", steambeatLanguage);
     }

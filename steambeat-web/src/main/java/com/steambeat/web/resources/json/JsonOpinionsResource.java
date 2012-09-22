@@ -14,10 +14,10 @@ import org.restlet.resource.*;
 
 import java.util.*;
 
-public class OpinionsResource extends ServerResource {
+public class JsonOpinionsResource extends ServerResource {
 
     @Inject
-    public OpinionsResource(final ReferenceService referenceService, final OpinionService opinionService, final OpinionSearch opinionSearch) {
+    public JsonOpinionsResource(final ReferenceService referenceService, final OpinionService opinionService, final OpinionSearch opinionSearch) {
         this.referenceService = referenceService;
         this.opinionService = opinionService;
         this.opinionSearch = opinionSearch;

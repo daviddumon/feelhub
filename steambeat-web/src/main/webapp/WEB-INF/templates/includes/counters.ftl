@@ -1,4 +1,4 @@
-<div class="panel_box">
+<div id="counters">
     <div id="counter_good" class="counter">
         <img class="smiley" src="${root}/static/images/smiley_good_white.png"/>
 

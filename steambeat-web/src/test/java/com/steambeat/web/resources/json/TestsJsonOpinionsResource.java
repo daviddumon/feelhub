@@ -21,7 +21,7 @@ import java.util.UUID;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsOpinionsResource {
+public class TestsJsonOpinionsResource {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
