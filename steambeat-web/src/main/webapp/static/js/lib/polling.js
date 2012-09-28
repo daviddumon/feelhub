@@ -1,31 +1,19 @@
-function RequestIllustration(referenceId) {
-    if (referenceId.length != 0) {
-        console.log("request illustration for " + referenceId);
-        $.getJSON(root + "/json/illustrations?referenceId=" + referenceId, function (data) {
-            $.each(data, function (index, illustration) {
-                console.log("illustration received : " + illustration.referenceId + " - " + illustration.link);
-                $("#" + illustration.referenceId).attr("src", illustration.link);
-            });
-        });
-    }
-}
-
 function RequestRelations(referenceId) {
     if (referenceId.length != 0) {
         console.log("request relations for " + referenceId);
-        $.getJSON(root + "/json/relations?&referenceId=" + referenceId + "&limit=15", function (data) {
-            $.each(data, function (index, reference) {
-                console.log("relation found " + reference.id);
+        $.getJSON(root + "/json/related?&referenceId=" + referenceId + "&limit=12" + "&languageCode=" + languageCode, function (data) {
+            $.each(data, function (index, referenceData) {
+                console.log("relation found " + referenceData.referenceId);
 
                 var reference_data = {
-                    referenceId:reference.id,
-                    keyword:"related",
+                    referenceId:referenceData.referenceId,
+                    keywordValue:referenceData.keywordValue,
                     classes:"reference_small reference_float reference_zoom",
                     url:"none"
                 };
 
-                $("#test_related").append(ich.reference(reference_data));
-                RequestIllustration(reference.id);
+                $("#related").append(ich.reference(reference_data));
+                $("#" + referenceData.referenceId + " img").attr("src", referenceData.illustrationLink);
             });
         });
     }

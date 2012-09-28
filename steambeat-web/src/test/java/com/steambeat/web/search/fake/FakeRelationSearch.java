@@ -8,7 +8,7 @@ import com.steambeat.domain.relation.Relation;
 import com.steambeat.repositories.*;
 import com.steambeat.web.search.RelationSearch;
 
-import java.util.List;
+import java.util.*;
 
 public class FakeRelationSearch extends RelationSearch {
 
@@ -36,12 +36,26 @@ public class FakeRelationSearch extends RelationSearch {
 
     @Override
     public RelationSearch withFrom(final Reference from) {
-
         relations = Lists.newArrayList(Iterables.filter(relations, new Predicate<Relation>() {
 
             @Override
             public boolean apply(final Relation relation) {
                 if (relation.getFromId().equals(from.getId())) {
+                    return true;
+                }
+                return false;
+            }
+        }));
+        return this;
+    }
+
+    @Override
+    public RelationSearch withFrom(final UUID fromId) {
+        relations = Lists.newArrayList(Iterables.filter(relations, new Predicate<Relation>() {
+
+            @Override
+            public boolean apply(final Relation relation) {
+                if (relation.getFromId().equals(fromId)) {
                     return true;
                 }
                 return false;

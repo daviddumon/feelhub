@@ -21,7 +21,6 @@ public class ReferenceService {
         final Reference reference = referenceFactory.createReference();
         Repositories.references().add(reference);
         return reference;
-
     }
 
     private final ReferenceFactory referenceFactory;

@@ -1,11 +1,14 @@
 package com.steambeat.web.resources;
 
 import com.steambeat.application.KeywordService;
+import com.steambeat.domain.illustration.Illustration;
 import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.web.*;
+import com.steambeat.web.dto.ReferenceData;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.junit.*;
 import org.restlet.data.Status;
@@ -43,23 +46,13 @@ public class TestsKeywordResource {
     }
 
     @Test
-    public void hasKeywordInDataModel() {
+    public void hasReferenceDataInDataModel() {
         final ClientResource keywordResource = restlet.newClientResource("/topic/en/cool");
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) keywordResource.get();
 
-        assertTrue(representation.getDataModel().containsKey("keyword"));
-        assertThat(representation.getDataModel().get("keyword"), notNullValue());
-    }
-
-    @Test
-    public void hasLanguageInDataModel() {
-        final ClientResource keywordResource = restlet.newClientResource("/topic/fr/cool");
-
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) keywordResource.get();
-
-        assertTrue(representation.getDataModel().containsKey("language"));
-        assertThat(SteambeatLanguage.forString("fr"), is(representation.getDataModel().get("language")));
+        assertTrue(representation.getDataModel().containsKey("referenceData"));
+        assertThat(representation.getDataModel().get("referenceData"), notNullValue());
     }
 
     @Test
@@ -100,10 +93,27 @@ public class TestsKeywordResource {
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) keywordResource.get();
 
-        assertTrue(representation.getDataModel().containsKey("keyword"));
-        final Keyword keyword = (Keyword) representation.getDataModel().get("keyword");
-        assertThat(keyword, notNullValue());
-        assertThat(keyword.getReferenceId(), nullValue());
+        assertTrue(representation.getDataModel().containsKey("referenceData"));
+        final ReferenceData referenceData = (ReferenceData) representation.getDataModel().get("referenceData");
+        assertThat(referenceData, notNullValue());
+        assertThat(referenceData.getReferenceId(), is(""));
         assertThat(keywordResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
+    }
+
+    @Test
+    public void referenceDataWithGoodValuesForExistingKeywordAndIllustration() {
+        final Reference reference = TestFactories.references().newReference();
+        final Keyword keyword = TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.forString("es"), reference);
+        final Illustration illustration = TestFactories.illustrations().newIllustration(reference, "link");
+        final ClientResource keywordResource = restlet.newClientResource("/topic/es/keyword");
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) keywordResource.get();
+
+        assertTrue(representation.getDataModel().containsKey("referenceData"));
+        final ReferenceData referenceData = (ReferenceData) representation.getDataModel().get("referenceData");
+        assertThat(referenceData.getIllustrationLink(), is(illustration.getLink()));
+        assertThat(referenceData.getKeywordValue(), is(keyword.getValue()));
+        assertThat(referenceData.getLanguageCode(), is(keyword.getLanguageCode()));
+        assertThat(referenceData.getReferenceId(), is(reference.getId().toString()));
     }
 }

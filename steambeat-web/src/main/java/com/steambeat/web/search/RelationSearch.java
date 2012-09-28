@@ -6,7 +6,7 @@ import com.steambeat.domain.relation.Relation;
 import com.steambeat.repositories.SessionProvider;
 import org.mongolink.domain.criteria.*;
 
-import java.util.List;
+import java.util.*;
 
 public class RelationSearch implements Search<Relation> {
 
@@ -40,6 +40,11 @@ public class RelationSearch implements Search<Relation> {
 
     public RelationSearch withFrom(final Reference from) {
         criteria.add(Restrictions.equals("fromId", from.getId()));
+        return this;
+    }
+
+    public RelationSearch withFrom(final UUID fromId) {
+        criteria.add(Restrictions.equals("fromId", fromId));
         return this;
     }
 

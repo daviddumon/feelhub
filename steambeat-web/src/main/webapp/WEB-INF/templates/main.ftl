@@ -6,18 +6,17 @@
         var authentificated = false;
         </#if>
 
-        <#if keyword?has_content>
-        var keyword = "${keyword}";
-        var referenceId = "${keyword.getReferenceId()!""}";
-        <#else >
-        var keyword = "";
-        var referenceId = "";
-        </#if>
+    var referenceId = "${referenceData.referenceId}";
+    var keywordValue = "${referenceData.keywordValue}";
+    var languageCode = "${referenceData.languageCode}";
+    var illustrationLink = "${referenceData.illustrationLink}";
 
     console.log("authentificated : " + authentificated);
-    console.log("keyword : " + keyword);
-    console.log("referenceId : " + referenceId);
     console.log("root : " + root);
+    console.log("referenceId : " + referenceId);
+    console.log("keywordValue : " + keywordValue);
+    console.log("languageCode : " + languageCode);
+    console.log("illustrationLink : " + illustrationLink);
 </script>
 </@layout.headbegin>
 
@@ -48,7 +47,7 @@
 <#--<#include "mustache/related.mustache.js">-->
 <#--<#include "mustache/form_judgment.mustache.js">-->
 <#--<#include "mustache/form_block.mustache.js">-->
-<#include "mustache/reference.mustache.js">
+    <#include "mustache/reference.mustache.js">
 </@layout.mustache>
 
 <@layout.headend>
@@ -67,11 +66,8 @@
     </div>
 
     <div id="panel_right" class="panel_box">
-        <div id="test_related" style="height: 222px; overflow: hidden;"></div>
+        <div id="related" style="height: 222px; overflow: hidden;"></div>
     </div>
-    <#--<div id="related_list" class="panel_box">-->
-        <#--<span>related</span>-->
-    <#--</div>-->
 </div>
 
 <a href="javascript:void(0);" id="form_button">add your opinion</a>

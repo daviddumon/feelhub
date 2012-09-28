@@ -7,6 +7,8 @@ import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.Repositories;
 
+import java.util.*;
+
 public class KeywordService {
 
     @Inject
@@ -34,6 +36,10 @@ public class KeywordService {
         final Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
         Repositories.keywords().add(keyword);
         return keyword;
+    }
+
+    public List<Keyword> lookUpAll(final UUID referenceId) {
+        return Repositories.keywords().forReferenceId(referenceId);
     }
 
     private void postEvent(final Keyword keyword) {

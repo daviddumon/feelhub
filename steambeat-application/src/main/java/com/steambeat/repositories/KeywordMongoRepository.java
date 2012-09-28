@@ -32,4 +32,5 @@ public class KeywordMongoRepository extends BaseMongoRepository<Keyword> impleme
         criteria.add(Restrictions.equals("referenceId", referenceId));
         return criteria.list();
     }
+
 }

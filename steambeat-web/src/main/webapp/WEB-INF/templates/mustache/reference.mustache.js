@@ -1,12 +1,12 @@
 <script id="reference" type="text/html">
 {{#url}}
-    <a href="{{url}}" class="reference {{classes}}">
+    <a href="{{url}}" class="reference {{classes}}" id="{{referenceId}}">
 {{/url}}
 {{^url}}
-    <div class="reference {{classes}}">
+    <div class="reference {{classes}}" id="{{referenceId}}">
 {{/url}}
-        <img id="{{referenceId}}" src="{{illustration}}" onload="OnImageLoad(event);"/>
-        <span>{{keyword}}</span>
+        <img src="{{illustrationLink}}" onload="OnImageLoad(event);"/>
+        <span>{{keywordValue}}</span>
 {{#url}}
     </a>
 {{/url}}

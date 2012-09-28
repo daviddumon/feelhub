@@ -3,17 +3,18 @@ $(function () {
     //var flow = new Flow();
     //var form = new Form();
 
-    if (keyword.length != 0) {
-        var reference_data = {
-            referenceId:referenceId,
-            keyword:keyword,
-            classes:"reference_big reference_center"
-        };
+    var reference_data = {
+        referenceId:referenceId,
+        keywordValue:keywordValue,
+        languageCode:languageCode,
+        //illustrationLink:illustrationLink,
+        classes:"reference_big reference_center"
+    };
 
-        $("#panel_center").prepend(ich.reference(reference_data));
+    $("#panel_center").prepend(ich.reference(reference_data));
+    $("#" + referenceId + " img").attr("src", illustrationLink);
+    $("#counters").show();
 
-        RequestIllustration(referenceId);
-        RequestRelations(referenceId);
-        RequestCounters(referenceId);
-    }
+    RequestRelations(referenceId);
+    RequestCounters(referenceId);
 });

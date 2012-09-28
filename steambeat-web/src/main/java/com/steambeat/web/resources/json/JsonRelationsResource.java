@@ -3,6 +3,7 @@ package com.steambeat.web.resources.json;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.application.ReferenceService;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.relation.Relation;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.*;
@@ -70,5 +71,5 @@ public class JsonRelationsResource extends ServerResource {
     private final ReferenceService referenceService;
     private final RelationSearch relationSearch;
     private List<Relation> relations = Lists.newArrayList();
-    private final List<com.steambeat.domain.reference.Reference> references = Lists.newArrayList();
+    private final List<Reference> references = Lists.newArrayList();
 }
