@@ -1,15 +1,24 @@
+function buildInternalLink(languageCode, value) {
+    var result = root + "/topic/";
+    if(languageCode != "none") {
+        result += languageCode + "/";
+    }
+    result += value;
+    return result;
+}
+
 function RequestRelations(referenceId) {
     if (referenceId.length != 0) {
         console.log("request relations for " + referenceId);
-        $.getJSON(root + "/json/related?&referenceId=" + referenceId + "&limit=12" + "&languageCode=" + languageCode, function (data) {
+        $.getJSON(root + "/json/related?&referenceId=" + referenceId + "&limit=9" + "&languageCode=" + languageCode, function (data) {
             $.each(data, function (index, referenceData) {
                 console.log("relation found " + referenceData.referenceId);
 
                 var reference_data = {
                     referenceId:referenceData.referenceId,
                     keywordValue:referenceData.keywordValue,
-                    classes:"reference_small reference_float reference_zoom",
-                    url:"none"
+                    url: buildInternalLink(referenceData.languageCode, referenceData.keywordValue),
+                    classes:"reference_medium reference_float reference_zoom"
                 };
 
                 $("#related").append(ich.reference(reference_data));
