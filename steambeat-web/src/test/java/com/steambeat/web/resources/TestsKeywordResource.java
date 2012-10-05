@@ -5,6 +5,7 @@ import com.steambeat.domain.illustration.Illustration;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
+import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.web.*;
@@ -98,6 +99,7 @@ public class TestsKeywordResource {
         assertThat(referenceData, notNullValue());
         assertThat(referenceData.getReferenceId(), is(""));
         assertThat(keywordResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
+        assertThat(Repositories.keywords().getAll().size(), is(0));
     }
 
     @Test

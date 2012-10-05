@@ -1,6 +1,6 @@
 function buildInternalLink(languageCode, value) {
     var result = root + "/topic/";
-    if(languageCode != "none") {
+    if (languageCode != "none") {
         result += languageCode + "/";
     }
     result += value;
@@ -10,14 +10,14 @@ function buildInternalLink(languageCode, value) {
 function RequestRelations(referenceId) {
     if (referenceId.length != 0) {
         console.log("request relations for " + referenceId);
-        $.getJSON(root + "/json/related?&referenceId=" + referenceId + "&limit=9" + "&languageCode=" + languageCode, function (data) {
+        $.getJSON(root + "/json/related?&referenceId=" + referenceId + "&limit=9" + "&languageCode=" + languageCode,function (data) {
             $.each(data, function (index, referenceData) {
                 console.log("relation found " + referenceData.referenceId);
 
                 var reference_data = {
                     referenceId:referenceData.referenceId,
                     keywordValue:referenceData.keywordValue,
-                    url: buildInternalLink(referenceData.languageCode, referenceData.keywordValue),
+                    url:buildInternalLink(referenceData.languageCode, referenceData.keywordValue),
                     classes:"reference_medium reference_float reference_zoom"
                 };
 

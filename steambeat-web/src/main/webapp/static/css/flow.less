@@ -46,7 +46,7 @@ body {
             font-size: @font-normal;
             padding-top: 2px;
             padding-bottom: 2px;
-            height: @font-normal;
+            min-height: @font-normal;
         }
     }
 
@@ -58,7 +58,7 @@ body {
             font-size: @font-medium;
             padding-top: 5px;
             padding-bottom: 5px;
-            height: @font-medium;
+            min-height: @font-medium;
         }
     }
 
@@ -70,7 +70,7 @@ body {
             font-size: @font-big;
             padding-top: 10px;
             padding-bottom: 10px;
-            height: @font-big;
+            min-height: @font-big;
         }
     }
 
@@ -189,15 +189,6 @@ body {
         z-index: 500;
     }
 
-    #form_related {
-        position: fixed;
-        width: 100px;
-        overflow: hidden;
-        z-index: 1000;
-        border: 10px solid @blue-2 !important;
-        background-color: @white !important;
-    }
-
     #form {
         position: fixed;
         width: 600px;
@@ -212,15 +203,6 @@ body {
             right: 10px;
             display: block;
         }
-    }
-
-    #form_help {
-        position: fixed;
-        width: 100px;
-        overflow: hidden;
-        z-index: 1000;
-        border: 10px solid @blue-2 !important;
-        background-color: @white !important;
     }
 
     #opinions {

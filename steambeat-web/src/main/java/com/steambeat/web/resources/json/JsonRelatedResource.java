@@ -107,7 +107,6 @@ public class JsonRelatedResource extends ServerResource {
 
     private Keyword getGoodKeyword(final List<Keyword> keywords) {
         Keyword referenceKeyword = null;
-        Keyword noneKeyword = null;
         for (Keyword keyword : keywords) {
             if (keyword.getLanguage().equals(steambeatLanguage)) {
                 return keyword;

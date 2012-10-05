@@ -46,7 +46,6 @@
 <#--<#include "mustache/opinion.mustache.js">-->
 <#--<#include "mustache/related.mustache.js">-->
 <#--<#include "mustache/form_judgment.mustache.js">-->
-<#--<#include "mustache/form_block.mustache.js">-->
     <#include "mustache/reference.mustache.js">
 </@layout.mustache>
 
