@@ -1,0 +1,350 @@
+/* Copyright Steambeat 2012 */
+@import "import/variables.less";
+@import "import/colors.less";
+@import "import/mixins.less";
+
+body {
+    background-color: @blue-1 !important;
+
+    font-size: @font-normal;
+    .font_text;
+
+    a {
+        text-decoration: none !important;
+    }
+
+    header {
+        height: 40px;
+
+        div {
+            width: 95%;
+            margin: 0px auto;
+
+            div {
+                width: 38%;
+                float: left;
+                text-align: center;
+
+                a {
+                    font-size: 34px;
+                    font-weight: bold;
+                    color: @blue-3;
+                    .font_title;
+
+                    &:hover {
+                        color: @blue-2 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    #wrapper {
+        clear: both;
+        width: 95%;
+        margin: 20px auto 0px auto;
+
+        .box {
+            text-align: center;
+            vertical-align: top;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            overflow: hidden;
+        }
+
+        #left {
+            float: left;
+            z-index: 10;
+            width: 38%;
+
+            #main_reference {
+
+                #counters {
+
+                    .counter {
+                        width: 80px;
+                        display: inline-block;
+                        .rounded_down();
+
+                        .smiley {
+                            border: none;
+                            width: 30px;
+                        }
+
+                        .counter_text {
+                            color: @white !important;
+                            font-size: 16px !important;
+                            .font_title();
+                        }
+                    }
+
+                    #counter_good {
+                        background-color: @good !important;
+                    }
+
+                    #counter_bad {
+                        background-color: @bad !important;
+                    }
+
+                    #counter_neutral {
+                        background-color: @neutral !important;
+                    }
+                }
+            }
+
+            #related {
+                margin: 0px auto;
+                height: 280px;
+                max-width: 296px;
+            }
+        }
+
+        #right {
+            float: right;
+            width: 62%;
+            text-align: center;
+
+            #form {
+
+                textarea {
+                    width: 600px;
+                    height: 50px;
+                }
+            //position: relative;
+            //border: 10px solid @blue-2 !important;
+            //background-color: @white !important;
+            //height: 100px;
+            //#form_close {
+            //    position: absolute;
+            //    top: 10px;
+            //    right: 10px;
+            //    display: block;
+            //}
+            }
+
+            #opinions {
+                position: relative; //top: 450px;
+            //left: 2%;
+            //width: 96%;
+
+                li {
+                    position: absolute;
+                    display: block;
+                    list-style-type: none;
+                    width: 240px;
+                    padding: 20px;
+                    margin: 10px;
+                    border-width: 0px;
+                    border-style: solid;
+                    border-color: @white !important;
+                    background-color: @white !important;
+                //overflow: hidden;
+                }
+
+                p {
+                    clear: both;
+                }
+
+            }
+        }
+    }
+}
+
+@media (min-width: 1600px) {
+
+    body {
+        #wrapper {
+            #left {
+                #related {
+                    max-width: 444px;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1800px) {
+
+    body {
+        #wrapper {
+            #left {
+                #related {
+                    max-width: 592px;
+                }
+            }
+        }
+    }
+}
+
+//@media screen and (max-width: 720px) {
+
+//header {
+//    display: none;
+//}
+//
+//#opinions {
+//    top: 150px;
+//}
+//
+//#hud {
+//    display: none;
+//}
+//
+//#panel {
+//    top: -210px;
+//}
+//}
+
+//// A TRIER ET LAVER
+//
+//.opinion {
+//    display: block;
+//    position: absolute;
+//    width: 240px;
+//    padding: 20px;
+//    margin: 10px;
+//    border-width: 0px;
+//    border-style: solid;
+//    border-color: @white !important;
+//    background-color: @white !important;
+//    list-style-type: none;
+//    overflow: hidden;
+//    z-index: 2;
+//}
+//
+//.opinion p {
+//    word-wrap: break-word;
+//}
+//
+//.judgments_header {
+//    position: relative;
+//    top: -22px;
+//    font-size: 10px;
+//    width: 100%;
+//    text-align: center;
+//}
+//
+//.judgments {
+//    border-top: 1px dashed @grey-1 !important;
+//    margin-top: 40px;
+//    padding-top: 10px;
+//}
+//
+//.judgments_top {
+//    padding-bottom: 40px;
+//    text-align: center;
+//}
+//
+//.judgment {
+//    text-align: center;
+//    z-index: 300;
+//}
+//
+//.judgment_tag {
+//    display: inline;
+//    white-space: nowrap;
+///*cursor: pointer;*/
+//    color: black;
+//    padding: 5px;
+//    margin-left: 5px;
+//    margin-right: 5px;
+//    line-height: 2em;
+///*z-index: -100;*/
+//}
+//
+//.judgment_info {
+//    position: fixed;
+//    background-color: @white !important;
+//    border: 1px solid @grey-2 !important;
+//    padding: 5px;
+//    display: none;
+//    z-index: 3000;
+//}
+//
+//.judgment_smiley {
+//    display: block;
+//    border: none;
+//    width: 14px;
+//    margin: 0 auto;
+//    z-index: -100;
+//}
+//
+//.feeling_smiley {
+//    width: 24px;
+//    height: 18px;
+//    margin: 0 auto;
+//    z-index: -10;
+//}
+//
+//.form_text {
+//    width: 80%;
+//    margin-left: 8%;
+//    outline: none;
+//    -moz-outline: none;
+///*border: solid 1px #ADDDEB;*/
+///*resize: none;*/
+//    padding: 2%;
+///*height: 80px;*/
+//    z-index: 1;
+//    margin-top: 5px;
+//    margin-bottom: 5px;
+//}
+//
+///*.opinion_form_title {*/
+///*text-align: center;*/
+///*font-size: 22px;*/
+///*font-weight: bold;*/
+///*padding: 20px;*/
+///*}*/
+//
+///*#opinion_form_subject {*/
+///*position: relative;*/
+///*width: 80%;*/
+///*margin-left: 8%;*/
+///*margin-bottom: 20px;*/
+///*margin-top: 20px;*/
+///*padding: 2%;*/
+///*text-align: center;*/
+///*z-index: 2;*/
+///*}*/
+//
+///*#opinion_form_submit {*/
+///*position: absolute;*/
+///*bottom: -5px;*/
+///*font-size: 24px;*/
+///*font-weight: bold;*/
+///*width: 100%;*/
+///*text-align: center;*/
+///*padding-top: 20px;*/
+///*padding-bottom: 20px;*/
+///*color: #FFFFFF;*/
+///*border: none;*/
+///*background-color: #ADDDEB;*/
+///*}*/
+//
+///*@media screen and (max-width: 720px) {*/
+//
+///*#form_button {*/
+///*top: -210px;*/
+///*}*/
+//
+///*#popup_form {*/
+///*width: 300px;*/
+///*}*/
+///*}*/
+//
+//#hud {
+//    position: fixed;
+//    top: 0px;
+//    width: 100%;
+//    height: 80px;
+//    z-index: 10;
+//}
+//
+//#to_top {
+//    width: 50%;
+//    margin: 0 auto;
+//    padding-top: 30px;
+//    text-align: center;
+//    font-size: 20px;
+//}

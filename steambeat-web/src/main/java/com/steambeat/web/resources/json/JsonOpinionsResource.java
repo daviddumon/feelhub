@@ -3,9 +3,7 @@ package com.steambeat.web.resources.json;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.application.*;
-import com.steambeat.application.dto.JudgmentDTO;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.web.ReferenceBuilder;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.OpinionSearch;
 import org.json.JSONException;
@@ -65,15 +63,15 @@ public class JsonOpinionsResource extends ServerResource {
 
     @Post
     public void post(final Form form) {
-        try {
-            extractFormParameters(form);
-        } catch (Exception e) {
-            throw new OpinionCreationException();
-        }
-        final JudgmentDTO judgmentDTO = new JudgmentDTO(reference, feeling);
-        opinionService.addOpinion(text, Lists.newArrayList(judgmentDTO));
-        setStatus(Status.SUCCESS_CREATED);
-        setLocationRef(new ReferenceBuilder(getContext()).buildUri("/" + redirect + "/" + reference.getId()));
+        //try {
+        //    extractFormParameters(form);
+        //} catch (Exception e) {
+        //    throw new OpinionCreationException();
+        //}
+        //final JudgmentDTO judgmentDTO = new JudgmentDTO(reference, feeling);
+        //opinionService.addOpinion(text, Lists.newArrayList(judgmentDTO));
+        //setStatus(Status.SUCCESS_CREATED);
+        //setLocationRef(new ReferenceBuilder(getContext()).buildUri("/" + redirect + "/" + reference.getId()));
     }
 
     private void extractFormParameters(final Form form) {

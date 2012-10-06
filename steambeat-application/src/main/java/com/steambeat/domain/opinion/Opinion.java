@@ -26,16 +26,18 @@ public class Opinion extends BaseEntity {
         DomainEventBus.INSTANCE.post(new JudgmentCreatedEvent(judgment));
     }
 
+    public void addJudgment(final Judgment judgment) {
+        judgments.add(judgment);
+        judgment.getReference().setLastModificationDate(new DateTime());
+        DomainEventBus.INSTANCE.post(new JudgmentCreatedEvent(judgment));
+    }
+
     public UUID getId() {
         return id;
     }
 
     public String getText() {
         return text;
-    }
-
-    public Date getCreationDateAsDate() {
-        return creationDate.toDate();
     }
 
     public List<Judgment> getJudgments() {

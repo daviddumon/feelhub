@@ -1,9 +1,10 @@
 <script id="reference" type="text/html">
+<div class="reference">
 {{#url}}
-    <a href="{{url}}" class="reference {{classes}}" id="{{referenceId}}">
+    <a href="{{url}}" class="{{classes}}" id="{{referenceId}}">
 {{/url}}
 {{^url}}
-    <div class="reference {{classes}}" id="{{referenceId}}">
+    <div class="{{classes}}" id="{{referenceId}}">
 {{/url}}
         <img src="{{illustrationLink}}" onload="OnImageLoad(event);"/>
         <span>{{keywordValue}}</span>
@@ -13,4 +14,5 @@
 {{^url}}
     </div>
 {{/url}}
+</div>
 </script>

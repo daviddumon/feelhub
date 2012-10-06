@@ -22,7 +22,7 @@
 
     <#if !dev>
         <link rel="stylesheet" href="${root}/static/css/reset.css?${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/common.css?${buildtime}"/>
+        <link rel="stylesheet" href="${root}/static/css/reference.css?${buildtime}"/>
         <#nested/>
     </#if>
 
@@ -32,7 +32,7 @@
 
     <#if dev>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reset.less?${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/common.less?${buildtime}"/>
+        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reference.less?${buildtime}"/>
         <#nested/>
     </#if>
 
@@ -104,38 +104,26 @@
 </head>
 </#macro>
 
-<#macro fixed>
+<#macro left>
 <body>
-
-<div id="form_blanket" style="display: none;"></div>
-
-<div id="fixed_layer">
-
-    <header>
-        <a id="home_link" href="${root}">steambeat</a>
-
-        <div id="id_panel">
-            <#if user?has_content>
-                <p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
-            <#else>
-                <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
-            </#if>
+<header>
+    <div>
+        <div>
+            <a href="${root}">steambeat</a>
         </div>
-
-        <#--<div id="help_panel">-->
-            <#--<a href="${root}/help">help</a>-->
-        <#--</div>-->
-
-    </header>
-
-    <#nested/>
-</div>
+    </div>
+</header>
+<div id="wrapper">
+    <div id="left">
+        <#nested/>
+    </div>
 </#macro>
 
-<#macro body>
-
-    <#nested/>
-
+<#macro right>
+    <div id="right">
+        <#nested/>
+    </div>
+</div>
 </body>
 </html>
 </#macro>

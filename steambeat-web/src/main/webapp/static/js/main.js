@@ -11,7 +11,7 @@ $(function () {
         classes:"reference_big reference_center"
     };
 
-    $("#panel_center").prepend(ich.reference(reference_data));
+    $("#main_reference").prepend(ich.reference(reference_data));
     $("#" + referenceId + " img").attr("src", illustrationLink);
     $("#counters").show();
 
