@@ -44,7 +44,7 @@ public class TestsOpinionManager {
         judgments.addAll(op1.getJudgments());
         judgments.addAll(op2.getJudgments());
         for (final Judgment judgment : judgments) {
-            assertThat(judgment.getReference(), is(ref1));
+            assertThat(judgment.getReferenceId(), is(ref1.getId()));
         }
     }
 }

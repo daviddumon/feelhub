@@ -33,7 +33,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReference().getId()).get(0).getGood(), is(1));
+        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId()).get(0).getGood(), is(1));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReference().getId()).get(0).getBad(), is(1));
+        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId()).get(0).getBad(), is(1));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReference().getId()).get(0).getGood(), is(1));
+        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId()).get(0).getGood(), is(1));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReference(event.getJudgment().getReference(), Granularity.hour, new Interval(time.getNow().minusDays(2), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.hour, new Interval(time.getNow().minusDays(2), time.getNow()));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.hour));
         assertThat(statistics.get(0).getGood(), is(1));
@@ -74,7 +74,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReference(event.getJudgment().getReference(), Granularity.day, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.day, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.day));
     }
@@ -85,7 +85,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReference(event.getJudgment().getReference(), Granularity.month, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.month, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.month));
     }
@@ -96,7 +96,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReference(event.getJudgment().getReference(), Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.year));
     }
@@ -108,7 +108,7 @@ public class TestsStatisticsFactory {
 
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReference(event.getJudgment().getReference(),
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(),
                 Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.year));
@@ -122,7 +122,7 @@ public class TestsStatisticsFactory {
         time.set(time.getNow().plusYears(3));
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReference(event.getJudgment().getReference(),
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(),
                 Granularity.year, new Interval(time.getNow().minusYears(4), time.getNow().minusYears(2)));
         assertThat(statistics.size(), is(1));
     }
@@ -132,12 +132,12 @@ public class TestsStatisticsFactory {
         time.set(time.getNow().minusMonths(3));
         final JudgmentCreatedEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusMonths(5));
-        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReference(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
 
         time.set(time.getNow().plusMonths(8));
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReference(event.getJudgment().getReference(), Granularity.month, new Interval(time.getNow().minusMonths(12), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.month, new Interval(time.getNow().minusMonths(12), time.getNow()));
         assertThat(statistics.size(), is(2));
     }
 
@@ -146,12 +146,12 @@ public class TestsStatisticsFactory {
         time.set(time.getNow().minusDays(3));
         final JudgmentCreatedEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusDays(5));
-        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReference(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
 
         time.set(time.getNow().plusDays(8));
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReference(event.getJudgment().getReference(), Granularity.day, new Interval(time.getNow().minusDays(12), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.day, new Interval(time.getNow().minusDays(12), time.getNow()));
         assertThat(statistics.size(), is(2));
     }
 
@@ -160,12 +160,12 @@ public class TestsStatisticsFactory {
         time.set(time.getNow().minusHours(3));
         final JudgmentCreatedEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReference(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
 
         time.set(time.getNow().plusHours(8));
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReference(event.getJudgment().getReference(), Granularity.hour, new Interval(time.getNow().minusHours(12), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.hour, new Interval(time.getNow().minusHours(12), time.getNow()));
         assertThat(statistics.size(), is(2));
     }
 
@@ -174,23 +174,24 @@ public class TestsStatisticsFactory {
         time.set(time.getNow().minusHours(3));
         final JudgmentCreatedEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReference(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
 
         time.set(time.getNow().plusHours(8));
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReference(event.getJudgment().getReference(), Granularity.all);
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.all);
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGood(), is(2));
     }
 
     @Test
+    @Ignore
     public void recordStatisticsForSteam() {
         final JudgmentCreatedEvent event = getGoodJudgmentEvent();
 
         statisticsFactory.handle(event);
 
-        //assertThat(getStatisticsRepository().forReference(Repositories.references().getSteam()).getGood(), is(1));
+        //assertThat(getStatisticsRepository().forReferenceId(Repositories.references().getSteam()).getGood(), is(1));
     }
 
     private JudgmentCreatedEvent getGoodJudgmentEvent() {

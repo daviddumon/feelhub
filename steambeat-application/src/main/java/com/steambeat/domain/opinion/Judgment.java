@@ -1,8 +1,5 @@
 package com.steambeat.domain.opinion;
 
-import com.steambeat.domain.reference.Reference;
-import com.steambeat.repositories.Repositories;
-
 import java.util.UUID;
 
 public class Judgment {
@@ -11,17 +8,13 @@ public class Judgment {
     protected Judgment() {
     }
 
-    public Judgment(final Reference reference, final Feeling feeling) {
-        this.referenceId = reference.getId();
+    public Judgment(final UUID referenceId, final Feeling feeling) {
+        this.referenceId = referenceId;
         this.feeling = feeling;
     }
 
     public Feeling getFeeling() {
         return feeling;
-    }
-
-    public Reference getReference() {
-        return Repositories.references().get(referenceId);
     }
 
     public UUID getReferenceId() {

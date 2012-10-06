@@ -2,8 +2,8 @@ package com.steambeat.web.resources.json;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.steambeat.application.*;
-import com.steambeat.domain.opinion.*;
+import com.steambeat.application.ReferenceService;
+import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.OpinionSearch;
 import org.json.JSONException;
@@ -15,9 +15,8 @@ import java.util.*;
 public class JsonOpinionsResource extends ServerResource {
 
     @Inject
-    public JsonOpinionsResource(final ReferenceService referenceService, final OpinionService opinionService, final OpinionSearch opinionSearch) {
+    public JsonOpinionsResource(final ReferenceService referenceService, final OpinionSearch opinionSearch) {
         this.referenceService = referenceService;
-        this.opinionService = opinionService;
         this.opinionSearch = opinionSearch;
     }
 
@@ -61,35 +60,7 @@ public class JsonOpinionsResource extends ServerResource {
         }
     }
 
-    @Post
-    public void post(final Form form) {
-        //try {
-        //    extractFormParameters(form);
-        //} catch (Exception e) {
-        //    throw new OpinionCreationException();
-        //}
-        //final JudgmentDTO judgmentDTO = new JudgmentDTO(reference, feeling);
-        //opinionService.addOpinion(text, Lists.newArrayList(judgmentDTO));
-        //setStatus(Status.SUCCESS_CREATED);
-        //setLocationRef(new ReferenceBuilder(getContext()).buildUri("/" + redirect + "/" + reference.getId()));
-    }
-
-    private void extractFormParameters(final Form form) {
-        if (form.getFirstValue("feeling") == null) {
-            throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST);
-        }
-        reference = referenceService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim()));
-        feeling = Feeling.valueOf(form.getFirstValue("feeling").trim());
-        text = form.getFirstValue("text").trim();
-        redirect = form.getFirstValue("redirect").trim();
-    }
-
-    private com.steambeat.domain.reference.Reference reference;
-    private Feeling feeling;
-    private String text;
     List<Opinion> opinions = Lists.newArrayList();
     private final OpinionSearch opinionSearch;
     private final ReferenceService referenceService;
-    private final OpinionService opinionService;
-    private String redirect;
 }

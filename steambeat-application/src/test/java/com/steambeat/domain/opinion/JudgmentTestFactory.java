@@ -7,16 +7,16 @@ public class JudgmentTestFactory {
 
     public Judgment newJudgment() {
         final Reference reference = TestFactories.references().newReference();
-        return new Judgment(reference, Feeling.good);
+        return new Judgment(reference.getId(), Feeling.good);
     }
 
     public Judgment newBadJudgment() {
         final Reference reference = TestFactories.references().newReference();
-        return new Judgment(reference, Feeling.bad);
+        return new Judgment(reference.getId(), Feeling.bad);
     }
 
     public Judgment newGoodJudgment() {
         final Reference reference = TestFactories.references().newReference();
-        return new Judgment(reference, Feeling.good);
+        return new Judgment(reference.getId(), Feeling.good);
     }
 }

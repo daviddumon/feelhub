@@ -82,9 +82,9 @@ public class TestsJsonStatisticsResource {
     public void canFetchSingleHour() throws JSONException, IOException {
         final Reference reference = TestFactories.references().newReference();
         final Statistics statistics = TestFactories.statistics().newStatistics(reference, Granularity.hour);
-        statistics.incrementJudgmentCount(new Judgment(reference, Feeling.good));
-        statistics.incrementJudgmentCount(new Judgment(reference, Feeling.bad));
-        statistics.incrementJudgmentCount(new Judgment(reference, Feeling.bad));
+        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
+        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.bad));
+        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.bad));
         final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + new DateTime().minus(1).getMillis() + "&end=" + new DateTime().plus(1).getMillis() + "&granularity=hour" + "&referenceId=" + reference.getId());
         time.waitDays(1);
 

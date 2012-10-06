@@ -20,7 +20,7 @@ public class TestsOpinionService {
     public void canAddOpinionAndJudgements() {
         final OpinionService service = new OpinionService();
         final Reference reference = TestFactories.references().newReference();
-        final Judgment judgment = new Judgment(reference, Feeling.good);
+        final Judgment judgment = new Judgment(reference.getId(), Feeling.good);
 
         service.addOpinion("Le texte de l'opinion", Lists.newArrayList(judgment));
 

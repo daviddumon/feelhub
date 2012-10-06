@@ -17,7 +17,7 @@ public class JudgmentCreatedEvent extends DomainEvent {
         stringBuilder.append("JudgmentCreatedEvent ");
         stringBuilder.append(judgment.getFeeling());
         stringBuilder.append(" on ");
-        stringBuilder.append(judgment.getReference().getId());
+        stringBuilder.append(judgment.getReferenceId());
         return stringBuilder.toString();
     }
 

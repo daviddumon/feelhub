@@ -41,7 +41,7 @@ public class FakeOpinionSearch extends OpinionSearch {
             @Override
             public boolean apply(final Opinion opinion) {
                 for (final Judgment judgment : opinion.getJudgments()) {
-                    if (judgment.getReference().equals(reference)) {
+                    if (judgment.getReferenceId().equals(reference.getId())) {
                         return true;
                     }
                 }

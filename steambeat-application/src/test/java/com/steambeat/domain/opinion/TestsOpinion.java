@@ -42,7 +42,7 @@ public class TestsOpinion {
         assertThat(opinion.getCreationDate(), notNullValue());
         assertThat(opinion.getCreationDate(), is(time.getNow()));
         assertThat(opinion.getJudgments().size(), is(1));
-        assertThat(opinion.getJudgments().get(0).getReference(), is(reference));
+        assertThat(opinion.getJudgments().get(0).getReferenceId(), is(reference.getId()));
         assertThat(opinion.getJudgments().get(0).getFeeling(), is(Feeling.good));
     }
 

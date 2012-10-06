@@ -2,7 +2,6 @@ package com.steambeat.domain.statistics;
 
 import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.reference.Reference;
 import org.joda.time.DateTime;
 
 import java.util.UUID;
@@ -12,10 +11,10 @@ public class Statistics extends BaseEntity {
     protected Statistics() {
     }
 
-    public Statistics(final Reference reference, final Granularity granularity, final DateTime date) {
+    public Statistics(final UUID referenceId, final Granularity granularity, final DateTime date) {
         this.id = UUID.randomUUID();
         this.date = date;
-        referenceId = reference.getId();
+        this.referenceId = referenceId;
         this.granularity = granularity;
     }
 

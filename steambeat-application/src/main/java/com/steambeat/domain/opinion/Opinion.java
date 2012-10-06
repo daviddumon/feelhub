@@ -20,7 +20,7 @@ public class Opinion extends BaseEntity {
     }
 
     public void addJudgment(final Reference reference, final Feeling feeling) {
-        final Judgment judgment = new Judgment(reference, feeling);
+        final Judgment judgment = new Judgment(reference.getId(), feeling);
         judgments.add(judgment);
         reference.setLastModificationDate(new DateTime());
         DomainEventBus.INSTANCE.post(new JudgmentCreatedEvent(judgment));
@@ -28,7 +28,7 @@ public class Opinion extends BaseEntity {
 
     public void addJudgment(final Judgment judgment) {
         judgments.add(judgment);
-        judgment.getReference().setLastModificationDate(new DateTime());
+        //judgment.getReference().setLastModificationDate(new DateTime());
         DomainEventBus.INSTANCE.post(new JudgmentCreatedEvent(judgment));
     }
 

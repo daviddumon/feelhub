@@ -22,10 +22,10 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     public void canPersist() {
         final DateTime date = new DateTime().plusDays(1);
         final Reference reference = TestFactories.references().newReference();
-        final Statistics stat = new Statistics(reference, Granularity.day, date);
-        stat.incrementJudgmentCount(new Judgment(reference, Feeling.good));
-        stat.incrementJudgmentCount(new Judgment(reference, Feeling.bad));
-        stat.incrementJudgmentCount(new Judgment(reference, Feeling.neutral));
+        final Statistics stat = new Statistics(reference.getId(), Granularity.day, date);
+        stat.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
+        stat.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.bad));
+        stat.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.neutral));
 
         Repositories.statistics().add(stat);
 
@@ -46,12 +46,12 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetBySubjectGranularityAndInterval() {
         final Reference reference = TestFactories.references().newReference();
-        Repositories.statistics().add(new Statistics(reference, Granularity.hour, new DateTime()));
+        Repositories.statistics().add(new Statistics(reference.getId(), Granularity.hour, new DateTime()));
         time.waitDays(1);
-        Repositories.statistics().add(new Statistics(reference, Granularity.hour, new DateTime()));
-        Repositories.statistics().add(new Statistics(TestFactories.references().newReference(), Granularity.day, new DateTime()));
+        Repositories.statistics().add(new Statistics(reference.getId(), Granularity.hour, new DateTime()));
+        Repositories.statistics().add(new Statistics(TestFactories.references().newReference().getId(), Granularity.day, new DateTime()));
 
-        final List<Statistics> statistics = Repositories.statistics().forReference(reference, Granularity.hour, new Interval(new DateTime().minusDays(1), new DateTime()));
+        final List<Statistics> statistics = Repositories.statistics().forReferenceId(reference.getId(), Granularity.hour, new Interval(new DateTime().minusDays(1), new DateTime()));
 
         assertThat(statistics.size(), is(1));
     }
@@ -59,15 +59,15 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetBySubjectGranularityReferenceAndOffset() {
         final Reference reference = TestFactories.references().newReference();
-        final Statistics one = new Statistics(reference, Granularity.hour, new DateTime());
-        one.incrementJudgmentCount(new Judgment(reference, Feeling.good));
+        final Statistics one = new Statistics(reference.getId(), Granularity.hour, new DateTime());
+        one.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
         Repositories.statistics().add(one);
         time.waitHours(2);
-        final Statistics two = new Statistics(reference, Granularity.hour, new DateTime());
-        two.incrementJudgmentCount(new Judgment(reference, Feeling.good));
+        final Statistics two = new Statistics(reference.getId(), Granularity.hour, new DateTime());
+        two.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
         Repositories.statistics().add(two);
 
-        final List<Statistics> statistics = Repositories.statistics().forReference(reference, Granularity.hour, Granularity.hour.intervalFor(one.getDate(), two.getDate()));
+        final List<Statistics> statistics = Repositories.statistics().forReferenceId(reference.getId(), Granularity.hour, Granularity.hour.intervalFor(one.getDate(), two.getDate()));
 
         assertThat(statistics.size(), is(2));
         assertThat(statistics.get(0).getGood(), is(1));
@@ -77,12 +77,12 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetWithGranularityDay() {
         final Reference reference = TestFactories.references().newReference();
-        final Statistics one = new Statistics(reference, Granularity.day, new DateTime());
-        one.incrementJudgmentCount(new Judgment(reference, Feeling.good));
+        final Statistics one = new Statistics(reference.getId(), Granularity.day, new DateTime());
+        one.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
         Repositories.statistics().add(one);
         time.waitDays(4);
 
-        final List<Statistics> statistics = Repositories.statistics().forReference(reference, Granularity.day, Granularity.day.intervalFor(one.getDate(), one.getDate()));
+        final List<Statistics> statistics = Repositories.statistics().forReferenceId(reference.getId(), Granularity.day, Granularity.day.intervalFor(one.getDate(), one.getDate()));
 
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGood(), is(1));
@@ -92,12 +92,12 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetWithGranularityMonth() {
         final Reference reference = TestFactories.references().newReference();
-        final Statistics one = new Statistics(reference, Granularity.month, new DateTime());
-        one.incrementJudgmentCount(new Judgment(reference, Feeling.good));
+        final Statistics one = new Statistics(reference.getId(), Granularity.month, new DateTime());
+        one.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
         Repositories.statistics().add(one);
         time.waitMonths(4);
 
-        final List<Statistics> statistics = Repositories.statistics().forReference(reference, Granularity.month, Granularity.month.intervalFor(one.getDate(), one.getDate()));
+        final List<Statistics> statistics = Repositories.statistics().forReferenceId(reference.getId(), Granularity.month, Granularity.month.intervalFor(one.getDate(), one.getDate()));
 
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGood(), is(1));
@@ -107,12 +107,12 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetWithGranularityYear() {
         final Reference reference = TestFactories.references().newReference();
-        final Statistics one = new Statistics(reference, Granularity.year, new DateTime());
-        one.incrementJudgmentCount(new Judgment(reference, Feeling.good));
+        final Statistics one = new Statistics(reference.getId(), Granularity.year, new DateTime());
+        one.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
         Repositories.statistics().add(one);
         time.waitYears(4);
 
-        final List<Statistics> statistics = Repositories.statistics().forReference(reference, Granularity.year, Granularity.year.intervalFor(one.getDate(), one.getDate()));
+        final List<Statistics> statistics = Repositories.statistics().forReferenceId(reference.getId(), Granularity.year, Granularity.year.intervalFor(one.getDate(), one.getDate()));
 
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGood(), is(1));

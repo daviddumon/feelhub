@@ -1,6 +1,5 @@
 package com.steambeat.repositories;
 
-import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.statistics.*;
 import org.joda.time.Interval;
 import org.mongolink.MongoSession;
@@ -16,28 +15,28 @@ public class StatisticsMongoRepository extends BaseMongoRepository<Statistics> i
     }
 
     @Override
-    public List<Statistics> forReferenceId(final UUID reference) {
+    public List<Statistics> forReferenceId(final UUID referenceId) {
         final Criteria criteria = getSession().createCriteria(Statistics.class);
-        criteria.add(Restrictions.equals("referenceId", reference));
+        criteria.add(Restrictions.equals("referenceId", referenceId));
         return criteria.list();
     }
 
     @Override
-    public List<Statistics> forReference(final Reference reference, final Granularity granularity) {
-        final Criteria criteria = criteriaForReferenceAndGranularity(reference, granularity);
+    public List<Statistics> forReferenceId(final UUID referenceId, final Granularity granularity) {
+        final Criteria criteria = criteriaForReferenceAndGranularity(referenceId, granularity);
         return criteria.list();
     }
 
     @Override
-    public List<Statistics> forReference(final Reference reference, final Granularity granularity, final Interval interval) {
-        final Criteria criteria = criteriaForReferenceAndGranularity(reference, granularity);
+    public List<Statistics> forReferenceId(final UUID referenceId, final Granularity granularity, final Interval interval) {
+        final Criteria criteria = criteriaForReferenceAndGranularity(referenceId, granularity);
         criteria.add(Restrictions.between("date", interval.getStart(), interval.getEnd()));
         return criteria.list();
     }
 
-    private Criteria criteriaForReferenceAndGranularity(final Reference reference, final Granularity granularity) {
+    private Criteria criteriaForReferenceAndGranularity(final UUID referenceID, final Granularity granularity) {
         final Criteria criteria = getSession().createCriteria(Statistics.class);
-        criteria.add(Restrictions.equals("referenceId", reference.getId()));
+        criteria.add(Restrictions.equals("referenceId", referenceID));
         criteria.add(Restrictions.equals("granularity", granularity));
         return criteria;
     }

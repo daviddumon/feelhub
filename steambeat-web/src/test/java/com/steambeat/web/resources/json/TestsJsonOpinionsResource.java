@@ -1,9 +1,7 @@
 package com.steambeat.web.resources.json;
 
 import com.steambeat.domain.eventbus.WithDomainEvent;
-import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.reference.Reference;
-import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.web.*;
@@ -12,11 +10,9 @@ import org.json.*;
 import org.junit.*;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.restlet.Context;
-import org.restlet.data.*;
+import org.restlet.data.Status;
 
 import java.io.IOException;
-import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -140,101 +136,5 @@ public class TestsJsonOpinionsResource {
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray.length(), is(10));
-    }
-
-    @Test
-    public void canPostOpinion() {
-        final Reference reference = TestFactories.references().newReference();
-        final Form form = getGoodForm();
-        form.add("topicId", reference.getId().toString());
-        form.add("redirect", "webpages");
-        final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
-
-        opinionsResource.post(form);
-
-        assertThat(opinionsResource.getStatus(), is(Status.SUCCESS_CREATED));
-        assertThat(Repositories.opinions().getAll().size(), is(1));
-        final Opinion opinion = Repositories.opinions().getAll().get(0);
-        final Judgment judgment = opinion.getJudgments().get(0);
-        assertThat(judgment.getFeeling(), is(Feeling.good));
-        assertThat(judgment.getReference(), is(reference));
-    }
-
-    @Test
-    public void canPostOpinionForATopic() {
-        final Reference reference = TestFactories.references().newReference();
-        final Form form = getGoodForm();
-        form.add("topicId", reference.getId().toString());
-        form.add("redirect", "webpages");
-        final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
-
-        opinionsResource.post(form);
-
-        assertThat(opinionsResource.getStatus(), is(Status.SUCCESS_CREATED));
-        assertThat(Repositories.opinions().getAll().size(), is(1));
-        final Opinion opinion = Repositories.opinions().getAll().get(0);
-        final Judgment judgment = opinion.getJudgments().get(0);
-        assertThat(judgment.getFeeling(), is(Feeling.good));
-        assertThat(judgment.getReference(), is(reference));
-    }
-
-    @Test
-    public void throwExceptionWhenUnknownTopic() {
-        final Form form = getGoodForm();
-        form.add("topicId", UUID.randomUUID().toString());
-        final ClientResource resource = restlet.newClientResource("/json/opinions");
-
-        resource.post(form);
-
-        assertThat(resource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
-    }
-
-    @Test
-    public void canNotPostAOpinionWithoutFeeling() {
-        final Reference reference = TestFactories.references().newReference();
-        final Form form = new Form();
-        form.add("text", "my opinion");
-        form.add("topicId", "http://www.lemonde.fr");
-        final ClientResource resource = restlet.newClientResource("/json/opinions");
-
-        resource.post(form);
-
-        assertThat(resource.getStatus().isError(), is(true));
-        assertThat(resource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
-    }
-
-    @Test
-    public void postOpinionRedirectOnFirstPage() {
-        final Reference reference = TestFactories.references().newReference();
-        final Form form = getGoodForm();
-        form.add("topicId", reference.getId().toString());
-        form.add("redirect", "webpages");
-        final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
-
-        opinionsResource.post(form);
-
-        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/webpages/" + reference.getId());
-        assertThat(opinionsResource.getLocationRef().toString(), is(uriToRedirect));
-    }
-
-    @Test
-    public void canRedirectForTopic() {
-        final com.steambeat.domain.reference.Reference reference = TestFactories.references().newReference();
-        final Form form = getGoodForm();
-        form.add("topicId", reference.getId().toString());
-        form.add("redirect", "topics");
-        final ClientResource opinionsResource = restlet.newClientResource("/json/opinions");
-
-        opinionsResource.post(form);
-
-        final String uriToRedirect = new ReferenceBuilder(Context.getCurrent()).buildUri("/topics/" + reference.getId());
-        assertThat(opinionsResource.getLocationRef().toString(), is(uriToRedirect));
-    }
-
-    private Form getGoodForm() {
-        final Form form = new Form();
-        form.add("text", "my opinion");
-        form.add("feeling", "good");
-        return form;
     }
 }

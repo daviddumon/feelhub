@@ -18,10 +18,10 @@ public class TestsJudgment {
         final Reference reference = TestFactories.references().newReference();
         final Feeling feeling = Feeling.good;
 
-        final Judgment judgment = new Judgment(reference, feeling);
+        final Judgment judgment = new Judgment(reference.getId(), feeling);
 
         assertThat(judgment, notNullValue());
-        assertThat(judgment.getReference(), is(reference));
+        assertThat(judgment.getReferenceId(), is(reference.getId()));
         assertThat(judgment.getFeeling(), is(feeling));
     }
 }

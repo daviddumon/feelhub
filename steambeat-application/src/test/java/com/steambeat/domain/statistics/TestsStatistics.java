@@ -22,7 +22,7 @@ public class TestsStatistics {
     public void canCreateFromReference() {
         final Reference reference = TestFactories.references().newReference();
 
-        final Statistics statistics = new Statistics(reference, Granularity.hour, new DateTime());
+        final Statistics statistics = new Statistics(reference.getId(), Granularity.hour, new DateTime());
 
         assertThat(statistics.getReferenceId(), is(reference.getId()));
     }
