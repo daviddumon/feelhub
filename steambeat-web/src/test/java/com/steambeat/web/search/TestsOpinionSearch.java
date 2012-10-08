@@ -85,7 +85,7 @@ public class TestsOpinionSearch extends TestWithMongoRepository {
         TestFactories.opinions().newOpinions(reference, 10);
         TestFactories.opinions().newOpinions(20);
 
-        opinionSearch.withTopic(reference);
+        opinionSearch.withReference(reference);
 
         final List<Opinion> opinions = opinionSearch.execute();
         assertThat(opinions.size(), is(10));

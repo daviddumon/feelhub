@@ -19,4 +19,8 @@ public class JudgmentTestFactory {
         final Reference reference = TestFactories.references().newReference();
         return new Judgment(reference.getId(), Feeling.good);
     }
+
+    public Judgment newJudgment(final Reference reference, final Feeling feeling) {
+        return new Judgment(reference.getId(), feeling);
+    }
 }

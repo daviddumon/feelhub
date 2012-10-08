@@ -1,7 +1,9 @@
 package com.steambeat.web.resources.json;
 
 import com.steambeat.domain.eventbus.WithDomainEvent;
+import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.web.*;
@@ -129,12 +131,74 @@ public class TestsJsonOpinionsResource {
         TestFactories.opinions().newOpinions(10);
         TestFactories.opinions().newOpinions(reference, 10);
         TestFactories.opinions().newOpinions(10);
-        final ClientResource clientResource = restlet.newClientResource("/json/opinions?topicId=" + reference.getId());
+        final ClientResource clientResource = restlet.newClientResource("/json/opinions?referenceId=" + reference.getId());
 
         final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray.length(), is(10));
+    }
+
+    @Test
+    public void canGetOpinionWithALanguage() throws IOException, JSONException {
+        final Reference reference = TestFactories.references().newReference();
+        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.reference(), reference);
+        TestFactories.keywords().newKeyword("mot", SteambeatLanguage.forString("fr"), reference);
+        final Judgment judgment = TestFactories.judgments().newJudgment(reference, Feeling.good);
+        TestFactories.opinions().newOpinion("my opinion", judgment);
+        final ClientResource clientResource = restlet.newClientResource("/json/opinions?referenceId=" + reference.getId() + "&languageCode=fr");
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
+
+        final JSONArray jsonArray = new JSONArray(representation.getText());
+        final JSONObject jsonOpinion = jsonArray.getJSONObject(0);
+        assertThat(jsonOpinion.get("text").toString(), is("my opinion"));
+        final JSONArray jsonReferenceDatas = jsonOpinion.getJSONArray("referenceDatas");
+        assertThat(jsonReferenceDatas.length(), is(1));
+        final JSONObject jsonReferenceData = jsonReferenceDatas.getJSONObject(0);
+        assertThat(jsonReferenceData.get("referenceId").toString(), is(reference.getId().toString()));
+        assertThat(jsonReferenceData.get("feeling").toString(), is(judgment.getFeeling().toString()));
+        assertThat(jsonReferenceData.get("keywordValue").toString(), is("mot"));
+        assertThat(jsonReferenceData.get("languageCode").toString(), is("fr"));
+    }
+
+    @Test
+    public void useDefaultLanguage() throws IOException, JSONException {
+        final Reference reference = TestFactories.references().newReference();
+        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.reference(), reference);
+        TestFactories.keywords().newKeyword("mot", SteambeatLanguage.forString("fr"), reference);
+        final Judgment judgment = TestFactories.judgments().newJudgment(reference, Feeling.good);
+        TestFactories.opinions().newOpinion("my opinion", judgment);
+        final ClientResource clientResource = restlet.newClientResource("/json/opinions?referenceId=" + reference.getId());
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
+
+        final JSONArray jsonArray = new JSONArray(representation.getText());
+        final JSONObject jsonOpinion = jsonArray.getJSONObject(0);
+        assertThat(jsonOpinion.get("text").toString(), is("my opinion"));
+        final JSONArray jsonReferenceDatas = jsonOpinion.getJSONArray("referenceDatas");
+        assertThat(jsonReferenceDatas.length(), is(1));
+        final JSONObject jsonReferenceData = jsonReferenceDatas.getJSONObject(0);
+        assertThat(jsonReferenceData.get("referenceId").toString(), is(reference.getId().toString()));
+        assertThat(jsonReferenceData.get("feeling").toString(), is(judgment.getFeeling().toString()));
+        assertThat(jsonReferenceData.get("keywordValue").toString(), is("keyword"));
+        assertThat(jsonReferenceData.get("languageCode").toString(), is("en"));
+    }
+
+    @Test
+    public void hasIllustrationData() throws IOException, JSONException {
+        final Reference reference = TestFactories.references().newReference();
+        TestFactories.illustrations().newIllustration(reference, "link");
+        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.reference(), reference);
+        final Judgment judgment = TestFactories.judgments().newJudgment(reference, Feeling.good);
+        TestFactories.opinions().newOpinion("my opinion", judgment);
+        final ClientResource clientResource = restlet.newClientResource("/json/opinions?referenceId=" + reference.getId());
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
+
+        final JSONArray jsonArray = new JSONArray(representation.getText());
+        final JSONObject jsonReferenceData = jsonArray.getJSONObject(0).getJSONArray("referenceDatas").getJSONObject(0);
+        assertThat(jsonReferenceData.get("illustrationLink").toString(), is("link"));
     }
 }

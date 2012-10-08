@@ -2,8 +2,11 @@ package com.steambeat.web.resources.json;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.steambeat.application.ReferenceService;
-import com.steambeat.domain.opinion.Opinion;
+import com.steambeat.application.*;
+import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
+import com.steambeat.web.dto.*;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.OpinionSearch;
 import org.json.JSONException;
@@ -15,23 +18,27 @@ import java.util.*;
 public class JsonOpinionsResource extends ServerResource {
 
     @Inject
-    public JsonOpinionsResource(final ReferenceService referenceService, final OpinionSearch opinionSearch) {
+    public JsonOpinionsResource(final ReferenceService referenceService, final OpinionSearch opinionSearch, final ReferenceDataFactory referenceDataFactory, final KeywordService keywordService) {
         this.referenceService = referenceService;
         this.opinionSearch = opinionSearch;
+        this.referenceDataFactory = referenceDataFactory;
+        this.keywordService = keywordService;
     }
 
     @Get
     public SteambeatTemplateRepresentation represent() throws JSONException {
-        doSearchWithQueryParameters();
-        return SteambeatTemplateRepresentation.createNew("json/opinions.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("opinions", opinions);
+        final Form form = getQuery();
+        List<Opinion> opinions = doSearchWithQueryParameters(form);
+        extractLanguageParameter(form);
+        List<OpinionData> opinionDatas = getOpinionDatas(opinions);
+        return SteambeatTemplateRepresentation.createNew("json/opinions.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("opinionDatas", opinionDatas);
     }
 
-    private void doSearchWithQueryParameters() {
-        final Form form = getQuery();
+    private List<Opinion> doSearchWithQueryParameters(final Form form) {
         setUpSearchForLimitParameter(form);
         setUpSearchForSkipParameter(form);
-        setUpSearchForSubjectIdParameter(form);
-        opinions = opinionSearch.withSort("creationDate", OpinionSearch.REVERSE_ORDER).execute();
+        setUpSearchForReferenceIdParameter(form);
+        return opinionSearch.withSort("creationDate", OpinionSearch.REVERSE_ORDER).execute();
     }
 
     private void setUpSearchForLimitParameter(final Form form) {
@@ -54,13 +61,43 @@ public class JsonOpinionsResource extends ServerResource {
         }
     }
 
-    private void setUpSearchForSubjectIdParameter(final Form form) {
-        if (form.getQueryString().contains("topicId")) {
-            opinionSearch.withTopic(referenceService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim())));
+    private void setUpSearchForReferenceIdParameter(final Form form) {
+        if (form.getQueryString().contains("referenceId")) {
+            opinionSearch.withReference(referenceService.lookUp(UUID.fromString(form.getFirstValue("referenceId").trim())));
         }
     }
 
-    List<Opinion> opinions = Lists.newArrayList();
+    private void extractLanguageParameter(final Form form) {
+        if (form.getQueryString().contains("languageCode")) {
+            steambeatLanguage = SteambeatLanguage.forString(form.getFirstValue("languageCode").trim());
+        } else {
+            steambeatLanguage = SteambeatLanguage.reference();
+        }
+    }
+
+    private List<OpinionData> getOpinionDatas(final List<Opinion> opinions) {
+        List<OpinionData> opinionDatas = Lists.newArrayList();
+        for (Opinion opinion : opinions) {
+            final List<ReferenceData> referenceDatas = getReferenceDatas(opinion);
+            final OpinionData opinionData = new OpinionData(opinion.getText(), referenceDatas);
+            opinionDatas.add(opinionData);
+        }
+        return opinionDatas;
+    }
+
+    private List<ReferenceData> getReferenceDatas(final Opinion opinion) {
+        List<ReferenceData> referenceDatas = Lists.newArrayList();
+        for (Judgment judgment : opinion.getJudgments()) {
+            final Keyword keyword = keywordService.lookUp(judgment.getReferenceId(), steambeatLanguage);
+            final ReferenceData referenceData = referenceDataFactory.getReferenceDatas(keyword, judgment);
+            referenceDatas.add(referenceData);
+        }
+        return referenceDatas;
+    }
+
     private final OpinionSearch opinionSearch;
+    private final ReferenceDataFactory referenceDataFactory;
+    private final KeywordService keywordService;
     private final ReferenceService referenceService;
+    private SteambeatLanguage steambeatLanguage;
 }

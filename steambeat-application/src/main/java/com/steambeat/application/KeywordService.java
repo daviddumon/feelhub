@@ -25,6 +25,33 @@ public class KeywordService {
         return keyword;
     }
 
+    public Keyword lookUp(final UUID referenceId, final SteambeatLanguage language) {
+        Keyword keyword;
+        final List<Keyword> keywords = Repositories.keywords().forReferenceId(referenceId);
+        if (!keywords.isEmpty()) {
+            keyword = getGoodKeyword(keywords, language);
+        } else {
+            keyword = new Keyword("?", language, referenceId);
+        }
+        return keyword;
+    }
+
+    private Keyword getGoodKeyword(final List<Keyword> keywords, final SteambeatLanguage steambeatLanguage) {
+        Keyword referenceKeyword = null;
+        for (Keyword keyword : keywords) {
+            if (keyword.getLanguage().equals(steambeatLanguage)) {
+                return keyword;
+            } else if (keyword.getLanguage().equals(SteambeatLanguage.reference())) {
+                referenceKeyword = keyword;
+            }
+        }
+        if (referenceKeyword != null) {
+            return referenceKeyword;
+        } else {
+            return keywords.get(0);
+        }
+    }
+
     public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage) {
         final Keyword keyword = createKeywordWithoutEvent(value, steambeatLanguage);
         postEvent(keyword);
@@ -36,10 +63,6 @@ public class KeywordService {
         final Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, reference.getId());
         Repositories.keywords().add(keyword);
         return keyword;
-    }
-
-    public List<Keyword> lookUpAll(final UUID referenceId) {
-        return Repositories.keywords().forReferenceId(referenceId);
     }
 
     private void postEvent(final Keyword keyword) {

@@ -35,7 +35,7 @@ public class FakeOpinionSearch extends OpinionSearch {
     }
 
     @Override
-    public OpinionSearch withTopic(final Reference reference) {
+    public OpinionSearch withReference(final Reference reference) {
         opinions = Lists.newArrayList(Iterables.filter(opinions, new Predicate<Opinion>() {
 
             @Override

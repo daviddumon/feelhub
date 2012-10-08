@@ -30,12 +30,11 @@ function RequestRelations(referenceId) {
 
 function RequestCounters(referenceId) {
     if (referenceId.length != 0) {
-        console.log("request counters for " + referenceId);
         $.getJSON(root + "/json/statistics?granularity=all&start=0&end=" + new Date().getTime() + "&referenceId=" + referenceId, function (data) {
             $.each(data, function (index, stat) {
-                console.log("load counters success : " + stat);
-                $("#counter_good").text(stat.good);
-                $("#counter_bad").text(stat.bad);
+                $("#counter_good p").text(stat.good);
+                $("#counter_bad p").text(stat.bad);
+                $("#counter_neutral p").text(stat.neutral);
             });
         });
     }

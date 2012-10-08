@@ -10,14 +10,28 @@ public class OpinionTestFactory {
         return newOpinionWithText("my good opinion");
     }
 
-    public Opinion newOpinionWithoutJudgments() {
-        final Opinion opinion = new Opinion("opinion without judgement");
+    public Opinion newOpinionWithText(final String text) {
+        return newOpinion(TestFactories.references().newReference(), text);
+    }
+
+    private Opinion newOpinion(final Reference reference, final String text) {
+        final Opinion opinion = new Opinion(text);
+        opinion.addJudgment(reference, Feeling.bad);
         Repositories.opinions().add(opinion);
         return opinion;
     }
 
-    public Opinion newOpinionWithText(final String text) {
-        return newOpinion(TestFactories.references().newReference(), text);
+    public Opinion newOpinion(final String text, final Judgment judgment) {
+        final Opinion opinion = new Opinion(text);
+        opinion.addJudgment(judgment);
+        Repositories.opinions().add(opinion);
+        return opinion;
+    }
+
+    public Opinion newOpinionWithoutJudgments() {
+        final Opinion opinion = new Opinion("opinion without judgement");
+        Repositories.opinions().add(opinion);
+        return opinion;
     }
 
     public void newOpinions(final int quantity) {
@@ -29,12 +43,5 @@ public class OpinionTestFactory {
         for (int i = 0; i < quantity; i++) {
             newOpinion(reference, "i" + i);
         }
-    }
-
-    private Opinion newOpinion(final Reference reference, final String text) {
-        final Opinion opinion = new Opinion(text);
-        opinion.addJudgment(reference, Feeling.bad);
-        Repositories.opinions().add(opinion);
-        return opinion;
     }
 }

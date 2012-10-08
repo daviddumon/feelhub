@@ -3,12 +3,10 @@ package com.steambeat.web.resources.json;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
-import com.steambeat.domain.illustration.Illustration;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import com.steambeat.repositories.Repositories;
-import com.steambeat.web.dto.ReferenceData;
+import com.steambeat.web.dto.*;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import com.steambeat.web.search.*;
 import org.restlet.data.*;
@@ -20,9 +18,10 @@ import java.util.*;
 public class JsonRelatedResource extends ServerResource {
 
     @Inject
-    public JsonRelatedResource(final RelationSearch relationSearch, final KeywordService keywordService) {
+    public JsonRelatedResource(final RelationSearch relationSearch, final KeywordService keywordService, final ReferenceDataFactory referenceDataFactory) {
         this.relationSearch = relationSearch;
         this.keywordService = keywordService;
+        this.referenceDataFactory = referenceDataFactory;
     }
 
     @Get
@@ -82,54 +81,14 @@ public class JsonRelatedResource extends ServerResource {
     }
 
     private void addReferenceData(final Relation relation) {
-        ReferenceData.Builder builder = new ReferenceData.Builder();
-        setReferenceId(relation, builder);
-        setKeywordAndLanguage(relation, builder);
-        setIllustration(relation, builder);
-        referenceDataList.add(builder.build());
-    }
-
-    private void setReferenceId(final Relation relation, final ReferenceData.Builder builder) {
-        builder.referenceId(relation.getToId());
-    }
-
-    private void setKeywordAndLanguage(final Relation relation, final ReferenceData.Builder builder) {
-        Keyword keyword;
-        final List<Keyword> keywords = keywordService.lookUpAll(relation.getToId());
-        if (!keywords.isEmpty()) {
-            keyword = getGoodKeyword(keywords);
-        } else {
-            keyword = new Keyword("?", steambeatLanguage, relation.getToId());
-        }
-        builder.keyword(keyword);
-        builder.language(keyword.getLanguage());
-    }
-
-    private Keyword getGoodKeyword(final List<Keyword> keywords) {
-        Keyword referenceKeyword = null;
-        for (Keyword keyword : keywords) {
-            if (keyword.getLanguage().equals(steambeatLanguage)) {
-                return keyword;
-            } else if (keyword.getLanguage().equals(SteambeatLanguage.reference())) {
-                referenceKeyword = keyword;
-            }
-        }
-        if (referenceKeyword != null) {
-            return referenceKeyword;
-        } else {
-            return keywords.get(0);
-        }
-    }
-
-    private void setIllustration(final Relation relation, final ReferenceData.Builder builder) {
-        final List<Illustration> illustrations = Repositories.illustrations().forReferenceId(relation.getToId());
-        if (!illustrations.isEmpty()) {
-            builder.illustration(illustrations.get(0));
-        }
+        final Keyword keyword = keywordService.lookUp(relation.getToId(), steambeatLanguage);
+        final ReferenceData referenceData = referenceDataFactory.getReferenceData(relation.getToId(), keyword);
+        referenceDataList.add(referenceData);
     }
 
     private RelationSearch relationSearch;
     private KeywordService keywordService;
+    private ReferenceDataFactory referenceDataFactory;
     private List<Relation> relations = Lists.newArrayList();
     private SteambeatLanguage steambeatLanguage;
     private List<ReferenceData> referenceDataList = Lists.newArrayList();

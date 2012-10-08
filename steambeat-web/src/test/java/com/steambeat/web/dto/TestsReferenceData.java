@@ -2,6 +2,7 @@ package com.steambeat.web.dto;
 
 import com.steambeat.domain.illustration.Illustration;
 import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.opinion.Feeling;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
@@ -65,7 +66,7 @@ public class TestsReferenceData {
     }
 
     @Test
-    public void referenceDataHasALanguage() {
+    public void referenceDataHasALanguageCode() {
         final SteambeatLanguage language = SteambeatLanguage.reference();
 
         final ReferenceData referenceData = new ReferenceData.Builder().language(language).build();
@@ -78,5 +79,19 @@ public class TestsReferenceData {
         final ReferenceData referenceData = new ReferenceData.Builder().build();
 
         assertThat(referenceData.getLanguageCode(), is(SteambeatLanguage.none().getCode()));
+    }
+
+    @Test
+    public void referenceDataHasAFeeling() {
+        final ReferenceData referenceData = new ReferenceData.Builder().feeling(Feeling.good).build();
+
+        assertThat(referenceData.getFeeling(), is(Feeling.good));
+    }
+
+    @Test
+    public void feelingHadADefaultValue() {
+        final ReferenceData referenceData = new ReferenceData.Builder().build();
+
+        assertThat(referenceData.getFeeling(), is(Feeling.none));
     }
 }

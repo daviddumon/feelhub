@@ -1,7 +1,6 @@
 /* Copyright Steambeat 2012 */
 $(function () {
-    //var flow = new Flow();
-    var form = new Form();
+    var flow = new Flow();
 
     var reference_data = {
         referenceId:referenceId,

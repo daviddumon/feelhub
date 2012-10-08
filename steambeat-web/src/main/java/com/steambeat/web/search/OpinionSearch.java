@@ -39,8 +39,8 @@ public class OpinionSearch implements Search<Opinion> {
         return this;
     }
 
-    public OpinionSearch withTopic(final Reference reference) {
-        criteria.add(Restrictions.equals("judgments.topicId", reference.getId()));
+    public OpinionSearch withReference(final Reference reference) {
+        criteria.add(Restrictions.equals("judgments.referenceId", reference.getId()));
         return this;
     }
 
