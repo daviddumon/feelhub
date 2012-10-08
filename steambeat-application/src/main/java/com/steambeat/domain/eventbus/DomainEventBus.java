@@ -1,5 +1,6 @@
 package com.steambeat.domain.eventbus;
 
+import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
 
 import java.util.*;
@@ -23,14 +24,15 @@ public enum DomainEventBus {
 
     public void post(final DomainEvent event) {
         eventBus.post(event);
-        events.add(event);
-        Collections.sort(events);
+        //events.add(event);
+        //Collections.sort(events);
     }
 
     public List<DomainEvent> getEvents() {
-        return events;
+        //return events;
+        return Lists.newArrayList();
     }
 
     private EventBus eventBus;
-    private final AutoDiscardingList<DomainEvent> events = new AutoDiscardingList<DomainEvent>(100);
+    //private final AutoDiscardingList<DomainEvent> events = new AutoDiscardingList<DomainEvent>(100);
 }

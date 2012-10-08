@@ -1,0 +1,142 @@
+/* Copyright Steambeat 2012 */
+@import "import/variables.less";
+@import "import/colors.less";
+@import "import/mixins.less";
+
+body {
+    background-color: @blue-1 !important;
+
+    font-size: @font-normal;
+    .font_text;
+
+    a {
+        text-decoration: none !important;
+    }
+
+    header {
+        height: 40px;
+
+        div {
+            width: 95%;
+            margin: 0px auto;
+
+            div {
+                width: 38%;
+                float: left;
+                text-align: center;
+
+                a {
+                    font-size: 34px;
+                    font-weight: bold;
+                    color: @blue-3;
+                    .font_title;
+
+                    &:hover {
+                        color: @blue-2 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    #wrapper {
+        clear: both;
+        width: 95%;
+        margin: 20px auto 0px auto;
+
+        .box {
+            text-align: center;
+            vertical-align: top;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            overflow: hidden;
+        }
+
+        #left {
+            float: left;
+            z-index: 10;
+            width: 38%;
+
+            #main_reference {
+
+                #counters {
+
+                    .counter {
+                        width: 80px;
+                        display: inline-block;
+                        .rounded_down();
+
+                        .smiley {
+                            border: none;
+                            width: 30px;
+                        }
+
+                        .counter_text {
+                            color: @white !important;
+                            font-size: 16px !important;
+                            .font_title();
+                        }
+                    }
+
+                    #counter_good {
+                        background-color: @good !important;
+                    }
+
+                    #counter_bad {
+                        background-color: @bad !important;
+                    }
+
+                    #counter_neutral {
+                        background-color: @neutral !important;
+                    }
+                }
+            }
+
+            #related {
+                margin: 0px auto;
+                height: 280px;
+                max-width: 296px;
+            }
+        }
+
+        #right {
+            float: right;
+            width: 62%;
+            text-align: center;
+
+            #form {
+
+            }
+
+            #opinions {
+                position: relative;
+            }
+        }
+    }
+}
+
+@media (min-width: 1600px) {
+
+    body {
+        #wrapper {
+            #left {
+                #related {
+                    max-width: 444px;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1800px) {
+
+    body {
+        #wrapper {
+            #left {
+                #related {
+                    max-width: 592px;
+                }
+            }
+        }
+    }
+}

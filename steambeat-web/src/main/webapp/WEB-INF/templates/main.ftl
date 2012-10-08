@@ -21,11 +21,11 @@
 </@layout.headbegin>
 
 <@layout.cssprod>
-<link rel="stylesheet" href="${root}/static/css/layout.css?${buildtime}"/>
+<link rel="stylesheet" href="${root}/static/css/flow_layout.css?${buildtime}"/>
 </@layout.cssprod>
 
 <@layout.cssdev>
-<link rel="stylesheet/less" type="text/css" href="${root}/static/css/layout.less?${buildtime}"/>
+<link rel="stylesheet/less" type="text/css" href="${root}/static/css/flow_layout.less?${buildtime}"/>
 </@layout.cssdev>
 
 <@layout.jsprod>
@@ -42,6 +42,7 @@
 
 <@layout.mustache>
     <#include "mustache/reference.mustache.js">
+    <#include "mustache/opinion.mustache.js">
 </@layout.mustache>
 
 <@layout.headend>
@@ -94,7 +95,9 @@
 <#--<div id="form_text_{{id}}" class="form_text" contentEditable="true"></div>-->
 <#--</div>-->
     <textarea></textarea>
-    <input id="form_submit" type="submit">
+    <input type="button" id="form_button_good" value="good"/>
+    <input type="button" id="form_button_bad" value="bad"/>
+    <input type="button" id="form_button_neutral" value="neutral"/>
 </form>
 
 <ul id="opinions">

@@ -51,6 +51,7 @@ public class TestsDomainEventBus {
     }
 
     @Test
+    @Ignore
     public void blockTheSizeOfTheEventsList() {
         for (int i = 0; i < 1000; i++) {
             time.waitMinutes(1);

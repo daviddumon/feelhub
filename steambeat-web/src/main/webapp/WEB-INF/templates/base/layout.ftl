@@ -23,6 +23,8 @@
     <#if !dev>
         <link rel="stylesheet" href="${root}/static/css/reset.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/reference.css?${buildtime}"/>
+        <link rel="stylesheet" href="${root}/static/css/opinion.css?${buildtime}"/>
+        <link rel="stylesheet" href="${root}/static/css/form.css?${buildtime}"/>
         <#nested/>
     </#if>
 
@@ -33,6 +35,8 @@
     <#if dev>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reset.less?${buildtime}"/>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reference.less?${buildtime}"/>
+        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/opinion.less?${buildtime}"/>
+        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/form.less?${buildtime}"/>
         <#nested/>
     </#if>
 
