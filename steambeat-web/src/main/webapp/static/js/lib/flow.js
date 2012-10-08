@@ -66,11 +66,8 @@ Flow.prototype.drawData = function () {
 
 Flow.prototype.drawBox = function (opinion, classes) {
     var THIS = this;
-    var opinionData = THIS.getOpinionData(opinion, classes);
-    var element = ich.opinion(opinionData);
+    var element = THIS.getOpinion(opinion, classes);
     THIS.container.append(element);
-
-//    element.find(".judgments").css("width", element.width());
 
     var column = 0;
     var column_height = THIS.columns[0];
@@ -95,31 +92,35 @@ Flow.prototype.drawBox = function (opinion, classes) {
     THIS.container.css("height", max + THIS.margin);
 };
 
-Flow.prototype.getOpinionData = function (opinion, classes) {
+Flow.prototype.getOpinion = function (opinion, classes) {
     var THIS = this;
     var id = "opinion_" + THIS.id++;
-    var text = opinion.text.replace(/[\#\+\-\=][^ ]+/g, function(match) {
+    var text = opinion.text.replace(/[\#\+\-\=][^ ]+/g, function (match) {
         match = match.replace(/[\#\+\-\=]/g, "");
         return "<span class='reference'>" + match + "</span>";
     });
 
-//    var judgmentsData = [
-//        {
-//            feeling:opinion.feeling,
-//            uri:root + opinion.uriToken + opinion.subjectId,
-//            shortDescription:opinion.shortDescription,
-//            description:opinion.description
-//        }
-//    ];
+    var referenceDatas = [];
+    for (var i = 0; i < opinion.referenceDatas.length; i++) {
+        var reference_data = {
+            referenceId:opinion.referenceDatas[i].referenceId,
+            feeling:opinion.referenceDatas[i].feeling,
+            keywordValue:opinion.referenceDatas[i].keywordValue,
+            url:buildInternalLink(opinion.referenceDatas[i].languageCode, opinion.referenceDatas[i].keywordValue),
+            classes:"reference_medium reference_float reference_zoom",
+            illustrationLink:opinion.referenceDatas[i].illustrationLink
+        };
+        referenceDatas.push(reference_data);
+    }
 
     var opinionData = {
         id:id,
-        classes:classes,
+        opinion_classes:classes,
         text:text.split(/\r\n|\r|\n/),
-//        judgments:judgmentsData
+        referenceDatas:referenceDatas
     };
 
-    return opinionData;
+    return ich.opinion(opinionData);
 };
 
 Flow.prototype.reset = function () {
