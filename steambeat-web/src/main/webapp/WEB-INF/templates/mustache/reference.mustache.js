@@ -7,7 +7,7 @@
     <div class="{{classes}}" id="{{referenceId}}">
 {{/url}}
         <img src="{{illustrationLink}}" onload="OnImageLoad(event);"/>
-        <span>{{keywordValue}}</span>
+        <span class="{{feeling}}">{{keywordValue}}</span>
 {{#url}}
     </a>
 {{/url}}

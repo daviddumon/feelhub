@@ -112,6 +112,8 @@ Flow.prototype.getOpinion = function (opinion, classes) {
                 illustrationLink:opinion.referenceDatas[i].illustrationLink
             };
             referenceDatas.push(reference_data);
+        } else {
+            var opinion_feeling = opinion.referenceDatas[i].feeling;
         }
     }
 
@@ -123,6 +125,11 @@ Flow.prototype.getOpinion = function (opinion, classes) {
         text:text.split(/\r\n|\r|\n/),
         referenceDatas:referenceDatas
     };
+
+    if(opinion_feeling !== "none") {
+        opinionData["opinion_feeling"] = opinion_feeling;
+        opinionData["opinion_feeling_illustration"] = root + "/static/images/smiley_" + opinion_feeling + "_white_14.png";
+    }
 
     return ich.opinion(opinionData);
 

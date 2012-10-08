@@ -11,11 +11,10 @@ body {
         width: 260px;
         list-style-type: none;
         background-color: @white !important;
-        overflow: hidden;
         padding-bottom: 40px;
 
         p {
-            padding-top: 40px;
+            padding-top: 12px;
             padding-left: 20px;
             padding-right: 20px;
             word-wrap: break-word;
@@ -28,6 +27,27 @@ body {
 
         .related {
             margin-top: 40px;
+        }
+
+        .opinion_feeling_illustration {
+            position: relative;
+            top: -7px;
+            width: 14px;
+            height: 14px;
+            padding: 7px;
+            .rounded(50px);
+        }
+
+        .img_bad {
+            background-color: @bad;
+        }
+
+        .img_good {
+            background-color: @good;
+        }
+
+        .img_neutral {
+            background-color: @neutral;
         }
     }
 }
