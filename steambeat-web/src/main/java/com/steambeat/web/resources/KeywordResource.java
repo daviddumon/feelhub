@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import com.steambeat.web.dto.*;
+import com.steambeat.web.dto.ReferenceDataFactory;
 import com.steambeat.web.representation.SteambeatTemplateRepresentation;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
