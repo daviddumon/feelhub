@@ -3,10 +3,10 @@
         {{#text}}
         <p>{{{.}}}&nbsp;</p>
         {{/text}}
-        <div class="related">
-            {{#referenceDatas}}
-                {{> reference}}
-            {{/referenceDatas}}
+        {{#referenceDatas}}
+         <div class="related">
+            {{> reference}}
         </div>
+        {{/referenceDatas}}
     </li>
 </script>

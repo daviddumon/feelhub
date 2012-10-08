@@ -101,14 +101,5 @@
 </form>
 
 <ul id="opinions">
-    <#--<li style="border-radius: 10px;">-->
-        <#--<img src="http://test.localhost:8080/steambeat-web/static/images/smiley_bad_white.png" id="feeling" style="background-color: red; border-radius: 100px; width: 32px; position: relative; top: -30px; padding: 5px;"/>-->
-        <#--<p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </p>-->
-        <#---->
-        <#--<div style="width: 100%; margin-top: 20px;">-->
-            <#--<img src="http://www.cnetfrance.fr/i/edit/2010/pr/07/iphone-4.jpg" onload="OnImageLoad(event);" style="width: 96px; height: 54px; display: inline-block; margin: 5px;"/>-->
-            <#--<img src="http://www.cnetfrance.fr/i/edit/2010/pr/07/iphone-4.jpg" onload="OnImageLoad(event);" style="width: 96px; height: 54px; display: inline-block; margin: 5px;"/>-->
-        <#--</div>-->
-    <#--</li>-->
 </ul>
 </@layout.right>

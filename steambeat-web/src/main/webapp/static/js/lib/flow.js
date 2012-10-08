@@ -12,7 +12,7 @@ Flow.prototype.initialize = function () {
     var THIS = this;
     THIS.id = 1;
     THIS.container = $("#opinions");
-    THIS.initial = 300;
+    THIS.initial = 280;
     THIS.maxBox = Math.floor(THIS.container.innerWidth() / THIS.initial);
     THIS.leftCorner = (THIS.container.innerWidth() - (THIS.maxBox * THIS.initial)) / 2;
     THIS.skip = -30;
@@ -89,7 +89,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
         }
     }
 
-    THIS.container.css("height", max + THIS.margin);
+    THIS.container.css("height", max);
 };
 
 Flow.prototype.getOpinion = function (opinion, classes) {
@@ -97,21 +97,25 @@ Flow.prototype.getOpinion = function (opinion, classes) {
     var id = "opinion_" + THIS.id++;
     var text = opinion.text.replace(/[\#\+\-\=][^ ]+/g, function (match) {
         match = match.replace(/[\#\+\-\=]/g, "");
-        return "<span class='reference'>" + match + "</span>";
+        return "<span>" + match + "</span>";
     });
 
     var referenceDatas = [];
     for (var i = 0; i < opinion.referenceDatas.length; i++) {
-        var reference_data = {
-            referenceId:opinion.referenceDatas[i].referenceId,
-            feeling:opinion.referenceDatas[i].feeling,
-            keywordValue:opinion.referenceDatas[i].keywordValue,
-            url:buildInternalLink(opinion.referenceDatas[i].languageCode, opinion.referenceDatas[i].keywordValue),
-            classes:"reference_medium reference_float reference_zoom",
-            illustrationLink:opinion.referenceDatas[i].illustrationLink
-        };
-        referenceDatas.push(reference_data);
+        if (opinion.referenceDatas[i].referenceId !== referenceId) {
+            var reference_data = {
+                referenceId:opinion.referenceDatas[i].referenceId,
+                feeling:opinion.referenceDatas[i].feeling,
+                keywordValue:opinion.referenceDatas[i].keywordValue,
+                url:buildInternalLink(opinion.referenceDatas[i].languageCode, opinion.referenceDatas[i].keywordValue),
+                classes:"reference_medium reference_stack reference_zoom",
+                illustrationLink:opinion.referenceDatas[i].illustrationLink
+            };
+            referenceDatas.push(reference_data);
+        }
     }
+
+    shuffleAndMakeFirstLarge();
 
     var opinionData = {
         id:id,
@@ -121,6 +125,17 @@ Flow.prototype.getOpinion = function (opinion, classes) {
     };
 
     return ich.opinion(opinionData);
+
+    function shuffleAndMakeFirstLarge() {
+        if (referenceDatas.length % 2 != 0) {
+            var shuffle_number = Math.floor(Math.random() * referenceDatas.length);
+            for (var i = 0; i < shuffle_number; i++) {
+                var rd = referenceDatas.shift();
+                referenceDatas.push(rd);
+            }
+            referenceDatas[0]["classes"] = "reference_large reference_stack reference_zoom";
+        }
+    }
 };
 
 Flow.prototype.reset = function () {
