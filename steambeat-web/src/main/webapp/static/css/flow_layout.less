@@ -8,20 +8,27 @@ body {
     #wrapper {
         clear: both;
         width: 95%;
-        margin: 20px auto 0px auto;
-
-        .box {
-            text-align: center;
-            vertical-align: top;
-            margin-top: 30px;
-            margin-bottom: 50px;
-            overflow: hidden;
-        }
+        margin: 50px auto 0px auto;
 
         #left {
             float: left;
             z-index: 10;
             width: 38%;
+
+            .box {
+                text-align: center;
+                vertical-align: top;
+                margin-bottom: 50px;
+                overflow: hidden;
+
+                .box_title {
+                    height: 25px;
+                    .font_title();
+                    font-size: @font-big;
+                    color: @blue-3;
+                    font-weight: bold;
+                }
+            }
 
             #main_reference {
 
@@ -31,6 +38,7 @@ body {
                         width: 80px;
                         display: inline-block;
                         .rounded_down();
+                        height: 50px;
 
                         .smiley {
                             border: none;
@@ -60,7 +68,7 @@ body {
 
             #related {
                 margin: 0px auto;
-                height: 280px;
+                height: 300px;
                 max-width: 296px;
             }
         }
@@ -71,12 +79,15 @@ body {
             text-align: center;
 
             #form {
+                height: 320px;
+            }
 
+            #login_help {
+                height: 320px;
             }
 
             #opinions {
                 position: relative;
-                width: 100%;
             }
         }
     }
