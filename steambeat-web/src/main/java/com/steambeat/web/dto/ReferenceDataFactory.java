@@ -15,10 +15,10 @@ public class ReferenceDataFactory {
         builder.language(keyword.getLanguage());
         if (keyword.getReferenceId() != null) {
             builder.referenceId(keyword.getReferenceId());
-        }
-        final List<Illustration> illustrations = Repositories.illustrations().forReferenceId(keyword.getReferenceId());
-        if (!illustrations.isEmpty()) {
-            builder.illustration(illustrations.get(0));
+            final List<Illustration> illustrations = Repositories.illustrations().forReferenceId(keyword.getReferenceId());
+            if (!illustrations.isEmpty()) {
+                builder.illustration(illustrations.get(0));
+            }
         }
         return builder.build();
     }

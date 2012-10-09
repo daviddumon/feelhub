@@ -10,6 +10,9 @@ public class FakeIllustrationRepository extends FakeRepository<Illustration> imp
 
     @Override
     public List<Illustration> forReferenceId(final UUID referenceId) {
+        if (referenceId == null) {
+            throw new NullPointerException();
+        }
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Illustration>() {
 
             @Override

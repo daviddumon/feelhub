@@ -6,10 +6,17 @@
         var authentificated = false;
         </#if>
 
-    var referenceId = "${referenceData.referenceId}";
-    var keywordValue = "${referenceData.keywordValue}";
-    var languageCode = "${referenceData.languageCode}";
-    var illustrationLink = "${referenceData.illustrationLink}";
+        <#if keyword?has_content>
+        var referenceId = "${referenceData.referenceId}";
+        var keywordValue = "${referenceData.keywordValue}";
+        var languageCode = "${referenceData.languageCode}";
+        var illustrationLink = "${referenceData.illustrationLink}";
+        <#else>
+        var referenceId = "";
+        var keywordValue = "";
+        var languageCode = "";
+        var illustrationLink = "";
+        </#if>
 
     console.log("authentificated : " + authentificated);
     console.log("root : " + root);
