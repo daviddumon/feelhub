@@ -24,6 +24,7 @@
     console.log("keywordValue : " + keywordValue);
     console.log("languageCode : " + languageCode);
     console.log("illustrationLink : " + illustrationLink);
+    var flow;
 </script>
 </@layout.headbegin>
 

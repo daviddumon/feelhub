@@ -14,7 +14,7 @@ $(function () {
 
     if (referenceId !== "") {
         $("#related").show();
-        var flow = new Flow();
+        flow = new Flow();
 
         $("#" + referenceId + " img").attr("src", illustrationLink);
 

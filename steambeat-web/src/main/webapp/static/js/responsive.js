@@ -18,31 +18,31 @@ $(function () {
     //    }
     //});
     //
-    //var doit;
-    //$(window).resize(function () {
-    //    clearTimeout(doit);
-    //    doit = setTimeout(function () {
-    //        endOfResize();
-    //    }, 100);
-    //});
-    //
-    //$(window).on("orientationchange", function () {
-    //    clearTimeout(doit);
-    //    doit = setTimeout(function () {
-    //        endOfResize();
-    //    }, 100);
-    //});
-    //
-    //function endOfResize() {
-    //    if ($(window).width() <= 720) {
+    var doit;
+    $(window).resize(function () {
+        clearTimeout(doit);
+        doit = setTimeout(function () {
+            endOfResize();
+        }, 100);
+    });
+
+    $(window).on("orientationchange", function () {
+        clearTimeout(doit);
+        doit = setTimeout(function () {
+            endOfResize();
+        }, 100);
+    });
+
+    function endOfResize() {
+        //if ($(window).width() <= 720) {
     //        lock = true;
     //    } else {
     //        lock = false;
     //    }
-    //    $("#opinions").empty();
+        $("#opinions").empty();
     //    $("#opinions").css("height", "0px");
-    //    if(typeof flow !== 'undefined') {
-    //        flow.reset();
-    //    }
-    //}
+        if(typeof flow !== 'undefined') {
+            flow.reset();
+        }
+    }
 });

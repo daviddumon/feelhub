@@ -14,13 +14,12 @@ Flow.prototype.initialize = function () {
     THIS.container = $("#opinions");
     THIS.initial = 280;
     THIS.maxBox = Math.floor(THIS.container.innerWidth() / THIS.initial);
-    THIS.leftCorner = (THIS.container.innerWidth() - (THIS.maxBox * THIS.initial)) / 2;
     THIS.skip = -30;
     THIS.limit = 30;
     THIS.hasData = true;
     THIS.notLoading = true;
     for (var i = 0; i < THIS.maxBox; i++) {
-        THIS.container.append("<div class='opinion_list' id='opinion_list_" + i + "'></div>")
+        THIS.container.append("<div class='opinion_list' id='opinion_list_" + i + "'></div>");
     }
 };
 
@@ -69,9 +68,9 @@ Flow.prototype.drawBox = function (opinion, classes) {
 
     var row = 0;
     var row_height = $("#opinion_list_" + row).height();
-    for(var i = 1; i < THIS.maxBox; i++) {
+    for (var i = 1; i < THIS.maxBox; i++) {
         var current_height = $("#opinion_list_" + i).height()
-        if(current_height < row_height) {
+        if (current_height < row_height) {
             row = i;
             row_height = current_height;
         }
@@ -112,10 +111,10 @@ Flow.prototype.getOpinion = function (opinion, classes) {
         opinion_classes:classes,
         text:text.split(/\r\n|\r|\n/),
         referenceDatas:referenceDatas,
-        height: (referenceDatas.length != 0 ? 40 : 0) + 74 * (Math.floor(referenceDatas.length / 2) + referenceDatas.length % 2) +'px'
+        height:(referenceDatas.length != 0 ? 40 : 0) + 74 * (Math.floor(referenceDatas.length / 2) + referenceDatas.length % 2) + 'px'
     };
 
-    if(opinion_feeling !== "none") {
+    if (opinion_feeling !== "none") {
         opinionData["opinion_feeling"] = opinion_feeling;
         opinionData["opinion_feeling_illustration"] = root + "/static/images/smiley_" + opinion_feeling + "_white_14.png";
     }
@@ -136,16 +135,6 @@ Flow.prototype.getOpinion = function (opinion, classes) {
 
 Flow.prototype.reset = function () {
     var THIS = this;
-    THIS.skip = -30;
-    THIS.limit = 30;
-
-    THIS.maxBox = Math.floor(THIS.container.innerWidth() / THIS.initial);
-    THIS.leftCorner = (THIS.container.innerWidth() - (THIS.maxBox * THIS.initial)) / 2;
-
-    THIS.columns = new Array(THIS.maxBox);
-    for (var i = 0; i < THIS.maxBox; i++) {
-        this.columns[i] = 0;
-    }
-
+    THIS.initialize();
     THIS.drawData();
 };
