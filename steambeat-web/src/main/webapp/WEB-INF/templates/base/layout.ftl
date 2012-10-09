@@ -22,6 +22,7 @@
 
     <#if !dev>
         <link rel="stylesheet" href="${root}/static/css/reset.css?${buildtime}"/>
+        <link rel="stylesheet" href="${root}/static/css/common.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/reference.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/opinion.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/form.css?${buildtime}"/>
@@ -34,6 +35,7 @@
 
     <#if dev>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reset.less?${buildtime}"/>
+        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/common.less?${buildtime}"/>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reference.less?${buildtime}"/>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/opinion.less?${buildtime}"/>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/form.less?${buildtime}"/>
@@ -108,7 +110,7 @@
 </head>
 </#macro>
 
-<#macro left>
+<#macro body>
 <body>
 <header>
     <div>
@@ -117,17 +119,7 @@
         </div>
     </div>
 </header>
-<div id="wrapper">
-    <div id="left">
-        <#nested/>
-    </div>
-</#macro>
-
-<#macro right>
-    <div id="right">
-        <#nested/>
-    </div>
-</div>
+    <#nested/>
 </body>
 </html>
 </#macro>

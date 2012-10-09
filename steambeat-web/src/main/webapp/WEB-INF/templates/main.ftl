@@ -6,7 +6,7 @@
         var authentificated = false;
         </#if>
 
-        <#if keyword?has_content>
+        <#if referenceData??>
         var referenceId = "${referenceData.referenceId}";
         var keywordValue = "${referenceData.keywordValue}";
         var languageCode = "${referenceData.languageCode}";
@@ -56,57 +56,61 @@
 
 </@layout.headend>
 
-<@layout.left>
-<div id="main_reference" class="box">
-    <div id="counters" style="display: none;">
-        <div id="counter_good" class="counter">
-            <img class="smiley" src="${root}/static/images/smiley_good_white.png"/>
+<@layout.body>
+<div id="wrapper">
+    <div id="left">
+        <div id="main_reference" class="box">
+            <div id="counters" style="display: none;">
+                <div id="counter_good" class="counter">
+                    <img class="smiley" src="${root}/static/images/smiley_good_white.png"/>
 
-            <p class="counter_text">0</p>
-        </div>
-        <div id="counter_neutral" class="counter">
-            <img class="smiley" src="${root}/static/images/smiley_neutral_white.png"/>
+                    <p class="counter_text">0</p>
+                </div>
+                <div id="counter_neutral" class="counter">
+                    <img class="smiley" src="${root}/static/images/smiley_neutral_white.png"/>
 
-            <p class="counter_text">0</p>
-        </div>
-        <div id="counter_bad" class="counter">
-            <img class="smiley" src="${root}/static/images/smiley_bad_white.png"/>
+                    <p class="counter_text">0</p>
+                </div>
+                <div id="counter_bad" class="counter">
+                    <img class="smiley" src="${root}/static/images/smiley_bad_white.png"/>
 
-            <p class="counter_text">0</p>
+                    <p class="counter_text">0</p>
+                </div>
+            </div>
         </div>
+
+        <div id="related" class="box">
+        </div>
+
+    <#--<div id="header_id_panel">-->
+    <#--<#if user?has_content>-->
+    <#--<p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>-->
+    <#--<#else>-->
+    <#--<p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>-->
+    <#--</#if>-->
+    <#--</div>-->
+
+    <#--<div id="header_help_panel">-->
+    <#--<a href="${root}/help">help</a>-->
+    <#--</div>-->
+    </div>
+
+    <div id="right">
+        <form id="form" method="post" action="" autocomplete="off" class="box">
+        <#--<p id="form_language">english</p>-->
+        <#--<a id="form_close" href="">close</a>-->
+        <#--<div id="form_block_{{id}}" class="form_block">-->
+        <#--<div id="form_illustration_{{id}}" class="form_illustration"></div>-->
+        <#--<div id="form_text_{{id}}" class="form_text" contentEditable="true"></div>-->
+        <#--</div>-->
+            <textarea></textarea>
+            <input type="button" id="form_button_good" value="good"/>
+            <input type="button" id="form_button_bad" value="bad"/>
+            <input type="button" id="form_button_neutral" value="neutral"/>
+        </form>
+
+        <ul id="opinions">
+        </ul>
     </div>
 </div>
-
-<div id="related" class="box">
-</div>
-
-<#--<div id="header_id_panel">-->
-<#--<#if user?has_content>-->
-<#--<p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>-->
-<#--<#else>-->
-<#--<p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>-->
-<#--</#if>-->
-<#--</div>-->
-
-<#--<div id="header_help_panel">-->
-<#--<a href="${root}/help">help</a>-->
-<#--</div>-->
-</@layout.left>
-
-<@layout.right>
-<form id="form" method="post" action="" autocomplete="off" class="box">
-<#--<p id="form_language">english</p>-->
-<#--<a id="form_close" href="">close</a>-->
-<#--<div id="form_block_{{id}}" class="form_block">-->
-<#--<div id="form_illustration_{{id}}" class="form_illustration"></div>-->
-<#--<div id="form_text_{{id}}" class="form_text" contentEditable="true"></div>-->
-<#--</div>-->
-    <textarea></textarea>
-    <input type="button" id="form_button_good" value="good"/>
-    <input type="button" id="form_button_bad" value="bad"/>
-    <input type="button" id="form_button_neutral" value="neutral"/>
-</form>
-
-<ul id="opinions">
-</ul>
-</@layout.right>
+</@layout.body>

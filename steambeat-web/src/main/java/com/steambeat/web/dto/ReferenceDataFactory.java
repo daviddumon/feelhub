@@ -25,9 +25,9 @@ public class ReferenceDataFactory {
 
     public ReferenceData getReferenceData(final UUID id, final Keyword keyword) {
         ReferenceData.Builder builder = new ReferenceData.Builder();
-        builder.referenceId(id);
         builder.keyword(keyword);
         builder.language(keyword.getLanguage());
+        builder.referenceId(id);
         final List<Illustration> illustrations = Repositories.illustrations().forReferenceId(id);
         if (!illustrations.isEmpty()) {
             builder.illustration(illustrations.get(0));

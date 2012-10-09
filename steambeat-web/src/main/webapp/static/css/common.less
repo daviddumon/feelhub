@@ -1,0 +1,41 @@
+/* Copyright Steambeat 2012 */
+@import "import/variables.less";
+@import "import/colors.less";
+@import "import/mixins.less";
+
+body {
+    background-color: @blue-4 !important;
+
+    font-size: @font-normal;
+    .font_text;
+
+    a {
+        text-decoration: none !important;
+    }
+
+    header {
+        height: 40px;
+
+        div {
+            width: 95%;
+            margin: 0px auto;
+
+            div {
+                width: 38%;
+                float: left;
+                text-align: center;
+
+                a {
+                    font-size: 34px;
+                    font-weight: bold;
+                    color: @blue-3;
+                    .font_title;
+
+                    &:hover {
+                        color: @blue-2 !important;
+                    }
+                }
+            }
+        }
+    }
+}
