@@ -89,7 +89,7 @@ Flow.prototype.drawBox = function (opinion, classes) {
         }
     }
 
-    THIS.container.css("height", max);
+    THIS.container.css("height", max + 100);
 };
 
 Flow.prototype.getOpinion = function (opinion, classes) {
