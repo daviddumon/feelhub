@@ -6,10 +6,10 @@
         {{#text}}
         <p>{{{.}}}&nbsp;</p>
         {{/text}}
+        <div class="related" style="height: {{height}}">
         {{#referenceDatas}}
-         <div class="related">
-            {{> reference}}
-        </div>
+        {{> reference}}
         {{/referenceDatas}}
+        </div>
     </li>
 </script>

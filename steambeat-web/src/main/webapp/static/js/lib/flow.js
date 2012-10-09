@@ -19,9 +19,8 @@ Flow.prototype.initialize = function () {
     THIS.limit = 30;
     THIS.hasData = true;
     THIS.notLoading = true;
-    THIS.columns = new Array(THIS.maxBox);
     for (var i = 0; i < THIS.maxBox; i++) {
-        THIS.columns[i] = 0;
+        THIS.container.append("<div class='opinion_list' id='opinion_list_" + i + "'></div>")
     }
 };
 
@@ -67,29 +66,18 @@ Flow.prototype.drawData = function () {
 Flow.prototype.drawBox = function (opinion, classes) {
     var THIS = this;
     var element = THIS.getOpinion(opinion, classes);
-    THIS.container.append(element);
 
-    var column = 0;
-    var column_height = THIS.columns[0];
-    for (var i = 1; i < THIS.columns.length; i++) {
-        if (THIS.columns[i] < column_height) {
-            column_height = THIS.columns[i];
-            column = i;
-        }
-    }
-    element.css("top", column_height);
-    element.css("left", THIS.leftCorner + THIS.initial * column);
-
-    THIS.columns[column] += (element.height() + 60);
-
-    var max = THIS.columns[0];
-    for (var i = 1; i < THIS.columns.length; i++) {
-        if (THIS.columns[i] > column_height) {
-            max = THIS.columns[i];
+    var row = 0;
+    var row_height = $("#opinion_list_" + row).height();
+    for(var i = 1; i < THIS.maxBox; i++) {
+        var current_height = $("#opinion_list_" + i).height()
+        if(current_height < row_height) {
+            row = i;
+            row_height = current_height;
         }
     }
 
-    THIS.container.css("height", max + 100);
+    $("#opinion_list_" + row).append(element);
 };
 
 Flow.prototype.getOpinion = function (opinion, classes) {
@@ -123,7 +111,8 @@ Flow.prototype.getOpinion = function (opinion, classes) {
         id:id,
         opinion_classes:classes,
         text:text.split(/\r\n|\r|\n/),
-        referenceDatas:referenceDatas
+        referenceDatas:referenceDatas,
+        height: (referenceDatas.length != 0 ? 40 : 0) + 74 * (Math.floor(referenceDatas.length / 2) + referenceDatas.length % 2) +'px'
     };
 
     if(opinion_feeling !== "none") {
