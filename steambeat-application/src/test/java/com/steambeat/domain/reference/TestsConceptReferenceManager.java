@@ -65,4 +65,22 @@ public class TestsConceptReferenceManager {
         assertThat(conceptReferencesChangedEvent.getReferenceIds().size(), is(1));
         assertThat(conceptReferencesChangedEvent.getNewReferenceId(), notNullValue());
     }
+
+    @Test
+    public void oldReferenceKeepALinkToTheNewReference() {
+        final Keyword goodKeyword = TestFactories.keywords().newKeyword("fr", SteambeatLanguage.forString("fr"));
+        time.waitDays(1);
+        final Keyword badKeyword = TestFactories.keywords().newKeyword("en", SteambeatLanguage.forString("en"));
+        final ConceptTranslatedEvent event = TestFactories.events().newConceptTranslatedEvent();
+        event.addIfAbsent(goodKeyword);
+        event.addIfAbsent(badKeyword);
+        final UUID oldId = badKeyword.getReferenceId();
+        final UUID goodId = goodKeyword.getReferenceId();
+
+        DomainEventBus.INSTANCE.post(event);
+
+        final Reference badReference = Repositories.references().get(oldId);
+        assertThat(badReference.isActive(), is(false));
+        assertThat(badReference.getCurrentReferenceId(), is(goodId));
+    }
 }

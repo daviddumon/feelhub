@@ -13,6 +13,7 @@ public class ReferenceMapping extends EntityMap<Reference> {
     protected void map() {
         id(element().getId()).natural();
         property(element().isActive());
+        property(element().getCurrentReferenceId());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
     }

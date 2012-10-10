@@ -64,5 +64,27 @@ public class TestsReferenceMongoRepository extends TestWithMongoRepository {
         assertThat(Repositories.references().get(id).getLastModificationDate(), is(time.getNow()));
     }
 
+    @Test
+    public void canPersistAnOldReference() throws UnknownHostException, MongoException, MalformedURLException {
+        final UUID id = UUID.randomUUID();
+        final Reference reference = new Reference(id);
+        reference.setActive(false);
+        final UUID newId = TestFactories.references().newReference().getId();
+        reference.setCurrentReferenceId(newId);
+
+        repo.add(reference);
+
+        final DBCollection collection = mongo.getCollection("reference");
+        final DBObject query = new BasicDBObject();
+        query.put("_id", reference.getId());
+        final DBObject referenceFound = collection.findOne(query);
+        assertThat(referenceFound, notNullValue());
+        assertThat(referenceFound.get("_id"), is((Object) reference.getId()));
+        assertThat(referenceFound.get("creationDate"), is((Object) reference.getCreationDate().getMillis()));
+        assertThat(referenceFound.get("lastModificationDate"), is((Object) reference.getLastModificationDate().getMillis()));
+        assertThat(referenceFound.get("active"), is((Object) false));
+        assertThat(referenceFound.get("currentReferenceId"), is((Object) newId));
+    }
+
     private Repository<Reference> repo;
 }

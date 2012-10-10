@@ -33,6 +33,7 @@ public abstract class ReferenceManager {
         for (final Reference current : references) {
             if (!current.equals(reference)) {
                 current.setActive(false);
+                current.setCurrentReferenceId(reference.getId());
             }
         }
     }

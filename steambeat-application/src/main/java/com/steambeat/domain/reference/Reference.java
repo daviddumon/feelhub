@@ -28,6 +28,15 @@ public class Reference extends BaseEntity {
         this.active = active;
     }
 
+    public UUID getCurrentReferenceId() {
+        return currentReferenceId;
+    }
+
+    public void setCurrentReferenceId(final UUID currentId) {
+        this.currentReferenceId = currentId;
+    }
+
     private UUID id;
     private boolean active;
+    private UUID currentReferenceId;
 }
