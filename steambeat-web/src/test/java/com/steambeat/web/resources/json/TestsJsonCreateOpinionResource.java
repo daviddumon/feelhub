@@ -2,6 +2,7 @@ package com.steambeat.web.resources.json;
 
 import com.steambeat.application.SessionService;
 import com.steambeat.domain.eventbus.WithDomainEvent;
+import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.session.Session;
 import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
@@ -135,6 +136,23 @@ public class TestsJsonCreateOpinionResource {
         opinionsResource.post(jsonRepresentation);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_UNAUTHORIZED));
+    }
+
+    @Test
+    public void postAnOpinionRequestEvent() {
+        events.capture(OpinionRequestEvent.class);
+        final JsonRepresentation jsonRepresentation = goodJsonOpinion();
+        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
+
+        opinionsResource.post(jsonRepresentation, cookies);
+
+        final OpinionRequestEvent opinionRequestEvent = events.lastEvent(OpinionRequestEvent.class);
+        assertThat(opinionRequestEvent, notNullValue());
+        assertThat(opinionRequestEvent.getFeeling(), is(Feeling.valueOf("good")));
+        assertThat(opinionRequestEvent.getText(), is("my opinion +judgment"));
+        assertThat(opinionRequestEvent.getKeywordValue(), is("keyword"));
+        assertThat(opinionRequestEvent.getLanguageCode(), is("en"));
+        assertThat(opinionRequestEvent.getUserLanguageCode(), is("fr"));
     }
 
     private JsonRepresentation goodJsonOpinion() {

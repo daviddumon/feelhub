@@ -1,6 +1,7 @@
 package com.steambeat.web.resources.json;
 
-import com.steambeat.domain.opinion.Feeling;
+import com.steambeat.domain.eventbus.DomainEventBus;
+import com.steambeat.domain.opinion.*;
 import org.apache.http.auth.AuthenticationException;
 import org.json.*;
 import org.restlet.Request;
@@ -11,16 +12,12 @@ import org.restlet.resource.*;
 public class JsonCreateOpinionResource extends ServerResource {
 
     @Post
-    public void post(JsonRepresentation jsonRepresentation) {
+    public JsonRepresentation post(JsonRepresentation jsonRepresentation) {
         try {
             checkCredentials(getRequest());
             final JSONObject jsonOpinion = jsonRepresentation.getJsonObject();
-            final String text = extractText(jsonOpinion);
-            final Feeling feeling = extractFeeling(jsonOpinion);
-            final String keywordValue = extractKeywordValue(jsonOpinion);
-            final String languageCode = extractLanguageCode(jsonOpinion);
-            final String userLanguageCode = extractUserLanguageCode(jsonOpinion);
-            // on cree l'event de creation d'opinion
+            final OpinionRequestEvent.Builder builder = getEventBuilderFrom(jsonOpinion);
+            DomainEventBus.INSTANCE.post(builder.build());
             setStatus(Status.SUCCESS_CREATED);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -29,6 +26,17 @@ public class JsonCreateOpinionResource extends ServerResource {
             e.printStackTrace();
             setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
         }
+        return new JsonRepresentation("salut");
+    }
+
+    private OpinionRequestEvent.Builder getEventBuilderFrom(final JSONObject jsonOpinion) throws JSONException {
+        final OpinionRequestEvent.Builder builder = new OpinionRequestEvent.Builder();
+        builder.feeling(extractFeeling(jsonOpinion));
+        builder.text(extractText(jsonOpinion));
+        builder.keywordValue(extractKeywordValue(jsonOpinion));
+        builder.languageCode(extractLanguageCode(jsonOpinion));
+        builder.userLanguageCode(extractUserLanguageCode(jsonOpinion));
+        return builder;
     }
 
     private void checkCredentials(final Request request) throws AuthenticationException {

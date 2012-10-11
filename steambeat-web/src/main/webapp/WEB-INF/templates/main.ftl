@@ -87,7 +87,7 @@
 
         <div id="opinion_form" class="box">
             <div class="box_title">My feeling about this</div>
-            <#if authentificated?has_content>
+            <#if authentificated!false>
                 <form id="form" method="post" action="" autocomplete="off" class="box">
                     <textarea></textarea>
                     <button type="submit" id="form_button_good" name="good">

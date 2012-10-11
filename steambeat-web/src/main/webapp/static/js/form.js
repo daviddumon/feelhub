@@ -26,7 +26,8 @@ function postOpinion(feeling, text) {
         contentType:'application/json',
         data:JSON.stringify(opinionData),
         processData:false
-    }).success(function () {
+    }).success(function (data) {
+            console.log(data);
             $("form textarea").empty();
         });
 }
