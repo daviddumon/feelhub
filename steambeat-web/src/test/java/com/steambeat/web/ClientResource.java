@@ -19,14 +19,16 @@ public class ClientResource extends UniformResource {
         return handle();
     }
 
-    private void initHandling(final Method Method) {
-        setRequest(new Request(Method, reference));
-        setResponse(new Response(getRequest()));
-    }
-
     public Representation post(final Object entity) {
         initHandling(Method.POST);
         getRequest().setEntity(getRepresentation(entity));
+        return handle();
+    }
+
+    public Representation post(final Object entity, final CookieSeries cookies) {
+        initHandling(Method.POST);
+        getRequest().setEntity(getRepresentation(entity));
+        getRequest().setCookies(cookies);
         return handle();
     }
 
@@ -36,6 +38,11 @@ public class ClientResource extends UniformResource {
             getRequest().setCookies(cookies);
         }
         return handle();
+    }
+
+    private void initHandling(final Method Method) {
+        setRequest(new Request(Method, reference));
+        setResponse(new Response(getRequest()));
     }
 
     private Representation getRepresentation(final Object source) {

@@ -26,7 +26,6 @@ public class GuiceTestModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
-        bind(IdentityFilter.class).to(FakeIdentityFilter.class);
         bind(SessionProvider.class).to(FakeSessionProvider.class);
         bind(OpinionSearch.class).to(FakeOpinionSearch.class);
         bind(StatisticsSearch.class).to(FakeStatisticsSearch.class);

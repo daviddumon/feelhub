@@ -1,16 +1,20 @@
 package com.steambeat.web.resources.json;
 
+import com.steambeat.application.SessionService;
 import com.steambeat.domain.eventbus.WithDomainEvent;
-import com.steambeat.domain.thesaurus.SteambeatLanguage;
+import com.steambeat.domain.session.Session;
+import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.web.*;
+import org.joda.time.DateTime;
 import org.json.*;
 import org.junit.*;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.restlet.data.Status;
+import org.restlet.engine.util.CookieSeries;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.StringRepresentation;
 
@@ -31,21 +35,34 @@ public class TestsJsonCreateOpinionResource {
     @Rule
     public WithDomainEvent events = new WithDomainEvent();
 
+    @Before
+    public void before() {
+        final SessionService sessionService = new SessionService();
+        final User user = TestFactories.users().createUser("mail@mail.com", "full name");
+        final Session session = sessionService.createSession(user, new DateTime().plusHours(1));
+        final org.restlet.data.Cookie cookie = new org.restlet.data.Cookie(1, "id", "mail@mail.com");
+        final org.restlet.data.Cookie sessionCookie = new org.restlet.data.Cookie(1, "session", session.getToken().toString());
+        cookies = new CookieSeries();
+        cookies.add(cookie);
+        cookies.add(sessionCookie);
+    }
+
     @Test
     public void canPostOpinion() {
         final JsonRepresentation jsonRepresentation = goodJsonOpinion();
         final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation);
+        opinionsResource.post(jsonRepresentation, cookies);
 
         assertThat(opinionsResource.getStatus(), is(Status.SUCCESS_CREATED));
     }
 
     @Test
     public void errorIfNotJson() {
+        final StringRepresentation jsonRepresentation = new StringRepresentation("representation");
         final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(new StringRepresentation("representation"));
+        opinionsResource.post(jsonRepresentation, cookies);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -55,7 +72,7 @@ public class TestsJsonCreateOpinionResource {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutText();
         final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation);
+        opinionsResource.post(jsonRepresentation, cookies);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -65,7 +82,7 @@ public class TestsJsonCreateOpinionResource {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutFeeling();
         final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation);
+        opinionsResource.post(jsonRepresentation, cookies);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -75,7 +92,7 @@ public class TestsJsonCreateOpinionResource {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutKeywordValue();
         final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation);
+        opinionsResource.post(jsonRepresentation, cookies);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -85,7 +102,7 @@ public class TestsJsonCreateOpinionResource {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutLanguageCode();
         final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation);
+        opinionsResource.post(jsonRepresentation, cookies);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -95,7 +112,7 @@ public class TestsJsonCreateOpinionResource {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutUserLanguageCode();
         final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation);
+        opinionsResource.post(jsonRepresentation, cookies);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -105,9 +122,19 @@ public class TestsJsonCreateOpinionResource {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutFeeling();
         final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation);
+        opinionsResource.post(jsonRepresentation, cookies);
 
         assertThat(Repositories.opinions().getAll().size(), is(0));
+    }
+
+    @Test
+    public void mustBeAuthentificated() {
+        final JsonRepresentation jsonRepresentation = goodJsonOpinion();
+        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
+
+        opinionsResource.post(jsonRepresentation);
+
+        assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_UNAUTHORIZED));
     }
 
     private JsonRepresentation goodJsonOpinion() {
@@ -188,4 +215,6 @@ public class TestsJsonCreateOpinionResource {
         }
         return new JsonRepresentation(opinion);
     }
+
+    private CookieSeries cookies;
 }
