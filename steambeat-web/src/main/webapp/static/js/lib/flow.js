@@ -108,6 +108,7 @@ Flow.prototype.getOpinion = function (opinion, classes) {
 
     var opinionData = {
         id:id,
+        referenceId:opinion.referenceId,
         opinion_classes:classes,
         text:text.split(/\r\n|\r|\n/),
         referenceDatas:referenceDatas,
@@ -137,4 +138,14 @@ Flow.prototype.reset = function () {
     var THIS = this;
     THIS.initialize();
     THIS.drawData();
+};
+
+Flow.prototype.pushFake = function(referenceId, text, feeling) {
+
+    var fake_opinion = {
+        referenceId:referenceId,
+        text:text,
+        referenceDatas:[{referenceId:referenceId, feeling:feeling}]
+    };
+
 };

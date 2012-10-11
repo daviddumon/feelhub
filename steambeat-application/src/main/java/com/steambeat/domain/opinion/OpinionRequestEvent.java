@@ -36,11 +36,17 @@ public class OpinionRequestEvent extends DomainEvent {
             return this;
         }
 
+        public Builder opinionId(final String opinionId) {
+            this.opinionId = opinionId;
+            return this;
+        }
+
         private String text = "";
         private Feeling feeling = Feeling.none;
         private String userLanguageCode = SteambeatLanguage.none().getCode();
         private String languageCode = SteambeatLanguage.none().getCode();
         private String keywordValue = "";
+        private String opinionId = "";
     }
 
     private OpinionRequestEvent(final Builder builder) {
@@ -49,6 +55,7 @@ public class OpinionRequestEvent extends DomainEvent {
         this.userLanguageCode = builder.userLanguageCode;
         this.languageCode = builder.languageCode;
         this.keywordValue = builder.keywordValue;
+        this.opinionId = builder.opinionId;
     }
 
     @Override
@@ -76,9 +83,14 @@ public class OpinionRequestEvent extends DomainEvent {
         return keywordValue;
     }
 
+    public String getOpinionId() {
+        return opinionId;
+    }
+
     private final String text;
     private final Feeling feeling;
     private String userLanguageCode;
     private String languageCode;
     private String keywordValue;
+    private String opinionId;
 }

@@ -9,6 +9,8 @@ import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.*;
 
+import java.util.UUID;
+
 public class JsonCreateOpinionResource extends ServerResource {
 
     @Post
@@ -17,8 +19,10 @@ public class JsonCreateOpinionResource extends ServerResource {
             checkCredentials(getRequest());
             final JSONObject jsonOpinion = jsonRepresentation.getJsonObject();
             final OpinionRequestEvent.Builder builder = getEventBuilderFrom(jsonOpinion);
-            DomainEventBus.INSTANCE.post(builder.build());
+            final OpinionRequestEvent event = builder.build();
+            DomainEventBus.INSTANCE.post(event);
             setStatus(Status.SUCCESS_CREATED);
+            return new JsonRepresentation(getJsonResponse(event));
         } catch (JSONException e) {
             e.printStackTrace();
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
@@ -26,7 +30,13 @@ public class JsonCreateOpinionResource extends ServerResource {
             e.printStackTrace();
             setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
         }
-        return new JsonRepresentation("salut");
+        return new JsonRepresentation(new JSONObject());
+    }
+
+    private void checkCredentials(final Request request) throws AuthenticationException {
+        if (!request.getAttributes().containsKey("com.steambeat.authentificated") || request.getAttributes().get("com.steambeat.authentificated").equals(false)) {
+            throw new AuthenticationException();
+        }
     }
 
     private OpinionRequestEvent.Builder getEventBuilderFrom(final JSONObject jsonOpinion) throws JSONException {
@@ -36,13 +46,8 @@ public class JsonCreateOpinionResource extends ServerResource {
         builder.keywordValue(extractKeywordValue(jsonOpinion));
         builder.languageCode(extractLanguageCode(jsonOpinion));
         builder.userLanguageCode(extractUserLanguageCode(jsonOpinion));
+        builder.opinionId(UUID.randomUUID().toString());
         return builder;
-    }
-
-    private void checkCredentials(final Request request) throws AuthenticationException {
-        if (!request.getAttributes().containsKey("com.steambeat.authentificated") || request.getAttributes().get("com.steambeat.authentificated").equals(false)) {
-            throw new AuthenticationException();
-        }
     }
 
     private String extractText(final JSONObject jsonOpinion) throws JSONException {
@@ -63,5 +68,15 @@ public class JsonCreateOpinionResource extends ServerResource {
 
     private String extractUserLanguageCode(final JSONObject jsonOpinion) throws JSONException {
         return jsonOpinion.get("userLanguageCode").toString();
+    }
+
+    private JSONObject getJsonResponse(final OpinionRequestEvent event) {
+        final JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("referenceId", event.getOpinionId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 }

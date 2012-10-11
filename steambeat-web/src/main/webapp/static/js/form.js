@@ -25,9 +25,11 @@ function postOpinion(feeling, text) {
         type:'POST',
         contentType:'application/json',
         data:JSON.stringify(opinionData),
-        processData:false
-    }).success(function (data) {
-            console.log(data);
-            $("form textarea").empty();
-        });
+        processData:false,
+        success:function (data, textStatus, jqXHR) {
+            $("#form textarea").val('');
+            $("#form textarea").height("30px");
+            flow.pushFake(data, text, feeling);
+        }
+    });
 }

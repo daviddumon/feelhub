@@ -17,7 +17,7 @@ import org.junit.rules.ExpectedException;
 import org.restlet.data.Status;
 import org.restlet.engine.util.CookieSeries;
 import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.representation.StringRepresentation;
+import org.restlet.representation.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -153,6 +153,19 @@ public class TestsJsonCreateOpinionResource {
         assertThat(opinionRequestEvent.getKeywordValue(), is("keyword"));
         assertThat(opinionRequestEvent.getLanguageCode(), is("en"));
         assertThat(opinionRequestEvent.getUserLanguageCode(), is("fr"));
+    }
+
+    @Test
+    public void returnOpinionId() throws JSONException {
+        events.capture(OpinionRequestEvent.class);
+        final JsonRepresentation jsonRepresentation = goodJsonOpinion();
+        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
+
+        final JsonRepresentation jsonResponse = (JsonRepresentation) opinionsResource.post(jsonRepresentation, cookies);
+
+        final OpinionRequestEvent opinionRequestEvent = events.lastEvent(OpinionRequestEvent.class);
+        final JSONObject jsonData = jsonResponse.getJsonObject();
+        assertThat(jsonData.get("referenceId").toString(), is(opinionRequestEvent.getOpinionId()));
     }
 
     private JsonRepresentation goodJsonOpinion() {
