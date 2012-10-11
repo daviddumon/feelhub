@@ -16,7 +16,8 @@ function postOpinion(feeling, text) {
         "feeling":feeling,
         "text":text,
         "keywordValue":keywordValue,
-        "languageCode":languageCode
+        "languageCode":languageCode,
+        "userLanguageCode":userLanguageCode
     };
 
     $.ajax({
