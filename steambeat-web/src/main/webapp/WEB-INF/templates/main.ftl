@@ -89,12 +89,6 @@
             <div class="box_title">My feeling about this</div>
             <#if authentificated?has_content>
                 <form id="form" method="post" action="" autocomplete="off" class="box">
-                <#--<p id="form_language">english</p>-->
-                <#--<a id="form_close" href="">close</a>-->
-                <#--<div id="form_block_{{id}}" class="form_block">-->
-                <#--<div id="form_illustration_{{id}}" class="form_illustration"></div>-->
-                <#--<div id="form_text_{{id}}" class="form_text" contentEditable="true"></div>-->
-                <#--</div>-->
                     <textarea></textarea>
                     <button type="submit" id="form_button_good" name="good">
                         <img src="${root}/static/images/smiley_good_white.png"/>
@@ -114,11 +108,9 @@
         <div id="related" class="box" style="display: none;">
             <div class="box_title">most related</div>
         </div>
-
     </div>
 
     <div id="right">
-
 
         <ul id="opinions">
         </ul>

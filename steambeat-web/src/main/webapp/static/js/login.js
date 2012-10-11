@@ -17,6 +17,12 @@ $(function () {
         }
     });
 
+    $("input").change(function(event) {
+        if($(this).val() !== "") {
+            $(this).parent().find(".help_text").hide();
+        }
+    });
+
     $("input").focusout(function () {
         if ($(this).attr("value") == "") {
             $(this).parent().find(".help_text").show();

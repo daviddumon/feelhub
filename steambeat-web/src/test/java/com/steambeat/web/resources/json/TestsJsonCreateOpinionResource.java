@@ -61,8 +61,38 @@ public class TestsJsonCreateOpinionResource {
     }
 
     @Test
-    public void errorIfBadJudgment() {
-        final JsonRepresentation jsonRepresentation = badJsonOpinionWithBadJudgment();
+    public void errorIfMissingFeeling() {
+        final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutFeeling();
+        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
+
+        opinionsResource.post(jsonRepresentation);
+
+        assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+    }
+
+    @Test
+    public void errorIfMissingKeywordValue() {
+        final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutKeywordValue();
+        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
+
+        opinionsResource.post(jsonRepresentation);
+
+        assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+    }
+
+    @Test
+    public void errorIfMissingLanguageCode() {
+        final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutLanguageCode();
+        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
+
+        opinionsResource.post(jsonRepresentation);
+
+        assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+    }
+
+    @Test
+    public void errorIfMissingUserLanguageCode() {
+        final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutUserLanguageCode();
         final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
         opinionsResource.post(jsonRepresentation);
@@ -72,7 +102,7 @@ public class TestsJsonCreateOpinionResource {
 
     @Test
     public void doNotCreateOpinionOnError() {
-        final JsonRepresentation jsonRepresentation = badJsonOpinionWithBadJudgment();
+        final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutFeeling();
         final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
         opinionsResource.post(jsonRepresentation);
@@ -80,64 +110,14 @@ public class TestsJsonCreateOpinionResource {
         assertThat(Repositories.opinions().getAll().size(), is(0));
     }
 
-    @Test
-    public void postingAGoodFormCreateAnOpinion() {
-        final JsonRepresentation jsonRepresentation = goodJsonOpinion();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
-
-        opinionsResource.post(jsonRepresentation);
-
-        assertThat(Repositories.opinions().getAll().size(), is(1));
-    }
-
-    @Test
-    public void canCreateKeywordsFromOpinion() {
-        final JsonRepresentation jsonRepresentation = goodJsonOpinion();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
-
-        opinionsResource.post(jsonRepresentation);
-
-        assertThat(Repositories.keywords().getAll().size(), is(2));
-    }
-
-    @Test
-    public void useExistingKeywords() {
-        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.reference());
-        TestFactories.keywords().newKeyword("mot", SteambeatLanguage.forString("fr"));
-        final JsonRepresentation jsonRepresentation = goodJsonOpinion();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
-
-        opinionsResource.post(jsonRepresentation);
-
-        assertThat(Repositories.keywords().getAll().size(), is(2));
-    }
-
-    @Test
-    public void addAJudgmentForEachKeywordAndFeeling() {
-        final JsonRepresentation jsonRepresentation = goodJsonOpinion();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
-
-        opinionsResource.post(jsonRepresentation);
-
-        assertThat(Repositories.opinions().getAll().get(0).getJudgments().size(), is(2));
-    }
-
     private JsonRepresentation goodJsonOpinion() {
         JSONObject opinion = new JSONObject();
         try {
-            opinion.put("text", "my opinion");
-            final JSONObject judgment1 = new JSONObject();
-            judgment1.put("feeling", "good");
-            judgment1.put("keywordValue", "keyword");
-            judgment1.put("languageCode", "en");
-            final JSONObject judgment2 = new JSONObject();
-            judgment2.put("feeling", "bad");
-            judgment2.put("keywordValue", "mot");
-            judgment2.put("languageCode", "fr");
-            final JSONArray judgments = new JSONArray();
-            judgments.put(judgment1);
-            judgments.put(judgment2);
-            opinion.put("judgments", judgments);
+            opinion.put("text", "my opinion +judgment");
+            opinion.put("feeling", "good");
+            opinion.put("keywordValue", "keyword");
+            opinion.put("languageCode", "en");
+            opinion.put("userLanguageCode", "fr");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -147,24 +127,62 @@ public class TestsJsonCreateOpinionResource {
     private JsonRepresentation badJsonOpinionWithoutText() {
         JSONObject opinion = new JSONObject();
         try {
-            final JSONArray judgments = new JSONArray();
-            opinion.put("judgments", judgments);
+            opinion.put("feeling", "good");
+            opinion.put("keywordValue", "keyword");
+            opinion.put("languageCode", "en");
+            opinion.put("userLanguageCode", "fr");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return new JsonRepresentation(opinion);
     }
 
-    private JsonRepresentation badJsonOpinionWithBadJudgment() {
+    private JsonRepresentation badJsonOpinionWithoutFeeling() {
         JSONObject opinion = new JSONObject();
         try {
             opinion.put("text", "my opinion");
-            final JSONObject judgment1 = new JSONObject();
-            judgment1.put("keywordValue", "keyword");
-            judgment1.put("languageCode", "en");
-            final JSONArray judgments = new JSONArray();
-            judgments.put(judgment1);
-            opinion.put("judgments", judgments);
+            opinion.put("keywordValue", "keyword");
+            opinion.put("languageCode", "en");
+            opinion.put("userLanguageCode", "fr");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return new JsonRepresentation(opinion);
+    }
+
+    private JsonRepresentation badJsonOpinionWithoutKeywordValue() {
+        JSONObject opinion = new JSONObject();
+        try {
+            opinion.put("text", "my opinion");
+            opinion.put("feeling", "good");
+            opinion.put("languageCode", "en");
+            opinion.put("userLanguageCode", "fr");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return new JsonRepresentation(opinion);
+    }
+
+    private JsonRepresentation badJsonOpinionWithoutLanguageCode() {
+        JSONObject opinion = new JSONObject();
+        try {
+            opinion.put("text", "my opinion");
+            opinion.put("feeling", "good");
+            opinion.put("keywordValue", "keyword");
+            opinion.put("userLanguageCode", "fr");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return new JsonRepresentation(opinion);
+    }
+
+    private JsonRepresentation badJsonOpinionWithoutUserLanguageCode() {
+        JSONObject opinion = new JSONObject();
+        try {
+            opinion.put("text", "my opinion");
+            opinion.put("feeling", "good");
+            opinion.put("keywordValue", "keyword");
+            opinion.put("languageCode", "en");
         } catch (JSONException e) {
             e.printStackTrace();
         }
