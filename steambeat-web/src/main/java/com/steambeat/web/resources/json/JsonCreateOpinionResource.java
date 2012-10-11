@@ -26,7 +26,7 @@ public class JsonCreateOpinionResource extends ServerResource {
         try {
             final JSONObject jsonOpinion = jsonRepresentation.getJsonObject();
             getKeywordsAndJudgments(jsonOpinion);
-            opinionService.addOpinion(text, judgments);
+            opinionService.addOpinion(text, judgments, "en");
             setStatus(Status.SUCCESS_CREATED);
         } catch (JSONException e) {
             e.printStackTrace();

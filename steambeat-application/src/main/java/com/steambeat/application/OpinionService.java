@@ -8,8 +8,9 @@ import java.util.List;
 
 public class OpinionService {
 
-    public Opinion addOpinion(final String text, final List<Judgment> judgments) {
+    public Opinion addOpinion(final String text, final List<Judgment> judgments, final String languageCode) {
         final Opinion opinion = new Opinion(text);
+        opinion.setLanguageCode(languageCode);
         for (Judgment judgment : judgments) {
             opinion.addJudgment(judgment);
         }

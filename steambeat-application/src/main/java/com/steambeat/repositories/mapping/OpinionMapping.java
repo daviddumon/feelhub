@@ -13,6 +13,7 @@ public class OpinionMapping extends EntityMap<Opinion> {
     protected void map() {
         id(element().getId()).natural();
         property(element().getText());
+        property(element().getLanguageCode());
         collection(element().getJudgments());
         property(element().getCreationDate());
         property(element().getLastModificationDate());

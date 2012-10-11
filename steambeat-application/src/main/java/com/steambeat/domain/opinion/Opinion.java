@@ -43,7 +43,16 @@ public class Opinion extends BaseEntity {
         return judgments;
     }
 
+    public void setLanguageCode(final String languageCode) {
+        this.languageCode = languageCode;
+    }
+
+    public String getLanguageCode() {
+        return languageCode;
+    }
+
     private UUID id;
     private String text;
     private final List<Judgment> judgments = Lists.newArrayList();
+    private String languageCode;
 }

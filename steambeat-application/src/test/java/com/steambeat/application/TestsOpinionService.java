@@ -29,13 +29,14 @@ public class TestsOpinionService {
         final Reference reference = TestFactories.references().newReference();
         final Judgment judgment = new Judgment(reference.getId(), Feeling.good);
 
-        service.addOpinion("Le texte de l'opinion", Lists.newArrayList(judgment));
+        service.addOpinion("Le texte de l'opinion", Lists.newArrayList(judgment), "en");
 
         assertThat(Repositories.opinions().getAll().size(), is(1));
         final Opinion opinion = Repositories.opinions().getAll().get(0);
         assertThat(opinion.getText(), is("Le texte de l'opinion"));
         assertThat(opinion.getJudgments().size(), is(1));
         assertThat(opinion.getJudgments().get(0), is(judgment));
+        assertThat(opinion.getLanguageCode(), is("en"));
     }
 
     @Test
@@ -45,7 +46,7 @@ public class TestsOpinionService {
         final SimpleOpinionListener opinionEventListener = mock(SimpleOpinionListener.class);
         DomainEventBus.INSTANCE.register(opinionEventListener);
 
-        final Opinion opinion = service.addOpinion("Le texte de l'opinion", Lists.newArrayList(judgment));
+        final Opinion opinion = service.addOpinion("Le texte de l'opinion", Lists.newArrayList(judgment), "en");
 
         final ArgumentCaptor<OpinionCreatedEvent> captor = ArgumentCaptor.forClass(OpinionCreatedEvent.class);
         verify(opinionEventListener).handle(captor.capture());

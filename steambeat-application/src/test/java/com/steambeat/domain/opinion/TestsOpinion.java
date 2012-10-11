@@ -73,6 +73,15 @@ public class TestsOpinion {
         assertThat(reference.getLastModificationDate(), is(time.getNow()));
     }
 
+    @Test
+    public void hasALanguage() {
+        final Opinion opinion = new Opinion("salut");
+
+        opinion.setLanguageCode("en");
+
+        assertThat(opinion.getLanguageCode(), is("en"));
+    }
+
     private class SimpleJudgmentListener {
 
         @Subscribe
