@@ -35,17 +35,17 @@ public class RelationManager {
         }
     }
 
-    private void checkFromId(final UUID newReference, final UUID referenceToChange, final Relation relation) {
+    private void checkFromId(final UUID newReferenceId, final UUID referenceToChange, final Relation relation) {
         if (relation.getFromId().equals(referenceToChange)) {
-            if (relation.getToId().equals(newReference)) {
+            if (relation.getToId().equals(newReferenceId)) {
                 Repositories.relations().delete(relation);
             } else {
-                final Relation relationFound = Repositories.relations().lookUp(newReference, relation.getToId());
+                final Relation relationFound = Repositories.relations().lookUp(newReferenceId, relation.getToId());
                 if (relationFound != null) {
                     relationFound.addWeight(relation.getWeight());
                     Repositories.relations().delete(relation);
                 } else {
-                    relation.setFromId(newReference);
+                    relation.setFromId(newReferenceId);
                 }
             }
         }

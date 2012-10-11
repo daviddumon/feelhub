@@ -36,7 +36,8 @@ public class GuiceProductionModule extends AbstractModule {
         bind(UriIllustrationManager.class).asEagerSingleton();
         bind(ConceptGroupTranslator.class).asEagerSingleton();
         bind(ConceptGroupReferenceManager.class).asEagerSingleton();
-        bind(RelationBinder.class).asEagerSingleton();
+        bind(AlchemyRelationBinder.class).asEagerSingleton();
+        bind(OpinionRelationBinder.class).asEagerSingleton();
     }
 
     @Provides

@@ -12,7 +12,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsRelationBinder {
+public class TestsAlchemyRelationBinder {
 
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
@@ -22,7 +22,7 @@ public class TestsRelationBinder {
 
     @Before
     public void before() {
-        new RelationBinder(new FakeSessionProvider(), new RelationBuilder(new RelationFactory()));
+        new AlchemyRelationBinder(new FakeSessionProvider(), new RelationBuilder(new RelationFactory()));
     }
 
     @Test

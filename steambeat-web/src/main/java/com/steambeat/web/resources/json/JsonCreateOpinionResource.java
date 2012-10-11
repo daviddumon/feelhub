@@ -29,6 +29,8 @@ public class JsonCreateOpinionResource extends ServerResource {
             opinionService.addOpinion(text, judgments);
             setStatus(Status.SUCCESS_CREATED);
         } catch (JSONException e) {
+            e.printStackTrace();
+            System.out.println(jsonRepresentation);
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
         }
     }

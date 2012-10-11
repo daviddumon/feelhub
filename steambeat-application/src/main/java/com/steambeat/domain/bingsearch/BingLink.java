@@ -48,7 +48,7 @@ public class BingLink {
         try {
             final BingResults bingResults = objectMapper.readValue(inputStream, BingResults.class);
             return bingResults.d.results.get(0).MediaUrl;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";

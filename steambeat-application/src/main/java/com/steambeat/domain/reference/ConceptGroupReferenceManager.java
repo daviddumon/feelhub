@@ -23,7 +23,7 @@ public class ConceptGroupReferenceManager extends ReferenceManager {
         final List<ConceptReferencesChangedEvent> conceptReferencesChangedEvents = Lists.newArrayList();
         for (final ConceptTranslatedEvent conceptTranslatedEvent : conceptGroupTranslatedEvent.getConceptTranslatedEvents()) {
             final List<Reference> allReferences = getAllReferences(conceptTranslatedEvent);
-            final Reference reference = getOldestReference(conceptTranslatedEvent, allReferences);
+            final Reference reference = getOldestReference(allReferences);
             setInactiveReferences(reference, allReferences);
             final ConceptReferencesChangedEvent conceptReferencesChangedEvent = createConceptReferencesChangedEvent(reference, allReferences);
             conceptReferencesChangedEvents.add(conceptReferencesChangedEvent);

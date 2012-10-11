@@ -20,7 +20,7 @@ public class UriReferenceManager extends ReferenceManager {
     public void handle(final CompleteUriEvent event) {
         sessionProvider.start();
         final List<Reference> allReferences = getAllReferences(event);
-        final Reference reference = getOldestReference(event, allReferences);
+        final Reference reference = getOldestReference(allReferences);
         setInactiveReferences(reference, allReferences);
         postUriReferencesChangedEvent(reference, allReferences);
         sessionProvider.stop();
@@ -35,7 +35,6 @@ public class UriReferenceManager extends ReferenceManager {
         }
         DomainEventBus.INSTANCE.post(event);
     }
-
 
     private final SessionProvider sessionProvider;
 }

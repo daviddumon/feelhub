@@ -18,7 +18,7 @@ public abstract class ReferenceManager {
         return references;
     }
 
-    protected Reference getOldestReference(final ReferencesToChangeEvent event, final List<Reference> references) {
+    protected Reference getOldestReference(final List<Reference> references) {
         Reference result = references.get(0);
         for (int i = 1; i < references.size(); i++) {
             final Reference current = references.get(i);

@@ -33,7 +33,7 @@
                 <dbHost>127.0.0.1</dbHost>
                 <dbName>steambeat</dbName>
                 <dbPort>27017</dbPort>
-                <alchemyApiKey>a7d0e1eace157afb31cac33dd39672abffa19c25</alchemyApiKey>
+                <alchemyApiKey>a7d0e1eace157afb31cac33dd39672abffa19c26</alchemyApiKey>
             </properties>
         </profile>
         <profile>

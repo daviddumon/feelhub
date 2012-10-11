@@ -10,10 +10,10 @@ import com.steambeat.repositories.*;
 
 import java.util.*;
 
-public class RelationBinder {
+public class AlchemyRelationBinder {
 
     @Inject
-    public RelationBinder(final SessionProvider sessionProvider, final RelationBuilder relationBuilder) {
+    public AlchemyRelationBinder(final SessionProvider sessionProvider, final RelationBuilder relationBuilder) {
         this.sessionProvider = sessionProvider;
         this.relationBuilder = relationBuilder;
         DomainEventBus.INSTANCE.register(this);

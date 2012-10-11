@@ -20,7 +20,7 @@ public class ConceptReferenceManager extends ReferenceManager {
     public void handle(final ConceptTranslatedEvent event) {
         sessionProvider.start();
         final List<Reference> allReferences = getAllReferences(event);
-        final Reference reference = getOldestReference(event, allReferences);
+        final Reference reference = getOldestReference(allReferences);
         setInactiveReferences(reference, allReferences);
         postConceptReferencesChangedEvent(reference, allReferences);
         sessionProvider.stop();

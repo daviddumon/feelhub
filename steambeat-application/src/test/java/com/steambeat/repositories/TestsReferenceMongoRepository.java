@@ -46,6 +46,7 @@ public class TestsReferenceMongoRepository extends TestWithMongoRepository {
         final DBObject reference = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         reference.put("_id", id);
+        reference.put("active", true);
         collection.insert(reference);
 
         final Reference referenceFound = (Reference) repo.get(id);
@@ -84,6 +85,33 @@ public class TestsReferenceMongoRepository extends TestWithMongoRepository {
         assertThat(referenceFound.get("lastModificationDate"), is((Object) reference.getLastModificationDate().getMillis()));
         assertThat(referenceFound.get("active"), is((Object) false));
         assertThat(referenceFound.get("currentReferenceId"), is((Object) newId));
+    }
+
+    @Test
+    public void getAutomaticallyReturnTheNewReference() {
+        final DBCollection collection = mongo.getCollection("reference");
+        final DBObject firstReference = new BasicDBObject();
+        final UUID firstId = UUID.randomUUID();
+        firstReference.put("_id", firstId);
+        firstReference.put("active", true);
+        collection.insert(firstReference);
+        final DBObject secondReference = new BasicDBObject();
+        final UUID secondId = UUID.randomUUID();
+        secondReference.put("_id", secondId);
+        secondReference.put("active", false);
+        secondReference.put("currentReferenceId", firstId);
+        collection.insert(secondReference);
+        final DBObject thirdReference = new BasicDBObject();
+        final UUID thirdId = UUID.randomUUID();
+        thirdReference.put("_id", thirdId);
+        thirdReference.put("active", false);
+        thirdReference.put("currentReferenceId", secondId);
+        collection.insert(thirdReference);
+
+        final Reference referenceFound = (Reference) repo.get(thirdId);
+
+        assertThat(referenceFound, notNullValue());
+        assertThat(referenceFound.getId(), is(firstId));
     }
 
     private Repository<Reference> repo;

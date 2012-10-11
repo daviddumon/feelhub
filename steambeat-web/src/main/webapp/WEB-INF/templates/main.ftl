@@ -81,7 +81,7 @@
         </div>
 
         <div class="box">
-            <#if authentificated?has_content>
+            <#--<#if authentificated?has_content>-->
                         <form id="form" method="post" action="" autocomplete="off" class="box">
                         <#--<p id="form_language">english</p>-->
                         <#--<a id="form_close" href="">close</a>-->
@@ -94,15 +94,15 @@
                             <input type="button" id="form_button_bad" value="bad"/>
                             <input type="button" id="form_button_neutral" value="neutral"/>
                         </form>
-                    <#else>
-                        <div id="login_help">
-                            <#if user?has_content>
-                                <p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
-                            <#else>
-                                <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
-                            </#if>
-                        </div>
-                    </#if>
+                    <#--<#else>-->
+                        <#--<div id="login_help">-->
+                            <#--<#if user?has_content>-->
+                                <#--<p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>-->
+                            <#--<#else>-->
+                                <#--<p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>-->
+                            <#--</#if>-->
+                        <#--</div>-->
+                    <#--</#if>-->
         </div>
 
         <div id="related" class="box" style="display: none;">

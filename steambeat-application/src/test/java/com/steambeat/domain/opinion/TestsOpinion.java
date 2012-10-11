@@ -63,20 +63,6 @@ public class TestsOpinion {
     }
 
     @Test
-    public void canSpreadOpinionEvent() {
-        final SimpleOpinionListener opinionEventListener = mock(SimpleOpinionListener.class);
-        DomainEventBus.INSTANCE.register(opinionEventListener);
-
-        final Opinion opinion = new Opinion("my opinion");
-
-        final ArgumentCaptor<OpinionCreatedEvent> captor = ArgumentCaptor.forClass(OpinionCreatedEvent.class);
-        verify(opinionEventListener).handle(captor.capture());
-        assertThat(captor.getValue(), instanceOf(OpinionCreatedEvent.class));
-        final OpinionCreatedEvent event = captor.getValue();
-        assertThat(event.getOpinion(), is(opinion));
-    }
-
-    @Test
     public void setLastModificationDateOnJudgmentCreation() {
         final Opinion opinion = new Opinion("my opinion");
         final Reference reference = TestFactories.references().newReference();
@@ -94,13 +80,4 @@ public class TestsOpinion {
 
         }
     }
-
-    private class SimpleOpinionListener {
-
-        @Subscribe
-        public void handle(final OpinionCreatedEvent opinionCreatedEvent) {
-
-        }
-    }
-
 }
