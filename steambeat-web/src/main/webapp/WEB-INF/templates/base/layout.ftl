@@ -113,9 +113,17 @@
 <#macro body>
 <body>
 <header>
-    <div>
-        <div>
+    <div id="header_wrapper">
+        <div id="home_link">
             <a href="${root}">steambeat</a>
+        </div>
+
+        <div id="login_help">
+            <#if user?has_content>
+                <p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
+            <#else>
+                <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
+            </#if>
         </div>
     </div>
 </header>

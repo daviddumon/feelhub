@@ -1,6 +1,7 @@
 package com.steambeat.application;
 
 import com.steambeat.domain.session.EmailAlreadyUsed;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.user.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
@@ -38,7 +39,7 @@ public class TestsUserService {
         final User user = Repositories.users().getAll().get(0);
         assertThat(user.getFullname(), is(fullname));
         assertThat(user.getEmail(), is(email));
-        assertThat(user.getLanguage(), is(language));
+        assertThat(user.getLanguageCode(), is(SteambeatLanguage.forString(language).getCode()));
         assertTrue(user.checkPassword(password));
     }
 

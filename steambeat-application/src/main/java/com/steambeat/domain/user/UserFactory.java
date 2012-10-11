@@ -1,6 +1,7 @@
 package com.steambeat.domain.user;
 
 import com.steambeat.domain.eventbus.DomainEventBus;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 
 public class UserFactory {
 
@@ -9,7 +10,7 @@ public class UserFactory {
         user.setEmail(email);
         user.setPassword(password);
         user.setFullname(fullname);
-        user.setLanguage(language);
+        user.setLanguageCode(SteambeatLanguage.forString(language).getCode());
         DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
         return user;
     }

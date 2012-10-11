@@ -4,11 +4,43 @@
 @import "import/mixins.less";
 
 body {
+
     #form {
+        max-width: 320px;
+        margin: 0px auto;
+        text-align: center;
 
         textarea {
-            width: 600px;
-            height: 50px;
+            width: 280px;
+            height: 30px;
+            border: none;
+            resize: none;
+            background-color: @white !important;
+            padding-top: 12px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        button[type=submit] {
+            .rounded();
+            cursor: pointer;
+
+            img {
+                border: none;
+                width: 30px;
+            }
+        }
+
+        #form_button_good {
+            background-color: @good !important;
+        }
+
+        #form_button_bad {
+            background-color: @bad !important;
+        }
+
+        #form_button_neutral {
+            background-color: @neutral !important;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.steambeat.domain.user;
 
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
@@ -90,13 +91,14 @@ public class TestsUser {
     }
 
     @Test
-    public void canSetLanguage() {
+    public void canSetLanguageCode() {
         final User user = new User();
         final String language = "English";
+        final String languageCode = SteambeatLanguage.forString(language).getCode();
 
-        user.setLanguage(language);
+        user.setLanguageCode(languageCode);
 
-        assertThat(user.getLanguage(), is(language));
+        assertThat(user.getLanguageCode(), is(languageCode));
     }
 
     @Test

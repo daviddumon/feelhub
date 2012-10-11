@@ -39,7 +39,7 @@ public class User extends BaseEntity {
         stringBuilder.append(" - ");
         stringBuilder.append(fullname);
         stringBuilder.append(" - ");
-        stringBuilder.append(language);
+        stringBuilder.append(languageCode);
         stringBuilder.append("]");
         return stringBuilder.toString();
     }
@@ -64,12 +64,12 @@ public class User extends BaseEntity {
         return fullname;
     }
 
-    public void setLanguage(final String language) {
-        this.language = language;
+    public void setLanguageCode(final String languageCode) {
+        this.languageCode = languageCode;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getLanguageCode() {
+        return languageCode;
     }
 
     public boolean isActive() {
@@ -91,7 +91,7 @@ public class User extends BaseEntity {
     private String email;
     private String password;
     private String fullname;
-    private String language;
+    private String languageCode;
     private boolean active;
     private final String secret;
 }

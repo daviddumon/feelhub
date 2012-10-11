@@ -18,6 +18,11 @@
         var illustrationLink = "";
         </#if>
 
+        <#if user??>
+        var userLanguageCode = "${user.languageCode}";
+        console.log("userLanguageCode : " + userLanguageCode);
+        </#if>
+
     console.log("authentificated : " + authentificated);
     console.log("root : " + root);
     console.log("referenceId : " + referenceId);
@@ -80,7 +85,8 @@
             </div>
         </div>
 
-        <div class="box">
+        <div id="opinion_form" class="box">
+            <div class="box_title">My feeling about this</div>
             <#if authentificated?has_content>
                 <form id="form" method="post" action="" autocomplete="off" class="box">
                 <#--<p id="form_language">english</p>-->
@@ -90,18 +96,18 @@
                 <#--<div id="form_text_{{id}}" class="form_text" contentEditable="true"></div>-->
                 <#--</div>-->
                     <textarea></textarea>
-                    <input type="button" id="form_button_good" value="good"/>
-                    <input type="button" id="form_button_bad" value="bad"/>
-                    <input type="button" id="form_button_neutral" value="neutral"/>
+                    <button type="submit" id="form_button_good" name="good">
+                        <img src="${root}/static/images/smiley_good_white.png"/>
+                    </button>
+                    <button type="submit" id="form_button_neutral" name="neutral">
+                        <img src="${root}/static/images/smiley_neutral_white.png"/>
+                    </button>
+                    <button type="submit" id="form_button_bad" name="bad">
+                        <img src="${root}/static/images/smiley_bad_white.png"/>
+                    </button>
                 </form>
             <#else>
-                <div id="login_help">
-                    <#if user?has_content>
-                        <p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
-                    <#else>
-                        <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
-                    </#if>
-                </div>
+                <div>Want to give your opinion ? login or create account !</div>
             </#if>
         </div>
 

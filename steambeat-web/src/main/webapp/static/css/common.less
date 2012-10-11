@@ -23,11 +23,11 @@ body {
         background-color: @blue-1;
         border-bottom: 5px solid @white;
 
-        div {
+        #header_wrapper {
             width: 95%;
             margin: 0px auto;
 
-            div {
+            #home_link {
                 width: 38%;
                 float: left;
                 text-align: center;
@@ -41,6 +41,17 @@ body {
                     &:hover {
                         color: @blue-2 !important;
                     }
+                }
+            }
+
+            #login_help {
+                float: right;
+                width: 62%;
+                padding-top: 20px;
+
+                p {
+                    float: right;
+
                 }
             }
         }
