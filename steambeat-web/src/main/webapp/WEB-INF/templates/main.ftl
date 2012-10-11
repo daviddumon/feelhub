@@ -81,28 +81,28 @@
         </div>
 
         <div class="box">
-            <#--<#if authentificated?has_content>-->
-                        <form id="form" method="post" action="" autocomplete="off" class="box">
-                        <#--<p id="form_language">english</p>-->
-                        <#--<a id="form_close" href="">close</a>-->
-                        <#--<div id="form_block_{{id}}" class="form_block">-->
-                        <#--<div id="form_illustration_{{id}}" class="form_illustration"></div>-->
-                        <#--<div id="form_text_{{id}}" class="form_text" contentEditable="true"></div>-->
-                        <#--</div>-->
-                            <textarea></textarea>
-                            <input type="button" id="form_button_good" value="good"/>
-                            <input type="button" id="form_button_bad" value="bad"/>
-                            <input type="button" id="form_button_neutral" value="neutral"/>
-                        </form>
-                    <#--<#else>-->
-                        <#--<div id="login_help">-->
-                            <#--<#if user?has_content>-->
-                                <#--<p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>-->
-                            <#--<#else>-->
-                                <#--<p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>-->
-                            <#--</#if>-->
-                        <#--</div>-->
-                    <#--</#if>-->
+            <#if authentificated?has_content>
+                <form id="form" method="post" action="" autocomplete="off" class="box">
+                <#--<p id="form_language">english</p>-->
+                <#--<a id="form_close" href="">close</a>-->
+                <#--<div id="form_block_{{id}}" class="form_block">-->
+                <#--<div id="form_illustration_{{id}}" class="form_illustration"></div>-->
+                <#--<div id="form_text_{{id}}" class="form_text" contentEditable="true"></div>-->
+                <#--</div>-->
+                    <textarea></textarea>
+                    <input type="button" id="form_button_good" value="good"/>
+                    <input type="button" id="form_button_bad" value="bad"/>
+                    <input type="button" id="form_button_neutral" value="neutral"/>
+                </form>
+            <#else>
+                <div id="login_help">
+                    <#if user?has_content>
+                        <p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
+                    <#else>
+                        <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
+                    </#if>
+                </div>
+            </#if>
         </div>
 
         <div id="related" class="box" style="display: none;">
