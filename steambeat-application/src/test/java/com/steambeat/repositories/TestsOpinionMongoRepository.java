@@ -3,6 +3,7 @@ package com.steambeat.repositories;
 import com.mongodb.*;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.user.User;
 import com.steambeat.test.*;
 import org.junit.*;
 
@@ -19,7 +20,8 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
     @Test
     public void canPersist() {
         final Reference reference = TestFactories.references().newReference();
-        final Opinion opinion = new Opinion("yeah");
+        final User activeUser = TestFactories.users().createActiveUser("userforrepo@mail.com");
+        final Opinion opinion = new Opinion("yeah", activeUser);
         opinion.addJudgment(reference, Feeling.bad);
         opinion.setLanguageCode("en");
 
@@ -35,6 +37,7 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
         assertThat(opinionFound.get("languageCode").toString(), is(opinion.getLanguageCode()));
         assertThat(opinionFound.get("creationDate"), is((Object) opinion.getCreationDate().getMillis()));
         assertThat(opinionFound.get("lastModificationDate"), is((Object) opinion.getCreationDate().getMillis()));
+        assertThat(opinionFound.get("userId").toString(), is(activeUser.getId()));
     }
 
     @Test

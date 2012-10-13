@@ -2,9 +2,9 @@ package com.steambeat.web.resources.json;
 
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.user.User;
 import org.apache.http.auth.AuthenticationException;
 import org.json.*;
-import org.restlet.Request;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.*;
@@ -16,7 +16,7 @@ public class JsonCreateOpinionResource extends ServerResource {
     @Post
     public JsonRepresentation post(JsonRepresentation jsonRepresentation) {
         try {
-            checkCredentials(getRequest());
+            checkCredentials();
             final JSONObject jsonOpinion = jsonRepresentation.getJsonObject();
             final OpinionRequestEvent.Builder builder = getEventBuilderFrom(jsonOpinion);
             final OpinionRequestEvent event = builder.build();
@@ -33,14 +33,15 @@ public class JsonCreateOpinionResource extends ServerResource {
         return new JsonRepresentation(new JSONObject());
     }
 
-    private void checkCredentials(final Request request) throws AuthenticationException {
-        if (!request.getAttributes().containsKey("com.steambeat.authentificated") || request.getAttributes().get("com.steambeat.authentificated").equals(false)) {
+    private void checkCredentials() throws AuthenticationException {
+        if (!getRequest().getAttributes().containsKey("com.steambeat.authentificated") || getRequest().getAttributes().get("com.steambeat.authentificated").equals(false)) {
             throw new AuthenticationException();
         }
     }
 
-    private OpinionRequestEvent.Builder getEventBuilderFrom(final JSONObject jsonOpinion) throws JSONException {
+    private OpinionRequestEvent.Builder getEventBuilderFrom(final JSONObject jsonOpinion) throws JSONException, AuthenticationException {
         final OpinionRequestEvent.Builder builder = new OpinionRequestEvent.Builder();
+        builder.user(extractUser());
         builder.feeling(extractFeeling(jsonOpinion));
         builder.text(extractText(jsonOpinion));
         builder.keywordValue(extractKeywordValue(jsonOpinion));
@@ -68,6 +69,14 @@ public class JsonCreateOpinionResource extends ServerResource {
 
     private String extractUserLanguageCode(final JSONObject jsonOpinion) throws JSONException {
         return jsonOpinion.get("userLanguageCode").toString();
+    }
+
+    private User extractUser() throws AuthenticationException {
+        if (getRequest().getAttributes().containsKey("com.steambeat.user")) {
+            return (User) getRequest().getAttributes().get("com.steambeat.user");
+        } else {
+            throw new AuthenticationException();
+        }
     }
 
     private JSONObject getJsonResponse(final OpinionRequestEvent event) {

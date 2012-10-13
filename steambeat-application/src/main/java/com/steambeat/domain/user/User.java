@@ -27,7 +27,7 @@ public class User extends BaseEntity {
     }
 
     @Override
-    public Object getId() {
+    public String getId() {
         return email;
     }
 

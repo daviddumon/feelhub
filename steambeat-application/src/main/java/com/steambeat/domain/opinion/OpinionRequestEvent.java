@@ -2,6 +2,7 @@ package com.steambeat.domain.opinion;
 
 import com.steambeat.domain.eventbus.DomainEvent;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
+import com.steambeat.domain.user.User;
 
 public class OpinionRequestEvent extends DomainEvent {
 
@@ -41,12 +42,18 @@ public class OpinionRequestEvent extends DomainEvent {
             return this;
         }
 
+        public Builder user(final User user) {
+            this.userId = user.getId();
+            return this;
+        }
+
         private String text = "";
         private Feeling feeling = Feeling.none;
         private String userLanguageCode = SteambeatLanguage.none().getCode();
         private String languageCode = SteambeatLanguage.none().getCode();
         private String keywordValue = "";
         private String opinionId = "";
+        private String userId = "";
     }
 
     private OpinionRequestEvent(final Builder builder) {
@@ -56,6 +63,7 @@ public class OpinionRequestEvent extends DomainEvent {
         this.languageCode = builder.languageCode;
         this.keywordValue = builder.keywordValue;
         this.opinionId = builder.opinionId;
+        this.userId = builder.userId;
     }
 
     @Override
@@ -87,10 +95,15 @@ public class OpinionRequestEvent extends DomainEvent {
         return opinionId;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     private final String text;
     private final Feeling feeling;
     private String userLanguageCode;
     private String languageCode;
     private String keywordValue;
     private String opinionId;
+    private String userId;
 }

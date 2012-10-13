@@ -1,6 +1,7 @@
 package com.steambeat.domain.opinion;
 
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
 
@@ -15,21 +16,24 @@ public class OpinionTestFactory {
     }
 
     private Opinion newOpinion(final Reference reference, final String text) {
-        final Opinion opinion = new Opinion(text);
+        final User activeUser = TestFactories.users().createActiveUser("userforopinion@mail.com");
+        final Opinion opinion = new Opinion(text, activeUser);
         opinion.addJudgment(reference, Feeling.bad);
         Repositories.opinions().add(opinion);
         return opinion;
     }
 
     public Opinion newOpinion(final String text, final Judgment judgment) {
-        final Opinion opinion = new Opinion(text);
+        final User activeUser = TestFactories.users().createActiveUser("userforopinion@mail.com");
+        final Opinion opinion = new Opinion(text, activeUser);
         opinion.addJudgment(judgment);
         Repositories.opinions().add(opinion);
         return opinion;
     }
 
     public Opinion newOpinionWithoutJudgments() {
-        final Opinion opinion = new Opinion("opinion without judgement");
+        final User activeUser = TestFactories.users().createActiveUser("userforopinion@mail.com");
+        final Opinion opinion = new Opinion("opinion without judgement", activeUser);
         Repositories.opinions().add(opinion);
         return opinion;
     }

@@ -3,6 +3,7 @@ package com.steambeat.domain.opinion;
 import com.google.common.eventbus.Subscribe;
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.user.User;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.*;
 import org.junit.*;
@@ -23,18 +24,23 @@ public class TestsOpinion {
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
 
+    @Before
+    public void before() {
+        activeUser = TestFactories.users().createActiveUser("mail@mail.com");
+    }
+
     @Test
-    public void canCreateWithText() {
-        final String text = "my opinion";
+    public void canCreateWithTextAndUser() {
+        final Opinion opinion = new Opinion("salut", activeUser);
 
-        final Opinion opinion = new Opinion(text);
-
-        assertThat(opinion.getText(), is(text));
+        assertThat(opinion.getText(), is("salut"));
+        assertThat(opinion.getUserId(), is(activeUser.getId()));
+        assertThat(opinion.getId(), notNullValue());
     }
 
     @Test
     public void canAddJudgementsToOpinion() {
-        final Opinion opinion = new Opinion("my opinion");
+        final Opinion opinion = new Opinion("my opinion", activeUser);
         final Reference reference = TestFactories.references().newReference();
 
         opinion.addJudgment(reference, Feeling.good);
@@ -48,7 +54,7 @@ public class TestsOpinion {
 
     @Test
     public void canSpreadJudgmentEvents() {
-        final Opinion opinion = new Opinion("my opinion");
+        final Opinion opinion = new Opinion("my opinion", activeUser);
         final Reference reference = TestFactories.references().newReference();
         final SimpleJudgmentListener judgmentEventListener = mock(SimpleJudgmentListener.class);
         DomainEventBus.INSTANCE.register(judgmentEventListener);
@@ -64,7 +70,7 @@ public class TestsOpinion {
 
     @Test
     public void setLastModificationDateOnJudgmentCreation() {
-        final Opinion opinion = new Opinion("my opinion");
+        final Opinion opinion = new Opinion("my opinion", activeUser);
         final Reference reference = TestFactories.references().newReference();
         time.waitDays(1);
 
@@ -75,7 +81,7 @@ public class TestsOpinion {
 
     @Test
     public void hasALanguage() {
-        final Opinion opinion = new Opinion("salut");
+        final Opinion opinion = new Opinion("salut", activeUser);
 
         opinion.setLanguageCode("en");
 
@@ -89,4 +95,6 @@ public class TestsOpinion {
 
         }
     }
+
+    private User activeUser;
 }
