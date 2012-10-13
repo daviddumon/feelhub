@@ -1,6 +1,5 @@
 package com.steambeat.domain.illustration;
 
-import com.steambeat.domain.bingsearch.FakeBingLink;
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.reference.*;
@@ -24,22 +23,7 @@ public class TestsConceptIllustrationManager {
 
     @Before
     public void before() {
-        new ConceptIllustrationManager(new FakeBingLink(), new FakeSessionProvider());
-    }
-
-    @Test
-    public void canCreateIllustration() {
-        final Keyword first = TestFactories.keywords().newKeyword();
-        final Keyword second = TestFactories.keywords().newKeyword();
-        final ConceptReferencesChangedEvent eventConcept = TestFactories.events().newConceptReferencesChangedEvent(first.getReferenceId());
-        eventConcept.addReferenceToChange(second.getReferenceId());
-
-        DomainEventBus.INSTANCE.post(eventConcept);
-
-        final List<Illustration> illustrations = Repositories.illustrations().getAll();
-        assertThat(illustrations.size(), is(1));
-        assertThat(illustrations.get(0).getReferenceId(), is(eventConcept.getNewReferenceId()));
-        assertThat(illustrations.get(0).getLink(), is(first.getValue() + "link"));
+        new ConceptIllustrationManager(new FakeSessionProvider());
     }
 
     @Test
@@ -85,5 +69,17 @@ public class TestsConceptIllustrationManager {
         assertThat(illustrations.size(), is(1));
         final Illustration foundIllustration = illustrations.get(0);
         assertThat(foundIllustration, is(illustration));
+    }
+
+    @Test
+    public void canCreateIllustration() {
+        bus.capture(ConceptIllustrationRequestEvent.class);
+        final Keyword first = TestFactories.keywords().newKeyword();
+        final ConceptReferencesChangedEvent eventConcept = TestFactories.events().newConceptReferencesChangedEvent(first.getReferenceId());
+
+        DomainEventBus.INSTANCE.post(eventConcept);
+
+        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = bus.lastEvent(ConceptIllustrationRequestEvent.class);
+        assertThat(conceptIllustrationRequestEvent, notNullValue());
     }
 }

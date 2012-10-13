@@ -51,7 +51,7 @@ public abstract class IllustrationManager {
             }
         }
     }
-
+    //todo supprimer
     protected Keyword getKeywordFor(final ReferencesChangedEvent event) {
         final List<Keyword> keywords = Repositories.keywords().forReferenceId(event.getNewReferenceId());
         if (keywords != null) {
