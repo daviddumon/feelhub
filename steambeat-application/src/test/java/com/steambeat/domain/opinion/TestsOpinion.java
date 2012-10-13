@@ -26,7 +26,7 @@ public class TestsOpinion {
 
     @Before
     public void before() {
-        activeUser = TestFactories.users().createActiveUser("mail@mail.com");
+        activeUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
     }
 
     @Test

@@ -43,7 +43,7 @@ public class TestsSignupResource {
     public void returnErrorOnKnownEmail() {
         final ClientResource signup = restlet.newClientResource("/signup");
         final String email = "mail@mail.com";
-        TestFactories.users().createUser(email);
+        TestFactories.users().createFakeUser(email);
         final Form parameters = new Form();
         parameters.add("email", email);
         parameters.add("password", "password");

@@ -31,7 +31,7 @@ public class TestsMailBuilder {
 
     @Test
     public void canSendAnEmail() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com");
 
         final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
 
@@ -40,7 +40,7 @@ public class TestsMailBuilder {
 
     @Test
     public void emailAsARecipient() throws MessagingException {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com");
 
         final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
 
@@ -49,7 +49,7 @@ public class TestsMailBuilder {
 
     @Test
     public void activationEmailAsAFromAddress() throws MessagingException {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com");
 
         final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
 
@@ -58,7 +58,7 @@ public class TestsMailBuilder {
 
     @Test
     public void activationEmailAsASubject() throws MessagingException {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com");
 
         final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
 
@@ -67,7 +67,7 @@ public class TestsMailBuilder {
 
     @Test
     public void activationEmailAsABody() throws IOException, MessagingException {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com");
 
         final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
 

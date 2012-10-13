@@ -28,7 +28,7 @@ public class TestsIdentityFilter {
     @Before
     public void before() {
         request = new Request();
-        user = TestFactories.users().createUser("mail@mail.com", "full name");
+        user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         final SessionService sessionService = new SessionService();
         session = sessionService.createSession(user, new DateTime().plusHours(1));
         identityFilter = new IdentityFilter(new UserService(new UserFactory()), new SessionService());

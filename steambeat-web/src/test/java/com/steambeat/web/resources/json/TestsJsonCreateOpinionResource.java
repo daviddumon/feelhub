@@ -39,7 +39,7 @@ public class TestsJsonCreateOpinionResource {
     @Before
     public void before() {
         final SessionService sessionService = new SessionService();
-        user = TestFactories.users().createUser("mail@mail.com", "full name");
+        user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         final Session session = sessionService.createSession(user, new DateTime().plusHours(1));
         final org.restlet.data.Cookie cookie = new org.restlet.data.Cookie(1, "id", "mail@mail.com");
         final org.restlet.data.Cookie sessionCookie = new org.restlet.data.Cookie(1, "session", session.getToken().toString());

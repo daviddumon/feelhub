@@ -50,7 +50,7 @@ public class TestsUserService {
         final String password = "password";
         final String fullname = "David John";
         final String language = "English";
-        TestFactories.users().createUser(email);
+        TestFactories.users().createFakeUser(email);
 
         userService.createUser(email, password, fullname, language);
     }
@@ -62,7 +62,7 @@ public class TestsUserService {
         final String password = "password";
         final String fullname = "David John";
         final String language = "English";
-        TestFactories.users().createUser("mail@mail.com");
+        TestFactories.users().createFakeUser("mail@mail.com");
 
         userService.createUser(email, password, fullname, language);
     }
@@ -70,7 +70,7 @@ public class TestsUserService {
     @Test
     public void cannotAuthenticateIfAccountIsNotActive() {
         exception.expect(BadUserException.class);
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com");
 
         userService.authentificate("mail@mail.com", "password");
     }

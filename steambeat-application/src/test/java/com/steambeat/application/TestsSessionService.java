@@ -23,7 +23,7 @@ public class TestsSessionService {
     @Before
     public void before() {
         sessionService = new SessionService();
-        user = TestFactories.users().createActiveUser("mail@mail.com");
+        user = TestFactories.users().createFakeActiveUser("mail@mail.com");
     }
 
     @Test
@@ -69,7 +69,7 @@ public class TestsSessionService {
 
     @Test
     public void mustHaveAGoodSessionForUser() {
-        final User otherUser = TestFactories.users().createActiveUser("othermail@mail.com");
+        final User otherUser = TestFactories.users().createFakeActiveUser("othermail@mail.com");
         final Session session = TestFactories.sessions().createSessionFor(otherUser);
 
         final boolean result = sessionService.authentificate(user, session.getToken());

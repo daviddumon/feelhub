@@ -89,7 +89,7 @@ public class User extends BaseEntity {
     }
 
     private String email;
-    private String password;
+    protected String password;
     private String fullname;
     private String languageCode;
     private boolean active;

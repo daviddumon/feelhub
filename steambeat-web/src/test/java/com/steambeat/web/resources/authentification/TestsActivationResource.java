@@ -21,7 +21,7 @@ public class TestsActivationResource {
 
     @Test
     public void canActivateAnUser() {
-        final User user = TestFactories.users().createUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com");
         final ClientResource activation = restlet.newClientResource("/activation/" + user.getSecret());
 
         activation.get();

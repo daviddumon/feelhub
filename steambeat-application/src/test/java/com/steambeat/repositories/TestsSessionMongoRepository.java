@@ -61,7 +61,7 @@ public class TestsSessionMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetForAUser() {
-        final User user = TestFactories.users().createActiveUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
         TestFactories.sessions().createSessionFor(user);
         TestFactories.sessions().createSessionFor(user);
         TestFactories.sessions().createSessionFor(user);
