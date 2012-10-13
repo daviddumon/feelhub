@@ -76,6 +76,7 @@ public class JsonCreateOpinionResource extends ServerResource {
             return (User) getRequest().getAttributes().get("com.steambeat.user");
         } else {
             throw new AuthenticationException();
+
         }
     }
 
