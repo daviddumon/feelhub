@@ -61,10 +61,10 @@ public class TestsOpinion {
 
         opinion.addJudgment(reference, Feeling.good);
 
-        final ArgumentCaptor<JudgmentCreatedEvent> captor = ArgumentCaptor.forClass(JudgmentCreatedEvent.class);
+        final ArgumentCaptor<JudgmentStatisticsEvent> captor = ArgumentCaptor.forClass(JudgmentStatisticsEvent.class);
         verify(judgmentEventListener, times(1)).handle(captor.capture());
-        assertThat(captor.getValue(), instanceOf(JudgmentCreatedEvent.class));
-        final JudgmentCreatedEvent event = captor.getAllValues().get(0);
+        assertThat(captor.getValue(), instanceOf(JudgmentStatisticsEvent.class));
+        final JudgmentStatisticsEvent event = captor.getAllValues().get(0);
         assertThat(event.getJudgment(), is(opinion.getJudgments().get(0)));
     }
 
@@ -91,7 +91,7 @@ public class TestsOpinion {
     private class SimpleJudgmentListener {
 
         @Subscribe
-        public void handle(final JudgmentCreatedEvent judgmentCreatedEvent) {
+        public void handle(final JudgmentStatisticsEvent judgmentStatisticsEvent) {
 
         }
     }

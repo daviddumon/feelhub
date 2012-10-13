@@ -7,7 +7,7 @@ import org.junit.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsJudgmentPostedEvent {
+public class TestsJudgmentStatisticsEvent {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -19,10 +19,10 @@ public class TestsJudgmentPostedEvent {
     public void canPostAJudgmentEvent() {
         final Judgment judgment = TestFactories.judgments().newJudgment();
 
-        final JudgmentCreatedEvent judgmentCreatedEvent = new JudgmentCreatedEvent(judgment);
+        final JudgmentStatisticsEvent judgmentStatisticsEvent = new JudgmentStatisticsEvent(judgment);
 
-        assertThat(judgmentCreatedEvent.getDate(), notNullValue());
-        assertThat(judgmentCreatedEvent.getDate(), is(time.getNow()));
-        assertThat(judgmentCreatedEvent.getJudgment(), is(judgment));
+        assertThat(judgmentStatisticsEvent.getDate(), notNullValue());
+        assertThat(judgmentStatisticsEvent.getDate(), is(time.getNow()));
+        assertThat(judgmentStatisticsEvent.getJudgment(), is(judgment));
     }
 }

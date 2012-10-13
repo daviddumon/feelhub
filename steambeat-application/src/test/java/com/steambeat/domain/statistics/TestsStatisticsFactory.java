@@ -29,7 +29,7 @@ public class TestsStatisticsFactory {
 
     @Test
     public void canRecordGoodJudgment() {
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
 
         statisticsFactory.handle(event);
 
@@ -38,7 +38,7 @@ public class TestsStatisticsFactory {
 
     @Test
     public void canRecordBadJudgment() {
-        final JudgmentCreatedEvent event = getBadJudgmentEvent();
+        final JudgmentStatisticsEvent event = getBadJudgmentEvent();
 
         statisticsFactory.handle(event);
 
@@ -47,7 +47,7 @@ public class TestsStatisticsFactory {
 
     @Test
     public void canCreateFromEvent() {
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
 
         statisticsFactory.handle(event);
 
@@ -56,7 +56,7 @@ public class TestsStatisticsFactory {
 
     @Test
     public void canRecordForHour() {
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
 
         time.waitDays(1);
 
@@ -70,7 +70,7 @@ public class TestsStatisticsFactory {
 
     @Test
     public void canRecordForDay() {
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
 
         statisticsFactory.handle(event);
 
@@ -81,7 +81,7 @@ public class TestsStatisticsFactory {
 
     @Test
     public void canRecordForMonth() {
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
 
         statisticsFactory.handle(event);
 
@@ -92,7 +92,7 @@ public class TestsStatisticsFactory {
 
     @Test
     public void canRecordForYear() {
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
 
         statisticsFactory.handle(event);
 
@@ -103,7 +103,7 @@ public class TestsStatisticsFactory {
 
     @Test
     public void canRecord2OpinionsForYear() {
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
         DomainEventBus.INSTANCE.post(event);
 
         statisticsFactory.handle(event);
@@ -117,7 +117,7 @@ public class TestsStatisticsFactory {
     @Test
     public void canRecordOpinionForLastYear() {
         time.set(time.getNow().minusYears(3));
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
 
         time.set(time.getNow().plusYears(3));
         statisticsFactory.handle(event);
@@ -130,9 +130,9 @@ public class TestsStatisticsFactory {
     @Test
     public void canRecordOpinionsForLastMonth() {
         time.set(time.getNow().minusMonths(3));
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusMonths(5));
-        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentStatisticsEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
 
         time.set(time.getNow().plusMonths(8));
         statisticsFactory.handle(event);
@@ -144,9 +144,9 @@ public class TestsStatisticsFactory {
     @Test
     public void canRecordOpinionsForLastDay() {
         time.set(time.getNow().minusDays(3));
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusDays(5));
-        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentStatisticsEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
 
         time.set(time.getNow().plusDays(8));
         statisticsFactory.handle(event);
@@ -158,9 +158,9 @@ public class TestsStatisticsFactory {
     @Test
     public void canRecordOpinionsForLastHour() {
         time.set(time.getNow().minusHours(3));
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentStatisticsEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
 
         time.set(time.getNow().plusHours(8));
         statisticsFactory.handle(event);
@@ -172,9 +172,9 @@ public class TestsStatisticsFactory {
     @Test
     public void canFetchStatisticsWithGranularityAllForSubject() {
         time.set(time.getNow().minusHours(3));
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsFactory.handle(new JudgmentCreatedEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
+        statisticsFactory.handle(new JudgmentStatisticsEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
 
         time.set(time.getNow().plusHours(8));
         statisticsFactory.handle(event);
@@ -187,20 +187,20 @@ public class TestsStatisticsFactory {
     @Test
     @Ignore
     public void recordStatisticsForSteam() {
-        final JudgmentCreatedEvent event = getGoodJudgmentEvent();
+        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
 
         statisticsFactory.handle(event);
 
         //assertThat(getStatisticsRepository().forReferenceId(Repositories.references().getSteam()).getGood(), is(1));
     }
 
-    private JudgmentCreatedEvent getGoodJudgmentEvent() {
-        final JudgmentCreatedEvent event = new JudgmentCreatedEvent(TestFactories.judgments().newGoodJudgment());
+    private JudgmentStatisticsEvent getGoodJudgmentEvent() {
+        final JudgmentStatisticsEvent event = new JudgmentStatisticsEvent(TestFactories.judgments().newGoodJudgment());
         return event;
     }
 
-    private JudgmentCreatedEvent getBadJudgmentEvent() {
-        final JudgmentCreatedEvent event = new JudgmentCreatedEvent(TestFactories.judgments().newBadJudgment());
+    private JudgmentStatisticsEvent getBadJudgmentEvent() {
+        final JudgmentStatisticsEvent event = new JudgmentStatisticsEvent(TestFactories.judgments().newBadJudgment());
         return event;
     }
 

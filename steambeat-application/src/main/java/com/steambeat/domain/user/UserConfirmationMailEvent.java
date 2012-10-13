@@ -2,9 +2,9 @@ package com.steambeat.domain.user;
 
 import com.steambeat.domain.eventbus.DomainEvent;
 
-public class UserCreatedEvent extends DomainEvent {
+public class UserConfirmationMailEvent extends DomainEvent {
 
-    public UserCreatedEvent(final User user) {
+    public UserConfirmationMailEvent(final User user) {
         super();
         this.user = user;
     }

@@ -24,7 +24,7 @@ public class MailBuilder {
 
     @Subscribe
     @AllowConcurrentEvents
-    public void handle(final UserCreatedEvent event) {
+    public void handle(final UserConfirmationMailEvent event) {
         sendValidationTo(event.getUser());
     }
 

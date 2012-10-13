@@ -11,7 +11,7 @@ public class UserFactory {
         user.setPassword(password);
         user.setFullname(fullname);
         user.setLanguageCode(SteambeatLanguage.forString(language).getCode());
-        DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
+        DomainEventBus.INSTANCE.post(new UserConfirmationMailEvent(user));
         return user;
     }
 }

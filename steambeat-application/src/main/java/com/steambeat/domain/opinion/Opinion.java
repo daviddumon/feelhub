@@ -24,13 +24,13 @@ public class Opinion extends BaseEntity {
         final Judgment judgment = new Judgment(reference.getId(), feeling);
         judgments.add(judgment);
         reference.setLastModificationDate(new DateTime());
-        DomainEventBus.INSTANCE.post(new JudgmentCreatedEvent(judgment));
+        DomainEventBus.INSTANCE.post(new JudgmentStatisticsEvent(judgment));
     }
 
     public void addJudgment(final Judgment judgment) {
         judgments.add(judgment);
         //judgment.getReference().setLastModificationDate(new DateTime());
-        DomainEventBus.INSTANCE.post(new JudgmentCreatedEvent(judgment));
+        DomainEventBus.INSTANCE.post(new JudgmentStatisticsEvent(judgment));
     }
 
     public UUID getId() {
