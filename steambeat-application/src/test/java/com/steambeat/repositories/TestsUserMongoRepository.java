@@ -31,7 +31,7 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
 
         final DBObject userFound = getUserFromDB();
         assertThat(userFound, notNullValue());
-        assertThat(userFound.get("_id"), is(user.getId()));
+        assertThat(userFound.get("_id").toString(), is(user.getId()));
         assertThat(userFound.get("_id"), is((Object) user.getEmail()));
         assertThat(userFound.get("password"), is((Object) user.getPassword()));
         assertThat(userFound.get("fullname"), is((Object) user.getFullname()));
