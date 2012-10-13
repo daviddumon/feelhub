@@ -72,7 +72,7 @@ public class TestsConceptIllustrationManager {
     }
 
     @Test
-    public void canCreateIllustration() {
+    public void canRequestIllustration() {
         bus.capture(ConceptIllustrationRequestEvent.class);
         final Keyword first = TestFactories.keywords().newKeyword();
         final ConceptReferencesChangedEvent eventConcept = TestFactories.events().newConceptReferencesChangedEvent(first.getReferenceId());

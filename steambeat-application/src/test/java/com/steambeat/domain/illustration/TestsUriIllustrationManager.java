@@ -3,7 +3,6 @@ package com.steambeat.domain.illustration;
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.reference.*;
-import com.steambeat.domain.scraper.FakeScraper;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
@@ -24,22 +23,7 @@ public class TestsUriIllustrationManager {
 
     @Before
     public void before() {
-        new UriIllustrationManager(new FakeSessionProvider(), new FakeScraper());
-    }
-
-    @Test
-    public void canCreateIllustration() {
-        final Keyword first = TestFactories.keywords().newKeyword();
-        final Keyword second = TestFactories.keywords().newKeyword();
-        final UriReferencesChangedEvent event = TestFactories.events().newUriReferencesChangedEvent(first.getReferenceId());
-        event.addReferenceToChange(second.getReferenceId());
-
-        DomainEventBus.INSTANCE.post(event);
-
-        final List<Illustration> illustrations = Repositories.illustrations().getAll();
-        assertThat(illustrations.size(), is(1));
-        assertThat(illustrations.get(0).getReferenceId(), is(event.getNewReferenceId()));
-        assertThat(illustrations.get(0).getLink(), is("fakeillustration"));
+        new UriIllustrationManager(new FakeSessionProvider());
     }
 
     @Test
@@ -85,5 +69,17 @@ public class TestsUriIllustrationManager {
         assertThat(illustrations.size(), is(1));
         final Illustration foundIllustration = illustrations.get(0);
         assertThat(foundIllustration, is(illustration));
+    }
+
+    @Test
+    public void canRequestIllustration() {
+        bus.capture(UriIllustrationRequestEvent.class);
+        final Keyword keyword = TestFactories.keywords().newKeyword();
+        final UriReferencesChangedEvent uriReferencesChangedEvent = TestFactories.events().newUriReferencesChangedEvent(keyword.getReferenceId());
+
+        DomainEventBus.INSTANCE.post(uriReferencesChangedEvent);
+
+        final UriIllustrationRequestEvent uriIllustrationRequestEvent = bus.lastEvent(UriIllustrationRequestEvent.class);
+        assertThat(uriIllustrationRequestEvent, notNullValue());
     }
 }

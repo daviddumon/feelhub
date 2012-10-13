@@ -1,8 +1,6 @@
 package com.steambeat.domain.illustration;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.DomainException;
-import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.reference.ReferencesChangedEvent;
 import com.steambeat.repositories.Repositories;
 
@@ -49,15 +47,6 @@ public abstract class IllustrationManager {
             for (int i = 1; i < illustrations.size(); i++) {
                 Repositories.illustrations().delete(illustrations.get(i));
             }
-        }
-    }
-    //todo supprimer
-    protected Keyword getKeywordFor(final ReferencesChangedEvent event) {
-        final List<Keyword> keywords = Repositories.keywords().forReferenceId(event.getNewReferenceId());
-        if (keywords != null) {
-            return keywords.get(0);
-        } else {
-            throw new DomainException("the fuck just happens ????");
         }
     }
 }

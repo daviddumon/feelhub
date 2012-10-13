@@ -23,9 +23,6 @@ public class GuiceProductionModule extends AbstractModule {
         bind(ConceptTranslator.class).asEagerSingleton();
         bind(ConceptReferenceManager.class).asEagerSingleton();
         bind(ConceptIllustrationManager.class).asEagerSingleton();
-        bind(DeadEventCatcher.class).asEagerSingleton();
-        bind(MailBuilder.class).asEagerSingleton();
-        bind(StatisticsFactory.class).asEagerSingleton();
         bind(KeywordManager.class).asEagerSingleton();
         bind(OpinionManager.class).asEagerSingleton();
         bind(RelationManager.class).asEagerSingleton();
@@ -38,6 +35,12 @@ public class GuiceProductionModule extends AbstractModule {
         bind(ConceptGroupReferenceManager.class).asEagerSingleton();
         bind(AlchemyRelationBinder.class).asEagerSingleton();
         bind(OpinionRelationBinder.class).asEagerSingleton();
+
+        bind(MailBuilder.class).asEagerSingleton();
+        bind(DeadEventCatcher.class).asEagerSingleton();
+        bind(UriIllustrationFactory.class).asEagerSingleton();
+        bind(ConceptIllustrationFactory.class).asEagerSingleton();
+        bind(StatisticsFactory.class).asEagerSingleton();
     }
 
     @Provides
