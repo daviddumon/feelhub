@@ -1,9 +1,9 @@
 package com.steambeat.domain.opinion;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.eventbus.*;
-import com.steambeat.domain.reference.*;
-import com.steambeat.repositories.fakeRepositories.*;
+import com.steambeat.domain.eventbus.WithDomainEvent;
+import com.steambeat.domain.reference.Reference;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
@@ -22,7 +22,7 @@ public class TestsOpinionManager {
 
     @Before
     public void before() {
-        new OpinionManager(new FakeSessionProvider());
+        opinionManager = new OpinionManager();
     }
 
     @Test
@@ -35,10 +35,8 @@ public class TestsOpinionManager {
         op2.addJudgment(ref1, Feeling.good);
         op1.addJudgment(ref2, Feeling.bad);
         op2.addJudgment(ref2, Feeling.bad);
-        final ConceptReferencesChangedEvent event = TestFactories.events().newConceptReferencesChangedEvent(ref1.getId());
-        event.addReferenceToChange(ref2.getId());
 
-        DomainEventBus.INSTANCE.post(event);
+        opinionManager.migrate(ref1.getId(), Lists.newArrayList(ref2.getId()));
 
         final List<Judgment> judgments = Lists.newArrayList();
         judgments.addAll(op1.getJudgments());
@@ -47,4 +45,6 @@ public class TestsOpinionManager {
             assertThat(judgment.getReferenceId(), is(ref1.getId()));
         }
     }
+
+    private OpinionManager opinionManager;
 }

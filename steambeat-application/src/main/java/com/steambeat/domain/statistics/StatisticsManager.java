@@ -1,34 +1,21 @@
 package com.steambeat.domain.statistics;
 
-import com.google.common.eventbus.Subscribe;
-import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.reference.ReferencesChangedEvent;
-import com.steambeat.repositories.*;
+import com.steambeat.repositories.Repositories;
 
-import javax.inject.Inject;
 import java.util.*;
 
 public class StatisticsManager {
 
-    @Inject
-    public StatisticsManager(final SessionProvider sessionProvider) {
-        this.sessionProvider = sessionProvider;
-        DomainEventBus.INSTANCE.register(this);
-    }
+    public void migrate(final UUID referenceId, final List<UUID> oldReferenceIds) {
+        //for (final UUID referenceId : event.getReferenceIds()) {
+        //    final List<Statistics> statistics = Repositories.statistics().forReferenceId(referenceId);
+        //    if (!statistics.isEmpty()) {
+        //        for (final Statistics stat : statistics) {
+        //            stat.setReferenceId(event.getNewReferenceId());
+        //        }
+        //    }
+        //}
 
-    @Subscribe
-    public void handle(final ReferencesChangedEvent event) {
-        sessionProvider.start();
-        for (final UUID referenceId : event.getReferenceIds()) {
-            final List<Statistics> statistics = Repositories.statistics().forReferenceId(referenceId);
-            if (!statistics.isEmpty()) {
-                for (final Statistics stat : statistics) {
-                    stat.setReferenceId(event.getNewReferenceId());
-                }
-            }
-        }
-        sessionProvider.stop();
+        //todo : une stat migrée doit etre fondue dans les existantes
     }
-
-    private final SessionProvider sessionProvider;
 }

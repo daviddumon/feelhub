@@ -1,16 +1,30 @@
 package com.steambeat.domain.illustration;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.reference.ReferencesChangedEvent;
 import com.steambeat.repositories.Repositories;
 
 import java.util.*;
 
-public abstract class IllustrationManager {
+public class IllustrationManager {
 
-    protected List<Illustration> getAllIllustrations(final ReferencesChangedEvent event) {
+    public void migrate(final UUID referenceId, final List<UUID> oldReferenceIds) {
+        final List<UUID> referenceIdList = getReferenceIdList(referenceId, oldReferenceIds);
+        final List<Illustration> illustrations = getAllIllustrations(referenceIdList);
+        if (!illustrations.isEmpty()) {
+            migrateExistingIllustrations(illustrations, referenceId);
+            removeDuplicate(illustrations);
+        }
+    }
+
+    private List<UUID> getReferenceIdList(final UUID referenceId, final List<UUID> oldReferenceIds) {
+        final List<UUID> referenceIdList = oldReferenceIds;
+        referenceIdList.add(referenceId);
+        return referenceIdList;
+    }
+
+    private List<Illustration> getAllIllustrations(final List<UUID> oldReferenceIds) {
         final List<Illustration> illustrations = Lists.newArrayList();
-        for (final UUID referenceId : getReferenceIdList(event)) {
+        for (final UUID referenceId : oldReferenceIds) {
             final Illustration illustration = getIllustrationFor(referenceId);
             if (illustration != null) {
                 illustrations.add(illustration);
@@ -28,13 +42,7 @@ public abstract class IllustrationManager {
         }
     }
 
-    private List<UUID> getReferenceIdList(final ReferencesChangedEvent event) {
-        final List<UUID> referenceIdList = event.getReferenceIds();
-        referenceIdList.add(event.getNewReferenceId());
-        return referenceIdList;
-    }
-
-    protected void migrateExistingIllustrations(final List<Illustration> illustrations, final UUID newReference) {
+    private void migrateExistingIllustrations(final List<Illustration> illustrations, final UUID newReference) {
         for (final Illustration illustration : illustrations) {
             if (illustration.getReferenceId() != newReference) {
                 illustration.setReferenceId(newReference);
@@ -42,7 +50,7 @@ public abstract class IllustrationManager {
         }
     }
 
-    protected void removeDuplicate(final List<Illustration> illustrations) {
+    private void removeDuplicate(final List<Illustration> illustrations) {
         if (illustrations.size() > 1) {
             for (int i = 1; i < illustrations.size(); i++) {
                 Repositories.illustrations().delete(illustrations.get(i));

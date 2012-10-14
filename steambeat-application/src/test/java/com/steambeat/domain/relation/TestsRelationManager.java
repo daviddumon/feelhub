@@ -1,9 +1,10 @@
 package com.steambeat.domain.relation;
 
-import com.steambeat.domain.eventbus.*;
-import com.steambeat.domain.reference.*;
+import com.google.common.collect.Lists;
+import com.steambeat.domain.eventbus.WithDomainEvent;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.repositories.fakeRepositories.*;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
@@ -22,7 +23,7 @@ public class TestsRelationManager {
 
     @Before
     public void before() {
-        new RelationManager(new FakeSessionProvider());
+        relationManager = new RelationManager();
     }
 
     @Test
@@ -32,10 +33,8 @@ public class TestsRelationManager {
         final Reference ref3 = TestFactories.references().newReference();
         final Relation relation1 = TestFactories.relations().newRelation(ref2, ref3);
         final Relation relation2 = TestFactories.relations().newRelation(ref3, ref2);
-        final ConceptReferencesChangedEvent event = TestFactories.events().newConceptReferencesChangedEvent(ref1.getId());
-        event.addReferenceToChange(ref2.getId());
 
-        DomainEventBus.INSTANCE.post(event);
+        relationManager.migrate(ref1.getId(), Lists.newArrayList(ref2.getId()));
 
         assertThat(relation1.getFromId(), is(ref1.getId()));
         assertThat(relation1.getToId(), is(ref3.getId()));
@@ -49,10 +48,8 @@ public class TestsRelationManager {
         final Reference ref2 = TestFactories.references().newReference();
         TestFactories.relations().newRelation(ref1, ref2);
         TestFactories.relations().newRelation(ref2, ref1);
-        final ConceptReferencesChangedEvent event = TestFactories.events().newConceptReferencesChangedEvent(ref1.getId());
-        event.addReferenceToChange(ref2.getId());
 
-        DomainEventBus.INSTANCE.post(event);
+        relationManager.migrate(ref1.getId(), Lists.newArrayList(ref2.getId()));
 
         assertThat(Repositories.relations().getAll().size(), is(0));
     }
@@ -64,13 +61,13 @@ public class TestsRelationManager {
         final Reference ref3 = TestFactories.references().newReference();
         TestFactories.relations().newRelation(ref1, ref2);
         TestFactories.relations().newRelation(ref3, ref2);
-        final ConceptReferencesChangedEvent event = TestFactories.events().newConceptReferencesChangedEvent(ref1.getId());
-        event.addReferenceToChange(ref3.getId());
 
-        DomainEventBus.INSTANCE.post(event);
+        relationManager.migrate(ref1.getId(), Lists.newArrayList(ref3.getId()));
 
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.size(), is(1));
         assertThat(relations.get(0).getWeight(), is(2.0));
     }
+
+    private RelationManager relationManager;
 }

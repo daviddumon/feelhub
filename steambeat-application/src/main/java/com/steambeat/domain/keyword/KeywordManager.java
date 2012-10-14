@@ -1,33 +1,17 @@
 package com.steambeat.domain.keyword;
 
-import com.google.common.eventbus.Subscribe;
-import com.google.inject.Inject;
-import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.reference.ReferencesChangedEvent;
-import com.steambeat.repositories.*;
+import com.steambeat.repositories.Repositories;
 
 import java.util.*;
 
 public class KeywordManager {
 
-    @Inject
-    public KeywordManager(final SessionProvider sessionProvider) {
-        this.sessionProvider = sessionProvider;
-        DomainEventBus.INSTANCE.register(this);
-    }
-
-    @Subscribe
-    public void handle(final ReferencesChangedEvent referencesChangedEvent) {
-        sessionProvider.start();
-        final UUID newReference = referencesChangedEvent.getNewReferenceId();
-        for (final UUID reference : referencesChangedEvent.getReferenceIds()) {
-            final List<Keyword> keywords = Repositories.keywords().forReferenceId(reference);
+    public void migrate(final UUID newReferenceId, final List<UUID> oldReferenceIds) {
+        for (final UUID oldReferenceId : oldReferenceIds) {
+            final List<Keyword> keywords = Repositories.keywords().forReferenceId(oldReferenceId);
             for (final Keyword keyword : keywords) {
-                keyword.setReferenceId(newReference);
+                keyword.setReferenceId(newReferenceId);
             }
         }
-        sessionProvider.stop();
     }
-
-    private final SessionProvider sessionProvider;
 }

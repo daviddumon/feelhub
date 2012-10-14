@@ -1,30 +1,23 @@
 package com.steambeat.domain.relation;
 
 import com.google.common.collect.Lists;
-import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
-import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.reference.Reference;
-import com.steambeat.repositories.*;
+import com.steambeat.repositories.Repositories;
 
 import java.util.List;
 
 public class OpinionRelationBinder {
 
     @Inject
-    public OpinionRelationBinder(final SessionProvider sessionProvider, final RelationBuilder relationBuilder) {
-        this.sessionProvider = sessionProvider;
+    public OpinionRelationBinder(final RelationBuilder relationBuilder) {
         this.relationBuilder = relationBuilder;
-        DomainEventBus.INSTANCE.register(this);
     }
 
-    @Subscribe
-    public void handle(final OpinionCreatedEvent opinionCreatedEvent) {
-        sessionProvider.start();
-        final List<Reference> references = loadAllReferences(opinionCreatedEvent.getOpinion().getJudgments());
+    public void bind(final Opinion opinion) {
+        final List<Reference> references = loadAllReferences(opinion.getJudgments());
         createRelations(references);
-        sessionProvider.stop();
     }
 
     private List<Reference> loadAllReferences(final List<Judgment> judgments) {
@@ -49,6 +42,5 @@ public class OpinionRelationBinder {
         }
     }
 
-    private SessionProvider sessionProvider;
     private RelationBuilder relationBuilder;
 }

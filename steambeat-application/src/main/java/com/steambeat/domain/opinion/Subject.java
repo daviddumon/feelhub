@@ -7,6 +7,6 @@ public class Subject {
         this.text = text;
     }
 
-    Feeling feeling;
-    String text;
+    public Feeling feeling;
+    public String text;
 }

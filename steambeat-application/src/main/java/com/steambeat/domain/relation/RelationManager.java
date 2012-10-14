@@ -1,42 +1,29 @@
 package com.steambeat.domain.relation;
 
-import com.google.common.eventbus.Subscribe;
-import com.google.inject.Inject;
-import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.reference.ReferencesChangedEvent;
-import com.steambeat.repositories.*;
+import com.steambeat.repositories.Repositories;
 
 import java.util.*;
 
 public class RelationManager {
 
-    @Inject
-    public RelationManager(final SessionProvider sessionProvider) {
-        this.sessionProvider = sessionProvider;
-        DomainEventBus.INSTANCE.register(this);
-    }
-
-    @Subscribe
-    public void handle(final ReferencesChangedEvent event) {
-        sessionProvider.start();
-        for (final UUID referenceId : event.getReferenceIds()) {
-            final List<Relation> relations = Repositories.relations().forReferenceId(referenceId);
+    public void migrate(final UUID newReferenceId, final List<UUID> oldReferenceIds) {
+        for (final UUID oldReferenceId : oldReferenceIds) {
+            final List<Relation> relations = Repositories.relations().forReferenceId(oldReferenceId);
             if (!relations.isEmpty()) {
-                migrateRelations(event, referenceId, relations);
+                migrateRelations(newReferenceId, oldReferenceId, relations);
             }
         }
-        sessionProvider.stop();
     }
 
-    private void migrateRelations(final ReferencesChangedEvent event, final UUID referenceId, final List<Relation> relations) {
+    private void migrateRelations(final UUID newReferenceId, final UUID oldReferenceId, final List<Relation> relations) {
         for (final Relation relation : relations) {
-            checkFromId(event.getNewReferenceId(), referenceId, relation);
-            checkToId(event.getNewReferenceId(), referenceId, relation);
+            checkFromId(newReferenceId, oldReferenceId, relation);
+            checkToId(newReferenceId, oldReferenceId, relation);
         }
     }
 
-    private void checkFromId(final UUID newReferenceId, final UUID referenceToChange, final Relation relation) {
-        if (relation.getFromId().equals(referenceToChange)) {
+    private void checkFromId(final UUID newReferenceId, final UUID oldReferenceId, final Relation relation) {
+        if (relation.getFromId().equals(oldReferenceId)) {
             if (relation.getToId().equals(newReferenceId)) {
                 Repositories.relations().delete(relation);
             } else {
@@ -51,8 +38,8 @@ public class RelationManager {
         }
     }
 
-    private void checkToId(final UUID newReference, final UUID referenceToChange, final Relation relation) {
-        if (relation.getToId().equals(referenceToChange)) {
+    private void checkToId(final UUID newReference, final UUID oldReferenceId, final Relation relation) {
+        if (relation.getToId().equals(oldReferenceId)) {
             if (relation.getFromId().equals(newReference)) {
                 Repositories.relations().delete(relation);
             } else {
@@ -66,6 +53,4 @@ public class RelationManager {
             }
         }
     }
-
-    private final SessionProvider sessionProvider;
 }

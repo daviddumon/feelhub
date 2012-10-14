@@ -1,28 +1,24 @@
 package com.steambeat.domain.relation;
 
-import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.repositories.Repositories;
-import com.steambeat.repositories.fakeRepositories.*;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 public class TestsOpinionRelationBinder {
-
-    @Rule
-    public WithDomainEvent bus = new WithDomainEvent();
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Before
     public void before() {
-        new OpinionRelationBinder(new FakeSessionProvider(), new RelationBuilder(new RelationFactory()));
+        opinionRelationBinder = new OpinionRelationBinder(new RelationBuilder(new RelationFactory()));
     }
 
     @Test
@@ -34,9 +30,8 @@ public class TestsOpinionRelationBinder {
         opinion.addJudgment(firstJudgment);
         opinion.addJudgment(secondJudgment);
         opinion.addJudgment(thirdJudgment);
-        final OpinionCreatedEvent opinionCreatedEvent = new OpinionCreatedEvent(opinion);
 
-        DomainEventBus.INSTANCE.post(opinionCreatedEvent);
+        opinionRelationBinder.bind(opinion);
 
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.size(), is(6));
@@ -47,4 +42,6 @@ public class TestsOpinionRelationBinder {
         assertThat(relations.get(4).getWeight(), is(1.0));
         assertThat(relations.get(5).getWeight(), is(1.0));
     }
+
+    private OpinionRelationBinder opinionRelationBinder;
 }

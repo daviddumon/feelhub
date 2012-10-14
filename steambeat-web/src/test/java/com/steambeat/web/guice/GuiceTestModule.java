@@ -4,10 +4,10 @@ import com.google.inject.*;
 import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.bingsearch.*;
-import com.steambeat.domain.concept.*;
 import com.steambeat.domain.keyword.KeywordFactory;
 import com.steambeat.domain.reference.ReferenceFactory;
 import com.steambeat.domain.scraper.*;
+import com.steambeat.domain.translation.*;
 import com.steambeat.domain.uri.*;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.repositories.fakeRepositories.FakeSessionProvider;
@@ -36,7 +36,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(MigrationFilter.class).to(FakeMigrationFilter.class);
         bind(Scraper.class).to(FakeScraper.class);
         bind(NamedEntityProvider.class).toInstance(new NamedEntityProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder()));
-        bind(ConceptTranslator.class).to(FakeConceptTranslator.class);
+        bind(Translator.class).to(FakeTranslator.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
         bind(MailBuilder.class).toInstance(new MailBuilder(new FakeMailSender()));
@@ -44,7 +44,7 @@ public class GuiceTestModule extends AbstractModule {
 
     @Provides
     public KeywordService keywordService() {
-        keywordService = spy(new KeywordService(new KeywordFactory(), new ReferenceService(new ReferenceFactory())));
+        keywordService = spy(new KeywordService(new ReferenceService(new ReferenceFactory()),new KeywordFactory(),new FakeTranslator(), new UriManager(new FakeUriResolver())));
         return keywordService;
     }
 

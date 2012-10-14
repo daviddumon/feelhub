@@ -1,7 +1,7 @@
 package com.steambeat.domain.opinion;
 
 import com.google.common.collect.*;
-import com.steambeat.domain.SubjectIdentifier;
+import com.steambeat.application.KeywordService;
 
 import java.util.*;
 
@@ -31,7 +31,7 @@ public class SubjectExtractor {
     }
 
     private boolean checkGrammar(final String token) {
-        return SubjectIdentifier.isUri(token);
+        return KeywordService.isUri(token);
     }
 
     private TreeMap<Integer, Feeling> getSemanticTags(final String token) {

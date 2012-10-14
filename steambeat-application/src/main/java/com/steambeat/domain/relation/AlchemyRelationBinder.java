@@ -19,51 +19,51 @@ public class AlchemyRelationBinder {
         DomainEventBus.INSTANCE.register(this);
     }
 
-    @Subscribe
-    public void handle(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
-        sessionProvider.start();
-        final List<Reference> references = getReferencesToBind(conceptGroupReferencesChangedEvent);
-        final double relevanceScore = getRelevanceScore(conceptGroupReferencesChangedEvent.getReferenceId());
-        bindReferences(references, relevanceScore);
-        postEvents(conceptGroupReferencesChangedEvent);
-        sessionProvider.stop();
-    }
-
-    private List<Reference> getReferencesToBind(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
-        final List<Reference> references = Lists.newArrayList();
-        for (final ConceptReferencesChangedEvent conceptReferencesChangedEvent : conceptGroupReferencesChangedEvent.getConceptReferencesChangedEvents()) {
-            references.add(Repositories.references().get(conceptReferencesChangedEvent.getNewReferenceId()));
-        }
-        references.add(Repositories.references().get(conceptGroupReferencesChangedEvent.getReferenceId()));
-        return references;
-    }
-
-    private double getRelevanceScore(final UUID referenceId) {
-        final List<Alchemy> alchemy = Repositories.alchemys().forReferenceId(referenceId);
-        if (!alchemy.isEmpty()) {
-            return alchemy.get(0).getRelevance();
-        }
-        return 0;
-    }
-
-    private void bindReferences(final List<Reference> references, final double relevanceScore) {
-        for (int i = 0; i < references.size(); i++) {
-            final Reference currentReference = references.get(i);
-            connectReference(currentReference, references, i + 1, relevanceScore);
-        }
-    }
-
-    private void connectReference(final Reference currentReference, final List<Reference> references, final int beginningIndex, final double relevanceScore) {
-        for (int i = beginningIndex; i < references.size(); i++) {
-            relationBuilder.connectTwoWays(currentReference, references.get(i), relevanceScore);
-        }
-    }
-
-    private void postEvents(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
-        for (final ConceptReferencesChangedEvent conceptReferencesChangedEvent : conceptGroupReferencesChangedEvent.getConceptReferencesChangedEvents()) {
-            DomainEventBus.INSTANCE.post(conceptReferencesChangedEvent);
-        }
-    }
+    //@Subscribe
+    //public void handle(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
+    //    sessionProvider.start();
+    //    final List<Reference> references = getReferencesToBind(conceptGroupReferencesChangedEvent);
+    //    final double relevanceScore = getRelevanceScore(conceptGroupReferencesChangedEvent.getReferenceId());
+    //    bindReferences(references, relevanceScore);
+    //    postEvents(conceptGroupReferencesChangedEvent);
+    //    sessionProvider.stop();
+    //}
+    //
+    //private List<Reference> getReferencesToBind(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
+    //    final List<Reference> references = Lists.newArrayList();
+    //    for (final ConceptReferencesChangedEvent conceptReferencesChangedEvent : conceptGroupReferencesChangedEvent.getConceptReferencesChangedEvents()) {
+    //        references.add(Repositories.references().get(conceptReferencesChangedEvent.getNewReferenceId()));
+    //    }
+    //    references.add(Repositories.references().get(conceptGroupReferencesChangedEvent.getReferenceId()));
+    //    return references;
+    //}
+    //
+    //private double getRelevanceScore(final UUID referenceId) {
+    //    final List<Alchemy> alchemy = Repositories.alchemys().forReferenceId(referenceId);
+    //    if (!alchemy.isEmpty()) {
+    //        return alchemy.get(0).getRelevance();
+    //    }
+    //    return 0;
+    //}
+    //
+    //private void bindReferences(final List<Reference> references, final double relevanceScore) {
+    //    for (int i = 0; i < references.size(); i++) {
+    //        final Reference currentReference = references.get(i);
+    //        connectReference(currentReference, references, i + 1, relevanceScore);
+    //    }
+    //}
+    //
+    //private void connectReference(final Reference currentReference, final List<Reference> references, final int beginningIndex, final double relevanceScore) {
+    //    for (int i = beginningIndex; i < references.size(); i++) {
+    //        relationBuilder.connectTwoWays(currentReference, references.get(i), relevanceScore);
+    //    }
+    //}
+    //
+    //private void postEvents(final ConceptGroupReferencesChangedEvent conceptGroupReferencesChangedEvent) {
+    //    for (final ConceptReferencesChangedEvent conceptReferencesChangedEvent : conceptGroupReferencesChangedEvent.getConceptReferencesChangedEvents()) {
+    //        DomainEventBus.INSTANCE.post(conceptReferencesChangedEvent);
+    //    }
+    //}
 
     private final SessionProvider sessionProvider;
     private final RelationBuilder relationBuilder;

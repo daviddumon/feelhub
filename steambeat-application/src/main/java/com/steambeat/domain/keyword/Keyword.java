@@ -17,6 +17,7 @@ public class Keyword extends BaseEntity {
         this.value = value;
         this.languageCode = steambeatLanguage.getCode();
         this.referenceId = referenceId;
+        this.translationNeeded = false;
     }
 
     @Override
@@ -67,8 +68,17 @@ public class Keyword extends BaseEntity {
         this.referenceId = referenceId;
     }
 
+    public boolean isTranslationNeeded() {
+        return translationNeeded;
+    }
+
+    public void setTranslationNeeded(final boolean translationNeeded) {
+        this.translationNeeded = translationNeeded;
+    }
+
     private UUID id;
     private String value;
     private String languageCode;
     private UUID referenceId;
+    private boolean translationNeeded;
 }
