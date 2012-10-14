@@ -1,6 +1,7 @@
 package com.steambeat.domain.opinion;
 
 import com.google.common.collect.*;
+import com.steambeat.domain.SubjectIdentifier;
 
 import java.util.*;
 
@@ -10,12 +11,18 @@ public class SubjectExtractor {
         List<Subject> subjects = Lists.newArrayList();
         final String[] tokens = text.split("\\s");
         for (String token : tokens) {
-            final TreeMap<Integer, Feeling> tokenResults = analyze(token);
-            if (isASubject(tokenResults)) {
-                Feeling tokenFeeling = getFeeling(tokenResults);
+            final TreeMap<Integer, Feeling> tokenTags = getSemanticTags(token);
+            if (hasAny(tokenTags)) {
+                Feeling tokenFeeling = getFeeling(tokenTags);
                 final String cleanedToken = token.replaceAll(STRING_REPLACE, "").toLowerCase();
                 if (cleanedToken.length() > 2) {
                     final Subject subject = new Subject(tokenFeeling, cleanedToken);
+                    subjects.add(subject);
+                }
+            } else if (checkGrammar(token)) {
+                final String cleanedToken = token.trim().toLowerCase();
+                if (cleanedToken.length() > 2) {
+                    final Subject subject = new Subject(Feeling.none, cleanedToken);
                     subjects.add(subject);
                 }
             }
@@ -23,7 +30,11 @@ public class SubjectExtractor {
         return subjects;
     }
 
-    private TreeMap<Integer, Feeling> analyze(final String token) {
+    private boolean checkGrammar(final String token) {
+        return SubjectIdentifier.isUri(token);
+    }
+
+    private TreeMap<Integer, Feeling> getSemanticTags(final String token) {
         TreeMap<Integer, Feeling> counts = Maps.newTreeMap();
         counts.put(token.lastIndexOf("#"), Feeling.none);
         counts.put(token.lastIndexOf("-"), Feeling.bad);
@@ -32,7 +43,7 @@ public class SubjectExtractor {
         return counts;
     }
 
-    private boolean isASubject(final TreeMap<Integer, Feeling> map) {
+    private boolean hasAny(final TreeMap<Integer, Feeling> map) {
         return map.lastEntry().getKey() >= 0;
     }
 
