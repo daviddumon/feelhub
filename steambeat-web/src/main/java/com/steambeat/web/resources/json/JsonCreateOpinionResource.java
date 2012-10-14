@@ -47,7 +47,7 @@ public class JsonCreateOpinionResource extends ServerResource {
         builder.keywordValue(extractKeywordValue(jsonOpinion));
         builder.languageCode(extractLanguageCode(jsonOpinion));
         builder.userLanguageCode(extractUserLanguageCode(jsonOpinion));
-        builder.opinionId(UUID.randomUUID().toString());
+        builder.opinionId(UUID.randomUUID());
         return builder;
     }
 

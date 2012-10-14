@@ -28,7 +28,7 @@ public class OpinionTestFactory {
 
     private Opinion newOpinion(final Reference reference, final String text) {
         final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforopinion@mail.com");
-        final Opinion opinion = new Opinion(text, activeUser);
+        final Opinion opinion = new Opinion(text, activeUser.getId());
         opinion.addJudgment(reference, Feeling.bad);
         Repositories.opinions().add(opinion);
         return opinion;
@@ -36,7 +36,7 @@ public class OpinionTestFactory {
 
     public Opinion newOpinion(final String text, final Judgment judgment) {
         final User activeUser = TestFactories.users().createFakeActiveUser("userforopinion@mail.com");
-        final Opinion opinion = new Opinion(text, activeUser);
+        final Opinion opinion = new Opinion(text, activeUser.getId());
         opinion.addJudgment(judgment);
         Repositories.opinions().add(opinion);
         return opinion;
@@ -44,7 +44,7 @@ public class OpinionTestFactory {
 
     public Opinion newOpinionWithoutJudgments() {
         final User activeUser = TestFactories.users().createFakeActiveUser("userforopinion@mail.com");
-        final Opinion opinion = new Opinion("opinion without judgement", activeUser);
+        final Opinion opinion = new Opinion("opinion without judgement", activeUser.getId());
         Repositories.opinions().add(opinion);
         return opinion;
     }

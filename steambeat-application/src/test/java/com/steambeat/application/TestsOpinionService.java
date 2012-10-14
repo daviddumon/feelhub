@@ -1,9 +1,7 @@
 package com.steambeat.application;
 
-import com.google.common.collect.Lists;
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.*;
@@ -35,13 +33,13 @@ public class TestsOpinionService {
         DomainEventBus.INSTANCE.post(event);
 
         assertThat(Repositories.opinions().getAll().size(), is(1));
-        assertThat(Repositories.opinions().getAll().get(0).getId().toString(), is(event.getOpinionId()));
+        assertThat(Repositories.opinions().getAll().get(0).getId(), is(event.getOpinionId()));
         assertThat(Repositories.opinions().getAll().get(0).getText(), is(event.getText()));
     }
 
     private OpinionRequestEvent getEvent() {
         final OpinionRequestEvent.Builder builder = new OpinionRequestEvent.Builder();
-        builder.opinionId(UUID.randomUUID().toString());
+        builder.opinionId(UUID.randomUUID());
         builder.user(TestFactories.users().createFakeActiveUser("opinion@mail.com"));
         builder.feeling(Feeling.good);
         builder.keywordValue("keyword");

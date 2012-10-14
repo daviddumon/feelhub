@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.reference.Reference;
-import com.steambeat.domain.user.User;
 import org.joda.time.DateTime;
 
 import java.util.*;
@@ -14,10 +13,14 @@ public class Opinion extends BaseEntity {
     protected Opinion() {
     }
 
-    public Opinion(final String text, final User user) {
-        this.id = UUID.randomUUID();
+    public Opinion(final String text, final String userId) {
+        this(text, userId, UUID.randomUUID());
+    }
+
+    public Opinion(final String text, final String userId, final UUID id) {
+        this.id = id;
         this.text = text;
-        this.userId = user.getId();
+        this.userId = userId;
     }
 
     public void addJudgment(final Reference reference, final Feeling feeling) {

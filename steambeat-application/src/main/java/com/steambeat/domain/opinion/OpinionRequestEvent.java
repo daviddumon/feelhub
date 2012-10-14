@@ -4,6 +4,8 @@ import com.steambeat.domain.eventbus.DomainEvent;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.user.User;
 
+import java.util.UUID;
+
 public class OpinionRequestEvent extends DomainEvent {
 
     public static class Builder {
@@ -37,7 +39,7 @@ public class OpinionRequestEvent extends DomainEvent {
             return this;
         }
 
-        public Builder opinionId(final String opinionId) {
+        public Builder opinionId(final UUID opinionId) {
             this.opinionId = opinionId;
             return this;
         }
@@ -52,7 +54,7 @@ public class OpinionRequestEvent extends DomainEvent {
         private String userLanguageCode = SteambeatLanguage.none().getCode();
         private String languageCode = SteambeatLanguage.none().getCode();
         private String keywordValue = "";
-        private String opinionId = "";
+        private UUID opinionId;
         private String userId = "";
     }
 
@@ -91,7 +93,7 @@ public class OpinionRequestEvent extends DomainEvent {
         return keywordValue;
     }
 
-    public String getOpinionId() {
+    public UUID getOpinionId() {
         return opinionId;
     }
 
@@ -104,6 +106,6 @@ public class OpinionRequestEvent extends DomainEvent {
     private String userLanguageCode;
     private String languageCode;
     private String keywordValue;
-    private String opinionId;
+    private UUID opinionId;
     private String userId;
 }

@@ -14,7 +14,7 @@ public class SubjectExtractor {
             if (isASubject(tokenResults)) {
                 Feeling tokenFeeling = getFeeling(tokenResults);
                 final String cleanedToken = token.replaceAll(STRING_REPLACE, "").toLowerCase();
-                if (cleanedToken.length() > 1) {
+                if (cleanedToken.length() > 2) {
                     final Subject subject = new Subject(tokenFeeling, cleanedToken);
                     subjects.add(subject);
                 }

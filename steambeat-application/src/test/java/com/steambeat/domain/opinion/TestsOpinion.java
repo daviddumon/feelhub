@@ -31,7 +31,7 @@ public class TestsOpinion {
 
     @Test
     public void canCreateWithTextAndUser() {
-        final Opinion opinion = new Opinion("salut", activeUser);
+        final Opinion opinion = new Opinion("salut", activeUser.getId());
 
         assertThat(opinion.getText(), is("salut"));
         assertThat(opinion.getUserId(), is(activeUser.getId()));
@@ -40,7 +40,7 @@ public class TestsOpinion {
 
     @Test
     public void canAddJudgementsToOpinion() {
-        final Opinion opinion = new Opinion("my opinion", activeUser);
+        final Opinion opinion = new Opinion("my opinion", activeUser.getId());
         final Reference reference = TestFactories.references().newReference();
 
         opinion.addJudgment(reference, Feeling.good);
@@ -54,7 +54,7 @@ public class TestsOpinion {
 
     @Test
     public void canSpreadJudgmentEvents() {
-        final Opinion opinion = new Opinion("my opinion", activeUser);
+        final Opinion opinion = new Opinion("my opinion", activeUser.getId());
         final Reference reference = TestFactories.references().newReference();
         final SimpleJudgmentListener judgmentEventListener = mock(SimpleJudgmentListener.class);
         DomainEventBus.INSTANCE.register(judgmentEventListener);
@@ -70,7 +70,7 @@ public class TestsOpinion {
 
     @Test
     public void setLastModificationDateOnJudgmentCreation() {
-        final Opinion opinion = new Opinion("my opinion", activeUser);
+        final Opinion opinion = new Opinion("my opinion", activeUser.getId());
         final Reference reference = TestFactories.references().newReference();
         time.waitDays(1);
 
@@ -81,7 +81,7 @@ public class TestsOpinion {
 
     @Test
     public void hasALanguage() {
-        final Opinion opinion = new Opinion("salut", activeUser);
+        final Opinion opinion = new Opinion("salut", activeUser.getId());
 
         opinion.setLanguageCode("en");
 

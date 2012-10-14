@@ -21,7 +21,7 @@ public class TestsOpinionMongoRepository extends TestWithMongoRepository {
     public void canPersist() {
         final Reference reference = TestFactories.references().newReference();
         final User activeUser = TestFactories.users().createFakeActiveUser("userforrepo@mail.com");
-        final Opinion opinion = new Opinion("yeah", activeUser);
+        final Opinion opinion = new Opinion("yeah", activeUser.getId());
         opinion.addJudgment(reference, Feeling.bad);
         opinion.setLanguageCode("en");
 
