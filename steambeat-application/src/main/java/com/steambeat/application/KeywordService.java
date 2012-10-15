@@ -1,12 +1,13 @@
 package com.steambeat.application;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.illustration.ConceptIllustrationRequestEvent;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import com.steambeat.domain.translation.*;
+import com.steambeat.domain.translation.Translator;
 import com.steambeat.domain.uri.*;
 import com.steambeat.repositories.Repositories;
 
@@ -60,7 +61,9 @@ public class KeywordService {
 
     public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage) {
         if (KeywordService.isUri(value)) {
-            return createUri(value);
+            final Keyword uri = createUri(value);
+            //DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
+            return uri;
         } else {
             final Keyword concept = createConcept(value, steambeatLanguage);
             final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(concept.getReferenceId(), concept.getValue());
@@ -71,18 +74,25 @@ public class KeywordService {
 
     private Keyword createUri(final String value) {
         try {
+            final Reference reference = referenceService.newReference();
             final List<String> tokens = uriManager.getTokens(value);
-            Reference reference;
+            List<Keyword> keywords = Lists.newArrayList();
             for (String token : tokens) {
-                final Keyword keyword = lookUp(value, SteambeatLanguage.none());
+                try {
+                    keywords.add(lookUp(token, SteambeatLanguage.none()));
+                } catch (KeywordNotFound e) {
+                    keywords.add(createKeyword(token, SteambeatLanguage.none(), reference.getId()));
+                }
             }
-            return null;
+            return keywords.get(0);
+
             // APPELER LE SERVICE UQI MIGRE LES EREFERENCES A LA FIN
         } catch (UriException e) {
+            // Il s'agit d'une uri inconnue
+            // create unknown
             e.printStackTrace();
             return null;
         }
-        //DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
     }
 
     private Keyword createConcept(final String value, final SteambeatLanguage steambeatLanguage) {

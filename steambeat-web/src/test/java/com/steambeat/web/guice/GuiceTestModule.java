@@ -44,7 +44,7 @@ public class GuiceTestModule extends AbstractModule {
 
     @Provides
     public KeywordService keywordService() {
-        keywordService = spy(new KeywordService(new ReferenceService(new ReferenceFactory()),new KeywordFactory(),new FakeTranslator(), new UriManager(new FakeUriResolver())));
+        keywordService = spy(new KeywordService(new ReferenceService(new ReferenceFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver())));
         return keywordService;
     }
 

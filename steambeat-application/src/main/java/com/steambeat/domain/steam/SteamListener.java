@@ -7,7 +7,7 @@ import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import com.steambeat.repositories.*;
+import com.steambeat.repositories.SessionProvider;
 
 public class SteamListener {
 

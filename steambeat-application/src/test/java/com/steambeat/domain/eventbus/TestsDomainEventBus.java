@@ -1,17 +1,8 @@
 package com.steambeat.domain.eventbus;
 
-import com.google.common.eventbus.Subscribe;
-import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.*;
+import com.steambeat.test.SystemTime;
 import org.junit.*;
-
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
 
 public class TestsDomainEventBus {
 

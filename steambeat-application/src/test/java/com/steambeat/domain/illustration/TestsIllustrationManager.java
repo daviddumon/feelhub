@@ -1,7 +1,6 @@
 package com.steambeat.domain.illustration;
 
-import com.google.common.collect.Lists;
-import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
@@ -28,8 +27,10 @@ public class TestsIllustrationManager {
         TestFactories.illustrations().newIllustration(first, "link1");
         final Reference second = TestFactories.references().newReference();
         final Illustration illustrationToChange = TestFactories.illustrations().newIllustration(second, "link2");
+        final ReferencePatch referencePatch = new ReferencePatch(first.getId());
+        referencePatch.addOldReferenceId(second.getId());
 
-        illustrationManager.migrate(first.getId(), Lists.newArrayList(second.getId()));
+        illustrationManager.merge(referencePatch);
 
         assertThat(illustrationToChange.getReferenceId(), is(first.getId()));
     }
@@ -40,8 +41,10 @@ public class TestsIllustrationManager {
         TestFactories.illustrations().newIllustration(first, "link1");
         final Reference second = TestFactories.references().newReference();
         TestFactories.illustrations().newIllustration(second, "link2");
+        final ReferencePatch referencePatch = new ReferencePatch(first.getId());
+        referencePatch.addOldReferenceId(second.getId());
 
-        illustrationManager.migrate(first.getId(), Lists.newArrayList(second.getId()));
+        illustrationManager.merge(referencePatch);
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size(), is(1));
@@ -52,8 +55,10 @@ public class TestsIllustrationManager {
         final Reference first = TestFactories.references().newReference();
         final Illustration illustration = TestFactories.illustrations().newIllustration(first, "link1");
         final Reference second = TestFactories.references().newReference();
+        final ReferencePatch referencePatch = new ReferencePatch(first.getId());
+        referencePatch.addOldReferenceId(second.getId());
 
-        illustrationManager.migrate(first.getId(), Lists.newArrayList(second.getId()));
+        illustrationManager.merge(referencePatch);
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size(), is(1));

@@ -1,16 +1,17 @@
 package com.steambeat.domain.relation;
 
+import com.steambeat.domain.reference.ReferencePatch;
 import com.steambeat.repositories.Repositories;
 
 import java.util.*;
 
 public class RelationManager {
 
-    public void migrate(final UUID newReferenceId, final List<UUID> oldReferenceIds) {
-        for (final UUID oldReferenceId : oldReferenceIds) {
+    public void merge(final ReferencePatch referencePatch) {
+        for (final UUID oldReferenceId : referencePatch.getOldReferenceIds()) {
             final List<Relation> relations = Repositories.relations().forReferenceId(oldReferenceId);
             if (!relations.isEmpty()) {
-                migrateRelations(newReferenceId, oldReferenceId, relations);
+                migrateRelations(referencePatch.getNewReferenceId(), oldReferenceId, relations);
             }
         }
     }

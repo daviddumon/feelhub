@@ -1,8 +1,7 @@
 package com.steambeat.domain.relation;
 
-import com.google.common.collect.Lists;
 import com.steambeat.domain.eventbus.WithDomainEvent;
-import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
@@ -27,14 +26,16 @@ public class TestsRelationManager {
     }
 
     @Test
-    public void canChangeRelationsReferencesForAConcept() {
+    public void canChangeRelationsReferences() {
         final Reference ref1 = TestFactories.references().newReference();
         final Reference ref2 = TestFactories.references().newReference();
         final Reference ref3 = TestFactories.references().newReference();
         final Relation relation1 = TestFactories.relations().newRelation(ref2, ref3);
         final Relation relation2 = TestFactories.relations().newRelation(ref3, ref2);
+        final ReferencePatch referencePatch = new ReferencePatch(ref1.getId());
+        referencePatch.addOldReferenceId(ref2.getId());
 
-        relationManager.migrate(ref1.getId(), Lists.newArrayList(ref2.getId()));
+        relationManager.merge(referencePatch);
 
         assertThat(relation1.getFromId(), is(ref1.getId()));
         assertThat(relation1.getToId(), is(ref3.getId()));
@@ -48,8 +49,10 @@ public class TestsRelationManager {
         final Reference ref2 = TestFactories.references().newReference();
         TestFactories.relations().newRelation(ref1, ref2);
         TestFactories.relations().newRelation(ref2, ref1);
+        final ReferencePatch referencePatch = new ReferencePatch(ref1.getId());
+        referencePatch.addOldReferenceId(ref2.getId());
 
-        relationManager.migrate(ref1.getId(), Lists.newArrayList(ref2.getId()));
+        relationManager.merge(referencePatch);
 
         assertThat(Repositories.relations().getAll().size(), is(0));
     }
@@ -61,8 +64,10 @@ public class TestsRelationManager {
         final Reference ref3 = TestFactories.references().newReference();
         TestFactories.relations().newRelation(ref1, ref2);
         TestFactories.relations().newRelation(ref3, ref2);
+        final ReferencePatch referencePatch = new ReferencePatch(ref1.getId());
+        referencePatch.addOldReferenceId(ref3.getId());
 
-        relationManager.migrate(ref1.getId(), Lists.newArrayList(ref3.getId()));
+        relationManager.merge(referencePatch);
 
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.size(), is(1));

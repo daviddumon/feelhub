@@ -2,7 +2,7 @@ package com.steambeat.domain.opinion;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.eventbus.WithDomainEvent;
-import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
@@ -35,8 +35,10 @@ public class TestsOpinionManager {
         op2.addJudgment(ref1, Feeling.good);
         op1.addJudgment(ref2, Feeling.bad);
         op2.addJudgment(ref2, Feeling.bad);
+        final ReferencePatch referencePatch = new ReferencePatch(ref1.getId());
+        referencePatch.addOldReferenceId(ref2.getId());
 
-        opinionManager.migrate(ref1.getId(), Lists.newArrayList(ref2.getId()));
+        opinionManager.merge(referencePatch);
 
         final List<Judgment> judgments = Lists.newArrayList();
         judgments.addAll(op1.getJudgments());

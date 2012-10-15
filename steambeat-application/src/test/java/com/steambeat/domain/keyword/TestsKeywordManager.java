@@ -1,12 +1,10 @@
 package com.steambeat.domain.keyword;
 
-import com.google.common.collect.Lists;
-import com.steambeat.domain.eventbus.*;
-import com.steambeat.repositories.fakeRepositories.*;
+import com.steambeat.domain.eventbus.WithDomainEvent;
+import com.steambeat.domain.reference.ReferencePatch;
+import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
-
-import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -25,12 +23,13 @@ public class TestsKeywordManager {
     }
 
     @Test
-    @Ignore
     public void canChangeKeywordsReferenceForAConcept() {
         final Keyword first = TestFactories.keywords().newKeyword();
         final Keyword second = TestFactories.keywords().newKeyword();
+        final ReferencePatch referencePatch = new ReferencePatch(first.getReferenceId());
+        referencePatch.addOldReferenceId(second.getReferenceId());
 
-        keywordManager.migrate((UUID)first.getId(), Lists.newArrayList((UUID)second.getId()));
+        keywordManager.merge(referencePatch);
 
         assertThat(second.getReferenceId(), is(first.getReferenceId()));
     }

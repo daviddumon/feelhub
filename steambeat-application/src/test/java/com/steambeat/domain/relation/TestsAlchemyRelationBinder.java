@@ -1,16 +1,5 @@
 package com.steambeat.domain.relation;
 
-import com.steambeat.domain.eventbus.*;
-import com.steambeat.repositories.Repositories;
-import com.steambeat.repositories.fakeRepositories.*;
-import com.steambeat.test.TestFactories;
-import org.junit.*;
-
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-
 public class TestsAlchemyRelationBinder {
     //
     //@Rule

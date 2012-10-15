@@ -1,7 +1,6 @@
 package com.steambeat.domain.statistics;
 
-import com.google.common.collect.Lists;
-import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.reference.*;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
@@ -23,20 +22,40 @@ public class TestsStatisticsManager {
     }
 
     @Test
-    @Ignore
-    public void canChangeStatisticsReferencesForAConcept() {
+    public void canChangeStatisticsReferences() {
         final Reference ref1 = TestFactories.references().newReference();
         final Reference ref2 = TestFactories.references().newReference();
-        TestFactories.statistics().newStatistics(ref1, Granularity.all);
-        TestFactories.statistics().newStatistics(ref1, Granularity.day);
-        TestFactories.statistics().newStatistics(ref1, Granularity.hour);
-        TestFactories.statistics().newStatistics(ref2, Granularity.hour);
-        TestFactories.statistics().newStatistics(ref2, Granularity.month);
+        TestFactories.statistics().newStatisticsWithJudgments(ref1, Granularity.all);
+        TestFactories.statistics().newStatisticsWithJudgments(ref1, Granularity.day);
+        TestFactories.statistics().newStatisticsWithJudgments(ref1, Granularity.hour);
+        TestFactories.statistics().newStatisticsWithJudgments(ref2, Granularity.hour);
+        TestFactories.statistics().newStatisticsWithJudgments(ref2, Granularity.month);
+        final ReferencePatch referencePatch = new ReferencePatch(ref1.getId());
+        referencePatch.addOldReferenceId(ref2.getId());
 
-        statisticsManager.migrate(ref1.getId(), Lists.newArrayList(ref2.getId()));
+        statisticsManager.merge(referencePatch);
 
-        final List<Statistics> statistics = Repositories.statistics().forReferenceId(ref1.getId());
-        assertThat(statistics.size(), is(5));
+        assertThat(Repositories.statistics().getAll().size(), is(4));
+        final List<Statistics> all = Repositories.statistics().forReferenceId(ref1.getId(), Granularity.all);
+        assertThat(all.size(), is(1));
+        assertThat(all.get(0).getGood(), is(3));
+        assertThat(all.get(0).getBad(), is(2));
+        assertThat(all.get(0).getNeutral(), is(1));
+        final List<Statistics> day = Repositories.statistics().forReferenceId(ref1.getId(), Granularity.day);
+        assertThat(day.size(), is(1));
+        assertThat(day.get(0).getGood(), is(3));
+        assertThat(day.get(0).getBad(), is(2));
+        assertThat(day.get(0).getNeutral(), is(1));
+        final List<Statistics> hour = Repositories.statistics().forReferenceId(ref1.getId(), Granularity.hour);
+        assertThat(hour.size(), is(1));
+        assertThat(hour.get(0).getGood(), is(6));
+        assertThat(hour.get(0).getBad(), is(4));
+        assertThat(hour.get(0).getNeutral(), is(2));
+        final List<Statistics> month = Repositories.statistics().forReferenceId(ref1.getId(), Granularity.month);
+        assertThat(month.size(), is(1));
+        assertThat(month.get(0).getGood(), is(3));
+        assertThat(month.get(0).getBad(), is(2));
+        assertThat(month.get(0).getNeutral(), is(1));
     }
 
     private StatisticsManager statisticsManager;

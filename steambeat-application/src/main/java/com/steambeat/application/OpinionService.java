@@ -4,12 +4,12 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.relation.OpinionRelationBinder;
 import com.steambeat.repositories.*;
 
-import java.util.*;
+import java.util.List;
 
 public class OpinionService {
 

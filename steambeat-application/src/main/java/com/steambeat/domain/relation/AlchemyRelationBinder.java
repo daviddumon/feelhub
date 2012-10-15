@@ -1,14 +1,8 @@
 package com.steambeat.domain.relation;
 
-import com.google.common.collect.Lists;
-import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
-import com.steambeat.domain.alchemy.Alchemy;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.reference.*;
-import com.steambeat.repositories.*;
-
-import java.util.*;
+import com.steambeat.repositories.SessionProvider;
 
 public class AlchemyRelationBinder {
 

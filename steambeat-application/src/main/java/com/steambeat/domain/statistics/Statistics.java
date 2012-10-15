@@ -69,6 +69,18 @@ public class Statistics extends BaseEntity {
         return neutral;
     }
 
+    public void addGood(final int good) {
+        this.good += good;
+    }
+
+    public void addBad(final int bad) {
+        this.bad += bad;
+    }
+
+    public void addNeutral(final int neutral) {
+        this.neutral += neutral;
+    }
+
     private UUID id;
     private UUID referenceId;
     private Granularity granularity;

@@ -11,7 +11,7 @@ import com.steambeat.test.TestFactories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import java.util.*;
+import java.util.List;
 
 import static junit.framework.Assert.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -181,7 +181,6 @@ public class TestKeywordService {
     }
 
     @Test
-    @Ignore
     public void canCreateUri() {
         final String value = "http://www.test.com";
         final SteambeatLanguage steambeatLanguage = SteambeatLanguage.reference();
@@ -191,18 +190,18 @@ public class TestKeywordService {
         assertThat(keyword, notNullValue());
         assertThat(keyword.getValue(), is(value));
         assertThat(keyword.getLanguage(), is(SteambeatLanguage.none()));
-        assertThat(Repositories.keywords().getAll().size(), is(4));
+        assertThat(Repositories.keywords().getAll().size(), is(2));
     }
 
     @Test
     @Ignore
     public void useExistingKeyword() {
-    //    TestFactories.keywords().newKeyword(canonicalUri, SteambeatLanguage.none());
-    //    final UriEvent uriEvent = TestFactories.events().newUriEvent("http://www.test.com");
-    //
-    //    DomainEventBus.INSTANCE.post(uriEvent);
-    //
-    //    assertThat(Repositories.keywords().getAll().size(), is(4));
+        //    TestFactories.keywords().newKeyword(canonicalUri, SteambeatLanguage.none());
+        //    final UriEvent uriEvent = TestFactories.events().newUriEvent("http://www.test.com");
+        //
+        //    DomainEventBus.INSTANCE.post(uriEvent);
+        //
+        //    assertThat(Repositories.keywords().getAll().size(), is(4));
     }
 
     private KeywordService keywordService;

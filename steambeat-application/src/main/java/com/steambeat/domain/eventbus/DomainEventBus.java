@@ -1,10 +1,9 @@
 package com.steambeat.domain.eventbus;
 
 import com.google.common.collect.Lists;
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.EventBus;
 
-import java.util.*;
-import java.util.concurrent.Executors;
+import java.util.List;
 
 public enum DomainEventBus {
 

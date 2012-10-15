@@ -17,7 +17,7 @@ import org.junit.rules.ExpectedException;
 import org.restlet.data.Status;
 import org.restlet.engine.util.CookieSeries;
 import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.representation.*;
+import org.restlet.representation.StringRepresentation;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;

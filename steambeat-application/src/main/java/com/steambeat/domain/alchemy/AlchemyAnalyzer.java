@@ -1,16 +1,10 @@
 package com.steambeat.domain.alchemy;
 
-import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
-import com.steambeat.domain.translation.*;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.keyword.*;
-import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import com.steambeat.repositories.*;
-
-import java.util.*;
+import com.steambeat.repositories.SessionProvider;
 
 public class AlchemyAnalyzer {
 

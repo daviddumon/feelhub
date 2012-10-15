@@ -1,30 +1,32 @@
 package com.steambeat.domain.illustration;
 
 import com.google.common.collect.Lists;
+import com.steambeat.domain.reference.ReferencePatch;
 import com.steambeat.repositories.Repositories;
 
 import java.util.*;
 
 public class IllustrationManager {
 
-    public void migrate(final UUID referenceId, final List<UUID> oldReferenceIds) {
-        final List<UUID> referenceIdList = getReferenceIdList(referenceId, oldReferenceIds);
+    public void merge(final ReferencePatch referencePatch) {
+        final List<UUID> referenceIdList = getReferenceIdList(referencePatch);
         final List<Illustration> illustrations = getAllIllustrations(referenceIdList);
         if (!illustrations.isEmpty()) {
-            migrateExistingIllustrations(illustrations, referenceId);
+            migrateExistingIllustrations(illustrations, referencePatch.getNewReferenceId());
             removeDuplicate(illustrations);
         }
     }
 
-    private List<UUID> getReferenceIdList(final UUID referenceId, final List<UUID> oldReferenceIds) {
-        final List<UUID> referenceIdList = oldReferenceIds;
-        referenceIdList.add(referenceId);
+    private List<UUID> getReferenceIdList(final ReferencePatch referencePatch) {
+        final List<UUID> referenceIdList = Lists.newArrayList();
+        referenceIdList.addAll(referencePatch.getOldReferenceIds());
+        referenceIdList.add(referencePatch.getNewReferenceId());
         return referenceIdList;
     }
 
-    private List<Illustration> getAllIllustrations(final List<UUID> oldReferenceIds) {
+    private List<Illustration> getAllIllustrations(final List<UUID> referenceIds) {
         final List<Illustration> illustrations = Lists.newArrayList();
-        for (final UUID referenceId : oldReferenceIds) {
+        for (final UUID referenceId : referenceIds) {
             final Illustration illustration = getIllustrationFor(referenceId);
             if (illustration != null) {
                 illustrations.add(illustration);

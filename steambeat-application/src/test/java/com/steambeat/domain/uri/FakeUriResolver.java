@@ -28,6 +28,6 @@ public class FakeUriResolver extends UriResolver {
         return this;
     }
 
-    private String canonicalUri;
-    private String exceptionUri;
+    private String canonicalUri = "";
+    private String exceptionUri = "";
 }

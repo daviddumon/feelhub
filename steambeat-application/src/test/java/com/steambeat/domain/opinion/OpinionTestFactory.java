@@ -26,7 +26,7 @@ public class OpinionTestFactory {
         }
     }
 
-    private Opinion newOpinion(final Reference reference, final String text) {
+    public Opinion newOpinion(final Reference reference, final String text) {
         final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforopinion@mail.com");
         final Opinion opinion = new Opinion(text, activeUser.getId());
         opinion.addJudgment(reference, Feeling.bad);
