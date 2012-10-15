@@ -193,16 +193,5 @@ public class TestKeywordService {
         assertThat(Repositories.keywords().getAll().size(), is(2));
     }
 
-    @Test
-    @Ignore
-    public void useExistingKeyword() {
-        //    TestFactories.keywords().newKeyword(canonicalUri, SteambeatLanguage.none());
-        //    final UriEvent uriEvent = TestFactories.events().newUriEvent("http://www.test.com");
-        //
-        //    DomainEventBus.INSTANCE.post(uriEvent);
-        //
-        //    assertThat(Repositories.keywords().getAll().size(), is(4));
-    }
-
     private KeywordService keywordService;
 }

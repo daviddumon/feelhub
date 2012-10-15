@@ -108,6 +108,14 @@ public class TestsSubjectExtractor {
         testText("J'aime beaucoup www.google.fr ! hehe", Feeling.none, "www.google.fr");
     }
 
+    @Test
+    public void canHandleUrisWithFeeling() {
+        testText("J'aime beaucoup +http://www.google.fr ! hehe", Feeling.good, "http://www.google.fr");
+        testText("J'aime beaucoup -http://www.google.fr ! hehe", Feeling.bad, "http://www.google.fr");
+        testText("J'aime beaucoup =http://www.google.fr ! hehe", Feeling.neutral, "http://www.google.fr");
+        testText("J'aime beaucoup #http://www.google.fr ! hehe", Feeling.none, "http://www.google.fr");
+    }
+
     private void testText(final String text, final Feeling feeling, final String expected) {
         final SubjectExtractor subjectExtractor = new SubjectExtractor();
         final List<Subject> subjects = subjectExtractor.extract(text);

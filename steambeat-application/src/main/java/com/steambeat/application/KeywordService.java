@@ -84,9 +84,9 @@ public class KeywordService {
                     keywords.add(createKeyword(token, SteambeatLanguage.none(), reference.getId()));
                 }
             }
+            final KeywordMerger keywordMerger = new KeywordMerger();
+            keywordMerger.merge(keywords);
             return keywords.get(0);
-
-            // APPELER LE SERVICE UQI MIGRE LES EREFERENCES A LA FIN
         } catch (UriException e) {
             // Il s'agit d'une uri inconnue
             // create unknown

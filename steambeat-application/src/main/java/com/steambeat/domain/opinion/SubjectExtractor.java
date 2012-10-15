@@ -14,12 +14,15 @@ public class SubjectExtractor {
             final TreeMap<Integer, Feeling> tokenTags = getSemanticTags(token);
             if (hasAny(tokenTags)) {
                 Feeling tokenFeeling = getFeeling(tokenTags);
-                final String cleanedToken = token.replaceAll(STRING_REPLACE, "").toLowerCase();
+                String cleanedToken = token.replaceAll(STRING_REPLACE_SEMANTIC, "").toLowerCase();
+                if (!isUri(cleanedToken)) {
+                    cleanedToken = token.replaceAll(STRING_REPLACE_ALL, "").toLowerCase();
+                }
                 if (cleanedToken.length() > 2) {
                     final Subject subject = new Subject(tokenFeeling, cleanedToken);
                     subjects.add(subject);
                 }
-            } else if (checkGrammar(token)) {
+            } else if (isUri(token)) {
                 final String cleanedToken = token.trim().toLowerCase();
                 if (cleanedToken.length() > 2) {
                     final Subject subject = new Subject(Feeling.none, cleanedToken);
@@ -30,7 +33,7 @@ public class SubjectExtractor {
         return subjects;
     }
 
-    private boolean checkGrammar(final String token) {
+    private boolean isUri(final String token) {
         return KeywordService.isUri(token);
     }
 
@@ -51,5 +54,6 @@ public class SubjectExtractor {
         return map.lastEntry().getValue();
     }
 
-    private static final String STRING_REPLACE = "\\W";
+    private static final String STRING_REPLACE_ALL = "\\W";
+    private static final String STRING_REPLACE_SEMANTIC = "[\\+\\-\\=\\#]";
 }
