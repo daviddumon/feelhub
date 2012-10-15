@@ -9,7 +9,7 @@ import com.steambeat.domain.opinion.*;
 import com.steambeat.domain.relation.OpinionRelationBinder;
 import com.steambeat.repositories.*;
 
-import java.util.List;
+import java.util.*;
 
 public class OpinionService {
 
@@ -43,7 +43,7 @@ public class OpinionService {
         final List<Judgment> result = Lists.newArrayList();
         final List<Subject> subjects = subjectExtractor.extract(opinionRequestEvent.getText());
         for (Subject subject : subjects) {
-            final Keyword keyword = keywordService.lookUpOrCreate(subject.text, opinionRequestEvent.getUserLanguageCode(), this);
+            final Keyword keyword = keywordService.lookUpOrCreate(subject.text, opinionRequestEvent.getUserLanguageCode());
             final Judgment judgment = new Judgment(keyword.getReferenceId(), subject.feeling);
             result.add(judgment);
         }
@@ -52,7 +52,7 @@ public class OpinionService {
 
     private List<Judgment> fromOpinionFeeling(final OpinionRequestEvent opinionRequestEvent) {
         final List<Judgment> result = Lists.newArrayList();
-        final Keyword keyword = keywordService.lookUpOrCreate(opinionRequestEvent.getKeywordValue(), opinionRequestEvent.getLanguageCode(), this);
+        final Keyword keyword = keywordService.lookUpOrCreate(opinionRequestEvent.getKeywordValue(), opinionRequestEvent.getLanguageCode());
         final Judgment judgment = new Judgment(keyword.getReferenceId(), opinionRequestEvent.getFeeling());
         result.add(judgment);
         return result;

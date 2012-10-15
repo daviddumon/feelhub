@@ -11,7 +11,7 @@ import com.steambeat.test.TestFactories;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import java.util.List;
+import java.util.*;
 
 import static junit.framework.Assert.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -194,15 +194,16 @@ public class TestKeywordService {
         assertThat(Repositories.keywords().getAll().size(), is(4));
     }
 
-    //@Test
-    //public void useExistingKeyword() {
+    @Test
+    @Ignore
+    public void useExistingKeyword() {
     //    TestFactories.keywords().newKeyword(canonicalUri, SteambeatLanguage.none());
     //    final UriEvent uriEvent = TestFactories.events().newUriEvent("http://www.test.com");
     //
     //    DomainEventBus.INSTANCE.post(uriEvent);
     //
     //    assertThat(Repositories.keywords().getAll().size(), is(4));
-    //}
+    }
 
     private KeywordService keywordService;
 }

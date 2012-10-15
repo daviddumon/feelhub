@@ -2,12 +2,9 @@ package com.steambeat.web.guice;
 
 import com.google.inject.*;
 import com.steambeat.application.OpinionService;
-import com.steambeat.domain.alchemy.AlchemyAnalyzer;
 import com.steambeat.domain.eventbus.DeadEventCatcher;
-import com.steambeat.domain.illustration.*;
-import com.steambeat.domain.relation.*;
 import com.steambeat.domain.statistics.StatisticsFactory;
-import com.steambeat.domain.uri.UriManager;
+import com.steambeat.domain.steam.SteamListener;
 import com.steambeat.repositories.SessionProvider;
 import com.steambeat.web.mail.MailBuilder;
 
@@ -19,6 +16,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(DeadEventCatcher.class).asEagerSingleton();
         bind(OpinionService.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();
+        bind(SteamListener.class).asEagerSingleton();
 
         //bind(SubjectIdentifier.class).asEagerSingleton();
         //bind(ConceptTranslator.class).asEagerSingleton();

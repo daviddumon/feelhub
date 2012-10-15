@@ -1,7 +1,10 @@
 package com.steambeat.domain.statistics;
 
 import com.steambeat.domain.eventbus.DomainEventBus;
+import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.steam.SteamStatisticsEvent;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.*;
@@ -24,7 +27,6 @@ public class TestsStatisticsFactory {
     @Before
     public void before() {
         statisticsFactory = new StatisticsFactory(new FakeSessionProvider());
-        //Repositories.subjects().add(new Steam(UUID.randomUUID()));
     }
 
     @Test
@@ -185,13 +187,15 @@ public class TestsStatisticsFactory {
     }
 
     @Test
-    @Ignore
-    public void recordStatisticsForSteam() {
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+    public void canRecordStatisticsForSteam() {
+        final Keyword steamKeyword = TestFactories.keywords().newKeyword("", SteambeatLanguage.none());
+        final Judgment judgment = new Judgment(steamKeyword.getReferenceId(), Feeling.good);
+        final SteamStatisticsEvent steamStatisticsEvent = new SteamStatisticsEvent(judgment);
 
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(steamStatisticsEvent);
 
-        //assertThat(getStatisticsRepository().forReferenceId(Repositories.references().getSteam()).getGood(), is(1));
+        final List<Statistics> statisticsList = getStatisticsRepository().forReferenceId(steamKeyword.getReferenceId());
+        assertThat(statisticsList.size(), is(5));
     }
 
     private JudgmentStatisticsEvent getGoodJudgmentEvent() {

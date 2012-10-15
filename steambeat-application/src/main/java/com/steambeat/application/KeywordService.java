@@ -111,11 +111,7 @@ public class KeywordService {
         return keyword;
     }
 
-    public static boolean isUri(final String text) {
-        return URI_PATTERN.matcher(text).matches();
-    }
-
-    public Keyword lookUpOrCreate(final String value, final String languageCode, final OpinionService opinionService) {
+    public Keyword lookUpOrCreate(final String value, final String languageCode) {
         Keyword keyword;
         try {
             keyword = lookUp(value, SteambeatLanguage.forString(languageCode));
@@ -123,6 +119,10 @@ public class KeywordService {
             keyword = createKeyword(value, SteambeatLanguage.forString(languageCode));
         }
         return keyword;
+    }
+
+    public static boolean isUri(final String text) {
+        return URI_PATTERN.matcher(text).matches();
     }
 
     private ReferenceService referenceService;

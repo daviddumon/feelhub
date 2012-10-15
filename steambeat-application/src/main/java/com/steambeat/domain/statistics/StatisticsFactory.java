@@ -3,8 +3,10 @@ package com.steambeat.domain.statistics;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.opinion.JudgmentStatisticsEvent;
+import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.steam.SteamStatisticsEvent;
 import com.steambeat.repositories.*;
+import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -19,36 +21,37 @@ public class StatisticsFactory {
     @Subscribe
     public void handle(final JudgmentStatisticsEvent event) {
         sessionProvider.start();
-        judgmentOn(event);
+        judgmentOn(event.getJudgment(), event.getDate());
         sessionProvider.stop();
     }
 
-    private void judgmentOn(final JudgmentStatisticsEvent event) {
+    @Subscribe
+    public void handle(final SteamStatisticsEvent event) {
+        sessionProvider.start();
+        judgmentOn(event.getJudgment(), event.getDate());
+        sessionProvider.stop();
+    }
+
+    private void judgmentOn(final Judgment judgment, final DateTime date) {
         for (final Granularity granularity : Granularity.values()) {
-            dealWith(granularity, event);
+            dealWith(granularity, judgment, date);
         }
     }
 
-    private void dealWith(final Granularity granularity, final JudgmentStatisticsEvent event) {
-        dealWithReference(granularity, event);
-        //dealWithSteam(granularity, new JudgmentPostedEvent(new Judgment(Repositories.subjects().getSteam(), event.getJudgment().getFeeling())));
+    private void dealWith(final Granularity granularity, final Judgment judgment, final DateTime date) {
+        dealWithReference(granularity, judgment, date);
     }
 
-    private void dealWithReference(final Granularity granularity, final JudgmentStatisticsEvent event) {
-        final Statistics stat = getOrCreateStat(granularity, event);
-        stat.incrementJudgmentCount(event.getJudgment());
+    private void dealWithReference(final Granularity granularity, final Judgment judgment, final DateTime date) {
+        final Statistics stat = getOrCreateStat(granularity, judgment, date);
+        stat.incrementJudgmentCount(judgment);
     }
 
-    private void dealWithSteam(final Granularity granularity, final JudgmentStatisticsEvent event) {
-        final Statistics stat = getOrCreateStat(granularity, event);
-        stat.incrementJudgmentCount(event.getJudgment());
-    }
-
-    private synchronized Statistics getOrCreateStat(final Granularity granularity, final JudgmentStatisticsEvent event) {
-        final List<Statistics> statistics = Repositories.statistics().forReferenceId(event.getJudgment().getReferenceId(), granularity, granularity.intervalFor(event.getDate()));
+    private synchronized Statistics getOrCreateStat(final Granularity granularity, final Judgment judgment, final DateTime date) {
+        final List<Statistics> statistics = Repositories.statistics().forReferenceId(judgment.getReferenceId(), granularity, granularity.intervalFor(date));
         final Statistics stat;
         if (statistics.isEmpty()) {
-            stat = new Statistics(event.getJudgment().getReferenceId(), granularity, event.getDate());
+            stat = new Statistics(judgment.getReferenceId(), granularity, date);
             Repositories.statistics().add(stat);
         } else {
             stat = statistics.get(0);
