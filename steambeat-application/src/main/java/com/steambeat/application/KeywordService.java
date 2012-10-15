@@ -115,6 +115,16 @@ public class KeywordService {
         return URI_PATTERN.matcher(text).matches();
     }
 
+    public Keyword lookUpOrCreate(final String value, final String languageCode, final OpinionService opinionService) {
+        Keyword keyword;
+        try {
+            keyword = lookUp(value, SteambeatLanguage.forString(languageCode));
+        } catch (KeywordNotFound e) {
+            keyword = createKeyword(value, SteambeatLanguage.forString(languageCode));
+        }
+        return keyword;
+    }
+
     private ReferenceService referenceService;
     private final KeywordFactory keywordFactory;
     private Translator translator;

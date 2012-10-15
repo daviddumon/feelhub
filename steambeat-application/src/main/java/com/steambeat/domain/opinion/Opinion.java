@@ -10,7 +10,61 @@ import java.util.*;
 
 public class Opinion extends BaseEntity {
 
+    public static class Builder {
+
+        public Opinion build() {
+            return new Opinion(this);
+        }
+
+        public Builder id(final UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder text(final String text) {
+            this.text = text;
+            return this;
+        }
+
+        public Builder user(final String userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder language(final String languageCode) {
+            this.languageCode = languageCode;
+            return this;
+        }
+
+        public Builder judgments(final List<Judgment> judgments) {
+            this.judgments.addAll(judgments);
+            return this;
+        }
+
+        private UUID id = null;
+        private String text = "";
+        private String userId = "";
+        private String languageCode = "";
+        private List<Judgment> judgments = Lists.newArrayList();
+    }
+
+    //do not delete mongolink constructor
     protected Opinion() {
+    }
+
+    private Opinion(final Builder builder) {
+        this.id = builder.id;
+        this.text = builder.text;
+        this.languageCode = builder.languageCode;
+        this.userId = builder.userId;
+        this.judgments.addAll(builder.judgments);
+        postEventForAllJudgments();
+    }
+
+    private void postEventForAllJudgments() {
+        for (Judgment judgment : judgments) {
+            DomainEventBus.INSTANCE.post(new JudgmentStatisticsEvent(judgment));
+        }
     }
 
     public Opinion(final String text, final String userId) {

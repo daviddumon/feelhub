@@ -18,8 +18,7 @@ public class JsonCreateOpinionResource extends ServerResource {
         try {
             checkCredentials();
             final JSONObject jsonOpinion = jsonRepresentation.getJsonObject();
-            final OpinionRequestEvent.Builder builder = getEventBuilderFrom(jsonOpinion);
-            final OpinionRequestEvent event = builder.build();
+            final OpinionRequestEvent event = getEventBuilderFrom(jsonOpinion).build();
             DomainEventBus.INSTANCE.post(event);
             setStatus(Status.SUCCESS_CREATED);
             return new JsonRepresentation(getJsonResponse(event));

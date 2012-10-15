@@ -29,7 +29,7 @@ function postOpinion(feeling, text) {
         success:function (data, textStatus, jqXHR) {
             $("#form textarea").val('');
             $("#form textarea").height("30px");
-            flow.pushFake(data, text, feeling);
+            //flow.pushFake(data, text, feeling);
         }
     });
 }

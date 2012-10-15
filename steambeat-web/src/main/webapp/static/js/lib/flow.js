@@ -34,7 +34,7 @@ Flow.prototype.drawData = function () {
 
     function loadData() {
         var referenceParameter = "&referenceId=" + encodeURIComponent(referenceId);
-        $.getJSON(root + "/json/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + referenceParameter, function (data) {
+        $.getJSON(root + "/json/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + referenceParameter + "&languageCode=" + languageCode, function (data) {
             $.each(data, function (index, opinion) {
                 THIS.drawBox(opinion, "opinion");
             });
