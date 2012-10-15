@@ -2,10 +2,8 @@ package com.steambeat.domain.illustration;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
-import com.steambeat.domain.DomainException;
 import com.steambeat.domain.bingsearch.BingLink;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.repositories.*;
 
 import java.util.*;
@@ -23,24 +21,17 @@ public class ConceptIllustrationFactory {
     public void handle(final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent) {
         sessionProvider.start();
         final UUID referenceId = conceptIllustrationRequestEvent.getReferenceId();
-        final String link = getLink(referenceId);
-        final Illustration illustration = new Illustration(referenceId, link);
-        Repositories.illustrations().add(illustration);
+        final List<Illustration> illustrations = Repositories.illustrations().forReferenceId(referenceId);
+        if (illustrations.isEmpty()) {
+            addIllustration(conceptIllustrationRequestEvent, referenceId);
+        }
         sessionProvider.stop();
     }
 
-    private String getLink(final UUID referenceId) {
-        final Keyword keyword = getKeywordFor(referenceId);
-        return bingLink.getIllustration(keyword);
-    }
-
-    private Keyword getKeywordFor(final UUID referenceId) {
-        final List<Keyword> keywords = Repositories.keywords().forReferenceId(referenceId);
-        if (keywords != null) {
-            return keywords.get(0);
-        } else {
-            throw new DomainException("the fuck just happens ????");
-        }
+    private void addIllustration(final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent, final UUID referenceId) {
+        final String link = bingLink.getIllustration(conceptIllustrationRequestEvent.getValue());
+        final Illustration illustration = new Illustration(referenceId, link);
+        Repositories.illustrations().add(illustration);
     }
 
     private BingLink bingLink;

@@ -6,8 +6,9 @@ import java.util.UUID;
 
 public class ConceptIllustrationRequestEvent extends DomainEvent {
 
-    public ConceptIllustrationRequestEvent(final UUID referenceId) {
+    public ConceptIllustrationRequestEvent(final UUID referenceId, final String value) {
         this.referenceId = referenceId;
+        this.value = value;
     }
 
     @Override
@@ -23,5 +24,10 @@ public class ConceptIllustrationRequestEvent extends DomainEvent {
         return referenceId;
     }
 
+    public String getValue() {
+        return value;
+    }
+
     private UUID referenceId;
+    private String value;
 }

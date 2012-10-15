@@ -2,7 +2,7 @@ package com.steambeat.domain.illustration;
 
 import com.steambeat.domain.bingsearch.FakeBingLink;
 import com.steambeat.domain.eventbus.*;
-import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
@@ -28,14 +28,28 @@ public class TestsConceptIllustrationFactory {
 
     @Test
     public void canCreateIllustration() {
-        final Keyword keyword = TestFactories.keywords().newKeyword();
-        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(keyword.getReferenceId());
+        final Reference reference = TestFactories.references().newReference();
+        final String value = "value";
+        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(reference.getId(), value);
 
         DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size(), is(1));
         assertThat(illustrations.get(0).getReferenceId(), is(conceptIllustrationRequestEvent.getReferenceId()));
-        assertThat(illustrations.get(0).getLink(), is(keyword.getValue() + "link"));
+        assertThat(illustrations.get(0).getLink(), is(value + "link"));
+    }
+
+    @Test
+    public void checkForExistingIllustration() {
+        final Reference reference = TestFactories.references().newReference();
+        final String value = "value";
+        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(reference.getId(), value);
+        TestFactories.illustrations().newIllustration(reference);
+
+        DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
+
+        final List<Illustration> illustrations = Repositories.illustrations().getAll();
+        assertThat(illustrations.size(), is(1));
     }
 }

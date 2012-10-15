@@ -2,15 +2,14 @@ package com.steambeat.domain.bingsearch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.steambeat.domain.bingsearch.readmodel.BingResults;
-import com.steambeat.domain.keyword.Keyword;
 
 import java.io.*;
 import java.net.*;
 
 public class BingLink {
 
-    public String getIllustration(final Keyword keyword) {
-        final String query = buildQueryFor(keyword);
+    public String getIllustration(final String value) {
+        final String query = buildQueryFor(value);
         try {
             final URL url = new URL(query);
             final URLConnection uc = url.openConnection();
@@ -24,12 +23,12 @@ public class BingLink {
         return "";
     }
 
-    private String buildQueryFor(final Keyword keyword) {
+    private String buildQueryFor(final String value) {
         try {
             final StringBuilder stringBuilder = new StringBuilder();
             final String queryRoot = "https://api.datamarket.azure.com/Data.ashx/Bing/Search/Image?Query='";
             stringBuilder.append(queryRoot);
-            stringBuilder.append(URLEncoder.encode(keyword.toString(), "UTF-8"));
+            stringBuilder.append(URLEncoder.encode(value, "UTF-8"));
             final String queryOptions = "'&Adult='Off'&$top=1&$format=JSON";
             stringBuilder.append(queryOptions);
             return stringBuilder.toString();

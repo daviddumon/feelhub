@@ -3,6 +3,7 @@ package com.steambeat.web.guice;
 import com.google.inject.*;
 import com.steambeat.application.OpinionService;
 import com.steambeat.domain.eventbus.DeadEventCatcher;
+import com.steambeat.domain.illustration.ConceptIllustrationFactory;
 import com.steambeat.domain.statistics.StatisticsFactory;
 import com.steambeat.domain.steam.SteamListener;
 import com.steambeat.repositories.SessionProvider;
@@ -17,6 +18,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(OpinionService.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();
         bind(SteamListener.class).asEagerSingleton();
+        bind(ConceptIllustrationFactory.class).asEagerSingleton();
 
         //bind(SubjectIdentifier.class).asEagerSingleton();
         //bind(ConceptTranslator.class).asEagerSingleton();
@@ -37,7 +39,6 @@ public class GuiceProductionModule extends AbstractModule {
         //bind(OpinionRelationBinder.class).asEagerSingleton();
 
         //bind(UriIllustrationFactory.class).asEagerSingleton();
-        //bind(ConceptIllustrationFactory.class).asEagerSingleton();
     }
 
     @Provides

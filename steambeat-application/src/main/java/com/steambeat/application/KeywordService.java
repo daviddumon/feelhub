@@ -1,6 +1,8 @@
 package com.steambeat.application;
 
 import com.google.inject.Inject;
+import com.steambeat.domain.eventbus.DomainEventBus;
+import com.steambeat.domain.illustration.ConceptIllustrationRequestEvent;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
@@ -60,7 +62,10 @@ public class KeywordService {
         if (KeywordService.isUri(value)) {
             return createUri(value);
         } else {
-            return createConcept(value, steambeatLanguage);
+            final Keyword concept = createConcept(value, steambeatLanguage);
+            final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(concept.getReferenceId(), concept.getValue());
+            DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
+            return concept;
         }
     }
 
@@ -102,7 +107,6 @@ public class KeywordService {
         } else {
             return createKeyword(value, steambeatLanguage, referenceService.newReference().getId());
         }
-        //DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
     }
 
     public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage, final UUID referenceID) {
