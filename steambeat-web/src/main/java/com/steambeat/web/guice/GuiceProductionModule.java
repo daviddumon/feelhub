@@ -18,6 +18,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(MailBuilder.class).asEagerSingleton();
         bind(DeadEventCatcher.class).asEagerSingleton();
         bind(OpinionService.class).asEagerSingleton();
+        bind(StatisticsFactory.class).asEagerSingleton();
 
         //bind(SubjectIdentifier.class).asEagerSingleton();
         //bind(ConceptTranslator.class).asEagerSingleton();
@@ -39,7 +40,6 @@ public class GuiceProductionModule extends AbstractModule {
 
         //bind(UriIllustrationFactory.class).asEagerSingleton();
         //bind(ConceptIllustrationFactory.class).asEagerSingleton();
-        //bind(StatisticsFactory.class).asEagerSingleton();
     }
 
     @Provides
