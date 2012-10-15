@@ -86,6 +86,7 @@ Flow.prototype.getOpinion = function (opinion, classes) {
         match = match.replace(/[\#\+\-\=]/g, "");
         return "<span>" + match + "</span>";
     });
+    text = text.replace(/[\#\+\-\=]+/g, "");
 
     var referenceDatas = [];
     for (var i = 0; i < opinion.referenceDatas.length; i++) {
