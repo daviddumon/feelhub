@@ -1,6 +1,6 @@
 package com.steambeat.repositories;
 
-import com.steambeat.domain.alchemy.AlchemyEntityRepository;
+import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.illustration.IllustrationRepository;
 import com.steambeat.domain.keyword.KeywordRepository;
 import com.steambeat.domain.opinion.OpinionRepository;
@@ -17,6 +17,11 @@ public class MongoRepositories extends Repositories {
     @Inject
     public MongoRepositories(final SessionProvider provider) {
         this.provider = provider;
+    }
+
+    @Override
+    protected AlchemyAnalysisRepository getAlchemyAnalysisRepository() {
+        return new AlchemyAnalysisMongoRepository(provider.get());
     }
 
     @Override

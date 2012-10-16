@@ -23,7 +23,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canPersistAlchemy() {
+    public void canPersistAlchemyEntity() {
         final AlchemyEntity alchemyEntity = new AlchemyEntity(TestFactories.references().newReference().getId());
         alchemyEntity.setCensus("census");
         alchemyEntity.setCiafactbook("ciafactbook");
@@ -47,7 +47,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
 
         entityMongoRepository.add(alchemyEntity);
 
-        final DBObject alchemyFound = getAlchemyInformationFromDB(alchemyEntity.getId());
+        final DBObject alchemyFound = getAlchemyEntityFromDB(alchemyEntity.getId());
         assertThat(alchemyFound, notNullValue());
         assertThat(alchemyFound.get("_id"), is(alchemyEntity.getId()));
         assertThat(alchemyFound.get("referenceId"), is((Object) alchemyEntity.getReferenceId()));
@@ -72,7 +72,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canGetAlchemy() {
+    public void canGetAlchemyEntity() {
         final DBCollection collection = mongo.getCollection("alchemyentity");
         final DBObject alchemy = new BasicDBObject();
         final UUID id = UUID.randomUUID();
@@ -87,9 +87,9 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetForAReference() {
         final Reference reference = TestFactories.references().newReference();
-        TestFactories.alchemy().newAlchemyEntity(reference.getId());
-        TestFactories.alchemy().newAlchemyEntity(reference.getId());
-        TestFactories.alchemy().newAlchemyEntity(reference.getId());
+        TestFactories.alchemy().newAlchemyEntityEntity(reference.getId());
+        TestFactories.alchemy().newAlchemyEntityEntity(reference.getId());
+        TestFactories.alchemy().newAlchemyEntityEntity(reference.getId());
 
         final List<AlchemyEntity> alchemyEntities = entityMongoRepository.forReferenceId(reference.getId());
 
@@ -97,7 +97,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
         assertThat(alchemyEntities.size(), is(3));
     }
 
-    private DBObject getAlchemyInformationFromDB(final Object id) {
+    private DBObject getAlchemyEntityFromDB(final Object id) {
         final DBCollection collection = mongo.getCollection("alchemyentity");
         final DBObject query = new BasicDBObject();
         query.put("_id", id);

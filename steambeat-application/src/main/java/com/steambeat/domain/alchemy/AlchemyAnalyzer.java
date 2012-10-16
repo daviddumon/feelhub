@@ -23,7 +23,7 @@ public class AlchemyAnalyzer {
     @Subscribe
     public void handle(final AlchemyRequestEvent event) {
         sessionProvider.start();
-        final Keyword keyword;
+        //final Keyword keyword;
         try {
             final List<NamedEntity> namedEntities = namedEntityProvider.entitiesFor(event.getUri().getValue());
             createKeywords(namedEntities);
