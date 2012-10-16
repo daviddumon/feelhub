@@ -26,5 +26,5 @@ public class UriManager {
         return result;
     }
 
-    private UriResolver uriResolver;
+    private final UriResolver uriResolver;
 }

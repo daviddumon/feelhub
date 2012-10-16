@@ -37,7 +37,7 @@ public class TestsKeywordMerger {
 
         keywordMerger.merge(createListOfKeyword(good, bad));
 
-        for (Keyword keyword : Repositories.keywords().getAll()) {
+        for (final Keyword keyword : Repositories.keywords().getAll()) {
             assertThat(keyword.getReferenceId(), is(good.getId()));
         }
     }
@@ -64,7 +64,7 @@ public class TestsKeywordMerger {
 
         keywordMerger.merge(createListOfKeyword(good, bad));
 
-        for (Illustration illustration : Repositories.illustrations().getAll()) {
+        for (final Illustration illustration : Repositories.illustrations().getAll()) {
             assertThat(illustration.getReferenceId(), is(good.getId()));
         }
     }
@@ -78,8 +78,8 @@ public class TestsKeywordMerger {
 
         keywordMerger.merge(createListOfKeyword(good, bad));
 
-        for (Opinion opinion : Repositories.opinions().getAll()) {
-            for (Judgment judgment : opinion.getJudgments()) {
+        for (final Opinion opinion : Repositories.opinions().getAll()) {
+            for (final Judgment judgment : opinion.getJudgments()) {
                 assertThat(judgment.getReferenceId(), is(good.getId()));
             }
         }
@@ -114,7 +114,7 @@ public class TestsKeywordMerger {
     }
 
     private List<Keyword> createListOfKeyword(final Reference good, final Reference bad) {
-        List<Keyword> keywords = Lists.newArrayList();
+        final List<Keyword> keywords = Lists.newArrayList();
         final Keyword first = TestFactories.keywords().newKeyword("first", SteambeatLanguage.reference(), good);
         keywords.add(first);
         time.waitDays(1);

@@ -9,16 +9,20 @@ import java.util.List;
 
 public class UriResolver {
 
-    public List<String> resolve(final String uri) {
+    public List<String> resolve(String uri) {
+        final List<String> path = Lists.newArrayList();
+        if (!uri.startsWith("http")) {
+            uri = "http://" + uri;
+        }
         path.add(uri);
-        followRedirection(uri);
+        followRedirection(uri, path);
         return path;
     }
 
-    private String followRedirection(final String uri) {
+    private String followRedirection(final String uri, final List<String> path) {
         final Client client = Clients.create();
         try {
-            return doFollow(uri, client);
+            return doFollow(uri, client, path);
         } catch (Exception e) {
             throw new UriException(e);
         } finally {
@@ -26,7 +30,7 @@ public class UriResolver {
         }
     }
 
-    private String doFollow(final String uri, final Client client) {
+    private String doFollow(final String uri, final Client client, final List<String> path) {
         String currentUri = uri;
         Response response = null;
         do {
@@ -46,8 +50,6 @@ public class UriResolver {
     private boolean notExistingResource(final Response response) {
         return ERROR_STATUS.contains(response.getStatus());
     }
-
-    protected List<String> path = Lists.newArrayList();
 
     private static final List<Status> ERROR_STATUS = Lists.newArrayList(Status.CONNECTOR_ERROR_COMMUNICATION,
             Status.CONNECTOR_ERROR_CONNECTION,

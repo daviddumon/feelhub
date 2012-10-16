@@ -44,8 +44,8 @@ public class KeywordResource extends ServerResource {
         keywordValue = getRequestAttributes().get("keyword").toString();
     }
 
-    private KeywordService keywordService;
-    private ReferenceDataFactory referenceDataFactory;
+    private final KeywordService keywordService;
+    private final ReferenceDataFactory referenceDataFactory;
     private SteambeatLanguage steambeatLanguage;
     private String keywordValue;
 }

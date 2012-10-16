@@ -1,5 +1,6 @@
 package com.steambeat.domain.uri;
 
+import com.google.common.collect.Lists;
 import org.restlet.data.Status;
 
 import java.util.List;
@@ -8,6 +9,7 @@ public class FakeUriResolver extends UriResolver {
 
     @Override
     public List<String> resolve(final String uri) {
+        final List<String> path = Lists.newArrayList();
         if (uri.equals(exceptionUri)) {
             throw new UriException(uri, Status.CONNECTOR_ERROR_CONNECTION);
         }

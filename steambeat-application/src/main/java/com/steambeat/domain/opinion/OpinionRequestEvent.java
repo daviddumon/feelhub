@@ -103,9 +103,9 @@ public class OpinionRequestEvent extends DomainEvent {
 
     private final String text;
     private final Feeling feeling;
-    private String userLanguageCode;
-    private String languageCode;
-    private String keywordValue;
-    private UUID opinionId;
-    private String userId;
+    private final String userLanguageCode;
+    private final String languageCode;
+    private final String keywordValue;
+    private final UUID opinionId;
+    private final String userId;
 }

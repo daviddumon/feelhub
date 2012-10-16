@@ -33,7 +33,7 @@ public class KeywordService {
     }
 
     public Keyword lookUp(final UUID referenceId, final SteambeatLanguage language) {
-        Keyword keyword;
+        final Keyword keyword;
         final List<Keyword> keywords = Repositories.keywords().forReferenceId(referenceId);
         if (!keywords.isEmpty()) {
             keyword = getGoodKeyword(keywords, language);
@@ -45,7 +45,7 @@ public class KeywordService {
 
     private Keyword getGoodKeyword(final List<Keyword> keywords, final SteambeatLanguage steambeatLanguage) {
         Keyword referenceKeyword = null;
-        for (Keyword keyword : keywords) {
+        for (final Keyword keyword : keywords) {
             if (keyword.getLanguage().equals(steambeatLanguage)) {
                 return keyword;
             } else if (keyword.getLanguage().equals(SteambeatLanguage.reference())) {
@@ -76,8 +76,8 @@ public class KeywordService {
         try {
             final Reference reference = referenceService.newReference();
             final List<String> tokens = uriManager.getTokens(value);
-            List<Keyword> keywords = Lists.newArrayList();
-            for (String token : tokens) {
+            final List<Keyword> keywords = Lists.newArrayList();
+            for (final String token : tokens) {
                 try {
                     keywords.add(lookUp(token, SteambeatLanguage.none()));
                 } catch (KeywordNotFound e) {

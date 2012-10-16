@@ -26,5 +26,5 @@ public class SteamStatisticsEvent extends DomainEvent {
         return judgment;
     }
 
-    private Judgment judgment;
+    private final Judgment judgment;
 }

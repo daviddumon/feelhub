@@ -53,7 +53,7 @@ public class TestsSessionService {
 
     @Test
     public void cannotAuthentificateWithoutSession() {
-        boolean result = sessionService.authentificate(user, null);
+        final boolean result = sessionService.authentificate(user, null);
 
         assertFalse(result);
     }

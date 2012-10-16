@@ -77,7 +77,7 @@ public class ReferenceData {
 
     private final String referenceId;
     private final String illustrationLink;
-    private String keywordValue;
-    private String languageCode;
-    private Feeling feeling;
+    private final String keywordValue;
+    private final String languageCode;
+    private final Feeling feeling;
 }

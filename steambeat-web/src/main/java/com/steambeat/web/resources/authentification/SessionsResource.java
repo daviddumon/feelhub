@@ -138,8 +138,8 @@ public class SessionsResource extends ServerResource {
         this.getResponse().getCookieSettings().add(session);
     }
 
-    private UserService userService;
-    private SessionService sessionService;
+    private final UserService userService;
+    private final SessionService sessionService;
     private User user;
     private Session session;
     private String remember;

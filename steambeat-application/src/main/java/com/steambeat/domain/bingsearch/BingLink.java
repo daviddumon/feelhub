@@ -44,11 +44,13 @@ public class BingLink {
 
     private String unmarshall(final InputStream inputStream) {
         final ObjectMapper objectMapper = new ObjectMapper();
+        BingResults bingResults = null;
         try {
-            final BingResults bingResults = objectMapper.readValue(inputStream, BingResults.class);
+            bingResults = objectMapper.readValue(inputStream, BingResults.class);
             return bingResults.d.results.get(0).MediaUrl;
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(bingResults);
         }
         return "";
     }

@@ -45,7 +45,7 @@ public class IdentityFilter extends Filter {
         }
     }
 
-    private UserService userService;
-    private SessionService sessionService;
+    private final UserService userService;
+    private final SessionService sessionService;
     private User user;
 }

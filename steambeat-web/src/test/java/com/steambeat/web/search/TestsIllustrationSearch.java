@@ -31,7 +31,7 @@ public class TestsIllustrationSearch extends TestWithMongoRepository {
         final Reference reference = TestFactories.references().newReference();
         final String link = "http://www.illustration.com/1.jpg";
         final Illustration illustration = TestFactories.illustrations().newIllustration(reference, link);
-        List<UUID> references = Lists.newArrayList();
+        final List<UUID> references = Lists.newArrayList();
         references.add(reference.getId());
 
         final List<Illustration> illustrations = illustrationSearch.withReferences(references).execute();
@@ -50,7 +50,7 @@ public class TestsIllustrationSearch extends TestWithMongoRepository {
         TestFactories.illustrations().newIllustration(ref1, link);
         TestFactories.illustrations().newIllustration(ref2, link);
         TestFactories.illustrations().newIllustration(ref3, link);
-        List<UUID> references = Lists.newArrayList();
+        final List<UUID> references = Lists.newArrayList();
         references.add(ref1.getId());
         references.add(ref2.getId());
 

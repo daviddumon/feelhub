@@ -21,8 +21,8 @@ public class OpinionRelationBinder {
     }
 
     private List<Reference> loadAllReferences(final List<Judgment> judgments) {
-        List<Reference> references = Lists.newArrayList();
-        for (Judgment judgment : judgments) {
+        final List<Reference> references = Lists.newArrayList();
+        for (final Judgment judgment : judgments) {
             final Reference reference = Repositories.references().get(judgment.getReferenceId());
             references.add(reference);
         }
@@ -42,5 +42,5 @@ public class OpinionRelationBinder {
         }
     }
 
-    private RelationBuilder relationBuilder;
+    private final RelationBuilder relationBuilder;
 }

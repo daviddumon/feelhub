@@ -17,6 +17,6 @@ public class OpinionData {
         return referenceDatas;
     }
 
-    private String text;
-    private List<ReferenceData> referenceDatas;
+    private final String text;
+    private final List<ReferenceData> referenceDatas;
 }

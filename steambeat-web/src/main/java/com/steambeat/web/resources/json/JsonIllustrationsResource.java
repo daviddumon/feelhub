@@ -30,5 +30,5 @@ public class JsonIllustrationsResource extends ServerResource {
         return SteambeatTemplateRepresentation.createNew("json/illustrations.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("illustrations", illustrations);
     }
 
-    private IllustrationSearch illustrationSearch;
+    private final IllustrationSearch illustrationSearch;
 }

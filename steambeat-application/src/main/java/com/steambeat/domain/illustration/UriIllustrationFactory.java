@@ -43,6 +43,6 @@ public class UriIllustrationFactory {
         }
     }
 
-    private Scraper scraper;
-    private SessionProvider sessionProvider;
+    private final Scraper scraper;
+    private final SessionProvider sessionProvider;
 }

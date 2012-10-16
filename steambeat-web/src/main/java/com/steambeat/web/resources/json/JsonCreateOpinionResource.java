@@ -14,7 +14,7 @@ import java.util.UUID;
 public class JsonCreateOpinionResource extends ServerResource {
 
     @Post
-    public JsonRepresentation post(JsonRepresentation jsonRepresentation) {
+    public JsonRepresentation post(final JsonRepresentation jsonRepresentation) {
         try {
             checkCredentials();
             final JSONObject jsonOpinion = jsonRepresentation.getJsonObject();

@@ -42,7 +42,7 @@ public class OpinionService {
     private List<Judgment> fromText(final OpinionRequestEvent opinionRequestEvent) {
         final List<Judgment> result = Lists.newArrayList();
         final List<Subject> subjects = subjectExtractor.extract(opinionRequestEvent.getText());
-        for (Subject subject : subjects) {
+        for (final Subject subject : subjects) {
             final Keyword keyword = keywordService.lookUpOrCreate(subject.text, opinionRequestEvent.getUserLanguageCode());
             final Judgment judgment = new Judgment(keyword.getReferenceId(), subject.feeling);
             result.add(judgment);
@@ -68,8 +68,8 @@ public class OpinionService {
         return builder.build();
     }
 
-    private SessionProvider sessionProvider;
-    private KeywordService keywordService;
-    private OpinionRelationBinder opinionRelationBinder;
+    private final SessionProvider sessionProvider;
+    private final KeywordService keywordService;
+    private final OpinionRelationBinder opinionRelationBinder;
     private final SubjectExtractor subjectExtractor;
 }

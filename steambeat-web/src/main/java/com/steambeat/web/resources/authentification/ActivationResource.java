@@ -30,5 +30,5 @@ public class ActivationResource extends ServerResource {
         }
     }
 
-    private UserService userService;
+    private final UserService userService;
 }

@@ -28,6 +28,6 @@ public class ConceptIllustrationRequestEvent extends DomainEvent {
         return value;
     }
 
-    private UUID referenceId;
-    private String value;
+    private final UUID referenceId;
+    private final String value;
 }

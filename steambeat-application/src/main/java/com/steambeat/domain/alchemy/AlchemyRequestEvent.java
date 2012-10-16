@@ -21,5 +21,5 @@ public class AlchemyRequestEvent extends DomainEvent {
         return uri;
     }
 
-    private String uri;
+    private final String uri;
 }

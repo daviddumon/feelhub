@@ -28,6 +28,6 @@ public class SteamListener {
         sessionProvider.stop();
     }
 
-    private SessionProvider sessionProvider;
-    private KeywordService keywordService;
+    private final SessionProvider sessionProvider;
+    private final KeywordService keywordService;
 }

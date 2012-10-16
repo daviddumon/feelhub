@@ -8,12 +8,12 @@ import java.util.*;
 public class SubjectExtractor {
 
     public List<Subject> extract(final String text) {
-        List<Subject> subjects = Lists.newArrayList();
+        final List<Subject> subjects = Lists.newArrayList();
         final String[] tokens = text.split("\\s");
-        for (String token : tokens) {
+        for (final String token : tokens) {
             final TreeMap<Integer, Feeling> tokenTags = getSemanticTags(token);
             if (hasAny(tokenTags)) {
-                Feeling tokenFeeling = getFeeling(tokenTags);
+                final Feeling tokenFeeling = getFeeling(tokenTags);
                 String cleanedToken = token.replaceAll(STRING_REPLACE_SEMANTIC, "").toLowerCase();
                 if (!isUri(cleanedToken)) {
                     cleanedToken = token.replaceAll(STRING_REPLACE_ALL, "").toLowerCase();
@@ -38,7 +38,7 @@ public class SubjectExtractor {
     }
 
     private TreeMap<Integer, Feeling> getSemanticTags(final String token) {
-        TreeMap<Integer, Feeling> counts = Maps.newTreeMap();
+        final TreeMap<Integer, Feeling> counts = Maps.newTreeMap();
         counts.put(token.lastIndexOf("#"), Feeling.none);
         counts.put(token.lastIndexOf("-"), Feeling.bad);
         counts.put(token.lastIndexOf("="), Feeling.neutral);

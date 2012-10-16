@@ -34,6 +34,6 @@ public class ConceptIllustrationFactory {
         Repositories.illustrations().add(illustration);
     }
 
-    private BingLink bingLink;
-    private SessionProvider sessionProvider;
+    private final BingLink bingLink;
+    private final SessionProvider sessionProvider;
 }

@@ -170,7 +170,7 @@ public class TestsJsonCreateOpinionResource {
     }
 
     private JsonRepresentation goodJsonOpinion() {
-        JSONObject opinion = new JSONObject();
+        final JSONObject opinion = new JSONObject();
         try {
             opinion.put("text", "my opinion +judgment");
             opinion.put("feeling", "good");
@@ -184,7 +184,7 @@ public class TestsJsonCreateOpinionResource {
     }
 
     private JsonRepresentation badJsonOpinionWithoutText() {
-        JSONObject opinion = new JSONObject();
+        final JSONObject opinion = new JSONObject();
         try {
             opinion.put("feeling", "good");
             opinion.put("keywordValue", "keyword");
@@ -197,7 +197,7 @@ public class TestsJsonCreateOpinionResource {
     }
 
     private JsonRepresentation badJsonOpinionWithoutFeeling() {
-        JSONObject opinion = new JSONObject();
+        final JSONObject opinion = new JSONObject();
         try {
             opinion.put("text", "my opinion");
             opinion.put("keywordValue", "keyword");
@@ -210,7 +210,7 @@ public class TestsJsonCreateOpinionResource {
     }
 
     private JsonRepresentation badJsonOpinionWithoutKeywordValue() {
-        JSONObject opinion = new JSONObject();
+        final JSONObject opinion = new JSONObject();
         try {
             opinion.put("text", "my opinion");
             opinion.put("feeling", "good");
@@ -223,7 +223,7 @@ public class TestsJsonCreateOpinionResource {
     }
 
     private JsonRepresentation badJsonOpinionWithoutLanguageCode() {
-        JSONObject opinion = new JSONObject();
+        final JSONObject opinion = new JSONObject();
         try {
             opinion.put("text", "my opinion");
             opinion.put("feeling", "good");
@@ -236,7 +236,7 @@ public class TestsJsonCreateOpinionResource {
     }
 
     private JsonRepresentation badJsonOpinionWithoutUserLanguageCode() {
-        JSONObject opinion = new JSONObject();
+        final JSONObject opinion = new JSONObject();
         try {
             opinion.put("text", "my opinion");
             opinion.put("feeling", "good");

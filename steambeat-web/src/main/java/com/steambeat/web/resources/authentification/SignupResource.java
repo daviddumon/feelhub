@@ -48,5 +48,5 @@ public class SignupResource extends ServerResource {
                 && form.getQueryString().contains("language");
     }
 
-    private UserService userService;
+    private final UserService userService;
 }

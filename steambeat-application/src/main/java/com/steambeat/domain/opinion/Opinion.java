@@ -45,7 +45,7 @@ public class Opinion extends BaseEntity {
         private String text = "";
         private String userId = "";
         private String languageCode = "";
-        private List<Judgment> judgments = Lists.newArrayList();
+        private final List<Judgment> judgments = Lists.newArrayList();
     }
 
     //do not delete mongolink constructor
@@ -62,7 +62,7 @@ public class Opinion extends BaseEntity {
     }
 
     private void postEventForAllJudgments() {
-        for (Judgment judgment : judgments) {
+        for (final Judgment judgment : judgments) {
             DomainEventBus.INSTANCE.post(new JudgmentStatisticsEvent(judgment));
         }
     }

@@ -39,7 +39,7 @@ public class FakeIllustrationSearch extends IllustrationSearch {
 
             @Override
             public boolean apply(final Illustration illustration) {
-                for (UUID reference : references) {
+                for (final UUID reference : references) {
                     if (illustration.getReferenceId().equals(reference)) {
                         return true;
                     }

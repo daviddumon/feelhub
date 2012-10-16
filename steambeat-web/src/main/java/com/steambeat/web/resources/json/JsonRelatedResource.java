@@ -75,7 +75,7 @@ public class JsonRelatedResource extends ServerResource {
     }
 
     public void getReferenceDataForEachRelation() {
-        for (Relation relation : relations) {
+        for (final Relation relation : relations) {
             addReferenceData(relation);
         }
     }
@@ -86,10 +86,10 @@ public class JsonRelatedResource extends ServerResource {
         referenceDataList.add(referenceData);
     }
 
-    private RelationSearch relationSearch;
-    private KeywordService keywordService;
-    private ReferenceDataFactory referenceDataFactory;
+    private final RelationSearch relationSearch;
+    private final KeywordService keywordService;
+    private final ReferenceDataFactory referenceDataFactory;
     private List<Relation> relations = Lists.newArrayList();
     private SteambeatLanguage steambeatLanguage;
-    private List<ReferenceData> referenceDataList = Lists.newArrayList();
+    private final List<ReferenceData> referenceDataList = Lists.newArrayList();
 }

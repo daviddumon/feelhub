@@ -42,7 +42,7 @@ public class SteambeatStatusService extends StatusService {
 
     @Override
     public Representation getRepresentation(final Status status, final Request request, final Response response) {
-        String message = getMessage(status);
+        final String message = getMessage(status);
         if (canResolve(status.getThrowable())) {
             return resolverFor(status.getThrowable()).getRepresentation(getContext(), request, message);
         }

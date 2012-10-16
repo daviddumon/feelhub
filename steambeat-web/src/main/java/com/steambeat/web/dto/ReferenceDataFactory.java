@@ -10,7 +10,7 @@ import java.util.*;
 public class ReferenceDataFactory {
 
     public ReferenceData getReferenceData(final Keyword keyword) {
-        ReferenceData.Builder builder = new ReferenceData.Builder();
+        final ReferenceData.Builder builder = new ReferenceData.Builder();
         builder.keyword(keyword);
         builder.language(keyword.getLanguage());
         if (keyword.getReferenceId() != null) {
@@ -24,7 +24,7 @@ public class ReferenceDataFactory {
     }
 
     public ReferenceData getReferenceData(final UUID id, final Keyword keyword) {
-        ReferenceData.Builder builder = new ReferenceData.Builder();
+        final ReferenceData.Builder builder = new ReferenceData.Builder();
         builder.keyword(keyword);
         builder.language(keyword.getLanguage());
         builder.referenceId(id);
@@ -36,7 +36,7 @@ public class ReferenceDataFactory {
     }
 
     public ReferenceData getReferenceDatas(final Keyword keyword, final Judgment judgment) {
-        ReferenceData.Builder builder = new ReferenceData.Builder();
+        final ReferenceData.Builder builder = new ReferenceData.Builder();
         builder.keyword(keyword);
         builder.language(keyword.getLanguage());
         builder.feeling(judgment.getFeeling());

@@ -10,5 +10,5 @@ public class SteambeatJsonException extends RuntimeException {
         this.message = message;
     }
 
-    private String message;
+    private final String message;
 }

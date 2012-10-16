@@ -28,9 +28,9 @@ public class JsonOpinionsResource extends ServerResource {
     @Get
     public SteambeatTemplateRepresentation represent() throws JSONException {
         final Form form = getQuery();
-        List<Opinion> opinions = doSearchWithQueryParameters(form);
+        final List<Opinion> opinions = doSearchWithQueryParameters(form);
         extractLanguageParameter(form);
-        List<OpinionData> opinionDatas = getOpinionDatas(opinions);
+        final List<OpinionData> opinionDatas = getOpinionDatas(opinions);
         return SteambeatTemplateRepresentation.createNew("json/opinions.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("opinionDatas", opinionDatas);
     }
 
@@ -76,8 +76,8 @@ public class JsonOpinionsResource extends ServerResource {
     }
 
     private List<OpinionData> getOpinionDatas(final List<Opinion> opinions) {
-        List<OpinionData> opinionDatas = Lists.newArrayList();
-        for (Opinion opinion : opinions) {
+        final List<OpinionData> opinionDatas = Lists.newArrayList();
+        for (final Opinion opinion : opinions) {
             final List<ReferenceData> referenceDatas = getReferenceDatas(opinion);
             final OpinionData opinionData = new OpinionData(opinion.getText(), referenceDatas);
             opinionDatas.add(opinionData);
@@ -86,8 +86,8 @@ public class JsonOpinionsResource extends ServerResource {
     }
 
     private List<ReferenceData> getReferenceDatas(final Opinion opinion) {
-        List<ReferenceData> referenceDatas = Lists.newArrayList();
-        for (Judgment judgment : opinion.getJudgments()) {
+        final List<ReferenceData> referenceDatas = Lists.newArrayList();
+        for (final Judgment judgment : opinion.getJudgments()) {
             final Keyword keyword = keywordService.lookUp(judgment.getReferenceId(), steambeatLanguage);
             final ReferenceData referenceData = referenceDataFactory.getReferenceDatas(keyword, judgment);
             referenceDatas.add(referenceData);

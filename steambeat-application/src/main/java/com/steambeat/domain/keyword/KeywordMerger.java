@@ -52,7 +52,7 @@ public class KeywordMerger {
     }
 
     private void appendOldReferences(final ReferencePatch referencePatch, final List<Reference> allReferences) {
-        for (Reference reference : allReferences) {
+        for (final Reference reference : allReferences) {
             final UUID currentId = reference.getId();
             if (!currentId.equals(referencePatch.getNewReferenceId())) {
                 referencePatch.addOldReferenceId(currentId);
@@ -60,10 +60,10 @@ public class KeywordMerger {
         }
     }
 
-    private KeywordManager keywordManager = new KeywordManager();
-    private ReferenceManager referenceManager = new ReferenceManager();
-    private IllustrationManager illustrationManager = new IllustrationManager();
-    private OpinionManager opinionManager = new OpinionManager();
-    private RelationManager relationManager = new RelationManager();
-    private StatisticsManager statisticsManager = new StatisticsManager();
+    private final KeywordManager keywordManager = new KeywordManager();
+    private final ReferenceManager referenceManager = new ReferenceManager();
+    private final IllustrationManager illustrationManager = new IllustrationManager();
+    private final OpinionManager opinionManager = new OpinionManager();
+    private final RelationManager relationManager = new RelationManager();
+    private final StatisticsManager statisticsManager = new StatisticsManager();
 }

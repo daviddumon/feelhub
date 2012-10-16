@@ -39,8 +39,8 @@ public class IllustrationSearch implements Search<Illustration> {
     }
 
     public Search<Illustration> withReferences(final List<UUID> references) {
-        List<String> referencesAsString = Lists.newArrayList();
-        for (UUID reference : references) {
+        final List<String> referencesAsString = Lists.newArrayList();
+        for (final UUID reference : references) {
             referencesAsString.add(reference.toString());
         }
         criteria.add(Restrictions.inUUID("referenceId", references));
