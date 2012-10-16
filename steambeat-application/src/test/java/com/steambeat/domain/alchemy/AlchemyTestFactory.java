@@ -1,42 +1,34 @@
 package com.steambeat.domain.alchemy;
 
 import com.google.common.collect.Lists;
-import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.Repositories;
 
 import java.util.*;
 
 public class AlchemyTestFactory {
 
-    public Alchemy newAlchemy(final UUID referenceId) {
-        final Alchemy alchemy = new Alchemy(referenceId);
-        alchemy.setCensus("census");
-        alchemy.setCiafactbook("ciafactbook");
-        alchemy.setCrunchbase("crunchbase");
-        alchemy.setDbpedia("dbpedia");
-        alchemy.setFreebase("freebase");
-        alchemy.setGeo("geo");
-        alchemy.setGeonames("geonames");
-        alchemy.setMusicbrainz("musicbrainz");
-        alchemy.setOpencyc("opencyc");
-        alchemy.setSemanticcrunchbase("crunchbase");
+    public AlchemyEntity newAlchemyEntity(final UUID referenceId) {
+        final AlchemyEntity alchemyEntity = new AlchemyEntity(referenceId);
+        alchemyEntity.setCensus("census");
+        alchemyEntity.setCiafactbook("ciafactbook");
+        alchemyEntity.setCrunchbase("crunchbase");
+        alchemyEntity.setDbpedia("dbpedia");
+        alchemyEntity.setFreebase("freebase");
+        alchemyEntity.setGeo("geo");
+        alchemyEntity.setGeonames("geonames");
+        alchemyEntity.setMusicbrainz("musicbrainz");
+        alchemyEntity.setOpencyc("opencyc");
+        alchemyEntity.setSemanticcrunchbase("crunchbase");
         final List<String> subTypes = Lists.newArrayList();
         subTypes.add("sub1");
         subTypes.add("sub2");
-        alchemy.setSubtype(subTypes);
-        alchemy.setType("type");
-        alchemy.setUmbel("umbel");
-        alchemy.setWebsite("website");
-        alchemy.setYago("yago");
-        alchemy.setRelevance(1.0);
-        Repositories.alchemys().add(alchemy);
-        return alchemy;
-    }
-
-    private Reference createAndPersistReference() {
-        final UUID id = UUID.randomUUID();
-        final Reference reference = new Reference(id);
-        Repositories.references().add(reference);
-        return reference;
+        alchemyEntity.setSubtype(subTypes);
+        alchemyEntity.setType("type");
+        alchemyEntity.setUmbel("umbel");
+        alchemyEntity.setWebsite("website");
+        alchemyEntity.setYago("yago");
+        alchemyEntity.setRelevance(1.0);
+        Repositories.alchemyEntities().add(alchemyEntity);
+        return alchemyEntity;
     }
 }

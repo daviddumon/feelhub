@@ -5,13 +5,13 @@ import com.steambeat.domain.BaseEntity;
 
 import java.util.*;
 
-public class Alchemy extends BaseEntity {
+public class AlchemyEntity extends BaseEntity {
 
     //mongolink constructor do not delete
-    public Alchemy() {
+    public AlchemyEntity() {
     }
 
-    public Alchemy(final UUID referenceId) {
+    public AlchemyEntity(final UUID referenceId) {
         this.referenceId = referenceId;
         this.id = UUID.randomUUID();
     }

@@ -2,6 +2,7 @@ package com.steambeat.application;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.steambeat.domain.alchemy.AlchemyRequestEvent;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.illustration.*;
 import com.steambeat.domain.keyword.*;
@@ -62,15 +63,29 @@ public class KeywordService {
     public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage) {
         if (KeywordService.isUri(value)) {
             final Keyword uri = createUri(value);
-            final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(uri.getReferenceId(), uri.getValue());
-            DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
+            requestUriIllustration(uri);
+            requestAlchemy(uri);
             return uri;
         } else {
             final Keyword concept = createConcept(value, steambeatLanguage);
-            final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(concept.getReferenceId(), concept.getValue());
-            DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
+            requestConceptIllustration(concept);
             return concept;
         }
+    }
+
+    private void requestConceptIllustration(final Keyword concept) {
+        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(concept.getReferenceId(), concept.getValue());
+        DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
+    }
+
+    private void requestAlchemy(final Keyword uri) {
+        final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(uri);
+        DomainEventBus.INSTANCE.post(alchemyRequestEvent);
+    }
+
+    private void requestUriIllustration(final Keyword uri) {
+        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(uri.getReferenceId(), uri.getValue());
+        DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
     }
 
     private Keyword createUri(final String value) {

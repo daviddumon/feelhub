@@ -20,24 +20,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(SteamListener.class).asEagerSingleton();
         bind(ConceptIllustrationFactory.class).asEagerSingleton();
         bind(UriIllustrationFactory.class).asEagerSingleton();
-
-        //bind(SubjectIdentifier.class).asEagerSingleton();
-        //bind(ConceptTranslator.class).asEagerSingleton();
-        //bind(ConceptReferenceManager.class).asEagerSingleton();
-        //bind(KeywordManager.class).asEagerSingleton();
-        //bind(OpinionManager.class).asEagerSingleton();
-        //bind(RelationManager.class).asEagerSingleton();
-        //bind(StatisticsManager.class).asEagerSingleton();
-        //bind(ConceptIllustrationManager.class).asEagerSingleton();
-
-        //bind(UriManager.class).asEagerSingleton();
-        //bind(UriReferenceManager.class).asEagerSingleton();
         //bind(AlchemyAnalyzer.class).asEagerSingleton();
-        //bind(UriIllustrationManager.class).asEagerSingleton();
-        //bind(ConceptGroupTranslator.class).asEagerSingleton();
-        //bind(ConceptGroupReferenceManager.class).asEagerSingleton();
-        //bind(AlchemyRelationBinder.class).asEagerSingleton();
-        //bind(OpinionRelationBinder.class).asEagerSingleton();
     }
 
     @Provides

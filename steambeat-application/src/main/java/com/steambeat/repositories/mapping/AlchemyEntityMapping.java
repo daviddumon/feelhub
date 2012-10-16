@@ -1,12 +1,12 @@
 package com.steambeat.repositories.mapping;
 
-import com.steambeat.domain.alchemy.Alchemy;
+import com.steambeat.domain.alchemy.AlchemyEntity;
 import org.mongolink.domain.mapper.EntityMap;
 
-public class AlchemyMapping extends EntityMap<Alchemy> {
+public class AlchemyEntityMapping extends EntityMap<AlchemyEntity> {
 
-    public AlchemyMapping() {
-        super(Alchemy.class);
+    public AlchemyEntityMapping() {
+        super(AlchemyEntity.class);
     }
 
     @Override

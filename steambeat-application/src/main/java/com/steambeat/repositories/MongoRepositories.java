@@ -1,6 +1,6 @@
 package com.steambeat.repositories;
 
-import com.steambeat.domain.alchemy.AlchemyRepository;
+import com.steambeat.domain.alchemy.AlchemyEntityRepository;
 import com.steambeat.domain.illustration.IllustrationRepository;
 import com.steambeat.domain.keyword.KeywordRepository;
 import com.steambeat.domain.opinion.OpinionRepository;
@@ -20,8 +20,8 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
-    protected AlchemyRepository getAlchemyRepository() {
-        return new AlchemyMongoRepository(provider.get());
+    protected AlchemyEntityRepository getAlchemyEntityRepository() {
+        return new AlchemyEntityMongoRepository(provider.get());
     }
 
     @Override

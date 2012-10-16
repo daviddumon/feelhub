@@ -1,10 +1,11 @@
 package com.steambeat.domain.alchemy;
 
 import com.steambeat.domain.eventbus.DomainEvent;
+import com.steambeat.domain.keyword.Keyword;
 
 public class AlchemyRequestEvent extends DomainEvent {
 
-    public AlchemyRequestEvent(final String uri) {
+    public AlchemyRequestEvent(final Keyword uri) {
         this.uri = uri;
     }
 
@@ -17,9 +18,9 @@ public class AlchemyRequestEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    public String getUri() {
+    public Keyword getUri() {
         return uri;
     }
 
-    private final String uri;
+    private final Keyword uri;
 }

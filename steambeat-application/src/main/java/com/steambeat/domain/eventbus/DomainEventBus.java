@@ -12,7 +12,6 @@ public enum DomainEventBus {
 
     private DomainEventBus() {
         eventBus = new AsyncEventBus(Executors.newFixedThreadPool(50));
-        //eventBus = new EventBus();
     }
 
     public void setEventBus(final EventBus eventBus) {
