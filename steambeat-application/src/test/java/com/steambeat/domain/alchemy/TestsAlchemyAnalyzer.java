@@ -81,5 +81,30 @@ public class TestsAlchemyAnalyzer {
         assertThat(Repositories.alchemyEntities().getAll().size(), is(1));
     }
 
+    @Test
+    public void createAlchemyAnalysisOnSuccess() {
+        when(entityProvider.entitiesFor(anyString())).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
+        final Reference reference = TestFactories.references().newReference();
+        final Keyword keyword = TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
+        final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
+
+        DomainEventBus.INSTANCE.post(alchemyRequestEvent);
+
+        assertThat(Repositories.alchemyAnalysis().getAll().size(), is(1));
+    }
+
+    @Test
+    public void doNotMakeAnalysisIfAlreadyExists() {
+        when(entityProvider.entitiesFor(anyString())).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
+        final Reference reference = TestFactories.references().newReference();
+        final Keyword keyword = TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
+        final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
+        TestFactories.alchemy().newAlchemyAnalysis(reference);
+
+        DomainEventBus.INSTANCE.post(alchemyRequestEvent);
+
+        assertThat(Repositories.alchemyAnalysis().getAll().size(), is(1));
+    }
+
     private NamedEntityProvider entityProvider;
 }

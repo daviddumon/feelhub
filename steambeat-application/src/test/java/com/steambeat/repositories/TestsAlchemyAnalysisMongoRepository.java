@@ -14,7 +14,6 @@ import static org.hamcrest.Matchers.*;
 
 public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository {
 
-
     @Rule
     public SystemTime time = SystemTime.fixed();
 

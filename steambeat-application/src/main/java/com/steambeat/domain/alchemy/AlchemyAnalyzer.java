@@ -23,16 +23,22 @@ public class AlchemyAnalyzer {
     @Subscribe
     public void handle(final AlchemyRequestEvent event) {
         sessionProvider.start();
-        //final Keyword keyword;
+        final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forReferenceId(event.getUri().getReferenceId());
+        if (alchemyAnalysisList.isEmpty()) {
+            addAlchemyAnalysis(event);
+        }
+        sessionProvider.stop();
+    }
+
+    private void addAlchemyAnalysis(final AlchemyRequestEvent event) {
         try {
             final List<NamedEntity> namedEntities = namedEntityProvider.entitiesFor(event.getUri().getValue());
             createKeywords(namedEntities);
-
+            createAlchemyAnalysis(event.getUri());
             // Relier les references de tous les keywords
         } catch (AlchemyException e) {
 
         }
-        sessionProvider.stop();
     }
 
     private void createKeywords(final List<NamedEntity> namedEntities) {
@@ -46,30 +52,35 @@ public class AlchemyAnalyzer {
                     final KeywordMerger keywordMerger = new KeywordMerger();
                     keywordMerger.merge(keywords);
                 }
-                createAlchemy(namedEntity, keywords.get(0));
+                createAlchemyEntity(namedEntity, keywords.get(0));
             }
         }
     }
 
-    private void createAlchemy(final NamedEntity namedEntity, final Keyword keyword) {
-        final AlchemyEntity alchemy = new AlchemyEntity(keyword.getReferenceId());
-        alchemy.setCensus(namedEntity.census);
-        alchemy.setCiafactbook(namedEntity.ciaFactbook);
-        alchemy.setCrunchbase(namedEntity.crunchbase);
-        alchemy.setDbpedia(namedEntity.dbpedia);
-        alchemy.setFreebase(namedEntity.freebase);
-        alchemy.setGeo(namedEntity.geo);
-        alchemy.setGeonames(namedEntity.geonames);
-        alchemy.setMusicbrainz(namedEntity.musicBrainz);
-        alchemy.setOpencyc(namedEntity.opencyc);
-        alchemy.setSemanticcrunchbase(namedEntity.semanticCrunchbase);
-        alchemy.setSubtype(namedEntity.subType);
-        alchemy.setType(namedEntity.type);
-        alchemy.setUmbel(namedEntity.umbel);
-        alchemy.setWebsite(namedEntity.website);
-        alchemy.setYago(namedEntity.yago);
-        alchemy.setRelevance(namedEntity.relevance);
-        Repositories.alchemyEntities().add(alchemy);
+    private void createAlchemyEntity(final NamedEntity namedEntity, final Keyword keyword) {
+        final AlchemyEntity alchemyEntity = new AlchemyEntity(keyword.getReferenceId());
+        alchemyEntity.setCensus(namedEntity.census);
+        alchemyEntity.setCiafactbook(namedEntity.ciaFactbook);
+        alchemyEntity.setCrunchbase(namedEntity.crunchbase);
+        alchemyEntity.setDbpedia(namedEntity.dbpedia);
+        alchemyEntity.setFreebase(namedEntity.freebase);
+        alchemyEntity.setGeo(namedEntity.geo);
+        alchemyEntity.setGeonames(namedEntity.geonames);
+        alchemyEntity.setMusicbrainz(namedEntity.musicBrainz);
+        alchemyEntity.setOpencyc(namedEntity.opencyc);
+        alchemyEntity.setSemanticcrunchbase(namedEntity.semanticCrunchbase);
+        alchemyEntity.setSubtype(namedEntity.subType);
+        alchemyEntity.setType(namedEntity.type);
+        alchemyEntity.setUmbel(namedEntity.umbel);
+        alchemyEntity.setWebsite(namedEntity.website);
+        alchemyEntity.setYago(namedEntity.yago);
+        alchemyEntity.setRelevance(namedEntity.relevance);
+        Repositories.alchemyEntities().add(alchemyEntity);
+    }
+
+    private void createAlchemyAnalysis(final Keyword uri) {
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(uri);
+        Repositories.alchemyAnalysis().add(alchemyAnalysis);
     }
 
     private final KeywordService keywordService;
