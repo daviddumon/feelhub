@@ -1,22 +1,24 @@
 package com.steambeat.domain.alchemy;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.*;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.relation.AlchemyRelationBinder;
 import com.steambeat.repositories.*;
 
-import java.util.List;
+import java.util.*;
 
 public class AlchemyAnalyzer {
 
     @Inject
-    public AlchemyAnalyzer(final SessionProvider sessionProvider, final NamedEntityProvider namedEntityProvider, final KeywordService keywordService) {
+    public AlchemyAnalyzer(final SessionProvider sessionProvider, final NamedEntityProvider namedEntityProvider, final KeywordService keywordService, final AlchemyRelationBinder alchemyRelationBinder) {
         this.sessionProvider = sessionProvider;
         this.namedEntityProvider = namedEntityProvider;
         this.keywordService = keywordService;
+        this.alchemyRelationBinder = alchemyRelationBinder;
         DomainEventBus.INSTANCE.register(this);
     }
 
@@ -33,15 +35,16 @@ public class AlchemyAnalyzer {
     private void addAlchemyAnalysis(final AlchemyRequestEvent event) {
         try {
             final List<NamedEntity> namedEntities = namedEntityProvider.entitiesFor(event.getUri().getValue());
-            createKeywords(namedEntities);
+            final List<AlchemyEntity> entities = createKeywordsAndAlchemyEntities(namedEntities);
+            createRelations(event, entities);
             createAlchemyAnalysis(event.getUri());
-            // Relier les references de tous les keywords
         } catch (AlchemyException e) {
 
         }
     }
 
-    private void createKeywords(final List<NamedEntity> namedEntities) {
+    private List<AlchemyEntity> createKeywordsAndAlchemyEntities(final List<NamedEntity> namedEntities) {
+        List<AlchemyEntity> entities = Lists.newArrayList();
         for (final NamedEntity namedEntity : namedEntities) {
             List<Keyword> keywords = Lists.newArrayList();
             for (final String value : namedEntity.keywords) {
@@ -52,12 +55,14 @@ public class AlchemyAnalyzer {
                     final KeywordMerger keywordMerger = new KeywordMerger();
                     keywordMerger.merge(keywords);
                 }
-                createAlchemyEntity(namedEntity, keywords.get(0));
+                final AlchemyEntity alchemyEntity = createAlchemyEntity(namedEntity, keywords.get(0));
+                entities.add(alchemyEntity);
             }
         }
+        return entities;
     }
 
-    private void createAlchemyEntity(final NamedEntity namedEntity, final Keyword keyword) {
+    private AlchemyEntity createAlchemyEntity(final NamedEntity namedEntity, final Keyword keyword) {
         final AlchemyEntity alchemyEntity = new AlchemyEntity(keyword.getReferenceId());
         alchemyEntity.setCensus(namedEntity.census);
         alchemyEntity.setCiafactbook(namedEntity.ciaFactbook);
@@ -76,6 +81,15 @@ public class AlchemyAnalyzer {
         alchemyEntity.setYago(namedEntity.yago);
         alchemyEntity.setRelevance(namedEntity.relevance);
         Repositories.alchemyEntities().add(alchemyEntity);
+        return alchemyEntity;
+    }
+
+    private void createRelations(final AlchemyRequestEvent event, final List<AlchemyEntity> entities) {
+        HashMap<UUID, Double> referencesAndScores = Maps.newHashMap();
+        for (AlchemyEntity entity : entities) {
+            referencesAndScores.put(entity.getReferenceId(), entity.getRelevance());
+        }
+        alchemyRelationBinder.bind(event.getUri().getReferenceId(), referencesAndScores);
     }
 
     private void createAlchemyAnalysis(final Keyword uri) {
@@ -84,6 +98,7 @@ public class AlchemyAnalyzer {
     }
 
     private final KeywordService keywordService;
+    private AlchemyRelationBinder alchemyRelationBinder;
     private final SessionProvider sessionProvider;
     private final NamedEntityProvider namedEntityProvider;
 }

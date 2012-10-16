@@ -4,6 +4,7 @@ import com.steambeat.application.*;
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.reference.*;
+import com.steambeat.domain.relation.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.translation.FakeTranslator;
 import com.steambeat.domain.uri.*;
@@ -27,7 +28,7 @@ public class TestsAlchemyAnalyzer {
     @Before
     public void setUp() throws Exception {
         entityProvider = mock(NamedEntityProvider.class);
-        new AlchemyAnalyzer(new FakeSessionProvider(), entityProvider, new KeywordService(new ReferenceService(new ReferenceFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver())));
+        new AlchemyAnalyzer(new FakeSessionProvider(), entityProvider, new KeywordService(new ReferenceService(new ReferenceFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver())), new AlchemyRelationBinder(new RelationBuilder(new RelationFactory())));
     }
 
     @Test
@@ -104,6 +105,18 @@ public class TestsAlchemyAnalyzer {
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
 
         assertThat(Repositories.alchemyAnalysis().getAll().size(), is(1));
+    }
+
+    @Test
+    public void createRelationsOnSuccess() {
+        when(entityProvider.entitiesFor(anyString())).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
+        final Reference reference = TestFactories.references().newReference();
+        final Keyword keyword = TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
+        final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
+
+        DomainEventBus.INSTANCE.post(alchemyRequestEvent);
+
+        assertThat(Repositories.relations().getAll().size(), is(2));
     }
 
     private NamedEntityProvider entityProvider;
