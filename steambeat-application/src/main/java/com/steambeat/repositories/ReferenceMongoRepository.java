@@ -1,22 +1,20 @@
 package com.steambeat.repositories;
 
-import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.reference.*;
 import org.mongolink.MongoSession;
 
-import java.util.UUID;
-
-public class ReferenceMongoRepository extends BaseMongoRepository<Reference> {
+public class ReferenceMongoRepository extends BaseMongoRepository<Reference> implements ReferenceRepository {
 
     public ReferenceMongoRepository(final MongoSession mongoSession) {
         super(mongoSession);
     }
 
     @Override
-    public Reference get(final Object id) {
+    public Reference getActive(Object id) {
         Reference reference = session.get(id, getPersistentType());
-        while (!reference.isActive()) {
-            final UUID currentReferenceId = reference.getCurrentReferenceId();
-            reference = session.get(currentReferenceId, getPersistentType());
+        while (!reference.isActive() && !reference.getCurrentReferenceId().equals(id)) {
+            id = reference.getCurrentReferenceId();
+            reference = session.get(id, getPersistentType());
         }
         return reference;
     }

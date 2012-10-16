@@ -1,8 +1,7 @@
 package com.steambeat.repositories;
 
 import com.mongodb.*;
-import com.steambeat.domain.Repository;
-import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.reference.*;
 import com.steambeat.test.*;
 import org.junit.*;
 
@@ -49,7 +48,7 @@ public class TestsReferenceMongoRepository extends TestWithMongoRepository {
         reference.put("active", true);
         collection.insert(reference);
 
-        final Reference referenceFound = (Reference) repo.get(id);
+        final Reference referenceFound = repo.get(id);
 
         assertThat(referenceFound, notNullValue());
     }
@@ -88,7 +87,7 @@ public class TestsReferenceMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void getAutomaticallyReturnTheNewReference() {
+    public void canGetActiveReference() {
         final DBCollection collection = mongo.getCollection("reference");
         final DBObject firstReference = new BasicDBObject();
         final UUID firstId = UUID.randomUUID();
@@ -108,11 +107,27 @@ public class TestsReferenceMongoRepository extends TestWithMongoRepository {
         thirdReference.put("currentReferenceId", secondId);
         collection.insert(thirdReference);
 
-        final Reference referenceFound = (Reference) repo.get(thirdId);
+        final Reference referenceFound = repo.getActive(thirdId);
 
         assertThat(referenceFound, notNullValue());
         assertThat(referenceFound.getId(), is(firstId));
     }
 
-    private Repository<Reference> repo;
+    @Test
+    public void canGetAnInactiveReferenceWithSameCurrentRef() {
+        final DBCollection collection = mongo.getCollection("reference");
+        final DBObject reference = new BasicDBObject();
+        final UUID id = UUID.randomUUID();
+        reference.put("_id", id);
+        reference.put("active", false);
+        reference.put("currentReferenceId", id);
+        collection.insert(reference);
+
+        final Reference referenceFound = repo.getActive(id);
+
+        assertThat(referenceFound, notNullValue());
+        assertThat(referenceFound.getId(), is(id));
+    }
+
+    private ReferenceRepository repo;
 }

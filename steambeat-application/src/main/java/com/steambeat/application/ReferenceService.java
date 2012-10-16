@@ -14,7 +14,7 @@ public class ReferenceService {
     }
 
     public Reference lookUp(final UUID id) {
-        return Repositories.references().get(id);
+        return Repositories.references().getActive(id);
     }
 
     public Reference newReference() {
