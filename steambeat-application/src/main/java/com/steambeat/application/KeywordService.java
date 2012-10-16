@@ -66,10 +66,13 @@ public class KeywordService {
             requestUriIllustration(uri);
             requestAlchemy(uri);
             return uri;
-        } else {
+        } else if (!value.isEmpty()) {
             final Keyword concept = createConcept(value, steambeatLanguage);
             requestConceptIllustration(concept);
             return concept;
+        } else {
+            final Keyword steam = createConcept(value, steambeatLanguage);
+            return steam;
         }
     }
 

@@ -18,7 +18,7 @@ public class WithDomainEvent extends ExternalResource {
 
             @Override
             public void handle(final T event) {
-                eventsCaptured.put(type, event);
+                eventsCaptured.put(event.getClass(), event);
             }
         });
     }

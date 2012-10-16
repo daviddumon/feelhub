@@ -1,5 +1,8 @@
 package com.steambeat.application;
 
+import com.steambeat.domain.alchemy.AlchemyRequestEvent;
+import com.steambeat.domain.eventbus.WithDomainEvent;
+import com.steambeat.domain.illustration.*;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.reference.*;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
@@ -18,6 +21,9 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class TestKeywordService {
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -204,6 +210,61 @@ public class TestKeywordService {
         assertThat(keyword.getValue(), is(value));
         assertThat(keyword.getLanguage(), is(SteambeatLanguage.none()));
         assertThat(Repositories.keywords().getAll().size(), is(1));
+    }
+
+    @Test
+    public void steamIsNotAnUri() {
+        assertFalse(KeywordService.isUri(""));
+    }
+
+    @Test
+    public void doNotRequestIllustrationForSteam() {
+        bus.capture(ConceptIllustrationRequestEvent.class);
+        final String value = "";
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.none();
+
+        keywordService.createKeyword(value, steambeatLanguage);
+
+        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = bus.lastEvent(ConceptIllustrationRequestEvent.class);
+        assertNull(conceptIllustrationRequestEvent);
+    }
+
+    @Test
+    public void requestUriIllustration() {
+        bus.capture(UriIllustrationRequestEvent.class);
+        final String value = "http://www.test.com";
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.reference();
+
+        final Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
+
+        final UriIllustrationRequestEvent uriIllustrationRequestEvent = bus.lastEvent(UriIllustrationRequestEvent.class);
+        assertThat(uriIllustrationRequestEvent, notNullValue());
+        assertThat(uriIllustrationRequestEvent.getReferenceId(), is(keyword.getReferenceId()));
+    }
+
+    @Test
+    public void requestAlchemy() {
+        bus.capture(AlchemyRequestEvent.class);
+        final String value = "http://www.test.com";
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.reference();
+
+        final Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
+
+        final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
+        assertThat(alchemyRequestEvent, notNullValue());
+        assertThat(alchemyRequestEvent.getUri().getReferenceId(), is(keyword.getReferenceId()));
+    }
+
+    @Test
+    public void requestConceptIllustration() {
+        bus.capture(ConceptIllustrationRequestEvent.class);
+        final String value = "value";
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.none();
+
+        final Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
+
+        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = bus.lastEvent(ConceptIllustrationRequestEvent.class);
+        assertThat(conceptIllustrationRequestEvent.getReferenceId(), is(keyword.getReferenceId()));
     }
 
     private KeywordService keywordService;
