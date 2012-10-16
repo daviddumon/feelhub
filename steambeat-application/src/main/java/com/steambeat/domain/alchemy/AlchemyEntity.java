@@ -157,6 +157,10 @@ public class AlchemyEntity extends BaseEntity {
         this.relevance = relevance;
     }
 
+    public void setNewReferenceId(final UUID newReferenceId) {
+        this.referenceId = newReferenceId;
+    }
+
     private UUID id;
     private UUID referenceId;
     private String type = "";

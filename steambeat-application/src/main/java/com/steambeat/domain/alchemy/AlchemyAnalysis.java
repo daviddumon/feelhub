@@ -30,6 +30,10 @@ public class AlchemyAnalysis extends BaseEntity {
         return value;
     }
 
+    public void setNewReferenceId(final UUID newReferenceId) {
+        this.referenceId = newReferenceId;
+    }
+
     private UUID referenceId;
     private UUID id;
     private String value;
