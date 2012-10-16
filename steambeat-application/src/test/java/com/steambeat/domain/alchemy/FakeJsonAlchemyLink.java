@@ -6,9 +6,12 @@ public class FakeJsonAlchemyLink extends AlchemyLink {
 
     @Override
     public InputStream get(final String uri) {
-        File file = new File("steambeat-application/src/test/java/com/steambeat/domain/alchemy/alchemy.json");
+        if (uri.equals("http://www.error.com")) {
+            fileName = "error.json";
+        }
+        File file = new File("steambeat-application/src/test/java/com/steambeat/domain/alchemy/" + fileName);
         if (!file.exists()) {
-            file = new File("src/test/java/com/steambeat/domain/alchemy/alchemy.json");
+            file = new File("src/test/java/com/steambeat/domain/alchemy/" + fileName);
         }
         try {
             return new FileInputStream(file);
@@ -17,4 +20,6 @@ public class FakeJsonAlchemyLink extends AlchemyLink {
         }
         return null;
     }
+
+    private String fileName = "alchemy.json";
 }

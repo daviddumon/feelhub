@@ -2,6 +2,7 @@ package com.steambeat.domain.alchemy;
 
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,6 +17,9 @@ public class TestsNamedEntityProvider {
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
     @Before
     public void before() throws ParserConfigurationException, IOException, SAXException {
         alchemyNamedEntityProvider = new NamedEntityProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder());
@@ -29,6 +33,14 @@ public class TestsNamedEntityProvider {
 
         assertThat(results, notNullValue());
         assertThat(results.size(), is(19));
+    }
+
+    @Test
+    public void throwExceptionOnError() {
+        exception.expect(AlchemyException.class);
+        final String uri = "http://www.error.com";
+
+        alchemyNamedEntityProvider.entitiesFor(uri);
     }
 
     private NamedEntityProvider alchemyNamedEntityProvider;

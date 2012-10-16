@@ -22,27 +22,30 @@ public class NamedEntityProvider {
             return unmarshall(stream);
         } catch (Exception e) {
             e.printStackTrace();
+            throw new AlchemyException();
         }
-        return null;
     }
 
-    private List<NamedEntity> unmarshall(final InputStream stream) {
+    private List<NamedEntity> unmarshall(final InputStream stream) throws IOException {
         final ObjectMapper objectMapper = new ObjectMapper();
         final List<NamedEntity> results = Lists.newArrayList();
-        try {
-            final AlchemyJsonResults alchemyJsonResults = objectMapper.readValue(stream, AlchemyJsonResults.class);
-            for (final AlchemyJsonEntity entity : alchemyJsonResults.entities) {
-                entity.language = alchemyJsonResults.language;
-                final NamedEntity namedEntity = namedEntityBuilder.build(entity);
-                if (namedEntity != null) {
-                    results.add(namedEntity);
-                }
-            }
-            return results;
-        } catch (IOException e) {
-            e.printStackTrace();
+        final AlchemyJsonResults alchemyJsonResults = objectMapper.readValue(stream, AlchemyJsonResults.class);
+        if (alchemyJsonResults.status.equalsIgnoreCase("error")) {
+            throw new IOException();
+        } else {
+            return getResults(results, alchemyJsonResults);
         }
-        return null;
+    }
+
+    private List<NamedEntity> getResults(final List<NamedEntity> results, final AlchemyJsonResults alchemyJsonResults) {
+        for (final AlchemyJsonEntity entity : alchemyJsonResults.entities) {
+            entity.language = alchemyJsonResults.language;
+            final NamedEntity namedEntity = namedEntityBuilder.build(entity);
+            if (namedEntity != null) {
+                results.add(namedEntity);
+            }
+        }
+        return results;
     }
 
     private AlchemyLink alchemyLink;
