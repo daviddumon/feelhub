@@ -88,10 +88,8 @@ public class KeywordService {
             keywordMerger.merge(keywords);
             return keywords.get(0);
         } catch (UriException e) {
-            // Il s'agit d'une uri inconnue
-            // create unknown
             e.printStackTrace();
-            return null;
+            return createConcept(value, SteambeatLanguage.none());
         }
     }
 

@@ -31,5 +31,5 @@ public class FakeUriResolver extends UriResolver {
     }
 
     private String canonicalUri = "";
-    private String exceptionUri = "";
+    private String exceptionUri = "http://www.exception.com";
 }

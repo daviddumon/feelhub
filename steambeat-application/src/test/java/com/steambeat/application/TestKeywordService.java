@@ -193,5 +193,18 @@ public class TestKeywordService {
         assertThat(Repositories.keywords().getAll().size(), is(2));
     }
 
+    @Test
+    public void onUriExceptionCreateConcept() {
+        final String value = "http://www.exception.com";
+        final SteambeatLanguage steambeatLanguage = SteambeatLanguage.none();
+
+        final Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
+
+        assertThat(keyword, notNullValue());
+        assertThat(keyword.getValue(), is(value));
+        assertThat(keyword.getLanguage(), is(SteambeatLanguage.none()));
+        assertThat(Repositories.keywords().getAll().size(), is(1));
+    }
+
     private KeywordService keywordService;
 }
