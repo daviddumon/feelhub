@@ -3,7 +3,7 @@ package com.steambeat.application;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
-import com.steambeat.domain.illustration.ConceptIllustrationRequestEvent;
+import com.steambeat.domain.illustration.*;
 import com.steambeat.domain.keyword.*;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
@@ -62,7 +62,8 @@ public class KeywordService {
     public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage) {
         if (KeywordService.isUri(value)) {
             final Keyword uri = createUri(value);
-            //DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
+            final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(uri.getReferenceId(), uri.getValue());
+            DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
             return uri;
         } else {
             final Keyword concept = createConcept(value, steambeatLanguage);

@@ -1,6 +1,6 @@
 package com.steambeat.domain.scraper;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.*;
 import com.steambeat.domain.scraper.extractors.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,6 +12,13 @@ public class Scraper {
 
     public void scrap(final String uri) {
         this.uri = uri;
+
+        // todo : enlever ce bloc une fois resolu le probleme de l'instantiation dans les singletons listeners d'events
+        this.document = null;
+        this.extractors = Lists.newArrayList();
+        this.scrapedTags = Maps.newHashMap();
+        //end
+
         addExtractors();
         getJSoupDocument();
         useExtractors();
@@ -77,7 +84,7 @@ public class Scraper {
     }
 
     private Document document;
-    private final List<Extractor> extractors = Lists.newArrayList();
+    private List<Extractor> extractors = Lists.newArrayList();
     protected Map<String, String> scrapedTags = new HashMap<String, String>();
     private String uri;
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";

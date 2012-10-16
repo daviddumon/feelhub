@@ -2,6 +2,7 @@ package com.steambeat.domain.illustration;
 
 import com.steambeat.domain.eventbus.*;
 import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.scraper.FakeScraper;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.*;
@@ -29,7 +30,7 @@ public class TestsUriIllustrationFactory {
     @Test
     public void canCreateIllustration() {
         final Keyword keyword = TestFactories.keywords().newKeyword();
-        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(keyword.getReferenceId());
+        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(keyword.getReferenceId(), keyword.getValue());
 
         DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
 
@@ -37,5 +38,19 @@ public class TestsUriIllustrationFactory {
         assertThat(illustrations.size(), is(1));
         assertThat(illustrations.get(0).getReferenceId(), is(uriIllustrationRequestEvent.getReferenceId()));
         assertThat(illustrations.get(0).getLink(), is("fakeillustration"));
+    }
+
+
+    @Test
+    public void checkForExistingIllustration() {
+        final Reference reference = TestFactories.references().newReference();
+        final String value = "value";
+        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(reference.getId(), value);
+        TestFactories.illustrations().newIllustration(reference);
+
+        DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
+
+        final List<Illustration> illustrations = Repositories.illustrations().getAll();
+        assertThat(illustrations.size(), is(1));
     }
 }
