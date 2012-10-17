@@ -8,6 +8,6 @@ public class LaunchResource extends ServerResource {
 
     @Get
     public Representation represent() {
-        return SteambeatTemplateRepresentation.createNew("launch/launch.ftl", getContext(), getRequest());
+        return SteambeatTemplateRepresentation.createNew("launch.ftl", getContext(), getRequest());
     }
 }
