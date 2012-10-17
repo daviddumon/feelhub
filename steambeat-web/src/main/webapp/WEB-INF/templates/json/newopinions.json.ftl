@@ -1,6 +1,7 @@
 [
 <#list opinionDatas as opinionData>
     {
+    "id":"${opinionData.id}",
     "text":"${opinionData.text?j_string}",
     "referenceDatas":   [
                             <#list opinionData.referenceDatas as referenceData>

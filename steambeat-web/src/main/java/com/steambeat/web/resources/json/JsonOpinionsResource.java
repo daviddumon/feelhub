@@ -79,7 +79,7 @@ public class JsonOpinionsResource extends ServerResource {
         final List<OpinionData> opinionDatas = Lists.newArrayList();
         for (final Opinion opinion : opinions) {
             final List<ReferenceData> referenceDatas = getReferenceDatas(opinion);
-            final OpinionData opinionData = new OpinionData(opinion.getText(), referenceDatas);
+            final OpinionData opinionData = new OpinionData(opinion.getId(), opinion.getText(), referenceDatas);
             opinionDatas.add(opinionData);
         }
         return opinionDatas;
