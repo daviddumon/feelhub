@@ -2,17 +2,22 @@
 $(function () {
 
     $(window).scroll(function () {
-        var trigger = $("#left").height() - $(window).height() + 100;
-        if (trigger > 0) {
-            if ($(window).scrollTop() <= trigger) {
-                $("#left").css("position", "static");
+        var status = $("#left").height() - $("#right").height();
+        if (status >= 0) {
+            $("#left").css("position", "static");
+        } else {
+            var trigger = $("#left").height() - $(window).height() + 150;
+            if (trigger > 0) {
+                if ($(window).scrollTop() <= trigger) {
+                    $("#left").css("position", "static");
+                } else {
+                    $("#left").css("position", "fixed");
+                    $("#left").css("top", -trigger + 100);
+                }
             } else {
                 $("#left").css("position", "fixed");
-                $("#left").css("top", -trigger + 100);
+                $("#left").css("top", "100px");
             }
-        } else {
-            $("#left").css("position", "fixed");
-            $("#left").css("top", "100px");
         }
     });
 
