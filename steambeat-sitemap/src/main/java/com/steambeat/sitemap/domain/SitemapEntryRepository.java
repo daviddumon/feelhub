@@ -3,7 +3,6 @@ package com.steambeat.sitemap.domain;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class SitemapEntryRepository {
@@ -48,7 +47,7 @@ public class SitemapEntryRepository {
         return new Predicate<SitemapEntry>() {
 
             @Override
-            public boolean apply(@Nullable final SitemapEntry input) {
+            public boolean apply(final SitemapEntry input) {
                 return input.getLoc().equals(loc);
             }
         };

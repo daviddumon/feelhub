@@ -1,10 +1,9 @@
 package com.steambeat.repositories.fakeRepositories;
 
-import com.google.common.base.Predicate;
+import com.google.common.base.*;
 import com.google.common.collect.Iterables;
 import com.steambeat.domain.user.*;
 
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class FakeUserRepository extends FakeRepository<User> implements UserRepository {
