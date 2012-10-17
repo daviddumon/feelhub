@@ -51,5 +51,10 @@ public class FakeOpinionSearch extends OpinionSearch {
         return this;
     }
 
+    @Override
+    public void reset() {
+        opinions = Repositories.opinions().getAll();
+    }
+
     private List<Opinion> opinions = Repositories.opinions().getAll();
 }

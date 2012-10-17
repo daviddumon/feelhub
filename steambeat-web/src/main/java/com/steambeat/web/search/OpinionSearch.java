@@ -12,6 +12,7 @@ public class OpinionSearch implements Search<Opinion> {
 
     @Inject
     public OpinionSearch(final SessionProvider provider) {
+        this.provider = provider;
         criteria = provider.get().createCriteria(Opinion.class);
         criteria.add(Restrictions.notEquals("text", ""));
     }
@@ -44,5 +45,11 @@ public class OpinionSearch implements Search<Opinion> {
         return this;
     }
 
-    private final Criteria criteria;
+    public void reset() {
+        criteria = provider.get().createCriteria(Opinion.class);
+        criteria.add(Restrictions.notEquals("text", ""));
+    }
+
+    private Criteria criteria;
+    private SessionProvider provider;
 }

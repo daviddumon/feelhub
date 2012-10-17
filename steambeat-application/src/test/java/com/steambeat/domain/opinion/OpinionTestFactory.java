@@ -1,9 +1,12 @@
 package com.steambeat.domain.opinion;
 
+import com.google.common.collect.Lists;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
+
+import java.util.List;
 
 public class OpinionTestFactory {
 
@@ -20,10 +23,13 @@ public class OpinionTestFactory {
         newOpinions(reference, quantity);
     }
 
-    public void newOpinions(final Reference reference, final int quantity) {
+    public List<Opinion> newOpinions(final Reference reference, final int quantity) {
+        List<Opinion> result = Lists.newArrayList();
         for (int i = 0; i < quantity; i++) {
-            newOpinion(reference, "i" + i);
+            final Opinion opinion = newOpinion(reference, "i" + i);
+            result.add(opinion);
         }
+        return result;
     }
 
     public Opinion newOpinion(final Reference reference, final String text) {

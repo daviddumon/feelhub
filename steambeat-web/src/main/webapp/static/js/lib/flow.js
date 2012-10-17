@@ -21,6 +21,7 @@ Flow.prototype.initialize = function () {
     for (var i = 0; i < THIS.maxBox; i++) {
         THIS.container.append("<div class='opinion_list' id='opinion_list_" + i + "'></div>");
     }
+    THIS.opinions = [];
 };
 
 Flow.prototype.drawData = function () {
@@ -66,6 +67,11 @@ Flow.prototype.drawBox = function (opinion, classes) {
     var THIS = this;
     var element = THIS.getOpinion(opinion, classes);
 
+    THIS.appendElement(element);
+};
+
+Flow.prototype.appendElement = function (element) {
+    var THIS = this;
     var row = 0;
     var row_height = $("#opinion_list_" + row).height();
     for (var i = 1; i < THIS.maxBox; i++) {
@@ -89,17 +95,22 @@ Flow.prototype.getOpinion = function (opinion, classes) {
     text = text.replace(/[\#\+\-\=]+/g, "");
 
     var referenceDatas = [];
+    var known_references = {};
     for (var i = 0; i < opinion.referenceDatas.length; i++) {
         if (opinion.referenceDatas[i].referenceId !== referenceId) {
-            var reference_data = {
-                referenceId:opinion.referenceDatas[i].referenceId,
-                feeling:opinion.referenceDatas[i].feeling,
-                keywordValue:opinion.referenceDatas[i].keywordValue,
-                url:buildInternalLink(opinion.referenceDatas[i].languageCode, opinion.referenceDatas[i].keywordValue),
-                classes:"reference_medium reference_stack reference_zoom",
-                illustrationLink:opinion.referenceDatas[i].illustrationLink
-            };
-            referenceDatas.push(reference_data);
+            var current = opinion.referenceDatas[i].referenceId;
+            if (!(current in known_references)) {
+                var reference_data = {
+                    referenceId:opinion.referenceDatas[i].referenceId,
+                    feeling:opinion.referenceDatas[i].feeling,
+                    keywordValue:opinion.referenceDatas[i].keywordValue,
+                    url:buildInternalLink(opinion.referenceDatas[i].languageCode, opinion.referenceDatas[i].keywordValue),
+                    classes:"reference_medium reference_stack reference_zoom",
+                    illustrationLink:opinion.referenceDatas[i].illustrationLink
+                };
+                referenceDatas.push(reference_data);
+                known_references[current] = true;
+            }
         } else {
             var opinion_feeling = opinion.referenceDatas[i].feeling;
         }
@@ -141,12 +152,14 @@ Flow.prototype.reset = function () {
     THIS.drawData();
 };
 
-Flow.prototype.pushFake = function(referenceId, text, feeling) {
+Flow.prototype.pushFake = function (referenceId, text, feeling) {
 
     var fake_opinion = {
         referenceId:referenceId,
         text:text,
-        referenceDatas:[{referenceId:referenceId, feeling:feeling}]
+        referenceDatas:[
+            {referenceId:referenceId, feeling:feeling}
+        ]
     };
 
 };
