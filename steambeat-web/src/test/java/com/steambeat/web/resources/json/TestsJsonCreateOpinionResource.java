@@ -166,7 +166,7 @@ public class TestsJsonCreateOpinionResource {
 
         final OpinionRequestEvent opinionRequestEvent = events.lastEvent(OpinionRequestEvent.class);
         final JSONObject jsonData = jsonResponse.getJsonObject();
-        assertThat(jsonData.get("referenceId").toString(), is(opinionRequestEvent.getOpinionId().toString()));
+        assertThat(jsonData.get("id").toString(), is(opinionRequestEvent.getOpinionId().toString()));
     }
 
     private JsonRepresentation goodJsonOpinion() {

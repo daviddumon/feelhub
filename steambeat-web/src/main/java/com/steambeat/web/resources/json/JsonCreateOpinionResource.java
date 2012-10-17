@@ -82,7 +82,7 @@ public class JsonCreateOpinionResource extends ServerResource {
     private JSONObject getJsonResponse(final OpinionRequestEvent event) {
         final JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("referenceId", event.getOpinionId());
+            jsonObject.put("id", event.getOpinionId());
         } catch (JSONException e) {
             e.printStackTrace();
         }

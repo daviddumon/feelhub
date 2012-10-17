@@ -12,9 +12,9 @@ $(function () {
     $("#main_reference").prepend(ich.reference(reference_data));
     $("#counters").show();
 
+    flow = new Flow();
     if (referenceId !== "") {
         $("#related").show();
-        flow = new Flow();
 
         $("#" + referenceId + " img").attr("src", illustrationLink);
 

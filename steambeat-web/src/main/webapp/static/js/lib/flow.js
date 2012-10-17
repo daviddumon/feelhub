@@ -16,12 +16,13 @@ Flow.prototype.initialize = function () {
     THIS.maxBox = Math.floor(THIS.container.innerWidth() / THIS.initial);
     THIS.skip = -30;
     THIS.limit = 30;
-    THIS.hasData = true;
+    THIS.hasData = (referenceId == "" ? false : true);
     THIS.notLoading = true;
     for (var i = 0; i < THIS.maxBox; i++) {
         THIS.container.append("<div class='opinion_list' id='opinion_list_" + i + "'></div>");
     }
     THIS.opinions = [];
+    THIS.basePollTime = 60000;
 };
 
 Flow.prototype.drawData = function () {
@@ -36,26 +37,29 @@ Flow.prototype.drawData = function () {
     function loadData() {
         var referenceParameter = "&referenceId=" + encodeURIComponent(referenceId);
         $.getJSON(root + "/json/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + referenceParameter + "&languageCode=" + languageCode, function (data) {
-            $.each(data, function (index, opinion) {
-                THIS.appendOpinion(opinion, "opinion");
-            });
+            if (data.length > 0) {
+                $.each(data, function (index, opinion) {
+                    THIS.appendOpinion(opinion, "opinion");
+                });
 
-            if (THIS.skip == 0) {
-                THIS.setLastOpinionId(data[0].id, 60000);
-            }
-
-            if (data.length != THIS.limit) {
-                THIS.hasData = false;
-            }
-
-            setTimeout(function () {
-                if (needData() && THIS.hasData) {
-                    THIS.skip += THIS.limit;
-                    loadData();
-                } else {
-                    THIS.notLoading = true;
+                if (THIS.skip == 0) {
+                    THIS.lastOpinionId = data[0].id;
+                    THIS.poll(THIS.basePollTime);
                 }
-            }, 200);
+
+                if (data.length != THIS.limit) {
+                    THIS.hasData = false;
+                }
+
+                setTimeout(function () {
+                    if (needData() && THIS.hasData) {
+                        THIS.skip += THIS.limit;
+                        loadData();
+                    } else {
+                        THIS.notLoading = true;
+                    }
+                }, 200);
+            }
         });
     }
 
@@ -144,32 +148,39 @@ Flow.prototype.getOpinion = function (opinion, classes) {
     }
 };
 
-Flow.prototype.setLastOpinionId = function (lastOpinionId, time) {
+Flow.prototype.poll = function (time) {
     var THIS = this;
     clearInterval(THIS.pollNewOpinions);
 
     THIS.pollNewOpinions = setInterval(function () {
-        console.log("request new opinions : " + referenceId + " - lastopinionid:" + lastOpinionId);
-        $.getJSON(root + "/json/newopinions?referenceId=" + referenceId + "&lastOpinionId=" + lastOpinionId, function (data) {
+        var uri = root + "/json/newopinions?referenceId=" + referenceId;
+        if (THIS.lastOpinionId) {
+            uri += "&lastOpinionId=" + THIS.lastOpinionId;
+        }
+        console.log(uri);
+        $.getJSON(uri, function (data) {
             console.log(data);
-            $.each(data, function (index, opinion) {
-                THIS.prependOpinion(opinion, "opinion");
-            });
+            if (data.length > 0) {
+                THIS.lastOpinionId = data[0].id;
+                data.reverse();
+                $.each(data, function (index, opinion) {
+                    var element = THIS.getOpinion(opinion, "opinion");
+                    THIS.opinions.unshift(element);
+                });
+                THIS.reset();
+                THIS.poll(THIS.basePollTime);
+            }
         })
-            .success(function () {
-                console.log("succes poll new opinions");
-            })
             .error(function () {
-                console.log("error poll new opinions");
+                clearInterval(THIS.pollNewOpinions);
             });
     }, time);
 };
 
 Flow.prototype.reDraw = function (opinion, classes) {
+    console.log("redraw flow");
     var THIS = this;
     $.each(THIS.opinions, function (index, element) {
-        console.log("redraw opinion:" + element);
-
         var row = 0;
         var row_height = $("#opinion_list_" + row).height();
         for (var i = 1; i < THIS.maxBox; i++) {
@@ -195,13 +206,19 @@ Flow.prototype.reset = function () {
 };
 
 Flow.prototype.pushFake = function (referenceId, text, feeling) {
-
+    var THIS = this;
+    console.log("push fake : " + referenceId + " - " + text + " - " + feeling);
     var fake_opinion = {
-        referenceId:referenceId,
+        id:referenceId,
         text:text,
         referenceDatas:[
             {referenceId:referenceId, feeling:feeling}
         ]
     };
+
+    THIS.poll(500);
+
+    // A finir : on met le fake, et on poll
+    // Pour l'instant on poll juste comme un con
 
 };
