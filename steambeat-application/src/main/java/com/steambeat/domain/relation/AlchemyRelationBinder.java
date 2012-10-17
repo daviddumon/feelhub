@@ -28,19 +28,20 @@ public class AlchemyRelationBinder {
         }
     }
 
-    private void connectReference(final Reference currentReference, final int beginningIndex, final List<Reference> references) {
+    private void connectReference(final Reference from, final int beginningIndex, final List<Reference> references) {
         for (int i = beginningIndex; i < references.size(); i++) {
-            relationBuilder.connectTwoWays(currentReference, references.get(i));
+            final Reference to = references.get(i);
+            relationBuilder.connectTwoWays(from, to);
         }
     }
 
-    private void connectAllReferencesToMainReferenceWithScore(final HashMap<UUID, Double> referenceIds, final Reference mainReference, final List<Reference> references) {
+    private void connectAllReferencesToMainReferenceWithScore(final HashMap<UUID, Double> referenceIds, final Reference to, final List<Reference> references) {
         for (Map.Entry<UUID, Double> entry : referenceIds.entrySet()) {
             final UUID currentReferenceId = entry.getKey();
             final Double score = entry.getValue();
-            final Reference currentReference = loadReference(currentReferenceId);
-            relationBuilder.connectTwoWays(currentReference, mainReference, score);
-            references.add(currentReference);
+            final Reference from = loadReference(currentReferenceId);
+            relationBuilder.connectTwoWays(from, to, score);
+            references.add(from);
         }
     }
 

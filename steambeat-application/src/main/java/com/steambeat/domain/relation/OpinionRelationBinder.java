@@ -36,9 +36,10 @@ public class OpinionRelationBinder {
         }
     }
 
-    private void connectReference(final Reference currentReference, final List<Reference> references, final int beginningIndex) {
+    private void connectReference(final Reference from, final List<Reference> references, final int beginningIndex) {
         for (int i = beginningIndex; i < references.size(); i++) {
-            relationBuilder.connectTwoWays(currentReference, references.get(i));
+            final Reference to = references.get(i);
+            relationBuilder.connectTwoWays(from, to);
         }
     }
 

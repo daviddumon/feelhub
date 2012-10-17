@@ -48,5 +48,15 @@ public class TestsRelationBuilder {
         assertThat(relations.get(1).getWeight(), is(1.0));
     }
 
+    @Test
+    public void doNotConnectTwoIdenticalSubject() {
+        final Reference reference = TestFactories.references().newReference();
+
+        relationBuilder.connectTwoWays(reference, reference);
+
+        final List<Relation> relations = Repositories.relations().getAll();
+        assertThat(relations.size(), is(0));
+    }
+
     private RelationBuilder relationBuilder;
 }

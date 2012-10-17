@@ -21,11 +21,13 @@ public class RelationBuilder {
     }
 
     private void connectOneWay(final Reference left, final Reference right, final double additionalWeight) {
-        final Relation relation = Repositories.relations().lookUp(left.getId(), right.getId());
-        if (relation == null) {
-            createNewRelation(left, right, additionalWeight);
-        } else {
-            relation.addWeight(1.0 + additionalWeight);
+        if (!left.equals(right)) {
+            final Relation relation = Repositories.relations().lookUp(left.getId(), right.getId());
+            if (relation == null) {
+                createNewRelation(left, right, additionalWeight);
+            } else {
+                relation.addWeight(1.0 + additionalWeight);
+            }
         }
     }
 
