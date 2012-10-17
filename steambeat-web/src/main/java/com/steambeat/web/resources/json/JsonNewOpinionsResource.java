@@ -5,7 +5,6 @@ import com.google.inject.Inject;
 import com.steambeat.application.*;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.opinion.*;
-import com.steambeat.domain.reference.*;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.web.dto.*;
@@ -39,6 +38,7 @@ public class JsonNewOpinionsResource extends ServerResource {
         List<Opinion> opinions = Lists.newArrayList();
         setUpSearchForReferenceIdParameter(form);
         getLastParameter(form);
+        extractLanguageParameter(form);
         opinionSearch.withSkip(0);
         opinionSearch.withLimit(30);
         List<Opinion> searchResult = opinionSearch.withSort("creationDate", OpinionSearch.REVERSE_ORDER).execute();
@@ -76,6 +76,14 @@ public class JsonNewOpinionsResource extends ServerResource {
         }
     }
 
+    private void extractLanguageParameter(final Form form) {
+        if (form.getQueryString().contains("languageCode")) {
+            steambeatLanguage = SteambeatLanguage.forString(form.getFirstValue("languageCode").trim());
+        } else {
+            steambeatLanguage = SteambeatLanguage.reference();
+        }
+    }
+
     private List<OpinionData> getOpinionDatas(final List<Opinion> opinions) {
         final List<OpinionData> opinionDatas = Lists.newArrayList();
         for (final Opinion opinion : opinions) {
@@ -100,7 +108,7 @@ public class JsonNewOpinionsResource extends ServerResource {
     private ReferenceDataFactory referenceDataFactory;
     private OpinionSearch opinionSearch;
     private ReferenceService referenceService;
-    private SteambeatLanguage steambeatLanguage = SteambeatLanguage.none();
+    private SteambeatLanguage steambeatLanguage;
     private UUID lastOpinionId;
     private Reference reference;
 }
