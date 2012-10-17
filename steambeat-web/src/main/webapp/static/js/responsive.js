@@ -37,7 +37,6 @@ $(function () {
     });
 
     function endOfResize() {
-        $("#opinions").empty();
         if (typeof flow !== 'undefined') {
             flow.reset();
         }

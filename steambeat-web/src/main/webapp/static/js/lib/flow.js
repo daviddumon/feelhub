@@ -1,6 +1,7 @@
 /* Copyright Steambeat 2012 */
 function Flow() {
     var THIS = this;
+    THIS.opinions = [];
     THIS.initialize();
     THIS.drawData();
     $(window).scroll(function () {
@@ -10,7 +11,6 @@ function Flow() {
 
 Flow.prototype.initialize = function () {
     var THIS = this;
-    THIS.id = 1;
     THIS.container = $("#opinions");
     THIS.initial = 280;
     THIS.maxBox = Math.floor(THIS.container.innerWidth() / THIS.initial);
@@ -37,8 +37,12 @@ Flow.prototype.drawData = function () {
         var referenceParameter = "&referenceId=" + encodeURIComponent(referenceId);
         $.getJSON(root + "/json/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + referenceParameter + "&languageCode=" + languageCode, function (data) {
             $.each(data, function (index, opinion) {
-                THIS.drawBox(opinion, "opinion");
+                THIS.appendOpinion(opinion, "opinion");
             });
+
+            if (THIS.skip == 0) {
+                THIS.setLastOpinionId(data[0].id, 60000);
+            }
 
             if (data.length != THIS.limit) {
                 THIS.hasData = false;
@@ -63,15 +67,10 @@ Flow.prototype.drawData = function () {
     }
 };
 
-Flow.prototype.drawBox = function (opinion, classes) {
+Flow.prototype.appendOpinion = function (opinion, classes) {
     var THIS = this;
     var element = THIS.getOpinion(opinion, classes);
 
-    THIS.appendElement(element);
-};
-
-Flow.prototype.appendElement = function (element) {
-    var THIS = this;
     var row = 0;
     var row_height = $("#opinion_list_" + row).height();
     for (var i = 1; i < THIS.maxBox; i++) {
@@ -83,11 +82,11 @@ Flow.prototype.appendElement = function (element) {
     }
 
     $("#opinion_list_" + row).append(element);
+    THIS.opinions.push(element);
 };
 
 Flow.prototype.getOpinion = function (opinion, classes) {
     var THIS = this;
-    var id = "opinion_" + THIS.id++;
     var text = opinion.text.replace(/[\#\+\-\=][^ ]+/g, function (match) {
         match = match.replace(/[\#\+\-\=]/g, "");
         return "<span>" + match + "</span>";
@@ -119,8 +118,7 @@ Flow.prototype.getOpinion = function (opinion, classes) {
     shuffleAndMakeFirstLarge();
 
     var opinionData = {
-        id:id,
-        referenceId:opinion.referenceId,
+        id:opinion.id,
         opinion_classes:classes,
         text:text.split(/\r\n|\r|\n/),
         referenceDatas:referenceDatas,
@@ -146,10 +144,54 @@ Flow.prototype.getOpinion = function (opinion, classes) {
     }
 };
 
+Flow.prototype.setLastOpinionId = function (lastOpinionId, time) {
+    var THIS = this;
+    clearInterval(THIS.pollNewOpinions);
+
+    THIS.pollNewOpinions = setInterval(function () {
+        console.log("request new opinions : " + referenceId + " - lastopinionid:" + lastOpinionId);
+        $.getJSON(root + "/json/newopinions?referenceId=" + referenceId + "&lastOpinionId=" + lastOpinionId, function (data) {
+            console.log(data);
+            $.each(data, function (index, opinion) {
+                THIS.prependOpinion(opinion, "opinion");
+            });
+        })
+            .success(function () {
+                console.log("succes poll new opinions");
+            })
+            .error(function () {
+                console.log("error poll new opinions");
+            });
+    }, time);
+};
+
+Flow.prototype.reDraw = function (opinion, classes) {
+    var THIS = this;
+    $.each(THIS.opinions, function (index, element) {
+        console.log("redraw opinion:" + element);
+
+        var row = 0;
+        var row_height = $("#opinion_list_" + row).height();
+        for (var i = 1; i < THIS.maxBox; i++) {
+            var current_height = $("#opinion_list_" + i).height()
+            if (current_height < row_height) {
+                row = i;
+                row_height = current_height;
+            }
+        }
+
+        $("#opinion_list_" + row).append(element);
+    });
+};
+
 Flow.prototype.reset = function () {
     var THIS = this;
-    THIS.initialize();
-    THIS.drawData();
+    THIS.container.empty();
+    THIS.maxBox = Math.floor(THIS.container.innerWidth() / THIS.initial);
+    for (var i = 0; i < THIS.maxBox; i++) {
+        THIS.container.append("<div class='opinion_list' id='opinion_list_" + i + "'></div>");
+    }
+    THIS.reDraw();
 };
 
 Flow.prototype.pushFake = function (referenceId, text, feeling) {
