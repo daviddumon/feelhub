@@ -3,6 +3,9 @@
     {{#opinion_feeling}}
         <img src="{{opinion_feeling_illustration}}" class="img_{{opinion_feeling}} opinion_feeling_illustration"/>
     {{/opinion_feeling}}
+    {{^opinion_feeling}}
+        <div class="opinion_spacer"></div>
+    {{/opinion_feeling}}
         {{#text}}
         <p>{{{.}}}&nbsp;</p>
         {{/text}}
