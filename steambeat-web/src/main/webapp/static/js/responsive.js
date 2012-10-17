@@ -1,23 +1,21 @@
 /* Copyright Steambeat 2012 */
 $(function () {
 
-    //var lock = false;
-    //if ($(window).width() <= 720) {
-    //    var lock = true;
-    //}
-    //
-    //$(window).scroll(function () {
-    //    if (!lock) {
-    //        if ($(window).scrollTop() <= 0) {
-    //            $("#fixed_layer").css("top", "0px");
-    //        } else if ($(window).scrollTop() < 300) {
-    //            $("#fixed_layer").css("top", -$(window).scrollTop());
-    //        } else {
-    //            $("#fixed_layer").css("top", "-300px");
-    //        }
-    //    }
-    //});
-    //
+    $(window).scroll(function () {
+        var trigger = $("#left").height() - $(window).height() + 100;
+        if (trigger > 0) {
+            if ($(window).scrollTop() <= trigger) {
+                $("#left").css("position", "static");
+            } else {
+                $("#left").css("position", "fixed");
+                $("#left").css("top", -trigger + 100);
+            }
+        } else {
+            $("#left").css("position", "fixed");
+            $("#left").css("top", "100px");
+        }
+    });
+
     var doit;
     $(window).resize(function () {
         clearTimeout(doit);
@@ -34,14 +32,8 @@ $(function () {
     });
 
     function endOfResize() {
-        //if ($(window).width() <= 720) {
-    //        lock = true;
-    //    } else {
-    //        lock = false;
-    //    }
         $("#opinions").empty();
-    //    $("#opinions").css("height", "0px");
-        if(typeof flow !== 'undefined') {
+        if (typeof flow !== 'undefined') {
             flow.reset();
         }
     }
