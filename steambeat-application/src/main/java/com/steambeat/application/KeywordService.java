@@ -76,21 +76,6 @@ public class KeywordService {
         }
     }
 
-    private void requestConceptIllustration(final Keyword concept) {
-        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(concept.getReferenceId(), concept.getValue());
-        DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
-    }
-
-    private void requestAlchemy(final Keyword uri) {
-        final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(uri);
-        DomainEventBus.INSTANCE.post(alchemyRequestEvent);
-    }
-
-    private void requestUriIllustration(final Keyword uri) {
-        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(uri.getReferenceId(), uri.getValue());
-        DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
-    }
-
     private Keyword createUri(final String value) {
         try {
             final Reference reference = referenceService.newReference();
@@ -110,6 +95,16 @@ public class KeywordService {
             e.printStackTrace();
             return createConcept(value, SteambeatLanguage.none());
         }
+    }
+
+    private void requestUriIllustration(final Keyword uri) {
+        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(uri.getReferenceId(), uri.getValue());
+        DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
+    }
+
+    private void requestAlchemy(final Keyword uri) {
+        final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(uri);
+        DomainEventBus.INSTANCE.post(alchemyRequestEvent);
     }
 
     private Keyword createConcept(final String value, final SteambeatLanguage steambeatLanguage) {
@@ -134,6 +129,11 @@ public class KeywordService {
         } else {
             return createKeyword(value, steambeatLanguage, referenceService.newReference().getId());
         }
+    }
+
+    private void requestConceptIllustration(final Keyword concept) {
+        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(concept.getReferenceId(), concept.getValue());
+        DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
     }
 
     public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage, final UUID referenceID) {

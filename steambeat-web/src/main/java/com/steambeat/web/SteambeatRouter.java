@@ -29,6 +29,7 @@ public class SteambeatRouter extends Router {
         attach("/json/illustrations", JsonIllustrationsResource.class);
         attach("/json/createopinion", JsonCreateOpinionResource.class);
         attach("/json/newopinions", JsonNewOpinionsResource.class);
+        attach("/json/keyword", JsonKeywordResource.class);
 
         attachUriForKeywordAndLanguage();
         attachUriForKeyword();

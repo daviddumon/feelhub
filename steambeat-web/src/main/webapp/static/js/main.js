@@ -14,15 +14,19 @@ $(function () {
 
         $("#main_reference").prepend(ich.reference(reference_data));
         $("#counters").show();
-        $("#opinion_form").show();
+        $("#counters").show();
     }
 
     if (referenceId !== "") {
-        $("#related").show();
-
-        $("#" + referenceId + " img").attr("src", illustrationLink);
-
-        RequestRelations(referenceId);
-        RequestCounters(referenceId);
+        FindInformations(referenceId);
     }
 });
+
+function FindInformations(referenceId) {
+    $("#related").show();
+
+    $("#" + referenceId + " img").attr("src", illustrationLink);
+
+    RequestRelations(referenceId);
+    RequestCounters(referenceId);
+}
