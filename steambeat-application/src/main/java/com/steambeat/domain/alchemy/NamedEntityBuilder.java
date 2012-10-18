@@ -27,18 +27,17 @@ public class NamedEntityBuilder {
         try {
             checkForSize(alchemyJsonEntity.text);
             checkForSpecialCharacters(alchemyJsonEntity.text);
-            entity.keywords.add(alchemyJsonEntity.text);
+            entity.keywords.add(alchemyJsonEntity.text.trim().toLowerCase());
         } catch (Exception e) {
         }
     }
 
     private void addKeywordFromName(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
         try {
-            checkForEmptyDisambiguatedName(alchemyJsonEntity);
             checkForSameTextAndName(alchemyJsonEntity);
             checkForSize(alchemyJsonEntity.disambiguated.name);
             checkForSpecialCharacters(alchemyJsonEntity.disambiguated.name);
-            entity.keywords.add(alchemyJsonEntity.disambiguated.name);
+            entity.keywords.add(alchemyJsonEntity.disambiguated.name.trim().toLowerCase());
         } catch (Exception e) {
         }
     }
@@ -54,12 +53,6 @@ public class NamedEntityBuilder {
         final Pattern specialCharactersChecker = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         final Matcher matcher = specialCharactersChecker.matcher(text);
         if (matcher.find()) {
-            throw new Exception();
-        }
-    }
-
-    private void checkForEmptyDisambiguatedName(final AlchemyJsonEntity alchemyJsonEntity) throws Exception {
-        if (alchemyJsonEntity.disambiguated.name.isEmpty()) {
             throw new Exception();
         }
     }

@@ -39,3 +39,19 @@ function RequestCounters(referenceId) {
         });
     }
 }
+
+function pollForId(opinionId, text, feeling) {
+    var referenceIdPolling = setInterval(function () {
+        $.getJSON(root + "/json/keyword?keywordValue=" + keywordValue + "&languageCode=" + languageCode, function(data) {
+
+        })
+            .success(function(data) {
+                //console.log("success");
+                //console.log(data);
+                clearInterval(referenceIdPolling);
+                referenceId = data.referenceId;
+                FindInformations();
+                flow.pushFake(opinionId, text, feeling);
+            });
+    }, 500);
+};

@@ -162,5 +162,59 @@ public class TestsNamedEntityBuilder {
         assertThat(namedEntity, nullValue());
     }
 
+    @Test
+    public void trimText() {
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntityWithoutDisambiguated();
+        alchemyJsonEntity.text = " text ";
+
+        final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
+
+        assertThat(namedEntity, notNullValue());
+        assertThat(namedEntity.keywords, notNullValue());
+        assertThat(namedEntity.keywords.size(), is(1));
+        assertThat(namedEntity.keywords.get(0), is("text"));
+    }
+
+    @Test
+    public void trimName() {
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntityWithoutDisambiguated();
+        alchemyJsonEntity.text = "";
+        alchemyJsonEntity.disambiguated.name = " text ";
+
+        final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
+
+        assertThat(namedEntity, notNullValue());
+        assertThat(namedEntity.keywords, notNullValue());
+        assertThat(namedEntity.keywords.size(), is(1));
+        assertThat(namedEntity.keywords.get(0), is("text"));
+    }
+
+    @Test
+    public void lowercaseText() {
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntityWithoutDisambiguated();
+        alchemyJsonEntity.text = "TEXT";
+
+        final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
+
+        assertThat(namedEntity, notNullValue());
+        assertThat(namedEntity.keywords, notNullValue());
+        assertThat(namedEntity.keywords.size(), is(1));
+        assertThat(namedEntity.keywords.get(0), is("text"));
+    }
+
+    @Test
+    public void lwoercaseName() {
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntityWithoutDisambiguated();
+        alchemyJsonEntity.text = "";
+        alchemyJsonEntity.disambiguated.name = "TEXT";
+
+        final NamedEntity namedEntity = namedEntityBuilder.build(alchemyJsonEntity);
+
+        assertThat(namedEntity, notNullValue());
+        assertThat(namedEntity.keywords, notNullValue());
+        assertThat(namedEntity.keywords.size(), is(1));
+        assertThat(namedEntity.keywords.get(0), is("text"));
+    }
+
     private NamedEntityBuilder namedEntityBuilder;
 }
