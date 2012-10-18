@@ -17,6 +17,7 @@ public class SubjectExtractor {
                 String cleanedToken = token.replaceAll(STRING_REPLACE_SEMANTIC, "").toLowerCase();
                 if (!isUri(cleanedToken)) {
                     cleanedToken = token.replaceAll(STRING_REPLACE_ALL, "").toLowerCase();
+                    cleanedToken = cleanedToken.replaceAll(STRING_TO_SPACES, " ");
                 }
                 if (cleanedToken.length() > 2) {
                     final Subject subject = new Subject(tokenFeeling, cleanedToken);
@@ -54,6 +55,7 @@ public class SubjectExtractor {
         return map.lastEntry().getValue();
     }
 
-    private static final String STRING_REPLACE_ALL = "\\p{Punct}";
+    private static final String STRING_REPLACE_ALL = "[\\p{Punct}&&[^\\_^\\']]";
     private static final String STRING_REPLACE_SEMANTIC = "[\\+\\-\\=\\#]";
+    private static final String STRING_TO_SPACES = "[\\_]";
 }

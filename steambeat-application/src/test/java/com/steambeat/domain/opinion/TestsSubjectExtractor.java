@@ -121,6 +121,16 @@ public class TestsSubjectExtractor {
         testText("Ceci est un #éléphant!", Feeling.none, "éléphant");
     }
 
+    @Test
+    public void canLinkWithUnderscore() {
+        testText("c'est #la_mort!", Feeling.none, "la mort");
+    }
+
+    @Test
+    public void canUseApostrophe() {
+        testText("Vive +l'Agilité !!", Feeling.good, "l'agilité");
+    }
+
     private void testText(final String text, final Feeling feeling, final String expected) {
         final SubjectExtractor subjectExtractor = new SubjectExtractor();
         final List<Subject> subjects = subjectExtractor.extract(text);
