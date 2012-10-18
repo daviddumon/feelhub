@@ -201,4 +201,19 @@ public class TestsJsonOpinionsResource {
         final JSONObject jsonReferenceData = jsonArray.getJSONObject(0).getJSONArray("referenceDatas").getJSONObject(0);
         assertThat(jsonReferenceData.get("illustrationLink").toString(), is("link"));
     }
+
+    @Test
+    public void hasLanguageCodeData() throws IOException, JSONException {
+        final Reference reference = TestFactories.references().newReference();
+        TestFactories.illustrations().newIllustration(reference, "link");
+        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.reference(), reference);
+        final Judgment judgment = TestFactories.judgments().newJudgment(reference, Feeling.good);
+        TestFactories.opinions().newOpinion("my opinion", judgment);
+        final ClientResource clientResource = restlet.newClientResource("/json/opinions?referenceId=" + reference.getId());
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) clientResource.get();
+
+        final JSONArray jsonArray = new JSONArray(representation.getText());
+        assertThat(jsonArray.getJSONObject(0).get("languageCode").toString(), is(SteambeatLanguage.reference().getCode()));
+    }
 }

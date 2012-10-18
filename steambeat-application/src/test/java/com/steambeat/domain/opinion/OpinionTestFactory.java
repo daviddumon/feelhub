@@ -46,6 +46,7 @@ public class OpinionTestFactory {
         final User activeUser = TestFactories.users().createFakeActiveUser("userforopinion@mail.com");
         final Opinion opinion = new Opinion(text, activeUser.getId());
         opinion.addJudgment(judgment);
+        opinion.setLanguageCode(SteambeatLanguage.reference().getCode());
         Repositories.opinions().add(opinion);
         return opinion;
     }
@@ -53,6 +54,7 @@ public class OpinionTestFactory {
     public Opinion newOpinionWithoutJudgments() {
         final User activeUser = TestFactories.users().createFakeActiveUser("userforopinion@mail.com");
         final Opinion opinion = new Opinion("opinion without judgement", activeUser.getId());
+        opinion.setLanguageCode(SteambeatLanguage.reference().getCode());
         Repositories.opinions().add(opinion);
         return opinion;
     }
