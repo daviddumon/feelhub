@@ -1,4 +1,13 @@
+db.alchemyanalysis.ensureIndex({"referenceId":1});
+db.alchemyentity.ensureIndex({"referenceId":1});
+db.illustration.ensureIndex({"referenceId":1});
+db.keyword.ensureIndex({"value":1,"languageCode":1});
+db.keyword.ensureIndex({"referenceId":1});
+db.opinion.ensureIndex({"referenceId":1});
+db.opinion.ensureIndex({"creationDate":-1});
+db.opinion.ensureIndex({"creationDate":-1,"languageCode":1});
 db.relation.ensureIndex({"fromId":1});
 db.relation.ensureIndex({"fromId":1,"toId":1,"weight":-1});
-db.opinion.ensureIndex({"creationDate":-1});
-db.association.ensureIndex({"language":1,"identifier":1});
+db.session.ensureIndex({"email":1});
+db.statistics.ensureIndex({"referenceId":1,"granularity":1});
+db.user.ensureIndex({"secret":1});
