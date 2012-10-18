@@ -65,16 +65,6 @@ public class TestsJsonNewOpinionsResource {
     }
 
     @Test
-    public void errorIfMissingReferenceParameter() {
-        final Opinion lastOpinion = TestFactories.opinions().newOpinion();
-        final ClientResource newOpinions = restlet.newClientResource("/json/newopinions?lastOpinionId=" + lastOpinion.getId());
-
-        newOpinions.get();
-
-        assertThat(newOpinions.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
-    }
-
-    @Test
     public void returnKnownOpinionsUntilLastWithAVeryHighNumberOfNewOpinions() throws IOException, JSONException {
         final Reference reference = TestFactories.references().newReference();
         final List<Opinion> opinions = TestFactories.opinions().newOpinions(reference, 1000);

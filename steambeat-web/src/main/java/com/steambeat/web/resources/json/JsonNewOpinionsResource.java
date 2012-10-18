@@ -63,16 +63,12 @@ public class JsonNewOpinionsResource extends ServerResource {
         if (form.getQueryString().contains("referenceId")) {
             reference = referenceService.lookUp(UUID.fromString(form.getFirstValue("referenceId").trim()));
             opinionSearch.withReference(reference);
-        } else {
-            throw new SteambeatJsonException();
         }
     }
 
     private void getLastParameter(final Form form) {
         if (form.getQueryString().contains("lastOpinionId")) {
             lastOpinionId = UUID.fromString(form.getFirstValue("lastOpinionId").trim());
-        } else {
-            //throw new SteambeatJsonException();
         }
     }
 

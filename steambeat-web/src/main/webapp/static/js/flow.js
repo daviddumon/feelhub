@@ -158,9 +158,20 @@ Flow.prototype.poll = function (time) {
     clearInterval(THIS.pollNewOpinions);
 
     THIS.pollNewOpinions = setInterval(function () {
-        var uri = root + "/json/newopinions?referenceId=" + referenceId;
+        var parameters = [];
+        var uri = root + "/json/newopinions";
+        if (referenceId.length > 0) {
+            parameters.push({"value":"referenceId="+encodeURIComponent(referenceId)});
+        }
         if (THIS.lastOpinionId) {
-            uri += "&lastOpinionId=" + THIS.lastOpinionId;
+            parameters.push({"value":"lastOpinionId="+THIS.lastOpinionId});
+        }
+        if(parameters.length > 0) {
+            uri += "?";
+            $.each(parameters, function(index, parameter) {
+                uri += parameter.value + "&";
+            });
+            uri = uri.substr(0, uri.length - 1);
         }
         //console.log(uri);
         $.getJSON(uri, function (data) {
