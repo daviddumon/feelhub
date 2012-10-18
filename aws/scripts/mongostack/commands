@@ -1,28 +1,42 @@
 sudo su - root
+apt-get update
 apt-get dist-upgrade
-sudo dd if=/dev/zero of=/var/swapfile bs=1M count=1024
-sudo mkswap /var/swapfile
-sudo swapon /var/swapfile
-echo '/var/swapfile none swap sw 0 0' >> /etc/fstab
+apt-get install -y mdadm xfsprogs
+mdadm --verbose --create /dev/md0 --level=10 --chunk=256 --raid-devices=4 /dev/xvdf /dev/xvdg /dev/xvdh /dev/xvdi
+echo DEVICE /dev/xvdf /dev/xvdg /dev/xvdh /dev/xvdi  | sudo tee /etc/mdadm/mdadm.conf
+sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf
+sudo blockdev --setra 128 /dev/md0
+sudo blockdev --setra 128 /dev/xvdf
+sudo blockdev --setra 128 /dev/xvdg
+sudo blockdev --setra 128 /dev/xvdh
+sudo blockdev --setra 128 /dev/xvdi
+sudo dd if=/dev/zero of=/dev/md0 bs=512 count=1
+apt-get install lvm2
+pvcreate /dev/md0
+vgcreate vg0 /dev/md0
+lvcreate -l 90%vg -n data vg0
+lvcreate -l 5%vg -n log vg0
+lvcreate -l 5%vg -n journal vg0
+mke2fs -t ext4 -F /dev/vg0/data
+mke2fs -t ext4 -F /dev/vg0/log
+mke2fs -t ext4 -F /dev/vg0/journal
+mkdir /data
+mkdir /log
+mkdir /journal
+echo '/dev/vg0/data /data ext4 defaults,auto,noatime,noexec 0 0' | sudo tee -a /etc/fstab
+echo '/dev/vg0/log /log ext4 defaults,auto,noatime,noexec 0 0' | sudo tee -a /etc/fstab
+echo '/dev/vg0/journal /journal ext4 defaults,auto,noatime,noexec 0 0' | sudo tee -a /etc/fstab
+mount /data
+mount /log
+mount /journal
+ln -s /journal /data/journal
 apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" >> /etc/apt/sources.list
 apt-get update
 apt-get install mongodb-10gen
-sudo /etc/init.d/mongodb stop
-apt-get install -y mdadm xfsprogs
-mdadm --create /dev/md0 --level 0 --chunk=256 --metadata=1.1 -n 4 /dev/sdi /dev/sdj /dev/sdk /dev/sdh
-echo DEVICE /dev/sdh /dev/sdi /dev/sdj /dev/sdk  | sudo tee /etc/mdadm/mdadm.conf
-sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf
-sudo mkfs.xfs /dev/md0
-echo "/dev/md0 /raiddrive xfs noatime,nodiratime,noexec 0 0" | sudo tee -a /etc/fstab
-mkdir /raiddrive
-mount /raiddrive
-sudo mv /var/lib/mongodb /raiddrive/
-sudo mv /var/log/mongodb /raiddrive/mongodb-log
-sudo mkdir /var/lib/mongodb
-sudo mkdir /var/log/mongodb 
-echo "/raiddrive/mongodb /var/lib/mongodb none bind" | sudo tee -a /etc/fstab
-echo "/raiddrive/mongodb-log /var/log/mongodb none bind" | sudo tee -a /etc/fstab
-mount /var/lib/mongodb/
-mount /var/log/mongodb/
-sudo /etc/init.d/mongodb start
+service mongodb stop
+chown mongodb:mongodb /data
+chown mongodb:mongodb /log
+chown mongodb:mongodb /journal
+nano /etc/mongod.conf
+service mongodb start
