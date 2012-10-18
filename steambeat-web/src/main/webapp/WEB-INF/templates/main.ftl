@@ -20,15 +20,15 @@
 
         <#if user??>
         var userLanguageCode = "${user.languageCode}";
-        console.log("userLanguageCode : " + userLanguageCode);
+        //console.log("userLanguageCode : " + userLanguageCode);
         </#if>
 
-    console.log("authentificated : " + authentificated);
-    console.log("root : " + root);
-    console.log("referenceId : " + referenceId);
-    console.log("keywordValue : " + keywordValue);
-    console.log("languageCode : " + languageCode);
-    console.log("illustrationLink : " + illustrationLink);
+    //console.log("authentificated : " + authentificated);
+    //console.log("root : " + root);
+    //console.log("referenceId : " + referenceId);
+    //console.log("keywordValue : " + keywordValue);
+    //console.log("languageCode : " + languageCode);
+    //console.log("illustrationLink : " + illustrationLink);
     var flow;
 </script>
 </@layout.headbegin>
@@ -49,7 +49,7 @@
 
 <@layout.js>
 <script type="text/javascript" src="${root}/static/js/form.js?${buildtime}"></script>
-<script type="text/javascript" src="${root}/static/js/lib/flow.js?${buildtime}"></script>
+<script type="text/javascript" src="${root}/static/js/flow.js?${buildtime}"></script>
 <script type="text/javascript" src="${root}/static/js/main.js?${buildtime}"></script>
 </@layout.js>
 

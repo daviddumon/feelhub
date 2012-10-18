@@ -19,8 +19,8 @@ function postOpinion(feeling, text) {
         "languageCode":languageCode,
         "userLanguageCode":userLanguageCode
     };
-    console.log("ajax call");
-    console.log(opinionData);
+    //console.log("ajax call");
+    //console.log(opinionData);
     $.ajax({
         url:root + '/json/createopinion',
         type:'POST',
@@ -33,7 +33,7 @@ function postOpinion(feeling, text) {
             flow.pushFake(data.id, text, feeling);
         },
         error:function () {
-            console.log("erreur lors du post");
+            //console.log("erreur lors du post");
         }
     });
 }

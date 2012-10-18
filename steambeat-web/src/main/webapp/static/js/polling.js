@@ -9,10 +9,10 @@ function buildInternalLink(languageCode, value) {
 
 function RequestRelations(referenceId) {
     if (referenceId.length != 0) {
-        console.log("request relations for " + referenceId);
+        //console.log("request relations for " + referenceId);
         $.getJSON(root + "/json/related?&referenceId=" + referenceId + "&limit=12" + "&languageCode=" + languageCode, function (data) {
             $.each(data, function (index, referenceData) {
-                console.log("relation found " + referenceData.referenceId);
+                //console.log("relation found " + referenceData.referenceId);
 
                 var reference_data = {
                     referenceId:referenceData.referenceId,

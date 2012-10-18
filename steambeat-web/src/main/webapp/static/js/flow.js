@@ -40,7 +40,7 @@ Flow.prototype.drawData = function () {
             referenceParameter = "&referenceId=" + encodeURIComponent(referenceId);
         }
         var url = root + "/json/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + referenceParameter + "&languageCode=" + languageCode;
-        console.log("flow: " + url);
+        //console.log("flow: " + url);
         $.getJSON(url, function (data) {
             if (data.length > 0) {
                 $.each(data, function (index, opinion) {
@@ -162,9 +162,9 @@ Flow.prototype.poll = function (time) {
         if (THIS.lastOpinionId) {
             uri += "&lastOpinionId=" + THIS.lastOpinionId;
         }
-        console.log(uri);
+        //console.log(uri);
         $.getJSON(uri, function (data) {
-            console.log(data);
+            //console.log(data);
             if (data.length > 0) {
                 THIS.lastOpinionId = data[0].id;
                 data.reverse();
@@ -183,7 +183,7 @@ Flow.prototype.poll = function (time) {
 };
 
 Flow.prototype.reDraw = function (opinion, classes) {
-    console.log("redraw flow");
+    //console.log("redraw flow");
     var THIS = this;
     $.each(THIS.opinions, function (index, element) {
         var row = 0;
@@ -212,7 +212,7 @@ Flow.prototype.reset = function () {
 
 Flow.prototype.pushFake = function (referenceId, text, feeling) {
     var THIS = this;
-    console.log("push fake : " + referenceId + " - " + text + " - " + feeling);
+    //console.log("push fake : " + referenceId + " - " + text + " - " + feeling);
     var fake_opinion = {
         id:referenceId,
         text:text,

@@ -30,12 +30,12 @@ var timeline = {};
         rect.drag(function(dx, dy) {
             
             if(dx > 100) {
-                console.log("back");
+                //console.log("back");
                 this.drag(null, null, null);
                 instance.back();
             }
             if(dx < -100) {
-                console.log("forward");
+                //console.log("forward");
                 this.drag(null, null, null);
                 instance.forward();
             }
@@ -323,7 +323,7 @@ var timeline = {};
         $.each(Date.granularities, function(index, granularity){
             if(instance.graphs[granularity].length > 0
             && (granularity == instance.granularity || granularity == instance.granularityToRemove) && instance.nextAnimate.coords != "") {
-                console.log(granularity + instance.nextAnimate.coords);
+                //console.log(granularity + instance.nextAnimate.coords);
                 instance.graphs[granularity].previous().animate(instance.nextAnimate.coords, instance.nextAnimate.delay, instance.nextAnimate.type);
                 instance.graphs[granularity].current().animate(instance.nextAnimate.coords, instance.nextAnimate.delay, instance.nextAnimate.type);
                 instance.graphs[granularity].next().animate(instance.nextAnimate.coords, instance.nextAnimate.delay, instance.nextAnimate.type);
