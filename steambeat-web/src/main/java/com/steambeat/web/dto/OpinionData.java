@@ -10,6 +10,7 @@ public class OpinionData {
         this.id = opinion.getId();
         this.text = opinion.getText();
         this.languageCode = opinion.getLanguageCode();
+        this.userId = opinion.getUserId();
         this.referenceDatas = referenceDatas;
     }
 
@@ -29,8 +30,13 @@ public class OpinionData {
         return languageCode;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     private UUID id;
     private final String text;
     private final List<ReferenceData> referenceDatas;
     private String languageCode;
+    private final String userId;
 }

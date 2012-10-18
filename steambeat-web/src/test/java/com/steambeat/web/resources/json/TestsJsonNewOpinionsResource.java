@@ -105,4 +105,19 @@ public class TestsJsonNewOpinionsResource {
         assertThat(jsonArray.length(), is(1));
         assertThat(jsonArray.getJSONObject(0).get("languageCode").toString(), is(SteambeatLanguage.reference().getCode()));
     }
+
+
+    @Test
+    public void returnUserIdOfOpinion() throws IOException, JSONException {
+        final Opinion opinion = TestFactories.opinions().newOpinion();
+        final ClientResource newOpinions = restlet.newClientResource("/json/newopinions");
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) newOpinions.get();
+
+        MatcherAssert.assertThat(representation, notNullValue());
+        final JSONArray jsonArray = new JSONArray(representation.getText());
+        assertThat(jsonArray, notNullValue());
+        assertThat(jsonArray.length(), is(1));
+        assertThat(jsonArray.getJSONObject(0).get("userId").toString(), is(opinion.getUserId()));
+    }
 }
