@@ -35,13 +35,24 @@ Flow.prototype.drawData = function () {
     }
 
     function loadData() {
-        var referenceParameter = "";
+        var parameters = [];
+        var uri = root + "/json/opinions?";
         if (referenceId.length > 0) {
-            referenceParameter = "&referenceId=" + encodeURIComponent(referenceId);
+            parameters.push({"value":"referenceId=" + encodeURIComponent(referenceId)});
         }
-        var url = root + "/json/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + referenceParameter + "&languageCode=" + languageCode;
-        //console.log("flow: " + url);
-        $.getJSON(url, function (data) {
+        if (typeof userLanguageCode !== 'undefined') {
+            parameters.push({"value":"languageCode=" + userLanguageCode});
+        } else {
+            parameters.push({"value":"languageCode=en"});
+        }
+        parameters.push({"value":"skip=" + THIS.skip});
+        parameters.push({"value":"limit=" + THIS.limit});
+        $.each(parameters, function (index, parameter) {
+            uri += parameter.value + "&";
+        });
+        uri = uri.substr(0, uri.length - 1);
+        //console.log(uri);
+        $.getJSON(uri, function (data) {
             if (data.length > 0) {
                 $.each(data, function (index, opinion) {
                     THIS.appendOpinion(opinion, "opinion");
@@ -161,14 +172,14 @@ Flow.prototype.poll = function (time) {
         var parameters = [];
         var uri = root + "/json/newopinions";
         if (referenceId.length > 0) {
-            parameters.push({"value":"referenceId="+encodeURIComponent(referenceId)});
+            parameters.push({"value":"referenceId=" + encodeURIComponent(referenceId)});
         }
         if (THIS.lastOpinionId) {
-            parameters.push({"value":"lastOpinionId="+THIS.lastOpinionId});
+            parameters.push({"value":"lastOpinionId=" + THIS.lastOpinionId});
         }
-        if(parameters.length > 0) {
+        if (parameters.length > 0) {
             uri += "?";
-            $.each(parameters, function(index, parameter) {
+            $.each(parameters, function (index, parameter) {
                 uri += parameter.value + "&";
             });
             uri = uri.substr(0, uri.length - 1);

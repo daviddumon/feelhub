@@ -9,8 +9,21 @@ function buildInternalLink(languageCode, value) {
 
 function RequestRelations(referenceId) {
     if (referenceId.length != 0) {
-        //console.log("request relations for " + referenceId);
-        $.getJSON(root + "/json/related?&referenceId=" + referenceId + "&limit=12" + "&languageCode=" + languageCode, function (data) {
+        var parameters = [];
+        var uri = root + "/json/related?";
+        parameters.push({"value":"referenceId=" + referenceId});
+        parameters.push({"value":"limit=12"});
+        if(typeof userLanguageCode !== "undefined") {
+            parameters.push({"value":"languageCode=" + userLanguageCode});
+        } else {
+            parameters.push({"value":"languageCode=" + languageCode});
+        }
+        $.each(parameters, function(index, parameter) {
+            uri += parameter.value + "&";
+        });
+        uri = uri.substr(0, uri.length - 1);
+        //console.log(uri);
+        $.getJSON(uri, function (data) {
             $.each(data, function (index, referenceData) {
                 //console.log("relation found " + referenceData.referenceId);
 
