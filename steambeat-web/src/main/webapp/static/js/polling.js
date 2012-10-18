@@ -13,12 +13,14 @@ function RequestRelations(referenceId) {
         var uri = root + "/json/related?";
         parameters.push({"value":"referenceId=" + referenceId});
         parameters.push({"value":"limit=12"});
-        if(typeof userLanguageCode !== "undefined") {
+        if (typeof userLanguageCode !== 'undefined') {
             parameters.push({"value":"languageCode=" + userLanguageCode});
-        } else {
+        } else if (languageCode !== "none") {
             parameters.push({"value":"languageCode=" + languageCode});
+        } else {
+            parameters.push({"value":"languageCode=en"});
         }
-        $.each(parameters, function(index, parameter) {
+        $.each(parameters, function (index, parameter) {
             uri += parameter.value + "&";
         });
         uri = uri.substr(0, uri.length - 1);
@@ -55,10 +57,10 @@ function RequestCounters(referenceId) {
 
 function pollForId(opinionId, text, feeling) {
     var referenceIdPolling = setInterval(function () {
-        $.getJSON(root + "/json/keyword?keywordValue=" + keywordValue + "&languageCode=" + languageCode, function(data) {
+        $.getJSON(root + "/json/keyword?keywordValue=" + keywordValue + "&languageCode=" + languageCode, function (data) {
 
         })
-            .success(function(data) {
+            .success(function (data) {
                 //console.log("success");
                 //console.log(data);
                 clearInterval(referenceIdPolling);
@@ -67,4 +69,5 @@ function pollForId(opinionId, text, feeling) {
                 flow.pushFake(opinionId, text, feeling);
             });
     }, 500);
-};
+}
+;

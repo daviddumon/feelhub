@@ -33,10 +33,6 @@ public class SubjectExtractor {
         return subjects;
     }
 
-    private boolean isUri(final String token) {
-        return KeywordService.isUri(token);
-    }
-
     private TreeMap<Integer, Feeling> getSemanticTags(final String token) {
         final TreeMap<Integer, Feeling> counts = Maps.newTreeMap();
         counts.put(token.lastIndexOf("#"), Feeling.none);
@@ -44,6 +40,10 @@ public class SubjectExtractor {
         counts.put(token.lastIndexOf("="), Feeling.neutral);
         counts.put(token.lastIndexOf("+"), Feeling.good);
         return counts;
+    }
+
+    private boolean isUri(final String token) {
+        return KeywordService.isUri(token);
     }
 
     private boolean hasAny(final TreeMap<Integer, Feeling> map) {
@@ -54,6 +54,6 @@ public class SubjectExtractor {
         return map.lastEntry().getValue();
     }
 
-    private static final String STRING_REPLACE_ALL = "\\W";
+    private static final String STRING_REPLACE_ALL = "\\p{Punct}";
     private static final String STRING_REPLACE_SEMANTIC = "[\\+\\-\\=\\#]";
 }

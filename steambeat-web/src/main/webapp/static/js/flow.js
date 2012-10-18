@@ -42,6 +42,8 @@ Flow.prototype.drawData = function () {
         }
         if (typeof userLanguageCode !== 'undefined') {
             parameters.push({"value":"languageCode=" + userLanguageCode});
+        } else if(languageCode !== "none"){
+            parameters.push({"value":"languageCode=" + languageCode});
         } else {
             parameters.push({"value":"languageCode=en"});
         }

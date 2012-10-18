@@ -116,6 +116,11 @@ public class TestsSubjectExtractor {
         testText("J'aime beaucoup #http://www.google.fr ! hehe", Feeling.none, "http://www.google.fr");
     }
 
+    @Test
+    public void canUseAccent() {
+        testText("Ceci est un #éléphant!", Feeling.none, "éléphant");
+    }
+
     private void testText(final String text, final Feeling feeling, final String expected) {
         final SubjectExtractor subjectExtractor = new SubjectExtractor();
         final List<Subject> subjects = subjectExtractor.extract(text);
