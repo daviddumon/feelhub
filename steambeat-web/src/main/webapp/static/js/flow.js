@@ -131,7 +131,7 @@ Flow.prototype.getOpinion = function (opinion, classes) {
         opinion_classes:classes,
         text:text.split(/\r\n|\r|\n/),
         referenceDatas:referenceDatas,
-        height:(referenceDatas.length != 0 ? 40 : 0) + 74 * (Math.floor(referenceDatas.length / 2) + referenceDatas.length % 2) + 'px'
+        height:(referenceDatas.length != 0 ? 40 : 0) + 146 * (Math.floor(referenceDatas.length / 2) + referenceDatas.length % 2) + 'px'
     };
 
     if (opinion_feeling !== "none") {
