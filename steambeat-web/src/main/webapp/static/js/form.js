@@ -30,10 +30,30 @@ function postOpinion(feeling, text) {
         success:function (data, textStatus, jqXHR) {
             $("#form textarea").val('');
             $("#form textarea").height("30px");
-            flow.pushFake(data.id, text, feeling);
+            if(referenceId === "") {
+                pollForId(data.id, text, feeling);
+            } else {
+                flow.pushFake(data.id, text, feeling);
+            }
         },
         error:function () {
             //console.log("erreur lors du post");
         }
     });
-}
+};
+
+function pollForId(opinionId, text, feeling) {
+    var referenceIdPolling = setInterval(function () {
+        $.getJSON(root + "/json/keyword?keywordValue=" + keywordValue + "&languageCode=" + languageCode, function(data) {
+
+        })
+            .success(function(data) {
+                //console.log("success");
+                //console.log(data);
+                clearInterval(referenceIdPolling);
+                referenceId = data.referenceId;
+                FindInformations();
+                flow.pushFake(opinionId, text, feeling);
+            });
+    }, 500);
+};

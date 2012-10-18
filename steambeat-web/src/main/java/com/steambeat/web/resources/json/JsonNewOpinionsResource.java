@@ -72,7 +72,7 @@ public class JsonNewOpinionsResource extends ServerResource {
         if (form.getQueryString().contains("lastOpinionId")) {
             lastOpinionId = UUID.fromString(form.getFirstValue("lastOpinionId").trim());
         } else {
-            throw new SteambeatJsonException();
+            //throw new SteambeatJsonException();
         }
     }
 

@@ -65,16 +65,6 @@ public class TestsJsonNewOpinionsResource {
     }
 
     @Test
-    public void errorIfMissingLastOpinionParameter() {
-        final Reference reference = TestFactories.references().newReference();
-        final ClientResource newOpinions = restlet.newClientResource("/json/newopinions?referenceId=" + reference.getId());
-
-        newOpinions.get();
-
-        assertThat(newOpinions.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
-    }
-
-    @Test
     public void errorIfMissingReferenceParameter() {
         final Opinion lastOpinion = TestFactories.opinions().newOpinion();
         final ClientResource newOpinions = restlet.newClientResource("/json/newopinions?lastOpinionId=" + lastOpinion.getId());
@@ -95,5 +85,19 @@ public class TestsJsonNewOpinionsResource {
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray.length(), is(900));
+    }
+
+    @Test
+    public void ifNoLastOpinionIdReturnAllOpinions() throws IOException, JSONException {
+        final Reference reference = TestFactories.references().newReference();
+        TestFactories.opinions().newOpinions(reference, 100);
+        final ClientResource newOpinions = restlet.newClientResource("/json/newopinions?referenceId=" + reference.getId());
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) newOpinions.get();
+
+        MatcherAssert.assertThat(representation, notNullValue());
+        final JSONArray jsonArray = new JSONArray(representation.getText());
+        assertThat(jsonArray, notNullValue());
+        assertThat(jsonArray.length(), is(100));
     }
 }

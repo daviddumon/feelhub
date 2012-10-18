@@ -1,8 +1,6 @@
 /* Copyright Steambeat 2012 */
 $(function () {
 
-    flow = new Flow();
-
     if (keywordValue !== "") {
         var reference_data = {
             referenceId:referenceId,
@@ -14,15 +12,20 @@ $(function () {
 
         $("#main_reference").prepend(ich.reference(reference_data));
         $("#counters").show();
-        $("#counters").show();
+        $("#opinion_form").show();
+    } else {
+        $("#left").hide();
+        $("#right").css("width", "100%");
     }
 
     if (referenceId !== "") {
-        FindInformations(referenceId);
+        FindInformations();
     }
+
+    flow = new Flow();
 });
 
-function FindInformations(referenceId) {
+function FindInformations() {
     $("#related").show();
 
     $("#" + referenceId + " img").attr("src", illustrationLink);

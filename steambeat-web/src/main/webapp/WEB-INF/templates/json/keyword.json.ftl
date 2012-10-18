@@ -1,5 +1,5 @@
 {
 <#if referenceId??>
-"referenceId":${referenceId}
+"referenceId":"${referenceId}"
 </#if>
 }
