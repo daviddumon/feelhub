@@ -2,6 +2,7 @@ package com.steambeat.web.resources.json;
 
 import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import com.steambeat.web.*;
@@ -89,5 +90,19 @@ public class TestsJsonNewOpinionsResource {
         final JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray, notNullValue());
         assertThat(jsonArray.length(), is(100));
+    }
+
+    @Test
+    public void returnLanguageCodeOfOpinion() throws IOException, JSONException {
+        TestFactories.opinions().newOpinion();
+        final ClientResource newOpinions = restlet.newClientResource("/json/newopinions");
+
+        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) newOpinions.get();
+
+        MatcherAssert.assertThat(representation, notNullValue());
+        final JSONArray jsonArray = new JSONArray(representation.getText());
+        assertThat(jsonArray, notNullValue());
+        assertThat(jsonArray.length(), is(1));
+        assertThat(jsonArray.getJSONObject(0).get("languageCode").toString(), is(SteambeatLanguage.reference().getCode()));
     }
 }

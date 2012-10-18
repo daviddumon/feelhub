@@ -106,7 +106,7 @@
         </div>
 
         <div id="related" class="box" style="display: none;">
-            <div class="box_title">most related</div>
+            <div class="box_title">related</div>
         </div>
     </div>
 

@@ -3,6 +3,7 @@
     {
     "id":"${opinionData.id}",
     "text":"${opinionData.text?j_string}",
+    "languageCode":${opinionData.languageCode},
     "referenceDatas":   [
                             <#list opinionData.referenceDatas as referenceData>
                             {

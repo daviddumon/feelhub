@@ -2,6 +2,7 @@ package com.steambeat.domain.opinion;
 
 import com.google.common.collect.Lists;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.user.User;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.test.TestFactories;
@@ -36,6 +37,7 @@ public class OpinionTestFactory {
         final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforopinion@mail.com");
         final Opinion opinion = new Opinion(text, activeUser.getId());
         opinion.addJudgment(reference, Feeling.bad);
+        opinion.setLanguageCode(SteambeatLanguage.reference().getCode());
         Repositories.opinions().add(opinion);
         return opinion;
     }
