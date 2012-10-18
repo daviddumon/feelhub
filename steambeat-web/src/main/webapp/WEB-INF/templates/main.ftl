@@ -85,7 +85,7 @@
             </div>
         </div>
 
-        <div id="opinion_form" class="box">
+        <div id="opinion_form" class="box" style="display:none">
             <div class="box_title">My feeling about this</div>
             <#if authentificated!false>
                 <form id="form" method="post" action="" autocomplete="off" class="box">

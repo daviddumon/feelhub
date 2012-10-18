@@ -16,7 +16,7 @@ Flow.prototype.initialize = function () {
     THIS.maxBox = Math.floor(THIS.container.innerWidth() / THIS.initial);
     THIS.skip = -30;
     THIS.limit = 30;
-    THIS.hasData = (referenceId == "" ? false : true);
+    THIS.hasData = (keywordValue.length > 0 && referenceId == "" ? false : true);
     THIS.notLoading = true;
     for (var i = 0; i < THIS.maxBox; i++) {
         THIS.container.append("<div class='opinion_list' id='opinion_list_" + i + "'></div>");
@@ -35,8 +35,13 @@ Flow.prototype.drawData = function () {
     }
 
     function loadData() {
-        var referenceParameter = "&referenceId=" + encodeURIComponent(referenceId);
-        $.getJSON(root + "/json/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + referenceParameter + "&languageCode=" + languageCode, function (data) {
+        var referenceParameter = "";
+        if (referenceId.length > 0) {
+            referenceParameter = "&referenceId=" + encodeURIComponent(referenceId);
+        }
+        var url = root + "/json/opinions?skip=" + THIS.skip + "&limit=" + THIS.limit + referenceParameter + "&languageCode=" + languageCode;
+        console.log("flow: " + url);
+        $.getJSON(url, function (data) {
             if (data.length > 0) {
                 $.each(data, function (index, opinion) {
                     THIS.appendOpinion(opinion, "opinion");
