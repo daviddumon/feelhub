@@ -3,8 +3,8 @@
     {
     "id":"${opinionData.id}",
     "text":"${opinionData.text?j_string}",
-    "languageCode":${opinionData.languageCode},
-    "userId":${opinionData.userId},
+    "languageCode":"${opinionData.languageCode}",
+    "userId":"${opinionData.userId}",
     "referenceDatas":   [
                             <#list opinionData.referenceDatas as referenceData>
                             {
