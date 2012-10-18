@@ -18,7 +18,7 @@ function RequestRelations(referenceId) {
                     referenceId:referenceData.referenceId,
                     keywordValue:referenceData.keywordValue,
                     url:buildInternalLink(referenceData.languageCode, referenceData.keywordValue),
-                    classes:"reference_medium reference_float reference_zoom"
+                    classes:"reference_small reference_float reference_zoom"
                 };
 
                 $("#related").append(ich.reference(reference_data));
