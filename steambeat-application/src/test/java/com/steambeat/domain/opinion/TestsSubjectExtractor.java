@@ -128,7 +128,7 @@ public class TestsSubjectExtractor {
 
     @Test
     public void canUseApostrophe() {
-        testText("Vive +l'Agilité !!", Feeling.good, "l'agilité");
+        testText("Vive +l'Agilité !!", Feeling.good, "agilité");
     }
 
     private void testText(final String text, final Feeling feeling, final String expected) {

@@ -18,6 +18,7 @@ public class SubjectExtractor {
                 if (!isUri(cleanedToken)) {
                     cleanedToken = token.replaceAll(STRING_REPLACE_ALL, "").toLowerCase();
                     cleanedToken = cleanedToken.replaceAll(STRING_TO_SPACES, " ");
+                    cleanedToken = removeApostrophe(cleanedToken);
                 }
                 if (cleanedToken.length() > 2) {
                     final Subject subject = new Subject(tokenFeeling, cleanedToken);
@@ -32,6 +33,14 @@ public class SubjectExtractor {
             }
         }
         return subjects;
+    }
+
+    private String removeApostrophe(final String cleanedToken) {
+        final int indexOfFirstApostrophe = cleanedToken.indexOf("'");
+        if (indexOfFirstApostrophe >= 0) {
+            return cleanedToken.substring(indexOfFirstApostrophe + 1, cleanedToken.length());
+        }
+        return cleanedToken;
     }
 
     private TreeMap<Integer, Feeling> getSemanticTags(final String token) {
