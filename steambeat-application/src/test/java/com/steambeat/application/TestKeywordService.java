@@ -267,5 +267,34 @@ public class TestKeywordService {
         assertThat(conceptIllustrationRequestEvent.getReferenceId(), is(keyword.getReferenceId()));
     }
 
+    @Test
+    public void lookUpIsCaseInsensitiveForConcept() {
+        final String value = "concept";
+        final Keyword keyword = TestFactories.keywords().newKeyword(value);
+
+        final Keyword foundKeyword = keywordService.lookUp("ConCEPT", keyword.getLanguage());
+
+        assertThat(foundKeyword, is(keyword));
+    }
+
+    @Test
+    public void lookUpIsCaseSensitiveForUri() {
+        exception.expect(KeywordNotFound.class);
+        final String value = "http://www.youtube.com/ALFED";
+        final Keyword keyword = TestFactories.keywords().newKeyword(value);
+
+        keywordService.lookUp("http://www.youtube.com/alfed", keyword.getLanguage());
+    }
+
+    @Test
+    public void createAKeywordLowerTheCase() {
+        final String value = "concepT";
+
+        keywordService.createKeyword(value, SteambeatLanguage.reference());
+
+        final Keyword foundKeyword = Repositories.keywords().getAll().get(0);
+        assertThat(foundKeyword.getValue(), is("concept"));
+    }
+
     private KeywordService keywordService;
 }

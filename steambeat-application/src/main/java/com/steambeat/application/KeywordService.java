@@ -25,8 +25,23 @@ public class KeywordService {
         this.uriManager = uriManager;
     }
 
+    public Keyword lookUpOrCreate(final String value, final String languageCode) {
+        Keyword keyword;
+        try {
+            keyword = lookUp(value, SteambeatLanguage.forString(languageCode));
+        } catch (KeywordNotFound e) {
+            keyword = createKeyword(value, SteambeatLanguage.forString(languageCode));
+        }
+        return keyword;
+    }
+
     public Keyword lookUp(final String value, final SteambeatLanguage steambeatLanguage) {
-        final Keyword keyword = Repositories.keywords().forValueAndLanguage(value, steambeatLanguage);
+        Keyword keyword;
+        if (KeywordService.isUri(value)) {
+            keyword = Repositories.keywords().forValueAndLanguage(value, steambeatLanguage);
+        } else {
+            keyword = Repositories.keywords().forValueAndLanguage(value.toLowerCase(), steambeatLanguage);
+        }
         if (keyword == null) {
             throw new KeywordNotFound();
         }
@@ -39,6 +54,7 @@ public class KeywordService {
         if (!keywords.isEmpty()) {
             keyword = getGoodKeyword(keywords, language);
         } else {
+            // it should never happens!
             keyword = new Keyword("?", language, referenceId);
         }
         return keyword;
@@ -67,7 +83,7 @@ public class KeywordService {
             requestAlchemy(uri);
             return uri;
         } else if (!value.isEmpty()) {
-            final Keyword concept = createConcept(value, steambeatLanguage);
+            final Keyword concept = createConcept(value.toLowerCase(), steambeatLanguage);
             requestConceptIllustration(concept);
             return concept;
         } else {
@@ -139,16 +155,6 @@ public class KeywordService {
     public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage, final UUID referenceID) {
         final Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, referenceID);
         Repositories.keywords().add(keyword);
-        return keyword;
-    }
-
-    public Keyword lookUpOrCreate(final String value, final String languageCode) {
-        Keyword keyword;
-        try {
-            keyword = lookUp(value, SteambeatLanguage.forString(languageCode));
-        } catch (KeywordNotFound e) {
-            keyword = createKeyword(value, SteambeatLanguage.forString(languageCode));
-        }
         return keyword;
     }
 

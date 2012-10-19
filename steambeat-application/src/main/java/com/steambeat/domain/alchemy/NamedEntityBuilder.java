@@ -27,7 +27,7 @@ public class NamedEntityBuilder {
         try {
             checkForSize(alchemyJsonEntity.text);
             checkForSpecialCharacters(alchemyJsonEntity.text);
-            entity.keywords.add(alchemyJsonEntity.text.trim().toLowerCase());
+            entity.keywords.add(alchemyJsonEntity.text.trim());
         } catch (Exception e) {
         }
     }
@@ -37,7 +37,7 @@ public class NamedEntityBuilder {
             checkForSameTextAndName(alchemyJsonEntity);
             checkForSize(alchemyJsonEntity.disambiguated.name);
             checkForSpecialCharacters(alchemyJsonEntity.disambiguated.name);
-            entity.keywords.add(alchemyJsonEntity.disambiguated.name.trim().toLowerCase());
+            entity.keywords.add(alchemyJsonEntity.disambiguated.name.trim());
         } catch (Exception e) {
         }
     }
