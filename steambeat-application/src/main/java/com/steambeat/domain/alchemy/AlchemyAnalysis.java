@@ -2,6 +2,7 @@ package com.steambeat.domain.alchemy;
 
 import com.steambeat.domain.BaseEntity;
 import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 
 import java.util.UUID;
 
@@ -34,7 +35,16 @@ public class AlchemyAnalysis extends BaseEntity {
         this.referenceId = newReferenceId;
     }
 
+    public void setLanguageCode(final SteambeatLanguage language) {
+        this.languageCode = language.getCode();
+    }
+
+    public String getLanguageCode() {
+        return languageCode;
+    }
+
     private UUID referenceId;
     private UUID id;
     private String value;
+    private String languageCode;
 }

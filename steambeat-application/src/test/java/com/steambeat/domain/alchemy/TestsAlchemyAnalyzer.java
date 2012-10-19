@@ -12,6 +12,7 @@ import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.*;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
+import org.mockito.Matchers;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -33,7 +34,7 @@ public class TestsAlchemyAnalyzer {
 
     @Test
     public void ifNoKeywordsCreateNothing() {
-        when(entityProvider.entitiesFor(anyString())).thenReturn(TestFactories.namedEntities().namedEntityWithoutKeywords());
+        when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWithoutKeywords());
         final Keyword keyword = TestFactories.keywords().newKeyword();
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
 
@@ -51,12 +52,12 @@ public class TestsAlchemyAnalyzer {
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
 
-        verify(entityProvider).entitiesFor(keyword.getValue());
+        verify(entityProvider).entitiesFor(keyword);
     }
 
     @Test
     public void canCreateFromNamedEntity() {
-        when(entityProvider.entitiesFor(anyString())).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
+        when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
         final Reference reference = TestFactories.references().newReference();
         final Keyword keyword = TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
@@ -70,7 +71,7 @@ public class TestsAlchemyAnalyzer {
 
     @Test
     public void mergeKeywordsForSameAlchemyEntity() {
-        when(entityProvider.entitiesFor(anyString())).thenReturn(TestFactories.namedEntities().namedEntityWith2Keywords());
+        when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWith2Keywords());
         final Reference reference = TestFactories.references().newReference();
         final Keyword keyword = TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
@@ -83,20 +84,8 @@ public class TestsAlchemyAnalyzer {
     }
 
     @Test
-    public void createAlchemyAnalysisOnSuccess() {
-        when(entityProvider.entitiesFor(anyString())).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
-        final Reference reference = TestFactories.references().newReference();
-        final Keyword keyword = TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
-        final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
-
-        DomainEventBus.INSTANCE.post(alchemyRequestEvent);
-
-        assertThat(Repositories.alchemyAnalysis().getAll().size(), is(1));
-    }
-
-    @Test
     public void doNotMakeAnalysisIfAlreadyExists() {
-        when(entityProvider.entitiesFor(anyString())).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
+        when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
         final Reference reference = TestFactories.references().newReference();
         final Keyword keyword = TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
@@ -109,7 +98,7 @@ public class TestsAlchemyAnalyzer {
 
     @Test
     public void createRelationsOnSuccess() {
-        when(entityProvider.entitiesFor(anyString())).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
+        when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
         final Reference reference = TestFactories.references().newReference();
         final Keyword keyword = TestFactories.keywords().newKeyword("http://www.google.fr", SteambeatLanguage.none(), reference);
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);

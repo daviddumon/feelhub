@@ -1,6 +1,8 @@
 package com.steambeat.domain.alchemy;
 
+import com.steambeat.domain.alchemy.readmodel.AlchemyJsonResults;
 import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
 import org.junit.*;
@@ -22,5 +24,17 @@ public class TestsAlchemyAnalysis {
         assertThat(alchemyAnalysis.getId(), notNullValue());
         assertThat(alchemyAnalysis.getReferenceId(), is(keyword.getReferenceId()));
         assertThat(alchemyAnalysis.getValue(), is(keyword.getValue()));
+    }
+
+    @Test
+    public void canAddLanguageFromAlchemyResult() {
+        final Keyword keyword = TestFactories.keywords().newKeyword();
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
+        final AlchemyJsonResults alchemyJsonResults = new AlchemyJsonResults();
+        alchemyJsonResults.language = "english";
+
+        alchemyAnalysis.setLanguageCode(SteambeatLanguage.forString(alchemyJsonResults.language));
+
+        assertThat(alchemyAnalysis.getLanguageCode(), is("en"));
     }
 }

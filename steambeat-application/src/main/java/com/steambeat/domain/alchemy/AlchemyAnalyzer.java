@@ -34,10 +34,9 @@ public class AlchemyAnalyzer {
 
     private void addAlchemyAnalysis(final AlchemyRequestEvent event) {
         try {
-            final List<NamedEntity> namedEntities = namedEntityProvider.entitiesFor(event.getUri().getValue());
+            final List<NamedEntity> namedEntities = namedEntityProvider.entitiesFor(event.getUri());
             final List<AlchemyEntity> entities = createKeywordsAndAlchemyEntities(namedEntities);
             createRelations(event, entities);
-            createAlchemyAnalysis(event.getUri());
         } catch (AlchemyException e) {
 
         }
@@ -90,11 +89,6 @@ public class AlchemyAnalyzer {
             referencesAndScores.put(entity.getReferenceId(), entity.getRelevance());
         }
         alchemyRelationBinder.bind(event.getUri().getReferenceId(), referencesAndScores);
-    }
-
-    private void createAlchemyAnalysis(final Keyword uri) {
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(uri);
-        Repositories.alchemyAnalysis().add(alchemyAnalysis);
     }
 
     private final KeywordService keywordService;

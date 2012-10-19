@@ -14,5 +14,6 @@ public class AlchemyAnalysisMapping extends EntityMap<AlchemyAnalysis> {
         id(element().getId()).natural();
         property(element().getReferenceId());
         property(element().getValue());
+        property(element().getLanguageCode());
     }
 }

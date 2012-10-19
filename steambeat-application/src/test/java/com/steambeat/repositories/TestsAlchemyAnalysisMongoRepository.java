@@ -4,6 +4,7 @@ import com.mongodb.*;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.reference.Reference;
+import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.test.*;
 import org.junit.*;
 
@@ -26,6 +27,7 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
     public void canPersistAlchemyAnalysis() {
         final Keyword keyword = TestFactories.keywords().newKeyword();
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
+        alchemyAnalysis.setLanguageCode(SteambeatLanguage.reference());
 
         entityMongoRepository.add(alchemyAnalysis);
 
@@ -33,6 +35,7 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
         assertThat(alchemyAnalysisFound, notNullValue());
         assertThat(alchemyAnalysisFound.get("referenceId"), is((Object) alchemyAnalysis.getReferenceId()));
         assertThat(alchemyAnalysisFound.get("value").toString(), is(alchemyAnalysis.getValue()));
+        assertThat(alchemyAnalysisFound.get("languageCode").toString(), is(alchemyAnalysis.getLanguageCode()));
     }
 
     @Test
