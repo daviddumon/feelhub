@@ -38,6 +38,11 @@ function RequestRelations(referenceId) {
 
                 $("#related").append(ich.reference(reference_data));
                 $("#" + referenceData.referenceId + " img").attr("src", referenceData.illustrationLink);
+                $("#" + referenceData.referenceId).hover(function () {
+                    $(this).find("span").fadeIn(150);
+                }, function () {
+                    $(this).find("span").hide();
+                });
             });
         });
     }

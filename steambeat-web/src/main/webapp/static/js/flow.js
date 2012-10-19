@@ -42,7 +42,7 @@ Flow.prototype.drawData = function () {
         }
         if (typeof userLanguageCode !== 'undefined') {
             parameters.push({"value":"languageCode=" + userLanguageCode});
-        } else if(languageCode !== "none"){
+        } else if (languageCode !== "none") {
             parameters.push({"value":"languageCode=" + languageCode});
         } else {
             parameters.push({"value":"languageCode=en"});
@@ -92,7 +92,11 @@ Flow.prototype.drawData = function () {
 Flow.prototype.appendOpinion = function (opinion, classes) {
     var THIS = this;
     var element = THIS.getOpinion(opinion, classes);
-
+    $(element).find(".reference").hover(function () {
+        $(this).find("span").fadeIn(150);
+    }, function() {
+        $(this).find("span").hide();
+    });
     var row = 0;
     var row_height = $("#opinion_list_" + row).height();
     for (var i = 1; i < THIS.maxBox; i++) {
