@@ -28,7 +28,7 @@ public class TestsKeywordResource {
 
     @Test
     public void keywordResourceIsMapped() {
-        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.none());
+        TestFactories.keywords().newKeyword("Keyword", SteambeatLanguage.none());
         final ClientResource keywordResource = restlet.newClientResource("/topic/keyword");
 
         keywordResource.get();
@@ -38,7 +38,7 @@ public class TestsKeywordResource {
 
     @Test
     public void keywordResourceIsMappedWithLanguage() {
-        TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.forString("fr"));
+        TestFactories.keywords().newKeyword("Keyword", SteambeatLanguage.forString("fr"));
         final ClientResource keywordResource = restlet.newClientResource("/topic/fr/keyword");
 
         keywordResource.get();
@@ -105,7 +105,7 @@ public class TestsKeywordResource {
     @Test
     public void referenceDataWithGoodValuesForExistingKeywordAndIllustration() {
         final Reference reference = TestFactories.references().newReference();
-        final Keyword keyword = TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.forString("es"), reference);
+        final Keyword keyword = TestFactories.keywords().newKeyword("Keyword", SteambeatLanguage.forString("es"), reference);
         final Illustration illustration = TestFactories.illustrations().newIllustration(reference, "link");
         final ClientResource keywordResource = restlet.newClientResource("/topic/es/keyword");
 
