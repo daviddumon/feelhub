@@ -11,6 +11,7 @@ import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.domain.translation.Translator;
 import com.steambeat.domain.uri.*;
 import com.steambeat.repositories.Repositories;
+import org.apache.commons.lang.WordUtils;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -35,17 +36,36 @@ public class KeywordService {
         return keyword;
     }
 
+    public Keyword lookUpOrCreateSteam() {
+        Keyword keyword = Repositories.keywords().forValueAndLanguage("", SteambeatLanguage.none());
+        if (keyword == null) {
+            return createKeyword("", SteambeatLanguage.none());
+        }
+        return keyword;
+    }
+
     public Keyword lookUp(final String value, final SteambeatLanguage steambeatLanguage) {
+        checkSize(value);
         Keyword keyword;
         if (KeywordService.isUri(value)) {
             keyword = Repositories.keywords().forValueAndLanguage(value, steambeatLanguage);
         } else {
-            keyword = Repositories.keywords().forValueAndLanguage(value.toLowerCase(), steambeatLanguage);
+            keyword = Repositories.keywords().forValueAndLanguage(normalize(value), steambeatLanguage);
         }
         if (keyword == null) {
             throw new KeywordNotFound();
         }
         return keyword;
+    }
+
+    private void checkSize(final String value) {
+        // Note : there is not much sens in keeping words smaller than 3
+        // but as we use a translation to reference keywords between eachother
+        // we have to accept anything not empty
+        // Only exception to this rule is the "steam" keyword that aggragates everything else
+        if (value.isEmpty()) {
+            throw new BadValueException();
+        }
     }
 
     public Keyword lookUp(final UUID referenceId, final SteambeatLanguage language) {
@@ -76,18 +96,18 @@ public class KeywordService {
         }
     }
 
-    public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage) {
+    protected Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage) {
         if (KeywordService.isUri(value)) {
             final Keyword uri = createUri(value);
             requestUriIllustration(uri);
             requestAlchemy(uri);
             return uri;
         } else if (!value.isEmpty()) {
-            final Keyword concept = createConcept(value.toLowerCase(), steambeatLanguage);
+            final Keyword concept = createConcept(normalize(value), steambeatLanguage);
             requestConceptIllustration(concept);
             return concept;
         } else {
-            final Keyword steam = createConcept(value, steambeatLanguage);
+            final Keyword steam = createKeyword("", SteambeatLanguage.none(), referenceService.newReference().getId());
             return steam;
         }
     }
@@ -152,10 +172,16 @@ public class KeywordService {
         DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
     }
 
-    public Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage, final UUID referenceID) {
+    protected Keyword createKeyword(final String value, final SteambeatLanguage steambeatLanguage, final UUID referenceID) {
         final Keyword keyword = keywordFactory.createKeyword(value, steambeatLanguage, referenceID);
         Repositories.keywords().add(keyword);
         return keyword;
+    }
+
+    private String normalize(String value) {
+        value = value.toLowerCase();
+        value = WordUtils.capitalize(value);
+        return value;
     }
 
     public static boolean isUri(final String text) {

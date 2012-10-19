@@ -54,7 +54,7 @@ public class TestKeywordService {
 
     @Test
     public void canCreateAKeywordWithLanguageNone() {
-        final String value = "value";
+        final String value = "Value";
         final SteambeatLanguage steambeatLanguage = SteambeatLanguage.none();
 
         final Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
@@ -67,7 +67,7 @@ public class TestKeywordService {
 
     @Test
     public void canCreateAKeywordWithLanguageReference() {
-        final String value = "value";
+        final String value = "Value";
         final SteambeatLanguage steambeatLanguage = SteambeatLanguage.reference();
 
         final Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
@@ -144,7 +144,7 @@ public class TestKeywordService {
 
     @Test
     public void translateIfNotReference() {
-        final String value = "value";
+        final String value = "Value";
         final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("fr");
 
         final Keyword keyword = keywordService.createKeyword(value, steambeatLanguage);
@@ -158,7 +158,7 @@ public class TestKeywordService {
 
     @Test
     public void doNotCreateSameKeywordTwice() {
-        final String value = "value";
+        final String value = "Value";
 
         keywordService.createKeyword(value, SteambeatLanguage.forString("fr"));
         keywordService.createKeyword(value, SteambeatLanguage.forString("de"));
@@ -169,9 +169,9 @@ public class TestKeywordService {
 
     @Test
     public void lookUpExistingTranslation() {
-        final Keyword referenceKeyword = TestFactories.keywords().newKeyword("valueenglish", SteambeatLanguage.reference());
+        final Keyword referenceKeyword = TestFactories.keywords().newKeyword("Valueenglish", SteambeatLanguage.reference());
 
-        keywordService.createKeyword("value", SteambeatLanguage.forString("fr"));
+        keywordService.createKeyword("Value", SteambeatLanguage.forString("fr"));
 
         assertThat(Repositories.keywords().getAll().size(), is(2));
         assertThat(Repositories.keywords().getAll().get(0).getReferenceId(), is(referenceKeyword.getReferenceId()));
@@ -180,7 +180,7 @@ public class TestKeywordService {
 
     @Test
     public void makeReferenceInactiveOnTranslationError() {
-        keywordService.createKeyword("exception", SteambeatLanguage.forString("fr"));
+        keywordService.createKeyword("Exception", SteambeatLanguage.forString("fr"));
 
         assertThat(Repositories.keywords().getAll().size(), is(1));
         assertThat(Repositories.keywords().getAll().get(0).isTranslationNeeded(), is(true));
@@ -269,7 +269,7 @@ public class TestKeywordService {
 
     @Test
     public void lookUpIsCaseInsensitiveForConcept() {
-        final String value = "concept";
+        final String value = "Concept";
         final Keyword keyword = TestFactories.keywords().newKeyword(value);
 
         final Keyword foundKeyword = keywordService.lookUp("ConCEPT", keyword.getLanguage());
@@ -287,13 +287,37 @@ public class TestKeywordService {
     }
 
     @Test
-    public void createAKeywordLowerTheCase() {
+    public void createAKeywordNormalizeTheValue() {
         final String value = "concepT";
 
         keywordService.createKeyword(value, SteambeatLanguage.reference());
 
         final Keyword foundKeyword = Repositories.keywords().getAll().get(0);
-        assertThat(foundKeyword.getValue(), is("concept"));
+        assertThat(foundKeyword.getValue(), is("Concept"));
+    }
+
+    @Test
+    public void lookUpOrCreateThrowBadValueExceptionIfConceptTooSmall() {
+        exception.expect(BadValueException.class);
+
+        keywordService.lookUpOrCreate("", SteambeatLanguage.reference().getCode());
+    }
+
+    @Test
+    public void lookUpThrowBadValueExceptionIfConceptTooSmall() {
+        exception.expect(BadValueException.class);
+
+        keywordService.lookUp("", SteambeatLanguage.reference());
+    }
+
+    @Test
+    public void correctlyNormalizeMultiWords() {
+        final String value = "la mort";
+
+        keywordService.createKeyword(value, SteambeatLanguage.reference());
+
+        final Keyword foundKeyword = Repositories.keywords().getAll().get(0);
+        assertThat(foundKeyword.getValue(), is("La Mort"));
     }
 
     private KeywordService keywordService;

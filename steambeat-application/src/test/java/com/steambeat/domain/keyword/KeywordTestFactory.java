@@ -9,7 +9,7 @@ import java.util.UUID;
 public class KeywordTestFactory {
 
     public Keyword newKeyword() {
-        final String value = "value";
+        final String value = "Value";
         final SteambeatLanguage steambeatLanguage = SteambeatLanguage.forString("english");
         return newKeyword(value, steambeatLanguage);
     }

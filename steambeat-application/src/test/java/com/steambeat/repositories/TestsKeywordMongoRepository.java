@@ -63,6 +63,16 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
+    public void canGetSteam() {
+        final String value = "";
+        TestFactories.keywords().newKeyword(value, SteambeatLanguage.none());
+
+        final Keyword keyword = repository.forValueAndLanguage(value, SteambeatLanguage.none());
+
+        assertThat(keyword, notNullValue());
+    }
+
+    @Test
     public void canGetForAReference() {
         final Reference reference = TestFactories.references().newReference();
         TestFactories.keywords().newKeyword("coucou", SteambeatLanguage.forString("fr"), reference);
