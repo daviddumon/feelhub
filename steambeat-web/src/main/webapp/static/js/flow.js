@@ -12,7 +12,7 @@ function Flow() {
 Flow.prototype.initialize = function () {
     var THIS = this;
     THIS.container = $("#opinions");
-    THIS.initial = 280;
+    THIS.initial = 300;
     THIS.maxBox = Math.floor(THIS.container.innerWidth() / THIS.initial);
     THIS.skip = -30;
     THIS.limit = 30;
@@ -92,11 +92,7 @@ Flow.prototype.drawData = function () {
 Flow.prototype.appendOpinion = function (opinion, classes) {
     var THIS = this;
     var element = THIS.getOpinion(opinion, classes);
-    $(element).find(".reference").hover(function () {
-        $(this).find("span").fadeIn(150);
-    }, function() {
-        $(this).find("span").hide();
-    });
+
     var row = 0;
     var row_height = $("#opinion_list_" + row).height();
     for (var i = 1; i < THIS.maxBox; i++) {
@@ -130,7 +126,7 @@ Flow.prototype.getOpinion = function (opinion, classes) {
                     feeling:opinion.referenceDatas[i].feeling,
                     keywordValue:opinion.referenceDatas[i].keywordValue,
                     url:buildInternalLink(opinion.referenceDatas[i].languageCode, opinion.referenceDatas[i].keywordValue),
-                    classes:"reference_medium reference_stack reference_zoom",
+                    classes:"reference_medium reference_stack",
                     illustrationLink:opinion.referenceDatas[i].illustrationLink
                 };
                 referenceDatas.push(reference_data);
@@ -165,7 +161,7 @@ Flow.prototype.getOpinion = function (opinion, classes) {
                 var rd = referenceDatas.shift();
                 referenceDatas.push(rd);
             }
-            referenceDatas[0]["classes"] = "reference_large reference_stack reference_zoom";
+            referenceDatas[0]["classes"] = "reference_large reference_stack";
         }
     }
 };

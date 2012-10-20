@@ -7,7 +7,7 @@ $(function () {
             keywordValue:keywordValue,
             languageCode:languageCode,
             //illustrationLink:illustrationLink,
-            classes:"reference_big reference_center"
+            classes:"reference_main"
         };
 
         $("#main_reference").prepend(ich.reference(reference_data));

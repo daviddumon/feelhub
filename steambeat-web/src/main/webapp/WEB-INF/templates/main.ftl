@@ -63,7 +63,10 @@
 </@layout.headend>
 
 <@layout.body>
-<div id="wrapper">
+<div id="top_wrapper">
+
+</div>
+<div id="bottom_wrapper">
     <div id="left">
         <div id="main_reference" class="box">
             <div id="counters" style="display: none;">

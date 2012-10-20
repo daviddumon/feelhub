@@ -33,16 +33,11 @@ function RequestRelations(referenceId) {
                     referenceId:referenceData.referenceId,
                     keywordValue:referenceData.keywordValue,
                     url:buildInternalLink(referenceData.languageCode, referenceData.keywordValue),
-                    classes:"reference_small reference_float reference_zoom"
+                    classes:"reference_related"
                 };
 
                 $("#related").append(ich.reference(reference_data));
                 $("#" + referenceData.referenceId + " img").attr("src", referenceData.illustrationLink);
-                $("#" + referenceData.referenceId).hover(function () {
-                    $(this).find("span").fadeIn(150);
-                }, function () {
-                    $(this).find("span").hide();
-                });
             });
         });
     }

@@ -5,20 +5,26 @@
 
 body {
 
-    #wrapper {
+    #top_wrapper {
+
+    }
+
+    #bottom_wrapper {
+        position: relative;
+        width: 95%;
         clear: both;
-        //width: 95%;
         margin: 100px auto 0px auto;
 
         #left {
-            position: fixed;
-            top: 100px;
             float: left;
             z-index: 10;
             width: 38%;
             margin-bottom: 50px;
 
             .box {
+                position: relative;
+                height: 100%;
+                width: 100%;
                 text-align: center;
                 vertical-align: top;
                 margin-bottom: 50px;
@@ -77,7 +83,9 @@ body {
             #related {
                 margin: 0px auto;
                 height: 300px;
-                max-width: 296px;
+                text-align: center;
+                vertical-align: top;
+                overflow: hidden;
             }
         }
 
@@ -92,7 +100,6 @@ body {
                 .opinion_list {
                     display: inline-block;
                     vertical-align: top;
-                    width: 260px;
                     margin-left: 10px;
                     margin-right: 10px;
                 }

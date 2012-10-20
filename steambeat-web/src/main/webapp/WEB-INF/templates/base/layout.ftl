@@ -5,6 +5,7 @@
 <head>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=ABeeZee|Molle:400italic|Eagle+Lake|Autour+One|Fanwood+Text|Handlee|Macondo' rel='stylesheet' type='text/css'>
     <title>Steambeat</title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
@@ -127,7 +128,7 @@
 <header>
     <div id="header_wrapper">
         <div id="home_link">
-            <a href="${root}">steambeat</a>
+            <a href="${root}">puls<span>.</span>io</a>
         </div>
 
         <div id="login_help">

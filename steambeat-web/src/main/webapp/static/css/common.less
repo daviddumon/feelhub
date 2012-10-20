@@ -14,18 +14,14 @@ body {
     }
 
     header {
-        position: fixed;
-        top: 0px;
+        height: 80px;
         width: 100%;
         padding-top: 10px;
         padding-bottom: 10px;
-        z-index: 100;
-        background-color: @blue-1;
-        border-bottom: 5px solid @white;
 
         #header_wrapper {
-            width: 95%;
-            margin: 0px auto;
+            width: 100%;
+            margin: 20px 0px 0px 0px;
 
             #home_link {
                 width: 38%;
@@ -33,13 +29,17 @@ body {
                 text-align: center;
 
                 a {
-                    font-size: 34px;
+                    font-size: 46px;
                     font-weight: bold;
-                    color: @blue-3;
-                    .font_title;
+                    color: @blue-2;
+                    .font_home_title;
+
+                    span {
+                        color: @moods-1;
+                    }
 
                     &:hover {
-                        color: @blue-2 !important;
+                        color: @moods-1 !important;
                     }
                 }
             }
@@ -48,10 +48,16 @@ body {
                 float: right;
                 width: 62%;
                 padding-top: 20px;
+                font-size: 16px;
+
+                a {
+                    font-weight: bold;
+                    color: @moods-1;
+                }
 
                 p {
                     float: right;
-
+                    color: @moods-1;
                 }
             }
         }

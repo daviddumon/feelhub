@@ -9,7 +9,7 @@
         {{#text}}
         <p>{{{.}}}&nbsp;</p>
         {{/text}}
-        <div class="related" style="height: {{height}}">
+        <div class="opinion_related" style="height: {{height}}">
         {{#referenceDatas}}
         {{> reference}}
         {{/referenceDatas}}

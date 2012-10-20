@@ -6,21 +6,17 @@
 body {
 
     .reference {
-
-        a, div {
-            position: relative;
-            border: 5px solid @white;
-            background: #e1fafc url('../images/unknown.png') no-repeat center;
-            overflow: hidden;
-        }
+        position: relative;
+        overflow: hidden;
+        background: #e1fafc url('../images/unknown.png') no-repeat center;
 
         img {
             position: absolute;
         }
 
         span {
-            display: block;
             position: absolute;
+            display: block;
             width: 100%;
             bottom: 0px;
             left: 0px;
@@ -29,88 +25,96 @@ body {
             .font_title();
             color: @blue-1;
         }
+    }
 
-        .reference_center {
-            margin: 0px auto;
+    .reference_related {
+        display: inline-block;
+        width: 128px;
+        height: 72px;
+        border: 5px solid @white;
+        margin: 5px;
+
+        span {
+            font-size: @font-normal;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            min-height: @font-normal;
+            display: none;
         }
 
-        .reference_float {
-            float: left;
-            margin: 5px;
-        }
-
-        .reference_stack {
-            float: left;
-            border: 1px solid @white !important;
-        }
-
-        .reference_small {
-            width: 128px;
-            height: 72px;
-
+        &:hover {
             span {
-                font-size: @font-normal;
-                padding-top: 2px;
-                padding-bottom: 2px;
-                min-height: @font-normal;
-                display: none;
+                display: inline;
             }
-        }
-
-        .reference_medium {
-            width: 128px;
-            height: 144px;
-
-            span {
-                font-size: @font-medium;
-                padding-top: 5px;
-                padding-bottom: 5px;
-                min-height: @font-medium;
-                display: none;
-            }
-        }
-
-        .reference_large {
-            width: 258px;
-            height: 144px;
-
-            span {
-                font-size: @font-medium;
-                padding-top: 5px;
-                padding-bottom: 5px;
-                min-height: @font-medium;
-                display: none;
-            }
-        }
-
-        .reference_big {
-            width: 320px;
-            height: 180px;
-
-            span {
-                font-size: @font-big;
-                padding-top: 10px;
-                padding-bottom: 10px;
-                min-height: @font-big;
-            }
-        }
-
-        .bad {
-            color: @bad;
-        }
-
-        .good {
-            color: @good;
-        }
-
-        .neutral {
-            color: @neutral;
         }
     }
 
-    //.reference_zoom:hover {
-    //    span {
-            //padding-bottom: 20px;
-        //}
-    //}
+    .reference_main {
+        margin: 0px auto;
+        width: 320px;
+        height: 180px;
+        border: 5px solid @white;
+
+        span {
+            font-size: @font-big;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            min-height: @font-big;
+        }
+    }
+
+    .reference_stack {
+        float: left !important;
+        border: 1px solid @white !important;
+    }
+
+    .reference_medium {
+        width: 128px;
+        height: 144px;
+
+        span {
+            font-size: @font-medium;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            min-height: @font-medium;
+            display: none;
+        }
+
+        &:hover {
+            span {
+                display: inline;
+            }
+        }
+    }
+
+    .reference_large {
+        width: 258px;
+        height: 144px;
+
+        span {
+            font-size: @font-medium;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            min-height: @font-medium;
+            display: none;
+        }
+
+        &:hover {
+            span {
+                display: inline;
+            }
+        }
+    }
+
+    .bad {
+        color: @bad;
+    }
+
+    .good {
+        color: @good;
+    }
+
+    .neutral {
+        color: @neutral;
+    }
 }
