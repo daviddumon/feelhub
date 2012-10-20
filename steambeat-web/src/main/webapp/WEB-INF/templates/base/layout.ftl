@@ -3,9 +3,7 @@
 <!-- Copyright Steambeat 2012 -->
 <html lang="en">
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=ABeeZee|Molle:400italic|Eagle+Lake|Autour+One|Fanwood+Text|Handlee|Macondo' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif|Autour+One' rel='stylesheet' type='text/css'>
     <title>Steambeat</title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
