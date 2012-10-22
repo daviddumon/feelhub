@@ -14,50 +14,71 @@ body {
     }
 
     header {
-        height: 80px;
+        position: relative;
+        height: 100px;
         width: 100%;
-        padding-top: 10px;
-        padding-bottom: 10px;
 
-        #header_wrapper {
-            width: 100%;
-            margin: 20px 0px 0px 0px;
+        a {
+            font-weight: bold;
+            color: @blue-2;
+            .font_title;
+
+            &:hover {
+                color: @moods-1 !important;
+            }
+        }
+
+        #header_left {
+            position: absolute;
+            width: 38%;
+            left: 0px;
+            bottom: 0px;
+            text-align: center;
 
             #home_link {
-                width: 38%;
-                float: left;
-                text-align: center;
+                font-size: 46px;
 
-                a {
-                    font-size: 46px;
-                    font-weight: bold;
-                    color: @blue-2;
-                    .font_title;
+                span {
+                    color: @moods-1;
+                }
+            }
+        }
 
-                    span {
-                        color: @moods-1;
-                    }
+        #header_right {
+            position: absolute;
+            width: 62%;
+            left: 38%;
+            bottom: 0px;
+            text-align: center;
 
-                    &:hover {
-                        color: @moods-1 !important;
+            #search_box {
+                display: inline-block;
+                margin-right: 100px;
+
+                input[type="text"] {
+                    font-size: @font-normal;
+                    .font_text();
+                    .rounded();
+                    background: url('../images/search-white.png.png') no-repeat 10px 6px #fcfcfc;
+                    border: 1px solid #d1d1d1;
+                    width: 200px;
+                    padding: 6px 15px 6px 35px;
+                    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+                    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+
+                    &:focus {
+                        outline: none !important;
                     }
                 }
             }
 
-            #login_help {
-                float: right;
-                width: 62%;
-                padding-top: 20px;
+            #login_helper {
+                display: inline-block;
                 font-size: 16px;
 
-                a {
-                    font-weight: bold;
-                    color: @moods-1;
-                }
-
                 p {
-                    float: right;
-                    color: @moods-1;
+                    color: @blue-2;
                 }
             }
         }

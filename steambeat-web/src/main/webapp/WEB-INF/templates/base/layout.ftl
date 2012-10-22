@@ -124,12 +124,17 @@
 <#macro body>
 <body>
 <header>
-    <div id="header_wrapper">
-        <div id="home_link">
-            <a href="${root}">puls<span>.</span>io</a>
+    <div id="header_left">
+        <a id="home_link" href="${root}">Puls<span>.</span>io</a>
+    </div>
+    <div id="header_right">
+        <div id="search_box">
+            <form id="search">
+                <input type="text"/>
+            </form>
         </div>
 
-        <div id="login_help">
+        <div id="login_helper">
             <#if user?has_content>
                 <p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
             <#else>

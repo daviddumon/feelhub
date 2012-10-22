@@ -66,6 +66,7 @@
 <div id="top_wrapper">
 
 </div>
+
 <div id="bottom_wrapper">
     <div id="left">
         <div id="main_reference" class="box">
@@ -88,6 +89,12 @@
             </div>
         </div>
 
+        <div id="related" class="box" style="display: none;">
+            <div class="box_title">related</div>
+        </div>
+    </div>
+
+    <div id="right">
         <div id="opinion_form" class="box" style="display:none">
             <div class="box_title">My feeling about this</div>
             <#if authentificated!false>
@@ -107,13 +114,6 @@
                 <div>Want to give your opinion ? login or create account !</div>
             </#if>
         </div>
-
-        <div id="related" class="box" style="display: none;">
-            <div class="box_title">related</div>
-        </div>
-    </div>
-
-    <div id="right">
 
         <ul id="opinions">
         </ul>

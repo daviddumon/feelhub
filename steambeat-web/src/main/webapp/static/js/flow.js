@@ -12,7 +12,7 @@ function Flow() {
 Flow.prototype.initialize = function () {
     var THIS = this;
     THIS.container = $("#opinions");
-    THIS.initial = 300;
+    THIS.initial = 320;
     THIS.maxBox = Math.floor(THIS.container.innerWidth() / THIS.initial);
     THIS.skip = -30;
     THIS.limit = 30;

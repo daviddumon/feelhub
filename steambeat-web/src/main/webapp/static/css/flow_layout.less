@@ -6,39 +6,41 @@
 body {
 
     #top_wrapper {
+        height: 100px;
+        margin-bottom: 20px;
+
+        #login_help {
+        }
 
     }
 
     #bottom_wrapper {
         position: relative;
-        width: 95%;
+        width: 100%;
         clear: both;
-        margin: 100px auto 0px auto;
+
+        .box {
+            position: relative;
+            text-align: center;
+            vertical-align: top;
+            margin-bottom: 20px;
+            overflow: hidden;
+            padding: 20px;
+
+            .box_title {
+                height: 20px;
+                .font_title();
+                font-size: @font-big;
+                color: @blue-3;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+        }
 
         #left {
             float: left;
-            z-index: 10;
             width: 38%;
-            margin-bottom: 50px;
-
-            .box {
-                position: relative;
-                height: 100%;
-                width: 100%;
-                text-align: center;
-                vertical-align: top;
-                margin-bottom: 50px;
-                overflow: hidden;
-                padding: 5px;
-
-                .box_title {
-                    height: 25px;
-                    .font_title();
-                    font-size: @font-big;
-                    color: @blue-3;
-                    font-weight: bold;
-                }
-            }
+            margin-bottom: 20px;
 
             #main_reference {
 
@@ -76,10 +78,6 @@ body {
                 }
             }
 
-            #login_help {
-                padding: 10px;
-            }
-
             #related {
                 margin: 0px auto;
                 height: 300px;
@@ -94,10 +92,22 @@ body {
             width: 62%;
             text-align: center;
 
+            #opinion_form {
+
+                textarea {
+                    .rounded();
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+
             #opinions {
                 position: relative;
 
                 .opinion_list {
+                    width: 300px;
                     display: inline-block;
                     vertical-align: top;
                     margin-left: 10px;
