@@ -50,7 +50,7 @@
         <script src="https://html5shim.googlecode.com/svn/trunk/html5.js?${buildtime}"></script>
         <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?${buildtime}"></script>
         <![endif]-->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
         <#nested/>
     </#if>
 
@@ -125,7 +125,7 @@
 <body>
 <header>
     <div id="header_left">
-        <a id="home_link" href="${root}">Puls<span>.</span>io</a>
+        <a id="home_link" href="${root}">Crowdview</a>
     </div>
     <div id="header_right">
         <div id="search_box">
