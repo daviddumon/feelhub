@@ -5,13 +5,15 @@ import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
-import com.steambeat.web.*;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
+import com.steambeat.web.ClientResource;
+import com.steambeat.web.WebApplicationTester;
 import org.hamcrest.MatcherAssert;
-import org.json.*;
-import org.junit.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.junit.Rule;
 import org.junit.Test;
 import org.restlet.data.Status;
+import org.restlet.ext.freemarker.TemplateRepresentation;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +47,7 @@ public class TestsJsonNewOpinionsResource {
         final Opinion lastOpinion = opinions.get(10);
         final ClientResource newOpinions = restlet.newClientResource("/json/newopinions?referenceId=" + reference.getId() + "&lastOpinionId=" + lastOpinion.getId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) newOpinions.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) newOpinions.get();
 
         MatcherAssert.assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -59,7 +61,7 @@ public class TestsJsonNewOpinionsResource {
         final Opinion lastOpinion = opinions.get(2);
         final ClientResource newOpinions = restlet.newClientResource("/json/newopinions?referenceId=" + reference.getId() + "&lastOpinionId=" + lastOpinion.getId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) newOpinions.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) newOpinions.get();
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray.length(), is(2));
@@ -72,7 +74,7 @@ public class TestsJsonNewOpinionsResource {
         final Opinion lastOpinion = opinions.get(900);
         final ClientResource newOpinions = restlet.newClientResource("/json/newopinions?referenceId=" + reference.getId() + "&lastOpinionId=" + lastOpinion.getId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) newOpinions.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) newOpinions.get();
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray.length(), is(900));
@@ -84,7 +86,7 @@ public class TestsJsonNewOpinionsResource {
         TestFactories.opinions().newOpinions(reference, 100);
         final ClientResource newOpinions = restlet.newClientResource("/json/newopinions?referenceId=" + reference.getId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) newOpinions.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) newOpinions.get();
 
         MatcherAssert.assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -97,7 +99,7 @@ public class TestsJsonNewOpinionsResource {
         TestFactories.opinions().newOpinion();
         final ClientResource newOpinions = restlet.newClientResource("/json/newopinions");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) newOpinions.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) newOpinions.get();
 
         MatcherAssert.assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -112,7 +114,7 @@ public class TestsJsonNewOpinionsResource {
         final Opinion opinion = TestFactories.opinions().newOpinion();
         final ClientResource newOpinions = restlet.newClientResource("/json/newopinions");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) newOpinions.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) newOpinions.get();
 
         MatcherAssert.assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());

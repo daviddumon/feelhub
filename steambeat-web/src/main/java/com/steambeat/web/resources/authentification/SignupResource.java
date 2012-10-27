@@ -4,10 +4,12 @@ import com.google.inject.Inject;
 import com.steambeat.application.UserService;
 import com.steambeat.domain.session.EmailAlreadyUsed;
 import com.steambeat.domain.user.BadEmail;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.restlet.data.*;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import com.steambeat.web.representation.ModelAndView;
+import org.restlet.data.Form;
+import org.restlet.data.Status;
+import org.restlet.resource.Get;
+import org.restlet.resource.Post;
+import org.restlet.resource.ServerResource;
 
 public class SignupResource extends ServerResource {
 
@@ -17,8 +19,8 @@ public class SignupResource extends ServerResource {
     }
 
     @Get
-    public Representation represent() {
-        return SteambeatTemplateRepresentation.createNew("signup.ftl", getContext(), getRequest());
+    public ModelAndView represent() {
+        return ModelAndView.createNew("signup.ftl");
     }
 
     @Post

@@ -6,14 +6,18 @@ import com.steambeat.application.KeywordService;
 import com.steambeat.domain.keyword.Keyword;
 import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import com.steambeat.web.dto.*;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import com.steambeat.web.search.*;
-import org.restlet.data.*;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import com.steambeat.web.dto.ReferenceData;
+import com.steambeat.web.dto.ReferenceDataFactory;
+import com.steambeat.web.representation.ModelAndView;
+import com.steambeat.web.search.RelationSearch;
+import com.steambeat.web.search.Search;
+import org.restlet.data.Form;
+import org.restlet.data.MediaType;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class JsonRelatedResource extends ServerResource {
 
@@ -25,10 +29,10 @@ public class JsonRelatedResource extends ServerResource {
     }
 
     @Get
-    public Representation get() {
+    public ModelAndView represent() {
         doSearchWithQueryParameters();
         getReferenceDataForEachRelation();
-        return SteambeatTemplateRepresentation.createNew("json/related.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("referenceDataList", referenceDataList);
+        return ModelAndView.createNew("json/related.json.ftl", MediaType.APPLICATION_JSON).with("referenceDataList", referenceDataList);
     }
 
     private void doSearchWithQueryParameters() {

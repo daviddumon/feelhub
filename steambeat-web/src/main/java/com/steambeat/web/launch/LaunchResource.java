@@ -1,13 +1,13 @@
 package com.steambeat.web.launch;
 
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import com.steambeat.web.representation.ModelAndView;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
 public class LaunchResource extends ServerResource {
 
     @Get
-    public Representation represent() {
-        return SteambeatTemplateRepresentation.createNew("launch.ftl", getContext(), getRequest());
+    public ModelAndView represent() {
+        return ModelAndView.createNew("launch.ftl");
     }
 }

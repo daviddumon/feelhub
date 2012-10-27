@@ -3,12 +3,14 @@ package com.steambeat.web.resources.json;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
-import com.steambeat.web.*;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.json.*;
-import org.junit.*;
+import com.steambeat.web.ClientResource;
+import com.steambeat.web.WebApplicationTester;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.junit.Rule;
 import org.junit.Test;
 import org.restlet.data.Status;
+import org.restlet.ext.freemarker.TemplateRepresentation;
 
 import java.io.IOException;
 
@@ -46,7 +48,7 @@ public class TestsJsonRelationsResource {
         TestFactories.relations().newRelation();
         final ClientResource resource = restlet.newClientResource("/json/relations?skip=0&limit=1");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -61,7 +63,7 @@ public class TestsJsonRelationsResource {
         TestFactories.relations().newRelations(20);
         final ClientResource resource = restlet.newClientResource("/json/relations?referenceId=" + reference.getId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -74,7 +76,7 @@ public class TestsJsonRelationsResource {
         TestFactories.relations().newRelations(5);
         final ClientResource resource = restlet.newClientResource("/json/relations?skip=2");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -87,7 +89,7 @@ public class TestsJsonRelationsResource {
         TestFactories.relations().newRelations(5);
         final ClientResource resource = restlet.newClientResource("/json/relations?limit=2");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -100,7 +102,7 @@ public class TestsJsonRelationsResource {
         TestFactories.relations().newRelations(150);
         final ClientResource resource = restlet.newClientResource("/json/relations");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());

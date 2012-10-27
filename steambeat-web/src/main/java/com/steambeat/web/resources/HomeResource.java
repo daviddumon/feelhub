@@ -1,13 +1,13 @@
 package com.steambeat.web.resources;
 
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import com.steambeat.web.representation.ModelAndView;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
 public class HomeResource extends ServerResource {
 
     @Get
-    public Representation represent() {
-        return SteambeatTemplateRepresentation.createNew("main.ftl", getContext(), getRequest());
+    public ModelAndView represent() {
+        return ModelAndView.createNew("main.ftl");
     }
 }

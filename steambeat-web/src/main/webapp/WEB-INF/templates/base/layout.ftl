@@ -135,8 +135,8 @@
         </div>
 
         <div id="login_helper">
-            <#if user?has_content>
-                <p>Hello ${user.fullname} <#if authentificated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
+            <#if userInfos.user?has_content>
+                <p>Hello ${userInfos.user.fullname} <#if userInfos.authenticated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
             <#else>
                 <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
             </#if>

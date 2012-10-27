@@ -1,13 +1,13 @@
 package com.steambeat.web.migration.web;
 
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import com.steambeat.web.representation.ModelAndView;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
 public class MigrationResource extends ServerResource {
 
     @Get
-    public Representation represent() throws Exception {
-        return SteambeatTemplateRepresentation.createNew("migration.ftl", getContext(), getRequest());
+    public ModelAndView represent() throws Exception {
+        return ModelAndView.createNew("migration.ftl");
     }
 }

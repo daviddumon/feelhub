@@ -1,8 +1,11 @@
 package com.steambeat.web.status;
 
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.restlet.*;
+import freemarker.template.Configuration;
+import org.restlet.Context;
+import org.restlet.Request;
+import org.restlet.data.MediaType;
 import org.restlet.data.Status;
+import org.restlet.ext.freemarker.TemplateRepresentation;
 import org.restlet.representation.Representation;
 
 public class ExceptionResolver404 implements ErrorResolver {
@@ -14,6 +17,6 @@ public class ExceptionResolver404 implements ErrorResolver {
 
     @Override
     public Representation getRepresentation(final Context context, final Request request, final String message) {
-        return SteambeatTemplateRepresentation.createNew("error.ftl", context, request);
+		return new TemplateRepresentation("error.ftl", (Configuration) context.getAttributes().get("org.freemarker.Configuration"), MediaType.TEXT_HTML);
     }
 }

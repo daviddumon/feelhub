@@ -3,13 +3,16 @@ package com.steambeat.web.resources.json;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.domain.illustration.Illustration;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
+import com.steambeat.web.representation.ModelAndView;
 import com.steambeat.web.search.IllustrationSearch;
 import org.json.JSONException;
-import org.restlet.data.*;
-import org.restlet.resource.*;
+import org.restlet.data.Form;
+import org.restlet.data.MediaType;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class JsonIllustrationsResource extends ServerResource {
 
@@ -19,7 +22,7 @@ public class JsonIllustrationsResource extends ServerResource {
     }
 
     @Get
-    public SteambeatTemplateRepresentation represent() throws JSONException {
+    public ModelAndView represent() throws JSONException {
         final Form form = getQuery();
         final String[] referenceIdsAsString = form.getFirstValue("referenceId").trim().split(",");
         final List<UUID> referenceIds = Lists.newArrayList();
@@ -27,7 +30,7 @@ public class JsonIllustrationsResource extends ServerResource {
             referenceIds.add(UUID.fromString(referenceIdsAsString[i]));
         }
         final List<Illustration> illustrations = illustrationSearch.withReferences(referenceIds).execute();
-        return SteambeatTemplateRepresentation.createNew("json/illustrations.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("illustrations", illustrations);
+        return ModelAndView.createNew("json/illustrations.json.ftl", MediaType.APPLICATION_JSON).with("illustrations", illustrations);
     }
 
     private final IllustrationSearch illustrationSearch;

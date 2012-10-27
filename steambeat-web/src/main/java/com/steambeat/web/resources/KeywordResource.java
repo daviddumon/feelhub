@@ -2,13 +2,14 @@ package com.steambeat.web.resources;
 
 import com.google.inject.Inject;
 import com.steambeat.application.KeywordService;
-import com.steambeat.domain.keyword.*;
+import com.steambeat.domain.keyword.Keyword;
+import com.steambeat.domain.keyword.KeywordNotFound;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.web.dto.ReferenceDataFactory;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
+import com.steambeat.web.representation.ModelAndView;
 import org.restlet.data.Status;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
 public class KeywordResource extends ServerResource {
 
@@ -19,7 +20,7 @@ public class KeywordResource extends ServerResource {
     }
 
     @Get
-    public Representation get() {
+    public ModelAndView represent() {
         extractLanguageFromUri();
         extractKeywordValueFromUri();
         Keyword keyword;
@@ -29,7 +30,7 @@ public class KeywordResource extends ServerResource {
             keyword = new Keyword(keywordValue, steambeatLanguage, null);
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
         }
-        return SteambeatTemplateRepresentation.createNew("main.ftl", getContext(), getRequest()).with("referenceData", referenceDataFactory.getReferenceData(keyword));
+        return ModelAndView.createNew("main.ftl").with("referenceData", referenceDataFactory.getReferenceData(keyword));
     }
 
     private void extractLanguageFromUri() {

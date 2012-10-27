@@ -1,7 +1,7 @@
 <@layout.headbegin>
 <script type="text/javascript">
-        <#if authentificated?has_content>
-        var authentificated = ${authentificated?string};
+        <#if userInfos.authenticated?has_content>
+        var authentificated = ${userInfos.authenticated?string};
         <#else >
         var authentificated = false;
         </#if>
@@ -18,8 +18,8 @@
         var illustrationLink = "";
         </#if>
 
-        <#if user??>
-        var userLanguageCode = "${user.languageCode}";
+        <#if userInfos.user??>
+        var userLanguageCode = "${userInfos.user.languageCode}";
         //console.log("userLanguageCode : " + userLanguageCode);
         </#if>
 
@@ -97,7 +97,7 @@
     <div id="right">
         <div id="opinion_form" class="box" style="display:none">
             <div class="box_title">My feeling about this</div>
-            <#if authentificated!false>
+            <#if userInfos.authenticated!false>
                 <form id="form" method="post" action="" autocomplete="off" class="box">
                     <textarea></textarea>
                     <button type="submit" id="form_button_good" name="good">

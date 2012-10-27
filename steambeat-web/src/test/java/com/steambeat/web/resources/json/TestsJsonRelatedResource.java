@@ -7,12 +7,15 @@ import com.steambeat.domain.relation.Relation;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
-import com.steambeat.web.*;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.json.*;
-import org.junit.*;
+import com.steambeat.web.ClientResource;
+import com.steambeat.web.WebApplicationTester;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.Rule;
 import org.junit.Test;
 import org.restlet.data.Status;
+import org.restlet.ext.freemarker.TemplateRepresentation;
 
 import java.io.IOException;
 
@@ -50,7 +53,7 @@ public class TestsJsonRelatedResource {
         TestFactories.relations().newRelation();
         final ClientResource resource = restlet.newClientResource("/json/related?skip=0&limit=1");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -65,7 +68,7 @@ public class TestsJsonRelatedResource {
         TestFactories.relations().newRelations(20);
         final ClientResource resource = restlet.newClientResource("/json/related?referenceId=" + reference.getId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -78,7 +81,7 @@ public class TestsJsonRelatedResource {
         TestFactories.relations().newRelations(5);
         final ClientResource resource = restlet.newClientResource("/json/related?skip=2");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -91,7 +94,7 @@ public class TestsJsonRelatedResource {
         TestFactories.relations().newRelations(5);
         final ClientResource resource = restlet.newClientResource("/json/related?limit=2");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -104,7 +107,7 @@ public class TestsJsonRelatedResource {
         TestFactories.relations().newRelations(150);
         final ClientResource resource = restlet.newClientResource("/json/related");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -117,7 +120,7 @@ public class TestsJsonRelatedResource {
         final Relation relation = TestFactories.relations().newRelation();
         final ClientResource resource = restlet.newClientResource("/json/related?referenceId=" + relation.getFromId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -136,7 +139,7 @@ public class TestsJsonRelatedResource {
         final Illustration illustration = TestFactories.illustrations().newIllustration(to);
         final ClientResource resource = restlet.newClientResource("/json/related?referenceId=" + relation.getFromId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -155,7 +158,7 @@ public class TestsJsonRelatedResource {
         final Keyword keyword = TestFactories.keywords().newKeyword("keyword", SteambeatLanguage.none(), to);
         final ClientResource resource = restlet.newClientResource("/json/related?referenceId=" + relation.getFromId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -176,7 +179,7 @@ public class TestsJsonRelatedResource {
         TestFactories.keywords().newKeyword("frkeyword", SteambeatLanguage.forString("fr"), to);
         final ClientResource resource = restlet.newClientResource("/json/related?referenceId=" + relation.getFromId() + "&limit=50&languageCode=" + SteambeatLanguage.reference().getCode());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
@@ -197,7 +200,7 @@ public class TestsJsonRelatedResource {
         TestFactories.keywords().newKeyword("dekeyword", SteambeatLanguage.forString("de"), to);
         final ClientResource resource = restlet.newClientResource("/json/related?referenceId=" + relation.getFromId() + "&limit=50&languageCode=fr");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());

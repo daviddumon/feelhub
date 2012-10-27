@@ -1,15 +1,22 @@
 package com.steambeat.web;
 
-import com.google.inject.*;
-import com.steambeat.web.filter.*;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.steambeat.web.filter.IdentityFilter;
+import com.steambeat.web.filter.OpenSessionInViewFilter;
 import com.steambeat.web.launch.LaunchRouter;
 import com.steambeat.web.mail.MailBuilder;
 import com.steambeat.web.migration.MigrationRunner;
-import com.steambeat.web.migration.web.*;
+import com.steambeat.web.migration.web.MigrationFilter;
+import com.steambeat.web.migration.web.MigrationRouter;
 import com.steambeat.web.status.SteambeatStatusService;
 import com.steambeat.web.tools.SteambeatWebProperties;
-import freemarker.template.*;
-import org.restlet.*;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateModelException;
+import org.restlet.Application;
+import org.restlet.Context;
+import org.restlet.Restlet;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 import org.restlet.service.TaskService;
@@ -71,6 +78,7 @@ public class SteambeatApplication extends Application {
         configuration.setSharedVariable("dev", steambeatWebProperties.isDev());
         configuration.setSharedVariable("root", steambeatWebProperties.getDomain() + servletContext().getContextPath());
         configuration.setSharedVariable("buildtime", steambeatWebProperties.getBuildTime());
+		configuration.setSharedVariable("userInfos", new UserInfos());
         getContext().getAttributes().put("org.freemarker.Configuration", configuration);
     }
 

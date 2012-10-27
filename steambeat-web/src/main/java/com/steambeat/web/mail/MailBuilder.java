@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import com.steambeat.domain.eventbus.DomainEventBus;
 import com.steambeat.domain.user.*;
 import com.steambeat.web.ReferenceBuilder;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
+import com.steambeat.web.representation.FeelhubTemplateRepresentation;
 import org.restlet.*;
 
 import javax.mail.Message;
@@ -61,7 +61,7 @@ public class MailBuilder {
         try {
             final Request fakeRequest = new Request();
             fakeRequest.getAttributes().put("com.steambeat.user", user);
-            final SteambeatTemplateRepresentation content = SteambeatTemplateRepresentation.createNew("mail/welcome.ftl", context, fakeRequest)
+            final FeelhubTemplateRepresentation content = FeelhubTemplateRepresentation.createNew("mail/welcome.ftl", context, fakeRequest)
                     .with("name", user.getFullname())
                     .with("activation_link", new ReferenceBuilder(context).buildUri("/activation/" + user.getSecret()));
             mimeMessage.setText(content.getText());
