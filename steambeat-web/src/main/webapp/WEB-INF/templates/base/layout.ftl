@@ -3,8 +3,8 @@
 <!-- Copyright Steambeat 2012 -->
 <html lang="en">
 <head>
-    <link href='http://fonts.googleapis.com/css?family=Droid+Serif|Autour+One' rel='stylesheet' type='text/css'>
-    <title>Steambeat</title>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif|Autour+One|Spicy+Rice' rel='stylesheet' type='text/css'>
+    <title>Feelhub.com - Share your feelings with the world!</title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
     <meta name="keywords" content="sentiment analysis"/>
@@ -124,15 +124,8 @@
 <#macro body>
 <body>
 <header>
-    <div id="header_left">
-        <a id="home_link" href="${root}">Crowdview</a>
-    </div>
-    <div id="header_right">
-        <div id="search_box">
-            <form id="search">
-                <input type="text"/>
-            </form>
-        </div>
+    <div id="header-top">
+        <a id="home_link" href="${root}">Feelhub<span>.com</span></a>
 
         <div id="login_helper">
             <#if user?has_content>
@@ -142,6 +135,21 @@
             </#if>
         </div>
     </div>
+    <div id="header-bottom">
+        <ul id="header-bottom-left">
+            <li><a href="${root}">Latest</a></li>
+            <li><a href="">Near me</a></li>
+            <li><a href="">Channels</a></li>
+            <li><a href="">Trends</a></li>
+            <li><a href="">Sponsored</a></li>
+        </ul>
+        <ul id="header-bottom-right">
+            <li><a href="">About</a></li>
+        </ul>
+    </div>
+    <form id="search">
+        <input type="text"/>
+    </form>
 </header>
     <#nested/>
 </body>

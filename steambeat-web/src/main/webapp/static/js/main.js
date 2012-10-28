@@ -13,9 +13,6 @@ $(function () {
         $("#main_reference").prepend(ich.reference(reference_data));
         $("#counters").show();
         $("#opinion_form").show();
-    } else {
-        $("#left").hide();
-        $("#right").css("width", "100%");
     }
 
     if (referenceId !== "") {

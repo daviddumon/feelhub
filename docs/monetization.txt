@@ -1,0 +1,25 @@
+1 - Intégration externe
+
+Pouvoir utiliser feelhub directement dans un site externe.
+Pour cela, l'utilisateur enregistre une clé API. Puis il utilise un code javascript pour faire apparaitre le flow de feelings concernant son api sur sa page.
+
+option de monétisation :
+- Les utilisateurs peuvent en plus emettre des opinions directement sur la page distante
+- Nombre de mots clés par API. Dans le cas d'un site internet, comme il faut un mot clé par page, ca peut aller vite !
+
+2 - Vente d'analytics
+
+sur un topic, les données affichées dans le dashboard sont limitées, par exemple les totaux et les derniers jours + les metas.
+Mais en payant, tu peux acceder a tout l'historique ainsi qu'a un découpage plus fin (genre/sexe/date/autres relations/etc)
+
+3 - Publicité de type "relation sponsored"
+
+tu peux acheter une relation automatique sur certains keywords. Ex : un type parle d'avocats, le feeling affichera entre autres une image "pub" vers tiron
+
+4 - Publicité de type "channel de marque"
+
+ex feelhub.com/francetelecom, pour par exemple les feelings de leurs employés, ou pour le channel d'un event "/agiletourbordeaux2012" avec possibilité de definir ton illustration et des keywords associés
+
+5 - Topic personnalisé
+
+je suis une marque, et je veux définir une description sur ma page, une illustration plus jolie que celle scrapée, etc
