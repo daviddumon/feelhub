@@ -1,17 +1,24 @@
 package com.steambeat.web.resources.json;
 
-import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.opinion.Feeling;
+import com.steambeat.domain.opinion.Judgment;
 import com.steambeat.domain.reference.Reference;
-import com.steambeat.domain.statistics.*;
+import com.steambeat.domain.statistics.Granularity;
+import com.steambeat.domain.statistics.Statistics;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.*;
-import com.steambeat.web.*;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
+import com.steambeat.test.SystemTime;
+import com.steambeat.test.TestFactories;
+import com.steambeat.web.ClientResource;
+import com.steambeat.web.WebApplicationTester;
 import org.joda.time.DateTime;
-import org.json.*;
-import org.junit.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
-import org.restlet.data.*;
+import org.restlet.data.MediaType;
+import org.restlet.data.Status;
+import org.restlet.ext.freemarker.TemplateRepresentation;
 import org.restlet.representation.Representation;
 
 import java.io.IOException;
@@ -88,7 +95,7 @@ public class TestsJsonStatisticsResource {
         final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + new DateTime().minus(1).getMillis() + "&end=" + new DateTime().plus(1).getMillis() + "&granularity=hour" + "&referenceId=" + reference.getId());
         time.waitDays(1);
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         final JSONArray stats = new JSONArray(representation.getText());
         assertThat(stats.length(), is(1));
@@ -105,7 +112,7 @@ public class TestsJsonStatisticsResource {
         final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=hour" + "&referenceId=" + reference.getId());
         time.waitDays(1);
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         final JSONArray stats = new JSONArray(representation.getText());
         assertThat(stats.length(), is(2));
@@ -120,7 +127,7 @@ public class TestsJsonStatisticsResource {
         final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat1.getDate().minus(1).getMillis() + "&end=" + stat2.getDate().plus(1).getMillis() + "&granularity=day" + "&referenceId=" + reference.getId());
         time.waitDays(1);
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         final JSONArray stats = new JSONArray(representation.getText());
         assertThat(stats.length(), is(2));

@@ -3,10 +3,10 @@ package com.steambeat.web.resources.authentification;
 import com.google.inject.Inject;
 import com.steambeat.application.UserService;
 import com.steambeat.domain.user.User;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
+import com.steambeat.web.representation.ModelAndView;
 import org.restlet.data.Status;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
 import java.util.UUID;
 
@@ -18,13 +18,13 @@ public class ActivationResource extends ServerResource {
     }
 
     @Get
-    public Representation createActivation() {
+    public ModelAndView createActivation() {
         final UUID secret = UUID.fromString(getRequestAttributes().get("secret").toString());
         final User user = userService.getUserForSecret(secret);
         if (!user.isActive()) {
             user.activate();
             setStatus(Status.SUCCESS_OK);
-            return SteambeatTemplateRepresentation.createNew("activation.ftl", getContext(), getRequest());
+            return ModelAndView.createNew("activation.ftl");
         } else {
             throw new AccountAlreadyActivatedException();
         }

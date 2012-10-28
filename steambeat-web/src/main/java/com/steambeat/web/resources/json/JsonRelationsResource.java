@@ -5,13 +5,16 @@ import com.google.inject.Inject;
 import com.steambeat.application.ReferenceService;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.relation.Relation;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import com.steambeat.web.search.*;
-import org.restlet.data.*;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import com.steambeat.web.representation.ModelAndView;
+import com.steambeat.web.search.RelationSearch;
+import com.steambeat.web.search.Search;
+import org.restlet.data.Form;
+import org.restlet.data.MediaType;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class JsonRelationsResource extends ServerResource {
 
@@ -22,10 +25,10 @@ public class JsonRelationsResource extends ServerResource {
     }
 
     @Get
-    public Representation represent() {
+    public ModelAndView represent() {
         doSearchWithQueryParameters();
         loadReferences();
-        return SteambeatTemplateRepresentation.createNew("json/relations.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("references", references);
+        return ModelAndView.createNew("json/relations.json.ftl", MediaType.APPLICATION_JSON).with("references", references);
     }
 
     private void doSearchWithQueryParameters() {

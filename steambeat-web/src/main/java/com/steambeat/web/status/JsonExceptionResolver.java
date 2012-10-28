@@ -1,6 +1,7 @@
 package com.steambeat.web.status;
 
-import org.restlet.*;
+import org.restlet.Context;
+import org.restlet.Request;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;

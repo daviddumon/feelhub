@@ -8,11 +8,15 @@ import com.steambeat.domain.thesaurus.SteambeatLanguage;
 import com.steambeat.repositories.Repositories;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
 import com.steambeat.test.TestFactories;
-import com.steambeat.web.*;
+import com.steambeat.web.ClientResource;
+import com.steambeat.web.WebApplicationTester;
 import com.steambeat.web.dto.ReferenceData;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.junit.*;
+import org.junit.Rule;
+import org.junit.Test;
 import org.restlet.data.Status;
+import org.restlet.ext.freemarker.TemplateRepresentation;
+
+import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -50,10 +54,11 @@ public class TestsKeywordResource {
     public void hasReferenceDataInDataModel() {
         final ClientResource keywordResource = restlet.newClientResource("/topic/en/cool");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) keywordResource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
-        assertTrue(representation.getDataModel().containsKey("referenceData"));
-        assertThat(representation.getDataModel().get("referenceData"), notNullValue());
+		final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+		assertTrue(dataModel.containsKey("referenceData"));
+        assertThat(dataModel.get("referenceData"), notNullValue());
     }
 
     @Test
@@ -92,10 +97,11 @@ public class TestsKeywordResource {
     public void createFakeKeywordIfItDoesNotExist() {
         final ClientResource keywordResource = restlet.newClientResource("/topic/es/keyword");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) keywordResource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
-        assertTrue(representation.getDataModel().containsKey("referenceData"));
-        final ReferenceData referenceData = (ReferenceData) representation.getDataModel().get("referenceData");
+		Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+        assertTrue(dataModel.containsKey("referenceData"));
+        final ReferenceData referenceData = (ReferenceData) dataModel.get("referenceData");
         assertThat(referenceData, notNullValue());
         assertThat(referenceData.getReferenceId(), is(""));
         assertThat(keywordResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
@@ -109,10 +115,11 @@ public class TestsKeywordResource {
         final Illustration illustration = TestFactories.illustrations().newIllustration(reference, "link");
         final ClientResource keywordResource = restlet.newClientResource("/topic/es/keyword");
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) keywordResource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
-        assertTrue(representation.getDataModel().containsKey("referenceData"));
-        final ReferenceData referenceData = (ReferenceData) representation.getDataModel().get("referenceData");
+		Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+        assertTrue(dataModel.containsKey("referenceData"));
+        final ReferenceData referenceData = (ReferenceData) dataModel.get("referenceData");
         assertThat(referenceData.getIllustrationLink(), is(illustration.getLink()));
         assertThat(referenceData.getKeywordValue(), is(keyword.getValue()));
         assertThat(referenceData.getLanguageCode(), is(keyword.getLanguageCode()));

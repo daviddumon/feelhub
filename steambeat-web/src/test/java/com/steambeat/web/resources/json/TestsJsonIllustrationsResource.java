@@ -2,13 +2,17 @@ package com.steambeat.web.resources.json;
 
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.repositories.fakeRepositories.WithFakeRepositories;
-import com.steambeat.test.*;
-import com.steambeat.web.*;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.json.*;
-import org.junit.*;
+import com.steambeat.test.SystemTime;
+import com.steambeat.test.TestFactories;
+import com.steambeat.web.ClientResource;
+import com.steambeat.web.WebApplicationTester;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.junit.Rule;
 import org.junit.Test;
-import org.restlet.data.*;
+import org.restlet.data.MediaType;
+import org.restlet.data.Status;
+import org.restlet.ext.freemarker.TemplateRepresentation;
 import org.restlet.representation.Representation;
 
 import java.io.IOException;
@@ -44,7 +48,7 @@ public class TestsJsonIllustrationsResource {
         TestFactories.illustrations().newIllustration(reference, "link");
         final ClientResource resource = restlet.newClientResource("/json/illustrations?referenceId=" + reference.getId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray, notNullValue());
@@ -61,7 +65,7 @@ public class TestsJsonIllustrationsResource {
         TestFactories.illustrations().newIllustration(ref3, "link");
         final ClientResource resource = restlet.newClientResource("/json/illustrations?referenceId=" + ref1.getId() + "," + ref2.getId());
 
-        final SteambeatTemplateRepresentation representation = (SteambeatTemplateRepresentation) resource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray, notNullValue());

@@ -62,5 +62,9 @@ public class SteambeatWebProperties {
         return properties.getProperty("sessionpermanenttime");
     }
 
-    private final Properties properties;
+	public Properties getProperties() {
+		return properties;
+	}
+
+	private final Properties properties;
 }

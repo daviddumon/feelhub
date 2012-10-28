@@ -21,6 +21,8 @@
         <mongolink.version>0.0.6-SNAPSHOT</mongolink.version>
         <buildtime>${maven.build.timestamp}</buildtime>
         <status>ok</status>
+        <facebook.appSecret>93847b17c5b7d9888d0f88417a195641</facebook.appSecret>
+        <facebook.appId>160446520766643</facebook.appId>
     </properties>
 
     <profiles>
@@ -169,6 +171,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
+            <version>1.4</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>

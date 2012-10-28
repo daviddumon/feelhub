@@ -2,19 +2,26 @@ package com.steambeat.web.resources.json;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.steambeat.application.*;
+import com.steambeat.application.KeywordService;
+import com.steambeat.application.ReferenceService;
 import com.steambeat.domain.keyword.Keyword;
-import com.steambeat.domain.opinion.*;
+import com.steambeat.domain.opinion.Judgment;
+import com.steambeat.domain.opinion.Opinion;
 import com.steambeat.domain.reference.Reference;
 import com.steambeat.domain.thesaurus.SteambeatLanguage;
-import com.steambeat.web.dto.*;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
+import com.steambeat.web.dto.OpinionData;
+import com.steambeat.web.dto.ReferenceData;
+import com.steambeat.web.dto.ReferenceDataFactory;
+import com.steambeat.web.representation.ModelAndView;
 import com.steambeat.web.search.OpinionSearch;
-import org.restlet.data.*;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import org.restlet.data.Form;
+import org.restlet.data.MediaType;
+import org.restlet.data.Status;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class JsonNewOpinionsResource extends ServerResource {
 
@@ -27,11 +34,11 @@ public class JsonNewOpinionsResource extends ServerResource {
     }
 
     @Get
-    public Representation getNewOpinions() {
+    public ModelAndView represent() {
         List<Opinion> opinions = doSearchWithQueryParameters(getQuery());
         final List<OpinionData> opinionDatas = getOpinionDatas(opinions);
         setStatus(Status.SUCCESS_OK);
-        return SteambeatTemplateRepresentation.createNew("json/newopinions.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("opinionDatas", opinionDatas);
+        return ModelAndView.createNew("json/newopinions.json.ftl", MediaType.APPLICATION_JSON).with("opinionDatas", opinionDatas);
     }
 
     private List<Opinion> doSearchWithQueryParameters(final Form form) {

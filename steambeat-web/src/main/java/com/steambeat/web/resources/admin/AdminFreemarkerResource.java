@@ -1,14 +1,14 @@
 package com.steambeat.web.resources.admin;
 
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import com.steambeat.web.representation.ModelAndView;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
 public class AdminFreemarkerResource extends ServerResource {
 
     @Get
-    public Representation get() {
+    public ModelAndView represent() {
         final String name = getRequestAttributes().get("name").toString();
-        return SteambeatTemplateRepresentation.createNew(name + ".ftl", getContext(), getRequest());
+        return ModelAndView.createNew(name + ".ftl");
     }
 }

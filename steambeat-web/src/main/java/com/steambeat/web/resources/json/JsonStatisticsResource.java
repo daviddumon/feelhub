@@ -4,16 +4,19 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.steambeat.application.ReferenceService;
 import com.steambeat.domain.reference.Reference;
-import com.steambeat.domain.statistics.*;
-import com.steambeat.web.representation.SteambeatTemplateRepresentation;
+import com.steambeat.domain.statistics.Granularity;
+import com.steambeat.domain.statistics.Statistics;
+import com.steambeat.web.representation.ModelAndView;
 import com.steambeat.web.search.StatisticsSearch;
 import org.joda.time.Interval;
 import org.json.JSONException;
-import org.restlet.data.*;
-import org.restlet.representation.Representation;
-import org.restlet.resource.*;
+import org.restlet.data.Form;
+import org.restlet.data.MediaType;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class JsonStatisticsResource extends ServerResource {
 
@@ -24,10 +27,10 @@ public class JsonStatisticsResource extends ServerResource {
     }
 
     @Get
-    public Representation represent() throws JSONException {
+    public ModelAndView represent() throws JSONException {
         extractParameters(getQuery());
         fetchStatistics();
-        return SteambeatTemplateRepresentation.createNew("json/statistics.json.ftl", getContext(), MediaType.APPLICATION_JSON, getRequest()).with("statistics", statistics);
+        return ModelAndView.createNew("json/statistics.json.ftl", MediaType.APPLICATION_JSON).with("statistics", statistics);
     }
 
     private void extractParameters(final Form query) {
