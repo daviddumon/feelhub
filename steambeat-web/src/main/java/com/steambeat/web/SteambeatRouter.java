@@ -41,6 +41,7 @@ public class SteambeatRouter extends Router {
         attach("/sessions", SessionsResource.class);
         attach("/activation/{secret}", ActivationResource.class);
         attach("/login", LoginResource.class);
+		attach("/facebooklogin", FacebookLoginResource.class);
         attach("/help", HelpResource.class);
         attach("/welcome", WelcomeResource.class);
 

@@ -24,7 +24,7 @@ public class SignupResource extends ServerResource {
     }
 
     @Post
-    public void post(final Form form) {
+    public void signup(final Form form) {
         if (checkForm(form)) {
             final String email = form.getFirstValue("email");
             final String password = form.getFirstValue("password");

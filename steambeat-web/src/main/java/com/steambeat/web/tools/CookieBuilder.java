@@ -16,15 +16,9 @@ public final class CookieBuilder {
 	}
 
 	public CookieSetting idCookie(User user) {
-		final CookieSetting id = new CookieSetting();
-		id.setName("id");
-		id.setComment("id cookie");
-		id.setAccessRestricted(true);
+		final CookieSetting id = baseIdCookie();
 		id.setValue(user.getEmail());
-		id.setSecure(Boolean.valueOf(context.getAttributes().get("com.steambeat.cookie.secure").toString()));
-		id.setDomain(context.getAttributes().get("com.steambeat.cookie.domain").toString());
 		id.setMaxAge(getIdCookieTime(context));
-		id.setPath("/");
 		return id;
 	}
 
@@ -32,16 +26,28 @@ public final class CookieBuilder {
 		return Integer.valueOf(context.getAttributes().get("com.steambeat.cookie.cookiepermanenttime").toString());
 	}
 
+	public CookieSetting eraseIdCookie(final String value) {
+		final CookieSetting id = baseIdCookie();
+		id.setValue(value);
+		id.setMaxAge(0);
+		return id;
+	}
+
+	private CookieSetting baseIdCookie() {
+		final CookieSetting id = new CookieSetting();
+		id.setName(ID);
+		id.setComment("id cookie");
+		id.setAccessRestricted(true);
+		id.setSecure(Boolean.valueOf(context.getAttributes().get("com.steambeat.cookie.secure").toString()));
+		id.setDomain(context.getAttributes().get("com.steambeat.cookie.domain").toString());
+		id.setPath("/");
+		return id;
+	}
+
 	public CookieSetting tokenCookie(Session session, boolean remember) {
-		final CookieSetting result = new CookieSetting();
-		result.setName("session");
-		result.setComment("session cookie");
-		result.setSecure(Boolean.valueOf(context.getAttributes().get("com.steambeat.cookie.secure").toString()));
-		result.setAccessRestricted(true);
-		result.setValue(session.getToken().toString());
-		result.setDomain(context.getAttributes().get("com.steambeat.cookie.domain").toString());
+		final CookieSetting result = baseSessionCookie();
 		result.setMaxAge(getSessionCookieTime(remember));
-		result.setPath("/");
+		result.setValue(session.getToken().toString());
 		return result;
 	}
 
@@ -52,32 +58,25 @@ public final class CookieBuilder {
 		return Integer.valueOf(context.getAttributes().get("com.steambeat.cookie.cookiebasetime").toString());
 	}
 
-	public CookieSetting eraseIdCookie(final String value) {
-		final CookieSetting id = new CookieSetting();
-		id.setName("id");
-		id.setComment("id cookie");
-		id.setAccessRestricted(true);
-		id.setValue(value);
-		id.setSecure(Boolean.valueOf(context.getAttributes().get("com.steambeat.cookie.secure").toString()));
-		id.setDomain(context.getAttributes().get("com.steambeat.cookie.domain").toString());
-		id.setMaxAge(0);
-		id.setPath("/");
-		return id;
+	public CookieSetting eraseSessionCookie(final String value) {
+		final CookieSetting session = baseSessionCookie();
+		session.setMaxAge(0);
+		session.setValue(value);
+		return session;
 	}
 
-	public CookieSetting eraseSessionCookie(final String value) {
+	private CookieSetting baseSessionCookie() {
 		final CookieSetting session = new CookieSetting();
-		session.setName("session");
+		session.setName(SESSION);
 		session.setComment("session cookie");
-		session.setSecure(true);
-		session.setAccessRestricted(true);
-		session.setValue(value);
 		session.setSecure(Boolean.valueOf(context.getAttributes().get("com.steambeat.cookie.secure").toString()));
+		session.setAccessRestricted(true);
 		session.setDomain(context.getAttributes().get("com.steambeat.cookie.domain").toString());
-		session.setMaxAge(0);
 		session.setPath("/");
 		return session;
 	}
 
 	private Context context;
+	public static final String ID = "id";
+	public static final String SESSION = "session";
 }

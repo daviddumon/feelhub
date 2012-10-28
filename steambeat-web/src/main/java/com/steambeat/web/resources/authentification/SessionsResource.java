@@ -11,6 +11,7 @@ import com.steambeat.web.ReferenceBuilder;
 import com.steambeat.web.tools.CookieBuilder;
 import org.joda.time.DateTime;
 import org.restlet.data.Cookie;
+import org.restlet.data.CookieSetting;
 import org.restlet.data.Form;
 import org.restlet.data.Status;
 import org.restlet.resource.Delete;
@@ -68,23 +69,27 @@ public class SessionsResource extends ServerResource {
 
 	private void setCookiesInResponse(final boolean remember) {
 		final CookieBuilder cookieBuilder = CookieBuilder.create(getContext());
-		getResponse().getCookieSettings().add(cookieBuilder.idCookie(user));
-		getResponse().getCookieSettings().add(cookieBuilder.tokenCookie(session, remember));
+		setCookie(cookieBuilder.idCookie(user));
+		setCookie(cookieBuilder.tokenCookie(session, remember));
 	}
 
 	@Delete
 	public void logout() {
 		CookieBuilder cookieBuilder = CookieBuilder.create(getContext());
-		final Cookie sessionCookie = getRequest().getCookies().getFirst("session");
-		final Cookie id = getRequest().getCookies().getFirst("id");
+		final Cookie sessionCookie = getRequest().getCookies().getFirst(CookieBuilder.SESSION);
+		final Cookie id = getRequest().getCookies().getFirst(CookieBuilder.ID);
 		if (sessionCookie != null && id != null) {
 			sessionService.deleteSession(UUID.fromString(sessionCookie.getValue()));
-			getResponse().getCookieSettings().add(cookieBuilder.eraseIdCookie(id.getValue()));
-			getResponse().getCookieSettings().add(cookieBuilder.eraseSessionCookie(sessionCookie.getValue()));
+			setCookie(cookieBuilder.eraseIdCookie(id.getValue()));
+			setCookie(cookieBuilder.eraseSessionCookie(sessionCookie.getValue()));
 			setStatus(Status.SUCCESS_ACCEPTED);
 		} else {
 			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 		}
+	}
+
+	private void setCookie(final CookieSetting cookie) {
+		getResponse().getCookieSettings().add(cookie);
 	}
 
 	private final UserService userService;
