@@ -24,7 +24,7 @@ public class IdentityFilter extends Filter {
 		final Cookie identityCookie = getIdentityCookieFrom(request);
 		try {
 			if (identityCookie != null) {
-				user = userService.getUser(identityCookie.getValue());
+				User user = userService.getUser(identityCookie.getValue());
 				request.getAttributes().put("com.steambeat.user", user);
 				request.getAttributes().put("com.steambeat.authentificated", sessionService.authentificate(user, getToken(request)));
 			}
@@ -48,5 +48,5 @@ public class IdentityFilter extends Filter {
 
 	private final UserService userService;
 	private final SessionService sessionService;
-	private User user;
+
 }
