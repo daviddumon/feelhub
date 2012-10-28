@@ -1,6 +1,7 @@
 package com.steambeat.web.guice;
 
 import com.google.inject.*;
+import com.google.inject.name.Names;
 import com.steambeat.application.*;
 import com.steambeat.domain.alchemy.*;
 import com.steambeat.domain.bingsearch.*;
@@ -25,6 +26,8 @@ public class GuiceTestModule extends AbstractModule {
 
     @Override
     protected void configure() {
+		bindConstant().annotatedWith(Names.named("facebook.appId")).to("toto");
+		bindConstant().annotatedWith(Names.named("facebook.appSecret")).to("tata");
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
         bind(SessionProvider.class).to(FakeSessionProvider.class);
         bind(OpinionSearch.class).to(FakeOpinionSearch.class);
