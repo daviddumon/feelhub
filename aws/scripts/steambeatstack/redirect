@@ -1,7 +1,0 @@
-RewriteEngine on
-RewriteCond %{THE_REQUEST} !/_hostmanager/.* [NC]
-RewriteCond %{HTTP_HOST}   ^steambeat.com$ [NC,OR]
-RewriteCond %{HTTP_HOST}   steambeat.elasticbeanstalk.com* [NC,OR]
-RewriteCond %{HTTP_HOST}   awseb* [NC,OR]
-RewriteCond %{HTTP_HOST} ec2* [NC]
-RewriteRule ^/(.*)         http://www.steambeat.com$1 [L,R=301]
