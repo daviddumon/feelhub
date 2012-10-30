@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class ModelAndView {
 
-
     public static ModelAndView createNew(final String template, final MediaType mediaType) {
         return new ModelAndView(template, mediaType);
     }

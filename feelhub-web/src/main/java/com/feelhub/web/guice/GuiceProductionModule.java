@@ -16,7 +16,6 @@ import java.util.Properties;
 
 public class GuiceProductionModule extends AbstractModule {
 
-
     @Override
     protected void configure() {
         Names.bindProperties(binder(), properties());
