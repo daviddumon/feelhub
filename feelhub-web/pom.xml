@@ -36,9 +36,9 @@
             <id>test</id>
             <properties>
                 <dev>false</dev>
-                <domain>http://test.bytedojo.com</domain>
-                <sitemapBuilder>http://test.bytedojo.com/sitemaps</sitemapBuilder>
-                <cookie>http://test.bytedojo.com/sitemaps</cookie>
+                <domain>http://test.feelhub.net</domain>
+                <sitemapBuilder>http://test.feelhub.net/sitemaps</sitemapBuilder>
+                <cookie>http://test.feelhub.net/sitemaps</cookie>
                 <secureMode>false</secureMode>
                 <cookiebasetime>-1</cookiebasetime>
                 <cookiepermanenttime>157680000</cookiepermanenttime>

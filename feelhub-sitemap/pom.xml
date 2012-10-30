@@ -28,7 +28,7 @@
             <id>test</id>
             <properties>
                 <delay>10</delay>
-                <root>http://test.bytedojo.com/feelhub</root>
+                <root>http://test.feelhub.net/feelhub</root>
             </properties>
         </profile>
         <profile>

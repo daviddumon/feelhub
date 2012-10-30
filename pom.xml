@@ -66,8 +66,8 @@
 
     <repositories>
         <repository>
-            <id>bytedojo</id>
-            <url>http://nexus.bytedojo.com/content/groups/public/</url>
+            <id>feelhub</id>
+            <url>http://nexus.feelhub.net/content/groups/public/</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
