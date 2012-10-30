@@ -1,0 +1,61 @@
+package com.feelhub.test;
+
+import com.feelhub.domain.alchemy.*;
+import com.feelhub.domain.illustration.IllustrationTestFactory;
+import com.feelhub.domain.keyword.KeywordTestFactory;
+import com.feelhub.domain.opinion.*;
+import com.feelhub.domain.reference.ReferenceTestFactory;
+import com.feelhub.domain.relation.RelationTestFactory;
+import com.feelhub.domain.session.SessionTestFactory;
+import com.feelhub.domain.statistics.StatisticsTestFactory;
+import com.feelhub.domain.user.UserTestFactory;
+
+public class TestFactories {
+
+    private TestFactories() {
+    }
+
+    public static OpinionTestFactory opinions() {
+        return new OpinionTestFactory();
+    }
+
+    public static JudgmentTestFactory judgments() {
+        return new JudgmentTestFactory();
+    }
+
+    public static StatisticsTestFactory statistics() {
+        return new StatisticsTestFactory();
+    }
+
+    public static NamedEntityTestFactory namedEntities() {
+        return new NamedEntityTestFactory();
+    }
+
+    public static RelationTestFactory relations() {
+        return new RelationTestFactory();
+    }
+
+    public static UserTestFactory users() {
+        return new UserTestFactory();
+    }
+
+    public static SessionTestFactory sessions() {
+        return new SessionTestFactory();
+    }
+
+    public static ReferenceTestFactory references() {
+        return new ReferenceTestFactory();
+    }
+
+    public static KeywordTestFactory keywords() {
+        return new KeywordTestFactory();
+    }
+
+    public static IllustrationTestFactory illustrations() {
+        return new IllustrationTestFactory();
+    }
+
+    public static AlchemyTestFactory alchemy() {
+        return new AlchemyTestFactory();
+    }
+}

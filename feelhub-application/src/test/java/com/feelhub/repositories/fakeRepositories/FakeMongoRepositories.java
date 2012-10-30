@@ -1,0 +1,76 @@
+package com.feelhub.repositories.fakeRepositories;
+
+import com.feelhub.domain.alchemy.*;
+import com.feelhub.domain.illustration.IllustrationRepository;
+import com.feelhub.domain.keyword.KeywordRepository;
+import com.feelhub.domain.opinion.OpinionRepository;
+import com.feelhub.domain.reference.ReferenceRepository;
+import com.feelhub.domain.relation.RelationRepository;
+import com.feelhub.domain.session.SessionRepository;
+import com.feelhub.domain.statistics.StatisticsRepository;
+import com.feelhub.domain.user.UserRepository;
+import com.feelhub.repositories.Repositories;
+
+public class FakeMongoRepositories extends Repositories {
+
+    @Override
+    protected AlchemyAnalysisRepository getAlchemyAnalysisRepository() {
+        return alchemyAnalysisRepository;
+    }
+
+    @Override
+    protected AlchemyEntityRepository getAlchemyEntityRepository() {
+        return alchemyEntityRepository;
+    }
+
+    @Override
+    protected IllustrationRepository getIllustrationRepository() {
+        return illustrationRepository;
+    }
+
+    @Override
+    protected KeywordRepository getKeywordRepository() {
+        return keywordRepository;
+    }
+
+    @Override
+    protected ReferenceRepository getReferenceRepository() {
+        return referenceRepository;
+    }
+
+    @Override
+    protected SessionRepository getSessionRepository() {
+        return sessionRepository;
+    }
+
+    @Override
+    protected RelationRepository getRelationRepository() {
+        return relationFakeRepository;
+    }
+
+    @Override
+    protected OpinionRepository getOpinionRepository() {
+        return opinionRepository;
+    }
+
+    @Override
+    protected StatisticsRepository getStatisticsRepository() {
+        return statisticsRepository;
+    }
+
+    @Override
+    protected UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    private final FakeOpinionRepository opinionRepository = new FakeOpinionRepository();
+    private final RelationRepository relationFakeRepository = new FakeRelationRepository();
+    private final FakeStatisticsRepository statisticsRepository = new FakeStatisticsRepository();
+    private final FakeUserRepository userRepository = new FakeUserRepository();
+    private final FakeSessionRepository sessionRepository = new FakeSessionRepository();
+    private final FakeReferenceRepository referenceRepository = new FakeReferenceRepository();
+    private final FakeKeywordRepository keywordRepository = new FakeKeywordRepository();
+    private final FakeIllustrationRepository illustrationRepository = new FakeIllustrationRepository();
+    private final FakeAlchemyEntityRepository alchemyEntityRepository = new FakeAlchemyEntityRepository();
+    private final AlchemyAnalysisRepository alchemyAnalysisRepository = new FakeAlchemyAnalysisRepository();
+}

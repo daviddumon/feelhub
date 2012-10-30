@@ -1,18 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.steambeat</groupId>
-    <artifactId>steambeat-parent</artifactId>
+    <groupId>com.feelhub</groupId>
+    <artifactId>feelhub-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>steambeat</name>
+    <name>feelhub</name>
     <description>free speech everywhere</description>
 
     <modules>
-        <module>steambeat-application</module>
-        <module>steambeat-web</module>
-        <module>steambeat-sitemap</module>
-        <module>steambeat-test-tools</module>
+        <module>feelhub-application</module>
+        <module>feelhub-web</module>
+        <module>feelhub-sitemap</module>
+        <module>feelhub-test-tools</module>
     </modules>
 
     <properties>
@@ -33,7 +33,7 @@
             </activation>
             <properties>
                 <dbHost>127.0.0.1</dbHost>
-                <dbName>steambeat</dbName>
+                <dbName>feelhub</dbName>
                 <dbPort>27017</dbPort>
                 <alchemyApiKey>a7d0e1eace157afb31cac33dd39672abffa19c25</alchemyApiKey>
             </properties>
@@ -42,7 +42,7 @@
             <id>test</id>
             <properties>
                 <dbHost>127.0.0.1</dbHost>
-                <dbName>steambeat</dbName>
+                <dbName>feelhub</dbName>
                 <dbPort>27017</dbPort>
                 <alchemyApiKey>d269a5e5229e4fcedf5729f2370ba6ed0de25e12</alchemyApiKey>
             </properties>
@@ -51,7 +51,7 @@
             <id>production</id>
             <properties>
                 <dbHost>54.243.129.130</dbHost>
-                <dbName>steambeat</dbName>
+                <dbName>feelhub</dbName>
                 <dbPort>27017</dbPort>
                 <alchemyApiKey>d269a5e5229e4fcedf5729f2370ba6ed0de25e12</alchemyApiKey>
             </properties>
@@ -160,8 +160,8 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>com.steambeat</groupId>
-                <artifactId>steambeat-test-tools</artifactId>
+                <groupId>com.feelhub</groupId>
+                <artifactId>feelhub-test-tools</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
                 <scope>test</scope>
             </dependency>
