@@ -30,8 +30,7 @@ public class FeelhubApplication extends Application {
 
     @Override
     public synchronized void start() throws Exception {
-        feelhubWebProperties = new FeelhubWebProperties();
-        setCookieParametersInContext();
+        feelhubWebProperties = injector.getInstance(FeelhubWebProperties.class);
         initFreemarkerConfiguration();
         setStatus();
         if (!getContext().getAttributes().get("com.feelhub.status").equals("launch")) {
@@ -42,17 +41,8 @@ public class FeelhubApplication extends Application {
         super.start();
     }
 
-    private void setCookieParametersInContext() {
-        getContext().getAttributes().put("com.feelhub.cookie.domain", feelhubWebProperties.getCookie());
-        getContext().getAttributes().put("com.feelhub.cookie.secure", feelhubWebProperties.getSecureMode());
-        getContext().getAttributes().put("com.feelhub.cookie.cookiebasetime", feelhubWebProperties.getCookieBaseTime());
-        getContext().getAttributes().put("com.feelhub.cookie.cookiepermanenttime", feelhubWebProperties.getCookiePermanentTime());
-        getContext().getAttributes().put("com.feelhub.session.sessionbasetime", feelhubWebProperties.getSessionBaseTime());
-        getContext().getAttributes().put("com.feelhub.session.sessionpermanenttime", feelhubWebProperties.getSessionPermanentTime());
-    }
-
     private void setStatus() {
-        getContext().getAttributes().put("com.feelhub.status", feelhubWebProperties.getStatus());
+		getContext().getAttributes().put("com.feelhub.status", feelhubWebProperties.status);
     }
 
     private void runMigrations() {
@@ -68,9 +58,9 @@ public class FeelhubApplication extends Application {
         configuration.setServletContextForTemplateLoading(servletContext(), "WEB-INF/templates");
         configuration.setEncoding(Locale.ROOT, "UTF-8");
         configuration.addAutoImport("layout", "/base/layout.ftl");
-        configuration.setSharedVariable("dev", feelhubWebProperties.isDev());
-        configuration.setSharedVariable("root", feelhubWebProperties.getDomain() + servletContext().getContextPath());
-        configuration.setSharedVariable("buildtime", feelhubWebProperties.getBuildTime());
+		configuration.setSharedVariable("dev", feelhubWebProperties.dev);
+		configuration.setSharedVariable("root", feelhubWebProperties.domain + servletContext().getContextPath());
+		configuration.setSharedVariable("buildtime", feelhubWebProperties.buildtime);
         configuration.setSharedVariable("userInfos", new UserInfos());
         getContext().getAttributes().put("org.freemarker.Configuration", configuration);
     }
@@ -80,7 +70,7 @@ public class FeelhubApplication extends Application {
     }
 
     private void setReadyContext() {
-        getContext().getAttributes().put("com.feelhub.ready", new Boolean(feelhubWebProperties.getReadyState()));
+		getContext().getAttributes().put("com.feelhub.ready", new Boolean(feelhubWebProperties.ready));
     }
 
     @Override

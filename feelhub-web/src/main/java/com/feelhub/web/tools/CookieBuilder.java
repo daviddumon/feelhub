@@ -2,28 +2,19 @@ package com.feelhub.web.tools;
 
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
-import org.restlet.Context;
 import org.restlet.data.CookieSetting;
 
 public final class CookieBuilder {
 
-    public static CookieBuilder create(Context context) {
-        return new CookieBuilder(context);
-    }
-
-    private CookieBuilder(final Context context) {
-        this.context = context;
+    public CookieBuilder(FeelhubWebProperties properties) {
+		this.properties = properties;
     }
 
     public CookieSetting idCookie(User user) {
         final CookieSetting id = baseIdCookie();
         id.setValue(user.getEmail());
-        id.setMaxAge(getIdCookieTime(context));
+        id.setMaxAge(properties.cookiePermanentTime);
         return id;
-    }
-
-    private int getIdCookieTime(Context context) {
-        return Integer.valueOf(context.getAttributes().get("com.feelhub.cookie.cookiepermanenttime").toString());
     }
 
     public CookieSetting eraseIdCookie(final String value) {
@@ -38,8 +29,8 @@ public final class CookieBuilder {
         id.setName(ID);
         id.setComment("id cookie");
         id.setAccessRestricted(true);
-        id.setSecure(Boolean.valueOf(context.getAttributes().get("com.feelhub.cookie.secure").toString()));
-        id.setDomain(context.getAttributes().get("com.feelhub.cookie.domain").toString());
+        id.setSecure(properties.secureMode);
+        id.setDomain(properties.domain);
         id.setPath("/");
         return id;
     }
@@ -53,9 +44,9 @@ public final class CookieBuilder {
 
     private int getSessionCookieTime(boolean remember) {
         if (remember) {
-            return Integer.valueOf(context.getAttributes().get("com.feelhub.cookie.cookiepermanenttime").toString());
+            return properties.cookiePermanentTime;
         }
-        return Integer.valueOf(context.getAttributes().get("com.feelhub.cookie.cookiebasetime").toString());
+        return properties.cookieBaseTime;
     }
 
     public CookieSetting eraseSessionCookie(final String value) {
@@ -69,14 +60,14 @@ public final class CookieBuilder {
         final CookieSetting session = new CookieSetting();
         session.setName(SESSION);
         session.setComment("session cookie");
-        session.setSecure(Boolean.valueOf(context.getAttributes().get("com.feelhub.cookie.secure").toString()));
+        session.setSecure(properties.secureMode);
         session.setAccessRestricted(true);
-        session.setDomain(context.getAttributes().get("com.feelhub.cookie.domain").toString());
+        session.setDomain(properties.domain);
         session.setPath("/");
         return session;
     }
 
-    private Context context;
-    public static final String ID = "id";
+	private FeelhubWebProperties properties;
+	public static final String ID = "id";
     public static final String SESSION = "session";
 }

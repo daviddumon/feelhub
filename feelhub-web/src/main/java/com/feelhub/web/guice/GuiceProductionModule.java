@@ -3,15 +3,18 @@ package com.feelhub.web.guice;
 import com.feelhub.application.OpinionService;
 import com.feelhub.domain.alchemy.AlchemyAnalyzer;
 import com.feelhub.domain.eventbus.DeadEventCatcher;
-import com.feelhub.domain.illustration.*;
+import com.feelhub.domain.illustration.ConceptIllustrationFactory;
+import com.feelhub.domain.illustration.UriIllustrationFactory;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.domain.steam.SteamListener;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.web.mail.MailBuilder;
-import com.feelhub.web.tools.FeelhubWebProperties;
-import com.google.inject.*;
+import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 
+import java.io.IOException;
 import java.util.Properties;
 
 public class GuiceProductionModule extends AbstractModule {
@@ -30,7 +33,13 @@ public class GuiceProductionModule extends AbstractModule {
     }
 
     private Properties properties() {
-        return new FeelhubWebProperties().getProperties();
+		try {
+			Properties properties = new Properties();
+			properties.load(getClass().getResourceAsStream("/feelhub-web.properties"));
+			return properties;
+		} catch (IOException e) {
+			throw new RuntimeException("Error loading properties", e);
+		}
     }
 
     @Provides

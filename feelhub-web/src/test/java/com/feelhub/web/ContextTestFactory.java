@@ -34,10 +34,8 @@ public final class ContextTestFactory {
                         ((String) invocation.getArguments()[0]).substring(1));
             }
         });
-        when(servletContext.getContextPath()).thenReturn(SERVER_ROOT);
         when(servletContext.getContextPath()).thenReturn("/");
         return servletContext;
     }
 
-    private static final String SERVER_ROOT = "http://localhost";
 }

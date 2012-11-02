@@ -1,22 +1,23 @@
-package com.feelhub.web.resources.authentification;
+package com.feelhub.web.authentification;
 
 import com.feelhub.web.ReferenceBuilder;
+import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.types.User;
 import org.restlet.Context;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.FacebookApi;
-import org.scribe.model.*;
+import org.scribe.model.Token;
+import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 public class FacebookConnector {
 
     @Inject
-    public FacebookConnector(@Named("facebook.appId") String appId, @Named("facebook.appSecret") String secret) {
-        final String callback = new ReferenceBuilder(Context.getCurrent()).buildUri("/facebooklogin");
-        service = new ServiceBuilder().provider(FacebookApi.class).apiKey(appId).apiSecret(secret).callback(callback)
+    public FacebookConnector(FeelhubWebProperties properties) {
+        final String callback = new ReferenceBuilder(Context.getCurrent(), properties.domain).buildUri("/social/facebook");
+        service = new ServiceBuilder().provider(FacebookApi.class).apiKey(properties.facebookAppId).apiSecret(properties.facebookAppSecret).callback(callback)
                 .build();
     }
 

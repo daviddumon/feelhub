@@ -1,5 +1,9 @@
 package com.feelhub.web.tools;
 
+import com.feelhub.web.guice.GuiceProductionModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -7,93 +11,83 @@ import static org.hamcrest.Matchers.*;
 
 public class TestsFeelhubWebProperties {
 
-    @Test
-    public void canGetSitemapBuilderAddress() {
-        final FeelhubWebProperties feelhubWebProperties = new FeelhubWebProperties();
 
-        final String address = feelhubWebProperties.getSitemapBuilderAddress();
+	@Before
+	public void setUp() throws Exception {
+		final Injector injector = Guice.createInjector(new GuiceProductionModule());
+		feelhubWebProperties = injector.getInstance(FeelhubWebProperties.class);
+	}
+
+	@Test
+    public void canGetSitemapBuilderAddress() {
+
+		final String address = feelhubWebProperties.sitemapBuilder;
 
         assertThat(address, is("http://localhost:6162"));
     }
 
     @Test
     public void canGetBuildTimeParameter() {
-        final FeelhubWebProperties feelhubWebProperties = new FeelhubWebProperties();
-
-        final String buildTime = feelhubWebProperties.getBuildTime();
+		final String buildTime = feelhubWebProperties.buildtime;
 
         assertThat(buildTime, is("buildtime"));
     }
 
     @Test
     public void canGetReadyParameter() {
-        final FeelhubWebProperties feelhubWebProperties = new FeelhubWebProperties();
-
-        final String buildTime = feelhubWebProperties.getReadyState();
+		final String buildTime = feelhubWebProperties.ready;
 
         assertThat(buildTime, is("true"));
     }
 
     @Test
     public void canGetStatusParameter() {
-        final FeelhubWebProperties feelhubWebProperties = new FeelhubWebProperties();
-
-        final String status = feelhubWebProperties.getStatus();
+		final String status = feelhubWebProperties.status;
 
         assertThat(status, is("start"));
     }
 
     @Test
     public void canGetCookieDomainParameter() {
-        final FeelhubWebProperties feelhubWebProperties = new FeelhubWebProperties();
-
-        final String status = feelhubWebProperties.getCookie();
+		final String status = feelhubWebProperties.cookie;
 
         assertThat(status, is(".test.localhost"));
     }
 
     @Test
     public void canGetSecureModeParameter() {
-        final FeelhubWebProperties feelhubWebProperties = new FeelhubWebProperties();
+		final boolean status = feelhubWebProperties.secureMode;
 
-        final String status = feelhubWebProperties.getSecureMode();
-
-        assertThat(status, is("false"));
+        assertThat(status, is(false));
     }
 
     @Test
     public void canGetCookieBaseTime() {
-        final FeelhubWebProperties feelhubWebProperties = new FeelhubWebProperties();
+		final int cookieBaseTime = feelhubWebProperties.cookieBaseTime;
 
-        final String cookieBaseTime = feelhubWebProperties.getCookieBaseTime();
-
-        assertThat(cookieBaseTime, is("1"));
+        assertThat(cookieBaseTime, is(1));
     }
 
     @Test
     public void canGetCookiePermanentTime() {
-        final FeelhubWebProperties feelhubWebProperties = new FeelhubWebProperties();
+		final int cookiePermanentTime = feelhubWebProperties.cookiePermanentTime;
 
-        final String cookiePermanentTime = feelhubWebProperties.getCookiePermanentTime();
-
-        assertThat(cookiePermanentTime, is("10"));
+        assertThat(cookiePermanentTime, is(10));
     }
 
     @Test
     public void canGetSessionBaseTime() {
-        final FeelhubWebProperties feelhubWebProperties = new FeelhubWebProperties();
+		final int sessionBaseTime = feelhubWebProperties.sessionbasetime;
 
-        final String sessionBaseTime = feelhubWebProperties.getSessionBaseTime();
-
-        assertThat(sessionBaseTime, is("5"));
+        assertThat(sessionBaseTime, is(5));
     }
 
     @Test
     public void canGetSessionPermanentTime() {
-        final FeelhubWebProperties feelhubWebProperties = new FeelhubWebProperties();
+		final int sessionPermanentTime = feelhubWebProperties.sessionPermanentTime;
 
-        final String sessionPermanentTime = feelhubWebProperties.getSessionPermanentTime();
-
-        assertThat(sessionPermanentTime, is("10"));
+        assertThat(sessionPermanentTime, is(10));
     }
+
+	private FeelhubWebProperties feelhubWebProperties;
 }

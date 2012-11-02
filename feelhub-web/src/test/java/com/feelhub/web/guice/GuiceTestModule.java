@@ -20,14 +20,16 @@ import com.feelhub.web.tools.FeelhubSitemapModuleLink;
 import com.google.inject.*;
 import com.google.inject.name.Names;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import static org.mockito.Mockito.*;
 
 public class GuiceTestModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bindConstant().annotatedWith(Names.named("facebook.appId")).to("toto");
-        bindConstant().annotatedWith(Names.named("facebook.appSecret")).to("tata");
+		Names.bindProperties(binder(), properties());
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
         bind(SessionProvider.class).to(FakeSessionProvider.class);
         bind(OpinionSearch.class).to(FakeOpinionSearch.class);
@@ -42,8 +44,18 @@ public class GuiceTestModule extends AbstractModule {
         bind(Translator.class).to(FakeTranslator.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
-        bind(MailBuilder.class).toInstance(new MailBuilder(new FakeMailSender()));
+		bind(MailSender.class).to(FakeMailSender.class);
     }
+
+	private Properties properties() {
+		try {
+			Properties properties = new Properties();
+			properties.load(getClass().getResourceAsStream("/feelhub-web.properties"));
+			return properties;
+		} catch (IOException e) {
+			throw new RuntimeException("Error loading properties", e);
+		}
+	}
 
     @Provides
     public KeywordService keywordService() {
@@ -58,7 +70,6 @@ public class GuiceTestModule extends AbstractModule {
         }
         return feelhubSitemapModuleLink;
     }
-
     public void setFeelhubSitemapModuleLink(final FeelhubSitemapModuleLink feelhubSitemapModuleLink) {
         this.feelhubSitemapModuleLink = feelhubSitemapModuleLink;
     }

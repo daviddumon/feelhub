@@ -2,6 +2,7 @@ package com.feelhub.web.resources.authentification;
 
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.*;
+import com.feelhub.web.authentification.FacebookConnector;
 import com.feelhub.web.representation.ModelAndView;
 import org.junit.*;
 import org.restlet.data.Status;

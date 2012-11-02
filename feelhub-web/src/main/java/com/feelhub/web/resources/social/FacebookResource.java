@@ -1,5 +1,6 @@
-package com.feelhub.web.resources.authentification;
+package com.feelhub.web.resources.social;
 
+import com.feelhub.web.authentification.FacebookConnector;
 import com.google.inject.Inject;
 import com.restfb.types.User;
 import org.restlet.data.MediaType;
@@ -7,10 +8,10 @@ import org.restlet.representation.*;
 import org.restlet.resource.*;
 import org.scribe.model.Token;
 
-public class FacebookLoginResource extends ServerResource {
+public class FacebookResource extends ServerResource {
 
     @Inject
-    public FacebookLoginResource(FacebookConnector connector) {
+    public FacebookResource(FacebookConnector connector) {
         this.connector = connector;
     }
 

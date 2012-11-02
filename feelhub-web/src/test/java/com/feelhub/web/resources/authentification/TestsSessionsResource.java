@@ -145,11 +145,11 @@ public class TestsSessionsResource {
         assertThat(id.getComment(), is("id cookie"));
         assertThat(id.getName(), is("id"));
         assertTrue(id.isAccessRestricted());
-        assertThat(id.isSecure(), is(Boolean.valueOf(restlet.getApplication().getContext().getAttributes().get("com.feelhub.cookie.secure").toString())));
+        assertThat(id.isSecure(), is(false));
         assertThat(id.getVersion(), is(0));
         assertThat(id.getValue(), is(user.getEmail()));
-        assertThat(id.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.feelhub.cookie.domain").toString()));
-        assertThat(id.getMaxAge(), is(Integer.valueOf(restlet.getApplication().getContext().getAttributes().get("com.feelhub.cookie.cookiepermanenttime").toString())));
+        assertThat(id.getDomain(), is("https://thedomain"));
+        assertThat(id.getMaxAge(), is(10));
         assertThat(id.getPath(), is("/"));
     }
 
@@ -173,9 +173,9 @@ public class TestsSessionsResource {
         assertTrue(sessionCookie.isAccessRestricted());
         assertThat(sessionCookie.getVersion(), is(0));
         assertThat(sessionCookie.getValue(), is(session.getToken().toString()));
-        assertThat(sessionCookie.isSecure(), is(Boolean.valueOf(restlet.getApplication().getContext().getAttributes().get("com.feelhub.cookie.secure").toString())));
-        assertThat(sessionCookie.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.feelhub.cookie.domain").toString()));
-        assertThat(sessionCookie.getMaxAge(), is(Integer.valueOf(restlet.getApplication().getContext().getAttributes().get("com.feelhub.cookie.cookiebasetime").toString())));
+        assertThat(sessionCookie.isSecure(), is(false));
+        assertThat(sessionCookie.getDomain(), is("https://thedomain"));
+        assertThat(sessionCookie.getMaxAge(), is(1));
         assertThat(sessionCookie.getPath(), is("/"));
     }
 
@@ -200,11 +200,11 @@ public class TestsSessionsResource {
         assertTrue(sessionCookie.isAccessRestricted());
         assertThat(sessionCookie.getVersion(), is(0));
         assertThat(sessionCookie.getValue(), is(session.getToken().toString()));
-        assertThat(sessionCookie.isSecure(), is(Boolean.valueOf(restlet.getApplication().getContext().getAttributes().get("com.feelhub.cookie.secure").toString())));
-        assertThat(sessionCookie.getDomain(), is(restlet.getApplication().getContext().getAttributes().get("com.feelhub.cookie.domain").toString()));
-        assertThat(sessionCookie.getMaxAge(), is(Integer.valueOf(restlet.getApplication().getContext().getAttributes().get("com.feelhub.cookie.cookiepermanenttime").toString())));
+        assertThat(sessionCookie.isSecure(), is(false));
+        assertThat(sessionCookie.getDomain(), is("https://thedomain"));
+        assertThat(sessionCookie.getMaxAge(), is(Integer.valueOf(10)));
         assertThat(sessionCookie.getPath(), is("/"));
-        assertThat(session.getExpirationDate(), is(new DateTime().plusSeconds(Integer.valueOf(restlet.getApplication().getContext().getAttributes().get("com.feelhub.session.sessionpermanenttime").toString()))));
+        assertThat(session.getExpirationDate(), is(new DateTime().plusSeconds(10)));
     }
 
     @Test

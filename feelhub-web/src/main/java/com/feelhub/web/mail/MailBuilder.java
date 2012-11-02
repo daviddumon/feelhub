@@ -4,6 +4,7 @@ import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.user.*;
 import com.feelhub.web.ReferenceBuilder;
 import com.feelhub.web.representation.FeelhubTemplateRepresentation;
+import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import org.restlet.*;
@@ -17,9 +18,10 @@ import java.util.Properties;
 public class MailBuilder {
 
     @Inject
-    public MailBuilder(final MailSender mailSender) {
+    public MailBuilder(final MailSender mailSender, FeelhubWebProperties properties) {
         this.mailSender = mailSender;
-        DomainEventBus.INSTANCE.register(this);
+		this.properties = properties;
+		DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
@@ -63,7 +65,7 @@ public class MailBuilder {
             fakeRequest.getAttributes().put("com.feelhub.user", user);
             final FeelhubTemplateRepresentation content = FeelhubTemplateRepresentation.createNew("mail/welcome.ftl", context, fakeRequest)
                     .with("name", user.getFullname())
-                    .with("activation_link", new ReferenceBuilder(context).buildUri("/activation/" + user.getSecret()));
+                    .with("activation_link", new ReferenceBuilder(context, properties.domain).buildUri("/activation/" + user.getSecret()));
             mimeMessage.setText(content.getText());
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -89,5 +91,6 @@ public class MailBuilder {
     }
 
     private MailSender mailSender;
-    private Context context;
+	private FeelhubWebProperties properties;
+	private Context context;
 }

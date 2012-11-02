@@ -1,70 +1,63 @@
 package com.feelhub.web.tools;
 
-import java.io.IOException;
-import java.util.Properties;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 public class FeelhubWebProperties {
 
-    public FeelhubWebProperties() {
-        properties = new Properties();
-        try {
-            properties.load(getClass().getResourceAsStream("/feelhub-web.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException("Error loading properties", e);
-        }
-    }
+	@Inject
+	@Named("sessionpermanenttime")
+	public int sessionPermanentTime;
 
-    public boolean isDev() {
-        return Boolean.valueOf(properties.getProperty("dev"));
-    }
+	@Inject
+	@Named("sessionbasetime")
+	public int sessionbasetime;
 
-    public String getDomain() {
-        return properties.getProperty("domain");
-    }
+	@Inject
+	@Named("cookiepermanenttime")
+	public int cookiePermanentTime;
 
-    public String getSitemapBuilderAddress() {
-        return properties.getProperty("sitemapBuilder");
-    }
+	@Inject
+	@Named("cookiebasetime")
+	public int cookieBaseTime;
 
-    public String getBuildTime() {
-        return properties.getProperty("buildtime");
-    }
+	@Inject
+	@Named("secureMode")
+	public boolean secureMode;
 
-    public String getReadyState() {
-        return properties.getProperty("ready");
-    }
+	@Inject
+	@Named("dev")
+	public boolean dev;
 
-    public String getStatus() {
-        return properties.getProperty("status");
-    }
+	@Inject
+	@Named("cookie")
+	public String cookie;
 
-    public String getCookie() {
-        return properties.getProperty("cookie");
-    }
+	@Inject
+	@Named("status")
+	public String status;
 
-    public String getSecureMode() {
-        return properties.getProperty("secureMode");
-    }
+	@Inject
+	@Named("ready")
+	public String ready;
 
-    public String getCookieBaseTime() {
-        return properties.getProperty("cookiebasetime");
-    }
+	@Inject
+	@Named("buildtime")
+	public String buildtime;
 
-    public String getCookiePermanentTime() {
-        return properties.getProperty("cookiepermanenttime");
-    }
+	@Inject
+	@Named("sitemapBuilder")
+	public String sitemapBuilder;
 
-    public String getSessionBaseTime() {
-        return properties.getProperty("sessionbasetime");
-    }
+	@Inject
+	@Named("domain")
+	public String domain;
 
-    public String getSessionPermanentTime() {
-        return properties.getProperty("sessionpermanenttime");
-    }
+	@Inject
+	@Named("facebook.appId")
+	public String facebookAppId;
 
-    public Properties getProperties() {
-        return properties;
-    }
-
-    private final Properties properties;
+	@Inject
+	@Named("facebook.appSecret")
+	public String facebookAppSecret;
 }

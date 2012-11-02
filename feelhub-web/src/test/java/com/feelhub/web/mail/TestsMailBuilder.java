@@ -4,6 +4,7 @@ import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.tools.FeelhubWebProperties;
 import org.junit.*;
 
 import javax.mail.*;
@@ -25,7 +26,7 @@ public class TestsMailBuilder {
     @Before
     public void before() {
         mailSender = mock(FakeMailSender.class);
-        mailBuilder = new MailBuilder(mailSender);
+        mailBuilder = new MailBuilder(mailSender, new FeelhubWebProperties());
         mailBuilder.setContext(restlet.getApplication().getContext());
     }
 
