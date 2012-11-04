@@ -11,15 +11,15 @@ import java.util.Map;
 
 public class FeelhubTemplateRepresentation extends OutputRepresentation {
 
-    public static FeelhubTemplateRepresentation createNew(final String template, final Context context, final Request request) {
-        return createNew(template, context, MediaType.TEXT_HTML, request);
+    public static FeelhubTemplateRepresentation createNew(final String template, final Context context) {
+        return createNew(template, context, MediaType.TEXT_HTML);
     }
 
-    public static FeelhubTemplateRepresentation createNew(final String template, final Context context, final MediaType type, final Request request) {
-        return new FeelhubTemplateRepresentation(template, context, type, request);
+    public static FeelhubTemplateRepresentation createNew(final String template, final Context context, final MediaType type) {
+        return new FeelhubTemplateRepresentation(template, context, type);
     }
 
-    private FeelhubTemplateRepresentation(final String template, final Context context, final MediaType type, final Request request) {
+    private FeelhubTemplateRepresentation(final String template, final Context context, final MediaType type) {
         super(type);
         this.context = context;
         final Map<String, Object> data = Maps.newHashMap();

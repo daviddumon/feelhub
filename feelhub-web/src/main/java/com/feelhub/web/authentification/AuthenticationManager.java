@@ -56,6 +56,29 @@ public class AuthenticationManager {
 		return false;
 	}
 
+	public void initRequest() {
+		final Cookie identityCookie = cookieManager.getCookie("id");
+		try {
+			if (identityCookie != null) {
+				User user = userService.getUser(identityCookie.getValue());
+				CurrentUser.set(new WebUser(user, sessionService.authentificate(user, getToken())));
+			} else {
+				CurrentUser.set(WebUser.anonymous());
+			}
+		} catch (Exception e) {
+			CurrentUser.set(WebUser.anonymous());
+		}
+	}
+
+	private UUID getToken() {
+		final Cookie session = cookieManager.getCookie("session");
+		if (session != null) {
+			return UUID.fromString(session.getValue());
+		} else {
+			return null;
+		}
+	}
+
 	private final UserService userService;
 	private final SessionService sessionService;
 	private FeelhubWebProperties properties;

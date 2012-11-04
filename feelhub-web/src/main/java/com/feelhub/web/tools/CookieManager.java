@@ -1,7 +1,5 @@
 package com.feelhub.web.tools;
 
-import com.feelhub.web.tools.CookieBuilder;
-import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.inject.Inject;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -26,6 +24,10 @@ public class CookieManager {
 
 	public Series<Cookie> getCookies() {
 		return Request.getCurrent().getCookies();
+	}
+
+	public Cookie getCookie(final String id) {
+		return Request.getCurrent().getCookies().getFirst(id);
 	}
 
 	private FeelhubWebProperties properties;

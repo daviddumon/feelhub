@@ -1,23 +1,26 @@
 package com.feelhub.web.resources.json;
 
-import com.feelhub.application.SessionService;
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.opinion.*;
-import com.feelhub.domain.session.Session;
+import com.feelhub.domain.opinion.Feeling;
+import com.feelhub.domain.opinion.OpinionRequestEvent;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.*;
-import org.joda.time.DateTime;
-import org.json.*;
-import org.junit.*;
+import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.authentification.WebUser;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.restlet.Request;
+import org.restlet.Response;
 import org.restlet.data.Status;
-import org.restlet.engine.util.CookieSeries;
 import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.representation.StringRepresentation;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -38,42 +41,31 @@ public class TestsJsonCreateOpinionResource {
 
     @Before
     public void before() {
-        final SessionService sessionService = new SessionService();
-        user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
-        final Session session = sessionService.createSession(user, new DateTime().plusHours(1));
-        final org.restlet.data.Cookie cookie = new org.restlet.data.Cookie(1, "id", "mail@mail.com");
-        final org.restlet.data.Cookie sessionCookie = new org.restlet.data.Cookie(1, "session", session.getToken().toString());
-        cookies = new CookieSeries();
-        cookies.add(cookie);
-        cookies.add(sessionCookie);
-    }
+		user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
+		CurrentUser.set(new WebUser(user, true));
+		opinionsResource = new JsonCreateOpinionResource();
+		opinionsResource.setResponse(new Response(new Request()));
+	}
 
-    @Test
+	@After
+	public void tearDown() throws Exception {
+		CurrentUser.set(null);
+	}
+
+	@Test
     public void canPostOpinion() {
         final JsonRepresentation jsonRepresentation = goodJsonOpinion();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation, cookies);
+        opinionsResource.add(jsonRepresentation);
 
         assertThat(opinionsResource.getStatus(), is(Status.SUCCESS_CREATED));
     }
 
     @Test
-    public void errorIfNotJson() {
-        final StringRepresentation jsonRepresentation = new StringRepresentation("representation");
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
-
-        opinionsResource.post(jsonRepresentation, cookies);
-
-        assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
-    }
-
-    @Test
     public void errorIfMissingText() {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutText();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation, cookies);
+        opinionsResource.add(jsonRepresentation);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -81,9 +73,8 @@ public class TestsJsonCreateOpinionResource {
     @Test
     public void errorIfMissingFeeling() {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutFeeling();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation, cookies);
+        opinionsResource.add(jsonRepresentation);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -91,9 +82,8 @@ public class TestsJsonCreateOpinionResource {
     @Test
     public void errorIfMissingKeywordValue() {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutKeywordValue();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation, cookies);
+        opinionsResource.add(jsonRepresentation);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -101,9 +91,8 @@ public class TestsJsonCreateOpinionResource {
     @Test
     public void errorIfMissingLanguageCode() {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutLanguageCode();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation, cookies);
+        opinionsResource.add(jsonRepresentation);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -111,9 +100,8 @@ public class TestsJsonCreateOpinionResource {
     @Test
     public void errorIfMissingUserLanguageCode() {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutUserLanguageCode();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation, cookies);
+        opinionsResource.add(jsonRepresentation);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
     }
@@ -121,19 +109,18 @@ public class TestsJsonCreateOpinionResource {
     @Test
     public void doNotCreateOpinionOnError() {
         final JsonRepresentation jsonRepresentation = badJsonOpinionWithoutFeeling();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation, cookies);
+        opinionsResource.add(jsonRepresentation);
 
         assertThat(Repositories.opinions().getAll().size(), is(0));
     }
 
     @Test
     public void mustBeAuthentificated() {
+		CurrentUser.set(WebUser.anonymous());
         final JsonRepresentation jsonRepresentation = goodJsonOpinion();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation);
+        opinionsResource.add(jsonRepresentation);
 
         assertThat(opinionsResource.getStatus(), is(Status.CLIENT_ERROR_UNAUTHORIZED));
     }
@@ -142,9 +129,8 @@ public class TestsJsonCreateOpinionResource {
     public void postAnOpinionRequestEvent() {
         events.capture(OpinionRequestEvent.class);
         final JsonRepresentation jsonRepresentation = goodJsonOpinion();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        opinionsResource.post(jsonRepresentation, cookies);
+        opinionsResource.add(jsonRepresentation);
 
         final OpinionRequestEvent opinionRequestEvent = events.lastEvent(OpinionRequestEvent.class);
         assertThat(opinionRequestEvent, notNullValue());
@@ -160,9 +146,8 @@ public class TestsJsonCreateOpinionResource {
     public void returnOpinionId() throws JSONException {
         events.capture(OpinionRequestEvent.class);
         final JsonRepresentation jsonRepresentation = goodJsonOpinion();
-        final ClientResource opinionsResource = restlet.newClientResource("/json/createopinion");
 
-        final JsonRepresentation jsonResponse = (JsonRepresentation) opinionsResource.post(jsonRepresentation, cookies);
+        final JsonRepresentation jsonResponse = opinionsResource.add(jsonRepresentation);
 
         final OpinionRequestEvent opinionRequestEvent = events.lastEvent(OpinionRequestEvent.class);
         final JSONObject jsonData = jsonResponse.getJsonObject();
@@ -248,6 +233,6 @@ public class TestsJsonCreateOpinionResource {
         return new JsonRepresentation(opinion);
     }
 
-    private CookieSeries cookies;
     private User user;
+	private JsonCreateOpinionResource opinionsResource;
 }

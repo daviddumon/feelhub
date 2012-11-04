@@ -31,7 +31,7 @@
     <h1>WELCOME</h1>
 
     <div class="holder">
-        <#if userInfos.user?has_content>
+        <#if !userInfos.anonymous>
             <p>Hello ${userInfos.user.fullname} !</p>
 
             <p>Please enter your password, or <a href="javascript:void(0);" id="logout">change user</a> !</p>

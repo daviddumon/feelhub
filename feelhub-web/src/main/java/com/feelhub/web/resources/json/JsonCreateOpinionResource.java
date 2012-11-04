@@ -3,6 +3,7 @@ package com.feelhub.web.resources.json;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.opinion.*;
 import com.feelhub.domain.user.User;
+import com.feelhub.web.authentification.CurrentUser;
 import org.apache.http.auth.AuthenticationException;
 import org.json.*;
 import org.restlet.data.Status;
@@ -14,7 +15,7 @@ import java.util.UUID;
 public class JsonCreateOpinionResource extends ServerResource {
 
     @Post
-    public JsonRepresentation post(final JsonRepresentation jsonRepresentation) {
+    public JsonRepresentation add(final JsonRepresentation jsonRepresentation) {
         try {
             checkCredentials();
             final JSONObject jsonOpinion = jsonRepresentation.getJsonObject();
@@ -33,7 +34,7 @@ public class JsonCreateOpinionResource extends ServerResource {
     }
 
     private void checkCredentials() throws AuthenticationException {
-        if (!getRequest().getAttributes().containsKey("com.feelhub.authentificated") || getRequest().getAttributes().get("com.feelhub.authentificated").equals(false)) {
+        if (!CurrentUser.get().isAuthenticated()) {
             throw new AuthenticationException();
         }
     }
@@ -71,12 +72,7 @@ public class JsonCreateOpinionResource extends ServerResource {
     }
 
     private User extractUser() throws AuthenticationException {
-        if (getRequest().getAttributes().containsKey("com.feelhub.user")) {
-            return (User) getRequest().getAttributes().get("com.feelhub.user");
-        } else {
-            throw new AuthenticationException();
-
-        }
+      return CurrentUser.get().getUser();
     }
 
     private JSONObject getJsonResponse(final OpinionRequestEvent event) {

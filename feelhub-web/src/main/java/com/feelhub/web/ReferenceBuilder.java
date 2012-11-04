@@ -6,19 +6,21 @@ import javax.servlet.ServletContext;
 
 public class ReferenceBuilder {
 
-    public ReferenceBuilder(final Context context, String domain) {
+    public ReferenceBuilder(final Context context) {
         this.context = context;
-		this.domain = domain;
 	}
 
     public String buildUri(final String uri) {
-		return domain + servletContext().getContextPath() + uri;
+		return domain() + servletContext().getContextPath() + uri;
     }
 
-    private ServletContext servletContext() {
+	private String domain() {
+		return context.getAttributes().get("com.feelhub.domain").toString();
+	}
+
+	private ServletContext servletContext() {
         return (ServletContext) context.getAttributes().get("org.restlet.ext.servlet.ServletContext");
     }
 
     private final Context context;
-	private String domain;
 }

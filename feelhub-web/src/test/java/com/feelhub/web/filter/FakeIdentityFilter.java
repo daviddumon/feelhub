@@ -1,14 +1,15 @@
 package com.feelhub.web.filter;
 
-import com.feelhub.application.*;
+import com.feelhub.web.authentification.AuthenticationManager;
 import com.google.inject.Inject;
-import org.restlet.*;
+import org.restlet.Request;
+import org.restlet.Response;
 
 public class FakeIdentityFilter extends IdentityFilter {
 
     @Inject
-    public FakeIdentityFilter(final UserService userService, final SessionService sessionService) {
-        super(userService, sessionService);
+    public FakeIdentityFilter(AuthenticationManager manager) {
+        super(manager);
     }
 
     @Override

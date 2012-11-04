@@ -16,7 +16,7 @@ public class FacebookConnector {
 
     @Inject
     public FacebookConnector(FeelhubWebProperties properties) {
-        final String callback = new ReferenceBuilder(Context.getCurrent(), properties.domain).buildUri("/social/facebook");
+        final String callback = new ReferenceBuilder(Context.getCurrent()).buildUri("/social/facebook");
         service = new ServiceBuilder().provider(FacebookApi.class).apiKey(properties.facebookAppId).apiSecret(properties.facebookAppSecret).callback(callback)
                 .build();
     }

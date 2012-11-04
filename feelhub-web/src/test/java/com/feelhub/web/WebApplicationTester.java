@@ -19,7 +19,7 @@ public class WebApplicationTester extends ExternalResource {
         application = new FeelhubApplication(context);
         application.initializeGuice(moduleGuiceTestModule);
         application.start();
-    }
+	}
 
     public ClientResource newClientResource(final String uri) {
         return new ClientResource(uri, application);
@@ -38,6 +38,6 @@ public class WebApplicationTester extends ExternalResource {
     }
 
 
-    private FeelhubApplication application;
+	private FeelhubApplication application;
     private GuiceTestModule moduleGuiceTestModule = new GuiceTestModule();
 }

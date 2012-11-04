@@ -1,26 +1,28 @@
 package com.feelhub.web.mail;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.UserConfirmationMailEvent;
 import com.feelhub.web.ReferenceBuilder;
 import com.feelhub.web.representation.FeelhubTemplateRepresentation;
-import com.feelhub.web.tools.FeelhubWebProperties;
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.AllowConcurrentEvents;
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
-import org.restlet.*;
+import org.restlet.Context;
 
 import javax.mail.Message;
-import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.Properties;
 
 public class MailBuilder {
 
     @Inject
-    public MailBuilder(final MailSender mailSender, FeelhubWebProperties properties) {
+    public MailBuilder(final MailSender mailSender) {
         this.mailSender = mailSender;
-		this.properties = properties;
 		DomainEventBus.INSTANCE.register(this);
     }
 
@@ -61,11 +63,9 @@ public class MailBuilder {
 
     private void setContent(final MimeMessage mimeMessage, final User user) {
         try {
-            final Request fakeRequest = new Request();
-            fakeRequest.getAttributes().put("com.feelhub.user", user);
-            final FeelhubTemplateRepresentation content = FeelhubTemplateRepresentation.createNew("mail/welcome.ftl", context, fakeRequest)
+            final FeelhubTemplateRepresentation content = FeelhubTemplateRepresentation.createNew("mail/welcome.ftl", context)
                     .with("name", user.getFullname())
-                    .with("activation_link", new ReferenceBuilder(context, properties.domain).buildUri("/activation/" + user.getSecret()));
+                    .with("activation_link", new ReferenceBuilder(context).buildUri("/activation/" + user.getSecret()));
             mimeMessage.setText(content.getText());
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -91,6 +91,5 @@ public class MailBuilder {
     }
 
     private MailSender mailSender;
-	private FeelhubWebProperties properties;
 	private Context context;
 }

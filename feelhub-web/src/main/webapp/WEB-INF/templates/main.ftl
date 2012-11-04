@@ -1,6 +1,6 @@
 <@layout.headbegin>
 <script type="text/javascript">
-        <#if userInfos.authenticated?has_content>
+        <#if userInfos.authenticated>
         var authentificated = ${userInfos.authenticated?string};
         <#else >
         var authentificated = false;
@@ -18,7 +18,7 @@
         var illustrationLink = "";
         </#if>
 
-        <#if userInfos.user??>
+        <#if !userInfos.anonymous>
         var userLanguageCode = "${userInfos.user.languageCode}";
         //console.log("userLanguageCode : " + userLanguageCode);
         </#if>

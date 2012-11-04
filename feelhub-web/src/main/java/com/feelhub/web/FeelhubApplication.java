@@ -32,7 +32,7 @@ public class FeelhubApplication extends Application {
     public synchronized void start() throws Exception {
         feelhubWebProperties = injector.getInstance(FeelhubWebProperties.class);
         initFreemarkerConfiguration();
-        setStatus();
+        setContextVariables();
         if (!getContext().getAttributes().get("com.feelhub.status").equals("launch")) {
             runMigrations();
         }
@@ -41,8 +41,9 @@ public class FeelhubApplication extends Application {
         super.start();
     }
 
-    private void setStatus() {
+    private void setContextVariables() {
 		getContext().getAttributes().put("com.feelhub.status", feelhubWebProperties.status);
+		getContext().getAttributes().put("com.feelhub.domain", feelhubWebProperties.domain);
     }
 
     private void runMigrations() {

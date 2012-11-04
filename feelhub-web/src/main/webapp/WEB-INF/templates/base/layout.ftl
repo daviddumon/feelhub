@@ -128,7 +128,7 @@
         <a id="home_link" href="${root}">Feelhub<span>.com</span></a>
 
         <div id="login_helper">
-            <#if userInfos.user?has_content>
+            <#if !userInfos.anonymous>
                 <p>Hello ${userInfos.user.fullname} <#if userInfos.authenticated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
             <#else>
                 <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>

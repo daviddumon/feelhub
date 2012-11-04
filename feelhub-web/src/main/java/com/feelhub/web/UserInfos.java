@@ -1,21 +1,19 @@
 package com.feelhub.web;
 
-import com.feelhub.domain.user.User;
-import org.restlet.Request;
+import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.authentification.WebUser;
 
 public class UserInfos {
 
-    public User getUser() {
-        if (Request.getCurrent().getAttributes().containsKey("com.feelhub.user")) {
-            return (User) Request.getCurrent().getAttributes().get("com.feelhub.user");
-        }
-        return null;
+    public WebUser getUser() {
+        return CurrentUser.get();
     }
 
-    public boolean isAuthenticated() {
-        if (Request.getCurrent().getAttributes().containsKey("com.feelhub.authentificated")) {
-            return (Boolean) Request.getCurrent().getAttributes().get("com.feelhub.authentificated");
-        }
-        return false;
-    }
+	public boolean isAnonymous() {
+		return CurrentUser.get().isAnonymous();
+	}
+
+	public boolean isAuthenticated() {
+		return CurrentUser.get().isAuthenticated();
+	}
 }

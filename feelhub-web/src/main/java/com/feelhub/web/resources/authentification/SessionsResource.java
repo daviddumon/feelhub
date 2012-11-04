@@ -30,7 +30,7 @@ public class SessionsResource extends ServerResource {
 		try {
 			authenticationManager.authenticate(extractUserDetails(form));
 			setStatus(Status.SUCCESS_CREATED);
-			setLocationRef(new ReferenceBuilder(getContext(), properties.domain).buildUri("/"));
+			setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));
 		} catch (BadPasswordException badPasswordException) {
 			setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
 		}
