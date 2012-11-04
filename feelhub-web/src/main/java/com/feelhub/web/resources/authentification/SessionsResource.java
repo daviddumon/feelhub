@@ -3,7 +3,7 @@ package com.feelhub.web.resources.authentification;
 import com.feelhub.domain.user.BadPasswordException;
 import com.feelhub.web.ReferenceBuilder;
 import com.feelhub.web.authentification.AuthenticationManager;
-import com.feelhub.web.authentification.UserDetails;
+import com.feelhub.web.authentification.AuthRequest;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
@@ -37,11 +37,11 @@ public class SessionsResource extends ServerResource {
 
 	}
 
-	private UserDetails extractUserDetails(final Form form) {
+	private AuthRequest extractUserDetails(final Form form) {
 		final String email = form.getFirstValue("email");
 		final String password = form.getFirstValue("password");
 		boolean remember = toBoolean(form.getFirstValue("remember"));
-		return new UserDetails(email, password, remember);
+		return new AuthRequest(email, password, remember);
 	}
 
 	private boolean toBoolean(final String value) {

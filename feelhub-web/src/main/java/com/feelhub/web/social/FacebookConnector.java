@@ -1,4 +1,4 @@
-package com.feelhub.web.authentification;
+package com.feelhub.web.social;
 
 import com.feelhub.web.ReferenceBuilder;
 import com.feelhub.web.tools.FeelhubWebProperties;

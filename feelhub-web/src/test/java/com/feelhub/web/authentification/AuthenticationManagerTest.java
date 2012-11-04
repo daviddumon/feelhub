@@ -2,14 +2,18 @@ package com.feelhub.web.authentification;
 
 import com.feelhub.application.SessionService;
 import com.feelhub.application.UserService;
+import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.domain.user.UserFactory;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.web.tools.CookieBuilder;
 import com.feelhub.web.tools.CookieManager;
 import com.feelhub.web.tools.FeelhubWebProperties;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.restlet.data.CookieSetting;
 
 import java.util.UUID;
@@ -25,10 +29,12 @@ public class AuthenticationManagerTest {
 	@Before
 	public void setUp() throws Exception {
 		cookieManager = mock(CookieManager.class);
+		when(cookieManager.cookieBuilder()).thenReturn(new CookieBuilder(new FeelhubWebProperties()));
 		sessionService = mock(SessionService.class);
 		userService = new UserService(new UserFactory());
 		manager = new AuthenticationManager(userService, sessionService, new FeelhubWebProperties(), cookieManager);
 		user = userService.createUser("test@test.com", "pass", "jb", "fr_FR");
+		user.activate();
 	}
 
 	@Test
@@ -80,6 +86,16 @@ public class AuthenticationManagerTest {
 
 		assertThat(CurrentUser.get().isAuthenticated()).isFalse();
 		assertThat(CurrentUser.get().getFullname()).isEqualTo("jb");
+	}
+
+	@Test
+	public void canAuthenticateFromFacebook() {
+		when(sessionService.createSession(any(User.class), any(DateTime.class))).thenReturn(new Session(DateTime.now()));
+
+		manager.authenticate(AuthRequest.facebook("test@test.com"));
+
+		final ArgumentCaptor<CookieSetting> captor = ArgumentCaptor.forClass(CookieSetting.class);
+		verify(cookieManager, times(2)).setCookie(captor.capture());
 	}
 
 	private void cookieWithKnownUser() {

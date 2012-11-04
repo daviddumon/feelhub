@@ -4,6 +4,7 @@ import com.feelhub.application.SessionService;
 import com.feelhub.application.UserService;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
+import com.feelhub.web.resources.authentification.AuthMethod;
 import com.feelhub.web.tools.CookieBuilder;
 import com.feelhub.web.tools.CookieManager;
 import com.feelhub.web.tools.FeelhubWebProperties;
@@ -23,11 +24,19 @@ public class AuthenticationManager {
 		this.cookieManager = cookieManager;
 	}
 
-	public void authenticate(final UserDetails userDetails) {
-		User user = userService.authentificate(userDetails.getEmail(), userDetails.getPassword());
-		final Session session = sessionService.createSession(user, new DateTime().plusSeconds(lifeTime(userDetails.isRemember())));
-		setCookiesInResponse(userDetails.isRemember(), user, session);
+	public void authenticate(final AuthRequest authRequest) {
+		User user = extractUser(authRequest);
+		final Session session = sessionService.createSession(user, new DateTime().plusSeconds(lifeTime(authRequest.isRemember())));
+		setCookiesInResponse(authRequest.isRemember(), user, session);
 	}
+
+	private User extractUser(final AuthRequest authRequest) {
+		if(authRequest.getAuthMethod() == AuthMethod.FEELHUB) {
+			return userService.authentificate(authRequest.getEmail(), authRequest.getPassword());
+		}
+		return userService.getUser(authRequest.getEmail());
+	}
+
 
 	private void setCookiesInResponse(final boolean remember, final User user, final Session session) {
 		final CookieBuilder cookieBuilder = cookieManager.cookieBuilder();

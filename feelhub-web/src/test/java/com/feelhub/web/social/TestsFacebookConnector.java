@@ -1,4 +1,4 @@
-package com.feelhub.web.authentification;
+package com.feelhub.web.social;
 
 import com.feelhub.web.ContextTestFactory;
 import com.feelhub.web.WebApplicationTester;

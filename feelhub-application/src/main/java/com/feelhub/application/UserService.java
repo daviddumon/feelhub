@@ -1,7 +1,9 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.session.EmailAlreadyUsed;
-import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.BadPasswordException;
+import com.feelhub.domain.user.BadUserException;
+import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.UserFactory;
 import com.feelhub.repositories.Repositories;
 import com.google.inject.Inject;
 
@@ -15,17 +17,9 @@ public class UserService {
     }
 
     public User createUser(final String email, final String password, final String fullname, final String language) {
-        CheckForExistingEmail(email);
         final User user = userFactory.createUser(email, password, fullname, language);
         Repositories.users().add(user);
         return user;
-    }
-
-    private void CheckForExistingEmail(final String email) {
-        final User user = Repositories.users().get(email.toLowerCase().trim());
-        if (user != null) {
-            throw new EmailAlreadyUsed();
-        }
     }
 
     public User authentificate(final String email, final String password) {
