@@ -95,16 +95,15 @@
                 var uv = document.createElement('script');
                 uv.type = 'text/javascript';
                 uv.async = true;
-                uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/d7RaDOtNmcCUhVhS336few.js';
+                uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/G00yvG6dRhvx0Oag2Yn2Yw.js';
                 var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(uv, s);
             })();
         </script>
 
         <script type="text/javascript">
-
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-27608970-1']);
+            _gaq.push(['_setAccount', 'UA-35946821-1']);
             _gaq.push(['_trackPageview']);
 
             (function () {
@@ -115,7 +114,6 @@
                 var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(ga, s);
             })();
-
         </script>
     </#if>
 </head>

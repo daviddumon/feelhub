@@ -35,7 +35,7 @@
                 <dbHost>127.0.0.1</dbHost>
                 <dbName>feelhub</dbName>
                 <dbPort>27017</dbPort>
-                <alchemyApiKey>a7d0e1eace157afb31cac33dd39672abffa19c25</alchemyApiKey>
+                <alchemyApiKey>db9abc8b6cfe6f2fb44b4b25db5b6ca402cc4957</alchemyApiKey>
             </properties>
         </profile>
         <profile>
@@ -44,7 +44,7 @@
                 <dbHost>127.0.0.1</dbHost>
                 <dbName>feelhub</dbName>
                 <dbPort>27017</dbPort>
-                <alchemyApiKey>d269a5e5229e4fcedf5729f2370ba6ed0de25e12</alchemyApiKey>
+                <alchemyApiKey>e9bbb7fe647375f4b1d634f74d203283e6749230</alchemyApiKey>
             </properties>
         </profile>
         <profile>
@@ -53,7 +53,7 @@
                 <dbHost>54.243.129.130</dbHost>
                 <dbName>feelhub</dbName>
                 <dbPort>27017</dbPort>
-                <alchemyApiKey>d269a5e5229e4fcedf5729f2370ba6ed0de25e12</alchemyApiKey>
+                <alchemyApiKey>e9bbb7fe647375f4b1d634f74d203283e6749230</alchemyApiKey>
             </properties>
         </profile>
         <profile>
