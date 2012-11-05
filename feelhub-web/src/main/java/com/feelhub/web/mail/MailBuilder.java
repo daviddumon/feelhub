@@ -1,20 +1,15 @@
 package com.feelhub.web.mail;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserConfirmationMailEvent;
+import com.feelhub.domain.user.*;
 import com.feelhub.web.ReferenceBuilder;
 import com.feelhub.web.representation.FeelhubTemplateRepresentation;
-import com.google.common.eventbus.AllowConcurrentEvents;
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import org.restlet.Context;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.*;
+import javax.mail.internet.*;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -23,7 +18,7 @@ public class MailBuilder {
     @Inject
     public MailBuilder(final MailSender mailSender) {
         this.mailSender = mailSender;
-		DomainEventBus.INSTANCE.register(this);
+        DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
@@ -91,5 +86,5 @@ public class MailBuilder {
     }
 
     private MailSender mailSender;
-	private Context context;
+    private Context context;
 }

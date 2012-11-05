@@ -1,24 +1,18 @@
 package com.feelhub.web.resources.json;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.opinion.Feeling;
-import com.feelhub.domain.opinion.OpinionRequestEvent;
+import com.feelhub.domain.opinion.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.WebApplicationTester;
-import com.feelhub.web.authentification.CurrentUser;
-import com.feelhub.web.authentification.WebUser;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
+import com.feelhub.web.authentification.*;
+import org.json.*;
+import org.junit.*;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.restlet.Request;
-import org.restlet.Response;
+import org.restlet.*;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 
@@ -41,18 +35,18 @@ public class TestsJsonCreateOpinionResource {
 
     @Before
     public void before() {
-		user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
-		CurrentUser.set(new WebUser(user, true));
-		opinionsResource = new JsonCreateOpinionResource();
-		opinionsResource.setResponse(new Response(new Request()));
-	}
+        user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
+        CurrentUser.set(new WebUser(user, true));
+        opinionsResource = new JsonCreateOpinionResource();
+        opinionsResource.setResponse(new Response(new Request()));
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		CurrentUser.set(null);
-	}
+    @After
+    public void tearDown() throws Exception {
+        CurrentUser.set(null);
+    }
 
-	@Test
+    @Test
     public void canPostOpinion() {
         final JsonRepresentation jsonRepresentation = goodJsonOpinion();
 
@@ -117,7 +111,7 @@ public class TestsJsonCreateOpinionResource {
 
     @Test
     public void mustBeAuthentificated() {
-		CurrentUser.set(WebUser.anonymous());
+        CurrentUser.set(WebUser.anonymous());
         final JsonRepresentation jsonRepresentation = goodJsonOpinion();
 
         opinionsResource.add(jsonRepresentation);
@@ -234,5 +228,5 @@ public class TestsJsonCreateOpinionResource {
     }
 
     private User user;
-	private JsonCreateOpinionResource opinionsResource;
+    private JsonCreateOpinionResource opinionsResource;
 }

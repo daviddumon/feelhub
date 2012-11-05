@@ -8,17 +8,17 @@ public class ReferenceBuilder {
 
     public ReferenceBuilder(final Context context) {
         this.context = context;
-	}
-
-    public String buildUri(final String uri) {
-		return domain() + servletContext().getContextPath() + uri;
     }
 
-	private String domain() {
-		return context.getAttributes().get("com.feelhub.domain").toString();
-	}
+    public String buildUri(final String uri) {
+        return domain() + servletContext().getContextPath() + uri;
+    }
 
-	private ServletContext servletContext() {
+    private String domain() {
+        return context.getAttributes().get("com.feelhub.domain").toString();
+    }
+
+    private ServletContext servletContext() {
         return (ServletContext) context.getAttributes().get("org.restlet.ext.servlet.ServletContext");
     }
 

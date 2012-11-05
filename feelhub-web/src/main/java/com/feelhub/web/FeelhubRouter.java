@@ -43,11 +43,11 @@ public class FeelhubRouter extends Router {
         attach("/activation/{secret}", ActivationResource.class);
         attach("/login", LoginResource.class);
         attach("/help", HelpResource.class);
-		attach("/welcome", WelcomeResource.class);
+        attach("/welcome", WelcomeResource.class);
 
-		attach("/sitemap_index_{number}.xml", FeelhubSitemapIndexResource.class);
-		attach("/sitemap_{number}.xml", FeelhubSitemapResource.class);
-		attach("/social/facebook", FacebookResource.class);
+        attach("/sitemap_index_{number}.xml", FeelhubSitemapIndexResource.class);
+        attach("/sitemap_{number}.xml", FeelhubSitemapResource.class);
+        attach("/social/facebook", FacebookResource.class);
 
         attach("/", HomeResource.class);
     }

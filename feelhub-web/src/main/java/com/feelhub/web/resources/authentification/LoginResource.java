@@ -1,7 +1,7 @@
 package com.feelhub.web.resources.authentification;
 
-import com.feelhub.web.social.FacebookConnector;
 import com.feelhub.web.representation.ModelAndView;
+import com.feelhub.web.social.FacebookConnector;
 import com.google.inject.Inject;
 import org.restlet.resource.*;
 

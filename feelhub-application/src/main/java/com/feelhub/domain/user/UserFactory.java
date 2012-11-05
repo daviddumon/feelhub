@@ -8,7 +8,7 @@ import com.feelhub.repositories.Repositories;
 public class UserFactory {
 
     public User createUser(final String email, final String password, final String fullname, final String language) {
-		checkForExistingEmail(email);
+        checkForExistingEmail(email);
         final User user = new User();
         user.setEmail(email);
         user.setPassword(password);
@@ -18,10 +18,10 @@ public class UserFactory {
         return user;
     }
 
-	private void checkForExistingEmail(final String email) {
-		final User user = Repositories.users().get(email.toLowerCase().trim());
-		if (user != null) {
-			throw new EmailAlreadyUsed();
-		}
-	}
+    private void checkForExistingEmail(final String email) {
+        final User user = Repositories.users().get(email.toLowerCase().trim());
+        if (user != null) {
+            throw new EmailAlreadyUsed();
+        }
+    }
 }

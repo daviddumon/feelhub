@@ -2,65 +2,61 @@ package com.feelhub.web.resources.authentification;
 
 import com.feelhub.domain.user.BadPasswordException;
 import com.feelhub.web.ReferenceBuilder;
-import com.feelhub.web.authentification.AuthenticationManager;
-import com.feelhub.web.authentification.AuthRequest;
+import com.feelhub.web.authentification.*;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
-import org.restlet.data.Form;
-import org.restlet.data.Status;
-import org.restlet.resource.Delete;
-import org.restlet.resource.Post;
-import org.restlet.resource.ServerResource;
+import org.restlet.data.*;
+import org.restlet.resource.*;
 
 public class SessionsResource extends ServerResource {
 
-	@Inject
-	public SessionsResource(final AuthenticationManager authenticationManager, FeelhubWebProperties properties) {
-		this.authenticationManager = authenticationManager;
-		this.properties = properties;
-	}
+    @Inject
+    public SessionsResource(final AuthenticationManager authenticationManager, FeelhubWebProperties properties) {
+        this.authenticationManager = authenticationManager;
+        this.properties = properties;
+    }
 
-	@Post
-	public void login(final Form form) {
-		if (!checkForm(form)) {
-			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-			return;
-		}
-		try {
-			authenticationManager.authenticate(extractUserDetails(form));
-			setStatus(Status.SUCCESS_CREATED);
-			setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));
-		} catch (BadPasswordException badPasswordException) {
-			setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
-		}
+    @Post
+    public void login(final Form form) {
+        if (!checkForm(form)) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return;
+        }
+        try {
+            authenticationManager.authenticate(extractUserDetails(form));
+            setStatus(Status.SUCCESS_CREATED);
+            setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));
+        } catch (BadPasswordException badPasswordException) {
+            setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
+        }
 
-	}
+    }
 
-	private AuthRequest extractUserDetails(final Form form) {
-		final String email = form.getFirstValue("email");
-		final String password = form.getFirstValue("password");
-		boolean remember = toBoolean(form.getFirstValue("remember"));
-		return new AuthRequest(email, password, remember);
-	}
+    private AuthRequest extractUserDetails(final Form form) {
+        final String email = form.getFirstValue("email");
+        final String password = form.getFirstValue("password");
+        boolean remember = toBoolean(form.getFirstValue("remember"));
+        return new AuthRequest(email, password, remember);
+    }
 
-	private boolean toBoolean(final String value) {
-		return !Strings.isNullOrEmpty(value) && value.equalsIgnoreCase("on");
-	}
+    private boolean toBoolean(final String value) {
+        return !Strings.isNullOrEmpty(value) && value.equalsIgnoreCase("on");
+    }
 
-	private boolean checkForm(final Form form) {
-		return form.getQueryString().contains("email") && form.getQueryString().contains("password");
-	}
+    private boolean checkForm(final Form form) {
+        return form.getQueryString().contains("email") && form.getQueryString().contains("password");
+    }
 
-	@Delete
-	public void logout() {
-		if (authenticationManager.logout()) {
-			setStatus(Status.SUCCESS_ACCEPTED);
-		} else {
-			setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-		}
-	}
+    @Delete
+    public void logout() {
+        if (authenticationManager.logout()) {
+            setStatus(Status.SUCCESS_ACCEPTED);
+        } else {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+        }
+    }
 
-	private final AuthenticationManager authenticationManager;
-	private FeelhubWebProperties properties;
+    private final AuthenticationManager authenticationManager;
+    private FeelhubWebProperties properties;
 }

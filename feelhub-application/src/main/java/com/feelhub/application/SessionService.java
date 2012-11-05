@@ -27,9 +27,9 @@ public class SessionService {
         }
     }
 
-	private Session lookUpSession(final UUID token) {
-		return Repositories.sessions().get(token);
-	}
+    private Session lookUpSession(final UUID token) {
+        return Repositories.sessions().get(token);
+    }
 
     private void checkSessionForUser(final User user, final Session session) {
         if (!session.getEmail().equalsIgnoreCase(user.getEmail())) {

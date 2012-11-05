@@ -1,7 +1,6 @@
 package com.feelhub.web;
 
-import com.feelhub.web.authentification.CurrentUser;
-import com.feelhub.web.authentification.WebUser;
+import com.feelhub.web.authentification.*;
 
 public class UserInfos {
 
@@ -9,11 +8,11 @@ public class UserInfos {
         return CurrentUser.get();
     }
 
-	public boolean isAnonymous() {
-		return CurrentUser.get().isAnonymous();
-	}
+    public boolean isAnonymous() {
+        return CurrentUser.get().isAnonymous();
+    }
 
-	public boolean isAuthenticated() {
-		return CurrentUser.get().isAuthenticated();
-	}
+    public boolean isAuthenticated() {
+        return CurrentUser.get().isAuthenticated();
+    }
 }

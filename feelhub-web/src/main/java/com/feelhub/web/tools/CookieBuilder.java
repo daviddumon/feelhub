@@ -7,7 +7,7 @@ import org.restlet.data.CookieSetting;
 public final class CookieBuilder {
 
     public CookieBuilder(FeelhubWebProperties properties) {
-		this.properties = properties;
+        this.properties = properties;
     }
 
     public CookieSetting idCookie(User user) {
@@ -67,7 +67,7 @@ public final class CookieBuilder {
         return session;
     }
 
-	private FeelhubWebProperties properties;
-	public static final String ID = "id";
+    private FeelhubWebProperties properties;
+    public static final String ID = "id";
     public static final String SESSION = "session";
 }

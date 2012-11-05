@@ -29,7 +29,7 @@ public class GuiceTestModule extends AbstractModule {
 
     @Override
     protected void configure() {
-		Names.bindProperties(binder(), properties());
+        Names.bindProperties(binder(), properties());
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
         bind(SessionProvider.class).to(FakeSessionProvider.class);
         bind(OpinionSearch.class).to(FakeOpinionSearch.class);
@@ -44,18 +44,18 @@ public class GuiceTestModule extends AbstractModule {
         bind(Translator.class).to(FakeTranslator.class);
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
-		bind(MailSender.class).to(FakeMailSender.class);
+        bind(MailSender.class).to(FakeMailSender.class);
     }
 
-	private Properties properties() {
-		try {
-			Properties properties = new Properties();
-			properties.load(getClass().getResourceAsStream("/feelhub-web.properties"));
-			return properties;
-		} catch (IOException e) {
-			throw new RuntimeException("Error loading properties", e);
-		}
-	}
+    private Properties properties() {
+        try {
+            Properties properties = new Properties();
+            properties.load(getClass().getResourceAsStream("/feelhub-web.properties"));
+            return properties;
+        } catch (IOException e) {
+            throw new RuntimeException("Error loading properties", e);
+        }
+    }
 
     @Provides
     public KeywordService keywordService() {
@@ -70,6 +70,7 @@ public class GuiceTestModule extends AbstractModule {
         }
         return feelhubSitemapModuleLink;
     }
+
     public void setFeelhubSitemapModuleLink(final FeelhubSitemapModuleLink feelhubSitemapModuleLink) {
         this.feelhubSitemapModuleLink = feelhubSitemapModuleLink;
     }

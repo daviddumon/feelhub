@@ -2,8 +2,7 @@ package com.feelhub.web.filter;
 
 import com.feelhub.web.authentification.AuthenticationManager;
 import com.google.inject.Inject;
-import org.restlet.Request;
-import org.restlet.Response;
+import org.restlet.*;
 
 public class FakeIdentityFilter extends IdentityFilter {
 

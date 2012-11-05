@@ -8,8 +8,7 @@ import com.restfb.types.User;
 import org.restlet.Context;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.FacebookApi;
-import org.scribe.model.Token;
-import org.scribe.model.Verifier;
+import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
 
 public class FacebookConnector {

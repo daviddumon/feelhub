@@ -18,7 +18,7 @@ public final class ContextTestFactory {
     public static Context buildContext() {
         final Context result = new Context();
         result.getAttributes().put("org.restlet.ext.servlet.ServletContext", mockServletContext());
-		result.getAttributes().put("com.feelhub.domain", "https://thedomain");
+        result.getAttributes().put("com.feelhub.domain", "https://thedomain");
         return result;
     }
 

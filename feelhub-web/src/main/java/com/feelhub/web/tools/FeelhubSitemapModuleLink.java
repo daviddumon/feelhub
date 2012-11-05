@@ -38,6 +38,6 @@ public class FeelhubSitemapModuleLink {
     }
 
     private String sitemapBuilderAddress() {
-		return new FeelhubWebProperties().sitemapBuilder;
-	}
+        return new FeelhubWebProperties().sitemapBuilder;
+    }
 }

@@ -1,9 +1,6 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.user.BadPasswordException;
-import com.feelhub.domain.user.BadUserException;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserFactory;
+import com.feelhub.domain.user.*;
 import com.feelhub.repositories.Repositories;
 import com.google.inject.Inject;
 

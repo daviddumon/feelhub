@@ -72,7 +72,7 @@ public class JsonCreateOpinionResource extends ServerResource {
     }
 
     private User extractUser() throws AuthenticationException {
-      return CurrentUser.get().getUser();
+        return CurrentUser.get().getUser();
     }
 
     private JSONObject getJsonResponse(final OpinionRequestEvent event) {

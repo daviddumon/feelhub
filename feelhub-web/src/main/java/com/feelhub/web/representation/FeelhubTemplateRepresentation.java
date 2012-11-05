@@ -2,7 +2,7 @@ package com.feelhub.web.representation;
 
 import com.google.common.collect.Maps;
 import freemarker.template.Configuration;
-import org.restlet.*;
+import org.restlet.Context;
 import org.restlet.data.MediaType;
 import org.restlet.representation.OutputRepresentation;
 

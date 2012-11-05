@@ -3,11 +3,8 @@ package com.feelhub.web.filter;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.WebApplicationTester;
 import com.feelhub.web.authentification.AuthenticationManager;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.restlet.Request;
-import org.restlet.Response;
+import org.junit.*;
+import org.restlet.*;
 
 import static org.mockito.Mockito.*;
 
@@ -21,23 +18,18 @@ public class TestsIdentityFilter {
 
     @Before
     public void before() {
-		authenticationManager = mock(AuthenticationManager.class);
-		identityFilter = new IdentityFilter(authenticationManager);
+        authenticationManager = mock(AuthenticationManager.class);
+        identityFilter = new IdentityFilter(authenticationManager);
     }
 
-
-
-	@Test
+    @Test
     public void canInitCurrentUser() {
-		final Request request = new Request();
-		identityFilter.beforeHandle(request, new Response(request));
+        final Request request = new Request();
+        identityFilter.beforeHandle(request, new Response(request));
 
         verify(authenticationManager).initRequest();
     }
 
-
-
-
     private IdentityFilter identityFilter;
-	private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 }
