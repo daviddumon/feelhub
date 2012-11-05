@@ -8,8 +8,13 @@ import java.util.UUID;
 
 public class User extends BaseEntity {
 
-    public User() {
-        this.active = false;
+	protected User() {
+
+	}
+
+    public User(String id) {
+		this.id = id;
+		this.active = false;
         this.secret = UUID.randomUUID().toString();
     }
 
@@ -28,7 +33,7 @@ public class User extends BaseEntity {
 
     @Override
     public String getId() {
-        return email;
+        return id;
     }
 
     @Override
@@ -88,10 +93,12 @@ public class User extends BaseEntity {
         return secret;
     }
 
-    private String email;
+
+	private String email;
     protected String password;
     private String fullname;
     private String languageCode;
     private boolean active;
-    private final String secret;
+    private String secret;
+	private String id;
 }

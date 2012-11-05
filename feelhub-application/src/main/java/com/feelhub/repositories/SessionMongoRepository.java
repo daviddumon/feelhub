@@ -16,7 +16,7 @@ public class SessionMongoRepository extends BaseMongoRepository<Session> impleme
     @Override
     public List<Session> forUser(final User user) {
         final Criteria criteria = getSession().createCriteria(Session.class);
-        criteria.add(Restrictions.equals("email", user.getEmail()));
+        criteria.add(Restrictions.equals("idUser", user.getId()));
         return criteria.list();
     }
 }

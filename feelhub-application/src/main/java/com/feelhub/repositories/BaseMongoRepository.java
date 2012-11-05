@@ -1,7 +1,9 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.*;
+import com.feelhub.domain.user.User;
 import org.mongolink.MongoSession;
+import org.mongolink.domain.criteria.Criteria;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -50,5 +52,18 @@ public class BaseMongoRepository<T extends Entity> implements Repository<T> {
         return session;
     }
 
-    protected MongoSession session;
+	protected Criteria<T> createCriteria() {
+		return getSession().createCriteria(getPersistentType());
+	}
+
+	protected T extractOne(final Criteria criteria) {
+		final List<User> results = criteria.list();
+		if (results.isEmpty()) {
+			return null;
+		} else {
+			return (T) results.get(0);
+		}
+	}
+
+	protected MongoSession session;
 }

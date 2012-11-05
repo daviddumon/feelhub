@@ -1,13 +1,17 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.Repository;
 import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.UserRepository;
 import com.feelhub.test.SystemTime;
-import com.mongodb.*;
-import org.junit.*;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import java.util.UUID;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class TestsUserMongoRepository extends TestWithMongoRepository {
 
@@ -21,7 +25,8 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistAnUser() {
-        final User user = new User();
+		final String id = UUID.randomUUID().toString();
+		final User user = new User(id);
         user.setEmail("email@email.com");
         user.setPassword("password");
         user.setFullname("fullname");
@@ -29,37 +34,49 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
 
         repository.add(user);
 
-        final DBObject userFound = getUserFromDB();
-        assertThat(userFound, notNullValue());
-        assertThat(userFound.get("_id").toString(), is(user.getId()));
-        assertThat(userFound.get("_id"), is((Object) user.getEmail()));
-        assertThat(userFound.get("password"), is((Object) user.getPassword()));
-        assertThat(userFound.get("fullname"), is((Object) user.getFullname()));
-        assertThat(userFound.get("languageCode"), is((Object) user.getLanguageCode()));
-        assertThat(userFound.get("active"), is((Object) user.isActive()));
-        assertThat(userFound.get("secret"), is((Object) user.getSecret()));
-        assertThat(userFound.get("creationDate"), is((Object) time.getNow().getMillis()));
-        assertThat(userFound.get("lastModificationDate"), is((Object) time.getNow().getMillis()));
+        final DBObject userFound = getUserFromDB(id);
+        assertThat(userFound).isNotNull();
+        assertThat(userFound.get("_id").toString()).isEqualTo(user.getId());
+        assertThat(userFound.get("password")).isEqualTo(((Object) user.getPassword()));
+        assertThat(userFound.get("fullname")).isEqualTo((Object) user.getFullname());
+        assertThat(userFound.get("languageCode")).isEqualTo((Object) user.getLanguageCode());
+        assertThat(userFound.get("active")).isEqualTo((Object) user.isActive());
+        assertThat(userFound.get("secret")).isEqualTo((Object) user.getSecret());
+        assertThat(userFound.get("creationDate")).isEqualTo((Object) time.getNow().getMillis());
+        assertThat(userFound.get("lastModificationDate")).isEqualTo((Object) time.getNow().getMillis());
     }
 
     @Test
     public void canGetAnUser() {
         final DBCollection collection = mongo.getCollection("user");
         final DBObject user = new BasicDBObject();
-        user.put("_id", "email@email.com");
+        user.put("_id", "test");
         collection.insert(user);
 
-        final User userFound = repository.get("email@email.com");
+        final User userFound = repository.get("test");
 
-        assertThat(userFound, notNullValue());
+        assertThat(userFound).isNotNull();
     }
 
-    private DBObject getUserFromDB() {
+	@Test
+	public void canGetByEmail() {
+		final DBCollection collection = mongo.getCollection("user");
+		final DBObject user = new BasicDBObject();
+		user.put("_id", "test");
+		user.put("email", "jb@test.com");
+		collection.insert(user);
+
+		final User userFound = repository.forEmail("jb@test.com");
+
+		assertThat(userFound).isNotNull();
+	}
+
+	private DBObject getUserFromDB(final String id) {
         final DBCollection collection = mongo.getCollection("user");
         final DBObject query = new BasicDBObject();
-        query.put("_id", "email@email.com");
+        query.put("_id", id);
         return collection.findOne(query);
     }
 
-    private Repository<User> repository;
+    private UserRepository repository;
 }

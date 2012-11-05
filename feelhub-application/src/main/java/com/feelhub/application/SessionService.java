@@ -11,7 +11,7 @@ public class SessionService {
 
     public Session createSession(final User user, final DateTime expirationDate) {
         final Session session = new Session(expirationDate);
-        session.setEmail(user.getEmail());
+        session.setUserId(user.getId());
         Repositories.sessions().add(session);
         return session;
     }
@@ -32,7 +32,7 @@ public class SessionService {
     }
 
     private void checkSessionForUser(final User user, final Session session) {
-        if (!session.getEmail().equalsIgnoreCase(user.getEmail())) {
+        if (!session.getUserId().equalsIgnoreCase(user.getId())) {
             throw new SessionException();
         }
     }

@@ -39,7 +39,7 @@ public class FacebookResourceTest {
 
         facebookResource.facebookReturn();
 
-        final com.feelhub.domain.user.User user = Repositories.users().get("toto@gmail.com");
+        final com.feelhub.domain.user.User user = Repositories.users().get("FB:test");
         assertThat(user).isNotNull();
         assertThat(user.getEmail()).isEqualTo("toto@gmail.com");
         assertThat(user.getLanguageCode()).isEqualTo("fr_fr");
@@ -55,7 +55,7 @@ public class FacebookResourceTest {
         verify(authenticationManager).authenticate(captor.capture());
         final AuthRequest authRequest = captor.getValue();
         assertThat(authRequest).isNotNull();
-        assertThat(authRequest.getEmail()).isEqualTo("toto@gmail.com");
+        assertThat(authRequest.getUserId()).isEqualTo("FB:test");
         assertThat(authRequest.getAuthMethod()).isEqualTo(AuthMethod.FACEBOOK);
     }
 
@@ -73,6 +73,7 @@ public class FacebookResourceTest {
         final FakeFbUser fbUser = new FakeFbUser();
         fbUser.email = "toto@gmail.com";
         fbUser.locale = "fr_FR";
+		fbUser.id = "test";
         when(facebookConnector.getUser(any(Token.class))).thenReturn(fbUser);
     }
 
@@ -84,6 +85,7 @@ public class FacebookResourceTest {
     private class FakeFbUser extends User {
         public String email;
         public String locale;
+		public String id;
 
         @Override
         public String getEmail() {
@@ -94,7 +96,12 @@ public class FacebookResourceTest {
         public String getLocale() {
             return locale;
         }
-    }
+
+		@Override
+		public String getId() {
+			return id;
+		}
+	}
 
     private AuthenticationManager authenticationManager;
 }

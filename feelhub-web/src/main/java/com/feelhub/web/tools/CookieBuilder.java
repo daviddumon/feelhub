@@ -12,7 +12,7 @@ public final class CookieBuilder {
 
     public CookieSetting idCookie(User user) {
         final CookieSetting id = baseIdCookie();
-        id.setValue(user.getEmail());
+        id.setValue(user.getId());
         id.setMaxAge(properties.cookiePermanentTime);
         return id;
     }

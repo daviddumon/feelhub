@@ -21,12 +21,12 @@ public class Session extends BaseEntity {
         return token;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setEmail(final String email) {
-        this.email = email;
+    public void setUserId(final String userId) {
+        this.userId = userId;
     }
 
     public UUID getToken() {
@@ -42,6 +42,6 @@ public class Session extends BaseEntity {
     }
 
     private UUID token;
-    private String email;
+    private String userId;
     private DateTime expirationDate;
 }

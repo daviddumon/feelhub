@@ -33,7 +33,7 @@ public class UserTestFactory {
     }
 
     public User createActiveUser(final String email) {
-        final User user = new User();
+        final User user = new User(email);
         user.setEmail(email);
         user.setPassword("password");
         user.setFullname("full name");

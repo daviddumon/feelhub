@@ -18,12 +18,7 @@ public class KeywordMongoRepository extends BaseMongoRepository<Keyword> impleme
         final Criteria criteria = getSession().createCriteria(Keyword.class);
         criteria.add(Restrictions.equals("value", value));
         criteria.add(Restrictions.equals("languageCode", feelhubLanguage.getCode()));
-        final List<Keyword> results = criteria.list();
-        if (results.isEmpty()) {
-            return null;
-        } else {
-            return results.get(0);
-        }
+		return extractOne(criteria);
     }
 
     @Override

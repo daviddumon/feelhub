@@ -24,8 +24,8 @@ public class FacebookResource extends ServerResource {
         final String facebookCode = getQuery().getFirstValue("code");
         final Token accesToken = connector.getAccesToken(facebookCode);
         final User facebookUser = connector.getUser(accesToken);
-        final com.feelhub.domain.user.User newUser = userService.createUser(facebookUser.getEmail(), "", facebookUser.getFirstName() + " " + facebookUser.getLastName(), facebookUser.getLocale());
-        authenticationManager.authenticate(AuthRequest.facebook(newUser.getEmail()));
+        final com.feelhub.domain.user.User newUser = userService.createFromFacebook(facebookUser.getId(), facebookUser.getEmail(), facebookUser.getFirstName(), facebookUser.getLastName(), facebookUser.getLocale());
+        authenticationManager.authenticate(AuthRequest.facebook(newUser.getId()));
         setLocationRef(new ReferenceBuilder(getContext()).buildUri(""));
         setStatus(Status.REDIRECTION_TEMPORARY);
     }

@@ -15,7 +15,7 @@ public class FakeSessionRepository extends FakeRepository<Session> implements Se
 
             @Override
             public boolean apply(final Session input) {
-                return input.getEmail().equalsIgnoreCase(user.getEmail());
+                return input.getUserId().equalsIgnoreCase(user.getEmail());
             }
         }));
     }
