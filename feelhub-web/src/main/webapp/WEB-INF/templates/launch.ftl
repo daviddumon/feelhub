@@ -39,6 +39,7 @@
             s.parentNode.insertBefore(ga, s);
         })();
     </script>
+</#if>
 </head>
 <body>
 <div id="launch">
