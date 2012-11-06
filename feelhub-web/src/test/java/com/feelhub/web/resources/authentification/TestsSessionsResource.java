@@ -148,7 +148,7 @@ public class TestsSessionsResource {
         assertThat(id.isSecure(), is(false));
         assertThat(id.getVersion(), is(0));
         assertThat(id.getValue(), is(user.getEmail()));
-        assertThat(id.getDomain(), is("https://thedomain"));
+        assertThat(id.getDomain(), is(".test.localhost"));
         assertThat(id.getMaxAge(), is(10));
         assertThat(id.getPath(), is("/"));
     }
@@ -174,7 +174,7 @@ public class TestsSessionsResource {
         assertThat(sessionCookie.getVersion(), is(0));
         assertThat(sessionCookie.getValue(), is(session.getToken().toString()));
         assertThat(sessionCookie.isSecure(), is(false));
-        assertThat(sessionCookie.getDomain(), is("https://thedomain"));
+        assertThat(sessionCookie.getDomain(), is(".test.localhost"));
         assertThat(sessionCookie.getMaxAge(), is(1));
         assertThat(sessionCookie.getPath(), is("/"));
     }
@@ -201,7 +201,7 @@ public class TestsSessionsResource {
         assertThat(sessionCookie.getVersion(), is(0));
         assertThat(sessionCookie.getValue(), is(session.getToken().toString()));
         assertThat(sessionCookie.isSecure(), is(false));
-        assertThat(sessionCookie.getDomain(), is("https://thedomain"));
+        assertThat(sessionCookie.getDomain(), is(".test.localhost"));
         assertThat(sessionCookie.getMaxAge(), is(Integer.valueOf(10)));
         assertThat(sessionCookie.getPath(), is("/"));
         assertThat(session.getExpirationDate(), is(new DateTime().plusSeconds(10)));

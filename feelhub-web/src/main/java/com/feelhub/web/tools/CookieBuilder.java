@@ -30,7 +30,7 @@ public final class CookieBuilder {
         id.setComment("id cookie");
         id.setAccessRestricted(true);
         id.setSecure(properties.secureMode);
-        id.setDomain(properties.domain);
+        id.setDomain(properties.cookie);
         id.setPath("/");
         return id;
     }
@@ -62,7 +62,7 @@ public final class CookieBuilder {
         session.setComment("session cookie");
         session.setSecure(properties.secureMode);
         session.setAccessRestricted(true);
-        session.setDomain(properties.domain);
+        session.setDomain(properties.cookie);
         session.setPath("/");
         return session;
     }
