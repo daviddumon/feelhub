@@ -29,9 +29,9 @@ public class AuthenticationManager {
 
     private User extractUser(final AuthRequest authRequest) {
         if (authRequest.getAuthMethod() == AuthMethod.FEELHUB) {
-            return userService.authentificate(authRequest.getEmail(), authRequest.getPassword());
+            return userService.authentificate(authRequest.getUserId(), authRequest.getPassword());
         }
-        return userService.getUser(authRequest.getEmail());
+        return userService.getUser(authRequest.getUserId());
     }
 
     private void setCookiesInResponse(final boolean remember, final User user, final Session session) {

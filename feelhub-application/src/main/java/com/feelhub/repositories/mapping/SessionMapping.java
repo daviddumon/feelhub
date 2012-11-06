@@ -12,7 +12,7 @@ public class SessionMapping extends EntityMap<Session> {
     @Override
     protected void map() {
         id(element().getToken()).natural();
-        property(element().getEmail());
+        property(element().getUserId());
         property(element().getExpirationDate());
         property(element().getCreationDate());
         property(element().getLastModificationDate());

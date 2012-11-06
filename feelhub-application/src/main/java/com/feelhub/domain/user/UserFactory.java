@@ -8,20 +8,31 @@ import com.feelhub.repositories.Repositories;
 public class UserFactory {
 
     public User createUser(final String email, final String password, final String fullname, final String language) {
-        checkForExistingEmail(email);
-        final User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setFullname(fullname);
-        user.setLanguageCode(FeelhubLanguage.forString(language).getCode());
+		final User user = commonUser(email, email, fullname, language);
+		user.setPassword(password);
         DomainEventBus.INSTANCE.post(new UserConfirmationMailEvent(user));
         return user;
     }
 
-    private void checkForExistingEmail(final String email) {
-        final User user = Repositories.users().get(email.toLowerCase().trim());
-        if (user != null) {
-            throw new EmailAlreadyUsed();
-        }
-    }
+	public User createFromFacebook(final String facebookId, final String email, final String firstName, final String lastName, final String language) {
+		final User user = commonUser("FB:" + facebookId, email, firstName + " " + lastName, language);
+		user.activate();
+		return user;
+	}
+
+	private User commonUser(String id, final String email,final String fullname, final String language) {
+		checkForExistingEmail(email);
+		final User user = new User(id);
+		user.setEmail(email);
+		user.setFullname(fullname);
+		user.setLanguageCode(FeelhubLanguage.forString(language).getCode());
+		return user;
+	}
+
+	private void checkForExistingEmail(final String email) {
+		final User user = Repositories.users().forEmail(email.toLowerCase().trim());
+		if (user != null) {
+			throw new EmailAlreadyUsed();
+		}
+	}
 }

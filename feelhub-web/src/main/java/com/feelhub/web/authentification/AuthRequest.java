@@ -4,10 +4,10 @@ import com.feelhub.web.resources.authentification.AuthMethod;
 
 public class AuthRequest {
 
-    public static AuthRequest facebook(final String email) {
+    public static AuthRequest facebook(final String id) {
         final AuthRequest result = new AuthRequest();
         result.authMethod = AuthMethod.FACEBOOK;
-        result.email = email;
+        result.userId = id;
         return result;
     }
 
@@ -15,14 +15,14 @@ public class AuthRequest {
 
     }
 
-    public AuthRequest(final String email, final String password, final boolean remember) {
-        this.email = email;
+    public AuthRequest(final String userId, final String password, final boolean remember) {
+        this.userId = userId;
         this.password = password;
         this.remember = remember;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserId() {
+        return userId;
     }
 
     public String getPassword() {
@@ -40,6 +40,6 @@ public class AuthRequest {
     private AuthMethod authMethod = AuthMethod.FEELHUB;
 
     private String password;
-    private String email;
+    private String userId;
     private boolean remember;
 }

@@ -25,7 +25,7 @@ public class TestsSessionMongoRepository extends TestWithMongoRepository {
     @Test
     public void canPersistSession() {
         final Session session = new Session(new DateTime().plusHours(1));
-        session.setEmail("mail@mail.com");
+        session.setUserId("mail@mail.com");
 
         repository.add(session);
 
@@ -33,7 +33,7 @@ public class TestsSessionMongoRepository extends TestWithMongoRepository {
         assertThat(sessionFound, notNullValue());
         assertThat(sessionFound.get("_id"), is(session.getId()));
         assertThat(sessionFound.get("_id"), is((Object) session.getToken()));
-        assertThat(sessionFound.get("email"), is((Object) session.getEmail()));
+        assertThat(sessionFound.get("idUser"), is((Object) session.getUserId()));
         assertThat(sessionFound.get("creationDate"), is((Object) time.getNow().getMillis()));
         assertThat(sessionFound.get("expirationDate"), is((Object) session.getExpirationDate().getMillis()));
         assertThat(sessionFound.get("lastModificationDate"), is((Object) time.getNow().getMillis()));

@@ -14,13 +14,16 @@ public class UserMongoRepository extends BaseMongoRepository<User> implements Us
 
     @Override
     public User forSecret(final UUID secret) {
-        final Criteria criteria = getSession().createCriteria(User.class);
+        final Criteria criteria = createCriteria();
         criteria.add(Restrictions.equals("secret", secret.toString()));
-        final List<User> results = criteria.list();
-        if (results.isEmpty()) {
-            return null;
-        } else {
-            return results.get(0);
-        }
+		return extractOne(criteria);
     }
+
+	@Override
+	public User forEmail(final String email) {
+		final Criteria criteria = createCriteria();
+		criteria.add(Restrictions.equals("email", email));
+		return extractOne(criteria);
+	}
+
 }

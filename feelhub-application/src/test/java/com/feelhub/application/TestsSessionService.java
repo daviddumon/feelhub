@@ -31,7 +31,7 @@ public class TestsSessionService {
         final Session session = sessionService.createSession(user, new DateTime().plusHours(1));
 
         assertThat(session, notNullValue());
-        assertThat(session.getEmail(), is(user.getEmail()));
+        assertThat(session.getUserId(), is(user.getId()));
         assertThat(session.getToken(), notNullValue());
     }
 
