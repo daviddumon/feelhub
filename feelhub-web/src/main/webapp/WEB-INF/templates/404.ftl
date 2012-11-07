@@ -72,7 +72,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <div id="opinion-form">
 <#--<div id="opinion_form" class="box" style="display:none">-->
         <#--<div class="box_title">My feeling about this</div>-->
