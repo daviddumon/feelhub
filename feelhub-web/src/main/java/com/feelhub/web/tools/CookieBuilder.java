@@ -25,22 +25,19 @@ public final class CookieBuilder {
     }
 
     private CookieSetting baseIdCookie() {
-        final CookieSetting id = new CookieSetting();
-        id.setName(ID);
-        id.setComment("id cookie");
-        id.setAccessRestricted(true);
-        id.setSecure(properties.secureMode);
-        id.setDomain(properties.cookie);
-        id.setPath("/");
-        return id;
+		return newCookie(ID, "id cookie");
     }
 
-    public CookieSetting tokenCookie(Session session, boolean remember) {
+	public CookieSetting tokenCookie(Session session, boolean remember) {
         final CookieSetting result = baseSessionCookie();
         result.setMaxAge(getSessionCookieTime(remember));
         result.setValue(session.getToken().toString());
         return result;
     }
+
+	private CookieSetting baseSessionCookie() {
+		return newCookie(SESSION, "session cookie");
+	}
 
     private int getSessionCookieTime(boolean remember) {
         if (remember) {
@@ -56,18 +53,18 @@ public final class CookieBuilder {
         return session;
     }
 
-    private CookieSetting baseSessionCookie() {
-        final CookieSetting session = new CookieSetting();
-        session.setName(SESSION);
-        session.setComment("session cookie");
-        session.setSecure(properties.secureMode);
-        session.setAccessRestricted(true);
-        session.setDomain(properties.cookie);
-        session.setPath("/");
-        return session;
-    }
+	private CookieSetting newCookie(final String name, final String comment) {
+		final CookieSetting session = new CookieSetting();
+		session.setName(name);
+		session.setComment(comment);
+		session.setAccessRestricted(true);
+		session.setSecure(properties.secureMode);
+		session.setDomain(properties.cookie);
+		session.setPath("/");
+		return session;
+	}
 
     private FeelhubWebProperties properties;
-    public static final String ID = "id";
-    public static final String SESSION = "session";
+	public static final String ID = "id";
+	public static final String SESSION = "session";
 }
