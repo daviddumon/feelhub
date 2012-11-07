@@ -5,7 +5,7 @@ import com.feelhub.domain.alchemy.AlchemyAnalyzer;
 import com.feelhub.domain.eventbus.DeadEventCatcher;
 import com.feelhub.domain.illustration.*;
 import com.feelhub.domain.statistics.StatisticsFactory;
-import com.feelhub.domain.steam.SteamListener;
+import com.feelhub.domain.world.WorldListener;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.web.mail.MailBuilder;
 import com.google.inject.*;
@@ -23,7 +23,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(DeadEventCatcher.class).asEagerSingleton();
         bind(OpinionService.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();
-        bind(SteamListener.class).asEagerSingleton();
+        bind(WorldListener.class).asEagerSingleton();
         bind(ConceptIllustrationFactory.class).asEagerSingleton();
         bind(UriIllustrationFactory.class).asEagerSingleton();
         bind(AlchemyAnalyzer.class).asEagerSingleton();
@@ -31,7 +31,7 @@ public class GuiceProductionModule extends AbstractModule {
 
     private Properties properties() {
         try {
-            Properties properties = new Properties();
+            final Properties properties = new Properties();
             properties.load(getClass().getResourceAsStream("/feelhub-web.properties"));
             return properties;
         } catch (IOException e) {

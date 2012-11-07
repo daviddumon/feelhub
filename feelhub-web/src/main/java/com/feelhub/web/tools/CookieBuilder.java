@@ -6,11 +6,11 @@ import org.restlet.data.CookieSetting;
 
 public final class CookieBuilder {
 
-    public CookieBuilder(FeelhubWebProperties properties) {
+    public CookieBuilder(final FeelhubWebProperties properties) {
         this.properties = properties;
     }
 
-    public CookieSetting idCookie(User user) {
+    public CookieSetting idCookie(final User user) {
         final CookieSetting id = baseIdCookie();
         id.setValue(user.getId());
         id.setMaxAge(properties.cookiePermanentTime);
@@ -25,21 +25,21 @@ public final class CookieBuilder {
     }
 
     private CookieSetting baseIdCookie() {
-		return newCookie(ID, "id cookie");
+        return newCookie(ID, "id cookie");
     }
 
-	public CookieSetting tokenCookie(Session session, boolean remember) {
+    public CookieSetting tokenCookie(final Session session, final boolean remember) {
         final CookieSetting result = baseSessionCookie();
         result.setMaxAge(getSessionCookieTime(remember));
         result.setValue(session.getToken().toString());
         return result;
     }
 
-	private CookieSetting baseSessionCookie() {
-		return newCookie(SESSION, "session cookie");
-	}
+    private CookieSetting baseSessionCookie() {
+        return newCookie(SESSION, "session cookie");
+    }
 
-    private int getSessionCookieTime(boolean remember) {
+    private int getSessionCookieTime(final boolean remember) {
         if (remember) {
             return properties.cookiePermanentTime;
         }
@@ -53,18 +53,18 @@ public final class CookieBuilder {
         return session;
     }
 
-	private CookieSetting newCookie(final String name, final String comment) {
-		final CookieSetting session = new CookieSetting();
-		session.setName(name);
-		session.setComment(comment);
-		session.setAccessRestricted(true);
-		session.setSecure(properties.secureMode);
-		session.setDomain(properties.cookie);
-		session.setPath("/");
-		return session;
-	}
+    private CookieSetting newCookie(final String name, final String comment) {
+        final CookieSetting session = new CookieSetting();
+        session.setName(name);
+        session.setComment(comment);
+        session.setAccessRestricted(true);
+        session.setSecure(properties.secureMode);
+        session.setDomain(properties.cookie);
+        session.setPath("/");
+        return session;
+    }
 
-    private FeelhubWebProperties properties;
-	public static final String ID = "id";
-	public static final String SESSION = "session";
+    private final FeelhubWebProperties properties;
+    public static final String ID = "id";
+    public static final String SESSION = "session";
 }

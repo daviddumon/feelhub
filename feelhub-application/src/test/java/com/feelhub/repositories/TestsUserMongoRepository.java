@@ -1,17 +1,13 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserRepository;
+import com.feelhub.domain.user.*;
 import com.feelhub.test.SystemTime;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import com.mongodb.*;
+import org.junit.*;
+
 import java.util.UUID;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsUserMongoRepository extends TestWithMongoRepository {
 
@@ -25,8 +21,8 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistAnUser() {
-		final String id = UUID.randomUUID().toString();
-		final User user = new User(id);
+        final String id = UUID.randomUUID().toString();
+        final User user = new User(id);
         user.setEmail("email@email.com");
         user.setPassword("password");
         user.setFullname("fullname");
@@ -37,6 +33,7 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         final DBObject userFound = getUserFromDB(id);
         assertThat(userFound).isNotNull();
         assertThat(userFound.get("_id").toString()).isEqualTo(user.getId());
+        assertThat(userFound.get("email").toString()).isEqualTo(user.getEmail());
         assertThat(userFound.get("password")).isEqualTo(((Object) user.getPassword()));
         assertThat(userFound.get("fullname")).isEqualTo((Object) user.getFullname());
         assertThat(userFound.get("languageCode")).isEqualTo((Object) user.getLanguageCode());
@@ -58,20 +55,20 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         assertThat(userFound).isNotNull();
     }
 
-	@Test
-	public void canGetByEmail() {
-		final DBCollection collection = mongo.getCollection("user");
-		final DBObject user = new BasicDBObject();
-		user.put("_id", "test");
-		user.put("email", "jb@test.com");
-		collection.insert(user);
+    @Test
+    public void canGetByEmail() {
+        final DBCollection collection = mongo.getCollection("user");
+        final DBObject user = new BasicDBObject();
+        user.put("_id", "test");
+        user.put("email", "jb@test.com");
+        collection.insert(user);
 
-		final User userFound = repository.forEmail("jb@test.com");
+        final User userFound = repository.forEmail("jb@test.com");
 
-		assertThat(userFound).isNotNull();
-	}
+        assertThat(userFound).isNotNull();
+    }
 
-	private DBObject getUserFromDB(final String id) {
+    private DBObject getUserFromDB(final String id) {
         final DBCollection collection = mongo.getCollection("user");
         final DBObject query = new BasicDBObject();
         query.put("_id", id);

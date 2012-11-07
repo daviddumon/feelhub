@@ -4,11 +4,11 @@ import java.util.UUID;
 
 public class FakeUser extends User {
 
-	public FakeUser() {
-		super(UUID.randomUUID().toString());
-	}
+    public FakeUser() {
+        super(UUID.randomUUID().toString());
+    }
 
-	@Override
+    @Override
     public void setPassword(final String password) {
         this.password = password;
     }

@@ -18,13 +18,13 @@ public class TestsFakeKeywordRepository {
     }
 
     @Test
-    public void canLookUpSteam() {
-        final Keyword steam = new Keyword("", FeelhubLanguage.none(), UUID.randomUUID());
-        fakeKeywordRepository.add(steam);
+    public void canLookUpWorld() {
+        final Keyword world = new Keyword("", FeelhubLanguage.none(), UUID.randomUUID());
+        fakeKeywordRepository.add(world);
 
-        final Keyword foundSteam = fakeKeywordRepository.forValueAndLanguage("", FeelhubLanguage.none());
+        final Keyword foundWorld = fakeKeywordRepository.forValueAndLanguage("", FeelhubLanguage.none());
 
-        assertThat(foundSteam, is(steam));
+        assertThat(foundWorld, is(world));
     }
 
     private FakeKeywordRepository fakeKeywordRepository;

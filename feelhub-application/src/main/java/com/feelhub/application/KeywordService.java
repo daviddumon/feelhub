@@ -36,8 +36,8 @@ public class KeywordService {
         return keyword;
     }
 
-    public Keyword lookUpOrCreateSteam() {
-        Keyword keyword = Repositories.keywords().forValueAndLanguage("", FeelhubLanguage.none());
+    public Keyword lookUpOrCreateWorld() {
+        final Keyword keyword = Repositories.keywords().forValueAndLanguage("", FeelhubLanguage.none());
         if (keyword == null) {
             return createKeyword("", FeelhubLanguage.none());
         }
@@ -46,7 +46,7 @@ public class KeywordService {
 
     public Keyword lookUp(final String value, final FeelhubLanguage feelhubLanguage) {
         checkSize(value);
-        Keyword keyword;
+        final Keyword keyword;
         if (KeywordService.isUri(value)) {
             keyword = Repositories.keywords().forValueAndLanguage(value, feelhubLanguage);
         } else {
@@ -62,7 +62,7 @@ public class KeywordService {
         // Note : there is not much sens in keeping words smaller than 3
         // but as we use a translation to reference keywords between eachother
         // we have to accept anything not empty
-        // Only exception to this rule is the "steam" keyword that aggragates everything else
+        // Only exception to this rule is the "world" keyword that aggragates everything else
         if (value.isEmpty()) {
             throw new BadValueException();
         }
@@ -107,8 +107,8 @@ public class KeywordService {
             requestConceptIllustration(concept);
             return concept;
         } else {
-            final Keyword steam = createKeyword("", FeelhubLanguage.none(), referenceService.newReference().getId());
-            return steam;
+            final Keyword world = createKeyword("", FeelhubLanguage.none(), referenceService.newReference().getId());
+            return world;
         }
     }
 

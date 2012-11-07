@@ -1,11 +1,11 @@
-package com.feelhub.domain.steam;
+package com.feelhub.domain.world;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 import com.feelhub.domain.opinion.Judgment;
 
-public class SteamStatisticsEvent extends DomainEvent {
+public class WorldStatisticsEvent extends DomainEvent {
 
-    public SteamStatisticsEvent(final Judgment judgment) {
+    public WorldStatisticsEvent(final Judgment judgment) {
         this.judgment = judgment;
     }
 
@@ -14,12 +14,11 @@ public class SteamStatisticsEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("SteamStatisticsEvent ");
+        stringBuilder.append(getClass().getSimpleName() + " ");
         stringBuilder.append(judgment.getFeeling());
         stringBuilder.append(" on ");
         stringBuilder.append(judgment.getReferenceId());
         return stringBuilder.toString();
-
     }
 
     public Judgment getJudgment() {

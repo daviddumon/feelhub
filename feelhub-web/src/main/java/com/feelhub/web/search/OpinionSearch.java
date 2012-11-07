@@ -51,5 +51,5 @@ public class OpinionSearch implements Search<Opinion> {
     }
 
     private Criteria criteria;
-    private SessionProvider provider;
+    private final SessionProvider provider;
 }

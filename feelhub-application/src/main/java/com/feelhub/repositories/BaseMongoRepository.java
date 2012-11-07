@@ -52,18 +52,18 @@ public class BaseMongoRepository<T extends Entity> implements Repository<T> {
         return session;
     }
 
-	protected Criteria<T> createCriteria() {
-		return getSession().createCriteria(getPersistentType());
-	}
+    protected Criteria<T> createCriteria() {
+        return getSession().createCriteria(getPersistentType());
+    }
 
-	protected T extractOne(final Criteria criteria) {
-		final List<User> results = criteria.list();
-		if (results.isEmpty()) {
-			return null;
-		} else {
-			return (T) results.get(0);
-		}
-	}
+    protected T extractOne(final Criteria criteria) {
+        final List<User> results = criteria.list();
+        if (results.isEmpty()) {
+            return null;
+        } else {
+            return (T) results.get(0);
+        }
+    }
 
-	protected MongoSession session;
+    protected MongoSession session;
 }

@@ -28,7 +28,7 @@ public class ModelAndView {
         return data;
     }
 
-    public <T> T getData(String key) {
+    public <T> T getData(final String key) {
         return (T) data.get(key);
     }
 

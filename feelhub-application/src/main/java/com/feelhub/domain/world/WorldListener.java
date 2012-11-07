@@ -1,4 +1,4 @@
-package com.feelhub.domain.steam;
+package com.feelhub.domain.world;
 
 import com.feelhub.application.KeywordService;
 import com.feelhub.domain.eventbus.DomainEventBus;
@@ -8,10 +8,10 @@ import com.feelhub.repositories.SessionProvider;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 
-public class SteamListener {
+public class WorldListener {
 
     @Inject
-    public SteamListener(final SessionProvider sessionProvider, final KeywordService keywordService) {
+    public WorldListener(final SessionProvider sessionProvider, final KeywordService keywordService) {
         this.sessionProvider = sessionProvider;
         this.keywordService = keywordService;
         DomainEventBus.INSTANCE.register(this);
@@ -20,10 +20,10 @@ public class SteamListener {
     @Subscribe
     public void handle(final JudgmentStatisticsEvent judgmentStatisticsEvent) {
         sessionProvider.start();
-        final Keyword steam = keywordService.lookUpOrCreateSteam();
-        final Judgment judgment = new Judgment(steam.getReferenceId(), judgmentStatisticsEvent.getJudgment().getFeeling());
-        final SteamStatisticsEvent steamStatisticsEvent = new SteamStatisticsEvent(judgment);
-        DomainEventBus.INSTANCE.post(steamStatisticsEvent);
+        final Keyword world = keywordService.lookUpOrCreateWorld();
+        final Judgment judgment = new Judgment(world.getReferenceId(), judgmentStatisticsEvent.getJudgment().getFeeling());
+        final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(judgment);
+        DomainEventBus.INSTANCE.post(worldStatisticsEvent);
         sessionProvider.stop();
     }
 

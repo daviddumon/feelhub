@@ -18,6 +18,6 @@ public class IdentityFilter extends Filter {
         return CONTINUE;
     }
 
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
 }

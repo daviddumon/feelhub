@@ -10,7 +10,7 @@ public final class CurrentUser {
         return currentUser.get();
     }
 
-    public static void set(WebUser user) {
+    public static void set(final WebUser user) {
         currentUser.set(user);
     }
 

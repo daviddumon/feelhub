@@ -127,7 +127,7 @@
 
         <div id="login_helper">
             <#if !userInfos.anonymous>
-                <p>Hello ${userInfos.user.fullname} <#if userInfos.authenticated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
+                <p>Hello ${userInfos.user.fullname}! - <#if userInfos.authenticated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
             <#else>
                 <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
             </#if>
@@ -136,10 +136,10 @@
     <div id="header-bottom">
         <ul id="header-bottom-left">
             <li><a href="${root}">Latest</a></li>
-            <li><a href="">Near me</a></li>
-            <li><a href="">Channels</a></li>
-            <li><a href="">Trends</a></li>
-            <li><a href="">Sponsored</a></li>
+            <#--<li><a href="">Near me</a></li>-->
+            <#--<li><a href="">Channels</a></li>-->
+            <#--<li><a href="">Trends</a></li>-->
+            <#--<li><a href="">Sponsored</a></li>-->
         </ul>
         <ul id="header-bottom-right">
             <li><a href="">About</a></li>

@@ -59,6 +59,6 @@ public class NamedEntityProvider {
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
     }
 
-    private AlchemyLink alchemyLink;
-    private NamedEntityBuilder namedEntityBuilder;
+    private final AlchemyLink alchemyLink;
+    private final NamedEntityBuilder namedEntityBuilder;
 }

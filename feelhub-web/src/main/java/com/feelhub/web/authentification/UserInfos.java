@@ -1,11 +1,11 @@
-package com.feelhub.web;
+package com.feelhub.web.authentification;
 
-import com.feelhub.web.authentification.*;
+import com.feelhub.domain.user.User;
 
 public class UserInfos {
 
-    public WebUser getUser() {
-        return CurrentUser.get();
+    public User getUser() {
+        return CurrentUser.get().getUser();
     }
 
     public boolean isAnonymous() {

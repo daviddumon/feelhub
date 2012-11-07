@@ -3,7 +3,6 @@ package com.feelhub.web.authentification;
 import com.feelhub.application.*;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
-import com.feelhub.web.resources.authentification.AuthMethod;
 import com.feelhub.web.tools.*;
 import com.google.inject.Inject;
 import org.joda.time.DateTime;
@@ -14,7 +13,7 @@ import java.util.UUID;
 public class AuthenticationManager {
 
     @Inject
-    public AuthenticationManager(final UserService userService, final SessionService sessionService, FeelhubWebProperties properties, CookieManager cookieManager) {
+    public AuthenticationManager(final UserService userService, final SessionService sessionService, final FeelhubWebProperties properties, final CookieManager cookieManager) {
         this.userService = userService;
         this.sessionService = sessionService;
         this.properties = properties;
@@ -22,7 +21,7 @@ public class AuthenticationManager {
     }
 
     public void authenticate(final AuthRequest authRequest) {
-        User user = extractUser(authRequest);
+        final User user = extractUser(authRequest);
         final Session session = sessionService.createSession(user, new DateTime().plusSeconds(lifeTime(authRequest.isRemember())));
         setCookiesInResponse(authRequest.isRemember(), user, session);
     }
@@ -49,7 +48,7 @@ public class AuthenticationManager {
     }
 
     public boolean logout() {
-        CookieBuilder cookieBuilder = cookieManager.cookieBuilder();
+        final CookieBuilder cookieBuilder = cookieManager.cookieBuilder();
         final Cookie sessionCookie = cookieManager.getCookies().getFirst(CookieBuilder.SESSION);
         final Cookie id = cookieManager.getCookies().getFirst(CookieBuilder.ID);
         if (sessionCookie != null && id != null) {
@@ -65,7 +64,7 @@ public class AuthenticationManager {
         final Cookie identityCookie = cookieManager.getCookie("id");
         try {
             if (identityCookie != null) {
-                User user = userService.getUser(identityCookie.getValue());
+                final User user = userService.getUser(identityCookie.getValue());
                 CurrentUser.set(new WebUser(user, sessionService.authentificate(user, getToken())));
             } else {
                 CurrentUser.set(WebUser.anonymous());
@@ -86,6 +85,6 @@ public class AuthenticationManager {
 
     private final UserService userService;
     private final SessionService sessionService;
-    private FeelhubWebProperties properties;
-    private CookieManager cookieManager;
+    private final FeelhubWebProperties properties;
+    private final CookieManager cookieManager;
 }

@@ -2,7 +2,7 @@ package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.opinion.*;
-import com.feelhub.domain.steam.SteamStatisticsEvent;
+import com.feelhub.domain.world.WorldStatisticsEvent;
 import com.feelhub.repositories.*;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -26,7 +26,7 @@ public class StatisticsFactory {
     }
 
     @Subscribe
-    public void handle(final SteamStatisticsEvent event) {
+    public void handle(final WorldStatisticsEvent event) {
         sessionProvider.start();
         judgmentOn(event.getJudgment(), event.getDate());
         sessionProvider.stop();

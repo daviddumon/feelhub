@@ -97,7 +97,7 @@ public class TestsKeywordResource {
 
         final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
-        Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+        final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
         assertTrue(dataModel.containsKey("referenceData"));
         final ReferenceData referenceData = (ReferenceData) dataModel.get("referenceData");
         assertThat(referenceData, notNullValue());
@@ -115,7 +115,7 @@ public class TestsKeywordResource {
 
         final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
-        Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+        final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
         assertTrue(dataModel.containsKey("referenceData"));
         final ReferenceData referenceData = (ReferenceData) dataModel.get("referenceData");
         assertThat(referenceData.getIllustrationLink(), is(illustration.getLink()));

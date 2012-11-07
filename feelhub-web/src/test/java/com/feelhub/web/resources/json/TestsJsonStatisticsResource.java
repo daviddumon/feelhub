@@ -128,11 +128,11 @@ public class TestsJsonStatisticsResource {
 
     @Test
     @Ignore
-    public void canGetStatisticsForSteam() throws IOException, JSONException {
-        //final Steam steam = TestFactories.references().newSteam();
-        //final Statistics stat = TestFactories.statistics().newStatistics(steam, Granularity.all);
+    public void canGetStatisticsForWorld() throws IOException, JSONException {
+        //final World world = TestFactories.references().newWorld();
+        //final Statistics stat = TestFactories.statistics().newStatistics(world, Granularity.all);
         //time.waitMonths(1);
-        //final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat.getDate().minus(1).getMillis() + "&end=" + stat.getDate().plus(1).getMillis() + "&granularity=all" + "&referenceId=" + steam.getId());
+        //final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + stat.getDate().minus(1).getMillis() + "&end=" + stat.getDate().plus(1).getMillis() + "&granularity=all" + "&referenceId=" + world.getId());
         //
         //final FeelhubTemplateRepresentation representation = (FeelhubTemplateRepresentation) resource.get();
         //

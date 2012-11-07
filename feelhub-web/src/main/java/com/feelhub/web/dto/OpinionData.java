@@ -34,9 +34,9 @@ public class OpinionData {
         return userId;
     }
 
-    private UUID id;
+    private final UUID id;
     private final String text;
     private final List<ReferenceData> referenceDatas;
-    private String languageCode;
+    private final String languageCode;
     private final String userId;
 }

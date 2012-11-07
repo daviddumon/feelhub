@@ -6,7 +6,6 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.ContextTestFactory;
 import com.feelhub.web.authentification.*;
-import com.feelhub.web.resources.authentification.AuthMethod;
 import com.feelhub.web.social.FacebookConnector;
 import com.restfb.types.User;
 import org.junit.*;
@@ -73,7 +72,7 @@ public class FacebookResourceTest {
         final FakeFbUser fbUser = new FakeFbUser();
         fbUser.email = "toto@gmail.com";
         fbUser.locale = "fr_FR";
-		fbUser.id = "test";
+        fbUser.id = "test";
         when(facebookConnector.getUser(any(Token.class))).thenReturn(fbUser);
     }
 
@@ -85,7 +84,7 @@ public class FacebookResourceTest {
     private class FakeFbUser extends User {
         public String email;
         public String locale;
-		public String id;
+        public String id;
 
         @Override
         public String getEmail() {
@@ -97,11 +96,11 @@ public class FacebookResourceTest {
             return locale;
         }
 
-		@Override
-		public String getId() {
-			return id;
-		}
-	}
+        @Override
+        public String getId() {
+            return id;
+        }
+    }
 
     private AuthenticationManager authenticationManager;
 }

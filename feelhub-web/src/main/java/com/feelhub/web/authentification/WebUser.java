@@ -3,6 +3,7 @@ package com.feelhub.web.authentification;
 import com.feelhub.domain.user.User;
 
 public class WebUser {
+
     public static WebUser anonymous() {
         return new AnonymousUser();
     }
@@ -28,14 +29,6 @@ public class WebUser {
         return false;
     }
 
-    public String getEmail() {
-        return user.getEmail();
-    }
-
-    public String getLanguageCode() {
-        return user.getLanguageCode();
-    }
-
     private final boolean authenticated;
-    private User user;
+    private final User user;
 }

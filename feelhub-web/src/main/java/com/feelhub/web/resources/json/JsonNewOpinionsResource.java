@@ -27,20 +27,20 @@ public class JsonNewOpinionsResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
-        List<Opinion> opinions = doSearchWithQueryParameters(getQuery());
+        final List<Opinion> opinions = doSearchWithQueryParameters(getQuery());
         final List<OpinionData> opinionDatas = getOpinionDatas(opinions);
         setStatus(Status.SUCCESS_OK);
         return ModelAndView.createNew("json/newopinions.json.ftl", MediaType.APPLICATION_JSON).with("opinionDatas", opinionDatas);
     }
 
     private List<Opinion> doSearchWithQueryParameters(final Form form) {
-        List<Opinion> opinions = Lists.newArrayList();
+        final List<Opinion> opinions = Lists.newArrayList();
         setUpSearchForReferenceIdParameter(form);
         getLastParameter(form);
         extractLanguageParameter(form);
         opinionSearch.withSkip(0);
         opinionSearch.withLimit(30);
-        List<Opinion> searchResult = opinionSearch.withSort("creationDate", OpinionSearch.REVERSE_ORDER).execute();
+        final List<Opinion> searchResult = opinionSearch.withSort("creationDate", OpinionSearch.REVERSE_ORDER).execute();
         int i = 0;
         boolean found = false;
         while (!found & i < searchResult.size()) {
@@ -99,10 +99,10 @@ public class JsonNewOpinionsResource extends ServerResource {
         return referenceDatas;
     }
 
-    private KeywordService keywordService;
-    private ReferenceDataFactory referenceDataFactory;
-    private OpinionSearch opinionSearch;
-    private ReferenceService referenceService;
+    private final KeywordService keywordService;
+    private final ReferenceDataFactory referenceDataFactory;
+    private final OpinionSearch opinionSearch;
+    private final ReferenceService referenceService;
     private FeelhubLanguage feelhubLanguage;
     private UUID lastOpinionId;
     private Reference reference;

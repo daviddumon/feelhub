@@ -17,5 +17,5 @@ public class LoginResource extends ServerResource {
         return ModelAndView.createNew("login.ftl").with("facebookUrl", facebookConnector.getUrl());
     }
 
-    private FacebookConnector facebookConnector;
+    private final FacebookConnector facebookConnector;
 }

@@ -14,7 +14,7 @@ import org.scribe.oauth.OAuthService;
 public class FacebookConnector {
 
     @Inject
-    public FacebookConnector(FeelhubWebProperties properties) {
+    public FacebookConnector(final FeelhubWebProperties properties) {
         final String callback = new ReferenceBuilder(Context.getCurrent()).buildUri("/social/facebook");
         service = new ServiceBuilder().provider(FacebookApi.class).apiKey(properties.facebookAppId).apiSecret(properties.facebookAppSecret).callback(callback)
                 .build();

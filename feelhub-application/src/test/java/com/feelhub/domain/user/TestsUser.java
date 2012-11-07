@@ -2,8 +2,7 @@ package com.feelhub.domain.user;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import static org.fest.assertions.Assertions.*;
@@ -11,20 +10,20 @@ import static org.fest.assertions.Assertions.*;
 
 public class TestsUser {
 
-	@Rule
-	public WithFakeRepositories repositories = new WithFakeRepositories();
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-	@Test
-	public void canCreate() {
-		final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "fr_fr");
+    @Test
+    public void canCreate() {
+        final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "fr_fr");
 
-		assertThat(user.getId()).isEqualTo("email@email.com");
-	}
+        assertThat(user.getId()).isEqualTo("email@email.com");
+    }
 
-	@Test
+    @Test
     public void canSetEmailAsIdentifier() {
         final String email = "mymail@mail.com";
         final User user = new User("");
@@ -131,15 +130,15 @@ public class TestsUser {
         assertThat(user.getSecret()).isNotNull();
     }
 
-	@Test
-	public void canCreateFromFacebook() {
-		final User user = new UserFactory().createFromFacebook("1234", "email@email.com", "first", "last", "FR…fr");
-		
-		assertThat(user).isNotNull();
-		assertThat(user.getEmail()).isEqualTo("email@email.com");
-		assertThat(user.getFullname()).isEqualTo("first last");
-		assertThat(user.getLanguageCode()).isEqualTo("fr…fr");
-		assertThat(user.isActive()).isTrue();
-		assertThat(user.getId()).isEqualTo("FB:1234");
-	}
+    @Test
+    public void canCreateFromFacebook() {
+        final User user = new UserFactory().createFromFacebook("1234", "email@email.com", "first", "last", "FR…fr");
+
+        assertThat(user).isNotNull();
+        assertThat(user.getEmail()).isEqualTo("email@email.com");
+        assertThat(user.getFullname()).isEqualTo("first last");
+        assertThat(user.getLanguageCode()).isEqualTo("fr…fr");
+        assertThat(user.isActive()).isTrue();
+        assertThat(user.getId()).isEqualTo("FB:1234");
+    }
 }

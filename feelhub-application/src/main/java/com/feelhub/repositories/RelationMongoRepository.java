@@ -19,7 +19,7 @@ public class RelationMongoRepository extends BaseMongoRepository<Relation> imple
         final Criteria criteria = getSession().createCriteria(Relation.class);
         criteria.add(Restrictions.equals("fromId", fromId));
         criteria.add(Restrictions.equals("toId", toId));
-		return extractOne(criteria);
+        return extractOne(criteria);
     }
 
     @Override

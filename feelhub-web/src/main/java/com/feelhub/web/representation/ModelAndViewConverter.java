@@ -42,7 +42,7 @@ public class ModelAndViewConverter extends ConverterHelper {
 
     @Override
     public Representation toRepresentation(final Object o, final Variant variant, final UniformResource uniformResource) throws IOException {
-        ModelAndView modelAndView = (ModelAndView) o;
+        final ModelAndView modelAndView = (ModelAndView) o;
         return new org.restlet.ext.freemarker.TemplateRepresentation(modelAndView.getTemplate(), getConfiguration(), modelAndView.getData(), modelAndView.getType());
     }
 

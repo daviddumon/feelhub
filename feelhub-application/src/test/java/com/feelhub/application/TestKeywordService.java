@@ -213,12 +213,12 @@ public class TestKeywordService {
     }
 
     @Test
-    public void steamIsNotAnUri() {
+    public void worldIsNotAnUri() {
         assertFalse(KeywordService.isUri(""));
     }
 
     @Test
-    public void doNotRequestIllustrationForSteam() {
+    public void doNotRequestIllustrationForWorld() {
         bus.capture(ConceptIllustrationRequestEvent.class);
         final String value = "";
         final FeelhubLanguage feelhubLanguage = FeelhubLanguage.none();

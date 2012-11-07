@@ -25,7 +25,7 @@ public class OpinionTestFactory {
     }
 
     public List<Opinion> newOpinions(final Reference reference, final int quantity) {
-        List<Opinion> result = Lists.newArrayList();
+        final List<Opinion> result = Lists.newArrayList();
         for (int i = 0; i < quantity; i++) {
             final Opinion opinion = newOpinion(reference, "i" + i);
             result.add(opinion);

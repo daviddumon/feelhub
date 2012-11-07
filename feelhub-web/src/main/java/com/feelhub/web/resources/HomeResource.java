@@ -7,6 +7,6 @@ public class HomeResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
-        return ModelAndView.createNew("main.ftl");
+        return ModelAndView.createNew("home.ftl");
     }
 }

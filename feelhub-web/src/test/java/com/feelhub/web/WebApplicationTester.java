@@ -15,7 +15,7 @@ public class WebApplicationTester extends ExternalResource {
     @Override
     protected void before() throws Throwable {
         DomainEventBus.INSTANCE.setEventBus(new EventBus());
-        Context context = ContextTestFactory.buildContext();
+        final Context context = ContextTestFactory.buildContext();
         application = new FeelhubApplication(context);
         application.initializeGuice(moduleGuiceTestModule);
         application.start();
@@ -39,5 +39,5 @@ public class WebApplicationTester extends ExternalResource {
 
 
     private FeelhubApplication application;
-    private GuiceTestModule moduleGuiceTestModule = new GuiceTestModule();
+    private final GuiceTestModule moduleGuiceTestModule = new GuiceTestModule();
 }

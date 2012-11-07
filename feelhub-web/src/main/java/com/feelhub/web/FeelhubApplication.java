@@ -1,5 +1,6 @@
 package com.feelhub.web;
 
+import com.feelhub.web.authentification.UserInfos;
 import com.feelhub.web.filter.*;
 import com.feelhub.web.launch.LaunchRouter;
 import com.feelhub.web.mail.MailBuilder;
@@ -84,7 +85,10 @@ public class FeelhubApplication extends Application {
 
     private void setCorrectRouter(final Router router) {
         if (getContext().getAttributes().get("com.feelhub.status").equals("launch")) {
-            router.attach(new LaunchRouter(getContext(), injector));
+            final IdentityFilter filter = injector.getInstance(IdentityFilter.class);
+            filter.setContext(getContext());
+            filter.setNext(new LaunchRouter(getContext(), injector));
+            router.attach(filter);
         } else {
             router.attach(getOpenSessionInViewFilter());
         }

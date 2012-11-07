@@ -43,9 +43,9 @@ public class AlchemyAnalyzer {
     }
 
     private List<AlchemyEntity> createKeywordsAndAlchemyEntities(final List<NamedEntity> namedEntities) {
-        List<AlchemyEntity> entities = Lists.newArrayList();
+        final List<AlchemyEntity> entities = Lists.newArrayList();
         for (final NamedEntity namedEntity : namedEntities) {
-            List<Keyword> keywords = Lists.newArrayList();
+            final List<Keyword> keywords = Lists.newArrayList();
             for (final String value : namedEntity.keywords) {
                 keywords.add(keywordService.lookUpOrCreate(value, namedEntity.feelhubLanguage.getCode()));
             }
@@ -84,15 +84,15 @@ public class AlchemyAnalyzer {
     }
 
     private void createRelations(final AlchemyRequestEvent event, final List<AlchemyEntity> entities) {
-        HashMap<UUID, Double> referencesAndScores = Maps.newHashMap();
-        for (AlchemyEntity entity : entities) {
+        final HashMap<UUID, Double> referencesAndScores = Maps.newHashMap();
+        for (final AlchemyEntity entity : entities) {
             referencesAndScores.put(entity.getReferenceId(), entity.getRelevance());
         }
         alchemyRelationBinder.bind(event.getUri().getReferenceId(), referencesAndScores);
     }
 
     private final KeywordService keywordService;
-    private AlchemyRelationBinder alchemyRelationBinder;
+    private final AlchemyRelationBinder alchemyRelationBinder;
     private final SessionProvider sessionProvider;
     private final NamedEntityProvider namedEntityProvider;
 }

@@ -3,8 +3,8 @@ package com.feelhub.domain.statistics;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.keyword.Keyword;
 import com.feelhub.domain.opinion.*;
-import com.feelhub.domain.steam.SteamStatisticsEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.world.WorldStatisticsEvent;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.*;
@@ -187,14 +187,14 @@ public class TestsStatisticsFactory {
     }
 
     @Test
-    public void canRecordStatisticsForSteam() {
-        final Keyword steamKeyword = TestFactories.keywords().newKeyword("", FeelhubLanguage.none());
-        final Judgment judgment = new Judgment(steamKeyword.getReferenceId(), Feeling.good);
-        final SteamStatisticsEvent steamStatisticsEvent = new SteamStatisticsEvent(judgment);
+    public void canRecordStatisticsForWorld() {
+        final Keyword worldKeyword = TestFactories.keywords().newKeyword("", FeelhubLanguage.none());
+        final Judgment judgment = new Judgment(worldKeyword.getReferenceId(), Feeling.good);
+        final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(judgment);
 
-        statisticsFactory.handle(steamStatisticsEvent);
+        statisticsFactory.handle(worldStatisticsEvent);
 
-        final List<Statistics> statisticsList = getStatisticsRepository().forReferenceId(steamKeyword.getReferenceId());
+        final List<Statistics> statisticsList = getStatisticsRepository().forReferenceId(worldKeyword.getReferenceId());
         assertThat(statisticsList.size(), is(5));
     }
 

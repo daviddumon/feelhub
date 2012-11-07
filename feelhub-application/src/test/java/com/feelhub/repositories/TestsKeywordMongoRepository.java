@@ -63,7 +63,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canGetSteam() {
+    public void canGetWorld() {
         final String value = "";
         TestFactories.keywords().newKeyword(value, FeelhubLanguage.none());
 

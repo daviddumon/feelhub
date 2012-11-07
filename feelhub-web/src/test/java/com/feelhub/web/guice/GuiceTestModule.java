@@ -49,7 +49,7 @@ public class GuiceTestModule extends AbstractModule {
 
     private Properties properties() {
         try {
-            Properties properties = new Properties();
+            final Properties properties = new Properties();
             properties.load(getClass().getResourceAsStream("/feelhub-web.properties"));
             return properties;
         } catch (IOException e) {

@@ -24,11 +24,12 @@ public class KeywordResource extends ServerResource {
         Keyword keyword;
         try {
             keyword = keywordService.lookUp(keywordValue, feelhubLanguage);
+            return ModelAndView.createNew("keyword.ftl").with("referenceData", referenceDataFactory.getReferenceData(keyword));
         } catch (KeywordNotFound e) {
             keyword = new Keyword(keywordValue, feelhubLanguage, null);
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
+            return ModelAndView.createNew("404.ftl").with("referenceData", referenceDataFactory.getReferenceData(keyword));
         }
-        return ModelAndView.createNew("main.ftl").with("referenceData", referenceDataFactory.getReferenceData(keyword));
     }
 
     private void extractLanguageFromUri() {

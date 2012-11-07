@@ -4,7 +4,7 @@ import com.feelhub.domain.user.*;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
 
-import java.util.*;
+import java.util.UUID;
 
 public class UserMongoRepository extends BaseMongoRepository<User> implements UserRepository {
 
@@ -16,14 +16,14 @@ public class UserMongoRepository extends BaseMongoRepository<User> implements Us
     public User forSecret(final UUID secret) {
         final Criteria criteria = createCriteria();
         criteria.add(Restrictions.equals("secret", secret.toString()));
-		return extractOne(criteria);
+        return extractOne(criteria);
     }
 
-	@Override
-	public User forEmail(final String email) {
-		final Criteria criteria = createCriteria();
-		criteria.add(Restrictions.equals("email", email));
-		return extractOne(criteria);
-	}
+    @Override
+    public User forEmail(final String email) {
+        final Criteria criteria = createCriteria();
+        criteria.add(Restrictions.equals("email", email));
+        return extractOne(criteria);
+    }
 
 }

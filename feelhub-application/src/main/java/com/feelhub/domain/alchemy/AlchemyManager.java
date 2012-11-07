@@ -15,10 +15,10 @@ public class AlchemyManager {
     }
 
     private void mergeAlchemyEntities(final ReferencePatch referencePatch) {
-        for (UUID oldReferenceId : referencePatch.getOldReferenceIds()) {
+        for (final UUID oldReferenceId : referencePatch.getOldReferenceIds()) {
             final List<AlchemyEntity> entities = Repositories.alchemyEntities().forReferenceId(oldReferenceId);
             if (!entities.isEmpty()) {
-                for (AlchemyEntity entity : entities) {
+                for (final AlchemyEntity entity : entities) {
                     entity.setNewReferenceId(referencePatch.getNewReferenceId());
                 }
             }
@@ -35,10 +35,10 @@ public class AlchemyManager {
     }
 
     private void mergeAlchemyAnalysis(final ReferencePatch referencePatch) {
-        for (UUID oldRefenceId : referencePatch.getOldReferenceIds()) {
+        for (final UUID oldRefenceId : referencePatch.getOldReferenceIds()) {
             final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forReferenceId(oldRefenceId);
             if (!alchemyAnalysisList.isEmpty()) {
-                for (AlchemyAnalysis analysis : alchemyAnalysisList) {
+                for (final AlchemyAnalysis analysis : alchemyAnalysisList) {
                     analysis.setNewReferenceId(referencePatch.getNewReferenceId());
                 }
             }

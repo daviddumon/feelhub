@@ -12,7 +12,7 @@ import org.restlet.resource.*;
 public class SessionsResource extends ServerResource {
 
     @Inject
-    public SessionsResource(final AuthenticationManager authenticationManager, FeelhubWebProperties properties) {
+    public SessionsResource(final AuthenticationManager authenticationManager, final FeelhubWebProperties properties) {
         this.authenticationManager = authenticationManager;
         this.properties = properties;
     }
@@ -36,7 +36,7 @@ public class SessionsResource extends ServerResource {
     private AuthRequest extractUserDetails(final Form form) {
         final String email = form.getFirstValue("email");
         final String password = form.getFirstValue("password");
-        boolean remember = toBoolean(form.getFirstValue("remember"));
+        final boolean remember = toBoolean(form.getFirstValue("remember"));
         return new AuthRequest(email, password, remember);
     }
 
@@ -58,5 +58,5 @@ public class SessionsResource extends ServerResource {
     }
 
     private final AuthenticationManager authenticationManager;
-    private FeelhubWebProperties properties;
+    private final FeelhubWebProperties properties;
 }

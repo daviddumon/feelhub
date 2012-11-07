@@ -1,10 +1,6 @@
 <@layout.headbegin>
 <script type="text/javascript">
-        <#if userInfos.authenticated>
         var authentificated = ${userInfos.authenticated?string};
-        <#else >
-        var authentificated = false;
-        </#if>
 
         <#if referenceData??>
         var referenceId = "${referenceData.referenceId}";
@@ -126,51 +122,6 @@
     </div>
 </div>
 <div id="opinion-form"></div>
-
-<#--<div id="top_wrapper">-->
-    <#--<div id="main_reference" class="box">-->
-        <#--<div id="counters" style="display: none;">-->
-            <#--<div id="counter_good" class="counter">-->
-                <#--<img class="smiley" src="${root}/static/images/smiley_good_white.png"/>-->
-
-                <#--<p class="counter_text">0</p>-->
-            <#--</div>-->
-            <#--<div id="counter_neutral" class="counter">-->
-                <#--<img class="smiley" src="${root}/static/images/smiley_neutral_white.png"/>-->
-
-                <#--<p class="counter_text">0</p>-->
-            <#--</div>-->
-            <#--<div id="counter_bad" class="counter">-->
-                <#--<img class="smiley" src="${root}/static/images/smiley_bad_white.png"/>-->
-
-                <#--<p class="counter_text">0</p>-->
-            <#--</div>-->
-        <#--</div>-->
-    <#--</div>-->
-
-    <#--<div id="related" class="box" style="display: none;">-->
-        <#--<div class="box_title">related</div>-->
-    <#--</div>-->
-<#--</div>-->
-<#--<div id="opinion_form" class="box" style="display:none">-->
-    <#--<div class="box_title">My feeling about this</div>-->
-    <#--<#if authentificated!false>-->
-        <#--<form id="form" method="post" action="" autocomplete="off" class="box">-->
-            <#--<textarea></textarea>-->
-            <#--<button type="submit" id="form_button_good" name="good">-->
-                <#--<img src="${root}/static/images/smiley_good_white.png"/>-->
-            <#--</button>-->
-            <#--<button type="submit" id="form_button_neutral" name="neutral">-->
-                <#--<img src="${root}/static/images/smiley_neutral_white.png"/>-->
-            <#--</button>-->
-            <#--<button type="submit" id="form_button_bad" name="bad">-->
-                <#--<img src="${root}/static/images/smiley_bad_white.png"/>-->
-            <#--</button>-->
-        <#--</form>-->
-    <#--<#else>-->
-        <#--<div>Want to give your opinion ? login or create account !</div>-->
-    <#--</#if>-->
-<#--</div>-->
 
 <ul id="opinions"></ul>
 </@layout.body>

@@ -16,7 +16,7 @@ public class AlchemyRelationBinder {
 
     public void bind(final UUID mainReferenceId, final HashMap<UUID, Double> referenceIds) {
         final Reference mainReference = loadReference(mainReferenceId);
-        List<Reference> references = Lists.newArrayList();
+        final List<Reference> references = Lists.newArrayList();
         connectAllReferencesToMainReferenceWithScore(referenceIds, mainReference, references);
         connectAllReferencesToThemselves(references);
     }
@@ -36,7 +36,7 @@ public class AlchemyRelationBinder {
     }
 
     private void connectAllReferencesToMainReferenceWithScore(final HashMap<UUID, Double> referenceIds, final Reference to, final List<Reference> references) {
-        for (Map.Entry<UUID, Double> entry : referenceIds.entrySet()) {
+        for (final Map.Entry<UUID, Double> entry : referenceIds.entrySet()) {
             final UUID currentReferenceId = entry.getKey();
             final Double score = entry.getValue();
             final Reference from = loadReference(currentReferenceId);

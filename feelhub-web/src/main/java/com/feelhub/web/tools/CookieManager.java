@@ -8,11 +8,11 @@ import org.restlet.util.Series;
 public class CookieManager {
 
     @Inject
-    public CookieManager(FeelhubWebProperties properties) {
+    public CookieManager(final FeelhubWebProperties properties) {
         this.properties = properties;
     }
 
-    public void setCookie(CookieSetting cookie) {
+    public void setCookie(final CookieSetting cookie) {
         Response.getCurrent().getCookieSettings().add(cookie);
     }
 
@@ -28,5 +28,5 @@ public class CookieManager {
         return Request.getCurrent().getCookies().getFirst(id);
     }
 
-    private FeelhubWebProperties properties;
+    private final FeelhubWebProperties properties;
 }

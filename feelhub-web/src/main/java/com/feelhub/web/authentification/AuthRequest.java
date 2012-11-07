@@ -1,7 +1,5 @@
 package com.feelhub.web.authentification;
 
-import com.feelhub.web.resources.authentification.AuthMethod;
-
 public class AuthRequest {
 
     public static AuthRequest facebook(final String id) {

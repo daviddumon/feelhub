@@ -8,5 +8,5 @@ public interface UserRepository extends Repository<User> {
 
     public User forSecret(final UUID secret);
 
-	public User forEmail(String email);
+    public User forEmail(String email);
 }

@@ -7,7 +7,7 @@ import org.restlet.*;
 public class FakeIdentityFilter extends IdentityFilter {
 
     @Inject
-    public FakeIdentityFilter(AuthenticationManager manager) {
+    public FakeIdentityFilter(final AuthenticationManager manager) {
         super(manager);
     }
 

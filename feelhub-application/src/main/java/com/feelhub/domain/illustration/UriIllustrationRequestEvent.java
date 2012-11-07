@@ -29,5 +29,5 @@ public class UriIllustrationRequestEvent extends DomainEvent {
     }
 
     private final UUID referenceId;
-    private String value;
+    private final String value;
 }
