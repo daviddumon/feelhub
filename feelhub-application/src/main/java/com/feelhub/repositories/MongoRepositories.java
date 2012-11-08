@@ -1,9 +1,9 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.alchemy.*;
+import com.feelhub.domain.feeling.FeelingRepository;
 import com.feelhub.domain.illustration.IllustrationRepository;
 import com.feelhub.domain.keyword.KeywordRepository;
-import com.feelhub.domain.opinion.OpinionRepository;
 import com.feelhub.domain.reference.ReferenceRepository;
 import com.feelhub.domain.relation.RelationRepository;
 import com.feelhub.domain.session.SessionRepository;
@@ -55,8 +55,8 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
-    protected OpinionRepository getOpinionRepository() {
-        return new OpinionMongoRepository(provider.get());
+    protected FeelingRepository getFeelingRepository() {
+        return new FeelingMongoRepository(provider.get());
     }
 
     @Override

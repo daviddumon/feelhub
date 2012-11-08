@@ -1,7 +1,7 @@
 package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.opinion.*;
+import com.feelhub.domain.feeling.*;
 import org.joda.time.DateTime;
 
 import java.util.UUID;
@@ -18,12 +18,12 @@ public class Statistics extends BaseEntity {
         this.granularity = granularity;
     }
 
-    public void incrementJudgmentCount(final Judgment judgment) {
-        incrementJudgmentCountForFeeling(judgment.getFeeling());
+    public void incrementSentimentCount(final Sentiment sentiment) {
+        incrementSentimentCountForSentimentValue(sentiment.getSentimentValue());
     }
 
-    private void incrementJudgmentCountForFeeling(final Feeling feeling) {
-        switch (feeling) {
+    private void incrementSentimentCountForSentimentValue(final SentimentValue sentimentValue) {
+        switch (sentimentValue) {
             case good:
                 good++;
                 break;

@@ -1,5 +1,5 @@
-db.opinion.find().forEach(function (opinion) {
-    if (opinion.feeling == "neutral") {
-        db.opinion.update({"_id":opinion._id}, {$set:{"feeling":"good"}}, false, true);
+db.feeling.find().forEach(function (feeling) {
+    if (feeling.feeling == "neutral") {
+        db.feeling.update({"_id":feeling._id}, {$set:{"feeling":"good"}}, false, true);
     }
 });

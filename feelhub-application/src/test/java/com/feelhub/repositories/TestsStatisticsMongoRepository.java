@@ -1,6 +1,6 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.opinion.*;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.statistics.*;
 import com.feelhub.test.*;
@@ -23,9 +23,9 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
         final DateTime date = new DateTime().plusDays(1);
         final Reference reference = TestFactories.references().newReference();
         final Statistics stat = new Statistics(reference.getId(), Granularity.day, date);
-        stat.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
-        stat.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.bad));
-        stat.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.neutral));
+        stat.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.good));
+        stat.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.bad));
+        stat.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.neutral));
 
         Repositories.statistics().add(stat);
 
@@ -60,11 +60,11 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     public void canGetBySubjectGranularityReferenceAndOffset() {
         final Reference reference = TestFactories.references().newReference();
         final Statistics one = new Statistics(reference.getId(), Granularity.hour, new DateTime());
-        one.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
+        one.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.good));
         Repositories.statistics().add(one);
         time.waitHours(2);
         final Statistics two = new Statistics(reference.getId(), Granularity.hour, new DateTime());
-        two.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
+        two.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.good));
         Repositories.statistics().add(two);
 
         final List<Statistics> statistics = Repositories.statistics().forReferenceId(reference.getId(), Granularity.hour, Granularity.hour.intervalFor(one.getDate(), two.getDate()));
@@ -78,7 +78,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     public void canGetWithGranularityDay() {
         final Reference reference = TestFactories.references().newReference();
         final Statistics one = new Statistics(reference.getId(), Granularity.day, new DateTime());
-        one.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
+        one.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.good));
         Repositories.statistics().add(one);
         time.waitDays(4);
 
@@ -93,7 +93,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     public void canGetWithGranularityMonth() {
         final Reference reference = TestFactories.references().newReference();
         final Statistics one = new Statistics(reference.getId(), Granularity.month, new DateTime());
-        one.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
+        one.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.good));
         Repositories.statistics().add(one);
         time.waitMonths(4);
 
@@ -108,7 +108,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     public void canGetWithGranularityYear() {
         final Reference reference = TestFactories.references().newReference();
         final Statistics one = new Statistics(reference.getId(), Granularity.year, new DateTime());
-        one.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
+        one.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.good));
         Repositories.statistics().add(one);
         time.waitYears(4);
 

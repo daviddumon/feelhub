@@ -1,5 +1,5 @@
 /* Copyright Feelhub 2012 */
-$(function() {
+$(function () {
     setTimeout(function () {
         window.location.href = root + "/login";
     }, 2000);

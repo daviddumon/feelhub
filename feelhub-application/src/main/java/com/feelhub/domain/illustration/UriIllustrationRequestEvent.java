@@ -16,7 +16,7 @@ public class UriIllustrationRequestEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("UriIllustrationRequestEvent created");
+        stringBuilder.append(getClass().getSimpleName() + "created");
         return stringBuilder.toString();
     }
 

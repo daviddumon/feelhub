@@ -1,6 +1,6 @@
 package com.feelhub.web.status;
 
-import com.feelhub.domain.opinion.OpinionCreationException;
+import com.feelhub.domain.feeling.FeelingCreationException;
 import com.feelhub.domain.uri.UriException;
 import com.feelhub.domain.user.BadUserException;
 import com.feelhub.web.resources.json.FeelhubJsonException;
@@ -17,7 +17,7 @@ public class FeelhubStatusService extends StatusService {
     public FeelhubStatusService() {
         resolvers.put(UriException.class, new ExceptionResolver400());
         resolvers.put(FeelhubJsonException.class, new JsonExceptionResolver());
-        resolvers.put(OpinionCreationException.class, new ExceptionResolver400());
+        resolvers.put(FeelingCreationException.class, new ExceptionResolver400());
         resolvers.put(BadUserException.class, new UserExceptionResolver());
     }
 

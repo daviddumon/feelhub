@@ -1,7 +1,7 @@
 package com.feelhub.domain.keyword;
 
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.illustration.Illustration;
-import com.feelhub.domain.opinion.*;
 import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.relation.Relation;
 import com.feelhub.domain.statistics.*;
@@ -70,17 +70,17 @@ public class TestsKeywordMerger {
     }
 
     @Test
-    public void mergeOpinions() {
+    public void mergeFeelings() {
         final Reference good = TestFactories.references().newReference();
         final Reference bad = TestFactories.references().newReference();
-        TestFactories.opinions().newOpinions(good, 10);
-        TestFactories.opinions().newOpinions(bad, 10);
+        TestFactories.feelings().newFeelings(good, 10);
+        TestFactories.feelings().newFeelings(bad, 10);
 
         keywordMerger.merge(createListOfKeyword(good, bad));
 
-        for (final Opinion opinion : Repositories.opinions().getAll()) {
-            for (final Judgment judgment : opinion.getJudgments()) {
-                assertThat(judgment.getReferenceId(), is(good.getId()));
+        for (final Feeling feeling : Repositories.feelings().getAll()) {
+            for (final Sentiment sentiment : feeling.getSentiments()) {
+                assertThat(sentiment.getReferenceId(), is(good.getId()));
             }
         }
     }
@@ -105,7 +105,7 @@ public class TestsKeywordMerger {
     public void mergeStatistics() {
         final Reference good = TestFactories.references().newReference();
         final Reference bad = TestFactories.references().newReference();
-        TestFactories.statistics().newStatisticsWithJudgments(bad, Granularity.hour);
+        TestFactories.statistics().newStatisticsWithSentiments(bad, Granularity.hour);
 
         keywordMerger.merge(createListOfKeyword(good, bad));
 

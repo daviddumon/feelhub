@@ -1,7 +1,7 @@
 package com.feelhub.domain.keyword;
 
+import com.feelhub.domain.feeling.FeelingManager;
 import com.feelhub.domain.illustration.IllustrationManager;
-import com.feelhub.domain.opinion.OpinionManager;
 import com.feelhub.domain.reference.*;
 import com.feelhub.domain.relation.RelationManager;
 import com.feelhub.domain.statistics.StatisticsManager;
@@ -17,7 +17,7 @@ public class KeywordMerger {
         keywordManager.merge(referencePatch);
         referenceManager.merge(referencePatch);
         illustrationManager.merge(referencePatch);
-        opinionManager.merge(referencePatch);
+        feelingManager.merge(referencePatch);
         relationManager.merge(referencePatch);
         statisticsManager.merge(referencePatch);
     }
@@ -30,7 +30,7 @@ public class KeywordMerger {
         return referencePatch;
     }
 
-    protected List<Reference> getAllReferences(final List<Keyword> keywords) {
+    private List<Reference> getAllReferences(final List<Keyword> keywords) {
         final List<Reference> references = Lists.newArrayList();
         for (final Keyword keyword : keywords) {
             final UUID referenceId = keyword.getReferenceId();
@@ -63,7 +63,7 @@ public class KeywordMerger {
     private final KeywordManager keywordManager = new KeywordManager();
     private final ReferenceManager referenceManager = new ReferenceManager();
     private final IllustrationManager illustrationManager = new IllustrationManager();
-    private final OpinionManager opinionManager = new OpinionManager();
+    private final FeelingManager feelingManager = new FeelingManager();
     private final RelationManager relationManager = new RelationManager();
     private final StatisticsManager statisticsManager = new StatisticsManager();
 }

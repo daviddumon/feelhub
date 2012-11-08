@@ -24,12 +24,12 @@ public class FeelhubRouter extends Router {
 
     private void attachResources() {
         attach("/json/statistics", JsonStatisticsResource.class);
-        attach("/json/opinions", JsonOpinionsResource.class);
+        attach("/json/feelings", JsonFeelingsResource.class);
         attach("/json/relations", JsonRelationsResource.class);
         attach("/json/related", JsonRelatedResource.class);
         attach("/json/illustrations", JsonIllustrationsResource.class);
-        attach("/json/createopinion", JsonCreateOpinionResource.class);
-        attach("/json/newopinions", JsonNewOpinionsResource.class);
+        attach("/json/createfeeling", JsonCreateFeelingResource.class);
+        attach("/json/newfeelings", JsonNewFeelingsResource.class);
         attach("/json/keyword", JsonKeywordResource.class);
 
         attachUriForKeywordAndLanguage();

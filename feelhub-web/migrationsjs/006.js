@@ -1,16 +1,16 @@
-db.opinion.find().forEach(function (opinion) {
-    if (opinion.subjectId == "http://www.kikiyoo.com") {
-        db.opinion.update({"_id":opinion._id}, {$set:{"subjectId":"http://www.feelhub.com"}}, false, true);
+db.feeling.find().forEach(function (feeling) {
+    if (feeling.subjectId == "http://www.kikiyoo.com") {
+        db.feeling.update({"_id":feeling._id}, {$set:{"subjectId":"http://www.feelhub.com"}}, false, true);
     }
 });
 
-db.opinion.find().forEach(function (opinion) {
-    db.opinion.update({"_id":opinion._id}, {$set:{"judgments":[
-        {"feeling":opinion.feeling, "subjectId":opinion.subjectId}
+db.feeling.find().forEach(function (feeling) {
+    db.feeling.update({"_id":feeling._id}, {$set:{"judgments":[
+        {"feeling":feeling.feeling, "subjectId":feeling.subjectId}
     ]}});
 });
 
-db.opinion.find().forEach(function (opinion) {
-    db.opinion.update({"_id":opinion._id}, {$unset:{"feeling":1}});
-    db.opinion.update({"_id":opinion._id}, {$unset:{"subjectId":1}});
+db.feeling.find().forEach(function (feeling) {
+    db.feeling.update({"_id":feeling._id}, {$unset:{"feeling":1}});
+    db.feeling.update({"_id":feeling._id}, {$unset:{"subjectId":1}});
 });

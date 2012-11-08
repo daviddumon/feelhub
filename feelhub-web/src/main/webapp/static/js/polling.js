@@ -55,7 +55,7 @@ function RequestCounters(referenceId) {
     }
 }
 
-function pollForId(opinionId, text, feeling) {
+function pollForId(feelingId, text, sentimentValue) {
     var referenceIdPolling = setInterval(function () {
         $.getJSON(root + "/json/keyword?keywordValue=" + keywordValue + "&languageCode=" + languageCode, function (data) {
 
@@ -66,8 +66,7 @@ function pollForId(opinionId, text, feeling) {
                 clearInterval(referenceIdPolling);
                 referenceId = data.referenceId;
                 FindInformations();
-                flow.pushFake(opinionId, text, feeling);
+                flow.pushFake(feelingId, text, sentimentValue);
             });
     }, 500);
 }
-;

@@ -1,0 +1,63 @@
+/* Copyright Feelhub 2012 */
+@import "import/variables.less";
+@import "import/colors.less";
+@import "import/mixins.less";
+
+body {
+
+    .feeling {
+        display: block;
+        width: 300px;
+        list-style-type: none;
+        background-color: @white !important;
+        margin-bottom: 20px;
+        .shadow();
+
+        .feeling_spacer {
+            height: 40px;
+            width: 100%;
+        }
+
+        p {
+            padding-left: 20px;
+            padding-right: 20px;
+            word-wrap: break-word;
+            text-align: left;
+
+            span {
+                border-bottom: 1px dotted @grey-1;
+            }
+        }
+
+        .feeling_feeling_illustration {
+            position: relative;
+            top: -7px;
+            width: 14px;
+            height: 14px;
+            padding: 7px;
+            margin-bottom: 12px;
+            .rounded(50px);
+        }
+
+        .img_bad {
+            background-color: @bad;
+        }
+
+        .img_good {
+            background-color: @good;
+        }
+
+        .img_neutral {
+            background-color: @neutral;
+        }
+
+        .img_none {
+            border: none;
+        }
+
+        .feeling_related {
+            margin-left: 20px;
+            padding-top: 40px;
+        }
+    }
+}

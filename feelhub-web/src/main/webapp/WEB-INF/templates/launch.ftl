@@ -19,7 +19,6 @@
 <script type="text/javascript">
     $(function () {
         $("header").hide();
-        $(".uvOverlay1").hide();
     });
 </script>
 </@layout.js>

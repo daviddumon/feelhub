@@ -4,7 +4,7 @@ $(function () {
         $.ajax({
             url:root + '/sessions',
             type:'DELETE',
-            success:function(data, status, jqXHR) {
+            success:function (data, status, jqXHR) {
                 location.reload();
             }
         });

@@ -18,26 +18,26 @@ public class TestsDomainEventBus {
     @Test
     public void canUseAsyncEventBus() {
         //final SimpleEventListener simpleEventListener = mock(SimpleEventListener.class);
-        //final OpinionCreatedEvent opinionCreatedEvent = new OpinionCreatedEvent(null);
+        //final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(null);
         //DomainEventBus.INSTANCE.register(simpleEventListener);
         //
-        //DomainEventBus.INSTANCE.post(opinionCreatedEvent);
+        //DomainEventBus.INSTANCE.post(feelingCreatedEvent);
         //
-        //verify(simpleEventListener, times(1)).handle(opinionCreatedEvent);
+        //verify(simpleEventListener, times(1)).handle(feelingCreatedEvent);
     }
 
     @Test
     public void canSpreadEventToMultipleListeners() {
         //final SimpleEventListener listener1 = mock(SimpleEventListener.class);
         //final SimpleEventListener listener2 = mock(SimpleEventListener.class);
-        //final OpinionCreatedEvent opinionCreatedEvent = new OpinionCreatedEvent(null);
+        //final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(null);
         //DomainEventBus.INSTANCE.register(listener1);
         //DomainEventBus.INSTANCE.register(listener2);
         //
-        //DomainEventBus.INSTANCE.post(opinionCreatedEvent);
+        //DomainEventBus.INSTANCE.post(feelingCreatedEvent);
         //
-        //verify(listener1, times(1)).handle(opinionCreatedEvent);
-        //verify(listener2, times(1)).handle(opinionCreatedEvent);
+        //verify(listener1, times(1)).handle(feelingCreatedEvent);
+        //verify(listener2, times(1)).handle(feelingCreatedEvent);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TestsDomainEventBus {
     public void blockTheSizeOfTheEventsList() {
         //for (int i = 0; i < 1000; i++) {
         //    time.waitMinutes(1);
-        //    DomainEventBus.INSTANCE.post(new OpinionRequestEvent(TestFactories.keywords().newKeyword("value" + i, FeelhubLanguage.reference())));
+        //    DomainEventBus.INSTANCE.post(new FeelingRequestEvent(TestFactories.keywords().newKeyword("value" + i, FeelhubLanguage.reference())));
         //}
         //
         //final List<DomainEvent> events = DomainEventBus.INSTANCE.getEvents();
@@ -56,7 +56,7 @@ public class TestsDomainEventBus {
     //private class SimpleEventListener {
     //
     //    @Subscribe
-    //    public void handle(final OpinionCreatedEvent opinionCreatedEvent) {
+    //    public void handle(final FeelingCreatedEvent feelingCreatedEvent) {
     //
     //    }
     //}

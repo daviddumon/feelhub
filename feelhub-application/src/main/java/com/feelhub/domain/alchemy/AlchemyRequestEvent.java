@@ -14,7 +14,7 @@ public class AlchemyRequestEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("AlchemyRequestEvent");
+        stringBuilder.append(getClass().getSimpleName() + " ");
         return stringBuilder.toString();
     }
 

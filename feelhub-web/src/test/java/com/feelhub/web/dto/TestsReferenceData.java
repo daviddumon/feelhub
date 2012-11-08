@@ -1,8 +1,8 @@
 package com.feelhub.web.dto;
 
+import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.illustration.Illustration;
 import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.opinion.Feeling;
 import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -82,16 +82,16 @@ public class TestsReferenceData {
     }
 
     @Test
-    public void referenceDataHasAFeeling() {
-        final ReferenceData referenceData = new ReferenceData.Builder().feeling(Feeling.good).build();
+    public void referenceDataHasASentimentValue() {
+        final ReferenceData referenceData = new ReferenceData.Builder().sentimentValue(SentimentValue.good).build();
 
-        assertThat(referenceData.getFeeling(), is(Feeling.good));
+        assertThat(referenceData.getSentimentValue(), is(SentimentValue.good));
     }
 
     @Test
-    public void feelingHadADefaultValue() {
+    public void sentimentHadADefaultValue() {
         final ReferenceData referenceData = new ReferenceData.Builder().build();
 
-        assertThat(referenceData.getFeeling(), is(Feeling.none));
+        assertThat(referenceData.getSentimentValue(), is(SentimentValue.none));
     }
 }

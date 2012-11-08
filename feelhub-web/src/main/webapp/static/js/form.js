@@ -7,37 +7,38 @@ $(function () {
     $("#form button").click(function (event) {
         event.stopImmediatePropagation();
         event.preventDefault();
-        postOpinion($(this).attr("name"), $("#form textarea").val());
+        postFeeling($(this).attr("name"), $("#form textarea").val());
     });
 });
 
-function postOpinion(feeling, text) {
-    var opinionData = {
-        "feeling":feeling,
+function postFeeling(sentimentValue, text) {
+    var feelingData = {
+        "sentimentValue":sentimentValue,
         "text":text,
         "keywordValue":keywordValue,
         "languageCode":languageCode,
         "userLanguageCode":userLanguageCode
     };
     //console.log("ajax call");
-    //console.log(opinionData);
+    //console.log(feelingData);
     $.ajax({
-        url:root + '/json/createopinion',
+        url:root + '/json/createfeeling',
         type:'POST',
         contentType:'application/json',
-        data:JSON.stringify(opinionData),
+        data:JSON.stringify(feelingData),
         processData:false,
         success:function (data, textStatus, jqXHR) {
             $("#form textarea").val('');
             $("#form textarea").height("30px");
-            if(referenceId === "") {
-                pollForId(data.id, text, feeling);
+            if (referenceId === "") {
+                pollForId(data.id, text, sentimentValue);
             } else {
-                flow.pushFake(data.id, text, feeling);
+                flow.pushFake(data.id, text, sentimentValue);
             }
         },
         error:function () {
             //console.log("erreur lors du post");
         }
     });
-};
+}
+;

@@ -14,7 +14,7 @@ public class FeelhubDeadEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("FeelhubDeadEvent [ ");
+        stringBuilder.append(getClass().getSimpleName() + " ");
         stringBuilder.append(deadEvent.getEvent().toString());
         stringBuilder.append(" ]");
         return stringBuilder.toString();

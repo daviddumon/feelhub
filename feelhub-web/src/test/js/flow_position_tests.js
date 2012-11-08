@@ -310,7 +310,7 @@ FlowPositionTests.prototype = {
 
 function createDocumentForFlowPositionTests() {
     var webpageUL = document.createElement('webpageUL');
-    webpageUL.setAttribute("id", "opinions");
+    webpageUL.setAttribute("id", "feelings");
     webpageUL.style.width = "800px";
     document.body.appendChild(webpageUL);
 }

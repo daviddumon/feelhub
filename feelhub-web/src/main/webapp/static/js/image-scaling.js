@@ -1,6 +1,6 @@
 /* Copyright Feelhub 2012 */
 function ScaleImage(srcwidth, srcheight, targetwidth, targetheight, fLetterBox) {
-    var result = { width: 0, height: 0, fScaleToTargetWidth: true };
+    var result = { width:0, height:0, fScaleToTargetWidth:true };
 
     if ((srcwidth <= 0) || (srcheight <= 0) || (targetwidth <= 0) || (targetheight <= 0)) {
         return result;
@@ -17,7 +17,7 @@ function ScaleImage(srcwidth, srcheight, targetwidth, targetheight, fLetterBox) 
         fScaleOnWidth = fLetterBox;
     }
     else {
-       fScaleOnWidth = !fLetterBox;
+        fScaleOnWidth = !fLetterBox;
     }
 
     if (fScaleOnWidth) {

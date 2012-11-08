@@ -1,6 +1,6 @@
 package com.feelhub.domain.statistics;
 
-import com.feelhub.domain.opinion.*;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.reference.Reference;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
@@ -14,15 +14,15 @@ public class StatisticsTestFactory {
         return statistics;
     }
 
-    public Statistics newStatisticsWithJudgments(final Reference reference, final Granularity granularity) {
+    public Statistics newStatisticsWithSentiments(final Reference reference, final Granularity granularity) {
         final Statistics statistics = new Statistics(reference.getId(), granularity, new DateTime());
-        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
-        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
-        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
-        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.bad));
-        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.bad));
-        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.neutral));
-        new Judgment(reference.getId(), Feeling.good);
+        statistics.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.good));
+        statistics.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.good));
+        statistics.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.good));
+        statistics.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.bad));
+        statistics.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.bad));
+        statistics.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.neutral));
+        new Sentiment(reference.getId(), SentimentValue.good);
         Repositories.statistics().add(statistics);
         return statistics;
     }

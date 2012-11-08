@@ -1,19 +1,19 @@
 /* Copyright Feelhub 2012 */
 function OrderedLinkedList(sortableProperty) {
 
-    this.add = function(element) {
+    this.add = function (element) {
         var node = {
-            data: element,
-            nextNode: null,
-            previousNode: null
+            data:element,
+            nextNode:null,
+            previousNode:null
         };
 
-        if(this.length == 0) {
+        if (this.length == 0) {
             this.currentNode = node;
             this.startNode = node;
             this.endNode = node;
-        } else if(this.length == 1){
-            if(this.currentNode.data[this.sortableProperty].isBefore(element[this.sortableProperty])) {
+        } else if (this.length == 1) {
+            if (this.currentNode.data[this.sortableProperty].isBefore(element[this.sortableProperty])) {
                 node.previousNode = this.currentNode;
                 this.currentNode.nextNode = node;
                 this.endNode = node;
@@ -23,24 +23,24 @@ function OrderedLinkedList(sortableProperty) {
                 this.startNode = node;
             }
         } else {
-            if(this.startNode.data[this.sortableProperty].isAfter(element[this.sortableProperty])){
+            if (this.startNode.data[this.sortableProperty].isAfter(element[this.sortableProperty])) {
                 this.startNode.previousNode = node;
                 node.nextNode = this.startNode;
                 this.startNode = node;
             } else {
                 var previousNode = this.startNode;
-                while(previousNode.nextNode != null && previousNode.nextNode.data[this.sortableProperty].isBefore(element[this.sortableProperty])) {
+                while (previousNode.nextNode != null && previousNode.nextNode.data[this.sortableProperty].isBefore(element[this.sortableProperty])) {
                     previousNode = previousNode.nextNode;
                 }
 
                 node.previousNode = previousNode;
-                if(previousNode.nextNode != null) {
+                if (previousNode.nextNode != null) {
                     node.nextNode = previousNode.nextNode;
                     previousNode.nextNode.previousNode = node;
                 }
                 previousNode.nextNode = node;
 
-                if(node.nextNode == null) {
+                if (node.nextNode == null) {
                     this.endNode = node;
                 }
             }
@@ -49,11 +49,11 @@ function OrderedLinkedList(sortableProperty) {
         this.length++;
     };
 
-    this.find = function(propertyValue) {
-        if(this.sortableProperty != null) {
+    this.find = function (propertyValue) {
+        if (this.sortableProperty != null) {
             var node = this.startNode;
-            while(node != null){
-                if(node.data[this.sortableProperty].equals(propertyValue)) {
+            while (node != null) {
+                if (node.data[this.sortableProperty].equals(propertyValue)) {
                     return node.data;
                 }
                 node = node.nextNode;
@@ -62,11 +62,11 @@ function OrderedLinkedList(sortableProperty) {
         return null;
     };
 
-    this.setCurrent = function(element) {
+    this.setCurrent = function (element) {
         var found = false;
         var node = this.startNode;
-        while(node != null && !found){
-            if(node.data.equals(element)) {
+        while (node != null && !found) {
+            if (node.data.equals(element)) {
                 this.currentNode = node;
                 found = true;
             }
@@ -74,26 +74,26 @@ function OrderedLinkedList(sortableProperty) {
         }
     };
 
-    this.current = function() {
+    this.current = function () {
         return (this.currentNode != null ? this.currentNode.data : null);
     };
 
-    this.next = function() {
+    this.next = function () {
         return (this.currentNode.nextNode != null ? this.currentNode.nextNode.data : null);
     };
 
-    this.previous = function() {
+    this.previous = function () {
         return (this.currentNode.previousNode != null ? this.currentNode.previousNode.data : null);
     };
 
-    this.setPreviousAsCurrentNode = function() {
+    this.setPreviousAsCurrentNode = function () {
         this.currentNode = this.currentNode.previousNode;
     };
 
-    this.setNextAsCurrentNode = function() {
+    this.setNextAsCurrentNode = function () {
         this.currentNode = this.currentNode.nextNode;
     };
-    
+
     this.length = 0;
     this.currentNode = null;
     this.startNode = null;

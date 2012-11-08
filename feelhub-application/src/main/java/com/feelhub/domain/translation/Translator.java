@@ -7,7 +7,7 @@ import com.memetix.mst.translate.Translate;
 public class Translator {
 
     public Translator() {
-        Translate.setClientId("feelhub");
+        Translate.setClientId("steambeat");
         Translate.setClientSecret("XrLNktvCKuAOe12+TUOLWwJuZiju+5iCwvMRCLGpB8Q=");
     }
 

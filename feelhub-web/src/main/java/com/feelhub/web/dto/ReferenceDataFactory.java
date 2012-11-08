@@ -1,8 +1,8 @@
 package com.feelhub.web.dto;
 
+import com.feelhub.domain.feeling.Sentiment;
 import com.feelhub.domain.illustration.Illustration;
 import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.opinion.Judgment;
 import com.feelhub.repositories.Repositories;
 
 import java.util.*;
@@ -35,13 +35,13 @@ public class ReferenceDataFactory {
         return builder.build();
     }
 
-    public ReferenceData getReferenceDatas(final Keyword keyword, final Judgment judgment) {
+    public ReferenceData getReferenceDatas(final Keyword keyword, final Sentiment sentiment) {
         final ReferenceData.Builder builder = new ReferenceData.Builder();
         builder.keyword(keyword);
         builder.language(keyword.getLanguage());
-        builder.feeling(judgment.getFeeling());
-        builder.referenceId(judgment.getReferenceId());
-        final List<Illustration> illustrations = Repositories.illustrations().forReferenceId(judgment.getReferenceId());
+        builder.sentimentValue(sentiment.getSentimentValue());
+        builder.referenceId(sentiment.getReferenceId());
+        final List<Illustration> illustrations = Repositories.illustrations().forReferenceId(sentiment.getReferenceId());
         if (!illustrations.isEmpty()) {
             builder.illustration(illustrations.get(0));
         }

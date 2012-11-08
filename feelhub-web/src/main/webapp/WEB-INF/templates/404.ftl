@@ -35,8 +35,8 @@
 </@layout.js>
 
 <@layout.mustache>
-    <#include "mustache/reference.mustache.js">
-    <#include "mustache/opinion.mustache.js">
+    <#include "mustache/reference.html">
+    <#include "mustache/feeling.html">
 </@layout.mustache>
 
 <@layout.headend>
@@ -73,29 +73,27 @@
     </div>
 </div>
 
-<div id="opinion-form">
-<#--<div id="opinion_form" class="box" style="display:none">-->
-        <#--<div class="box_title">My feeling about this</div>-->
-        <#--<#if userInfos.authenticated!false>-->
-        <#--<form id="form" method="post" action="" autocomplete="off" class="box">-->
-        <#--<textarea></textarea>-->
-        <#--<button type="submit" id="form_button_good" name="good">-->
-        <#--<img src="${root}/static/images/smiley_good_white.png"/>-->
-        <#--</button>-->
-        <#--<button type="submit" id="form_button_neutral" name="neutral">-->
-        <#--<img src="${root}/static/images/smiley_neutral_white.png"/>-->
-        <#--</button>-->
-        <#--<button type="submit" id="form_button_bad" name="bad">-->
-        <#--<img src="${root}/static/images/smiley_bad_white.png"/>-->
-        <#--</button>-->
-        <#--</form>-->
-        <#--<#else>-->
-        <#--<div>Want to give your opinion ? login or create account !</div>-->
-        <#--</#if>-->
-        <#--</div>-->
+<div id="feeling_form" class="box" style="display:none">
+    <div class="box_title">My feeling about this</div>
+    <#if userInfos.authenticated!false>
+        <form id="form" method="post" action="" autocomplete="off" class="box">
+            <textarea></textarea>
+            <button type="submit" id="form_button_good" name="good">
+                <img src="${root}/static/images/smiley_good_white.png"/>
+            </button>
+            <button type="submit" id="form_button_neutral" name="neutral">
+                <img src="${root}/static/images/smiley_neutral_white.png"/>
+            </button>
+            <button type="submit" id="form_button_bad" name="bad">
+                <img src="${root}/static/images/smiley_bad_white.png"/>
+            </button>
+        </form>
+    <#else>
+        <div>Want to give your feeling ? login or create account !</div>
+    </#if>
 </div>
 
-<ul id="opinions">
-    Be the first to share your feelings about ${referenceData.keywordValue}!
+<ul id="feelings">
+    <span id="no-feelings">There are no feelings about ${referenceData.keywordValue}!</span>
 </ul>
 </@layout.body>

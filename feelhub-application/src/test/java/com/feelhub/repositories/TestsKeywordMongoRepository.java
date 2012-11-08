@@ -36,6 +36,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
         assertThat(keywordFound.get("referenceId"), is((Object) keyword.getReferenceId()));
         assertThat(keywordFound.get("creationDate"), is((Object) keyword.getCreationDate().getMillis()));
         assertThat(keywordFound.get("lastModificationDate"), is((Object) keyword.getLastModificationDate().getMillis()));
+        assertThat((Boolean) keywordFound.get("translationNeeded"), is(false));
     }
 
     @Test

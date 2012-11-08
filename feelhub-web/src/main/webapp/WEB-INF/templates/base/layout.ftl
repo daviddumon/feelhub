@@ -23,7 +23,7 @@
         <link rel="stylesheet" href="${root}/static/css/reset.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/common.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/reference.css?${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/opinion.css?${buildtime}"/>
+        <link rel="stylesheet" href="${root}/static/css/feeling.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/form.css?${buildtime}"/>
         <#nested/>
     </#if>
@@ -36,7 +36,7 @@
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reset.less?${buildtime}"/>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/common.less?${buildtime}"/>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reference.less?${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/opinion.less?${buildtime}"/>
+        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/feeling.less?${buildtime}"/>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/form.less?${buildtime}"/>
         <#nested/>
     </#if>
@@ -136,10 +136,10 @@
     <div id="header-bottom">
         <ul id="header-bottom-left">
             <li><a href="${root}">Latest</a></li>
-            <#--<li><a href="">Near me</a></li>-->
-            <#--<li><a href="">Channels</a></li>-->
-            <#--<li><a href="">Trends</a></li>-->
-            <#--<li><a href="">Sponsored</a></li>-->
+        <#--<li><a href="">Near me</a></li>-->
+        <#--<li><a href="">Channels</a></li>-->
+        <#--<li><a href="">Trends</a></li>-->
+        <#--<li><a href="">Sponsored</a></li>-->
         </ul>
         <ul id="header-bottom-right">
             <li><a href="">About</a></li>

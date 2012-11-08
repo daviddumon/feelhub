@@ -1,8 +1,8 @@
 package com.feelhub.web.dto;
 
+import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.illustration.Illustration;
 import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.opinion.Feeling;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 
 import java.util.UUID;
@@ -35,8 +35,8 @@ public class ReferenceData {
             return this;
         }
 
-        public Builder feeling(final Feeling feeling) {
-            this.feeling = feeling;
+        public Builder sentimentValue(final SentimentValue sentimentValue) {
+            this.sentimentValue = sentimentValue;
             return this;
         }
 
@@ -44,7 +44,7 @@ public class ReferenceData {
         private String illustrationLink = "";
         private String keywordValue = "";
         private String languageCode = FeelhubLanguage.none().getCode();
-        private Feeling feeling = Feeling.none;
+        private SentimentValue sentimentValue = SentimentValue.none;
     }
 
     private ReferenceData(final Builder builder) {
@@ -52,7 +52,7 @@ public class ReferenceData {
         this.illustrationLink = builder.illustrationLink;
         this.keywordValue = builder.keywordValue;
         this.languageCode = builder.languageCode;
-        this.feeling = builder.feeling;
+        this.sentimentValue = builder.sentimentValue;
     }
 
     public String getReferenceId() {
@@ -71,13 +71,13 @@ public class ReferenceData {
         return languageCode;
     }
 
-    public Feeling getFeeling() {
-        return feeling;
+    public SentimentValue getSentimentValue() {
+        return sentimentValue;
     }
 
     private final String referenceId;
     private final String illustrationLink;
     private final String keywordValue;
     private final String languageCode;
-    private final Feeling feeling;
+    private final SentimentValue sentimentValue;
 }

@@ -1,8 +1,8 @@
 package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.opinion.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.world.WorldStatisticsEvent;
 import com.feelhub.repositories.Repositories;
@@ -30,41 +30,41 @@ public class TestsStatisticsFactory {
     }
 
     @Test
-    public void canRecordGoodJudgment() {
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+    public void canRecordGoodSentiment() {
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
 
         statisticsFactory.handle(event);
 
-        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId()).get(0).getGood(), is(1));
+        assertThat(getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId()).get(0).getGood(), is(1));
     }
 
     @Test
-    public void canRecordBadJudgment() {
-        final JudgmentStatisticsEvent event = getBadJudgmentEvent();
+    public void canRecordBadSentiment() {
+        final SentimentStatisticsEvent event = getBadSentimentEvent();
 
         statisticsFactory.handle(event);
 
-        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId()).get(0).getBad(), is(1));
+        assertThat(getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId()).get(0).getBad(), is(1));
     }
 
     @Test
     public void canCreateFromEvent() {
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
 
         statisticsFactory.handle(event);
 
-        assertThat(getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId()).get(0).getGood(), is(1));
+        assertThat(getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId()).get(0).getGood(), is(1));
     }
 
     @Test
     public void canRecordForHour() {
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
 
         time.waitDays(1);
 
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.hour, new Interval(time.getNow().minusDays(2), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId(), Granularity.hour, new Interval(time.getNow().minusDays(2), time.getNow()));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.hour));
         assertThat(statistics.get(0).getGood(), is(1));
@@ -72,116 +72,116 @@ public class TestsStatisticsFactory {
 
     @Test
     public void canRecordForDay() {
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
 
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.day, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId(), Granularity.day, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.day));
     }
 
     @Test
     public void canRecordForMonth() {
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
 
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.month, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId(), Granularity.month, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.month));
     }
 
     @Test
     public void canRecordForYear() {
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
 
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId(), Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.year));
     }
 
     @Test
-    public void canRecord2OpinionsForYear() {
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+    public void canRecord2FeelingsForYear() {
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
         DomainEventBus.INSTANCE.post(event);
 
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(),
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId(),
                 Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.year));
     }
 
     @Test
-    public void canRecordOpinionForLastYear() {
+    public void canRecordFeelingForLastYear() {
         time.set(time.getNow().minusYears(3));
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
 
         time.set(time.getNow().plusYears(3));
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(),
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId(),
                 Granularity.year, new Interval(time.getNow().minusYears(4), time.getNow().minusYears(2)));
         assertThat(statistics.size(), is(1));
     }
 
     @Test
-    public void canRecordOpinionsForLastMonth() {
+    public void canRecordFeelingsForLastMonth() {
         time.set(time.getNow().minusMonths(3));
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
         time.set(time.getNow().minusMonths(5));
-        statisticsFactory.handle(new JudgmentStatisticsEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
+        statisticsFactory.handle(new SentimentStatisticsEvent(new Sentiment(event.getSentiment().getReferenceId(), SentimentValue.good)));
 
         time.set(time.getNow().plusMonths(8));
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.month, new Interval(time.getNow().minusMonths(12), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId(), Granularity.month, new Interval(time.getNow().minusMonths(12), time.getNow()));
         assertThat(statistics.size(), is(2));
     }
 
     @Test
-    public void canRecordOpinionsForLastDay() {
+    public void canRecordFeelingsForLastDay() {
         time.set(time.getNow().minusDays(3));
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
         time.set(time.getNow().minusDays(5));
-        statisticsFactory.handle(new JudgmentStatisticsEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
+        statisticsFactory.handle(new SentimentStatisticsEvent(new Sentiment(event.getSentiment().getReferenceId(), SentimentValue.good)));
 
         time.set(time.getNow().plusDays(8));
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.day, new Interval(time.getNow().minusDays(12), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId(), Granularity.day, new Interval(time.getNow().minusDays(12), time.getNow()));
         assertThat(statistics.size(), is(2));
     }
 
     @Test
-    public void canRecordOpinionsForLastHour() {
+    public void canRecordFeelingsForLastHour() {
         time.set(time.getNow().minusHours(3));
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsFactory.handle(new JudgmentStatisticsEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
+        statisticsFactory.handle(new SentimentStatisticsEvent(new Sentiment(event.getSentiment().getReferenceId(), SentimentValue.good)));
 
         time.set(time.getNow().plusHours(8));
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.hour, new Interval(time.getNow().minusHours(12), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId(), Granularity.hour, new Interval(time.getNow().minusHours(12), time.getNow()));
         assertThat(statistics.size(), is(2));
     }
 
     @Test
     public void canFetchStatisticsWithGranularityAllForSubject() {
         time.set(time.getNow().minusHours(3));
-        final JudgmentStatisticsEvent event = getGoodJudgmentEvent();
+        final SentimentStatisticsEvent event = getGoodSentimentEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsFactory.handle(new JudgmentStatisticsEvent(new Judgment(event.getJudgment().getReferenceId(), Feeling.good)));
+        statisticsFactory.handle(new SentimentStatisticsEvent(new Sentiment(event.getSentiment().getReferenceId(), SentimentValue.good)));
 
         time.set(time.getNow().plusHours(8));
         statisticsFactory.handle(event);
 
-        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getJudgment().getReferenceId(), Granularity.all);
+        final List<Statistics> statistics = getStatisticsRepository().forReferenceId(event.getSentiment().getReferenceId(), Granularity.all);
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGood(), is(2));
     }
@@ -189,8 +189,8 @@ public class TestsStatisticsFactory {
     @Test
     public void canRecordStatisticsForWorld() {
         final Keyword worldKeyword = TestFactories.keywords().newKeyword("", FeelhubLanguage.none());
-        final Judgment judgment = new Judgment(worldKeyword.getReferenceId(), Feeling.good);
-        final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(judgment);
+        final Sentiment sentiment = new Sentiment(worldKeyword.getReferenceId(), SentimentValue.good);
+        final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(sentiment);
 
         statisticsFactory.handle(worldStatisticsEvent);
 
@@ -198,13 +198,13 @@ public class TestsStatisticsFactory {
         assertThat(statisticsList.size(), is(5));
     }
 
-    private JudgmentStatisticsEvent getGoodJudgmentEvent() {
-        final JudgmentStatisticsEvent event = new JudgmentStatisticsEvent(TestFactories.judgments().newGoodJudgment());
+    private SentimentStatisticsEvent getGoodSentimentEvent() {
+        final SentimentStatisticsEvent event = new SentimentStatisticsEvent(TestFactories.sentiments().newGoodSentiment());
         return event;
     }
 
-    private JudgmentStatisticsEvent getBadJudgmentEvent() {
-        final JudgmentStatisticsEvent event = new JudgmentStatisticsEvent(TestFactories.judgments().newBadJudgment());
+    private SentimentStatisticsEvent getBadSentimentEvent() {
+        final SentimentStatisticsEvent event = new SentimentStatisticsEvent(TestFactories.sentiments().newBadSentiment());
         return event;
     }
 

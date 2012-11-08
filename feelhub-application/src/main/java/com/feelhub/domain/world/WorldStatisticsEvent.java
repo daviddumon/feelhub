@@ -1,12 +1,12 @@
 package com.feelhub.domain.world;
 
 import com.feelhub.domain.eventbus.DomainEvent;
-import com.feelhub.domain.opinion.Judgment;
+import com.feelhub.domain.feeling.Sentiment;
 
 public class WorldStatisticsEvent extends DomainEvent {
 
-    public WorldStatisticsEvent(final Judgment judgment) {
-        this.judgment = judgment;
+    public WorldStatisticsEvent(final Sentiment sentiment) {
+        this.sentiment = sentiment;
     }
 
     @Override
@@ -15,15 +15,15 @@ public class WorldStatisticsEvent extends DomainEvent {
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
         stringBuilder.append(getClass().getSimpleName() + " ");
-        stringBuilder.append(judgment.getFeeling());
+        stringBuilder.append(sentiment.getSentimentValue());
         stringBuilder.append(" on ");
-        stringBuilder.append(judgment.getReferenceId());
+        stringBuilder.append(sentiment.getReferenceId());
         return stringBuilder.toString();
     }
 
-    public Judgment getJudgment() {
-        return judgment;
+    public Sentiment getSentiment() {
+        return sentiment;
     }
 
-    private final Judgment judgment;
+    private final Sentiment sentiment;
 }

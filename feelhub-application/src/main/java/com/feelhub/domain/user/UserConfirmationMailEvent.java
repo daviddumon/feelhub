@@ -14,7 +14,7 @@ public class UserConfirmationMailEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("UserCreatedEvent ");
+        stringBuilder.append(getClass().getSimpleName() + " ");
         stringBuilder.append(user.toString());
         stringBuilder.append(" created");
         return stringBuilder.toString();

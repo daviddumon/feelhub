@@ -12,7 +12,7 @@ $(function () {
 
         $("#main_reference").prepend(ich.reference(reference_data));
         $("#counters").show();
-        $("#opinion_form").show();
+        $("#feeling_form").show();
     }
 
     if (referenceId !== "") {

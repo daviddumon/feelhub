@@ -1,6 +1,6 @@
 package com.feelhub.web.guice;
 
-import com.feelhub.application.OpinionService;
+import com.feelhub.application.FeelingService;
 import com.feelhub.domain.alchemy.AlchemyAnalyzer;
 import com.feelhub.domain.eventbus.DeadEventCatcher;
 import com.feelhub.domain.illustration.*;
@@ -21,7 +21,7 @@ public class GuiceProductionModule extends AbstractModule {
         Names.bindProperties(binder(), properties());
         bind(MailBuilder.class).asEagerSingleton();
         bind(DeadEventCatcher.class).asEagerSingleton();
-        bind(OpinionService.class).asEagerSingleton();
+        bind(FeelingService.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();
         bind(WorldListener.class).asEagerSingleton();
         bind(ConceptIllustrationFactory.class).asEagerSingleton();

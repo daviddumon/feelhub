@@ -34,8 +34,8 @@
 </@layout.js>
 
 <@layout.mustache>
-    <#include "mustache/reference.mustache.js">
-    <#include "mustache/opinion.mustache.js">
+    <#include "mustache/reference.html">
+    <#include "mustache/feeling.html">
 </@layout.mustache>
 
 <@layout.headend>
@@ -49,7 +49,7 @@
         <span id="slogan">Share your feelings with the world!</span>
     </div>
 </div>
-<div id="opinion-form"></div>
+<div id="feeling-form"></div>
 
-<ul id="opinions"></ul>
+<ul id="feelings"></ul>
 </@layout.body>

@@ -13,8 +13,8 @@ $(function () {
         $(this).parent().find(".help_text").hide();
     });
 
-    $("input").change(function(event) {
-        if($(this).val() !== "") {
+    $("input").change(function (event) {
+        if ($(this).val() !== "") {
             $(this).parent().find(".help_text").hide();
         }
     });

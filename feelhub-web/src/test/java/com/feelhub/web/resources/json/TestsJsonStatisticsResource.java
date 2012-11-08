@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.json;
 
-import com.feelhub.domain.opinion.*;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.statistics.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -82,9 +82,9 @@ public class TestsJsonStatisticsResource {
     public void canFetchSingleHour() throws JSONException, IOException {
         final Reference reference = TestFactories.references().newReference();
         final Statistics statistics = TestFactories.statistics().newStatistics(reference, Granularity.hour);
-        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.good));
-        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.bad));
-        statistics.incrementJudgmentCount(new Judgment(reference.getId(), Feeling.bad));
+        statistics.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.good));
+        statistics.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.bad));
+        statistics.incrementSentimentCount(new Sentiment(reference.getId(), SentimentValue.bad));
         final ClientResource resource = restlet.newClientResource("/json/statistics?" + "start=" + new DateTime().minus(1).getMillis() + "&end=" + new DateTime().plus(1).getMillis() + "&granularity=hour" + "&referenceId=" + reference.getId());
         time.waitDays(1);
 

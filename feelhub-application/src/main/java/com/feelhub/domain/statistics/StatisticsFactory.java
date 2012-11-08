@@ -1,7 +1,7 @@
 package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.opinion.*;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.world.WorldStatisticsEvent;
 import com.feelhub.repositories.*;
 import com.google.common.eventbus.Subscribe;
@@ -19,39 +19,39 @@ public class StatisticsFactory {
     }
 
     @Subscribe
-    public void handle(final JudgmentStatisticsEvent event) {
+    public void handle(final SentimentStatisticsEvent event) {
         sessionProvider.start();
-        judgmentOn(event.getJudgment(), event.getDate());
+        sentimentOn(event.getSentiment(), event.getDate());
         sessionProvider.stop();
     }
 
     @Subscribe
     public void handle(final WorldStatisticsEvent event) {
         sessionProvider.start();
-        judgmentOn(event.getJudgment(), event.getDate());
+        sentimentOn(event.getSentiment(), event.getDate());
         sessionProvider.stop();
     }
 
-    private void judgmentOn(final Judgment judgment, final DateTime date) {
+    private void sentimentOn(final Sentiment sentiment, final DateTime date) {
         for (final Granularity granularity : Granularity.values()) {
-            dealWith(granularity, judgment, date);
+            dealWith(granularity, sentiment, date);
         }
     }
 
-    private void dealWith(final Granularity granularity, final Judgment judgment, final DateTime date) {
-        dealWithReference(granularity, judgment, date);
+    private void dealWith(final Granularity granularity, final Sentiment sentiment, final DateTime date) {
+        dealWithReference(granularity, sentiment, date);
     }
 
-    private void dealWithReference(final Granularity granularity, final Judgment judgment, final DateTime date) {
-        final Statistics stat = getOrCreateStat(granularity, judgment, date);
-        stat.incrementJudgmentCount(judgment);
+    private void dealWithReference(final Granularity granularity, final Sentiment sentiment, final DateTime date) {
+        final Statistics stat = getOrCreateStat(granularity, sentiment, date);
+        stat.incrementSentimentCount(sentiment);
     }
 
-    private synchronized Statistics getOrCreateStat(final Granularity granularity, final Judgment judgment, final DateTime date) {
-        final List<Statistics> statistics = Repositories.statistics().forReferenceId(judgment.getReferenceId(), granularity, granularity.intervalFor(date));
+    private synchronized Statistics getOrCreateStat(final Granularity granularity, final Sentiment sentiment, final DateTime date) {
+        final List<Statistics> statistics = Repositories.statistics().forReferenceId(sentiment.getReferenceId(), granularity, granularity.intervalFor(date));
         final Statistics stat;
         if (statistics.isEmpty()) {
-            stat = new Statistics(judgment.getReferenceId(), granularity, date);
+            stat = new Statistics(sentiment.getReferenceId(), granularity, date);
             Repositories.statistics().add(stat);
         } else {
             stat = statistics.get(0);

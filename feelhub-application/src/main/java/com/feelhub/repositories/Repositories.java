@@ -1,9 +1,9 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.alchemy.*;
+import com.feelhub.domain.feeling.FeelingRepository;
 import com.feelhub.domain.illustration.IllustrationRepository;
 import com.feelhub.domain.keyword.KeywordRepository;
-import com.feelhub.domain.opinion.OpinionRepository;
 import com.feelhub.domain.reference.ReferenceRepository;
 import com.feelhub.domain.relation.RelationRepository;
 import com.feelhub.domain.session.SessionRepository;
@@ -16,8 +16,8 @@ public abstract class Repositories {
         Repositories.soleInstance = repositories;
     }
 
-    public static OpinionRepository opinions() {
-        return Repositories.soleInstance.getOpinionRepository();
+    public static FeelingRepository feelings() {
+        return Repositories.soleInstance.getFeelingRepository();
     }
 
     public static RelationRepository relations() {
@@ -70,7 +70,7 @@ public abstract class Repositories {
 
     protected abstract RelationRepository getRelationRepository();
 
-    protected abstract OpinionRepository getOpinionRepository();
+    protected abstract FeelingRepository getFeelingRepository();
 
     protected abstract StatisticsRepository getStatisticsRepository();
 

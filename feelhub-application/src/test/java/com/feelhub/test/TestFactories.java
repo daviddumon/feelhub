@@ -1,9 +1,9 @@
 package com.feelhub.test;
 
 import com.feelhub.domain.alchemy.*;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.illustration.IllustrationTestFactory;
 import com.feelhub.domain.keyword.KeywordTestFactory;
-import com.feelhub.domain.opinion.*;
 import com.feelhub.domain.reference.ReferenceTestFactory;
 import com.feelhub.domain.relation.RelationTestFactory;
 import com.feelhub.domain.session.SessionTestFactory;
@@ -15,12 +15,12 @@ public class TestFactories {
     private TestFactories() {
     }
 
-    public static OpinionTestFactory opinions() {
-        return new OpinionTestFactory();
+    public static FeelingTestFactory feelings() {
+        return new FeelingTestFactory();
     }
 
-    public static JudgmentTestFactory judgments() {
-        return new JudgmentTestFactory();
+    public static SentimentTestFactory sentiments() {
+        return new SentimentTestFactory();
     }
 
     public static StatisticsTestFactory statistics() {

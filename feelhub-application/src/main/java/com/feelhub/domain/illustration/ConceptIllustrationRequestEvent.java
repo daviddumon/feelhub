@@ -16,7 +16,7 @@ public class ConceptIllustrationRequestEvent extends DomainEvent {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(date.toString());
         stringBuilder.append(" - ");
-        stringBuilder.append("ConceptIllustrationRequestEvent created");
+        stringBuilder.append(getClass().getSimpleName());
         return stringBuilder.toString();
     }
 

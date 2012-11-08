@@ -25,11 +25,11 @@ public class TestsStatisticsManager {
     public void canChangeStatisticsReferences() {
         final Reference ref1 = TestFactories.references().newReference();
         final Reference ref2 = TestFactories.references().newReference();
-        TestFactories.statistics().newStatisticsWithJudgments(ref1, Granularity.all);
-        TestFactories.statistics().newStatisticsWithJudgments(ref1, Granularity.day);
-        TestFactories.statistics().newStatisticsWithJudgments(ref1, Granularity.hour);
-        TestFactories.statistics().newStatisticsWithJudgments(ref2, Granularity.hour);
-        TestFactories.statistics().newStatisticsWithJudgments(ref2, Granularity.month);
+        TestFactories.statistics().newStatisticsWithSentiments(ref1, Granularity.all);
+        TestFactories.statistics().newStatisticsWithSentiments(ref1, Granularity.day);
+        TestFactories.statistics().newStatisticsWithSentiments(ref1, Granularity.hour);
+        TestFactories.statistics().newStatisticsWithSentiments(ref2, Granularity.hour);
+        TestFactories.statistics().newStatisticsWithSentiments(ref2, Granularity.month);
         final ReferencePatch referencePatch = new ReferencePatch(ref1.getId());
         referencePatch.addOldReferenceId(ref2.getId());
 

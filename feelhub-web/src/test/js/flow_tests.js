@@ -4,7 +4,7 @@ FlowTests.prototype = {
 
     setUp: function() {
         createDocumentForFlowTests();
-        flow = new Flow("flow.css","webpage","li",".opinion");
+        flow = new Flow("flow.css","webpage","li",".feeling");
     },
 
     testCanCreateAFlow: function() {
@@ -36,46 +36,46 @@ FlowTests.prototype = {
     },
 
     testCanDrawABox: function() {
-        flow.drawBox("myopinion","opinion opinion_good");
+        flow.drawBox("myfeeling","feeling feeling_good");
 
         var box = document.getElementById("webpage").getElementsByTagName('li');
         assertEquals(1, box.length);
-        assertEquals("myopinion", box[0].innerHTML);
-        assertEquals("opinion opinion_good", box[0].className);
+        assertEquals("myfeeling", box[0].innerHTML);
+        assertEquals("feeling feeling_good", box[0].className);
     },
 
     testCanDrawABoxLink: function() {
-        flow.drawBoxLink("myopinion","opinion opinion_good","fakelink");
+        flow.drawBoxLink("myfeeling","feeling feeling_good","fakelink");
 
-        var opinionlink = document.getElementById("webpage").getElementsByTagName('a');
-        assertEquals(1, opinionlink.length);
-        assertEquals("opinionlink", opinionlink[0].className);
-        assertEquals(1, opinionlink[0].childElementCount);
-        assertEquals("myopinion", opinionlink[0].firstChild.innerHTML);
-        assertEquals("opinion opinion_good", opinionlink[0].firstChild.className);
+        var feelinglink = document.getElementById("webpage").getElementsByTagName('a');
+        assertEquals(1, feelinglink.length);
+        assertEquals("feelinglink", feelinglink[0].className);
+        assertEquals(1, feelinglink[0].childElementCount);
+        assertEquals("myfeeling", feelinglink[0].firstChild.innerHTML);
+        assertEquals("feeling feeling_good", feelinglink[0].firstChild.className);
     },
 
     testCanSetInitialMaxWidthWithCSS: function() {
-        flow.drawBox("myopinion", "opinion");
+        flow.drawBox("myfeeling", "feeling");
 
         var box = document.getElementById("webpage").getElementsByTagName('li');
         assertEquals(0, getWidth(box[0]));
     },
 
     testReturnIDFromDrawing: function() {
-        var id = flow.drawBox("myopinion", "opinion");
+        var id = flow.drawBox("myfeeling", "feeling");
 
-        assertEquals("opinion_1", id);
+        assertEquals("feeling_1", id);
     },
 
     testCanSetID: function(){
-        var id = flow.drawBox("myopinion", "opinion");
+        var id = flow.drawBox("myfeeling", "feeling");
 
         assertEquals(id, document.getElementsByTagName("li")[0].getAttribute("id"));
     },
 
     testHasAMinHeightEqualsToInitialWidth: function() {
-        var id = flow.drawBox("myopinion", "opinion");
+        var id = flow.drawBox("myfeeling", "feeling");
 
         flow.compute(id);
 
@@ -85,7 +85,7 @@ FlowTests.prototype = {
     },
 
     testDoNotMinimizeHeightIfSuperiorToWidth: function() {
-        var id = flow.drawBox(infinystring, "opinion");
+        var id = flow.drawBox(infinystring, "feeling");
         var box = document.getElementById("webpage").getElementsByTagName('li');
         var initialWidth = getWidth(box[0]);
 
@@ -124,7 +124,7 @@ FlowTests.prototype = {
         var _findNextWidth = flow.findWidthForSize;
         var count = 0;
         flow.findWidthForSize = function() {count++};
-        var id = flow.drawBox(infinystring, "opinion");
+        var id = flow.drawBox(infinystring, "feeling");
 
         flow.compute(id);
 
@@ -133,7 +133,7 @@ FlowTests.prototype = {
     },
 
     testEnsurePositionAbsolute: function() {
-        var id = flow.drawBox("myopinion", "opinion");
+        var id = flow.drawBox("myfeeling", "feeling");
 
         var box = document.getElementsByTagName("li");
         assertSame("absolute", window.getComputedStyle(box[0], null).getPropertyCSSValue('position').cssText);

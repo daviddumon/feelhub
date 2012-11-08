@@ -2,8 +2,8 @@ package com.feelhub.domain.world;
 
 import com.feelhub.application.*;
 import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.keyword.*;
-import com.feelhub.domain.opinion.*;
 import com.feelhub.domain.reference.ReferenceFactory;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.translation.FakeTranslator;
@@ -30,33 +30,33 @@ public class TestsWorldListener {
     }
 
     @Test
-    public void addPostEventForWorldStatisticsOnJudgmentEvent() {
+    public void addPostEventForWorldStatisticsOnSentimentEvent() {
         bus.capture(WorldStatisticsEvent.class);
         final Keyword world = TestFactories.keywords().newKeyword("", FeelhubLanguage.none());
-        final Judgment judgment = TestFactories.judgments().newJudgment();
-        final JudgmentStatisticsEvent judgmentStatisticsEvent = new JudgmentStatisticsEvent(judgment);
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment();
+        final SentimentStatisticsEvent sentimentStatisticsEvent = new SentimentStatisticsEvent(sentiment);
 
-        DomainEventBus.INSTANCE.post(judgmentStatisticsEvent);
+        DomainEventBus.INSTANCE.post(sentimentStatisticsEvent);
 
         final WorldStatisticsEvent worldStatisticsEvent = bus.lastEvent(WorldStatisticsEvent.class);
         assertThat(worldStatisticsEvent, notNullValue());
-        assertThat(worldStatisticsEvent.getJudgment(), notNullValue());
-        assertThat(worldStatisticsEvent.getJudgment().getReferenceId(), is(world.getReferenceId()));
-        assertThat(worldStatisticsEvent.getJudgment().getFeeling(), is(judgment.getFeeling()));
+        assertThat(worldStatisticsEvent.getSentiment(), notNullValue());
+        assertThat(worldStatisticsEvent.getSentiment().getReferenceId(), is(world.getReferenceId()));
+        assertThat(worldStatisticsEvent.getSentiment().getSentimentValue(), is(sentiment.getSentimentValue()));
     }
 
     @Test
     public void canCreateWorldIfNotPresent() {
         bus.capture(WorldStatisticsEvent.class);
-        final Judgment judgment = TestFactories.judgments().newJudgment();
-        final JudgmentStatisticsEvent judgmentStatisticsEvent = new JudgmentStatisticsEvent(judgment);
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment();
+        final SentimentStatisticsEvent sentimentStatisticsEvent = new SentimentStatisticsEvent(sentiment);
 
-        DomainEventBus.INSTANCE.post(judgmentStatisticsEvent);
+        DomainEventBus.INSTANCE.post(sentimentStatisticsEvent);
 
         final Keyword worldKeyword = Repositories.keywords().forValueAndLanguage("", FeelhubLanguage.none());
         assertThat(worldKeyword, notNullValue());
         final WorldStatisticsEvent worldStatisticsEvent = bus.lastEvent(WorldStatisticsEvent.class);
-        assertThat(worldStatisticsEvent.getJudgment().getReferenceId(), is(worldKeyword.getReferenceId()));
+        assertThat(worldStatisticsEvent.getSentiment().getReferenceId(), is(worldKeyword.getReferenceId()));
     }
 
     private WorldListener worldListener;

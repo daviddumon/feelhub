@@ -17,8 +17,8 @@ $(function () {
         }
     });
 
-    $("input").change(function(event) {
-        if($(this).val() !== "") {
+    $("input").change(function (event) {
+        if ($(this).val() !== "") {
             $(this).parent().find(".help_text").hide();
         }
     });
