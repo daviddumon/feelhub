@@ -42,10 +42,10 @@ public class FeelingService {
 
     private List<Sentiment> fromText(final FeelingRequestEvent feelingRequestEvent) {
         final List<Sentiment> result = Lists.newArrayList();
-        final List<KeywordAndSentiment> keywordAndSentiments = topicExtractor.extract(feelingRequestEvent.getText());
-        for (final KeywordAndSentiment keywordAndSentiment : keywordAndSentiments) {
-            final Keyword keyword = keywordService.lookUpOrCreate(keywordAndSentiment.text, feelingRequestEvent.getUserLanguageCode());
-            final Sentiment sentiment = new Sentiment(keyword.getTopicId(), keywordAndSentiment.sentimentValue);
+        final List<SentimentAndText> sentimentAndTexts = topicExtractor.extract(feelingRequestEvent.getText());
+        for (final SentimentAndText sentimentAndText : sentimentAndTexts) {
+            final Keyword keyword = keywordService.lookUpOrCreate(sentimentAndText.text, feelingRequestEvent.getUserLanguageCode());
+            final Sentiment sentiment = new Sentiment(keyword.getTopicId(), sentimentAndText.sentimentValue);
             result.add(sentiment);
         }
         return result;

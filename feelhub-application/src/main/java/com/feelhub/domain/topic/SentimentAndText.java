@@ -2,9 +2,9 @@ package com.feelhub.domain.topic;
 
 import com.feelhub.domain.feeling.SentimentValue;
 
-public class KeywordAndSentiment {
+public class SentimentAndText {
 
-    public KeywordAndSentiment(final SentimentValue sentimentValue, final String text) {
+    public SentimentAndText(final SentimentValue sentimentValue, final String text) {
         this.sentimentValue = sentimentValue;
         this.text = text;
     }

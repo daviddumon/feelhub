@@ -1,6 +1,5 @@
 package com.feelhub.web.resources;
 
-import com.feelhub.application.KeywordService;
 import com.feelhub.domain.illustration.Illustration;
 import com.feelhub.domain.keyword.Keyword;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
@@ -18,7 +17,6 @@ import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class TestsKeywordResource {
 
@@ -61,34 +59,39 @@ public class TestsKeywordResource {
 
     @Test
     public void lookUpKeyword() {
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.forString("de"));
+        final Keyword keyword = TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.forString("de"));
         final ClientResource keywordResource = restlet.newClientResource("/topic/de/keyword");
 
-        keywordResource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
-        final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
-        verify(keywordService).lookUp("keyword", FeelhubLanguage.forString("de"));
+        final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+        final TopicData topicData = (TopicData) dataModel.get("topicData");
+        assertThat(topicData.getKeywordValue(), is(keyword.getValue()));
+        assertThat(topicData.getLanguageCode(), is(keyword.getLanguageCode()));
     }
 
     @Test
     public void lookUpWithNoLanguage() {
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.none());
+        final Keyword keyword = TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.none());
         final ClientResource keywordResource = restlet.newClientResource("/topic/keyword");
 
-        keywordResource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
-        final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
-        verify(keywordService).lookUp("keyword", FeelhubLanguage.none());
+        final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+        final TopicData topicData = (TopicData) dataModel.get("topicData");
+        assertThat(topicData.getKeywordValue(), is(keyword.getValue()));
+        assertThat(topicData.getLanguageCode(), is(keyword.getLanguageCode()));
     }
 
     @Test
     public void canIdentifyKeywordValueInUri() {
         final ClientResource keywordResource = restlet.newClientResource("/topic/fr/anotherkeyword");
 
-        keywordResource.get();
+        final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
-        final KeywordService keywordService = restlet.getModuleGuiceTestModule().getKeywordService();
-        verify(keywordService).lookUp("anotherkeyword", FeelhubLanguage.forString("fr"));
+        final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+        final TopicData topicData = (TopicData) dataModel.get("topicData");
+        assertThat(topicData.getKeywordValue(), is("anotherkeyword"));
     }
 
     @Test

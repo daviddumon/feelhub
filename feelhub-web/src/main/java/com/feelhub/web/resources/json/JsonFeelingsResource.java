@@ -1,8 +1,7 @@
 package com.feelhub.web.resources.json;
 
-import com.feelhub.application.*;
-import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.keyword.Keyword;
+import com.feelhub.application.TopicService;
+import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
@@ -18,11 +17,10 @@ import java.util.*;
 public class JsonFeelingsResource extends ServerResource {
 
     @Inject
-    public JsonFeelingsResource(final TopicService topicService, final FeelingSearch feelingSearch, final TopicDataFactory topicDataFactory, final KeywordService keywordService) {
+    public JsonFeelingsResource(final TopicService topicService, final FeelingSearch feelingSearch, final TopicDataFactory topicDataFactory) {
         this.topicService = topicService;
         this.feelingSearch = feelingSearch;
         this.topicDataFactory = topicDataFactory;
-        this.keywordService = keywordService;
     }
 
     @Get
@@ -78,26 +76,15 @@ public class JsonFeelingsResource extends ServerResource {
     private List<FeelingData> getFeelingDatas(final List<Feeling> feelings) {
         final List<FeelingData> feelingDatas = Lists.newArrayList();
         for (final Feeling feeling : feelings) {
-            final List<TopicData> topicDatas = getTopicDatas(feeling);
+            final List<TopicData> topicDatas = topicDataFactory.getTopicDatas(feeling, feelhubLanguage);
             final FeelingData feelingData = new FeelingData(feeling, topicDatas);
             feelingDatas.add(feelingData);
         }
         return feelingDatas;
     }
 
-    private List<TopicData> getTopicDatas(final Feeling feeling) {
-        final List<TopicData> topicDatas = Lists.newArrayList();
-        for (final Sentiment sentiment : feeling.getSentiments()) {
-            final Keyword keyword = keywordService.lookUp(sentiment.getTopicId(), feelhubLanguage);
-            final TopicData topicData = topicDataFactory.getTopicDatas(keyword, sentiment);
-            topicDatas.add(topicData);
-        }
-        return topicDatas;
-    }
-
     private final FeelingSearch feelingSearch;
     private final TopicDataFactory topicDataFactory;
-    private final KeywordService keywordService;
     private final TopicService topicService;
     private FeelhubLanguage feelhubLanguage;
 }

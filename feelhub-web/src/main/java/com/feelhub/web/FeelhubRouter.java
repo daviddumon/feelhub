@@ -55,8 +55,8 @@ public class FeelhubRouter extends Router {
     private void attachUriForKeywordAndLanguage() {
         final TemplateRoute route = attach("/topic/{language}/{keyword}", KeywordResource.class);
         final Map<String, Variable> variables = route.getTemplate().getVariables();
-        variables.put("keyword", new Variable(Variable.TYPE_URI_ALL, "", true, false, true, true));
         variables.put("language", new Variable(Variable.TYPE_ALPHA, "", true, false, true, true));
+        variables.put("keyword", new Variable(Variable.TYPE_URI_ALL, "", true, false, true, true));
     }
 
     private void attachUriForKeyword() {

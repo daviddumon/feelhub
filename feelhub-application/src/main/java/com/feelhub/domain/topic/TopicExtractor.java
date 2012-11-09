@@ -8,8 +8,8 @@ import java.util.*;
 
 public class TopicExtractor {
 
-    public List<KeywordAndSentiment> extract(final String text) {
-        final List<KeywordAndSentiment> keywordAndSentiments = Lists.newArrayList();
+    public List<SentimentAndText> extract(final String text) {
+        final List<SentimentAndText> sentimentAndTexts = Lists.newArrayList();
         final String[] tokens = text.split("\\s");
         for (final String token : tokens) {
             final TreeMap<Integer, SentimentValue> tokenTags = getSemanticTags(token);
@@ -22,18 +22,18 @@ public class TopicExtractor {
                     cleanedToken = removeApostrophe(cleanedToken);
                 }
                 if (cleanedToken.length() > 2) {
-                    final KeywordAndSentiment keywordAndSentiment = new KeywordAndSentiment(tokenSentimentValue, cleanedToken);
-                    keywordAndSentiments.add(keywordAndSentiment);
+                    final SentimentAndText sentimentAndText = new SentimentAndText(tokenSentimentValue, cleanedToken);
+                    sentimentAndTexts.add(sentimentAndText);
                 }
             } else if (isUri(token)) {
                 final String cleanedToken = token.trim().toLowerCase();
                 if (cleanedToken.length() > 2) {
-                    final KeywordAndSentiment keywordAndSentiment = new KeywordAndSentiment(SentimentValue.none, cleanedToken);
-                    keywordAndSentiments.add(keywordAndSentiment);
+                    final SentimentAndText sentimentAndText = new SentimentAndText(SentimentValue.none, cleanedToken);
+                    sentimentAndTexts.add(sentimentAndText);
                 }
             }
         }
-        return keywordAndSentiments;
+        return sentimentAndTexts;
     }
 
     private String removeApostrophe(final String cleanedToken) {

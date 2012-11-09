@@ -1,8 +1,7 @@
 package com.feelhub.web.resources.json;
 
-import com.feelhub.application.*;
-import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.keyword.Keyword;
+import com.feelhub.application.TopicService;
+import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.web.dto.*;
@@ -18,8 +17,7 @@ import java.util.*;
 public class JsonNewFeelingsResource extends ServerResource {
 
     @Inject
-    public JsonNewFeelingsResource(final KeywordService keywordService, final TopicDataFactory topicDataFactory, final FeelingSearch feelingSearch, final TopicService topicService) {
-        this.keywordService = keywordService;
+    public JsonNewFeelingsResource(final TopicDataFactory topicDataFactory, final FeelingSearch feelingSearch, final TopicService topicService) {
         this.topicDataFactory = topicDataFactory;
         this.feelingSearch = feelingSearch;
         this.topicService = topicService;
@@ -82,24 +80,13 @@ public class JsonNewFeelingsResource extends ServerResource {
     private List<FeelingData> getFeelingDatas(final List<Feeling> feelings) {
         final List<FeelingData> feelingDatas = Lists.newArrayList();
         for (final Feeling feeling : feelings) {
-            final List<TopicData> topicDatas = getTopicDatas(feeling);
+            final List<TopicData> topicDatas = topicDataFactory.getTopicDatas(feeling, feelhubLanguage);
             final FeelingData feelingData = new FeelingData(feeling, topicDatas);
             feelingDatas.add(feelingData);
         }
         return feelingDatas;
     }
 
-    private List<TopicData> getTopicDatas(final Feeling feeling) {
-        final List<TopicData> topicDatas = Lists.newArrayList();
-        for (final Sentiment sentiment : feeling.getSentiments()) {
-            final Keyword keyword = keywordService.lookUp(sentiment.getTopicId(), feelhubLanguage);
-            final TopicData topicData = topicDataFactory.getTopicDatas(keyword, sentiment);
-            topicDatas.add(topicData);
-        }
-        return topicDatas;
-    }
-
-    private final KeywordService keywordService;
     private final TopicDataFactory topicDataFactory;
     private final FeelingSearch feelingSearch;
     private final TopicService topicService;

@@ -3,9 +3,7 @@ package com.feelhub.web.guice;
 import com.feelhub.application.*;
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.bingsearch.*;
-import com.feelhub.domain.keyword.KeywordFactory;
 import com.feelhub.domain.scraper.*;
-import com.feelhub.domain.topic.TopicFactory;
 import com.feelhub.domain.translation.*;
 import com.feelhub.domain.uri.*;
 import com.feelhub.repositories.SessionProvider;
@@ -22,8 +20,6 @@ import com.google.inject.name.Names;
 
 import java.io.IOException;
 import java.util.Properties;
-
-import static org.mockito.Mockito.*;
 
 public class GuiceTestModule extends AbstractModule {
 
@@ -45,6 +41,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
         bind(MailSender.class).to(FakeMailSender.class);
+        bind(KeywordService.class).to(FakeKeywordService.class);
     }
 
     private Properties properties() {
@@ -55,12 +52,6 @@ public class GuiceTestModule extends AbstractModule {
         } catch (IOException e) {
             throw new RuntimeException("Error loading properties", e);
         }
-    }
-
-    @Provides
-    public KeywordService keywordService() {
-        keywordService = spy(new KeywordService(new TopicService(new TopicFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver())));
-        return keywordService;
     }
 
     @Provides
@@ -75,10 +66,5 @@ public class GuiceTestModule extends AbstractModule {
         this.feelhubSitemapModuleLink = feelhubSitemapModuleLink;
     }
 
-    public KeywordService getKeywordService() {
-        return keywordService;
-    }
-
     private FeelhubSitemapModuleLink feelhubSitemapModuleLink;
-    private KeywordService keywordService;
 }

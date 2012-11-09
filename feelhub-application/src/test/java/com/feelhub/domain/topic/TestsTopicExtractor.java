@@ -134,9 +134,9 @@ public class TestsTopicExtractor {
 
     private void testText(final String text, final SentimentValue sentimentValue, final String expected) {
         final TopicExtractor topicExtractor = new TopicExtractor();
-        final List<KeywordAndSentiment> keywordAndSentiments = topicExtractor.extract(text);
-        assertThat("for '" + text + "'", keywordAndSentiments.size(), is(1));
-        assertThat("for '" + text + "'", keywordAndSentiments.get(0).sentimentValue, is(sentimentValue));
-        assertThat("for '" + text + "'", keywordAndSentiments.get(0).text, is(expected));
+        final List<SentimentAndText> sentimentAndTexts = topicExtractor.extract(text);
+        assertThat("for '" + text + "'", sentimentAndTexts.size(), is(1));
+        assertThat("for '" + text + "'", sentimentAndTexts.get(0).sentimentValue, is(sentimentValue));
+        assertThat("for '" + text + "'", sentimentAndTexts.get(0).text, is(expected));
     }
 }

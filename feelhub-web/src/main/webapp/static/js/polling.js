@@ -57,7 +57,7 @@ function RequestCounters(topicId) {
 
 function pollForId(feelingId, text, sentimentValue) {
     var topicIdPolling = setInterval(function () {
-        $.getJSON(root + "/json/keyword?keywordValue=" + keywordValue + "&languageCode=" + languageCode, function (data) {
+        $.getJSON(root + "/json/keyword?keywordValue=" + encodeURIComponent(keywordValue) + "&languageCode=" + languageCode, function (data) {
 
         })
             .success(function (data) {

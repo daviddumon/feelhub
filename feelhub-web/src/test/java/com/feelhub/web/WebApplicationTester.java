@@ -33,11 +33,6 @@ public class WebApplicationTester extends ExternalResource {
         return application;
     }
 
-    public GuiceTestModule getModuleGuiceTestModule() {
-        return moduleGuiceTestModule;
-    }
-
-
     private FeelhubApplication application;
     private final GuiceTestModule moduleGuiceTestModule = new GuiceTestModule();
 }

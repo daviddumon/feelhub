@@ -26,6 +26,14 @@ public class KeywordService {
         this.uriManager = uriManager;
     }
 
+    public Keyword lookUpOrCreateWorld() {
+        final Keyword keyword = Repositories.keywords().forValueAndLanguage("", FeelhubLanguage.none());
+        if (keyword == null) {
+            return createKeyword("", FeelhubLanguage.none());
+        }
+        return keyword;
+    }
+
     public Keyword lookUpOrCreate(final String value, final String languageCode) {
         Keyword keyword;
         try {
@@ -36,21 +44,13 @@ public class KeywordService {
         return keyword;
     }
 
-    public Keyword lookUpOrCreateWorld() {
-        final Keyword keyword = Repositories.keywords().forValueAndLanguage("", FeelhubLanguage.none());
-        if (keyword == null) {
-            return createKeyword("", FeelhubLanguage.none());
-        }
-        return keyword;
-    }
-
     public Keyword lookUp(final String value, final FeelhubLanguage feelhubLanguage) {
         checkSize(value);
         final Keyword keyword;
         if (KeywordService.isUri(value)) {
             keyword = Repositories.keywords().forValueAndLanguage(value, feelhubLanguage);
         } else {
-            keyword = Repositories.keywords().forValueAndLanguage(normalize(value), feelhubLanguage);
+            keyword = Repositories.keywords().forValueAndLanguage(normalizeWord(value), feelhubLanguage);
         }
         if (keyword == null) {
             throw new KeywordNotFound();
@@ -103,7 +103,7 @@ public class KeywordService {
             requestAlchemy(uri);
             return uri;
         } else if (!value.isEmpty()) {
-            final Keyword concept = createConcept(normalize(value), feelhubLanguage);
+            final Keyword concept = createConcept(normalizeWord(value), feelhubLanguage);
             requestConceptIllustration(concept);
             return concept;
         } else {
@@ -178,7 +178,7 @@ public class KeywordService {
         return keyword;
     }
 
-    private String normalize(String value) {
+    private String normalizeWord(String value) {
         value = value.toLowerCase();
         value = WordUtils.capitalize(value);
         return value;
