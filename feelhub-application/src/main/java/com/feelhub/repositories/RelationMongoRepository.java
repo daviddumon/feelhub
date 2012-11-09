@@ -23,28 +23,28 @@ public class RelationMongoRepository extends BaseMongoRepository<Relation> imple
     }
 
     @Override
-    public List<Relation> forReferenceId(final UUID referenceId) {
+    public List<Relation> forTopicId(final UUID topicId) {
         final CopyOnWriteArrayList<Relation> relations = Lists.newCopyOnWriteArrayList();
-        final List<Relation> listWithFromIdEqualsReferenceId = getListWithFromIdEqualsReferenceId(referenceId);
-        if (!listWithFromIdEqualsReferenceId.isEmpty()) {
-            relations.addAllAbsent(listWithFromIdEqualsReferenceId);
+        final List<Relation> listWithFromIdEqualsTopicId = getListWithFromIdEqualsTopicId(topicId);
+        if (!listWithFromIdEqualsTopicId.isEmpty()) {
+            relations.addAllAbsent(listWithFromIdEqualsTopicId);
         }
-        final List<Relation> listWithToIdEqualsReferenceId = getListWithToIdEqualsReferenceId(referenceId);
-        if (!listWithToIdEqualsReferenceId.isEmpty()) {
-            relations.addAllAbsent(listWithToIdEqualsReferenceId);
+        final List<Relation> listWithToIdEqualsTopicId = getListWithToIdEqualsTopicId(topicId);
+        if (!listWithToIdEqualsTopicId.isEmpty()) {
+            relations.addAllAbsent(listWithToIdEqualsTopicId);
         }
         return relations;
     }
 
-    private List<Relation> getListWithFromIdEqualsReferenceId(final UUID referenceId) {
+    private List<Relation> getListWithFromIdEqualsTopicId(final UUID topicId) {
         final Criteria fromCriteria = getSession().createCriteria(Relation.class);
-        fromCriteria.add(Restrictions.equals("fromId", referenceId));
+        fromCriteria.add(Restrictions.equals("fromId", topicId));
         return fromCriteria.list();
     }
 
-    private List<Relation> getListWithToIdEqualsReferenceId(final UUID referenceId) {
+    private List<Relation> getListWithToIdEqualsTopicId(final UUID topicId) {
         final Criteria fromCriteria = getSession().createCriteria(Relation.class);
-        fromCriteria.add(Restrictions.equals("toId", referenceId));
+        fromCriteria.add(Restrictions.equals("toId", topicId));
         return fromCriteria.list();
     }
 }

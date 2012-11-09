@@ -1,7 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.alchemy.*;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.test.*;
 import com.google.common.collect.Lists;
 import com.mongodb.*;
@@ -24,7 +24,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistAlchemyEntity() {
-        final AlchemyEntity alchemyEntity = new AlchemyEntity(TestFactories.references().newReference().getId());
+        final AlchemyEntity alchemyEntity = new AlchemyEntity(TestFactories.topics().newTopic().getId());
         alchemyEntity.setCensus("census");
         alchemyEntity.setCiafactbook("ciafactbook");
         alchemyEntity.setCrunchbase("crunchbase");
@@ -50,7 +50,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
         final DBObject alchemyFound = getAlchemyEntityFromDB(alchemyEntity.getId());
         assertThat(alchemyFound, notNullValue());
         assertThat(alchemyFound.get("_id"), is(alchemyEntity.getId()));
-        assertThat(alchemyFound.get("referenceId"), is((Object) alchemyEntity.getReferenceId()));
+        assertThat(alchemyFound.get("topicId"), is((Object) alchemyEntity.getTopicId()));
         assertThat(alchemyFound.get("creationDate"), is((Object) alchemyEntity.getCreationDate().getMillis()));
         assertThat(alchemyFound.get("lastModificationDate"), is((Object) alchemyEntity.getLastModificationDate().getMillis()));
         assertThat(alchemyFound.get("census"), is((Object) alchemyEntity.getCensus()));
@@ -85,13 +85,13 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canGetForAReference() {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.alchemy().newAlchemyEntityEntity(reference.getId());
-        TestFactories.alchemy().newAlchemyEntityEntity(reference.getId());
-        TestFactories.alchemy().newAlchemyEntityEntity(reference.getId());
+    public void canGetForATopic() {
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.alchemy().newAlchemyEntityEntity(topic.getId());
+        TestFactories.alchemy().newAlchemyEntityEntity(topic.getId());
+        TestFactories.alchemy().newAlchemyEntityEntity(topic.getId());
 
-        final List<AlchemyEntity> alchemyEntities = entityMongoRepository.forReferenceId(reference.getId());
+        final List<AlchemyEntity> alchemyEntities = entityMongoRepository.forTopicId(topic.getId());
 
         assertThat(alchemyEntities, notNullValue());
         assertThat(alchemyEntities.size(), is(3));

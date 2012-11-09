@@ -1,7 +1,7 @@
 package com.feelhub.web.search.fake;
 
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.statistics.*;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.web.search.StatisticsSearch;
 import com.google.common.base.Predicate;
@@ -50,12 +50,12 @@ public class FakeStatisticsSearch extends StatisticsSearch {
     }
 
     @Override
-    public StatisticsSearch withReference(final Reference reference) {
+    public StatisticsSearch withTopic(final Topic topic) {
         statisticsList = Lists.newArrayList(Iterables.filter(statisticsList, new Predicate<Statistics>() {
 
             @Override
             public boolean apply(final Statistics statistics) {
-                if (statistics.getReferenceId().equals(reference.getId())) {
+                if (statistics.getTopicId().equals(topic.getId())) {
                     return true;
                 }
                 return false;

@@ -1,19 +1,19 @@
 package com.feelhub.repositories.mapping;
 
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import org.mongolink.domain.mapper.EntityMap;
 
-public class ReferenceMapping extends EntityMap<Reference> {
+public class TopicMapping extends EntityMap<Topic> {
 
-    public ReferenceMapping() {
-        super(Reference.class);
+    public TopicMapping() {
+        super(Topic.class);
     }
 
     @Override
     protected void map() {
         id(element().getId()).natural();
         property(element().isActive());
-        property(element().getCurrentReferenceId());
+        property(element().getCurrentTopicId());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
     }

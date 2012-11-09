@@ -1,6 +1,6 @@
-var NewSubjectTests = TestCase("NewSubjectTests");
+var NewTopicTests = TestCase("NewTopicTests");
 
-NewSubjectTests.prototype = {
+NewTopicTests.prototype = {
 
     setUp: function() {
 

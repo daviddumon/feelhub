@@ -6,8 +6,8 @@ import java.util.UUID;
 
 public class KeywordFactory {
 
-    public Keyword createKeyword(final String value, final FeelhubLanguage feelhubLanguage, final UUID referenceId) {
-        final Keyword keyword = new Keyword(value, feelhubLanguage, referenceId);
+    public Keyword createKeyword(final String value, final FeelhubLanguage feelhubLanguage, final UUID topicId) {
+        final Keyword keyword = new Keyword(value, feelhubLanguage, topicId);
         return keyword;
     }
 }

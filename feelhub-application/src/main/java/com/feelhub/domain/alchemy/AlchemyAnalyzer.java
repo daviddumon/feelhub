@@ -25,7 +25,7 @@ public class AlchemyAnalyzer {
     @Subscribe
     public void handle(final AlchemyRequestEvent event) {
         sessionProvider.start();
-        final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forReferenceId(event.getUri().getReferenceId());
+        final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(event.getUri().getTopicId());
         if (alchemyAnalysisList.isEmpty()) {
             addAlchemyAnalysis(event);
         }
@@ -62,7 +62,7 @@ public class AlchemyAnalyzer {
     }
 
     private AlchemyEntity createAlchemyEntity(final NamedEntity namedEntity, final Keyword keyword) {
-        final AlchemyEntity alchemyEntity = new AlchemyEntity(keyword.getReferenceId());
+        final AlchemyEntity alchemyEntity = new AlchemyEntity(keyword.getTopicId());
         alchemyEntity.setCensus(namedEntity.census);
         alchemyEntity.setCiafactbook(namedEntity.ciaFactbook);
         alchemyEntity.setCrunchbase(namedEntity.crunchbase);
@@ -84,11 +84,11 @@ public class AlchemyAnalyzer {
     }
 
     private void createRelations(final AlchemyRequestEvent event, final List<AlchemyEntity> entities) {
-        final HashMap<UUID, Double> referencesAndScores = Maps.newHashMap();
+        final HashMap<UUID, Double> topicsAndScores = Maps.newHashMap();
         for (final AlchemyEntity entity : entities) {
-            referencesAndScores.put(entity.getReferenceId(), entity.getRelevance());
+            topicsAndScores.put(entity.getTopicId(), entity.getRelevance());
         }
-        alchemyRelationBinder.bind(event.getUri().getReferenceId(), referencesAndScores);
+        alchemyRelationBinder.bind(event.getUri().getTopicId(), topicsAndScores);
     }
 
     private final KeywordService keywordService;

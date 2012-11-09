@@ -4,9 +4,9 @@ import org.restlet.Context;
 
 import javax.servlet.ServletContext;
 
-public class ReferenceBuilder {
+public class WebReferenceBuilder {
 
-    public ReferenceBuilder(final Context context) {
+    public WebReferenceBuilder(final Context context) {
         this.context = context;
     }
 

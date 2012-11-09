@@ -4,8 +4,8 @@ import com.feelhub.application.*;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.keyword.*;
-import com.feelhub.domain.reference.ReferenceFactory;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.TopicFactory;
 import com.feelhub.domain.translation.FakeTranslator;
 import com.feelhub.domain.uri.*;
 import com.feelhub.repositories.Repositories;
@@ -26,7 +26,7 @@ public class TestsWorldListener {
 
     @Before
     public void before() {
-        worldListener = new WorldListener(new FakeSessionProvider(), new KeywordService(new ReferenceService(new ReferenceFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver())));
+        worldListener = new WorldListener(new FakeSessionProvider(), new KeywordService(new TopicService(new TopicFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver())));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class TestsWorldListener {
         final WorldStatisticsEvent worldStatisticsEvent = bus.lastEvent(WorldStatisticsEvent.class);
         assertThat(worldStatisticsEvent, notNullValue());
         assertThat(worldStatisticsEvent.getSentiment(), notNullValue());
-        assertThat(worldStatisticsEvent.getSentiment().getReferenceId(), is(world.getReferenceId()));
+        assertThat(worldStatisticsEvent.getSentiment().getTopicId(), is(world.getTopicId()));
         assertThat(worldStatisticsEvent.getSentiment().getSentimentValue(), is(sentiment.getSentimentValue()));
     }
 
@@ -56,7 +56,7 @@ public class TestsWorldListener {
         final Keyword worldKeyword = Repositories.keywords().forValueAndLanguage("", FeelhubLanguage.none());
         assertThat(worldKeyword, notNullValue());
         final WorldStatisticsEvent worldStatisticsEvent = bus.lastEvent(WorldStatisticsEvent.class);
-        assertThat(worldStatisticsEvent.getSentiment().getReferenceId(), is(worldKeyword.getReferenceId()));
+        assertThat(worldStatisticsEvent.getSentiment().getTopicId(), is(worldKeyword.getTopicId()));
     }
 
     private WorldListener worldListener;

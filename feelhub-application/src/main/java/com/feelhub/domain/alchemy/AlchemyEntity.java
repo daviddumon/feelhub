@@ -11,8 +11,8 @@ public class AlchemyEntity extends BaseEntity {
     public AlchemyEntity() {
     }
 
-    public AlchemyEntity(final UUID referenceId) {
-        this.referenceId = referenceId;
+    public AlchemyEntity(final UUID topicId) {
+        this.topicId = topicId;
         this.id = UUID.randomUUID();
     }
 
@@ -21,12 +21,12 @@ public class AlchemyEntity extends BaseEntity {
         return id;
     }
 
-    public UUID getReferenceId() {
-        return referenceId;
+    public UUID getTopicId() {
+        return topicId;
     }
 
-    public void setReferenceId(final UUID referenceId) {
-        this.referenceId = referenceId;
+    public void setTopicId(final UUID topicId) {
+        this.topicId = topicId;
     }
 
     public String getType() {
@@ -157,12 +157,12 @@ public class AlchemyEntity extends BaseEntity {
         this.relevance = relevance;
     }
 
-    public void setNewReferenceId(final UUID newReferenceId) {
-        this.referenceId = newReferenceId;
+    public void setNewTopicId(final UUID newTopicId) {
+        this.topicId = newTopicId;
     }
 
     private UUID id;
-    private UUID referenceId;
+    private UUID topicId;
     private String type = "";
     private List<String> subtype = Lists.newArrayList();
     private String website = "";

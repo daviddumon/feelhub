@@ -2,9 +2,9 @@ package com.feelhub.domain.keyword;
 
 import com.feelhub.domain.feeling.FeelingManager;
 import com.feelhub.domain.illustration.IllustrationManager;
-import com.feelhub.domain.reference.*;
 import com.feelhub.domain.relation.RelationManager;
 import com.feelhub.domain.statistics.StatisticsManager;
+import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 
@@ -13,37 +13,37 @@ import java.util.*;
 public class KeywordMerger {
 
     public void merge(final List<Keyword> keywords) {
-        final ReferencePatch referencePatch = createReferencePatch(keywords);
-        keywordManager.merge(referencePatch);
-        referenceManager.merge(referencePatch);
-        illustrationManager.merge(referencePatch);
-        feelingManager.merge(referencePatch);
-        relationManager.merge(referencePatch);
-        statisticsManager.merge(referencePatch);
+        final TopicPatch topicPatch = createTopicPatch(keywords);
+        keywordManager.merge(topicPatch);
+        topicManager.merge(topicPatch);
+        illustrationManager.merge(topicPatch);
+        feelingManager.merge(topicPatch);
+        relationManager.merge(topicPatch);
+        statisticsManager.merge(topicPatch);
     }
 
-    private ReferencePatch createReferencePatch(final List<Keyword> keywords) {
-        final List<Reference> allReferences = getAllReferences(keywords);
-        final Reference oldestReference = getOldestReference(allReferences);
-        final ReferencePatch referencePatch = new ReferencePatch(oldestReference.getId());
-        appendOldReferences(referencePatch, allReferences);
-        return referencePatch;
+    private TopicPatch createTopicPatch(final List<Keyword> keywords) {
+        final List<Topic> allTopics = getAllTopics(keywords);
+        final Topic oldestTopic = getOldestTopic(allTopics);
+        final TopicPatch topicPatch = new TopicPatch(oldestTopic.getId());
+        appendOldTopics(topicPatch, allTopics);
+        return topicPatch;
     }
 
-    private List<Reference> getAllReferences(final List<Keyword> keywords) {
-        final List<Reference> references = Lists.newArrayList();
+    private List<Topic> getAllTopics(final List<Keyword> keywords) {
+        final List<Topic> topics = Lists.newArrayList();
         for (final Keyword keyword : keywords) {
-            final UUID referenceId = keyword.getReferenceId();
-            final Reference reference = Repositories.references().get(referenceId);
-            references.add(reference);
+            final UUID topicId = keyword.getTopicId();
+            final Topic topic = Repositories.topics().get(topicId);
+            topics.add(topic);
         }
-        return references;
+        return topics;
     }
 
-    private Reference getOldestReference(final List<Reference> references) {
-        Reference result = references.get(0);
-        for (int i = 1; i < references.size(); i++) {
-            final Reference current = references.get(i);
+    private Topic getOldestTopic(final List<Topic> topics) {
+        Topic result = topics.get(0);
+        for (int i = 1; i < topics.size(); i++) {
+            final Topic current = topics.get(i);
             if (current.getCreationDate().isBefore(result.getCreationDate())) {
                 result = current;
             }
@@ -51,17 +51,17 @@ public class KeywordMerger {
         return result;
     }
 
-    private void appendOldReferences(final ReferencePatch referencePatch, final List<Reference> allReferences) {
-        for (final Reference reference : allReferences) {
-            final UUID currentId = reference.getId();
-            if (!currentId.equals(referencePatch.getNewReferenceId())) {
-                referencePatch.addOldReferenceId(currentId);
+    private void appendOldTopics(final TopicPatch topicPatch, final List<Topic> allTopics) {
+        for (final Topic topic : allTopics) {
+            final UUID currentId = topic.getId();
+            if (!currentId.equals(topicPatch.getNewTopicId())) {
+                topicPatch.addOldTopicId(currentId);
             }
         }
     }
 
     private final KeywordManager keywordManager = new KeywordManager();
-    private final ReferenceManager referenceManager = new ReferenceManager();
+    private final TopicManager topicManager = new TopicManager();
     private final IllustrationManager illustrationManager = new IllustrationManager();
     private final FeelingManager feelingManager = new FeelingManager();
     private final RelationManager relationManager = new RelationManager();

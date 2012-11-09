@@ -2,8 +2,8 @@ package com.feelhub.domain.illustration;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.scraper.FakeScraper;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
@@ -30,23 +30,23 @@ public class TestsUriIllustrationFactory {
     @Test
     public void canCreateIllustration() {
         final Keyword keyword = TestFactories.keywords().newKeyword();
-        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(keyword.getReferenceId(), keyword.getValue());
+        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(keyword.getTopicId(), keyword.getValue());
 
         DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size(), is(1));
-        assertThat(illustrations.get(0).getReferenceId(), is(uriIllustrationRequestEvent.getReferenceId()));
+        assertThat(illustrations.get(0).getTopicId(), is(uriIllustrationRequestEvent.getTopicId()));
         assertThat(illustrations.get(0).getLink(), is("fakeillustration"));
     }
 
 
     @Test
     public void checkForExistingIllustration() {
-        final Reference reference = TestFactories.references().newReference();
+        final Topic topic = TestFactories.topics().newTopic();
         final String value = "value";
-        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(reference.getId(), value);
-        TestFactories.illustrations().newIllustration(reference);
+        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(topic.getId(), value);
+        TestFactories.illustrations().newIllustration(topic);
 
         DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
 

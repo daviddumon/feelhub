@@ -1,8 +1,8 @@
 package com.feelhub.web.resources.json;
 
-import com.feelhub.application.ReferenceService;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.application.TopicService;
 import com.feelhub.domain.relation.Relation;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.search.*;
 import com.google.common.collect.Lists;
@@ -15,16 +15,16 @@ import java.util.*;
 public class JsonRelationsResource extends ServerResource {
 
     @Inject
-    public JsonRelationsResource(final ReferenceService referenceService, final RelationSearch relationSearch) {
-        this.referenceService = referenceService;
+    public JsonRelationsResource(final TopicService topicService, final RelationSearch relationSearch) {
+        this.topicService = topicService;
         this.relationSearch = relationSearch;
     }
 
     @Get
     public ModelAndView represent() {
         doSearchWithQueryParameters();
-        loadReferences();
-        return ModelAndView.createNew("json/relations.json.ftl", MediaType.APPLICATION_JSON).with("references", references);
+        loadTopics();
+        return ModelAndView.createNew("json/relations.json.ftl", MediaType.APPLICATION_JSON).with("topics", topics);
     }
 
     private void doSearchWithQueryParameters() {
@@ -56,19 +56,19 @@ public class JsonRelationsResource extends ServerResource {
     }
 
     private void setUpSearchForFromIdParameter(final Form form) {
-        if (form.getQueryString().contains("referenceId")) {
-            relationSearch.withFrom(referenceService.lookUp(UUID.fromString(form.getFirstValue("referenceId").trim())));
+        if (form.getQueryString().contains("topicId")) {
+            relationSearch.withFrom(topicService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim())));
         }
     }
 
-    private void loadReferences() {
+    private void loadTopics() {
         for (final Relation relation : relations) {
-            references.add(referenceService.lookUp(relation.getToId()));
+            topics.add(topicService.lookUp(relation.getToId()));
         }
     }
 
-    private final ReferenceService referenceService;
+    private final TopicService topicService;
     private final RelationSearch relationSearch;
     private List<Relation> relations = Lists.newArrayList();
-    private final List<Reference> references = Lists.newArrayList();
+    private final List<Topic> topics = Lists.newArrayList();
 }

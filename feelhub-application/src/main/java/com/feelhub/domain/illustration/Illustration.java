@@ -10,9 +10,9 @@ public class Illustration extends BaseEntity {
     public Illustration() {
     }
 
-    public Illustration(final UUID referenceId, final String link) {
+    public Illustration(final UUID topicId, final String link) {
         this.id = UUID.randomUUID();
-        this.referenceId = referenceId;
+        this.topicId = topicId;
         this.link = link;
     }
 
@@ -25,15 +25,15 @@ public class Illustration extends BaseEntity {
         return link;
     }
 
-    public UUID getReferenceId() {
-        return referenceId;
+    public UUID getTopicId() {
+        return topicId;
     }
 
-    public void setReferenceId(final UUID referenceId) {
-        this.referenceId = referenceId;
+    public void setTopicId(final UUID topicId) {
+        this.topicId = topicId;
     }
 
     private UUID id;
     private String link;
-    private UUID referenceId;
+    private UUID topicId;
 }

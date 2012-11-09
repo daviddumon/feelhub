@@ -7,11 +7,11 @@ function buildInternalLink(languageCode, value) {
     return result;
 }
 
-function RequestRelations(referenceId) {
-    if (referenceId.length != 0) {
+function RequestRelations(topicId) {
+    if (topicId.length != 0) {
         var parameters = [];
         var uri = root + "/json/related?";
-        parameters.push({"value":"referenceId=" + referenceId});
+        parameters.push({"value":"topicId=" + topicId});
         parameters.push({"value":"limit=12"});
         if (typeof userLanguageCode !== 'undefined') {
             parameters.push({"value":"languageCode=" + userLanguageCode});
@@ -26,26 +26,26 @@ function RequestRelations(referenceId) {
         uri = uri.substr(0, uri.length - 1);
         //console.log(uri);
         $.getJSON(uri, function (data) {
-            $.each(data, function (index, referenceData) {
-                //console.log("relation found " + referenceData.referenceId);
+            $.each(data, function (index, topicData) {
+                //console.log("relation found " + topicData.topicId);
 
-                var reference_data = {
-                    referenceId:referenceData.referenceId,
-                    keywordValue:referenceData.keywordValue,
-                    url:buildInternalLink(referenceData.languageCode, referenceData.keywordValue),
-                    classes:"reference_related"
+                var topic_data = {
+                    topicId:topicData.topicId,
+                    keywordValue:topicData.keywordValue,
+                    url:buildInternalLink(topicData.languageCode, topicData.keywordValue),
+                    classes:"topic_related"
                 };
 
-                $("#related").append(ich.reference(reference_data));
-                $("#" + referenceData.referenceId + " img").attr("src", referenceData.illustrationLink);
+                $("#related").append(ich.topic(topic_data));
+                $("#" + topicData.topicId + " img").attr("src", topicData.illustrationLink);
             });
         });
     }
 }
 
-function RequestCounters(referenceId) {
-    if (referenceId.length != 0) {
-        $.getJSON(root + "/json/statistics?granularity=all&start=0&end=" + new Date().getTime() + "&referenceId=" + referenceId, function (data) {
+function RequestCounters(topicId) {
+    if (topicId.length != 0) {
+        $.getJSON(root + "/json/statistics?granularity=all&start=0&end=" + new Date().getTime() + "&topicId=" + topicId, function (data) {
             $.each(data, function (index, stat) {
                 $("#counter_good p").text(stat.good);
                 $("#counter_bad p").text(stat.bad);
@@ -56,15 +56,15 @@ function RequestCounters(referenceId) {
 }
 
 function pollForId(feelingId, text, sentimentValue) {
-    var referenceIdPolling = setInterval(function () {
+    var topicIdPolling = setInterval(function () {
         $.getJSON(root + "/json/keyword?keywordValue=" + keywordValue + "&languageCode=" + languageCode, function (data) {
 
         })
             .success(function (data) {
                 //console.log("success");
                 //console.log(data);
-                clearInterval(referenceIdPolling);
-                referenceId = data.referenceId;
+                clearInterval(topicIdPolling);
+                topicId = data.topicId;
                 FindInformations();
                 flow.pushFake(feelingId, text, sentimentValue);
             });

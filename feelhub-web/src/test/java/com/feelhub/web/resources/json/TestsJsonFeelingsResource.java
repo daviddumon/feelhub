@@ -2,8 +2,8 @@ package com.feelhub.web.resources.json;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
@@ -126,12 +126,12 @@ public class TestsJsonFeelingsResource {
     }
 
     @Test
-    public void canGetFeelingForSubject() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
+    public void canGetFeelingForTopic() throws IOException, JSONException {
+        final Topic topic = TestFactories.topics().newTopic();
         TestFactories.feelings().newFeelings(10);
-        TestFactories.feelings().newFeelings(reference, 10);
+        TestFactories.feelings().newFeelings(topic, 10);
         TestFactories.feelings().newFeelings(10);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?referenceId=" + reference.getId());
+        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
@@ -142,74 +142,74 @@ public class TestsJsonFeelingsResource {
 
     @Test
     public void canGetFeelingWithALanguage() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), reference);
-        TestFactories.keywords().newKeyword("mot", FeelhubLanguage.forString("fr"), reference);
-        final Sentiment sentiment = TestFactories.sentiments().newSentiment(reference, SentimentValue.good);
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), topic);
+        TestFactories.keywords().newKeyword("mot", FeelhubLanguage.forString("fr"), topic);
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?referenceId=" + reference.getId() + "&languageCode=fr");
+        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId() + "&languageCode=fr");
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
         final JSONObject jsonFeeling = jsonArray.getJSONObject(0);
         assertThat(jsonFeeling.get("text").toString(), is("my feeling"));
-        final JSONArray jsonReferenceDatas = jsonFeeling.getJSONArray("referenceDatas");
-        assertThat(jsonReferenceDatas.length(), is(1));
-        final JSONObject jsonReferenceData = jsonReferenceDatas.getJSONObject(0);
-        assertThat(jsonReferenceData.get("referenceId").toString(), is(reference.getId().toString()));
-        assertThat(jsonReferenceData.get("sentimentValue").toString(), is(sentiment.getSentimentValue().toString()));
-        assertThat(jsonReferenceData.get("keywordValue").toString(), is("mot"));
-        assertThat(jsonReferenceData.get("languageCode").toString(), is("fr"));
+        final JSONArray jsonTopicDatas = jsonFeeling.getJSONArray("topicDatas");
+        assertThat(jsonTopicDatas.length(), is(1));
+        final JSONObject jsonTopicData = jsonTopicDatas.getJSONObject(0);
+        assertThat(jsonTopicData.get("topicId").toString(), is(topic.getId().toString()));
+        assertThat(jsonTopicData.get("sentimentValue").toString(), is(sentiment.getSentimentValue().toString()));
+        assertThat(jsonTopicData.get("keywordValue").toString(), is("mot"));
+        assertThat(jsonTopicData.get("languageCode").toString(), is("fr"));
     }
 
     @Test
     public void useDefaultLanguage() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), reference);
-        TestFactories.keywords().newKeyword("mot", FeelhubLanguage.forString("fr"), reference);
-        final Sentiment sentiment = TestFactories.sentiments().newSentiment(reference, SentimentValue.good);
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), topic);
+        TestFactories.keywords().newKeyword("mot", FeelhubLanguage.forString("fr"), topic);
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?referenceId=" + reference.getId());
+        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
         final JSONObject jsonFeeling = jsonArray.getJSONObject(0);
         assertThat(jsonFeeling.get("text").toString(), is("my feeling"));
-        final JSONArray jsonReferenceDatas = jsonFeeling.getJSONArray("referenceDatas");
-        assertThat(jsonReferenceDatas.length(), is(1));
-        final JSONObject jsonReferenceData = jsonReferenceDatas.getJSONObject(0);
-        assertThat(jsonReferenceData.get("referenceId").toString(), is(reference.getId().toString()));
-        assertThat(jsonReferenceData.get("sentimentValue").toString(), is(sentiment.getSentimentValue().toString()));
-        assertThat(jsonReferenceData.get("keywordValue").toString(), is("keyword"));
-        assertThat(jsonReferenceData.get("languageCode").toString(), is("en"));
+        final JSONArray jsonTopicDatas = jsonFeeling.getJSONArray("topicDatas");
+        assertThat(jsonTopicDatas.length(), is(1));
+        final JSONObject jsonTopicData = jsonTopicDatas.getJSONObject(0);
+        assertThat(jsonTopicData.get("topicId").toString(), is(topic.getId().toString()));
+        assertThat(jsonTopicData.get("sentimentValue").toString(), is(sentiment.getSentimentValue().toString()));
+        assertThat(jsonTopicData.get("keywordValue").toString(), is("keyword"));
+        assertThat(jsonTopicData.get("languageCode").toString(), is("en"));
     }
 
     @Test
     public void hasIllustrationData() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.illustrations().newIllustration(reference, "link");
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), reference);
-        final Sentiment sentiment = TestFactories.sentiments().newSentiment(reference, SentimentValue.good);
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.illustrations().newIllustration(topic, "link");
+        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), topic);
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?referenceId=" + reference.getId());
+        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        final JSONObject jsonReferenceData = jsonArray.getJSONObject(0).getJSONArray("referenceDatas").getJSONObject(0);
-        assertThat(jsonReferenceData.get("illustrationLink").toString(), is("link"));
+        final JSONObject jsonTopicData = jsonArray.getJSONObject(0).getJSONArray("topicDatas").getJSONObject(0);
+        assertThat(jsonTopicData.get("illustrationLink").toString(), is("link"));
     }
 
     @Test
     public void hasLanguageCodeData() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.illustrations().newIllustration(reference, "link");
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), reference);
-        final Sentiment sentiment = TestFactories.sentiments().newSentiment(reference, SentimentValue.good);
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.illustrations().newIllustration(topic, "link");
+        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), topic);
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?referenceId=" + reference.getId());
+        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
@@ -219,12 +219,12 @@ public class TestsJsonFeelingsResource {
 
     @Test
     public void hasUserIdData() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.illustrations().newIllustration(reference, "link");
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), reference);
-        final Sentiment sentiment = TestFactories.sentiments().newSentiment(reference, SentimentValue.good);
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.illustrations().newIllustration(topic, "link");
+        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), topic);
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         final Feeling feeling = TestFactories.feelings().newFeeling("my feeling", sentiment);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?referenceId=" + reference.getId());
+        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 

@@ -21,7 +21,7 @@ public class WorldListener {
     public void handle(final SentimentStatisticsEvent sentimentStatisticsEvent) {
         sessionProvider.start();
         final Keyword world = keywordService.lookUpOrCreateWorld();
-        final Sentiment sentiment = new Sentiment(world.getReferenceId(), sentimentStatisticsEvent.getSentiment().getSentimentValue());
+        final Sentiment sentiment = new Sentiment(world.getTopicId(), sentimentStatisticsEvent.getSentiment().getSentimentValue());
         final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(sentiment);
         DomainEventBus.INSTANCE.post(worldStatisticsEvent);
         sessionProvider.stop();

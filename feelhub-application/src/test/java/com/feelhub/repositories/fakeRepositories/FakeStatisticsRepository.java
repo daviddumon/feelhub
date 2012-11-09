@@ -10,34 +10,34 @@ import java.util.*;
 public class FakeStatisticsRepository extends FakeRepository<Statistics> implements StatisticsRepository {
 
     @Override
-    public List<Statistics> forReferenceId(final UUID referenceId) {
+    public List<Statistics> forTopicId(final UUID topicId) {
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Statistics>() {
 
             @Override
             public boolean apply(final Statistics input) {
-                return input.getReferenceId().equals(referenceId);
+                return input.getTopicId().equals(topicId);
             }
         }));
     }
 
     @Override
-    public List<Statistics> forReferenceId(final UUID referenceId, final Granularity granularity) {
+    public List<Statistics> forTopicId(final UUID topicId, final Granularity granularity) {
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Statistics>() {
 
             @Override
             public boolean apply(final Statistics input) {
-                return input.getReferenceId().equals(referenceId) && input.getGranularity() == granularity;
+                return input.getTopicId().equals(topicId) && input.getGranularity() == granularity;
             }
         }));
     }
 
     @Override
-    public List<Statistics> forReferenceId(final UUID referenceId, final Granularity granularity, final Interval interval) {
+    public List<Statistics> forTopicId(final UUID topicId, final Granularity granularity, final Interval interval) {
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Statistics>() {
 
             @Override
             public boolean apply(final Statistics input) {
-                return input.getReferenceId().equals(referenceId) && input.getGranularity() == granularity && interval.contains(input.getDate());
+                return input.getTopicId().equals(topicId) && input.getGranularity() == granularity && interval.contains(input.getDate());
             }
         }));
     }

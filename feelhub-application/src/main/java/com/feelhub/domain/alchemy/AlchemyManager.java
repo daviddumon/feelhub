@@ -1,32 +1,32 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.reference.ReferencePatch;
+import com.feelhub.domain.topic.TopicPatch;
 import com.feelhub.repositories.Repositories;
 
 import java.util.*;
 
 public class AlchemyManager {
 
-    public void merge(final ReferencePatch referencePatch) {
-        mergeAlchemyEntities(referencePatch);
-        removeDuplicateAlchemyEntities(referencePatch.getNewReferenceId());
-        mergeAlchemyAnalysis(referencePatch);
-        removeDuplicateAlchemyAnalysis(referencePatch.getNewReferenceId());
+    public void merge(final TopicPatch topicPatch) {
+        mergeAlchemyEntities(topicPatch);
+        removeDuplicateAlchemyEntities(topicPatch.getNewTopicId());
+        mergeAlchemyAnalysis(topicPatch);
+        removeDuplicateAlchemyAnalysis(topicPatch.getNewTopicId());
     }
 
-    private void mergeAlchemyEntities(final ReferencePatch referencePatch) {
-        for (final UUID oldReferenceId : referencePatch.getOldReferenceIds()) {
-            final List<AlchemyEntity> entities = Repositories.alchemyEntities().forReferenceId(oldReferenceId);
+    private void mergeAlchemyEntities(final TopicPatch topicPatch) {
+        for (final UUID oldTopicId : topicPatch.getOldTopicIds()) {
+            final List<AlchemyEntity> entities = Repositories.alchemyEntities().forTopicId(oldTopicId);
             if (!entities.isEmpty()) {
                 for (final AlchemyEntity entity : entities) {
-                    entity.setNewReferenceId(referencePatch.getNewReferenceId());
+                    entity.setNewTopicId(topicPatch.getNewTopicId());
                 }
             }
         }
     }
 
-    private void removeDuplicateAlchemyEntities(final UUID newReferenceId) {
-        final List<AlchemyEntity> entities = Repositories.alchemyEntities().forReferenceId(newReferenceId);
+    private void removeDuplicateAlchemyEntities(final UUID newTopicId) {
+        final List<AlchemyEntity> entities = Repositories.alchemyEntities().forTopicId(newTopicId);
         if (entities.size() > 1) {
             for (int i = 1; i < entities.size(); i++) {
                 Repositories.alchemyEntities().delete(entities.get(i));
@@ -34,19 +34,19 @@ public class AlchemyManager {
         }
     }
 
-    private void mergeAlchemyAnalysis(final ReferencePatch referencePatch) {
-        for (final UUID oldRefenceId : referencePatch.getOldReferenceIds()) {
-            final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forReferenceId(oldRefenceId);
+    private void mergeAlchemyAnalysis(final TopicPatch topicPatch) {
+        for (final UUID oldTopicId : topicPatch.getOldTopicIds()) {
+            final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(oldTopicId);
             if (!alchemyAnalysisList.isEmpty()) {
                 for (final AlchemyAnalysis analysis : alchemyAnalysisList) {
-                    analysis.setNewReferenceId(referencePatch.getNewReferenceId());
+                    analysis.setNewTopicId(topicPatch.getNewTopicId());
                 }
             }
         }
     }
 
-    private void removeDuplicateAlchemyAnalysis(final UUID newReferenceId) {
-        final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forReferenceId(newReferenceId);
+    private void removeDuplicateAlchemyAnalysis(final UUID newTopicId) {
+        final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(newTopicId);
         if (alchemyAnalysisList.size() > 1) {
             for (int i = 1; i < alchemyAnalysisList.size(); i++) {
                 Repositories.alchemyAnalysis().delete(alchemyAnalysisList.get(i));

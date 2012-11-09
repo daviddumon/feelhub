@@ -4,8 +4,8 @@ import com.feelhub.domain.alchemy.AlchemyRequestEvent;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.illustration.*;
 import com.feelhub.domain.keyword.*;
-import com.feelhub.domain.reference.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.translation.FakeTranslator;
 import com.feelhub.domain.uri.*;
 import com.feelhub.repositories.Repositories;
@@ -33,7 +33,7 @@ public class TestKeywordService {
 
     @Before
     public void before() {
-        keywordService = new KeywordService(new ReferenceService(new ReferenceFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver()));
+        keywordService = new KeywordService(new TopicService(new TopicFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver()));
     }
 
     @Test
@@ -79,25 +79,25 @@ public class TestKeywordService {
     }
 
     @Test
-    public void createAndPersistAReferenceFirst() {
+    public void createAndPersistATopicFirst() {
         final String value = "value";
         final FeelhubLanguage feelhubLanguage = FeelhubLanguage.none();
 
         keywordService.createKeyword(value, feelhubLanguage);
 
-        final List<Reference> references = Repositories.references().getAll();
+        final List<Topic> topics = Repositories.topics().getAll();
         final List<Keyword> keywords = Repositories.keywords().getAll();
         assertThat(keywords.size(), is(1));
-        assertThat(references.size(), is(1));
+        assertThat(topics.size(), is(1));
     }
 
     @Test
-    public void canCreateAKeywordWithReference() {
-        final Reference reference = TestFactories.references().newReference();
+    public void canCreateAKeywordWithTopic() {
+        final Topic topic = TestFactories.topics().newTopic();
         final String value = "value";
         final FeelhubLanguage feelhubLanguage = FeelhubLanguage.none();
 
-        final Keyword keyword = keywordService.createKeyword(value, feelhubLanguage, reference.getId());
+        final Keyword keyword = keywordService.createKeyword(value, feelhubLanguage, topic.getId());
 
         assertThat(keyword, notNullValue());
         assertThat(keyword.getValue(), is(value));
@@ -143,7 +143,7 @@ public class TestKeywordService {
     }
 
     @Test
-    public void translateIfNotReference() {
+    public void translateIfNotLanguageReference() {
         final String value = "Value";
         final FeelhubLanguage feelhubLanguage = FeelhubLanguage.forString("fr");
 
@@ -153,7 +153,7 @@ public class TestKeywordService {
         assertThat(keyword.getValue(), is(value));
         assertThat(keyword.getLanguage(), is(feelhubLanguage));
         assertThat(Repositories.keywords().getAll().size(), is(2));
-        assertThat(Repositories.keywords().getAll().get(0).getReferenceId(), is(Repositories.keywords().getAll().get(1).getReferenceId()));
+        assertThat(Repositories.keywords().getAll().get(0).getTopicId(), is(Repositories.keywords().getAll().get(1).getTopicId()));
     }
 
     @Test
@@ -164,7 +164,7 @@ public class TestKeywordService {
         keywordService.createKeyword(value, FeelhubLanguage.forString("de"));
 
         assertThat(Repositories.keywords().getAll().size(), is(3));
-        assertThat(Repositories.references().getAll().size(), is(1));
+        assertThat(Repositories.topics().getAll().size(), is(1));
     }
 
     @Test
@@ -174,12 +174,12 @@ public class TestKeywordService {
         keywordService.createKeyword("Value", FeelhubLanguage.forString("fr"));
 
         assertThat(Repositories.keywords().getAll().size(), is(2));
-        assertThat(Repositories.keywords().getAll().get(0).getReferenceId(), is(referenceKeyword.getReferenceId()));
-        assertThat(Repositories.keywords().getAll().get(1).getReferenceId(), is(referenceKeyword.getReferenceId()));
+        assertThat(Repositories.keywords().getAll().get(0).getTopicId(), is(referenceKeyword.getTopicId()));
+        assertThat(Repositories.keywords().getAll().get(1).getTopicId(), is(referenceKeyword.getTopicId()));
     }
 
     @Test
-    public void makeReferenceInactiveOnTranslationError() {
+    public void translationNeededOnTranslationError() {
         keywordService.createKeyword("Exception", FeelhubLanguage.forString("fr"));
 
         assertThat(Repositories.keywords().getAll().size(), is(1));
@@ -239,7 +239,7 @@ public class TestKeywordService {
 
         final UriIllustrationRequestEvent uriIllustrationRequestEvent = bus.lastEvent(UriIllustrationRequestEvent.class);
         assertThat(uriIllustrationRequestEvent, notNullValue());
-        assertThat(uriIllustrationRequestEvent.getReferenceId(), is(keyword.getReferenceId()));
+        assertThat(uriIllustrationRequestEvent.getTopicId(), is(keyword.getTopicId()));
     }
 
     @Test
@@ -252,7 +252,7 @@ public class TestKeywordService {
 
         final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
         assertThat(alchemyRequestEvent, notNullValue());
-        assertThat(alchemyRequestEvent.getUri().getReferenceId(), is(keyword.getReferenceId()));
+        assertThat(alchemyRequestEvent.getUri().getTopicId(), is(keyword.getTopicId()));
     }
 
     @Test
@@ -264,7 +264,7 @@ public class TestKeywordService {
         final Keyword keyword = keywordService.createKeyword(value, feelhubLanguage);
 
         final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = bus.lastEvent(ConceptIllustrationRequestEvent.class);
-        assertThat(conceptIllustrationRequestEvent.getReferenceId(), is(keyword.getReferenceId()));
+        assertThat(conceptIllustrationRequestEvent.getTopicId(), is(keyword.getTopicId()));
     }
 
     @Test

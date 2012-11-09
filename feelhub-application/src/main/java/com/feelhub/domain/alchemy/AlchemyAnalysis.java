@@ -14,7 +14,7 @@ public class AlchemyAnalysis extends BaseEntity {
 
     public AlchemyAnalysis(final Keyword keyword) {
         this.id = UUID.randomUUID();
-        this.referenceId = keyword.getReferenceId();
+        this.topicId = keyword.getTopicId();
         this.value = keyword.getValue();
     }
 
@@ -23,16 +23,16 @@ public class AlchemyAnalysis extends BaseEntity {
         return id;
     }
 
-    public UUID getReferenceId() {
-        return referenceId;
+    public UUID getTopicId() {
+        return topicId;
     }
 
     public String getValue() {
         return value;
     }
 
-    public void setNewReferenceId(final UUID newReferenceId) {
-        this.referenceId = newReferenceId;
+    public void setNewTopicId(final UUID newTopicId) {
+        this.topicId = newTopicId;
     }
 
     public void setLanguageCode(final FeelhubLanguage language) {
@@ -43,7 +43,7 @@ public class AlchemyAnalysis extends BaseEntity {
         return languageCode;
     }
 
-    private UUID referenceId;
+    private UUID topicId;
     private UUID id;
     private String value;
     private String languageCode;

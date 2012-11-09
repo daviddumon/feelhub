@@ -18,10 +18,10 @@ import java.util.*;
 public class JsonFeelingsResource extends ServerResource {
 
     @Inject
-    public JsonFeelingsResource(final ReferenceService referenceService, final FeelingSearch feelingSearch, final ReferenceDataFactory referenceDataFactory, final KeywordService keywordService) {
-        this.referenceService = referenceService;
+    public JsonFeelingsResource(final TopicService topicService, final FeelingSearch feelingSearch, final TopicDataFactory topicDataFactory, final KeywordService keywordService) {
+        this.topicService = topicService;
         this.feelingSearch = feelingSearch;
-        this.referenceDataFactory = referenceDataFactory;
+        this.topicDataFactory = topicDataFactory;
         this.keywordService = keywordService;
     }
 
@@ -37,7 +37,7 @@ public class JsonFeelingsResource extends ServerResource {
     private List<Feeling> doSearchWithQueryParameters(final Form form) {
         setUpSearchForLimitParameter(form);
         setUpSearchForSkipParameter(form);
-        setUpSearchForReferenceIdParameter(form);
+        setUpSearchForTopicIdParameter(form);
         return feelingSearch.withSort("creationDate", FeelingSearch.REVERSE_ORDER).execute();
     }
 
@@ -61,9 +61,9 @@ public class JsonFeelingsResource extends ServerResource {
         }
     }
 
-    private void setUpSearchForReferenceIdParameter(final Form form) {
-        if (form.getQueryString().contains("referenceId")) {
-            feelingSearch.withReference(referenceService.lookUp(UUID.fromString(form.getFirstValue("referenceId").trim())));
+    private void setUpSearchForTopicIdParameter(final Form form) {
+        if (form.getQueryString().contains("topicId")) {
+            feelingSearch.withTopic(topicService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim())));
         }
     }
 
@@ -78,26 +78,26 @@ public class JsonFeelingsResource extends ServerResource {
     private List<FeelingData> getFeelingDatas(final List<Feeling> feelings) {
         final List<FeelingData> feelingDatas = Lists.newArrayList();
         for (final Feeling feeling : feelings) {
-            final List<ReferenceData> referenceDatas = getReferenceDatas(feeling);
-            final FeelingData feelingData = new FeelingData(feeling, referenceDatas);
+            final List<TopicData> topicDatas = getTopicDatas(feeling);
+            final FeelingData feelingData = new FeelingData(feeling, topicDatas);
             feelingDatas.add(feelingData);
         }
         return feelingDatas;
     }
 
-    private List<ReferenceData> getReferenceDatas(final Feeling feeling) {
-        final List<ReferenceData> referenceDatas = Lists.newArrayList();
+    private List<TopicData> getTopicDatas(final Feeling feeling) {
+        final List<TopicData> topicDatas = Lists.newArrayList();
         for (final Sentiment sentiment : feeling.getSentiments()) {
-            final Keyword keyword = keywordService.lookUp(sentiment.getReferenceId(), feelhubLanguage);
-            final ReferenceData referenceData = referenceDataFactory.getReferenceDatas(keyword, sentiment);
-            referenceDatas.add(referenceData);
+            final Keyword keyword = keywordService.lookUp(sentiment.getTopicId(), feelhubLanguage);
+            final TopicData topicData = topicDataFactory.getTopicDatas(keyword, sentiment);
+            topicDatas.add(topicData);
         }
-        return referenceDatas;
+        return topicDatas;
     }
 
     private final FeelingSearch feelingSearch;
-    private final ReferenceDataFactory referenceDataFactory;
+    private final TopicDataFactory topicDataFactory;
     private final KeywordService keywordService;
-    private final ReferenceService referenceService;
+    private final TopicService topicService;
     private FeelhubLanguage feelhubLanguage;
 }

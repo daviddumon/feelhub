@@ -41,9 +41,9 @@ public class TestsSitemapJob extends TestWithMongoRepository {
     @Test
     public void canExecute() throws JobExecutionException {
         data.clear();
-        TestFactories.references().newReference();
-        TestFactories.references().newReference();
-        TestFactories.references().newReference();
+        TestFactories.topics().newTopic();
+        TestFactories.topics().newTopic();
+        TestFactories.topics().newTopic();
         final SitemapJob sitemapJob = new SitemapJob(getProvider().get());
 
         sitemapJob.execute(null);
@@ -54,8 +54,8 @@ public class TestsSitemapJob extends TestWithMongoRepository {
     @Test
     public void canFetchtopics() throws JobExecutionException {
         data.clear();
-        TestFactories.references().newReference();
-        TestFactories.references().newReference();
+        TestFactories.topics().newTopic();
+        TestFactories.topics().newTopic();
         final SitemapJob sitemapJob = new SitemapJob(getProvider().get());
 
         sitemapJob.execute(null);
@@ -66,7 +66,7 @@ public class TestsSitemapJob extends TestWithMongoRepository {
     @Test
     public void canFetchTopics() throws JobExecutionException {
         data.clear();
-        TestFactories.references().newReference();
+        TestFactories.topics().newTopic();
         final SitemapJob sitemapJob = new SitemapJob(getProvider().get());
 
         sitemapJob.execute(null);
@@ -77,7 +77,7 @@ public class TestsSitemapJob extends TestWithMongoRepository {
     @Test
     public void cleanExistingSitemapsAndIndexesBefore() throws JobExecutionException {
         data.clear();
-        TestFactories.references().newReference();
+        TestFactories.topics().newTopic();
         final SitemapJob sitemapJob = new SitemapJob(getProvider().get());
 
         sitemapJob.execute(null);
@@ -91,13 +91,13 @@ public class TestsSitemapJob extends TestWithMongoRepository {
     public void canUseLastBuildDateForFetching() throws JobExecutionException {
         data.clear();
         final SitemapJob sitemapJob = new SitemapJob(getProvider().get());
-        TestFactories.references().newReference();
-        TestFactories.references().newReference();
-        TestFactories.references().newReference();
+        TestFactories.topics().newTopic();
+        TestFactories.topics().newTopic();
+        TestFactories.topics().newTopic();
         time.waitDays(1);
         sitemapJob.execute(null);
         data.clear();
-        TestFactories.references().newReference();
+        TestFactories.topics().newTopic();
 
         sitemapJob.execute(null);
 

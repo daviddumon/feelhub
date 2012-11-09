@@ -2,7 +2,7 @@ package com.feelhub.web.mail;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.user.*;
-import com.feelhub.web.ReferenceBuilder;
+import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.representation.FeelhubTemplateRepresentation;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
@@ -60,7 +60,7 @@ public class MailBuilder {
         try {
             final FeelhubTemplateRepresentation content = FeelhubTemplateRepresentation.createNew("mail/welcome.ftl", context)
                     .with("name", user.getFullname())
-                    .with("activation_link", new ReferenceBuilder(context).buildUri("/activation/" + user.getSecret()));
+                    .with("activation_link", new WebReferenceBuilder(context).buildUri("/activation/" + user.getSecret()));
             mimeMessage.setText(content.getText());
         } catch (MessagingException e) {
             e.printStackTrace();

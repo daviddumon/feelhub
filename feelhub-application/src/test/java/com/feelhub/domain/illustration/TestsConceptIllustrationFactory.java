@@ -2,7 +2,7 @@ package com.feelhub.domain.illustration;
 
 import com.feelhub.domain.bingsearch.FakeBingLink;
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
@@ -28,24 +28,24 @@ public class TestsConceptIllustrationFactory {
 
     @Test
     public void canCreateIllustration() {
-        final Reference reference = TestFactories.references().newReference();
+        final Topic topic = TestFactories.topics().newTopic();
         final String value = "value";
-        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(reference.getId(), value);
+        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(topic.getId(), value);
 
         DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size(), is(1));
-        assertThat(illustrations.get(0).getReferenceId(), is(conceptIllustrationRequestEvent.getReferenceId()));
+        assertThat(illustrations.get(0).getTopicId(), is(conceptIllustrationRequestEvent.getTopicId()));
         assertThat(illustrations.get(0).getLink(), is(value + "link"));
     }
 
     @Test
     public void checkForExistingIllustration() {
-        final Reference reference = TestFactories.references().newReference();
+        final Topic topic = TestFactories.topics().newTopic();
         final String value = "value";
-        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(reference.getId(), value);
-        TestFactories.illustrations().newIllustration(reference);
+        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(topic.getId(), value);
+        TestFactories.illustrations().newIllustration(topic);
 
         DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
 

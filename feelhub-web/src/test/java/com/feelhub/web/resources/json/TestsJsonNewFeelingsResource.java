@@ -1,8 +1,8 @@
 package com.feelhub.web.resources.json;
 
 import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
@@ -29,9 +29,9 @@ public class TestsJsonNewFeelingsResource {
 
     @Test
     public void isMapped() {
-        final Reference reference = TestFactories.references().newReference();
+        final Topic topic = TestFactories.topics().newTopic();
         final Feeling lastFeeling = TestFactories.feelings().newFeeling();
-        final ClientResource newFeelings = restlet.newClientResource("/json/newfeelings?referenceId=" + reference.getId() + "&lastFeelingId=" + lastFeeling.getId());
+        final ClientResource newFeelings = restlet.newClientResource("/json/newfeelings?topicId=" + topic.getId() + "&lastFeelingId=" + lastFeeling.getId());
 
         newFeelings.get();
 
@@ -40,10 +40,10 @@ public class TestsJsonNewFeelingsResource {
 
     @Test
     public void returnAJsonArrayOfFeelings() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        final List<Feeling> feelings = TestFactories.feelings().newFeelings(reference, 20);
+        final Topic topic = TestFactories.topics().newTopic();
+        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic, 20);
         final Feeling lastFeeling = feelings.get(10);
-        final ClientResource newFeelings = restlet.newClientResource("/json/newfeelings?referenceId=" + reference.getId() + "&lastFeelingId=" + lastFeeling.getId());
+        final ClientResource newFeelings = restlet.newClientResource("/json/newfeelings?topicId=" + topic.getId() + "&lastFeelingId=" + lastFeeling.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) newFeelings.get();
 
@@ -54,10 +54,10 @@ public class TestsJsonNewFeelingsResource {
 
     @Test
     public void returnKnownFeelingsUntilLast() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        final List<Feeling> feelings = TestFactories.feelings().newFeelings(reference, 4);
+        final Topic topic = TestFactories.topics().newTopic();
+        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic, 4);
         final Feeling lastFeeling = feelings.get(2);
-        final ClientResource newFeelings = restlet.newClientResource("/json/newfeelings?referenceId=" + reference.getId() + "&lastFeelingId=" + lastFeeling.getId());
+        final ClientResource newFeelings = restlet.newClientResource("/json/newfeelings?topicId=" + topic.getId() + "&lastFeelingId=" + lastFeeling.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) newFeelings.get();
 
@@ -67,10 +67,10 @@ public class TestsJsonNewFeelingsResource {
 
     @Test
     public void returnKnownFeelingsUntilLastWithAVeryHighNumberOfNewFeelings() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        final List<Feeling> feelings = TestFactories.feelings().newFeelings(reference, 1000);
+        final Topic topic = TestFactories.topics().newTopic();
+        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic, 1000);
         final Feeling lastFeeling = feelings.get(900);
-        final ClientResource newFeelings = restlet.newClientResource("/json/newfeelings?referenceId=" + reference.getId() + "&lastFeelingId=" + lastFeeling.getId());
+        final ClientResource newFeelings = restlet.newClientResource("/json/newfeelings?topicId=" + topic.getId() + "&lastFeelingId=" + lastFeeling.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) newFeelings.get();
 
@@ -80,9 +80,9 @@ public class TestsJsonNewFeelingsResource {
 
     @Test
     public void ifNoLastFeelingIdReturnAllFeelings() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.feelings().newFeelings(reference, 100);
-        final ClientResource newFeelings = restlet.newClientResource("/json/newfeelings?referenceId=" + reference.getId());
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.feelings().newFeelings(topic, 100);
+        final ClientResource newFeelings = restlet.newClientResource("/json/newfeelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) newFeelings.get();
 

@@ -1,6 +1,6 @@
 package com.feelhub.domain.feeling;
 
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
@@ -14,14 +14,14 @@ public class TestsSentiment {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void hasAReferenceAndASentimentValue() {
-        final Reference reference = TestFactories.references().newReference();
+    public void hasATopicAndASentimentValue() {
+        final Topic topic = TestFactories.topics().newTopic();
         final SentimentValue sentimentValue = SentimentValue.good;
 
-        final Sentiment sentiment = new Sentiment(reference.getId(), sentimentValue);
+        final Sentiment sentiment = new Sentiment(topic.getId(), sentimentValue);
 
         assertThat(sentiment, notNullValue());
-        assertThat(sentiment.getReferenceId(), is(reference.getId()));
+        assertThat(sentiment.getTopicId(), is(topic.getId()));
         assertThat(sentiment.getSentimentValue(), is(sentimentValue));
     }
 }

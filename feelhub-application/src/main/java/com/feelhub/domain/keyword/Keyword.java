@@ -12,11 +12,11 @@ public class Keyword extends BaseEntity {
     public Keyword() {
     }
 
-    public Keyword(final String value, final FeelhubLanguage feelhubLanguage, final UUID referenceId) {
+    public Keyword(final String value, final FeelhubLanguage feelhubLanguage, final UUID topicId) {
         this.id = UUID.randomUUID();
         this.value = value;
         this.languageCode = feelhubLanguage.getCode();
-        this.referenceId = referenceId;
+        this.topicId = topicId;
         this.translationNeeded = false;
     }
 
@@ -60,12 +60,12 @@ public class Keyword extends BaseEntity {
         return languageCode;
     }
 
-    public UUID getReferenceId() {
-        return referenceId;
+    public UUID getTopicId() {
+        return topicId;
     }
 
-    public void setReferenceId(final UUID referenceId) {
-        this.referenceId = referenceId;
+    public void setTopicId(final UUID topicId) {
+        this.topicId = topicId;
     }
 
     public boolean isTranslationNeeded() {
@@ -79,6 +79,6 @@ public class Keyword extends BaseEntity {
     private UUID id;
     private String value;
     private String languageCode;
-    private UUID referenceId;
+    private UUID topicId;
     private boolean translationNeeded;
 }

@@ -30,12 +30,12 @@ public class FakeKeywordRepository extends FakeRepository<Keyword> implements Ke
     }
 
     @Override
-    public List<Keyword> forReferenceId(final UUID referenceId) {
+    public List<Keyword> forTopicId(final UUID topicId) {
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Keyword>() {
 
             @Override
             public boolean apply(final Keyword input) {
-                return input.getReferenceId().equals(referenceId);
+                return input.getTopicId().equals(topicId);
             }
         }));
     }

@@ -1,8 +1,8 @@
 package com.feelhub.web.resources.json;
 
-import com.feelhub.application.ReferenceService;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.application.TopicService;
 import com.feelhub.domain.statistics.*;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.search.StatisticsSearch;
 import com.google.common.collect.Lists;
@@ -17,8 +17,8 @@ import java.util.*;
 public class JsonStatisticsResource extends ServerResource {
 
     @Inject
-    public JsonStatisticsResource(final ReferenceService referenceService, final StatisticsSearch statisticsSearch) {
-        this.referenceService = referenceService;
+    public JsonStatisticsResource(final TopicService topicService, final StatisticsSearch statisticsSearch) {
+        this.topicService = topicService;
         this.statisticsSearch = statisticsSearch;
     }
 
@@ -33,7 +33,7 @@ public class JsonStatisticsResource extends ServerResource {
         granularity = Granularity.valueOf(extract("granularity", query));
         start = Long.valueOf(extract("start", query));
         end = Long.valueOf(extract("end", query));
-        referenceId = extract("referenceId", query);
+        topicId = extract("topicId", query);
     }
 
     private String extract(final String value, final Form query) {
@@ -45,15 +45,15 @@ public class JsonStatisticsResource extends ServerResource {
     }
 
     private void fetchStatistics() {
-        final Reference reference = referenceService.lookUp(UUID.fromString(referenceId));
-        statistics = statisticsSearch.withReference(reference).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
+        final Topic topic = topicService.lookUp(UUID.fromString(topicId));
+        statistics = statisticsSearch.withTopic(topic).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
     }
 
     private List<Statistics> statistics = Lists.newArrayList();
-    private final ReferenceService referenceService;
+    private final TopicService topicService;
     private final StatisticsSearch statisticsSearch;
     private Granularity granularity;
     private Long start;
     private Long end;
-    private String referenceId;
+    private String topicId;
 }

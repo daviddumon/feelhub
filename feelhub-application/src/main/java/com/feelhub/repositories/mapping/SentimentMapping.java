@@ -12,6 +12,6 @@ public class SentimentMapping extends ComponentMap<Sentiment> {
     @Override
     protected void map() {
         property(element().getSentimentValue());
-        property(element().getReferenceId());
+        property(element().getTopicId());
     }
 }

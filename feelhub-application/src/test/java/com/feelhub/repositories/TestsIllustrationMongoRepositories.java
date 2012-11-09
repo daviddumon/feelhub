@@ -1,7 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.illustration.*;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
@@ -31,7 +31,7 @@ public class TestsIllustrationMongoRepositories extends TestWithMongoRepository 
         assertThat(illustrationFound, notNullValue());
         assertThat(illustrationFound.get("_id"), is(illustration.getId()));
         assertThat(illustrationFound.get("link"), is((Object) illustration.getLink()));
-        assertThat(illustrationFound.get("referenceId"), is((Object) illustration.getReferenceId()));
+        assertThat(illustrationFound.get("topicId"), is((Object) illustration.getTopicId()));
         assertThat(illustrationFound.get("creationDate"), is((Object) illustration.getCreationDate().getMillis()));
         assertThat(illustrationFound.get("lastModificationDate"), is((Object) illustration.getLastModificationDate().getMillis()));
     }
@@ -50,13 +50,13 @@ public class TestsIllustrationMongoRepositories extends TestWithMongoRepository 
     }
 
     @Test
-    public void canGetForAReference() {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.illustrations().newIllustration(reference, "link1");
-        TestFactories.illustrations().newIllustration(reference, "link2");
-        TestFactories.illustrations().newIllustration(reference, "link3");
+    public void canGetForATopic() {
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.illustrations().newIllustration(topic, "link1");
+        TestFactories.illustrations().newIllustration(topic, "link2");
+        TestFactories.illustrations().newIllustration(topic, "link3");
 
-        final List<Illustration> illustrations = repository.forReferenceId(reference.getId());
+        final List<Illustration> illustrations = repository.forTopicId(topic.getId());
 
         assertThat(illustrations, notNullValue());
         assertThat(illustrations.size(), is(3));

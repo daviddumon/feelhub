@@ -23,7 +23,7 @@ public class JsonKeywordResource extends ServerResource {
         try {
             final Keyword keyword = keywordService.lookUp(keywordValue, FeelhubLanguage.forString(languageCode));
             setStatus(Status.SUCCESS_OK);
-            return ModelAndView.createNew("json/keyword.json.ftl", MediaType.APPLICATION_JSON).with("referenceId", keyword.getReferenceId());
+            return ModelAndView.createNew("json/keyword.json.ftl", MediaType.APPLICATION_JSON).with("topicId", keyword.getTopicId());
         } catch (KeywordNotFound e) {
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
             return ModelAndView.createNew("json/keyword.json.ftl", MediaType.APPLICATION_JSON);

@@ -17,7 +17,7 @@ public class SentimentStatisticsEvent extends DomainEvent {
         stringBuilder.append(getClass().getSimpleName() + " ");
         stringBuilder.append(sentiment.getSentimentValue());
         stringBuilder.append(" on ");
-        stringBuilder.append(sentiment.getReferenceId());
+        stringBuilder.append(sentiment.getTopicId());
         return stringBuilder.toString();
     }
 

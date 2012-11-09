@@ -6,5 +6,5 @@ import java.util.*;
 
 public interface FeelingRepository extends Repository<Feeling> {
 
-    List<Feeling> forReferenceId(final UUID referenceId);
+    List<Feeling> forTopicId(final UUID topicId);
 }

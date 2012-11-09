@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.json;
 
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
@@ -55,11 +55,11 @@ public class TestsJsonRelationsResource {
     }
 
     @Test
-    public void canGetRelationsForAReference() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.relations().newRelations(5, reference);
+    public void canGetRelationsForATopic() throws IOException, JSONException {
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.relations().newRelations(5, topic);
         TestFactories.relations().newRelations(20);
-        final ClientResource resource = restlet.newClientResource("/json/relations?referenceId=" + reference.getId());
+        final ClientResource resource = restlet.newClientResource("/json/relations?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 

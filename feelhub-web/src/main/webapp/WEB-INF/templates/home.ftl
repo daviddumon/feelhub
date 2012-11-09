@@ -5,7 +5,7 @@
         var userLanguageCode = "${userInfos.user.languageCode}";
         </#if>
 
-    var referenceId = "";
+    var topicId = "";
     var keywordValue = "";
     var languageCode = "";
     var illustrationLink = "";
@@ -34,7 +34,7 @@
 </@layout.js>
 
 <@layout.mustache>
-    <#include "mustache/reference.html">
+    <#include "mustache/topic.html">
     <#include "mustache/feeling.html">
 </@layout.mustache>
 

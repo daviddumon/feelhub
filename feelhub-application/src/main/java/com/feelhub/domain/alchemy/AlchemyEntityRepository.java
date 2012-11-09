@@ -6,5 +6,5 @@ import java.util.*;
 
 public interface AlchemyEntityRepository extends Repository<AlchemyEntity> {
 
-    List<AlchemyEntity> forReferenceId(final UUID referenceId);
+    List<AlchemyEntity> forTopicId(final UUID topicId);
 }

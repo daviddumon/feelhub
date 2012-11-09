@@ -13,9 +13,9 @@ public class AlchemyEntityMongoRepository extends BaseMongoRepository<AlchemyEnt
     }
 
     @Override
-    public List<AlchemyEntity> forReferenceId(final UUID referenceId) {
+    public List<AlchemyEntity> forTopicId(final UUID topicId) {
         final Criteria criteria = getSession().createCriteria(AlchemyEntity.class);
-        criteria.add(Restrictions.equals("referenceId", referenceId));
+        criteria.add(Restrictions.equals("topicId", topicId));
         return criteria.list();
     }
 }

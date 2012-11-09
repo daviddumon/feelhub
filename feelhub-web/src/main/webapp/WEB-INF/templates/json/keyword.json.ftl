@@ -1,5 +1,5 @@
 {
-<#if referenceId??>
-"referenceId":"${referenceId}"
+<#if topicId??>
+"topicId":"${topicId}"
 </#if>
 }

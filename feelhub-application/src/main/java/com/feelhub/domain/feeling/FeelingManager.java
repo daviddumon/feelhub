@@ -1,20 +1,20 @@
 package com.feelhub.domain.feeling;
 
-import com.feelhub.domain.reference.ReferencePatch;
+import com.feelhub.domain.topic.TopicPatch;
 import com.feelhub.repositories.Repositories;
 
 import java.util.*;
 
 public class FeelingManager {
 
-    public void merge(final ReferencePatch referencePatch) {
-        for (final UUID oldReferenceId : referencePatch.getOldReferenceIds()) {
-            final List<Feeling> feelingsForOldReferenceId = Repositories.feelings().forReferenceId(oldReferenceId);
-            if (!feelingsForOldReferenceId.isEmpty()) {
-                for (final Feeling feeling : feelingsForOldReferenceId) {
+    public void merge(final TopicPatch topicPatch) {
+        for (final UUID oldTopicId : topicPatch.getOldTopicIds()) {
+            final List<Feeling> feelingsForOldTopicId = Repositories.feelings().forTopicId(oldTopicId);
+            if (!feelingsForOldTopicId.isEmpty()) {
+                for (final Feeling feeling : feelingsForOldTopicId) {
                     for (final Sentiment sentiment : feeling.getSentiments()) {
-                        if (sentiment.getReferenceId().equals(oldReferenceId)) {
-                            sentiment.setReferenceId(referencePatch.getNewReferenceId());
+                        if (sentiment.getTopicId().equals(oldTopicId)) {
+                            sentiment.setTopicId(topicPatch.getNewTopicId());
                         }
                     }
                 }

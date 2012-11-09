@@ -1,7 +1,7 @@
 package com.feelhub.web.resources.social;
 
 import com.feelhub.application.UserService;
-import com.feelhub.web.ReferenceBuilder;
+import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.*;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.inject.Inject;
@@ -26,7 +26,7 @@ public class FacebookResource extends ServerResource {
         final User facebookUser = connector.getUser(accesToken);
         final com.feelhub.domain.user.User newUser = userService.createFromFacebook(facebookUser.getId(), facebookUser.getEmail(), facebookUser.getFirstName(), facebookUser.getLastName(), facebookUser.getLocale());
         authenticationManager.authenticate(AuthRequest.facebook(newUser.getId()));
-        setLocationRef(new ReferenceBuilder(getContext()).buildUri(""));
+        setLocationRef(new WebReferenceBuilder(getContext()).buildUri(""));
         setStatus(Status.REDIRECTION_TEMPORARY);
     }
 

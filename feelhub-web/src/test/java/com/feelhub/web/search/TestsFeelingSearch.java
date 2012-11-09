@@ -2,7 +2,7 @@ package com.feelhub.web.search;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.*;
 import org.junit.*;
@@ -80,12 +80,12 @@ public class TestsFeelingSearch extends TestWithMongoRepository {
 
     @Ignore
     @Test
-    public void canGetFeelingsForSubject() {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.feelings().newFeelings(reference, 10);
+    public void canGetFeelingsForTopic() {
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.feelings().newFeelings(topic, 10);
         TestFactories.feelings().newFeelings(20);
 
-        feelingSearch.withReference(reference);
+        feelingSearch.withTopic(topic);
 
         final List<Feeling> feelings = feelingSearch.execute();
         assertThat(feelings.size(), is(10));

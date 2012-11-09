@@ -1,4 +1,4 @@
-db.subject.find().forEach(function (subject) {
-    db.subject.update({"_id":subject._id}, {$set:{"shortDescription":"link"}}, false, true);
-    db.subject.update({"_id":subject._id}, {$set:{"scrapedDataExpirationDate":NumberLong('1')}}, false, true);
+db.topic.find().forEach(function (topic) {
+    db.topic.update({"_id":topic._id}, {$set:{"shortDescription":"link"}}, false, true);
+    db.topic.update({"_id":topic._id}, {$set:{"scrapedDataExpirationDate":NumberLong('1')}}, false, true);
 });

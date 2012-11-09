@@ -8,5 +8,5 @@ public interface RelationRepository extends Repository<Relation> {
 
     Relation lookUp(final UUID fromId, final UUID toId);
 
-    List<Relation> forReferenceId(final UUID referenceId);
+    List<Relation> forTopicId(final UUID topicId);
 }

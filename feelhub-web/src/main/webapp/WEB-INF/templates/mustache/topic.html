@@ -1,9 +1,9 @@
-<script id="reference" type="text/html">
+<script id="topic" type="text/html">
     {{#url}}
-    <a href="{{url}}" class="reference {{classes}}" id="{{referenceId}}">
+    <a href="{{url}}" class="topic {{classes}}" id="{{topicId}}">
         {{/url}}
         {{^url}}
-        <div class="reference {{classes}}" id="{{referenceId}}">
+        <div class="topic {{classes}}" id="{{topicId}}">
             {{/url}}
             <img src="{{illustrationLink}}" onload="OnImageLoad(event);"/>
             <span class="{{sentimentValue}}">{{keywordValue}}</span>

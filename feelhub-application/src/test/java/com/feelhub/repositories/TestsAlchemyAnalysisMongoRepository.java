@@ -2,8 +2,8 @@ package com.feelhub.repositories;
 
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
@@ -33,7 +33,7 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
 
         final DBObject alchemyAnalysisFound = getAlchemyAnalysisFromDB(alchemyAnalysis.getId());
         assertThat(alchemyAnalysisFound, notNullValue());
-        assertThat(alchemyAnalysisFound.get("referenceId"), is((Object) alchemyAnalysis.getReferenceId()));
+        assertThat(alchemyAnalysisFound.get("topicId"), is((Object) alchemyAnalysis.getTopicId()));
         assertThat(alchemyAnalysisFound.get("value").toString(), is(alchemyAnalysis.getValue()));
         assertThat(alchemyAnalysisFound.get("languageCode").toString(), is(alchemyAnalysis.getLanguageCode()));
     }
@@ -52,13 +52,13 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
     }
 
     @Test
-    public void canGetForAReference() {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.alchemy().newAlchemyAnalysis(reference);
+    public void canGetForATopic() {
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.alchemy().newAlchemyAnalysis(topic);
         TestFactories.alchemy().newAlchemyAnalysis();
         TestFactories.alchemy().newAlchemyAnalysis();
 
-        final List<AlchemyAnalysis> alchemyEntities = entityMongoRepository.forReferenceId(reference.getId());
+        final List<AlchemyAnalysis> alchemyEntities = entityMongoRepository.forTopicId(topic.getId());
 
         assertThat(alchemyEntities, notNullValue());
         assertThat(alchemyEntities.size(), is(1));

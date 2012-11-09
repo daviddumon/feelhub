@@ -3,8 +3,8 @@ package com.feelhub.web.resources.json;
 import com.feelhub.application.*;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.search.FeelingSearch;
@@ -18,11 +18,11 @@ import java.util.*;
 public class JsonNewFeelingsResource extends ServerResource {
 
     @Inject
-    public JsonNewFeelingsResource(final KeywordService keywordService, final ReferenceDataFactory referenceDataFactory, final FeelingSearch feelingSearch, final ReferenceService referenceService) {
+    public JsonNewFeelingsResource(final KeywordService keywordService, final TopicDataFactory topicDataFactory, final FeelingSearch feelingSearch, final TopicService topicService) {
         this.keywordService = keywordService;
-        this.referenceDataFactory = referenceDataFactory;
+        this.topicDataFactory = topicDataFactory;
         this.feelingSearch = feelingSearch;
-        this.referenceService = referenceService;
+        this.topicService = topicService;
     }
 
     @Get
@@ -35,7 +35,7 @@ public class JsonNewFeelingsResource extends ServerResource {
 
     private List<Feeling> doSearchWithQueryParameters(final Form form) {
         final List<Feeling> feelings = Lists.newArrayList();
-        setUpSearchForReferenceIdParameter(form);
+        setUpSearchForTopicIdParameter(form);
         getLastParameter(form);
         extractLanguageParameter(form);
         feelingSearch.withSkip(0);
@@ -50,7 +50,7 @@ public class JsonNewFeelingsResource extends ServerResource {
                 feelings.add(searchResult.get(i++));
                 if (i % 30 == 0) {
                     feelingSearch.reset();
-                    feelingSearch.withSkip(i).withLimit(30).withSort("creationDate", FeelingSearch.REVERSE_ORDER).withReference(reference);
+                    feelingSearch.withSkip(i).withLimit(30).withSort("creationDate", FeelingSearch.REVERSE_ORDER).withTopic(topic);
                     searchResult.addAll(feelingSearch.execute());
                 }
             }
@@ -58,10 +58,10 @@ public class JsonNewFeelingsResource extends ServerResource {
         return feelings;
     }
 
-    private void setUpSearchForReferenceIdParameter(final Form form) {
-        if (form.getQueryString().contains("referenceId")) {
-            reference = referenceService.lookUp(UUID.fromString(form.getFirstValue("referenceId").trim()));
-            feelingSearch.withReference(reference);
+    private void setUpSearchForTopicIdParameter(final Form form) {
+        if (form.getQueryString().contains("topicId")) {
+            topic = topicService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim()));
+            feelingSearch.withTopic(topic);
         }
     }
 
@@ -82,28 +82,28 @@ public class JsonNewFeelingsResource extends ServerResource {
     private List<FeelingData> getFeelingDatas(final List<Feeling> feelings) {
         final List<FeelingData> feelingDatas = Lists.newArrayList();
         for (final Feeling feeling : feelings) {
-            final List<ReferenceData> referenceDatas = getReferenceDatas(feeling);
-            final FeelingData feelingData = new FeelingData(feeling, referenceDatas);
+            final List<TopicData> topicDatas = getTopicDatas(feeling);
+            final FeelingData feelingData = new FeelingData(feeling, topicDatas);
             feelingDatas.add(feelingData);
         }
         return feelingDatas;
     }
 
-    private List<ReferenceData> getReferenceDatas(final Feeling feeling) {
-        final List<ReferenceData> referenceDatas = Lists.newArrayList();
+    private List<TopicData> getTopicDatas(final Feeling feeling) {
+        final List<TopicData> topicDatas = Lists.newArrayList();
         for (final Sentiment sentiment : feeling.getSentiments()) {
-            final Keyword keyword = keywordService.lookUp(sentiment.getReferenceId(), feelhubLanguage);
-            final ReferenceData referenceData = referenceDataFactory.getReferenceDatas(keyword, sentiment);
-            referenceDatas.add(referenceData);
+            final Keyword keyword = keywordService.lookUp(sentiment.getTopicId(), feelhubLanguage);
+            final TopicData topicData = topicDataFactory.getTopicDatas(keyword, sentiment);
+            topicDatas.add(topicData);
         }
-        return referenceDatas;
+        return topicDatas;
     }
 
     private final KeywordService keywordService;
-    private final ReferenceDataFactory referenceDataFactory;
+    private final TopicDataFactory topicDataFactory;
     private final FeelingSearch feelingSearch;
-    private final ReferenceService referenceService;
+    private final TopicService topicService;
     private FeelhubLanguage feelhubLanguage;
     private UUID lastFeelingId;
-    private Reference reference;
+    private Topic topic;
 }

@@ -30,7 +30,7 @@ function postFeeling(sentimentValue, text) {
         success:function (data, textStatus, jqXHR) {
             $("#form textarea").val('');
             $("#form textarea").height("30px");
-            if (referenceId === "") {
+            if (topicId === "") {
                 pollForId(data.id, text, sentimentValue);
             } else {
                 flow.pushFake(data.id, text, sentimentValue);

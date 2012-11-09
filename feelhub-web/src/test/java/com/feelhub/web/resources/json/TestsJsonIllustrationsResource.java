@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.json;
 
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
 import com.feelhub.web.*;
@@ -29,8 +29,8 @@ public class TestsJsonIllustrationsResource {
 
     @Test
     public void illustrationsResourceIsMapped() {
-        final Reference reference = TestFactories.references().newReference();
-        final ClientResource resource = restlet.newClientResource("/json/illustrations?referenceId=" + reference.getId());
+        final Topic topic = TestFactories.topics().newTopic();
+        final ClientResource resource = restlet.newClientResource("/json/illustrations?topicId=" + topic.getId());
 
         final Representation representation = resource.get();
 
@@ -39,10 +39,10 @@ public class TestsJsonIllustrationsResource {
     }
 
     @Test
-    public void canGetIllustrationsForAReference() throws IOException, JSONException {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.illustrations().newIllustration(reference, "link");
-        final ClientResource resource = restlet.newClientResource("/json/illustrations?referenceId=" + reference.getId());
+    public void canGetIllustrationsForATopic() throws IOException, JSONException {
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.illustrations().newIllustration(topic, "link");
+        final ClientResource resource = restlet.newClientResource("/json/illustrations?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -52,14 +52,14 @@ public class TestsJsonIllustrationsResource {
     }
 
     @Test
-    public void canGetIllustrationsForMultipleReferences() throws IOException, JSONException {
-        final Reference ref1 = TestFactories.references().newReference();
-        final Reference ref2 = TestFactories.references().newReference();
-        final Reference ref3 = TestFactories.references().newReference();
-        TestFactories.illustrations().newIllustration(ref1, "link");
-        TestFactories.illustrations().newIllustration(ref2, "link");
-        TestFactories.illustrations().newIllustration(ref3, "link");
-        final ClientResource resource = restlet.newClientResource("/json/illustrations?referenceId=" + ref1.getId() + "," + ref2.getId());
+    public void canGetIllustrationsForMultipleTopics() throws IOException, JSONException {
+        final Topic topic1 = TestFactories.topics().newTopic();
+        final Topic topic2 = TestFactories.topics().newTopic();
+        final Topic topic3 = TestFactories.topics().newTopic();
+        TestFactories.illustrations().newIllustration(topic1, "link");
+        TestFactories.illustrations().newIllustration(topic2, "link");
+        TestFactories.illustrations().newIllustration(topic3, "link");
+        final ClientResource resource = restlet.newClientResource("/json/illustrations?topicId=" + topic1.getId() + "," + topic2.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 

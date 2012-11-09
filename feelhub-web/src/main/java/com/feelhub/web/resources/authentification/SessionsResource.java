@@ -1,7 +1,7 @@
 package com.feelhub.web.resources.authentification;
 
 import com.feelhub.domain.user.BadPasswordException;
-import com.feelhub.web.ReferenceBuilder;
+import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.*;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.common.base.Strings;
@@ -26,7 +26,7 @@ public class SessionsResource extends ServerResource {
         try {
             authenticationManager.authenticate(extractUserDetails(form));
             setStatus(Status.SUCCESS_CREATED);
-            setLocationRef(new ReferenceBuilder(getContext()).buildUri("/"));
+            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/"));
         } catch (BadPasswordException badPasswordException) {
             setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
         }

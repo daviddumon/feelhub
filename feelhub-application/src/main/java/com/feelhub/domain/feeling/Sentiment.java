@@ -8,8 +8,8 @@ public class Sentiment {
     protected Sentiment() {
     }
 
-    public Sentiment(final UUID referenceId, final SentimentValue sentimentValue) {
-        this.referenceId = referenceId;
+    public Sentiment(final UUID topicId, final SentimentValue sentimentValue) {
+        this.topicId = topicId;
         this.sentimentValue = sentimentValue;
     }
 
@@ -17,14 +17,14 @@ public class Sentiment {
         return sentimentValue;
     }
 
-    public UUID getReferenceId() {
-        return referenceId;
+    public UUID getTopicId() {
+        return topicId;
     }
 
-    public void setReferenceId(final UUID referenceId) {
-        this.referenceId = referenceId;
+    public void setTopicId(final UUID topicId) {
+        this.topicId = topicId;
     }
 
-    private UUID referenceId;
+    private UUID topicId;
     private SentimentValue sentimentValue;
 }

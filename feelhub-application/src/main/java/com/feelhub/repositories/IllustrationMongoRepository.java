@@ -13,9 +13,9 @@ public class IllustrationMongoRepository extends BaseMongoRepository<Illustratio
     }
 
     @Override
-    public List<Illustration> forReferenceId(final UUID referenceId) {
+    public List<Illustration> forTopicId(final UUID topicId) {
         final Criteria criteria = getSession().createCriteria(Illustration.class);
-        criteria.add(Restrictions.equals("referenceId", referenceId));
+        criteria.add(Restrictions.equals("topicId", topicId));
         return criteria.list();
     }
 }

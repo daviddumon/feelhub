@@ -1,7 +1,7 @@
 package com.feelhub.domain.keyword;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.reference.ReferencePatch;
+import com.feelhub.domain.topic.TopicPatch;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
@@ -23,15 +23,15 @@ public class TestsKeywordManager {
     }
 
     @Test
-    public void canChangeKeywordsReferenceForAConcept() {
+    public void canTopicForAKeyword() {
         final Keyword first = TestFactories.keywords().newKeyword();
         final Keyword second = TestFactories.keywords().newKeyword();
-        final ReferencePatch referencePatch = new ReferencePatch(first.getReferenceId());
-        referencePatch.addOldReferenceId(second.getReferenceId());
+        final TopicPatch topicPatch = new TopicPatch(first.getTopicId());
+        topicPatch.addOldTopicId(second.getTopicId());
 
-        keywordManager.merge(referencePatch);
+        keywordManager.merge(topicPatch);
 
-        assertThat(second.getReferenceId(), is(first.getReferenceId()));
+        assertThat(second.getTopicId(), is(first.getTopicId()));
     }
 
     private KeywordManager keywordManager;

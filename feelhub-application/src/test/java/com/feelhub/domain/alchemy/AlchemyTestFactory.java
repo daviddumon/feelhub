@@ -1,8 +1,8 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
@@ -11,8 +11,8 @@ import java.util.*;
 
 public class AlchemyTestFactory {
 
-    public AlchemyEntity newAlchemyEntityEntity(final UUID referenceId) {
-        final AlchemyEntity alchemyEntity = new AlchemyEntity(referenceId);
+    public AlchemyEntity newAlchemyEntityEntity(final UUID topicId) {
+        final AlchemyEntity alchemyEntity = new AlchemyEntity(topicId);
         alchemyEntity.setCensus("census");
         alchemyEntity.setCiafactbook("ciafactbook");
         alchemyEntity.setCrunchbase("crunchbase");
@@ -36,8 +36,8 @@ public class AlchemyTestFactory {
         return alchemyEntity;
     }
 
-    public AlchemyAnalysis newAlchemyAnalysis(final Reference reference) {
-        final Keyword keyword = TestFactories.keywords().newKeyword("value", FeelhubLanguage.none(), reference);
+    public AlchemyAnalysis newAlchemyAnalysis(final Topic topic) {
+        final Keyword keyword = TestFactories.keywords().newKeyword("value", FeelhubLanguage.none(), topic);
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
         return alchemyAnalysis;

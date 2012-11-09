@@ -1,7 +1,7 @@
 package com.feelhub.domain.relation;
 
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -16,29 +16,29 @@ public class FeelingRelationBinder {
     }
 
     public void bind(final Feeling feeling) {
-        final List<Reference> references = loadAllReferences(feeling.getSentiments());
-        createRelations(references);
+        final List<Topic> topics = loadAllTopics(feeling.getSentiments());
+        createRelations(topics);
     }
 
-    private List<Reference> loadAllReferences(final List<Sentiment> sentiments) {
-        final List<Reference> references = Lists.newArrayList();
+    private List<Topic> loadAllTopics(final List<Sentiment> sentiments) {
+        final List<Topic> topics = Lists.newArrayList();
         for (final Sentiment sentiment : sentiments) {
-            final Reference reference = Repositories.references().get(sentiment.getReferenceId());
-            references.add(reference);
+            final Topic topic = Repositories.topics().get(sentiment.getTopicId());
+            topics.add(topic);
         }
-        return references;
+        return topics;
     }
 
-    private void createRelations(final List<Reference> references) {
-        for (int i = 0; i < references.size(); i++) {
-            final Reference currentReference = references.get(i);
-            connectReference(currentReference, references, i + 1);
+    private void createRelations(final List<Topic> topics) {
+        for (int i = 0; i < topics.size(); i++) {
+            final Topic currentTopic = topics.get(i);
+            connectTopics(currentTopic, topics, i + 1);
         }
     }
 
-    private void connectReference(final Reference from, final List<Reference> references, final int beginningIndex) {
-        for (int i = beginningIndex; i < references.size(); i++) {
-            final Reference to = references.get(i);
+    private void connectTopics(final Topic from, final List<Topic> topics, final int beginningIndex) {
+        for (int i = beginningIndex; i < topics.size(); i++) {
+            final Topic to = topics.get(i);
             relationBuilder.connectTwoWays(from, to);
         }
     }

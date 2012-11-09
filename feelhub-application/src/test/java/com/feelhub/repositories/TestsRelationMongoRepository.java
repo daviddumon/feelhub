@@ -1,7 +1,7 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.relation.*;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
@@ -23,8 +23,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() {
-        final Reference left = TestFactories.references().newReference();
-        final Reference right = TestFactories.references().newReference();
+        final Topic left = TestFactories.topics().newTopic();
+        final Topic right = TestFactories.topics().newTopic();
         final Relation relation = new Relation(left, right, 1.0);
 
         repo.add(relation);
@@ -45,8 +45,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGet() {
-        final Reference left = TestFactories.references().newReference();
-        final Reference right = TestFactories.references().newReference();
+        final Topic left = TestFactories.topics().newTopic();
+        final Topic right = TestFactories.topics().newTopic();
         final Relation relation = new Relation(left, right, 1.0);
         Repositories.relations().add(relation);
 
@@ -57,8 +57,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canLookupForFromAndTo() {
-        final Reference from = TestFactories.references().newReference();
-        final Reference to = TestFactories.references().newReference();
+        final Topic from = TestFactories.topics().newTopic();
+        final Topic to = TestFactories.topics().newTopic();
         final Relation relation = TestFactories.relations().newRelation(from, to);
 
         final Relation relationFound = repo.lookUp(from.getId(), to.getId());
@@ -68,15 +68,15 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canGetAllRelationsRelatedToAReferenceID() {
-        final Reference reference1 = TestFactories.references().newReference();
-        final Reference reference2 = TestFactories.references().newReference();
-        TestFactories.relations().newRelation(reference1, reference2);
-        TestFactories.relations().newRelation(reference2, reference1);
-        TestFactories.relations().newRelation(reference2, reference2);
-        TestFactories.relations().newRelation(reference1, reference1);
+    public void canGetAllRelationsRelatedToATopicId() {
+        final Topic topic1 = TestFactories.topics().newTopic();
+        final Topic topic2 = TestFactories.topics().newTopic();
+        TestFactories.relations().newRelation(topic1, topic2);
+        TestFactories.relations().newRelation(topic2, topic1);
+        TestFactories.relations().newRelation(topic2, topic2);
+        TestFactories.relations().newRelation(topic1, topic1);
 
-        final List<Relation> relations = repo.forReferenceId(reference1.getId());
+        final List<Relation> relations = repo.forTopicId(topic1.getId());
 
         assertThat(relations.size(), is(3));
     }

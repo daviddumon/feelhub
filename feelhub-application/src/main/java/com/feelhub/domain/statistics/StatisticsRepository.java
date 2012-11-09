@@ -7,9 +7,9 @@ import java.util.*;
 
 public interface StatisticsRepository extends Repository<Statistics> {
 
-    List<Statistics> forReferenceId(UUID referenceId);
+    List<Statistics> forTopicId(UUID topicId);
 
-    List<Statistics> forReferenceId(UUID referenceId, Granularity granularity);
+    List<Statistics> forTopicId(UUID topicId, Granularity granularity);
 
-    List<Statistics> forReferenceId(UUID referenceId, Granularity granularity, Interval interval);
+    List<Statistics> forTopicId(UUID topicId, Granularity granularity, Interval interval);
 }

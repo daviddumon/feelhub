@@ -6,5 +6,5 @@ import java.util.*;
 
 public interface IllustrationRepository extends Repository<Illustration> {
 
-    public List<Illustration> forReferenceId(final UUID referenceId);
+    public List<Illustration> forTopicId(final UUID topicId);
 }

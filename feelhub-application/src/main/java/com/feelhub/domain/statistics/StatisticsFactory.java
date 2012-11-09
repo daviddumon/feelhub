@@ -39,19 +39,19 @@ public class StatisticsFactory {
     }
 
     private void dealWith(final Granularity granularity, final Sentiment sentiment, final DateTime date) {
-        dealWithReference(granularity, sentiment, date);
+        dealWithTopic(granularity, sentiment, date);
     }
 
-    private void dealWithReference(final Granularity granularity, final Sentiment sentiment, final DateTime date) {
+    private void dealWithTopic(final Granularity granularity, final Sentiment sentiment, final DateTime date) {
         final Statistics stat = getOrCreateStat(granularity, sentiment, date);
         stat.incrementSentimentCount(sentiment);
     }
 
     private synchronized Statistics getOrCreateStat(final Granularity granularity, final Sentiment sentiment, final DateTime date) {
-        final List<Statistics> statistics = Repositories.statistics().forReferenceId(sentiment.getReferenceId(), granularity, granularity.intervalFor(date));
+        final List<Statistics> statistics = Repositories.statistics().forTopicId(sentiment.getTopicId(), granularity, granularity.intervalFor(date));
         final Statistics stat;
         if (statistics.isEmpty()) {
-            stat = new Statistics(sentiment.getReferenceId(), granularity, date);
+            stat = new Statistics(sentiment.getTopicId(), granularity, date);
             Repositories.statistics().add(stat);
         } else {
             stat = statistics.get(0);

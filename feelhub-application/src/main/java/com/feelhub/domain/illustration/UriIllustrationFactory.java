@@ -20,8 +20,8 @@ public class UriIllustrationFactory {
     @Subscribe
     public void handle(final UriIllustrationRequestEvent uriIllustrationRequestEvent) {
         sessionProvider.start();
-        final UUID referenceId = uriIllustrationRequestEvent.getReferenceId();
-        final List<Illustration> illustrations = Repositories.illustrations().forReferenceId(referenceId);
+        final UUID topicId = uriIllustrationRequestEvent.getTopicId();
+        final List<Illustration> illustrations = Repositories.illustrations().forTopicId(topicId);
         if (illustrations.isEmpty()) {
             addAnIllustration(uriIllustrationRequestEvent);
         }
@@ -30,7 +30,7 @@ public class UriIllustrationFactory {
 
     private void addAnIllustration(final UriIllustrationRequestEvent uriIllustrationRequestEvent) {
         scraper.scrap(uriIllustrationRequestEvent.getValue());
-        final Illustration illustration = new Illustration(uriIllustrationRequestEvent.getReferenceId(), scraper.getIllustration());
+        final Illustration illustration = new Illustration(uriIllustrationRequestEvent.getTopicId(), scraper.getIllustration());
         Repositories.illustrations().add(illustration);
     }
 

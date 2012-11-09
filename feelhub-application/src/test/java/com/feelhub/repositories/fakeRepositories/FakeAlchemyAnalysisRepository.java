@@ -9,12 +9,12 @@ import java.util.*;
 public class FakeAlchemyAnalysisRepository extends FakeRepository<AlchemyAnalysis> implements AlchemyAnalysisRepository {
 
     @Override
-    public List<AlchemyAnalysis> forReferenceId(final UUID referenceId) {
+    public List<AlchemyAnalysis> forTopicId(final UUID topicId) {
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<AlchemyAnalysis>() {
 
             @Override
             public boolean apply(final AlchemyAnalysis input) {
-                return input.getReferenceId().equals(referenceId);
+                return input.getTopicId().equals(topicId);
             }
         }));
     }

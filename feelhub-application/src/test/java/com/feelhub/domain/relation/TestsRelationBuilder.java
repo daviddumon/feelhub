@@ -1,6 +1,6 @@
 package com.feelhub.domain.relation;
 
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -22,9 +22,9 @@ public class TestsRelationBuilder {
     }
 
     @Test
-    public void canConnectTwoSubjectWithNoPreviousConnection() {
-        final Reference from = TestFactories.references().newReference();
-        final Reference to = TestFactories.references().newReference();
+    public void canConnectTwoTopicsWithNoPreviousConnection() {
+        final Topic from = TestFactories.topics().newTopic();
+        final Topic to = TestFactories.topics().newTopic();
 
         relationBuilder.connectTwoWays(from, to);
 
@@ -35,9 +35,9 @@ public class TestsRelationBuilder {
     }
 
     @Test
-    public void canConnectTwoSubjectWithAnExistingOneWayRelation() {
-        final Reference from = TestFactories.references().newReference();
-        final Reference to = TestFactories.references().newReference();
+    public void canConnectTwoTopicsWithAnExistingOneWayRelation() {
+        final Topic from = TestFactories.topics().newTopic();
+        final Topic to = TestFactories.topics().newTopic();
         TestFactories.relations().newRelation(from, to);
 
         relationBuilder.connectTwoWays(from, to);
@@ -49,10 +49,10 @@ public class TestsRelationBuilder {
     }
 
     @Test
-    public void doNotConnectTwoIdenticalSubject() {
-        final Reference reference = TestFactories.references().newReference();
+    public void doNotConnectTwoIdenticalTopics() {
+        final Topic topic = TestFactories.topics().newTopic();
 
-        relationBuilder.connectTwoWays(reference, reference);
+        relationBuilder.connectTwoWays(topic, topic);
 
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.size(), is(0));

@@ -1,7 +1,7 @@
 package com.feelhub.web.search;
 
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.statistics.*;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.SessionProvider;
 import com.google.inject.Inject;
 import org.joda.time.Interval;
@@ -36,8 +36,8 @@ public class StatisticsSearch implements Search<Statistics> {
         return null;
     }
 
-    public StatisticsSearch withReference(final Reference reference) {
-        criteria.add(Restrictions.equals("referenceId", reference.getId()));
+    public StatisticsSearch withTopic(final Topic topic) {
+        criteria.add(Restrictions.equals("topicId", topic.getId()));
         return this;
     }
 

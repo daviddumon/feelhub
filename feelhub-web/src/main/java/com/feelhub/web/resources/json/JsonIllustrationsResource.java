@@ -21,12 +21,12 @@ public class JsonIllustrationsResource extends ServerResource {
     @Get
     public ModelAndView represent() throws JSONException {
         final Form form = getQuery();
-        final String[] referenceIdsAsString = form.getFirstValue("referenceId").trim().split(",");
-        final List<UUID> referenceIds = Lists.newArrayList();
-        for (int i = 0; i < referenceIdsAsString.length; i++) {
-            referenceIds.add(UUID.fromString(referenceIdsAsString[i]));
+        final String[] topicIdsAsString = form.getFirstValue("topicId").trim().split(",");
+        final List<UUID> topicIds = Lists.newArrayList();
+        for (int i = 0; i < topicIdsAsString.length; i++) {
+            topicIds.add(UUID.fromString(topicIdsAsString[i]));
         }
-        final List<Illustration> illustrations = illustrationSearch.withReferences(referenceIds).execute();
+        final List<Illustration> illustrations = illustrationSearch.withTopics(topicIds).execute();
         return ModelAndView.createNew("json/illustrations.json.ftl", MediaType.APPLICATION_JSON).with("illustrations", illustrations);
     }
 

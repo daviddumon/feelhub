@@ -7,16 +7,16 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 
 import java.util.UUID;
 
-public class ReferenceData {
+public class TopicData {
 
     public static class Builder {
 
-        public ReferenceData build() {
-            return new ReferenceData(this);
+        public TopicData build() {
+            return new TopicData(this);
         }
 
-        public Builder referenceId(final UUID referenceId) {
-            this.referenceId = referenceId.toString();
+        public Builder topicId(final UUID topicId) {
+            this.topicId = topicId.toString();
             return this;
         }
 
@@ -40,23 +40,23 @@ public class ReferenceData {
             return this;
         }
 
-        private String referenceId = "";
+        private String topicId = "";
         private String illustrationLink = "";
         private String keywordValue = "";
         private String languageCode = FeelhubLanguage.none().getCode();
         private SentimentValue sentimentValue = SentimentValue.none;
     }
 
-    private ReferenceData(final Builder builder) {
-        this.referenceId = builder.referenceId;
+    private TopicData(final Builder builder) {
+        this.topicId = builder.topicId;
         this.illustrationLink = builder.illustrationLink;
         this.keywordValue = builder.keywordValue;
         this.languageCode = builder.languageCode;
         this.sentimentValue = builder.sentimentValue;
     }
 
-    public String getReferenceId() {
-        return referenceId;
+    public String getTopicId() {
+        return topicId;
     }
 
     public String getIllustrationLink() {
@@ -75,7 +75,7 @@ public class ReferenceData {
         return sentimentValue;
     }
 
-    private final String referenceId;
+    private final String topicId;
     private final String illustrationLink;
     private final String keywordValue;
     private final String languageCode;

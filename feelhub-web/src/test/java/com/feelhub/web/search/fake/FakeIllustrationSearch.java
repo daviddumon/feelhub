@@ -34,13 +34,13 @@ public class FakeIllustrationSearch extends IllustrationSearch {
     }
 
     @Override
-    public Search<Illustration> withReferences(final List<UUID> references) {
+    public Search<Illustration> withTopics(final List<UUID> topics) {
         illustrations = Lists.newArrayList(Iterables.filter(illustrations, new Predicate<Illustration>() {
 
             @Override
             public boolean apply(final Illustration illustration) {
-                for (final UUID reference : references) {
-                    if (illustration.getReferenceId().equals(reference)) {
+                for (final UUID topic : topics) {
+                    if (illustration.getTopicId().equals(topic)) {
                         return true;
                     }
                 }

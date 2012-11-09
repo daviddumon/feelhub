@@ -4,8 +4,8 @@ import com.feelhub.application.*;
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.bingsearch.*;
 import com.feelhub.domain.keyword.KeywordFactory;
-import com.feelhub.domain.reference.ReferenceFactory;
 import com.feelhub.domain.scraper.*;
+import com.feelhub.domain.topic.TopicFactory;
 import com.feelhub.domain.translation.*;
 import com.feelhub.domain.uri.*;
 import com.feelhub.repositories.SessionProvider;
@@ -59,7 +59,7 @@ public class GuiceTestModule extends AbstractModule {
 
     @Provides
     public KeywordService keywordService() {
-        keywordService = spy(new KeywordService(new ReferenceService(new ReferenceFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver())));
+        keywordService = spy(new KeywordService(new TopicService(new TopicFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver())));
         return keywordService;
     }
 

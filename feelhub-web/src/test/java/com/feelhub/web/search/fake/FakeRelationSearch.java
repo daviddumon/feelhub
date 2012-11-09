@@ -1,7 +1,7 @@
 package com.feelhub.web.search.fake;
 
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.relation.Relation;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.web.search.RelationSearch;
 import com.google.common.base.Predicate;
@@ -35,7 +35,7 @@ public class FakeRelationSearch extends RelationSearch {
     }
 
     @Override
-    public RelationSearch withFrom(final Reference from) {
+    public RelationSearch withFrom(final Topic from) {
         relations = Lists.newArrayList(Iterables.filter(relations, new Predicate<Relation>() {
 
             @Override

@@ -3,13 +3,13 @@ package com.feelhub.web.resources;
 import com.feelhub.application.KeywordService;
 import com.feelhub.domain.illustration.Illustration;
 import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
-import com.feelhub.web.dto.ReferenceData;
+import com.feelhub.web.dto.TopicData;
 import org.junit.*;
 import org.restlet.data.Status;
 import org.restlet.ext.freemarker.TemplateRepresentation;
@@ -49,14 +49,14 @@ public class TestsKeywordResource {
     }
 
     @Test
-    public void hasReferenceDataInDataModel() {
+    public void hasTopicDataInDataModel() {
         final ClientResource keywordResource = restlet.newClientResource("/topic/en/cool");
 
         final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        assertTrue(dataModel.containsKey("referenceData"));
-        assertThat(dataModel.get("referenceData"), notNullValue());
+        assertTrue(dataModel.containsKey("topicData"));
+        assertThat(dataModel.get("topicData"), notNullValue());
     }
 
     @Test
@@ -98,29 +98,29 @@ public class TestsKeywordResource {
         final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        assertTrue(dataModel.containsKey("referenceData"));
-        final ReferenceData referenceData = (ReferenceData) dataModel.get("referenceData");
-        assertThat(referenceData, notNullValue());
-        assertThat(referenceData.getReferenceId(), is(""));
+        assertTrue(dataModel.containsKey("topicData"));
+        final TopicData topicData = (TopicData) dataModel.get("topicData");
+        assertThat(topicData, notNullValue());
+        assertThat(topicData.getTopicId(), is(""));
         assertThat(keywordResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
         assertThat(Repositories.keywords().getAll().size(), is(0));
     }
 
     @Test
-    public void referenceDataWithGoodValuesForExistingKeywordAndIllustration() {
-        final Reference reference = TestFactories.references().newReference();
-        final Keyword keyword = TestFactories.keywords().newKeyword("Keyword", FeelhubLanguage.forString("es"), reference);
-        final Illustration illustration = TestFactories.illustrations().newIllustration(reference, "link");
+    public void topicDataWithGoodValuesForExistingKeywordAndIllustration() {
+        final Topic topic = TestFactories.topics().newTopic();
+        final Keyword keyword = TestFactories.keywords().newKeyword("Keyword", FeelhubLanguage.forString("es"), topic);
+        final Illustration illustration = TestFactories.illustrations().newIllustration(topic, "link");
         final ClientResource keywordResource = restlet.newClientResource("/topic/es/keyword");
 
         final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        assertTrue(dataModel.containsKey("referenceData"));
-        final ReferenceData referenceData = (ReferenceData) dataModel.get("referenceData");
-        assertThat(referenceData.getIllustrationLink(), is(illustration.getLink()));
-        assertThat(referenceData.getKeywordValue(), is(keyword.getValue()));
-        assertThat(referenceData.getLanguageCode(), is(keyword.getLanguageCode()));
-        assertThat(referenceData.getReferenceId(), is(reference.getId().toString()));
+        assertTrue(dataModel.containsKey("topicData"));
+        final TopicData topicData = (TopicData) dataModel.get("topicData");
+        assertThat(topicData.getIllustrationLink(), is(illustration.getLink()));
+        assertThat(topicData.getKeywordValue(), is(keyword.getValue()));
+        assertThat(topicData.getLanguageCode(), is(keyword.getLanguageCode()));
+        assertThat(topicData.getTopicId(), is(topic.getId().toString()));
     }
 }

@@ -1,14 +1,14 @@
 package com.feelhub.domain.relation;
 
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 
 public class RelationFactory {
 
-    public Relation newRelation(final Reference left, final Reference right) {
+    public Relation newRelation(final Topic left, final Topic right) {
         return new Relation(left, right, 1.0);
     }
 
-    public Relation newRelation(final Reference left, final Reference right, final double additionalWeight) {
+    public Relation newRelation(final Topic left, final Topic right, final double additionalWeight) {
         return new Relation(left, right, 1.0 + additionalWeight);
     }
 }

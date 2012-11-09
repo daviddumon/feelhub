@@ -16,7 +16,7 @@ Flow.prototype.initialize = function () {
     THIS.maxBox = Math.floor(THIS.container.innerWidth() / THIS.initial);
     THIS.skip = -30;
     THIS.limit = 30;
-    THIS.hasData = (keywordValue.length > 0 && referenceId == "" ? false : true);
+    THIS.hasData = (keywordValue.length > 0 && topicId == "" ? false : true);
     THIS.notLoading = true;
     for (var i = 0; i < THIS.maxBox; i++) {
         THIS.container.append("<div class='feeling_list' id='feeling_list_" + i + "'></div>");
@@ -37,8 +37,8 @@ Flow.prototype.drawData = function () {
     function loadData() {
         var parameters = [];
         var uri = root + "/json/feelings?";
-        if (referenceId.length > 0) {
-            parameters.push({"value":"referenceId=" + encodeURIComponent(referenceId)});
+        if (topicId.length > 0) {
+            parameters.push({"value":"topicId=" + encodeURIComponent(topicId)});
         }
         if (typeof userLanguageCode !== 'undefined') {
             parameters.push({"value":"languageCode=" + userLanguageCode});
@@ -115,25 +115,25 @@ Flow.prototype.getFeeling = function (feeling, classes) {
     });
     text = text.replace(/[\#\+\-\=]+/g, "");
 
-    var referenceDatas = [];
-    var known_references = {};
-    for (var i = 0; i < feeling.referenceDatas.length; i++) {
-        if (feeling.referenceDatas[i].referenceId !== referenceId) {
-            var current = feeling.referenceDatas[i].referenceId;
-            if (!(current in known_references)) {
-                var reference_data = {
-                    referenceId:feeling.referenceDatas[i].referenceId,
-                    sentimentValue:feeling.referenceDatas[i].sentimentValue,
-                    keywordValue:feeling.referenceDatas[i].keywordValue,
-                    url:buildInternalLink(feeling.referenceDatas[i].languageCode, feeling.referenceDatas[i].keywordValue),
-                    classes:"reference_medium reference_stack",
-                    illustrationLink:feeling.referenceDatas[i].illustrationLink
+    var topicDatas = [];
+    var known_topics = {};
+    for (var i = 0; i < feeling.topicDatas.length; i++) {
+        if (feeling.topicDatas[i].topicId !== topicId) {
+            var current = feeling.topicDatas[i].topicId;
+            if (!(current in known_topics)) {
+                var topic_data = {
+                    topicId:feeling.topicDatas[i].topicId,
+                    sentimentValue:feeling.topicDatas[i].sentimentValue,
+                    keywordValue:feeling.topicDatas[i].keywordValue,
+                    url:buildInternalLink(feeling.topicDatas[i].languageCode, feeling.topicDatas[i].keywordValue),
+                    classes:"topic_medium topic_stack",
+                    illustrationLink:feeling.topicDatas[i].illustrationLink
                 };
-                referenceDatas.push(reference_data);
-                known_references[current] = true;
+                topicDatas.push(topic_data);
+                known_topics[current] = true;
             }
         } else {
-            var feeling_sentiment_value = feeling.referenceDatas[i].sentimentValue;
+            var feeling_sentiment_value = feeling.topicDatas[i].sentimentValue;
         }
     }
 
@@ -143,8 +143,8 @@ Flow.prototype.getFeeling = function (feeling, classes) {
         id:feeling.id,
         feeling_classes:classes,
         text:text.split(/\r\n|\r|\n/),
-        referenceDatas:referenceDatas,
-        height:(referenceDatas.length != 0 ? 40 : 0) + 146 * (Math.floor(referenceDatas.length / 2) + referenceDatas.length % 2) + 'px'
+        topicDatas:topicDatas,
+        height:(topicDatas.length != 0 ? 40 : 0) + 146 * (Math.floor(topicDatas.length / 2) + topicDatas.length % 2) + 'px'
     };
 
     if (feeling_sentiment_value !== "none") {
@@ -155,13 +155,13 @@ Flow.prototype.getFeeling = function (feeling, classes) {
     return ich.feeling(feelingData);
 
     function shuffleAndMakeFirstLarge() {
-        if (referenceDatas.length % 2 != 0) {
-            var shuffle_number = Math.floor(Math.random() * referenceDatas.length);
+        if (topicDatas.length % 2 != 0) {
+            var shuffle_number = Math.floor(Math.random() * topicDatas.length);
             for (var i = 0; i < shuffle_number; i++) {
-                var rd = referenceDatas.shift();
-                referenceDatas.push(rd);
+                var rd = topicDatas.shift();
+                topicDatas.push(rd);
             }
-            referenceDatas[0]["classes"] = "reference_large reference_stack";
+            topicDatas[0]["classes"] = "topic_large topic_stack";
         }
     }
 };
@@ -173,8 +173,8 @@ Flow.prototype.poll = function (time) {
     THIS.pollNewFeelings = setInterval(function () {
         var parameters = [];
         var uri = root + "/json/newfeelings";
-        if (referenceId.length > 0) {
-            parameters.push({"value":"referenceId=" + encodeURIComponent(referenceId)});
+        if (topicId.length > 0) {
+            parameters.push({"value":"topicId=" + encodeURIComponent(topicId)});
         }
         if (THIS.lastFeelingId) {
             parameters.push({"value":"lastFeelingId=" + THIS.lastFeelingId});
@@ -234,14 +234,14 @@ Flow.prototype.reset = function () {
     THIS.reDraw();
 };
 
-Flow.prototype.pushFake = function (referenceId, text, sentiment_value) {
+Flow.prototype.pushFake = function (topicId, text, sentiment_value) {
     var THIS = this;
-    //console.log("push fake : " + referenceId + " - " + text + " - " + sentiment_value);
+    //console.log("push fake : " + topicId + " - " + text + " - " + sentiment_value);
     var fake_feeling = {
-        id:referenceId,
+        id:topicId,
         text:text,
-        referenceDatas:[
-            {referenceId:referenceId, sentimentValue:sentiment_value}
+        topicDatas:[
+            {topicId:topicId, sentimentValue:sentiment_value}
         ]
     };
 

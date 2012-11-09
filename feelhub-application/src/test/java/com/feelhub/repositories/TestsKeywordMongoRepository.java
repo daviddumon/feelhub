@@ -1,8 +1,8 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.keyword.*;
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
@@ -33,7 +33,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
         assertThat(keywordFound.get("_id"), is(keyword.getId()));
         assertThat(keywordFound.get("value"), is((Object) keyword.getValue()));
         assertThat(keywordFound.get("languageCode"), is((Object) keyword.getLanguageCode()));
-        assertThat(keywordFound.get("referenceId"), is((Object) keyword.getReferenceId()));
+        assertThat(keywordFound.get("topicId"), is((Object) keyword.getTopicId()));
         assertThat(keywordFound.get("creationDate"), is((Object) keyword.getCreationDate().getMillis()));
         assertThat(keywordFound.get("lastModificationDate"), is((Object) keyword.getLastModificationDate().getMillis()));
         assertThat((Boolean) keywordFound.get("translationNeeded"), is(false));
@@ -74,13 +74,13 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canGetForAReference() {
-        final Reference reference = TestFactories.references().newReference();
-        TestFactories.keywords().newKeyword("coucou", FeelhubLanguage.forString("fr"), reference);
-        TestFactories.keywords().newKeyword("hello", FeelhubLanguage.forString("en"), reference);
-        TestFactories.keywords().newKeyword("hola", FeelhubLanguage.forString("es"), reference);
+    public void canGetForATopic() {
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.keywords().newKeyword("coucou", FeelhubLanguage.forString("fr"), topic);
+        TestFactories.keywords().newKeyword("hello", FeelhubLanguage.forString("en"), topic);
+        TestFactories.keywords().newKeyword("hola", FeelhubLanguage.forString("es"), topic);
 
-        final List<Keyword> keywords = repository.forReferenceId(reference.getId());
+        final List<Keyword> keywords = repository.forTopicId(topic.getId());
 
         assertThat(keywords, notNullValue());
         assertThat(keywords.size(), is(3));

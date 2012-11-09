@@ -1,6 +1,6 @@
 package com.feelhub.domain.relation;
 
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
 import org.hamcrest.Matchers;
@@ -19,8 +19,8 @@ public class TestsRelation {
 
     @Before
     public void setUp() {
-        from = TestFactories.references().newReference();
-        to = TestFactories.references().newReference();
+        from = TestFactories.topics().newTopic();
+        to = TestFactories.topics().newTopic();
         relation = new RelationFactory().newRelation(from, to, 1.0);
     }
 
@@ -50,6 +50,6 @@ public class TestsRelation {
     }
 
     private Relation relation;
-    private Reference to;
-    private Reference from;
+    private Topic to;
+    private Topic from;
 }

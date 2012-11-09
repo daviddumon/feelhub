@@ -4,10 +4,10 @@ import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.FeelingRepository;
 import com.feelhub.domain.illustration.IllustrationRepository;
 import com.feelhub.domain.keyword.KeywordRepository;
-import com.feelhub.domain.reference.ReferenceRepository;
 import com.feelhub.domain.relation.RelationRepository;
 import com.feelhub.domain.session.SessionRepository;
 import com.feelhub.domain.statistics.StatisticsRepository;
+import com.feelhub.domain.topic.TopicRepository;
 import com.feelhub.domain.user.UserRepository;
 
 public abstract class Repositories {
@@ -36,8 +36,8 @@ public abstract class Repositories {
         return Repositories.soleInstance.getSessionRepository();
     }
 
-    public static ReferenceRepository references() {
-        return Repositories.soleInstance.getReferenceRepository();
+    public static TopicRepository topics() {
+        return Repositories.soleInstance.getTopicRepository();
     }
 
     public static KeywordRepository keywords() {
@@ -64,7 +64,7 @@ public abstract class Repositories {
 
     protected abstract KeywordRepository getKeywordRepository();
 
-    protected abstract ReferenceRepository getReferenceRepository();
+    protected abstract TopicRepository getTopicRepository();
 
     protected abstract SessionRepository getSessionRepository();
 

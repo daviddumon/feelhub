@@ -15,28 +15,28 @@ public class StatisticsMongoRepository extends BaseMongoRepository<Statistics> i
     }
 
     @Override
-    public List<Statistics> forReferenceId(final UUID referenceId) {
+    public List<Statistics> forTopicId(final UUID topicId) {
         final Criteria criteria = getSession().createCriteria(Statistics.class);
-        criteria.add(Restrictions.equals("referenceId", referenceId));
+        criteria.add(Restrictions.equals("topicId", topicId));
         return criteria.list();
     }
 
     @Override
-    public List<Statistics> forReferenceId(final UUID referenceId, final Granularity granularity) {
-        final Criteria criteria = criteriaForReferenceAndGranularity(referenceId, granularity);
+    public List<Statistics> forTopicId(final UUID topicId, final Granularity granularity) {
+        final Criteria criteria = criteriaForTopicAndGranularity(topicId, granularity);
         return criteria.list();
     }
 
     @Override
-    public List<Statistics> forReferenceId(final UUID referenceId, final Granularity granularity, final Interval interval) {
-        final Criteria criteria = criteriaForReferenceAndGranularity(referenceId, granularity);
+    public List<Statistics> forTopicId(final UUID topicId, final Granularity granularity, final Interval interval) {
+        final Criteria criteria = criteriaForTopicAndGranularity(topicId, granularity);
         criteria.add(Restrictions.between("date", interval.getStart(), interval.getEnd()));
         return criteria.list();
     }
 
-    private Criteria criteriaForReferenceAndGranularity(final UUID referenceID, final Granularity granularity) {
+    private Criteria criteriaForTopicAndGranularity(final UUID topicId, final Granularity granularity) {
         final Criteria criteria = getSession().createCriteria(Statistics.class);
-        criteria.add(Restrictions.equals("referenceId", referenceID));
+        criteria.add(Restrictions.equals("topicId", topicId));
         criteria.add(Restrictions.equals("granularity", granularity));
         return criteria;
     }

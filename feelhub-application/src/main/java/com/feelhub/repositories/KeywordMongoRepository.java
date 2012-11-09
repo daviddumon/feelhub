@@ -22,9 +22,9 @@ public class KeywordMongoRepository extends BaseMongoRepository<Keyword> impleme
     }
 
     @Override
-    public List<Keyword> forReferenceId(final UUID referenceId) {
+    public List<Keyword> forTopicId(final UUID topicId) {
         final Criteria criteria = getSession().createCriteria(Keyword.class);
-        criteria.add(Restrictions.equals("referenceId", referenceId));
+        criteria.add(Restrictions.equals("topicId", topicId));
         return criteria.list();
     }
 

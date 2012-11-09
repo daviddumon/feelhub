@@ -38,12 +38,12 @@ public class IllustrationSearch implements Search<Illustration> {
         return this;
     }
 
-    public Search<Illustration> withReferences(final List<UUID> references) {
-        final List<String> referencesAsString = Lists.newArrayList();
-        for (final UUID reference : references) {
-            referencesAsString.add(reference.toString());
+    public Search<Illustration> withTopics(final List<UUID> topics) {
+        final List<String> topicAsString = Lists.newArrayList();
+        for (final UUID topicId : topics) {
+            topicAsString.add(topicId.toString());
         }
-        criteria.add(Restrictions.inUUID("referenceId", references));
+        criteria.add(Restrictions.inUUID("topicId", topics));
         return this;
     }
 

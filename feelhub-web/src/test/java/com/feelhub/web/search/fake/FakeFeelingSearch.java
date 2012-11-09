@@ -1,7 +1,7 @@
 package com.feelhub.web.search.fake;
 
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.web.search.FeelingSearch;
 import com.google.common.base.Predicate;
@@ -35,13 +35,13 @@ public class FakeFeelingSearch extends FeelingSearch {
     }
 
     @Override
-    public FeelingSearch withReference(final Reference reference) {
+    public FeelingSearch withTopic(final Topic topic) {
         feelings = Lists.newArrayList(Iterables.filter(feelings, new Predicate<Feeling>() {
 
             @Override
             public boolean apply(final Feeling feeling) {
                 for (final Sentiment sentiment : feeling.getSentiments()) {
-                    if (sentiment.getReferenceId().equals(reference.getId())) {
+                    if (sentiment.getTopicId().equals(topic.getId())) {
                         return true;
                     }
                 }

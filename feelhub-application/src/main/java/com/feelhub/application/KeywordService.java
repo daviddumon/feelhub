@@ -4,8 +4,8 @@ import com.feelhub.domain.alchemy.AlchemyRequestEvent;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.illustration.*;
 import com.feelhub.domain.keyword.*;
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.translation.Translator;
 import com.feelhub.domain.uri.*;
 import com.feelhub.repositories.Repositories;
@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
 public class KeywordService {
 
     @Inject
-    public KeywordService(final ReferenceService referenceService, final KeywordFactory keywordFactory, final Translator translator, final UriManager uriManager) {
-        this.referenceService = referenceService;
+    public KeywordService(final TopicService topicService, final KeywordFactory keywordFactory, final Translator translator, final UriManager uriManager) {
+        this.topicService = topicService;
         this.keywordFactory = keywordFactory;
         this.translator = translator;
         this.uriManager = uriManager;
@@ -68,14 +68,14 @@ public class KeywordService {
         }
     }
 
-    public Keyword lookUp(final UUID referenceId, final FeelhubLanguage language) {
+    public Keyword lookUp(final UUID topicId, final FeelhubLanguage language) {
         final Keyword keyword;
-        final List<Keyword> keywords = Repositories.keywords().forReferenceId(referenceId);
+        final List<Keyword> keywords = Repositories.keywords().forTopicId(topicId);
         if (!keywords.isEmpty()) {
             keyword = getGoodKeyword(keywords, language);
         } else {
             // it should never happens!
-            keyword = new Keyword("?", language, referenceId);
+            keyword = new Keyword("?", language, topicId);
         }
         return keyword;
     }
@@ -107,21 +107,21 @@ public class KeywordService {
             requestConceptIllustration(concept);
             return concept;
         } else {
-            final Keyword world = createKeyword("", FeelhubLanguage.none(), referenceService.newReference().getId());
+            final Keyword world = createKeyword("", FeelhubLanguage.none(), topicService.newTopic().getId());
             return world;
         }
     }
 
     private Keyword createUri(final String value) {
         try {
-            final Reference reference = referenceService.newReference();
+            final Topic topic = topicService.newTopic();
             final List<String> tokens = uriManager.getTokens(value);
             final List<Keyword> keywords = Lists.newArrayList();
             for (final String token : tokens) {
                 try {
                     keywords.add(lookUp(token, FeelhubLanguage.none()));
                 } catch (KeywordNotFound e) {
-                    keywords.add(createKeyword(token, FeelhubLanguage.none(), reference.getId()));
+                    keywords.add(createKeyword(token, FeelhubLanguage.none(), topic.getId()));
                 }
             }
             final KeywordMerger keywordMerger = new KeywordMerger();
@@ -134,7 +134,7 @@ public class KeywordService {
     }
 
     private void requestUriIllustration(final Keyword uri) {
-        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(uri.getReferenceId(), uri.getValue());
+        final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(uri.getTopicId(), uri.getValue());
         DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
     }
 
@@ -149,31 +149,31 @@ public class KeywordService {
                 final String translatedValue = translator.translateToEnglish(value, feelhubLanguage);
                 try {
                     final Keyword referenceKeyword = lookUp(translatedValue, FeelhubLanguage.reference());
-                    return createKeyword(value, feelhubLanguage, referenceKeyword.getReferenceId());
+                    return createKeyword(value, feelhubLanguage, referenceKeyword.getTopicId());
                 } catch (KeywordNotFound e) {
-                    final Reference reference = referenceService.newReference();
-                    createKeyword(translatedValue, FeelhubLanguage.reference(), reference.getId());
-                    return createKeyword(value, feelhubLanguage, reference.getId());
+                    final Topic topic = topicService.newTopic();
+                    createKeyword(translatedValue, FeelhubLanguage.reference(), topic.getId());
+                    return createKeyword(value, feelhubLanguage, topic.getId());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                final Reference reference = referenceService.newReference();
-                final Keyword keyword = createKeyword(value, feelhubLanguage, reference.getId());
+                final Topic topic = topicService.newTopic();
+                final Keyword keyword = createKeyword(value, feelhubLanguage, topic.getId());
                 keyword.setTranslationNeeded(true);
                 return keyword;
             }
         } else {
-            return createKeyword(value, feelhubLanguage, referenceService.newReference().getId());
+            return createKeyword(value, feelhubLanguage, topicService.newTopic().getId());
         }
     }
 
     private void requestConceptIllustration(final Keyword concept) {
-        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(concept.getReferenceId(), concept.getValue());
+        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(concept.getTopicId(), concept.getValue());
         DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
     }
 
-    protected Keyword createKeyword(final String value, final FeelhubLanguage feelhubLanguage, final UUID referenceID) {
-        final Keyword keyword = keywordFactory.createKeyword(value, feelhubLanguage, referenceID);
+    protected Keyword createKeyword(final String value, final FeelhubLanguage feelhubLanguage, final UUID topicId) {
+        final Keyword keyword = keywordFactory.createKeyword(value, feelhubLanguage, topicId);
         Repositories.keywords().add(keyword);
         return keyword;
     }
@@ -188,7 +188,7 @@ public class KeywordService {
         return URI_PATTERN.matcher(text).matches();
     }
 
-    private ReferenceService referenceService;
+    private TopicService topicService;
     private final KeywordFactory keywordFactory;
     private Translator translator;
     private UriManager uriManager;

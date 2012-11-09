@@ -20,17 +20,17 @@ public class ConceptIllustrationFactory {
     @Subscribe
     public void handle(final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent) {
         sessionProvider.start();
-        final UUID referenceId = conceptIllustrationRequestEvent.getReferenceId();
-        final List<Illustration> illustrations = Repositories.illustrations().forReferenceId(referenceId);
+        final UUID topicId = conceptIllustrationRequestEvent.getTopicId();
+        final List<Illustration> illustrations = Repositories.illustrations().forTopicId(topicId);
         if (illustrations.isEmpty()) {
-            addIllustration(conceptIllustrationRequestEvent, referenceId);
+            addIllustration(conceptIllustrationRequestEvent, topicId);
         }
         sessionProvider.stop();
     }
 
-    private void addIllustration(final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent, final UUID referenceId) {
+    private void addIllustration(final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent, final UUID topicId) {
         final String link = bingLink.getIllustration(conceptIllustrationRequestEvent.getValue());
-        final Illustration illustration = new Illustration(referenceId, link);
+        final Illustration illustration = new Illustration(topicId, link);
         Repositories.illustrations().add(illustration);
     }
 

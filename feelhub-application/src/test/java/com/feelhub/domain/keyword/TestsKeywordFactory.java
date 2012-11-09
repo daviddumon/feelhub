@@ -1,7 +1,7 @@
 package com.feelhub.domain.keyword;
 
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
 import org.junit.*;
@@ -27,27 +27,27 @@ public class TestsKeywordFactory {
     public void canCreateAKeyword() {
         final String value = "value";
         final FeelhubLanguage feelhubLanguage = FeelhubLanguage.forString("english");
-        final Reference reference = TestFactories.references().newReference();
+        final Topic topic = TestFactories.topics().newTopic();
 
-        final Keyword keyword = keywordFactory.createKeyword(value, feelhubLanguage, reference.getId());
+        final Keyword keyword = keywordFactory.createKeyword(value, feelhubLanguage, topic.getId());
 
         assertNotNull(keyword);
         assertThat(keyword.getValue(), is(value));
         assertThat(keyword.getLanguage(), is(feelhubLanguage));
         assertThat(keyword.getId(), notNullValue());
-        assertThat(keyword.getReferenceId(), notNullValue());
+        assertThat(keyword.getTopicId(), notNullValue());
         assertThat(keyword.getCreationDate(), is(time.getNow()));
         assertThat(keyword.getLastModificationDate(), is(time.getNow()));
     }
 
     @Test
-    public void canCreateKeywordsWithSameReference() {
-        final Reference reference = TestFactories.references().newReference();
+    public void canCreateKeywordsWithSameTopic() {
+        final Topic topic = TestFactories.topics().newTopic();
 
-        final Keyword keyword1 = keywordFactory.createKeyword("value1", FeelhubLanguage.reference(), reference.getId());
-        final Keyword keyword2 = keywordFactory.createKeyword("value2", FeelhubLanguage.reference(), reference.getId());
+        final Keyword keyword1 = keywordFactory.createKeyword("value1", FeelhubLanguage.reference(), topic.getId());
+        final Keyword keyword2 = keywordFactory.createKeyword("value2", FeelhubLanguage.reference(), topic.getId());
 
-        assertThat(keyword1.getReferenceId(), is(keyword2.getReferenceId()));
+        assertThat(keyword1.getTopicId(), is(keyword2.getTopicId()));
     }
 
     private KeywordFactory keywordFactory;

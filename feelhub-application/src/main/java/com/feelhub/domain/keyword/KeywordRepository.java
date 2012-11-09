@@ -9,5 +9,5 @@ public interface KeywordRepository extends Repository<Keyword> {
 
     Keyword forValueAndLanguage(final String value, final FeelhubLanguage feelhubLanguage);
 
-    List<Keyword> forReferenceId(final UUID referenceId);
+    List<Keyword> forTopicId(final UUID topicId);
 }

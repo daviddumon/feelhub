@@ -11,10 +11,10 @@ public class Statistics extends BaseEntity {
     protected Statistics() {
     }
 
-    public Statistics(final UUID referenceId, final Granularity granularity, final DateTime date) {
+    public Statistics(final UUID topicId, final Granularity granularity, final DateTime date) {
         this.id = UUID.randomUUID();
         this.date = date;
-        this.referenceId = referenceId;
+        this.topicId = topicId;
         this.granularity = granularity;
     }
 
@@ -41,8 +41,8 @@ public class Statistics extends BaseEntity {
         return id;
     }
 
-    public UUID getReferenceId() {
-        return referenceId;
+    public UUID getTopicId() {
+        return topicId;
     }
 
     public Granularity getGranularity() {
@@ -61,8 +61,8 @@ public class Statistics extends BaseEntity {
         return bad;
     }
 
-    public void setReferenceId(final UUID referenceId) {
-        this.referenceId = referenceId;
+    public void setTopicId(final UUID topicId) {
+        this.topicId = topicId;
     }
 
     public int getNeutral() {
@@ -82,7 +82,7 @@ public class Statistics extends BaseEntity {
     }
 
     private UUID id;
-    private UUID referenceId;
+    private UUID topicId;
     private Granularity granularity;
     private DateTime date;
     private int good;

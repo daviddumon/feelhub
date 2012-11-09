@@ -12,7 +12,7 @@ public class AlchemyAnalysisMapping extends EntityMap<AlchemyAnalysis> {
     @Override
     protected void map() {
         id(element().getId()).natural();
-        property(element().getReferenceId());
+        property(element().getTopicId());
         property(element().getValue());
         property(element().getLanguageCode());
     }

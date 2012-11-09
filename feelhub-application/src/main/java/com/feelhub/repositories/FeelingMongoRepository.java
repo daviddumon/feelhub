@@ -13,9 +13,9 @@ public class FeelingMongoRepository extends BaseMongoRepository<Feeling> impleme
     }
 
     @Override
-    public List<Feeling> forReferenceId(final UUID referenceId) {
+    public List<Feeling> forTopicId(final UUID topicId) {
         final Criteria criteria = getSession().createCriteria(Feeling.class);
-        criteria.add(Restrictions.equals("sentiments.referenceId", referenceId));
+        criteria.add(Restrictions.equals("sentiments.topicId", topicId));
         return criteria.list();
     }
 }

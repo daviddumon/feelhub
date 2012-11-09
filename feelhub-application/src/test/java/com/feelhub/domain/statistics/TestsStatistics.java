@@ -1,7 +1,7 @@
 package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.joda.time.DateTime;
@@ -19,11 +19,11 @@ public class TestsStatistics {
     public WithDomainEvent withDomainEvent = new WithDomainEvent();
 
     @Test
-    public void canCreateFromReference() {
-        final Reference reference = TestFactories.references().newReference();
+    public void canCreateFromTopic() {
+        final Topic topic = TestFactories.topics().newTopic();
 
-        final Statistics statistics = new Statistics(reference.getId(), Granularity.hour, new DateTime());
+        final Statistics statistics = new Statistics(topic.getId(), Granularity.hour, new DateTime());
 
-        assertThat(statistics.getReferenceId(), is(reference.getId()));
+        assertThat(statistics.getTopicId(), is(topic.getId()));
     }
 }

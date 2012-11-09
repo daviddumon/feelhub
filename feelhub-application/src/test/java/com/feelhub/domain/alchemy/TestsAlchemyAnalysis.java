@@ -22,7 +22,7 @@ public class TestsAlchemyAnalysis {
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
 
         assertThat(alchemyAnalysis.getId(), notNullValue());
-        assertThat(alchemyAnalysis.getReferenceId(), is(keyword.getReferenceId()));
+        assertThat(alchemyAnalysis.getTopicId(), is(keyword.getTopicId()));
         assertThat(alchemyAnalysis.getValue(), is(keyword.getValue()));
     }
 

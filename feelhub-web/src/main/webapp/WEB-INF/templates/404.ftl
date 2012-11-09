@@ -5,10 +5,10 @@
         var userLanguageCode = "${userInfos.user.languageCode}";
         </#if>
 
-    var referenceId = "${referenceData.referenceId}";
-    var keywordValue = "${referenceData.keywordValue}";
-    var languageCode = "${referenceData.languageCode}";
-    var illustrationLink = "${referenceData.illustrationLink}";
+    var topicId = "${topicData.topicId}";
+    var keywordValue = "${topicData.keywordValue}";
+    var languageCode = "${topicData.languageCode}";
+    var illustrationLink = "${topicData.illustrationLink}";
 
     var flow;
 </script>
@@ -35,7 +35,7 @@
 </@layout.js>
 
 <@layout.mustache>
-    <#include "mustache/reference.html">
+    <#include "mustache/topic.html">
     <#include "mustache/feeling.html">
 </@layout.mustache>
 
@@ -47,7 +47,7 @@
 
 <div id="dashboard">
     <div class="box">
-        <div id="main_reference" class="box">
+        <div id="main_topic" class="box">
             <div id="counters" style="display: none;">
                 <div id="counter_good" class="counter">
                     <img class="smiley" src="${root}/static/images/smiley_good_white.png"/>
@@ -94,6 +94,6 @@
 </div>
 
 <ul id="feelings">
-    <span id="no-feelings">There are no feelings about ${referenceData.keywordValue}!</span>
+    <span id="no-feelings">There are no feelings about ${topicData.keywordValue}!</span>
 </ul>
 </@layout.body>

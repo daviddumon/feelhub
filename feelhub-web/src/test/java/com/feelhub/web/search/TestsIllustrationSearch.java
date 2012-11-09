@@ -2,7 +2,7 @@ package com.feelhub.web.search;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.illustration.Illustration;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.*;
 import com.google.common.collect.Lists;
@@ -28,13 +28,13 @@ public class TestsIllustrationSearch extends TestWithMongoRepository {
 
     @Test
     public void canGetAnIllustration() {
-        final Reference reference = TestFactories.references().newReference();
+        final Topic topic = TestFactories.topics().newTopic();
         final String link = "http://www.illustration.com/1.jpg";
-        final Illustration illustration = TestFactories.illustrations().newIllustration(reference, link);
-        final List<UUID> references = Lists.newArrayList();
-        references.add(reference.getId());
+        final Illustration illustration = TestFactories.illustrations().newIllustration(topic, link);
+        final List<UUID> topics = Lists.newArrayList();
+        topics.add(topic.getId());
 
-        final List<Illustration> illustrations = illustrationSearch.withReferences(references).execute();
+        final List<Illustration> illustrations = illustrationSearch.withTopics(topics).execute();
 
         assertThat(illustrations, notNullValue());
         assertThat(illustrations.size(), is(1));
@@ -43,18 +43,18 @@ public class TestsIllustrationSearch extends TestWithMongoRepository {
 
     @Test
     public void canGetOnlySomeIllustrations() {
-        final Reference ref1 = TestFactories.references().newReference();
-        final Reference ref2 = TestFactories.references().newReference();
-        final Reference ref3 = TestFactories.references().newReference();
+        final Topic topic1 = TestFactories.topics().newTopic();
+        final Topic topic2 = TestFactories.topics().newTopic();
+        final Topic topic3 = TestFactories.topics().newTopic();
         final String link = "http://www.illustration.com/1.jpg";
-        TestFactories.illustrations().newIllustration(ref1, link);
-        TestFactories.illustrations().newIllustration(ref2, link);
-        TestFactories.illustrations().newIllustration(ref3, link);
-        final List<UUID> references = Lists.newArrayList();
-        references.add(ref1.getId());
-        references.add(ref2.getId());
+        TestFactories.illustrations().newIllustration(topic1, link);
+        TestFactories.illustrations().newIllustration(topic2, link);
+        TestFactories.illustrations().newIllustration(topic3, link);
+        final List<UUID> topics = Lists.newArrayList();
+        topics.add(topic1.getId());
+        topics.add(topic2.getId());
 
-        final List<Illustration> illustrations = illustrationSearch.withReferences(references).execute();
+        final List<Illustration> illustrations = illustrationSearch.withTopics(topics).execute();
 
         assertThat(illustrations.size(), is(2));
     }

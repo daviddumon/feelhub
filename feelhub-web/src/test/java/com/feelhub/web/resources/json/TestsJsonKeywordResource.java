@@ -19,7 +19,7 @@ public class TestsJsonKeywordResource {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void canGetReferenceIdOfKeyword() {
+    public void canGetTopicIdOfKeyword() {
         final Keyword keyword = TestFactories.keywords().newKeyword();
         final ClientResource clientResource = restlet.newClientResource("/json/keyword?keywordValue=" + keyword.getValue() + "&languageCode=" + keyword.getLanguageCode());
 

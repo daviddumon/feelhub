@@ -12,7 +12,7 @@ public class IllustrationMapping extends EntityMap<Illustration> {
     @Override
     protected void map() {
         id(element().getId()).natural();
-        property(element().getReferenceId());
+        property(element().getTopicId());
         property(element().getLink());
         property(element().getCreationDate());
         property(element().getLastModificationDate());

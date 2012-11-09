@@ -6,8 +6,8 @@ import java.util.UUID;
 
 public class UriIllustrationRequestEvent extends DomainEvent {
 
-    public UriIllustrationRequestEvent(final UUID referenceId, final String value) {
-        this.referenceId = referenceId;
+    public UriIllustrationRequestEvent(final UUID topicId, final String value) {
+        this.topicId = topicId;
         this.value = value;
     }
 
@@ -20,14 +20,14 @@ public class UriIllustrationRequestEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    public UUID getReferenceId() {
-        return referenceId;
+    public UUID getTopicId() {
+        return topicId;
     }
 
     public String getValue() {
         return value;
     }
 
-    private final UUID referenceId;
+    private final UUID topicId;
     private final String value;
 }

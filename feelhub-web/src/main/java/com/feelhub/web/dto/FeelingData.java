@@ -6,16 +6,16 @@ import java.util.*;
 
 public class FeelingData {
 
-    public FeelingData(final Feeling feeling, final List<ReferenceData> referenceDatas) {
+    public FeelingData(final Feeling feeling, final List<TopicData> topicDatas) {
         this.id = feeling.getId();
         this.text = feeling.getText();
         this.languageCode = feeling.getLanguageCode();
         this.userId = feeling.getUserId();
-        this.referenceDatas = referenceDatas;
+        this.topicDatas = topicDatas;
     }
 
-    public List<ReferenceData> getReferenceDatas() {
-        return referenceDatas;
+    public List<TopicData> getTopicDatas() {
+        return topicDatas;
     }
 
     public String getText() {
@@ -36,7 +36,7 @@ public class FeelingData {
 
     private final UUID id;
     private final String text;
-    private final List<ReferenceData> referenceDatas;
+    private final List<TopicData> topicDatas;
     private final String languageCode;
     private final String userId;
 }

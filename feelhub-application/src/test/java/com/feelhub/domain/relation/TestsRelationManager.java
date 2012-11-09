@@ -1,7 +1,7 @@
 package com.feelhub.domain.relation;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.reference.*;
+import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -26,48 +26,48 @@ public class TestsRelationManager {
     }
 
     @Test
-    public void canChangeRelationsReferences() {
-        final Reference ref1 = TestFactories.references().newReference();
-        final Reference ref2 = TestFactories.references().newReference();
-        final Reference ref3 = TestFactories.references().newReference();
-        final Relation relation1 = TestFactories.relations().newRelation(ref2, ref3);
-        final Relation relation2 = TestFactories.relations().newRelation(ref3, ref2);
-        final ReferencePatch referencePatch = new ReferencePatch(ref1.getId());
-        referencePatch.addOldReferenceId(ref2.getId());
+    public void canChangeRelationsTopics() {
+        final Topic topic1 = TestFactories.topics().newTopic();
+        final Topic topic2 = TestFactories.topics().newTopic();
+        final Topic topic3 = TestFactories.topics().newTopic();
+        final Relation relation1 = TestFactories.relations().newRelation(topic2, topic3);
+        final Relation relation2 = TestFactories.relations().newRelation(topic3, topic2);
+        final TopicPatch topicPatch = new TopicPatch(topic1.getId());
+        topicPatch.addOldTopicId(topic2.getId());
 
-        relationManager.merge(referencePatch);
+        relationManager.merge(topicPatch);
 
-        assertThat(relation1.getFromId(), is(ref1.getId()));
-        assertThat(relation1.getToId(), is(ref3.getId()));
-        assertThat(relation2.getFromId(), is(ref3.getId()));
-        assertThat(relation2.getToId(), is(ref1.getId()));
+        assertThat(relation1.getFromId(), is(topic1.getId()));
+        assertThat(relation1.getToId(), is(topic3.getId()));
+        assertThat(relation2.getFromId(), is(topic3.getId()));
+        assertThat(relation2.getToId(), is(topic1.getId()));
     }
 
     @Test
     public void canRemoveAutoRelation() {
-        final Reference ref1 = TestFactories.references().newReference();
-        final Reference ref2 = TestFactories.references().newReference();
-        TestFactories.relations().newRelation(ref1, ref2);
-        TestFactories.relations().newRelation(ref2, ref1);
-        final ReferencePatch referencePatch = new ReferencePatch(ref1.getId());
-        referencePatch.addOldReferenceId(ref2.getId());
+        final Topic topic1 = TestFactories.topics().newTopic();
+        final Topic topic2 = TestFactories.topics().newTopic();
+        TestFactories.relations().newRelation(topic1, topic2);
+        TestFactories.relations().newRelation(topic2, topic1);
+        final TopicPatch topicPatch = new TopicPatch(topic1.getId());
+        topicPatch.addOldTopicId(topic2.getId());
 
-        relationManager.merge(referencePatch);
+        relationManager.merge(topicPatch);
 
         assertThat(Repositories.relations().getAll().size(), is(0));
     }
 
     @Test
     public void canMergeDuplicate() {
-        final Reference ref1 = TestFactories.references().newReference();
-        final Reference ref2 = TestFactories.references().newReference();
-        final Reference ref3 = TestFactories.references().newReference();
-        TestFactories.relations().newRelation(ref1, ref2);
-        TestFactories.relations().newRelation(ref3, ref2);
-        final ReferencePatch referencePatch = new ReferencePatch(ref1.getId());
-        referencePatch.addOldReferenceId(ref3.getId());
+        final Topic topic1 = TestFactories.topics().newTopic();
+        final Topic topic2 = TestFactories.topics().newTopic();
+        final Topic topic3 = TestFactories.topics().newTopic();
+        TestFactories.relations().newRelation(topic1, topic2);
+        TestFactories.relations().newRelation(topic3, topic2);
+        final TopicPatch topicPatch = new TopicPatch(topic1.getId());
+        topicPatch.addOldTopicId(topic3.getId());
 
-        relationManager.merge(referencePatch);
+        relationManager.merge(topicPatch);
 
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.size(), is(1));

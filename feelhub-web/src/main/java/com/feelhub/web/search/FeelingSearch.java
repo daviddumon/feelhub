@@ -1,7 +1,7 @@
 package com.feelhub.web.search;
 
 import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.SessionProvider;
 import org.mongolink.domain.criteria.*;
 
@@ -40,8 +40,8 @@ public class FeelingSearch implements Search<Feeling> {
         return this;
     }
 
-    public FeelingSearch withReference(final Reference reference) {
-        criteria.add(Restrictions.equals("sentiments.referenceId", reference.getId()));
+    public FeelingSearch withTopic(final Topic topic) {
+        criteria.add(Restrictions.equals("sentiments.topicId", topic.getId()));
         return this;
     }
 

@@ -1,7 +1,7 @@
 package com.feelhub.domain.feeling;
 
-import com.feelhub.domain.reference.Reference;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
@@ -16,27 +16,27 @@ public class FeelingTestFactory {
     }
 
     public Feeling newFeelingWithText(final String text) {
-        return newFeeling(TestFactories.references().newReference(), text);
+        return newFeeling(TestFactories.topics().newTopic(), text);
     }
 
     public void newFeelings(final int quantity) {
-        final Reference reference = TestFactories.references().newReference();
-        newFeelings(reference, quantity);
+        final Topic topic = TestFactories.topics().newTopic();
+        newFeelings(topic, quantity);
     }
 
-    public List<Feeling> newFeelings(final Reference reference, final int quantity) {
+    public List<Feeling> newFeelings(final Topic topic, final int quantity) {
         final List<Feeling> result = Lists.newArrayList();
         for (int i = 0; i < quantity; i++) {
-            final Feeling feeling = newFeeling(reference, "i" + i);
+            final Feeling feeling = newFeeling(topic, "i" + i);
             result.add(feeling);
         }
         return result;
     }
 
-    public Feeling newFeeling(final Reference reference, final String text) {
+    public Feeling newFeeling(final Topic topic, final String text) {
         final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforfeeling@mail.com");
         final Feeling feeling = new Feeling(text, activeUser.getId());
-        feeling.addSentiment(reference, SentimentValue.bad);
+        feeling.addSentiment(topic, SentimentValue.bad);
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
         Repositories.feelings().add(feeling);
         return feeling;

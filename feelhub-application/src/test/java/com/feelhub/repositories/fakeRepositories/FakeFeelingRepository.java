@@ -9,14 +9,14 @@ import java.util.*;
 public class FakeFeelingRepository extends FakeRepository<Feeling> implements FeelingRepository {
 
     @Override
-    public List<Feeling> forReferenceId(final UUID referenceId) {
+    public List<Feeling> forTopicId(final UUID topicId) {
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Feeling>() {
 
             @Override
             public boolean apply(final Feeling input) {
                 final List<Sentiment> sentiments = input.getSentiments();
                 for (final Sentiment sentiment : sentiments) {
-                    if (sentiment.getReferenceId().equals(referenceId)) {
+                    if (sentiment.getTopicId().equals(topicId)) {
                         return true;
                     }
                 }

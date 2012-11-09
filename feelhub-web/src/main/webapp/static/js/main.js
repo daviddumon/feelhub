@@ -2,20 +2,20 @@
 $(function () {
 
     if (keywordValue !== "") {
-        var reference_data = {
-            referenceId:referenceId,
+        var topic_data = {
+            topicId:topicId,
             keywordValue:keywordValue,
             languageCode:languageCode,
             //illustrationLink:illustrationLink,
-            classes:"reference_main"
+            classes:"topic_main"
         };
 
-        $("#main_reference").prepend(ich.reference(reference_data));
+        $("#main_topic").prepend(ich.topic(topic_data));
         $("#counters").show();
         $("#feeling_form").show();
     }
 
-    if (referenceId !== "") {
+    if (topicId !== "") {
         FindInformations();
     }
 
@@ -25,8 +25,8 @@ $(function () {
 function FindInformations() {
     $("#related").show();
 
-    $("#" + referenceId + " img").attr("src", illustrationLink);
+    $("#" + topicId + " img").attr("src", illustrationLink);
 
-    RequestRelations(referenceId);
-    RequestCounters(referenceId);
+    RequestRelations(topicId);
+    RequestCounters(topicId);
 }

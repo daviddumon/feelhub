@@ -12,7 +12,7 @@ public class AlchemyEntityMapping extends EntityMap<AlchemyEntity> {
     @Override
     protected void map() {
         id(element().getId()).natural();
-        property(element().getReferenceId());
+        property(element().getTopicId());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
         property(element().getOpencyc());

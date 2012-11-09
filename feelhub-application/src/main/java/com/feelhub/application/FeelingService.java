@@ -4,6 +4,7 @@ import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.keyword.Keyword;
 import com.feelhub.domain.relation.FeelingRelationBinder;
+import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.*;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
@@ -18,7 +19,7 @@ public class FeelingService {
         this.sessionProvider = sessionProvider;
         this.keywordService = keywordService;
         this.feelingRelationBinder = feelingRelationBinder;
-        subjectExtractor = new SubjectExtractor();
+        topicExtractor = new TopicExtractor();
         DomainEventBus.INSTANCE.register(this);
     }
 
@@ -41,10 +42,10 @@ public class FeelingService {
 
     private List<Sentiment> fromText(final FeelingRequestEvent feelingRequestEvent) {
         final List<Sentiment> result = Lists.newArrayList();
-        final List<Subject> subjects = subjectExtractor.extract(feelingRequestEvent.getText());
-        for (final Subject subject : subjects) {
-            final Keyword keyword = keywordService.lookUpOrCreate(subject.text, feelingRequestEvent.getUserLanguageCode());
-            final Sentiment sentiment = new Sentiment(keyword.getReferenceId(), subject.sentimentValue);
+        final List<KeywordAndSentiment> keywordAndSentiments = topicExtractor.extract(feelingRequestEvent.getText());
+        for (final KeywordAndSentiment keywordAndSentiment : keywordAndSentiments) {
+            final Keyword keyword = keywordService.lookUpOrCreate(keywordAndSentiment.text, feelingRequestEvent.getUserLanguageCode());
+            final Sentiment sentiment = new Sentiment(keyword.getTopicId(), keywordAndSentiment.sentimentValue);
             result.add(sentiment);
         }
         return result;
@@ -53,7 +54,7 @@ public class FeelingService {
     private List<Sentiment> fromFeelingSentiment(final FeelingRequestEvent feelingRequestEvent) {
         final List<Sentiment> result = Lists.newArrayList();
         final Keyword keyword = keywordService.lookUpOrCreate(feelingRequestEvent.getKeywordValue(), feelingRequestEvent.getLanguageCode());
-        final Sentiment sentiment = new Sentiment(keyword.getReferenceId(), feelingRequestEvent.getSentimentValue());
+        final Sentiment sentiment = new Sentiment(keyword.getTopicId(), feelingRequestEvent.getSentimentValue());
         result.add(sentiment);
         return result;
     }
@@ -71,5 +72,5 @@ public class FeelingService {
     private final SessionProvider sessionProvider;
     private final KeywordService keywordService;
     private final FeelingRelationBinder feelingRelationBinder;
-    private final SubjectExtractor subjectExtractor;
+    private final TopicExtractor topicExtractor;
 }

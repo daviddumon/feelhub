@@ -1,7 +1,7 @@
 package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
@@ -41,25 +41,25 @@ public class TestsFeeling {
     @Test
     public void canAddSentimentsToFeeling() {
         final Feeling feeling = new Feeling("my feeling", activeUser.getId());
-        final Reference reference = TestFactories.references().newReference();
+        final Topic topic = TestFactories.topics().newTopic();
 
-        feeling.addSentiment(reference, SentimentValue.good);
+        feeling.addSentiment(topic, SentimentValue.good);
 
         assertThat(feeling.getCreationDate(), notNullValue());
         assertThat(feeling.getCreationDate(), is(time.getNow()));
         assertThat(feeling.getSentiments().size(), is(1));
-        assertThat(feeling.getSentiments().get(0).getReferenceId(), is(reference.getId()));
+        assertThat(feeling.getSentiments().get(0).getTopicId(), is(topic.getId()));
         assertThat(feeling.getSentiments().get(0).getSentimentValue(), is(SentimentValue.good));
     }
 
     @Test
     public void canSpreadSentimentEvents() {
         final Feeling feeling = new Feeling("my feeling", activeUser.getId());
-        final Reference reference = TestFactories.references().newReference();
+        final Topic topic = TestFactories.topics().newTopic();
         final SimpleSentimentListener simpleSentimentListener = mock(SimpleSentimentListener.class);
         DomainEventBus.INSTANCE.register(simpleSentimentListener);
 
-        feeling.addSentiment(reference, SentimentValue.good);
+        feeling.addSentiment(topic, SentimentValue.good);
 
         final ArgumentCaptor<SentimentStatisticsEvent> captor = ArgumentCaptor.forClass(SentimentStatisticsEvent.class);
         verify(simpleSentimentListener, times(1)).handle(captor.capture());
@@ -71,12 +71,12 @@ public class TestsFeeling {
     @Test
     public void setLastModificationDateOnSentimentCreation() {
         final Feeling feeling = new Feeling("my feeling", activeUser.getId());
-        final Reference reference = TestFactories.references().newReference();
+        final Topic topic = TestFactories.topics().newTopic();
         time.waitDays(1);
 
-        feeling.addSentiment(reference, SentimentValue.good);
+        feeling.addSentiment(topic, SentimentValue.good);
 
-        assertThat(reference.getLastModificationDate(), is(time.getNow()));
+        assertThat(topic.getLastModificationDate(), is(time.getNow()));
     }
 
     @Test

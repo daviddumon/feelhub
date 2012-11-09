@@ -1,7 +1,7 @@
 package com.feelhub.domain.relation;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.reference.Reference;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 
 import java.util.UUID;
@@ -12,7 +12,7 @@ public class Relation extends BaseEntity {
     public Relation() {
     }
 
-    public Relation(final Reference from, final Reference to, final double weight) {
+    public Relation(final Topic from, final Topic to, final double weight) {
         this.id = UUID.randomUUID();
         fromId = from.getId();
         toId = to.getId();
@@ -24,12 +24,12 @@ public class Relation extends BaseEntity {
         return id;
     }
 
-    public Reference getFrom() {
-        return Repositories.references().get(fromId);
+    public Topic getFrom() {
+        return Repositories.topics().get(fromId);
     }
 
-    public Reference getTo() {
-        return Repositories.references().get(toId);
+    public Topic getTo() {
+        return Repositories.topics().get(toId);
     }
 
     public UUID getFromId() {

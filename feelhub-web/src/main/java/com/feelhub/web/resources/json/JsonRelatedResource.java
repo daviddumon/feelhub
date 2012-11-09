@@ -17,17 +17,17 @@ import java.util.*;
 public class JsonRelatedResource extends ServerResource {
 
     @Inject
-    public JsonRelatedResource(final RelationSearch relationSearch, final KeywordService keywordService, final ReferenceDataFactory referenceDataFactory) {
+    public JsonRelatedResource(final RelationSearch relationSearch, final KeywordService keywordService, final TopicDataFactory topicDataFactory) {
         this.relationSearch = relationSearch;
         this.keywordService = keywordService;
-        this.referenceDataFactory = referenceDataFactory;
+        this.topicDataFactory = topicDataFactory;
     }
 
     @Get
     public ModelAndView represent() {
         doSearchWithQueryParameters();
-        getReferenceDataForEachRelation();
-        return ModelAndView.createNew("json/related.json.ftl", MediaType.APPLICATION_JSON).with("referenceDataList", referenceDataList);
+        getTopicDataForEachRelation();
+        return ModelAndView.createNew("json/related.json.ftl", MediaType.APPLICATION_JSON).with("topicDataList", topicDataList);
     }
 
     private void doSearchWithQueryParameters() {
@@ -68,27 +68,27 @@ public class JsonRelatedResource extends ServerResource {
     }
 
     private void setUpSearchForFromIdParameter(final Form form) {
-        if (form.getQueryString().contains("referenceId")) {
-            relationSearch.withFrom(UUID.fromString(form.getFirstValue("referenceId").trim()));
+        if (form.getQueryString().contains("topicId")) {
+            relationSearch.withFrom(UUID.fromString(form.getFirstValue("topicId").trim()));
         }
     }
 
-    public void getReferenceDataForEachRelation() {
+    public void getTopicDataForEachRelation() {
         for (final Relation relation : relations) {
-            addReferenceData(relation);
+            addTopicData(relation);
         }
     }
 
-    private void addReferenceData(final Relation relation) {
+    private void addTopicData(final Relation relation) {
         final Keyword keyword = keywordService.lookUp(relation.getToId(), feelhubLanguage);
-        final ReferenceData referenceData = referenceDataFactory.getReferenceData(relation.getToId(), keyword);
-        referenceDataList.add(referenceData);
+        final TopicData topicData = topicDataFactory.getTopicData(relation.getToId(), keyword);
+        topicDataList.add(topicData);
     }
 
     private final RelationSearch relationSearch;
     private final KeywordService keywordService;
-    private final ReferenceDataFactory referenceDataFactory;
+    private final TopicDataFactory topicDataFactory;
     private List<Relation> relations = Lists.newArrayList();
     private FeelhubLanguage feelhubLanguage;
-    private final List<ReferenceData> referenceDataList = Lists.newArrayList();
+    private final List<TopicData> topicDataList = Lists.newArrayList();
 }

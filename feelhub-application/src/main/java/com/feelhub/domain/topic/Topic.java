@@ -1,16 +1,16 @@
-package com.feelhub.domain.reference;
+package com.feelhub.domain.topic;
 
 import com.feelhub.domain.BaseEntity;
 
 import java.util.UUID;
 
-public class Reference extends BaseEntity {
+public class Topic extends BaseEntity {
 
     //mongolink constructor do not delete!
-    protected Reference() {
+    protected Topic() {
     }
 
-    public Reference(final UUID id) {
+    public Topic(final UUID id) {
         this.id = id;
         this.active = true;
     }
@@ -28,15 +28,15 @@ public class Reference extends BaseEntity {
         this.active = active;
     }
 
-    public UUID getCurrentReferenceId() {
-        return currentReferenceId;
+    public UUID getCurrentTopicId() {
+        return currentTopicId;
     }
 
-    public void setCurrentReferenceId(final UUID currentId) {
-        this.currentReferenceId = currentId;
+    public void setCurrentTopicId(final UUID currentId) {
+        this.currentTopicId = currentId;
     }
 
     private UUID id;
     private boolean active;
-    private UUID currentReferenceId;
+    private UUID currentTopicId;
 }

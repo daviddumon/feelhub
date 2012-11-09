@@ -1,14 +1,15 @@
-package com.feelhub.domain.feeling;
+package com.feelhub.domain.topic;
 
 import com.feelhub.application.KeywordService;
+import com.feelhub.domain.feeling.SentimentValue;
 import com.google.common.collect.*;
 
 import java.util.*;
 
-public class SubjectExtractor {
+public class TopicExtractor {
 
-    public List<Subject> extract(final String text) {
-        final List<Subject> subjects = Lists.newArrayList();
+    public List<KeywordAndSentiment> extract(final String text) {
+        final List<KeywordAndSentiment> keywordAndSentiments = Lists.newArrayList();
         final String[] tokens = text.split("\\s");
         for (final String token : tokens) {
             final TreeMap<Integer, SentimentValue> tokenTags = getSemanticTags(token);
@@ -21,18 +22,18 @@ public class SubjectExtractor {
                     cleanedToken = removeApostrophe(cleanedToken);
                 }
                 if (cleanedToken.length() > 2) {
-                    final Subject subject = new Subject(tokenSentimentValue, cleanedToken);
-                    subjects.add(subject);
+                    final KeywordAndSentiment keywordAndSentiment = new KeywordAndSentiment(tokenSentimentValue, cleanedToken);
+                    keywordAndSentiments.add(keywordAndSentiment);
                 }
             } else if (isUri(token)) {
                 final String cleanedToken = token.trim().toLowerCase();
                 if (cleanedToken.length() > 2) {
-                    final Subject subject = new Subject(SentimentValue.none, cleanedToken);
-                    subjects.add(subject);
+                    final KeywordAndSentiment keywordAndSentiment = new KeywordAndSentiment(SentimentValue.none, cleanedToken);
+                    keywordAndSentiments.add(keywordAndSentiment);
                 }
             }
         }
-        return subjects;
+        return keywordAndSentiments;
     }
 
     private String removeApostrophe(final String cleanedToken) {
