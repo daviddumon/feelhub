@@ -1,12 +1,11 @@
-package com.feelhub.domain.topic;
+package com.feelhub.domain.feeling;
 
 import com.feelhub.application.KeywordService;
-import com.feelhub.domain.feeling.SentimentValue;
 import com.google.common.collect.*;
 
 import java.util.*;
 
-public class TopicExtractor {
+public class SentimentExtractor {
 
     public List<SentimentAndText> extract(final String text) {
         final List<SentimentAndText> sentimentAndTexts = Lists.newArrayList();

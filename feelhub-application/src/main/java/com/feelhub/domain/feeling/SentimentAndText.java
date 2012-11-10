@@ -1,6 +1,4 @@
-package com.feelhub.domain.topic;
-
-import com.feelhub.domain.feeling.SentimentValue;
+package com.feelhub.domain.feeling;
 
 public class SentimentAndText {
 

@@ -4,7 +4,6 @@ import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.keyword.Keyword;
 import com.feelhub.domain.relation.FeelingRelationBinder;
-import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.*;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
@@ -19,7 +18,7 @@ public class FeelingService {
         this.sessionProvider = sessionProvider;
         this.keywordService = keywordService;
         this.feelingRelationBinder = feelingRelationBinder;
-        topicExtractor = new TopicExtractor();
+        sentimentExtractor = new SentimentExtractor();
         DomainEventBus.INSTANCE.register(this);
     }
 
@@ -42,7 +41,7 @@ public class FeelingService {
 
     private List<Sentiment> fromText(final FeelingRequestEvent feelingRequestEvent) {
         final List<Sentiment> result = Lists.newArrayList();
-        final List<SentimentAndText> sentimentAndTexts = topicExtractor.extract(feelingRequestEvent.getText());
+        final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(feelingRequestEvent.getText());
         for (final SentimentAndText sentimentAndText : sentimentAndTexts) {
             final Keyword keyword = keywordService.lookUpOrCreate(sentimentAndText.text, feelingRequestEvent.getUserLanguageCode());
             final Sentiment sentiment = new Sentiment(keyword.getTopicId(), sentimentAndText.sentimentValue);
@@ -72,5 +71,5 @@ public class FeelingService {
     private final SessionProvider sessionProvider;
     private final KeywordService keywordService;
     private final FeelingRelationBinder feelingRelationBinder;
-    private final TopicExtractor topicExtractor;
+    private final SentimentExtractor sentimentExtractor;
 }

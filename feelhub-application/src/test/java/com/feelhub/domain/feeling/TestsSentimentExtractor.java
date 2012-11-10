@@ -1,6 +1,5 @@
-package com.feelhub.domain.topic;
+package com.feelhub.domain.feeling;
 
-import com.feelhub.domain.feeling.SentimentValue;
 import org.junit.Test;
 
 import java.util.List;
@@ -8,10 +7,10 @@ import java.util.List;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-public class TestsTopicExtractor {
+public class TestsSentimentExtractor {
 
     @Test
-    public void canHandleTopicWithSentimentValueNone() {
+    public void canHandleSentimentWithSentimentValueNone() {
         testText("#topic", SentimentValue.none, "topic");
         testText(" #topic", SentimentValue.none, "topic");
         testText("  #topic", SentimentValue.none, "topic");
@@ -33,7 +32,7 @@ public class TestsTopicExtractor {
     }
 
     @Test
-    public void canHandleTopicWithSentimentValueNeutral() {
+    public void canHandleSentimentWithSentimentValueNeutral() {
         testText("=topic", SentimentValue.neutral, "topic");
         testText(" =topic", SentimentValue.neutral, "topic");
         testText("  =topic", SentimentValue.neutral, "topic");
@@ -55,7 +54,7 @@ public class TestsTopicExtractor {
     }
 
     @Test
-    public void canHandleTopicWithSentimentValueGood() {
+    public void canHandleSentimentWithSentimentValueGood() {
         testText("+topic", SentimentValue.good, "topic");
         testText(" +topic", SentimentValue.good, "topic");
         testText("  +topic", SentimentValue.good, "topic");
@@ -77,7 +76,7 @@ public class TestsTopicExtractor {
     }
 
     @Test
-    public void canHandleTopicWithSentimentValueBad() {
+    public void canHandleSentimentWithSentimentValueBad() {
         testText("-topic", SentimentValue.bad, "topic");
         testText(" -topic", SentimentValue.bad, "topic");
         testText("  -topic", SentimentValue.bad, "topic");
@@ -133,8 +132,8 @@ public class TestsTopicExtractor {
     }
 
     private void testText(final String text, final SentimentValue sentimentValue, final String expected) {
-        final TopicExtractor topicExtractor = new TopicExtractor();
-        final List<SentimentAndText> sentimentAndTexts = topicExtractor.extract(text);
+        final SentimentExtractor sentimentExtractor = new SentimentExtractor();
+        final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(text);
         assertThat("for '" + text + "'", sentimentAndTexts.size(), is(1));
         assertThat("for '" + text + "'", sentimentAndTexts.get(0).sentimentValue, is(sentimentValue));
         assertThat("for '" + text + "'", sentimentAndTexts.get(0).text, is(expected));
