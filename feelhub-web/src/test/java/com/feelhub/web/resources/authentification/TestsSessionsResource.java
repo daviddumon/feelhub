@@ -26,7 +26,7 @@ public class TestsSessionsResource {
     public WebApplicationTester restlet = new WebApplicationTester();
 
     @Test
-    public void canRequestSession() {
+    public void isMapped() {
         final User user = TestFactories.users().createActiveUser("mail@mail.com");
         final ClientResource sessions = restlet.newClientResource("/sessions");
         final Form parameters = new Form();

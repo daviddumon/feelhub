@@ -28,42 +28,6 @@ public class UserService {
         return user;
     }
 
-
-    public User authentificate(final String email, final String password) {
-        final User user = getUser(email);
-        checkUser(user);
-        checkPassword(user, password);
-        return user;
-    }
-
-    public User getUser(final String email) {
-        final User user = Repositories.users().get(email);
-        if (user == null) {
-            throw new BadUserException("This user does not exist!");
-        }
-        return user;
-    }
-
-    private void checkUser(final User user) {
-        if (!user.isActive()) {
-            throw new BadUserException("Not yet activated !");
-        }
-    }
-
-    private void checkPassword(final User user, final String password) {
-        if (!user.checkPassword(password)) {
-            throw new BadPasswordException();
-        }
-    }
-
-    public String getName(final String email) {
-        final User user = Repositories.users().get(email.toLowerCase().trim());
-        if (user != null) {
-            return user.getFullname();
-        }
-        return "";
-    }
-
     public User getUserForSecret(final UUID secret) {
         final User user = Repositories.users().forSecret(secret);
         if (user == null) {

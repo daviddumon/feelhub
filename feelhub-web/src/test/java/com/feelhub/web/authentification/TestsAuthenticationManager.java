@@ -4,6 +4,7 @@ import com.feelhub.application.*;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.test.TestFactories;
 import com.feelhub.web.tools.*;
 import org.joda.time.DateTime;
 import org.junit.*;
@@ -25,13 +26,11 @@ public class TestsAuthenticationManager {
         cookieManager = mock(CookieManager.class);
         when(cookieManager.cookieBuilder()).thenReturn(new CookieBuilder(new FeelhubWebProperties()));
         sessionService = mock(SessionService.class);
-        userService = new UserService(new UserFactory());
-        manager = new AuthenticationManager(userService, sessionService, new FeelhubWebProperties(), cookieManager);
-        user = userService.createUser("test@test.com", "pass", "jb", "fr_FR");
-        user.activate();
+        manager = new AuthenticationManager(sessionService, new FeelhubWebProperties(), cookieManager);
+        user = TestFactories.users().createActiveUser("test@test.com");
     }
 
-    @Test
+    @After
     public void tearDown() {
         CurrentUser.set(null);
     }
@@ -79,7 +78,7 @@ public class TestsAuthenticationManager {
         manager.initRequest();
 
         assertThat(CurrentUser.get().isAuthenticated()).isFalse();
-        assertThat(CurrentUser.get().getFullname()).isEqualTo("jb");
+        assertThat(CurrentUser.get().getFullname()).isEqualTo("full name");
     }
 
     @Test
@@ -106,7 +105,6 @@ public class TestsAuthenticationManager {
 
     private CookieManager cookieManager;
     private SessionService sessionService;
-    private UserService userService;
     private AuthenticationManager manager;
     private User user;
 }

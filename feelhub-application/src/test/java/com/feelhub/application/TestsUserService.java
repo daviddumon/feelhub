@@ -68,14 +68,6 @@ public class TestsUserService {
     }
 
     @Test
-    public void cannotAuthenticateIfAccountIsNotActive() {
-        exception.expect(BadUserException.class);
-        final User user = TestFactories.users().createFakeUser("mail@mail.com");
-
-        userService.authentificate("mail@mail.com", "password");
-    }
-
-    @Test
     public void canCreateForFacebook() {
         userService.findOrCreateForFacebook("123", "test@test.com", "jb", "dusse", "fr_fr", "token");
 

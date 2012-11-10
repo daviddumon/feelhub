@@ -1,36 +1,33 @@
 package com.feelhub.web.authentification;
 
-import com.feelhub.application.*;
+import com.feelhub.application.SessionService;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
-import com.feelhub.web.tools.*;
+import com.feelhub.repositories.Repositories;
+import com.feelhub.web.tools.CookieBuilder;
+import com.feelhub.web.tools.CookieManager;
+import com.feelhub.web.tools.FeelhubWebProperties;
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import org.joda.time.DateTime;
 import org.restlet.data.Cookie;
 
+import java.util.Map;
 import java.util.UUID;
 
 public class AuthenticationManager {
 
     @Inject
-    public AuthenticationManager(final UserService userService, final SessionService sessionService, final FeelhubWebProperties properties, final CookieManager cookieManager) {
-        this.userService = userService;
+    public AuthenticationManager(final SessionService sessionService, final FeelhubWebProperties properties, final CookieManager cookieManager) {
         this.sessionService = sessionService;
         this.properties = properties;
         this.cookieManager = cookieManager;
     }
 
     public void authenticate(final AuthRequest authRequest) {
-        final User user = extractUser(authRequest);
+        final User user = authenticators.get(authRequest.getAuthMethod()).authenticate(authRequest);
         final Session session = sessionService.createSession(user, new DateTime().plusSeconds(lifeTime(authRequest.isRemember())));
         setCookiesInResponse(authRequest.isRemember(), user, session);
-    }
-
-    private User extractUser(final AuthRequest authRequest) {
-        if (authRequest.getAuthMethod() == AuthMethod.FEELHUB) {
-            return userService.authentificate(authRequest.getUserId(), authRequest.getPassword());
-        }
-        return userService.getUser(authRequest.getUserId());
     }
 
     private void setCookiesInResponse(final boolean remember, final User user, final Session session) {
@@ -61,17 +58,23 @@ public class AuthenticationManager {
     }
 
     public void initRequest() {
-        final Cookie identityCookie = cookieManager.getCookie("id");
         try {
-            if (identityCookie != null) {
-                final User user = userService.getUser(identityCookie.getValue());
-                CurrentUser.set(new WebUser(user, sessionService.authentificate(user, getToken())));
-            } else {
-                CurrentUser.set(WebUser.anonymous());
-            }
+            doInit();
         } catch (Exception e) {
             CurrentUser.set(WebUser.anonymous());
         }
+    }
+
+    private void doInit() {
+        final Cookie identityCookie = cookieManager.getCookie("id");
+        if (identityCookie != null) {
+            final User user = Repositories.users().get(identityCookie.getValue());
+            if (user != null) {
+                CurrentUser.set(new WebUser(user, sessionService.authentificate(user, getToken())));
+                return;
+            }
+        }
+        CurrentUser.set(WebUser.anonymous());
     }
 
     private UUID getToken() {
@@ -83,8 +86,14 @@ public class AuthenticationManager {
         }
     }
 
-    private final UserService userService;
     private final SessionService sessionService;
     private final FeelhubWebProperties properties;
     private final CookieManager cookieManager;
+    private final Map<AuthMethod, Authenticator> authenticators = Maps.newConcurrentMap();
+
+    {
+        authenticators.put(AuthMethod.FEELHUB, new FeelhubAuthenticator());
+        authenticators.put(AuthMethod.FACEBOOK, new FacebookAuthenticator());
+    }
 }
+
