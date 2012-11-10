@@ -2,7 +2,8 @@ package com.feelhub.domain.user;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import org.junit.*;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.fest.assertions.Assertions.*;
@@ -132,7 +133,7 @@ public class TestsUser {
 
     @Test
     public void canCreateFromFacebook() {
-        final User user = new UserFactory().createFromFacebook("1234", "email@email.com", "first", "last", "FR…fr");
+        final User user = new UserFactory().createFromFacebook("1234", "email@email.com", "first", "last", "FR…fr", "token");
 
         assertThat(user).isNotNull();
         assertThat(user.getEmail()).isEqualTo("email@email.com");
@@ -140,5 +141,6 @@ public class TestsUser {
         assertThat(user.getLanguageCode()).isEqualTo("fr…fr");
         assertThat(user.isActive()).isTrue();
         assertThat(user.getId()).isEqualTo("FB:1234");
+        assertThat(user.getSocialToken(SocialNetwork.FACEBOOK)).isEqualTo(new SocialToken(SocialNetwork.FACEBOOK, "token"));
     }
 }

@@ -34,8 +34,8 @@ public class BaseMongoRepository<T extends Entity> implements Repository<T> {
     }
 
     @Override
-    public boolean exists(final Object uri) {
-        return false;
+    public boolean exists(final Object id) {
+        return session.get(id, getPersistentType()) != null;
     }
 
     @Override

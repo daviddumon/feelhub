@@ -1,9 +1,12 @@
 package com.feelhub.domain.user;
 
 import com.feelhub.domain.BaseEntity;
+import com.google.common.collect.Lists;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 public class User extends BaseEntity {
@@ -93,11 +96,29 @@ public class User extends BaseEntity {
         return secret;
     }
 
+    public SocialToken getSocialToken(SocialNetwork network) {
+        for (SocialToken token : socialTokens) {
+            if(token.is(network)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
+    public void addToken(SocialToken socialToken) {
+        socialTokens.add(socialToken);
+    }
+
+    public List<SocialToken> getSocialTokens() {
+        return Collections.unmodifiableList(socialTokens);
+    }
+
     private String email;
     protected String password;
     private String fullname;
     private String languageCode;
     private boolean active;
     private String secret;
+    private List<SocialToken> socialTokens = Lists.newArrayList();
     private String id;
 }

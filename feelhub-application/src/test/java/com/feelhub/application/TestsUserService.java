@@ -75,5 +75,24 @@ public class TestsUserService {
         userService.authentificate("mail@mail.com", "password");
     }
 
+    @Test
+    public void canCreateForFacebook() {
+        userService.findOrCreateForFacebook("123", "test@test.com", "jb", "dusse", "fr_fr", "token");
+
+        final User user = Repositories.users().get(UserIds.facebook("123"));
+        assertThat(user, notNullValue());
+        assertThat(user.getId(), is(UserIds.facebook("123")));
+    }
+
+    @Test
+    public void dontCreateTwiceForFacebook() {
+        final User user = new User(UserIds.facebook("123"));
+        Repositories.users().add(user);
+
+        userService.findOrCreateForFacebook("123", "test@test.com", "jb", "dusse", "fr_fr", "token");
+
+        assertThat(Repositories.users().getAll().size(), is(1));
+    }
+
     private UserService userService;
 }

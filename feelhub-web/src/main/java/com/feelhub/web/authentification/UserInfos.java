@@ -15,4 +15,12 @@ public class UserInfos {
     public boolean isAuthenticated() {
         return CurrentUser.get().isAuthenticated();
     }
+
+    public String getEmail() {
+        return CurrentUser.get().getEmail();
+    }
+
+    public String getFullname() {
+        return CurrentUser.get().getFullname();
+    }
 }

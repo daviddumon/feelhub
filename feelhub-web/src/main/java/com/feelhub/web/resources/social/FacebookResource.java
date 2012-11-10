@@ -2,12 +2,14 @@ package com.feelhub.web.resources.social;
 
 import com.feelhub.application.UserService;
 import com.feelhub.web.WebReferenceBuilder;
-import com.feelhub.web.authentification.*;
+import com.feelhub.web.authentification.AuthRequest;
+import com.feelhub.web.authentification.AuthenticationManager;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.inject.Inject;
 import com.restfb.types.User;
 import org.restlet.data.Status;
-import org.restlet.resource.*;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 import org.scribe.model.Token;
 
 public class FacebookResource extends ServerResource {
@@ -24,7 +26,8 @@ public class FacebookResource extends ServerResource {
         final String facebookCode = getQuery().getFirstValue("code");
         final Token accesToken = connector.getAccesToken(facebookCode);
         final User facebookUser = connector.getUser(accesToken);
-        final com.feelhub.domain.user.User newUser = userService.createFromFacebook(facebookUser.getId(), facebookUser.getEmail(), facebookUser.getFirstName(), facebookUser.getLastName(), facebookUser.getLocale());
+        final com.feelhub.domain.user.User newUser = userService.findOrCreateForFacebook(facebookUser.getId(), facebookUser.getEmail(),
+                facebookUser.getFirstName(), facebookUser.getLastName(), facebookUser.getLocale(), accesToken.getToken());
         authenticationManager.authenticate(AuthRequest.facebook(newUser.getId()));
         setLocationRef(new WebReferenceBuilder(getContext()).buildUri(""));
         setStatus(Status.REDIRECTION_TEMPORARY);

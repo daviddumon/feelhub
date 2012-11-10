@@ -45,4 +45,6 @@ public abstract class BaseEntity implements Entity {
 
     protected DateTime creationDate;
     protected DateTime lastModificationDate;
+
+
 }

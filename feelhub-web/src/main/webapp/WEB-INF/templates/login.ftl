@@ -32,10 +32,10 @@
 
     <div class="holder">
         <#if !userInfos.anonymous>
-            <p>Hello ${userInfos.user.fullname} !</p>
+            <p>Hello ${userInfos.fullname} !</p>
 
             <p>Please enter your password, or <a href="javascript:void(0);" id="logout">change user</a> !</p>
-            <input name="email" value="${userInfos.user.email}" type="text" autocomplete="off" maxlength="100" aria-required="true" style="display: none"/>
+            <input name="email" value="${userInfos.email}" type="text" autocomplete="off" maxlength="100" aria-required="true" style="display: none"/>
         <#else>
             <span class="help_text">Email</span>
             <input name="email" value="" type="text" autocomplete="off" maxlength="100" aria-required="true"/>
@@ -57,8 +57,8 @@
     </div>
     <div class="holder">
         <a id="login_submit" href="">login</a>
-    <#--or-->
-    <#--<a href="${facebookUrl}">login with facebook</a>-->
+    or
+    <a href="${facebookUrl}">login with facebook</a>
     </div>
 </form>
 </@layout.body>

@@ -29,6 +29,11 @@ public class WebUser {
         return false;
     }
 
+    public String getEmail() {
+        return user.getEmail();
+    }
     private final boolean authenticated;
+
     private final User user;
+
 }

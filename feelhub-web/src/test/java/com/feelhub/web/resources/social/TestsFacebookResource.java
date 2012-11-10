@@ -1,33 +1,43 @@
 package com.feelhub.web.resources.social;
 
 import com.feelhub.application.UserService;
-import com.feelhub.domain.user.UserFactory;
-import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.ContextTestFactory;
-import com.feelhub.web.authentification.*;
+import com.feelhub.web.authentification.AuthMethod;
+import com.feelhub.web.authentification.AuthRequest;
+import com.feelhub.web.authentification.AuthenticationManager;
 import com.feelhub.web.social.FacebookConnector;
 import com.restfb.types.User;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.restlet.*;
-import org.restlet.data.*;
+import org.restlet.Context;
+import org.restlet.Request;
+import org.restlet.Response;
+import org.restlet.data.Method;
+import org.restlet.data.Status;
 import org.scribe.model.Token;
 
 import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class FacebookResourceTest {
+public class TestsFacebookResource {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+    private UserService userService;
 
     @Before
     public void setUp() throws Exception {
         final Context context = ContextTestFactory.buildContext();
         authenticationManager = mock(AuthenticationManager.class);
         facebookConnector = mock(FacebookConnector.class);
-        facebookResource = new FacebookResource(facebookConnector, new UserService(new UserFactory()), authenticationManager);
+        when(facebookConnector.getAccesToken(anyString())).thenReturn(new Token("token", "secret"));
+        userService = mock(UserService.class);
+        when(userService.findOrCreateForFacebook(anyString(), anyString(), anyString(), anyString(), anyString(), anyString()))
+                .thenReturn(new com.feelhub.domain.user.User("test"));
+        facebookResource = new FacebookResource(facebookConnector, userService, authenticationManager);
         final Request request = new Request(Method.GET, "http://test.com?code=toto");
         facebookResource.init(context, request, new Response(request));
     }
@@ -38,10 +48,7 @@ public class FacebookResourceTest {
 
         facebookResource.facebookReturn();
 
-        final com.feelhub.domain.user.User user = Repositories.users().get("FB:test");
-        assertThat(user).isNotNull();
-        assertThat(user.getEmail()).isEqualTo("toto@gmail.com");
-        assertThat(user.getLanguageCode()).isEqualTo("fr_fr");
+        verify(userService).findOrCreateForFacebook("test", "toto@gmail.com", "Jb", "Dusse", "fr_FR", "token");
     }
 
     @Test
@@ -54,7 +61,7 @@ public class FacebookResourceTest {
         verify(authenticationManager).authenticate(captor.capture());
         final AuthRequest authRequest = captor.getValue();
         assertThat(authRequest).isNotNull();
-        assertThat(authRequest.getUserId()).isEqualTo("FB:test");
+        assertThat(authRequest.getUserId()).isEqualTo("test");
         assertThat(authRequest.getAuthMethod()).isEqualTo(AuthMethod.FACEBOOK);
     }
 
@@ -99,6 +106,16 @@ public class FacebookResourceTest {
         @Override
         public String getId() {
             return id;
+        }
+
+        @Override
+        public String getFirstName() {
+            return "Jb";
+        }
+
+        @Override
+        public String getLastName() {
+            return "Dusse";
         }
     }
 

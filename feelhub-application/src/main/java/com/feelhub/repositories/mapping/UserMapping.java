@@ -20,5 +20,6 @@ public class UserMapping extends EntityMap<User> {
         property(element().getSecret());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
+        collection(element().getSocialTokens());
     }
 }

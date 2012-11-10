@@ -28,6 +28,6 @@ public class TestsFacebookConnector {
 
         final String url = connector.getUrl();
 
-        assertThat(url).isEqualTo("https://www.facebook.com/dialog/oauth?client_id=appId&redirect_uri=https%3A%2F%2Fthedomain%2F%2Fsocial%2Ffacebook");
+        assertThat(url).isEqualTo("https://www.facebook.com/dialog/oauth?client_id=appId&redirect_uri=https%3A%2F%2Fthedomain%2F%2Fsocial%2Ffacebook&scope=email");
     }
 }

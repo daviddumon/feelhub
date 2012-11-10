@@ -27,6 +27,7 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         user.setPassword("password");
         user.setFullname("fullname");
         user.setLanguageCode("en");
+        user.addToken(new SocialToken(SocialNetwork.FACEBOOK, "token"));
 
         repository.add(user);
 
@@ -34,13 +35,19 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         assertThat(userFound).isNotNull();
         assertThat(userFound.get("_id").toString()).isEqualTo(user.getId());
         assertThat(userFound.get("email").toString()).isEqualTo(user.getEmail());
-        assertThat(userFound.get("password")).isEqualTo(((Object) user.getPassword()));
-        assertThat(userFound.get("fullname")).isEqualTo((Object) user.getFullname());
-        assertThat(userFound.get("languageCode")).isEqualTo((Object) user.getLanguageCode());
-        assertThat(userFound.get("active")).isEqualTo((Object) user.isActive());
-        assertThat(userFound.get("secret")).isEqualTo((Object) user.getSecret());
-        assertThat(userFound.get("creationDate")).isEqualTo((Object) time.getNow().getMillis());
-        assertThat(userFound.get("lastModificationDate")).isEqualTo((Object) time.getNow().getMillis());
+        assertThat(userFound.get("password")).isEqualTo(user.getPassword());
+        assertThat(userFound.get("fullname")).isEqualTo(user.getFullname());
+        assertThat(userFound.get("languageCode")).isEqualTo(user.getLanguageCode());
+        assertThat(userFound.get("active")).isEqualTo(user.isActive());
+        assertThat(userFound.get("secret")).isEqualTo(user.getSecret());
+        assertThat(userFound.get("creationDate")).isEqualTo(time.getNow().getMillis());
+        assertThat(userFound.get("lastModificationDate")).isEqualTo(time.getNow().getMillis());
+        assertThat(userFound.get("socialTokens")).isNotNull();
+        final BasicDBList socialTokens = (BasicDBList) userFound.get("socialTokens");
+        assertThat(socialTokens).hasSize(1);
+        final DBObject token = (DBObject) socialTokens.get(0);
+        assertThat(token.get("value")).isEqualTo("token");
+        assertThat(token.get("network")).isEqualTo("FACEBOOK");
     }
 
     @Test
