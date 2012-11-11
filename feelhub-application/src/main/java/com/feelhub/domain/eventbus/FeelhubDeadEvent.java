@@ -5,7 +5,6 @@ import com.google.common.eventbus.DeadEvent;
 public class FeelhubDeadEvent extends DomainEvent {
 
     public FeelhubDeadEvent(final DeadEvent deadEvent) {
-        super();
         this.deadEvent = deadEvent;
     }
 

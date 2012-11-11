@@ -1,5 +1,6 @@
 package com.feelhub.domain.user;
 
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.Rule;
@@ -17,11 +18,17 @@ public class TestsUser {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
+
     @Test
     public void canCreate() {
+        bus.capture(UserCreatedEvent.class);
         final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "fr_fr");
 
         assertThat(user.getId()).isEqualTo("email@email.com");
+        final UserCreatedEvent event = bus.lastEvent(UserCreatedEvent.class);
+        assertThat(event.getUser()).isEqualTo(user);
     }
 
     @Test
@@ -122,13 +129,6 @@ public class TestsUser {
         user.activate();
 
         assertThat(user.isActive()).isEqualTo(true);
-    }
-
-    @Test
-    public void hasSecret() {
-        final User user = new User("");
-
-        assertThat(user.getSecret()).isNotNull();
     }
 
     @Test

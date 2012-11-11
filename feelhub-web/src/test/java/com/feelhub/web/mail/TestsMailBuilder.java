@@ -1,12 +1,16 @@
 package com.feelhub.web.mail;
 
+import com.feelhub.domain.user.Activation;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.WebApplicationTester;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 
@@ -32,8 +36,9 @@ public class TestsMailBuilder {
     @Test
     public void canSendAnEmail() {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
+        Activation activation = new Activation(user);
 
-        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user, activation);
 
         verify(mailSender, times(1)).send(mimeMessage);
     }
@@ -41,8 +46,9 @@ public class TestsMailBuilder {
     @Test
     public void emailAsARecipient() throws MessagingException {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
+        Activation activation = new Activation(user);
 
-        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user, activation);
 
         assertThat(mimeMessage.getRecipients(Message.RecipientType.TO)[0].toString(), is(user.getEmail()));
     }
@@ -50,8 +56,9 @@ public class TestsMailBuilder {
     @Test
     public void activationEmailAsAFromAddress() throws MessagingException {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
+        Activation activation = new Activation(user);
 
-        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user, activation);
 
         assertThat(mimeMessage.getFrom()[0].toString(), is("register@feelhub.com"));
     }
@@ -59,8 +66,9 @@ public class TestsMailBuilder {
     @Test
     public void activationEmailAsASubject() throws MessagingException {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
+        Activation activation = new Activation(user);
 
-        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user, activation);
 
         assertThat(mimeMessage.getSubject(), is("Welcome to Feelhub !"));
     }
@@ -68,8 +76,9 @@ public class TestsMailBuilder {
     @Test
     public void activationEmailAsABody() throws IOException, MessagingException {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
+        Activation activation = new Activation(user);
 
-        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user);
+        final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user, activation);
 
         assertThat(mimeMessage.getContent(), notNullValue());
     }

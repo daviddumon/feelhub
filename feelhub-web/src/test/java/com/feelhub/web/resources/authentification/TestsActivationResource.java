@@ -1,15 +1,17 @@
 package com.feelhub.web.resources.authentification;
 
-import com.feelhub.domain.user.User;
-import com.feelhub.repositories.Repositories;
+import com.feelhub.application.ActivationService;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.TestFactories;
-import com.feelhub.web.*;
-import org.junit.*;
-import org.restlet.data.Status;
+import com.feelhub.web.ContextTestFactory;
+import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.representation.ModelAndView;
+import org.junit.Rule;
+import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import java.util.UUID;
+
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 public class TestsActivationResource {
 
@@ -20,13 +22,16 @@ public class TestsActivationResource {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void canActivateAnUser() {
-        final User user = TestFactories.users().createFakeUser("mail@mail.com");
-        final ClientResource activation = restlet.newClientResource("/activation/" + user.getSecret());
+    public void canConfirm() {
+        final ActivationService activationService = mock(ActivationService.class);
+        final ActivationResource resource = new ActivationResource(activationService);
+        ContextTestFactory.initResource(resource);
+        final UUID uuid = UUID.randomUUID();
+        resource.getRequest().getAttributes().put("secret", uuid.toString());
 
-        activation.get();
+        final ModelAndView view = resource.confirm();
 
-        assertThat(activation.getStatus(), is(Status.SUCCESS_OK));
-        assertThat(Repositories.users().getAll().get(0).isActive(), is(true));
+        verify(activationService).confirm(uuid);
+        assertThat(view.getTemplate()).isEqualTo("activation.ftl");
     }
 }

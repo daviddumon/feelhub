@@ -10,7 +10,7 @@ public class UserFactory {
     public User createUser(final String email, final String password, final String fullname, final String language) {
         final User user = commonUser(email, email, fullname, language);
         user.setPassword(password);
-        DomainEventBus.INSTANCE.post(new UserConfirmationMailEvent(user));
+        DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
         return user;
     }
 

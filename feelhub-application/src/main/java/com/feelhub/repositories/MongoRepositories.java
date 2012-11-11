@@ -8,6 +8,7 @@ import com.feelhub.domain.relation.RelationRepository;
 import com.feelhub.domain.session.SessionRepository;
 import com.feelhub.domain.statistics.StatisticsRepository;
 import com.feelhub.domain.topic.TopicRepository;
+import com.feelhub.domain.user.ActivationRepository;
 import com.feelhub.domain.user.UserRepository;
 
 import javax.inject.Inject;
@@ -17,6 +18,11 @@ public class MongoRepositories extends Repositories {
     @Inject
     public MongoRepositories(final SessionProvider provider) {
         this.provider = provider;
+    }
+
+    @Override
+    protected ActivationRepository getActivationRepository() {
+        return new ActivationMongoRepository(provider.get());
     }
 
     @Override

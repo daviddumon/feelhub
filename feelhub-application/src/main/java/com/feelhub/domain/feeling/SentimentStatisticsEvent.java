@@ -5,7 +5,6 @@ import com.feelhub.domain.eventbus.DomainEvent;
 public class SentimentStatisticsEvent extends DomainEvent {
 
     public SentimentStatisticsEvent(final Sentiment sentiment) {
-        super();
         this.sentiment = sentiment;
     }
 

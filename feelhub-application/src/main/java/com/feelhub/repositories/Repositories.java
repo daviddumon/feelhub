@@ -8,6 +8,7 @@ import com.feelhub.domain.relation.RelationRepository;
 import com.feelhub.domain.session.SessionRepository;
 import com.feelhub.domain.statistics.StatisticsRepository;
 import com.feelhub.domain.topic.TopicRepository;
+import com.feelhub.domain.user.ActivationRepository;
 import com.feelhub.domain.user.UserRepository;
 
 public abstract class Repositories {
@@ -55,6 +56,12 @@ public abstract class Repositories {
     public static AlchemyAnalysisRepository alchemyAnalysis() {
         return Repositories.soleInstance.getAlchemyAnalysisRepository();
     }
+
+    public static ActivationRepository activation() {
+        return Repositories.soleInstance.getActivationRepository();
+    }
+
+    protected abstract ActivationRepository getActivationRepository();
 
     protected abstract AlchemyAnalysisRepository getAlchemyAnalysisRepository();
 

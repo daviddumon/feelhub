@@ -1,33 +1,27 @@
 package com.feelhub.web.resources.authentification;
 
-import com.feelhub.application.UserService;
-import com.feelhub.domain.user.User;
+import com.feelhub.application.ActivationService;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.Inject;
-import org.restlet.data.Status;
-import org.restlet.resource.*;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
 import java.util.UUID;
 
 public class ActivationResource extends ServerResource {
 
     @Inject
-    public ActivationResource(final UserService userService) {
-        this.userService = userService;
+    public ActivationResource(final ActivationService activationService) {
+        this.activationService = activationService;
     }
 
     @Get
-    public ModelAndView createActivation() {
+    public ModelAndView confirm() {
         final UUID secret = UUID.fromString(getRequestAttributes().get("secret").toString());
-        final User user = userService.getUserForSecret(secret);
-        if (!user.isActive()) {
-            user.activate();
-            setStatus(Status.SUCCESS_OK);
-            return ModelAndView.createNew("activation.ftl");
-        } else {
-            throw new AccountAlreadyActivatedException();
-        }
+        activationService.confirm(secret);
+        return ModelAndView.createNew("activation.ftl");
     }
 
-    private final UserService userService;
+
+    private ActivationService activationService;
 }

@@ -8,10 +8,16 @@ import com.feelhub.domain.relation.RelationRepository;
 import com.feelhub.domain.session.SessionRepository;
 import com.feelhub.domain.statistics.StatisticsRepository;
 import com.feelhub.domain.topic.TopicRepository;
+import com.feelhub.domain.user.ActivationRepository;
 import com.feelhub.domain.user.UserRepository;
 import com.feelhub.repositories.Repositories;
 
 public class FakeMongoRepositories extends Repositories {
+
+    @Override
+    protected ActivationRepository getActivationRepository() {
+        return activationRepository;
+    }
 
     @Override
     protected AlchemyAnalysisRepository getAlchemyAnalysisRepository() {
@@ -72,5 +78,6 @@ public class FakeMongoRepositories extends Repositories {
     private final FakeKeywordRepository keywordRepository = new FakeKeywordRepository();
     private final FakeIllustrationRepository illustrationRepository = new FakeIllustrationRepository();
     private final FakeAlchemyEntityRepository alchemyEntityRepository = new FakeAlchemyEntityRepository();
+    private final FakeActivationRepository activationRepository = new FakeActivationRepository();
     private final AlchemyAnalysisRepository alchemyAnalysisRepository = new FakeAlchemyAnalysisRepository();
 }

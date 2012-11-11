@@ -2,11 +2,14 @@ package com.feelhub.domain.user;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 
-public class UserConfirmationMailEvent extends DomainEvent {
+public class UserCreatedEvent extends DomainEvent{
 
-    public UserConfirmationMailEvent(final User user, Activation activation) {
+    public UserCreatedEvent(User user) {
         this.user = user;
-        this.activation = activation;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     @Override
@@ -20,15 +23,5 @@ public class UserConfirmationMailEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public Activation getActivation() {
-        return activation;
-    }
-
-    private final User user;
-
-    private Activation activation;
+    private User user;
 }
