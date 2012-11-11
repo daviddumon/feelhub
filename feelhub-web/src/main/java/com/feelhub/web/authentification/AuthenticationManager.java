@@ -46,8 +46,8 @@ public class AuthenticationManager {
 
     public boolean logout() {
         final CookieBuilder cookieBuilder = cookieManager.cookieBuilder();
-        final Cookie sessionCookie = cookieManager.getCookies().getFirst(CookieBuilder.SESSION);
-        final Cookie id = cookieManager.getCookies().getFirst(CookieBuilder.ID);
+        final Cookie sessionCookie = cookieManager.getCookie(CookieBuilder.SESSION);
+        final Cookie id = cookieManager.getCookie(CookieBuilder.ID);
         if (sessionCookie != null && id != null) {
             sessionService.deleteSession(UUID.fromString(sessionCookie.getValue()));
             cookieManager.setCookie(cookieBuilder.eraseIdCookie(id.getValue()));

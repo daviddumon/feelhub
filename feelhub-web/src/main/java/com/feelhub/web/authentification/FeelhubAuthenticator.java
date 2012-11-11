@@ -14,8 +14,8 @@ public class FeelhubAuthenticator implements Authenticator {
         return user;
     }
 
-    public User getUser(final String email) {
-        final User user = Repositories.users().get(email);
+    public User getUser(final String id) {
+        final User user = Repositories.users().get(id);
         if (user == null) {
             throw new BadUserException("This user does not exist!");
         }

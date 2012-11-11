@@ -1,9 +1,12 @@
 package com.feelhub.web;
 
+import com.feelhub.web.resources.authentification.SessionsResource;
 import org.apache.commons.io.FilenameUtils;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.restlet.Context;
+import org.restlet.Request;
+import org.restlet.Response;
 
 import javax.servlet.ServletContext;
 import java.io.File;
@@ -39,4 +42,9 @@ public final class ContextTestFactory {
         return servletContext;
     }
 
+    public static void initResource(SessionsResource resource) {
+        Request request = new Request();
+        resource.init(buildContext(), request, new Response(request));
+        ;
+    }
 }

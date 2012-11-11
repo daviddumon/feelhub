@@ -12,4 +12,9 @@ public class FakeUser extends User {
     public void setPassword(final String password) {
         this.password = password;
     }
+
+    @Override
+    public boolean checkPassword(String password) {
+        return password.equals(getPassword());
+    }
 }

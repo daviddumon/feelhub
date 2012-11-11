@@ -1,14 +1,20 @@
 package com.feelhub.web.authentification;
 
-import com.feelhub.application.*;
+import com.feelhub.application.SessionService;
 import com.feelhub.domain.session.Session;
-import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.tools.*;
+import com.feelhub.web.tools.CookieBuilder;
+import com.feelhub.web.tools.CookieManager;
+import com.feelhub.web.tools.FeelhubWebProperties;
 import org.joda.time.DateTime;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.restlet.data.Cookie;
 import org.restlet.data.CookieSetting;
 
 import java.util.UUID;
@@ -33,6 +39,47 @@ public class TestsAuthenticationManager {
     @After
     public void tearDown() {
         CurrentUser.set(null);
+    }
+
+    @Test
+    public void setCookieOnSuccessLogin() {
+        when(sessionService.createSession(eq(user), any(DateTime.class))).thenReturn(new Session(DateTime.now()));
+       manager.authenticate(new AuthRequest(user.getId(), "password", true));
+
+        verify(cookieManager, times(2)).setCookie(any(CookieSetting.class));
+    }
+
+    @Test
+    public void doNotSetCookieOnError() {
+        try {
+            manager.authenticate(new AuthRequest(user.getId(), "test", true));
+        } catch (Exception e) {
+
+        }
+
+        verifyZeroInteractions(cookieManager);
+    }
+
+    @Test
+    public void deleteSessionOnLogout() {
+        final Session session = new Session(DateTime.now());
+        when(cookieManager.getCookie("session")).thenReturn(new Cookie(0, "session", session.getId().toString()));
+        when(cookieManager.getCookie("id")).thenReturn(new Cookie(0, "id", "test"));
+
+        manager.logout();
+
+        verify(sessionService).deleteSession((UUID) session.getId());
+    }
+
+    @Test
+    public void deleteCookiesOnLogout() {
+        final Session session = new Session(DateTime.now());
+        when(cookieManager.getCookie("session")).thenReturn(new Cookie(0, "session", session.getId().toString()));
+        when(cookieManager.getCookie("id")).thenReturn(new Cookie(0, "id", "test"));
+
+        manager.logout();
+
+        verify(cookieManager, times(2)).setCookie(any(CookieSetting.class));
     }
 
     @Test
