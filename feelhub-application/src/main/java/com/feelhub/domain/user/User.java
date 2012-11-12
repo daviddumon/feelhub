@@ -7,7 +7,6 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 public class User extends BaseEntity {
 
@@ -18,7 +17,6 @@ public class User extends BaseEntity {
     public User(final String id) {
         this.id = id;
         this.active = false;
-        this.secret = UUID.randomUUID().toString();
     }
 
     public void setEmail(String email) {
@@ -92,10 +90,6 @@ public class User extends BaseEntity {
         return active;
     }
 
-    public String getSecret() {
-        return secret;
-    }
-
     public SocialToken getSocialToken(SocialNetwork network) {
         for (SocialToken token : socialTokens) {
             if(token.is(network)) {
@@ -118,7 +112,6 @@ public class User extends BaseEntity {
     private String fullname;
     private String languageCode;
     private boolean active;
-    private String secret;
     private List<SocialToken> socialTokens = Lists.newArrayList();
     private String id;
 }

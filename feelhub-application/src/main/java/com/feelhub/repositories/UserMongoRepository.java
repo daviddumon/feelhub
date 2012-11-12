@@ -1,22 +1,15 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.UserRepository;
 import org.mongolink.MongoSession;
-import org.mongolink.domain.criteria.*;
-
-import java.util.UUID;
+import org.mongolink.domain.criteria.Criteria;
+import org.mongolink.domain.criteria.Restrictions;
 
 public class UserMongoRepository extends BaseMongoRepository<User> implements UserRepository {
 
     public UserMongoRepository(final MongoSession mongoSession) {
         super(mongoSession);
-    }
-
-    @Override
-    public User forSecret(final UUID secret) {
-        final Criteria criteria = createCriteria();
-        criteria.add(Restrictions.equals("secret", secret.toString()));
-        return extractOne(criteria);
     }
 
     @Override

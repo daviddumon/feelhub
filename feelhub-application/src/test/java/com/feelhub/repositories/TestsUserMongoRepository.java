@@ -39,7 +39,6 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         assertThat(userFound.get("fullname")).isEqualTo(user.getFullname());
         assertThat(userFound.get("languageCode")).isEqualTo(user.getLanguageCode());
         assertThat(userFound.get("active")).isEqualTo(user.isActive());
-        assertThat(userFound.get("secret")).isEqualTo(user.getSecret());
         assertThat(userFound.get("creationDate")).isEqualTo(time.getNow().getMillis());
         assertThat(userFound.get("lastModificationDate")).isEqualTo(time.getNow().getMillis());
         assertThat(userFound.get("socialTokens")).isNotNull();

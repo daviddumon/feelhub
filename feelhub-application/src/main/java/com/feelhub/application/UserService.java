@@ -1,10 +1,10 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.UserFactory;
+import com.feelhub.domain.user.UserIds;
 import com.feelhub.repositories.Repositories;
 import com.google.inject.Inject;
-
-import java.util.UUID;
 
 public class UserService {
 
@@ -25,14 +25,6 @@ public class UserService {
         }
         final User user = userFactory.createFromFacebook(id, email, firstName, lastName, language, token);
         Repositories.users().add(user);
-        return user;
-    }
-
-    public User getUserForSecret(final UUID secret) {
-        final User user = Repositories.users().forSecret(secret);
-        if (user == null) {
-            throw new BadUserException("This user does not exist!");
-        }
         return user;
     }
 
