@@ -3,9 +3,7 @@ package com.feelhub.web;
 import org.apache.commons.io.FilenameUtils;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
+import org.restlet.*;
 import org.restlet.resource.ServerResource;
 
 import javax.servlet.ServletContext;

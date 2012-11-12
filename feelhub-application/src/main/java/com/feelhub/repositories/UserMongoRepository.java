@@ -1,10 +1,8 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserRepository;
+import com.feelhub.domain.user.*;
 import org.mongolink.MongoSession;
-import org.mongolink.domain.criteria.Criteria;
-import org.mongolink.domain.criteria.Restrictions;
+import org.mongolink.domain.criteria.*;
 
 public class UserMongoRepository extends BaseMongoRepository<User> implements UserRepository {
 

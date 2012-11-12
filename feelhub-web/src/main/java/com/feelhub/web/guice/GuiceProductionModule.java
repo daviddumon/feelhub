@@ -1,12 +1,11 @@
 package com.feelhub.web.guice;
 
-import com.feelhub.application.ActivationService;
-import com.feelhub.application.FeelingService;
+import com.feelhub.application.*;
 import com.feelhub.domain.alchemy.AlchemyAnalyzer;
 import com.feelhub.domain.eventbus.DeadEventCatcher;
 import com.feelhub.domain.illustration.*;
+import com.feelhub.domain.keyword.world.WorldListener;
 import com.feelhub.domain.statistics.StatisticsFactory;
-import com.feelhub.domain.world.WorldListener;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.web.mail.MailBuilder;
 import com.google.inject.*;

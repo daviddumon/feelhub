@@ -1,14 +1,15 @@
 package com.feelhub.domain.keyword;
 
+import com.feelhub.domain.keyword.uri.Uri;
+import com.feelhub.domain.keyword.word.Word;
+import com.feelhub.domain.keyword.world.World;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
 import org.junit.*;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsKeywordFactory {
 
@@ -24,30 +25,71 @@ public class TestsKeywordFactory {
     }
 
     @Test
-    public void canCreateAKeyword() {
+    public void canCreateAWord() {
         final String value = "value";
         final FeelhubLanguage feelhubLanguage = FeelhubLanguage.forString("english");
         final Topic topic = TestFactories.topics().newTopic();
 
-        final Keyword keyword = keywordFactory.createKeyword(value, feelhubLanguage, topic.getId());
+        final Word word = keywordFactory.createWord(value, feelhubLanguage, topic.getId());
 
-        assertNotNull(keyword);
-        assertThat(keyword.getValue(), is(value));
-        assertThat(keyword.getLanguage(), is(feelhubLanguage));
-        assertThat(keyword.getId(), notNullValue());
-        assertThat(keyword.getTopicId(), notNullValue());
-        assertThat(keyword.getCreationDate(), is(time.getNow()));
-        assertThat(keyword.getLastModificationDate(), is(time.getNow()));
+        assertThat(word).isNotNull();
+        assertThat(word.getValue()).isEqualTo(value);
+        assertThat(word.getLanguage()).isEqualTo(feelhubLanguage);
+        assertThat(word.getId()).isNotNull();
+        assertThat(word.getTopicId()).isNotNull();
+        assertThat(word.getCreationDate()).isEqualTo(time.getNow());
+        assertThat(word.getLastModificationDate()).isEqualTo(time.getNow());
+        assertThat(word.isTranslationNeeded()).isFalse();
     }
 
     @Test
     public void canCreateKeywordsWithSameTopic() {
         final Topic topic = TestFactories.topics().newTopic();
 
-        final Keyword keyword1 = keywordFactory.createKeyword("value1", FeelhubLanguage.reference(), topic.getId());
-        final Keyword keyword2 = keywordFactory.createKeyword("value2", FeelhubLanguage.reference(), topic.getId());
+        final Word word1 = keywordFactory.createWord("value1", FeelhubLanguage.reference(), topic.getId());
+        final Word word2 = keywordFactory.createWord("value2", FeelhubLanguage.reference(), topic.getId());
 
-        assertThat(keyword1.getTopicId(), is(keyword2.getTopicId()));
+        assertThat(word1.getTopicId()).isEqualTo(word2.getTopicId());
+    }
+
+    @Test
+    public void canCreateAnUri() {
+        final String value = "http://www.google.fr";
+        final Topic topic = TestFactories.topics().newTopic();
+
+        final Uri uri = keywordFactory.createUri(value, topic.getId());
+
+        assertThat(uri).isNotNull();
+        assertThat(uri.getValue()).isEqualTo(value);
+        assertThat(uri.getLanguage()).isEqualTo(FeelhubLanguage.none());
+        assertThat(uri.getId()).isNotNull();
+        assertThat(uri.getTopicId()).isNotNull();
+        assertThat(uri.getCreationDate()).isEqualTo(time.getNow());
+        assertThat(uri.getLastModificationDate()).isEqualTo(time.getNow());
+    }
+
+    @Test
+    public void canSetTranslationNeededForAWord() {
+        final Word word = keywordFactory.createWord("value", FeelhubLanguage.forString("english"), TestFactories.topics().newTopic().getId());
+
+        word.setTranslationNeeded(true);
+
+        assertThat(word.isTranslationNeeded()).isTrue();
+    }
+
+    @Test
+    public void canCreateWorld() {
+        final Topic topic = TestFactories.topics().newTopic();
+
+        final World world = keywordFactory.createWorld(topic.getId());
+
+        assertThat(world).isNotNull();
+        assertThat(world.getValue()).isEqualTo("");
+        assertThat(world.getLanguage()).isEqualTo(FeelhubLanguage.none());
+        assertThat(world.getId()).isNotNull();
+        assertThat(world.getTopicId()).isEqualTo(topic.getId());
+        assertThat(world.getCreationDate()).isEqualTo(time.getNow());
+        assertThat(world.getLastModificationDate()).isEqualTo(time.getNow());
     }
 
     private KeywordFactory keywordFactory;

@@ -1,22 +1,16 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.user.Activation;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserConfirmationMailEvent;
-import com.feelhub.domain.user.UserCreatedEvent;
+import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.user.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import java.util.UUID;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsActivationService {
 

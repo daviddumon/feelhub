@@ -29,7 +29,7 @@ public class TestsFeelingService {
 
     @Test
     public void canAddFeelingAndSentiments() {
-        TestFactories.keywords().newKeyword("keyword2", FeelhubLanguage.forString("french"));
+        TestFactories.keywords().newWord("keyword2", FeelhubLanguage.forString("french"));
         final FeelingRequestEvent event = getEvent();
 
         DomainEventBus.INSTANCE.post(event);

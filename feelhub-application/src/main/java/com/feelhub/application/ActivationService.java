@@ -1,9 +1,7 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.user.Activation;
-import com.feelhub.domain.user.UserConfirmationMailEvent;
-import com.feelhub.domain.user.UserCreatedEvent;
+import com.feelhub.domain.user.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.eventbus.Subscribe;
 
@@ -17,7 +15,7 @@ public class ActivationService {
 
     @Subscribe
     public void onUserCreated(UserCreatedEvent event) {
-        if(event.getUser().isActive()) {
+        if (event.getUser().isActive()) {
             return;
         }
         final Activation activation = new Activation(event.getUser());
@@ -27,7 +25,7 @@ public class ActivationService {
 
     public void confirm(UUID id) {
         final Activation activation = Repositories.activation().get(id);
-        if(activation == null) {
+        if (activation == null) {
             throw new ActivationNotFoundException();
         }
         activation.confirm();

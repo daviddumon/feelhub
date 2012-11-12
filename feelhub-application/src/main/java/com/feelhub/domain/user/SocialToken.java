@@ -27,8 +27,12 @@ public class SocialToken {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SocialToken)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SocialToken)) {
+            return false;
+        }
 
         SocialToken that = (SocialToken) o;
         return Objects.equal(that.network, network) && Objects.equal(that.value, value);

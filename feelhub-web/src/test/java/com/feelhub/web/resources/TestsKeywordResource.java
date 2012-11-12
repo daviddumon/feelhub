@@ -28,7 +28,7 @@ public class TestsKeywordResource {
 
     @Test
     public void keywordResourceIsMapped() {
-        TestFactories.keywords().newKeyword("Keyword", FeelhubLanguage.none());
+        TestFactories.keywords().newWord("Keyword", FeelhubLanguage.none());
         final ClientResource keywordResource = restlet.newClientResource("/topic/keyword");
 
         keywordResource.get();
@@ -38,7 +38,7 @@ public class TestsKeywordResource {
 
     @Test
     public void keywordResourceIsMappedWithLanguage() {
-        TestFactories.keywords().newKeyword("Keyword", FeelhubLanguage.forString("fr"));
+        TestFactories.keywords().newWord("Keyword", FeelhubLanguage.forString("fr"));
         final ClientResource keywordResource = restlet.newClientResource("/topic/fr/keyword");
 
         keywordResource.get();
@@ -59,7 +59,7 @@ public class TestsKeywordResource {
 
     @Test
     public void lookUpKeyword() {
-        final Keyword keyword = TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.forString("de"));
+        final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.forString("de"));
         final ClientResource keywordResource = restlet.newClientResource("/topic/de/keyword");
 
         final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
@@ -72,7 +72,7 @@ public class TestsKeywordResource {
 
     @Test
     public void lookUpWithNoLanguage() {
-        final Keyword keyword = TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.none());
+        final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.none());
         final ClientResource keywordResource = restlet.newClientResource("/topic/keyword");
 
         final TemplateRepresentation representation = (TemplateRepresentation) keywordResource.get();
@@ -112,7 +112,7 @@ public class TestsKeywordResource {
     @Test
     public void topicDataWithGoodValuesForExistingKeywordAndIllustration() {
         final Topic topic = TestFactories.topics().newTopic();
-        final Keyword keyword = TestFactories.keywords().newKeyword("Keyword", FeelhubLanguage.forString("es"), topic);
+        final Keyword keyword = TestFactories.keywords().newWord("Keyword", FeelhubLanguage.forString("es"), topic);
         final Illustration illustration = TestFactories.illustrations().newIllustration(topic, "link");
         final ClientResource keywordResource = restlet.newClientResource("/topic/es/keyword");
 

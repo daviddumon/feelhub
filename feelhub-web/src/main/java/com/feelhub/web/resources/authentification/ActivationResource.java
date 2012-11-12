@@ -3,8 +3,7 @@ package com.feelhub.web.resources.authentification;
 import com.feelhub.application.ActivationService;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.Inject;
-import org.restlet.resource.Get;
-import org.restlet.resource.ServerResource;
+import org.restlet.resource.*;
 
 import java.util.UUID;
 

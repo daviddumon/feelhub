@@ -1,4 +1,4 @@
-package com.feelhub.domain.uri;
+package com.feelhub.domain.keyword.uri;
 
 import com.feelhub.tools.*;
 import com.google.common.collect.Lists;

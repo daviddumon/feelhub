@@ -51,7 +51,7 @@ public class TestsTopicData {
 
     @Test
     public void topicDataHasAKeyword() {
-        final Keyword keyword = TestFactories.keywords().newKeyword("keyword");
+        final Keyword keyword = TestFactories.keywords().newWord("keyword");
 
         final TopicData topicData = new TopicData.Builder().keyword(keyword).build();
 

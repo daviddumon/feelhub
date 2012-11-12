@@ -14,8 +14,7 @@ import org.junit.*;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsKeywordMerger {
 
@@ -38,7 +37,7 @@ public class TestsKeywordMerger {
         keywordMerger.merge(createListOfKeyword(good, bad));
 
         for (final Keyword keyword : Repositories.keywords().getAll()) {
-            assertThat(keyword.getTopicId(), is(good.getId()));
+            assertThat(keyword.getTopicId()).isEqualTo(good.getId());
         }
     }
 
@@ -50,9 +49,9 @@ public class TestsKeywordMerger {
         keywordMerger.merge(createListOfKeyword(good, bad));
 
         final List<Topic> topics = Repositories.topics().getAll();
-        assertThat(topics.get(0).isActive(), is(true));
-        assertThat(topics.get(1).isActive(), is(false));
-        assertThat(topics.get(2).isActive(), is(false));
+        assertThat(topics.get(0).isActive()).isTrue();
+        assertThat(topics.get(1).isActive()).isFalse();
+        assertThat(topics.get(2).isActive()).isFalse();
     }
 
     @Test
@@ -65,7 +64,7 @@ public class TestsKeywordMerger {
         keywordMerger.merge(createListOfKeyword(good, bad));
 
         for (final Illustration illustration : Repositories.illustrations().getAll()) {
-            assertThat(illustration.getTopicId(), is(good.getId()));
+            assertThat(illustration.getTopicId()).isEqualTo(good.getId());
         }
     }
 
@@ -80,7 +79,7 @@ public class TestsKeywordMerger {
 
         for (final Feeling feeling : Repositories.feelings().getAll()) {
             for (final Sentiment sentiment : feeling.getSentiments()) {
-                assertThat(sentiment.getTopicId(), is(good.getId()));
+                assertThat(sentiment.getTopicId()).isEqualTo(good.getId());
             }
         }
     }
@@ -95,10 +94,10 @@ public class TestsKeywordMerger {
 
         keywordMerger.merge(createListOfKeyword(good, bad));
 
-        assertThat(relation1.getFromId(), is(good.getId()));
-        assertThat(relation1.getToId(), is(topic3.getId()));
-        assertThat(relation2.getFromId(), is(topic3.getId()));
-        assertThat(relation2.getToId(), is(good.getId()));
+        assertThat(relation1.getFromId()).isEqualTo(good.getId());
+        assertThat(relation1.getToId()).isEqualTo(topic3.getId());
+        assertThat(relation2.getFromId()).isEqualTo(topic3.getId());
+        assertThat(relation2.getToId()).isEqualTo(good.getId());
     }
 
     @Test
@@ -110,16 +109,16 @@ public class TestsKeywordMerger {
         keywordMerger.merge(createListOfKeyword(good, bad));
 
         final Statistics statistics = Repositories.statistics().getAll().get(0);
-        assertThat(statistics.getTopicId(), is(good.getId()));
+        assertThat(statistics.getTopicId()).isEqualTo(good.getId());
     }
 
     private List<Keyword> createListOfKeyword(final Topic good, final Topic bad) {
         final List<Keyword> keywords = Lists.newArrayList();
-        final Keyword first = TestFactories.keywords().newKeyword("first", FeelhubLanguage.reference(), good);
+        final Keyword first = TestFactories.keywords().newWord("first", FeelhubLanguage.reference(), good);
         keywords.add(first);
         time.waitDays(1);
-        keywords.add(TestFactories.keywords().newKeyword("second", FeelhubLanguage.none(), bad));
-        keywords.add(TestFactories.keywords().newKeyword("third"));
+        keywords.add(TestFactories.keywords().newWord("second", FeelhubLanguage.none(), bad));
+        keywords.add(TestFactories.keywords().newWord("third"));
         return keywords;
     }
 

@@ -17,7 +17,7 @@ public class TestsAlchemyAnalysis {
 
     @Test
     public void canCreateAnAlchemyAnalysisForAKeyword() {
-        final Keyword keyword = TestFactories.keywords().newKeyword();
+        final Keyword keyword = TestFactories.keywords().newWord();
 
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
 
@@ -28,7 +28,7 @@ public class TestsAlchemyAnalysis {
 
     @Test
     public void canAddLanguageFromAlchemyResult() {
-        final Keyword keyword = TestFactories.keywords().newKeyword();
+        final Keyword keyword = TestFactories.keywords().newWord();
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
         final AlchemyJsonResults alchemyJsonResults = new AlchemyJsonResults();
         alchemyJsonResults.language = "english";

@@ -20,7 +20,7 @@ public class TestsJsonKeywordResource {
 
     @Test
     public void canGetTopicIdOfKeyword() {
-        final Keyword keyword = TestFactories.keywords().newKeyword();
+        final Keyword keyword = TestFactories.keywords().newWord();
         final ClientResource clientResource = restlet.newClientResource("/json/keyword?keywordValue=" + keyword.getValue() + "&languageCode=" + keyword.getLanguageCode());
 
         clientResource.get();

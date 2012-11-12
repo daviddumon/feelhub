@@ -2,8 +2,7 @@ package com.feelhub.domain.user;
 
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
 

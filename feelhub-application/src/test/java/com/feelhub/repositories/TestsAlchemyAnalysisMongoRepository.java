@@ -25,7 +25,7 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
 
     @Test
     public void canPersistAlchemyAnalysis() {
-        final Keyword keyword = TestFactories.keywords().newKeyword();
+        final Keyword keyword = TestFactories.keywords().newWord();
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
         alchemyAnalysis.setLanguageCode(FeelhubLanguage.reference());
 

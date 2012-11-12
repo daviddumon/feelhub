@@ -1,4 +1,4 @@
-package com.feelhub.domain.uri;
+package com.feelhub.domain.keyword.uri;
 
 import org.junit.Test;
 

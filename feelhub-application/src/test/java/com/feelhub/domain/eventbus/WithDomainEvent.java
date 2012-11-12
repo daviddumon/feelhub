@@ -1,8 +1,7 @@
 package com.feelhub.domain.eventbus;
 
 import com.google.common.collect.Maps;
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.*;
 import org.junit.rules.ExternalResource;
 
 import java.util.Map;

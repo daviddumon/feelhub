@@ -2,7 +2,7 @@ package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.world.WorldStatisticsEvent;
+import com.feelhub.domain.keyword.world.WorldStatisticsEvent;
 import com.feelhub.repositories.*;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;

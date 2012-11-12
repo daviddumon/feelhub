@@ -1,10 +1,11 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.keyword.*;
+import com.feelhub.domain.keyword.uri.*;
+import com.feelhub.domain.keyword.word.Word;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.TopicFactory;
 import com.feelhub.domain.translation.FakeTranslator;
-import com.feelhub.domain.uri.*;
 
 public class FakeKeywordService extends KeywordService {
 
@@ -15,6 +16,6 @@ public class FakeKeywordService extends KeywordService {
     @Override
     public Keyword createKeyword(final String value, final FeelhubLanguage feelhubLanguage) {
         final TopicService topicService = new TopicService(new TopicFactory());
-        return new Keyword(value, feelhubLanguage, topicService.newTopic().getId());
+        return new Word(value, feelhubLanguage, topicService.newTopic().getId());
     }
 }

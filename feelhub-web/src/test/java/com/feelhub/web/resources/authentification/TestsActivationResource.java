@@ -2,15 +2,13 @@ package com.feelhub.web.resources.authentification;
 
 import com.feelhub.application.ActivationService;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.web.ContextTestFactory;
-import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.*;
 import com.feelhub.web.representation.ModelAndView;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.UUID;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TestsActivationResource {

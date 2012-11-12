@@ -6,12 +6,12 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.restlet.data.CookieSetting;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsCookieBuilder {
 
     @Test
-      public void canCreateIdCookie() {
+    public void canCreateIdCookie() {
         final FeelhubWebProperties properties = new FeelhubWebProperties();
         properties.secureMode = true;
         properties.cookie = ".test.localhost";

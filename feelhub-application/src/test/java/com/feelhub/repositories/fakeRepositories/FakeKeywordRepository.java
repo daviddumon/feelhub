@@ -1,6 +1,7 @@
 package com.feelhub.repositories.fakeRepositories;
 
 import com.feelhub.domain.keyword.*;
+import com.feelhub.domain.keyword.world.World;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
@@ -40,4 +41,23 @@ public class FakeKeywordRepository extends FakeRepository<Keyword> implements Ke
         }));
     }
 
+    @Override
+    public World world() {
+        try {
+            final Keyword keyword = Iterables.find(getAll(), new Predicate<Keyword>() {
+
+                @Override
+                public boolean apply(@Nullable final Keyword input) {
+                    if (input.getValue().equals("")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+            return (World) keyword;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

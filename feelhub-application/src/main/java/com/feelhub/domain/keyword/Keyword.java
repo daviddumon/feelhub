@@ -6,7 +6,7 @@ import com.google.common.base.Objects;
 
 import java.util.UUID;
 
-public class Keyword extends BaseEntity {
+public abstract class Keyword extends BaseEntity {
 
     //mongolink constructor do not delete
     public Keyword() {
@@ -17,7 +17,6 @@ public class Keyword extends BaseEntity {
         this.value = value;
         this.languageCode = feelhubLanguage.getCode();
         this.topicId = topicId;
-        this.translationNeeded = false;
     }
 
     @Override
@@ -68,17 +67,8 @@ public class Keyword extends BaseEntity {
         this.topicId = topicId;
     }
 
-    public boolean isTranslationNeeded() {
-        return translationNeeded;
-    }
-
-    public void setTranslationNeeded(final boolean translationNeeded) {
-        this.translationNeeded = translationNeeded;
-    }
-
     private UUID id;
     private String value;
-    private String languageCode;
+    private String languageCode = FeelhubLanguage.none().getCode();
     private UUID topicId;
-    private boolean translationNeeded;
 }

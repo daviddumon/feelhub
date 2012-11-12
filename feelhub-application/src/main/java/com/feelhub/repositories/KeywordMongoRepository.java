@@ -1,6 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.keyword.*;
+import com.feelhub.domain.keyword.world.World;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
@@ -28,4 +29,14 @@ public class KeywordMongoRepository extends BaseMongoRepository<Keyword> impleme
         return criteria.list();
     }
 
+    @Override
+    public World world() {
+        final Criteria criteria = getSession().createCriteria(World.class);
+        final List<World> results = criteria.list();
+        if (!results.isEmpty()) {
+            return results.get(0);
+        } else {
+            return null;
+        }
+    }
 }

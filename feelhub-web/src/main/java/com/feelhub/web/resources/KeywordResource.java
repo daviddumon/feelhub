@@ -2,6 +2,7 @@ package com.feelhub.web.resources;
 
 import com.feelhub.application.KeywordService;
 import com.feelhub.domain.keyword.*;
+import com.feelhub.domain.keyword.word.Word;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.web.dto.TopicDataFactory;
 import com.feelhub.web.representation.ModelAndView;
@@ -26,7 +27,7 @@ public class KeywordResource extends ServerResource {
             keyword = keywordService.lookUp(keywordValue, feelhubLanguage);
             return ModelAndView.createNew("keyword.ftl").with("topicData", topicDataFactory.getTopicData(keyword));
         } catch (KeywordNotFound e) {
-            keyword = new Keyword(keywordValue, feelhubLanguage, null);
+            keyword = new Word(keywordValue, feelhubLanguage, null);
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
             return ModelAndView.createNew("404.ftl").with("topicData", topicDataFactory.getTopicData(keyword));
         }

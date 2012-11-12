@@ -4,16 +4,13 @@ import com.feelhub.application.SessionService;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
-import com.feelhub.web.tools.CookieBuilder;
-import com.feelhub.web.tools.CookieManager;
-import com.feelhub.web.tools.FeelhubWebProperties;
+import com.feelhub.web.tools.*;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import org.joda.time.DateTime;
 import org.restlet.data.Cookie;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class AuthenticationManager {
 

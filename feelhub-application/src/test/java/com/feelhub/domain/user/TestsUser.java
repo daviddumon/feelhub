@@ -3,8 +3,7 @@ package com.feelhub.domain.user;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import static org.fest.assertions.Assertions.*;

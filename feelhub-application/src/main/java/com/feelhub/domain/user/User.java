@@ -5,8 +5,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class User extends BaseEntity {
 
@@ -92,7 +91,7 @@ public class User extends BaseEntity {
 
     public SocialToken getSocialToken(SocialNetwork network) {
         for (SocialToken token : socialTokens) {
-            if(token.is(network)) {
+            if (token.is(network)) {
                 return token;
             }
         }

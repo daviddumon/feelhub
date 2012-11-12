@@ -1,14 +1,13 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.keyword.world.World;
 import com.feelhub.repositories.fakeRepositories.FakeKeywordRepository;
 import org.junit.*;
 
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.fest.assertions.Assertions.*;
+
 
 public class TestsFakeKeywordRepository {
 
@@ -19,12 +18,13 @@ public class TestsFakeKeywordRepository {
 
     @Test
     public void canLookUpWorld() {
-        final Keyword world = new Keyword("", FeelhubLanguage.none(), UUID.randomUUID());
+        final World world = new World(UUID.randomUUID());
         fakeKeywordRepository.add(world);
 
-        final Keyword foundWorld = fakeKeywordRepository.forValueAndLanguage("", FeelhubLanguage.none());
+        final World worldFound = fakeKeywordRepository.world();
 
-        assertThat(foundWorld, is(world));
+        assertThat(worldFound).isNotNull();
+        assertThat(worldFound).isEqualTo(world);
     }
 
     private FakeKeywordRepository fakeKeywordRepository;

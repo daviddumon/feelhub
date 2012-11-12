@@ -37,14 +37,14 @@ public class AlchemyTestFactory {
     }
 
     public AlchemyAnalysis newAlchemyAnalysis(final Topic topic) {
-        final Keyword keyword = TestFactories.keywords().newKeyword("value", FeelhubLanguage.none(), topic);
+        final Keyword keyword = TestFactories.keywords().newWord("value", FeelhubLanguage.none(), topic);
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
         return alchemyAnalysis;
     }
 
     public AlchemyAnalysis newAlchemyAnalysis() {
-        final Keyword keyword = TestFactories.keywords().newKeyword();
+        final Keyword keyword = TestFactories.keywords().newWord();
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
         return alchemyAnalysis;

@@ -2,10 +2,10 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.application.*;
 import com.feelhub.domain.keyword.KeywordFactory;
+import com.feelhub.domain.keyword.uri.*;
 import com.feelhub.domain.relation.*;
 import com.feelhub.domain.topic.TopicFactory;
 import com.feelhub.domain.translation.FakeTranslator;
-import com.feelhub.domain.uri.*;
 import com.feelhub.repositories.fakeRepositories.FakeSessionProvider;
 
 public class FakeAlchemyAnalyzer extends AlchemyAnalyzer {

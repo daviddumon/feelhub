@@ -1,15 +1,12 @@
 package com.feelhub.web.authentification;
 
-import com.feelhub.domain.user.BadPasswordException;
-import com.feelhub.domain.user.BadUserException;
-import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-public class TestsFeelhubAuthenticator{
+public class TestsFeelhubAuthenticator {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();

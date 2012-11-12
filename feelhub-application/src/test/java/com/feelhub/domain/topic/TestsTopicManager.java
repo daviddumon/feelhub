@@ -27,9 +27,9 @@ public class TestsTopicManager {
 
     @Test
     public void setOnlyTheOldestTopicAsActive() {
-        final Keyword goodKeyword = TestFactories.keywords().newKeyword("fr", FeelhubLanguage.forString("fr"));
+        final Keyword goodKeyword = TestFactories.keywords().newWord("fr", FeelhubLanguage.forString("fr"));
         time.waitDays(1);
-        final Keyword badKeyword = TestFactories.keywords().newKeyword("en", FeelhubLanguage.forString("en"));
+        final Keyword badKeyword = TestFactories.keywords().newWord("en", FeelhubLanguage.forString("en"));
         final TopicPatch topicPatch = new TopicPatch(goodKeyword.getTopicId());
         topicPatch.addOldTopicId(badKeyword.getTopicId());
         final UUID oldId = badKeyword.getTopicId();
@@ -47,9 +47,9 @@ public class TestsTopicManager {
 
     @Test
     public void oldTopicKeepALinkToTheNewTopic() {
-        final Keyword goodKeyword = TestFactories.keywords().newKeyword("fr", FeelhubLanguage.forString("fr"));
+        final Keyword goodKeyword = TestFactories.keywords().newWord("fr", FeelhubLanguage.forString("fr"));
         time.waitDays(1);
-        final Keyword badKeyword = TestFactories.keywords().newKeyword("en", FeelhubLanguage.forString("en"));
+        final Keyword badKeyword = TestFactories.keywords().newWord("en", FeelhubLanguage.forString("en"));
         final UUID oldId = badKeyword.getTopicId();
         final UUID goodId = goodKeyword.getTopicId();
         final TopicPatch topicPatch = new TopicPatch(goodId);

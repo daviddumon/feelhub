@@ -3,12 +3,8 @@ package com.feelhub.domain.bingsearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feelhub.domain.bingsearch.readmodel.BingResults;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
+import java.io.*;
+import java.net.*;
 
 public class BingLink {
 

@@ -5,17 +5,11 @@ import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.tools.CookieBuilder;
-import com.feelhub.web.tools.CookieManager;
-import com.feelhub.web.tools.FeelhubWebProperties;
+import com.feelhub.web.tools.*;
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.ArgumentCaptor;
-import org.restlet.data.Cookie;
-import org.restlet.data.CookieSetting;
+import org.restlet.data.*;
 
 import java.util.UUID;
 
@@ -44,7 +38,7 @@ public class TestsAuthenticationManager {
     @Test
     public void setCookieOnSuccessLogin() {
         when(sessionService.createSession(eq(user), any(DateTime.class))).thenReturn(new Session(DateTime.now()));
-       manager.authenticate(new AuthRequest(user.getId(), "password", true));
+        manager.authenticate(new AuthRequest(user.getId(), "password", true));
 
         verify(cookieManager, times(2)).setCookie(any(CookieSetting.class));
     }

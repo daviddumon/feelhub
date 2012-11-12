@@ -5,7 +5,7 @@ import com.feelhub.repositories.Repositories;
 
 import java.util.UUID;
 
-public class Activation extends BaseEntity{
+public class Activation extends BaseEntity {
 
     protected Activation() {
         // for mongolink
@@ -28,6 +28,7 @@ public class Activation extends BaseEntity{
     public void confirm() {
         Repositories.users().get(userId).activate();
     }
+
     private UUID id;
 
     private String userId;

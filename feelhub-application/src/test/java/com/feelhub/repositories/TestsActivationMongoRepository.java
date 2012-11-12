@@ -1,15 +1,10 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.user.Activation;
-import com.feelhub.domain.user.ActivationRepository;
-import com.feelhub.domain.user.User;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import org.junit.Before;
-import org.junit.Test;
+import com.feelhub.domain.user.*;
+import com.mongodb.*;
+import org.junit.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 
 public class TestsActivationMongoRepository extends TestWithMongoRepository {

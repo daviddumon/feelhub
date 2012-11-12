@@ -1,7 +1,7 @@
 package com.feelhub.web.status;
 
 import com.feelhub.domain.feeling.FeelingCreationException;
-import com.feelhub.domain.uri.UriException;
+import com.feelhub.domain.keyword.uri.UriException;
 import com.feelhub.domain.user.BadUserException;
 import com.feelhub.web.resources.json.FeelhubJsonException;
 import com.google.common.collect.Maps;

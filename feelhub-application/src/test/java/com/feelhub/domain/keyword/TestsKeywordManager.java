@@ -6,8 +6,7 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsKeywordManager {
 
@@ -24,14 +23,14 @@ public class TestsKeywordManager {
 
     @Test
     public void canTopicForAKeyword() {
-        final Keyword first = TestFactories.keywords().newKeyword();
-        final Keyword second = TestFactories.keywords().newKeyword();
+        final Keyword first = TestFactories.keywords().newWord();
+        final Keyword second = TestFactories.keywords().newWord();
         final TopicPatch topicPatch = new TopicPatch(first.getTopicId());
         topicPatch.addOldTopicId(second.getTopicId());
 
         keywordManager.merge(topicPatch);
 
-        assertThat(second.getTopicId(), is(first.getTopicId()));
+        assertThat(second.getTopicId()).isEqualTo(first.getTopicId());
     }
 
     private KeywordManager keywordManager;

@@ -143,8 +143,8 @@ public class TestsJsonFeelingsResource {
     @Test
     public void canGetFeelingWithALanguage() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), topic);
-        TestFactories.keywords().newKeyword("mot", FeelhubLanguage.forString("fr"), topic);
+        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
+        TestFactories.keywords().newWord("mot", FeelhubLanguage.forString("fr"), topic);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
         final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId() + "&languageCode=fr");
@@ -166,8 +166,8 @@ public class TestsJsonFeelingsResource {
     @Test
     public void useDefaultLanguage() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), topic);
-        TestFactories.keywords().newKeyword("mot", FeelhubLanguage.forString("fr"), topic);
+        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
+        TestFactories.keywords().newWord("mot", FeelhubLanguage.forString("fr"), topic);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
         final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
@@ -190,7 +190,7 @@ public class TestsJsonFeelingsResource {
     public void hasIllustrationData() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
         TestFactories.illustrations().newIllustration(topic, "link");
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), topic);
+        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
         final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
@@ -206,7 +206,7 @@ public class TestsJsonFeelingsResource {
     public void hasLanguageCodeData() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
         TestFactories.illustrations().newIllustration(topic, "link");
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), topic);
+        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
         final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
@@ -221,7 +221,7 @@ public class TestsJsonFeelingsResource {
     public void hasUserIdData() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
         TestFactories.illustrations().newIllustration(topic, "link");
-        TestFactories.keywords().newKeyword("keyword", FeelhubLanguage.reference(), topic);
+        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         final Feeling feeling = TestFactories.feelings().newFeeling("my feeling", sentiment);
         final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());

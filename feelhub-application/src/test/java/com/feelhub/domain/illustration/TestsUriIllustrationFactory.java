@@ -29,7 +29,7 @@ public class TestsUriIllustrationFactory {
 
     @Test
     public void canCreateIllustration() {
-        final Keyword keyword = TestFactories.keywords().newKeyword();
+        final Keyword keyword = TestFactories.keywords().newWord();
         final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(keyword.getTopicId(), keyword.getValue());
 
         DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);

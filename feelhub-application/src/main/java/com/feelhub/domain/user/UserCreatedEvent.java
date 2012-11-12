@@ -2,7 +2,7 @@ package com.feelhub.domain.user;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 
-public class UserCreatedEvent extends DomainEvent{
+public class UserCreatedEvent extends DomainEvent {
 
     public UserCreatedEvent(User user) {
         this.user = user;

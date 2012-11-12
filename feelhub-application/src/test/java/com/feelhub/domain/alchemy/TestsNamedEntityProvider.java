@@ -32,7 +32,7 @@ public class TestsNamedEntityProvider {
     @Test
     public void canGetNamedEntitiesForAnUri() {
         final String uri = "http://www.mypage.com";
-        final Keyword keyword = TestFactories.keywords().newKeyword(uri);
+        final Keyword keyword = TestFactories.keywords().newWord(uri);
 
         final List<NamedEntity> results = alchemyNamedEntityProvider.entitiesFor(keyword);
 
@@ -43,7 +43,7 @@ public class TestsNamedEntityProvider {
     @Test
     public void createAlchemyAnalysisForUri() {
         final String uri = "http://www.mypage.com";
-        final Keyword keyword = TestFactories.keywords().newKeyword(uri);
+        final Keyword keyword = TestFactories.keywords().newWord(uri);
 
         alchemyNamedEntityProvider.entitiesFor(keyword);
 
@@ -56,7 +56,7 @@ public class TestsNamedEntityProvider {
     public void throwExceptionOnError() {
         exception.expect(AlchemyException.class);
         final String uri = "http://www.error.com";
-        final Keyword keyword = TestFactories.keywords().newKeyword(uri);
+        final Keyword keyword = TestFactories.keywords().newWord(uri);
 
         alchemyNamedEntityProvider.entitiesFor(keyword);
     }
