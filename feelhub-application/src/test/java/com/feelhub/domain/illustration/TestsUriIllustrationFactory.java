@@ -2,11 +2,12 @@ package com.feelhub.domain.illustration;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.scraper.FakeScraper;
+import com.feelhub.domain.scraper.*;
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.repositories.Repositories;
+import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 
 import java.util.List;
@@ -24,7 +25,14 @@ public class TestsUriIllustrationFactory {
 
     @Before
     public void before() {
-        new UriIllustrationFactory(new FakeScraper(), new FakeSessionProvider());
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(Scraper.class).to(FakeScraper.class);
+                bind(SessionProvider.class).to(FakeSessionProvider.class);
+            }
+        });
+        injector.getInstance(UriIllustrationFactory.class);
     }
 
     @Test

@@ -4,6 +4,7 @@ import com.feelhub.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 
 import static org.hamcrest.Matchers.*;
@@ -16,7 +17,12 @@ public class TestsNamedEntityBuilder {
 
     @Before
     public void before() {
-        namedEntityBuilder = new NamedEntityBuilder();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        namedEntityBuilder = injector.getInstance(NamedEntityBuilder.class);
     }
 
     @Test

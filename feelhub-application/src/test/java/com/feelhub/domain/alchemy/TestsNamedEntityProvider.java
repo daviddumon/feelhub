@@ -5,12 +5,10 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -25,8 +23,14 @@ public class TestsNamedEntityProvider {
     public ExpectedException exception = ExpectedException.none();
 
     @Before
-    public void before() throws ParserConfigurationException, IOException, SAXException {
-        alchemyNamedEntityProvider = new NamedEntityProvider(new FakeJsonAlchemyLink(), new NamedEntityBuilder());
+    public void before() {
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
+            }
+        });
+        namedEntityProvider = injector.getInstance(NamedEntityProvider.class);
     }
 
     @Test
@@ -34,7 +38,7 @@ public class TestsNamedEntityProvider {
         final String uri = "http://www.mypage.com";
         final Keyword keyword = TestFactories.keywords().newWord(uri);
 
-        final List<NamedEntity> results = alchemyNamedEntityProvider.entitiesFor(keyword);
+        final List<NamedEntity> results = namedEntityProvider.entitiesFor(keyword);
 
         assertThat(results, notNullValue());
         assertThat(results.size(), is(19));
@@ -45,7 +49,7 @@ public class TestsNamedEntityProvider {
         final String uri = "http://www.mypage.com";
         final Keyword keyword = TestFactories.keywords().newWord(uri);
 
-        alchemyNamedEntityProvider.entitiesFor(keyword);
+        namedEntityProvider.entitiesFor(keyword);
 
         final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().getAll();
         assertThat(alchemyAnalysisList.size(), is(1));
@@ -58,8 +62,8 @@ public class TestsNamedEntityProvider {
         final String uri = "http://www.error.com";
         final Keyword keyword = TestFactories.keywords().newWord(uri);
 
-        alchemyNamedEntityProvider.entitiesFor(keyword);
+        namedEntityProvider.entitiesFor(keyword);
     }
 
-    private NamedEntityProvider alchemyNamedEntityProvider;
+    private NamedEntityProvider namedEntityProvider;
 }

@@ -4,6 +4,7 @@ import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.topic.TopicPatch;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
@@ -18,7 +19,12 @@ public class TestsKeywordManager {
 
     @Before
     public void before() {
-        keywordManager = new KeywordManager();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        keywordManager = injector.getInstance(KeywordManager.class);
     }
 
     @Test

@@ -31,10 +31,11 @@ public class KeywordMongoRepository extends BaseMongoRepository<Keyword> impleme
 
     @Override
     public World world() {
-        final Criteria criteria = getSession().createCriteria(World.class);
-        final List<World> results = criteria.list();
+        final Criteria criteria = getSession().createCriteria(Keyword.class);
+        criteria.add(Restrictions.equals("__discriminator", "World"));
+        final List<Keyword> results = criteria.list();
         if (!results.isEmpty()) {
-            return results.get(0);
+            return (World) results.get(0);
         } else {
             return null;
         }

@@ -5,6 +5,7 @@ import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 
 import java.util.List;
@@ -22,7 +23,12 @@ public class TestsRelationManager {
 
     @Before
     public void before() {
-        relationManager = new RelationManager();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        relationManager = injector.getInstance(RelationManager.class);
     }
 
     @Test

@@ -4,6 +4,7 @@ import com.feelhub.domain.feeling.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 
 import java.util.List;
@@ -18,7 +19,12 @@ public class TestsFeelingRelationBinder {
 
     @Before
     public void before() {
-        feelingRelationBinder = new FeelingRelationBinder(new RelationBuilder(new RelationFactory()));
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        feelingRelationBinder = injector.getInstance(FeelingRelationBinder.class);
     }
 
     @Test

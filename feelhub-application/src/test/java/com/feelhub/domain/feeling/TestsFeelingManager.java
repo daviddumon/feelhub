@@ -5,6 +5,7 @@ import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
+import com.google.inject.*;
 import org.junit.*;
 
 import java.util.List;
@@ -22,7 +23,12 @@ public class TestsFeelingManager {
 
     @Before
     public void before() {
-        feelingManager = new FeelingManager();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        feelingManager = injector.getInstance(FeelingManager.class);
     }
 
     @Test

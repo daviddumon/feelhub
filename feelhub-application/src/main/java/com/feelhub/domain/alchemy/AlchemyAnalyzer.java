@@ -1,6 +1,6 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.application.KeywordService;
+import com.feelhub.application.WordService;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.keyword.*;
 import com.feelhub.domain.relation.AlchemyRelationBinder;
@@ -14,10 +14,10 @@ import java.util.*;
 public class AlchemyAnalyzer {
 
     @Inject
-    public AlchemyAnalyzer(final SessionProvider sessionProvider, final NamedEntityProvider namedEntityProvider, final KeywordService keywordService, final AlchemyRelationBinder alchemyRelationBinder) {
+    public AlchemyAnalyzer(final SessionProvider sessionProvider, final NamedEntityProvider namedEntityProvider, final WordService wordService, final AlchemyRelationBinder alchemyRelationBinder) {
         this.sessionProvider = sessionProvider;
         this.namedEntityProvider = namedEntityProvider;
-        this.keywordService = keywordService;
+        this.wordService = wordService;
         this.alchemyRelationBinder = alchemyRelationBinder;
         DomainEventBus.INSTANCE.register(this);
     }
@@ -47,7 +47,7 @@ public class AlchemyAnalyzer {
         for (final NamedEntity namedEntity : namedEntities) {
             final List<Keyword> keywords = Lists.newArrayList();
             for (final String value : namedEntity.keywords) {
-                keywords.add(keywordService.lookUpOrCreate(value, namedEntity.feelhubLanguage.getCode()));
+                keywords.add(wordService.lookUpOrCreate(value, namedEntity.feelhubLanguage));
             }
             if (!keywords.isEmpty()) {
                 if (keywords.size() > 1) {
@@ -91,7 +91,7 @@ public class AlchemyAnalyzer {
         alchemyRelationBinder.bind(event.getUri().getTopicId(), topicsAndScores);
     }
 
-    private final KeywordService keywordService;
+    private WordService wordService;
     private final AlchemyRelationBinder alchemyRelationBinder;
     private final SessionProvider sessionProvider;
     private final NamedEntityProvider namedEntityProvider;

@@ -8,28 +8,28 @@ import com.google.inject.Inject;
 
 import java.util.*;
 
-public class ConceptIllustrationFactory {
+public class WordIllustrationFactory {
 
     @Inject
-    public ConceptIllustrationFactory(final BingLink bingLink, final SessionProvider sessionProvider) {
+    public WordIllustrationFactory(final BingLink bingLink, final SessionProvider sessionProvider) {
         this.bingLink = bingLink;
         this.sessionProvider = sessionProvider;
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
-    public void handle(final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent) {
+    public void handle(final WordIllustrationRequestEvent wordIllustrationRequestEvent) {
         sessionProvider.start();
-        final UUID topicId = conceptIllustrationRequestEvent.getTopicId();
+        final UUID topicId = wordIllustrationRequestEvent.getTopicId();
         final List<Illustration> illustrations = Repositories.illustrations().forTopicId(topicId);
         if (illustrations.isEmpty()) {
-            addIllustration(conceptIllustrationRequestEvent, topicId);
+            addIllustration(wordIllustrationRequestEvent, topicId);
         }
         sessionProvider.stop();
     }
 
-    private void addIllustration(final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent, final UUID topicId) {
-        final String link = bingLink.getIllustration(conceptIllustrationRequestEvent.getValue());
+    private void addIllustration(final WordIllustrationRequestEvent wordIllustrationRequestEvent, final UUID topicId) {
+        final String link = bingLink.getIllustration(wordIllustrationRequestEvent.getValue());
         final Illustration illustration = new Illustration(topicId, link);
         Repositories.illustrations().add(illustration);
     }

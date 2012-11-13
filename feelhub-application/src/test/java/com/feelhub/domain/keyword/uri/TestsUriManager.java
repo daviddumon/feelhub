@@ -1,6 +1,7 @@
 package com.feelhub.domain.keyword.uri;
 
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.google.inject.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
@@ -19,12 +20,18 @@ public class TestsUriManager {
 
     @Before
     public void before() {
-        final FakeUriResolver uriPathResolver = new FakeUriResolver();
+        final FakeUriResolver uriResolver = new FakeUriResolver();
         canonicalUri = "http://www.canonical.com";
-        uriPathResolver.thatFind(canonicalUri);
+        uriResolver.thatFind(canonicalUri);
         exceptionUri = "http://www.exception";
-        uriPathResolver.ThatThrow(exceptionUri);
-        uriManager = new UriManager(uriPathResolver);
+        uriResolver.ThatThrow(exceptionUri);
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(UriResolver.class).toInstance(uriResolver);
+            }
+        });
+        uriManager = injector.getInstance(UriManager.class);
     }
 
     @Test

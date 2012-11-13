@@ -5,6 +5,7 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
+import com.google.inject.*;
 import org.junit.*;
 
 import java.util.UUID;
@@ -22,7 +23,12 @@ public class TestsTopicManager {
 
     @Before
     public void before() {
-        topicManager = new TopicManager();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        topicManager = injector.getInstance(TopicManager.class);
     }
 
     @Test

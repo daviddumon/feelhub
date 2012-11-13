@@ -1,13 +1,11 @@
 package com.feelhub.domain.keyword.world;
 
-import com.feelhub.application.WorldService;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.keyword.KeywordFactory;
-import com.feelhub.domain.topic.TopicFactory;
-import com.feelhub.repositories.Repositories;
+import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
@@ -22,7 +20,13 @@ public class TestsWorldListener {
 
     @Before
     public void before() {
-        worldListener = new WorldListener(new FakeSessionProvider(), new WorldService(new TopicFactory(), new KeywordFactory()));
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(SessionProvider.class).to(FakeSessionProvider.class);
+            }
+        });
+        injector.getInstance(WorldListener.class);
     }
 
     @Test
@@ -54,6 +58,4 @@ public class TestsWorldListener {
         final WorldStatisticsEvent worldStatisticsEvent = bus.lastEvent(WorldStatisticsEvent.class);
         assertThat(worldStatisticsEvent.getSentiment().getTopicId()).isEqualTo(world.getTopicId());
     }
-
-    private WorldListener worldListener;
 }

@@ -101,6 +101,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetWorld() {
+        TestFactories.keywords().newWord();
         final World world = TestFactories.keywords().newWorld();
 
         final World worldFound = repository.world();

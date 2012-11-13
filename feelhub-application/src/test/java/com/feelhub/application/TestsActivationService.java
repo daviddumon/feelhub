@@ -5,6 +5,7 @@ import com.feelhub.domain.user.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
@@ -27,7 +28,12 @@ public class TestsActivationService {
 
     @Before
     public void avant() {
-        activationService = new ActivationService();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        activationService = injector.getInstance(ActivationService.class);
     }
 
     @Test

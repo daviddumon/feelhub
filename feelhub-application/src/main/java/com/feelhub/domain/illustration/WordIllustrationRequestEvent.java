@@ -1,14 +1,15 @@
 package com.feelhub.domain.illustration;
 
 import com.feelhub.domain.eventbus.DomainEvent;
+import com.feelhub.domain.keyword.word.Word;
 
 import java.util.UUID;
 
-public class ConceptIllustrationRequestEvent extends DomainEvent {
+public class WordIllustrationRequestEvent extends DomainEvent {
 
-    public ConceptIllustrationRequestEvent(final UUID topicId, final String value) {
-        this.topicId = topicId;
-        this.value = value;
+    public WordIllustrationRequestEvent(final Word word) {
+        this.topicId = word.getTopicId();
+        this.value = word.getValue();
     }
 
     @Override

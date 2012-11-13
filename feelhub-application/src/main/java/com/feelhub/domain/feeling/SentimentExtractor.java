@@ -1,6 +1,6 @@
 package com.feelhub.domain.feeling;
 
-import com.feelhub.application.KeywordService;
+import com.feelhub.domain.keyword.KeywordIdentifier;
 import com.google.common.collect.*;
 
 import java.util.*;
@@ -53,7 +53,7 @@ public class SentimentExtractor {
     }
 
     private boolean isUri(final String token) {
-        return KeywordService.isUri(token);
+        return KeywordIdentifier.isUri(token);
     }
 
     private boolean hasAny(final TreeMap<Integer, SentimentValue> map) {

@@ -5,6 +5,7 @@ import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
+import com.google.inject.*;
 import org.joda.time.DateTime;
 import org.junit.*;
 
@@ -22,7 +23,12 @@ public class TestsSessionService {
 
     @Before
     public void before() {
-        sessionService = new SessionService();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        sessionService = injector.getInstance(SessionService.class);
         user = TestFactories.users().createFakeActiveUser("mail@mail.com");
     }
 

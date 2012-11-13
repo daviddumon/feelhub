@@ -1,21 +1,18 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.application.*;
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.keyword.*;
-import com.feelhub.domain.keyword.uri.*;
-import com.feelhub.domain.relation.*;
+import com.feelhub.domain.keyword.Keyword;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.*;
-import com.feelhub.domain.translation.FakeTranslator;
-import com.feelhub.repositories.Repositories;
+import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.translation.*;
+import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 import org.mockito.Matchers;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TestsAlchemyAnalyzer {
@@ -29,7 +26,15 @@ public class TestsAlchemyAnalyzer {
     @Before
     public void setUp() throws Exception {
         entityProvider = mock(NamedEntityProvider.class);
-        new AlchemyAnalyzer(new FakeSessionProvider(), entityProvider, new KeywordService(new TopicService(new TopicFactory()), new KeywordFactory(), new FakeTranslator(), new UriManager(new FakeUriResolver())), new AlchemyRelationBinder(new RelationBuilder(new RelationFactory())));
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(SessionProvider.class).to(FakeSessionProvider.class);
+                bind(NamedEntityProvider.class).toInstance(entityProvider);
+                bind(Translator.class).to(FakeTranslator.class);
+            }
+        });
+        alchemyAnalyzer = injector.getInstance(AlchemyAnalyzer.class);
     }
 
     @Test
@@ -40,8 +45,8 @@ public class TestsAlchemyAnalyzer {
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
 
-        assertThat(Repositories.alchemyEntities().getAll().size(), is(0));
-        assertThat(Repositories.keywords().getAll().size(), is(1));
+        assertThat(Repositories.alchemyEntities().getAll().size()).isZero();
+        assertThat(Repositories.keywords().getAll().size()).isEqualTo(1);
     }
 
     @Test
@@ -64,9 +69,9 @@ public class TestsAlchemyAnalyzer {
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
 
-        assertThat(Repositories.keywords().getAll().size(), is(2));
-        assertThat(Repositories.topics().getAll().size(), is(2));
-        assertThat(Repositories.alchemyEntities().getAll().size(), is(1));
+        assertThat(Repositories.keywords().getAll().size()).isEqualTo(2);
+        assertThat(Repositories.topics().getAll().size()).isEqualTo(2);
+        assertThat(Repositories.alchemyEntities().getAll().size()).isEqualTo(1);
     }
 
     @Test
@@ -78,9 +83,9 @@ public class TestsAlchemyAnalyzer {
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
 
-        assertThat(Repositories.keywords().getAll().size(), is(3));
-        assertThat(Repositories.topics().getAll().size(), is(3));
-        assertThat(Repositories.alchemyEntities().getAll().size(), is(1));
+        assertThat(Repositories.keywords().getAll().size()).isEqualTo(3);
+        assertThat(Repositories.topics().getAll().size()).isEqualTo(3);
+        assertThat(Repositories.alchemyEntities().getAll().size()).isEqualTo(1);
     }
 
     @Test
@@ -93,7 +98,7 @@ public class TestsAlchemyAnalyzer {
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
 
-        assertThat(Repositories.alchemyAnalysis().getAll().size(), is(1));
+        assertThat(Repositories.alchemyAnalysis().getAll().size()).isEqualTo(1);
     }
 
     @Test
@@ -105,8 +110,9 @@ public class TestsAlchemyAnalyzer {
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
 
-        assertThat(Repositories.relations().getAll().size(), is(2));
+        assertThat(Repositories.relations().getAll().size()).isEqualTo(2);
     }
 
     private NamedEntityProvider entityProvider;
+    private AlchemyAnalyzer alchemyAnalyzer;
 }

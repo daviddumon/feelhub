@@ -4,6 +4,7 @@ import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 
 import java.util.List;
@@ -18,7 +19,12 @@ public class TestsAlchemyManager {
 
     @Before
     public void before() {
-        alchemyManager = new AlchemyManager();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        alchemyManager = injector.getInstance(AlchemyManager.class);
     }
 
     @Test

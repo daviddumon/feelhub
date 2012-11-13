@@ -3,6 +3,7 @@ package com.feelhub.domain.relation;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
+import com.google.inject.*;
 import org.hamcrest.Matchers;
 import org.junit.*;
 
@@ -19,9 +20,15 @@ public class TestsRelation {
 
     @Before
     public void setUp() {
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        relationFactory = injector.getInstance(RelationFactory.class);
         from = TestFactories.topics().newTopic();
         to = TestFactories.topics().newTopic();
-        relation = new RelationFactory().newRelation(from, to, 1.0);
+        relation = relationFactory.newRelation(from, to, 1.0);
     }
 
     @Test
@@ -52,4 +59,5 @@ public class TestsRelation {
     private Relation relation;
     private Topic to;
     private Topic from;
+    private RelationFactory relationFactory;
 }

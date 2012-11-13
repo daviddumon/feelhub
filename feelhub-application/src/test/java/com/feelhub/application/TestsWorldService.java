@@ -1,11 +1,10 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.keyword.KeywordFactory;
 import com.feelhub.domain.keyword.world.World;
-import com.feelhub.domain.topic.TopicFactory;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
+import com.google.inject.*;
 import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
@@ -17,7 +16,12 @@ public class TestsWorldService {
 
     @Before
     public void before() {
-        worldService = new WorldService(new TopicFactory(), new KeywordFactory());
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        worldService = injector.getInstance(WorldService.class);
     }
 
     @Test

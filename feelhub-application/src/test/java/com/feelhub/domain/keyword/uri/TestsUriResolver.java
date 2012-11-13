@@ -1,6 +1,7 @@
 package com.feelhub.domain.keyword.uri;
 
 import com.feelhub.test.FakeInternet;
+import com.google.inject.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
@@ -19,7 +20,12 @@ public class TestsUriResolver {
 
     @Before
     public void before() {
-        uriResolver = new UriResolver();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        uriResolver = injector.getInstance(UriResolver.class);
     }
 
     @Test

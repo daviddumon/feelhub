@@ -2,7 +2,7 @@ package com.feelhub.application;
 
 import com.feelhub.domain.alchemy.AlchemyRequestEvent;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.illustration.*;
+import com.feelhub.domain.illustration.UriIllustrationRequestEvent;
 import com.feelhub.domain.keyword.*;
 import com.feelhub.domain.keyword.uri.*;
 import com.feelhub.domain.keyword.word.Word;
@@ -15,7 +15,6 @@ import com.google.inject.Inject;
 import org.apache.commons.lang.WordUtils;
 
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class KeywordService {
 
@@ -40,7 +39,7 @@ public class KeywordService {
     public Keyword lookUp(final String value, final FeelhubLanguage feelhubLanguage) {
         checkSize(value);
         final Keyword keyword;
-        if (KeywordService.isUri(value)) {
+        if (KeywordIdentifier.isUri(value)) {
             keyword = Repositories.keywords().forValueAndLanguage(value, feelhubLanguage);
         } else {
             keyword = Repositories.keywords().forValueAndLanguage(normalizeWord(value), feelhubLanguage);
@@ -90,7 +89,7 @@ public class KeywordService {
     }
 
     protected Keyword createKeyword(final String value, final FeelhubLanguage feelhubLanguage) {
-        if (KeywordService.isUri(value)) {
+        if (KeywordIdentifier.isUri(value)) {
             final Keyword uri = createUri(value);
             requestUriIllustration(uri);
             requestAlchemy(uri);
@@ -167,8 +166,8 @@ public class KeywordService {
     }
 
     private void requestConceptIllustration(final Keyword concept) {
-        final ConceptIllustrationRequestEvent conceptIllustrationRequestEvent = new ConceptIllustrationRequestEvent(concept.getTopicId(), concept.getValue());
-        DomainEventBus.INSTANCE.post(conceptIllustrationRequestEvent);
+        //final WordIllustrationRequestEvent wordIllustrationRequestEvent = new WordIllustrationRequestEvent(concept.getTopicId(), concept.getValue());
+        //DomainEventBus.INSTANCE.post(wordIllustrationRequestEvent);
     }
 
     protected Word createWord(final String value, final FeelhubLanguage feelhubLanguage, final UUID topicId) {
@@ -183,13 +182,8 @@ public class KeywordService {
         return value;
     }
 
-    public static boolean isUri(final String text) {
-        return URI_PATTERN.matcher(text).matches();
-    }
-
     private TopicService topicService;
     private final KeywordFactory keywordFactory;
     private Translator translator;
     private UriManager uriManager;
-    private static final Pattern URI_PATTERN = Pattern.compile("((http|https)://)?([%a-zA-Z_0-9\\.-]+)(\\.[a-z]{2,3}){1}(/.*$)?", Pattern.CASE_INSENSITIVE);
 }

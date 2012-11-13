@@ -4,6 +4,7 @@ import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.sitemap.domain.SitemapEntryRepository;
 import com.feelhub.sitemap.test.FakeSitemapJob;
 import com.feelhub.test.SystemTime;
+import com.google.inject.*;
 import org.junit.*;
 import org.quartz.*;
 
@@ -19,7 +20,12 @@ public class TestsSitemapScheduler extends TestWithMongoRepository {
 
     @Before
     public void before() {
-        sitemapScheduler = new SitemapScheduler();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        sitemapScheduler = injector.getInstance(SitemapScheduler.class);
         sitemapScheduler.setSitemapJobClass(FakeSitemapJob.class);
     }
 

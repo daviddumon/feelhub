@@ -7,6 +7,7 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
+import com.google.inject.*;
 import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
@@ -21,7 +22,12 @@ public class TestsKeywordFactory {
 
     @Before
     public void before() {
-        keywordFactory = new KeywordFactory();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        keywordFactory = injector.getInstance(KeywordFactory.class);
     }
 
     @Test

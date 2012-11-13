@@ -24,7 +24,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(FeelingService.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();
         bind(WorldListener.class).asEagerSingleton();
-        bind(ConceptIllustrationFactory.class).asEagerSingleton();
+        bind(WordIllustrationFactory.class).asEagerSingleton();
         bind(UriIllustrationFactory.class).asEagerSingleton();
         bind(AlchemyAnalyzer.class).asEagerSingleton();
         bind(ActivationService.class).asEagerSingleton();

@@ -10,6 +10,7 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
 import com.google.common.collect.Lists;
+import com.google.inject.*;
 import org.junit.*;
 
 import java.util.List;
@@ -26,7 +27,12 @@ public class TestsKeywordMerger {
 
     @Before
     public void before() {
-        keywordMerger = new KeywordMerger();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        keywordMerger = injector.getInstance(KeywordMerger.class);
     }
 
     @Test

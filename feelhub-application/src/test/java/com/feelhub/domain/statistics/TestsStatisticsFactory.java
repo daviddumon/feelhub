@@ -5,9 +5,10 @@ import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.keyword.Keyword;
 import com.feelhub.domain.keyword.world.WorldStatisticsEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.repositories.Repositories;
+import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.*;
+import com.google.inject.*;
 import org.joda.time.Interval;
 import org.junit.*;
 
@@ -26,7 +27,13 @@ public class TestsStatisticsFactory {
 
     @Before
     public void before() {
-        statisticsFactory = new StatisticsFactory(new FakeSessionProvider());
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(SessionProvider.class).to(FakeSessionProvider.class);
+            }
+        });
+        statisticsFactory = injector.getInstance(StatisticsFactory.class);
     }
 
     @Test
