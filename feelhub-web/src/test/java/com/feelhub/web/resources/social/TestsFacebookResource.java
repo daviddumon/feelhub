@@ -3,13 +3,22 @@ package com.feelhub.web.resources.social;
 import com.feelhub.application.UserService;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.ContextTestFactory;
-import com.feelhub.web.authentification.*;
+import com.feelhub.web.authentification.AuthMethod;
+import com.feelhub.web.authentification.AuthRequest;
+import com.feelhub.web.authentification.AuthenticationManager;
+import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import com.restfb.types.User;
-import org.junit.*;
+import org.joda.time.DateTime;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.restlet.*;
-import org.restlet.data.*;
+import org.restlet.Context;
+import org.restlet.Request;
+import org.restlet.Response;
+import org.restlet.data.Method;
+import org.restlet.data.Status;
 import org.scribe.model.Token;
 
 import static org.fest.assertions.Assertions.*;
@@ -28,8 +37,6 @@ public class TestsFacebookResource {
         facebookConnector = mock(FacebookConnector.class);
         when(facebookConnector.getAccesToken(anyString())).thenReturn(new Token("token", "secret"));
         userService = mock(UserService.class);
-        when(userService.findOrCreateForFacebook(anyString(), anyString(), anyString(), anyString(), anyString(), anyString()))
-                .thenReturn(new com.feelhub.domain.user.User("test"));
         facebookResource = new FacebookResource(facebookConnector, userService, authenticationManager);
         final Request request = new Request(Method.GET, "http://test.com?code=toto");
         facebookResource.init(context, request, new Response(request));
@@ -37,6 +44,7 @@ public class TestsFacebookResource {
 
     @Test
     public void canCreateUserFromFacebook() {
+        newUser();
         validUser();
 
         facebookResource.facebookReturn();
@@ -46,6 +54,7 @@ public class TestsFacebookResource {
 
     @Test
     public void canAuthenticateUser() {
+        newUser();
         validUser();
 
         facebookResource.facebookReturn();
@@ -60,6 +69,7 @@ public class TestsFacebookResource {
 
     @Test
     public void redirectOnFrontPage() {
+        oldUser();
         validUser();
 
         facebookResource.facebookReturn();
@@ -68,12 +78,36 @@ public class TestsFacebookResource {
         assertThat(facebookResource.getStatus()).isEqualTo(Status.REDIRECTION_TEMPORARY);
     }
 
+    @Test
+    public void welcomeNewUser() {
+        newUser();
+        validUser();
+
+        final ModelAndView modelAndView = facebookResource.facebookReturn();
+
+        assertThat(facebookResource.getLocationRef()).isNull();
+        assertThat(facebookResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
+        assertThat(modelAndView.getTemplate()).isEqualTo("social/welcome.ftl");
+    }
+
     private void validUser() {
         final FakeFbUser fbUser = new FakeFbUser();
         fbUser.email = "toto@gmail.com";
         fbUser.locale = "fr_FR";
         fbUser.id = "test";
         when(facebookConnector.getUser(any(Token.class))).thenReturn(fbUser);
+    }
+
+    private void newUser() {
+        when(userService.findOrCreateForFacebook(anyString(), anyString(), anyString(), anyString(), anyString(), anyString()))
+                .thenReturn(new com.feelhub.domain.user.User("test"));
+    }
+
+    private void oldUser() {
+        final com.feelhub.domain.user.User user = new com.feelhub.domain.user.User("test");
+        when(userService.findOrCreateForFacebook(anyString(), anyString(), anyString(), anyString(), anyString(), anyString()))
+                .thenReturn(user);
+        user.setCreationDate(DateTime.now().minusDays(1));
     }
 
     private FacebookConnector facebookConnector;

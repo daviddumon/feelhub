@@ -7,6 +7,10 @@ import java.util.Map;
 
 public class ModelAndView {
 
+    public static ModelAndView empty() {
+        return new ModelAndView("empty.ftl", MediaType.TEXT_HTML);
+    }
+
     public static ModelAndView createNew(final String template, final MediaType mediaType) {
         return new ModelAndView(template, mediaType);
     }
@@ -40,8 +44,8 @@ public class ModelAndView {
         data.put(key, value);
         return this;
     }
-
     private final String template;
     private final Map<String, Object> data = Maps.newConcurrentMap();
+
     private final MediaType type;
 }
