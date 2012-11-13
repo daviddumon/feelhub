@@ -65,6 +65,8 @@
     </div>
     <div class="holder">
         <a id="signup_submit" href="">Create my account</a>
+        or
+        <a href="${facebookUrl}">Use facebook</a>
     </div>
 </form>
 

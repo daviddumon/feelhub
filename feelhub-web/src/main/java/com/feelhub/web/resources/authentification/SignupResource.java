@@ -4,6 +4,7 @@ import com.feelhub.application.UserService;
 import com.feelhub.domain.session.EmailAlreadyUsed;
 import com.feelhub.domain.user.BadEmail;
 import com.feelhub.web.representation.ModelAndView;
+import com.feelhub.web.social.FacebookConnector;
 import com.google.inject.Inject;
 import org.restlet.data.*;
 import org.restlet.resource.*;
@@ -11,13 +12,14 @@ import org.restlet.resource.*;
 public class SignupResource extends ServerResource {
 
     @Inject
-    public SignupResource(final UserService userService) {
+    public SignupResource(final UserService userService, final FacebookConnector connector) {
         this.userService = userService;
+        this.connector = connector;
     }
 
     @Get
     public ModelAndView represent() {
-        return ModelAndView.createNew("signup.ftl");
+        return ModelAndView.createNew("signup.ftl").with("facebookUrl", connector.getUrl());
     }
 
     @Post
@@ -48,4 +50,5 @@ public class SignupResource extends ServerResource {
     }
 
     private final UserService userService;
+    private FacebookConnector connector;
 }
