@@ -40,9 +40,8 @@ public final class ContextTestFactory {
         return servletContext;
     }
 
-    public static void initResource(ServerResource resource) {
-        Request request = new Request();
+    public static void initResource(final ServerResource resource) {
+        final Request request = new Request();
         resource.init(buildContext(), request, new Response(request));
-        ;
     }
 }

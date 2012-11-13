@@ -27,7 +27,7 @@ public class MailBuilder {
         sendValidationTo(event.getUser(), event.getActivation());
     }
 
-    public MimeMessage sendValidationTo(final User user, Activation activation) {
+    public MimeMessage sendValidationTo(final User user, final Activation activation) {
         try {
             final Session mailSession = getMailSession();
             final MimeMessage mimeMessage = getValidationMessage(mailSession, user, activation);
@@ -43,7 +43,7 @@ public class MailBuilder {
         return Session.getDefaultInstance(mailProperties, new CustomAuthenticator());
     }
 
-    private MimeMessage getValidationMessage(final Session mailSession, final User user, Activation activation) {
+    private MimeMessage getValidationMessage(final Session mailSession, final User user, final Activation activation) {
         final MimeMessage mimeMessage = new MimeMessage(mailSession);
         try {
             mimeMessage.setFrom(new InternetAddress("register@feelhub.com"));
@@ -56,7 +56,7 @@ public class MailBuilder {
         return mimeMessage;
     }
 
-    private void setContent(final MimeMessage mimeMessage, final User user, Activation activation) {
+    private void setContent(final MimeMessage mimeMessage, final User user, final Activation activation) {
         try {
             final FeelhubTemplateRepresentation content = FeelhubTemplateRepresentation.createNew("mail/welcome.ftl", context)
                     .with("name", user.getFullname())

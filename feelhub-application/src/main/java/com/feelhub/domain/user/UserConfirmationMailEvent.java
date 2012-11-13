@@ -4,7 +4,7 @@ import com.feelhub.domain.eventbus.DomainEvent;
 
 public class UserConfirmationMailEvent extends DomainEvent {
 
-    public UserConfirmationMailEvent(final User user, Activation activation) {
+    public UserConfirmationMailEvent(final User user, final Activation activation) {
         this.user = user;
         this.activation = activation;
     }
@@ -30,5 +30,5 @@ public class UserConfirmationMailEvent extends DomainEvent {
 
     private final User user;
 
-    private Activation activation;
+    private final Activation activation;
 }

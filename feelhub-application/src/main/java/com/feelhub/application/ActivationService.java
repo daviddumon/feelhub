@@ -14,7 +14,7 @@ public class ActivationService {
     }
 
     @Subscribe
-    public void onUserCreated(UserCreatedEvent event) {
+    public void onUserCreated(final UserCreatedEvent event) {
         if (event.getUser().isActive()) {
             return;
         }
@@ -23,7 +23,7 @@ public class ActivationService {
         DomainEventBus.INSTANCE.post(new UserConfirmationMailEvent(event.getUser(), activation));
     }
 
-    public void confirm(UUID id) {
+    public void confirm(final UUID id) {
         final Activation activation = Repositories.activation().get(id);
         if (activation == null) {
             throw new ActivationNotFoundException();

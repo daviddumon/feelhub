@@ -5,7 +5,7 @@ import org.mongolink.MongoSession;
 
 public class ActivationMongoRepository extends BaseMongoRepository<Activation> implements ActivationRepository {
 
-    public ActivationMongoRepository(MongoSession mongoSession) {
+    public ActivationMongoRepository(final MongoSession mongoSession) {
         super(mongoSession);
     }
 }

@@ -67,5 +67,5 @@ public class TopicDataFactory {
         return topicDatas;
     }
 
-    private KeywordService keywordService;
+    private final KeywordService keywordService;
 }

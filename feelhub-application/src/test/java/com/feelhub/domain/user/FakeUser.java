@@ -14,7 +14,7 @@ public class FakeUser extends User {
     }
 
     @Override
-    public boolean checkPassword(String password) {
+    public boolean checkPassword(final String password) {
         return password.equals(getPassword());
     }
 }

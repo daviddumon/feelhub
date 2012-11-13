@@ -22,5 +22,5 @@ public class ActivationResource extends ServerResource {
     }
 
 
-    private ActivationService activationService;
+    private final ActivationService activationService;
 }

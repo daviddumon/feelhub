@@ -16,8 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import java.util.List;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsUriService {
 

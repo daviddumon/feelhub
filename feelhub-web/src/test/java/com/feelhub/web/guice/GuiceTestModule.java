@@ -1,6 +1,5 @@
 package com.feelhub.web.guice;
 
-import com.feelhub.application.*;
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.bingsearch.*;
 import com.feelhub.domain.keyword.uri.*;
@@ -41,7 +40,6 @@ public class GuiceTestModule extends AbstractModule {
         bind(AlchemyLink.class).to(FakeJsonAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
         bind(MailSender.class).to(FakeMailSender.class);
-        bind(KeywordService.class).to(FakeKeywordService.class);
     }
 
     private Properties properties() {

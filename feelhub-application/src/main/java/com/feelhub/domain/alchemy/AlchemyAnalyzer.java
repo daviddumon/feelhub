@@ -91,7 +91,7 @@ public class AlchemyAnalyzer {
         alchemyRelationBinder.bind(event.getUri().getTopicId(), topicsAndScores);
     }
 
-    private WordService wordService;
+    private final WordService wordService;
     private final AlchemyRelationBinder alchemyRelationBinder;
     private final SessionProvider sessionProvider;
     private final NamedEntityProvider namedEntityProvider;

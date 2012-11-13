@@ -14,7 +14,7 @@ public class UserFactory {
         return user;
     }
 
-    public User createFromFacebook(final String facebookId, final String email, final String firstName, final String lastName, final String language, String token) {
+    public User createFromFacebook(final String facebookId, final String email, final String firstName, final String lastName, final String language, final String token) {
         final User user = commonUser(UserIds.facebook(facebookId), email, firstName + " " + lastName, language);
         user.addToken(new SocialToken(SocialNetwork.FACEBOOK, token));
         user.activate();

@@ -8,12 +8,12 @@ public class SocialToken {
 
     }
 
-    public SocialToken(SocialNetwork network, String value) {
+    public SocialToken(final SocialNetwork network, final String value) {
         this.network = network;
         this.value = value;
     }
 
-    public boolean is(SocialNetwork network) {
+    public boolean is(final SocialNetwork network) {
         return network == this.network;
     }
 
@@ -26,7 +26,7 @@ public class SocialToken {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -34,7 +34,7 @@ public class SocialToken {
             return false;
         }
 
-        SocialToken that = (SocialToken) o;
+        final SocialToken that = (SocialToken) o;
         return Objects.equal(that.network, network) && Objects.equal(that.value, value);
     }
 

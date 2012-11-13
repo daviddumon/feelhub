@@ -32,7 +32,7 @@ public class TestsMailBuilder {
     @Test
     public void canSendAnEmail() {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
-        Activation activation = new Activation(user);
+        final Activation activation = new Activation(user);
 
         final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user, activation);
 
@@ -42,7 +42,7 @@ public class TestsMailBuilder {
     @Test
     public void emailAsARecipient() throws MessagingException {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
-        Activation activation = new Activation(user);
+        final Activation activation = new Activation(user);
 
         final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user, activation);
 
@@ -52,7 +52,7 @@ public class TestsMailBuilder {
     @Test
     public void activationEmailAsAFromAddress() throws MessagingException {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
-        Activation activation = new Activation(user);
+        final Activation activation = new Activation(user);
 
         final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user, activation);
 
@@ -62,7 +62,7 @@ public class TestsMailBuilder {
     @Test
     public void activationEmailAsASubject() throws MessagingException {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
-        Activation activation = new Activation(user);
+        final Activation activation = new Activation(user);
 
         final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user, activation);
 
@@ -72,7 +72,7 @@ public class TestsMailBuilder {
     @Test
     public void activationEmailAsABody() throws IOException, MessagingException {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
-        Activation activation = new Activation(user);
+        final Activation activation = new Activation(user);
 
         final MimeMessage mimeMessage = mailBuilder.sendValidationTo(user, activation);
 

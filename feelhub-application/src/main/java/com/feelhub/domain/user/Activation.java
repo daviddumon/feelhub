@@ -11,7 +11,7 @@ public class Activation extends BaseEntity {
         // for mongolink
     }
 
-    public Activation(User user) {
+    public Activation(final User user) {
         this.id = UUID.randomUUID();
         this.userId = user.getId();
     }

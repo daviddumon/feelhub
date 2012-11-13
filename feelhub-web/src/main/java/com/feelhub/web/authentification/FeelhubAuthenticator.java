@@ -5,7 +5,7 @@ import com.feelhub.repositories.Repositories;
 
 public class FeelhubAuthenticator implements Authenticator {
     @Override
-    public User authenticate(AuthRequest authRequest) {
+    public User authenticate(final AuthRequest authRequest) {
         final User user = getUser(authRequest.getUserId());
         checkUser(user);
         checkPassword(user, authRequest.getPassword());

@@ -14,11 +14,11 @@ import java.util.List;
 public class FeelingService {
 
     @Inject
-    public FeelingService(final SessionProvider sessionProvider, final KeywordService keywordService, final FeelingRelationBinder feelingRelationBinder) {
+    public FeelingService(final SessionProvider sessionProvider, final FeelingRelationBinder feelingRelationBinder, final SentimentExtractor sentimentExtractor, final KeywordService keywordService) {
         this.sessionProvider = sessionProvider;
-        this.keywordService = keywordService;
         this.feelingRelationBinder = feelingRelationBinder;
-        sentimentExtractor = new SentimentExtractor();
+        this.sentimentExtractor = sentimentExtractor;
+        this.keywordService = keywordService;
         DomainEventBus.INSTANCE.register(this);
     }
 

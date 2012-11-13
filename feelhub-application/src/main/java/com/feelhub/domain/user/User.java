@@ -89,8 +89,8 @@ public class User extends BaseEntity {
         return active;
     }
 
-    public SocialToken getSocialToken(SocialNetwork network) {
-        for (SocialToken token : socialTokens) {
+    public SocialToken getSocialToken(final SocialNetwork network) {
+        for (final SocialToken token : socialTokens) {
             if (token.is(network)) {
                 return token;
             }
@@ -98,7 +98,7 @@ public class User extends BaseEntity {
         return null;
     }
 
-    public void addToken(SocialToken socialToken) {
+    public void addToken(final SocialToken socialToken) {
         socialTokens.add(socialToken);
     }
 
@@ -111,6 +111,6 @@ public class User extends BaseEntity {
     private String fullname;
     private String languageCode;
     private boolean active;
-    private List<SocialToken> socialTokens = Lists.newArrayList();
+    private final List<SocialToken> socialTokens = Lists.newArrayList();
     private String id;
 }

@@ -4,7 +4,7 @@ import com.feelhub.domain.eventbus.DomainEvent;
 
 public class UserCreatedEvent extends DomainEvent {
 
-    public UserCreatedEvent(User user) {
+    public UserCreatedEvent(final User user) {
         this.user = user;
     }
 
@@ -23,5 +23,5 @@ public class UserCreatedEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    private User user;
+    private final User user;
 }

@@ -2,7 +2,9 @@ package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.keyword.uri.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.translation.*;
 import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
@@ -27,15 +29,16 @@ public class TestsFeelingService {
             @Override
             protected void configure() {
                 bind(SessionProvider.class).to(FakeSessionProvider.class);
-                bind(KeywordService.class).to(FakeKeywordService.class);
+                bind(Translator.class).to(FakeTranslator.class);
+                bind(UriResolver.class).to(FakeUriResolver.class);
             }
         });
-        instance = injector.getInstance(FeelingService.class);
+        injector.getInstance(FeelingService.class);
     }
 
     @Test
     public void canAddFeelingAndSentiments() {
-        TestFactories.keywords().newWord("keyword2", FeelhubLanguage.forString("french"));
+        TestFactories.keywords().newWord("word2", FeelhubLanguage.forString("french"));
         final FeelingRequestEvent event = getEvent();
 
         DomainEventBus.INSTANCE.post(event);
@@ -55,12 +58,10 @@ public class TestsFeelingService {
         builder.feelingId(UUID.randomUUID());
         builder.user(TestFactories.users().createFakeActiveUser("feeling@mail.com"));
         builder.sentimentValue(SentimentValue.good);
-        builder.keywordValue("keyword3");
+        builder.keywordValue("word3");
         builder.languageCode(FeelhubLanguage.reference().getCode());
         builder.userLanguageCode(FeelhubLanguage.forString("french").getCode());
-        builder.text("+keyword1 -keyword2");
+        builder.text("+word1 -word2");
         return builder.build();
     }
-
-    private FeelingService instance;
 }

@@ -28,5 +28,5 @@ public class WorldListener {
     }
 
     private final SessionProvider sessionProvider;
-    private WorldService worldService;
+    private final WorldService worldService;
 }
