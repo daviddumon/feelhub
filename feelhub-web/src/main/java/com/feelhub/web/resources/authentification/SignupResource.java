@@ -9,6 +9,8 @@ import com.google.inject.Inject;
 import org.restlet.data.*;
 import org.restlet.resource.*;
 
+import java.util.Locale;
+
 public class SignupResource extends ServerResource {
 
     @Inject
@@ -19,7 +21,7 @@ public class SignupResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
-        return ModelAndView.createNew("signup.ftl").with("facebookUrl", connector.getUrl());
+        return ModelAndView.createNew("signup.ftl").with("facebookUrl", connector.getUrl()).with("locales", Locale.getAvailableLocales());
     }
 
     @Post
