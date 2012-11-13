@@ -2,7 +2,7 @@ package com.feelhub.test;
 
 import com.feelhub.test.fakeResources.*;
 import com.feelhub.test.fakeResources.alchemy.FakeAlchemyResource;
-import com.feelhub.test.fakeResources.scraper.ScraperLogoPriority;
+import com.feelhub.test.fakeResources.scraper.*;
 import com.feelhub.test.fakeResources.scraper.extractors.*;
 import com.feelhub.test.fakeResources.scraper.tools.*;
 import freemarker.template.*;
@@ -96,6 +96,7 @@ public class FakeInternet extends ExternalResource {
             private void attachScrapersResources(final Router router) {
                 router.attach("/", ScraperLogoPriority.class);
                 router.attach("/scraper/logopriority", ScraperLogoPriority.class);
+                router.attach("/scraper/logoprioritywithopengraph", ScraperLogoPriorityWithOpenGraph.class);
                 router.attach("/titleextractor/titletag", TitleExtractorResourceWithTitleTag.class);
                 router.attach("/titleextractor/titletagbadhtml", TitleExtractorResourceWithBadHtml.class);
                 router.attach("/firstelementextractor/h2tag", FirstElementExtractorResourceWithH2Tag.class);
@@ -118,6 +119,7 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/imageextractor/bug/slatefr", ImageExtractorResourceSlatefrBug.class);
                 router.attach("/imageextractor/bug/10sportbug", ImageExtractorResource10SportBug.class);
                 router.attach("/imageextractor/bug/liberation", ImageExtractorResourceLiberationBug.class);
+                router.attach("/opengraphextractor/illustration", OpenGraphExtractorWithIllustration.class);
                 router.attach("/miner/cssminer/simple", CSSMinerSimple.class);
                 router.attach("/css/css1", CSSMinerCss1.class);
                 router.attach("/css/css2", CSSMinerCss2.class);

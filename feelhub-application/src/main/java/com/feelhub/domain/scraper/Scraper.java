@@ -27,6 +27,7 @@ public class Scraper {
     private void addExtractors() {
         this.extractors.add(new LogoExtractor("logo", uri));
         this.extractors.add(new ImageExtractor("image"));
+        this.extractors.add(new OpenGraphExtractor());
     }
 
     private void getJSoupDocument() {
@@ -49,10 +50,14 @@ public class Scraper {
     }
 
     public String getIllustration() {
-        if (Scraper.isFirstLevelUri(uri)) {
-            return getIllustrationForFirstLevelDomain();
+        if (notEmpty(scrapedTags.get("opengraph"))) {
+            return scrapedTags.get("opengraph");
         } else {
-            return getIllustrationForNonFirstLevelDomain();
+            if (Scraper.isFirstLevelUri(uri)) {
+                return getIllustrationForFirstLevelDomain();
+            } else {
+                return getIllustrationForNonFirstLevelDomain();
+            }
         }
     }
 
@@ -65,7 +70,7 @@ public class Scraper {
         return true;
     }
 
-    public String getIllustrationForFirstLevelDomain() {
+    private String getIllustrationForFirstLevelDomain() {
         if (notEmpty(scrapedTags.get("logo"))) {
             return scrapedTags.get("logo");
         } else if (notEmpty(scrapedTags.get("image"))) {
@@ -74,7 +79,7 @@ public class Scraper {
         return "";
     }
 
-    public String getIllustrationForNonFirstLevelDomain() {
+    private String getIllustrationForNonFirstLevelDomain() {
         if (notEmpty(scrapedTags.get("image"))) {
             return scrapedTags.get("image");
         } else if (notEmpty(scrapedTags.get("logo"))) {

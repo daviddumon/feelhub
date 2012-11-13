@@ -56,4 +56,14 @@ public class TestsScraper {
         assertThat(Scraper.isFirstLevelUri(uri), is(false));
         assertThat(scraper.getIllustration(), is("http://localhost:6162/scraper/image.jpg"));
     }
+
+    @Test
+    public void domainIllustrationPriorityIsAlwaysOpenGraph() {
+        final String uri = internet.uri("scraper/logoprioritywithopengraph");
+        final Scraper scraper = new Scraper();
+
+        scraper.scrap(uri);
+
+        assertThat(scraper.getIllustration(), is("http://i4.ytimg.com/vi/_IOqGclele4/mqdefault.jpg"));
+    }
 }
