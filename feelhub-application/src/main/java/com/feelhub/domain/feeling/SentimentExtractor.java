@@ -3,6 +3,8 @@ package com.feelhub.domain.feeling;
 import com.feelhub.domain.keyword.KeywordIdentifier;
 import com.google.common.collect.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.*;
 
 public class SentimentExtractor {
@@ -14,7 +16,12 @@ public class SentimentExtractor {
             final TreeMap<Integer, SentimentValue> tokenTags = getSemanticTags(token);
             if (hasAny(tokenTags)) {
                 final SentimentValue tokenSentimentValue = getSentimentValue(tokenTags);
-                String cleanedToken = token.replaceAll(STRING_REPLACE_SEMANTIC, "").toLowerCase();
+                String cleanedToken = null;
+                try {
+                    cleanedToken = URLDecoder.decode(token.replaceAll(STRING_REPLACE_SEMANTIC, "").toLowerCase(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 if (!isUri(cleanedToken)) {
                     cleanedToken = token.replaceAll(STRING_REPLACE_ALL, "").toLowerCase();
                     cleanedToken = cleanedToken.replaceAll(STRING_TO_SPACES, " ");
@@ -25,7 +32,13 @@ public class SentimentExtractor {
                     sentimentAndTexts.add(sentimentAndText);
                 }
             } else if (isUri(token)) {
-                final String cleanedToken = token.trim().toLowerCase();
+                String cleanedToken;
+                try {
+                    cleanedToken = URLDecoder.decode(token.trim().toLowerCase(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    cleanedToken = "";
+                    e.printStackTrace();
+                }
                 if (cleanedToken.length() > 2) {
                     final SentimentAndText sentimentAndText = new SentimentAndText(SentimentValue.none, cleanedToken);
                     sentimentAndTexts.add(sentimentAndText);

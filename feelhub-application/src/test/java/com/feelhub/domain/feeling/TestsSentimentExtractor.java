@@ -131,6 +131,12 @@ public class TestsSentimentExtractor {
         testText("Vive +l'Agilité !!", SentimentValue.good, "agilité");
     }
 
+    @Test
+    public void canHandleEncodedText() {
+        testText("J'aime beaucoup http%3A%2F%2Fwww.google.fr ! hehe", SentimentValue.none, "http://www.google.fr");
+        testText("J'aime beaucoup +http%3A%2F%2Fwww.google.fr ! hehe", SentimentValue.good, "http://www.google.fr");
+    }
+
     private void testText(final String text, final SentimentValue sentimentValue, final String expected) {
         final SentimentExtractor sentimentExtractor = new SentimentExtractor();
         final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(text);
