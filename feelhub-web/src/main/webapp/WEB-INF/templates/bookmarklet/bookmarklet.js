@@ -4,7 +4,7 @@
             throw(0);
         }
         if (document.location.href != 'about:blank') {
-            var url = '${root}/topic/' + encodeURIComponent(document.location.href);
+            var url = '${root}/uri/' + encodeURIComponent(document.location.href);
             if (!window.open(url)) {
                 location.href = url;
             }

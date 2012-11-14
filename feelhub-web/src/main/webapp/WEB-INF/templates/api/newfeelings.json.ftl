@@ -5,15 +5,15 @@
 "text":"${feelingData.text?j_string}",
 "languageCode":"${feelingData.languageCode}",
 "userId":"${feelingData.userId}",
-"topicDatas":   [
-    <#list feelingData.topicDatas as topicData>
+"keywordDatas":   [
+    <#list feelingData.keywordDatas as keywordData>
     {
-    "topicId":"${topicData.topicId}",
-    "sentimentValue":"${topicData.sentimentValue}",
-    "keywordValue":"${topicData.keywordValue}",
-    "languageCode":"${topicData.languageCode}",
-    "illustrationLink":"${topicData.illustrationLink}"
-    }${topicData_has_next?string(",", "")}
+    "topicId":"${keywordData.topicId}",
+    "sentimentValue":"${keywordData.sentimentValue}",
+    "keywordValue":"${keywordData.keywordValue}",
+    "languageCode":"${keywordData.languageCode}",
+    "illustrationLink":"${keywordData.illustrationLink}"
+    }${keywordData_has_next?string(",", "")}
     </#list>
 ]
 }${feelingData_has_next?string(",", "")}

@@ -2,7 +2,7 @@ package com.feelhub.web.resources;
 
 import com.feelhub.application.UriService;
 import com.feelhub.domain.keyword.uri.*;
-import com.feelhub.web.dto.TopicDataFactory;
+import com.feelhub.web.dto.KeywordDataFactory;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.Inject;
 import org.restlet.data.Status;
@@ -11,9 +11,9 @@ import org.restlet.resource.*;
 public class UriResource extends ServerResource {
 
     @Inject
-    public UriResource(final UriService uriService, final TopicDataFactory topicDataFactory) {
+    public UriResource(final UriService uriService, final KeywordDataFactory keywordDataFactory) {
         this.uriService = uriService;
-        this.topicDataFactory = topicDataFactory;
+        this.keywordDataFactory = keywordDataFactory;
     }
 
     @Get
@@ -22,11 +22,11 @@ public class UriResource extends ServerResource {
         Uri uri;
         try {
             uri = uriService.lookUp(value);
-            return ModelAndView.createNew("keyword.ftl").with("topicData", topicDataFactory.getTopicData(uri));
+            return ModelAndView.createNew("keyword.ftl").with("keywordData", keywordDataFactory.getKeywordData(uri));
         } catch (UriNotFound e) {
             uri = new Uri("", null);
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
-            return ModelAndView.createNew("404.ftl").with("topicData", topicDataFactory.getTopicData(uri));
+            return ModelAndView.createNew("404.ftl").with("keywordData", keywordDataFactory.getKeywordData(uri));
         }
     }
 
@@ -35,6 +35,6 @@ public class UriResource extends ServerResource {
     }
 
     private UriService uriService;
-    private TopicDataFactory topicDataFactory;
+    private KeywordDataFactory keywordDataFactory;
     private String value;
 }

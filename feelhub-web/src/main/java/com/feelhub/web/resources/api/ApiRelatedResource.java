@@ -17,17 +17,17 @@ import java.util.*;
 public class ApiRelatedResource extends ServerResource {
 
     @Inject
-    public ApiRelatedResource(final RelationSearch relationSearch, final KeywordService keywordService, final TopicDataFactory topicDataFactory) {
+    public ApiRelatedResource(final RelationSearch relationSearch, final KeywordService keywordService, final KeywordDataFactory keywordDataFactory) {
         this.relationSearch = relationSearch;
         this.keywordService = keywordService;
-        this.topicDataFactory = topicDataFactory;
+        this.keywordDataFactory = keywordDataFactory;
     }
 
     @Get
     public ModelAndView represent() {
         doSearchWithQueryParameters();
-        getTopicDataForEachRelation();
-        return ModelAndView.createNew("api/related.json.ftl", MediaType.APPLICATION_JSON).with("topicDataList", topicDataList);
+        getKeywordDataForEachRelation();
+        return ModelAndView.createNew("api/related.json.ftl", MediaType.APPLICATION_JSON).with("keywordDataList", keywordDataList);
     }
 
     private void doSearchWithQueryParameters() {
@@ -73,22 +73,22 @@ public class ApiRelatedResource extends ServerResource {
         }
     }
 
-    public void getTopicDataForEachRelation() {
+    public void getKeywordDataForEachRelation() {
         for (final Relation relation : relations) {
-            addTopicData(relation);
+            addKeywordData(relation);
         }
     }
 
-    private void addTopicData(final Relation relation) {
+    private void addKeywordData(final Relation relation) {
         final Keyword keyword = keywordService.lookUp(relation.getToId(), feelhubLanguage);
-        final TopicData topicData = topicDataFactory.getTopicData(relation.getToId(), keyword);
-        topicDataList.add(topicData);
+        final KeywordData keywordData = keywordDataFactory.getKeywordData(relation.getToId(), keyword);
+        keywordDataList.add(keywordData);
     }
 
     private final RelationSearch relationSearch;
     private final KeywordService keywordService;
-    private final TopicDataFactory topicDataFactory;
+    private final KeywordDataFactory keywordDataFactory;
     private List<Relation> relations = Lists.newArrayList();
     private FeelhubLanguage feelhubLanguage;
-    private final List<TopicData> topicDataList = Lists.newArrayList();
+    private final List<KeywordData> keywordDataList = Lists.newArrayList();
 }

@@ -17,8 +17,8 @@ import java.util.*;
 public class ApiNewFeelingsResource extends ServerResource {
 
     @Inject
-    public ApiNewFeelingsResource(final TopicDataFactory topicDataFactory, final FeelingSearch feelingSearch, final TopicService topicService) {
-        this.topicDataFactory = topicDataFactory;
+    public ApiNewFeelingsResource(final KeywordDataFactory keywordDataFactory, final FeelingSearch feelingSearch, final TopicService topicService) {
+        this.keywordDataFactory = keywordDataFactory;
         this.feelingSearch = feelingSearch;
         this.topicService = topicService;
     }
@@ -80,14 +80,14 @@ public class ApiNewFeelingsResource extends ServerResource {
     private List<FeelingData> getFeelingDatas(final List<Feeling> feelings) {
         final List<FeelingData> feelingDatas = Lists.newArrayList();
         for (final Feeling feeling : feelings) {
-            final List<TopicData> topicDatas = topicDataFactory.getTopicDatas(feeling, feelhubLanguage);
-            final FeelingData feelingData = new FeelingData(feeling, topicDatas);
+            final List<KeywordData> keywordDatas = keywordDataFactory.getKeywordDatas(feeling, feelhubLanguage);
+            final FeelingData feelingData = new FeelingData(feeling, keywordDatas);
             feelingDatas.add(feelingData);
         }
         return feelingDatas;
     }
 
-    private final TopicDataFactory topicDataFactory;
+    private final KeywordDataFactory keywordDataFactory;
     private final FeelingSearch feelingSearch;
     private final TopicService topicService;
     private FeelhubLanguage feelhubLanguage;

@@ -7,12 +7,12 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 
 import java.util.UUID;
 
-public class TopicData {
+public class KeywordData {
 
     public static class Builder {
 
-        public TopicData build() {
-            return new TopicData(this);
+        public KeywordData build() {
+            return new KeywordData(this);
         }
 
         public Builder topicId(final UUID topicId) {
@@ -47,7 +47,7 @@ public class TopicData {
         private SentimentValue sentimentValue = SentimentValue.none;
     }
 
-    private TopicData(final Builder builder) {
+    private KeywordData(final Builder builder) {
         this.topicId = builder.topicId;
         this.illustrationLink = builder.illustrationLink;
         this.keywordValue = builder.keywordValue;

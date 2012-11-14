@@ -115,25 +115,25 @@ Flow.prototype.getFeeling = function (feeling, classes) {
     });
     text = text.replace(/[\#\+\-\=]+/g, "");
 
-    var topicDatas = [];
+    var keywordDatas = [];
     var known_topics = {};
-    for (var i = 0; i < feeling.topicDatas.length; i++) {
-        if (feeling.topicDatas[i].topicId !== topicId) {
-            var current = feeling.topicDatas[i].topicId;
+    for (var i = 0; i < feeling.keywordDatas.length; i++) {
+        if (feeling.keywordDatas[i].topicId !== topicId) {
+            var current = feeling.keywordDatas[i].topicId;
             if (!(current in known_topics)) {
                 var topic_data = {
-                    topicId:feeling.topicDatas[i].topicId,
-                    sentimentValue:feeling.topicDatas[i].sentimentValue,
-                    keywordValue:feeling.topicDatas[i].keywordValue,
-                    url:buildInternalLink(feeling.topicDatas[i].languageCode, feeling.topicDatas[i].keywordValue),
+                    topicId:feeling.keywordDatas[i].topicId,
+                    sentimentValue:feeling.keywordDatas[i].sentimentValue,
+                    keywordValue:feeling.keywordDatas[i].keywordValue,
+                    url:buildInternalLink(feeling.keywordDatas[i].languageCode, feeling.keywordDatas[i].keywordValue),
                     classes:"topic_medium topic_stack",
-                    illustrationLink:feeling.topicDatas[i].illustrationLink
+                    illustrationLink:feeling.keywordDatas[i].illustrationLink
                 };
-                topicDatas.push(topic_data);
+                keywordDatas.push(topic_data);
                 known_topics[current] = true;
             }
         } else {
-            var feeling_sentiment_value = feeling.topicDatas[i].sentimentValue;
+            var feeling_sentiment_value = feeling.keywordDatas[i].sentimentValue;
         }
     }
 
@@ -143,8 +143,8 @@ Flow.prototype.getFeeling = function (feeling, classes) {
         id:feeling.id,
         feeling_classes:classes,
         text:text.split(/\r\n|\r|\n/),
-        topicDatas:topicDatas,
-        height:(topicDatas.length != 0 ? 40 : 0) + 146 * (Math.floor(topicDatas.length / 2) + topicDatas.length % 2) + 'px'
+        keywordDatas:keywordDatas,
+        height:(keywordDatas.length != 0 ? 40 : 0) + 146 * (Math.floor(keywordDatas.length / 2) + keywordDatas.length % 2) + 'px'
     };
 
     if (feeling_sentiment_value !== "none") {
@@ -155,13 +155,13 @@ Flow.prototype.getFeeling = function (feeling, classes) {
     return ich.feeling(feelingData);
 
     function shuffleAndMakeFirstLarge() {
-        if (topicDatas.length % 2 != 0) {
-            var shuffle_number = Math.floor(Math.random() * topicDatas.length);
+        if (keywordDatas.length % 2 != 0) {
+            var shuffle_number = Math.floor(Math.random() * keywordDatas.length);
             for (var i = 0; i < shuffle_number; i++) {
-                var rd = topicDatas.shift();
-                topicDatas.push(rd);
+                var rd = keywordDatas.shift();
+                keywordDatas.push(rd);
             }
-            topicDatas[0]["classes"] = "topic_large topic_stack";
+            keywordDatas[0]["classes"] = "topic_large topic_stack";
         }
     }
 };
@@ -240,7 +240,7 @@ Flow.prototype.pushFake = function (topicId, text, sentiment_value) {
     var fake_feeling = {
         id:topicId,
         text:text,
-        topicDatas:[
+        keywordDatas:[
             {topicId:topicId, sentimentValue:sentiment_value}
         ]
     };

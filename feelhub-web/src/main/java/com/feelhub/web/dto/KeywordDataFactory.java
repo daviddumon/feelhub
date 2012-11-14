@@ -11,15 +11,15 @@ import com.google.inject.Inject;
 
 import java.util.*;
 
-public class TopicDataFactory {
+public class KeywordDataFactory {
 
     @Inject
-    public TopicDataFactory(final KeywordService keywordService) {
+    public KeywordDataFactory(final KeywordService keywordService) {
         this.keywordService = keywordService;
     }
 
-    public TopicData getTopicData(final Keyword keyword) {
-        final TopicData.Builder builder = new TopicData.Builder();
+    public KeywordData getKeywordData(final Keyword keyword) {
+        final KeywordData.Builder builder = new KeywordData.Builder();
         builder.keyword(keyword);
         builder.language(keyword.getLanguage());
         if (keyword.getTopicId() != null) {
@@ -32,8 +32,8 @@ public class TopicDataFactory {
         return builder.build();
     }
 
-    public TopicData getTopicData(final UUID id, final Keyword keyword) {
-        final TopicData.Builder builder = new TopicData.Builder();
+    public KeywordData getKeywordData(final UUID id, final Keyword keyword) {
+        final KeywordData.Builder builder = new KeywordData.Builder();
         builder.keyword(keyword);
         builder.language(keyword.getLanguage());
         builder.topicId(id);
@@ -44,8 +44,8 @@ public class TopicDataFactory {
         return builder.build();
     }
 
-    public TopicData getTopicDatas(final Keyword keyword, final Sentiment sentiment) {
-        final TopicData.Builder builder = new TopicData.Builder();
+    public KeywordData getKeywordData(final Keyword keyword, final Sentiment sentiment) {
+        final KeywordData.Builder builder = new KeywordData.Builder();
         builder.keyword(keyword);
         builder.language(keyword.getLanguage());
         builder.sentimentValue(sentiment.getSentimentValue());
@@ -57,14 +57,14 @@ public class TopicDataFactory {
         return builder.build();
     }
 
-    public List<TopicData> getTopicDatas(final Feeling feeling, final FeelhubLanguage feelhubLanguage) {
-        final List<TopicData> topicDatas = Lists.newArrayList();
+    public List<KeywordData> getKeywordDatas(final Feeling feeling, final FeelhubLanguage feelhubLanguage) {
+        final List<KeywordData> keywordDatas = Lists.newArrayList();
         for (final Sentiment sentiment : feeling.getSentiments()) {
             final Keyword keyword = keywordService.lookUp(sentiment.getTopicId(), feelhubLanguage);
-            final TopicData topicData = getTopicDatas(keyword, sentiment);
-            topicDatas.add(topicData);
+            final KeywordData keywordData = getKeywordData(keyword, sentiment);
+            keywordDatas.add(keywordData);
         }
-        return topicDatas;
+        return keywordDatas;
     }
 
     private final KeywordService keywordService;

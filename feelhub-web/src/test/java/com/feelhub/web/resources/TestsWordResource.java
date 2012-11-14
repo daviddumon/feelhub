@@ -8,7 +8,7 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
-import com.feelhub.web.dto.TopicData;
+import com.feelhub.web.dto.KeywordData;
 import org.junit.*;
 import org.restlet.data.Status;
 import org.restlet.ext.freemarker.TemplateRepresentation;
@@ -65,9 +65,9 @@ public class TestsWordResource {
         final TemplateRepresentation representation = (TemplateRepresentation) wordResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        final TopicData topicData = (TopicData) dataModel.get("topicData");
-        assertThat(topicData.getKeywordValue(), is(word.getValue()));
-        assertThat(topicData.getLanguageCode(), is(word.getLanguageCode()));
+        final KeywordData keywordData = (KeywordData) dataModel.get("topicData");
+        assertThat(keywordData.getKeywordValue(), is(word.getValue()));
+        assertThat(keywordData.getLanguageCode(), is(word.getLanguageCode()));
     }
 
     @Test
@@ -78,9 +78,9 @@ public class TestsWordResource {
         final TemplateRepresentation representation = (TemplateRepresentation) wordResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        final TopicData topicData = (TopicData) dataModel.get("topicData");
-        assertThat(topicData.getKeywordValue(), is(word.getValue()));
-        assertThat(topicData.getLanguageCode(), is(word.getLanguageCode()));
+        final KeywordData keywordData = (KeywordData) dataModel.get("topicData");
+        assertThat(keywordData.getKeywordValue(), is(word.getValue()));
+        assertThat(keywordData.getLanguageCode(), is(word.getLanguageCode()));
     }
 
     @Test
@@ -90,8 +90,8 @@ public class TestsWordResource {
         final TemplateRepresentation representation = (TemplateRepresentation) wordResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        final TopicData topicData = (TopicData) dataModel.get("topicData");
-        assertThat(topicData.getKeywordValue(), is("Anotherword"));
+        final KeywordData keywordData = (KeywordData) dataModel.get("topicData");
+        assertThat(keywordData.getKeywordValue(), is("Anotherword"));
     }
 
     @Test
@@ -102,9 +102,9 @@ public class TestsWordResource {
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
         assertTrue(dataModel.containsKey("topicData"));
-        final TopicData topicData = (TopicData) dataModel.get("topicData");
-        assertThat(topicData, notNullValue());
-        assertThat(topicData.getTopicId(), is(""));
+        final KeywordData keywordData = (KeywordData) dataModel.get("topicData");
+        assertThat(keywordData, notNullValue());
+        assertThat(keywordData.getTopicId(), is(""));
         assertThat(wordResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
         assertThat(Repositories.keywords().getAll().size(), is(0));
     }
@@ -120,10 +120,10 @@ public class TestsWordResource {
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
         assertTrue(dataModel.containsKey("topicData"));
-        final TopicData topicData = (TopicData) dataModel.get("topicData");
-        assertThat(topicData.getIllustrationLink(), is(illustration.getLink()));
-        assertThat(topicData.getKeywordValue(), is(word.getValue()));
-        assertThat(topicData.getLanguageCode(), is(word.getLanguageCode()));
-        assertThat(topicData.getTopicId(), is(topic.getId().toString()));
+        final KeywordData keywordData = (KeywordData) dataModel.get("topicData");
+        assertThat(keywordData.getIllustrationLink(), is(illustration.getLink()));
+        assertThat(keywordData.getKeywordValue(), is(word.getValue()));
+        assertThat(keywordData.getLanguageCode(), is(word.getLanguageCode()));
+        assertThat(keywordData.getTopicId(), is(topic.getId().toString()));
     }
 }

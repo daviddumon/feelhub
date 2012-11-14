@@ -4,7 +4,7 @@ import com.feelhub.application.WordService;
 import com.feelhub.domain.keyword.KeywordNotFound;
 import com.feelhub.domain.keyword.word.Word;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.web.dto.TopicDataFactory;
+import com.feelhub.web.dto.KeywordDataFactory;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.Inject;
 import org.restlet.data.Status;
@@ -13,9 +13,9 @@ import org.restlet.resource.*;
 public class WordResource extends ServerResource {
 
     @Inject
-    public WordResource(final WordService wordService, final TopicDataFactory topicDataFactory) {
+    public WordResource(final WordService wordService, final KeywordDataFactory keywordDataFactory) {
         this.wordService = wordService;
-        this.topicDataFactory = topicDataFactory;
+        this.keywordDataFactory = keywordDataFactory;
     }
 
     @Get
@@ -25,11 +25,11 @@ public class WordResource extends ServerResource {
         Word word;
         try {
             word = wordService.lookUp(value, feelhubLanguage);
-            return ModelAndView.createNew("keyword.ftl").with("topicData", topicDataFactory.getTopicData(word));
+            return ModelAndView.createNew("keyword.ftl").with("keywordData", keywordDataFactory.getKeywordData(word));
         } catch (KeywordNotFound e) {
             word = new Word(value, feelhubLanguage, null);
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
-            return ModelAndView.createNew("404.ftl").with("topicData", topicDataFactory.getTopicData(word));
+            return ModelAndView.createNew("404.ftl").with("keywordData", keywordDataFactory.getKeywordData(word));
         }
     }
 
@@ -46,7 +46,7 @@ public class WordResource extends ServerResource {
     }
 
     private WordService wordService;
-    private final TopicDataFactory topicDataFactory;
+    private final KeywordDataFactory keywordDataFactory;
     private FeelhubLanguage feelhubLanguage;
     private String value;
 }

@@ -26,18 +26,18 @@ function RequestRelations(topicId) {
         uri = uri.substr(0, uri.length - 1);
         //console.log(uri);
         $.getJSON(uri, function (data) {
-            $.each(data, function (index, topicData) {
-                //console.log("relation found " + topicData.topicId);
+            $.each(data, function (index, keywordData) {
+                //console.log("relation found " + keywordData.topicId);
 
                 var topic_data = {
-                    topicId:topicData.topicId,
-                    keywordValue:topicData.keywordValue,
-                    url:buildInternalLink(topicData.languageCode, topicData.keywordValue),
+                    topicId:keywordData.topicId,
+                    keywordValue:keywordData.keywordValue,
+                    url:buildInternalLink(keywordData.languageCode, keywordData.keywordValue),
                     classes:"topic_related"
                 };
 
                 $("#related").append(ich.topic(topic_data));
-                $("#" + topicData.topicId + " img").attr("src", topicData.illustrationLink);
+                $("#" + keywordData.topicId + " img").attr("src", keywordData.illustrationLink);
             });
         });
     }

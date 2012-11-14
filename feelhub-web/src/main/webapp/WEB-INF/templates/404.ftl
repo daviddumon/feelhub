@@ -5,10 +5,10 @@
         var userLanguageCode = "${userInfos.user.languageCode}";
         </#if>
 
-    var topicId = "${topicData.topicId}";
-    var keywordValue = "${topicData.keywordValue}";
-    var languageCode = "${topicData.languageCode}";
-    var illustrationLink = "${topicData.illustrationLink}";
+    var topicId = "${keywordData.topicId}";
+    var keywordValue = "${keywordData.keywordValue}";
+    var languageCode = "${keywordData.languageCode}";
+    var illustrationLink = "${keywordData.illustrationLink}";
 
     var flow;
 </script>
@@ -94,6 +94,6 @@
 </div>
 
 <ul id="feelings">
-    <span id="no-feelings">There are no feelings about ${topicData.keywordValue}!</span>
+    <span id="no-feelings">There are no feelings about ${keywordData.keywordValue}!</span>
 </ul>
 </@layout.body>
