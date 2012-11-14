@@ -9,6 +9,8 @@
     var keywordValue = "";
     var languageCode = "";
     var illustrationLink = "";
+    var typeValue = "";
+
     var flow;
 </script>
 </@layout.headbegin>
@@ -34,7 +36,7 @@
 </@layout.js>
 
 <@layout.mustache>
-    <#include "mustache/topic.html">
+    <#include "mustache/keyword.html">
     <#include "mustache/feeling.html">
 </@layout.mustache>
 

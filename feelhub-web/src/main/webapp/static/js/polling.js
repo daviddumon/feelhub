@@ -1,5 +1,5 @@
-function buildInternalLink(languageCode, value) {
-    var result = root + "/topic/";
+function buildInternalLink(type, languageCode, value) {
+    var result = root + "/" + type + "/";
     if (languageCode != "none") {
         result += languageCode + "/";
     }
@@ -29,14 +29,14 @@ function RequestRelations(topicId) {
             $.each(data, function (index, keywordData) {
                 //console.log("relation found " + keywordData.topicId);
 
-                var topic_data = {
+                var keyword_data = {
                     topicId:keywordData.topicId,
                     keywordValue:keywordData.keywordValue,
-                    url:buildInternalLink(keywordData.languageCode, keywordData.keywordValue),
-                    classes:"topic_related"
+                    url:buildInternalLink(keywordData.typeValue, keywordData.languageCode, keywordData.keywordValue),
+                    classes:"keyword_related"
                 };
 
-                $("#related").append(ich.topic(topic_data));
+                $("#related").append(ich.topic(keyword_data));
                 $("#" + keywordData.topicId + " img").attr("src", keywordData.illustrationLink);
             });
         });
@@ -57,7 +57,7 @@ function RequestCounters(topicId) {
 
 function pollForId(feelingId, text, sentimentValue) {
     var topicIdPolling = setInterval(function () {
-        $.getJSON(root + "/api/keyword?keywordValue=" + encodeURIComponent(keywordValue) + "&languageCode=" + languageCode, function (data) {
+        $.getJSON(root + "/api/word?keywordValue=" + encodeURIComponent(keywordValue) + "&languageCode=" + languageCode, function (data) {
 
         })
             .success(function (data) {

@@ -12,7 +12,8 @@
     "sentimentValue":"${keywordData.sentimentValue}",
     "keywordValue":"${keywordData.keywordValue}",
     "languageCode":"${keywordData.languageCode}",
-    "illustrationLink":"${keywordData.illustrationLink}"
+    "illustrationLink":"${keywordData.illustrationLink}",
+    "typeValue":"${keywordData.typeValue}"
     }${keywordData_has_next?string(",", "")}
     </#list>
 ]

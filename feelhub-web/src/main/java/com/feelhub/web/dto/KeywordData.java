@@ -27,6 +27,7 @@ public class KeywordData {
 
         public Builder keyword(final Keyword keyword) {
             this.keywordValue = keyword.getValue();
+            this.typeValue = keyword.getClass().getSimpleName().toLowerCase();
             return this;
         }
 
@@ -45,6 +46,7 @@ public class KeywordData {
         private String keywordValue = "";
         private String languageCode = FeelhubLanguage.none().getCode();
         private SentimentValue sentimentValue = SentimentValue.none;
+        private String typeValue = "";
     }
 
     private KeywordData(final Builder builder) {
@@ -53,6 +55,7 @@ public class KeywordData {
         this.keywordValue = builder.keywordValue;
         this.languageCode = builder.languageCode;
         this.sentimentValue = builder.sentimentValue;
+        this.typeValue = builder.typeValue;
     }
 
     public String getTopicId() {
@@ -75,9 +78,14 @@ public class KeywordData {
         return sentimentValue;
     }
 
+    public String getTypeValue() {
+        return typeValue;
+    }
+
     private final String topicId;
     private final String illustrationLink;
     private final String keywordValue;
     private final String languageCode;
     private final SentimentValue sentimentValue;
+    private final String typeValue;
 }

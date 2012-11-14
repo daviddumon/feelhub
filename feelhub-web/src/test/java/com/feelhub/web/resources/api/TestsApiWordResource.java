@@ -21,7 +21,7 @@ public class TestsApiWordResource {
     @Test
     public void canGetTopicIdOfKeyword() {
         final Word word = TestFactories.keywords().newWord();
-        final ClientResource clientResource = restlet.newClientResource("/api/word?value=" + word.getValue() + "&languageCode=" + word.getLanguageCode());
+        final ClientResource clientResource = restlet.newClientResource("/api/word?keywordValue=" + word.getValue() + "&languageCode=" + word.getLanguageCode());
 
         clientResource.get();
 

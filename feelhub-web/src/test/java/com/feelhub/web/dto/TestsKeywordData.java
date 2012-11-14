@@ -3,6 +3,7 @@ package com.feelhub.web.dto;
 import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.illustration.Illustration;
 import com.feelhub.domain.keyword.Keyword;
+import com.feelhub.domain.keyword.word.Word;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -93,5 +94,21 @@ public class TestsKeywordData {
         final KeywordData keywordData = new KeywordData.Builder().build();
 
         assertThat(keywordData.getSentimentValue(), is(SentimentValue.none));
+    }
+
+    @Test
+    public void keywordDataHasATypeValue() {
+        final Word word = TestFactories.keywords().newWord();
+
+        final KeywordData keywordData = new KeywordData.Builder().keyword(word).build();
+
+        assertThat(keywordData.getTypeValue(), is(word.getClass().getSimpleName().toLowerCase()));
+    }
+
+    @Test
+    public void typeHadADefaultValue() {
+        final KeywordData keywordData = new KeywordData.Builder().build();
+
+        assertThat(keywordData.getTypeValue(), is(""));
     }
 }

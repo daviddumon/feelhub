@@ -121,15 +121,15 @@ Flow.prototype.getFeeling = function (feeling, classes) {
         if (feeling.keywordDatas[i].topicId !== topicId) {
             var current = feeling.keywordDatas[i].topicId;
             if (!(current in known_topics)) {
-                var topic_data = {
+                var keyword_data = {
                     topicId:feeling.keywordDatas[i].topicId,
                     sentimentValue:feeling.keywordDatas[i].sentimentValue,
                     keywordValue:feeling.keywordDatas[i].keywordValue,
-                    url:buildInternalLink(feeling.keywordDatas[i].languageCode, feeling.keywordDatas[i].keywordValue),
-                    classes:"topic_medium topic_stack",
+                    url:buildInternalLink(feeling.keywordDatas[i].typeValue, feeling.keywordDatas[i].languageCode, feeling.keywordDatas[i].keywordValue),
+                    classes:"keyword_medium keyword_stack",
                     illustrationLink:feeling.keywordDatas[i].illustrationLink
                 };
-                keywordDatas.push(topic_data);
+                keywordDatas.push(keyword_data);
                 known_topics[current] = true;
             }
         } else {
@@ -161,7 +161,7 @@ Flow.prototype.getFeeling = function (feeling, classes) {
                 var rd = keywordDatas.shift();
                 keywordDatas.push(rd);
             }
-            keywordDatas[0]["classes"] = "topic_large topic_stack";
+            keywordDatas[0]["classes"] = "keyword_large keyword_stack";
         }
     }
 };

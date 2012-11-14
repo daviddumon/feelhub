@@ -2,15 +2,16 @@
 $(function () {
 
     if (keywordValue !== "") {
-        var topic_data = {
+        var keyword_data = {
             topicId:topicId,
             keywordValue:keywordValue,
             languageCode:languageCode,
             //illustrationLink:illustrationLink,
-            classes:"topic_main"
+            classes:"keyword_main",
+            typeValue:typeValue
         };
 
-        $("#main_topic").prepend(ich.topic(topic_data));
+        $("#main_keyword").prepend(ich.keyword(keyword_data));
         $("#counters").show();
         $("#feeling_form").show();
     }

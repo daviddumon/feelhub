@@ -9,6 +9,7 @@
     var keywordValue = "${keywordData.keywordValue}";
     var languageCode = "${keywordData.languageCode}";
     var illustrationLink = "${keywordData.illustrationLink}";
+    var typeValue = "${keywordData.typeValue}";
 
     var flow;
 </script>
@@ -35,7 +36,7 @@
 </@layout.js>
 
 <@layout.mustache>
-    <#include "mustache/topic.html">
+    <#include "mustache/keyword.html">
     <#include "mustache/feeling.html">
 </@layout.mustache>
 
@@ -47,7 +48,7 @@
 
 <div id="dashboard">
     <div class="box">
-        <div id="main_topic" class="box">
+        <div id="main_keyword" class="box">
             <div id="counters" style="display: none;">
                 <div id="counter_good" class="counter">
                     <img class="smiley" src="${root}/static/images/smiley_good_white.png"/>
