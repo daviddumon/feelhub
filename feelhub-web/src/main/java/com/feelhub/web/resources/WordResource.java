@@ -24,10 +24,10 @@ public class WordResource extends ServerResource {
         extractWordValueFromUri();
         Word word;
         try {
-            word = wordService.lookUp(value, feelhubLanguage);
+            word = wordService.lookUp(keywordValue, feelhubLanguage);
             return ModelAndView.createNew("keyword.ftl").with("keywordData", keywordDataFactory.getKeywordData(word));
         } catch (KeywordNotFound e) {
-            word = new Word(value, feelhubLanguage, null);
+            word = new Word(keywordValue, feelhubLanguage, null);
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
             return ModelAndView.createNew("404.ftl").with("keywordData", keywordDataFactory.getKeywordData(word));
         }
@@ -42,11 +42,11 @@ public class WordResource extends ServerResource {
     }
 
     private void extractWordValueFromUri() {
-        value = getRequestAttributes().get("value").toString();
+        keywordValue = getRequestAttributes().get("keywordValue").toString();
     }
 
     private WordService wordService;
     private final KeywordDataFactory keywordDataFactory;
     private FeelhubLanguage feelhubLanguage;
-    private String value;
+    private String keywordValue;
 }

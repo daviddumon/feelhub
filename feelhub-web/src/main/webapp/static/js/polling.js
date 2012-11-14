@@ -3,7 +3,7 @@ function buildInternalLink(type, languageCode, value) {
     if (languageCode != "none") {
         result += languageCode + "/";
     }
-    result += value;
+    result += encodeURIComponent(value);
     return result;
 }
 
@@ -57,7 +57,19 @@ function RequestCounters(topicId) {
 
 function pollForId(feelingId, text, sentimentValue) {
     var topicIdPolling = setInterval(function () {
-        $.getJSON(root + "/api/word?keywordValue=" + encodeURIComponent(keywordValue) + "&languageCode=" + languageCode, function (data) {
+
+        var parameters = [];
+        var uri = root + "/api/" + typeValue + "?";
+        parameters.push({"value":"keywordValue=" + encodeURIComponent(keywordValue)});
+        if (languageCode !== "none") {
+            parameters.push({"value":"languageCode=" + languageCode});
+        }
+        $.each(parameters, function (index, parameter) {
+            uri += parameter.value + "&";
+        });
+        uri = uri.substr(0, uri.length - 1);
+
+        $.getJSON(uri, function (data) {
 
         })
             .success(function (data) {

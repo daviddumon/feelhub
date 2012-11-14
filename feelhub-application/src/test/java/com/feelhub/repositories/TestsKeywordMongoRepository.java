@@ -51,6 +51,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
         assertThat(uriFound).isNotNull();
         assertThat(uriFound.get("_id")).isEqualTo(uri.getId());
         assertThat(uriFound.get("value")).isEqualTo(uri.getValue());
+        assertThat(uriFound.get("languageCode")).isEqualTo(FeelhubLanguage.none().getCode());
         assertThat(uriFound.get("topicId")).isEqualTo(uri.getTopicId());
         assertThat(uriFound.get("creationDate")).isEqualTo(uri.getCreationDate().getMillis());
         assertThat(uriFound.get("lastModificationDate")).isEqualTo(uri.getLastModificationDate().getMillis());

@@ -69,6 +69,6 @@ public abstract class Keyword extends BaseEntity {
 
     private UUID id;
     private String value;
-    private String languageCode = FeelhubLanguage.none().getCode();
+    private String languageCode;
     private UUID topicId;
 }

@@ -31,12 +31,13 @@ public class FeelhubRouter extends Router {
         attach("/api/createfeeling", ApiCreateFeelingResource.class);
         attach("/api/newfeelings", ApiNewFeelingsResource.class);
         attach("/api/word", ApiWordResource.class);
+        attach("/api/uri", ApiUriResource.class);
 
-        final TemplateRoute route = attach("/uri/{value}", UriResource.class);
+        final TemplateRoute route = attach("/uri/{keywordValue}", UriResource.class);
         final Map<String, Variable> variables = route.getTemplate().getVariables();
-        variables.put("value", new Variable(Variable.TYPE_URI_ALL, "", true, false, true, true));
-        attach("/word/{language}/{value}", WordResource.class);
-        attach("/word/{value}", WordResource.class);
+        variables.put("keywordValue", new Variable(Variable.TYPE_URI_ALL, "", true, false, true, true));
+        attach("/word/{language}/{keywordValue}", WordResource.class);
+        attach("/word/{keywordValue}", WordResource.class);
 
         attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
         attach("/admin/events", AdminEventsResource.class);

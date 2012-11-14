@@ -21,20 +21,20 @@ public class UriResource extends ServerResource {
         extractUriValueFromUri();
         Uri uri;
         try {
-            uri = uriService.lookUp(value);
+            uri = uriService.lookUp(keywordValue);
             return ModelAndView.createNew("keyword.ftl").with("keywordData", keywordDataFactory.getKeywordData(uri));
         } catch (UriNotFound e) {
-            uri = new Uri("", null);
+            uri = new Uri(keywordValue, null);
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
             return ModelAndView.createNew("404.ftl").with("keywordData", keywordDataFactory.getKeywordData(uri));
         }
     }
 
     private void extractUriValueFromUri() {
-        value = getRequestAttributes().get("value").toString();
+        keywordValue = getRequestAttributes().get("keywordValue").toString();
     }
 
     private UriService uriService;
     private KeywordDataFactory keywordDataFactory;
-    private String value;
+    private String keywordValue;
 }

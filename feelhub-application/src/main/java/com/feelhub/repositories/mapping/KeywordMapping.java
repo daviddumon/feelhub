@@ -16,6 +16,7 @@ public class KeywordMapping extends EntityMap<Keyword> {
     protected void map() {
         id(element().getId()).natural();
         property(element().getValue());
+        property(element().getLanguageCode());
         property(element().getTopicId());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
@@ -24,7 +25,6 @@ public class KeywordMapping extends EntityMap<Keyword> {
 
             @Override
             protected void map() {
-                property(element().getLanguageCode());
                 property(element().isTranslationNeeded());
             }
         });

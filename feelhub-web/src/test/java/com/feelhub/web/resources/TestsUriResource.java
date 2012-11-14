@@ -11,6 +11,8 @@ import org.junit.*;
 import org.restlet.data.Status;
 import org.restlet.ext.freemarker.TemplateRepresentation;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
@@ -81,6 +83,35 @@ public class TestsUriResource {
         final Uri uri = TestFactories.keywords().newUri();
         final Illustration illustration = TestFactories.illustrations().newIllustrationFor(uri);
         final ClientResource uriResource = restlet.newClientResource("/uri/" + uri.getValue());
+
+        final TemplateRepresentation representation = (TemplateRepresentation) uriResource.get();
+
+        final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+        assertTrue(dataModel.containsKey("keywordData"));
+        final KeywordData keywordData = (KeywordData) dataModel.get("keywordData");
+        assertThat(keywordData.getIllustrationLink(), is(illustration.getLink()));
+        assertThat(keywordData.getKeywordValue(), is(uri.getValue()));
+        assertThat(keywordData.getLanguageCode(), is(uri.getLanguageCode()));
+        assertThat(keywordData.getTopicId(), is(uri.getTopicId().toString()));
+    }
+
+    @Test
+    public void keywordDataWithGoodValuesForNonExistingUri() {
+        final ClientResource uriResource = restlet.newClientResource("/uri/http://www.google.fr");
+
+        final TemplateRepresentation representation = (TemplateRepresentation) uriResource.get();
+
+        final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+        assertTrue(dataModel.containsKey("keywordData"));
+        final KeywordData keywordData = (KeywordData) dataModel.get("keywordData");
+        assertThat(keywordData.getKeywordValue(), is("http://www.google.fr"));
+    }
+
+    @Test
+    public void canUseEncodedUri() throws UnsupportedEncodingException {
+        final Uri uri = TestFactories.keywords().newUri();
+        final Illustration illustration = TestFactories.illustrations().newIllustrationFor(uri);
+        final ClientResource uriResource = restlet.newClientResource("/uri/" + URLEncoder.encode(uri.getValue(), "UTF-8"));
 
         final TemplateRepresentation representation = (TemplateRepresentation) uriResource.get();
 

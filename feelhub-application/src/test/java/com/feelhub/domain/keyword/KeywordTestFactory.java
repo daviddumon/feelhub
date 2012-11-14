@@ -43,12 +43,12 @@ public class KeywordTestFactory {
 
     public Uri newUri() {
         final Topic topic = TestFactories.topics().newTopic();
-        final Uri uri = new Uri("http://www.myuri.com", topic.getId());
+        final Uri uri = new Uri("http://www.myuri.com/test", topic.getId());
         Repositories.keywords().add(uri);
         return uri;
     }
 
-    public Keyword newUri(final String value) {
+    public Uri newUri(final String value) {
         final Topic topic = TestFactories.topics().newTopic();
         final Uri uri = new Uri(value, topic.getId());
         Repositories.keywords().add(uri);
