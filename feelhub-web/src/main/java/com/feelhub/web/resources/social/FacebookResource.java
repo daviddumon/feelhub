@@ -7,8 +7,7 @@ import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.inject.Inject;
 import com.restfb.types.User;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
+import org.joda.time.*;
 import org.restlet.data.Status;
 import org.restlet.resource.*;
 import org.scribe.model.Token;
@@ -30,7 +29,7 @@ public class FacebookResource extends ServerResource {
         final com.feelhub.domain.user.User user = userService.findOrCreateForFacebook(facebookUser.getId(), facebookUser.getEmail(),
                 facebookUser.getFirstName(), facebookUser.getLastName(), facebookUser.getLocale(), accesToken.getToken());
         authenticationManager.authenticate(AuthRequest.facebook(user.getId()));
-        if(isOldUser(user)) {
+        if (isOldUser(user)) {
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri(""));
             setStatus(Status.REDIRECTION_TEMPORARY);
             return ModelAndView.empty();

@@ -154,13 +154,13 @@ public class TestsApiFeelingsResource {
         final JSONArray jsonArray = new JSONArray(representation.getText());
         final JSONObject jsonFeeling = jsonArray.getJSONObject(0);
         assertThat(jsonFeeling.get("text").toString(), is("my feeling"));
-        final JSONArray jsonTopicDatas = jsonFeeling.getJSONArray("topicDatas");
-        assertThat(jsonTopicDatas.length(), is(1));
-        final JSONObject jsonTopicData = jsonTopicDatas.getJSONObject(0);
-        assertThat(jsonTopicData.get("topicId").toString(), is(topic.getId().toString()));
-        assertThat(jsonTopicData.get("sentimentValue").toString(), is(sentiment.getSentimentValue().toString()));
-        assertThat(jsonTopicData.get("keywordValue").toString(), is("mot"));
-        assertThat(jsonTopicData.get("languageCode").toString(), is("fr"));
+        final JSONArray jsonKeywordDatas = jsonFeeling.getJSONArray("keywordDatas");
+        assertThat(jsonKeywordDatas.length(), is(1));
+        final JSONObject jsonKeywordData = jsonKeywordDatas.getJSONObject(0);
+        assertThat(jsonKeywordData.get("topicId").toString(), is(topic.getId().toString()));
+        assertThat(jsonKeywordData.get("sentimentValue").toString(), is(sentiment.getSentimentValue().toString()));
+        assertThat(jsonKeywordData.get("keywordValue").toString(), is("mot"));
+        assertThat(jsonKeywordData.get("languageCode").toString(), is("fr"));
     }
 
     @Test
@@ -177,13 +177,13 @@ public class TestsApiFeelingsResource {
         final JSONArray jsonArray = new JSONArray(representation.getText());
         final JSONObject jsonFeeling = jsonArray.getJSONObject(0);
         assertThat(jsonFeeling.get("text").toString(), is("my feeling"));
-        final JSONArray jsonTopicDatas = jsonFeeling.getJSONArray("topicDatas");
-        assertThat(jsonTopicDatas.length(), is(1));
-        final JSONObject jsonTopicData = jsonTopicDatas.getJSONObject(0);
-        assertThat(jsonTopicData.get("topicId").toString(), is(topic.getId().toString()));
-        assertThat(jsonTopicData.get("sentimentValue").toString(), is(sentiment.getSentimentValue().toString()));
-        assertThat(jsonTopicData.get("keywordValue").toString(), is("keyword"));
-        assertThat(jsonTopicData.get("languageCode").toString(), is("en"));
+        final JSONArray jsonKeywordDatas = jsonFeeling.getJSONArray("keywordDatas");
+        assertThat(jsonKeywordDatas.length(), is(1));
+        final JSONObject jsonKeywordData = jsonKeywordDatas.getJSONObject(0);
+        assertThat(jsonKeywordData.get("topicId").toString(), is(topic.getId().toString()));
+        assertThat(jsonKeywordData.get("sentimentValue").toString(), is(sentiment.getSentimentValue().toString()));
+        assertThat(jsonKeywordData.get("keywordValue").toString(), is("keyword"));
+        assertThat(jsonKeywordData.get("languageCode").toString(), is("en"));
     }
 
     @Test
@@ -198,8 +198,8 @@ public class TestsApiFeelingsResource {
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        final JSONObject jsonTopicData = jsonArray.getJSONObject(0).getJSONArray("topicDatas").getJSONObject(0);
-        assertThat(jsonTopicData.get("illustrationLink").toString(), is("link"));
+        final JSONObject jsonKeywordData = jsonArray.getJSONObject(0).getJSONArray("keywordDatas").getJSONObject(0);
+        assertThat(jsonKeywordData.get("illustrationLink").toString(), is("link"));
     }
 
     @Test

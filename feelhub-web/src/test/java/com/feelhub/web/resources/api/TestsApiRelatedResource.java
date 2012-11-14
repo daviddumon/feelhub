@@ -113,7 +113,7 @@ public class TestsApiRelatedResource {
     }
 
     @Test
-    public void canGetEmptyTopicData() throws IOException, JSONException {
+    public void canGetEmptyKeywordData() throws IOException, JSONException {
         final Relation relation = TestFactories.relations().newRelation();
         final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId());
 
@@ -121,12 +121,12 @@ public class TestsApiRelatedResource {
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        final JSONObject topicDataAsJson = jsonArray.getJSONObject(0);
-        assertThat(topicDataAsJson, notNullValue());
-        assertThat(topicDataAsJson.get("topicId").toString(), is(relation.getToId().toString()));
-        assertThat(topicDataAsJson.get("keywordValue").toString(), is("?"));
-        assertThat(topicDataAsJson.get("languageCode").toString(), is("none"));
-        assertThat(topicDataAsJson.get("illustrationLink").toString(), is(""));
+        final JSONObject keywordDataAsJson = jsonArray.getJSONObject(0);
+        assertThat(keywordDataAsJson, notNullValue());
+        assertThat(keywordDataAsJson.get("topicId").toString(), is(relation.getToId().toString()));
+        assertThat(keywordDataAsJson.get("keywordValue").toString(), is("?"));
+        assertThat(keywordDataAsJson.get("languageCode").toString(), is("none"));
+        assertThat(keywordDataAsJson.get("illustrationLink").toString(), is(""));
     }
 
     @Test
@@ -140,12 +140,12 @@ public class TestsApiRelatedResource {
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        final JSONObject topicDataAsJson = jsonArray.getJSONObject(0);
-        assertThat(topicDataAsJson, notNullValue());
-        assertThat(topicDataAsJson.get("topicId").toString(), is(to.getId().toString()));
-        assertThat(topicDataAsJson.get("keywordValue").toString(), is("?"));
-        assertThat(topicDataAsJson.get("languageCode").toString(), is("none"));
-        assertThat(topicDataAsJson.get("illustrationLink").toString(), is(illustration.getLink()));
+        final JSONObject keywordDataAsJson = jsonArray.getJSONObject(0);
+        assertThat(keywordDataAsJson, notNullValue());
+        assertThat(keywordDataAsJson.get("topicId").toString(), is(to.getId().toString()));
+        assertThat(keywordDataAsJson.get("keywordValue").toString(), is("?"));
+        assertThat(keywordDataAsJson.get("languageCode").toString(), is("none"));
+        assertThat(keywordDataAsJson.get("illustrationLink").toString(), is(illustration.getLink()));
     }
 
     @Test
@@ -159,12 +159,12 @@ public class TestsApiRelatedResource {
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        final JSONObject topicDataAsJson = jsonArray.getJSONObject(0);
-        assertThat(topicDataAsJson, notNullValue());
-        assertThat(topicDataAsJson.get("topicId").toString(), is(to.getId().toString()));
-        assertThat(topicDataAsJson.get("keywordValue").toString(), is(keyword.getValue()));
-        assertThat(topicDataAsJson.get("languageCode").toString(), is(keyword.getLanguageCode()));
-        assertThat(topicDataAsJson.get("illustrationLink").toString(), is(""));
+        final JSONObject keywordDataAsJson = jsonArray.getJSONObject(0);
+        assertThat(keywordDataAsJson, notNullValue());
+        assertThat(keywordDataAsJson.get("topicId").toString(), is(to.getId().toString()));
+        assertThat(keywordDataAsJson.get("keywordValue").toString(), is(keyword.getValue()));
+        assertThat(keywordDataAsJson.get("languageCode").toString(), is(keyword.getLanguageCode()));
+        assertThat(keywordDataAsJson.get("illustrationLink").toString(), is(""));
     }
 
     @Test
@@ -180,12 +180,12 @@ public class TestsApiRelatedResource {
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        final JSONObject topicDataAsJson = jsonArray.getJSONObject(0);
-        assertThat(topicDataAsJson, notNullValue());
-        assertThat(topicDataAsJson.get("topicId").toString(), is(to.getId().toString()));
-        assertThat(topicDataAsJson.get("keywordValue").toString(), is(keyword.getValue()));
-        assertThat(topicDataAsJson.get("languageCode").toString(), is(keyword.getLanguageCode()));
-        assertThat(topicDataAsJson.get("illustrationLink").toString(), is(""));
+        final JSONObject keywordDataAsJson = jsonArray.getJSONObject(0);
+        assertThat(keywordDataAsJson, notNullValue());
+        assertThat(keywordDataAsJson.get("topicId").toString(), is(to.getId().toString()));
+        assertThat(keywordDataAsJson.get("keywordValue").toString(), is(keyword.getValue()));
+        assertThat(keywordDataAsJson.get("languageCode").toString(), is(keyword.getLanguageCode()));
+        assertThat(keywordDataAsJson.get("illustrationLink").toString(), is(""));
     }
 
     @Test
@@ -201,11 +201,11 @@ public class TestsApiRelatedResource {
 
         assertThat(representation, notNullValue());
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        final JSONObject topicDataAsJson = jsonArray.getJSONObject(0);
-        assertThat(topicDataAsJson, notNullValue());
-        assertThat(topicDataAsJson.get("topicId").toString(), is(to.getId().toString()));
-        assertThat(topicDataAsJson.get("keywordValue").toString(), is(keyword.getValue()));
-        assertThat(topicDataAsJson.get("languageCode").toString(), is(keyword.getLanguageCode()));
-        assertThat(topicDataAsJson.get("illustrationLink").toString(), is(""));
+        final JSONObject keywordDataAsJson = jsonArray.getJSONObject(0);
+        assertThat(keywordDataAsJson, notNullValue());
+        assertThat(keywordDataAsJson.get("topicId").toString(), is(to.getId().toString()));
+        assertThat(keywordDataAsJson.get("keywordValue").toString(), is(keyword.getValue()));
+        assertThat(keywordDataAsJson.get("languageCode").toString(), is(keyword.getLanguageCode()));
+        assertThat(keywordDataAsJson.get("illustrationLink").toString(), is(""));
     }
 }

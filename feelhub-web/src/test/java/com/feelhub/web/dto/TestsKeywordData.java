@@ -18,7 +18,7 @@ public class TestsKeywordData {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void topicDataHasATopicId() {
+    public void keywordDataHasATopicId() {
         final Topic topic = TestFactories.topics().newTopic();
 
         final KeywordData keywordData = new KeywordData.Builder().topicId(topic.getId()).build();
@@ -34,7 +34,7 @@ public class TestsKeywordData {
     }
 
     @Test
-    public void topicDataHasAnIllustration() {
+    public void keywordDataHasAnIllustration() {
         final Illustration illustration = TestFactories.illustrations().newIllustration(TestFactories.topics().newTopic(), "mylink");
 
         final KeywordData keywordData = new KeywordData.Builder().illustration(illustration).build();
@@ -50,7 +50,7 @@ public class TestsKeywordData {
     }
 
     @Test
-    public void topicDataHasAKeyword() {
+    public void keywordDataHasAKeyword() {
         final Keyword keyword = TestFactories.keywords().newWord("keyword");
 
         final KeywordData keywordData = new KeywordData.Builder().keyword(keyword).build();
@@ -66,7 +66,7 @@ public class TestsKeywordData {
     }
 
     @Test
-    public void topicDataHasALanguageCode() {
+    public void keywordDataHasALanguageCode() {
         final FeelhubLanguage language = FeelhubLanguage.reference();
 
         final KeywordData keywordData = new KeywordData.Builder().language(language).build();
@@ -82,7 +82,7 @@ public class TestsKeywordData {
     }
 
     @Test
-    public void topicDataHasASentimentValue() {
+    public void keywordDataHasASentimentValue() {
         final KeywordData keywordData = new KeywordData.Builder().sentimentValue(SentimentValue.good).build();
 
         assertThat(keywordData.getSentimentValue(), is(SentimentValue.good));

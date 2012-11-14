@@ -1,7 +1,6 @@
 package com.feelhub.domain.scraper.extractors;
 
 import org.jsoup.nodes.*;
-import org.jsoup.select.Elements;
 
 public class OpenGraphExtractor extends Extractor {
 

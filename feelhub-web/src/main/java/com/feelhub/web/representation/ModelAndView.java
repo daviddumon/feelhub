@@ -44,6 +44,7 @@ public class ModelAndView {
         data.put(key, value);
         return this;
     }
+
     private final String template;
     private final Map<String, Object> data = Maps.newConcurrentMap();
 

@@ -1,7 +1,7 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.application.*;
-import com.feelhub.domain.keyword.*;
+import com.feelhub.application.WordService;
+import com.feelhub.domain.keyword.KeywordNotFound;
 import com.feelhub.domain.keyword.word.Word;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.web.representation.ModelAndView;
