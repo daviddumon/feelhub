@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -15,7 +15,7 @@ import java.io.IOException;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsJsonRelationsResource {
+public class TestsApiRelationsResource {
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
@@ -25,7 +25,7 @@ public class TestsJsonRelationsResource {
 
     @Test
     public void relationsResourceIsMapped() {
-        final ClientResource relationsResource = restlet.newClientResource("/json/relations");
+        final ClientResource relationsResource = restlet.newClientResource("/api/relations");
 
         relationsResource.get();
 
@@ -34,7 +34,7 @@ public class TestsJsonRelationsResource {
 
     @Test
     public void canGetWithQueryString() {
-        final ClientResource relationsResource = restlet.newClientResource("/json/relations?q=test");
+        final ClientResource relationsResource = restlet.newClientResource("/api/relations?q=test");
 
         relationsResource.get();
 
@@ -44,7 +44,7 @@ public class TestsJsonRelationsResource {
     @Test
     public void canGetARelation() throws IOException, JSONException {
         TestFactories.relations().newRelation();
-        final ClientResource resource = restlet.newClientResource("/json/relations?skip=0&limit=1");
+        final ClientResource resource = restlet.newClientResource("/api/relations?skip=0&limit=1");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -59,7 +59,7 @@ public class TestsJsonRelationsResource {
         final Topic topic = TestFactories.topics().newTopic();
         TestFactories.relations().newRelations(5, topic);
         TestFactories.relations().newRelations(20);
-        final ClientResource resource = restlet.newClientResource("/json/relations?topicId=" + topic.getId());
+        final ClientResource resource = restlet.newClientResource("/api/relations?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -72,7 +72,7 @@ public class TestsJsonRelationsResource {
     @Test
     public void canGetRelationsWithSkip() throws IOException, JSONException {
         TestFactories.relations().newRelations(5);
-        final ClientResource resource = restlet.newClientResource("/json/relations?skip=2");
+        final ClientResource resource = restlet.newClientResource("/api/relations?skip=2");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -85,7 +85,7 @@ public class TestsJsonRelationsResource {
     @Test
     public void canGetRelationsWithLimit() throws IOException, JSONException {
         TestFactories.relations().newRelations(5);
-        final ClientResource resource = restlet.newClientResource("/json/relations?limit=2");
+        final ClientResource resource = restlet.newClientResource("/api/relations?limit=2");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -98,7 +98,7 @@ public class TestsJsonRelationsResource {
     @Test
     public void defaultLimitIs100() throws IOException, JSONException {
         TestFactories.relations().newRelations(150);
-        final ClientResource resource = restlet.newClientResource("/json/relations");
+        final ClientResource resource = restlet.newClientResource("/api/relations");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 

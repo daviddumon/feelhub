@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.statistics.*;
@@ -14,10 +14,10 @@ import org.restlet.resource.*;
 
 import java.util.*;
 
-public class JsonStatisticsResource extends ServerResource {
+public class ApiStatisticsResource extends ServerResource {
 
     @Inject
-    public JsonStatisticsResource(final TopicService topicService, final StatisticsSearch statisticsSearch) {
+    public ApiStatisticsResource(final TopicService topicService, final StatisticsSearch statisticsSearch) {
         this.topicService = topicService;
         this.statisticsSearch = statisticsSearch;
     }
@@ -26,7 +26,7 @@ public class JsonStatisticsResource extends ServerResource {
     public ModelAndView represent() throws JSONException {
         extractParameters(getQuery());
         fetchStatistics();
-        return ModelAndView.createNew("json/statistics.json.ftl", MediaType.APPLICATION_JSON).with("statistics", statistics);
+        return ModelAndView.createNew("api/statistics.json.ftl", MediaType.APPLICATION_JSON).with("statistics", statistics);
     }
 
     private void extractParameters(final Form query) {
@@ -40,7 +40,7 @@ public class JsonStatisticsResource extends ServerResource {
         if (query.getQueryString().contains(value)) {
             return query.getFirstValue(value).trim();
         } else {
-            throw new FeelhubJsonException();
+            throw new FeelhubApiException();
         }
     }
 

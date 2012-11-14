@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.*;
@@ -19,7 +19,7 @@ import org.restlet.ext.json.JsonRepresentation;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsJsonCreateFeelingResource {
+public class TestsApiCreateFeelingResource {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -37,7 +37,7 @@ public class TestsJsonCreateFeelingResource {
     public void before() {
         user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
-        feelingsResource = new JsonCreateFeelingResource();
+        feelingsResource = new ApiCreateFeelingResource();
         feelingsResource.setResponse(new Response(new Request()));
     }
 
@@ -228,5 +228,5 @@ public class TestsJsonCreateFeelingResource {
     }
 
     private User user;
-    private JsonCreateFeelingResource feelingsResource;
+    private ApiCreateFeelingResource feelingsResource;
 }

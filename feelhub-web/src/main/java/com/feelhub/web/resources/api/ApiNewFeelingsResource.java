@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.feeling.Feeling;
@@ -14,10 +14,10 @@ import org.restlet.resource.*;
 
 import java.util.*;
 
-public class JsonNewFeelingsResource extends ServerResource {
+public class ApiNewFeelingsResource extends ServerResource {
 
     @Inject
-    public JsonNewFeelingsResource(final TopicDataFactory topicDataFactory, final FeelingSearch feelingSearch, final TopicService topicService) {
+    public ApiNewFeelingsResource(final TopicDataFactory topicDataFactory, final FeelingSearch feelingSearch, final TopicService topicService) {
         this.topicDataFactory = topicDataFactory;
         this.feelingSearch = feelingSearch;
         this.topicService = topicService;
@@ -28,7 +28,7 @@ public class JsonNewFeelingsResource extends ServerResource {
         final List<Feeling> feelings = doSearchWithQueryParameters(getQuery());
         final List<FeelingData> feelingDatas = getFeelingDatas(feelings);
         setStatus(Status.SUCCESS_OK);
-        return ModelAndView.createNew("json/newfeelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
+        return ModelAndView.createNew("api/newfeelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
     }
 
     private List<Feeling> doSearchWithQueryParameters(final Form form) {

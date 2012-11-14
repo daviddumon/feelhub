@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.*;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsJsonFeelingsResource {
+public class TestsApiFeelingsResource {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -35,7 +35,7 @@ public class TestsJsonFeelingsResource {
 
     @Test
     public void feelingsResourceIsMapped() {
-        final ClientResource feelingsResource = restlet.newClientResource("/json/feelings");
+        final ClientResource feelingsResource = restlet.newClientResource("/api/feelings");
 
         feelingsResource.get();
 
@@ -44,7 +44,7 @@ public class TestsJsonFeelingsResource {
 
     @Test
     public void canGetWithQueryString() {
-        final ClientResource feelingsResource = restlet.newClientResource("/json/feelings?q=test");
+        final ClientResource feelingsResource = restlet.newClientResource("/api/feelings?q=test");
 
         feelingsResource.get();
 
@@ -54,7 +54,7 @@ public class TestsJsonFeelingsResource {
     @Test
     public void canGetAnFeeling() throws IOException, JSONException {
         TestFactories.feelings().newFeeling();
-        final ClientResource resource = restlet.newClientResource("/json/feelings?skip=0&limit=1");
+        final ClientResource resource = restlet.newClientResource("/api/feelings?skip=0&limit=1");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -67,7 +67,7 @@ public class TestsJsonFeelingsResource {
     @Test
     public void defaultLimitIs100() throws IOException, JSONException {
         TestFactories.feelings().newFeelings(150);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?skip=0");
+        final ClientResource clientResource = restlet.newClientResource("/api/feelings?skip=0");
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
@@ -79,7 +79,7 @@ public class TestsJsonFeelingsResource {
     @Test
     public void defaultSkipIs0() throws IOException, JSONException {
         TestFactories.feelings().newFeelings(100);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?limit=10");
+        final ClientResource clientResource = restlet.newClientResource("/api/feelings?limit=10");
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
@@ -90,7 +90,7 @@ public class TestsJsonFeelingsResource {
 
     @Test
     public void canGetMultipleFeelings() throws JSONException, IOException {
-        final ClientResource resource = restlet.newClientResource("/json/feelings?skip=0&limit=10");
+        final ClientResource resource = restlet.newClientResource("/api/feelings?skip=0&limit=10");
         TestFactories.feelings().newFeeling();
         TestFactories.feelings().newFeeling();
         TestFactories.feelings().newFeeling();
@@ -107,7 +107,7 @@ public class TestsJsonFeelingsResource {
         TestFactories.feelings().newFeeling();
         TestFactories.feelings().newFeeling();
         TestFactories.feelings().newFeeling();
-        final ClientResource resource = restlet.newClientResource("/json/feelings?skip=1");
+        final ClientResource resource = restlet.newClientResource("/api/feelings?skip=1");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -118,7 +118,7 @@ public class TestsJsonFeelingsResource {
 
     @Test
     public void canThrowFeelhubJsonException() {
-        final ClientResource resource = restlet.newClientResource("/json/feelings?skip=0&limit=101");
+        final ClientResource resource = restlet.newClientResource("/api/feelings?skip=0&limit=101");
 
         resource.get();
 
@@ -131,7 +131,7 @@ public class TestsJsonFeelingsResource {
         TestFactories.feelings().newFeelings(10);
         TestFactories.feelings().newFeelings(topic, 10);
         TestFactories.feelings().newFeelings(10);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
+        final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
@@ -147,7 +147,7 @@ public class TestsJsonFeelingsResource {
         TestFactories.keywords().newWord("mot", FeelhubLanguage.forString("fr"), topic);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId() + "&languageCode=fr");
+        final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId() + "&languageCode=fr");
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
@@ -170,7 +170,7 @@ public class TestsJsonFeelingsResource {
         TestFactories.keywords().newWord("mot", FeelhubLanguage.forString("fr"), topic);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
+        final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
@@ -193,7 +193,7 @@ public class TestsJsonFeelingsResource {
         TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
+        final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
@@ -209,7 +209,7 @@ public class TestsJsonFeelingsResource {
         TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
+        final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
@@ -224,7 +224,7 @@ public class TestsJsonFeelingsResource {
         TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         final Feeling feeling = TestFactories.feelings().newFeeling("my feeling", sentiment);
-        final ClientResource clientResource = restlet.newClientResource("/json/feelings?topicId=" + topic.getId());
+        final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 

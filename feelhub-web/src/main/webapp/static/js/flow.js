@@ -36,7 +36,7 @@ Flow.prototype.drawData = function () {
 
     function loadData() {
         var parameters = [];
-        var uri = root + "/json/feelings?";
+        var uri = root + "/api/feelings?";
         if (topicId.length > 0) {
             parameters.push({"value":"topicId=" + encodeURIComponent(topicId)});
         }
@@ -172,7 +172,7 @@ Flow.prototype.poll = function (time) {
 
     THIS.pollNewFeelings = setInterval(function () {
         var parameters = [];
-        var uri = root + "/json/newfeelings";
+        var uri = root + "/api/newfeelings";
         if (topicId.length > 0) {
             parameters.push({"value":"topicId=" + encodeURIComponent(topicId)});
         }

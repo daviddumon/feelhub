@@ -22,7 +22,7 @@ function postFeeling(sentimentValue, text) {
     //console.log("ajax call");
     //console.log(feelingData);
     $.ajax({
-        url:root + '/json/createfeeling',
+        url:root + '/api/createfeeling',
         type:'POST',
         contentType:'application/json',
         data:JSON.stringify(feelingData),

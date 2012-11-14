@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.feeling.Feeling;
@@ -14,10 +14,10 @@ import org.restlet.resource.*;
 
 import java.util.*;
 
-public class JsonFeelingsResource extends ServerResource {
+public class ApiFeelingsResource extends ServerResource {
 
     @Inject
-    public JsonFeelingsResource(final TopicService topicService, final FeelingSearch feelingSearch, final TopicDataFactory topicDataFactory) {
+    public ApiFeelingsResource(final TopicService topicService, final FeelingSearch feelingSearch, final TopicDataFactory topicDataFactory) {
         this.topicService = topicService;
         this.feelingSearch = feelingSearch;
         this.topicDataFactory = topicDataFactory;
@@ -29,7 +29,7 @@ public class JsonFeelingsResource extends ServerResource {
         final List<Feeling> feelings = doSearchWithQueryParameters(form);
         extractLanguageParameter(form);
         final List<FeelingData> feelingDatas = getFeelingDatas(feelings);
-        return ModelAndView.createNew("json/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
+        return ModelAndView.createNew("api/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
     }
 
     private List<Feeling> doSearchWithQueryParameters(final Form form) {
@@ -43,7 +43,7 @@ public class JsonFeelingsResource extends ServerResource {
         if (form.getQueryString().contains("limit")) {
             final int limit = Integer.parseInt(form.getFirstValue("limit").trim());
             if (limit > 100) {
-                throw new FeelhubJsonException();
+                throw new FeelhubApiException();
             }
             feelingSearch.withLimit(limit);
         } else {

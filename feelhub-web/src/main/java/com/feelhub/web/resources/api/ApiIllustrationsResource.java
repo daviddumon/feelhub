@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.illustration.Illustration;
 import com.feelhub.web.representation.ModelAndView;
@@ -11,10 +11,10 @@ import org.restlet.resource.*;
 
 import java.util.*;
 
-public class JsonIllustrationsResource extends ServerResource {
+public class ApiIllustrationsResource extends ServerResource {
 
     @Inject
-    public JsonIllustrationsResource(final IllustrationSearch illustrationSearch) {
+    public ApiIllustrationsResource(final IllustrationSearch illustrationSearch) {
         this.illustrationSearch = illustrationSearch;
     }
 
@@ -27,7 +27,7 @@ public class JsonIllustrationsResource extends ServerResource {
             topicIds.add(UUID.fromString(topicIdsAsString[i]));
         }
         final List<Illustration> illustrations = illustrationSearch.withTopics(topicIds).execute();
-        return ModelAndView.createNew("json/illustrations.json.ftl", MediaType.APPLICATION_JSON).with("illustrations", illustrations);
+        return ModelAndView.createNew("api/illustrations.json.ftl", MediaType.APPLICATION_JSON).with("illustrations", illustrations);
     }
 
     private final IllustrationSearch illustrationSearch;

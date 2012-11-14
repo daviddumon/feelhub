@@ -3,7 +3,7 @@ package com.feelhub.web.status;
 import com.feelhub.domain.feeling.FeelingCreationException;
 import com.feelhub.domain.keyword.uri.UriException;
 import com.feelhub.domain.user.BadUserException;
-import com.feelhub.web.resources.json.FeelhubJsonException;
+import com.feelhub.web.resources.api.FeelhubApiException;
 import com.google.common.collect.Maps;
 import org.restlet.*;
 import org.restlet.data.Status;
@@ -16,7 +16,7 @@ public class FeelhubStatusService extends StatusService {
 
     public FeelhubStatusService() {
         resolvers.put(UriException.class, new ExceptionResolver400());
-        resolvers.put(FeelhubJsonException.class, new JsonExceptionResolver());
+        resolvers.put(FeelhubApiException.class, new JsonExceptionResolver());
         resolvers.put(FeelingCreationException.class, new ExceptionResolver400());
         resolvers.put(BadUserException.class, new UserExceptionResolver());
     }

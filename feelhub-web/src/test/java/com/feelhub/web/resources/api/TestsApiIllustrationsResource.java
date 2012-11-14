@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsJsonIllustrationsResource {
+public class TestsApiIllustrationsResource {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -30,7 +30,7 @@ public class TestsJsonIllustrationsResource {
     @Test
     public void illustrationsResourceIsMapped() {
         final Topic topic = TestFactories.topics().newTopic();
-        final ClientResource resource = restlet.newClientResource("/json/illustrations?topicId=" + topic.getId());
+        final ClientResource resource = restlet.newClientResource("/api/illustrations?topicId=" + topic.getId());
 
         final Representation representation = resource.get();
 
@@ -42,7 +42,7 @@ public class TestsJsonIllustrationsResource {
     public void canGetIllustrationsForATopic() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
         TestFactories.illustrations().newIllustration(topic, "link");
-        final ClientResource resource = restlet.newClientResource("/json/illustrations?topicId=" + topic.getId());
+        final ClientResource resource = restlet.newClientResource("/api/illustrations?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -59,7 +59,7 @@ public class TestsJsonIllustrationsResource {
         TestFactories.illustrations().newIllustration(topic1, "link");
         TestFactories.illustrations().newIllustration(topic2, "link");
         TestFactories.illustrations().newIllustration(topic3, "link");
-        final ClientResource resource = restlet.newClientResource("/json/illustrations?topicId=" + topic1.getId() + "," + topic2.getId());
+        final ClientResource resource = restlet.newClientResource("/api/illustrations?topicId=" + topic1.getId() + "," + topic2.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 

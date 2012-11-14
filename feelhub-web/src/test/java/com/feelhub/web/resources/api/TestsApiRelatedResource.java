@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.illustration.Illustration;
 import com.feelhub.domain.keyword.Keyword;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestsJsonRelatedResource {
+public class TestsApiRelatedResource {
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
@@ -29,7 +29,7 @@ public class TestsJsonRelatedResource {
 
     @Test
     public void relatedResourceIsMapped() {
-        final ClientResource relatedResource = restlet.newClientResource("/json/related");
+        final ClientResource relatedResource = restlet.newClientResource("/api/related");
 
         relatedResource.get();
 
@@ -38,7 +38,7 @@ public class TestsJsonRelatedResource {
 
     @Test
     public void canGetWithQueryString() {
-        final ClientResource relatedResource = restlet.newClientResource("/json/related?q=test");
+        final ClientResource relatedResource = restlet.newClientResource("/api/related?q=test");
 
         relatedResource.get();
 
@@ -48,7 +48,7 @@ public class TestsJsonRelatedResource {
     @Test
     public void canGetARelated() throws IOException, JSONException {
         TestFactories.relations().newRelation();
-        final ClientResource resource = restlet.newClientResource("/json/related?skip=0&limit=1");
+        final ClientResource resource = restlet.newClientResource("/api/related?skip=0&limit=1");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -63,7 +63,7 @@ public class TestsJsonRelatedResource {
         final Topic topic = TestFactories.topics().newTopic();
         TestFactories.relations().newRelations(5, topic);
         TestFactories.relations().newRelations(20);
-        final ClientResource resource = restlet.newClientResource("/json/related?topicId=" + topic.getId());
+        final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -76,7 +76,7 @@ public class TestsJsonRelatedResource {
     @Test
     public void canGetRelatedWithSkip() throws IOException, JSONException {
         TestFactories.relations().newRelations(5);
-        final ClientResource resource = restlet.newClientResource("/json/related?skip=2");
+        final ClientResource resource = restlet.newClientResource("/api/related?skip=2");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -89,7 +89,7 @@ public class TestsJsonRelatedResource {
     @Test
     public void canGetRelatedWithLimit() throws IOException, JSONException {
         TestFactories.relations().newRelations(5);
-        final ClientResource resource = restlet.newClientResource("/json/related?limit=2");
+        final ClientResource resource = restlet.newClientResource("/api/related?limit=2");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -102,7 +102,7 @@ public class TestsJsonRelatedResource {
     @Test
     public void defaultLimitIs100() throws IOException, JSONException {
         TestFactories.relations().newRelations(150);
-        final ClientResource resource = restlet.newClientResource("/json/related");
+        final ClientResource resource = restlet.newClientResource("/api/related");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -115,7 +115,7 @@ public class TestsJsonRelatedResource {
     @Test
     public void canGetEmptyTopicData() throws IOException, JSONException {
         final Relation relation = TestFactories.relations().newRelation();
-        final ClientResource resource = restlet.newClientResource("/json/related?topicId=" + relation.getFromId());
+        final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -134,7 +134,7 @@ public class TestsJsonRelatedResource {
         final Topic to = TestFactories.topics().newTopic();
         final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic(), to);
         final Illustration illustration = TestFactories.illustrations().newIllustration(to);
-        final ClientResource resource = restlet.newClientResource("/json/related?topicId=" + relation.getFromId());
+        final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -153,7 +153,7 @@ public class TestsJsonRelatedResource {
         final Topic to = TestFactories.topics().newTopic();
         final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic(), to);
         final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.none(), to);
-        final ClientResource resource = restlet.newClientResource("/json/related?topicId=" + relation.getFromId());
+        final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -174,7 +174,7 @@ public class TestsJsonRelatedResource {
         TestFactories.keywords().newWord("eskeyword", FeelhubLanguage.forString("es"), to);
         final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), to);
         TestFactories.keywords().newWord("frkeyword", FeelhubLanguage.forString("fr"), to);
-        final ClientResource resource = restlet.newClientResource("/json/related?topicId=" + relation.getFromId() + "&limit=50&languageCode=" + FeelhubLanguage.reference().getCode());
+        final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId() + "&limit=50&languageCode=" + FeelhubLanguage.reference().getCode());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 
@@ -195,7 +195,7 @@ public class TestsJsonRelatedResource {
         TestFactories.keywords().newWord("eskeyword", FeelhubLanguage.forString("es"), to);
         final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), to);
         TestFactories.keywords().newWord("dekeyword", FeelhubLanguage.forString("de"), to);
-        final ClientResource resource = restlet.newClientResource("/json/related?topicId=" + relation.getFromId() + "&limit=50&languageCode=fr");
+        final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId() + "&limit=50&languageCode=fr");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 

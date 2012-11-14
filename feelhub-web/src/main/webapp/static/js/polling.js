@@ -10,7 +10,7 @@ function buildInternalLink(languageCode, value) {
 function RequestRelations(topicId) {
     if (topicId.length != 0) {
         var parameters = [];
-        var uri = root + "/json/related?";
+        var uri = root + "/api/related?";
         parameters.push({"value":"topicId=" + topicId});
         parameters.push({"value":"limit=12"});
         if (typeof userLanguageCode !== 'undefined') {
@@ -45,7 +45,7 @@ function RequestRelations(topicId) {
 
 function RequestCounters(topicId) {
     if (topicId.length != 0) {
-        $.getJSON(root + "/json/statistics?granularity=all&start=0&end=" + new Date().getTime() + "&topicId=" + topicId, function (data) {
+        $.getJSON(root + "/api/statistics?granularity=all&start=0&end=" + new Date().getTime() + "&topicId=" + topicId, function (data) {
             $.each(data, function (index, stat) {
                 $("#counter_good p").text(stat.good);
                 $("#counter_bad p").text(stat.bad);
@@ -57,7 +57,7 @@ function RequestCounters(topicId) {
 
 function pollForId(feelingId, text, sentimentValue) {
     var topicIdPolling = setInterval(function () {
-        $.getJSON(root + "/json/keyword?keywordValue=" + encodeURIComponent(keywordValue) + "&languageCode=" + languageCode, function (data) {
+        $.getJSON(root + "/api/keyword?keywordValue=" + encodeURIComponent(keywordValue) + "&languageCode=" + languageCode, function (data) {
 
         })
             .success(function (data) {

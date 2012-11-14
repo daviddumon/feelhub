@@ -1,5 +1,6 @@
 package com.feelhub.domain.illustration;
 
+import com.feelhub.domain.keyword.uri.Uri;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 
@@ -19,6 +20,12 @@ public class IllustrationTestFactory {
 
     public Illustration newIllustration(final UUID topicId) {
         final Illustration illustration = new Illustration(topicId, "http://www.fake.com/illustration.jpg");
+        Repositories.illustrations().add(illustration);
+        return illustration;
+    }
+
+    public Illustration newIllustrationFor(final Uri uri) {
+        final Illustration illustration = new Illustration(uri.getTopicId(), "http://www.fake.com/illustration.jpg");
         Repositories.illustrations().add(illustration);
         return illustration;
     }

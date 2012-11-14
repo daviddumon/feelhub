@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
@@ -12,7 +12,7 @@ import org.restlet.resource.*;
 
 import java.util.UUID;
 
-public class JsonCreateFeelingResource extends ServerResource {
+public class ApiCreateFeelingResource extends ServerResource {
 
     @Post
     public JsonRepresentation add(final JsonRepresentation jsonRepresentation) {

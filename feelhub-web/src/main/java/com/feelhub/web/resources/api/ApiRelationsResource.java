@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.relation.Relation;
@@ -12,10 +12,10 @@ import org.restlet.resource.*;
 
 import java.util.*;
 
-public class JsonRelationsResource extends ServerResource {
+public class ApiRelationsResource extends ServerResource {
 
     @Inject
-    public JsonRelationsResource(final TopicService topicService, final RelationSearch relationSearch) {
+    public ApiRelationsResource(final TopicService topicService, final RelationSearch relationSearch) {
         this.topicService = topicService;
         this.relationSearch = relationSearch;
     }
@@ -24,7 +24,7 @@ public class JsonRelationsResource extends ServerResource {
     public ModelAndView represent() {
         doSearchWithQueryParameters();
         loadTopics();
-        return ModelAndView.createNew("json/relations.json.ftl", MediaType.APPLICATION_JSON).with("topics", topics);
+        return ModelAndView.createNew("api/relations.json.ftl", MediaType.APPLICATION_JSON).with("topics", topics);
     }
 
     private void doSearchWithQueryParameters() {
@@ -39,7 +39,7 @@ public class JsonRelationsResource extends ServerResource {
         if (form.getQueryString().contains("limit")) {
             final int limit = Integer.parseInt(form.getFirstValue("limit").trim());
             if (limit > 100) {
-                throw new FeelhubJsonException();
+                throw new FeelhubApiException();
             }
             relationSearch.withLimit(limit);
         } else {

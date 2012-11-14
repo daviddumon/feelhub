@@ -1,6 +1,6 @@
-package com.feelhub.web.resources.json;
+package com.feelhub.web.resources.api;
 
-import com.feelhub.domain.keyword.Keyword;
+import com.feelhub.domain.keyword.word.Word;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
@@ -10,7 +10,7 @@ import org.restlet.data.Status;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-public class TestsJsonKeywordResource {
+public class TestsApiWordResource {
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
@@ -20,8 +20,8 @@ public class TestsJsonKeywordResource {
 
     @Test
     public void canGetTopicIdOfKeyword() {
-        final Keyword keyword = TestFactories.keywords().newWord();
-        final ClientResource clientResource = restlet.newClientResource("/json/keyword?keywordValue=" + keyword.getValue() + "&languageCode=" + keyword.getLanguageCode());
+        final Word word = TestFactories.keywords().newWord();
+        final ClientResource clientResource = restlet.newClientResource("/api/word?value=" + word.getValue() + "&languageCode=" + word.getLanguageCode());
 
         clientResource.get();
 
