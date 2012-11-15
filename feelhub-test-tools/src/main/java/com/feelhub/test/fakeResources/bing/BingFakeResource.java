@@ -14,7 +14,7 @@ public class BingFakeResource extends ServerResource {
         final String filename = query.replaceAll("\\'", "");
         File file = new File("feelhub-test-tools/src/main/java/com/feelhub/test/fakeResources/bing/" + filename + ".json");
         if (!file.exists()) {
-            file = new File("src/main/java/com/feelhub/test/fakeResources/bing/" + filename + ".json");
+            file = new File("../feelhub-test-tools/src/main/java/com/feelhub/test/fakeResources/bing/" + filename + ".json");
         }
         return new FileRepresentation(file, MediaType.APPLICATION_JSON);
     }
