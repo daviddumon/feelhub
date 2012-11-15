@@ -2,6 +2,7 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.keyword.Keyword;
+import com.feelhub.domain.keyword.word.Word;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.translation.*;
@@ -99,6 +100,21 @@ public class TestsAlchemyAnalyzer {
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
 
         assertThat(Repositories.alchemyAnalysis().getAll().size()).isEqualTo(1);
+    }
+
+    @Test
+    public void doNotStoreAlchemyEntityIfOneAlreadyExists() {
+        when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
+        final Topic topic = TestFactories.topics().newTopic();
+        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic);
+        final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
+        final Word word = TestFactories.keywords().newWord("Keyword1", FeelhubLanguage.forString("english"));
+        final AlchemyEntity alchemyEntity = new AlchemyEntity(word.getTopicId());
+        Repositories.alchemyEntities().add(alchemyEntity);
+
+        DomainEventBus.INSTANCE.post(alchemyRequestEvent);
+
+        assertThat(Repositories.alchemyEntities().getAll().size()).isEqualTo(1);
     }
 
     @Test

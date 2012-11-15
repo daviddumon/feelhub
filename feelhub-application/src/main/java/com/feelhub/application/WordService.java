@@ -64,9 +64,7 @@ public class WordService {
                     final Word referenceWord = lookUp(translatedValue, FeelhubLanguage.reference());
                     word = createWord(value, feelhubLanguage, referenceWord.getTopicId());
                 } catch (WordNotFound e) {
-                    final Topic topic = topicService.newTopic();
-                    createWord(translatedValue, FeelhubLanguage.reference(), topic.getId());
-                    word = createWord(value, feelhubLanguage, topic.getId());
+                    word = createReferenceWord(value, feelhubLanguage, translatedValue);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -79,6 +77,12 @@ public class WordService {
         }
         requestWordIllustration(word, type);
         return word;
+    }
+
+    private Word createReferenceWord(final String value, final FeelhubLanguage feelhubLanguage, final String translatedValue) {
+        final Topic topic = topicService.newTopic();
+        createWord(translatedValue, FeelhubLanguage.reference(), topic.getId());
+        return createWord(value, feelhubLanguage, topic.getId());
     }
 
     private Word createWord(final String value, final FeelhubLanguage feelhubLanguage, final UUID topicId) {

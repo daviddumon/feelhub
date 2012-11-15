@@ -54,11 +54,26 @@ public class AlchemyAnalyzer {
                     final KeywordMerger keywordMerger = new KeywordMerger();
                     keywordMerger.merge(keywords);
                 }
-                final AlchemyEntity alchemyEntity = createAlchemyEntity(namedEntity, keywords.get(0));
-                entities.add(alchemyEntity);
+                tryToCreateAlchemyEntity(entities, namedEntity, keywords);
             }
         }
         return entities;
+    }
+
+    private void tryToCreateAlchemyEntity(final List<AlchemyEntity> entities, final NamedEntity namedEntity, final List<Keyword> keywords) {
+        try {
+            existsAlchemyEntity(keywords.get(0).getTopicId());
+        } catch (AlchemyEntityNotFound e) {
+            final AlchemyEntity alchemyEntity = createAlchemyEntity(namedEntity, keywords.get(0));
+            entities.add(alchemyEntity);
+        }
+    }
+
+    private void existsAlchemyEntity(final UUID topicId) {
+        final List<AlchemyEntity> alchemyEntities = Repositories.alchemyEntities().forTopicId(topicId);
+        if (alchemyEntities.isEmpty()) {
+            throw new AlchemyEntityNotFound();
+        }
     }
 
     private AlchemyEntity createAlchemyEntity(final NamedEntity namedEntity, final Keyword keyword) {

@@ -11,8 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsNamedEntityProvider {
 
@@ -40,8 +39,8 @@ public class TestsNamedEntityProvider {
 
         final List<NamedEntity> results = namedEntityProvider.entitiesFor(keyword);
 
-        assertThat(results, notNullValue());
-        assertThat(results.size(), is(19));
+        assertThat(results).isNotNull();
+        assertThat(results.size()).isEqualTo(19);
     }
 
     @Test
@@ -52,8 +51,8 @@ public class TestsNamedEntityProvider {
         namedEntityProvider.entitiesFor(keyword);
 
         final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().getAll();
-        assertThat(alchemyAnalysisList.size(), is(1));
-        assertThat(alchemyAnalysisList.get(0).getLanguageCode(), is(FeelhubLanguage.forString("english").getCode()));
+        assertThat(alchemyAnalysisList.size()).isEqualTo(1);
+        assertThat(alchemyAnalysisList.get(0).getLanguageCode()).isEqualTo(FeelhubLanguage.forString("english").getCode());
     }
 
     @Test

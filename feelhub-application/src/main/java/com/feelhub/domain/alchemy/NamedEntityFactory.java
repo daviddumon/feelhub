@@ -5,7 +5,7 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 
 import java.util.regex.*;
 
-public class NamedEntityBuilder {
+public class NamedEntityFactory {
 
     public NamedEntity build(final AlchemyJsonEntity alchemyJsonEntity) {
         final NamedEntity entity = new NamedEntity();
@@ -43,7 +43,7 @@ public class NamedEntityBuilder {
     }
 
     private void checkForSize(final String text) throws Exception {
-        final int TOO_SMALL = 3;
+        final int TOO_SMALL = 2;
         if (text.length() < TOO_SMALL) {
             throw new Exception();
         }

@@ -14,9 +14,9 @@ import java.util.List;
 public class NamedEntityProvider {
 
     @Inject
-    public NamedEntityProvider(final AlchemyLink alchemyLink, final NamedEntityBuilder namedEntityBuilder) {
+    public NamedEntityProvider(final AlchemyLink alchemyLink, final NamedEntityFactory namedEntityFactory) {
         this.alchemyLink = alchemyLink;
-        this.namedEntityBuilder = namedEntityBuilder;
+        this.namedEntityFactory = namedEntityFactory;
     }
 
     public List<NamedEntity> entitiesFor(final Keyword keyword) {
@@ -45,7 +45,7 @@ public class NamedEntityProvider {
         final List<NamedEntity> results = Lists.newArrayList();
         for (final AlchemyJsonEntity entity : alchemyJsonResults.entities) {
             entity.language = alchemyJsonResults.language;
-            final NamedEntity namedEntity = namedEntityBuilder.build(entity);
+            final NamedEntity namedEntity = namedEntityFactory.build(entity);
             if (namedEntity != null) {
                 results.add(namedEntity);
             }
@@ -60,5 +60,5 @@ public class NamedEntityProvider {
     }
 
     private final AlchemyLink alchemyLink;
-    private final NamedEntityBuilder namedEntityBuilder;
+    private final NamedEntityFactory namedEntityFactory;
 }

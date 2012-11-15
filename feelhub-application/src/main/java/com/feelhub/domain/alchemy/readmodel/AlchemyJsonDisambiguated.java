@@ -28,7 +28,6 @@ public class AlchemyJsonDisambiguated {
     public List<String> subType;
     public String website;
     public String geo;
-
     public String dbpedia;
     public String yago;
     public String opencyc;
