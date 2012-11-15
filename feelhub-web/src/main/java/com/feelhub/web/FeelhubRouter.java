@@ -6,6 +6,7 @@ import com.feelhub.web.resources.admin.*;
 import com.feelhub.web.resources.api.*;
 import com.feelhub.web.resources.authentification.*;
 import com.feelhub.web.resources.social.FacebookResource;
+import com.feelhub.web.resources.social.SocialWelcomeResource;
 import com.google.inject.Injector;
 import org.restlet.Context;
 import org.restlet.resource.Finder;
@@ -52,6 +53,7 @@ public class FeelhubRouter extends Router {
         attach("/sitemap_index_{number}.xml", FeelhubSitemapIndexResource.class);
         attach("/sitemap_{number}.xml", FeelhubSitemapResource.class);
         attach("/social/facebook", FacebookResource.class);
+        attach("/social/welcome", SocialWelcomeResource.class);
 
         attach("/", HomeResource.class);
     }
