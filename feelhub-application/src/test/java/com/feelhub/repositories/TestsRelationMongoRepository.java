@@ -8,8 +8,8 @@ import org.junit.*;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
+
 
 public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
@@ -33,14 +33,13 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
         final DBObject query = new BasicDBObject();
         query.put("_id", relation.getId());
         final DBObject relationFound = relations.findOne(query);
-        assertThat(relationFound, notNullValue());
-        assertThat(relationFound.get("_id").toString(), is(relation.getId().toString()));
-        assertThat(relationFound.get("fromId").toString(), is(relation.getFromId().toString()));
-        assertThat(relationFound.get("toId").toString(), is(relation.getToId().toString()));
-        assertThat(relationFound.get("creationDate"), is((Object) relation.getCreationDate().getMillis()));
-        assertThat(relationFound.get("weight"), is((Object) 1.0));
-        assertThat(relationFound.get("creationDate"), is((Object) time.getNow().getMillis()));
-        assertThat(relationFound.get("lastModificationDate"), is((Object) time.getNow().getMillis()));
+        assertThat(relationFound).isNotNull();
+        assertThat(relationFound.get("_id").toString()).isEqualTo(relation.getId().toString());
+        assertThat(relationFound.get("fromId").toString()).isEqualTo(relation.getFromId().toString());
+        assertThat(relationFound.get("toId").toString()).isEqualTo(relation.getToId().toString());
+        assertThat(relationFound.get("creationDate")).isEqualTo(relation.getCreationDate().getMillis());
+        assertThat(relationFound.get("weight")).isEqualTo(1.0);
+        assertThat(relationFound.get("lastModificationDate")).isEqualTo(relation.getLastModificationDate().getMillis());
     }
 
     @Test
@@ -52,7 +51,7 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
         final Relation relationFound = repo.get(relation.getId());
 
-        assertThat(relationFound, notNullValue());
+        assertThat(relationFound).isNotNull();
     }
 
     @Test
@@ -63,22 +62,32 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
         final Relation relationFound = repo.lookUp(from.getId(), to.getId());
 
-        assertThat(relationFound, notNullValue());
-        assertThat(relation.getId(), is(relationFound.getId()));
+        assertThat(relationFound).isNotNull();
+        assertThat(relation.getId()).isEqualTo(relationFound.getId());
     }
 
     @Test
-    public void canGetAllRelationsRelatedToATopicId() {
+    public void canGetAllRelationsContainingATopicId() {
         final Topic topic1 = TestFactories.topics().newTopic();
         final Topic topic2 = TestFactories.topics().newTopic();
         TestFactories.relations().newRelation(topic1, topic2);
         TestFactories.relations().newRelation(topic2, topic1);
-        TestFactories.relations().newRelation(topic2, topic2);
-        TestFactories.relations().newRelation(topic1, topic1);
+
+        final List<Relation> relations = repo.containingTopicId(topic1.getId());
+
+        assertThat(relations.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void canGetAllRelationsForATopicId() {
+        final Topic topic1 = TestFactories.topics().newTopic();
+        final Topic topic2 = TestFactories.topics().newTopic();
+        TestFactories.relations().newRelation(topic1, topic2);
+        TestFactories.relations().newRelation(topic2, topic1);
 
         final List<Relation> relations = repo.forTopicId(topic1.getId());
 
-        assertThat(relations.size(), is(3));
+        assertThat(relations.size()).isEqualTo(1);
     }
 
     private RelationRepository repo;

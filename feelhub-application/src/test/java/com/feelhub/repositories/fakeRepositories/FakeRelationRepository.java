@@ -27,12 +27,23 @@ public class FakeRelationRepository extends FakeRepository<Relation> implements 
     }
 
     @Override
-    public List<Relation> forTopicId(final UUID topicId) {
+    public List<Relation> containingTopicId(final UUID topicId) {
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Relation>() {
 
             @Override
             public boolean apply(final Relation input) {
                 return input.getFromId().equals(topicId) || input.getToId().equals(topicId);
+            }
+        }));
+    }
+
+    @Override
+    public List<Relation> forTopicId(final UUID topicId) {
+        return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Relation>() {
+
+            @Override
+            public boolean apply(final Relation input) {
+                return input.getFromId().equals(topicId);
             }
         }));
     }

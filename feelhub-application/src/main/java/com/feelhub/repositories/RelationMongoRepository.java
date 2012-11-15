@@ -6,7 +6,6 @@ import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
 
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RelationMongoRepository extends BaseMongoRepository<Relation> implements RelationRepository {
 
@@ -23,17 +22,18 @@ public class RelationMongoRepository extends BaseMongoRepository<Relation> imple
     }
 
     @Override
-    public List<Relation> forTopicId(final UUID topicId) {
-        final CopyOnWriteArrayList<Relation> relations = Lists.newCopyOnWriteArrayList();
-        final List<Relation> listWithFromIdEqualsTopicId = getListWithFromIdEqualsTopicId(topicId);
-        if (!listWithFromIdEqualsTopicId.isEmpty()) {
-            relations.addAllAbsent(listWithFromIdEqualsTopicId);
-        }
-        final List<Relation> listWithToIdEqualsTopicId = getListWithToIdEqualsTopicId(topicId);
-        if (!listWithToIdEqualsTopicId.isEmpty()) {
-            relations.addAllAbsent(listWithToIdEqualsTopicId);
-        }
+    public List<Relation> containingTopicId(final UUID topicId) {
+        // There is no need to check for duplicates as long as from-from or to-to is forbidden
+        // and obviously, topicId is from in one, an to in the another ^
+        final List<Relation> relations = Lists.newArrayList();
+        relations.addAll(getListWithFromIdEqualsTopicId(topicId));
+        relations.addAll(getListWithToIdEqualsTopicId(topicId));
         return relations;
+    }
+
+    @Override
+    public List<Relation> forTopicId(final UUID topicId) {
+        return getListWithFromIdEqualsTopicId(topicId);
     }
 
     private List<Relation> getListWithFromIdEqualsTopicId(final UUID topicId) {

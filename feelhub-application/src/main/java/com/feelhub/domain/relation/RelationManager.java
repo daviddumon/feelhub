@@ -9,7 +9,7 @@ public class RelationManager {
 
     public void merge(final TopicPatch topicPatch) {
         for (final UUID oldTopicId : topicPatch.getOldTopicIds()) {
-            final List<Relation> relations = Repositories.relations().forTopicId(oldTopicId);
+            final List<Relation> relations = Repositories.relations().containingTopicId(oldTopicId);
             if (!relations.isEmpty()) {
                 migrateRelations(topicPatch.getNewTopicId(), oldTopicId, relations);
             }

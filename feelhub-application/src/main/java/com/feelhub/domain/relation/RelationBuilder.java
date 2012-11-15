@@ -31,8 +31,8 @@ public class RelationBuilder {
         }
     }
 
-    private void createNewRelation(final Topic left, final Topic right, final double additionalWeight) {
-        final Relation relation = relationFactory.newRelation(left, right, additionalWeight);
+    private void createNewRelation(final Topic from, final Topic to, final double additionalWeight) {
+        final Relation relation = relationFactory.newRelation(from, to, additionalWeight);
         Repositories.relations().add(relation);
     }
 
