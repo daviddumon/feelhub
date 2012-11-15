@@ -5,10 +5,10 @@ import com.feelhub.web.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import org.junit.*;
+import org.restlet.Request;
 import org.restlet.data.Status;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TestsLoginResource {
@@ -25,17 +25,33 @@ public class TestsLoginResource {
 
         login.get();
 
-        assertThat(login.getStatus(), is(Status.SUCCESS_OK));
+        assertThat(login.getStatus()).isEqualTo(Status.SUCCESS_OK);
     }
 
     @Test
     public void canForgeFacebookUrl() {
         final FacebookConnector facebook = mock(FacebookConnector.class);
         final LoginResource login = new LoginResource(facebook);
+        login.setRequest(new Request());
         when(facebook.getUrl()).thenReturn("une url");
 
         final ModelAndView modelAndView = login.represent();
 
-        assertThat(modelAndView.<String>getData("facebookUrl"), is("une url"));
+        assertThat(modelAndView.<String>getData("facebookUrl")).isEqualTo("une url");
+    }
+
+    @Test
+    public void passReferrerToTheView() {
+        final String referrer = "http://www.feelhub.com";
+        final FacebookConnector facebook = mock(FacebookConnector.class);
+        final LoginResource login = new LoginResource(facebook);
+        final Request request = new Request();
+        request.setReferrerRef(referrer);
+        login.setRequest(request);
+        when(facebook.getUrl()).thenReturn("une url");
+
+        final ModelAndView modelAndView = login.represent();
+
+        assertThat(modelAndView.<String>getData("referrer")).isEqualTo(referrer);
     }
 }

@@ -14,7 +14,15 @@ public class LoginResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
-        return ModelAndView.createNew("login.ftl").with("facebookUrl", facebookConnector.getUrl());
+        return ModelAndView.createNew("login.ftl").with("facebookUrl", facebookConnector.getUrl()).with("referrer", getReferrer());
+    }
+
+    private String getReferrer() {
+        if (getRequest().getReferrerRef() != null) {
+            return getRequest().getReferrerRef().toString();
+        } else {
+            return "";
+        }
     }
 
     private final FacebookConnector facebookConnector;

@@ -5,6 +5,7 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.*;
 import com.feelhub.web.representation.ModelAndView;
 import org.junit.*;
+import org.restlet.data.Status;
 
 import java.util.UUID;
 
@@ -31,5 +32,14 @@ public class TestsActivationResource {
 
         verify(activationService).confirm(uuid);
         assertThat(view.getTemplate()).isEqualTo("activation.ftl");
+    }
+
+    @Test
+    public void redirectToHomeIfNoActivation() {
+        final ClientResource badActivationResource = restlet.newClientResource("/activation/" + UUID.randomUUID().toString());
+
+        badActivationResource.get();
+
+        assertThat(badActivationResource.getStatus()).isEqualTo(Status.REDIRECTION_PERMANENT);
     }
 }

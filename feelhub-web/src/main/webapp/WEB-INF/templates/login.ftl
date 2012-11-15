@@ -1,4 +1,7 @@
 <@layout.headbegin>
+<script type="text/javascript">
+    var referrer = "${referrer}";
+</script>
 </@layout.headbegin>
 
 <@layout.cssprod>

@@ -67,7 +67,7 @@ function login() {
     if (checkForm()) {
         //console.log($("#login").serialize());
         $.post(root + "/sessions?", $("#login").serialize(),function (data, status, jqXHR) {
-            document.location.href = root;
+            document.location.href = referrer;
         }).error(function (jqXHR) {
                 if (jqXHR.status == 403) {
                     $("[name='email']").parent().find(".error_text").text(jqXHR.responseText);
