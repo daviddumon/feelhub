@@ -7,9 +7,10 @@ import java.util.UUID;
 
 public class WordIllustrationRequestEvent extends DomainEvent {
 
-    public WordIllustrationRequestEvent(final Word word) {
+    public WordIllustrationRequestEvent(final Word word, final String type) {
         this.topicId = word.getTopicId();
         this.value = word.getValue();
+        this.type = type;
     }
 
     @Override
@@ -29,6 +30,11 @@ public class WordIllustrationRequestEvent extends DomainEvent {
         return value;
     }
 
+    public String getType() {
+        return type;
+    }
+
     private final UUID topicId;
     private final String value;
+    private final String type;
 }

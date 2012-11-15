@@ -29,7 +29,13 @@ public class WordIllustrationFactory {
     }
 
     private void addIllustration(final WordIllustrationRequestEvent wordIllustrationRequestEvent, final UUID topicId) {
-        final String link = bingLink.getIllustration(wordIllustrationRequestEvent.getValue());
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(wordIllustrationRequestEvent.getValue());
+        if (!wordIllustrationRequestEvent.getType().isEmpty()) {
+            stringBuilder.append(" ");
+            stringBuilder.append(wordIllustrationRequestEvent.getType());
+        }
+        final String link = bingLink.getIllustration(stringBuilder.toString());
         final Illustration illustration = new Illustration(topicId, link);
         Repositories.illustrations().add(illustration);
     }

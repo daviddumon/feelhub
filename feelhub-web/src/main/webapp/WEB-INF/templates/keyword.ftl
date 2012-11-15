@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <div id="related" class="box" style="display: none;">
+        <div id="related" class="box">
             <div class="box_title">related</div>
         </div>
     </div>

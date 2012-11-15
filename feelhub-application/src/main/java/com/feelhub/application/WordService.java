@@ -23,10 +23,14 @@ public class WordService {
     }
 
     public Word lookUpOrCreate(final String value, final FeelhubLanguage feelhubLanguage) {
+        return lookUpOrCreate(value, feelhubLanguage, "");
+    }
+
+    public Word lookUpOrCreate(final String value, final FeelhubLanguage feelhubLanguage, final String type) {
         try {
             return lookUp(value, feelhubLanguage);
         } catch (WordNotFound e) {
-            return createWord(value, feelhubLanguage);
+            return createWord(value, feelhubLanguage, type);
         }
     }
 
@@ -46,7 +50,11 @@ public class WordService {
         }
     }
 
-    public Word createWord(String value, final FeelhubLanguage feelhubLanguage) {
+    protected Word createWord(String value, final FeelhubLanguage feelhubLanguage) {
+        return createWord(value, feelhubLanguage, "");
+    }
+
+    protected Word createWord(String value, final FeelhubLanguage feelhubLanguage, final String type) {
         value = normalize(value);
         Word word;
         if (!feelhubLanguage.equals(FeelhubLanguage.reference()) && !feelhubLanguage.equals(FeelhubLanguage.none())) {
@@ -69,7 +77,7 @@ public class WordService {
         } else {
             word = createWord(value, feelhubLanguage, topicService.newTopic().getId());
         }
-        requestWordIllustration(word);
+        requestWordIllustration(word, type);
         return word;
     }
 
@@ -79,8 +87,8 @@ public class WordService {
         return word;
     }
 
-    private void requestWordIllustration(final Word word) {
-        final WordIllustrationRequestEvent wordIllustrationRequestEvent = new WordIllustrationRequestEvent(word);
+    private void requestWordIllustration(final Word word, final String type) {
+        final WordIllustrationRequestEvent wordIllustrationRequestEvent = new WordIllustrationRequestEvent(word, type);
         DomainEventBus.INSTANCE.post(wordIllustrationRequestEvent);
     }
 

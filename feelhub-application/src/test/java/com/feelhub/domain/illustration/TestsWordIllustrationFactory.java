@@ -36,7 +36,7 @@ public class TestsWordIllustrationFactory {
     @Test
     public void canCreateIllustration() {
         final Word word = TestFactories.keywords().newWord();
-        final WordIllustrationRequestEvent wordIllustrationRequestEvent = new WordIllustrationRequestEvent(word);
+        final WordIllustrationRequestEvent wordIllustrationRequestEvent = new WordIllustrationRequestEvent(word, "");
 
         DomainEventBus.INSTANCE.post(wordIllustrationRequestEvent);
 
@@ -49,12 +49,25 @@ public class TestsWordIllustrationFactory {
     @Test
     public void checkForExistingIllustration() {
         final Word word = TestFactories.keywords().newWord();
-        final WordIllustrationRequestEvent wordIllustrationRequestEvent = new WordIllustrationRequestEvent(word);
+        final WordIllustrationRequestEvent wordIllustrationRequestEvent = new WordIllustrationRequestEvent(word, "");
         TestFactories.illustrations().newIllustration(word.getTopicId());
 
         DomainEventBus.INSTANCE.post(wordIllustrationRequestEvent);
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void canCreateIllustrationWithType() {
+        final Word word = TestFactories.keywords().newWord();
+        final WordIllustrationRequestEvent wordIllustrationRequestEvent = new WordIllustrationRequestEvent(word, "type");
+
+        DomainEventBus.INSTANCE.post(wordIllustrationRequestEvent);
+
+        final List<Illustration> illustrations = Repositories.illustrations().getAll();
+        assertThat(illustrations.size()).isEqualTo(1);
+        assertThat(illustrations.get(0).getTopicId()).isEqualTo(wordIllustrationRequestEvent.getTopicId());
+        assertThat(illustrations.get(0).getLink()).isEqualTo(word.getValue() + " type" + "link");
     }
 }

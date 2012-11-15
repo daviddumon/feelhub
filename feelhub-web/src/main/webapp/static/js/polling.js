@@ -36,7 +36,7 @@ function RequestRelations(topicId) {
                     classes:"keyword_related"
                 };
 
-                $("#related").append(ich.topic(keyword_data));
+                $("#related").append(ich.keyword(keyword_data));
                 $("#" + keywordData.topicId + " img").attr("src", keywordData.illustrationLink);
             });
         });

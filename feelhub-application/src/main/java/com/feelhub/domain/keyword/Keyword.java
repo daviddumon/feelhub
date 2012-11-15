@@ -68,7 +68,7 @@ public abstract class Keyword extends BaseEntity {
     }
 
     private UUID id;
-    private String value;
+    protected String value;
     private String languageCode;
     private UUID topicId;
 }

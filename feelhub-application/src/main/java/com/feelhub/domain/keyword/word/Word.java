@@ -24,5 +24,9 @@ public class Word extends Keyword {
         this.translationNeeded = translationNeeded;
     }
 
+    public void setValue(final String value) {
+        this.value = value;
+    }
+
     private boolean translationNeeded;
 }

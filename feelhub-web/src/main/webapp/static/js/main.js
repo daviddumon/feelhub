@@ -10,7 +10,7 @@ $(function () {
             classes:"keyword_main",
             typeValue:typeValue
         };
-        console.log("fucl");
+
         $("#main_keyword").prepend(ich.keyword(keyword_data));
         $("#counters").show();
         $("#feeling_form").show();

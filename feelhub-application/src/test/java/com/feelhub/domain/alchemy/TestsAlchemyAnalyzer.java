@@ -34,7 +34,7 @@ public class TestsAlchemyAnalyzer {
                 bind(Translator.class).to(FakeTranslator.class);
             }
         });
-        alchemyAnalyzer = injector.getInstance(AlchemyAnalyzer.class);
+        injector.getInstance(AlchemyAnalyzer.class);
     }
 
     @Test
@@ -114,5 +114,4 @@ public class TestsAlchemyAnalyzer {
     }
 
     private NamedEntityProvider entityProvider;
-    private AlchemyAnalyzer alchemyAnalyzer;
 }

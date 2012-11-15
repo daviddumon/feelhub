@@ -149,6 +149,21 @@ public class TestsWordService {
     }
 
     @Test
+    public void canCreateWordWithTypeInformation() {
+        bus.capture(WordIllustrationRequestEvent.class);
+        final String value = "value";
+        final String type = "type";
+        final FeelhubLanguage feelhubLanguage = FeelhubLanguage.none();
+
+        final Word word = wordService.createWord(value, feelhubLanguage, type);
+
+        final WordIllustrationRequestEvent wordIllustrationRequestEvent = bus.lastEvent(WordIllustrationRequestEvent.class);
+        assertThat(wordIllustrationRequestEvent.getTopicId()).isEqualTo(word.getTopicId());
+        assertThat(wordIllustrationRequestEvent.getValue()).isEqualTo(word.getValue());
+        assertThat(wordIllustrationRequestEvent.getType()).isEqualTo(type);
+    }
+
+    @Test
     public void lookUpIsCaseInsensitiveForWord() {
         final String value = "Word";
         final Word word = TestFactories.keywords().newWord(value);
