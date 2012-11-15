@@ -2,6 +2,7 @@ package com.feelhub.test;
 
 import com.feelhub.test.fakeResources.*;
 import com.feelhub.test.fakeResources.alchemy.FakeAlchemyResource;
+import com.feelhub.test.fakeResources.bing.*;
 import com.feelhub.test.fakeResources.scraper.*;
 import com.feelhub.test.fakeResources.scraper.extractors.*;
 import com.feelhub.test.fakeResources.scraper.tools.*;
@@ -86,6 +87,7 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/sitemap_{index}.xml", FakeSitemapResource.class);
                 attachScrapersResources(router);
                 attachAlchemyResources(router);
+                attachBingResources(router);
                 return router;
             }
 
@@ -123,6 +125,11 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/miner/cssminer/simple", CSSMinerSimple.class);
                 router.attach("/css/css1", CSSMinerCss1.class);
                 router.attach("/css/css2", CSSMinerCss2.class);
+            }
+
+            private void attachBingResources(final Router router) {
+                router.attach("/bing", BingFakeResource.class);
+                router.attach("/images/simplevalueillustration.jpg", BingImageFakeResource.class);
             }
         };
     }

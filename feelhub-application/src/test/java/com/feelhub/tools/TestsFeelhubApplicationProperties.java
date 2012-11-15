@@ -25,4 +25,13 @@ public class TestsFeelhubApplicationProperties {
 
         assertThat(alchemyApiKey, is("testapikey"));
     }
+
+    @Test
+    public void canGetBingRoot() {
+        final FeelhubApplicationProperties applicationProperties = new FeelhubApplicationProperties();
+
+        final String alchemyApiKey = applicationProperties.getBingRoot();
+
+        assertThat(alchemyApiKey, is("http://localhost:6162/bing?query='"));
+    }
 }

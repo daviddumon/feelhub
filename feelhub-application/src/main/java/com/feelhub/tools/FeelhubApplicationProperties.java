@@ -41,5 +41,9 @@ public class FeelhubApplicationProperties {
         return properties.getProperty("alchemyApiKey");
     }
 
+    public String getBingRoot() {
+        return properties.getProperty("bingRoot");
+    }
+
     private final Properties properties;
 }
