@@ -16,13 +16,12 @@ public class ApiUriResource extends ServerResource {
 
     @Get
     public ModelAndView getId() {
-        final Form parameters = getQuery();
-        final String keywordValue = parameters.getFirstValue("keywordValue").toString().trim();
         try {
-            final Uri uri = uriService.lookUp(keywordValue);
+            final String value = getRequestAttributes().get("value").toString().trim();
+            final Uri uri = uriService.lookUp(value);
             setStatus(Status.SUCCESS_OK);
-            return ModelAndView.createNew("api/uri.json.ftl", MediaType.APPLICATION_JSON).with("topicId", uri.getTopicId());
-        } catch (UriNotFound e) {
+            return ModelAndView.createNew("api/uri.json.ftl", MediaType.APPLICATION_JSON).with("id", uri.getId());
+        } catch (Exception e) {
             setStatus(Status.CLIENT_ERROR_NOT_FOUND);
             return ModelAndView.createNew("api/uri.json.ftl", MediaType.APPLICATION_JSON);
         }

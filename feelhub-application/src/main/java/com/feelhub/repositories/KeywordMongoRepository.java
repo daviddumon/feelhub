@@ -1,6 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.keyword.*;
+import com.feelhub.domain.keyword.uri.Uri;
 import com.feelhub.domain.keyword.world.World;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import org.mongolink.MongoSession;
@@ -23,6 +24,14 @@ public class KeywordMongoRepository extends BaseMongoRepository<Keyword> impleme
     }
 
     @Override
+    public Keyword forTopicIdAndLanguage(final UUID topicId, final FeelhubLanguage feelhubLanguage) {
+        final Criteria criteria = getSession().createCriteria(Keyword.class);
+        criteria.add(Restrictions.equals("topicId", topicId));
+        criteria.add(Restrictions.equals("languageCode", feelhubLanguage.getCode()));
+        return extractOne(criteria);
+    }
+
+    @Override
     public List<Keyword> forTopicId(final UUID topicId) {
         final Criteria criteria = getSession().createCriteria(Keyword.class);
         criteria.add(Restrictions.equals("topicId", topicId));
@@ -39,5 +48,13 @@ public class KeywordMongoRepository extends BaseMongoRepository<Keyword> impleme
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Uri getUri(final UUID id) {
+        final Criteria criteria = getSession().createCriteria(Keyword.class);
+        criteria.add(Restrictions.equals("id", id));
+        criteria.add(Restrictions.equals("__discriminator", "Uri"));
+        return (Uri) extractOne(criteria);
     }
 }

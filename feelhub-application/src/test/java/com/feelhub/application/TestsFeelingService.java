@@ -3,6 +3,7 @@ package com.feelhub.application;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.keyword.uri.*;
+import com.feelhub.domain.keyword.word.Word;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.translation.*;
 import com.feelhub.repositories.*;
@@ -38,7 +39,7 @@ public class TestsFeelingService {
 
     @Test
     public void canAddFeelingAndSentiments() {
-        TestFactories.keywords().newWord("word2", FeelhubLanguage.forString("french"));
+        TestFactories.keywords().newWord("word3", FeelhubLanguage.forString("french"));
         final FeelingRequestEvent event = getEvent();
 
         DomainEventBus.INSTANCE.post(event);
@@ -53,6 +54,20 @@ public class TestsFeelingService {
         assertThat(Repositories.relations().getAll().size()).isEqualTo(6);
     }
 
+    @Test
+    public void createSemanticContextWithGoodValueAndLanguage() {
+        final Word word3 = TestFactories.keywords().newWord("word3", FeelhubLanguage.forString("french"));
+        final Word word4 = TestFactories.keywords().newWord("word4", FeelhubLanguage.forString("french"));
+        TestFactories.relations().newRelation(word3.getTopicId(), word4.getTopicId());
+        final FeelingRequestEvent event = getEvent();
+
+        DomainEventBus.INSTANCE.post(event);
+
+        assertThat(Repositories.feelings().getAll().size()).isEqualTo(1);
+        final Feeling feeling = Repositories.feelings().get(event.getFeelingId());
+        assertThat(feeling.getSentiments().size()).isEqualTo(4);
+    }
+
     private FeelingRequestEvent getEvent() {
         final FeelingRequestEvent.Builder builder = new FeelingRequestEvent.Builder();
         builder.feelingId(UUID.randomUUID());
@@ -61,7 +76,7 @@ public class TestsFeelingService {
         builder.keywordValue("word3");
         builder.languageCode(FeelhubLanguage.reference().getCode());
         builder.userLanguageCode(FeelhubLanguage.forString("french").getCode());
-        builder.text("+word1 -word2");
+        builder.text("+word1 -word2 word4");
         return builder.build();
     }
 }

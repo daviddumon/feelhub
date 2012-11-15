@@ -22,19 +22,19 @@ public class FakeIllustrationSearch extends IllustrationSearch {
     }
 
     @Override
-    public Search<Illustration> withSkip(final int skip) {
+    public IllustrationSearch withSkip(final int skip) {
         illustrations = Lists.newArrayList(Iterables.skip(illustrations, skip));
         return this;
     }
 
     @Override
-    public Search<Illustration> withLimit(final int limit) {
+    public IllustrationSearch withLimit(final int limit) {
         illustrations = Lists.newArrayList(Iterables.limit(illustrations, limit));
         return this;
     }
 
     @Override
-    public Search<Illustration> withTopics(final List<UUID> topics) {
+    public IllustrationSearch withTopicIds(final List<UUID> topics) {
         illustrations = Lists.newArrayList(Iterables.filter(illustrations, new Predicate<Illustration>() {
 
             @Override

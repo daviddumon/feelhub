@@ -22,6 +22,14 @@ public class UriService {
         this.uriManager = uriManager;
     }
 
+    public Uri getUri(final String id) {
+        final Uri uri = Repositories.keywords().getUri(UUID.fromString(id));
+        if (uri == null) {
+            throw new UriNotFound();
+        }
+        return uri;
+    }
+
     public Uri lookUpOrCreate(final String value) {
         try {
             return lookUp(value);

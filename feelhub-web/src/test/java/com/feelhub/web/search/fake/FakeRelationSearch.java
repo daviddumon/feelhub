@@ -1,7 +1,6 @@
 package com.feelhub.web.search.fake;
 
 import com.feelhub.domain.relation.Relation;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.web.search.RelationSearch;
 import com.google.common.base.Predicate;
@@ -35,27 +34,12 @@ public class FakeRelationSearch extends RelationSearch {
     }
 
     @Override
-    public RelationSearch withFrom(final Topic from) {
+    public RelationSearch withTopicId(final UUID topicId) {
         relations = Lists.newArrayList(Iterables.filter(relations, new Predicate<Relation>() {
 
             @Override
             public boolean apply(final Relation relation) {
-                if (relation.getFromId().equals(from.getId())) {
-                    return true;
-                }
-                return false;
-            }
-        }));
-        return this;
-    }
-
-    @Override
-    public RelationSearch withFrom(final UUID fromId) {
-        relations = Lists.newArrayList(Iterables.filter(relations, new Predicate<Relation>() {
-
-            @Override
-            public boolean apply(final Relation relation) {
-                if (relation.getFromId().equals(fromId)) {
+                if (relation.getFromId().equals(topicId)) {
                     return true;
                 }
                 return false;

@@ -48,7 +48,7 @@ public class ApiNewFeelingsResource extends ServerResource {
                 feelings.add(searchResult.get(i++));
                 if (i % 30 == 0) {
                     feelingSearch.reset();
-                    feelingSearch.withSkip(i).withLimit(30).withSort("creationDate", FeelingSearch.REVERSE_ORDER).withTopic(topic);
+                    feelingSearch.withSkip(i).withLimit(30).withSort("creationDate", FeelingSearch.REVERSE_ORDER).withTopicId(topic.getId());
                     searchResult.addAll(feelingSearch.execute());
                 }
             }
@@ -59,7 +59,7 @@ public class ApiNewFeelingsResource extends ServerResource {
     private void setUpSearchForTopicIdParameter(final Form form) {
         if (form.getQueryString().contains("topicId")) {
             topic = topicService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim()));
-            feelingSearch.withTopic(topic);
+            feelingSearch.withTopicId(topic.getId());
         }
     }
 

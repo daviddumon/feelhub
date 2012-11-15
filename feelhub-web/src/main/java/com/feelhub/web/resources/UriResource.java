@@ -31,7 +31,7 @@ public class UriResource extends ServerResource {
     }
 
     private void extractUriValueFromUri() {
-        keywordValue = getRequestAttributes().get("keywordValue").toString();
+        keywordValue = getRequestAttributes().get("value").toString();
     }
 
     private UriService uriService;

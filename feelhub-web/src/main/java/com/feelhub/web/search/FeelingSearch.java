@@ -1,12 +1,11 @@
 package com.feelhub.web.search;
 
 import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.SessionProvider;
 import org.mongolink.domain.criteria.*;
 
 import javax.inject.Inject;
-import java.util.List;
+import java.util.*;
 
 public class FeelingSearch implements Search<Feeling> {
 
@@ -40,8 +39,9 @@ public class FeelingSearch implements Search<Feeling> {
         return this;
     }
 
-    public FeelingSearch withTopic(final Topic topic) {
-        criteria.add(Restrictions.equals("sentiments.topicId", topic.getId()));
+    @Override
+    public FeelingSearch withTopicId(final UUID topicId) {
+        criteria.add(Restrictions.equals("sentiments.topicId", topicId));
         return this;
     }
 

@@ -7,7 +7,7 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
 
-import java.util.List;
+import java.util.*;
 
 public class FeelingTestFactory {
 
@@ -33,6 +33,15 @@ public class FeelingTestFactory {
         return result;
     }
 
+    public List<Feeling> newFeelings(final UUID topicId, final int quantity) {
+        final List<Feeling> result = Lists.newArrayList();
+        for (int i = 0; i < quantity; i++) {
+            final Feeling feeling = newFeeling(topicId, "i" + i);
+            result.add(feeling);
+        }
+        return result;
+    }
+
     public Feeling newFeeling(final Topic topic, final String text) {
         final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforfeeling@mail.com");
         final Feeling feeling = new Feeling(text, activeUser.getId());
@@ -46,6 +55,15 @@ public class FeelingTestFactory {
         final User activeUser = TestFactories.users().createFakeActiveUser("userforfeeling@mail.com");
         final Feeling feeling = new Feeling(text, activeUser.getId());
         feeling.addSentiment(sentiment);
+        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
+        Repositories.feelings().add(feeling);
+        return feeling;
+    }
+
+    public Feeling newFeeling(final UUID topicId, final String text) {
+        final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforfeeling@mail.com");
+        final Feeling feeling = new Feeling(text, activeUser.getId());
+        feeling.addSentiment(new Topic(topicId), SentimentValue.bad);
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
         Repositories.feelings().add(feeling);
         return feeling;

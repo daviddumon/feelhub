@@ -1,6 +1,7 @@
 package com.feelhub.repositories.fakeRepositories;
 
 import com.feelhub.domain.keyword.*;
+import com.feelhub.domain.keyword.uri.Uri;
 import com.feelhub.domain.keyword.world.World;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.google.common.base.Predicate;
@@ -19,6 +20,25 @@ public class FakeKeywordRepository extends FakeRepository<Keyword> implements Ke
                 @Override
                 public boolean apply(@Nullable final Keyword input) {
                     if (input.getValue().equals(value) && input.getLanguage().equals(feelhubLanguage)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Keyword forTopicIdAndLanguage(final UUID topicId, final FeelhubLanguage feelhubLanguage) {
+        try {
+            return Iterables.find(getAll(), new Predicate<Keyword>() {
+
+                @Override
+                public boolean apply(@Nullable final Keyword input) {
+                    if (input.getTopicId().equals(topicId) && input.getLanguage().equals(feelhubLanguage)) {
                         return true;
                     } else {
                         return false;
@@ -59,5 +79,10 @@ public class FakeKeywordRepository extends FakeRepository<Keyword> implements Ke
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public Uri getUri(final UUID id) {
+        return (Uri) get(id);
     }
 }

@@ -5,11 +5,10 @@ import com.feelhub.web.resources.*;
 import com.feelhub.web.resources.admin.*;
 import com.feelhub.web.resources.api.*;
 import com.feelhub.web.resources.authentification.*;
-import com.feelhub.web.resources.social.FacebookResource;
-import com.feelhub.web.resources.social.SocialWelcomeResource;
+import com.feelhub.web.resources.social.*;
 import com.google.inject.Injector;
 import org.restlet.Context;
-import org.restlet.resource.Finder;
+import org.restlet.resource.*;
 import org.restlet.routing.*;
 
 import java.util.Map;
@@ -24,19 +23,19 @@ public class FeelhubRouter extends Router {
     }
 
     private void attachResources() {
-        attach("/api/statistics", ApiStatisticsResource.class);
+        attach("/api/uri/{id}/statistics", ApiUriStatisticsResource.class);
+        attachEncodedValue("/api/uri/{value}", ApiUriResource.class);
+
+        attach("/api/word", ApiWordResource.class);
         attach("/api/feelings", ApiFeelingsResource.class);
         attach("/api/relations", ApiRelationsResource.class);
         attach("/api/related", ApiRelatedResource.class);
         attach("/api/illustrations", ApiIllustrationsResource.class);
         attach("/api/createfeeling", ApiCreateFeelingResource.class);
         attach("/api/newfeelings", ApiNewFeelingsResource.class);
-        attach("/api/word", ApiWordResource.class);
-        attach("/api/uri", ApiUriResource.class);
 
-        final TemplateRoute route = attach("/uri/{keywordValue}", UriResource.class);
-        final Map<String, Variable> variables = route.getTemplate().getVariables();
-        variables.put("keywordValue", new Variable(Variable.TYPE_URI_ALL, "", true, false, true, true));
+        attachEncodedValue("/uri/{value}", UriResource.class);
+
         attach("/word/{language}/{keywordValue}", WordResource.class);
         attach("/word/{keywordValue}", WordResource.class);
 
@@ -56,6 +55,12 @@ public class FeelhubRouter extends Router {
         attach("/social/welcome", SocialWelcomeResource.class);
 
         attach("/", HomeResource.class);
+    }
+
+    private void attachEncodedValue(final String pathTemplate, final Class<? extends ServerResource> targetClass) {
+        final TemplateRoute route = attach(pathTemplate, targetClass);
+        final Map<String, Variable> variables = route.getTemplate().getVariables();
+        variables.put("value", new Variable(Variable.TYPE_URI_ALL, "", true, false, true, true));
     }
 
     @Override

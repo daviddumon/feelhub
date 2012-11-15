@@ -8,13 +8,14 @@ import org.junit.*;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class TestsContext {
+public class TestsSemanticContext {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
     public void canGetAContextForAKeyword() {
+        final SemanticContext semanticContext = new SemanticContext();
         final Word word1 = TestFactories.keywords().newWord("word1", FeelhubLanguage.reference());
         final Word word2 = TestFactories.keywords().newWord("word2", FeelhubLanguage.reference());
         final Word word3 = TestFactories.keywords().newWord("word3", FeelhubLanguage.reference());
@@ -23,8 +24,8 @@ public class TestsContext {
         TestFactories.relations().newRelation(word1.getTopicId(), word3.getTopicId());
         TestFactories.relations().newRelation(word1.getTopicId(), word4.getTopicId());
 
-        final Context context = new Context(word1.getValue(), word1.getLanguage());
+        semanticContext.extractFor(word1.getValue(), word1.getLanguage());
 
-        //assertThat(context.getValues().size()).isEqualTo(2);
+        assertThat(semanticContext.getValues().size()).isEqualTo(2);
     }
 }

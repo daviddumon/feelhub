@@ -1,15 +1,15 @@
 package com.feelhub.web.search;
 
+import com.feelhub.domain.keyword.word.Word;
 import com.feelhub.domain.relation.Relation;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
+
 
 public class TestsRelationSearch extends TestWithMongoRepository {
 
@@ -20,80 +20,84 @@ public class TestsRelationSearch extends TestWithMongoRepository {
 
     @Test
     public void canGetARelation() {
-        final Topic from = TestFactories.topics().newTopic();
-        final Topic to = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelation(from, to);
+        final Word from = TestFactories.keywords().newWord();
+        final Word to = TestFactories.keywords().newWord();
+        TestFactories.relations().newRelation(from.getTopicId(), to.getTopicId());
 
         final List<Relation> relations = relationSearch.execute();
 
-        assertThat(relations.size(), is(1));
+        assertThat(relations.size()).isEqualTo(1);
     }
 
     @Test
     public void canGetARelationForATopic() {
-        final Topic from = TestFactories.topics().newTopic();
-        final Topic to = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelation(from, to);
+        final Word from = TestFactories.keywords().newWord();
+        final Word to = TestFactories.keywords().newWord();
+        TestFactories.relations().newRelation(from.getTopicId(), to.getTopicId());
         TestFactories.relations().newRelations(10);
 
-        final List<Relation> relations = relationSearch.withFrom(from).execute();
+        final List<Relation> relations = relationSearch.withTopicId(from.getTopicId()).execute();
 
-        assertThat(relations.size(), is(1));
-        assertThat(relations.get(0).getFromId(), is(from.getId()));
-        assertThat(relations.get(0).getToId(), is(to.getId()));
+        assertThat(relations.size()).isEqualTo(1);
+        assertThat(relations.get(0).getFromId()).isEqualTo(from.getTopicId());
+        assertThat(relations.get(0).getToId()).isEqualTo(to.getTopicId());
     }
 
     @Test
     public void canGetRelationsForATopic() {
-        final Topic from = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelations(10, from);
+        final Word from = TestFactories.keywords().newWord();
+        TestFactories.relations().newRelations(10, from.getTopicId());
         TestFactories.relations().newRelations(20);
 
-        final List<Relation> relations = relationSearch.withFrom(from).execute();
+        final List<Relation> relations = relationSearch.withTopicId(from.getTopicId()).execute();
 
-        assertThat(relations.size(), is(10));
+        assertThat(relations.size()).isEqualTo(10);
     }
 
     @Test
     public void canLimitResults() {
-        final Topic from = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelations(10, from);
+        final Word from = TestFactories.keywords().newWord();
         TestFactories.relations().newRelations(20);
+        TestFactories.relations().newRelations(10, from.getTopicId());
 
-        final List<Relation> relations = relationSearch.withFrom(from).withLimit(5).execute();
+        final List<Relation> relations = relationSearch.withTopicId(from.getTopicId()).withLimit(5).execute();
 
-        assertThat(relations.size(), is(5));
+        assertThat(relations.size()).isEqualTo(5);
+        assertThat(relations.get(0).getFromId()).isEqualTo(from.getTopicId());
+        assertThat(relations.get(1).getFromId()).isEqualTo(from.getTopicId());
+        assertThat(relations.get(2).getFromId()).isEqualTo(from.getTopicId());
+        assertThat(relations.get(3).getFromId()).isEqualTo(from.getTopicId());
+        assertThat(relations.get(4).getFromId()).isEqualTo(from.getTopicId());
     }
 
     @Test
     @Ignore
     public void canOrderWithWeight() {
-        final Topic from = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelations(5, from);
+        final Word from = TestFactories.keywords().newWord();
+        TestFactories.relations().newRelations(5, from.getTopicId());
 
         final List<Relation> relations = relationSearch.withSort("weight", Search.REVERSE_ORDER).execute();
 
-        assertThat(relations.size(), is(5));
-        assertThat(relations.get(0).getWeight(), is(4.0));
-        assertThat(relations.get(1).getWeight(), is(3.0));
-        assertThat(relations.get(2).getWeight(), is(2.0));
-        assertThat(relations.get(3).getWeight(), is(1.0));
-        assertThat(relations.get(4).getWeight(), is(0.0));
+        assertThat(relations.size()).isEqualTo(5);
+        assertThat(relations.get(0).getWeight()).isEqualTo(4.0);
+        assertThat(relations.get(1).getWeight()).isEqualTo(3.0);
+        assertThat(relations.get(2).getWeight()).isEqualTo(2.0);
+        assertThat(relations.get(3).getWeight()).isEqualTo(1.0);
+        assertThat(relations.get(4).getWeight()).isEqualTo(0.0);
     }
 
     @Test
     public void canSkipResults() {
-        final Topic from = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelations(5, from);
+        final Word from = TestFactories.keywords().newWord();
+        TestFactories.relations().newRelations(5, from.getTopicId());
 
         final List<Relation> relations = relationSearch.withSkip(2).execute();
 
-        assertThat(relations.size(), is(3));
-        assertThat(relations.get(0).getWeight(), is(2.0));
-        assertThat(relations.get(1).getWeight(), is(3.0));
-        assertThat(relations.get(2).getWeight(), is(4.0));
+        assertThat(relations.size()).isEqualTo(3);
+        assertThat(relations.get(0).getWeight()).isEqualTo(2.0);
+        assertThat(relations.get(1).getWeight()).isEqualTo(3.0);
+        assertThat(relations.get(2).getWeight()).isEqualTo(4.0);
     }
-
 
     private RelationSearch relationSearch;
 }

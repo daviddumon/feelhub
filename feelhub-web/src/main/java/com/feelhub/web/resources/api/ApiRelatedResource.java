@@ -69,7 +69,7 @@ public class ApiRelatedResource extends ServerResource {
 
     private void setUpSearchForFromIdParameter(final Form form) {
         if (form.getQueryString().contains("topicId")) {
-            relationSearch.withFrom(UUID.fromString(form.getFirstValue("topicId").trim()));
+            relationSearch.withTopicId(UUID.fromString(form.getFirstValue("topicId").trim()));
         }
     }
 

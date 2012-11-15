@@ -1,6 +1,10 @@
 package com.feelhub.domain.feeling;
 
-import org.junit.Test;
+import com.feelhub.domain.feeling.context.SemanticContext;
+import com.feelhub.domain.keyword.word.Word;
+import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.test.TestFactories;
+import org.junit.*;
 
 import java.util.List;
 
@@ -8,6 +12,9 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 public class TestsSentimentExtractor {
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
     public void canHandleSentimentWithSentimentValueNone() {
@@ -137,9 +144,28 @@ public class TestsSentimentExtractor {
         testText("J'aime beaucoup +http%3A%2F%2Fwww.google.fr ! hehe", SentimentValue.good, "http://www.google.fr");
     }
 
+    @Test
+    public void canExtractSentimentWithSemanticContext() {
+        final SemanticContext semanticContext = new SemanticContext();
+        final Word word1 = TestFactories.keywords().newWord("word1");
+        final Word word2 = TestFactories.keywords().newWord("word2");
+        TestFactories.relations().newRelation(word1.getTopicId(), word2.getTopicId());
+        semanticContext.extractFor(word1.getValue(), word1.getLanguage());
+
+        testTest("J'aime les word2", SentimentValue.none, "word2", semanticContext);
+    }
+
+    private void testTest(final String text, final SentimentValue sentimentValue, final String expected, final SemanticContext semanticContext) {
+        final SentimentExtractor sentimentExtractor = new SentimentExtractor();
+        final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(text, semanticContext);
+        assertThat("for '" + text + "'", sentimentAndTexts.size(), is(1));
+        assertThat("for '" + text + "'", sentimentAndTexts.get(0).sentimentValue, is(sentimentValue));
+        assertThat("for '" + text + "'", sentimentAndTexts.get(0).text, is(expected));
+    }
+
     private void testText(final String text, final SentimentValue sentimentValue, final String expected) {
         final SentimentExtractor sentimentExtractor = new SentimentExtractor();
-        final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(text);
+        final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(text, new SemanticContext());
         assertThat("for '" + text + "'", sentimentAndTexts.size(), is(1));
         assertThat("for '" + text + "'", sentimentAndTexts.get(0).sentimentValue, is(sentimentValue));
         assertThat("for '" + text + "'", sentimentAndTexts.get(0).text, is(expected));

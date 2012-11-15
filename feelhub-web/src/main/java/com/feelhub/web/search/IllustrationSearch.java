@@ -21,24 +21,30 @@ public class IllustrationSearch implements Search<Illustration> {
     }
 
     @Override
-    public Search<Illustration> withSkip(final int skip) {
+    public IllustrationSearch withSkip(final int skip) {
         criteria.skip(skip);
         return this;
     }
 
     @Override
-    public Search<Illustration> withLimit(final int limit) {
+    public IllustrationSearch withLimit(final int limit) {
         criteria.limit(limit);
         return this;
     }
 
     @Override
-    public Search<Illustration> withSort(final String sortField, final int sortOrder) {
+    public IllustrationSearch withSort(final String sortField, final int sortOrder) {
         criteria.sort(sortField, sortOrder);
         return this;
     }
 
-    public Search<Illustration> withTopics(final List<UUID> topics) {
+    @Override
+    public IllustrationSearch withTopicId(final UUID topicId) {
+        criteria.add(Restrictions.equals("topicId", topicId));
+        return this;
+    }
+
+    public IllustrationSearch withTopicIds(final List<UUID> topics) {
         final List<String> topicAsString = Lists.newArrayList();
         for (final UUID topicId : topics) {
             topicAsString.add(topicId.toString());

@@ -135,6 +135,17 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
         assertThat(keywords.size()).isEqualTo(3);
     }
 
+    @Test
+    public void canGetForTopicIdAndLanguage() {
+        final String value = "value";
+        final FeelhubLanguage english = FeelhubLanguage.forString("english");
+        final Word word = TestFactories.keywords().newWord(value, english);
+
+        final Keyword keyword = repository.forTopicIdAndLanguage(word.getTopicId(), english);
+
+        assertThat(keyword).isNotNull();
+    }
+
     private DBObject getKeywordFromDB(final Object id) {
         final DBCollection collection = mongo.getCollection("keyword");
         final DBObject query = new BasicDBObject();

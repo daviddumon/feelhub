@@ -1,13 +1,12 @@
 package com.feelhub.web.search;
 
 import com.feelhub.domain.statistics.*;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.SessionProvider;
 import com.google.inject.Inject;
 import org.joda.time.Interval;
 import org.mongolink.domain.criteria.*;
 
-import java.util.List;
+import java.util.*;
 
 public class StatisticsSearch implements Search<Statistics> {
 
@@ -36,8 +35,9 @@ public class StatisticsSearch implements Search<Statistics> {
         return null;
     }
 
-    public StatisticsSearch withTopic(final Topic topic) {
-        criteria.add(Restrictions.equals("topicId", topic.getId()));
+    @Override
+    public StatisticsSearch withTopicId(final UUID topicId) {
+        criteria.add(Restrictions.equals("topicId", topicId));
         return this;
     }
 

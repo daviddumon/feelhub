@@ -61,7 +61,7 @@ public class ApiFeelingsResource extends ServerResource {
 
     private void setUpSearchForTopicIdParameter(final Form form) {
         if (form.getQueryString().contains("topicId")) {
-            feelingSearch.withTopic(topicService.lookUp(UUID.fromString(form.getFirstValue("topicId").trim())));
+            feelingSearch.withTopicId(UUID.fromString(form.getFirstValue("topicId").trim()));
         }
     }
 

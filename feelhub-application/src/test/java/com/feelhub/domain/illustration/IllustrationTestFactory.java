@@ -19,7 +19,11 @@ public class IllustrationTestFactory {
     }
 
     public Illustration newIllustration(final UUID topicId) {
-        final Illustration illustration = new Illustration(topicId, "http://www.fake.com/illustration.jpg");
+        return newIllustration(topicId, "http://www.fake.com/illustration.jpg");
+    }
+
+    public Illustration newIllustration(final UUID topicId, final String link) {
+        final Illustration illustration = new Illustration(topicId, link);
         Repositories.illustrations().add(illustration);
         return illustration;
     }

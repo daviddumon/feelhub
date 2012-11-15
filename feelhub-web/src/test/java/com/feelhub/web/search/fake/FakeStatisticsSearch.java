@@ -1,7 +1,6 @@
 package com.feelhub.web.search.fake;
 
 import com.feelhub.domain.statistics.*;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.web.search.StatisticsSearch;
 import com.google.common.base.Predicate;
@@ -9,7 +8,7 @@ import com.google.common.collect.*;
 import com.google.inject.Inject;
 import org.joda.time.Interval;
 
-import java.util.List;
+import java.util.*;
 
 public class FakeStatisticsSearch extends StatisticsSearch {
 
@@ -50,12 +49,12 @@ public class FakeStatisticsSearch extends StatisticsSearch {
     }
 
     @Override
-    public StatisticsSearch withTopic(final Topic topic) {
+    public StatisticsSearch withTopicId(final UUID topicId) {
         statisticsList = Lists.newArrayList(Iterables.filter(statisticsList, new Predicate<Statistics>() {
 
             @Override
             public boolean apply(final Statistics statistics) {
-                if (statistics.getTopicId().equals(topic.getId())) {
+                if (statistics.getTopicId().equals(topicId)) {
                     return true;
                 }
                 return false;

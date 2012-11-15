@@ -26,7 +26,7 @@ public class ApiIllustrationsResource extends ServerResource {
         for (int i = 0; i < topicIdsAsString.length; i++) {
             topicIds.add(UUID.fromString(topicIdsAsString[i]));
         }
-        final List<Illustration> illustrations = illustrationSearch.withTopics(topicIds).execute();
+        final List<Illustration> illustrations = illustrationSearch.withTopicIds(topicIds).execute();
         return ModelAndView.createNew("api/illustrations.json.ftl", MediaType.APPLICATION_JSON).with("illustrations", illustrations);
     }
 

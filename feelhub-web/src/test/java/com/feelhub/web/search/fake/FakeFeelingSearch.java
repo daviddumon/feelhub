@@ -1,14 +1,13 @@
 package com.feelhub.web.search.fake;
 
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.web.search.FeelingSearch;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 import com.google.inject.Inject;
 
-import java.util.List;
+import java.util.*;
 
 public class FakeFeelingSearch extends FeelingSearch {
 
@@ -35,13 +34,13 @@ public class FakeFeelingSearch extends FeelingSearch {
     }
 
     @Override
-    public FeelingSearch withTopic(final Topic topic) {
+    public FeelingSearch withTopicId(final UUID topicId) {
         feelings = Lists.newArrayList(Iterables.filter(feelings, new Predicate<Feeling>() {
 
             @Override
             public boolean apply(final Feeling feeling) {
                 for (final Sentiment sentiment : feeling.getSentiments()) {
-                    if (sentiment.getTopicId().equals(topic.getId())) {
+                    if (sentiment.getTopicId().equals(topicId)) {
                         return true;
                     }
                 }

@@ -12,18 +12,23 @@ public class RelationTestFactory {
         return newRelation(TestFactories.topics().newTopic(), TestFactories.topics().newTopic());
     }
 
-    public Relation newRelation(final UUID fromId, final UUID toId) {
-        final Topic from = Repositories.topics().get(fromId);
-        final Topic to = Repositories.topics().get(toId);
-        return newRelation(from, to, 1);
-    }
-
     public Relation newRelation(final Topic from, final Topic to) {
         return newRelation(from, to, 1);
     }
 
     public Relation newRelation(final Topic from, final Topic to, final int weight) {
         final Relation relation = new Relation(from, to, 1.0);
+        relation.setWeight(weight);
+        Repositories.relations().add(relation);
+        return relation;
+    }
+
+    public Relation newRelation(final UUID fromId, final UUID toId) {
+        return newRelation(fromId, toId, 1);
+    }
+
+    public Relation newRelation(final UUID fromId, final UUID toId, final int weight) {
+        final Relation relation = new Relation(fromId, toId, 1.0);
         relation.setWeight(weight);
         Repositories.relations().add(relation);
         return relation;
@@ -42,5 +47,15 @@ public class RelationTestFactory {
     private void createARelation(final Topic from, final int weight) {
         final Topic to = TestFactories.topics().newTopic();
         newRelation(from, to, weight);
+    }
+
+    public void newRelations(final int quantity, final UUID fromid) {
+        for (int i = 0; i < quantity; i++) {
+            createARelation(fromid, i);
+        }
+    }
+
+    private void createARelation(final UUID fromId, final int weight) {
+        newRelation(fromId, UUID.randomUUID(), weight);
     }
 }

@@ -1,7 +1,6 @@
 package com.feelhub.web.search;
 
 import com.feelhub.domain.relation.Relation;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.SessionProvider;
 import com.google.inject.Inject;
 import org.mongolink.domain.criteria.*;
@@ -38,13 +37,9 @@ public class RelationSearch implements Search<Relation> {
         return this;
     }
 
-    public RelationSearch withFrom(final Topic from) {
-        criteria.add(Restrictions.equals("fromId", from.getId()));
-        return this;
-    }
-
-    public RelationSearch withFrom(final UUID fromId) {
-        criteria.add(Restrictions.equals("fromId", fromId));
+    @Override
+    public RelationSearch withTopicId(final UUID topicId) {
+        criteria.add(Restrictions.equals("fromId", topicId));
         return this;
     }
 

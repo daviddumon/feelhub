@@ -1,5 +1,6 @@
 package com.feelhub.domain.feeling;
 
+import com.feelhub.domain.feeling.context.SemanticContext;
 import com.feelhub.domain.keyword.KeywordIdentifier;
 import com.google.common.collect.*;
 
@@ -9,43 +10,62 @@ import java.util.*;
 
 public class SentimentExtractor {
 
-    public List<SentimentAndText> extract(final String text) {
+    public List<SentimentAndText> extract(final String text, final SemanticContext semanticContext) {
         final List<SentimentAndText> sentimentAndTexts = Lists.newArrayList();
         final String[] tokens = text.split("\\s");
         for (final String token : tokens) {
             final TreeMap<Integer, SentimentValue> tokenTags = getSemanticTags(token);
             if (hasAny(tokenTags)) {
-                final SentimentValue tokenSentimentValue = getSentimentValue(tokenTags);
-                String cleanedToken = null;
-                try {
-                    cleanedToken = URLDecoder.decode(token.replaceAll(STRING_REPLACE_SEMANTIC, "").toLowerCase(), "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                if (!isUri(cleanedToken)) {
-                    cleanedToken = token.replaceAll(STRING_REPLACE_ALL, "").toLowerCase();
-                    cleanedToken = cleanedToken.replaceAll(STRING_TO_SPACES, " ");
-                    cleanedToken = removeApostrophe(cleanedToken);
-                }
-                if (cleanedToken.length() > 2) {
-                    final SentimentAndText sentimentAndText = new SentimentAndText(tokenSentimentValue, cleanedToken);
-                    sentimentAndTexts.add(sentimentAndText);
-                }
+                extractSentimentAndTextFromSemanticToken(sentimentAndTexts, token, tokenTags);
             } else if (isUri(token)) {
-                String cleanedToken;
-                try {
-                    cleanedToken = URLDecoder.decode(token.trim().toLowerCase(), "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    cleanedToken = "";
-                    e.printStackTrace();
-                }
-                if (cleanedToken.length() > 2) {
-                    final SentimentAndText sentimentAndText = new SentimentAndText(SentimentValue.none, cleanedToken);
-                    sentimentAndTexts.add(sentimentAndText);
-                }
+                extractSentimentAndTextFromUri(sentimentAndTexts, token);
+            } else if (isInSemanticContext(token, semanticContext)) {
+                sentimentAndTexts.add(new SentimentAndText(SentimentValue.none, token));
             }
         }
         return sentimentAndTexts;
+    }
+
+    private void extractSentimentAndTextFromSemanticToken(final List<SentimentAndText> sentimentAndTexts, final String token, final TreeMap<Integer, SentimentValue> tokenTags) {
+        final SentimentValue tokenSentimentValue = getSentimentValue(tokenTags);
+        String cleanedToken = null;
+        try {
+            cleanedToken = URLDecoder.decode(token.replaceAll(STRING_REPLACE_SEMANTIC, "").toLowerCase(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if (!isUri(cleanedToken)) {
+            cleanedToken = token.replaceAll(STRING_REPLACE_ALL, "").toLowerCase();
+            cleanedToken = cleanedToken.replaceAll(STRING_TO_SPACES, " ");
+            cleanedToken = removeApostrophe(cleanedToken);
+        }
+        if (cleanedToken.length() > 2) {
+            final SentimentAndText sentimentAndText = new SentimentAndText(tokenSentimentValue, cleanedToken);
+            sentimentAndTexts.add(sentimentAndText);
+        }
+    }
+
+    private void extractSentimentAndTextFromUri(final List<SentimentAndText> sentimentAndTexts, final String token) {
+        String cleanedToken;
+        try {
+            cleanedToken = URLDecoder.decode(token.trim().toLowerCase(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            cleanedToken = "";
+            e.printStackTrace();
+        }
+        if (cleanedToken.length() > 2) {
+            final SentimentAndText sentimentAndText = new SentimentAndText(SentimentValue.none, cleanedToken);
+            sentimentAndTexts.add(sentimentAndText);
+        }
+    }
+
+    private boolean isInSemanticContext(final String token, final SemanticContext semanticContext) {
+        for (final String value : semanticContext.getValues()) {
+            if (token.equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private String removeApostrophe(final String cleanedToken) {
