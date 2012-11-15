@@ -15,8 +15,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.fest.assertions.Assertions.*;
+
 
 public class TestsUriResource {
 
@@ -33,7 +33,7 @@ public class TestsUriResource {
 
         uriResource.get();
 
-        assertThat(uriResource.getStatus(), is(Status.SUCCESS_OK));
+        assertThat(uriResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
     }
 
     @Test
@@ -44,8 +44,8 @@ public class TestsUriResource {
         final TemplateRepresentation representation = (TemplateRepresentation) uriResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        assertTrue(dataModel.containsKey("keywordData"));
-        assertThat(dataModel.get("keywordData"), notNullValue());
+        assertThat(dataModel.containsKey("keywordData")).isTrue();
+        assertThat(dataModel.get("keywordData")).isNotNull();
     }
 
     @Test
@@ -56,12 +56,11 @@ public class TestsUriResource {
         final TemplateRepresentation representation = (TemplateRepresentation) uriResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        assertTrue(dataModel.containsKey("keywordData"));
+        assertThat(dataModel.containsKey("keywordData")).isTrue();
         final KeywordData keywordData = (KeywordData) dataModel.get("keywordData");
-        assertThat(keywordData.getKeywordValue(), is(uri.getValue()));
-        assertThat(keywordData.getLanguageCode(), is(uri.getLanguageCode()));
+        assertThat(keywordData.getKeywordValue()).isEqualTo(uri.getValue());
+        assertThat(keywordData.getLanguageCode()).isEqualTo(uri.getLanguageCode());
     }
-
 
     @Test
     public void createFakeUriIfItDoesNotExist() {
@@ -70,12 +69,12 @@ public class TestsUriResource {
         final TemplateRepresentation representation = (TemplateRepresentation) uriResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        assertTrue(dataModel.containsKey("keywordData"));
+        assertThat(dataModel.containsKey("keywordData")).isTrue();
         final KeywordData keywordData = (KeywordData) dataModel.get("keywordData");
-        assertThat(keywordData, notNullValue());
-        assertThat(keywordData.getTopicId(), is(""));
-        assertThat(uriResource.getStatus(), is(Status.CLIENT_ERROR_NOT_FOUND));
-        assertThat(Repositories.keywords().getAll().size(), is(0));
+        assertThat(keywordData).isNotNull();
+        assertThat(keywordData.getTopicId()).isEqualTo("");
+        assertThat(uriResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_NOT_FOUND);
+        assertThat(Repositories.keywords().getAll().size()).isZero();
     }
 
     @Test
@@ -87,12 +86,12 @@ public class TestsUriResource {
         final TemplateRepresentation representation = (TemplateRepresentation) uriResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        assertTrue(dataModel.containsKey("keywordData"));
+        assertThat(dataModel.containsKey("keywordData")).isTrue();
         final KeywordData keywordData = (KeywordData) dataModel.get("keywordData");
-        assertThat(keywordData.getIllustrationLink(), is(illustration.getLink()));
-        assertThat(keywordData.getKeywordValue(), is(uri.getValue()));
-        assertThat(keywordData.getLanguageCode(), is(uri.getLanguageCode()));
-        assertThat(keywordData.getTopicId(), is(uri.getTopicId().toString()));
+        assertThat(keywordData.getIllustrationLink()).isEqualTo(illustration.getLink());
+        assertThat(keywordData.getKeywordValue()).isEqualTo(uri.getValue());
+        assertThat(keywordData.getLanguageCode()).isEqualTo(uri.getLanguageCode());
+        assertThat(keywordData.getTopicId()).isEqualTo(uri.getTopicId().toString());
     }
 
     @Test
@@ -102,9 +101,9 @@ public class TestsUriResource {
         final TemplateRepresentation representation = (TemplateRepresentation) uriResource.get();
 
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        assertTrue(dataModel.containsKey("keywordData"));
+        assertThat(dataModel.containsKey("keywordData")).isTrue();
         final KeywordData keywordData = (KeywordData) dataModel.get("keywordData");
-        assertThat(keywordData.getKeywordValue(), is("http://www.google.fr"));
+        assertThat(keywordData.getKeywordValue()).isEqualTo("http://www.google.fr");
     }
 
     @Test
@@ -115,12 +114,13 @@ public class TestsUriResource {
 
         final TemplateRepresentation representation = (TemplateRepresentation) uriResource.get();
 
+        assertThat(uriResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
-        assertTrue(dataModel.containsKey("keywordData"));
+        assertThat(dataModel.containsKey("keywordData")).isTrue();
         final KeywordData keywordData = (KeywordData) dataModel.get("keywordData");
-        assertThat(keywordData.getIllustrationLink(), is(illustration.getLink()));
-        assertThat(keywordData.getKeywordValue(), is(uri.getValue()));
-        assertThat(keywordData.getLanguageCode(), is(uri.getLanguageCode()));
-        assertThat(keywordData.getTopicId(), is(uri.getTopicId().toString()));
+        assertThat(keywordData.getIllustrationLink()).isEqualTo(illustration.getLink());
+        assertThat(keywordData.getKeywordValue()).isEqualTo(uri.getValue());
+        assertThat(keywordData.getLanguageCode()).isEqualTo(uri.getLanguageCode());
+        assertThat(keywordData.getTopicId()).isEqualTo(uri.getTopicId().toString());
     }
 }

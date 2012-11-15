@@ -84,7 +84,7 @@ public class TestsWordResource {
     }
 
     @Test
-    public void canIdentifyWordValueInUri() {
+    public void canIdentifyWordValueInQuery() {
         final ClientResource wordResource = restlet.newClientResource("/word/fr/Anotherword");
 
         final TemplateRepresentation representation = (TemplateRepresentation) wordResource.get();
@@ -92,6 +92,19 @@ public class TestsWordResource {
         final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
         final KeywordData keywordData = (KeywordData) dataModel.get("keywordData");
         assertThat(keywordData.getKeywordValue(), is("Anotherword"));
+    }
+
+    @Test
+    public void canUseEncodedValueInQuery() {
+        final Word word = TestFactories.keywords().newWord("Marie Dumon");
+        final ClientResource wordResource = restlet.newClientResource("/word/Marie%20Dumon");
+
+        final TemplateRepresentation representation = (TemplateRepresentation) wordResource.get();
+
+        assertThat(wordResource.getStatus(), is(Status.SUCCESS_OK));
+        final Map<String, Object> dataModel = (Map<String, Object>) representation.getDataModel();
+        final KeywordData keywordData = (KeywordData) dataModel.get("keywordData");
+        assertThat(keywordData.getKeywordValue(), is(word.getValue()));
     }
 
     @Test

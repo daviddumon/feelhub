@@ -10,6 +10,9 @@ import com.google.inject.Inject;
 import org.restlet.data.Status;
 import org.restlet.resource.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 public class WordResource extends ServerResource {
 
     @Inject
@@ -42,7 +45,11 @@ public class WordResource extends ServerResource {
     }
 
     private void extractWordValueFromUri() {
-        keywordValue = getRequestAttributes().get("keywordValue").toString();
+        try {
+            keywordValue = URLDecoder.decode(getRequestAttributes().get("keywordValue").toString(),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     private WordService wordService;
