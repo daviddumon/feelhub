@@ -14,7 +14,7 @@ public class KeywordTestFactory {
 
     public Word newWord() {
         final String value = "Value";
-        final FeelhubLanguage feelhubLanguage = FeelhubLanguage.forString("english");
+        final FeelhubLanguage feelhubLanguage = FeelhubLanguage.fromCountryName("english");
         return newWord(value, feelhubLanguage);
     }
 

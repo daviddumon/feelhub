@@ -45,7 +45,7 @@ public class TestsUserService {
         final User user = Repositories.users().getAll().get(0);
         assertThat(user.getFullname(), is(fullname));
         assertThat(user.getEmail(), is(email));
-        assertThat(user.getLanguageCode(), is(FeelhubLanguage.forString(language).getCode()));
+        assertThat(user.getLanguageCode(), is(FeelhubLanguage.fromCountryName(language).getCode()));
         assertTrue(user.checkPassword(password));
     }
 

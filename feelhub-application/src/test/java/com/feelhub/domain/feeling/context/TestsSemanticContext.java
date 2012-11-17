@@ -19,7 +19,7 @@ public class TestsSemanticContext {
         final Word word1 = TestFactories.keywords().newWord("word1", FeelhubLanguage.reference());
         final Word word2 = TestFactories.keywords().newWord("word2", FeelhubLanguage.reference());
         final Word word3 = TestFactories.keywords().newWord("word3", FeelhubLanguage.reference());
-        final Word word4 = TestFactories.keywords().newWord("word4", FeelhubLanguage.forString("fr"));
+        final Word word4 = TestFactories.keywords().newWord("word4", FeelhubLanguage.fromCode("fr"));
         TestFactories.relations().newRelation(word1.getTopicId(), word2.getTopicId());
         TestFactories.relations().newRelation(word1.getTopicId(), word3.getTopicId());
         TestFactories.relations().newRelation(word1.getTopicId(), word4.getTopicId());

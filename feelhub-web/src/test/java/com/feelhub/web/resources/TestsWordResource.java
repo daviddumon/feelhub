@@ -38,7 +38,7 @@ public class TestsWordResource {
 
     @Test
     public void wordResourceIsMappedWithLanguage() {
-        TestFactories.keywords().newWord("Word", FeelhubLanguage.forString("fr"));
+        TestFactories.keywords().newWord("Word", FeelhubLanguage.fromCode("fr"));
         final ClientResource wordResource = restlet.newClientResource("/word/fr/Word");
 
         wordResource.get();
@@ -59,7 +59,7 @@ public class TestsWordResource {
 
     @Test
     public void lookUpWord() {
-        final Word word = TestFactories.keywords().newWord("Word", FeelhubLanguage.forString("de"));
+        final Word word = TestFactories.keywords().newWord("Word", FeelhubLanguage.fromCode("de"));
         final ClientResource wordResource = restlet.newClientResource("/word/de/Word");
 
         final TemplateRepresentation representation = (TemplateRepresentation) wordResource.get();
@@ -125,7 +125,7 @@ public class TestsWordResource {
     @Test
     public void keywordDataWithGoodValuesForExistingWordAndIllustration() {
         final Topic topic = TestFactories.topics().newTopic();
-        final Word word = TestFactories.keywords().newWord("Word", FeelhubLanguage.forString("es"), topic.getId());
+        final Word word = TestFactories.keywords().newWord("Word", FeelhubLanguage.fromCode("es"), topic.getId());
         final Illustration illustration = TestFactories.illustrations().newIllustration(topic.getId(), "link");
         final ClientResource wordResource = restlet.newClientResource("/word/es/Word");
 

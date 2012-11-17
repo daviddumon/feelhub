@@ -39,7 +39,7 @@ public class TestsFeelingService {
 
     @Test
     public void canAddFeelingAndSentiments() {
-        TestFactories.keywords().newWord("word3", FeelhubLanguage.forString("french"));
+        TestFactories.keywords().newWord("word3", FeelhubLanguage.fromCode("fr"));
         final FeelingRequestEvent event = getEvent();
 
         DomainEventBus.INSTANCE.post(event);
@@ -49,15 +49,15 @@ public class TestsFeelingService {
         assertThat(feeling).isNotNull();
         assertThat(feeling.getText()).isEqualTo(event.getText());
         assertThat(feeling.getUserId()).isEqualTo(event.getUserId());
-        assertThat(feeling.getLanguageCode()).isEqualTo(event.getUserLanguageCode());
+        assertThat(feeling.getLanguageCode()).isEqualTo(event.getUserLanguage().getCode());
         assertThat(feeling.getSentiments().size()).isEqualTo(3);
         assertThat(Repositories.relations().getAll().size()).isEqualTo(6);
     }
 
     @Test
     public void createSemanticContextWithGoodValueAndLanguage() {
-        final Word word3 = TestFactories.keywords().newWord("word3", FeelhubLanguage.forString("french"));
-        final Word word4 = TestFactories.keywords().newWord("word4", FeelhubLanguage.forString("french"));
+        final Word word3 = TestFactories.keywords().newWord("word3", FeelhubLanguage.fromCountryName("french"));
+        final Word word4 = TestFactories.keywords().newWord("word4", FeelhubLanguage.fromCountryName("french"));
         TestFactories.relations().newRelation(word3.getTopicId(), word4.getTopicId());
         final FeelingRequestEvent event = getEvent();
 
@@ -74,8 +74,8 @@ public class TestsFeelingService {
         builder.user(TestFactories.users().createFakeActiveUser("feeling@mail.com"));
         builder.sentimentValue(SentimentValue.good);
         builder.keywordValue("word3");
-        builder.languageCode(FeelhubLanguage.reference().getCode());
-        builder.userLanguageCode(FeelhubLanguage.forString("french").getCode());
+        builder.languageCode(FeelhubLanguage.reference());
+        builder.userLanguageCode(FeelhubLanguage.fromCode("fr"));
         builder.text("+word1 -word2 word4");
         return builder.build();
     }

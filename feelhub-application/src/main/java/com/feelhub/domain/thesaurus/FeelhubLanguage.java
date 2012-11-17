@@ -1,65 +1,43 @@
 package com.feelhub.domain.thesaurus;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Maps;
 import com.memetix.mst.language.Language;
+import org.apache.commons.lang.LocaleUtils;
+
+import java.util.Map;
 
 public class FeelhubLanguage {
 
-    public static FeelhubLanguage forString(final String language) {
-        final FeelhubLanguage result = new FeelhubLanguage();
-        result.code = setCodeFor(language).toLowerCase().trim();
-        result.microsoftCode = setMicrosoftCodeFor(language);
-        return result;
-    }
-
-    private static String setCodeFor(final String value) {
-        if (value.equalsIgnoreCase("French")) {
-            return "fr";
-        } else if (value.equalsIgnoreCase("German")) {
-            return "de";
-        } else if (value.equalsIgnoreCase("Italian")) {
-            return "it";
-        } else if (value.equalsIgnoreCase("Portuguese")) {
-            return "pt";
-        } else if (value.equalsIgnoreCase("Russian")) {
-            return "ru";
-        } else if (value.equalsIgnoreCase("Spanish")) {
-            return "es";
-        } else if (value.equalsIgnoreCase("Swedish")) {
-            return "sv";
-        } else if (value.equalsIgnoreCase("English")) {
-            return "en";
-        } else {
-            return value;
+    public static FeelhubLanguage fromCode(String code) {
+        try {
+            return new FeelhubLanguage(LocaleUtils.toLocale(code).getLanguage());
+        } catch (Exception e) {
+            return FeelhubLanguage.none();
         }
     }
 
-    private static Language setMicrosoftCodeFor(final String language) {
-        if (language.equalsIgnoreCase("French")) {
-            return Language.FRENCH;
-        } else if (language.equalsIgnoreCase("German")) {
-            return Language.GERMAN;
-        } else if (language.equalsIgnoreCase("Italian")) {
-            return Language.ITALIAN;
-        } else if (language.equalsIgnoreCase("Portuguese")) {
-            return Language.PORTUGUESE;
-        } else if (language.equalsIgnoreCase("Russian")) {
-            return Language.RUSSIAN;
-        } else if (language.equalsIgnoreCase("Spanish")) {
-            return Language.SPANISH;
-        } else if (language.equalsIgnoreCase("Swedish")) {
-            return Language.SWEDISH;
-        } else if (language.equalsIgnoreCase("English")) {
-            return Language.ENGLISH;
-        } else {
-            return Language.AUTO_DETECT;
+    public static FeelhubLanguage fromCountryName(final String language) {
+        return fromCode(feelhubCodeFor(language.toLowerCase().trim()));
+    }
+
+    private static String feelhubCodeFor(final String value) {
+        if(alchemyLanguagues.containsKey(value)) {
+            return alchemyLanguagues.get(value);
         }
+        return value;
+    }
+
+    public FeelhubLanguage(String code) {
+        this.code = code;
+    }
+
+    public static FeelhubLanguage reference() {
+        return new FeelhubLanguage("en");
     }
 
     public static FeelhubLanguage none() {
-        final FeelhubLanguage feelhubLanguage = new FeelhubLanguage();
-        feelhubLanguage.code = "none";
-        return feelhubLanguage;
+        return NULL_FEELHUB_LANGUAGE;
     }
 
     @Override
@@ -67,7 +45,7 @@ public class FeelhubLanguage {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (o == null || !getClass().isAssignableFrom(o.getClass())) {
             return false;
         }
         final FeelhubLanguage feelhubLanguage = (FeelhubLanguage) o;
@@ -79,18 +57,31 @@ public class FeelhubLanguage {
         return Objects.hashCode(code);
     }
 
+    @Override
+    public String toString() {
+        return code;
+    }
+
     public String getCode() {
         return code;
     }
 
     public Language getMicrosoftLanguage() {
-        return microsoftCode;
+        return Language.fromString(code);
     }
-
-    public static FeelhubLanguage reference() {
-        return FeelhubLanguage.forString("English");
-    }
-
     private String code;
-    private Language microsoftCode;
+    private static final NullFeelhubLanguage NULL_FEELHUB_LANGUAGE = new NullFeelhubLanguage();
+
+    private static final Map<String, String> alchemyLanguagues = Maps.newConcurrentMap();
+
+    static {
+        alchemyLanguagues.put("french", "fr");
+        alchemyLanguagues.put("german", "de");
+        alchemyLanguagues.put("italian", "it");
+        alchemyLanguagues.put("portuguese", "pt");
+        alchemyLanguagues.put("russian", "ru");
+        alchemyLanguagues.put("spanish", "es");
+        alchemyLanguagues.put("swedish", "sv");
+        alchemyLanguagues.put("english", "en");
+    }
 }

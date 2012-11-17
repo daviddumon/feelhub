@@ -1,5 +1,6 @@
 package com.feelhub.repositories;
 
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.*;
 import com.feelhub.test.SystemTime;
 import com.mongodb.*;
@@ -26,7 +27,7 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         user.setEmail("email@email.com");
         user.setPassword("password");
         user.setFullname("fullname");
-        user.setLanguageCode("en");
+        user.setLanguage(FeelhubLanguage.fromCode("en"));
         user.addToken(new SocialToken(SocialNetwork.FACEBOOK, "token"));
 
         repository.add(user);

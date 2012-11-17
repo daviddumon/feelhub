@@ -1,6 +1,7 @@
 package com.feelhub.domain.user;
 
 import com.feelhub.domain.BaseEntity;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.google.common.collect.Lists;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.mindrot.jbcrypt.BCrypt;
@@ -69,8 +70,8 @@ public class User extends BaseEntity {
         return fullname;
     }
 
-    public void setLanguageCode(final String languageCode) {
-        this.languageCode = languageCode;
+    public FeelhubLanguage getLanguage() {
+        return FeelhubLanguage.fromCode(languageCode);
     }
 
     public String getLanguageCode() {
@@ -106,11 +107,15 @@ public class User extends BaseEntity {
         return Collections.unmodifiableList(socialTokens);
     }
 
+    public void setLanguage(FeelhubLanguage feelhubLanguage) {
+        this.languageCode = feelhubLanguage.getCode();
+    }
     private String email;
     protected String password;
     private String fullname;
     private String languageCode;
     private boolean active;
     private final List<SocialToken> socialTokens = Lists.newArrayList();
+
     private String id;
 }

@@ -2,99 +2,100 @@ package com.feelhub.domain.thesaurus;
 
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.assertThat;
+
 
 public class TestsFeelhubLanguage {
 
     @Test
     public void canGetFrenchLanguage() {
-        final FeelhubLanguage french = FeelhubLanguage.forString("French");
+        final FeelhubLanguage french = FeelhubLanguage.fromCountryName("French");
 
-        assertThat(french.getCode(), is("fr"));
+        assertThat(french.getCode()).isEqualTo("fr");
     }
 
     @Test
     public void canGetGermanLanguage() {
-        final FeelhubLanguage french = FeelhubLanguage.forString("German");
+        final FeelhubLanguage french = FeelhubLanguage.fromCountryName("German");
 
-        assertThat(french.getCode(), is("de"));
+        assertThat(french.getCode()).isEqualTo("de");
     }
 
     @Test
     public void canGetItalianLanguage() {
-        final FeelhubLanguage french = FeelhubLanguage.forString("Italian");
+        final FeelhubLanguage french = FeelhubLanguage.fromCountryName("Italian");
 
-        assertThat(french.getCode(), is("it"));
+        assertThat(french.getCode()).isEqualTo("it");
     }
 
     @Test
     public void canGetPortugueseLanguage() {
-        final FeelhubLanguage french = FeelhubLanguage.forString("Portuguese");
+        final FeelhubLanguage french = FeelhubLanguage.fromCountryName("Portuguese");
 
-        assertThat(french.getCode(), is("pt"));
+        assertThat(french.getCode()).isEqualTo("pt");
     }
 
     @Test
     public void canGetRussianLanguage() {
-        final FeelhubLanguage french = FeelhubLanguage.forString("Russian");
+        final FeelhubLanguage french = FeelhubLanguage.fromCountryName("Russian");
 
-        assertThat(french.getCode(), is("ru"));
+        assertThat(french.getCode()).isEqualTo("ru");
     }
 
     @Test
     public void canGetSpanishLanguage() {
-        final FeelhubLanguage french = FeelhubLanguage.forString("Spanish");
+        final FeelhubLanguage french = FeelhubLanguage.fromCountryName("Spanish");
 
-        assertThat(french.getCode(), is("es"));
+        assertThat(french.getCode()).isEqualTo("es");
     }
 
     @Test
     public void canGetSwedishLanguage() {
-        final FeelhubLanguage french = FeelhubLanguage.forString("Swedish");
+        final FeelhubLanguage french = FeelhubLanguage.fromCountryName("Swedish");
 
-        assertThat(french.getCode(), is("sv"));
+        assertThat(french.getCode()).isEqualTo("sv");
     }
 
     @Test
     public void canGetEnglishLanguage() {
-        final FeelhubLanguage french = FeelhubLanguage.forString("English");
+        final FeelhubLanguage french = FeelhubLanguage.fromCountryName("English");
 
-        assertThat(french.getCode(), is("en"));
+        assertThat(french.getCode()).isEqualTo("en");
     }
 
     @Test
     public void canLowerCase() {
-        final FeelhubLanguage fr = FeelhubLanguage.forString("FR");
+        final FeelhubLanguage fr = FeelhubLanguage.fromCountryName("FR");
 
-        assertThat(fr.getCode(), is("fr"));
+        assertThat(fr.getCode()).isEqualTo("fr");
     }
 
     @Test
     public void canTrim() {
-        final FeelhubLanguage feelhubLanguage = FeelhubLanguage.forString(" De ");
+        final FeelhubLanguage feelhubLanguage = FeelhubLanguage.fromCountryName(" De ");
 
-        assertThat(feelhubLanguage.getCode(), is("de"));
+        assertThat(feelhubLanguage.getCode()).isEqualTo("de");
     }
 
     @Test
-    public void justReturnValueIfUnknownLanguage() {
-        final FeelhubLanguage unknown = FeelhubLanguage.forString("unknown");
+    public void returnsNoneOnUnknownLanguage() {
+        final FeelhubLanguage unknown = FeelhubLanguage.fromCountryName("unknown");
 
-        assertThat(unknown.getCode(), is("unknown"));
+        assertThat(unknown).isEqualTo(FeelhubLanguage.none());
     }
 
     @Test
     public void canGetMicrosoftLanguageCode() {
-        final FeelhubLanguage french = FeelhubLanguage.forString("French");
+        final FeelhubLanguage french = FeelhubLanguage.fromCountryName("French");
 
-        assertThat(french.getMicrosoftLanguage(), is(com.memetix.mst.language.Language.FRENCH));
+        assertThat(french.getMicrosoftLanguage()).isEqualTo(com.memetix.mst.language.Language.FRENCH);
     }
 
     @Test
     public void referenceLanguageIsEnglish() {
-        final FeelhubLanguage english = FeelhubLanguage.forString("english");
+        final FeelhubLanguage english = FeelhubLanguage.fromCountryName("english");
         final FeelhubLanguage reference = FeelhubLanguage.reference();
-        assertThat(english, is(reference));
+        assertThat(english).isEqualTo(reference);
     }
+
 }

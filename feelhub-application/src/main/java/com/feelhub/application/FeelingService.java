@@ -45,7 +45,7 @@ public class FeelingService {
         final List<Sentiment> result = Lists.newArrayList();
         final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(feelingRequestEvent.getText(), getSemanticContext(feelingRequestEvent));
         for (final SentimentAndText sentimentAndText : sentimentAndTexts) {
-            final Keyword keyword = keywordService.lookUpOrCreate(sentimentAndText.text, feelingRequestEvent.getUserLanguageCode());
+            final Keyword keyword = keywordService.lookUpOrCreate(sentimentAndText.text, feelingRequestEvent.getUserLanguage().getCode());
             final Sentiment sentiment = new Sentiment(keyword.getTopicId(), sentimentAndText.sentimentValue);
             result.add(sentiment);
         }
@@ -54,13 +54,13 @@ public class FeelingService {
 
     private SemanticContext getSemanticContext(final FeelingRequestEvent feelingRequestEvent) {
         final SemanticContext semanticContext = new SemanticContext();
-        semanticContext.extractFor(feelingRequestEvent.getKeywordValue(), FeelhubLanguage.forString(feelingRequestEvent.getUserLanguageCode()));
+        semanticContext.extractFor(feelingRequestEvent.getKeywordValue(), FeelhubLanguage.fromCode(feelingRequestEvent.getUserLanguage().getCode()));
         return semanticContext;
     }
 
     private List<Sentiment> fromFeelingSentiment(final FeelingRequestEvent feelingRequestEvent) {
         final List<Sentiment> result = Lists.newArrayList();
-        final Keyword keyword = keywordService.lookUpOrCreate(feelingRequestEvent.getKeywordValue(), feelingRequestEvent.getLanguageCode());
+        final Keyword keyword = keywordService.lookUpOrCreate(feelingRequestEvent.getKeywordValue(), feelingRequestEvent.getLanguage().getCode());
         final Sentiment sentiment = new Sentiment(keyword.getTopicId(), feelingRequestEvent.getSentimentValue());
         result.add(sentiment);
         return result;
@@ -71,7 +71,7 @@ public class FeelingService {
         builder.id(feelingRequestEvent.getFeelingId());
         builder.text(feelingRequestEvent.getText());
         builder.user(feelingRequestEvent.getUserId());
-        builder.language(feelingRequestEvent.getUserLanguageCode());
+        builder.language(feelingRequestEvent.getUserLanguage().getCode());
         builder.sentiments(sentiments);
         return builder.build();
     }

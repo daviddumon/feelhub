@@ -53,7 +53,7 @@ public class TestsWordService {
     public void canThrowWordNotFound() {
         exception.expect(WordNotFound.class);
 
-        wordService.lookUp("any", FeelhubLanguage.forString("any"));
+        wordService.lookUp("any", FeelhubLanguage.fromCountryName("any"));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class TestsWordService {
     @Test
     public void translateIfLanguageDifferentFromReference() {
         final String value = "Value";
-        final FeelhubLanguage feelhubLanguage = FeelhubLanguage.forString("fr");
+        final FeelhubLanguage feelhubLanguage = FeelhubLanguage.fromCountryName("fr");
 
         final Word word = wordService.createWord(value, feelhubLanguage);
 
@@ -110,8 +110,8 @@ public class TestsWordService {
     public void doNotCreateSameWordTwice() {
         final String value = "Value";
 
-        wordService.createWord(value, FeelhubLanguage.forString("fr"));
-        wordService.createWord(value, FeelhubLanguage.forString("de"));
+        wordService.createWord(value, FeelhubLanguage.fromCountryName("fr"));
+        wordService.createWord(value, FeelhubLanguage.fromCountryName("de"));
 
         assertThat(Repositories.keywords().getAll().size()).isEqualTo(3);
         assertThat(Repositories.topics().getAll().size()).isEqualTo(1);
@@ -121,7 +121,7 @@ public class TestsWordService {
     public void lookUpExistingTranslation() {
         final Word referenceWord = TestFactories.keywords().newWord("Valueenglish", FeelhubLanguage.reference());
 
-        wordService.createWord("Value", FeelhubLanguage.forString("fr"));
+        wordService.createWord("Value", FeelhubLanguage.fromCountryName("fr"));
 
         assertThat(Repositories.keywords().getAll().size()).isEqualTo(2);
         assertThat(Repositories.keywords().getAll().get(0).getTopicId()).isEqualTo(referenceWord.getTopicId());
@@ -130,7 +130,7 @@ public class TestsWordService {
 
     @Test
     public void translationNeededOnTranslationError() {
-        wordService.createWord("Exception", FeelhubLanguage.forString("fr"));
+        wordService.createWord("Exception", FeelhubLanguage.fromCountryName("fr"));
 
         assertThat(Repositories.keywords().getAll().size()).isEqualTo(1);
         assertThat(((Word) Repositories.keywords().getAll().get(0)).isTranslationNeeded()).isTrue();

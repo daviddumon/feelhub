@@ -20,7 +20,7 @@ public class KeywordService {
         if (KeywordIdentifier.isUri(value)) {
             return uriService.lookUpOrCreate(value);
         } else {
-            return wordService.lookUpOrCreate(value, FeelhubLanguage.forString(languageCode));
+            return wordService.lookUpOrCreate(value, FeelhubLanguage.fromCountryName(languageCode));
         }
     }
 

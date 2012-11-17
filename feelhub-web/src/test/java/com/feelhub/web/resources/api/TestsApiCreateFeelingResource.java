@@ -2,6 +2,7 @@ package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -131,8 +132,8 @@ public class TestsApiCreateFeelingResource {
         assertThat(feelingRequestEvent.getSentimentValue(), is(SentimentValue.valueOf("good")));
         assertThat(feelingRequestEvent.getText(), is("my feeling +sentiment"));
         assertThat(feelingRequestEvent.getKeywordValue(), is("keyword"));
-        assertThat(feelingRequestEvent.getLanguageCode(), is("en"));
-        assertThat(feelingRequestEvent.getUserLanguageCode(), is("fr"));
+        assertThat(feelingRequestEvent.getLanguage(), is(FeelhubLanguage.fromCode("en")));
+        assertThat(feelingRequestEvent.getUserLanguage(), is(FeelhubLanguage.fromCode("fr")));
         assertThat(feelingRequestEvent.getUserId(), is(user.getId()));
     }
 

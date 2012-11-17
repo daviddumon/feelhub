@@ -171,9 +171,9 @@ public class TestsApiRelatedResource {
     public void canGetWithGoodKeywordWithGoodLanguage() throws IOException, JSONException {
         final Topic to = TestFactories.topics().newTopic();
         final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic().getId(), to.getId());
-        TestFactories.keywords().newWord("eskeyword", FeelhubLanguage.forString("es"), to.getId());
+        TestFactories.keywords().newWord("eskeyword", FeelhubLanguage.fromCode("es"), to.getId());
         final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), to.getId());
-        TestFactories.keywords().newWord("frkeyword", FeelhubLanguage.forString("fr"), to.getId());
+        TestFactories.keywords().newWord("frkeyword", FeelhubLanguage.fromCode("fr"), to.getId());
         final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId() + "&limit=50&languageCode=" + FeelhubLanguage.reference().getCode());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
@@ -192,9 +192,9 @@ public class TestsApiRelatedResource {
     public void defaultLanguageIsReference() throws IOException, JSONException {
         final Topic to = TestFactories.topics().newTopic();
         final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic().getId(), to.getId());
-        TestFactories.keywords().newWord("eskeyword", FeelhubLanguage.forString("es"), to.getId());
+        TestFactories.keywords().newWord("eskeyword", FeelhubLanguage.fromCode("es"), to.getId());
         final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), to.getId());
-        TestFactories.keywords().newWord("dekeyword", FeelhubLanguage.forString("de"), to.getId());
+        TestFactories.keywords().newWord("dekeyword", FeelhubLanguage.fromCode("de"), to.getId());
         final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId() + "&limit=50&languageCode=fr");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();

@@ -52,7 +52,7 @@ public abstract class Keyword extends BaseEntity {
     }
 
     public FeelhubLanguage getLanguage() {
-        return FeelhubLanguage.forString(languageCode);
+        return FeelhubLanguage.fromCode(languageCode);
     }
 
     public String getLanguageCode() {

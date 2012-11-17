@@ -2,6 +2,7 @@ package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
 import com.feelhub.web.authentification.CurrentUser;
 import org.apache.http.auth.AuthenticationException;
@@ -63,15 +64,15 @@ public class ApiCreateFeelingResource extends ServerResource {
         return jsonFeeling.get("keywordValue").toString();
     }
 
-    private String extractLanguageCode(final JSONObject jsonFeeling) throws JSONException {
-        return jsonFeeling.get("languageCode").toString();
+    private FeelhubLanguage extractLanguageCode(final JSONObject jsonFeeling) throws JSONException {
+        return FeelhubLanguage.fromCode(jsonFeeling.get("languageCode").toString());
     }
 
-    private String extractUserLanguageCode(final JSONObject jsonFeeling) throws JSONException {
-        return jsonFeeling.get("userLanguageCode").toString();
+    private FeelhubLanguage extractUserLanguageCode(final JSONObject jsonFeeling) throws JSONException {
+        return FeelhubLanguage.fromCode(jsonFeeling.get("userLanguageCode").toString());
     }
 
-    private User extractUser() throws AuthenticationException {
+    private User extractUser() {
         return CurrentUser.get().getUser();
     }
 

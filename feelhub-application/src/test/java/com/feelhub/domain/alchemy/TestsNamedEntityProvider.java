@@ -52,7 +52,7 @@ public class TestsNamedEntityProvider {
 
         final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().getAll();
         assertThat(alchemyAnalysisList.size()).isEqualTo(1);
-        assertThat(alchemyAnalysisList.get(0).getLanguageCode()).isEqualTo(FeelhubLanguage.forString("english").getCode());
+        assertThat(alchemyAnalysisList.get(0).getLanguageCode()).isEqualTo(FeelhubLanguage.fromCountryName("english").getCode());
     }
 
     @Test

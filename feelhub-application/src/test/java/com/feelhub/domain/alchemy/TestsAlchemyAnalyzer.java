@@ -108,7 +108,7 @@ public class TestsAlchemyAnalyzer {
         final Topic topic = TestFactories.topics().newTopic();
         final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic.getId());
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
-        final Word word = TestFactories.keywords().newWord("Keyword1", FeelhubLanguage.forString("english"));
+        final Word word = TestFactories.keywords().newWord("Keyword1", FeelhubLanguage.fromCountryName("english"));
         final AlchemyEntity alchemyEntity = new AlchemyEntity(word.getTopicId());
         Repositories.alchemyEntities().add(alchemyEntity);
 

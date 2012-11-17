@@ -26,7 +26,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistAWord() {
-        final Word word = new Word("value", FeelhubLanguage.forString("english"), UUID.randomUUID());
+        final Word word = new Word("value", FeelhubLanguage.fromCountryName("english"), UUID.randomUUID());
 
         repository.add(word);
 
@@ -114,7 +114,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetForValueAndLanguage() {
         final String value = "value";
-        final FeelhubLanguage english = FeelhubLanguage.forString("english");
+        final FeelhubLanguage english = FeelhubLanguage.fromCountryName("english");
         TestFactories.keywords().newWord(value, english);
 
         final Keyword keyword = repository.forValueAndLanguage(value, english);
@@ -125,9 +125,9 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetForATopic() {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.keywords().newWord("coucou", FeelhubLanguage.forString("fr"), topic.getId());
-        TestFactories.keywords().newWord("hello", FeelhubLanguage.forString("en"), topic.getId());
-        TestFactories.keywords().newWord("hola", FeelhubLanguage.forString("es"), topic.getId());
+        TestFactories.keywords().newWord("coucou", FeelhubLanguage.fromCode("fr"), topic.getId());
+        TestFactories.keywords().newWord("hello", FeelhubLanguage.fromCode("en"), topic.getId());
+        TestFactories.keywords().newWord("hola", FeelhubLanguage.fromCode("es"), topic.getId());
 
         final List<Keyword> keywords = repository.forTopicId(topic.getId());
 
@@ -138,7 +138,7 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetForTopicIdAndLanguage() {
         final String value = "value";
-        final FeelhubLanguage english = FeelhubLanguage.forString("english");
+        final FeelhubLanguage english = FeelhubLanguage.fromCountryName("english");
         final Word word = TestFactories.keywords().newWord(value, english);
 
         final Keyword keyword = repository.forTopicIdAndLanguage(word.getTopicId(), english);

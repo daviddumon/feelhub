@@ -19,11 +19,7 @@ public class FakeKeywordRepository extends FakeRepository<Keyword> implements Ke
 
                 @Override
                 public boolean apply(@Nullable final Keyword input) {
-                    if (input.getValue().equals(value) && input.getLanguage().equals(feelhubLanguage)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return input.getValue().equals(value) && input.getLanguage().equals(feelhubLanguage);
                 }
             });
         } catch (Exception e) {

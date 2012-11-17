@@ -71,7 +71,7 @@ public class ApiNewFeelingsResource extends ServerResource {
 
     private void extractLanguageParameter(final Form form) {
         if (form.getQueryString().contains("languageCode")) {
-            feelhubLanguage = FeelhubLanguage.forString(form.getFirstValue("languageCode").trim());
+            feelhubLanguage = FeelhubLanguage.fromCountryName(form.getFirstValue("languageCode").trim());
         } else {
             feelhubLanguage = FeelhubLanguage.reference();
         }

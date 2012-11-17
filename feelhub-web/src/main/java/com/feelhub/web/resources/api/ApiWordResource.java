@@ -21,7 +21,7 @@ public class ApiWordResource extends ServerResource {
         final String keywordValue = parameters.getFirstValue("keywordValue").toString().trim();
         final String languageCode = parameters.getFirstValue("languageCode").toString().trim();
         try {
-            final Word word = wordService.lookUp(keywordValue, FeelhubLanguage.forString(languageCode));
+            final Word word = wordService.lookUp(keywordValue, FeelhubLanguage.fromCountryName(languageCode));
             setStatus(Status.SUCCESS_OK);
             return ModelAndView.createNew("api/word.json.ftl", MediaType.APPLICATION_JSON).with("topicId", word.getTopicId());
         } catch (WordNotFound e) {

@@ -24,13 +24,13 @@ public class FeelingRequestEvent extends DomainEvent {
             return this;
         }
 
-        public Builder userLanguageCode(final String userLanguageCode) {
-            this.userLanguageCode = userLanguageCode;
+        public Builder userLanguageCode(final FeelhubLanguage userLanguageCode) {
+            this.userLanguage = userLanguageCode;
             return this;
         }
 
-        public Builder languageCode(final String languageCode) {
-            this.languageCode = languageCode;
+        public Builder languageCode(final FeelhubLanguage languageCode) {
+            this.language = languageCode;
             return this;
         }
 
@@ -51,8 +51,8 @@ public class FeelingRequestEvent extends DomainEvent {
 
         private String text = "";
         private SentimentValue sentimentValue = SentimentValue.none;
-        private String userLanguageCode = FeelhubLanguage.none().getCode();
-        private String languageCode = FeelhubLanguage.none().getCode();
+        private FeelhubLanguage userLanguage = FeelhubLanguage.none();
+        private FeelhubLanguage language = FeelhubLanguage.none();
         private String keywordValue = "";
         private UUID feelingId;
         private String userId = "";
@@ -61,8 +61,8 @@ public class FeelingRequestEvent extends DomainEvent {
     private FeelingRequestEvent(final Builder builder) {
         this.text = builder.text;
         this.sentimentValue = builder.sentimentValue;
-        this.userLanguageCode = builder.userLanguageCode;
-        this.languageCode = builder.languageCode;
+        this.userLanguage = builder.userLanguage;
+        this.language = builder.language;
         this.keywordValue = builder.keywordValue;
         this.feelingId = builder.feelingId;
         this.userId = builder.userId;
@@ -81,12 +81,12 @@ public class FeelingRequestEvent extends DomainEvent {
         return text;
     }
 
-    public String getUserLanguageCode() {
-        return userLanguageCode;
+    public FeelhubLanguage getUserLanguage() {
+        return userLanguage;
     }
 
-    public String getLanguageCode() {
-        return languageCode;
+    public FeelhubLanguage getLanguage() {
+        return language;
     }
 
     public String getKeywordValue() {
@@ -103,8 +103,8 @@ public class FeelingRequestEvent extends DomainEvent {
 
     private final String text;
     private final SentimentValue sentimentValue;
-    private final String userLanguageCode;
-    private final String languageCode;
+    private final FeelhubLanguage userLanguage;
+    private final FeelhubLanguage language;
     private final String keywordValue;
     private final UUID feelingId;
     private final String userId;

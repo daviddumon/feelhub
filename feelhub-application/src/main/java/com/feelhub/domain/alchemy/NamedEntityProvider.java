@@ -55,7 +55,7 @@ public class NamedEntityProvider {
 
     private void createAlchemyAnalysis(final Keyword uri, final AlchemyJsonResults results) {
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(uri);
-        alchemyAnalysis.setLanguageCode(FeelhubLanguage.forString(results.language));
+        alchemyAnalysis.setLanguageCode(FeelhubLanguage.fromCountryName(results.language));
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
     }
 

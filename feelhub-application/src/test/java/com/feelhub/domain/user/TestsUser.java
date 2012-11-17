@@ -23,7 +23,7 @@ public class TestsUser {
     @Test
     public void canCreate() {
         bus.capture(UserCreatedEvent.class);
-        final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "fr_fr");
+        final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "FR_fr");
 
         assertThat(user.getId()).isEqualTo("email@email.com");
         final UserCreatedEvent event = bus.lastEvent(UserCreatedEvent.class);
@@ -109,14 +109,15 @@ public class TestsUser {
     }
 
     @Test
-    public void canSetLanguageCode() {
+    public void canSetLanguage() {
         final User user = new User("");
-        final String language = "English";
-        final String languageCode = FeelhubLanguage.forString(language).getCode();
 
-        user.setLanguageCode(languageCode);
+        final FeelhubLanguage language = FeelhubLanguage.fromCountryName("English");
 
-        assertThat(user.getLanguageCode()).isEqualTo(languageCode);
+        user.setLanguage(language);
+
+        assertThat(user.getLanguageCode()).isEqualTo("en");
+        assertThat(user.getLanguage()).isEqualTo(FeelhubLanguage.fromCode("en"));
     }
 
     @Test
@@ -132,12 +133,12 @@ public class TestsUser {
 
     @Test
     public void canCreateFromFacebook() {
-        final User user = new UserFactory().createFromFacebook("1234", "email@email.com", "first", "last", "FR…fr", "token");
+        final User user = new UserFactory().createFromFacebook("1234", "email@email.com", "first", "last", "fr_FR", "token");
 
         assertThat(user).isNotNull();
         assertThat(user.getEmail()).isEqualTo("email@email.com");
         assertThat(user.getFullname()).isEqualTo("first last");
-        assertThat(user.getLanguageCode()).isEqualTo("fr…fr");
+        assertThat(user.getLanguageCode()).isEqualTo("fr");
         assertThat(user.isActive()).isTrue();
         assertThat(user.getId()).isEqualTo("FB:1234");
         assertThat(user.getSocialToken(SocialNetwork.FACEBOOK)).isEqualTo(new SocialToken(SocialNetwork.FACEBOOK, "token"));

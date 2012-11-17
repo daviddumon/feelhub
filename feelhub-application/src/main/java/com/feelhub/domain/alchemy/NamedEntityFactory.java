@@ -106,7 +106,7 @@ public class NamedEntityFactory {
                 ) {
             entity.feelhubLanguage = FeelhubLanguage.none();
         } else {
-            entity.feelhubLanguage = FeelhubLanguage.forString(alchemyJsonEntity.language);
+            entity.feelhubLanguage = FeelhubLanguage.fromCountryName(alchemyJsonEntity.language);
         }
     }
 

@@ -33,7 +33,7 @@ public class TestsAlchemyAnalysis {
         final AlchemyJsonResults alchemyJsonResults = new AlchemyJsonResults();
         alchemyJsonResults.language = "english";
 
-        alchemyAnalysis.setLanguageCode(FeelhubLanguage.forString(alchemyJsonResults.language));
+        alchemyAnalysis.setLanguageCode(FeelhubLanguage.fromCountryName(alchemyJsonResults.language));
 
         assertThat(alchemyAnalysis.getLanguageCode(), is("en"));
     }

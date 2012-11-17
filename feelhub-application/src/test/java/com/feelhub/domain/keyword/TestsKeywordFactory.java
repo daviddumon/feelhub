@@ -33,7 +33,7 @@ public class TestsKeywordFactory {
     @Test
     public void canCreateAWord() {
         final String value = "value";
-        final FeelhubLanguage feelhubLanguage = FeelhubLanguage.forString("english");
+        final FeelhubLanguage feelhubLanguage = FeelhubLanguage.fromCountryName("english");
         final Topic topic = TestFactories.topics().newTopic();
 
         final Word word = keywordFactory.createWord(value, feelhubLanguage, topic.getId());
@@ -76,7 +76,7 @@ public class TestsKeywordFactory {
 
     @Test
     public void canSetTranslationNeededForAWord() {
-        final Word word = keywordFactory.createWord("value", FeelhubLanguage.forString("english"), TestFactories.topics().newTopic().getId());
+        final Word word = keywordFactory.createWord("value", FeelhubLanguage.fromCountryName("english"), TestFactories.topics().newTopic().getId());
 
         word.setTranslationNeeded(true);
 

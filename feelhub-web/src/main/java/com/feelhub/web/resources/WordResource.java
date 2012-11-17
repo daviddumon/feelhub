@@ -38,7 +38,7 @@ public class WordResource extends ServerResource {
 
     private void extractLanguageFromUri() {
         if (getRequestAttributes().containsKey("language")) {
-            feelhubLanguage = FeelhubLanguage.forString(getRequestAttributes().get("language").toString());
+            feelhubLanguage = FeelhubLanguage.fromCountryName(getRequestAttributes().get("language").toString());
         } else {
             feelhubLanguage = FeelhubLanguage.none();
         }
