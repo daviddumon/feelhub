@@ -28,7 +28,6 @@ public class FeelhubRouter extends Router {
 
         attach("/api/word", ApiWordResource.class);
         attach("/api/feelings", ApiFeelingsResource.class);
-        attach("/api/relations", ApiRelationsResource.class);
         attach("/api/related", ApiRelatedResource.class);
         attach("/api/illustrations", ApiIllustrationsResource.class);
         attach("/api/createfeeling", ApiCreateFeelingResource.class);

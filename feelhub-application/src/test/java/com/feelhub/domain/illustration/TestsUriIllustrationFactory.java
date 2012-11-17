@@ -54,7 +54,7 @@ public class TestsUriIllustrationFactory {
         final Topic topic = TestFactories.topics().newTopic();
         final String value = "value";
         final UriIllustrationRequestEvent uriIllustrationRequestEvent = new UriIllustrationRequestEvent(topic.getId(), value);
-        TestFactories.illustrations().newIllustration(topic);
+        TestFactories.illustrations().newIllustration(topic.getId());
 
         DomainEventBus.INSTANCE.post(uriIllustrationRequestEvent);
 

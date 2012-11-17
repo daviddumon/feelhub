@@ -47,7 +47,7 @@ public class TestsAlchemyManager {
         final Topic oldTopic = TestFactories.topics().newTopic();
         final TopicPatch topicPatch = new TopicPatch(newTopic.getId());
         topicPatch.addOldTopicId(oldTopic.getId());
-        TestFactories.alchemy().newAlchemyAnalysis(oldTopic);
+        TestFactories.alchemy().newAlchemyAnalysis(oldTopic.getId());
 
         alchemyManager.merge(topicPatch);
 
@@ -76,8 +76,8 @@ public class TestsAlchemyManager {
         final Topic oldTopic = TestFactories.topics().newTopic();
         final TopicPatch topicPatch = new TopicPatch(newTopic.getId());
         topicPatch.addOldTopicId(oldTopic.getId());
-        TestFactories.alchemy().newAlchemyAnalysis(oldTopic);
-        TestFactories.alchemy().newAlchemyAnalysis(newTopic);
+        TestFactories.alchemy().newAlchemyAnalysis(oldTopic.getId());
+        TestFactories.alchemy().newAlchemyAnalysis(newTopic.getId());
 
         alchemyManager.merge(topicPatch);
 

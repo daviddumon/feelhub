@@ -36,8 +36,8 @@ public class TestsRelationManager {
         final Topic topic1 = TestFactories.topics().newTopic();
         final Topic topic2 = TestFactories.topics().newTopic();
         final Topic topic3 = TestFactories.topics().newTopic();
-        final Relation relation1 = TestFactories.relations().newRelation(topic2, topic3);
-        final Relation relation2 = TestFactories.relations().newRelation(topic3, topic2);
+        final Relation relation1 = TestFactories.relations().newRelation(topic2.getId(), topic3.getId());
+        final Relation relation2 = TestFactories.relations().newRelation(topic3.getId(), topic2.getId());
         final TopicPatch topicPatch = new TopicPatch(topic1.getId());
         topicPatch.addOldTopicId(topic2.getId());
 
@@ -53,8 +53,8 @@ public class TestsRelationManager {
     public void canRemoveAutoRelation() {
         final Topic topic1 = TestFactories.topics().newTopic();
         final Topic topic2 = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelation(topic1, topic2);
-        TestFactories.relations().newRelation(topic2, topic1);
+        TestFactories.relations().newRelation(topic1.getId(), topic2.getId());
+        TestFactories.relations().newRelation(topic2.getId(), topic1.getId());
         final TopicPatch topicPatch = new TopicPatch(topic1.getId());
         topicPatch.addOldTopicId(topic2.getId());
 
@@ -68,8 +68,8 @@ public class TestsRelationManager {
         final Topic topic1 = TestFactories.topics().newTopic();
         final Topic topic2 = TestFactories.topics().newTopic();
         final Topic topic3 = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelation(topic1, topic2);
-        TestFactories.relations().newRelation(topic3, topic2);
+        TestFactories.relations().newRelation(topic1.getId(), topic2.getId());
+        TestFactories.relations().newRelation(topic3.getId(), topic2.getId());
         final TopicPatch topicPatch = new TopicPatch(topic1.getId());
         topicPatch.addOldTopicId(topic3.getId());
 

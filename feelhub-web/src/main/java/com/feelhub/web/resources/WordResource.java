@@ -46,7 +46,7 @@ public class WordResource extends ServerResource {
 
     private void extractWordValueFromUri() {
         try {
-            keywordValue = URLDecoder.decode(getRequestAttributes().get("keywordValue").toString(),"UTF-8");
+            keywordValue = URLDecoder.decode(getRequestAttributes().get("keywordValue").toString(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

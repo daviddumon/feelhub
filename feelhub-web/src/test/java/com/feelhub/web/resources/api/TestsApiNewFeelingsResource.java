@@ -41,7 +41,7 @@ public class TestsApiNewFeelingsResource {
     @Test
     public void returnAJsonArrayOfFeelings() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic, 20);
+        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic.getId(), 20);
         final Feeling lastFeeling = feelings.get(10);
         final ClientResource newFeelings = restlet.newClientResource("/api/newfeelings?topicId=" + topic.getId() + "&lastFeelingId=" + lastFeeling.getId());
 
@@ -55,7 +55,7 @@ public class TestsApiNewFeelingsResource {
     @Test
     public void returnKnownFeelingsUntilLast() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic, 4);
+        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic.getId(), 4);
         final Feeling lastFeeling = feelings.get(2);
         final ClientResource newFeelings = restlet.newClientResource("/api/newfeelings?topicId=" + topic.getId() + "&lastFeelingId=" + lastFeeling.getId());
 
@@ -68,7 +68,7 @@ public class TestsApiNewFeelingsResource {
     @Test
     public void returnKnownFeelingsUntilLastWithAVeryHighNumberOfNewFeelings() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic, 1000);
+        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic.getId(), 1000);
         final Feeling lastFeeling = feelings.get(900);
         final ClientResource newFeelings = restlet.newClientResource("/api/newfeelings?topicId=" + topic.getId() + "&lastFeelingId=" + lastFeeling.getId());
 
@@ -81,7 +81,7 @@ public class TestsApiNewFeelingsResource {
     @Test
     public void ifNoLastFeelingIdReturnAllFeelings() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.feelings().newFeelings(topic, 100);
+        TestFactories.feelings().newFeelings(topic.getId(), 100);
         final ClientResource newFeelings = restlet.newClientResource("/api/newfeelings?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) newFeelings.get();

@@ -2,7 +2,6 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.keyword.Keyword;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
@@ -36,8 +35,8 @@ public class AlchemyTestFactory {
         return alchemyEntity;
     }
 
-    public AlchemyAnalysis newAlchemyAnalysis(final Topic topic) {
-        final Keyword keyword = TestFactories.keywords().newWord("value", FeelhubLanguage.none(), topic);
+    public AlchemyAnalysis newAlchemyAnalysis(final UUID topicId) {
+        final Keyword keyword = TestFactories.keywords().newWord("value", FeelhubLanguage.none(), topicId);
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
         return alchemyAnalysis;

@@ -16,21 +16,12 @@ public class FeelingTestFactory {
     }
 
     public Feeling newFeelingWithText(final String text) {
-        return newFeeling(TestFactories.topics().newTopic(), text);
+        return newFeeling(TestFactories.topics().newTopic().getId(), text);
     }
 
     public void newFeelings(final int quantity) {
         final Topic topic = TestFactories.topics().newTopic();
-        newFeelings(topic, quantity);
-    }
-
-    public List<Feeling> newFeelings(final Topic topic, final int quantity) {
-        final List<Feeling> result = Lists.newArrayList();
-        for (int i = 0; i < quantity; i++) {
-            final Feeling feeling = newFeeling(topic, "i" + i);
-            result.add(feeling);
-        }
-        return result;
+        newFeelings(topic.getId(), quantity);
     }
 
     public List<Feeling> newFeelings(final UUID topicId, final int quantity) {
@@ -40,15 +31,6 @@ public class FeelingTestFactory {
             result.add(feeling);
         }
         return result;
-    }
-
-    public Feeling newFeeling(final Topic topic, final String text) {
-        final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforfeeling@mail.com");
-        final Feeling feeling = new Feeling(text, activeUser.getId());
-        feeling.addSentiment(topic, SentimentValue.bad);
-        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        Repositories.feelings().add(feeling);
-        return feeling;
     }
 
     public Feeling newFeeling(final String text, final Sentiment sentiment) {

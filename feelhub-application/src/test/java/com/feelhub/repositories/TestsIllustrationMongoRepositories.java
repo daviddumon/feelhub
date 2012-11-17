@@ -52,9 +52,9 @@ public class TestsIllustrationMongoRepositories extends TestWithMongoRepository 
     @Test
     public void canGetForATopic() {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(topic, "link1");
-        TestFactories.illustrations().newIllustration(topic, "link2");
-        TestFactories.illustrations().newIllustration(topic, "link3");
+        TestFactories.illustrations().newIllustration(topic.getId(), "link1");
+        TestFactories.illustrations().newIllustration(topic.getId(), "link2");
+        TestFactories.illustrations().newIllustration(topic.getId(), "link3");
 
         final List<Illustration> illustrations = repository.forTopicId(topic.getId());
 

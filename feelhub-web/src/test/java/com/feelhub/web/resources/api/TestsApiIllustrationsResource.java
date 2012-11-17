@@ -41,7 +41,7 @@ public class TestsApiIllustrationsResource {
     @Test
     public void canGetIllustrationsForATopic() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(topic, "link");
+        TestFactories.illustrations().newIllustration(topic.getId(), "link");
         final ClientResource resource = restlet.newClientResource("/api/illustrations?topicId=" + topic.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
@@ -56,9 +56,9 @@ public class TestsApiIllustrationsResource {
         final Topic topic1 = TestFactories.topics().newTopic();
         final Topic topic2 = TestFactories.topics().newTopic();
         final Topic topic3 = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(topic1, "link");
-        TestFactories.illustrations().newIllustration(topic2, "link");
-        TestFactories.illustrations().newIllustration(topic3, "link");
+        TestFactories.illustrations().newIllustration(topic1.getId(), "link");
+        TestFactories.illustrations().newIllustration(topic2.getId(), "link");
+        TestFactories.illustrations().newIllustration(topic3.getId(), "link");
         final ClientResource resource = restlet.newClientResource("/api/illustrations?topicId=" + topic1.getId() + "," + topic2.getId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();

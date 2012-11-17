@@ -1,7 +1,7 @@
 package com.feelhub.web.resources.api;
 
 import com.feelhub.application.UriService;
-import com.feelhub.domain.keyword.uri.*;
+import com.feelhub.domain.keyword.uri.Uri;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.Inject;
 import org.restlet.data.*;

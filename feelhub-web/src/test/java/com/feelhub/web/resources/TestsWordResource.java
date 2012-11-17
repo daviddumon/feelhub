@@ -125,8 +125,8 @@ public class TestsWordResource {
     @Test
     public void keywordDataWithGoodValuesForExistingWordAndIllustration() {
         final Topic topic = TestFactories.topics().newTopic();
-        final Word word = TestFactories.keywords().newWord("Word", FeelhubLanguage.forString("es"), topic);
-        final Illustration illustration = TestFactories.illustrations().newIllustration(topic, "link");
+        final Word word = TestFactories.keywords().newWord("Word", FeelhubLanguage.forString("es"), topic.getId());
+        final Illustration illustration = TestFactories.illustrations().newIllustration(topic.getId(), "link");
         final ClientResource wordResource = restlet.newClientResource("/word/es/Word");
 
         final TemplateRepresentation representation = (TemplateRepresentation) wordResource.get();

@@ -36,7 +36,7 @@ public class TestsKeywordData {
 
     @Test
     public void keywordDataHasAnIllustration() {
-        final Illustration illustration = TestFactories.illustrations().newIllustration(TestFactories.topics().newTopic(), "mylink");
+        final Illustration illustration = TestFactories.illustrations().newIllustration(TestFactories.topics().newTopic().getId(), "mylink");
 
         final KeywordData keywordData = new KeywordData.Builder().illustration(illustration).build();
 

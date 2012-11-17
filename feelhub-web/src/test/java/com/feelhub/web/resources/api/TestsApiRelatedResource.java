@@ -61,7 +61,7 @@ public class TestsApiRelatedResource {
     @Test
     public void canGetRelatedForATopic() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelations(5, topic);
+        TestFactories.relations().newRelations(5, topic.getId());
         TestFactories.relations().newRelations(20);
         final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + topic.getId());
 
@@ -132,8 +132,8 @@ public class TestsApiRelatedResource {
     @Test
     public void canGetWithGoodIllustration() throws IOException, JSONException {
         final Topic to = TestFactories.topics().newTopic();
-        final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic(), to);
-        final Illustration illustration = TestFactories.illustrations().newIllustration(to);
+        final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic().getId(), to.getId());
+        final Illustration illustration = TestFactories.illustrations().newIllustration(to.getId());
         final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
@@ -151,8 +151,8 @@ public class TestsApiRelatedResource {
     @Test
     public void canGetWithGoodKeyword() throws IOException, JSONException {
         final Topic to = TestFactories.topics().newTopic();
-        final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic(), to);
-        final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.none(), to);
+        final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic().getId(), to.getId());
+        final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.none(), to.getId());
         final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
@@ -170,10 +170,10 @@ public class TestsApiRelatedResource {
     @Test
     public void canGetWithGoodKeywordWithGoodLanguage() throws IOException, JSONException {
         final Topic to = TestFactories.topics().newTopic();
-        final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic(), to);
-        TestFactories.keywords().newWord("eskeyword", FeelhubLanguage.forString("es"), to);
-        final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), to);
-        TestFactories.keywords().newWord("frkeyword", FeelhubLanguage.forString("fr"), to);
+        final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic().getId(), to.getId());
+        TestFactories.keywords().newWord("eskeyword", FeelhubLanguage.forString("es"), to.getId());
+        final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), to.getId());
+        TestFactories.keywords().newWord("frkeyword", FeelhubLanguage.forString("fr"), to.getId());
         final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId() + "&limit=50&languageCode=" + FeelhubLanguage.reference().getCode());
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
@@ -191,10 +191,10 @@ public class TestsApiRelatedResource {
     @Test
     public void defaultLanguageIsReference() throws IOException, JSONException {
         final Topic to = TestFactories.topics().newTopic();
-        final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic(), to);
-        TestFactories.keywords().newWord("eskeyword", FeelhubLanguage.forString("es"), to);
-        final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), to);
-        TestFactories.keywords().newWord("dekeyword", FeelhubLanguage.forString("de"), to);
+        final Relation relation = TestFactories.relations().newRelation(TestFactories.topics().newTopic().getId(), to.getId());
+        TestFactories.keywords().newWord("eskeyword", FeelhubLanguage.forString("es"), to.getId());
+        final Keyword keyword = TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), to.getId());
+        TestFactories.keywords().newWord("dekeyword", FeelhubLanguage.forString("de"), to.getId());
         final ClientResource resource = restlet.newClientResource("/api/related?topicId=" + relation.getFromId() + "&limit=50&languageCode=fr");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();

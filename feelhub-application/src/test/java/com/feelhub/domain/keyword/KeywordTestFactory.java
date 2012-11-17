@@ -28,8 +28,8 @@ public class KeywordTestFactory {
         return word;
     }
 
-    public Word newWord(final String value, final FeelhubLanguage feelhubLanguage, final Topic topic) {
-        final Word word = new Word(value, feelhubLanguage, topic.getId());
+    public Word newWord(final String value, final FeelhubLanguage feelhubLanguage, final UUID topicId) {
+        final Word word = new Word(value, feelhubLanguage, topicId);
         Repositories.keywords().add(word);
         return word;
     }

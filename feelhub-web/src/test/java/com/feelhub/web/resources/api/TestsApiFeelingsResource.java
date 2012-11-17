@@ -129,7 +129,7 @@ public class TestsApiFeelingsResource {
     public void canGetFeelingForTopic() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
         TestFactories.feelings().newFeelings(10);
-        TestFactories.feelings().newFeelings(topic, 10);
+        TestFactories.feelings().newFeelings(topic.getId(), 10);
         TestFactories.feelings().newFeelings(10);
         final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId());
 
@@ -143,8 +143,8 @@ public class TestsApiFeelingsResource {
     @Test
     public void canGetFeelingWithALanguage() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
-        TestFactories.keywords().newWord("mot", FeelhubLanguage.forString("fr"), topic);
+        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic.getId());
+        TestFactories.keywords().newWord("mot", FeelhubLanguage.forString("fr"), topic.getId());
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
         final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId() + "&languageCode=fr");
@@ -166,8 +166,8 @@ public class TestsApiFeelingsResource {
     @Test
     public void useDefaultLanguage() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
-        TestFactories.keywords().newWord("mot", FeelhubLanguage.forString("fr"), topic);
+        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic.getId());
+        TestFactories.keywords().newWord("mot", FeelhubLanguage.forString("fr"), topic.getId());
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
         final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId());
@@ -189,8 +189,8 @@ public class TestsApiFeelingsResource {
     @Test
     public void hasIllustrationData() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(topic, "link");
-        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
+        TestFactories.illustrations().newIllustration(topic.getId(), "link");
+        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic.getId());
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
         final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId());
@@ -205,8 +205,8 @@ public class TestsApiFeelingsResource {
     @Test
     public void hasLanguageCodeData() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(topic, "link");
-        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
+        TestFactories.illustrations().newIllustration(topic.getId(), "link");
+        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic.getId());
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         TestFactories.feelings().newFeeling("my feeling", sentiment);
         final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId());
@@ -220,8 +220,8 @@ public class TestsApiFeelingsResource {
     @Test
     public void hasUserIdData() throws IOException, JSONException {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(topic, "link");
-        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic);
+        TestFactories.illustrations().newIllustration(topic.getId(), "link");
+        TestFactories.keywords().newWord("keyword", FeelhubLanguage.reference(), topic.getId());
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         final Feeling feeling = TestFactories.feelings().newFeeling("my feeling", sentiment);
         final ClientResource clientResource = restlet.newClientResource("/api/feelings?topicId=" + topic.getId());

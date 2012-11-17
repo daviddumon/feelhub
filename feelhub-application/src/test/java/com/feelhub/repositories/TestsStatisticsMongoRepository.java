@@ -122,11 +122,11 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetAllStatisticsForATopic() {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.statistics().newStatistics(topic, Granularity.day);
-        TestFactories.statistics().newStatistics(topic, Granularity.all);
-        TestFactories.statistics().newStatistics(topic, Granularity.hour);
-        TestFactories.statistics().newStatistics(topic, Granularity.month);
-        TestFactories.statistics().newStatistics(topic, Granularity.year);
+        TestFactories.statistics().newStatistics(topic.getId(), Granularity.day);
+        TestFactories.statistics().newStatistics(topic.getId(), Granularity.all);
+        TestFactories.statistics().newStatistics(topic.getId(), Granularity.hour);
+        TestFactories.statistics().newStatistics(topic.getId(), Granularity.month);
+        TestFactories.statistics().newStatistics(topic.getId(), Granularity.year);
 
         final List<Statistics> statistics = Repositories.statistics().forTopicId(topic.getId());
 

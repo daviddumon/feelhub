@@ -1,13 +1,11 @@
 package com.feelhub.web.resources.social;
 
-import com.feelhub.web.ClientResource;
-import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.*;
 import com.feelhub.web.representation.ModelAndView;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.restlet.data.Status;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsSocialWelcomeResource {
 

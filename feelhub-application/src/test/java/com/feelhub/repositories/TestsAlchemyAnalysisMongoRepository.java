@@ -54,7 +54,7 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
     @Test
     public void canGetForATopic() {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.alchemy().newAlchemyAnalysis(topic);
+        TestFactories.alchemy().newAlchemyAnalysis(topic.getId());
         TestFactories.alchemy().newAlchemyAnalysis();
         TestFactories.alchemy().newAlchemyAnalysis();
 

@@ -53,7 +53,7 @@ public class TestsAlchemyAnalyzer {
     @Test
     public void canAnalyseTheGoodUri() {
         final Topic topic = TestFactories.topics().newTopic();
-        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic);
+        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic.getId());
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
@@ -65,7 +65,7 @@ public class TestsAlchemyAnalyzer {
     public void canCreateFromNamedEntity() {
         when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
         final Topic topic = TestFactories.topics().newTopic();
-        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic);
+        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic.getId());
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
@@ -79,7 +79,7 @@ public class TestsAlchemyAnalyzer {
     public void mergeKeywordsForSameAlchemyEntity() {
         when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWith2Keywords());
         final Topic topic = TestFactories.topics().newTopic();
-        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic);
+        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic.getId());
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
@@ -93,9 +93,9 @@ public class TestsAlchemyAnalyzer {
     public void doNotMakeAnalysisIfAlreadyExists() {
         when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
         final Topic topic = TestFactories.topics().newTopic();
-        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic);
+        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic.getId());
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
-        TestFactories.alchemy().newAlchemyAnalysis(topic);
+        TestFactories.alchemy().newAlchemyAnalysis(topic.getId());
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
 
@@ -106,7 +106,7 @@ public class TestsAlchemyAnalyzer {
     public void doNotStoreAlchemyEntityIfOneAlreadyExists() {
         when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
         final Topic topic = TestFactories.topics().newTopic();
-        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic);
+        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic.getId());
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
         final Word word = TestFactories.keywords().newWord("Keyword1", FeelhubLanguage.forString("english"));
         final AlchemyEntity alchemyEntity = new AlchemyEntity(word.getTopicId());
@@ -121,7 +121,7 @@ public class TestsAlchemyAnalyzer {
     public void createRelationsOnSuccess() {
         when(entityProvider.entitiesFor(Matchers.any(Keyword.class))).thenReturn(TestFactories.namedEntities().namedEntityWith1Keyword());
         final Topic topic = TestFactories.topics().newTopic();
-        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic);
+        final Keyword keyword = TestFactories.keywords().newWord("http://www.google.fr", FeelhubLanguage.none(), topic.getId());
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(keyword);
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);

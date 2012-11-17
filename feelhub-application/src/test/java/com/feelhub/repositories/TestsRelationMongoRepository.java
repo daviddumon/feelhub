@@ -58,7 +58,7 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     public void canLookupForFromAndTo() {
         final Topic from = TestFactories.topics().newTopic();
         final Topic to = TestFactories.topics().newTopic();
-        final Relation relation = TestFactories.relations().newRelation(from, to);
+        final Relation relation = TestFactories.relations().newRelation(from.getId(), to.getId());
 
         final Relation relationFound = repo.lookUp(from.getId(), to.getId());
 
@@ -70,8 +70,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     public void canGetAllRelationsContainingATopicId() {
         final Topic topic1 = TestFactories.topics().newTopic();
         final Topic topic2 = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelation(topic1, topic2);
-        TestFactories.relations().newRelation(topic2, topic1);
+        TestFactories.relations().newRelation(topic1.getId(), topic2.getId());
+        TestFactories.relations().newRelation(topic2.getId(), topic1.getId());
 
         final List<Relation> relations = repo.containingTopicId(topic1.getId());
 
@@ -82,8 +82,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     public void canGetAllRelationsForATopicId() {
         final Topic topic1 = TestFactories.topics().newTopic();
         final Topic topic2 = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelation(topic1, topic2);
-        TestFactories.relations().newRelation(topic2, topic1);
+        TestFactories.relations().newRelation(topic1.getId(), topic2.getId());
+        TestFactories.relations().newRelation(topic2.getId(), topic1.getId());
 
         final List<Relation> relations = repo.forTopicId(topic1.getId());
 

@@ -125,9 +125,9 @@ public class TestsKeywordMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetForATopic() {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.keywords().newWord("coucou", FeelhubLanguage.forString("fr"), topic);
-        TestFactories.keywords().newWord("hello", FeelhubLanguage.forString("en"), topic);
-        TestFactories.keywords().newWord("hola", FeelhubLanguage.forString("es"), topic);
+        TestFactories.keywords().newWord("coucou", FeelhubLanguage.forString("fr"), topic.getId());
+        TestFactories.keywords().newWord("hello", FeelhubLanguage.forString("en"), topic.getId());
+        TestFactories.keywords().newWord("hola", FeelhubLanguage.forString("es"), topic.getId());
 
         final List<Keyword> keywords = repository.forTopicId(topic.getId());
 

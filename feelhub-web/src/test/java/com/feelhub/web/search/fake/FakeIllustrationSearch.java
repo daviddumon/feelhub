@@ -2,7 +2,7 @@ package com.feelhub.web.search.fake;
 
 import com.feelhub.domain.illustration.Illustration;
 import com.feelhub.repositories.*;
-import com.feelhub.web.search.*;
+import com.feelhub.web.search.IllustrationSearch;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 import com.google.inject.Inject;

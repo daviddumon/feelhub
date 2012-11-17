@@ -31,11 +31,11 @@ public class TestsStatisticsManager {
     public void canChangeStatisticsTopics() {
         final Topic topic1 = TestFactories.topics().newTopic();
         final Topic topic2 = TestFactories.topics().newTopic();
-        TestFactories.statistics().newStatisticsWithSentiments(topic1, Granularity.all);
-        TestFactories.statistics().newStatisticsWithSentiments(topic1, Granularity.day);
-        TestFactories.statistics().newStatisticsWithSentiments(topic1, Granularity.hour);
-        TestFactories.statistics().newStatisticsWithSentiments(topic2, Granularity.hour);
-        TestFactories.statistics().newStatisticsWithSentiments(topic2, Granularity.month);
+        TestFactories.statistics().newStatisticsWithSentiments(topic1.getId(), Granularity.all);
+        TestFactories.statistics().newStatisticsWithSentiments(topic1.getId(), Granularity.day);
+        TestFactories.statistics().newStatisticsWithSentiments(topic1.getId(), Granularity.hour);
+        TestFactories.statistics().newStatisticsWithSentiments(topic2.getId(), Granularity.hour);
+        TestFactories.statistics().newStatisticsWithSentiments(topic2.getId(), Granularity.month);
         final TopicPatch topicPatch = new TopicPatch(topic1.getId());
         topicPatch.addOldTopicId(topic2.getId());
 

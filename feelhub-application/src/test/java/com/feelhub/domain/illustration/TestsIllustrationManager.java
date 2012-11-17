@@ -30,9 +30,9 @@ public class TestsIllustrationManager {
     @Test
     public void canMigrateTwoExistingIllustrations() {
         final Topic first = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(first, "link1");
+        TestFactories.illustrations().newIllustration(first.getId(), "link1");
         final Topic second = TestFactories.topics().newTopic();
-        final Illustration illustrationToChange = TestFactories.illustrations().newIllustration(second, "link2");
+        final Illustration illustrationToChange = TestFactories.illustrations().newIllustration(second.getId(), "link2");
         final TopicPatch topicPatch = new TopicPatch(first.getId());
         topicPatch.addOldTopicId(second.getId());
 
@@ -44,9 +44,9 @@ public class TestsIllustrationManager {
     @Test
     public void canDeleteDuplicateIllustrations() {
         final Topic first = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(first, "link1");
+        TestFactories.illustrations().newIllustration(first.getId(), "link1");
         final Topic second = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(second, "link2");
+        TestFactories.illustrations().newIllustration(second.getId(), "link2");
         final TopicPatch topicPatch = new TopicPatch(first.getId());
         topicPatch.addOldTopicId(second.getId());
 
@@ -59,7 +59,7 @@ public class TestsIllustrationManager {
     @Test
     public void doNotCreateIfAlreadyOneIllustrationExists() {
         final Topic first = TestFactories.topics().newTopic();
-        final Illustration illustration = TestFactories.illustrations().newIllustration(first, "link1");
+        final Illustration illustration = TestFactories.illustrations().newIllustration(first.getId(), "link1");
         final Topic second = TestFactories.topics().newTopic();
         final TopicPatch topicPatch = new TopicPatch(first.getId());
         topicPatch.addOldTopicId(second.getId());

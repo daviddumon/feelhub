@@ -64,8 +64,8 @@ public class TestsKeywordMerger {
     public void mergeIllustrations() {
         final Topic good = TestFactories.topics().newTopic();
         final Topic bad = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(good);
-        TestFactories.illustrations().newIllustration(bad);
+        TestFactories.illustrations().newIllustration(good.getId());
+        TestFactories.illustrations().newIllustration(bad.getId());
 
         keywordMerger.merge(createListOfKeyword(good, bad));
 
@@ -78,8 +78,8 @@ public class TestsKeywordMerger {
     public void mergeFeelings() {
         final Topic good = TestFactories.topics().newTopic();
         final Topic bad = TestFactories.topics().newTopic();
-        TestFactories.feelings().newFeelings(good, 10);
-        TestFactories.feelings().newFeelings(bad, 10);
+        TestFactories.feelings().newFeelings(good.getId(), 10);
+        TestFactories.feelings().newFeelings(bad.getId(), 10);
 
         keywordMerger.merge(createListOfKeyword(good, bad));
 
@@ -95,8 +95,8 @@ public class TestsKeywordMerger {
         final Topic good = TestFactories.topics().newTopic();
         final Topic bad = TestFactories.topics().newTopic();
         final Topic topic3 = TestFactories.topics().newTopic();
-        final Relation relation1 = TestFactories.relations().newRelation(bad, topic3);
-        final Relation relation2 = TestFactories.relations().newRelation(topic3, bad);
+        final Relation relation1 = TestFactories.relations().newRelation(bad.getId(), topic3.getId());
+        final Relation relation2 = TestFactories.relations().newRelation(topic3.getId(), bad.getId());
 
         keywordMerger.merge(createListOfKeyword(good, bad));
 
@@ -110,7 +110,7 @@ public class TestsKeywordMerger {
     public void mergeStatistics() {
         final Topic good = TestFactories.topics().newTopic();
         final Topic bad = TestFactories.topics().newTopic();
-        TestFactories.statistics().newStatisticsWithSentiments(bad, Granularity.hour);
+        TestFactories.statistics().newStatisticsWithSentiments(bad.getId(), Granularity.hour);
 
         keywordMerger.merge(createListOfKeyword(good, bad));
 
@@ -120,10 +120,10 @@ public class TestsKeywordMerger {
 
     private List<Keyword> createListOfKeyword(final Topic good, final Topic bad) {
         final List<Keyword> keywords = Lists.newArrayList();
-        final Keyword first = TestFactories.keywords().newWord("first", FeelhubLanguage.reference(), good);
+        final Keyword first = TestFactories.keywords().newWord("first", FeelhubLanguage.reference(), good.getId());
         keywords.add(first);
         time.waitDays(1);
-        keywords.add(TestFactories.keywords().newWord("second", FeelhubLanguage.none(), bad));
+        keywords.add(TestFactories.keywords().newWord("second", FeelhubLanguage.none(), bad.getId()));
         keywords.add(TestFactories.keywords().newWord("third"));
         return keywords;
     }

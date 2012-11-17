@@ -12,7 +12,7 @@ import org.restlet.data.Status;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TestsApiUriResource {

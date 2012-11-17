@@ -44,7 +44,7 @@ public class TestsRelationBuilder {
     public void canConnectTwoTopicsWithAnExistingOneWayRelation() {
         final Topic from = TestFactories.topics().newTopic();
         final Topic to = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelation(from, to);
+        TestFactories.relations().newRelation(from.getId(), to.getId());
 
         relationBuilder.connectTwoWays(from, to);
 

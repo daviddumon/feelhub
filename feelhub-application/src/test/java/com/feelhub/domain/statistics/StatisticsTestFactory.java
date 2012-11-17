@@ -10,6 +10,13 @@ import java.util.UUID;
 
 public class StatisticsTestFactory {
 
+    public Statistics newStatistics() {
+        final Topic topic = TestFactories.topics().newTopic();
+        final Statistics statistics = new Statistics(topic.getId(), Granularity.day, new DateTime());
+        Repositories.statistics().add(statistics);
+        return statistics;
+    }
+
     public Statistics newStatistics(final UUID topicId, final Granularity granularity) {
         final Statistics statistics = new Statistics(topicId, granularity, new DateTime());
         Repositories.statistics().add(statistics);
@@ -25,32 +32,6 @@ public class StatisticsTestFactory {
         statistics.incrementSentimentCount(new Sentiment(topicid, SentimentValue.bad));
         statistics.incrementSentimentCount(new Sentiment(topicid, SentimentValue.neutral));
         new Sentiment(topicid, SentimentValue.good);
-        Repositories.statistics().add(statistics);
-        return statistics;
-    }
-
-    public Statistics newStatistics(final Topic topic, final Granularity granularity) {
-        final Statistics statistics = new Statistics(topic.getId(), granularity, new DateTime());
-        Repositories.statistics().add(statistics);
-        return statistics;
-    }
-
-    public Statistics newStatisticsWithSentiments(final Topic topic, final Granularity granularity) {
-        final Statistics statistics = new Statistics(topic.getId(), granularity, new DateTime());
-        statistics.incrementSentimentCount(new Sentiment(topic.getId(), SentimentValue.good));
-        statistics.incrementSentimentCount(new Sentiment(topic.getId(), SentimentValue.good));
-        statistics.incrementSentimentCount(new Sentiment(topic.getId(), SentimentValue.good));
-        statistics.incrementSentimentCount(new Sentiment(topic.getId(), SentimentValue.bad));
-        statistics.incrementSentimentCount(new Sentiment(topic.getId(), SentimentValue.bad));
-        statistics.incrementSentimentCount(new Sentiment(topic.getId(), SentimentValue.neutral));
-        new Sentiment(topic.getId(), SentimentValue.good);
-        Repositories.statistics().add(statistics);
-        return statistics;
-    }
-
-    public Statistics newStatistics() {
-        final Topic topic = TestFactories.topics().newTopic();
-        final Statistics statistics = new Statistics(topic.getId(), Granularity.day, new DateTime());
         Repositories.statistics().add(statistics);
         return statistics;
     }
