@@ -12,4 +12,8 @@ public class NullFeelhubLanguage extends FeelhubLanguage {
         return Language.AUTO_DETECT;
     }
 
+    @Override
+    public String getName() {
+        return "None";
+    }
 }

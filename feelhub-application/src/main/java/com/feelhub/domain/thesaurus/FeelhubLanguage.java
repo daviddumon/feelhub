@@ -1,11 +1,13 @@
 package com.feelhub.domain.thesaurus;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.memetix.mst.language.Language;
 import org.apache.commons.lang.LocaleUtils;
 
-import java.util.Map;
+import java.util.*;
 
 public class FeelhubLanguage {
 
@@ -22,22 +24,26 @@ public class FeelhubLanguage {
     }
 
     private static String feelhubCodeFor(final String value) {
-        if(alchemyLanguagues.containsKey(value)) {
+        if (alchemyLanguagues.containsKey(value)) {
             return alchemyLanguagues.get(value);
         }
         return value;
     }
 
-    public FeelhubLanguage(String code) {
-        this.code = code;
+    public static List<FeelhubLanguage> availables() {
+        return AVAILABLES;
     }
 
     public static FeelhubLanguage reference() {
-        return new FeelhubLanguage("en");
+        return REFERENCE;
     }
 
     public static FeelhubLanguage none() {
         return NULL_FEELHUB_LANGUAGE;
+    }
+
+    public FeelhubLanguage(String code) {
+        this.code = code;
     }
 
     @Override
@@ -69,10 +75,29 @@ public class FeelhubLanguage {
     public Language getMicrosoftLanguage() {
         return Language.fromString(code);
     }
+
+    public boolean isReference() {
+        return equals(reference());
+    }
+
+    public boolean isNone() {
+        return equals(none());
+    }
+
+    public String getName() {
+        return LocaleUtils.toLocale(code).getDisplayName(Locale.ENGLISH);
+    }
+
+
     private String code;
+
     private static final NullFeelhubLanguage NULL_FEELHUB_LANGUAGE = new NullFeelhubLanguage();
 
+    public static final FeelhubLanguage REFERENCE = new FeelhubLanguage("en");
+
     private static final Map<String, String> alchemyLanguagues = Maps.newConcurrentMap();
+
+    private static final List<FeelhubLanguage> AVAILABLES = Lists.newArrayList();
 
     static {
         alchemyLanguagues.put("french", "fr");
@@ -83,5 +108,20 @@ public class FeelhubLanguage {
         alchemyLanguagues.put("spanish", "es");
         alchemyLanguagues.put("swedish", "sv");
         alchemyLanguagues.put("english", "en");
+
+        for (Locale locale : Locale.getAvailableLocales()) {
+            if (!Strings.isNullOrEmpty(locale.getDisplayName(Locale.ENGLISH))) {
+                final FeelhubLanguage language = new FeelhubLanguage(locale.getLanguage());
+                if (!AVAILABLES.contains(language)) {
+                    AVAILABLES.add(language);
+                }
+            }
+        }
+        Collections.sort(AVAILABLES, new Comparator<FeelhubLanguage>() {
+            @Override
+            public int compare(FeelhubLanguage feelhubLanguage, FeelhubLanguage feelhubLanguage2) {
+                return feelhubLanguage.getName().compareTo(feelhubLanguage2.getName());
+            }
+        });
     }
 }

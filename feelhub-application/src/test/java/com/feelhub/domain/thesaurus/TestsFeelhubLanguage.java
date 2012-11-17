@@ -2,7 +2,9 @@ package com.feelhub.domain.thesaurus;
 
 import org.junit.Test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import java.util.List;
+
+import static org.fest.assertions.Assertions.*;
 
 
 public class TestsFeelhubLanguage {
@@ -98,4 +100,16 @@ public class TestsFeelhubLanguage {
         assertThat(english).isEqualTo(reference);
     }
 
+    @Test
+    public void canGetName() {
+        assertThat(FeelhubLanguage.reference().getName()).isEqualTo("English");
+    }
+
+    @Test
+    public void canGetAvailableLanguages() {
+        List<FeelhubLanguage> languages = FeelhubLanguage.availables();
+
+        assertThat(languages).isNotEmpty();
+        assertThat(languages.get(0).getName()).isEqualTo("Albanian");
+    }
 }

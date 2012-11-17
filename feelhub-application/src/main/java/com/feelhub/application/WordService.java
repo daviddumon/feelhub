@@ -57,7 +57,7 @@ public class WordService {
     protected Word createWord(String value, final FeelhubLanguage feelhubLanguage, final String type) {
         value = normalize(value);
         Word word;
-        if (!feelhubLanguage.equals(FeelhubLanguage.reference()) && !feelhubLanguage.equals(FeelhubLanguage.none())) {
+        if (!feelhubLanguage.isReference() && !feelhubLanguage.isNone()) {
             try {
                 final String translatedValue = translator.translateToEnglish(value, feelhubLanguage);
                 try {

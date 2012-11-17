@@ -16,11 +16,11 @@ public class KeywordService {
         this.uriService = uriService;
     }
 
-    public Keyword lookUpOrCreate(final String value, final String languageCode) {
+    public Keyword lookUpOrCreate(final String value, final FeelhubLanguage language) {
         if (KeywordIdentifier.isUri(value)) {
             return uriService.lookUpOrCreate(value);
         } else {
-            return wordService.lookUpOrCreate(value, FeelhubLanguage.fromCountryName(languageCode));
+            return wordService.lookUpOrCreate(value, language);
         }
     }
 

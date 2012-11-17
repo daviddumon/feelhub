@@ -37,7 +37,7 @@ public class TestsUserService {
         final String email = "mail@mail.com";
         final String password = "password";
         final String fullname = "David John";
-        final String language = "English";
+        final String language = "en";
 
         userService.createUser(email, password, fullname, language);
 
@@ -45,7 +45,7 @@ public class TestsUserService {
         final User user = Repositories.users().getAll().get(0);
         assertThat(user.getFullname(), is(fullname));
         assertThat(user.getEmail(), is(email));
-        assertThat(user.getLanguageCode(), is(FeelhubLanguage.fromCountryName(language).getCode()));
+        assertThat(user.getLanguageCode(), is(FeelhubLanguage.fromCode("en").getCode()));
         assertTrue(user.checkPassword(password));
     }
 

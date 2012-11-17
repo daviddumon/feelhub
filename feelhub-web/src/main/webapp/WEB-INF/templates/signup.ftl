@@ -51,16 +51,10 @@
     <div class="holder">
         <p>What is your favorite language :</p>
         <select name="language" aria-required="true">
-            <option value="English">English</option>
-            <option value="French">French</option>
-            <option value="German">German</option>
-            <option value="Italian">Italian</option>
-            <option value="Portuguese">Portuguese</option>
-            <option value="Russian">Russian</option>
-            <option value="Spanish">Spanish</option>
-            <option value="Swedish">Swedish</option>
+        <#list locales as locale>
+            <option value="${locale.code}">${locale.name}</option>
+        </#list>
         </select>
-
         <div class="error_text"></div>
     </div>
     <div class="holder">

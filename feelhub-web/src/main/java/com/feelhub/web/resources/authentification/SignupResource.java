@@ -2,14 +2,16 @@ package com.feelhub.web.resources.authentification;
 
 import com.feelhub.application.UserService;
 import com.feelhub.domain.session.EmailAlreadyUsed;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.BadEmail;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.inject.Inject;
-import org.restlet.data.*;
-import org.restlet.resource.*;
-
-import java.util.Locale;
+import org.restlet.data.Form;
+import org.restlet.data.Status;
+import org.restlet.resource.Get;
+import org.restlet.resource.Post;
+import org.restlet.resource.ServerResource;
 
 public class SignupResource extends ServerResource {
 
@@ -21,7 +23,7 @@ public class SignupResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
-        return ModelAndView.createNew("signup.ftl").with("facebookUrl", connector.getUrl()).with("locales", Locale.getAvailableLocales());
+        return ModelAndView.createNew("signup.ftl").with("facebookUrl", connector.getUrl()).with("locales", FeelhubLanguage.availables());
     }
 
     @Post

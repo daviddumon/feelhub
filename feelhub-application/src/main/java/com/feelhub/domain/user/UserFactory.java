@@ -9,7 +9,7 @@ public class UserFactory {
 
     public User createUser(final String email, final String password, final String fullname, final String language) {
         final User user = commonUser(email, email, fullname);
-        user.setLanguage(FeelhubLanguage.fromCountryName(language));
+        user.setLanguage(FeelhubLanguage.fromCode(language));
         user.setPassword(password);
         DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
         return user;

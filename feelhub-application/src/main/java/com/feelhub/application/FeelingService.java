@@ -45,7 +45,7 @@ public class FeelingService {
         final List<Sentiment> result = Lists.newArrayList();
         final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(feelingRequestEvent.getText(), getSemanticContext(feelingRequestEvent));
         for (final SentimentAndText sentimentAndText : sentimentAndTexts) {
-            final Keyword keyword = keywordService.lookUpOrCreate(sentimentAndText.text, feelingRequestEvent.getUserLanguage().getCode());
+            final Keyword keyword = keywordService.lookUpOrCreate(sentimentAndText.text, feelingRequestEvent.getUserLanguage());
             final Sentiment sentiment = new Sentiment(keyword.getTopicId(), sentimentAndText.sentimentValue);
             result.add(sentiment);
         }
@@ -60,7 +60,7 @@ public class FeelingService {
 
     private List<Sentiment> fromFeelingSentiment(final FeelingRequestEvent feelingRequestEvent) {
         final List<Sentiment> result = Lists.newArrayList();
-        final Keyword keyword = keywordService.lookUpOrCreate(feelingRequestEvent.getKeywordValue(), feelingRequestEvent.getLanguage().getCode());
+        final Keyword keyword = keywordService.lookUpOrCreate(feelingRequestEvent.getKeywordValue(), feelingRequestEvent.getLanguage());
         final Sentiment sentiment = new Sentiment(keyword.getTopicId(), feelingRequestEvent.getSentimentValue());
         result.add(sentiment);
         return result;
