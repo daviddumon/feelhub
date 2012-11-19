@@ -1,9 +1,9 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.illustration.WordIllustrationRequestEvent;
-import com.feelhub.domain.keyword.*;
-import com.feelhub.domain.keyword.word.*;
+import com.feelhub.domain.meta.WordIllustrationRequestEvent;
+import com.feelhub.domain.tag.*;
+import com.feelhub.domain.tag.word.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.translation.*;
@@ -42,7 +42,7 @@ public class TestsWordService {
 
     @Test
     public void canLookUpAWord() {
-        final Word word = TestFactories.keywords().newWord();
+        final Tag word = TestFactories.tags().newWord();
 
         final Word wordFound = wordService.lookUp(word.getValue(), word.getLanguage());
 
@@ -74,8 +74,8 @@ public class TestsWordService {
         wordService.createWord(value, feelhubLanguage);
 
         final List<Topic> topics = Repositories.topics().getAll();
-        final List<Keyword> keywords = Repositories.keywords().getAll();
-        assertThat(keywords.size()).isEqualTo(1);
+        final List<Tag> tags = Repositories.keywords().getAll();
+        assertThat(tags.size()).isEqualTo(1);
         assertThat(topics.size()).isEqualTo(1);
     }
 
@@ -119,7 +119,7 @@ public class TestsWordService {
 
     @Test
     public void lookUpExistingTranslation() {
-        final Word referenceWord = TestFactories.keywords().newWord("Valueenglish", FeelhubLanguage.reference());
+        final Tag referenceWord = TestFactories.tags().newWord("Valueenglish", FeelhubLanguage.reference());
 
         wordService.createWord("Value", FeelhubLanguage.fromCountryName("fr"));
 
@@ -166,7 +166,7 @@ public class TestsWordService {
     @Test
     public void lookUpIsCaseInsensitiveForWord() {
         final String value = "Word";
-        final Word word = TestFactories.keywords().newWord(value);
+        final Tag word = TestFactories.tags().newWord(value);
 
         final Word wordFound = wordService.lookUp("WoRD", word.getLanguage());
 
@@ -179,8 +179,8 @@ public class TestsWordService {
 
         wordService.createWord(value, FeelhubLanguage.reference());
 
-        final Keyword foundKeyword = Repositories.keywords().getAll().get(0);
-        assertThat(foundKeyword.getValue()).isEqualTo("Word");
+        final Tag foundTag = Repositories.keywords().getAll().get(0);
+        assertThat(foundTag.getValue()).isEqualTo("Word");
     }
 
     @Test
@@ -202,7 +202,7 @@ public class TestsWordService {
 
     @Test
     public void canLookupOrCreateAWord() {
-        final Word word = TestFactories.keywords().newWord();
+        final Tag word = TestFactories.tags().newWord();
 
         final Word wordFound = wordService.lookUpOrCreate(word.getValue(), word.getLanguage());
 

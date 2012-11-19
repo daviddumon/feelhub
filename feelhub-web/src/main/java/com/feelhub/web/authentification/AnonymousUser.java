@@ -1,5 +1,7 @@
 package com.feelhub.web.authentification;
 
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
+
 public class AnonymousUser extends WebUser {
 
     public AnonymousUser() {
@@ -14,5 +16,10 @@ public class AnonymousUser extends WebUser {
     @Override
     public boolean isAnonymous() {
         return true;
+    }
+
+    @Override
+    public FeelhubLanguage getLanguage() {
+        return FeelhubLanguage.reference();
     }
 }

@@ -1,6 +1,6 @@
 package com.feelhub.repositories.fakeRepositories;
 
-import com.feelhub.domain.illustration.*;
+import com.feelhub.domain.meta.*;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 

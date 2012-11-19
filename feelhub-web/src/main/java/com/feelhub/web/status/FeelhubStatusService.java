@@ -1,7 +1,8 @@
 package com.feelhub.web.status;
 
 import com.feelhub.domain.feeling.FeelingCreationException;
-import com.feelhub.domain.keyword.uri.UriException;
+import com.feelhub.domain.tag.uri.UriException;
+import com.feelhub.domain.topic.TopicNotFound;
 import com.feelhub.domain.user.BadUserException;
 import com.feelhub.web.resources.api.FeelhubApiException;
 import com.google.common.collect.Maps;
@@ -19,6 +20,7 @@ public class FeelhubStatusService extends StatusService {
         resolvers.put(FeelhubApiException.class, new JsonExceptionResolver());
         resolvers.put(FeelingCreationException.class, new ExceptionResolver400());
         resolvers.put(BadUserException.class, new UserExceptionResolver());
+        resolvers.put(TopicNotFound.class, new ExceptionResolver404());
     }
 
     @Override

@@ -3,12 +3,7 @@ package com.feelhub.domain.scraper;
 public class FakeScraper extends Scraper {
 
     @Override
-    public void scrap(final String uri) {
-
-    }
-
-    @Override
-    public String getIllustration() {
-        return "fakeillustration";
+    public ScrapedInformations scrap(final String uri) {
+        return new FakeScrapedInformations();
     }
 }

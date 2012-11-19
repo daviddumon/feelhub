@@ -1,9 +1,9 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.illustration.WordIllustrationRequestEvent;
-import com.feelhub.domain.keyword.*;
-import com.feelhub.domain.keyword.word.*;
+import com.feelhub.domain.meta.WordIllustrationRequestEvent;
+import com.feelhub.domain.tag.*;
+import com.feelhub.domain.tag.word.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.translation.Translator;
@@ -16,8 +16,8 @@ import java.util.UUID;
 public class WordService {
 
     @Inject
-    public WordService(final KeywordFactory keywordFactory, final TopicService topicService, final Translator translator) {
-        this.keywordFactory = keywordFactory;
+    public WordService(final TagFactory tagFactory, final TopicService topicService, final Translator translator) {
+        this.tagFactory = tagFactory;
         this.topicService = topicService;
         this.translator = translator;
     }
@@ -68,25 +68,25 @@ public class WordService {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                final Topic topic = topicService.newTopic();
+                final Topic topic = topicService.createTopic();
                 word = createWord(value, feelhubLanguage, topic.getId());
                 word.setTranslationNeeded(true);
             }
         } else {
-            word = createWord(value, feelhubLanguage, topicService.newTopic().getId());
+            word = createWord(value, feelhubLanguage, topicService.createTopic().getId());
         }
         requestWordIllustration(word, type);
         return word;
     }
 
     private Word createReferenceWord(final String value, final FeelhubLanguage feelhubLanguage, final String translatedValue) {
-        final Topic topic = topicService.newTopic();
+        final Topic topic = topicService.createTopic();
         createWord(translatedValue, FeelhubLanguage.reference(), topic.getId());
         return createWord(value, feelhubLanguage, topic.getId());
     }
 
     private Word createWord(final String value, final FeelhubLanguage feelhubLanguage, final UUID topicId) {
-        final Word word = keywordFactory.createWord(value, feelhubLanguage, topicId);
+        final Word word = tagFactory.createTag(value, feelhubLanguage, topicId);
         Repositories.keywords().add(word);
         return word;
     }
@@ -102,7 +102,7 @@ public class WordService {
         return value;
     }
 
-    private final KeywordFactory keywordFactory;
+    private final TagFactory tagFactory;
     private final TopicService topicService;
     private final Translator translator;
 }

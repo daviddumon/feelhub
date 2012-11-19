@@ -14,13 +14,21 @@ public class TopicService {
     }
 
     public Topic lookUp(final UUID id) {
-        return Repositories.topics().getActive(id);
+        final Topic topic = Repositories.topics().get(id);
+        if (topic == null) {
+            throw new TopicNotFound();
+        }
+        return topic;
     }
 
-    public Topic newTopic() {
+    public Topic createTopic() {
         final Topic topic = topicFactory.createTopic();
         Repositories.topics().add(topic);
         return topic;
+    }
+
+    public void createTopicFromUri(final String uri) {
+
     }
 
     private final TopicFactory topicFactory;

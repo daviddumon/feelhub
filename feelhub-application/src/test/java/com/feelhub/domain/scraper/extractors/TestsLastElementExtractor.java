@@ -7,8 +7,7 @@ import org.junit.*;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsLastElementExtractor {
 
@@ -22,7 +21,7 @@ public class TestsLastElementExtractor {
 
     @Test
     public void canGetName() {
-        assertThat(lastElementExtractor.getName(), is("h1"));
+        assertThat(lastElementExtractor.getName()).isEqualTo("h1");
     }
 
     @Test
@@ -32,7 +31,7 @@ public class TestsLastElementExtractor {
 
         final String result = lastElementExtractor.apply(document);
 
-        assertThat(result, is("Second section"));
+        assertThat(result).isEqualTo("Second section");
     }
 
     @Test
@@ -42,7 +41,7 @@ public class TestsLastElementExtractor {
 
         final String result = lastElementExtractor.apply(document);
 
-        assertThat(result, is("h1 text"));
+        assertThat(result).isEqualTo("h1 text");
     }
 
     private Document getDocument(final String uri) {

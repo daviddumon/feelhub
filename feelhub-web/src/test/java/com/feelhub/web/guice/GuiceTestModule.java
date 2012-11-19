@@ -2,7 +2,7 @@ package com.feelhub.web.guice;
 
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.bingsearch.*;
-import com.feelhub.domain.keyword.uri.*;
+import com.feelhub.domain.tag.uri.*;
 import com.feelhub.domain.scraper.*;
 import com.feelhub.domain.translation.*;
 import com.feelhub.repositories.SessionProvider;

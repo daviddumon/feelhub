@@ -1,12 +1,13 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.eventbus.DomainEvent;
-import com.feelhub.domain.keyword.Keyword;
+import com.feelhub.domain.topic.Topic;
 
 public class AlchemyRequestEvent extends DomainEvent {
 
-    public AlchemyRequestEvent(final Keyword uri) {
-        this.uri = uri;
+    public AlchemyRequestEvent(final Topic topic, final String value) {
+        this.topic = topic;
+        this.value = value;
     }
 
     @Override
@@ -18,9 +19,14 @@ public class AlchemyRequestEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    public Keyword getUri() {
-        return uri;
+    public Topic getTopic() {
+        return topic;
     }
 
-    private final Keyword uri;
+    public String getValue() {
+        return value;
+    }
+
+    private Topic topic;
+    private String value;
 }

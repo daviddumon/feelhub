@@ -1,7 +1,7 @@
 package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.feeling.context.SemanticContext;
-import com.feelhub.domain.keyword.word.Word;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
@@ -147,8 +147,8 @@ public class TestsSentimentExtractor {
     @Test
     public void canExtractSentimentWithSemanticContext() {
         final SemanticContext semanticContext = new SemanticContext();
-        final Word word1 = TestFactories.keywords().newWord("word1");
-        final Word word2 = TestFactories.keywords().newWord("word2");
+        final Tag word1 = TestFactories.tags().newWord("word1");
+        final Tag word2 = TestFactories.tags().newWord("word2");
         TestFactories.relations().newRelation(word1.getTopicId(), word2.getTopicId());
         semanticContext.extractFor(word1.getValue(), word1.getLanguage());
 

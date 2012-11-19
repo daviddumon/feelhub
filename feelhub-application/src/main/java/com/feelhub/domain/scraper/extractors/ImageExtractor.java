@@ -4,13 +4,9 @@ import org.jsoup.nodes.*;
 
 public class ImageExtractor extends Extractor {
 
-    public ImageExtractor(final String name) {
-        this.name = name;
-    }
-
     @Override
     public String getName() {
-        return name;
+        return "image";
     }
 
     @Override
@@ -72,6 +68,4 @@ public class ImageExtractor extends Extractor {
         }
         return "";
     }
-
-    private final String name;
 }

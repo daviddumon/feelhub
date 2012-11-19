@@ -1,6 +1,6 @@
 package com.feelhub.domain.feeling.context;
 
-import com.feelhub.domain.keyword.word.Word;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -16,10 +16,10 @@ public class TestsSemanticContext {
     @Test
     public void canGetAContextForAKeyword() {
         final SemanticContext semanticContext = new SemanticContext();
-        final Word word1 = TestFactories.keywords().newWord("word1", FeelhubLanguage.reference());
-        final Word word2 = TestFactories.keywords().newWord("word2", FeelhubLanguage.reference());
-        final Word word3 = TestFactories.keywords().newWord("word3", FeelhubLanguage.reference());
-        final Word word4 = TestFactories.keywords().newWord("word4", FeelhubLanguage.fromCode("fr"));
+        final Tag word1 = TestFactories.tags().newWord("word1", FeelhubLanguage.reference());
+        final Tag word2 = TestFactories.tags().newWord("word2", FeelhubLanguage.reference());
+        final Tag word3 = TestFactories.tags().newWord("word3", FeelhubLanguage.reference());
+        final Tag word4 = TestFactories.tags().newWord("word4", FeelhubLanguage.fromCode("fr"));
         TestFactories.relations().newRelation(word1.getTopicId(), word2.getTopicId());
         TestFactories.relations().newRelation(word1.getTopicId(), word3.getTopicId());
         TestFactories.relations().newRelation(word1.getTopicId(), word4.getTopicId());

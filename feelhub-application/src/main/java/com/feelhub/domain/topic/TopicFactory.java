@@ -9,4 +9,11 @@ public class TopicFactory {
         final Topic topic = new Topic(id);
         return topic;
     }
+
+    public Topic createWorld() {
+        final UUID id = UUID.randomUUID();
+        final Topic topic = new Topic(id);
+        topic.setType(TopicTypes.world);
+        return topic;
+    }
 }

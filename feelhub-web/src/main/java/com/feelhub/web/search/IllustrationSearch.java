@@ -1,6 +1,6 @@
 package com.feelhub.web.search;
 
-import com.feelhub.domain.illustration.Illustration;
+import com.feelhub.domain.meta.Illustration;
 import com.feelhub.repositories.SessionProvider;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;

@@ -7,8 +7,7 @@ import org.junit.*;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsLogoExtractor {
 
@@ -17,12 +16,12 @@ public class TestsLogoExtractor {
 
     @Before
     public void before() {
-        logoExtractor = new LogoExtractor("logo", "");
+        logoExtractor = new LogoExtractor();
     }
 
     @Test
     public void canGetName() {
-        assertThat(logoExtractor.getName(), is("logo"));
+        assertThat(logoExtractor.getName()).isEqualTo("logo");
     }
 
     @Test
@@ -32,7 +31,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("http://www.image.com/image.jpg"));
+        assertThat(result).isEqualTo("http://www.image.com/image.jpg");
     }
 
     @Test
@@ -42,7 +41,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("http://www.image.com/image.jpg"));
+        assertThat(result).isEqualTo("http://www.image.com/image.jpg");
     }
 
     @Test
@@ -52,7 +51,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("http://www.image.com/image.jpg"));
+        assertThat(result).isEqualTo("http://www.image.com/image.jpg");
     }
 
     @Test
@@ -62,7 +61,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("http://www.image.com/image.jpg"));
+        assertThat(result).isEqualTo("http://www.image.com/image.jpg");
     }
 
     @Test
@@ -72,7 +71,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("http://www.image.com/image.jpg"));
+        assertThat(result).isEqualTo("http://www.image.com/image.jpg");
     }
 
     @Test
@@ -82,7 +81,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("http://www.image.com/image.jpg"));
+        assertThat(result).isEqualTo("http://www.image.com/image.jpg");
     }
 
     @Test
@@ -92,7 +91,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("http://www.image.com/image.jpg"));
+        assertThat(result).isEqualTo("http://www.image.com/image.jpg");
     }
 
     @Test
@@ -102,7 +101,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("http://www.google.fr/images/lol.jpg"));
+        assertThat(result).isEqualTo("http://www.google.fr/images/lol.jpg");
     }
 
     @Test
@@ -112,7 +111,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("http://localhost:6162/sites/default/files/tiron_logo.png"));
+        assertThat(result).isEqualTo("http://localhost:6162/sites/default/files/tiron_logo.png");
     }
 
     @Test
@@ -122,7 +121,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("good.png"));
+        assertThat(result).isEqualTo("good.png");
     }
 
     @Test
@@ -132,18 +131,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is("http://www.image.com/good.jpg"));
-    }
-
-    @Test
-    public void canExtractFromDomainWithoutTLDPattern() {
-        final String uri = internet.uri("logoextractor/withoutTLD");
-        final Document document = getDocument(uri);
-        final LogoExtractor extractorWithoutTLD = new LogoExtractor("logo", "localhost");
-
-        final String result = extractorWithoutTLD.apply(document);
-
-        assertThat(result, is("http://www.image.com/good.jpg"));
+        assertThat(result).isEqualTo("http://www.image.com/good.jpg");
     }
 
     @Test
@@ -153,7 +141,7 @@ public class TestsLogoExtractor {
 
         final String result = logoExtractor.apply(document);
 
-        assertThat(result, is(""));
+        assertThat(result).isEmpty();
     }
 
     private Document getDocument(final String uri) {

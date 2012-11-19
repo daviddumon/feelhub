@@ -7,8 +7,7 @@ import org.junit.*;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsImageExtractor {
 
@@ -17,12 +16,12 @@ public class TestsImageExtractor {
 
     @Before
     public void before() {
-        imageExtractor = new ImageExtractor("image");
+        imageExtractor = new ImageExtractor();
     }
 
     @Test
     public void canGetName() {
-        assertThat(imageExtractor.getName(), is("image"));
+        assertThat(imageExtractor.getName()).isEqualTo("image");
     }
 
     @Test
@@ -32,7 +31,7 @@ public class TestsImageExtractor {
 
         final String result = imageExtractor.apply(document);
 
-        assertThat(result, is("http://www.google.fr/images/h1.jpg"));
+        assertThat(result).isEqualTo("http://www.google.fr/images/h1.jpg");
     }
 
     @Test
@@ -42,7 +41,7 @@ public class TestsImageExtractor {
 
         final String result = imageExtractor.apply(document);
 
-        assertThat(result, is("http://www.slate.fr/sites/default/files/sarkozy-tv_0.jpg?1328353776"));
+        assertThat(result).isEqualTo("http://www.slate.fr/sites/default/files/sarkozy-tv_0.jpg?1328353776");
     }
 
     @Test
@@ -52,7 +51,7 @@ public class TestsImageExtractor {
 
         final String result = imageExtractor.apply(document);
 
-        assertThat(result, is("http://www.10sport.com/image.jpg"));
+        assertThat(result).isEqualTo("http://www.10sport.com/image.jpg");
     }
 
     @Test
@@ -62,7 +61,7 @@ public class TestsImageExtractor {
 
         final String result = imageExtractor.apply(document);
 
-        assertThat(result, is("http://www.liberation.fr/image.jpg"));
+        assertThat(result).isEqualTo("http://www.liberation.fr/image.jpg");
     }
 
     private Document getDocument(final String uri) {

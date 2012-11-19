@@ -3,8 +3,8 @@ package com.feelhub.web.guice;
 import com.feelhub.application.*;
 import com.feelhub.domain.alchemy.AlchemyAnalyzer;
 import com.feelhub.domain.eventbus.DeadEventCatcher;
-import com.feelhub.domain.illustration.*;
-import com.feelhub.domain.keyword.world.WorldListener;
+import com.feelhub.domain.meta.*;
+import com.feelhub.domain.world.WorldListener;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.web.mail.MailBuilder;
@@ -25,7 +25,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(StatisticsFactory.class).asEagerSingleton();
         bind(WorldListener.class).asEagerSingleton();
         bind(WordIllustrationFactory.class).asEagerSingleton();
-        bind(UriIllustrationFactory.class).asEagerSingleton();
+        bind(UriMetaInformationFactory.class).asEagerSingleton();
         bind(AlchemyAnalyzer.class).asEagerSingleton();
         bind(ActivationService.class).asEagerSingleton();
     }

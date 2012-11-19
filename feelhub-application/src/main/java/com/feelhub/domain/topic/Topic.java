@@ -1,8 +1,10 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.BaseEntity;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.google.common.collect.*;
 
-import java.util.UUID;
+import java.util.*;
 
 public class Topic extends BaseEntity {
 
@@ -12,7 +14,6 @@ public class Topic extends BaseEntity {
 
     public Topic(final UUID id) {
         this.id = id;
-        this.active = true;
     }
 
     @Override
@@ -20,23 +21,53 @@ public class Topic extends BaseEntity {
         return id;
     }
 
-    public boolean isActive() {
-        return active;
+    public void setType(final TopicTypes type) {
+        this.type = type;
     }
 
-    public void setActive(final boolean active) {
-        this.active = active;
+    public TopicTypes getType() {
+        return type;
     }
 
-    public UUID getCurrentTopicId() {
-        return currentTopicId;
+    public List<String> getSubTypes() {
+        return subTypes;
     }
 
-    public void setCurrentTopicId(final UUID currentId) {
-        this.currentTopicId = currentId;
+    public void addSubType(final String subtype) {
+        subTypes.add(subtype);
+    }
+
+    public List<String> getUrls() {
+        return urls;
+    }
+
+    public void addUrl(final String url) {
+        urls.add(url);
+    }
+
+    public void addDescription(final FeelhubLanguage language, final String description) {
+        descriptions.put(language.getCode(), description);
+    }
+
+    public String getDescription(final FeelhubLanguage language) {
+        if (descriptions.containsKey(language.getCode())) {
+            return descriptions.get(language.getCode());
+        } else if (descriptions.containsKey(FeelhubLanguage.reference().getCode())) {
+            return descriptions.get(FeelhubLanguage.reference().getCode());
+        } else if (descriptions.containsKey(FeelhubLanguage.none().getCode())) {
+            return descriptions.get(FeelhubLanguage.none().getCode());
+        } else {
+            return "";
+        }
+    }
+
+    public Map<String, String> getDescriptions() {
+        return descriptions;
     }
 
     private UUID id;
-    private boolean active;
-    private UUID currentTopicId;
+    private TopicTypes type;
+    private List<String> subTypes = Lists.newArrayList();
+    private List<String> urls = Lists.newArrayList();
+    private Map<String, String> descriptions = Maps.newHashMap();
 }

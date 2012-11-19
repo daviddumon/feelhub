@@ -2,8 +2,8 @@ package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.keyword.uri.*;
-import com.feelhub.domain.keyword.word.Word;
+import com.feelhub.domain.tag.Tag;
+import com.feelhub.domain.tag.uri.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.translation.*;
 import com.feelhub.repositories.*;
@@ -39,7 +39,7 @@ public class TestsFeelingService {
 
     @Test
     public void canAddFeelingAndSentiments() {
-        TestFactories.keywords().newWord("word3", FeelhubLanguage.fromCode("fr"));
+        TestFactories.tags().newWord("word3", FeelhubLanguage.fromCode("fr"));
         final FeelingRequestEvent event = getEvent();
 
         DomainEventBus.INSTANCE.post(event);
@@ -56,8 +56,8 @@ public class TestsFeelingService {
 
     @Test
     public void createSemanticContextWithGoodValueAndLanguage() {
-        final Word word3 = TestFactories.keywords().newWord("word3", FeelhubLanguage.fromCountryName("french"));
-        final Word word4 = TestFactories.keywords().newWord("word4", FeelhubLanguage.fromCountryName("french"));
+        final Tag word3 = TestFactories.tags().newWord("word3", FeelhubLanguage.fromCountryName("french"));
+        final Tag word4 = TestFactories.tags().newWord("word4", FeelhubLanguage.fromCountryName("french"));
         TestFactories.relations().newRelation(word3.getTopicId(), word4.getTopicId());
         final FeelingRequestEvent event = getEvent();
 

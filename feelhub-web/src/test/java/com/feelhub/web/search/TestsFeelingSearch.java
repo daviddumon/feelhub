@@ -2,7 +2,7 @@ package com.feelhub.web.search;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.keyword.word.Word;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.*;
 import org.junit.*;
@@ -10,7 +10,6 @@ import org.junit.*;
 import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
-
 
 public class TestsFeelingSearch extends TestWithMongoRepository {
 
@@ -78,11 +77,11 @@ public class TestsFeelingSearch extends TestWithMongoRepository {
     @Ignore
     @Test
     public void canGetFeelingsForTopic() {
-        final Word word = TestFactories.keywords().newWord();
-        TestFactories.feelings().newFeelings(word.getTopicId(), 10);
+        final Topic topic = TestFactories.topics().newTopic();
+        TestFactories.feelings().newFeelings(topic.getId(), 10);
         TestFactories.feelings().newFeelings(20);
 
-        final List<Feeling> feelings = feelingSearch.withTopicId(word.getTopicId()).execute();
+        final List<Feeling> feelings = feelingSearch.withTopicId(topic.getId()).execute();
 
         assertThat(feelings.size()).isEqualTo(10);
     }

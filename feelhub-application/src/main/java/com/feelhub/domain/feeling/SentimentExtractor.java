@@ -1,7 +1,7 @@
 package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.feeling.context.SemanticContext;
-import com.feelhub.domain.keyword.KeywordIdentifier;
+import com.feelhub.domain.tag.TagIdentifier;
 import com.google.common.collect.*;
 
 import java.io.UnsupportedEncodingException;
@@ -86,7 +86,7 @@ public class SentimentExtractor {
     }
 
     private boolean isUri(final String token) {
-        return KeywordIdentifier.isUri(token);
+        return TagIdentifier.isUri(token);
     }
 
     private boolean hasAny(final TreeMap<Integer, SentimentValue> map) {

@@ -1,6 +1,6 @@
 package com.feelhub.web.search.fake;
 
-import com.feelhub.domain.illustration.Illustration;
+import com.feelhub.domain.meta.Illustration;
 import com.feelhub.repositories.*;
 import com.feelhub.web.search.IllustrationSearch;
 import com.google.common.base.Predicate;

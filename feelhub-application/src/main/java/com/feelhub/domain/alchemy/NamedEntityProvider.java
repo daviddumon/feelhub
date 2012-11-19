@@ -2,7 +2,7 @@ package com.feelhub.domain.alchemy;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feelhub.domain.alchemy.readmodel.*;
-import com.feelhub.domain.keyword.Keyword;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
@@ -19,11 +19,11 @@ public class NamedEntityProvider {
         this.namedEntityFactory = namedEntityFactory;
     }
 
-    public List<NamedEntity> entitiesFor(final Keyword keyword) {
+    public List<NamedEntity> entitiesFor(final Tag tag) {
         try {
-            final InputStream stream = alchemyLink.get(keyword.getValue());
+            final InputStream stream = alchemyLink.get(tag.getValue());
             final AlchemyJsonResults results = unmarshall(stream);
-            createAlchemyAnalysis(keyword, results);
+            createAlchemyAnalysis(tag, results);
             return getResults(results);
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,7 +53,7 @@ public class NamedEntityProvider {
         return results;
     }
 
-    private void createAlchemyAnalysis(final Keyword uri, final AlchemyJsonResults results) {
+    private void createAlchemyAnalysis(final Tag uri, final AlchemyJsonResults results) {
         final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(uri);
         alchemyAnalysis.setLanguageCode(FeelhubLanguage.fromCountryName(results.language));
         Repositories.alchemyAnalysis().add(alchemyAnalysis);

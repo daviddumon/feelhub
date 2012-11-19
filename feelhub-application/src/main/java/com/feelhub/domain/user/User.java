@@ -110,6 +110,7 @@ public class User extends BaseEntity {
     public void setLanguage(FeelhubLanguage feelhubLanguage) {
         this.languageCode = feelhubLanguage.getCode();
     }
+
     private String email;
     protected String password;
     private String fullname;

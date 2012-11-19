@@ -2,9 +2,9 @@ package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.keyword.Keyword;
-import com.feelhub.domain.keyword.world.WorldStatisticsEvent;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.world.WorldStatisticsEvent;
 import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.*;
@@ -195,13 +195,13 @@ public class TestsStatisticsFactory {
 
     @Test
     public void canRecordStatisticsForWorld() {
-        final Keyword worldKeyword = TestFactories.keywords().newWord("", FeelhubLanguage.none());
-        final Sentiment sentiment = new Sentiment(worldKeyword.getTopicId(), SentimentValue.good);
+        final Tag worldTag = TestFactories.tags().newWord("", FeelhubLanguage.none());
+        final Sentiment sentiment = new Sentiment(worldTag.getTopicId(), SentimentValue.good);
         final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(sentiment);
 
         statisticsFactory.handle(worldStatisticsEvent);
 
-        final List<Statistics> statisticsList = getStatisticsRepository().forTopicId(worldKeyword.getTopicId());
+        final List<Statistics> statisticsList = getStatisticsRepository().forTopicId(worldTag.getTopicId());
         assertThat(statisticsList.size(), is(5));
     }
 

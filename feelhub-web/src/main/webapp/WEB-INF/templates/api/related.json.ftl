@@ -1,11 +1,11 @@
 [
-<#list keywordDataList as keywordData>
+<#list topicDataList as topicData>
 {
-"topicId":"${keywordData.topicId}",
-"illustrationLink":"${keywordData.illustrationLink}",
-"keywordValue":"${keywordData.keywordValue}",
-"languageCode":"${keywordData.languageCode}",
-"typeValue":"${keywordData.typeValue}"}
-${keywordData_has_next?string(",", "")}
+"id":"${topicData.id}",
+"illustrationLink":"${topicData.illustrationLink}",
+"description":"${topicData.description}",
+"type":"${topicData.type}"
+}
+${topicData_has_next?string(",", "")}
 </#list>
 ]

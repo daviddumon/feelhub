@@ -1,5 +1,6 @@
 package com.feelhub.domain.user;
 
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;
 
 public class UserTestFactory {
@@ -9,6 +10,7 @@ public class UserTestFactory {
         user.setEmail(email);
         user.setPassword("password");
         user.setFullname("full name");
+        user.setLanguage(FeelhubLanguage.reference());
         Repositories.users().add(user);
         return user;
     }
@@ -18,6 +20,7 @@ public class UserTestFactory {
         user.setEmail(email);
         user.setPassword("password");
         user.setFullname(fullName);
+        user.setLanguage(FeelhubLanguage.reference());
         Repositories.users().add(user);
         return user;
     }
@@ -27,6 +30,7 @@ public class UserTestFactory {
         user.setEmail(email);
         user.setPassword("password");
         user.setFullname("full name");
+        user.setLanguage(FeelhubLanguage.reference());
         user.activate();
         Repositories.users().add(user);
         return user;
@@ -37,6 +41,7 @@ public class UserTestFactory {
         user.setEmail(email);
         user.setPassword("password");
         user.setFullname("full name");
+        user.setLanguage(FeelhubLanguage.reference());
         user.activate();
         Repositories.users().add(user);
         return user;

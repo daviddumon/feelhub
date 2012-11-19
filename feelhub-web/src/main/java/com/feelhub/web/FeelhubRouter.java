@@ -23,20 +23,15 @@ public class FeelhubRouter extends Router {
     }
 
     private void attachResources() {
-        attach("/api/uri/{id}/statistics", ApiUriStatisticsResource.class);
-        attachEncodedValue("/api/uri/{value}", ApiUriResource.class);
-
-        attach("/api/word", ApiWordResource.class);
+        attach("/api/topic/{topicId}/statistics", ApiTopicStatisticsResource.class);
+        attach("/api/topic/{topicId}/related", ApiTopicRelatedResource.class);
+        attach("/api/topic/{topicId}/feelings", ApiTopicFeelingsResource.class);
+        attach("/api/topic/{topicId}/feeling/{feelingId}/new", ApiTopicNewFeelingsResource.class);
+        attach("/api/topic/{topicId}/illustrations", ApiTopicIllustrationsResource.class);
         attach("/api/feelings", ApiFeelingsResource.class);
-        attach("/api/related", ApiRelatedResource.class);
-        attach("/api/illustrations", ApiIllustrationsResource.class);
-        attach("/api/createfeeling", ApiCreateFeelingResource.class);
-        attach("/api/newfeelings", ApiNewFeelingsResource.class);
 
-        attachEncodedValue("/uri/{value}", UriResource.class);
 
-        attach("/word/{language}/{keywordValue}", WordResource.class);
-        attach("/word/{keywordValue}", WordResource.class);
+        attach("/topic/{id}", TopicResource.class);
 
         attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
         attach("/admin/events", AdminEventsResource.class);

@@ -7,11 +7,8 @@ import com.feelhub.domain.user.BadEmail;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.inject.Inject;
-import org.restlet.data.Form;
-import org.restlet.data.Status;
-import org.restlet.resource.Get;
-import org.restlet.resource.Post;
-import org.restlet.resource.ServerResource;
+import org.restlet.data.*;
+import org.restlet.resource.*;
 
 public class SignupResource extends ServerResource {
 

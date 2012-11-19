@@ -2,11 +2,11 @@ package com.feelhub.test;
 
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.illustration.IllustrationTestFactory;
-import com.feelhub.domain.keyword.KeywordTestFactory;
+import com.feelhub.domain.meta.IllustrationTestFactory;
 import com.feelhub.domain.relation.RelationTestFactory;
 import com.feelhub.domain.session.SessionTestFactory;
 import com.feelhub.domain.statistics.StatisticsTestFactory;
+import com.feelhub.domain.tag.TagTestFactory;
 import com.feelhub.domain.topic.TopicTestFactory;
 import com.feelhub.domain.user.UserTestFactory;
 
@@ -47,8 +47,8 @@ public class TestFactories {
         return new TopicTestFactory();
     }
 
-    public static KeywordTestFactory keywords() {
-        return new KeywordTestFactory();
+    public static TagTestFactory tags() {
+        return new TagTestFactory();
     }
 
     public static IllustrationTestFactory illustrations() {

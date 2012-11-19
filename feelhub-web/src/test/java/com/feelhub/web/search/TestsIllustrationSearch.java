@@ -1,8 +1,8 @@
 package com.feelhub.web.search;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.illustration.Illustration;
-import com.feelhub.domain.keyword.word.Word;
+import com.feelhub.domain.meta.Illustration;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.*;
 import com.google.common.collect.Lists;
@@ -28,12 +28,12 @@ public class TestsIllustrationSearch extends TestWithMongoRepository {
 
     @Test
     public void canGetAnIllustration() {
-        final Word word = TestFactories.keywords().newWord();
+        final Topic topic = TestFactories.topics().newTopic();
         final String link = "http://www.illustration.com/1.jpg";
-        final Illustration illustration = TestFactories.illustrations().newIllustration(word.getTopicId(), link);
+        final Illustration illustration = TestFactories.illustrations().newIllustration(topic.getId(), link);
         TestFactories.illustrations().newIllustration(UUID.randomUUID());
 
-        final List<Illustration> illustrations = illustrationSearch.withTopicId(word.getTopicId()).execute();
+        final List<Illustration> illustrations = illustrationSearch.withTopicId(topic.getId()).execute();
 
         assertThat(illustrations).isNotNull();
         assertThat(illustrations.size()).isEqualTo(1);
@@ -42,16 +42,16 @@ public class TestsIllustrationSearch extends TestWithMongoRepository {
 
     @Test
     public void canGetOnlySomeIllustrations() {
-        final Word word1 = TestFactories.keywords().newWord();
-        final Word word2 = TestFactories.keywords().newWord();
-        final Word word3 = TestFactories.keywords().newWord();
+        final Topic topic1 = TestFactories.topics().newTopic();
+        final Topic topic2 = TestFactories.topics().newTopic();
+        final Topic topic3 = TestFactories.topics().newTopic();
         final String link = "http://www.illustration.com/1.jpg";
-        TestFactories.illustrations().newIllustration(word1.getTopicId(), link);
-        TestFactories.illustrations().newIllustration(word2.getTopicId(), link);
-        TestFactories.illustrations().newIllustration(word3.getTopicId(), link);
+        TestFactories.illustrations().newIllustration(topic1.getId(), link);
+        TestFactories.illustrations().newIllustration(topic2.getId(), link);
+        TestFactories.illustrations().newIllustration(topic3.getId(), link);
         final List<UUID> topics = Lists.newArrayList();
-        topics.add(word1.getTopicId());
-        topics.add(word2.getTopicId());
+        topics.add(topic1.getId());
+        topics.add(topic2.getId());
 
         final List<Illustration> illustrations = illustrationSearch.withTopicIds(topics).execute();
 

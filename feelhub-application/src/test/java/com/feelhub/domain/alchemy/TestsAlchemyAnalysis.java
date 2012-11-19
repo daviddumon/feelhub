@@ -1,7 +1,7 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.alchemy.readmodel.AlchemyJsonResults;
-import com.feelhub.domain.keyword.Keyword;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -17,19 +17,19 @@ public class TestsAlchemyAnalysis {
 
     @Test
     public void canCreateAnAlchemyAnalysisForAKeyword() {
-        final Keyword keyword = TestFactories.keywords().newWord();
+        final Tag tag = TestFactories.tags().newWord();
 
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(tag);
 
         assertThat(alchemyAnalysis.getId(), notNullValue());
-        assertThat(alchemyAnalysis.getTopicId(), is(keyword.getTopicId()));
-        assertThat(alchemyAnalysis.getValue(), is(keyword.getValue()));
+        assertThat(alchemyAnalysis.getTopicId(), is(tag.getTopicId()));
+        assertThat(alchemyAnalysis.getValue(), is(tag.getValue()));
     }
 
     @Test
     public void canAddLanguageFromAlchemyResult() {
-        final Keyword keyword = TestFactories.keywords().newWord();
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(keyword);
+        final Tag tag = TestFactories.tags().newWord();
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(tag);
         final AlchemyJsonResults alchemyJsonResults = new AlchemyJsonResults();
         alchemyJsonResults.language = "english";
 

@@ -1,6 +1,6 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.illustration.*;
+import com.feelhub.domain.meta.*;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.test.*;
 import com.mongodb.*;

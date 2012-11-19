@@ -3,8 +3,8 @@ package com.feelhub.application;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.feeling.context.SemanticContext;
-import com.feelhub.domain.keyword.Keyword;
 import com.feelhub.domain.relation.FeelingRelationBinder;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.*;
 import com.google.common.collect.Lists;
@@ -16,11 +16,11 @@ import java.util.List;
 public class FeelingService {
 
     @Inject
-    public FeelingService(final SessionProvider sessionProvider, final FeelingRelationBinder feelingRelationBinder, final SentimentExtractor sentimentExtractor, final KeywordService keywordService) {
+    public FeelingService(final SessionProvider sessionProvider, final FeelingRelationBinder feelingRelationBinder, final SentimentExtractor sentimentExtractor, final TagService tagService) {
         this.sessionProvider = sessionProvider;
         this.feelingRelationBinder = feelingRelationBinder;
         this.sentimentExtractor = sentimentExtractor;
-        this.keywordService = keywordService;
+        this.tagService = tagService;
         DomainEventBus.INSTANCE.register(this);
     }
 
@@ -45,8 +45,8 @@ public class FeelingService {
         final List<Sentiment> result = Lists.newArrayList();
         final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(feelingRequestEvent.getText(), getSemanticContext(feelingRequestEvent));
         for (final SentimentAndText sentimentAndText : sentimentAndTexts) {
-            final Keyword keyword = keywordService.lookUpOrCreate(sentimentAndText.text, feelingRequestEvent.getUserLanguage());
-            final Sentiment sentiment = new Sentiment(keyword.getTopicId(), sentimentAndText.sentimentValue);
+            final Tag tag = tagService.lookUpOrCreate(sentimentAndText.text, feelingRequestEvent.getUserLanguage());
+            final Sentiment sentiment = new Sentiment(tag.getTopicId(), sentimentAndText.sentimentValue);
             result.add(sentiment);
         }
         return result;
@@ -60,8 +60,8 @@ public class FeelingService {
 
     private List<Sentiment> fromFeelingSentiment(final FeelingRequestEvent feelingRequestEvent) {
         final List<Sentiment> result = Lists.newArrayList();
-        final Keyword keyword = keywordService.lookUpOrCreate(feelingRequestEvent.getKeywordValue(), feelingRequestEvent.getLanguage());
-        final Sentiment sentiment = new Sentiment(keyword.getTopicId(), feelingRequestEvent.getSentimentValue());
+        final Tag tag = tagService.lookUpOrCreate(feelingRequestEvent.getKeywordValue(), feelingRequestEvent.getLanguage());
+        final Sentiment sentiment = new Sentiment(tag.getTopicId(), feelingRequestEvent.getSentimentValue());
         result.add(sentiment);
         return result;
     }
@@ -77,7 +77,7 @@ public class FeelingService {
     }
 
     private final SessionProvider sessionProvider;
-    private final KeywordService keywordService;
+    private final TagService tagService;
     private final FeelingRelationBinder feelingRelationBinder;
     private final SentimentExtractor sentimentExtractor;
 }

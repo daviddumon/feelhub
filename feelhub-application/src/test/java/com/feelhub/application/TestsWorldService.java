@@ -1,11 +1,12 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.keyword.world.World;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -13,6 +14,9 @@ public class TestsWorldService {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void before() {
@@ -26,20 +30,20 @@ public class TestsWorldService {
 
     @Test
     public void canLookupWorld() {
-        final World world = TestFactories.keywords().newWorld();
+        final Topic world = TestFactories.topics().newWorld();
 
-        final World worldFound = worldService.lookUpOrCreateWorld();
+        final Topic worldFound = worldService.lookUpOrCreateWorld();
 
         assertThat(worldFound).isNotNull();
         assertThat(worldFound).isEqualTo(world);
-        assertThat(worldFound.getTopicId()).isEqualTo(world.getTopicId());
+        assertThat(worldFound.getId()).isEqualTo(world.getId());
     }
 
     @Test
     public void canCreateWorldIfItDoesNotExists() {
         worldService.lookUpOrCreateWorld();
 
-        assertThat(Repositories.keywords().world()).isNotNull();
+        assertThat(Repositories.topics().world()).isNotNull();
     }
 
     private WorldService worldService;

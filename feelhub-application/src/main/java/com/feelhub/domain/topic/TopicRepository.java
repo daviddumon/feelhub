@@ -4,5 +4,5 @@ import com.feelhub.domain.Repository;
 
 public interface TopicRepository extends Repository<Topic> {
 
-    Topic getActive(Object id);
+    Topic world();
 }

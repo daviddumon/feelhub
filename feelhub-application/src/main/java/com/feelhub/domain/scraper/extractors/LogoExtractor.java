@@ -10,14 +10,9 @@ import java.util.List;
 
 public class LogoExtractor extends Extractor {
 
-    public LogoExtractor(final String name, final String domain) {
-        this.validTags = "logo|Logo|LOGO|banner|Banner|BANNER" + (notEmpty(domain) ? "|" + domain : "");
-        this.name = name;
-    }
-
     @Override
     public String getName() {
-        return name;
+        return "logo";
     }
 
     @Override
@@ -80,6 +75,5 @@ public class LogoExtractor extends Extractor {
         return result;
     }
 
-    private final String name;
-    private final String validTags;
+    private final String validTags = "logo|Logo|LOGO|banner|Banner|BANNER";
 }

@@ -1,6 +1,6 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.illustration.*;
+import com.feelhub.domain.meta.*;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
 

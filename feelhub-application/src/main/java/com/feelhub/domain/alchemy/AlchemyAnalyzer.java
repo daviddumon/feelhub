@@ -2,8 +2,8 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.application.WordService;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.keyword.*;
 import com.feelhub.domain.relation.AlchemyRelationBinder;
+import com.feelhub.domain.tag.*;
 import com.feelhub.repositories.*;
 import com.google.common.collect.*;
 import com.google.common.eventbus.Subscribe;
@@ -25,7 +25,7 @@ public class AlchemyAnalyzer {
     @Subscribe
     public void handle(final AlchemyRequestEvent event) {
         sessionProvider.start();
-        final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(event.getUri().getTopicId());
+        final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(event.getTopic().getId());
         if (alchemyAnalysisList.isEmpty()) {
             addAlchemyAnalysis(event);
         }
@@ -34,9 +34,9 @@ public class AlchemyAnalyzer {
 
     private void addAlchemyAnalysis(final AlchemyRequestEvent event) {
         try {
-            final List<NamedEntity> namedEntities = namedEntityProvider.entitiesFor(event.getUri());
-            final List<AlchemyEntity> entities = createKeywordsAndAlchemyEntities(namedEntities);
-            createRelations(event, entities);
+            //final List<NamedEntity> namedEntities = namedEntityProvider.entitiesFor(event.getValue());
+            //final List<AlchemyEntity> entities = createKeywordsAndAlchemyEntities(namedEntities);
+            //createRelations(event, entities);
         } catch (AlchemyException e) {
 
         }
@@ -45,26 +45,26 @@ public class AlchemyAnalyzer {
     private List<AlchemyEntity> createKeywordsAndAlchemyEntities(final List<NamedEntity> namedEntities) {
         final List<AlchemyEntity> entities = Lists.newArrayList();
         for (final NamedEntity namedEntity : namedEntities) {
-            final List<Keyword> keywords = Lists.newArrayList();
+            final List<Tag> tags = Lists.newArrayList();
             for (final String value : namedEntity.keywords) {
-                keywords.add(wordService.lookUpOrCreate(value, namedEntity.feelhubLanguage, namedEntity.type));
+                tags.add(wordService.lookUpOrCreate(value, namedEntity.feelhubLanguage, namedEntity.type));
             }
-            if (!keywords.isEmpty()) {
-                if (keywords.size() > 1) {
-                    final KeywordMerger keywordMerger = new KeywordMerger();
-                    keywordMerger.merge(keywords);
+            if (!tags.isEmpty()) {
+                if (tags.size() > 1) {
+                    final TagMerger tagMerger = new TagMerger();
+                    tagMerger.merge(tags);
                 }
-                tryToCreateAlchemyEntity(entities, namedEntity, keywords);
+                tryToCreateAlchemyEntity(entities, namedEntity, tags);
             }
         }
         return entities;
     }
 
-    private void tryToCreateAlchemyEntity(final List<AlchemyEntity> entities, final NamedEntity namedEntity, final List<Keyword> keywords) {
+    private void tryToCreateAlchemyEntity(final List<AlchemyEntity> entities, final NamedEntity namedEntity, final List<Tag> tags) {
         try {
-            existsAlchemyEntity(keywords.get(0).getTopicId());
+            existsAlchemyEntity(tags.get(0).getTopicId());
         } catch (AlchemyEntityNotFound e) {
-            final AlchemyEntity alchemyEntity = createAlchemyEntity(namedEntity, keywords.get(0));
+            final AlchemyEntity alchemyEntity = createAlchemyEntity(namedEntity, tags.get(0));
             entities.add(alchemyEntity);
         }
     }
@@ -76,8 +76,8 @@ public class AlchemyAnalyzer {
         }
     }
 
-    private AlchemyEntity createAlchemyEntity(final NamedEntity namedEntity, final Keyword keyword) {
-        final AlchemyEntity alchemyEntity = new AlchemyEntity(keyword.getTopicId());
+    private AlchemyEntity createAlchemyEntity(final NamedEntity namedEntity, final Tag tag) {
+        final AlchemyEntity alchemyEntity = new AlchemyEntity(tag.getTopicId());
         alchemyEntity.setCensus(namedEntity.census);
         alchemyEntity.setCiafactbook(namedEntity.ciaFactbook);
         alchemyEntity.setCrunchbase(namedEntity.crunchbase);
@@ -103,7 +103,7 @@ public class AlchemyAnalyzer {
         for (final AlchemyEntity entity : entities) {
             topicsAndScores.put(entity.getTopicId(), entity.getRelevance());
         }
-        alchemyRelationBinder.bind(event.getUri().getTopicId(), topicsAndScores);
+        //alchemyRelationBinder.bind(event.getUri().getTopicId(), topicsAndScores);
     }
 
     private final WordService wordService;

@@ -3,8 +3,7 @@ package com.feelhub.domain.scraper.miner;
 import com.feelhub.test.FakeInternet;
 import org.junit.*;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsCSSMiner {
 
@@ -18,6 +17,6 @@ public class TestsCSSMiner {
 
         final String logoUrl = CSSMiner.scrap("logo");
 
-        assertThat(logoUrl, is("logoUrl"));
+        assertThat(logoUrl).isEqualTo("logoUrl");
     }
 }

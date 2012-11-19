@@ -12,8 +12,10 @@ public class TopicMapping extends EntityMap<Topic> {
     @Override
     protected void map() {
         id(element().getId()).natural();
-        property(element().isActive());
-        property(element().getCurrentTopicId());
+        property(element().getType());
+        collection(element().getSubTypes());
+        collection(element().getUrls());
+        hashmap(element().getDescriptions());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
     }

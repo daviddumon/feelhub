@@ -1,63 +1,47 @@
 package com.feelhub.domain.scraper;
 
 import com.feelhub.domain.scraper.extractors.*;
-import com.google.common.collect.*;
+import com.google.common.collect.Lists;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.util.*;
+import java.util.List;
 import java.util.regex.*;
 
 public class Scraper {
 
-    public void scrap(final String uri) {
-        this.uri = uri;
-
-        // todo : enlever ce bloc une fois resolu le probleme de l'instantiation dans les singletons listeners d'events
-        this.document = null;
-        this.extractors = Lists.newArrayList();
-        this.scrapedTags = Maps.newHashMap();
-        //end
-
+    public Scraper() {
         addExtractors();
-        getJSoupDocument();
-        useExtractors();
     }
 
     private void addExtractors() {
-        this.extractors.add(new LogoExtractor("logo", uri));
-        this.extractors.add(new ImageExtractor("image"));
-        this.extractors.add(new OpenGraphExtractor());
+        this.extractors.add(new LogoExtractor());
+        this.extractors.add(new ImageExtractor());
+        this.extractors.add(new OpenGraphImageExtractor());
+        this.extractors.add(new OpenGraphTitleExtractor());
+        this.extractors.add(new OpenGraphTypeExtractor());
+        this.extractors.add(new TitleExtractor());
     }
 
-    private void getJSoupDocument() {
+    public ScrapedInformations scrap(final String uri) {
+        final ScrapedInformations scrapedInformations = new ScrapedInformations();
+        scrapedInformations.setUri(uri);
+        useExtractors(getJSoupDocument(uri), scrapedInformations);
+        return scrapedInformations;
+    }
+
+    private Document getJSoupDocument(final String uri) {
         try {
-            document = Jsoup.connect(uri).userAgent(USER_AGENT).timeout(THREE_SECONDS).get();
+            return Jsoup.connect(uri).userAgent(USER_AGENT).timeout(THREE_SECONDS).get();
         } catch (Exception e) {
             e.printStackTrace();
-            document = new Document("");
+            return new Document("");
         }
     }
 
-    private void useExtractors() {
+    private void useExtractors(final Document document, final ScrapedInformations scrapedInformations) {
         for (final Extractor extractor : extractors) {
-            scrapedTags.put(extractor.getName(), extractor.apply(document));
-        }
-    }
-
-    private boolean notEmpty(final String tag) {
-        return !tag.isEmpty();
-    }
-
-    public String getIllustration() {
-        if (notEmpty(scrapedTags.get("opengraph"))) {
-            return scrapedTags.get("opengraph");
-        } else {
-            if (Scraper.isFirstLevelUri(uri)) {
-                return getIllustrationForFirstLevelDomain();
-            } else {
-                return getIllustrationForNonFirstLevelDomain();
-            }
+            scrapedInformations.add(extractor.getName(), extractor.apply(document));
         }
     }
 
@@ -70,28 +54,7 @@ public class Scraper {
         return true;
     }
 
-    private String getIllustrationForFirstLevelDomain() {
-        if (notEmpty(scrapedTags.get("logo"))) {
-            return scrapedTags.get("logo");
-        } else if (notEmpty(scrapedTags.get("image"))) {
-            return scrapedTags.get("image");
-        }
-        return "";
-    }
-
-    private String getIllustrationForNonFirstLevelDomain() {
-        if (notEmpty(scrapedTags.get("image"))) {
-            return scrapedTags.get("image");
-        } else if (notEmpty(scrapedTags.get("logo"))) {
-            return scrapedTags.get("logo");
-        }
-        return "";
-    }
-
-    private Document document;
     private List<Extractor> extractors = Lists.newArrayList();
-    protected Map<String, String> scrapedTags = new HashMap<String, String>();
-    private String uri;
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
     private final static int THREE_SECONDS = 3000;
 }

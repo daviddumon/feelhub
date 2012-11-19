@@ -1,6 +1,6 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.keyword.Keyword;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -35,9 +35,9 @@ public class TestsNamedEntityProvider {
     @Test
     public void canGetNamedEntitiesForAnUri() {
         final String uri = "http://www.mypage.com";
-        final Keyword keyword = TestFactories.keywords().newWord(uri);
+        final Tag tag = TestFactories.tags().newWord(uri);
 
-        final List<NamedEntity> results = namedEntityProvider.entitiesFor(keyword);
+        final List<NamedEntity> results = namedEntityProvider.entitiesFor(tag);
 
         assertThat(results).isNotNull();
         assertThat(results.size()).isEqualTo(19);
@@ -46,9 +46,9 @@ public class TestsNamedEntityProvider {
     @Test
     public void createAlchemyAnalysisForUri() {
         final String uri = "http://www.mypage.com";
-        final Keyword keyword = TestFactories.keywords().newWord(uri);
+        final Tag tag = TestFactories.tags().newWord(uri);
 
-        namedEntityProvider.entitiesFor(keyword);
+        namedEntityProvider.entitiesFor(tag);
 
         final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().getAll();
         assertThat(alchemyAnalysisList.size()).isEqualTo(1);
@@ -59,9 +59,9 @@ public class TestsNamedEntityProvider {
     public void throwExceptionOnError() {
         exception.expect(AlchemyException.class);
         final String uri = "http://www.error.com";
-        final Keyword keyword = TestFactories.keywords().newWord(uri);
+        final Tag tag = TestFactories.tags().newWord(uri);
 
-        namedEntityProvider.entitiesFor(keyword);
+        namedEntityProvider.entitiesFor(tag);
     }
 
     private NamedEntityProvider namedEntityProvider;

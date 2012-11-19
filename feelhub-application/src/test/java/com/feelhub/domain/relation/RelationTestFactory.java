@@ -33,6 +33,6 @@ public class RelationTestFactory {
     }
 
     private void createARelation(final UUID fromId, final int weight) {
-        newRelation(fromId, UUID.randomUUID(), weight);
+        newRelation(fromId, TestFactories.topics().newTopic().getId(), weight);
     }
 }
