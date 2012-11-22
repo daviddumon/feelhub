@@ -12,7 +12,7 @@ public class NamedEntity {
     public List<String> subType = Lists.newArrayList();
     public String website = "";
     public String geo = "";
-    public List<String> keywords = Lists.newArrayList();
+    public List<String> tags = Lists.newArrayList();
     public String dbpedia = "";
     public String yago = "";
     public String opencyc = "";

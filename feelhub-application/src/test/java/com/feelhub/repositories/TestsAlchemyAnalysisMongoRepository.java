@@ -1,7 +1,6 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.alchemy.*;
-import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.test.*;
@@ -25,8 +24,8 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
 
     @Test
     public void canPersistAlchemyAnalysis() {
-        final Tag tag = TestFactories.tags().newWord();
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(tag);
+        final Topic topic = TestFactories.topics().newTopic();
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic, "value");
         alchemyAnalysis.setLanguageCode(FeelhubLanguage.reference());
 
         entityMongoRepository.add(alchemyAnalysis);
@@ -54,7 +53,7 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
     @Test
     public void canGetForATopic() {
         final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.alchemy().newAlchemyAnalysis(topic.getId());
+        TestFactories.alchemy().newAlchemyAnalysis(topic);
         TestFactories.alchemy().newAlchemyAnalysis();
         TestFactories.alchemy().newAlchemyAnalysis();
 

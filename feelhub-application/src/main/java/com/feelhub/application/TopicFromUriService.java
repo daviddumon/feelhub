@@ -15,13 +15,13 @@ public class TopicFromUriService {
     }
 
     public Topic createTopicFromUri(final String value) {
-        final Topic topic = createTopic(value);
+        final Topic topic = createTopic();
         requestMetaInformation(topic, value);
         requestAlchemyAnalysis(topic, value);
         return topic;
     }
 
-    private Topic createTopic(final String value) {
+    private Topic createTopic() {
         final Topic topic = topicFactory.createTopic();
         Repositories.topics().add(topic);
         return topic;

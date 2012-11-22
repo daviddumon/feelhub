@@ -2,8 +2,8 @@ package com.feelhub.domain.alchemy;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feelhub.domain.alchemy.readmodel.*;
-import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -19,11 +19,11 @@ public class NamedEntityProvider {
         this.namedEntityFactory = namedEntityFactory;
     }
 
-    public List<NamedEntity> entitiesFor(final Tag tag) {
+    public List<NamedEntity> entitiesFor(final Topic topic, final String value) {
         try {
-            final InputStream stream = alchemyLink.get(tag.getValue());
+            final InputStream stream = alchemyLink.get(value);
             final AlchemyJsonResults results = unmarshall(stream);
-            createAlchemyAnalysis(tag, results);
+            createAlchemyAnalysis(topic, value, results);
             return getResults(results);
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,6 +41,12 @@ public class NamedEntityProvider {
         }
     }
 
+    private void createAlchemyAnalysis(final Topic topic, final String value, final AlchemyJsonResults results) {
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic, value);
+        alchemyAnalysis.setLanguageCode(FeelhubLanguage.fromCountryName(results.language));
+        Repositories.alchemyAnalysis().add(alchemyAnalysis);
+    }
+
     private List<NamedEntity> getResults(final AlchemyJsonResults alchemyJsonResults) {
         final List<NamedEntity> results = Lists.newArrayList();
         for (final AlchemyJsonEntity entity : alchemyJsonResults.entities) {
@@ -51,12 +57,6 @@ public class NamedEntityProvider {
             }
         }
         return results;
-    }
-
-    private void createAlchemyAnalysis(final Tag uri, final AlchemyJsonResults results) {
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(uri);
-        alchemyAnalysis.setLanguageCode(FeelhubLanguage.fromCountryName(results.language));
-        Repositories.alchemyAnalysis().add(alchemyAnalysis);
     }
 
     private final AlchemyLink alchemyLink;

@@ -9,8 +9,7 @@ import org.junit.*;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsAlchemyManager {
 
@@ -38,7 +37,7 @@ public class TestsAlchemyManager {
         alchemyManager.merge(topicPatch);
 
         final List<AlchemyEntity> alchemyEntities = Repositories.alchemyEntities().getAll();
-        assertThat(alchemyEntities.get(0).getTopicId(), is(newTopic.getId()));
+        assertThat(alchemyEntities.get(0).getTopicId()).isEqualTo(newTopic.getId());
     }
 
     @Test
@@ -47,12 +46,12 @@ public class TestsAlchemyManager {
         final Topic oldTopic = TestFactories.topics().newTopic();
         final TopicPatch topicPatch = new TopicPatch(newTopic.getId());
         topicPatch.addOldTopicId(oldTopic.getId());
-        TestFactories.alchemy().newAlchemyAnalysis(oldTopic.getId());
+        TestFactories.alchemy().newAlchemyAnalysis(oldTopic);
 
         alchemyManager.merge(topicPatch);
 
         final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().getAll();
-        assertThat(alchemyAnalysisList.get(0).getTopicId(), is(newTopic.getId()));
+        assertThat(alchemyAnalysisList.get(0).getTopicId()).isEqualTo(newTopic.getId());
     }
 
     @Test
@@ -67,7 +66,7 @@ public class TestsAlchemyManager {
         alchemyManager.merge(topicPatch);
 
         final List<AlchemyEntity> alchemyEntities = Repositories.alchemyEntities().getAll();
-        assertThat(alchemyEntities.size(), is(1));
+        assertThat(alchemyEntities.size()).isEqualTo(1);
     }
 
     @Test
@@ -76,13 +75,13 @@ public class TestsAlchemyManager {
         final Topic oldTopic = TestFactories.topics().newTopic();
         final TopicPatch topicPatch = new TopicPatch(newTopic.getId());
         topicPatch.addOldTopicId(oldTopic.getId());
-        TestFactories.alchemy().newAlchemyAnalysis(oldTopic.getId());
-        TestFactories.alchemy().newAlchemyAnalysis(newTopic.getId());
+        TestFactories.alchemy().newAlchemyAnalysis(oldTopic);
+        TestFactories.alchemy().newAlchemyAnalysis(newTopic);
 
         alchemyManager.merge(topicPatch);
 
         final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().getAll();
-        assertThat(alchemyAnalysisList.size(), is(1));
+        assertThat(alchemyAnalysisList.size()).isEqualTo(1);
     }
 
     private AlchemyManager alchemyManager;

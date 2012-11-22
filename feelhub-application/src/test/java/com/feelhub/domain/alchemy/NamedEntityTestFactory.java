@@ -20,8 +20,8 @@ public class NamedEntityTestFactory {
         entity.website = "website";
         entity.geo = "geo";
         entity.relevance = 0.5;
-        entity.keywords.add("keyword1");
-        entity.keywords.add("keyword2");
+        entity.tags.add("keyword1");
+        entity.tags.add("keyword2");
         final List<NamedEntity> result = Lists.newArrayList();
         result.add(entity);
         return result;
@@ -39,7 +39,7 @@ public class NamedEntityTestFactory {
         entity.website = "website";
         entity.geo = "geo";
         entity.relevance = 0.5;
-        entity.keywords.add("keyword1");
+        entity.tags.add("keyword1");
         final List<NamedEntity> result = Lists.newArrayList();
         result.add(entity);
         return result;
@@ -57,7 +57,7 @@ public class NamedEntityTestFactory {
         entity.website = "website";
         entity.geo = "geo";
         entity.relevance = 0.5;
-        entity.keywords.add("keyword1");
+        entity.tags.add("keyword1");
         final List<NamedEntity> result = Lists.newArrayList();
         result.add(entity);
         return result;
@@ -94,7 +94,7 @@ public class NamedEntityTestFactory {
             entity.website = "website";
             entity.geo = "geo";
             entity.relevance = 0.5;
-            entity.keywords.add("keyword1");
+            entity.tags.add("keyword1");
             result.add(entity);
         }
         return result;

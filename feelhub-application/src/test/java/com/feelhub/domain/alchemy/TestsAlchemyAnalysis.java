@@ -1,14 +1,12 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.alchemy.readmodel.AlchemyJsonResults;
-import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsAlchemyAnalysis {
 
@@ -16,25 +14,25 @@ public class TestsAlchemyAnalysis {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void canCreateAnAlchemyAnalysisForAKeyword() {
-        final Tag tag = TestFactories.tags().newWord();
+    public void canCreateAnAlchemyAnalysis() {
+        final Topic topic = TestFactories.topics().newTopic();
+        final String value = "http://www.fakeurl.com";
 
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(tag);
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic, value);
 
-        assertThat(alchemyAnalysis.getId(), notNullValue());
-        assertThat(alchemyAnalysis.getTopicId(), is(tag.getTopicId()));
-        assertThat(alchemyAnalysis.getValue(), is(tag.getValue()));
+        assertThat(alchemyAnalysis.getId()).isNotNull();
+        assertThat(alchemyAnalysis.getTopicId()).isEqualTo(topic.getId());
+        assertThat(alchemyAnalysis.getValue()).isEqualTo(value);
     }
 
     @Test
-    public void canAddLanguageFromAlchemyResult() {
-        final Tag tag = TestFactories.tags().newWord();
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(tag);
-        final AlchemyJsonResults alchemyJsonResults = new AlchemyJsonResults();
-        alchemyJsonResults.language = "english";
+    public void canAddLanguage() {
+        final Topic topic = TestFactories.topics().newTopic();
+        final String value = "http://www.fakeurl.com";
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic, value);
 
-        alchemyAnalysis.setLanguageCode(FeelhubLanguage.fromCountryName(alchemyJsonResults.language));
+        alchemyAnalysis.setLanguageCode(FeelhubLanguage.fromCountryName("english"));
 
-        assertThat(alchemyAnalysis.getLanguageCode(), is("en"));
+        assertThat(alchemyAnalysis.getLanguageCode()).isEqualTo("en");
     }
 }

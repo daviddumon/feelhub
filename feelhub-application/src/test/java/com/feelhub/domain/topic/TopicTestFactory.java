@@ -19,7 +19,7 @@ public class TopicTestFactory {
         return topic;
     }
 
-    public Topic newTopicWithoutType() {
+    public Topic newTopicWithTypeNone() {
         final Topic topic = new Topic(UUID.randomUUID());
         topic.addDescription(FeelhubLanguage.reference(), "description-reference");
         topic.addDescription(FeelhubLanguage.fromCode("fr"), "description-fr");

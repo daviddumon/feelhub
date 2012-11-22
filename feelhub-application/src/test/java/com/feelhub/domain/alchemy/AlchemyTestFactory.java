@@ -1,7 +1,6 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
@@ -35,16 +34,15 @@ public class AlchemyTestFactory {
         return alchemyEntity;
     }
 
-    public AlchemyAnalysis newAlchemyAnalysis(final UUID topicId) {
-        final Tag tag = TestFactories.tags().newWord("value", FeelhubLanguage.none(), topicId);
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(tag);
+    public AlchemyAnalysis newAlchemyAnalysis(final Topic topic) {
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic, "http://www.fakeurl.com");
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
         return alchemyAnalysis;
     }
 
     public AlchemyAnalysis newAlchemyAnalysis() {
-        final Tag tag = TestFactories.tags().newWord();
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(tag);
+        final Topic topic = TestFactories.topics().newTopic();
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic, "http://www.fakeurl.com");
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
         return alchemyAnalysis;
     }

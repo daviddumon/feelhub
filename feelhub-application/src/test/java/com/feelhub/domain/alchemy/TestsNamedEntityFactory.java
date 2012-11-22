@@ -25,41 +25,41 @@ public class TestsNamedEntityFactory {
     }
 
     @Test
-    public void canFindKeywordsFromGoodEntity() {
+    public void canFindTagsFromGoodEntity() {
         final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
         assertThat(namedEntity).isNotNull();
-        assertThat(namedEntity.keywords).isNotNull();
-        assertThat(namedEntity.keywords.size()).isEqualTo(2);
-        assertThat(namedEntity.keywords.get(0)).isEqualTo(alchemyJsonEntity.text);
-        assertThat(namedEntity.keywords.get(1)).isEqualTo(alchemyJsonEntity.disambiguated.name);
+        assertThat(namedEntity.tags).isNotNull();
+        assertThat(namedEntity.tags.size()).isEqualTo(2);
+        assertThat(namedEntity.tags.get(0)).isEqualTo(alchemyJsonEntity.text);
+        assertThat(namedEntity.tags.get(1)).isEqualTo(alchemyJsonEntity.disambiguated.name);
     }
 
     @Test
-    public void canFindKeywordsFromGoodEntityWithouDisambiguated() {
+    public void canFindTagsFromGoodEntityWithouDisambiguated() {
         final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntityWithoutDisambiguated();
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
         assertThat(namedEntity).isNotNull();
-        assertThat(namedEntity.keywords).isNotNull();
-        assertThat(namedEntity.keywords.size()).isEqualTo(1);
-        assertThat(namedEntity.keywords.get(0)).isEqualTo(alchemyJsonEntity.text);
+        assertThat(namedEntity.tags).isNotNull();
+        assertThat(namedEntity.tags.size()).isEqualTo(1);
+        assertThat(namedEntity.tags.get(0)).isEqualTo(alchemyJsonEntity.text);
     }
 
     @Test
-    public void addOnlyOneKeywordIfTextAndNameAreTheSame() {
+    public void addOnlyOneTagIfTextAndNameAreTheSame() {
         final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntityWithoutDisambiguated();
         alchemyJsonEntity.disambiguated.name = alchemyJsonEntity.text;
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
         assertThat(namedEntity).isNotNull();
-        assertThat(namedEntity.keywords).isNotNull();
-        assertThat(namedEntity.keywords.size()).isEqualTo(1);
-        assertThat(namedEntity.keywords.get(0)).isEqualTo(alchemyJsonEntity.text);
+        assertThat(namedEntity.tags).isNotNull();
+        assertThat(namedEntity.tags.size()).isEqualTo(1);
+        assertThat(namedEntity.tags.get(0)).isEqualTo(alchemyJsonEntity.text);
     }
 
     @Test
@@ -70,8 +70,8 @@ public class TestsNamedEntityFactory {
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
         assertThat(namedEntity).isNotNull();
-        assertThat(namedEntity.keywords).isNotNull();
-        assertThat(namedEntity.keywords.size()).isEqualTo(1);
+        assertThat(namedEntity.tags).isNotNull();
+        assertThat(namedEntity.tags.size()).isEqualTo(1);
     }
 
     @Test
@@ -82,8 +82,8 @@ public class TestsNamedEntityFactory {
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
         assertThat(namedEntity).isNotNull();
-        assertThat(namedEntity.keywords).isNotNull();
-        assertThat(namedEntity.keywords.size()).isEqualTo(1);
+        assertThat(namedEntity.tags).isNotNull();
+        assertThat(namedEntity.tags.size()).isEqualTo(1);
     }
 
     @Test
@@ -94,8 +94,8 @@ public class TestsNamedEntityFactory {
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
         assertThat(namedEntity).isNotNull();
-        assertThat(namedEntity.keywords).isNotNull();
-        assertThat(namedEntity.keywords.size()).isEqualTo(1);
+        assertThat(namedEntity.tags).isNotNull();
+        assertThat(namedEntity.tags.size()).isEqualTo(1);
     }
 
     @Test
@@ -106,8 +106,8 @@ public class TestsNamedEntityFactory {
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
         assertThat(namedEntity).isNotNull();
-        assertThat(namedEntity.keywords).isNotNull();
-        assertThat(namedEntity.keywords.size()).isEqualTo(1);
+        assertThat(namedEntity.tags).isNotNull();
+        assertThat(namedEntity.tags.size()).isEqualTo(1);
     }
 
     @Test
@@ -157,7 +157,7 @@ public class TestsNamedEntityFactory {
     }
 
     @Test
-    public void returnNullIfNoKeywords() {
+    public void returnNullIfNoTags() {
         final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
         alchemyJsonEntity.text = "";
         alchemyJsonEntity.disambiguated.name = "";
@@ -175,9 +175,9 @@ public class TestsNamedEntityFactory {
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
         assertThat(namedEntity).isNotNull();
-        assertThat(namedEntity.keywords).isNotNull();
-        assertThat(namedEntity.keywords.size()).isEqualTo(1);
-        assertThat(namedEntity.keywords.get(0)).isEqualTo("text");
+        assertThat(namedEntity.tags).isNotNull();
+        assertThat(namedEntity.tags.size()).isEqualTo(1);
+        assertThat(namedEntity.tags.get(0)).isEqualTo("text");
     }
 
     @Test
@@ -189,9 +189,9 @@ public class TestsNamedEntityFactory {
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
         assertThat(namedEntity).isNotNull();
-        assertThat(namedEntity.keywords).isNotNull();
-        assertThat(namedEntity.keywords.size()).isEqualTo(1);
-        assertThat(namedEntity.keywords.get(0)).isEqualTo("text");
+        assertThat(namedEntity.tags).isNotNull();
+        assertThat(namedEntity.tags.size()).isEqualTo(1);
+        assertThat(namedEntity.tags.get(0)).isEqualTo("text");
     }
 
     private NamedEntityFactory namedEntityFactory;

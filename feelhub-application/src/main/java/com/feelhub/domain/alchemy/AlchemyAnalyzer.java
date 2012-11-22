@@ -46,7 +46,7 @@ public class AlchemyAnalyzer {
         final List<AlchemyEntity> entities = Lists.newArrayList();
         for (final NamedEntity namedEntity : namedEntities) {
             final List<Tag> tags = Lists.newArrayList();
-            for (final String value : namedEntity.keywords) {
+            for (final String value : namedEntity.tags) {
                 tags.add(wordService.lookUpOrCreate(value, namedEntity.feelhubLanguage, namedEntity.type));
             }
             if (!tags.isEmpty()) {

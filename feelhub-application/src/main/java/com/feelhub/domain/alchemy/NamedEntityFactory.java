@@ -9,8 +9,8 @@ public class NamedEntityFactory {
 
     public NamedEntity build(final AlchemyJsonEntity alchemyJsonEntity) {
         final NamedEntity entity = new NamedEntity();
-        addKeywords(entity, alchemyJsonEntity);
-        if (entity.keywords.isEmpty()) {
+        addTags(entity, alchemyJsonEntity);
+        if (entity.tags.isEmpty()) {
             return null;
         }
         addFields(entity, alchemyJsonEntity);
@@ -18,26 +18,26 @@ public class NamedEntityFactory {
         return entity;
     }
 
-    private void addKeywords(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
-        addKeywordFromText(entity, alchemyJsonEntity);
-        addKeywordFromName(entity, alchemyJsonEntity);
+    private void addTags(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
+        addTagFromText(entity, alchemyJsonEntity);
+        addTagFromName(entity, alchemyJsonEntity);
     }
 
-    private void addKeywordFromText(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
+    private void addTagFromText(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
         try {
             checkForSize(alchemyJsonEntity.text);
             checkForSpecialCharacters(alchemyJsonEntity.text);
-            entity.keywords.add(alchemyJsonEntity.text.trim());
+            entity.tags.add(alchemyJsonEntity.text.trim());
         } catch (Exception e) {
         }
     }
 
-    private void addKeywordFromName(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
+    private void addTagFromName(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
         try {
             checkForSameTextAndName(alchemyJsonEntity);
             checkForSize(alchemyJsonEntity.disambiguated.name);
             checkForSpecialCharacters(alchemyJsonEntity.disambiguated.name);
-            entity.keywords.add(alchemyJsonEntity.disambiguated.name.trim());
+            entity.tags.add(alchemyJsonEntity.disambiguated.name.trim());
         } catch (Exception e) {
         }
     }
