@@ -3,7 +3,7 @@ package com.feelhub.web.dto;
 import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.meta.Illustration;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
@@ -91,7 +91,7 @@ public class TestsTopicData {
     public void typeHadADefaultValue() {
         final TopicData topicData = new TopicData.Builder().build();
 
-        assertThat(topicData.getType()).isEmpty();
+        assertThat(topicData.getType()).isEqualTo(TopicTypes.none);
     }
 
     @Test

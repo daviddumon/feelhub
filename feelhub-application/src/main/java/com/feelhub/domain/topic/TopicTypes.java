@@ -1,6 +1,7 @@
 package com.feelhub.domain.topic;
 
 public enum TopicTypes {
+    none,
     world,
     website,
     image,
