@@ -3,7 +3,7 @@ package com.feelhub.repositories.fakeRepositories;
 import com.feelhub.domain.topic.*;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.sun.istack.internal.Nullable;
+import com.google.inject.internal.Nullable;
 
 public class FakeTopicRepository extends FakeRepository<Topic> implements TopicRepository {
 
