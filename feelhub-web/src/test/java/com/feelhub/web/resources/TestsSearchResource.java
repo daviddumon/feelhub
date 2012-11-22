@@ -99,7 +99,7 @@ public class TestsSearchResource {
 
         assertThat(searchResource.getStatus()).isEqualTo(Status.REDIRECTION_SEE_OTHER);
         final WebReferenceBuilder webReferenceBuilder = new WebReferenceBuilder(Context.getCurrent());
-        assertThat(searchResource.getLocationRef().toString()).isEqualTo(webReferenceBuilder.buildUri("/new/" + query));
+        assertThat(searchResource.getLocationRef().toString()).isEqualTo(webReferenceBuilder.buildUri("/newtopic/" + query));
     }
 
     private SearchResource searchResource;

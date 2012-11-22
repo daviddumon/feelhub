@@ -41,7 +41,7 @@ public class SearchResource extends ServerResource {
     private ModelAndView redirectToNewResource(final String query) {
         final WebReferenceBuilder webReferenceBuilder = new WebReferenceBuilder(getContext());
         setStatus(Status.REDIRECTION_SEE_OTHER);
-        setLocationRef(webReferenceBuilder.buildUri("/new/" + query));
+        setLocationRef(webReferenceBuilder.buildUri("/newtopic/" + query));
         return ModelAndView.empty();
     }
 
