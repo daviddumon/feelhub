@@ -45,5 +45,5 @@ public class SearchResource extends ServerResource {
         return ModelAndView.empty();
     }
 
-    private TagService tagService;
+    private final TagService tagService;
 }

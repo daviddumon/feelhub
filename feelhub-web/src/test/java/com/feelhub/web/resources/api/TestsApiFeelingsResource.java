@@ -7,8 +7,10 @@ import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
+import com.feelhub.web.guice.GuiceTestModule;
+import com.google.inject.*;
 import org.json.*;
 import org.junit.*;
 import org.junit.Test;
@@ -17,8 +19,7 @@ import org.restlet.*;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsApiFeelingsResource {
 
@@ -38,7 +39,8 @@ public class TestsApiFeelingsResource {
     public void before() {
         user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
-        feelingsResource = new ApiFeelingsResource();
+        final Injector injector = Guice.createInjector(new GuiceTestModule());
+        feelingsResource = injector.getInstance(ApiFeelingsResource.class);
         feelingsResource.setResponse(new Response(new Request()));
     }
 
@@ -48,12 +50,21 @@ public class TestsApiFeelingsResource {
     }
 
     @Test
+    public void canGetFeelings() throws JSONException {
+        final ClientResource resource = restlet.newClientResource("/api/feelings");
+
+        resource.get();
+
+        assertThat(resource.getStatus()).isEqualTo(Status.SUCCESS_OK);
+    }
+
+    @Test
     public void canPostFeeling() {
         final JsonRepresentation jsonRepresentation = goodJsonFeeling();
 
         feelingsResource.add(jsonRepresentation);
 
-        assertThat(feelingsResource.getStatus(), is(Status.SUCCESS_CREATED));
+        assertThat(feelingsResource.getStatus()).isEqualTo(Status.SUCCESS_CREATED);
     }
 
     @Test
@@ -62,7 +73,7 @@ public class TestsApiFeelingsResource {
 
         feelingsResource.add(jsonRepresentation);
 
-        assertThat(feelingsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+        assertThat(feelingsResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
     }
 
     @Test
@@ -71,7 +82,7 @@ public class TestsApiFeelingsResource {
 
         feelingsResource.add(jsonRepresentation);
 
-        assertThat(feelingsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+        assertThat(feelingsResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
     }
 
     @Test
@@ -80,7 +91,7 @@ public class TestsApiFeelingsResource {
 
         feelingsResource.add(jsonRepresentation);
 
-        assertThat(feelingsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+        assertThat(feelingsResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
     }
 
     @Test
@@ -89,7 +100,7 @@ public class TestsApiFeelingsResource {
 
         feelingsResource.add(jsonRepresentation);
 
-        assertThat(feelingsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+        assertThat(feelingsResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
     }
 
     @Test
@@ -98,7 +109,7 @@ public class TestsApiFeelingsResource {
 
         feelingsResource.add(jsonRepresentation);
 
-        assertThat(feelingsResource.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+        assertThat(feelingsResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
     }
 
     @Test
@@ -107,7 +118,7 @@ public class TestsApiFeelingsResource {
 
         feelingsResource.add(jsonRepresentation);
 
-        assertThat(Repositories.feelings().getAll().size(), is(0));
+        assertThat(Repositories.feelings().getAll().size()).isZero();
     }
 
     @Test
@@ -117,7 +128,7 @@ public class TestsApiFeelingsResource {
 
         feelingsResource.add(jsonRepresentation);
 
-        assertThat(feelingsResource.getStatus(), is(Status.CLIENT_ERROR_UNAUTHORIZED));
+        assertThat(feelingsResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_UNAUTHORIZED);
     }
 
     @Test
@@ -128,13 +139,13 @@ public class TestsApiFeelingsResource {
         feelingsResource.add(jsonRepresentation);
 
         final FeelingRequestEvent feelingRequestEvent = events.lastEvent(FeelingRequestEvent.class);
-        assertThat(feelingRequestEvent, notNullValue());
-        assertThat(feelingRequestEvent.getSentimentValue(), is(SentimentValue.valueOf("good")));
-        assertThat(feelingRequestEvent.getText(), is("my feeling +sentiment"));
-        assertThat(feelingRequestEvent.getKeywordValue(), is("keyword"));
-        assertThat(feelingRequestEvent.getLanguage(), is(FeelhubLanguage.fromCode("en")));
-        assertThat(feelingRequestEvent.getUserLanguage(), is(FeelhubLanguage.fromCode("fr")));
-        assertThat(feelingRequestEvent.getUserId(), is(user.getId()));
+        assertThat(feelingRequestEvent).isNotNull();
+        assertThat(feelingRequestEvent.getSentimentValue()).isEqualTo(SentimentValue.valueOf("good"));
+        assertThat(feelingRequestEvent.getText()).isEqualTo("my feeling +sentiment");
+        assertThat(feelingRequestEvent.getKeywordValue()).isEqualTo("keyword");
+        assertThat(feelingRequestEvent.getLanguage()).isEqualTo(FeelhubLanguage.fromCode("en"));
+        assertThat(feelingRequestEvent.getUserLanguage()).isEqualTo(FeelhubLanguage.fromCode("fr"));
+        assertThat(feelingRequestEvent.getUserId()).isEqualTo(user.getId());
     }
 
     @Test
@@ -146,7 +157,7 @@ public class TestsApiFeelingsResource {
 
         final FeelingRequestEvent feelingRequestEvent = events.lastEvent(FeelingRequestEvent.class);
         final JSONObject jsonData = jsonResponse.getJsonObject();
-        assertThat(jsonData.get("id").toString(), is(feelingRequestEvent.getFeelingId().toString()));
+        assertThat(jsonData.get("id").toString()).isEqualTo(feelingRequestEvent.getFeelingId().toString());
     }
 
     private JsonRepresentation goodJsonFeeling() {

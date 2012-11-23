@@ -29,5 +29,5 @@ public class ApiTopicIllustrationsResource extends ServerResource {
     }
 
     private final IllustrationSearch illustrationSearch;
-    private TopicService topicService;
+    private final TopicService topicService;
 }

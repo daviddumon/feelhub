@@ -57,7 +57,7 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
 
     private void setUpSearchForTopicId() {
         try {
-            topicId = getRequestAttributes().get("topicId").toString().trim();
+            final String topicId = getRequestAttributes().get("topicId").toString().trim();
             topic = topicService.lookUp(UUID.fromString(topicId));
             feelingSearch.withTopicId(topic.getId());
         } catch (TopicNotFound e) {
@@ -84,5 +84,4 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
     private final TopicService topicService;
     private UUID lastFeelingId;
     private Topic topic;
-    private String topicId;
 }

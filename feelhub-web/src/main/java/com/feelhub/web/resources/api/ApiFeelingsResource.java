@@ -1,37 +1,43 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.user.User;
 import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.dto.FeelingData;
+import com.feelhub.web.representation.ModelAndView;
+import com.google.inject.Inject;
 import org.apache.http.auth.AuthenticationException;
 import org.json.*;
-import org.restlet.data.Status;
+import org.restlet.data.*;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.*;
 
-import java.util.UUID;
+import java.util.List;
 
 public class ApiFeelingsResource extends ServerResource {
+
+    @Inject
+    public ApiFeelingsResource(final ApiCreateFeeling apiCreateFeeling, final ApiFeelingSearch apiFeelingSearch) {
+        this.apiCreateFeeling = apiCreateFeeling;
+        this.apiFeelingSearch = apiFeelingSearch;
+    }
 
     @Post
     public JsonRepresentation add(final JsonRepresentation jsonRepresentation) {
         try {
             checkCredentials();
-            final JSONObject jsonFeeling = jsonRepresentation.getJsonObject();
-            final FeelingRequestEvent event = getEventBuilderFrom(jsonFeeling).build();
-            DomainEventBus.INSTANCE.post(event);
             setStatus(Status.SUCCESS_CREATED);
-            return new JsonRepresentation(getJsonResponse(event));
+            return apiCreateFeeling.add(jsonRepresentation);
         } catch (JSONException e) {
-            e.printStackTrace();
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
         } catch (AuthenticationException e) {
-            e.printStackTrace();
             setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
         }
         return new JsonRepresentation(new JSONObject());
+    }
+
+    @Get
+    public ModelAndView getFeelings() throws JSONException {
+        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(getQuery());
+        return ModelAndView.createNew("api/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
     }
 
     private void checkCredentials() throws AuthenticationException {
@@ -40,49 +46,6 @@ public class ApiFeelingsResource extends ServerResource {
         }
     }
 
-    private FeelingRequestEvent.Builder getEventBuilderFrom(final JSONObject jsonFeeling) throws JSONException, AuthenticationException {
-        final FeelingRequestEvent.Builder builder = new FeelingRequestEvent.Builder();
-        builder.user(extractUser());
-        builder.sentimentValue(extractSentimentValue(jsonFeeling));
-        builder.text(extractText(jsonFeeling));
-        builder.keywordValue(extractKeywordValue(jsonFeeling));
-        builder.languageCode(extractLanguageCode(jsonFeeling));
-        builder.userLanguageCode(extractUserLanguageCode(jsonFeeling));
-        builder.feelingId(UUID.randomUUID());
-        return builder;
-    }
-
-    private String extractText(final JSONObject jsonFeeling) throws JSONException {
-        return jsonFeeling.get("text").toString();
-    }
-
-    private SentimentValue extractSentimentValue(final JSONObject jsonFeeling) throws JSONException {
-        return SentimentValue.valueOf(jsonFeeling.get("sentimentValue").toString());
-    }
-
-    private String extractKeywordValue(final JSONObject jsonFeeling) throws JSONException {
-        return jsonFeeling.get("keywordValue").toString();
-    }
-
-    private FeelhubLanguage extractLanguageCode(final JSONObject jsonFeeling) throws JSONException {
-        return FeelhubLanguage.fromCode(jsonFeeling.get("languageCode").toString());
-    }
-
-    private FeelhubLanguage extractUserLanguageCode(final JSONObject jsonFeeling) throws JSONException {
-        return FeelhubLanguage.fromCode(jsonFeeling.get("userLanguageCode").toString());
-    }
-
-    private User extractUser() {
-        return CurrentUser.get().getUser();
-    }
-
-    private JSONObject getJsonResponse(final FeelingRequestEvent event) {
-        final JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("id", event.getFeelingId());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject;
-    }
+    private ApiCreateFeeling apiCreateFeeling;
+    private ApiFeelingSearch apiFeelingSearch;
 }

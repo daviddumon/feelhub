@@ -50,5 +50,11 @@ public class TopicDataFactory {
         return builder.build();
     }
 
+    public TopicData getTopicData(final String description) {
+        final TopicData.Builder builder = new TopicData.Builder();
+        builder.description(description);
+        return builder.build();
+    }
+
     private TopicService topicService;
 }

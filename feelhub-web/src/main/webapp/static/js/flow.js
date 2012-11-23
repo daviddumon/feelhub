@@ -36,17 +36,15 @@ Flow.prototype.drawData = function () {
 
     function loadData() {
         var parameters = [];
-        var uri = root + "/api/feelings?";
+        var uri = root + "/api";
         if (topicId.length > 0) {
-            parameters.push({"value":"topicId=" + encodeURIComponent(topicId)});
-        }
-        if (typeof userLanguageCode !== 'undefined') {
-            parameters.push({"value":"languageCode=" + userLanguageCode});
-        } else if (languageCode !== "none") {
-            parameters.push({"value":"languageCode=" + languageCode});
+            uri += "/topic/";
+            uri += encodeURIComponent(topicId);
+            uri += "/feelings";
         } else {
-            parameters.push({"value":"languageCode=en"});
+            uri += "/feelings";
         }
+        uri += "?";
         parameters.push({"value":"skip=" + THIS.skip});
         parameters.push({"value":"limit=" + THIS.limit});
         $.each(parameters, function (index, parameter) {

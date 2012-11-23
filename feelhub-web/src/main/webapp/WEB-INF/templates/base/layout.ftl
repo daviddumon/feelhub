@@ -145,8 +145,8 @@
             <li><a href="">About</a></li>
         </ul>
     </div>
-    <form id="search">
-        <input type="text"/>
+    <form method="get" action="${root}/search" id="search">
+        <input name="q" type="text" autocomplete="off"/>
     </form>
 </header>
     <#nested/>

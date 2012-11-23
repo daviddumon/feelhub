@@ -9,4 +9,9 @@ $(function () {
             }
         });
     });
+
+    $("#search").submit(function(event) {
+        var query = $("#search input").val();
+        $(this).attr("action", root + "/search/" + encodeURIComponent(query));
+    });
 });

@@ -2,7 +2,7 @@
 $(function () {
 
     if (keywordValue !== "") {
-        var keyword_data = {
+        var topic_data = {
             topicId:topicId,
             keywordValue:keywordValue,
             languageCode:languageCode,
@@ -11,7 +11,7 @@ $(function () {
             typeValue:typeValue
         };
 
-        $("#main_keyword").prepend(ich.keyword(keyword_data));
+        $("#main_keyword").prepend(ich.keyword(topic_data));
         $("#counters").show();
         $("#feeling_form").show();
     }
