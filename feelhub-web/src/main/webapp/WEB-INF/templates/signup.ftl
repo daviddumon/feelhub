@@ -60,7 +60,7 @@
     <div class="holder">
         <a id="signup_submit" href="">Create my account</a>
         or
-        <a href="${facebookUrl}">Use facebook</a>
+        <a id="signup_facebook_submit" href="${facebookUrl}">Use facebook</a>
     </div>
 </form>
 

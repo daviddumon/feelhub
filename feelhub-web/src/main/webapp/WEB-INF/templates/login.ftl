@@ -54,14 +54,14 @@
         <div class="error_text"></div>
     </div>
     <div class="holder">
-        <input name="remember" type="checkbox"/><span>remember me</span>
+        <input name="remember" type="checkbox" id="remember"/><label for="remember">remember me</label>
 
         <div class="error_text"></div>
     </div>
     <div class="holder">
         <a id="login_submit" href="">login</a>
     or
-    <a href="${facebookUrl}">login with facebook</a>
+        <a id="login_facebook_submit" href="${facebookUrl}">login with facebook</a>
     </div>
 </form>
 </@layout.body>
