@@ -2,6 +2,7 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.alchemy.readmodel.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.TopicType;
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class NamedEntityTestFactory {
     public List<NamedEntity> namedEntityWith2Keywords() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.type = "type";
+        entity.type = TopicType.Unknown;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -30,7 +31,7 @@ public class NamedEntityTestFactory {
     public List<NamedEntity> namedEntityWith1Keyword() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.type = "type";
+        entity.type = TopicType.Unknown;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -48,7 +49,7 @@ public class NamedEntityTestFactory {
     public List<NamedEntity> namedEntityWith1KeywordWithoutConcept() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.type = "type";
+        entity.type = TopicType.Unknown;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -66,7 +67,7 @@ public class NamedEntityTestFactory {
     public List<NamedEntity> namedEntityWithoutKeywords() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.type = "type";
+        entity.type = TopicType.Unknown;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -85,7 +86,7 @@ public class NamedEntityTestFactory {
         for (int i = 0; i < quantity; i++) {
             final NamedEntity entity = new NamedEntity();
             entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-            entity.type = "type";
+            entity.type = TopicType.Unknown;
             final List<String> subtypes = Lists.newArrayList();
             subtypes.add("subtype1");
             subtypes.add("subtype2");

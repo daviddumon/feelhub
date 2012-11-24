@@ -1,6 +1,6 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
@@ -25,7 +25,7 @@ public class AlchemyTestFactory {
         subTypes.add("sub1");
         subTypes.add("sub2");
         alchemyEntity.setSubtype(subTypes);
-        alchemyEntity.setType("type");
+        alchemyEntity.setType(TopicType.Automobile);
         alchemyEntity.setUmbel("umbel");
         alchemyEntity.setWebsite("website");
         alchemyEntity.setYago("yago");

@@ -2,6 +2,7 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.TopicType;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
@@ -116,8 +117,8 @@ public class TestsNamedEntityFactory {
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.type).isEqualTo(alchemyJsonEntity.type);
-        assertThat(namedEntity.feelhubLanguage).isEqualTo(FeelhubLanguage.fromCountryName(alchemyJsonEntity.language));
+        assertThat(namedEntity.type).isEqualTo(TopicType.Unknown);
+        assertThat(namedEntity.feelhubLanguage).isEqualTo(FeelhubLanguage.none());
         assertThat(namedEntity.relevance).isEqualTo(alchemyJsonEntity.relevance);
     }
 
@@ -127,8 +128,8 @@ public class TestsNamedEntityFactory {
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.type).isEqualTo(alchemyJsonEntity.type);
-        assertThat(namedEntity.feelhubLanguage).isEqualTo(FeelhubLanguage.fromCountryName(alchemyJsonEntity.language));
+        assertThat(namedEntity.type).isEqualTo(TopicType.Unknown);
+        assertThat(namedEntity.feelhubLanguage).isEqualTo(FeelhubLanguage.none());
         assertThat(namedEntity.relevance).isEqualTo(alchemyJsonEntity.relevance);
         assertThat(namedEntity.subType).isEqualTo(alchemyJsonEntity.disambiguated.subType);
         assertThat(namedEntity.website).isEqualTo(alchemyJsonEntity.disambiguated.website);
@@ -150,6 +151,16 @@ public class TestsNamedEntityFactory {
     public void languageDependsOnType() {
         final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
         alchemyJsonEntity.type = "Automobile";
+
+        final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
+
+        assertThat(namedEntity.feelhubLanguage).isEqualTo(FeelhubLanguage.none());
+    }
+
+    @Test
+    public void unknownTopicTypeHasNoLanguage() {
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
+        alchemyJsonEntity.type = "Fdsf";
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
@@ -192,6 +203,16 @@ public class TestsNamedEntityFactory {
         assertThat(namedEntity.tags).isNotNull();
         assertThat(namedEntity.tags.size()).isEqualTo(1);
         assertThat(namedEntity.tags.get(0)).isEqualTo("text");
+    }
+
+    @Test
+    public void ifUnknownTypeSetTopicTypeToUnknown() {
+        final AlchemyJsonEntity alchemyJsonEntity = TestFactories.namedEntities().alchemyJsonEntity();
+        alchemyJsonEntity.type = "Fdsf";
+
+        final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
+
+        assertThat(namedEntity.type).isEqualTo(TopicType.Unknown);
     }
 
     private NamedEntityFactory namedEntityFactory;
