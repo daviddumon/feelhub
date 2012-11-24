@@ -19,7 +19,7 @@ public class TestsFakeTopicRepository {
     @Test
     public void canLookUpWorld() {
         final Topic world = new Topic(UUID.randomUUID());
-        world.setType(TopicTypes.world);
+        world.setType(TopicType.World);
         fakeKeywordRepository.add(world);
 
         final Topic worldFound = fakeKeywordRepository.world();

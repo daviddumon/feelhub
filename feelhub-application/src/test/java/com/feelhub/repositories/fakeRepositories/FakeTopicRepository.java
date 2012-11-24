@@ -14,7 +14,7 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
 
                 @Override
                 public boolean apply(@Nullable final Topic input) {
-                    if (input.getType().equals(TopicTypes.world)) {
+                    if (input.getType().equals(TopicType.World)) {
                         return true;
                     } else {
                         return false;

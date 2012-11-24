@@ -43,7 +43,7 @@ public class TestsTopicFactory {
         assertThat(world).isNotNull();
         assertThat(world.getId()).isNotNull();
         assertThat(world.getDescription(FeelhubLanguage.reference())).isEqualTo("");
-        assertThat(world.getType()).isEqualTo(TopicTypes.world);
+        assertThat(world.getType()).isEqualTo(TopicType.World);
         assertThat(world.getCreationDate()).isEqualTo(time.getNow());
         assertThat(world.getLastModificationDate()).isEqualTo(time.getNow());
     }

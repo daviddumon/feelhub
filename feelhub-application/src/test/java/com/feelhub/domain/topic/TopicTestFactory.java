@@ -9,7 +9,7 @@ public class TopicTestFactory {
 
     public Topic newTopic() {
         final Topic topic = new Topic(UUID.randomUUID());
-        topic.setType(TopicTypes.website);
+        topic.setType(TopicType.Website);
         topic.addDescription(FeelhubLanguage.reference(), "description-reference");
         topic.addDescription(FeelhubLanguage.fromCode("fr"), "description-fr");
         topic.addSubType("subtype1");
@@ -30,7 +30,7 @@ public class TopicTestFactory {
 
     public Topic newWorld() {
         final Topic topic = new Topic(UUID.randomUUID());
-        topic.setType(TopicTypes.world);
+        topic.setType(TopicType.World);
         Repositories.topics().add(topic);
         return topic;
     }
