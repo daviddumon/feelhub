@@ -2,6 +2,8 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.TopicType;
+import org.apache.commons.lang.WordUtils;
 
 import java.util.regex.*;
 
@@ -64,7 +66,11 @@ public class NamedEntityFactory {
     }
 
     private void addFields(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
-        entity.type = alchemyJsonEntity.type;
+        try {
+            entity.type = TopicType.valueOf(WordUtils.capitalizeFully(alchemyJsonEntity.type));
+        } catch (IllegalArgumentException e) {
+            entity.type = TopicType.Unknown;
+        }
         entity.relevance = alchemyJsonEntity.relevance;
         if (isDisambiguated(alchemyJsonEntity)) {
             entity.subType = alchemyJsonEntity.disambiguated.subType;
@@ -89,25 +95,18 @@ public class NamedEntityFactory {
     }
 
     private void addLanguage(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
-        if (alchemyJsonEntity.type.equalsIgnoreCase("Automobile")
-                || alchemyJsonEntity.type.equalsIgnoreCase("Company")
-                || alchemyJsonEntity.type.equalsIgnoreCase("EntertainmentAward")
-                || alchemyJsonEntity.type.equalsIgnoreCase("FinancialMarketIndex")
-                || alchemyJsonEntity.type.equalsIgnoreCase("Movie")
-                || alchemyJsonEntity.type.equalsIgnoreCase("MusicGroup")
-                || alchemyJsonEntity.type.equalsIgnoreCase("OperatingSystem")
-                || alchemyJsonEntity.type.equalsIgnoreCase("Organization")
-                || alchemyJsonEntity.type.equalsIgnoreCase("Person")
-                || alchemyJsonEntity.type.equalsIgnoreCase("PrintMedia")
-                || alchemyJsonEntity.type.equalsIgnoreCase("Technology")
-                || alchemyJsonEntity.type.equalsIgnoreCase("Movie")
-                || alchemyJsonEntity.type.equalsIgnoreCase("TelevisionStation")
-                || alchemyJsonEntity.type.equalsIgnoreCase("Brand")
-                ) {
+        try {
+            addLanguageForTopicType(entity, alchemyJsonEntity);
+        } catch (IllegalArgumentException e) {
             entity.feelhubLanguage = FeelhubLanguage.none();
-        } else {
-            entity.feelhubLanguage = FeelhubLanguage.fromCountryName(alchemyJsonEntity.language);
         }
     }
 
+    private void addLanguageForTopicType(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
+        if (TopicType.valueOf(WordUtils.capitalizeFully(alchemyJsonEntity.type)).isTranslatable()) {
+            entity.feelhubLanguage = FeelhubLanguage.fromCountryName(alchemyJsonEntity.language);
+        } else {
+            entity.feelhubLanguage = FeelhubLanguage.none();
+        }
+    }
 }

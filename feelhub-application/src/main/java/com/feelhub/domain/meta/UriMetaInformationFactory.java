@@ -7,6 +7,7 @@ import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.*;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
+import org.apache.commons.lang.WordUtils;
 
 public class UriMetaInformationFactory {
 
@@ -35,7 +36,7 @@ public class UriMetaInformationFactory {
 
     private void addType(final Topic topic, final String type) {
         try {
-            topic.setType(TopicTypes.valueOf(type));
+             topic.setType(TopicType.valueOf(WordUtils.capitalizeFully(type)));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }

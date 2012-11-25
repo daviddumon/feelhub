@@ -31,7 +31,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         final DBObject topicFound = collection.findOne(query);
         assertThat(topicFound).isNotNull();
         assertThat(topicFound.get("_id")).isEqualTo(topic.getId());
-        assertThat(TopicTypes.valueOf(topicFound.get("type").toString())).isEqualTo(topic.getType());
+        assertThat(TopicType.valueOf(topicFound.get("type").toString())).isEqualTo(topic.getType());
         assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("urls")).isNotNull();
         assertThat(topicFound.get("descriptions")).isNotNull();

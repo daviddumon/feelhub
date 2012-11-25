@@ -3,7 +3,6 @@ package com.feelhub.web;
 import com.feelhub.web.authentification.UserInfos;
 import com.feelhub.web.filter.*;
 import com.feelhub.web.launch.LaunchRouter;
-import com.feelhub.web.mail.MailBuilder;
 import com.feelhub.web.migration.MigrationRunner;
 import com.feelhub.web.migration.web.*;
 import com.feelhub.web.status.FeelhubStatusService;
@@ -37,8 +36,6 @@ public class FeelhubApplication extends Application {
         if (!getContext().getAttributes().get("com.feelhub.status").equals("launch")) {
             runMigrations();
         }
-        final MailBuilder mailBuilder = injector.getInstance(MailBuilder.class);
-        mailBuilder.setContext(getContext());
         super.start();
     }
 

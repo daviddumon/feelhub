@@ -39,9 +39,9 @@ public class TestsTopic {
 
     @Test
     public void canSetType() {
-        topic.setType(TopicTypes.world);
+        topic.setType(TopicType.World);
 
-        assertThat(topic.getType()).isEqualTo(TopicTypes.world);
+        assertThat(topic.getType()).isEqualTo(TopicType.World);
     }
 
     @Test

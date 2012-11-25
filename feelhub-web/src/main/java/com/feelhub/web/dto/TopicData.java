@@ -2,7 +2,7 @@ package com.feelhub.web.dto;
 
 import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.meta.Illustration;
-import com.feelhub.domain.topic.TopicTypes;
+import com.feelhub.domain.topic.TopicType;
 import com.google.common.collect.Lists;
 
 import java.util.*;
@@ -35,7 +35,7 @@ public class TopicData {
             return this;
         }
 
-        public Builder type(final TopicTypes type) {
+        public Builder type(final TopicType type) {
             this.type = type;
             return this;
         }
@@ -54,7 +54,7 @@ public class TopicData {
         private String illustrationLink = "";
         private String description = "";
         private SentimentValue sentimentValue = SentimentValue.none;
-        private TopicTypes type = TopicTypes.none;
+        private TopicType type = TopicType.None;
         private List<String> subTypes = Lists.newArrayList();
         private List<String> urls = Lists.newArrayList();
     }
@@ -85,7 +85,7 @@ public class TopicData {
         return sentimentValue;
     }
 
-    public TopicTypes getType() {
+    public TopicType getType() {
         return type;
     }
 
@@ -101,7 +101,7 @@ public class TopicData {
     private final String illustrationLink;
     private final String description;
     private final SentimentValue sentimentValue;
-    private final TopicTypes type;
+    private final TopicType type;
     private final List<String> subTypes;
     private final List<String> urls;
 }

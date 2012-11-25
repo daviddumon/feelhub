@@ -91,7 +91,7 @@ public class TestsTopicData {
     public void typeHadADefaultValue() {
         final TopicData topicData = new TopicData.Builder().build();
 
-        assertThat(topicData.getType()).isEqualTo(TopicTypes.none);
+        assertThat(topicData.getType()).isEqualTo(TopicType.None);
     }
 
     @Test

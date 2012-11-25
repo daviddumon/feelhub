@@ -15,7 +15,7 @@ public class TopicMongoRepository extends BaseMongoRepository<Topic> implements 
     @Override
     public Topic world() {
         final Criteria criteria = getSession().createCriteria(Topic.class);
-        criteria.add(Restrictions.equals("type", TopicTypes.world));
+        criteria.add(Restrictions.equals("type", TopicType.World));
         final List list = criteria.list();
         if (list.isEmpty()) {
             return null;

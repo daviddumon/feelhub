@@ -70,6 +70,17 @@ public class TestsNewTopicResource {
         assertThat(topicData.getDescription()).isEqualTo(description);
     }
 
+    @Test
+    public void decodeTopicName() {
+        newTopicResource.getRequestAttributes().put("description", "The%20description");
+        when(topicDataFactory.getTopicData("The description")).thenReturn(new TopicData.Builder().description("The description").build());
+
+        final ModelAndView modelAndView = newTopicResource.newTopic();
+
+        final TopicData topicData = modelAndView.getData("topicData");
+        assertThat(topicData.getDescription()).isEqualTo("The description");
+    }
+
     private NewTopicResource newTopicResource;
     private TopicDataFactory topicDataFactory;
     private String description;

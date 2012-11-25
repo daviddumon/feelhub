@@ -54,7 +54,7 @@ public class TestsUriMetaInformationFactory {
 
         DomainEventBus.INSTANCE.post(uriMetaInformationRequestEvent);
 
-        assertThat(topic.getType()).isEqualTo(TopicTypes.video);
+        assertThat(topic.getType()).isEqualTo(TopicType.Video);
         assertThat(topic.getDescription(FeelhubLanguage.none())).isEqualTo("faketitle");
     }
 }

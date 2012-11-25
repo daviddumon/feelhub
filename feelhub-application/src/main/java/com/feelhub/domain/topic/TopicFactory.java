@@ -13,7 +13,7 @@ public class TopicFactory {
     public Topic createWorld() {
         final UUID id = UUID.randomUUID();
         final Topic topic = new Topic(id);
-        topic.setType(TopicTypes.world);
+        topic.setType(TopicType.World);
         return topic;
     }
 }

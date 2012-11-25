@@ -21,11 +21,11 @@ public class Topic extends BaseEntity {
         return id;
     }
 
-    public void setType(final TopicTypes type) {
+    public void setType(final TopicType type) {
         this.type = type;
     }
 
-    public TopicTypes getType() {
+    public TopicType getType() {
         return type;
     }
 
@@ -66,7 +66,7 @@ public class Topic extends BaseEntity {
     }
 
     private UUID id;
-    private TopicTypes type;
+    private TopicType type;
     private List<String> subTypes = Lists.newArrayList();
     private List<String> urls = Lists.newArrayList();
     private Map<String, String> descriptions = Maps.newHashMap();

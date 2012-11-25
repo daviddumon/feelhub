@@ -1,7 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.alchemy.*;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.*;
 import com.feelhub.test.*;
 import com.google.common.collect.Lists;
 import com.mongodb.*;
@@ -9,8 +9,8 @@ import org.junit.*;
 
 import java.util.*;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
+
 
 public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
 
@@ -39,7 +39,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
         subTypes.add("sub1");
         subTypes.add("sub2");
         alchemyEntity.setSubtype(subTypes);
-        alchemyEntity.setType("type");
+        alchemyEntity.setType(TopicType.Audio);
         alchemyEntity.setUmbel("umbel");
         alchemyEntity.setWebsite("website");
         alchemyEntity.setYago("yago");
@@ -48,27 +48,27 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
         entityMongoRepository.add(alchemyEntity);
 
         final DBObject alchemyFound = getAlchemyEntityFromDB(alchemyEntity.getId());
-        assertThat(alchemyFound, notNullValue());
-        assertThat(alchemyFound.get("_id"), is(alchemyEntity.getId()));
-        assertThat(alchemyFound.get("topicId"), is((Object) alchemyEntity.getTopicId()));
-        assertThat(alchemyFound.get("creationDate"), is((Object) alchemyEntity.getCreationDate().getMillis()));
-        assertThat(alchemyFound.get("lastModificationDate"), is((Object) alchemyEntity.getLastModificationDate().getMillis()));
-        assertThat(alchemyFound.get("census"), is((Object) alchemyEntity.getCensus()));
-        assertThat(alchemyFound.get("ciafactbook"), is((Object) alchemyEntity.getCiafactbook()));
-        assertThat(alchemyFound.get("crunchbase"), is((Object) alchemyEntity.getCrunchbase()));
-        assertThat(alchemyFound.get("dbpedia"), is((Object) alchemyEntity.getDbpedia()));
-        assertThat(alchemyFound.get("freebase"), is((Object) alchemyEntity.getFreebase()));
-        assertThat(alchemyFound.get("geo"), is((Object) alchemyEntity.getGeo()));
-        assertThat(alchemyFound.get("geonames"), is((Object) alchemyEntity.getGeonames()));
-        assertThat(alchemyFound.get("musicbrainz"), is((Object) alchemyEntity.getMusicbrainz()));
-        assertThat(alchemyFound.get("opencyc"), is((Object) alchemyEntity.getOpencyc()));
-        assertThat(alchemyFound.get("semanticcrunchbase"), is((Object) alchemyEntity.getSemanticcrunchbase()));
-        assertThat(alchemyFound.get("subtype"), is((Object) alchemyEntity.getSubtype()));
-        assertThat(alchemyFound.get("type"), is((Object) alchemyEntity.getType()));
-        assertThat(alchemyFound.get("umbel"), is((Object) alchemyEntity.getUmbel()));
-        assertThat(alchemyFound.get("website"), is((Object) alchemyEntity.getWebsite()));
-        assertThat(alchemyFound.get("yago"), is((Object) alchemyEntity.getYago()));
-        assertThat(alchemyFound.get("relevance"), is((Object) 0.5));
+        assertThat(alchemyFound).isNotNull();
+        assertThat(alchemyFound.get("_id")).isEqualTo(alchemyEntity.getId());
+        assertThat(alchemyFound.get("topicId")).isEqualTo(alchemyEntity.getTopicId());
+        assertThat(alchemyFound.get("creationDate")).isEqualTo(alchemyEntity.getCreationDate().getMillis());
+        assertThat(alchemyFound.get("lastModificationDate")).isEqualTo(alchemyEntity.getLastModificationDate().getMillis());
+        assertThat(alchemyFound.get("census")).isEqualTo(alchemyEntity.getCensus());
+        assertThat(alchemyFound.get("ciafactbook")).isEqualTo(alchemyEntity.getCiafactbook());
+        assertThat(alchemyFound.get("crunchbase")).isEqualTo(alchemyEntity.getCrunchbase());
+        assertThat(alchemyFound.get("dbpedia")).isEqualTo(alchemyEntity.getDbpedia());
+        assertThat(alchemyFound.get("freebase")).isEqualTo(alchemyEntity.getFreebase());
+        assertThat(alchemyFound.get("geo")).isEqualTo(alchemyEntity.getGeo());
+        assertThat(alchemyFound.get("geonames")).isEqualTo(alchemyEntity.getGeonames());
+        assertThat(alchemyFound.get("musicbrainz")).isEqualTo(alchemyEntity.getMusicbrainz());
+        assertThat(alchemyFound.get("opencyc")).isEqualTo(alchemyEntity.getOpencyc());
+        assertThat(alchemyFound.get("semanticcrunchbase")).isEqualTo(alchemyEntity.getSemanticcrunchbase());
+        assertThat(alchemyFound.get("subtype")).isEqualTo(alchemyEntity.getSubtype());
+        assertThat(TopicType.valueOf(alchemyFound.get("type").toString())).isEqualTo(alchemyEntity.getType());
+        assertThat(alchemyFound.get("umbel")).isEqualTo(alchemyEntity.getUmbel());
+        assertThat(alchemyFound.get("website")).isEqualTo(alchemyEntity.getWebsite());
+        assertThat(alchemyFound.get("yago")).isEqualTo(alchemyEntity.getYago());
+        assertThat(alchemyFound.get("relevance")).isEqualTo(0.5);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
 
         final AlchemyEntity alchemyEntityFound = entityMongoRepository.get(id);
 
-        assertThat(alchemyEntityFound, notNullValue());
+        assertThat(alchemyEntityFound).isNotNull();
     }
 
     @Test
@@ -93,8 +93,8 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
 
         final List<AlchemyEntity> alchemyEntities = entityMongoRepository.forTopicId(topic.getId());
 
-        assertThat(alchemyEntities, notNullValue());
-        assertThat(alchemyEntities.size(), is(3));
+        assertThat(alchemyEntities).isNotNull();
+        assertThat(alchemyEntities.size()).isEqualTo(3);
     }
 
     private DBObject getAlchemyEntityFromDB(final Object id) {
