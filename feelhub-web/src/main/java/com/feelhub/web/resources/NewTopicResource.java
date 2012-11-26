@@ -1,5 +1,6 @@
 package com.feelhub.web.resources;
 
+import com.feelhub.domain.topic.TopicType;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.Inject;
@@ -19,7 +20,7 @@ public class NewTopicResource extends ServerResource {
     public ModelAndView newTopic() {
         final String description = getDecodedDescription();
         final TopicData topicData = topicDataFactory.getTopicData(description);
-        return ModelAndView.createNew("newtopic.ftl").with("topicData", topicData);
+        return ModelAndView.createNew("newtopic.ftl").with("topicData", topicData).with("types", TopicType.usableValues());
     }
 
     public String getDecodedDescription() {

@@ -50,7 +50,7 @@
         <script src="https://html5shim.googlecode.com/svn/trunk/html5.js?${buildtime}"></script>
         <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?${buildtime}"></script>
         <![endif]-->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
         <#nested/>
     </#if>
 
@@ -59,7 +59,7 @@
 <#macro jsdev>
 
     <#if dev>
-        <script type="text/javascript" src="${root}/static/js/lib/jquery-1.8.2.min.js?${buildtime}"></script>
+        <script type="text/javascript" src="${root}/static/js/lib/jquery-1.8.3.min.js?${buildtime}"></script>
         <script type="text/javascript" src="${root}/static/js/lib/less-1.3.0.min.js?${buildtime}"></script>
         <#nested/>
     </#if>
@@ -117,39 +117,4 @@
         </script>
     </#if>
 </head>
-</#macro>
-
-<#macro body>
-<body>
-<header>
-    <div id="header-top">
-        <a id="home_link" href="${root}">Feelhub<span>.com</span></a>
-
-        <div id="login_helper">
-            <#if !userInfos.anonymous>
-                <p>Hello ${userInfos.user.fullname}! - <#if userInfos.authenticated><a href="javascript:void(0);" id="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
-            <#else>
-                <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
-            </#if>
-        </div>
-    </div>
-    <div id="header-bottom">
-        <ul id="header-bottom-left">
-            <li><a href="${root}">Latest</a></li>
-        <#--<li><a href="">Near me</a></li>-->
-        <#--<li><a href="">Channels</a></li>-->
-        <#--<li><a href="">Trends</a></li>-->
-        <#--<li><a href="">Sponsored</a></li>-->
-        </ul>
-        <ul id="header-bottom-right">
-            <li><a href="">About</a></li>
-        </ul>
-    </div>
-    <form method="get" action="${root}/search" id="search">
-        <input name="q" type="text" autocomplete="off"/>
-    </form>
-</header>
-    <#nested/>
-</body>
-</html>
 </#macro>

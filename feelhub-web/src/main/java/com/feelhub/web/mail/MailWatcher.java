@@ -1,13 +1,8 @@
 package com.feelhub.web.mail;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.user.ActivationCreatedEvent;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserCreatedEvent;
-import com.feelhub.web.mail.mandrill.MandrillMailSender;
-import com.feelhub.web.mail.mandrill.MandrillMessage;
-import com.feelhub.web.mail.mandrill.MandrillRecipient;
-import com.feelhub.web.mail.mandrill.MandrillTemplateRequest;
+import com.feelhub.domain.user.*;
+import com.feelhub.web.mail.mandrill.*;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -32,7 +27,7 @@ public class MailWatcher {
 
     @Subscribe
     public void onUserCreated(UserCreatedEvent event) {
-        if(event.getUser().isActive()) {
+        if (event.getUser().isActive()) {
             mailSender.send(createTemplateRequest(event.getUser(), "Welcome", "Welcome to Feelhub !"));
         }
     }

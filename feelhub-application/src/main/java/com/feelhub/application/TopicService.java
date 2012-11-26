@@ -1,5 +1,6 @@
 package com.feelhub.application;
 
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.Repositories;
 import com.google.inject.Inject;
@@ -18,6 +19,12 @@ public class TopicService {
         if (topic == null) {
             throw new TopicNotFound();
         }
+        return topic;
+    }
+
+    public Topic createTopic(final FeelhubLanguage feelhubLanguage,final String description, final TopicType topicType) {
+        final Topic topic = topicFactory.createTopic(feelhubLanguage, description, topicType);
+        Repositories.topics().add(topic);
         return topic;
     }
 

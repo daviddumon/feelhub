@@ -1,48 +1,53 @@
 package com.feelhub.domain.topic;
 
-public enum TopicType {
-    None(true, false),
-    World(true, false),
-    Website(true, false),
-    Image(true, false),
-    Video(true, false),
-    Audio(true, false),
-    Place(true, false),
-    Automobile(true, false),
-    Anniversary(false, true),
-    Brand(true, false),
-    City(false, true),
-    Company(false, false),
-    Continent(true, true),
-    Country(true, true),
-    Drug(true, true),
-    EntertainmentAward(true, false),
-    Facility(false, true),
-    FieldTerminology(false, true),
-    FinancialMarketIndex(true, false),
-    GeographicFeature(true, true),
-    HealthCondition(true, true),
-    Holiday(true, true),
-    Movie(false, false), //we can have movies with same names!
-    MusicGroup(false, false), //we can have music bands with same names!
-    NaturalDisaster(false, false),
-    OperatingSystem(true, false),
-    Organization(false, false),
-    Person(false, false),
-    PrintMedia(true, false),
-    RadioProgram(false, false),
-    RadioStation(true, false),
-    Region(true, true),
-    Sport(true, true),
-    StateOrCounty(true, true),
-    Technology(false, false),
-    TelevisionShow(true, false),
-    TelevisionStation(true, false),
-    Unknown(false, true);
+import com.google.common.collect.Lists;
 
-    TopicType(final boolean tagUniqueness, final boolean translatable) {
+import java.util.List;
+
+public enum TopicType {
+    None(true, false, false),
+    World(true, false, false),
+    Website(true, false, true),
+    Image(true, false, true),
+    Video(true, false, true),
+    Audio(true, false, true),
+    Place(true, false, true),
+    Automobile(true, false, true),
+    Anniversary(false, true, true),
+    Brand(true, false, true),
+    City(false, true, true),
+    Company(false, false, true),
+    Continent(true, true, true),
+    Country(true, true, true),
+    Drug(true, true, true),
+    EntertainmentAward(true, false, true),
+    Facility(false, true, true),
+    FieldTerminology(false, true, true),
+    FinancialMarketIndex(true, false, true),
+    GeographicFeature(true, true, true),
+    HealthCondition(true, true, true),
+    Holiday(true, true, true),
+    Movie(false, false, true), //we can have movies with same names!
+    MusicGroup(false, false, true), //we can have music bands with same names!
+    NaturalDisaster(false, false, true),
+    OperatingSystem(true, false, true),
+    Organization(false, false, true),
+    Person(false, false, true),
+    PrintMedia(true, false, true),
+    RadioProgram(false, false, true),
+    RadioStation(true, false, true),
+    Region(true, true, true),
+    Sport(true, true, true),
+    StateOrCounty(true, true, true),
+    Technology(false, false, true),
+    TelevisionShow(true, false, true),
+    TelevisionStation(true, false, true),
+    Unknown(false, true, true);
+
+    TopicType(final boolean tagUniqueness, final boolean translatable, final boolean usable) {
         this.tagUniqueness = tagUniqueness;
         this.translatable = translatable;
+        this.usable = usable;
     }
 
     public boolean hasTagUniqueness() {
@@ -53,6 +58,21 @@ public enum TopicType {
         return translatable;
     }
 
+    public boolean isUsable() {
+        return usable;
+    }
+
+    public static List<TopicType> usableValues() {
+        List<TopicType> results = Lists.newArrayList();
+        for (TopicType topicType : TopicType.values()) {
+            if (topicType.isUsable()) {
+                results.add(topicType);
+            }
+        }
+        return results;
+    }
+
     private final boolean tagUniqueness;
     private final boolean translatable;
+    private final boolean usable;
 }

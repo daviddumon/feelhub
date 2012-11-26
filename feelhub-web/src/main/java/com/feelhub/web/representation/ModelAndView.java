@@ -8,7 +8,7 @@ import java.util.Map;
 public class ModelAndView {
 
     public static ModelAndView empty() {
-        return new ModelAndView("empty.ftl", MediaType.TEXT_HTML);
+        return new ModelAndView("special/empty.ftl", MediaType.TEXT_HTML);
     }
 
     public static ModelAndView createNew(final String template, final MediaType mediaType) {

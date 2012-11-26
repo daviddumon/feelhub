@@ -1,31 +1,8 @@
-<@layout.headbegin>
-</@layout.headbegin>
+<@noflow.js>
 
-<@layout.cssprod>
-<link rel="stylesheet" href="${root}/static/css/noflow_layout.css?${buildtime}"/>
-</@layout.cssprod>
+</@noflow.js>
 
-<@layout.cssdev>
-<link rel="stylesheet/less" type="text/css" href="${root}/static/css/noflow_layout.less?${buildtime}"/>
-</@layout.cssdev>
-
-<@layout.jsprod>
-</@layout.jsprod>
-
-<@layout.jsdev>
-</@layout.jsdev>
-
-<@layout.js>
-</@layout.js>
-
-<@layout.mustache>
-</@layout.mustache>
-
-<@layout.headend>
-
-</@layout.headend>
-
-<@layout.body>
+<@noflow.body>
 <div id="help">
     <h1>Welcome !</h1>
 
@@ -35,4 +12,4 @@
 
     <a href="${root}">return to home</a>
 </div>
-</@layout.body>
+</@noflow.body>

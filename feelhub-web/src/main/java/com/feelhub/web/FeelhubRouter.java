@@ -23,6 +23,7 @@ public class FeelhubRouter extends Router {
     }
 
     private void attachResources() {
+        attach("/api/topics", ApiTopicsResource.class);
         attach("/api/topic/{topicId}/statistics", ApiTopicStatisticsResource.class);
         attach("/api/topic/{topicId}/related", ApiTopicRelatedResource.class);
         attach("/api/topic/{topicId}/feelings", ApiTopicFeelingsResource.class);

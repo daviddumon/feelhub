@@ -1,35 +1,11 @@
-<@layout.headbegin>
+<@noflow.js>
 <script type="text/javascript">
     var referrer = "${referrer}";
 </script>
-</@layout.headbegin>
-
-<@layout.cssprod>
-<link rel="stylesheet" href="${root}/static/css/noflow_layout.css?${buildtime}"/>
-</@layout.cssprod>
-
-<@layout.cssdev>
-<link rel="stylesheet/less" type="text/css" href="${root}/static/css/noflow_layout.less?${buildtime}"/>
-</@layout.cssdev>
-
-<@layout.jsprod>
-</@layout.jsprod>
-
-<@layout.jsdev>
-</@layout.jsdev>
-
-<@layout.js>
 <script type="text/javascript" src="${root}/static/js/login.js?${buildtime}"></script>
-</@layout.js>
+</@noflow.js>
 
-<@layout.mustache>
-</@layout.mustache>
-
-<@layout.headend>
-
-</@layout.headend>
-
-<@layout.body>
+<@noflow.body>
 <form id="login">
     <h1>WELCOME</h1>
 
@@ -60,8 +36,8 @@
     </div>
     <div class="holder">
         <a id="login_submit" href="">login</a>
-    or
+        or
         <a href="${facebookUrl}">login with facebook</a>
     </div>
 </form>
-</@layout.body>
+</@noflow.body>

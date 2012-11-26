@@ -81,6 +81,13 @@ public class TestsNewTopicResource {
         assertThat(topicData.getDescription()).isEqualTo("The description");
     }
 
+    @Test
+    public void insertTypeListInTemplate() {
+        final ModelAndView modelAndView = newTopicResource.newTopic();
+
+        assertThat(modelAndView.getData("types")).isNotNull();
+    }
+
     private NewTopicResource newTopicResource;
     private TopicDataFactory topicDataFactory;
     private String description;

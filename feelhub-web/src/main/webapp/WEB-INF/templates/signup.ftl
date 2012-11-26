@@ -1,32 +1,8 @@
-<@layout.headbegin>
-</@layout.headbegin>
-
-<@layout.cssprod>
-<link rel="stylesheet" href="${root}/static/css/noflow_layout.css?${buildtime}"/>
-</@layout.cssprod>
-
-<@layout.cssdev>
-<link rel="stylesheet/less" type="text/css" href="${root}/static/css/noflow_layout.less?${buildtime}"/>
-</@layout.cssdev>
-
-<@layout.jsprod>
-</@layout.jsprod>
-
-<@layout.jsdev>
-</@layout.jsdev>
-
-<@layout.js>
+<@noflow.js>
 <script type="text/javascript" src="${root}/static/js/signup.js?${buildtime}"></script>
-</@layout.js>
+</@noflow.js>
 
-<@layout.mustache>
-</@layout.mustache>
-
-<@layout.headend>
-
-</@layout.headend>
-
-<@layout.body>
+<@noflow.body>
 <form id="signup">
     <h1 class="font_title">JOIN TODAY !</h1>
 
@@ -51,10 +27,11 @@
     <div class="holder">
         <p>What is your favorite language :</p>
         <select name="language" aria-required="true">
-        <#list locales as locale>
-            <option value="${locale.code}">${locale.name}</option>
-        </#list>
+            <#list locales as locale>
+                <option value="${locale.code}">${locale.name}</option>
+            </#list>
         </select>
+
         <div class="error_text"></div>
     </div>
     <div class="holder">
@@ -63,5 +40,4 @@
         <a href="${facebookUrl}">Use facebook</a>
     </div>
 </form>
-
-</@layout.body>
+</@noflow.body>
