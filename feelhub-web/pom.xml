@@ -194,6 +194,8 @@
                         <exclude>**/*.mustache.js</exclude>
                         <exclude>**/bookmarklet.js</exclude>
                         <exclude>**/*.less</exclude>
+                        <exclude>**/home.js</exclude>
+                        <exclude>**/require.js</exclude>
                     </excludes>
                     <jswarn>false</jswarn>
                     <nosuffix>true</nosuffix>
