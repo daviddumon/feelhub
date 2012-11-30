@@ -20,7 +20,7 @@ public class ActivationService {
         }
         final Activation activation = new Activation(event.getUser());
         Repositories.activation().add(activation);
-        DomainEventBus.INSTANCE.post(new UserConfirmationMailEvent(event.getUser(), activation));
+        DomainEventBus.INSTANCE.post(new ActivationCreatedEvent(event.getUser(), activation));
     }
 
     public void confirm(final UUID id) {

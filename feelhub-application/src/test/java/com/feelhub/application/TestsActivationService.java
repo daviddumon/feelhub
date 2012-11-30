@@ -46,13 +46,23 @@ public class TestsActivationService {
     }
 
     @Test
+    public void doNotCreateIfUserAlreadyActivated() {
+        final User user = new User("id");
+        user.activate();
+
+        DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
+
+        assertThat(Repositories.activation().getAll()).hasSize(0);
+    }
+
+    @Test
     public void canPropagateSendMail() {
-        bus.capture(UserConfirmationMailEvent.class);
+        bus.capture(ActivationCreatedEvent.class);
         final User user = new User("id");
 
         activationService.onUserCreated(new UserCreatedEvent(user));
 
-        final UserConfirmationMailEvent event = bus.lastEvent(UserConfirmationMailEvent.class);
+        final ActivationCreatedEvent event = bus.lastEvent(ActivationCreatedEvent.class);
         assertThat(event).isNotNull();
         assertThat(event.getUser()).isEqualTo(user);
         assertThat(event.getActivation()).isNotNull();
@@ -83,4 +93,5 @@ public class TestsActivationService {
 
         activationService.confirm(UUID.randomUUID());
     }
+
 }

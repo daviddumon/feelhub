@@ -2,9 +2,9 @@ package com.feelhub.domain.user;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 
-public class UserConfirmationMailEvent extends DomainEvent {
+public class ActivationCreatedEvent extends DomainEvent {
 
-    public UserConfirmationMailEvent(final User user, final Activation activation) {
+    public ActivationCreatedEvent(final User user, final Activation activation) {
         this.user = user;
         this.activation = activation;
     }

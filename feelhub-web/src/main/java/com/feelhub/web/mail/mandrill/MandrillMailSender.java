@@ -2,6 +2,7 @@ package com.feelhub.web.mail.mandrill;
 
 import com.feelhub.tools.Clients;
 import com.google.gson.Gson;
+import org.joda.time.DateTime;
 import org.restlet.Client;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -17,6 +18,8 @@ public class MandrillMailSender {
         message.key = KEY;
         message.async = false;
         message.message.from_email = FROM;
+        message.message.addMergeVar("CURRENT_YEAR", String.valueOf(DateTime.now().year().get()));
+        message.message.addMergeVar("COMPANY", "Feelhub");
         final Request request = new Request(Method.POST, URI + "/" + VERSION + "/messages/send-template.json");
         final String json = new Gson().toJson(message);
         request.setEntity(json, MediaType.APPLICATION_JSON);

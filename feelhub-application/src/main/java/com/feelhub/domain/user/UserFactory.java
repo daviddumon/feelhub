@@ -20,6 +20,7 @@ public class UserFactory {
         user.setLanguage(FeelhubLanguage.fromCode(language));
         user.addToken(new SocialToken(SocialNetwork.FACEBOOK, token));
         user.activate();
+        DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
         return user;
     }
 

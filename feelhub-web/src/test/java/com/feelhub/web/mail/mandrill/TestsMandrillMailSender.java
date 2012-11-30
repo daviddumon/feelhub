@@ -21,8 +21,6 @@ public class TestsMandrillMailSender {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     private MandrillTemplateRequest aMessage() {

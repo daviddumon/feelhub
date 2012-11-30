@@ -133,6 +133,7 @@ public class TestsUser {
 
     @Test
     public void canCreateFromFacebook() {
+        bus.capture(UserCreatedEvent.class);
         final User user = new UserFactory().createFromFacebook("1234", "email@email.com", "first", "last", "fr_FR", "token");
 
         assertThat(user).isNotNull();
@@ -142,5 +143,8 @@ public class TestsUser {
         assertThat(user.isActive()).isTrue();
         assertThat(user.getId()).isEqualTo("FB:1234");
         assertThat(user.getSocialToken(SocialNetwork.FACEBOOK)).isEqualTo(new SocialToken(SocialNetwork.FACEBOOK, "token"));
+        final UserCreatedEvent event = bus.lastEvent(UserCreatedEvent.class);
+        assertThat(event).isNotNull();
+        assertThat(event.getUser()).isEqualTo(user);
     }
 }

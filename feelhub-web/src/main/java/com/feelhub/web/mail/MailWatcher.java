@@ -1,7 +1,9 @@
 package com.feelhub.web.mail;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.user.UserConfirmationMailEvent;
+import com.feelhub.domain.user.ActivationCreatedEvent;
+import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.UserCreatedEvent;
 import com.feelhub.web.mail.mandrill.MandrillMailSender;
 import com.feelhub.web.mail.mandrill.MandrillMessage;
 import com.feelhub.web.mail.mandrill.MandrillRecipient;
@@ -22,23 +24,31 @@ public class MailWatcher {
     }
 
     @Subscribe
-    public void onUserConfirmation(UserConfirmationMailEvent event) {
-        final MandrillTemplateRequest request = new MandrillTemplateRequest();
-        request.template_name = "Activation";
-        request.message = buildConfirmationMessage(event);
+    public void onActivationCreated(ActivationCreatedEvent event) {
+        final MandrillTemplateRequest request = createTemplateRequest(event.getUser(), "Activation", "Welcome to Feelhub !");
+        request.message.addMergeVar("ACTIVATION", String.format("%s/activation/%s", properties.domain, event.getActivation().getId()));
         mailSender.send(request);
     }
 
-    private MandrillMessage buildConfirmationMessage(final UserConfirmationMailEvent event) {
+    @Subscribe
+    public void onUserCreated(UserCreatedEvent event) {
+        if(event.getUser().isActive()) {
+            mailSender.send(createTemplateRequest(event.getUser(), "Welcome", "Welcome to Feelhub !"));
+        }
+    }
+
+    private MandrillTemplateRequest createTemplateRequest(final User user, final String template, final String title) {
+        final MandrillTemplateRequest request = new MandrillTemplateRequest();
+        request.template_name = template;
         final MandrillMessage message = new MandrillMessage();
-        message.subject = "Welcome to Feelhub !";
+        message.subject = title;
         final MandrillRecipient recipient = new MandrillRecipient();
-        recipient.email = event.getUser().getEmail();
-        recipient.name = event.getUser().getFullname();
+        recipient.email = user.getEmail();
+        recipient.name = user.getFullname();
         message.to.add(recipient);
-        message.addMergeVar("ACTIVATION", String.format("%s/activation/%s", properties.domain, event.getActivation().getId()));
-        message.addTag("activation");
-        return message;
+        message.addTag(template.toLowerCase());
+        request.message = message;
+        return request;
     }
 
     private MandrillMailSender mailSender;
