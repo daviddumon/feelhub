@@ -191,10 +191,11 @@
                 <configuration>
                     <excludes>
                         <exclude>**/*.min.js</exclude>
-                        <exclude>**/*.mustache.js</exclude>
+                        <exclude>**/*.html</exclude>
                         <exclude>**/bookmarklet.js</exclude>
                         <exclude>**/*.less</exclude>
-                        <exclude>**/home.js</exclude>
+                        <exclude>**/*controller.js</exclude>
+                        <exclude>**/*view.js</exclude>
                         <exclude>**/require.js</exclude>
                     </excludes>
                     <jswarn>false</jswarn>

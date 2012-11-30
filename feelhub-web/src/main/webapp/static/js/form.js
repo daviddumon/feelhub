@@ -9,24 +9,6 @@ $(function () {
         event.preventDefault();
         postFeeling($(this).attr("name"), $("#form textarea").val());
     });
-
-    $("#createtopic input").click(function (event) {
-        event.stopImmediatePropagation();
-        event.preventDefault();
-        $.ajax({
-            url:root + '/api/topics',
-            type:'POST',
-            contentType:'application/json',
-            data:JSON.stringify($("#createtopic").serializeArray()),
-            processData:false,
-            success:function (data, textStatus, jqXHR) {
-                console.log("succes creation topic");
-            },
-            error:function () {
-                console.log("erreur creation topic");
-            }
-        });
-    });
 });
 
 function postFeeling(sentimentValue, text) {

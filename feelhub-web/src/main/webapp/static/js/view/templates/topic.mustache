@@ -1,0 +1,14 @@
+{{#url}}
+    <a href="{{url}}" class="topic {{classes}}" id="{{topicId}}">
+{{/url}}
+{{^url}}
+    <div class="topic {{classes}}" id="{{topicId}}">
+{{/url}}
+    <img src="{{illustrationLink}}" onload="OnImageLoad(event);"/>
+    <span class="{{sentimentValue}}">{{description}}</span>
+{{#url}}
+    </a>
+{{/url}}
+{{^url}}
+    </div>
+{{/url}}

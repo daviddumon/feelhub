@@ -1,19 +1,19 @@
 <@flow.js>
-<script type="text/javascript" src="${root}/static/js/form.js?${buildtime}"></script>
+<script type="text/javascript" data-main="${root}/static/js/controller/newtopic-controller" src="${root}/static/js/require.js?${buildtime}"></script>
+<script type="text/javascript">
+        <#if types??>
+        var types = [
+            <#list types as type>
+                "${type}"${type_has_next?string(",", "")}
+            </#list>
+        ]
+        </#if>
+</script>
 </@flow.js>
 
 <@flow.dashboard>
-
 </@flow.dashboard>
 
 <@flow.command>
-<form id="createtopic">
-    <input type="hidden" name="description" value="${topicData.description}"/>
-    <select name="type">
-        <#list types as type>
-            <option value="${type}">${type}</option>
-        </#list>
-    </select>
-    <input type="submit" value="go"/>
-</form>
+<input type="submit" value="create"/>
 </@flow.command>

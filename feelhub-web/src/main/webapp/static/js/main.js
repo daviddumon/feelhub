@@ -11,7 +11,7 @@ $(function () {
             typeValue:typeValue
         };
 
-        $("#main_keyword").prepend(ich.keyword(topic_data));
+        $("#main_keyword").prepend(ich.topic(topic_data));
         $("#counters").show();
         $("#feeling_form").show();
     }

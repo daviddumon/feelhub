@@ -69,17 +69,6 @@
 <#macro js>
 
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/lib/ICanHaz.min.js?${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/polling.js?${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/image-scaling.js?${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/responsive.js?${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/authentification.js?${buildtime}"></script>
-    <#nested/>
-
-</#macro>
-
-<#macro mustache>
-
     <#nested/>
 
 </#macro>

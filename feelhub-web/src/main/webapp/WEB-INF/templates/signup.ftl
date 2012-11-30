@@ -1,5 +1,5 @@
 <@noflow.js>
-<script type="text/javascript" src="${root}/static/js/signup.js?${buildtime}"></script>
+<script type="text/javascript" data-main="${root}/static/js/controller/signup-controller" src="${root}/static/js/require.js?${buildtime}"></script>
 </@noflow.js>
 
 <@noflow.body>

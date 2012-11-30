@@ -26,9 +26,6 @@
         <#nested/>
     </@head.js>
 
-    <@head.mustache>
-    </@head.mustache>
-
     <@head.headend>
 
     </@head.headend>

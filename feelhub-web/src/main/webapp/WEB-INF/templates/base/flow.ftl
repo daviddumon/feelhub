@@ -6,22 +6,28 @@
             var userLanguageCode = "${userInfos.user.languageCode}";
             </#if>
 
-        var topicId = "";
-        var keywordValue = "";
-        var languageCode = "";
-        var illustrationLink = "";
-        var typeValue = "";
-
-        var flow;
+            <#if topicData??>
+            var topicData = {
+                "id":"${topicData.id}",
+                "illustrationLink":"${topicData.illustrationLink}",
+                "description":"${topicData.description}",
+                "sentimentValue":"${topicData.sentimentValue}",
+                "type":"${topicData.type}",
+                "subtypes":[],
+                "url":[]
+            }
+            </#if>
     </script>
     </@head.headbegin>
 
     <@head.cssprod>
     <link rel="stylesheet" href="${root}/static/css/flow_layout.css?${buildtime}"/>
+    <link rel="stylesheet" href="${root}/static/css/dashboard.css?${buildtime}"/>
     </@head.cssprod>
 
     <@head.cssdev>
     <link rel="stylesheet/less" type="text/css" href="${root}/static/css/flow_layout.less?${buildtime}"/>
+    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/dashboard.less?${buildtime}"/>
     </@head.cssdev>
 
     <@head.jsprod>
@@ -31,16 +37,8 @@
     </@head.jsdev>
 
     <@head.js>
-    <script type="text/javascript" src="${root}/static/js/form.js?${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/flow.js?${buildtime}"></script>
         <#nested/>
-
     </@head.js>
-
-    <@head.mustache>
-        <#include "../mustache/topic.html">
-        <#include "../mustache/feeling.html">
-    </@head.mustache>
 
     <@head.headend>
 
@@ -49,11 +47,11 @@
 
 <#macro dashboard>
 <body>
-<#include "header.ftl"/>
+    <#include "header.ftl"/>
 
-<div id="dashboard">
+<ul id="dashboard">
     <#nested/>
-</div>
+</ul>
 </#macro>
 
 <#macro command>

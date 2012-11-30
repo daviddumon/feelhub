@@ -1,0 +1,12 @@
+<li class="edit">
+    <div class="description">{{description}}</div>
+    <div class="type">
+        add a type
+        <select name="type">
+            <option value="" selected="selected"></option>
+            {{#types}}
+                <option value="{{.}}">{{.}}</option>
+            {{/types}}
+        </select>
+    </div>
+</li>
