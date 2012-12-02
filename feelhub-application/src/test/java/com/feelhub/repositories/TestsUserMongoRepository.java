@@ -53,10 +53,11 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
     public void canGetAnUser() {
         final DBCollection collection = mongo.getCollection("user");
         final DBObject user = new BasicDBObject();
-        user.put("_id", "test");
+        UUID uuid = UUID.randomUUID();
+        user.put("_id", uuid);
         collection.insert(user);
 
-        final User userFound = repository.get("test");
+        final User userFound = repository.get(uuid);
 
         assertThat(userFound).isNotNull();
     }
