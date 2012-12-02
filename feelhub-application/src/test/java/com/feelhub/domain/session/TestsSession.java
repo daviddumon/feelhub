@@ -1,5 +1,6 @@
 package com.feelhub.domain.session;
 
+import com.feelhub.domain.user.User;
 import com.feelhub.test.SystemTime;
 import org.joda.time.DateTime;
 import org.junit.*;
@@ -17,7 +18,7 @@ public class TestsSession {
 
     @Test
     public void aSessionHasAnExpirationDate() {
-        final Session session = new Session(new DateTime().plusHours(1));
+        final Session session = new Session(new DateTime().plusHours(1), new User());
 
         assertThat(session.getExpirationDate(), notNullValue());
         assertThat(session.getExpirationDate(), is(time.getNow().plusHours(1)));
@@ -25,7 +26,7 @@ public class TestsSession {
 
     @Test
     public void canCheckExpiration() {
-        final Session session = new Session(new DateTime().plusHours(1));
+        final Session session = new Session(new DateTime().plusHours(1), new User());
 
         time.waitHours(2);
 
@@ -34,7 +35,7 @@ public class TestsSession {
 
     @Test
     public void sessionTokenIsTheID() {
-        final Session session = new Session(new DateTime().plusHours(1));
+        final Session session = new Session(new DateTime().plusHours(1), new User());
 
         assertThat((UUID) session.getId(), is(session.getToken()));
     }

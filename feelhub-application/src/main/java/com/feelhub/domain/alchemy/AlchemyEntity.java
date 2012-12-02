@@ -18,7 +18,7 @@ public class AlchemyEntity extends BaseEntity {
     }
 
     @Override
-    public Object getId() {
+    public UUID getId() {
         return id;
     }
 

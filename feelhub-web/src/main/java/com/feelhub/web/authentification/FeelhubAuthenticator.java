@@ -13,7 +13,7 @@ public class FeelhubAuthenticator implements Authenticator {
     }
 
     public User getUser(final String id) {
-        final User user = Repositories.users().get(id);
+        final User user = Repositories.users().forEmail(id);
         if (user == null) {
             throw new BadUserException("This user does not exist!");
         }

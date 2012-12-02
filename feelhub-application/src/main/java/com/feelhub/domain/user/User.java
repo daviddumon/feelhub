@@ -6,17 +6,18 @@ import com.google.common.collect.Lists;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 public class User extends BaseEntity {
 
-    protected User() {
-
+    public User() {
+        id = UUID.randomUUID();
     }
 
-    public User(final String id) {
-        this.id = id;
-        this.active = false;
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
@@ -28,12 +29,8 @@ public class User extends BaseEntity {
         }
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     @Override
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -50,28 +47,32 @@ public class User extends BaseEntity {
         return stringBuilder.toString();
     }
 
-    public void setPassword(final String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-    }
-
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(final String password) {
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     public boolean checkPassword(final String password) {
         return BCrypt.checkpw(password, this.password);
     }
 
-    public void setFullname(final String fullname) {
-        this.fullname = fullname;
-    }
-
     public String getFullname() {
         return fullname;
     }
 
+    public void setFullname(final String fullname) {
+        this.fullname = fullname;
+    }
+
     public FeelhubLanguage getLanguage() {
         return FeelhubLanguage.fromCode(languageCode);
+    }
+
+    public void setLanguage(FeelhubLanguage feelhubLanguage) {
+        this.languageCode = feelhubLanguage.getCode();
     }
 
     public String getLanguageCode() {
@@ -90,8 +91,8 @@ public class User extends BaseEntity {
         return active;
     }
 
-    public SocialToken getSocialToken(final SocialNetwork network) {
-        for (final SocialToken token : socialTokens) {
+    public SocialAuth getSocialAuth(final SocialNetwork network) {
+        for (final SocialAuth token : socialAuths) {
             if (token.is(network)) {
                 return token;
             }
@@ -99,24 +100,19 @@ public class User extends BaseEntity {
         return null;
     }
 
-    public void addToken(final SocialToken socialToken) {
-        socialTokens.add(socialToken);
+    public void addSocialAuth(final SocialAuth socialAuth) {
+        socialAuths.add(socialAuth);
     }
 
-    public List<SocialToken> getSocialTokens() {
-        return Collections.unmodifiableList(socialTokens);
+    public List<SocialAuth> getSocialAuths() {
+        return Collections.unmodifiableList(socialAuths);
     }
 
-    public void setLanguage(FeelhubLanguage feelhubLanguage) {
-        this.languageCode = feelhubLanguage.getCode();
-    }
-
-    private String email;
+    private final List<SocialAuth> socialAuths = Lists.newArrayList();
     protected String password;
+    private String email;
     private String fullname;
     private String languageCode;
-    private boolean active;
-    private final List<SocialToken> socialTokens = Lists.newArrayList();
-
-    private String id;
+    private boolean active = false;
+    private UUID id;
 }

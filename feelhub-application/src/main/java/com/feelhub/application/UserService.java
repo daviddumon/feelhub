@@ -18,9 +18,19 @@ public class UserService {
     }
 
     public User findOrCreateForFacebook(final String id, final String email, final String firstName, final String lastName, final String language, final String token) {
-        if (Repositories.users().exists(UserIds.facebook(id))) {
-            return Repositories.users().get(UserIds.facebook(id));
+        final User user = Repositories.users().findBySocialNetwork(SocialNetwork.FACEBOOK, id);
+        if (user != null) {
+            return user;
         }
+        final User byEmail = Repositories.users().forEmail(email);
+        if (byEmail != null) {
+            byEmail.addSocialAuth(new SocialAuth(SocialNetwork.FACEBOOK, id, token));
+            return byEmail;
+        }
+        return createFromFacebook(id, email, firstName, lastName, language, token);
+    }
+
+    private User createFromFacebook(final String id, final String email, final String firstName, final String lastName, final String language, final String token) {
         final User user = userFactory.createFromFacebook(id, email, firstName, lastName, language, token);
         Repositories.users().add(user);
         return user;

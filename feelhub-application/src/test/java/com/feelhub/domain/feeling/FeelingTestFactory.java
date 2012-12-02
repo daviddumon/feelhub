@@ -35,7 +35,7 @@ public class FeelingTestFactory {
 
     public Feeling newFeeling(final String text, final Sentiment sentiment) {
         final User activeUser = TestFactories.users().createFakeActiveUser("userforfeeling@mail.com");
-        final Feeling feeling = new Feeling(text, activeUser.getId());
+        final Feeling feeling = new Feeling(text, activeUser);
         feeling.addSentiment(sentiment);
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
         Repositories.feelings().add(feeling);
@@ -44,7 +44,7 @@ public class FeelingTestFactory {
 
     public Feeling newFeeling(final UUID topicId, final String text) {
         final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforfeeling@mail.com");
-        final Feeling feeling = new Feeling(text, activeUser.getId());
+        final Feeling feeling = new Feeling(text, activeUser);
         feeling.addSentiment(new Topic(topicId), SentimentValue.bad);
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
         Repositories.feelings().add(feeling);
@@ -53,7 +53,7 @@ public class FeelingTestFactory {
 
     public Feeling newFeelingWithoutSentiments() {
         final User activeUser = TestFactories.users().createFakeActiveUser("userforfeeling@mail.com");
-        final Feeling feeling = new Feeling("feeling without sentiment", activeUser.getId());
+        final Feeling feeling = new Feeling("feeling without sentiment", activeUser);
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
         Repositories.feelings().add(feeling);
         return feeling;

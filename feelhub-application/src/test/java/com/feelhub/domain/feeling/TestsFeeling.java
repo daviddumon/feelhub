@@ -31,7 +31,7 @@ public class TestsFeeling {
 
     @Test
     public void canCreateWithTextAndUser() {
-        final Feeling feeling = new Feeling("salut", activeUser.getId());
+        final Feeling feeling = new Feeling("salut", activeUser);
 
         assertThat(feeling.getText(), is("salut"));
         assertThat(feeling.getUserId(), is(activeUser.getId()));
@@ -40,7 +40,7 @@ public class TestsFeeling {
 
     @Test
     public void canAddSentimentsToFeeling() {
-        final Feeling feeling = new Feeling("my feeling", activeUser.getId());
+        final Feeling feeling = new Feeling("my feeling", activeUser);
         final Topic topic = TestFactories.topics().newTopic();
 
         feeling.addSentiment(topic, SentimentValue.good);
@@ -54,7 +54,7 @@ public class TestsFeeling {
 
     @Test
     public void canSpreadSentimentEvents() {
-        final Feeling feeling = new Feeling("my feeling", activeUser.getId());
+        final Feeling feeling = new Feeling("my feeling", activeUser);
         final Topic topic = TestFactories.topics().newTopic();
         final SimpleSentimentListener simpleSentimentListener = mock(SimpleSentimentListener.class);
         DomainEventBus.INSTANCE.register(simpleSentimentListener);
@@ -70,7 +70,7 @@ public class TestsFeeling {
 
     @Test
     public void setLastModificationDateOnSentimentCreation() {
-        final Feeling feeling = new Feeling("my feeling", activeUser.getId());
+        final Feeling feeling = new Feeling("my feeling", activeUser);
         final Topic topic = TestFactories.topics().newTopic();
         time.waitDays(1);
 
@@ -81,7 +81,7 @@ public class TestsFeeling {
 
     @Test
     public void hasALanguage() {
-        final Feeling feeling = new Feeling("salut", activeUser.getId());
+        final Feeling feeling = new Feeling("salut", activeUser);
 
         feeling.setLanguageCode("en");
 

@@ -49,7 +49,7 @@ public class IllustrationSearch implements Search<Illustration> {
         for (final UUID topicId : topics) {
             topicAsString.add(topicId.toString());
         }
-        criteria.add(Restrictions.inUUID("topicId", topics));
+        criteria.add(Restrictions.in("topicId", topics));
         return this;
     }
 

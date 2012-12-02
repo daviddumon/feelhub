@@ -202,6 +202,6 @@ public class TestsApiTopicFeelingsResource {
         final TemplateRepresentation representation = (TemplateRepresentation) clientResource.get();
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        assertThat(jsonArray.getJSONObject(0).get("userId").toString()).isEqualTo(feeling.getUserId());
+        assertThat(jsonArray.getJSONObject(0).get("userId").toString()).isEqualTo(feeling.getUserId().toString());
     }
 }

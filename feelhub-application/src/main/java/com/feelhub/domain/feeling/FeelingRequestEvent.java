@@ -55,7 +55,7 @@ public class FeelingRequestEvent extends DomainEvent {
         private FeelhubLanguage language = FeelhubLanguage.none();
         private String keywordValue = "";
         private UUID feelingId;
-        private String userId = "";
+        private UUID userId;
     }
 
     private FeelingRequestEvent(final Builder builder) {
@@ -97,7 +97,7 @@ public class FeelingRequestEvent extends DomainEvent {
         return feelingId;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
@@ -107,5 +107,5 @@ public class FeelingRequestEvent extends DomainEvent {
     private final FeelhubLanguage language;
     private final String keywordValue;
     private final UUID feelingId;
-    private final String userId;
+    private final UUID userId;
 }

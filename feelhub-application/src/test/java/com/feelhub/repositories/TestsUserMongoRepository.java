@@ -22,19 +22,18 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistAnUser() {
-        final String id = UUID.randomUUID().toString();
-        final User user = new User(id);
+        final User user = new User();
         user.setEmail("email@email.com");
         user.setPassword("password");
         user.setFullname("fullname");
         user.setLanguage(FeelhubLanguage.fromCode("en"));
-        user.addToken(new SocialToken(SocialNetwork.FACEBOOK, "token"));
+        user.addSocialAuth(new SocialAuth(SocialNetwork.FACEBOOK, "id", "token"));
 
         repository.add(user);
 
-        final DBObject userFound = getUserFromDB(id);
+        final DBObject userFound = getUserFromDB(user.getId());
         assertThat(userFound).isNotNull();
-        assertThat(userFound.get("_id").toString()).isEqualTo(user.getId());
+        assertThat(userFound.get("_id")).isEqualTo(user.getId());
         assertThat(userFound.get("email").toString()).isEqualTo(user.getEmail());
         assertThat(userFound.get("password")).isEqualTo(user.getPassword());
         assertThat(userFound.get("fullname")).isEqualTo(user.getFullname());
@@ -42,12 +41,12 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         assertThat(userFound.get("active")).isEqualTo(user.isActive());
         assertThat(userFound.get("creationDate")).isEqualTo(time.getNow().getMillis());
         assertThat(userFound.get("lastModificationDate")).isEqualTo(time.getNow().getMillis());
-        assertThat(userFound.get("socialTokens")).isNotNull();
-        final BasicDBList socialTokens = (BasicDBList) userFound.get("socialTokens");
+        final BasicDBList socialTokens = (BasicDBList) userFound.get("socialAuths");
         assertThat(socialTokens).hasSize(1);
         final DBObject token = (DBObject) socialTokens.get(0);
-        assertThat(token.get("value")).isEqualTo("token");
+        assertThat(token.get("token")).isEqualTo("token");
         assertThat(token.get("network")).isEqualTo("FACEBOOK");
+        assertThat(token.get("id")).isEqualTo("id");
     }
 
     @Test
@@ -75,7 +74,19 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         assertThat(userFound).isNotNull();
     }
 
-    private DBObject getUserFromDB(final String id) {
+    @Test
+    public void canGetByNetwork() {
+        final User user = new User();
+        user.addSocialAuth(new SocialAuth(SocialNetwork.FACEBOOK, "id", "token"));
+        repository.add(user);
+
+        final User userFound = repository.findBySocialNetwork(SocialNetwork.FACEBOOK, "id");
+
+        assertThat(userFound).isNotNull();
+
+    }
+
+    private DBObject getUserFromDB(final UUID id) {
         final DBCollection collection = mongo.getCollection("user");
         final DBObject query = new BasicDBObject();
         query.put("_id", id);

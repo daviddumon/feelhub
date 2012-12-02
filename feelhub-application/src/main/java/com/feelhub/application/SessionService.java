@@ -10,8 +10,7 @@ import java.util.UUID;
 public class SessionService {
 
     public Session createSession(final User user, final DateTime expirationDate) {
-        final Session session = new Session(expirationDate);
-        session.setUserId(user.getId());
+        final Session session = new Session(expirationDate, user);
         Repositories.sessions().add(session);
         return session;
     }
@@ -32,7 +31,7 @@ public class SessionService {
     }
 
     private void checkSessionForUser(final User user, final Session session) {
-        if (!session.getUserId().equalsIgnoreCase(user.getId())) {
+        if (session.isOwnedBy(user)) {
             throw new SessionException();
         }
     }

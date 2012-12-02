@@ -20,7 +20,7 @@ public class Tag extends BaseEntity {
     }
 
     @Override
-    public Object getId() {
+    public UUID getId() {
         return id;
     }
 

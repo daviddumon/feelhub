@@ -46,7 +46,7 @@ public class TestsFacebookResource {
 
     @Test
     public void canAuthenticateUser() {
-        newUser();
+        final com.feelhub.domain.user.User user = newUser();
         validUser();
 
         facebookResource.facebookReturn();
@@ -55,7 +55,7 @@ public class TestsFacebookResource {
         verify(authenticationManager).authenticate(captor.capture());
         final AuthRequest authRequest = captor.getValue();
         assertThat(authRequest).isNotNull();
-        assertThat(authRequest.getUserId()).isEqualTo("test");
+        assertThat(authRequest.getUserId()).isEqualTo(user.getId().toString());
         assertThat(authRequest.getAuthMethod()).isEqualTo(AuthMethod.FACEBOOK);
     }
 
@@ -89,13 +89,15 @@ public class TestsFacebookResource {
         when(facebookConnector.getUser(any(Token.class))).thenReturn(fbUser);
     }
 
-    private void newUser() {
+    private com.feelhub.domain.user.User newUser() {
+        final com.feelhub.domain.user.User user = new com.feelhub.domain.user.User();
         when(userService.findOrCreateForFacebook(anyString(), anyString(), anyString(), anyString(), anyString(), anyString()))
-                .thenReturn(new com.feelhub.domain.user.User("test"));
+                .thenReturn(user);
+        return user;
     }
 
     private void oldUser() {
-        final com.feelhub.domain.user.User user = new com.feelhub.domain.user.User("test");
+        final com.feelhub.domain.user.User user = new com.feelhub.domain.user.User();
         when(userService.findOrCreateForFacebook(anyString(), anyString(), anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(user);
         user.setCreationDate(DateTime.now().minusDays(1));

@@ -21,7 +21,7 @@ public class Activation extends BaseEntity {
         return id;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
@@ -31,5 +31,5 @@ public class Activation extends BaseEntity {
 
     private UUID id;
 
-    private String userId;
+    private UUID userId;
 }

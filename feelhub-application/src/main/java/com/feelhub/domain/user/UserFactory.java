@@ -8,7 +8,7 @@ import com.feelhub.repositories.Repositories;
 public class UserFactory {
 
     public User createUser(final String email, final String password, final String fullname, final String language) {
-        final User user = commonUser(email, email, fullname);
+        final User user = commonUser(email, fullname);
         user.setLanguage(FeelhubLanguage.fromCode(language));
         user.setPassword(password);
         DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
@@ -16,17 +16,17 @@ public class UserFactory {
     }
 
     public User createFromFacebook(final String facebookId, final String email, final String firstName, final String lastName, final String language, final String token) {
-        final User user = commonUser(UserIds.facebook(facebookId), email, firstName + " " + lastName);
+        final User user = commonUser(email, firstName + " " + lastName);
         user.setLanguage(FeelhubLanguage.fromCode(language));
-        user.addToken(new SocialToken(SocialNetwork.FACEBOOK, token));
+        user.addSocialAuth(new SocialAuth(SocialNetwork.FACEBOOK, facebookId, token));
         user.activate();
         DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
         return user;
     }
 
-    private User commonUser(final String id, final String email, final String fullname) {
+    private User commonUser(final String email, final String fullname) {
         checkForExistingEmail(email);
-        final User user = new User(id);
+        final User user = new User();
         user.setEmail(email);
         user.setFullname(fullname);
         return user;

@@ -10,7 +10,7 @@ public class FeelingData {
         this.id = feeling.getId();
         this.text = feeling.getText();
         this.languageCode = feeling.getLanguageCode();
-        this.userId = feeling.getUserId();
+        this.userId = feeling.getUserId().toString();
         this.topicDatas = topicDatas;
     }
 

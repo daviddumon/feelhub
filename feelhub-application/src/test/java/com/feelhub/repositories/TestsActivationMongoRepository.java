@@ -18,7 +18,8 @@ public class TestsActivationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() {
-        final Activation activation = new Activation(new User("id"));
+        final User user = new User();
+        final Activation activation = new Activation(user);
 
         repository.add(activation);
 
@@ -28,7 +29,7 @@ public class TestsActivationMongoRepository extends TestWithMongoRepository {
         final DBObject activationFound = collection.findOne(query);
         assertThat(activationFound).isNotNull();
         assertThat(activationFound.get("_id")).isEqualTo(activation.getId());
-        assertThat(activationFound.get("userId")).isEqualTo("id");
+        assertThat(activationFound.get("userId")).isEqualTo(user.getId());
 
     }
 }

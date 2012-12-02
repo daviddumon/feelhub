@@ -16,10 +16,11 @@ public class TestsCookieBuilder {
         properties.secureMode = true;
         properties.cookie = ".test.localhost";
         properties.cookiePermanentTime = 10;
+        final User user = new User();
 
-        final CookieSetting cookie = new CookieBuilder(properties).idCookie(new User("userId"));
+        final CookieSetting cookie = new CookieBuilder(properties).idCookie(user);
 
-        assertThat(cookie.getValue()).isEqualTo("userId");
+        assertThat(cookie.getValue()).isEqualTo(user.getId().toString());
         assertThat(cookie.getComment()).isEqualTo("id cookie");
         assertThat(cookie.getName()).isEqualTo("id");
         assertThat(cookie.isAccessRestricted()).isTrue();
@@ -37,7 +38,7 @@ public class TestsCookieBuilder {
         properties.cookie = ".test.localhost";
         properties.cookiePermanentTime = 10;
         properties.cookieBaseTime = 1;
-        final Session session = new Session(DateTime.now());
+        final Session session = new Session(DateTime.now(), new User());
 
         final CookieSetting cookie = new CookieBuilder(properties).tokenCookie(session, false);
 
@@ -59,7 +60,7 @@ public class TestsCookieBuilder {
         properties.cookie = ".test.localhost";
         properties.cookiePermanentTime = 10;
         properties.cookieBaseTime = 1;
-        final Session session = new Session(DateTime.now());
+        final Session session = new Session(DateTime.now(), new User());
 
         final CookieSetting cookie = new CookieBuilder(properties).tokenCookie(session, true);
 

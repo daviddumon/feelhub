@@ -24,8 +24,8 @@ public class TestsSessionMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistSession() {
-        final Session session = new Session(new DateTime().plusHours(1));
-        session.setUserId("mail@mail.com");
+        final User user = new User();
+        final Session session = new Session(new DateTime().plusHours(1), user);
 
         repository.add(session);
 

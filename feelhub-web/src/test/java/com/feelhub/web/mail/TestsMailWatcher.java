@@ -77,7 +77,7 @@ public class TestsMailWatcher {
 
     @Test
     public void doNotSendWelcomeForInactiveUser() {
-        final User user = new User("id");
+        final User user = new User();
 
         DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
 

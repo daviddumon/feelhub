@@ -1,11 +1,8 @@
 package com.feelhub.domain.user;
 
-import java.util.UUID;
-
 public class FakeUser extends User {
 
     public FakeUser() {
-        super(UUID.randomUUID().toString());
     }
 
     @Override

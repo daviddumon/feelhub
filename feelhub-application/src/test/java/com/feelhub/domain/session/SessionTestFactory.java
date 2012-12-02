@@ -7,8 +7,7 @@ import org.joda.time.DateTime;
 public class SessionTestFactory {
 
     public Session createSessionFor(final User user) {
-        final Session session = new Session(new DateTime().plusHours(1));
-        session.setUserId(user.getId());
+        final Session session = new Session(new DateTime().plusHours(1), user);
         Repositories.sessions().add(session);
         return session;
     }

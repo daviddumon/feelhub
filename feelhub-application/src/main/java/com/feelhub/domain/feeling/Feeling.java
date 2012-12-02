@@ -3,10 +3,12 @@ package com.feelhub.domain.feeling;
 import com.feelhub.domain.BaseEntity;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.user.User;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class Feeling extends BaseEntity {
 
@@ -26,8 +28,8 @@ public class Feeling extends BaseEntity {
             return this;
         }
 
-        public Builder user(final String userId) {
-            this.userId = userId;
+        public Builder user(final UUID user) {
+            this.user = user;
             return this;
         }
 
@@ -43,7 +45,7 @@ public class Feeling extends BaseEntity {
 
         private UUID id = null;
         private String text = "";
-        private String userId = "";
+        private UUID user;
         private String languageCode = "";
         private final List<Sentiment> sentiments = Lists.newArrayList();
     }
@@ -56,7 +58,7 @@ public class Feeling extends BaseEntity {
         this.id = builder.id;
         this.text = builder.text;
         this.languageCode = builder.languageCode;
-        this.userId = builder.userId;
+        this.userId = builder.user;
         this.sentiments.addAll(builder.sentiments);
         postEventForAllSentiments();
     }
@@ -67,14 +69,14 @@ public class Feeling extends BaseEntity {
         }
     }
 
-    public Feeling(final String text, final String userId) {
-        this(text, userId, UUID.randomUUID());
+    public Feeling(final String text, final User user) {
+        this(text, user, UUID.randomUUID());
     }
 
-    public Feeling(final String text, final String userId, final UUID id) {
+    public Feeling(final String text, final User user, final UUID id) {
         this.id = id;
         this.text = text;
-        this.userId = userId;
+        this.userId = user.getId();
     }
 
     public void addSentiment(final Topic topic, final SentimentValue sentimentValue) {
@@ -110,7 +112,7 @@ public class Feeling extends BaseEntity {
         return languageCode;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
@@ -118,5 +120,5 @@ public class Feeling extends BaseEntity {
     private String text;
     private final List<Sentiment> sentiments = Lists.newArrayList();
     private String languageCode;
-    private String userId;
+    private UUID userId;
 }

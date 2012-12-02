@@ -25,7 +25,7 @@ public class TestsUser {
         bus.capture(UserCreatedEvent.class);
         final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "FR_fr");
 
-        assertThat(user.getId()).isEqualTo("email@email.com");
+        assertThat(user.getId()).isNotNull();
         final UserCreatedEvent event = bus.lastEvent(UserCreatedEvent.class);
         assertThat(event.getUser()).isEqualTo(user);
     }
@@ -33,7 +33,7 @@ public class TestsUser {
     @Test
     public void canSetEmailAsIdentifier() {
         final String email = "mymail@mail.com";
-        final User user = new User("");
+        final User user = new User();
 
         user.setEmail(email);
 
@@ -44,14 +44,14 @@ public class TestsUser {
     public void identifierIsARealEmail() {
         exception.expect(BadEmail.class);
         final String email = "notanemail";
-        final User user = new User("");
+        final User user = new User();
 
         user.setEmail(email);
     }
 
     @Test
     public void lowercaseEmails() {
-        final User user = new User("");
+        final User user = new User();
 
         user.setEmail("mYmail@mAIL.cOm");
 
@@ -60,7 +60,7 @@ public class TestsUser {
 
     @Test
     public void trimEmail() {
-        final User user = new User("");
+        final User user = new User();
 
         user.setEmail("  mymail@mail.com ");
 
@@ -69,7 +69,7 @@ public class TestsUser {
 
     @Test
     public void canSetPassword() {
-        final User user = new User("");
+        final User user = new User();
 
         user.setPassword("password");
 
@@ -78,7 +78,7 @@ public class TestsUser {
 
     @Test
     public void canHashPassword() {
-        final User user = new User("");
+        final User user = new User();
 
         user.setPassword("password");
 
@@ -88,7 +88,7 @@ public class TestsUser {
     @Test
     public void canCheckAPasswordMatches() {
         final String password = "password";
-        final User user = new User("");
+        final User user = new User();
         user.setPassword(password);
 
         final boolean helloTest = user.checkPassword("hello");
@@ -100,7 +100,7 @@ public class TestsUser {
 
     @Test
     public void canSetFullname() {
-        final User user = new User("");
+        final User user = new User();
         final String fullname = "John doe";
 
         user.setFullname(fullname);
@@ -110,7 +110,7 @@ public class TestsUser {
 
     @Test
     public void canSetLanguage() {
-        final User user = new User("");
+        final User user = new User();
 
         final FeelhubLanguage language = FeelhubLanguage.fromCountryName("English");
 
@@ -122,7 +122,7 @@ public class TestsUser {
 
     @Test
     public void canActivate() {
-        final User user = new User("");
+        final User user = new User();
 
         assertThat(user.isActive()).isEqualTo(false);
 
@@ -141,8 +141,8 @@ public class TestsUser {
         assertThat(user.getFullname()).isEqualTo("first last");
         assertThat(user.getLanguageCode()).isEqualTo("fr");
         assertThat(user.isActive()).isTrue();
-        assertThat(user.getId()).isEqualTo("FB:1234");
-        assertThat(user.getSocialToken(SocialNetwork.FACEBOOK)).isEqualTo(new SocialToken(SocialNetwork.FACEBOOK, "token"));
+        assertThat(user.getSocialAuth(SocialNetwork.FACEBOOK)).isEqualTo(new SocialAuth(SocialNetwork.FACEBOOK, "1234", "token"));
+        assertThat(user.getSocialAuth(SocialNetwork.FACEBOOK).getToken()).isEqualTo("token");
         final UserCreatedEvent event = bus.lastEvent(UserCreatedEvent.class);
         assertThat(event).isNotNull();
         assertThat(event.getUser()).isEqualTo(user);

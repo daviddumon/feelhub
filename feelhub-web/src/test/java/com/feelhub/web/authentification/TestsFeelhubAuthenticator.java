@@ -1,9 +1,12 @@
 package com.feelhub.web.authentification;
 
-import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.BadPasswordException;
+import com.feelhub.domain.user.BadUserException;
+import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.*;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class TestsFeelhubAuthenticator {
@@ -16,16 +19,16 @@ public class TestsFeelhubAuthenticator {
 
     @Test
     public void cannotAuthenticateIfAccountIsNotActive() {
-        TestFactories.users().createFakeUser("mail@mail.com");
+        final User fakeUser = TestFactories.users().createFakeUser("mail@mail.com");
 
         exception.expect(BadUserException.class);
-        new FeelhubAuthenticator().authenticate(new AuthRequest("mail@mail.com", "password", true));
+        new FeelhubAuthenticator().authenticate(new AuthRequest(fakeUser.getEmail(), "password", true));
     }
 
     @Test
     public void cannotAuthenticateUnknownUser() {
         exception.expect(BadUserException.class);
-        new FeelhubAuthenticator().authenticate(new AuthRequest("id", "", true));
+        new FeelhubAuthenticator().authenticate(new AuthRequest("asutesiutar", "", true));
     }
 
     @Test
@@ -34,6 +37,6 @@ public class TestsFeelhubAuthenticator {
         user.setPassword("toto");
 
         exception.expect(BadPasswordException.class);
-        new FeelhubAuthenticator().authenticate(new AuthRequest(user.getId(), "tata", true));
+        new FeelhubAuthenticator().authenticate(new AuthRequest(user.getEmail() , "tata", true));
     }
 }

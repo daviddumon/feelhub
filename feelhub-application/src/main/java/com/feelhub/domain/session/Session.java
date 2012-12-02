@@ -1,6 +1,7 @@
 package com.feelhub.domain.session;
 
 import com.feelhub.domain.BaseEntity;
+import com.feelhub.domain.user.User;
 import org.joda.time.DateTime;
 
 import java.util.UUID;
@@ -11,9 +12,10 @@ public class Session extends BaseEntity {
     public Session() {
     }
 
-    public Session(final DateTime expirationDate) {
+    public Session(final DateTime expirationDate, User user) {
         this.expirationDate = expirationDate;
         this.token = UUID.randomUUID();
+        this.userId = user.getId();
     }
 
     @Override
@@ -21,12 +23,8 @@ public class Session extends BaseEntity {
         return token;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
-    }
-
-    public void setUserId(final String userId) {
-        this.userId = userId;
     }
 
     public UUID getToken() {
@@ -41,7 +39,11 @@ public class Session extends BaseEntity {
         return expirationDate.isBefore(new DateTime());
     }
 
+    public boolean isOwnedBy(final User user) {
+        return !getUserId().equals(user.getId());
+    }
+
     private UUID token;
-    private String userId;
+    private UUID userId;
     private DateTime expirationDate;
 }

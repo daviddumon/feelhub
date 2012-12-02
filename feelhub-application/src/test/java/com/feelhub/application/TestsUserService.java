@@ -77,19 +77,34 @@ public class TestsUserService {
     public void canCreateForFacebook() {
         userService.findOrCreateForFacebook("123", "test@test.com", "jb", "dusse", "fr_fr", "token");
 
-        final User user = Repositories.users().get(UserIds.facebook("123"));
+        Assert.assertThat(Repositories.users().getAll().size(), is(1));
+        final User user = Repositories.users().getAll().get(0);
         assertThat(user, notNullValue());
-        assertThat(user.getId(), is(UserIds.facebook("123")));
+        assertThat(user.getSocialAuth(SocialNetwork.FACEBOOK).getId(), is("123"));
     }
 
     @Test
     public void dontCreateTwiceForFacebook() {
-        final User user = new User(UserIds.facebook("123"));
+        final User user = new User();
+        user.addSocialAuth(new SocialAuth(SocialNetwork.FACEBOOK, "123", "token"));
         Repositories.users().add(user);
 
         userService.findOrCreateForFacebook("123", "test@test.com", "jb", "dusse", "fr_fr", "token");
 
         assertThat(Repositories.users().getAll().size(), is(1));
+    }
+
+    @Test
+    public void canConnectFormerUserToFacebookAccount() {
+        final User user = new User();
+        user.setEmail("test@test.com");
+        Repositories.users().add(user);
+
+        userService.findOrCreateForFacebook("123", "test@test.com", "jb", "dusse", "fr_fr", "token");
+
+        assertThat(Repositories.users().getAll().size(), is(1));
+        assertThat(user.getSocialAuth(SocialNetwork.FACEBOOK), notNullValue());
+        assertThat(user.getSocialAuth(SocialNetwork.FACEBOOK).getId(), is("123"));
     }
 
     private UserService userService;

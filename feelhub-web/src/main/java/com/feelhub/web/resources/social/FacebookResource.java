@@ -27,7 +27,7 @@ public class FacebookResource extends ServerResource {
         final User facebookUser = connector.getUser(accesToken);
         final com.feelhub.domain.user.User user = userService.findOrCreateForFacebook(facebookUser.getId(), facebookUser.getEmail(),
                 facebookUser.getFirstName(), facebookUser.getLastName(), facebookUser.getLocale(), accesToken.getToken());
-        authenticationManager.authenticate(AuthRequest.facebook(user.getId()));
+        authenticationManager.authenticate(AuthRequest.facebook(user.getId().toString()));
         setStatus(Status.REDIRECTION_TEMPORARY);
         if (isOldUser(user)) {
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri(""));

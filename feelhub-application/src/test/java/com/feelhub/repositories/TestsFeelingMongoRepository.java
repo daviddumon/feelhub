@@ -21,7 +21,7 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
     public void canPersist() {
         final Topic topic = TestFactories.topics().newTopic();
         final User activeUser = TestFactories.users().createFakeActiveUser("userforrepo@mail.com");
-        final Feeling feeling = new Feeling("yeah", activeUser.getId());
+        final Feeling feeling = new Feeling("yeah", activeUser);
         feeling.addSentiment(topic, SentimentValue.bad);
         feeling.setLanguageCode("en");
 
@@ -37,7 +37,7 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
         assertThat(feelingFound.get("languageCode").toString(), is(feeling.getLanguageCode()));
         assertThat(feelingFound.get("creationDate"), is((Object) feeling.getCreationDate().getMillis()));
         assertThat(feelingFound.get("lastModificationDate"), is((Object) feeling.getCreationDate().getMillis()));
-        assertThat(feelingFound.get("userId").toString(), is(activeUser.getId()));
+        assertThat(feelingFound.get("userId"), is((Object) activeUser.getId()));
     }
 
     @Test
