@@ -1,18 +1,14 @@
 package com.feelhub.web.guice;
 
-import com.feelhub.application.ActivationService;
-import com.feelhub.application.FeelingService;
+import com.feelhub.application.*;
 import com.feelhub.domain.alchemy.AlchemyAnalyzer;
 import com.feelhub.domain.eventbus.DeadEventCatcher;
-import com.feelhub.domain.meta.UriMetaInformationFactory;
-import com.feelhub.domain.meta.WordIllustrationFactory;
+import com.feelhub.domain.meta.*;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.domain.world.WorldListener;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.web.mail.MailWatcher;
-import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
+import com.google.inject.*;
 import com.google.inject.name.Names;
 
 import java.io.IOException;

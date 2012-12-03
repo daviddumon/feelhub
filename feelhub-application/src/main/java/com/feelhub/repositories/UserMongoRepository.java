@@ -1,14 +1,10 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.user.SocialNetwork;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserRepository;
+import com.feelhub.domain.user.*;
 import org.mongolink.MongoSession;
-import org.mongolink.domain.criteria.Criteria;
-import org.mongolink.domain.criteria.Restrictions;
+import org.mongolink.domain.criteria.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class UserMongoRepository extends BaseMongoRepository<User> implements UserRepository {
 
@@ -33,7 +29,7 @@ public class UserMongoRepository extends BaseMongoRepository<User> implements Us
         final Criteria<User> criteria = createCriteria();
         criteria.add(Restrictions.elementMatch("socialAuths").equals("network", socialNetwork).equals("id", id));
         final List<User> list = criteria.list();
-        if(list.size() != 0) {
+        if (list.size() != 0) {
             return list.get(0);
         }
         return null;

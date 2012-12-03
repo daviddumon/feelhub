@@ -12,7 +12,7 @@ public class TopicFactory {
         return topic;
     }
 
-    public Topic createTopic(final FeelhubLanguage feelhubLanguage,final String description, final TopicType topicType) {
+    public Topic createTopic(final FeelhubLanguage feelhubLanguage, final String description, final TopicType topicType) {
         final UUID id = UUID.randomUUID();
         final Topic topic = new Topic(id);
         topic.addDescription(feelhubLanguage, description);

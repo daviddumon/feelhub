@@ -22,7 +22,7 @@ public class TopicService {
         return topic;
     }
 
-    public Topic createTopic(final FeelhubLanguage feelhubLanguage,final String description, final TopicType topicType) {
+    public Topic createTopic(final FeelhubLanguage feelhubLanguage, final String description, final TopicType topicType) {
         final Topic topic = topicFactory.createTopic(feelhubLanguage, description, topicType);
         Repositories.topics().add(topic);
         return topic;

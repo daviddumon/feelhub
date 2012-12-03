@@ -1,5 +1,5 @@
 /* Copyright Feelhub 2012 */
-define(['jquery', './ajax'], function ($, ajax) {
+define(['jquery'], function ($) {
 
     function init() {
         $(".help_text").click(function () {

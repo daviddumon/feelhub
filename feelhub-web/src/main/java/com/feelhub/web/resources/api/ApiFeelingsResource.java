@@ -21,15 +21,17 @@ public class ApiFeelingsResource extends ServerResource {
     }
 
     @Post
-    public JsonRepresentation add(final JsonRepresentation jsonRepresentation) {
+    public JsonRepresentation add(final Form form) {
         try {
             checkCredentials();
             setStatus(Status.SUCCESS_CREATED);
-            return apiCreateFeeling.add(jsonRepresentation);
+            return apiCreateFeeling.add(form);
         } catch (JSONException e) {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
         } catch (AuthenticationException e) {
             setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
+        } catch (FeelhubApiException e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
         }
         return new JsonRepresentation(new JSONObject());
     }

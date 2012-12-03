@@ -1,11 +1,5 @@
 <#macro js>
     <@head.headbegin>
-    <script type="text/javascript">
-        var authentificated = ${userInfos.authenticated?string};
-            <#if !userInfos.anonymous>
-            var userLanguageCode = "${userInfos.user.languageCode}";
-            </#if>
-    </script>
     </@head.headbegin>
 
     <@head.cssprod>

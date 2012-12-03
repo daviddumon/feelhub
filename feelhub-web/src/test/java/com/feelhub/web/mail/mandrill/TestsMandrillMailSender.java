@@ -1,8 +1,6 @@
 package com.feelhub.web.mail.mandrill;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 public class TestsMandrillMailSender {
 

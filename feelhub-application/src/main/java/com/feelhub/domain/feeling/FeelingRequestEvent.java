@@ -19,23 +19,8 @@ public class FeelingRequestEvent extends DomainEvent {
             return this;
         }
 
-        public Builder sentimentValue(final SentimentValue sentimentValue) {
-            this.sentimentValue = sentimentValue;
-            return this;
-        }
-
-        public Builder userLanguageCode(final FeelhubLanguage userLanguageCode) {
-            this.userLanguage = userLanguageCode;
-            return this;
-        }
-
         public Builder languageCode(final FeelhubLanguage languageCode) {
             this.language = languageCode;
-            return this;
-        }
-
-        public Builder keywordValue(final String keywordValue) {
-            this.keywordValue = keywordValue;
             return this;
         }
 
@@ -49,23 +34,24 @@ public class FeelingRequestEvent extends DomainEvent {
             return this;
         }
 
+        public Builder topicId(final UUID topicId) {
+            this.topicId = topicId;
+            return this;
+        }
+
         private String text = "";
-        private SentimentValue sentimentValue = SentimentValue.none;
-        private FeelhubLanguage userLanguage = FeelhubLanguage.none();
         private FeelhubLanguage language = FeelhubLanguage.none();
-        private String keywordValue = "";
         private UUID feelingId;
         private UUID userId;
+        private UUID topicId;
     }
 
     private FeelingRequestEvent(final Builder builder) {
         this.text = builder.text;
-        this.sentimentValue = builder.sentimentValue;
-        this.userLanguage = builder.userLanguage;
         this.language = builder.language;
-        this.keywordValue = builder.keywordValue;
         this.feelingId = builder.feelingId;
         this.userId = builder.userId;
+        this.topicId = builder.topicId;
     }
 
     @Override
@@ -73,24 +59,12 @@ public class FeelingRequestEvent extends DomainEvent {
         return getClass().getSimpleName();
     }
 
-    public SentimentValue getSentimentValue() {
-        return sentimentValue;
-    }
-
     public String getText() {
         return text;
     }
 
-    public FeelhubLanguage getUserLanguage() {
-        return userLanguage;
-    }
-
     public FeelhubLanguage getLanguage() {
         return language;
-    }
-
-    public String getKeywordValue() {
-        return keywordValue;
     }
 
     public UUID getFeelingId() {
@@ -101,11 +75,13 @@ public class FeelingRequestEvent extends DomainEvent {
         return userId;
     }
 
+    public UUID getTopicId() {
+        return topicId;
+    }
+
     private final String text;
-    private final SentimentValue sentimentValue;
-    private final FeelhubLanguage userLanguage;
     private final FeelhubLanguage language;
-    private final String keywordValue;
     private final UUID feelingId;
     private final UUID userId;
+    private final UUID topicId;
 }

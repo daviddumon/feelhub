@@ -1,12 +1,26 @@
-<@noflow.js>
-<script type="text/javascript">
-    $(function () {
-        $("header").hide();
-    });
-</script>
-</@noflow.js>
+<@head.headbegin>
+</@head.headbegin>
 
-<@noflow.body>
+<@head.cssprod>
+<link rel="stylesheet" href="${root}/static/css/noflow_layout.css?${buildtime}"/>
+</@head.cssprod>
+
+<@head.cssdev>
+<link rel="stylesheet/less" type="text/css" href="${root}/static/css/noflow_layout.less?${buildtime}"/>
+</@head.cssdev>
+
+<@head.jsprod>
+</@head.jsprod>
+
+<@head.jsdev>
+</@head.jsdev>
+
+<@head.js>
+</@head.js>
+
+<@head.headend>
+</@head.headend>
+<body>
 <div id="migration">
     <img id="loading_gif" src="${root}/static/images/ajax-loader.gif"/>
 
@@ -14,4 +28,5 @@
 
     <p>We apologize for the inconvenience</p>
 </div>
-</@noflow.body>
+</body>
+</html>

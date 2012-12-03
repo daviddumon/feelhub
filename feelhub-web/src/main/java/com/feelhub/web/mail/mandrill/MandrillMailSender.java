@@ -3,11 +3,8 @@ package com.feelhub.web.mail.mandrill;
 import com.feelhub.tools.Clients;
 import com.google.gson.Gson;
 import org.joda.time.DateTime;
-import org.restlet.Client;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.MediaType;
-import org.restlet.data.Method;
+import org.restlet.*;
+import org.restlet.data.*;
 
 public class MandrillMailSender {
 
@@ -26,7 +23,7 @@ public class MandrillMailSender {
         final Client client = Clients.create();
         final Response response = client.handle(request);
         Clients.stop(client);
-        if(!response.getStatus().isSuccess()) {
+        if (!response.getStatus().isSuccess()) {
             throw new MandrillException(response.getStatus(), response.getEntityAsText());
         }
     }

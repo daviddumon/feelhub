@@ -7,11 +7,9 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
 import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
-import com.feelhub.web.tools.FeelhubWebProperties;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.*;
-import org.restlet.engine.util.CookieSeries;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -33,7 +31,7 @@ public class TestsSessionsResource {
     @Before
     public void avant() {
         authenticationManager = mock(AuthenticationManager.class);
-        resource = new SessionsResource(authenticationManager, new FeelhubWebProperties());
+        resource = new SessionsResource(authenticationManager);
         ContextTestFactory.initResource(resource);
     }
 
@@ -80,7 +78,6 @@ public class TestsSessionsResource {
         assertThat(resource.getStatus(), is(Status.CLIENT_ERROR_UNAUTHORIZED));
     }
 
-
     @Test
     public void canValidateForm() {
         resource.login(new Form());
@@ -117,14 +114,5 @@ public class TestsSessionsResource {
 
         assertThat(sessions.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
         assertThat(Repositories.sessions().getAll().size(), is(1));
-    }
-
-    private CookieSeries getGoodCookies(final User user, final Session session) {
-        final Cookie id = new Cookie(1, "id", user.getEmail());
-        final Cookie sessionCookie = new Cookie(1, "session", session.getToken().toString());
-        final CookieSeries cookies = new CookieSeries();
-        cookies.add(id);
-        cookies.add(sessionCookie);
-        return cookies;
     }
 }

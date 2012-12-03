@@ -7,8 +7,7 @@ import com.feelhub.domain.user.User;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Feeling extends BaseEntity {
 

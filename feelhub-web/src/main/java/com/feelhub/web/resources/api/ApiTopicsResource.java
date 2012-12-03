@@ -1,14 +1,12 @@
 package com.feelhub.web.resources.api;
 
 import com.feelhub.application.TopicService;
-import com.feelhub.domain.topic.TopicType;
+import com.feelhub.domain.topic.*;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
 import com.google.inject.Inject;
 import org.apache.http.auth.AuthenticationException;
-import org.json.*;
-import org.restlet.data.Status;
-import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.data.*;
 import org.restlet.resource.*;
 
 public class ApiTopicsResource extends ServerResource {
@@ -19,28 +17,40 @@ public class ApiTopicsResource extends ServerResource {
     }
 
     @Post
-    public void createTopic(final JsonRepresentation jsonRepresentation) {
+    public void createTopic(final Form form) {
         try {
             checkCredentials();
-            //final JSONObject jsonObject = jsonRepresentation.getJsonObject();
-            //final String description = jsonObject.get("description").toString();
-            //final String type = jsonObject.get("type").toString();
-            //final JSONArray jsonArray = jsonRepresentation.getJsonArray();
-            //final JSONObject descriptionJson = jsonArray.getJSONObject(0);
-            //final JSONObject typeJson = jsonArray.getJSONObject(1);
-            //final String description = descriptionJson.get("description").toString();
-            //final String type = typeJson.get("type").toString();
-            topicService.createTopic(CurrentUser.get().getLanguage(), "tamere", TopicType.valueOf("City"));
-            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/"));
+            final String description = extractDescription(form);
+            final TopicType type = extractType(form);
+            final Topic topic = topicService.createTopic(CurrentUser.get().getLanguage(), description, type);
+            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + topic.getId()));
             setStatus(Status.SUCCESS_CREATED);
         } catch (AuthenticationException e) {
             setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
+        } catch (FeelhubApiException e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
         }
     }
 
     private void checkCredentials() throws AuthenticationException {
         if (!CurrentUser.get().isAuthenticated()) {
             throw new AuthenticationException();
+        }
+    }
+
+    private String extractDescription(final Form form) {
+        if (form.getQueryString().contains("description")) {
+            return form.getFirstValue("description");
+        } else {
+            throw new FeelhubApiException();
+        }
+    }
+
+    private TopicType extractType(final Form form) {
+        if (form.getQueryString().contains("type")) {
+            return TopicType.valueOf(form.getFirstValue("type"));
+        } else {
+            throw new FeelhubApiException();
         }
     }
 

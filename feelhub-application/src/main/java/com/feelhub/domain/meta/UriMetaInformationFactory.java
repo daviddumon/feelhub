@@ -36,7 +36,7 @@ public class UriMetaInformationFactory {
 
     private void addType(final Topic topic, final String type) {
         try {
-             topic.setType(TopicType.valueOf(WordUtils.capitalizeFully(type)));
+            topic.setType(TopicType.valueOf(WordUtils.capitalizeFully(type)));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }

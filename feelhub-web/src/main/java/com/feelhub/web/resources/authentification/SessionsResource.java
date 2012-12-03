@@ -3,7 +3,6 @@ package com.feelhub.web.resources.authentification;
 import com.feelhub.domain.user.BadPasswordException;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.*;
-import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import org.restlet.data.*;
@@ -12,9 +11,8 @@ import org.restlet.resource.*;
 public class SessionsResource extends ServerResource {
 
     @Inject
-    public SessionsResource(final AuthenticationManager authenticationManager, final FeelhubWebProperties properties) {
+    public SessionsResource(final AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
-        this.properties = properties;
     }
 
     @Post
@@ -30,7 +28,6 @@ public class SessionsResource extends ServerResource {
         } catch (BadPasswordException badPasswordException) {
             setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
         }
-
     }
 
     private AuthRequest extractUserDetails(final Form form) {
@@ -58,5 +55,4 @@ public class SessionsResource extends ServerResource {
     }
 
     private final AuthenticationManager authenticationManager;
-    private final FeelhubWebProperties properties;
 }

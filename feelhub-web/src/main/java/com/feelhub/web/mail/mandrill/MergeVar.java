@@ -11,8 +11,12 @@ public class MergeVar {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MergeVar)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof MergeVar)) {
+            return false;
+        }
 
         final MergeVar mergeVar = (MergeVar) o;
 

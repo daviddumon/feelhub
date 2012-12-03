@@ -6,9 +6,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class User extends BaseEntity {
 

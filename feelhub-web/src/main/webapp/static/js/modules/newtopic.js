@@ -1,23 +1,27 @@
-define(['jquery', './ajax'], function ($, ajax) {
+define(['plugins/domReady!','jquery'], function (doc,$) {
+
+    var container = "#createtopic";
+    var api_end_point = "/api/topics";
 
     function init() {
-        $("#createtopic input").click(function (event) {
-            event.stopImmediatePropagation();
-            event.preventDefault();
+        $(container).submit(function (event) {
             $.ajax({
-                url:root + '/api/topics',
+                url:root + api_end_point,
                 type:'POST',
-                contentType:'application/json',
-                data:JSON.stringify($("#createtopic").serializeArray()),
-                processData:false,
-                success:function (data, textStatus, jqXHR) {
-                    console.log("succes creation topic");
-                },
-                error:function () {
-                    console.log("erreur creation topic");
-                }
+                data:$(container).serialize(),
+                success:success,
+                error:error
             });
+            return false;
         });
+    }
+
+    function success(data, textStatus, jqXHR) {
+        document.location.href = jqXHR.getResponseHeader('Location');
+    }
+
+    function error() {
+        console.log("newtopic ajax error");
     }
 
     return {

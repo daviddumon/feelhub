@@ -50,7 +50,6 @@
         <script src="https://html5shim.googlecode.com/svn/trunk/html5.js?${buildtime}"></script>
         <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?${buildtime}"></script>
         <![endif]-->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
         <#nested/>
     </#if>
 
@@ -59,7 +58,6 @@
 <#macro jsdev>
 
     <#if dev>
-        <script type="text/javascript" src="${root}/static/js/lib/jquery-1.8.3.min.js?${buildtime}"></script>
         <script type="text/javascript" src="${root}/static/js/lib/less-1.3.0.min.js?${buildtime}"></script>
         <#nested/>
     </#if>
@@ -68,7 +66,15 @@
 
 <#macro js>
 
+    <script type="text/javascript">
+        var authentificated = ${userInfos.authenticated?string};
+            <#if !userInfos.anonymous>
+            var userLanguageCode = "${userInfos.user.languageCode}";
+            </#if>
+    </script>
+
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?${buildtime}"></script>
+    <script type="text/javascript" src="${root}/static/js/image-scaling.js?${buildtime}"></script>
     <#nested/>
 
 </#macro>

@@ -2,7 +2,7 @@ require.config(
     {
         paths:{
             'jquery':'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min',
-            'view':'../view/dashboard',
+            'view':'../view',
             'modules':"../modules",
             "plugins":"../plugins",
             "templates":"../view/templates",
@@ -12,9 +12,9 @@ require.config(
     }
 );
 
-require(["plugins/domReady!","jquery", "modules/interface", "modules/newtopic", "view/dashboard-view"], function (doc, $, interface, newtopic, view) {
+require(["plugins/domReady!","jquery", "modules/interface", "modules/newtopic", "view/dashboard/dashboard-view"], function (doc, $, interface, newtopic, view) {
     interface.init();
-    newtopic.init();
     $('#dashboard, #command').wrapAll('<form id="createtopic">');
+    newtopic.init();
     view.render(topicData, true);
 });

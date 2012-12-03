@@ -1,21 +1,12 @@
 package com.feelhub.web.mail;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.user.Activation;
-import com.feelhub.domain.user.ActivationCreatedEvent;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserCreatedEvent;
+import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.user.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.mail.mandrill.MandrillMailSender;
-import com.feelhub.web.mail.mandrill.MandrillRecipient;
-import com.feelhub.web.mail.mandrill.MandrillTemplateRequest;
-import com.feelhub.web.mail.mandrill.MergeVar;
+import com.feelhub.web.mail.mandrill.*;
 import com.feelhub.web.tools.FeelhubWebProperties;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.ArgumentCaptor;
 
 import static org.fest.assertions.Assertions.*;

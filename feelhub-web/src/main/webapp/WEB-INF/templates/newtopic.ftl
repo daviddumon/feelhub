@@ -15,5 +15,5 @@
 </@flow.dashboard>
 
 <@flow.command>
-<input type="submit" value="create"/>
+<input type="submit" name="submit" value="create"/>
 </@flow.command>

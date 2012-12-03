@@ -1,9 +1,6 @@
-define(['jquery', './ajax'], function ($, ajax) {
+define(['jquery'], function ($) {
 
     function init() {
-        //$("#logout").click(function () {
-        //    ajax.call(root + '/sessions', 'DELETE', null, null, location.reload(), null);
-        //});
 
         $("#logout").click(function () {
             $.ajax({
