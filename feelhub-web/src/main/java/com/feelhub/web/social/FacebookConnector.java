@@ -21,7 +21,7 @@ public class FacebookConnector {
     }
 
     public String getUrl() {
-        return service.getAuthorizationUrl(null) + "&scope=email";
+        return service.getAuthorizationUrl(null) + "&scope=email,publish_actions";
     }
 
     public Token getAccesToken(final String facebookCode) {
