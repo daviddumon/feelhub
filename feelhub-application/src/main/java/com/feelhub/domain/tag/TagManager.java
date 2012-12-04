@@ -9,9 +9,14 @@ public class TagManager {
 
     public void merge(final TopicPatch topicPatch) {
         for (final UUID oldTopicId : topicPatch.getOldTopicIds()) {
-            final List<Tag> tags = Repositories.keywords().forTopicId(oldTopicId);
+            final List<Tag> tags = Repositories.tags().forTopicId(oldTopicId);
             for (final Tag tag : tags) {
-                tag.setTopicId(topicPatch.getNewTopicId());
+                final List<UUID> topicIds = tag.getTopicIds();
+                for (int i = 0; i < topicIds.size(); i++) {
+                    if (topicIds.get(i).equals(oldTopicId)) {
+                        topicIds.set(i, topicPatch.getNewTopicId());
+                    }
+                }
             }
         }
     }

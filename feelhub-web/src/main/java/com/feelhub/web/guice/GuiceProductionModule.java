@@ -28,6 +28,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(UriMetaInformationFactory.class).asEagerSingleton();
         bind(AlchemyAnalyzer.class).asEagerSingleton();
         bind(ActivationService.class).asEagerSingleton();
+        bind(TagService.class).asEagerSingleton();
     }
 
     private Properties properties() {

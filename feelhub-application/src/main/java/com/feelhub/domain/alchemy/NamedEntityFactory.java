@@ -69,7 +69,7 @@ public class NamedEntityFactory {
         try {
             entity.type = TopicType.valueOf(WordUtils.capitalizeFully(alchemyJsonEntity.type));
         } catch (IllegalArgumentException e) {
-            entity.type = TopicType.Unknown;
+            entity.type = TopicType.Other;
         }
         entity.relevance = alchemyJsonEntity.relevance;
         if (isDisambiguated(alchemyJsonEntity)) {

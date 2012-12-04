@@ -13,6 +13,8 @@ public class TopicMapping extends EntityMap<Topic> {
     protected void map() {
         id(element().getId()).natural();
         property(element().getType());
+        property(element().getUserId());
+        property(element().getCurrentTopicId());
         collection(element().getSubTypes());
         collection(element().getUrls());
         hashmap(element().getDescriptions());

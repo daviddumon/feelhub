@@ -8,7 +8,6 @@ import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;
 
-
 public class TestsFakeTopicRepository {
 
     @Before

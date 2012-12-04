@@ -1,6 +1,8 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.BaseEntity;
+import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.tag.TagRequestEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.google.common.collect.*;
 
@@ -14,6 +16,7 @@ public class Topic extends BaseEntity {
 
     public Topic(final UUID id) {
         this.id = id;
+        this.currentTopicId = id;
     }
 
     @Override
@@ -47,6 +50,8 @@ public class Topic extends BaseEntity {
 
     public void addDescription(final FeelhubLanguage language, final String description) {
         descriptions.put(language.getCode(), description);
+        final TagRequestEvent tagRequestEvent = new TagRequestEvent(this);
+        DomainEventBus.INSTANCE.post(tagRequestEvent);
     }
 
     public String getDescription(final FeelhubLanguage language) {
@@ -65,9 +70,27 @@ public class Topic extends BaseEntity {
         return descriptions;
     }
 
+    public void setUserId(final UUID userId) {
+        this.userId = userId;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public UUID getCurrentTopicId() {
+        return currentTopicId;
+    }
+
+    public void changeCurrentTopicId(final UUID currentTopicId) {
+        this.currentTopicId = currentTopicId;
+    }
+
     private UUID id;
     private TopicType type;
     private List<String> subTypes = Lists.newArrayList();
     private List<String> urls = Lists.newArrayList();
     private Map<String, String> descriptions = Maps.newHashMap();
+    private UUID userId;
+    private UUID currentTopicId;
 }

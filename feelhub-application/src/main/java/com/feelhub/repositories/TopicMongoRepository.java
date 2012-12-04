@@ -4,7 +4,7 @@ import com.feelhub.domain.topic.*;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
 
-import java.util.List;
+import java.util.*;
 
 public class TopicMongoRepository extends BaseMongoRepository<Topic> implements TopicRepository {
 
@@ -22,5 +22,14 @@ public class TopicMongoRepository extends BaseMongoRepository<Topic> implements 
         } else {
             return (Topic) list.get(0);
         }
+    }
+
+    @Override
+    public Topic getCurrentTopic(final UUID id) {
+        Topic topic = get(id);
+        while (!topic.getCurrentTopicId().equals(topic.getId())) {
+            topic = get(topic.getCurrentTopicId());
+        }
+        return topic;
     }
 }

@@ -19,21 +19,21 @@ public class WordIllustrationFactory {
 
     @Subscribe
     public void handle(final WordIllustrationRequestEvent wordIllustrationRequestEvent) {
-        sessionProvider.start();
-        final UUID topicId = wordIllustrationRequestEvent.getTopicId();
-        final List<Illustration> illustrations = Repositories.illustrations().forTopicId(topicId);
-        if (illustrations.isEmpty()) {
-            addIllustrations(wordIllustrationRequestEvent, topicId);
-        }
-        sessionProvider.stop();
+        //sessionProvider.start();
+        //final UUID topicId = wordIllustrationRequestEvent.getTopicId();
+        //final List<Illustration> illustrations = Repositories.illustrations().forTopicId(topicId);
+        //if (illustrations.isEmpty()) {
+        //    addIllustrations(wordIllustrationRequestEvent, topicId);
+        //}
+        //sessionProvider.stop();
     }
 
     private void addIllustrations(final WordIllustrationRequestEvent wordIllustrationRequestEvent, final UUID topicId) {
-        final List<String> links = bingLink.getIllustrations(wordIllustrationRequestEvent.getValue(), wordIllustrationRequestEvent.getType());
-        for (String link : links) {
-            final Illustration illustration = new Illustration(topicId, link);
-            Repositories.illustrations().add(illustration);
-        }
+        //final List<String> links = bingLink.getIllustrations(wordIllustrationRequestEvent.getValue(), wordIllustrationRequestEvent.getType());
+        //for (String link : links) {
+        //    final Illustration illustration = new Illustration(topicId, link);
+        //    Repositories.illustrations().add(illustration);
+        //}
     }
 
     private final BingLink bingLink;

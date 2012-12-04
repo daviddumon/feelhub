@@ -1,10 +1,11 @@
 package com.feelhub.domain.tag;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 
-import java.util.UUID;
+import java.util.*;
 
 public class Tag extends BaseEntity {
 
@@ -12,16 +13,13 @@ public class Tag extends BaseEntity {
     public Tag() {
     }
 
-    public Tag(final String value, final FeelhubLanguage feelhubLanguage, final UUID topicId) {
-        this.id = UUID.randomUUID();
+    public Tag(final String value) {
         this.value = value;
-        this.languageCode = feelhubLanguage.getCode();
-        this.topicId = topicId;
     }
 
     @Override
-    public UUID getId() {
-        return id;
+    public String getId() {
+        return value;
     }
 
     @Override
@@ -33,13 +31,12 @@ public class Tag extends BaseEntity {
             return false;
         }
         final Tag tag = (Tag) o;
-        return Objects.equal(tag.value, value)
-                && Objects.equal(tag.languageCode, languageCode);
+        return Objects.equal(tag.value, value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(value, languageCode);
+        return Objects.hashCode(value);
     }
 
     @Override
@@ -47,28 +44,18 @@ public class Tag extends BaseEntity {
         return value;
     }
 
+    public void addTopic(final Topic topic) {
+        topicIds.add(topic.getId());
+    }
+
     public String getValue() {
         return value;
     }
 
-    public FeelhubLanguage getLanguage() {
-        return FeelhubLanguage.fromCode(languageCode);
+    public List<UUID> getTopicIds() {
+        return topicIds;
     }
 
-    public String getLanguageCode() {
-        return languageCode;
-    }
-
-    public UUID getTopicId() {
-        return topicId;
-    }
-
-    public void setTopicId(final UUID topicId) {
-        this.topicId = topicId;
-    }
-
-    private UUID id;
-    protected String value;
-    private String languageCode;
-    private UUID topicId;
+    private String value;
+    private List<UUID> topicIds = Lists.newArrayList();
 }

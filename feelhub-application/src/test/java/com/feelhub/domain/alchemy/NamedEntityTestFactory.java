@@ -12,7 +12,7 @@ public class NamedEntityTestFactory {
     public List<NamedEntity> namedEntityWith2Keywords() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.type = TopicType.Unknown;
+        entity.type = TopicType.Other;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -31,7 +31,7 @@ public class NamedEntityTestFactory {
     public List<NamedEntity> namedEntityWith1Keyword() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.type = TopicType.Unknown;
+        entity.type = TopicType.Other;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -49,7 +49,7 @@ public class NamedEntityTestFactory {
     public List<NamedEntity> namedEntityWith1KeywordWithoutConcept() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.type = TopicType.Unknown;
+        entity.type = TopicType.Other;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -67,7 +67,7 @@ public class NamedEntityTestFactory {
     public List<NamedEntity> namedEntityWithoutKeywords() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.type = TopicType.Unknown;
+        entity.type = TopicType.Other;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -86,7 +86,7 @@ public class NamedEntityTestFactory {
         for (int i = 0; i < quantity; i++) {
             final NamedEntity entity = new NamedEntity();
             entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-            entity.type = TopicType.Unknown;
+            entity.type = TopicType.Other;
             final List<String> subtypes = Lists.newArrayList();
             subtypes.add("subtype1");
             subtypes.add("subtype2");

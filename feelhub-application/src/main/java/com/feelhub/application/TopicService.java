@@ -2,6 +2,7 @@ package com.feelhub.application;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
+import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.google.inject.Inject;
 
@@ -22,20 +23,11 @@ public class TopicService {
         return topic;
     }
 
-    public Topic createTopic(final FeelhubLanguage feelhubLanguage, final String description, final TopicType topicType) {
+    public Topic createTopic(final FeelhubLanguage feelhubLanguage, final String description, final TopicType topicType, final User user) {
         final Topic topic = topicFactory.createTopic(feelhubLanguage, description, topicType);
+        topic.setUserId(user.getId());
         Repositories.topics().add(topic);
         return topic;
-    }
-
-    public Topic createTopic() {
-        final Topic topic = topicFactory.createTopic();
-        Repositories.topics().add(topic);
-        return topic;
-    }
-
-    public void createTopicFromUri(final String uri) {
-
     }
 
     private final TopicFactory topicFactory;

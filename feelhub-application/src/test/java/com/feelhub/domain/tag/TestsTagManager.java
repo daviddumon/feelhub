@@ -1,7 +1,7 @@
 package com.feelhub.domain.tag;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.topic.TopicPatch;
+import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
@@ -28,15 +28,21 @@ public class TestsTagManager {
     }
 
     @Test
-    public void canTopicForAKeyword() {
-        final Tag first = TestFactories.tags().newWord();
-        final Tag second = TestFactories.tags().newWord();
-        final TopicPatch topicPatch = new TopicPatch(first.getTopicId());
-        topicPatch.addOldTopicId(second.getTopicId());
+    public void canMerge() {
+        final Tag first = TestFactories.tags().newTag();
+        final Topic oldTopic = TestFactories.topics().newTopic();
+        first.addTopic(oldTopic);
+        first.addTopic(TestFactories.topics().newTopic());
+        final Tag second = TestFactories.tags().newTag();
+        second.addTopic(TestFactories.topics().newTopic());
+        second.addTopic(TestFactories.topics().newTopic());
+        final Topic newTopic = TestFactories.topics().newTopic();
+        final TopicPatch topicPatch = new TopicPatch(newTopic.getId());
+        topicPatch.addOldTopicId(oldTopic.getId());
 
         tagManager.merge(topicPatch);
 
-        assertThat(second.getTopicId()).isEqualTo(first.getTopicId());
+        assertThat(first.getTopicIds()).contains(newTopic.getId());
     }
 
     private TagManager tagManager;

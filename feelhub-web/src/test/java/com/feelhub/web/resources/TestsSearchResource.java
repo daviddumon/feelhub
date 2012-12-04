@@ -1,10 +1,12 @@
 package com.feelhub.web.resources;
 
-import com.feelhub.application.TagService;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
 import com.feelhub.web.representation.ModelAndView;
+import com.google.inject.*;
 import org.junit.*;
 import org.restlet.data.Status;
 
@@ -22,7 +24,12 @@ public class TestsSearchResource {
 
     @Before
     public void before() {
-        searchResource = new SearchResource();
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+            }
+        });
+        searchResource = injector.getInstance(SearchResource.class);
         ContextTestFactory.initResource(searchResource);
         query = "query";
     }
@@ -46,7 +53,7 @@ public class TestsSearchResource {
     }
 
     @Test
-    public void canSearch() {
+    public void putDescriptionInModel() {
         searchResource.getRequest().getAttributes().put("q", query);
 
         final ModelAndView results = searchResource.search();
@@ -59,8 +66,19 @@ public class TestsSearchResource {
         assertThat(q).isEqualTo(query);
     }
 
+    @Test
+    public void canGetTopicsForDescription() {
+        final Tag tag = TestFactories.tags().newTag();
+        searchResource.getRequest().getAttributes().put("q", tag.getId());
+
+        final ModelAndView modelAndView = searchResource.search();
+
+        assertThat(modelAndView).isNotNull();
+        final List<Topic> topics = modelAndView.getData("topicDatas");
+        assertThat(topics).isNotNull();
+        assertThat(topics.size()).isEqualTo(1);
+    }
+
     private SearchResource searchResource;
-    private TagService tagService;
     private String query;
-    private List<Topic> topics;
 }

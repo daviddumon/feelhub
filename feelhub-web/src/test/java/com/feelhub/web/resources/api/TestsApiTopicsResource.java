@@ -40,7 +40,7 @@ public class TestsApiTopicsResource {
     @Test
     public void canCreateWithCorrectUser() {
         final Topic topic = TestFactories.topics().newTopic();
-        when(topicService.createTopic(any(FeelhubLanguage.class), anyString(), any(TopicType.class))).thenReturn(topic);
+        when(topicService.createTopic(any(FeelhubLanguage.class), anyString(), any(TopicType.class), any(User.class))).thenReturn(topic);
 
         apiTopicsResource.createTopic(getGoodForm());
 
@@ -59,11 +59,11 @@ public class TestsApiTopicsResource {
     @Test
     public void createTopic() {
         final Topic topic = TestFactories.topics().newTopic();
-        when(topicService.createTopic(any(FeelhubLanguage.class), anyString(), any(TopicType.class))).thenReturn(topic);
+        when(topicService.createTopic(any(FeelhubLanguage.class), anyString(), any(TopicType.class), any(User.class))).thenReturn(topic);
 
         apiTopicsResource.createTopic(getGoodForm());
 
-        verify(topicService).createTopic(CurrentUser.get().getLanguage(), getGoodForm().getFirstValue("description"), TopicType.valueOf(getGoodForm().getFirstValue("type")));
+        verify(topicService).createTopic(CurrentUser.get().getLanguage(), getGoodForm().getFirstValue("description"), TopicType.valueOf(getGoodForm().getFirstValue("type")), CurrentUser.get().getUser());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class TestsApiTopicsResource {
     @Test
     public void setLocationRefToNewTopic() {
         final Topic topic = TestFactories.topics().newTopic();
-        when(topicService.createTopic(any(FeelhubLanguage.class), anyString(), any(TopicType.class))).thenReturn(topic);
+        when(topicService.createTopic(any(FeelhubLanguage.class), anyString(), any(TopicType.class), any(User.class))).thenReturn(topic);
 
         apiTopicsResource.createTopic(getGoodForm());
 

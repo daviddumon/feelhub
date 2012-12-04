@@ -32,6 +32,7 @@ public enum TopicType {
     NaturalDisaster(false, false, true),
     OperatingSystem(true, false, true),
     Organization(false, false, true),
+    Other(false, true, true),
     Person(false, false, true),
     PrintMedia(true, false, true),
     RadioProgram(false, false, true),
@@ -41,8 +42,7 @@ public enum TopicType {
     StateOrCounty(true, true, true),
     Technology(false, false, true),
     TelevisionShow(true, false, true),
-    TelevisionStation(true, false, true),
-    Unknown(false, true, true);
+    TelevisionStation(true, false, true);
 
     TopicType(final boolean tagUniqueness, final boolean translatable, final boolean usable) {
         this.tagUniqueness = tagUniqueness;

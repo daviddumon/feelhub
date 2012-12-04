@@ -4,6 +4,7 @@ import com.feelhub.application.WordService;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.relation.AlchemyRelationBinder;
 import com.feelhub.domain.tag.*;
+import com.feelhub.domain.topic.TopicMerger;
 import com.feelhub.repositories.*;
 import com.google.common.collect.*;
 import com.google.common.eventbus.Subscribe;
@@ -47,12 +48,12 @@ public class AlchemyAnalyzer {
         for (final NamedEntity namedEntity : namedEntities) {
             final List<Tag> tags = Lists.newArrayList();
             for (final String value : namedEntity.tags) {
-                tags.add(wordService.lookUpOrCreate(value, namedEntity.feelhubLanguage, namedEntity.type.toString()));
+                //tags.add(wordService.lookUpOrCreate(value, namedEntity.feelhubLanguage, namedEntity.type.toString()));
             }
             if (!tags.isEmpty()) {
                 if (tags.size() > 1) {
-                    final TagMerger tagMerger = new TagMerger();
-                    tagMerger.merge(tags);
+                    //final TopicMerger topicMerger = new TopicMerger();
+                    //topicMerger.merge(tags);
                 }
                 tryToCreateAlchemyEntity(entities, namedEntity, tags);
             }
@@ -61,12 +62,12 @@ public class AlchemyAnalyzer {
     }
 
     private void tryToCreateAlchemyEntity(final List<AlchemyEntity> entities, final NamedEntity namedEntity, final List<Tag> tags) {
-        try {
-            existsAlchemyEntity(tags.get(0).getTopicId());
-        } catch (AlchemyEntityNotFound e) {
-            final AlchemyEntity alchemyEntity = createAlchemyEntity(namedEntity, tags.get(0));
-            entities.add(alchemyEntity);
-        }
+        //try {
+        //    existsAlchemyEntity(tags.get(0).getTopicId());
+        //} catch (AlchemyEntityNotFound e) {
+        //    final AlchemyEntity alchemyEntity = createAlchemyEntity(namedEntity, tags.get(0));
+        //    entities.add(alchemyEntity);
+        //}
     }
 
     private void existsAlchemyEntity(final UUID topicId) {
@@ -76,27 +77,27 @@ public class AlchemyAnalyzer {
         }
     }
 
-    private AlchemyEntity createAlchemyEntity(final NamedEntity namedEntity, final Tag tag) {
-        final AlchemyEntity alchemyEntity = new AlchemyEntity(tag.getTopicId());
-        alchemyEntity.setCensus(namedEntity.census);
-        alchemyEntity.setCiafactbook(namedEntity.ciaFactbook);
-        alchemyEntity.setCrunchbase(namedEntity.crunchbase);
-        alchemyEntity.setDbpedia(namedEntity.dbpedia);
-        alchemyEntity.setFreebase(namedEntity.freebase);
-        alchemyEntity.setGeo(namedEntity.geo);
-        alchemyEntity.setGeonames(namedEntity.geonames);
-        alchemyEntity.setMusicbrainz(namedEntity.musicBrainz);
-        alchemyEntity.setOpencyc(namedEntity.opencyc);
-        alchemyEntity.setSemanticcrunchbase(namedEntity.semanticCrunchbase);
-        alchemyEntity.setSubtype(namedEntity.subType);
-        alchemyEntity.setType(namedEntity.type);
-        alchemyEntity.setUmbel(namedEntity.umbel);
-        alchemyEntity.setWebsite(namedEntity.website);
-        alchemyEntity.setYago(namedEntity.yago);
-        alchemyEntity.setRelevance(namedEntity.relevance);
-        Repositories.alchemyEntities().add(alchemyEntity);
-        return alchemyEntity;
-    }
+    //private AlchemyEntity createAlchemyEntity(final NamedEntity namedEntity, final Tag tag) {
+    //    final AlchemyEntity alchemyEntity = new AlchemyEntity(tag.getTopicId());
+    //    alchemyEntity.setCensus(namedEntity.census);
+    //    alchemyEntity.setCiafactbook(namedEntity.ciaFactbook);
+    //    alchemyEntity.setCrunchbase(namedEntity.crunchbase);
+    //    alchemyEntity.setDbpedia(namedEntity.dbpedia);
+    //    alchemyEntity.setFreebase(namedEntity.freebase);
+    //    alchemyEntity.setGeo(namedEntity.geo);
+    //    alchemyEntity.setGeonames(namedEntity.geonames);
+    //    alchemyEntity.setMusicbrainz(namedEntity.musicBrainz);
+    //    alchemyEntity.setOpencyc(namedEntity.opencyc);
+    //    alchemyEntity.setSemanticcrunchbase(namedEntity.semanticCrunchbase);
+    //    alchemyEntity.setSubtype(namedEntity.subType);
+    //    alchemyEntity.setType(namedEntity.type);
+    //    alchemyEntity.setUmbel(namedEntity.umbel);
+    //    alchemyEntity.setWebsite(namedEntity.website);
+    //    alchemyEntity.setYago(namedEntity.yago);
+    //    alchemyEntity.setRelevance(namedEntity.relevance);
+    //    Repositories.alchemyEntities().add(alchemyEntity);
+    //    return alchemyEntity;
+    //}
 
     private void createRelations(final AlchemyRequestEvent event, final List<AlchemyEntity> entities) {
         final HashMap<UUID, Double> topicsAndScores = Maps.newHashMap();

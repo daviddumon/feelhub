@@ -22,7 +22,7 @@ public class ApiTopicsResource extends ServerResource {
             checkCredentials();
             final String description = extractDescription(form);
             final TopicType type = extractType(form);
-            final Topic topic = topicService.createTopic(CurrentUser.get().getLanguage(), description, type);
+            final Topic topic = topicService.createTopic(CurrentUser.get().getLanguage(), description, type, CurrentUser.get().getUser());
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + topic.getId()));
             setStatus(Status.SUCCESS_CREATED);
         } catch (AuthenticationException e) {

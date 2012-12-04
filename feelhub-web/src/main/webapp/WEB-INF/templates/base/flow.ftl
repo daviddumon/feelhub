@@ -2,15 +2,7 @@
     <@head.headbegin>
     <script type="text/javascript">
             <#if topicData??>
-            var topicData = {
-                "id":"${topicData.id}",
-                "illustrationLink":"${topicData.illustrationLink}",
-                "description":"${topicData.description}",
-                "sentimentValue":"${topicData.sentimentValue}",
-                "type":"${topicData.type}",
-                "subtypes":[],
-                "url":[]
-            }
+            var topicData = ${topicData};
             <#else>
             var topicData = {};
             </#if>

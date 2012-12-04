@@ -5,6 +5,8 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.internal.Nullable;
 
+import java.util.UUID;
+
 public class FakeTopicRepository extends FakeRepository<Topic> implements TopicRepository {
 
     @Override
@@ -24,5 +26,14 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public Topic getCurrentTopic(final UUID id) {
+        Topic topic = get(id);
+        while (!topic.getCurrentTopicId().equals(topic.getId())) {
+            topic = get(topic.getCurrentTopicId());
+        }
+        return topic;
     }
 }

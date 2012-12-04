@@ -15,7 +15,7 @@ public class TestsUriResolver {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @Rule
+    @ClassRule
     public static FakeInternet internet = new FakeInternet();
 
     @Before

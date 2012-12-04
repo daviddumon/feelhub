@@ -10,4 +10,5 @@ require.config(
 
 require(["plugins/domReady!","modules/interface","modules/search"], function (doc,interface, search) {
     interface.init();
+    search.doSearch();
 });

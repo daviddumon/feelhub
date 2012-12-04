@@ -11,11 +11,7 @@ public class TagMapping extends EntityMap<Tag> {
 
     @Override
     protected void map() {
-        id(element().getId()).natural();
-        property(element().getValue());
-        property(element().getLanguageCode());
-        property(element().getTopicId());
-        property(element().getCreationDate());
-        property(element().getLastModificationDate());
+        id(element().getValue()).natural();
+        collection(element().getTopicIds());
     }
 }

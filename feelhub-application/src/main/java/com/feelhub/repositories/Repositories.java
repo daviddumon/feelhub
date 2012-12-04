@@ -40,7 +40,7 @@ public abstract class Repositories {
         return Repositories.soleInstance.getTopicRepository();
     }
 
-    public static TagRepository keywords() {
+    public static TagRepository tags() {
         return Repositories.soleInstance.getKeywordRepository();
     }
 

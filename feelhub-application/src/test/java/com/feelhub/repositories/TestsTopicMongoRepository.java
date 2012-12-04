@@ -37,6 +37,8 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("creationDate")).isEqualTo(topic.getCreationDate().getMillis());
         assertThat(topicFound.get("lastModificationDate")).isEqualTo(topic.getLastModificationDate().getMillis());
+        assertThat(topicFound.get("userId")).isEqualTo(topic.getUserId());
+        assertThat(topicFound.get("currentTopicId")).isEqualTo(topic.getCurrentTopicId());
     }
 
     @Test
@@ -70,6 +72,19 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         final Topic world = repo.world();
 
         assertThat(world).isNotNull();
+    }
+
+    @Test
+    public void canGetCurrentTopic() {
+        final Topic topic1 = TestFactories.topics().newTopic();
+        final Topic topic2 = TestFactories.topics().newTopic();
+        final Topic topic3 = TestFactories.topics().newTopic();
+        topic1.changeCurrentTopicId(topic2.getId());
+        topic2.changeCurrentTopicId(topic3.getId());
+
+        final Topic currentTopic = repo.getCurrentTopic(topic1.getId());
+
+        assertThat(currentTopic).isEqualTo(topic3);
     }
 
     private TopicRepository repo;

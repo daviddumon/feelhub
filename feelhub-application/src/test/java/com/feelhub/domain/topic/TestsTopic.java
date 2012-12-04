@@ -1,7 +1,12 @@
 package com.feelhub.domain.topic;
 
+import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.tag.TagRequestEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.test.SystemTime;
+import com.feelhub.domain.user.User;
+import com.feelhub.repositories.Repositories;
+import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.test.*;
 import org.joda.time.DateTime;
 import org.junit.*;
 
@@ -10,6 +15,12 @@ import java.util.UUID;
 import static org.fest.assertions.Assertions.*;
 
 public class TestsTopic {
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Rule
     public SystemTime time = SystemTime.fixed();
@@ -26,6 +37,15 @@ public class TestsTopic {
         assertThat(topic.getId()).isEqualTo(id);
         assertThat(topic.getCreationDate()).isEqualTo(time.getNow());
         assertThat(topic.getCreationDate()).isEqualTo(topic.getLastModificationDate());
+    }
+
+    @Test
+    public void canAddAUser() {
+        final User fakeActiveUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
+
+        topic.setUserId(fakeActiveUser.getId());
+
+        assertThat(topic.getUserId()).isEqualTo(fakeActiveUser.getId());
     }
 
     @Test
@@ -87,6 +107,18 @@ public class TestsTopic {
     }
 
     @Test
+    public void requestTagCreationWhenAddingDescription() {
+        bus.capture(TagRequestEvent.class);
+        final String referenceDescription = "description-reference";
+
+        topic.addDescription(FeelhubLanguage.reference(), referenceDescription);
+
+        final TagRequestEvent tagRequestEvent = bus.lastEvent(TagRequestEvent.class);
+        assertThat(tagRequestEvent).isNotNull();
+        assertThat(tagRequestEvent.getTopic()).isEqualTo(topic);
+    }
+
+    @Test
     public void canReturnGoodDescription() {
         final String referenceDescription = "description-reference";
         final String frDescription = "description-fr";
@@ -96,6 +128,20 @@ public class TestsTopic {
         assertThat(topic.getDescription(FeelhubLanguage.reference())).isEqualTo(referenceDescription);
         assertThat(topic.getDescription(FeelhubLanguage.fromCode("fr"))).isEqualTo(frDescription);
         assertThat(topic.getDescription(FeelhubLanguage.fromCode("es"))).isEqualTo(referenceDescription);
+    }
+
+    @Test
+    public void aTopicHasACurrentTopic() {
+        assertThat(topic.getCurrentTopicId()).isEqualTo(topic.getId());
+    }
+
+    @Test
+    public void canSetCurrentTopicId() {
+        final UUID currentTopicId = UUID.randomUUID();
+
+        topic.changeCurrentTopicId(currentTopicId);
+
+        assertThat(topic.getCurrentTopicId()).isEqualTo(currentTopicId);
     }
 
     private UUID id;

@@ -74,7 +74,7 @@ public class FakeMongoRepositories extends Repositories {
     private final FakeUserRepository userRepository = new FakeUserRepository();
     private final FakeSessionRepository sessionRepository = new FakeSessionRepository();
     private final FakeTopicRepository topicRepository = new FakeTopicRepository();
-    private final FakeTagRepository keywordRepository = new FakeTagRepository();
+    private final TagRepository keywordRepository = new FakeTagRepository();
     private final FakeIllustrationRepository illustrationRepository = new FakeIllustrationRepository();
     private final FakeAlchemyEntityRepository alchemyEntityRepository = new FakeAlchemyEntityRepository();
     private final FakeActivationRepository activationRepository = new FakeActivationRepository();
