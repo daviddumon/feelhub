@@ -1,10 +1,11 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.meta.Illustration;
 import com.feelhub.domain.tag.TagRequestEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.translation.ReferenceTranslatioRequestEvent;
 import com.feelhub.domain.user.User;
-import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
 import org.joda.time.DateTime;
@@ -120,8 +121,8 @@ public class TestsTopic {
 
     @Test
     public void canReturnGoodDescription() {
-        final String referenceDescription = "description-reference";
-        final String frDescription = "description-fr";
+        final String referenceDescription = "Description-reference";
+        final String frDescription = "Description-fr";
         topic.addDescription(FeelhubLanguage.reference(), referenceDescription);
         topic.addDescription(FeelhubLanguage.fromCode("fr"), frDescription);
 
@@ -136,12 +137,55 @@ public class TestsTopic {
     }
 
     @Test
-    public void canSetCurrentTopicId() {
+    public void canChangeCurrentTopicId() {
         final UUID currentTopicId = UUID.randomUUID();
 
         topic.changeCurrentTopicId(currentTopicId);
 
         assertThat(topic.getCurrentTopicId()).isEqualTo(currentTopicId);
+    }
+
+    @Test
+    public void changeCurrentTopicIdMergeTopics() {
+        final Topic oldTopic = TestFactories.topics().newTopic();
+        final Illustration illustration = TestFactories.illustrations().newIllustration(oldTopic.getId());
+        final Topic newTopic = TestFactories.topics().newTopic();
+
+        oldTopic.changeCurrentTopicId(newTopic.getId());
+
+        assertThat(illustration.getTopicId()).isEqualTo(newTopic.getId());
+    }
+
+    @Test
+    public void requestTranslationForTranslatableType() {
+        bus.capture(ReferenceTranslatioRequestEvent.class);
+        topic.addDescription(FeelhubLanguage.fromCode("es"), "Description-es");
+
+        topic.setType(TopicType.Anniversary);
+
+        final ReferenceTranslatioRequestEvent referenceTranslatioRequestEvent = bus.lastEvent(ReferenceTranslatioRequestEvent.class);
+        assertThat(referenceTranslatioRequestEvent).isNotNull();
+        assertThat(referenceTranslatioRequestEvent.getTopic()).isEqualTo(topic);
+    }
+
+    @Test
+    public void doNotRequestTranslationIfReferenceDescription() {
+        bus.capture(ReferenceTranslatioRequestEvent.class);
+        topic.addDescription(FeelhubLanguage.REFERENCE, "Description-es");
+
+        topic.setType(TopicType.Anniversary);
+
+        final ReferenceTranslatioRequestEvent referenceTranslatioRequestEvent = bus.lastEvent(ReferenceTranslatioRequestEvent.class);
+        assertThat(referenceTranslatioRequestEvent).isNull();
+    }
+
+    @Test
+    public void formatDescription() {
+        final String description = "DESCripTion";
+
+        topic.addDescription(FeelhubLanguage.fromCode("es"), description);
+
+        assertThat(topic.getDescription(FeelhubLanguage.fromCode("es"))).isEqualTo("Description");
     }
 
     private UUID id;

@@ -12,7 +12,7 @@ public class MandrillMessage {
     public List<MergeVar> global_merge_vars = Lists.newArrayList();
     public List<String> tags = Lists.newArrayList();
 
-    public void addMergeVar(String name, String content) {
+    public void addMergeVar(final String name, final String content) {
         global_merge_vars.add(new MergeVar(name, content));
     }
 

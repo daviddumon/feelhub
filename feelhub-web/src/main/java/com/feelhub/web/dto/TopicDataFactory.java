@@ -56,5 +56,5 @@ public class TopicDataFactory {
         return builder.build();
     }
 
-    private TopicService topicService;
+    private final TopicService topicService;
 }

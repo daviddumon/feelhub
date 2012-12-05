@@ -57,5 +57,5 @@ public class Tag extends BaseEntity {
     }
 
     private String value;
-    private List<UUID> topicIds = Lists.newArrayList();
+    private final List<UUID> topicIds = Lists.newArrayList();
 }

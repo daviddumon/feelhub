@@ -148,7 +148,7 @@ public class TestsApiTopicRelatedResource {
         final JSONObject keywordDataAsJson = jsonArray.getJSONObject(0);
         assertThat(keywordDataAsJson).isNotNull();
         assertThat(keywordDataAsJson.get("id").toString()).isEqualTo(relation.getToId().toString());
-        assertThat(keywordDataAsJson.get("description").toString()).isEqualTo("description-reference");
+        assertThat(keywordDataAsJson.get("description").toString()).isEqualTo("Description-reference");
         assertThat(keywordDataAsJson.get("illustrationLink").toString()).isEmpty();
     }
 
@@ -167,7 +167,7 @@ public class TestsApiTopicRelatedResource {
         final JSONObject keywordDataAsJson = jsonArray.getJSONObject(0);
         assertThat(keywordDataAsJson).isNotNull();
         assertThat(keywordDataAsJson.get("id").toString()).isEqualTo(to.getId().toString());
-        assertThat(keywordDataAsJson.get("description").toString()).isEqualTo("description-reference");
+        assertThat(keywordDataAsJson.get("description").toString()).isEqualTo("Description-reference");
         assertThat(keywordDataAsJson.get("illustrationLink").toString()).isEqualTo(illustration.getLink());
     }
 

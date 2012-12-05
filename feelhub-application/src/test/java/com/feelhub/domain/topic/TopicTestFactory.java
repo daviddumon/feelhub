@@ -25,11 +25,14 @@ public class TopicTestFactory {
         return topic;
     }
 
-    public Topic newTopicWithTypeNone() {
+    public Topic newTopicWithoutReference(final TopicType type) {
         final Topic topic = new Topic(UUID.randomUUID());
-        topic.addDescription(FeelhubLanguage.reference(), "description-reference");
+        topic.setType(type);
         topic.addDescription(FeelhubLanguage.fromCode("fr"), "description-fr");
+        topic.addSubType("subtype1");
+        topic.addSubType("subtype2");
         topic.addUrl("http://www.fakeurl.com");
+        topic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
         Repositories.topics().add(topic);
         return topic;
     }

@@ -12,7 +12,7 @@ public class Session extends BaseEntity {
     public Session() {
     }
 
-    public Session(final DateTime expirationDate, User user) {
+    public Session(final DateTime expirationDate, final User user) {
         this.expirationDate = expirationDate;
         this.token = UUID.randomUUID();
         this.userId = user.getId();

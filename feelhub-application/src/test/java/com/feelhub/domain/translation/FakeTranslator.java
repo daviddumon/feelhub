@@ -5,7 +5,7 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 public class FakeTranslator extends Translator {
 
     @Override
-    public String translateToEnglish(final String value, final FeelhubLanguage feelhubLanguage) throws Exception {
+    public String translateToReference(final String value, final FeelhubLanguage feelhubLanguage) throws Exception {
         if (value.equals("Exception")) {
             throw new Exception();
         }

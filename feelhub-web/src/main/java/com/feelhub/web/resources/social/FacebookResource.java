@@ -36,7 +36,7 @@ public class FacebookResource extends ServerResource {
         }
     }
 
-    private boolean isOldUser(com.feelhub.domain.user.User newUser) {
+    private boolean isOldUser(final com.feelhub.domain.user.User newUser) {
         return !Days.daysBetween(newUser.getCreationDate(), DateTime.now()).isLessThan(Days.ONE);
     }
 

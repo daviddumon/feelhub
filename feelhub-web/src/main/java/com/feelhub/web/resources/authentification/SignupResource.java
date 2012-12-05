@@ -51,5 +51,5 @@ public class SignupResource extends ServerResource {
     }
 
     private final UserService userService;
-    private FacebookConnector connector;
+    private final FacebookConnector connector;
 }

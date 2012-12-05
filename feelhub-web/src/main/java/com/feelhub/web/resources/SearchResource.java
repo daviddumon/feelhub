@@ -16,7 +16,7 @@ import java.util.*;
 public class SearchResource extends ServerResource {
 
     @Inject
-    public SearchResource(final TopicService topicService, TagService tagService, final TopicDataFactory topicDataFactory) {
+    public SearchResource(final TopicService topicService, final TagService tagService, final TopicDataFactory topicDataFactory) {
         this.topicService = topicService;
         this.tagService = tagService;
         this.topicDataFactory = topicDataFactory;
@@ -25,10 +25,10 @@ public class SearchResource extends ServerResource {
     @Get
     public ModelAndView search() {
         final String query = getRequestAttributes().get("q").toString().trim();
-        List<TopicData> topicDatas = Lists.newArrayList();
+        final List<TopicData> topicDatas = Lists.newArrayList();
         try {
             final Tag tag = tagService.lookUp(query);
-            List<Topic> topics = getTopics(tag);
+            final List<Topic> topics = getTopics(tag);
             topicDatas.addAll(getTopicDatas(topics));
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,8 +38,8 @@ public class SearchResource extends ServerResource {
     }
 
     private List<Topic> getTopics(final com.feelhub.domain.tag.Tag tag) {
-        List<Topic> topics = Lists.newArrayList();
-        for (UUID id : tag.getTopicIds()) {
+        final List<Topic> topics = Lists.newArrayList();
+        for (final UUID id : tag.getTopicIds()) {
             try {
                 topics.add(topicService.lookUp(id));
             } catch (TopicNotFound e) {
@@ -50,14 +50,14 @@ public class SearchResource extends ServerResource {
     }
 
     private List<TopicData> getTopicDatas(final List<Topic> topics) {
-        List<TopicData> result = Lists.newArrayList();
-        for (Topic topic : topics) {
+        final List<TopicData> result = Lists.newArrayList();
+        for (final Topic topic : topics) {
             result.add(topicDataFactory.getTopicData(topic, CurrentUser.get().getLanguage()));
         }
         return result;
     }
 
-    private TopicService topicService;
+    private final TopicService topicService;
     private final TagService tagService;
     private final TopicDataFactory topicDataFactory;
 }

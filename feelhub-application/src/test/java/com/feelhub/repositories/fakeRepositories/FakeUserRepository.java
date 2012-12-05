@@ -23,7 +23,7 @@ public class FakeUserRepository extends FakeRepository<User> implements UserRepo
 
     @Override
     public User findBySocialNetwork(final SocialNetwork socialNetwork, final String id) {
-        for (User user : getAll()) {
+        for (final User user : getAll()) {
             if (user.getSocialAuth(socialNetwork) != null) {
                 final SocialAuth auth = user.getSocialAuth(socialNetwork);
                 if (auth.getId().equals(id)) {

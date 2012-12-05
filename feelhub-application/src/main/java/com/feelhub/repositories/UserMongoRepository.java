@@ -29,7 +29,7 @@ public class UserMongoRepository extends BaseMongoRepository<User> implements Us
         final Criteria<User> criteria = createCriteria();
         criteria.add(Restrictions.elementMatch("socialAuths").equals("network", socialNetwork).equals("id", id));
         final List<User> list = criteria.list();
-        if (list.size() != 0) {
+        if (!list.isEmpty()) {
             return list.get(0);
         }
         return null;

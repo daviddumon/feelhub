@@ -63,5 +63,5 @@ public class ApiTopicStatisticsResource extends ServerResource {
     private Long start;
     private Long end;
     private String topicId;
-    private TopicService topicService;
+    private final TopicService topicService;
 }

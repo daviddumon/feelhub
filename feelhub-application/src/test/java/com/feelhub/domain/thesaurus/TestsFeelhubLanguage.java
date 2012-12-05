@@ -107,7 +107,7 @@ public class TestsFeelhubLanguage {
 
     @Test
     public void canGetAvailableLanguages() {
-        List<FeelhubLanguage> languages = FeelhubLanguage.availables();
+        final List<FeelhubLanguage> languages = FeelhubLanguage.availables();
 
         assertThat(languages).isNotEmpty();
         assertThat(languages.get(0).getName()).isEqualTo("Albanian");

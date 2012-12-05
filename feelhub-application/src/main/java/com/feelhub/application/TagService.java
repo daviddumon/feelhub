@@ -26,7 +26,7 @@ public class TagService {
     }
 
     protected void createTags(final Topic topic) {
-        for (String description : topic.getDescriptions().values()) {
+        for (final String description : topic.getDescriptions().values()) {
             final Tag tag = lookUpOrCreateTag(topic, description);
             if (!tag.getTopicIds().contains(topic.getId())) {
                 tag.addTopic(topic);

@@ -8,8 +8,8 @@ public class FakeBingLink extends BingLink {
 
     @Override
     public List<String> getIllustrations(final String value, final String type) {
-        List<String> results = Lists.newArrayList();
-        StringBuilder stringBuilder = new StringBuilder();
+        final List<String> results = Lists.newArrayList();
+        final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(value);
         if (!type.isEmpty()) {
             stringBuilder.append(" ");

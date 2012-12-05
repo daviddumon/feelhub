@@ -69,7 +69,7 @@ public class User extends BaseEntity {
         return FeelhubLanguage.fromCode(languageCode);
     }
 
-    public void setLanguage(FeelhubLanguage feelhubLanguage) {
+    public void setLanguage(final FeelhubLanguage feelhubLanguage) {
         this.languageCode = feelhubLanguage.getCode();
     }
 
@@ -112,5 +112,5 @@ public class User extends BaseEntity {
     private String fullname;
     private String languageCode;
     private boolean active = false;
-    private UUID id;
+    private final UUID id;
 }

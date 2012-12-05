@@ -3,8 +3,6 @@ package com.feelhub.domain.meta;
 import com.feelhub.domain.eventbus.DomainEvent;
 import com.feelhub.domain.tag.Tag;
 
-import java.util.UUID;
-
 public class WordIllustrationRequestEvent extends DomainEvent {
 
     public WordIllustrationRequestEvent(final Tag word, final String type) {

@@ -29,7 +29,7 @@ public class TopicResource extends ServerResource {
         id = UUID.fromString(getRequestAttributes().get("id").toString());
     }
 
-    private TopicService topicService;
-    private TopicDataFactory topicDataFactory;
+    private final TopicService topicService;
+    private final TopicDataFactory topicDataFactory;
     private UUID id;
 }

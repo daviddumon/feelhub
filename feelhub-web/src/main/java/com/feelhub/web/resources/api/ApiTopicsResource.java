@@ -54,5 +54,5 @@ public class ApiTopicsResource extends ServerResource {
         }
     }
 
-    private TopicService topicService;
+    private final TopicService topicService;
 }

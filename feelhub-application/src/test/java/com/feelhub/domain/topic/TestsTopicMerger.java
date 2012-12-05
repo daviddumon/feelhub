@@ -1,5 +1,10 @@
 package com.feelhub.domain.topic;
 
+import com.feelhub.application.TagService;
+import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.meta.Illustration;
+import com.feelhub.domain.relation.Relation;
+import com.feelhub.domain.statistics.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -19,6 +24,7 @@ public class TestsTopicMerger {
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
+                bind(TagService.class).asEagerSingleton();
             }
         });
         topicMerger = injector.getInstance(TopicMerger.class);
@@ -26,10 +32,10 @@ public class TestsTopicMerger {
 
     @Test
     public void mergeTags() {
-        final Topic newTopic = TestFactories.topics().newTopic();
-        final Topic oldTopic = TestFactories.topics().newTopic();
+        final Topic newTopic = TestFactories.topics().newTopic("tag1");
+        final Topic oldTopic = TestFactories.topics().newTopic("tag2");
 
-        topicMerger.merge(newTopic, oldTopic);
+        topicMerger.merge(newTopic.getId(), oldTopic.getId());
 
         for (final Tag tag : Repositories.tags().getAll()) {
             assertThat(tag.getTopicIds()).contains(newTopic.getId());
@@ -37,73 +43,63 @@ public class TestsTopicMerger {
         }
     }
 
-    //@Test
-    //public void mergeIllustrations() {
-    //    final Topic good = TestFactories.topics().newTopic();
-    //    final Topic bad = TestFactories.topics().newTopic();
-    //    TestFactories.illustrations().newIllustration(good.getId());
-    //    TestFactories.illustrations().newIllustration(bad.getId());
-    //
-    //    topicMerger.merge(createListOfKeyword(good, bad));
-    //
-    //    for (final Illustration illustration : Repositories.illustrations().getAll()) {
-    //        assertThat(illustration.getTopicId()).isEqualTo(good.getId());
-    //    }
-    //}
-    //
-    //@Test
-    //public void mergeFeelings() {
-    //    final Topic good = TestFactories.topics().newTopic();
-    //    final Topic bad = TestFactories.topics().newTopic();
-    //    TestFactories.feelings().newFeelings(good.getId(), 10);
-    //    TestFactories.feelings().newFeelings(bad.getId(), 10);
-    //
-    //    topicMerger.merge(createListOfKeyword(good, bad));
-    //
-    //    for (final Feeling feeling : Repositories.feelings().getAll()) {
-    //        for (final Sentiment sentiment : feeling.getSentiments()) {
-    //            assertThat(sentiment.getTopicId()).isEqualTo(good.getId());
-    //        }
-    //    }
-    //}
-    //
-    //@Test
-    //public void mergeRelations() {
-    //    final Topic good = TestFactories.topics().newTopic();
-    //    final Topic bad = TestFactories.topics().newTopic();
-    //    final Topic topic3 = TestFactories.topics().newTopic();
-    //    final Relation relation1 = TestFactories.relations().newRelation(bad.getId(), topic3.getId());
-    //    final Relation relation2 = TestFactories.relations().newRelation(topic3.getId(), bad.getId());
-    //
-    //    topicMerger.merge(createListOfKeyword(good, bad));
-    //
-    //    assertThat(relation1.getFromId()).isEqualTo(good.getId());
-    //    assertThat(relation1.getToId()).isEqualTo(topic3.getId());
-    //    assertThat(relation2.getFromId()).isEqualTo(topic3.getId());
-    //    assertThat(relation2.getToId()).isEqualTo(good.getId());
-    //}
-    //
-    //@Test
-    //public void mergeStatistics() {
-    //    final Topic good = TestFactories.topics().newTopic();
-    //    final Topic bad = TestFactories.topics().newTopic();
-    //    TestFactories.statistics().newStatisticsWithSentiments(bad.getId(), Granularity.hour);
-    //
-    //    topicMerger.merge(createListOfKeyword(good, bad));
-    //
-    //    final Statistics statistics = Repositories.statistics().getAll().get(0);
-    //    assertThat(statistics.getTopicId()).isEqualTo(good.getId());
-    //}
-    //
-    //private List<Tag> createListOfKeyword(final Topic good, final Topic bad) {
-    //    final List<Tag> tags = Lists.newArrayList();
-    //    final Tag first = TestFactories.tags().newTag("first", FeelhubLanguage.reference(), good.getId());
-    //    tags.add(first);
-    //    time.waitDays(1);
-    //    tags.add(TestFactories.tags().newTag("second", FeelhubLanguage.none(), bad.getId()));
-    //    tags.add(TestFactories.tags().newTag("third"));
-    //    return tags;
-    //}
+    @Test
+    public void mergeIllustrations() {
+        final Topic newTopic = TestFactories.topics().newTopic("tag1");
+        final Topic oldTopic = TestFactories.topics().newTopic("tag2");
+        TestFactories.illustrations().newIllustration(newTopic.getId());
+        TestFactories.illustrations().newIllustration(oldTopic.getId());
+
+        topicMerger.merge(newTopic.getId(), oldTopic.getId());
+
+        for (final Illustration illustration : Repositories.illustrations().getAll()) {
+            assertThat(illustration.getTopicId()).isEqualTo(newTopic.getId());
+        }
+    }
+
+    @Test
+    public void mergeFeelings() {
+        final Topic newTopic = TestFactories.topics().newTopic("tag1");
+        final Topic oldTopic = TestFactories.topics().newTopic("tag2");
+        TestFactories.feelings().newFeelings(newTopic.getId(), 10);
+        TestFactories.feelings().newFeelings(oldTopic.getId(), 10);
+
+        topicMerger.merge(newTopic.getId(), oldTopic.getId());
+
+        for (final Feeling feeling : Repositories.feelings().getAll()) {
+            for (final Sentiment sentiment : feeling.getSentiments()) {
+                assertThat(sentiment.getTopicId()).isEqualTo(newTopic.getId());
+            }
+        }
+    }
+
+    @Test
+    public void mergeRelations() {
+        final Topic newTopic = TestFactories.topics().newTopic("tag1");
+        final Topic oldTopic = TestFactories.topics().newTopic("tag2");
+        final Topic anotherTopic = TestFactories.topics().newTopic();
+        final Relation relation1 = TestFactories.relations().newRelation(oldTopic.getId(), anotherTopic.getId());
+        final Relation relation2 = TestFactories.relations().newRelation(anotherTopic.getId(), oldTopic.getId());
+
+        topicMerger.merge(newTopic.getId(), oldTopic.getId());
+
+        assertThat(relation1.getFromId()).isEqualTo(newTopic.getId());
+        assertThat(relation1.getToId()).isEqualTo(anotherTopic.getId());
+        assertThat(relation2.getFromId()).isEqualTo(anotherTopic.getId());
+        assertThat(relation2.getToId()).isEqualTo(newTopic.getId());
+    }
+
+    @Test
+    public void mergeStatistics() {
+        final Topic newTopic = TestFactories.topics().newTopic("tag1");
+        final Topic oldTopic = TestFactories.topics().newTopic("tag2");
+        TestFactories.statistics().newStatisticsWithSentiments(oldTopic.getId(), Granularity.hour);
+
+        topicMerger.merge(newTopic.getId(), oldTopic.getId());
+
+        final Statistics statistics = Repositories.statistics().getAll().get(0);
+        assertThat(statistics.getTopicId()).isEqualTo(newTopic.getId());
+    }
 
     private TopicMerger topicMerger;
 }

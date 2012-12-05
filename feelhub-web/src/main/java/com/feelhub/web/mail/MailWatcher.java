@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 public class MailWatcher {
 
     @Inject
-    public MailWatcher(final MandrillMailSender mailSender, FeelhubWebProperties properties) {
+    public MailWatcher(final MandrillMailSender mailSender, final FeelhubWebProperties properties) {
         this.mailSender = mailSender;
         this.properties = properties;
         DomainEventBus.INSTANCE.register(this);
@@ -19,14 +19,14 @@ public class MailWatcher {
     }
 
     @Subscribe
-    public void onActivationCreated(ActivationCreatedEvent event) {
+    public void onActivationCreated(final ActivationCreatedEvent event) {
         final MandrillTemplateRequest request = createTemplateRequest(event.getUser(), "Activation", "Welcome to Feelhub !");
         request.message.addMergeVar("ACTIVATION", String.format("%s/activation/%s", properties.domain, event.getActivation().getId()));
         mailSender.send(request);
     }
 
     @Subscribe
-    public void onUserCreated(UserCreatedEvent event) {
+    public void onUserCreated(final UserCreatedEvent event) {
         if (event.getUser().isActive()) {
             mailSender.send(createTemplateRequest(event.getUser(), "Welcome", "Welcome to Feelhub !"));
         }
@@ -46,6 +46,6 @@ public class MailWatcher {
         return request;
     }
 
-    private MandrillMailSender mailSender;
-    private FeelhubWebProperties properties;
+    private final MandrillMailSender mailSender;
+    private final FeelhubWebProperties properties;
 }

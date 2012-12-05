@@ -53,7 +53,7 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
     public void canGetAnUser() {
         final DBCollection collection = mongo.getCollection("user");
         final DBObject user = new BasicDBObject();
-        UUID uuid = UUID.randomUUID();
+        final UUID uuid = UUID.randomUUID();
         user.put("_id", uuid);
         collection.insert(user);
 

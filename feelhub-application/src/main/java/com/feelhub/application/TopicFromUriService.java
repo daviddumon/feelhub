@@ -37,5 +37,5 @@ public class TopicFromUriService {
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
     }
 
-    private TopicFactory topicFactory;
+    private final TopicFactory topicFactory;
 }

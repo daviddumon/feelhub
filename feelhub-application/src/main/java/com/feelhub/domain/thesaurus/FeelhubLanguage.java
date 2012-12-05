@@ -9,7 +9,7 @@ import java.util.*;
 
 public class FeelhubLanguage {
 
-    public static FeelhubLanguage fromCode(String code) {
+    public static FeelhubLanguage fromCode(final String code) {
         try {
             return new FeelhubLanguage(LocaleUtils.toLocale(code).getLanguage());
         } catch (Exception e) {
@@ -40,7 +40,7 @@ public class FeelhubLanguage {
         return NULL_FEELHUB_LANGUAGE;
     }
 
-    public FeelhubLanguage(String code) {
+    public FeelhubLanguage(final String code) {
         this.code = code;
     }
 
@@ -107,7 +107,7 @@ public class FeelhubLanguage {
         alchemyLanguagues.put("swedish", "sv");
         alchemyLanguagues.put("english", "en");
 
-        for (Locale locale : Locale.getAvailableLocales()) {
+        for (final Locale locale : Locale.getAvailableLocales()) {
             if (!Strings.isNullOrEmpty(locale.getDisplayName(Locale.ENGLISH))) {
                 final FeelhubLanguage language = new FeelhubLanguage(locale.getLanguage());
                 if (!AVAILABLES.contains(language)) {
@@ -117,7 +117,7 @@ public class FeelhubLanguage {
         }
         Collections.sort(AVAILABLES, new Comparator<FeelhubLanguage>() {
             @Override
-            public int compare(FeelhubLanguage feelhubLanguage, FeelhubLanguage feelhubLanguage2) {
+            public int compare(final FeelhubLanguage feelhubLanguage, final FeelhubLanguage feelhubLanguage2) {
                 return feelhubLanguage.getName().compareTo(feelhubLanguage2.getName());
             }
         });

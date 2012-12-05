@@ -37,7 +37,7 @@ public class TestsTopicService {
 
         assertThat(topic).isNotNull();
         assertThat(topic.getUserId()).isEqualTo(fakeActiveUser.getId());
-        assertThat(topic.getDescription(FeelhubLanguage.REFERENCE)).isEqualTo("description");
+        assertThat(topic.getDescription(FeelhubLanguage.REFERENCE)).isEqualTo("Description");
     }
 
     @Test

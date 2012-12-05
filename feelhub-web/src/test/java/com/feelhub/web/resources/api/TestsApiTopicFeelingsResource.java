@@ -173,7 +173,7 @@ public class TestsApiTopicFeelingsResource {
         final JSONObject jsonKeywordData = jsonKeywordDatas.getJSONObject(0);
         assertThat(jsonKeywordData.get("id").toString()).isEqualTo(topic.getId().toString());
         assertThat(jsonKeywordData.get("sentimentValue").toString()).isEqualTo(sentiment.getSentimentValue().toString());
-        assertThat(jsonKeywordData.get("description").toString()).isEqualTo("description-reference");
+        assertThat(jsonKeywordData.get("description").toString()).isEqualTo("Description-reference");
     }
 
     @Test

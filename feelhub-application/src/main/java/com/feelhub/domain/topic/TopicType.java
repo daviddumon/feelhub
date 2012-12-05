@@ -63,8 +63,8 @@ public enum TopicType {
     }
 
     public static List<TopicType> usableValues() {
-        List<TopicType> results = Lists.newArrayList();
-        for (TopicType topicType : TopicType.values()) {
+        final List<TopicType> results = Lists.newArrayList();
+        for (final TopicType topicType : TopicType.values()) {
             if (topicType.isUsable()) {
                 results.add(topicType);
             }

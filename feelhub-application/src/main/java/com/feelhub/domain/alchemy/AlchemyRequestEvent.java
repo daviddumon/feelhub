@@ -27,6 +27,6 @@ public class AlchemyRequestEvent extends DomainEvent {
         return value;
     }
 
-    private Topic topic;
-    private String value;
+    private final Topic topic;
+    private final String value;
 }

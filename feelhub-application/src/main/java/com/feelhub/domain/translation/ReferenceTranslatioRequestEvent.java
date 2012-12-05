@@ -1,17 +1,17 @@
-package com.feelhub.domain.tag;
+package com.feelhub.domain.translation;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 import com.feelhub.domain.topic.Topic;
 
-public class TagRequestEvent extends DomainEvent {
+public class ReferenceTranslatioRequestEvent extends DomainEvent {
 
-    public TagRequestEvent(final Topic topic) {
+    public ReferenceTranslatioRequestEvent(final Topic topic) {
         this.topic = topic;
     }
 
     @Override
     public String toString() {
-        return "Tag request event";
+        return getClass().getSimpleName();
     }
 
     public Topic getTopic() {

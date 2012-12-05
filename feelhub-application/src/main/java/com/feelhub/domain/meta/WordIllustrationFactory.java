@@ -2,11 +2,11 @@ package com.feelhub.domain.meta;
 
 import com.feelhub.domain.bingsearch.BingLink;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.repositories.*;
+import com.feelhub.repositories.SessionProvider;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 
-import java.util.*;
+import java.util.UUID;
 
 public class WordIllustrationFactory {
 

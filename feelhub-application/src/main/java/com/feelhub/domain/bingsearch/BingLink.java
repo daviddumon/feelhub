@@ -18,7 +18,7 @@ public class BingLink {
     }
 
     public List<String> getIllustrations(final String value, final String type) {
-        List<String> results = Lists.newArrayList();
+        final List<String> results = Lists.newArrayList();
         results.addAll(getResults(buildQueryFor(value, type)));
         if (results.isEmpty()) {
             results.addAll(getResults(buildQueryFor(value, "")));
@@ -27,7 +27,7 @@ public class BingLink {
     }
 
     private List<String> getResults(final String query) {
-        List<String> results = Lists.newArrayList();
+        final List<String> results = Lists.newArrayList();
         try {
             final URL url = new URL(query);
             final URLConnection uc = url.openConnection();
@@ -64,12 +64,12 @@ public class BingLink {
     }
 
     private List<String> unmarshall(final InputStream inputStream) {
-        List<String> links = Lists.newArrayList();
+        final List<String> links = Lists.newArrayList();
         final ObjectMapper objectMapper = new ObjectMapper();
         BingResults bingResults = null;
         try {
             bingResults = objectMapper.readValue(inputStream, BingResults.class);
-            for (BingEntity result : bingResults.d.results) {
+            for (final BingEntity result : bingResults.d.results) {
                 try {
                     links.add(exist(result.MediaUrl));
                 } catch (BadIllustrationLink e) {
