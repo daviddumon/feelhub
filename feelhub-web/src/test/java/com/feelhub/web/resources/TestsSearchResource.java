@@ -1,7 +1,7 @@
 package com.feelhub.web.resources;
 
 import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
@@ -74,9 +74,9 @@ public class TestsSearchResource {
         final ModelAndView modelAndView = searchResource.search();
 
         assertThat(modelAndView).isNotNull();
-        final List<Topic> topics = modelAndView.getData("topicDatas");
-        assertThat(topics).isNotNull();
-        assertThat(topics.size()).isEqualTo(1);
+        final List<RealTopic> realTopics = modelAndView.getData("topicDatas");
+        assertThat(realTopics).isNotNull();
+        assertThat(realTopics.size()).isEqualTo(1);
     }
 
     private SearchResource searchResource;

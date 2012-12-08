@@ -1,9 +1,8 @@
-package com.feelhub.domain.world;
+package com.feelhub.domain.topic.unusable;
 
 import com.feelhub.application.WorldService;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.SessionProvider;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -20,8 +19,8 @@ public class WorldListener {
     @Subscribe
     public void handle(final SentimentStatisticsEvent sentimentStatisticsEvent) {
         sessionProvider.start();
-        final Topic world = worldService.lookUpOrCreateWorld();
-        final Sentiment sentiment = new Sentiment(world.getId(), sentimentStatisticsEvent.getSentiment().getSentimentValue());
+        final WorldTopic worldTopic = worldService.lookUpOrCreateWorld();
+        final Sentiment sentiment = new Sentiment(worldTopic.getId(), sentimentStatisticsEvent.getSentiment().getSentimentValue());
         final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(sentiment);
         DomainEventBus.INSTANCE.post(worldStatisticsEvent);
         sessionProvider.stop();

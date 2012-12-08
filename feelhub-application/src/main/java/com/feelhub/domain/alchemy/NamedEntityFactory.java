@@ -2,7 +2,7 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.TopicType;
+import com.feelhub.domain.topic.usable.real.RealTopicType;
 import org.apache.commons.lang.WordUtils;
 
 import java.util.regex.*;
@@ -67,9 +67,9 @@ public class NamedEntityFactory {
 
     private void addFields(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
         try {
-            entity.type = TopicType.valueOf(WordUtils.capitalizeFully(alchemyJsonEntity.type));
+            entity.typeReal = RealTopicType.valueOf(WordUtils.capitalizeFully(alchemyJsonEntity.type));
         } catch (IllegalArgumentException e) {
-            entity.type = TopicType.Other;
+            entity.typeReal = RealTopicType.Other;
         }
         entity.relevance = alchemyJsonEntity.relevance;
         if (isDisambiguated(alchemyJsonEntity)) {
@@ -103,7 +103,7 @@ public class NamedEntityFactory {
     }
 
     private void addLanguageForTopicType(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
-        if (TopicType.valueOf(WordUtils.capitalizeFully(alchemyJsonEntity.type)).isTranslatable()) {
+        if (RealTopicType.valueOf(WordUtils.capitalizeFully(alchemyJsonEntity.type)).isTranslatable()) {
             entity.feelhubLanguage = FeelhubLanguage.fromCountryName(alchemyJsonEntity.language);
         } else {
             entity.feelhubLanguage = FeelhubLanguage.none();

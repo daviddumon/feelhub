@@ -3,7 +3,7 @@ package com.feelhub.domain.meta;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.scraper.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
@@ -36,25 +36,25 @@ public class TestsUriMetaInformationFactory {
 
     @Test
     public void canCreateIllustration() {
-        final Topic topic = TestFactories.topics().newTopic();
-        final UriMetaInformationRequestEvent uriMetaInformationRequestEvent = new UriMetaInformationRequestEvent(topic, "value");
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final UriMetaInformationRequestEvent uriMetaInformationRequestEvent = new UriMetaInformationRequestEvent(realTopic, "value");
 
         DomainEventBus.INSTANCE.post(uriMetaInformationRequestEvent);
 
         final List<Illustration> illustrations = Repositories.illustrations().getAll();
         assertThat(illustrations.size()).isEqualTo(1);
-        assertThat(illustrations.get(0).getTopicId()).isEqualTo(uriMetaInformationRequestEvent.getTopic().getId());
+        assertThat(illustrations.get(0).getTopicId()).isEqualTo(uriMetaInformationRequestEvent.getRealTopic().getId());
         assertThat(illustrations.get(0).getLink()).isEqualTo("fakeillustration");
     }
 
     @Test
     public void canUseScrapedInformations() {
-        final Topic topic = TestFactories.topics().newTopic();
-        final UriMetaInformationRequestEvent uriMetaInformationRequestEvent = new UriMetaInformationRequestEvent(topic, "value");
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final UriMetaInformationRequestEvent uriMetaInformationRequestEvent = new UriMetaInformationRequestEvent(realTopic, "value");
 
         DomainEventBus.INSTANCE.post(uriMetaInformationRequestEvent);
 
-        assertThat(topic.getType()).isEqualTo(TopicType.Video);
-        assertThat(topic.getDescription(FeelhubLanguage.none())).isEqualTo("Faketitle");
+        assertThat(realTopic.getType()).isEqualTo(RealTopicType.Automobile);
+        assertThat(realTopic.getName(FeelhubLanguage.none())).isEqualTo("Faketitle");
     }
 }

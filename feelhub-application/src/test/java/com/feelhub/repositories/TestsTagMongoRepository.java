@@ -1,7 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.tag.*;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
@@ -48,13 +48,13 @@ public class TestsTagMongoRepository extends TestWithMongoRepository {
     @Ignore("impossible a cause de mongolink")
     public void canGetTagsWithTopicId() {
         final Tag tag = TestFactories.tags().newTag();
-        final Topic topic = TestFactories.topics().newTopic();
-        tag.addTopic(topic);
-        tag.addTopic(TestFactories.topics().newTopic());
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        tag.addTopic(realTopic);
+        tag.addTopic(TestFactories.topics().newCompleteRealTopic());
         final Tag anotherTag = TestFactories.tags().newTag();
-        anotherTag.addTopic(TestFactories.topics().newTopic());
+        anotherTag.addTopic(TestFactories.topics().newCompleteRealTopic());
 
-        final List<Tag> tags = repository.forTopicId(topic.getId());
+        final List<Tag> tags = repository.forTopicId(realTopic.getId());
 
         assertThat(tags).isNotNull();
         assertThat(tags.size()).isEqualTo(1);

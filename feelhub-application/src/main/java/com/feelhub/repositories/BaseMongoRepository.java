@@ -1,7 +1,6 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.*;
-import com.feelhub.domain.user.User;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.Criteria;
 
@@ -57,7 +56,7 @@ public class BaseMongoRepository<T extends Entity> implements Repository<T> {
     }
 
     protected T extractOne(final Criteria criteria) {
-        final List<User> results = criteria.list();
+        final List<T> results = criteria.list();
         if (results.isEmpty()) {
             return null;
         } else {

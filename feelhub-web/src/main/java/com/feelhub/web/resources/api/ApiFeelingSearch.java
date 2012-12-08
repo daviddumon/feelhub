@@ -19,8 +19,8 @@ public class ApiFeelingSearch {
         this.topicDataFactory = topicDataFactory;
     }
 
-    public List<FeelingData> doSearch(final Topic topic, final Form query) {
-        feelingSearch.withTopicId(topic.getId());
+    public List<FeelingData> doSearch(final Topic realTopic, final Form query) {
+        feelingSearch.withTopicId(realTopic.getId());
         return doSearch(query);
     }
 

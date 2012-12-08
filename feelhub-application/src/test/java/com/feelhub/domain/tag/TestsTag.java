@@ -1,6 +1,7 @@
 package com.feelhub.domain.tag;
 
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.usable.web.WebTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
@@ -13,14 +14,26 @@ public class TestsTag {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void canAddATopic() {
-        final Topic topic = TestFactories.topics().newTopic();
+    public void canAddARealTopic() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final Tag tag = new Tag("value");
 
-        tag.addTopic(topic);
+        tag.addTopic(realTopic);
 
         assertThat(tag.getTopicIds()).isNotNull();
         assertThat(tag.getTopicIds().size()).isEqualTo(1);
-        assertThat(tag.getTopicIds().get(0)).isEqualTo(topic.getId());
+        assertThat(tag.getTopicIds().get(0)).isEqualTo(realTopic.getId());
+    }
+
+    @Test
+    public void canAddAWebTopic() {
+        final WebTopic webTopic = TestFactories.topics().newCompleteWebTopic();
+        final Tag tag = new Tag("value");
+
+        tag.addTopic(webTopic);
+
+        assertThat(tag.getTopicIds()).isNotNull();
+        assertThat(tag.getTopicIds().size()).isEqualTo(1);
+        assertThat(tag.getTopicIds().get(0)).isEqualTo(webTopic.getId());
     }
 }

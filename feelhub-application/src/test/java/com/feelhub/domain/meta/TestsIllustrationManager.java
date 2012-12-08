@@ -1,6 +1,7 @@
 package com.feelhub.domain.meta;
 
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.TopicPatch;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -29,9 +30,9 @@ public class TestsIllustrationManager {
 
     @Test
     public void canMigrateTwoExistingIllustrations() {
-        final Topic first = TestFactories.topics().newTopic();
+        final RealTopic first = TestFactories.topics().newCompleteRealTopic();
         TestFactories.illustrations().newIllustration(first.getId(), "link1");
-        final Topic second = TestFactories.topics().newTopic();
+        final RealTopic second = TestFactories.topics().newCompleteRealTopic();
         final Illustration illustrationToChange = TestFactories.illustrations().newIllustration(second.getId(), "link2");
         final TopicPatch topicPatch = new TopicPatch(first.getId());
         topicPatch.addOldTopicId(second.getId());
@@ -43,9 +44,9 @@ public class TestsIllustrationManager {
 
     @Test
     public void canDeleteDuplicateIllustrations() {
-        final Topic first = TestFactories.topics().newTopic();
+        final RealTopic first = TestFactories.topics().newCompleteRealTopic();
         TestFactories.illustrations().newIllustration(first.getId(), "link1");
-        final Topic second = TestFactories.topics().newTopic();
+        final RealTopic second = TestFactories.topics().newCompleteRealTopic();
         TestFactories.illustrations().newIllustration(second.getId(), "link2");
         final TopicPatch topicPatch = new TopicPatch(first.getId());
         topicPatch.addOldTopicId(second.getId());
@@ -58,9 +59,9 @@ public class TestsIllustrationManager {
 
     @Test
     public void doNotCreateIfAlreadyOneIllustrationExists() {
-        final Topic first = TestFactories.topics().newTopic();
+        final RealTopic first = TestFactories.topics().newCompleteRealTopic();
         final Illustration illustration = TestFactories.illustrations().newIllustration(first.getId(), "link1");
-        final Topic second = TestFactories.topics().newTopic();
+        final RealTopic second = TestFactories.topics().newCompleteRealTopic();
         final TopicPatch topicPatch = new TopicPatch(first.getId());
         topicPatch.addOldTopicId(second.getId());
 

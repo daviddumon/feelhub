@@ -37,7 +37,7 @@ public abstract class Repositories {
     }
 
     public static TopicRepository topics() {
-        return Repositories.soleInstance.getTopicRepository();
+        return Repositories.soleInstance.getUsableTopicRepository();
     }
 
     public static TagRepository tags() {
@@ -70,7 +70,7 @@ public abstract class Repositories {
 
     protected abstract TagRepository getKeywordRepository();
 
-    protected abstract TopicRepository getTopicRepository();
+    protected abstract TopicRepository getUsableTopicRepository();
 
     protected abstract SessionRepository getSessionRepository();
 

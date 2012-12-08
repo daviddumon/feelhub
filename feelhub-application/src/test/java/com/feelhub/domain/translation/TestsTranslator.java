@@ -1,7 +1,8 @@
 package com.feelhub.domain.translation;
 
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
@@ -30,12 +31,14 @@ public class TestsTranslator {
 
     @Test
     public void translateOnTranslationRequest() {
-        final Topic topic = TestFactories.topics().newTopicWithoutReference(TopicType.Anniversary);
-        final ReferenceTranslatioRequestEvent referenceTranslatioRequestEvent = new ReferenceTranslatioRequestEvent(topic);
+        final RealTopic realTopic = TestFactories.topics().newRealTopicWithoutReference(RealTopicType.Anniversary);
+        final String frName = "name-fr";
+        final FeelhubLanguage fr = FeelhubLanguage.fromCode("fr");
+        final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = new ReferenceTranslationRequestEvent(realTopic, fr, frName);
 
-        DomainEventBus.INSTANCE.post(referenceTranslatioRequestEvent);
+        DomainEventBus.INSTANCE.post(referenceTranslationRequestEvent);
 
-        assertThat(topic.getDescriptions().size()).isEqualTo(2);
+        assertThat(realTopic.getNames().size()).isEqualTo(1);
     }
 
     private Translator translator;

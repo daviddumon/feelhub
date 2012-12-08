@@ -1,7 +1,7 @@
 package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
@@ -16,12 +16,12 @@ public class FeelingTestFactory {
     }
 
     public Feeling newFeelingWithText(final String text) {
-        return newFeeling(TestFactories.topics().newTopic().getId(), text);
+        return newFeeling(TestFactories.topics().newCompleteRealTopic().getId(), text);
     }
 
     public void newFeelings(final int quantity) {
-        final Topic topic = TestFactories.topics().newTopic();
-        newFeelings(topic.getId(), quantity);
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        newFeelings(realTopic.getId(), quantity);
     }
 
     public List<Feeling> newFeelings(final UUID topicId, final int quantity) {
@@ -45,7 +45,7 @@ public class FeelingTestFactory {
     public Feeling newFeeling(final UUID topicId, final String text) {
         final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforfeeling@mail.com");
         final Feeling feeling = new Feeling(text, activeUser);
-        feeling.addSentiment(new Topic(topicId), SentimentValue.bad);
+        feeling.addSentiment(new RealTopic(topicId, RealTopicType.Automobile), SentimentValue.bad);
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
         Repositories.feelings().add(feeling);
         return feeling;

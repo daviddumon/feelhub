@@ -2,8 +2,11 @@ package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.*;
+import com.feelhub.domain.topic.usable.web.WebTopic;
 import com.feelhub.domain.user.User;
+import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
@@ -33,24 +36,21 @@ public class TestsTopicService {
     public void canCreateATopic() {
         final User fakeActiveUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
 
-        final Topic topic = topicService.createTopic(FeelhubLanguage.REFERENCE, "description", TopicType.Audio, fakeActiveUser);
+        final RealTopic realTopic = topicService.createTopic(FeelhubLanguage.REFERENCE, "name", RealTopicType.Automobile, fakeActiveUser);
 
-        assertThat(topic).isNotNull();
-        assertThat(topic.getUserId()).isEqualTo(fakeActiveUser.getId());
-        assertThat(topic.getDescription(FeelhubLanguage.REFERENCE)).isEqualTo("Description");
+        assertThat(realTopic).isNotNull();
+        assertThat(realTopic.getUserId()).isEqualTo(fakeActiveUser.getId());
+        assertThat(realTopic.getName(FeelhubLanguage.REFERENCE)).isEqualTo("Name");
     }
 
     @Test
-    @Ignore
-    public void createTopicFromUriRequestAlchemyAnalysis() {
-        //bus.capture(AlchemyRequestEvent.class);
-        //final String uri = "http://www.test.com";
-        //
-        //topicService.createTopicFromUri(uri);
-        //
-        //final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
-        //assertThat(alchemyRequestEvent).isNotNull();
-        //assertThat(alchemyRequestEvent.getUri().getTopicId()).isEqualTo(uriCreated.getTopicId());
+    public void canLookupTopic() {
+        final WebTopic webTopic = TestFactories.topics().newCompleteWebTopic();
+        Repositories.topics().add(webTopic);
+
+        final Topic topic = topicService.lookUp(webTopic.getId());
+
+        assertThat(topic).isEqualTo(webTopic);
     }
 
     private Injector injector;

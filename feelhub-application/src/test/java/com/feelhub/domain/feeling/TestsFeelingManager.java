@@ -1,7 +1,8 @@
 package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.TopicPatch;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
@@ -33,16 +34,16 @@ public class TestsFeelingManager {
 
     @Test
     public void canChangeSentimentsTopicsForAConcept() {
-        final Topic topic1 = TestFactories.topics().newTopic();
-        final Topic topic2 = TestFactories.topics().newTopic();
+        final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
         final Feeling feeling1 = TestFactories.feelings().newFeelingWithoutSentiments();
         final Feeling feeling2 = TestFactories.feelings().newFeelingWithoutSentiments();
-        feeling1.addSentiment(topic1, SentimentValue.good);
-        feeling2.addSentiment(topic1, SentimentValue.good);
-        feeling1.addSentiment(topic2, SentimentValue.bad);
-        feeling2.addSentiment(topic2, SentimentValue.bad);
-        final TopicPatch topicPatch = new TopicPatch(topic1.getId());
-        topicPatch.addOldTopicId(topic2.getId());
+        feeling1.addSentiment(realTopic1, SentimentValue.good);
+        feeling2.addSentiment(realTopic1, SentimentValue.good);
+        feeling1.addSentiment(realTopic2, SentimentValue.bad);
+        feeling2.addSentiment(realTopic2, SentimentValue.bad);
+        final TopicPatch topicPatch = new TopicPatch(realTopic1.getId());
+        topicPatch.addOldTopicId(realTopic2.getId());
 
         feelingManager.merge(topicPatch);
 
@@ -50,7 +51,7 @@ public class TestsFeelingManager {
         sentiments.addAll(feeling1.getSentiments());
         sentiments.addAll(feeling2.getSentiments());
         for (final Sentiment sentiment : sentiments) {
-            assertThat(sentiment.getTopicId(), is(topic1.getId()));
+            assertThat(sentiment.getTopicId(), is(realTopic1.getId()));
         }
     }
 

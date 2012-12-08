@@ -1,6 +1,7 @@
 package com.feelhub.domain.topic;
 
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.unusable.WorldTopic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
 import com.google.inject.*;
@@ -28,24 +29,16 @@ public class TestsTopicFactory {
 
     @Test
     public void canCreateTopic() {
-        final Topic topic = topicFactory.createTopic();
+        final RealTopic realTopic = topicFactory.createRealTopic();
 
-        assertThat(topic).isNotNull();
-        assertThat(topic.getId()).isNotNull();
-        assertThat(topic.getCreationDate()).isEqualTo(time.getNow());
-        assertThat(topic.getLastModificationDate()).isEqualTo(time.getNow());
+        assertThat(realTopic).isNotNull();
     }
 
     @Test
-    public void canCreateWorld() {
-        final Topic world = topicFactory.createWorld();
+    public void canCreateWorldTopic() {
+        final WorldTopic worldTopic = topicFactory.createWorldTopic();
 
-        assertThat(world).isNotNull();
-        assertThat(world.getId()).isNotNull();
-        assertThat(world.getDescription(FeelhubLanguage.reference())).isEqualTo("");
-        assertThat(world.getType()).isEqualTo(TopicType.World);
-        assertThat(world.getCreationDate()).isEqualTo(time.getNow());
-        assertThat(world.getLastModificationDate()).isEqualTo(time.getNow());
+        assertThat(worldTopic).isNotNull();
     }
 
     //@Test

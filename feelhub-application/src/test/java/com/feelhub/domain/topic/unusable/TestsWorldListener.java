@@ -1,8 +1,7 @@
-package com.feelhub.domain.world;
+package com.feelhub.domain.topic.unusable;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
@@ -33,7 +32,7 @@ public class TestsWorldListener {
     @Test
     public void addPostEventForWorldStatisticsOnSentimentEvent() {
         bus.capture(WorldStatisticsEvent.class);
-        final Topic world = TestFactories.topics().newWorld();
+        final WorldTopic worldTopic = TestFactories.topics().newWorldTopic();
         final Sentiment sentiment = TestFactories.sentiments().newSentiment();
         final SentimentStatisticsEvent sentimentStatisticsEvent = new SentimentStatisticsEvent(sentiment);
 
@@ -42,7 +41,7 @@ public class TestsWorldListener {
         final WorldStatisticsEvent worldStatisticsEvent = bus.lastEvent(WorldStatisticsEvent.class);
         assertThat(worldStatisticsEvent).isNotNull();
         assertThat(worldStatisticsEvent.getSentiment()).isNotNull();
-        assertThat(worldStatisticsEvent.getSentiment().getTopicId()).isEqualTo(world.getId());
+        assertThat(worldStatisticsEvent.getSentiment().getTopicId()).isEqualTo(worldTopic.getId());
         assertThat(worldStatisticsEvent.getSentiment().getSentimentValue()).isEqualTo(sentiment.getSentimentValue());
     }
 
@@ -54,9 +53,9 @@ public class TestsWorldListener {
 
         DomainEventBus.INSTANCE.post(sentimentStatisticsEvent);
 
-        final Topic world = Repositories.topics().world();
-        assertThat(world).isNotNull();
+        final WorldTopic worldTopic = Repositories.topics().getWorldTopic();
+        assertThat(worldTopic).isNotNull();
         final WorldStatisticsEvent worldStatisticsEvent = bus.lastEvent(WorldStatisticsEvent.class);
-        assertThat(worldStatisticsEvent.getSentiment().getTopicId()).isEqualTo(world.getId());
+        assertThat(worldStatisticsEvent.getSentiment().getTopicId()).isEqualTo(worldTopic.getId());
     }
 }

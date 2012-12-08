@@ -16,7 +16,7 @@ public class AlchemyEntityMapping extends EntityMap<AlchemyEntity> {
         property(element().getCreationDate());
         property(element().getLastModificationDate());
         property(element().getOpencyc());
-        property(element().getType());
+        property(element().getTypeReal());
         property(element().getUmbel());
         property(element().getWebsite());
         property(element().getYago());

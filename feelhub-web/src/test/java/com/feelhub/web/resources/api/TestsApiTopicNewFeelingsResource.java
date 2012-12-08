@@ -1,7 +1,7 @@
 package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
@@ -27,9 +27,9 @@ public class TestsApiTopicNewFeelingsResource {
 
     @Test
     public void isMapped() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final Feeling lastFeeling = TestFactories.feelings().newFeeling();
-        final ClientResource newFeelings = restlet.newClientResource("/api/topic/" + topic.getId() + "/feeling/" + lastFeeling.getId() + "/new");
+        final ClientResource newFeelings = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/feeling/" + lastFeeling.getId() + "/new");
 
         newFeelings.get();
 
@@ -38,10 +38,10 @@ public class TestsApiTopicNewFeelingsResource {
 
     @Test
     public void returnAJsonArrayOfFeelings() throws IOException, JSONException {
-        final Topic topic = TestFactories.topics().newTopic();
-        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic.getId(), 20);
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final List<Feeling> feelings = TestFactories.feelings().newFeelings(realTopic.getId(), 20);
         final Feeling lastFeeling = feelings.get(10);
-        final ClientResource newFeelings = restlet.newClientResource("/api/topic/" + topic.getId() + "/feeling/" + lastFeeling.getId() + "/new");
+        final ClientResource newFeelings = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/feeling/" + lastFeeling.getId() + "/new");
 
         final TemplateRepresentation representation = (TemplateRepresentation) newFeelings.get();
 
@@ -52,10 +52,10 @@ public class TestsApiTopicNewFeelingsResource {
 
     @Test
     public void returnKnownFeelingsUntilLast() throws IOException, JSONException {
-        final Topic topic = TestFactories.topics().newTopic();
-        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic.getId(), 4);
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final List<Feeling> feelings = TestFactories.feelings().newFeelings(realTopic.getId(), 4);
         final Feeling lastFeeling = feelings.get(2);
-        final ClientResource newFeelings = restlet.newClientResource("/api/topic/" + topic.getId() + "/feeling/" + lastFeeling.getId() + "/new");
+        final ClientResource newFeelings = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/feeling/" + lastFeeling.getId() + "/new");
 
         final TemplateRepresentation representation = (TemplateRepresentation) newFeelings.get();
 
@@ -65,10 +65,10 @@ public class TestsApiTopicNewFeelingsResource {
 
     @Test
     public void returnKnownFeelingsUntilLastWithAVeryHighNumberOfNewFeelings() throws IOException, JSONException {
-        final Topic topic = TestFactories.topics().newTopic();
-        final List<Feeling> feelings = TestFactories.feelings().newFeelings(topic.getId(), 1000);
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final List<Feeling> feelings = TestFactories.feelings().newFeelings(realTopic.getId(), 1000);
         final Feeling lastFeeling = feelings.get(900);
-        final ClientResource newFeelings = restlet.newClientResource("/api/topic/" + topic.getId() + "/feeling/" + lastFeeling.getId() + "/new");
+        final ClientResource newFeelings = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/feeling/" + lastFeeling.getId() + "/new");
 
         final TemplateRepresentation representation = (TemplateRepresentation) newFeelings.get();
 

@@ -1,6 +1,6 @@
 package com.feelhub.domain.tag;
 
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.repositories.Repositories;
 
 import java.util.UUID;
@@ -15,17 +15,17 @@ public class TagTestFactory {
         return newTag(value, createAndPersistTopic());
     }
 
-    public Tag newTag(final String value, final Topic topic) {
+    public Tag newTag(final String value, final RealTopic realTopic) {
         final Tag tag = new Tag(value);
-        tag.addTopic(topic);
+        tag.addTopic(realTopic);
         Repositories.tags().add(tag);
         return tag;
     }
 
-    private Topic createAndPersistTopic() {
+    private RealTopic createAndPersistTopic() {
         final UUID id = UUID.randomUUID();
-        final Topic topic = new Topic(id);
-        Repositories.topics().add(topic);
-        return topic;
+        final RealTopic realTopic = new RealTopic(id, RealTopicType.Automobile);
+        Repositories.topics().add(realTopic);
+        return realTopic;
     }
 }

@@ -47,7 +47,7 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
                 feelings.add(searchResult.get(i++));
                 if (i % 30 == 0) {
                     feelingSearch.reset();
-                    feelingSearch.withSkip(i).withLimit(30).withSort("creationDate", FeelingSearch.REVERSE_ORDER).withTopicId(topic.getId());
+                    feelingSearch.withSkip(i).withLimit(30).withSort("creationDate", FeelingSearch.REVERSE_ORDER).withTopicId(realTopic.getId());
                     searchResult.addAll(feelingSearch.execute());
                 }
             }
@@ -58,8 +58,8 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
     private void setUpSearchForTopicId() {
         try {
             final String topicId = getRequestAttributes().get("topicId").toString().trim();
-            topic = topicService.lookUp(UUID.fromString(topicId));
-            feelingSearch.withTopicId(topic.getId());
+            realTopic = topicService.lookUp(UUID.fromString(topicId));
+            feelingSearch.withTopicId(realTopic.getId());
         } catch (TopicNotFound e) {
             throw new FeelhubApiException();
         }
@@ -83,5 +83,5 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
     private final FeelingSearch feelingSearch;
     private final TopicService topicService;
     private UUID lastFeelingId;
-    private Topic topic;
+    private Topic realTopic;
 }

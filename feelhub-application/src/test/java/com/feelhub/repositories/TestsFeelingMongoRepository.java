@@ -1,7 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.test.*;
 import com.mongodb.*;
@@ -19,10 +19,10 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final User activeUser = TestFactories.users().createFakeActiveUser("userforrepo@mail.com");
         final Feeling feeling = new Feeling("yeah", activeUser);
-        feeling.addSentiment(topic, SentimentValue.bad);
+        feeling.addSentiment(realTopic, SentimentValue.bad);
         feeling.setLanguageCode("en");
 
         Repositories.feelings().add(feeling);
@@ -77,17 +77,17 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
     @Ignore("on doit faire evoluer mongolink pour faire ce test ...")
     @Test
     public void canGetAllFeelingsForTopic() {
-        final Topic topic1 = TestFactories.topics().newTopic();
-        final Topic topic2 = TestFactories.topics().newTopic();
+        final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
         final Feeling op1 = TestFactories.feelings().newFeeling();
         final Feeling op2 = TestFactories.feelings().newFeeling();
         final Feeling op3 = TestFactories.feelings().newFeeling();
-        op1.addSentiment(topic1, SentimentValue.good);
-        op1.addSentiment(topic2, SentimentValue.bad);
-        op2.addSentiment(topic1, SentimentValue.good);
-        op3.addSentiment(topic2, SentimentValue.good);
+        op1.addSentiment(realTopic1, SentimentValue.good);
+        op1.addSentiment(realTopic2, SentimentValue.bad);
+        op2.addSentiment(realTopic1, SentimentValue.good);
+        op3.addSentiment(realTopic2, SentimentValue.good);
 
-        final List<Feeling> feelings = Repositories.feelings().forTopicId(topic1.getId());
+        final List<Feeling> feelings = Repositories.feelings().forTopicId(realTopic1.getId());
 
         assertThat(feelings.size(), is(2));
     }

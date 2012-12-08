@@ -1,7 +1,7 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -34,10 +34,10 @@ public class TestsNamedEntityProvider {
 
     @Test
     public void canGetNamedEntitiesForAnUri() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final String uri = "http://www.mypage.com";
 
-        final List<NamedEntity> results = namedEntityProvider.entitiesFor(topic, uri);
+        final List<NamedEntity> results = namedEntityProvider.entitiesFor(realTopic, uri);
 
         assertThat(results).isNotNull();
         assertThat(results.size()).isEqualTo(19);
@@ -45,24 +45,24 @@ public class TestsNamedEntityProvider {
 
     @Test
     public void createAlchemyAnalysisForUri() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final String uri = "http://www.mypage.com";
 
-        namedEntityProvider.entitiesFor(topic, uri);
+        namedEntityProvider.entitiesFor(realTopic, uri);
 
         final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().getAll();
         assertThat(alchemyAnalysisList.size()).isEqualTo(1);
-        assertThat(alchemyAnalysisList.get(0).getTopicId()).isEqualTo(topic.getId());
+        assertThat(alchemyAnalysisList.get(0).getTopicId()).isEqualTo(realTopic.getId());
         assertThat(alchemyAnalysisList.get(0).getLanguageCode()).isEqualTo(FeelhubLanguage.fromCountryName("english").getCode());
     }
 
     @Test
     public void throwExceptionOnError() {
         exception.expect(AlchemyException.class);
-        final Topic topic = TestFactories.topics().newTopic();
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final String uri = "http://www.error.com";
 
-        namedEntityProvider.entitiesFor(topic, uri);
+        namedEntityProvider.entitiesFor(realTopic, uri);
     }
 
     private NamedEntityProvider namedEntityProvider;

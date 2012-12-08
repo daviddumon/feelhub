@@ -2,7 +2,7 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.TopicType;
+import com.feelhub.domain.topic.usable.real.RealTopicType;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
@@ -117,7 +117,7 @@ public class TestsNamedEntityFactory {
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.type).isEqualTo(TopicType.Other);
+        assertThat(namedEntity.typeReal).isEqualTo(RealTopicType.Other);
         assertThat(namedEntity.feelhubLanguage).isEqualTo(FeelhubLanguage.none());
         assertThat(namedEntity.relevance).isEqualTo(alchemyJsonEntity.relevance);
     }
@@ -128,7 +128,7 @@ public class TestsNamedEntityFactory {
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.type).isEqualTo(TopicType.Other);
+        assertThat(namedEntity.typeReal).isEqualTo(RealTopicType.Other);
         assertThat(namedEntity.feelhubLanguage).isEqualTo(FeelhubLanguage.none());
         assertThat(namedEntity.relevance).isEqualTo(alchemyJsonEntity.relevance);
         assertThat(namedEntity.subType).isEqualTo(alchemyJsonEntity.disambiguated.subType);
@@ -212,7 +212,7 @@ public class TestsNamedEntityFactory {
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.type).isEqualTo(TopicType.Other);
+        assertThat(namedEntity.typeReal).isEqualTo(RealTopicType.Other);
     }
 
     private NamedEntityFactory namedEntityFactory;

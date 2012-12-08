@@ -1,7 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.alchemy.*;
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.test.*;
 import com.google.common.collect.Lists;
 import com.mongodb.*;
@@ -24,7 +24,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistAlchemyEntity() {
-        final AlchemyEntity alchemyEntity = new AlchemyEntity(TestFactories.topics().newTopic().getId());
+        final AlchemyEntity alchemyEntity = new AlchemyEntity(TestFactories.topics().newCompleteRealTopic().getId());
         alchemyEntity.setCensus("census");
         alchemyEntity.setCiafactbook("ciafactbook");
         alchemyEntity.setCrunchbase("crunchbase");
@@ -39,7 +39,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
         subTypes.add("sub1");
         subTypes.add("sub2");
         alchemyEntity.setSubtype(subTypes);
-        alchemyEntity.setType(TopicType.Audio);
+        alchemyEntity.setTypeReal(RealTopicType.Automobile);
         alchemyEntity.setUmbel("umbel");
         alchemyEntity.setWebsite("website");
         alchemyEntity.setYago("yago");
@@ -64,7 +64,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
         assertThat(alchemyFound.get("opencyc")).isEqualTo(alchemyEntity.getOpencyc());
         assertThat(alchemyFound.get("semanticcrunchbase")).isEqualTo(alchemyEntity.getSemanticcrunchbase());
         assertThat(alchemyFound.get("subtype")).isEqualTo(alchemyEntity.getSubtype());
-        assertThat(TopicType.valueOf(alchemyFound.get("type").toString())).isEqualTo(alchemyEntity.getType());
+        assertThat(RealTopicType.valueOf(alchemyFound.get("typeReal").toString())).isEqualTo(alchemyEntity.getTypeReal());
         assertThat(alchemyFound.get("umbel")).isEqualTo(alchemyEntity.getUmbel());
         assertThat(alchemyFound.get("website")).isEqualTo(alchemyEntity.getWebsite());
         assertThat(alchemyFound.get("yago")).isEqualTo(alchemyEntity.getYago());
@@ -86,12 +86,12 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetForATopic() {
-        final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.alchemy().newAlchemyEntityEntity(topic.getId());
-        TestFactories.alchemy().newAlchemyEntityEntity(topic.getId());
-        TestFactories.alchemy().newAlchemyEntityEntity(topic.getId());
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.alchemy().newAlchemyEntityEntity(realTopic.getId());
+        TestFactories.alchemy().newAlchemyEntityEntity(realTopic.getId());
+        TestFactories.alchemy().newAlchemyEntityEntity(realTopic.getId());
 
-        final List<AlchemyEntity> alchemyEntities = entityMongoRepository.forTopicId(topic.getId());
+        final List<AlchemyEntity> alchemyEntities = entityMongoRepository.forTopicId(realTopic.getId());
 
         assertThat(alchemyEntities).isNotNull();
         assertThat(alchemyEntities.size()).isEqualTo(3);

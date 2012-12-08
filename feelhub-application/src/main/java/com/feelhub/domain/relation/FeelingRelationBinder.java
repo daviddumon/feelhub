@@ -16,8 +16,8 @@ public class FeelingRelationBinder {
     }
 
     public void bind(final Feeling feeling) {
-        final List<Topic> topics = loadAllTopics(feeling.getSentiments());
-        createRelations(topics);
+        final List<Topic> realTopics = loadAllTopics(feeling.getSentiments());
+        createRelations(realTopics);
     }
 
     private List<Topic> loadAllTopics(final List<Sentiment> sentiments) {
@@ -29,16 +29,16 @@ public class FeelingRelationBinder {
         return topics;
     }
 
-    private void createRelations(final List<Topic> topics) {
-        for (int i = 0; i < topics.size(); i++) {
-            final Topic currentTopic = topics.get(i);
-            connectTopics(currentTopic, topics, i + 1);
+    private void createRelations(final List<Topic> realTopics) {
+        for (int i = 0; i < realTopics.size(); i++) {
+            final Topic currentRealTopic = realTopics.get(i);
+            connectTopics(currentRealTopic, realTopics, i + 1);
         }
     }
 
-    private void connectTopics(final Topic from, final List<Topic> topics, final int beginningIndex) {
-        for (int i = beginningIndex; i < topics.size(); i++) {
-            final Topic to = topics.get(i);
+    private void connectTopics(final Topic from, final List<Topic> realTopics, final int beginningIndex) {
+        for (int i = beginningIndex; i < realTopics.size(); i++) {
+            final Topic to = realTopics.get(i);
             relationBuilder.connectTwoWays(from, to);
         }
     }

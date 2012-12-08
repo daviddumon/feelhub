@@ -25,7 +25,7 @@ public class AlchemyAnalyzer {
     @Subscribe
     public void handle(final AlchemyRequestEvent event) {
         sessionProvider.start();
-        final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(event.getTopic().getId());
+        final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(event.getRealTopic().getId());
         if (alchemyAnalysisList.isEmpty()) {
             addAlchemyAnalysis(event);
         }

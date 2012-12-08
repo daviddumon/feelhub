@@ -45,7 +45,7 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
-    protected TopicRepository getTopicRepository() {
+    protected TopicRepository getUsableTopicRepository() {
         return new TopicMongoRepository(provider.get());
     }
 

@@ -1,7 +1,7 @@
 package com.feelhub.web.resources.api;
 
 import com.feelhub.application.TopicService;
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
 import com.google.inject.Inject;
@@ -21,9 +21,9 @@ public class ApiTopicsResource extends ServerResource {
         try {
             checkCredentials();
             final String description = extractDescription(form);
-            final TopicType type = extractType(form);
-            final Topic topic = topicService.createTopic(CurrentUser.get().getLanguage(), description, type, CurrentUser.get().getUser());
-            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + topic.getId()));
+            final RealTopicType typeReal = extractType(form);
+            final RealTopic realTopic = topicService.createTopic(CurrentUser.get().getLanguage(), description, typeReal, CurrentUser.get().getUser());
+            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + realTopic.getId()));
             setStatus(Status.SUCCESS_CREATED);
         } catch (AuthenticationException e) {
             setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
@@ -46,9 +46,9 @@ public class ApiTopicsResource extends ServerResource {
         }
     }
 
-    private TopicType extractType(final Form form) {
+    private RealTopicType extractType(final Form form) {
         if (form.getQueryString().contains("type")) {
-            return TopicType.valueOf(form.getFirstValue("type"));
+            return RealTopicType.valueOf(form.getFirstValue("type"));
         } else {
             throw new FeelhubApiException();
         }

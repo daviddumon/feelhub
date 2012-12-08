@@ -1,7 +1,7 @@
 package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.joda.time.DateTime;
@@ -20,10 +20,10 @@ public class TestsStatistics {
 
     @Test
     public void canCreateFromTopic() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
 
-        final Statistics statistics = new Statistics(topic.getId(), Granularity.hour, new DateTime());
+        final Statistics statistics = new Statistics(realTopic.getId(), Granularity.hour, new DateTime());
 
-        assertThat(statistics.getTopicId(), is(topic.getId()));
+        assertThat(statistics.getTopicId(), is(realTopic.getId()));
     }
 }

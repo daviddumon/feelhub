@@ -1,7 +1,7 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.topic.TopicType;
+import com.feelhub.domain.topic.usable.real.RealTopicType;
 import com.google.common.collect.Lists;
 
 import java.util.*;
@@ -30,12 +30,12 @@ public class AlchemyEntity extends BaseEntity {
         this.topicId = topicId;
     }
 
-    public TopicType getType() {
-        return type;
+    public RealTopicType getTypeReal() {
+        return typeReal;
     }
 
-    public void setType(final TopicType type) {
-        this.type = type;
+    public void setTypeReal(final RealTopicType typeReal) {
+        this.typeReal = typeReal;
     }
 
     public List<String> getSubtype() {
@@ -164,7 +164,7 @@ public class AlchemyEntity extends BaseEntity {
 
     private UUID id;
     private UUID topicId;
-    private TopicType type;
+    private RealTopicType typeReal;
     private List<String> subtype = Lists.newArrayList();
     private String website = "";
     private String geo = "";

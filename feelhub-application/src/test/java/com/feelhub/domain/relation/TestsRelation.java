@@ -4,11 +4,9 @@ import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
 import com.google.inject.*;
-import org.hamcrest.Matchers;
 import org.junit.*;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsRelation {
 
@@ -26,34 +24,34 @@ public class TestsRelation {
             }
         });
         relationFactory = injector.getInstance(RelationFactory.class);
-        from = TestFactories.topics().newTopic();
-        to = TestFactories.topics().newTopic();
+        from = TestFactories.topics().newCompleteRealTopic();
+        to = TestFactories.topics().newCompleteRealTopic();
         relation = relationFactory.newRelation(from, to, 1.0);
     }
 
     @Test
     public void canGetFromId() {
-        assertThat(relation.getFromId(), is(from.getId()));
+        assertThat(relation.getFromId()).isEqualTo(from.getId());
     }
 
     @Test
     public void canGetFrom() {
-        assertThat(relation.getFrom(), Matchers.is(from));
+        assertThat(relation.getFrom()).isEqualTo(from);
     }
 
     @Test
     public void canGetToId() {
-        assertThat(relation.getToId(), is(to.getId()));
+        assertThat(relation.getToId()).isEqualTo(to.getId());
     }
 
     @Test
     public void canGetTo() {
-        assertThat(relation.getTo(), is(to));
+        assertThat(relation.getTo()).isEqualTo(to);
     }
 
     @Test
     public void hasACreationDate() {
-        assertThat(relation.getCreationDate(), is(time.getNow()));
+        assertThat(relation.getCreationDate()).isEqualTo(time.getNow());
     }
 
     private Relation relation;

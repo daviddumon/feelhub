@@ -5,7 +5,8 @@ import com.feelhub.domain.alchemy.AlchemyAnalyzer;
 import com.feelhub.domain.eventbus.DeadEventCatcher;
 import com.feelhub.domain.meta.*;
 import com.feelhub.domain.statistics.StatisticsFactory;
-import com.feelhub.domain.world.WorldListener;
+import com.feelhub.domain.tag.TagIndexer;
+import com.feelhub.domain.topic.unusable.WorldListener;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.web.mail.MailWatcher;
 import com.google.inject.*;
@@ -28,7 +29,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(UriMetaInformationFactory.class).asEagerSingleton();
         bind(AlchemyAnalyzer.class).asEagerSingleton();
         bind(ActivationService.class).asEagerSingleton();
-        bind(TagService.class).asEagerSingleton();
+        bind(TagIndexer.class).asEagerSingleton();
     }
 
     private Properties properties() {

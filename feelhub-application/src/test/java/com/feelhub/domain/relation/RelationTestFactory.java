@@ -8,7 +8,7 @@ import java.util.UUID;
 public class RelationTestFactory {
 
     public Relation newRelation() {
-        return newRelation(TestFactories.topics().newTopic().getId(), TestFactories.topics().newTopic().getId());
+        return newRelation(TestFactories.topics().newCompleteRealTopic().getId(), TestFactories.topics().newCompleteRealTopic().getId());
     }
 
     public Relation newRelation(final UUID fromId, final UUID toId) {
@@ -23,7 +23,7 @@ public class RelationTestFactory {
     }
 
     public void newRelations(final int quantity) {
-        newRelations(quantity, TestFactories.topics().newTopic().getId());
+        newRelations(quantity, TestFactories.topics().newCompleteRealTopic().getId());
     }
 
     public void newRelations(final int quantity, final UUID fromid) {
@@ -33,6 +33,6 @@ public class RelationTestFactory {
     }
 
     private void createARelation(final UUID fromId, final int weight) {
-        newRelation(fromId, TestFactories.topics().newTopic().getId(), weight);
+        newRelation(fromId, TestFactories.topics().newCompleteRealTopic().getId(), weight);
     }
 }

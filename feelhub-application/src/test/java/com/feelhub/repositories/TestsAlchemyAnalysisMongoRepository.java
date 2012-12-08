@@ -2,7 +2,7 @@ package com.feelhub.repositories;
 
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
@@ -24,8 +24,8 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
 
     @Test
     public void canPersistAlchemyAnalysis() {
-        final Topic topic = TestFactories.topics().newTopic();
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic, "value");
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(realTopic, "value");
         alchemyAnalysis.setLanguageCode(FeelhubLanguage.reference());
 
         entityMongoRepository.add(alchemyAnalysis);
@@ -52,12 +52,12 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
 
     @Test
     public void canGetForATopic() {
-        final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.alchemy().newAlchemyAnalysis(topic);
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.alchemy().newAlchemyAnalysis(realTopic);
         TestFactories.alchemy().newAlchemyAnalysis();
         TestFactories.alchemy().newAlchemyAnalysis();
 
-        final List<AlchemyAnalysis> alchemyEntities = entityMongoRepository.forTopicId(topic.getId());
+        final List<AlchemyAnalysis> alchemyEntities = entityMongoRepository.forTopicId(realTopic.getId());
 
         assertThat(alchemyEntities, notNullValue());
         assertThat(alchemyEntities.size(), is(1));

@@ -54,7 +54,7 @@ public class TopicData {
         private String illustrationLink = "";
         private String description = "";
         private SentimentValue sentimentValue = SentimentValue.none;
-        private TopicType type = TopicType.None;
+        private TopicType type;
         private List<String> subTypes = Lists.newArrayList();
         private List<String> urls = Lists.newArrayList();
     }

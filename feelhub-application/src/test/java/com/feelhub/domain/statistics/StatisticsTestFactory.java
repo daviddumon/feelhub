@@ -1,7 +1,7 @@
 package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 import org.joda.time.DateTime;
@@ -11,8 +11,8 @@ import java.util.UUID;
 public class StatisticsTestFactory {
 
     public Statistics newStatistics() {
-        final Topic topic = TestFactories.topics().newTopic();
-        final Statistics statistics = new Statistics(topic.getId(), Granularity.day, new DateTime());
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final Statistics statistics = new Statistics(realTopic.getId(), Granularity.day, new DateTime());
         Repositories.statistics().add(statistics);
         return statistics;
     }

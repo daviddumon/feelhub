@@ -1,14 +1,14 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.TopicType;
+import com.feelhub.domain.topic.usable.real.RealTopicType;
 import com.google.common.collect.Lists;
 
 import java.util.List;
 
 public class NamedEntity {
 
-    public TopicType type;
+    public RealTopicType typeReal;
     public Double relevance;
     public List<String> subType = Lists.newArrayList();
     public String website = "";

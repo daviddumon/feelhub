@@ -1,6 +1,6 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
@@ -25,7 +25,7 @@ public class AlchemyTestFactory {
         subTypes.add("sub1");
         subTypes.add("sub2");
         alchemyEntity.setSubtype(subTypes);
-        alchemyEntity.setType(TopicType.Automobile);
+        alchemyEntity.setTypeReal(RealTopicType.Automobile);
         alchemyEntity.setUmbel("umbel");
         alchemyEntity.setWebsite("website");
         alchemyEntity.setYago("yago");
@@ -34,15 +34,15 @@ public class AlchemyTestFactory {
         return alchemyEntity;
     }
 
-    public AlchemyAnalysis newAlchemyAnalysis(final Topic topic) {
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic, "http://www.fakeurl.com");
+    public AlchemyAnalysis newAlchemyAnalysis(final RealTopic realTopic) {
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(realTopic, "http://www.fakeurl.com");
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
         return alchemyAnalysis;
     }
 
     public AlchemyAnalysis newAlchemyAnalysis() {
-        final Topic topic = TestFactories.topics().newTopic();
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic, "http://www.fakeurl.com");
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(realTopic, "http://www.fakeurl.com");
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
         return alchemyAnalysis;
     }

@@ -2,7 +2,7 @@ package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.BaseEntity;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
@@ -78,10 +78,10 @@ public class Feeling extends BaseEntity {
         this.userId = user.getId();
     }
 
-    public void addSentiment(final Topic topic, final SentimentValue sentimentValue) {
-        final Sentiment sentiment = new Sentiment(topic.getId(), sentimentValue);
+    public void addSentiment(final RealTopic realTopic, final SentimentValue sentimentValue) {
+        final Sentiment sentiment = new Sentiment(realTopic.getId(), sentimentValue);
         sentiments.add(sentiment);
-        topic.setLastModificationDate(new DateTime());
+        realTopic.setLastModificationDate(new DateTime());
         DomainEventBus.INSTANCE.post(new SentimentStatisticsEvent(sentiment));
     }
 

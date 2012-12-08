@@ -1,6 +1,6 @@
 package com.feelhub.domain.relation;
 
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -30,20 +30,20 @@ public class TestsAlchemyRelationBinder {
 
     @Test
     public void canCreateRelations() {
-        final Topic mainTopic = TestFactories.topics().newTopic();
-        final Topic topic1 = TestFactories.topics().newTopic();
-        final Topic topic2 = TestFactories.topics().newTopic();
+        final RealTopic mainRealTopic = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
         final HashMap<UUID, Double> topicIds = Maps.newHashMap();
-        topicIds.put(topic1.getId(), 0.2);
-        topicIds.put(topic2.getId(), 0.6);
+        topicIds.put(realTopic1.getId(), 0.2);
+        topicIds.put(realTopic2.getId(), 0.6);
 
-        alchemyRelationBinder.bind(mainTopic.getId(), topicIds);
+        alchemyRelationBinder.bind(mainRealTopic.getId(), topicIds);
 
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.size(), is(6));
-        final Relation relation1 = Repositories.relations().lookUp(mainTopic.getId(), topic1.getId());
+        final Relation relation1 = Repositories.relations().lookUp(mainRealTopic.getId(), realTopic1.getId());
         assertThat(relation1.getWeight(), is(1.2));
-        final Relation relation2 = Repositories.relations().lookUp(mainTopic.getId(), topic2.getId());
+        final Relation relation2 = Repositories.relations().lookUp(mainRealTopic.getId(), realTopic2.getId());
         assertThat(relation2.getWeight(), is(1.6));
     }
 

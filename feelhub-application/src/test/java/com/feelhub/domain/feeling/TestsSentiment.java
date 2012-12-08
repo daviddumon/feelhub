@@ -1,6 +1,6 @@
 package com.feelhub.domain.feeling;
 
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
@@ -15,13 +15,13 @@ public class TestsSentiment {
 
     @Test
     public void hasATopicAndASentimentValue() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final SentimentValue sentimentValue = SentimentValue.good;
 
-        final Sentiment sentiment = new Sentiment(topic.getId(), sentimentValue);
+        final Sentiment sentiment = new Sentiment(realTopic.getId(), sentimentValue);
 
         assertThat(sentiment, notNullValue());
-        assertThat(sentiment.getTopicId(), is(topic.getId()));
+        assertThat(sentiment.getTopicId(), is(realTopic.getId()));
         assertThat(sentiment.getSentimentValue(), is(sentimentValue));
     }
 }

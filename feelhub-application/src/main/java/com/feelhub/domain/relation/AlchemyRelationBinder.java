@@ -15,33 +15,33 @@ public class AlchemyRelationBinder {
     }
 
     public void bind(final UUID mainTopicId, final HashMap<UUID, Double> topicIds) {
-        final Topic mainTopic = loadtopic(mainTopicId);
-        final List<Topic> topics = Lists.newArrayList();
-        connectAllTopicsToMainTopicWithScore(topicIds, mainTopic, topics);
-        connectAllTopicsToThemselves(topics);
+        final Topic mainRealTopic = loadtopic(mainTopicId);
+        final List<Topic> realTopics = Lists.newArrayList();
+        connectAllTopicsToMainTopicWithScore(topicIds, mainRealTopic, realTopics);
+        connectAllTopicsToThemselves(realTopics);
     }
 
-    private void connectAllTopicsToThemselves(final List<Topic> topics) {
-        for (int i = 0; i < topics.size(); i++) {
-            final Topic currentTopic = topics.get(i);
-            connectTopic(currentTopic, i + 1, topics);
+    private void connectAllTopicsToThemselves(final List<Topic> realTopics) {
+        for (int i = 0; i < realTopics.size(); i++) {
+            final Topic currentRealTopic = realTopics.get(i);
+            connectTopic(currentRealTopic, i + 1, realTopics);
         }
     }
 
-    private void connectTopic(final Topic from, final int beginningIndex, final List<Topic> topics) {
-        for (int i = beginningIndex; i < topics.size(); i++) {
-            final Topic to = topics.get(i);
+    private void connectTopic(final Topic from, final int beginningIndex, final List<Topic> realTopics) {
+        for (int i = beginningIndex; i < realTopics.size(); i++) {
+            final Topic to = realTopics.get(i);
             relationBuilder.connectTwoWays(from, to);
         }
     }
 
-    private void connectAllTopicsToMainTopicWithScore(final HashMap<UUID, Double> topicIds, final Topic to, final List<Topic> topics) {
+    private void connectAllTopicsToMainTopicWithScore(final HashMap<UUID, Double> topicIds, final Topic to, final List<Topic> realTopics) {
         for (final Map.Entry<UUID, Double> entry : topicIds.entrySet()) {
             final UUID currentTopicId = entry.getKey();
             final Double score = entry.getValue();
             final Topic from = loadtopic(currentTopicId);
             relationBuilder.connectTwoWays(from, to, score);
-            topics.add(from);
+            realTopics.add(from);
         }
     }
 

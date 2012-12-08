@@ -39,7 +39,7 @@ public class FakeMongoRepositories extends Repositories {
     }
 
     @Override
-    protected TopicRepository getTopicRepository() {
+    protected TopicRepository getUsableTopicRepository() {
         return topicRepository;
     }
 

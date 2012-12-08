@@ -6,6 +6,7 @@ import com.feelhub.domain.meta.Illustration;
 import com.feelhub.domain.relation.Relation;
 import com.feelhub.domain.statistics.*;
 import com.feelhub.domain.tag.Tag;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -32,73 +33,73 @@ public class TestsTopicMerger {
 
     @Test
     public void mergeTags() {
-        final Topic newTopic = TestFactories.topics().newTopic("tag1");
-        final Topic oldTopic = TestFactories.topics().newTopic("tag2");
+        final RealTopic newRealTopic = TestFactories.topics().newCompleteRealTopic("tag1");
+        final RealTopic oldRealTopic = TestFactories.topics().newCompleteRealTopic("tag2");
 
-        topicMerger.merge(newTopic.getId(), oldTopic.getId());
+        topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
 
         for (final Tag tag : Repositories.tags().getAll()) {
-            assertThat(tag.getTopicIds()).contains(newTopic.getId());
-            assertThat(oldTopic.getId()).isNotIn(tag.getTopicIds());
+            assertThat(tag.getTopicIds()).contains(newRealTopic.getId());
+            assertThat(oldRealTopic.getId()).isNotIn(tag.getTopicIds());
         }
     }
 
     @Test
     public void mergeIllustrations() {
-        final Topic newTopic = TestFactories.topics().newTopic("tag1");
-        final Topic oldTopic = TestFactories.topics().newTopic("tag2");
-        TestFactories.illustrations().newIllustration(newTopic.getId());
-        TestFactories.illustrations().newIllustration(oldTopic.getId());
+        final RealTopic newRealTopic = TestFactories.topics().newCompleteRealTopic("tag1");
+        final RealTopic oldRealTopic = TestFactories.topics().newCompleteRealTopic("tag2");
+        TestFactories.illustrations().newIllustration(newRealTopic.getId());
+        TestFactories.illustrations().newIllustration(oldRealTopic.getId());
 
-        topicMerger.merge(newTopic.getId(), oldTopic.getId());
+        topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
 
         for (final Illustration illustration : Repositories.illustrations().getAll()) {
-            assertThat(illustration.getTopicId()).isEqualTo(newTopic.getId());
+            assertThat(illustration.getTopicId()).isEqualTo(newRealTopic.getId());
         }
     }
 
     @Test
     public void mergeFeelings() {
-        final Topic newTopic = TestFactories.topics().newTopic("tag1");
-        final Topic oldTopic = TestFactories.topics().newTopic("tag2");
-        TestFactories.feelings().newFeelings(newTopic.getId(), 10);
-        TestFactories.feelings().newFeelings(oldTopic.getId(), 10);
+        final RealTopic newRealTopic = TestFactories.topics().newCompleteRealTopic("tag1");
+        final RealTopic oldRealTopic = TestFactories.topics().newCompleteRealTopic("tag2");
+        TestFactories.feelings().newFeelings(newRealTopic.getId(), 10);
+        TestFactories.feelings().newFeelings(oldRealTopic.getId(), 10);
 
-        topicMerger.merge(newTopic.getId(), oldTopic.getId());
+        topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
 
         for (final Feeling feeling : Repositories.feelings().getAll()) {
             for (final Sentiment sentiment : feeling.getSentiments()) {
-                assertThat(sentiment.getTopicId()).isEqualTo(newTopic.getId());
+                assertThat(sentiment.getTopicId()).isEqualTo(newRealTopic.getId());
             }
         }
     }
 
     @Test
     public void mergeRelations() {
-        final Topic newTopic = TestFactories.topics().newTopic("tag1");
-        final Topic oldTopic = TestFactories.topics().newTopic("tag2");
-        final Topic anotherTopic = TestFactories.topics().newTopic();
-        final Relation relation1 = TestFactories.relations().newRelation(oldTopic.getId(), anotherTopic.getId());
-        final Relation relation2 = TestFactories.relations().newRelation(anotherTopic.getId(), oldTopic.getId());
+        final RealTopic newRealTopic = TestFactories.topics().newCompleteRealTopic("tag1");
+        final RealTopic oldRealTopic = TestFactories.topics().newCompleteRealTopic("tag2");
+        final RealTopic anotherRealTopic = TestFactories.topics().newCompleteRealTopic();
+        final Relation relation1 = TestFactories.relations().newRelation(oldRealTopic.getId(), anotherRealTopic.getId());
+        final Relation relation2 = TestFactories.relations().newRelation(anotherRealTopic.getId(), oldRealTopic.getId());
 
-        topicMerger.merge(newTopic.getId(), oldTopic.getId());
+        topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
 
-        assertThat(relation1.getFromId()).isEqualTo(newTopic.getId());
-        assertThat(relation1.getToId()).isEqualTo(anotherTopic.getId());
-        assertThat(relation2.getFromId()).isEqualTo(anotherTopic.getId());
-        assertThat(relation2.getToId()).isEqualTo(newTopic.getId());
+        assertThat(relation1.getFromId()).isEqualTo(newRealTopic.getId());
+        assertThat(relation1.getToId()).isEqualTo(anotherRealTopic.getId());
+        assertThat(relation2.getFromId()).isEqualTo(anotherRealTopic.getId());
+        assertThat(relation2.getToId()).isEqualTo(newRealTopic.getId());
     }
 
     @Test
     public void mergeStatistics() {
-        final Topic newTopic = TestFactories.topics().newTopic("tag1");
-        final Topic oldTopic = TestFactories.topics().newTopic("tag2");
-        TestFactories.statistics().newStatisticsWithSentiments(oldTopic.getId(), Granularity.hour);
+        final RealTopic newRealTopic = TestFactories.topics().newCompleteRealTopic("tag1");
+        final RealTopic oldRealTopic = TestFactories.topics().newCompleteRealTopic("tag2");
+        TestFactories.statistics().newStatisticsWithSentiments(oldRealTopic.getId(), Granularity.hour);
 
-        topicMerger.merge(newTopic.getId(), oldTopic.getId());
+        topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
 
         final Statistics statistics = Repositories.statistics().getAll().get(0);
-        assertThat(statistics.getTopicId()).isEqualTo(newTopic.getId());
+        assertThat(statistics.getTopicId()).isEqualTo(newRealTopic.getId());
     }
 
     private TopicMerger topicMerger;

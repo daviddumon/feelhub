@@ -1,6 +1,10 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.unusable.WorldTopic;
+import com.feelhub.domain.topic.usable.geo.GeoTopic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.usable.web.WebTopic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
@@ -21,71 +25,175 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersistATopic() {
-        final Topic topic = TestFactories.topics().newTopic();
+        final UUID id = UUID.randomUUID();
+        final FakeTopic fakeTopic = new FakeTopic(id);
 
-        repo.add(topic);
+        repo.add(fakeTopic);
 
-        final DBCollection collection = mongo.getCollection("topic");
-        final DBObject query = new BasicDBObject();
-        query.put("_id", topic.getId());
-        final DBObject topicFound = collection.findOne(query);
+        final DBObject topicFound = getTopic(id);
         assertThat(topicFound).isNotNull();
-        assertThat(topicFound.get("_id")).isEqualTo(topic.getId());
-        assertThat(TopicType.valueOf(topicFound.get("type").toString())).isEqualTo(topic.getType());
-        assertThat(topicFound.get("subTypes")).isNotNull();
-        assertThat(topicFound.get("urls")).isNotNull();
-        assertThat(topicFound.get("descriptions")).isNotNull();
-        assertThat(topicFound.get("creationDate")).isEqualTo(topic.getCreationDate().getMillis());
-        assertThat(topicFound.get("lastModificationDate")).isEqualTo(topic.getLastModificationDate().getMillis());
-        assertThat(topicFound.get("userId")).isEqualTo(topic.getUserId());
-        assertThat(topicFound.get("currentTopicId")).isEqualTo(topic.getCurrentTopicId());
+        assertThat(topicFound.get("_id")).isEqualTo(id);
+        assertThat(topicFound.get("currentId")).isEqualTo(id);
+        assertThat(topicFound.get("creationDate")).isEqualTo(fakeTopic.getCreationDate().getMillis());
+        assertThat(topicFound.get("lastModificationDate")).isEqualTo(fakeTopic.getLastModificationDate().getMillis());
     }
 
     @Test
-    public void canGetATopic() {
+    public void canPersistWorldTopic() {
+        final UUID id = UUID.randomUUID();
+        final WorldTopic worldTopic = new WorldTopic(id);
+
+        repo.add(worldTopic);
+
+        final DBObject topicFound = getTopic(id);
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.get("_id")).isEqualTo(id);
+        assertThat(topicFound.get("__discriminator")).isEqualTo("WorldTopic");
+    }
+
+    @Test
+    public void canPersistARealTopic() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+
+        repo.add(realTopic);
+
+        final DBObject topicFound = getTopic(realTopic.getId());
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.get("type").toString()).isEqualTo(realTopic.getType().toString());
+        assertThat(topicFound.get("userId")).isEqualTo(realTopic.getUserId());
+        assertThat(topicFound.get("names")).isNotNull();
+        assertThat(topicFound.get("descriptions")).isNotNull();
+        assertThat(topicFound.get("subTypes")).isNotNull();
+        assertThat(topicFound.get("__discriminator")).isEqualTo("RealTopic");
+    }
+
+    @Test
+    public void canPersistAWebTopic() {
+        final WebTopic webTopic = TestFactories.topics().newCompleteWebTopic();
+
+        repo.add(webTopic);
+
+        final DBObject topicFound = getTopic(webTopic.getId());
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.get("type").toString()).isEqualTo(webTopic.getType().toString());
+        assertThat(topicFound.get("userId")).isEqualTo(webTopic.getUserId());
+        assertThat(topicFound.get("names")).isNotNull();
+        assertThat(topicFound.get("descriptions")).isNotNull();
+        assertThat(topicFound.get("urls")).isNotNull();
+        assertThat(topicFound.get("__discriminator")).isEqualTo("WebTopic");
+    }
+
+    @Test
+    public void canPersistAGeoTopic() {
+        final GeoTopic geoTopic = TestFactories.topics().newCompleteGeoTopic();
+
+        repo.add(geoTopic);
+
+        final DBObject topicFound = getTopic(geoTopic.getId());
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.get("type").toString()).isEqualTo(geoTopic.getType().toString());
+        assertThat(topicFound.get("userId")).isEqualTo(geoTopic.getUserId());
+        assertThat(topicFound.get("names")).isNotNull();
+        assertThat(topicFound.get("descriptions")).isNotNull();
+        assertThat(topicFound.get("__discriminator")).isEqualTo("GeoTopic");
+    }
+
+    @Test
+    public void canGetAWorldTopic() {
         final DBCollection collection = mongo.getCollection("topic");
         final DBObject topic = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         topic.put("_id", id);
+        topic.put("__discriminator", "WorldTopic");
         collection.insert(topic);
 
-        final Topic topicFound = repo.get(id);
+        final WorldTopic topicFound = repo.getWorldTopic();
 
         assertThat(topicFound).isNotNull();
+        assertThat(topicFound.getId()).isEqualTo(id);
+    }
+
+    @Test
+    public void canGetAWebTopic() {
+        final DBCollection collection = mongo.getCollection("topic");
+        final DBObject topic = new BasicDBObject();
+        final UUID id = UUID.randomUUID();
+        topic.put("_id", id);
+        topic.put("__discriminator", "WebTopic");
+        collection.insert(topic);
+
+        final WebTopic topicFound = repo.getWebTopic(id);
+
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.getId()).isEqualTo(id);
+    }
+
+    @Test
+    public void canGetARealTopic() {
+        final DBCollection collection = mongo.getCollection("topic");
+        final DBObject topic = new BasicDBObject();
+        final UUID id = UUID.randomUUID();
+        topic.put("_id", id);
+        topic.put("__discriminator", "RealTopic");
+        collection.insert(topic);
+
+        final RealTopic topicFound = repo.getRealTopic(id);
+
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.getId()).isEqualTo(id);
+    }
+
+    @Test
+    public void canGetAGeoTopic() {
+        final DBCollection collection = mongo.getCollection("topic");
+        final DBObject topic = new BasicDBObject();
+        final UUID id = UUID.randomUUID();
+        topic.put("_id", id);
+        topic.put("__discriminator", "GeoTopic");
+        collection.insert(topic);
+
+        final GeoTopic topicFound = repo.getGeoTopic(id);
+
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.getId()).isEqualTo(id);
     }
 
     @Test
     public void bugCannotChangeDateOfTopic() {
-        final UUID id = TestFactories.topics().newTopic().getId();
-
-        final Topic topic = repo.get(id);
+        final UUID id = TestFactories.topics().newCompleteRealTopic().getId();
+        final RealTopic realTopic = (RealTopic) repo.get(id);
         time.waitDays(1);
-        topic.setLastModificationDate(time.getNow());
+
+        realTopic.setLastModificationDate(time.getNow());
 
         assertThat(Repositories.topics().get(id).getLastModificationDate()).isEqualTo(time.getNow());
     }
 
     @Test
-    public void canGetWorld() {
-        final Topic topic = TestFactories.topics().newWorld();
+    public void canGetCurrentTopic() {
+        final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopic3 = TestFactories.topics().newCompleteRealTopic();
+        realTopic1.changeCurrentId(realTopic2.getId());
+        realTopic2.changeCurrentId(realTopic3.getId());
 
-        final Topic world = repo.world();
+        final Topic currentRealTopic = repo.getCurrentTopic(realTopic1.getId());
 
-        assertThat(world).isNotNull();
+        assertThat(currentRealTopic).isEqualTo(realTopic3);
     }
 
-    @Test
-    public void canGetCurrentTopic() {
-        final Topic topic1 = TestFactories.topics().newTopic();
-        final Topic topic2 = TestFactories.topics().newTopic();
-        final Topic topic3 = TestFactories.topics().newTopic();
-        topic1.changeCurrentTopicId(topic2.getId());
-        topic2.changeCurrentTopicId(topic3.getId());
-
-        final Topic currentTopic = repo.getCurrentTopic(topic1.getId());
-
-        assertThat(currentTopic).isEqualTo(topic3);
+    private DBObject getTopic(final UUID id) {
+        final DBCollection collection = mongo.getCollection("topic");
+        final DBObject query = new BasicDBObject();
+        query.put("_id", id);
+        return collection.findOne(query);
     }
 
     private TopicRepository repo;
+
+    class FakeTopic extends Topic {
+        FakeTopic(final UUID id) {
+            super(id);
+        }
+    }
 }

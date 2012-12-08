@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;
 import com.feelhub.web.*;
@@ -29,8 +29,8 @@ public class TestsApiTopicIllustrationsResource {
 
     @Test
     public void illustrationsResourceIsMapped() {
-        final Topic topic = TestFactories.topics().newTopic();
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + topic.getId() + "/illustrations");
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/illustrations");
 
         final Representation representation = resource.get();
 
@@ -40,9 +40,9 @@ public class TestsApiTopicIllustrationsResource {
 
     @Test
     public void canGetIllustrationsForATopic() throws IOException, JSONException {
-        final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(topic.getId(), "link");
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + topic.getId() + "/illustrations");
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.illustrations().newIllustration(realTopic.getId(), "link");
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/illustrations");
 
         final TemplateRepresentation representation = (TemplateRepresentation) resource.get();
 

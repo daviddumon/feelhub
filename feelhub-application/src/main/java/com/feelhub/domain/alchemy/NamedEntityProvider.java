@@ -3,7 +3,7 @@ package com.feelhub.domain.alchemy;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feelhub.domain.alchemy.readmodel.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -19,11 +19,11 @@ public class NamedEntityProvider {
         this.namedEntityFactory = namedEntityFactory;
     }
 
-    public List<NamedEntity> entitiesFor(final Topic topic, final String value) {
+    public List<NamedEntity> entitiesFor(final RealTopic realTopic, final String value) {
         try {
             final InputStream stream = alchemyLink.get(value);
             final AlchemyJsonResults results = unmarshall(stream);
-            createAlchemyAnalysis(topic, value, results);
+            createAlchemyAnalysis(realTopic, value, results);
             return getResults(results);
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,8 +41,8 @@ public class NamedEntityProvider {
         }
     }
 
-    private void createAlchemyAnalysis(final Topic topic, final String value, final AlchemyJsonResults results) {
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic, value);
+    private void createAlchemyAnalysis(final RealTopic realTopic, final String value, final AlchemyJsonResults results) {
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(realTopic, value);
         alchemyAnalysis.setLanguageCode(FeelhubLanguage.fromCountryName(results.language));
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
     }

@@ -23,8 +23,8 @@ public class ApiTopicIllustrationsResource extends ServerResource {
     @Get
     public ModelAndView represent() throws JSONException {
         final String topicId = getRequestAttributes().get("topicId").toString().trim();
-        final Topic topic = topicService.lookUp(UUID.fromString(topicId));
-        final List<Illustration> illustrations = illustrationSearch.withTopicId(topic.getId()).execute();
+        final Topic realTopic = topicService.lookUp(UUID.fromString(topicId));
+        final List<Illustration> illustrations = illustrationSearch.withTopicId(realTopic.getId()).execute();
         return ModelAndView.createNew("api/illustrations.json.ftl", MediaType.APPLICATION_JSON).with("illustrations", illustrations);
     }
 

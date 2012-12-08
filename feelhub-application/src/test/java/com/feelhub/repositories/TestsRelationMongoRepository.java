@@ -1,7 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.relation.*;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
@@ -23,8 +23,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canPersist() {
-        final Topic left = TestFactories.topics().newTopic();
-        final Topic right = TestFactories.topics().newTopic();
+        final RealTopic left = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic right = TestFactories.topics().newCompleteRealTopic();
         final Relation relation = new Relation(left, right, 1.0);
 
         repo.add(relation);
@@ -44,8 +44,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGet() {
-        final Topic left = TestFactories.topics().newTopic();
-        final Topic right = TestFactories.topics().newTopic();
+        final RealTopic left = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic right = TestFactories.topics().newCompleteRealTopic();
         final Relation relation = new Relation(left, right, 1.0);
         Repositories.relations().add(relation);
 
@@ -56,8 +56,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canLookupForFromAndTo() {
-        final Topic from = TestFactories.topics().newTopic();
-        final Topic to = TestFactories.topics().newTopic();
+        final RealTopic from = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic to = TestFactories.topics().newCompleteRealTopic();
         final Relation relation = TestFactories.relations().newRelation(from.getId(), to.getId());
 
         final Relation relationFound = repo.lookUp(from.getId(), to.getId());
@@ -68,24 +68,24 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetAllRelationsContainingATopicId() {
-        final Topic topic1 = TestFactories.topics().newTopic();
-        final Topic topic2 = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelation(topic1.getId(), topic2.getId());
-        TestFactories.relations().newRelation(topic2.getId(), topic1.getId());
+        final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.relations().newRelation(realTopic1.getId(), realTopic2.getId());
+        TestFactories.relations().newRelation(realTopic2.getId(), realTopic1.getId());
 
-        final List<Relation> relations = repo.containingTopicId(topic1.getId());
+        final List<Relation> relations = repo.containingTopicId(realTopic1.getId());
 
         assertThat(relations.size()).isEqualTo(2);
     }
 
     @Test
     public void canGetAllRelationsForATopicId() {
-        final Topic topic1 = TestFactories.topics().newTopic();
-        final Topic topic2 = TestFactories.topics().newTopic();
-        TestFactories.relations().newRelation(topic1.getId(), topic2.getId());
-        TestFactories.relations().newRelation(topic2.getId(), topic1.getId());
+        final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.relations().newRelation(realTopic1.getId(), realTopic2.getId());
+        TestFactories.relations().newRelation(realTopic2.getId(), realTopic1.getId());
 
-        final List<Relation> relations = repo.forTopicId(topic1.getId());
+        final List<Relation> relations = repo.forTopicId(realTopic1.getId());
 
         assertThat(relations.size()).isEqualTo(1);
     }

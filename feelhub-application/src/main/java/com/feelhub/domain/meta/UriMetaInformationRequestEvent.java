@@ -1,12 +1,12 @@
 package com.feelhub.domain.meta;
 
 import com.feelhub.domain.eventbus.DomainEvent;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 
 public class UriMetaInformationRequestEvent extends DomainEvent {
 
-    public UriMetaInformationRequestEvent(final Topic topic, final String value) {
-        this.topic = topic;
+    public UriMetaInformationRequestEvent(final RealTopic realTopic, final String value) {
+        this.realTopic = realTopic;
         this.value = value;
     }
 
@@ -19,14 +19,14 @@ public class UriMetaInformationRequestEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    public Topic getTopic() {
-        return topic;
+    public RealTopic getRealTopic() {
+        return realTopic;
     }
 
     public String getValue() {
         return value;
     }
 
-    private final Topic topic;
+    private final RealTopic realTopic;
     private final String value;
 }

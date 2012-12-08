@@ -2,7 +2,8 @@ package com.feelhub.web.resources;
 
 import com.feelhub.application.*;
 import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.TopicNotFound;
+import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
@@ -28,8 +29,8 @@ public class SearchResource extends ServerResource {
         final List<TopicData> topicDatas = Lists.newArrayList();
         try {
             final Tag tag = tagService.lookUp(query);
-            final List<Topic> topics = getTopics(tag);
-            topicDatas.addAll(getTopicDatas(topics));
+            final List<UsableTopic> realTopics = getTopics(tag);
+            topicDatas.addAll(getTopicDatas(realTopics));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,22 +38,22 @@ public class SearchResource extends ServerResource {
         return ModelAndView.createNew("search.ftl").with("q", query).with("topicDatas", topicDatas);
     }
 
-    private List<Topic> getTopics(final com.feelhub.domain.tag.Tag tag) {
-        final List<Topic> topics = Lists.newArrayList();
+    private List<UsableTopic> getTopics(final com.feelhub.domain.tag.Tag tag) {
+        final List<UsableTopic> realTopics = Lists.newArrayList();
         for (final UUID id : tag.getTopicIds()) {
             try {
-                topics.add(topicService.lookUp(id));
+                realTopics.add((UsableTopic) topicService.lookUp(id));
             } catch (TopicNotFound e) {
                 e.printStackTrace();
             }
         }
-        return topics;
+        return realTopics;
     }
 
-    private List<TopicData> getTopicDatas(final List<Topic> topics) {
+    private List<TopicData> getTopicDatas(final List<UsableTopic> realTopics) {
         final List<TopicData> result = Lists.newArrayList();
-        for (final Topic topic : topics) {
-            result.add(topicDataFactory.getTopicData(topic, CurrentUser.get().getLanguage()));
+        for (final UsableTopic realTopic : realTopics) {
+            result.add(topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage()));
         }
         return result;
     }

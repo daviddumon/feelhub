@@ -2,7 +2,7 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.BaseEntity;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 
 import java.util.UUID;
 
@@ -12,9 +12,9 @@ public class AlchemyAnalysis extends BaseEntity {
     protected AlchemyAnalysis() {
     }
 
-    public AlchemyAnalysis(final Topic topic, final String value) {
+    public AlchemyAnalysis(final RealTopic realTopic, final String value) {
         this.id = UUID.randomUUID();
-        this.topicId = topic.getId();
+        this.topicId = realTopic.getId();
         this.value = value;
     }
 

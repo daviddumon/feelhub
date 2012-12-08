@@ -2,7 +2,7 @@ package com.feelhub.web.search;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.*;
 import org.junit.*;
@@ -77,11 +77,11 @@ public class TestsFeelingSearch extends TestWithMongoRepository {
     @Ignore
     @Test
     public void canGetFeelingsForTopic() {
-        final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.feelings().newFeelings(topic.getId(), 10);
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.feelings().newFeelings(realTopic.getId(), 10);
         TestFactories.feelings().newFeelings(20);
 
-        final List<Feeling> feelings = feelingSearch.withTopicId(topic.getId()).execute();
+        final List<Feeling> feelings = feelingSearch.withTopicId(realTopic.getId()).execute();
 
         assertThat(feelings.size()).isEqualTo(10);
     }

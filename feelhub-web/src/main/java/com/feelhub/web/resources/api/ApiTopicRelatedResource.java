@@ -3,6 +3,7 @@ package com.feelhub.web.resources.api;
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.relation.Relation;
 import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
@@ -34,7 +35,7 @@ public class ApiTopicRelatedResource extends ServerResource {
     private void getTopic() {
         try {
             topicId = getRequestAttributes().get("topicId").toString().trim();
-            topic = topicService.lookUp(UUID.fromString(topicId));
+            realTopic = topicService.lookUp(UUID.fromString(topicId));
             relationSearch.withTopicId(UUID.fromString(topicId));
         } catch (TopicNotFound e) {
             throw new FeelhubApiException();
@@ -76,8 +77,8 @@ public class ApiTopicRelatedResource extends ServerResource {
 
     private void addTopicData(final Relation relation) {
         try {
-            final Topic topic = topicService.lookUp(relation.getToId());
-            final TopicData topicData = topicDataFactory.getTopicData(topic, CurrentUser.get().getLanguage());
+            final UsableTopic realTopic = (UsableTopic) topicService.lookUp(relation.getToId());
+            final TopicData topicData = topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage());
             topicDataList.add(topicData);
         } catch (TopicNotFound e) {
             throw new FeelhubApiException();
@@ -90,5 +91,5 @@ public class ApiTopicRelatedResource extends ServerResource {
     private final TopicDataFactory topicDataFactory;
     private List<Relation> relations = Lists.newArrayList();
     private final List<TopicData> topicDataList = Lists.newArrayList();
-    private Topic topic;
+    private Topic realTopic;
 }

@@ -1,6 +1,10 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.unusable.WorldTopic;
+import com.feelhub.domain.topic.usable.geo.*;
+import com.feelhub.domain.topic.usable.real.*;
+import com.feelhub.domain.topic.usable.web.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 
@@ -8,39 +12,62 @@ import java.util.UUID;
 
 public class TopicTestFactory {
 
-    public Topic newTopic() {
-        return newTopic("description");
+    public RealTopic newCompleteRealTopic() {
+        return newCompleteRealTopic("name");
     }
 
-    public Topic newTopic(final String description) {
-        final Topic topic = new Topic(UUID.randomUUID());
-        topic.setType(TopicType.Website);
-        topic.addDescription(FeelhubLanguage.reference(), description + "-reference");
-        topic.addDescription(FeelhubLanguage.fromCode("fr"), description + "-fr");
-        topic.addSubType("subtype1");
-        topic.addSubType("subtype2");
-        topic.addUrl("http://www.fakeurl.com");
-        topic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
-        Repositories.topics().add(topic);
-        return topic;
+    public RealTopic newCompleteRealTopic(final String name) {
+        final RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Automobile);
+        realTopic.addName(FeelhubLanguage.reference(), name + "-reference");
+        realTopic.addName(FeelhubLanguage.fromCode("fr"), name + "-fr");
+        realTopic.addDescription(FeelhubLanguage.reference(), "description-reference");
+        realTopic.addDescription(FeelhubLanguage.fromCode("fr"), "description-fr");
+        realTopic.addSubType("subtype1");
+        realTopic.addSubType("subtype2");
+        realTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+        Repositories.topics().add(realTopic);
+        return realTopic;
     }
 
-    public Topic newTopicWithoutReference(final TopicType type) {
-        final Topic topic = new Topic(UUID.randomUUID());
-        topic.setType(type);
-        topic.addDescription(FeelhubLanguage.fromCode("fr"), "description-fr");
-        topic.addSubType("subtype1");
-        topic.addSubType("subtype2");
-        topic.addUrl("http://www.fakeurl.com");
-        topic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
-        Repositories.topics().add(topic);
-        return topic;
+    public WebTopic newCompleteWebTopic() {
+        final WebTopic webTopic = new WebTopic(UUID.randomUUID(), WebTopicType.Article);
+        webTopic.addUrl("http://www.fakeurl.com");
+        webTopic.addDescription(FeelhubLanguage.reference(), "description-reference");
+        webTopic.addName(FeelhubLanguage.reference(), "name-reference");
+        webTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+        return webTopic;
     }
 
-    public Topic newWorld() {
-        final Topic topic = new Topic(UUID.randomUUID());
-        topic.setType(TopicType.World);
-        Repositories.topics().add(topic);
-        return topic;
+    public GeoTopic newCompleteGeoTopic() {
+        final GeoTopic geoTopic = new GeoTopic(UUID.randomUUID(), GeoTopicType.Coords);
+        geoTopic.addDescription(FeelhubLanguage.reference(), "description-reference");
+        geoTopic.addName(FeelhubLanguage.reference(), "name-reference");
+        geoTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+        return geoTopic;
+    }
+
+    public RealTopic newSimpleRealTopic(final RealTopicType type) {
+        return new RealTopic(UUID.randomUUID(), type);
+    }
+
+    public WebTopic newSimpleWebTopic(final WebTopicType type) {
+        return new WebTopic(UUID.randomUUID(), type);
+    }
+
+    public GeoTopic newSimpleGeoTopic(final GeoTopicType type) {
+        return new GeoTopic(UUID.randomUUID(), type);
+    }
+
+    public RealTopic newRealTopicWithoutReference(final RealTopicType type) {
+        final RealTopic realTopic = new RealTopic(UUID.randomUUID(), type);
+        realTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+        Repositories.topics().add(realTopic);
+        return realTopic;
+    }
+
+    public WorldTopic newWorldTopic() {
+        final WorldTopic worldTopic = new WorldTopic(UUID.randomUUID());
+        Repositories.topics().add(worldTopic);
+        return worldTopic;
     }
 }

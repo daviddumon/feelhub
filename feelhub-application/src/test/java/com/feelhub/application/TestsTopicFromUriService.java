@@ -4,7 +4,7 @@ import com.feelhub.domain.alchemy.AlchemyRequestEvent;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.meta.UriMetaInformationRequestEvent;
 import com.feelhub.domain.scraper.*;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.google.inject.*;
@@ -37,9 +37,9 @@ public class TestsTopicFromUriService {
 
     @Test
     public void canCreateAnUri() {
-        final Topic topic = topicFromUriService.createTopicFromUri("http://www.google.fr");
+        final RealTopic realTopic = topicFromUriService.createTopicFromUri("http://www.google.fr");
 
-        assertThat(topic).isNotNull();
+        assertThat(realTopic).isNotNull();
         assertThat(Repositories.topics().getAll().size()).isEqualTo(1);
     }
 
@@ -48,11 +48,11 @@ public class TestsTopicFromUriService {
         bus.capture(UriMetaInformationRequestEvent.class);
         final String value = "value";
 
-        final Topic topic = topicFromUriService.createTopicFromUri(value);
+        final RealTopic realTopic = topicFromUriService.createTopicFromUri(value);
 
         final UriMetaInformationRequestEvent uriMetaInformationRequestEvent = bus.lastEvent(UriMetaInformationRequestEvent.class);
         assertThat(uriMetaInformationRequestEvent).isNotNull();
-        assertThat(uriMetaInformationRequestEvent.getTopic()).isEqualTo(topic);
+        assertThat(uriMetaInformationRequestEvent.getRealTopic()).isEqualTo(realTopic);
         assertThat(uriMetaInformationRequestEvent.getValue()).isEqualTo(value);
     }
 
@@ -61,11 +61,11 @@ public class TestsTopicFromUriService {
         bus.capture(AlchemyRequestEvent.class);
         final String value = "http://www.test.com";
 
-        final Topic topic = topicFromUriService.createTopicFromUri(value);
+        final RealTopic realTopic = topicFromUriService.createTopicFromUri(value);
 
         final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
         assertThat(alchemyRequestEvent).isNotNull();
-        assertThat(alchemyRequestEvent.getTopic()).isEqualTo(topic);
+        assertThat(alchemyRequestEvent.getRealTopic()).isEqualTo(realTopic);
         assertThat(alchemyRequestEvent.getValue()).isEqualTo(value);
     }
 

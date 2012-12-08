@@ -1,6 +1,6 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.unusable.WorldTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -30,20 +30,19 @@ public class TestsWorldService {
 
     @Test
     public void canLookupWorld() {
-        final Topic world = TestFactories.topics().newWorld();
+        final WorldTopic worldTopic = TestFactories.topics().newWorldTopic();
 
-        final Topic worldFound = worldService.lookUpOrCreateWorld();
+        final WorldTopic worldTopicFound = worldService.lookUpOrCreateWorld();
 
-        assertThat(worldFound).isNotNull();
-        assertThat(worldFound).isEqualTo(world);
-        assertThat(worldFound.getId()).isEqualTo(world.getId());
+        assertThat(worldTopicFound).isNotNull();
+        assertThat(worldTopicFound).isEqualTo(worldTopic);
     }
 
     @Test
     public void canCreateWorldIfItDoesNotExists() {
         worldService.lookUpOrCreateWorld();
 
-        assertThat(Repositories.topics().world()).isNotNull();
+        assertThat(Repositories.topics().getWorldTopic()).isNotNull();
     }
 
     private WorldService worldService;

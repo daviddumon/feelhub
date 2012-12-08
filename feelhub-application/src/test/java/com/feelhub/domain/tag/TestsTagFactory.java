@@ -24,7 +24,6 @@ public class TestsTagFactory {
         final Tag tag = tagFactory.createTag(tagValue);
 
         assertThat(tag).isNotNull();
-        assertThat(tag.getValue()).isEqualTo(tagValue);
         assertThat(tag.getId()).isEqualTo(tagValue);
     }
 

@@ -9,7 +9,7 @@ public class FakeScrapedInformations extends ScrapedInformations {
 
     @Override
     public String getType() {
-        return "video";
+        return "automobile";
     }
 
     @Override

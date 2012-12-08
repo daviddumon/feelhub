@@ -1,7 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.meta.*;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
@@ -51,12 +51,12 @@ public class TestsIllustrationMongoRepositories extends TestWithMongoRepository 
 
     @Test
     public void canGetForATopic() {
-        final Topic topic = TestFactories.topics().newTopic();
-        TestFactories.illustrations().newIllustration(topic.getId(), "link1");
-        TestFactories.illustrations().newIllustration(topic.getId(), "link2");
-        TestFactories.illustrations().newIllustration(topic.getId(), "link3");
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.illustrations().newIllustration(realTopic.getId(), "link1");
+        TestFactories.illustrations().newIllustration(realTopic.getId(), "link2");
+        TestFactories.illustrations().newIllustration(realTopic.getId(), "link3");
 
-        final List<Illustration> illustrations = repository.forTopicId(topic.getId());
+        final List<Illustration> illustrations = repository.forTopicId(realTopic.getId());
 
         assertThat(illustrations, notNullValue());
         assertThat(illustrations.size(), is(3));

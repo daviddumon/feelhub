@@ -1,7 +1,7 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.topic.*;
-import com.feelhub.domain.world.WorldNotFoundException;
+import com.feelhub.domain.topic.TopicFactory;
+import com.feelhub.domain.topic.unusable.*;
 import com.feelhub.repositories.Repositories;
 import com.google.inject.Inject;
 
@@ -12,7 +12,7 @@ public class WorldService {
         this.topicFactory = topicFactory;
     }
 
-    public Topic lookUpOrCreateWorld() {
+    public WorldTopic lookUpOrCreateWorld() {
         try {
             return lookUp();
         } catch (WorldNotFoundException e) {
@@ -20,18 +20,18 @@ public class WorldService {
         }
     }
 
-    private Topic lookUp() {
-        final Topic world = Repositories.topics().world();
-        if (world == null) {
+    private WorldTopic lookUp() {
+        final WorldTopic worldTopic = Repositories.topics().getWorldTopic();
+        if (worldTopic == null) {
             throw new WorldNotFoundException();
         }
-        return world;
+        return worldTopic;
     }
 
-    private Topic createWorld() {
-        final Topic world = topicFactory.createWorld();
-        Repositories.topics().add(world);
-        return world;
+    private WorldTopic createWorld() {
+        final WorldTopic worldTopic = topicFactory.createWorldTopic();
+        Repositories.topics().add(worldTopic);
+        return worldTopic;
     }
 
     private TopicFactory topicFactory;

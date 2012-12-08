@@ -1,29 +1,27 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.unusable.WorldTopic;
+import com.feelhub.domain.topic.usable.real.*;
 
 import java.util.UUID;
 
 public class TopicFactory {
 
-    public Topic createTopic() {
+    public RealTopic createRealTopic() {
         final UUID id = UUID.randomUUID();
-        final Topic topic = new Topic(id);
-        return topic;
+        final RealTopic realTopic = new RealTopic(id, RealTopicType.Automobile);
+        return realTopic;
     }
 
-    public Topic createTopic(final FeelhubLanguage feelhubLanguage, final String description, final TopicType topicType) {
+    public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType realTopicType) {
         final UUID id = UUID.randomUUID();
-        final Topic topic = new Topic(id);
-        topic.addDescription(feelhubLanguage, description);
-        topic.setType(topicType);
-        return topic;
+        final RealTopic realTopic = new RealTopic(id, realTopicType);
+        realTopic.addName(feelhubLanguage, name);
+        return realTopic;
     }
 
-    public Topic createWorld() {
-        final UUID id = UUID.randomUUID();
-        final Topic topic = new Topic(id);
-        topic.setType(TopicType.World);
-        return topic;
+    public WorldTopic createWorldTopic() {
+        return new WorldTopic(UUID.randomUUID());
     }
 }

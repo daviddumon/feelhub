@@ -1,8 +1,8 @@
 package com.feelhub.web.resources;
 
-import com.feelhub.domain.topic.TopicType;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import org.restlet.resource.*;
 
@@ -20,7 +20,7 @@ public class NewTopicResource extends ServerResource {
     public ModelAndView newTopic() {
         final String description = getDecodedDescription();
         final TopicData topicData = topicDataFactory.getTopicData(description);
-        return ModelAndView.createNew("newtopic.ftl").with("topicData", topicData).with("types", TopicType.usableValues());
+        return ModelAndView.createNew("newtopic.ftl").with("topicData", topicData).with("types", Lists.newArrayList());
     }
 
     public String getDecodedDescription() {

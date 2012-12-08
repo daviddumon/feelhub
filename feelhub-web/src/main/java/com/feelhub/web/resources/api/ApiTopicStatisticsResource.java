@@ -50,8 +50,8 @@ public class ApiTopicStatisticsResource extends ServerResource {
 
     private void fetchStatistics() {
         try {
-            final Topic topic = topicService.lookUp(UUID.fromString(topicId));
-            statistics = statisticsSearch.withTopicId(topic.getId()).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
+            final Topic realTopic = topicService.lookUp(UUID.fromString(topicId));
+            statistics = statisticsSearch.withTopicId(realTopic.getId()).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
         } catch (TopicNotFound e) {
             throw new FeelhubApiException();
         }
