@@ -44,19 +44,6 @@ public class TestsDomainEventBus {
         verify(listener2, times(1)).handle(feelingCreatedEvent);
     }
 
-    @Test
-    @Ignore
-    public void blockTheSizeOfTheEventsList() {
-        //for (int i = 0; i < 1000; i++) {
-        //    time.waitMinutes(1);
-        //    DomainEventBus.INSTANCE.post(new SentimentStatisticsEvent(new Sentiment(UUID.randomUUID(), S)));
-        //}
-        //
-        //final List<DomainEvent> events = DomainEventBus.INSTANCE.getEvents();
-        //assertThat(events.size(), is(100));
-        //assertThat(events.get(99).getDate(), is(time.getNow()));
-    }
-
     private class SimpleEventListener {
 
         @Subscribe
