@@ -26,21 +26,6 @@ public class BingLink {
         return results;
     }
 
-    private List<String> getResults(final String query) {
-        final List<String> results = Lists.newArrayList();
-        try {
-            final URL url = new URL(query);
-            final URLConnection uc = url.openConnection();
-            addAuthorizationHeader(uc);
-            results.addAll(unmarshall(uc.getInputStream()));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return results;
-    }
-
     private String buildQueryFor(final String value, final String type) {
         try {
             final StringBuilder stringBuilder = new StringBuilder();
@@ -61,6 +46,21 @@ public class BingLink {
     private void addAuthorizationHeader(final URLConnection uc) {
         final String basicAuth = "Basic OmQ1MllKNGlPWjBKTzZscWI3NnhHcndWV3BETzVDeXJ1bC9ETldtZk40NHM9";
         uc.setRequestProperty("Authorization", basicAuth);
+    }
+
+    private List<String> getResults(final String query) {
+        final List<String> results = Lists.newArrayList();
+        try {
+            final URL url = new URL(query);
+            final URLConnection uc = url.openConnection();
+            addAuthorizationHeader(uc);
+            results.addAll(unmarshall(uc.getInputStream()));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return results;
     }
 
     private List<String> unmarshall(final InputStream inputStream) {

@@ -1,5 +1,6 @@
 package com.feelhub.sitemap.application;
 
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.sitemap.domain.*;
 import com.feelhub.sitemap.tools.SitemapProperties;
@@ -53,7 +54,7 @@ public class SitemapJob implements Job {
     }
 
     private List<RealTopic> fetchtopics() {
-        final Criteria criteria = session.createCriteria(RealTopic.class);
+        final Criteria criteria = session.createCriteria(Topic.class);
         addDateRestriction(criteria);
         return criteria.list();
     }

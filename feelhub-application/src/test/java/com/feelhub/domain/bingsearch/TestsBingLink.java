@@ -39,7 +39,7 @@ public class TestsBingLink {
     }
 
     @Test
-    public void returnUpTo10IllustrationsForAKeyword() {
+    public void returnUpTo2IllustrationsForAKeyword() {
         final List<String> illustrations = bingLink.getIllustrations("multiplevalues", "");
 
         assertThat(illustrations.size()).isEqualTo(2);
