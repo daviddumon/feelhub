@@ -1,16 +1,13 @@
 package com.feelhub.web.resources;
 
-import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.*;
 import org.junit.*;
 import org.restlet.data.Status;
 
-import java.util.*;
+import java.util.Map;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -64,19 +61,6 @@ public class TestsSearchResource {
         assertThat(data.get("q")).isNotNull();
         final String q = data.get("q").toString();
         assertThat(q).isEqualTo(query);
-    }
-
-    @Test
-    public void canGetTopicsForDescription() {
-        final Tag tag = TestFactories.tags().newTag();
-        searchResource.getRequest().getAttributes().put("q", tag.getId());
-
-        final ModelAndView modelAndView = searchResource.search();
-
-        assertThat(modelAndView).isNotNull();
-        final List<RealTopic> realTopics = modelAndView.getData("topicDatas");
-        assertThat(realTopics).isNotNull();
-        assertThat(realTopics.size()).isEqualTo(1);
     }
 
     private SearchResource searchResource;

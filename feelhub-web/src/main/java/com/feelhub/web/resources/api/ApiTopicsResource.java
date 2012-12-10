@@ -4,6 +4,9 @@ import com.feelhub.application.TopicService;
 import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.dto.TopicDataFactory;
+import com.feelhub.web.representation.ModelAndView;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import org.apache.http.auth.AuthenticationException;
 import org.restlet.data.*;
@@ -12,8 +15,14 @@ import org.restlet.resource.*;
 public class ApiTopicsResource extends ServerResource {
 
     @Inject
-    public ApiTopicsResource(final TopicService topicService) {
+    public ApiTopicsResource(final TopicService topicService, final TopicDataFactory topicDataFactory) {
         this.topicService = topicService;
+        this.topicDataFactory = topicDataFactory;
+    }
+
+    @Get
+    public ModelAndView getTopics() {
+        return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", Lists.newArrayList());
     }
 
     @Post
@@ -55,4 +64,5 @@ public class ApiTopicsResource extends ServerResource {
     }
 
     private final TopicService topicService;
+    private TopicDataFactory topicDataFactory;
 }

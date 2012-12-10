@@ -8,10 +8,14 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
+import com.feelhub.web.dto.TopicData;
+import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.*;
 import org.junit.*;
 import org.restlet.*;
 import org.restlet.data.*;
+
+import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -94,6 +98,23 @@ public class TestsApiTopicsResource {
         apiTopicsResource.createTopic(getGoodForm());
 
         assertThat(apiTopicsResource.getLocationRef().toString()).isEqualTo(new WebReferenceBuilder(apiTopicsResource.getContext()).buildUri("/topic/" + realTopic.getId()));
+    }
+
+    @Test
+    public void canGetTopics() {
+        final ModelAndView modelAndView = apiTopicsResource.getTopics();
+
+        assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
+        assertThat(modelAndView.getTemplate()).isEqualTo("api/topics.json.ftl");
+    }
+
+    @Test
+    public void modelHasTopicDatas() {
+        final ModelAndView modelAndView = apiTopicsResource.getTopics();
+
+        assertThat(modelAndView.getData("topicDatas")).isNotNull();
+        final List<TopicData> topicDatas = modelAndView.getData("topicDatas");
+        assertThat(topicDatas.size()).isZero();
     }
 
     private Form getGoodForm() {

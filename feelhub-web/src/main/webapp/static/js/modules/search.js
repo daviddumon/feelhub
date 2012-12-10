@@ -19,10 +19,6 @@ define(['jquery'], function ($) {
         function error() {
             console.log("newtopic ajax error");
         }
-
-        //$.getJSON(root + "/api/topics", {"description":q}, function (data) {
-        //    console.log("success");
-        //});
     }
 
     return {
