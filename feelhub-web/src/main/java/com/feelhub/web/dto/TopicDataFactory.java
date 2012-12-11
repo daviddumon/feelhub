@@ -36,7 +36,7 @@ public class TopicDataFactory {
     private TopicData getTopicData(final UsableTopic topic, final FeelhubLanguage feelhubLanguage, final Sentiment sentiment) {
         final TopicData.Builder builder = new TopicData.Builder();
         builder.id(topic.getId());
-        builder.description(topic.getDescription(feelhubLanguage));
+        builder.name(topic.getDescription(feelhubLanguage));
         builder.type(topic.getType());
         //builder.subtypes(topic.getSubTypes());
         //builder.urls(topic.getUrls());
@@ -52,7 +52,7 @@ public class TopicDataFactory {
 
     public TopicData getTopicData(final String name) {
         final TopicData.Builder builder = new TopicData.Builder();
-        builder.description(name);
+        builder.name(name);
         return builder.build();
     }
 

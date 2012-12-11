@@ -1,5 +1,6 @@
 package com.feelhub.domain.topic.usable.web;
 
+import com.feelhub.domain.topic.TopicType;
 import com.feelhub.domain.topic.usable.UsableTopic;
 import com.google.common.collect.Lists;
 
@@ -12,8 +13,22 @@ public class WebTopic extends UsableTopic {
 
     }
 
+    @Override
+    public TopicType getType() {
+        return WebTopicType.valueOf(typeValue);
+    }
+
+    public void setType(final WebTopicType type) {
+        this.typeValue = type.toString();
+    }
+
+    public String getTypeValue() {
+        return typeValue;
+    }
+
     public WebTopic(final UUID id, final WebTopicType type) {
-        super(id, type);
+        super(id);
+        this.typeValue = type.toString();
     }
 
     public List<String> getUrls() {
@@ -25,4 +40,5 @@ public class WebTopic extends UsableTopic {
     }
 
     private final List<String> urls = Lists.newArrayList();
+    private String typeValue;
 }

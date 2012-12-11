@@ -3,7 +3,7 @@
 {
 "id":"${topicData.id}",
 "illustrationLink":"${topicData.illustrationLink}",
-"description":"${topicData.description}",
+"name":"${topicData.name}",
 "type":"${topicData.type}"
 }
 ${topicData_has_next?string(",", "")}

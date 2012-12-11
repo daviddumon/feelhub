@@ -22,18 +22,9 @@ public class TestsUsableTopic {
     public WithDomainEvent bus = new WithDomainEvent();
 
     @Test
-    public void hasAType() {
-        final FakeTopicType type = FakeTopicType.Fake;
-
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), type);
-
-        assertThat(fakeUsableTopic.getType()).isEqualTo(type);
-    }
-
-    @Test
     public void hasAUser() {
         final User fakeActiveUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), FakeTopicType.Fake);
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
 
         fakeUsableTopic.setUserId(fakeActiveUser.getId());
 
@@ -42,7 +33,7 @@ public class TestsUsableTopic {
 
     @Test
     public void canAddAName() {
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), FakeTopicType.Fake);
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
         final String name = "Name-reference";
         final FeelhubLanguage language = FeelhubLanguage.reference();
 
@@ -53,14 +44,14 @@ public class TestsUsableTopic {
 
     @Test
     public void canReturnEmptyName() {
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), FakeTopicType.Fake);
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
 
         assertThat(fakeUsableTopic.getName(FeelhubLanguage.REFERENCE)).isEmpty();
     }
 
     @Test
     public void canReturnReferenceNameIfExists() {
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), FakeTopicType.Fake);
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
         final String name = "Name-reference";
         fakeUsableTopic.addName(FeelhubLanguage.reference(), name);
 
@@ -71,7 +62,7 @@ public class TestsUsableTopic {
 
     @Test
     public void correctlyFormatNames() {
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), FakeTopicType.Fake);
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
         final String name = "nAMe-refeRence";
         final FeelhubLanguage language = FeelhubLanguage.reference();
 
@@ -82,7 +73,7 @@ public class TestsUsableTopic {
 
     @Test
     public void canAddADescription() {
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), FakeTopicType.Fake);
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
         final String description = "My description";
         final FeelhubLanguage language = FeelhubLanguage.reference();
 
@@ -93,14 +84,14 @@ public class TestsUsableTopic {
 
     @Test
     public void canReturnEmptyDescription() {
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), FakeTopicType.Fake);
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
 
         assertThat(fakeUsableTopic.getDescription(FeelhubLanguage.reference())).isEmpty();
     }
 
     @Test
     public void returnReferenceDescriptionIfExists() {
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), FakeTopicType.Fake);
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
         final String description = "My description";
         fakeUsableTopic.addDescription(FeelhubLanguage.reference(), description);
 
@@ -112,7 +103,7 @@ public class TestsUsableTopic {
     @Test
     public void requestTagCreationWhenAddingDescription() {
         bus.capture(TagRequestEvent.class);
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), FakeTopicType.Fake);
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
         final String referenceName = "name-reference";
 
         fakeUsableTopic.addName(FeelhubLanguage.reference(), referenceName);
@@ -123,28 +114,15 @@ public class TestsUsableTopic {
         assertThat(tagRequestEvent.getName()).isEqualTo(referenceName);
     }
 
-    @Test
-    public void canSetType() {
-        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID(), FakeTopicType.Fake);
-
-        fakeUsableTopic.setType(FakeTopicType.Other);
-
-        assertThat(fakeUsableTopic.getType()).isEqualTo(FakeTopicType.Other);
-    }
-
     class FakeUsableTopic extends UsableTopic {
 
-        public FakeUsableTopic(final UUID id, final FakeTopicType type) {
-            super(id, type);
+        public FakeUsableTopic(final UUID id) {
+            super(id);
         }
-    }
-
-    enum FakeTopicType implements TopicType {
-        Fake, Other;
 
         @Override
-        public boolean hasTagUniqueness() {
-            return false;
+        public TopicType getType() {
+            return null;
         }
     }
 }

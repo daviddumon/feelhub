@@ -3,7 +3,8 @@ package com.feelhub.web.dto;
 import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.meta.Illustration;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.unusable.UnusableTopicTypes;
+import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
@@ -52,16 +53,16 @@ public class TestsTopicData {
     public void topicDataHasADescription() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
 
-        final TopicData topicData = new TopicData.Builder().description(realTopic.getDescription(FeelhubLanguage.reference())).build();
+        final TopicData topicData = new TopicData.Builder().name(realTopic.getDescription(FeelhubLanguage.reference())).build();
 
-        assertThat(topicData.getDescription()).isEqualTo(realTopic.getDescription(FeelhubLanguage.reference()));
+        assertThat(topicData.getName()).isEqualTo(realTopic.getDescription(FeelhubLanguage.reference()));
     }
 
     @Test
     public void descriptionValueDefaultValueIsEmpty() {
         final TopicData topicData = new TopicData.Builder().build();
 
-        assertThat(topicData.getDescription()).isEmpty();
+        assertThat(topicData.getName()).isEmpty();
     }
 
     @Test
@@ -84,7 +85,14 @@ public class TestsTopicData {
 
         final TopicData topicData = new TopicData.Builder().type(realTopic.getType()).build();
 
-        assertThat(topicData.getType()).isEqualTo(realTopic.getType());
+        assertThat(topicData.getType()).isEqualTo(realTopic.getType().toString());
+    }
+
+    @Test
+    public void hasTopicTypeDefault() {
+        final TopicData topicData = new TopicData.Builder().build();
+
+        assertThat(topicData.getType()).isEqualTo(UnusableTopicTypes.None.toString());
     }
 
     @Test
@@ -119,4 +127,13 @@ public class TestsTopicData {
 
         assertThat(topicData.getUrls()).isEmpty();
     }
+
+    @Test
+    public void canRepresentInString() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final TopicData topicData = new TopicData.Builder().id(realTopic.getId()).type(realTopic.getType()).build();
+
+        assertThat(topicData.toString()).isEqualTo("{\"sentimentValue\":{},\"id\":\"" + realTopic.getId() + "\",\"illustrationLink\":\"\",\"urls\":[],\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
+    }
+
 }

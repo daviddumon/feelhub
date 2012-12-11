@@ -1,10 +1,10 @@
 <li class="edit">
-    <div class="description">{{description}}</div>
-    <input type="hidden" name="description" value="{{description}}"/>
+    <div class="name">{{name}}</div>
+    <input type="hidden" name="name" value="{{name}}"/>
     <div class="type">
         add a type
         <select name="type">
-            <option value="" selected="selected"></option>
+            <option value="None" selected="selected"></option>
             {{#types}}
                 <option value="{{.}}">{{.}}</option>
             {{/types}}

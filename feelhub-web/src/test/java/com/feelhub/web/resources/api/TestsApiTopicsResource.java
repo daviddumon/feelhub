@@ -70,7 +70,7 @@ public class TestsApiTopicsResource {
 
         apiTopicsResource.createTopic(getGoodForm());
 
-        verify(topicService).createTopic(CurrentUser.get().getLanguage(), getGoodForm().getFirstValue("description"), RealTopicType.valueOf(getGoodForm().getFirstValue("type")), CurrentUser.get().getUser());
+        verify(topicService).createTopic(CurrentUser.get().getLanguage(), getGoodForm().getFirstValue("name"), RealTopicType.valueOf(getGoodForm().getFirstValue("type")), CurrentUser.get().getUser());
     }
 
     @Test
@@ -171,7 +171,7 @@ public class TestsApiTopicsResource {
 
     private Form getGoodForm() {
         final Form form = new Form();
-        form.add("description", "description");
+        form.add("name", "name");
         form.add("type", RealTopicType.Automobile.toString());
         return form;
     }

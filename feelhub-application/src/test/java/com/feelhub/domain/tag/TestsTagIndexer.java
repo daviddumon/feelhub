@@ -107,8 +107,16 @@ public class TestsTagIndexer {
 
     class FakeTopic extends UsableTopic {
         FakeTopic(final UUID id, final TopicType type) {
-            super(id, type);
+            super(id);
+            this.type = type;
         }
+
+        @Override
+        public TopicType getType() {
+            return type;
+        }
+
+        private TopicType type;
     }
 
     private TagIndexer tagIndexer;

@@ -3,7 +3,9 @@ package com.feelhub.web.dto;
 import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.meta.Illustration;
 import com.feelhub.domain.topic.TopicType;
+import com.feelhub.domain.topic.unusable.UnusableTopicTypes;
 import com.google.common.collect.Lists;
+import org.json.JSONObject;
 
 import java.util.*;
 
@@ -25,8 +27,8 @@ public class TopicData {
             return this;
         }
 
-        public Builder description(final String description) {
-            this.description = description;
+        public Builder name(final String name) {
+            this.name = name;
             return this;
         }
 
@@ -52,9 +54,9 @@ public class TopicData {
 
         private String id = "";
         private String illustrationLink = "";
-        private String description = "";
+        private String name = "";
         private SentimentValue sentimentValue = SentimentValue.none;
-        private TopicType type;
+        private TopicType type = UnusableTopicTypes.None;
         private List<String> subTypes = Lists.newArrayList();
         private List<String> urls = Lists.newArrayList();
     }
@@ -62,9 +64,9 @@ public class TopicData {
     private TopicData(final Builder builder) {
         this.id = builder.id;
         this.illustrationLink = builder.illustrationLink;
-        this.description = builder.description;
+        this.name = builder.name;
         this.sentimentValue = builder.sentimentValue;
-        this.type = builder.type;
+        this.type = builder.type.toString();
         this.subTypes = builder.subTypes;
         this.urls = builder.urls;
     }
@@ -77,15 +79,15 @@ public class TopicData {
         return illustrationLink;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
     public SentimentValue getSentimentValue() {
         return sentimentValue;
     }
 
-    public TopicType getType() {
+    public String getType() {
         return type;
     }
 
@@ -97,11 +99,16 @@ public class TopicData {
         return urls;
     }
 
+    @Override
+    public String toString() {
+        return new JSONObject(this).toString();
+    }
+
     private final String id;
     private final String illustrationLink;
-    private final String description;
+    private final String name;
     private final SentimentValue sentimentValue;
-    private final TopicType type;
+    private final String type;
     private final List<String> subTypes;
     private final List<String> urls;
 }

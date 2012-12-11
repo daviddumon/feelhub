@@ -1,6 +1,6 @@
 package com.feelhub.web.tools;
 
-import com.feelhub.web.guice.GuiceProductionModule;
+import com.feelhub.web.guice.*;
 import com.google.inject.*;
 import org.junit.*;
 
@@ -9,10 +9,9 @@ import static org.hamcrest.Matchers.*;
 
 public class TestsFeelhubWebProperties {
 
-
     @Before
     public void setUp() throws Exception {
-        final Injector injector = Guice.createInjector(new GuiceProductionModule());
+        final Injector injector = Guice.createInjector(new GuiceTestModule());
         feelhubWebProperties = injector.getInstance(FeelhubWebProperties.class);
     }
 

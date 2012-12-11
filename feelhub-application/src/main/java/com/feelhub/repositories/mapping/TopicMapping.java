@@ -24,7 +24,7 @@ public class TopicMapping extends EntityMap<Topic> {
 
             @Override
             protected void map() {
-                property(element().getType());
+                property(element().getTypeValue());
                 property(element().getUserId());
                 map(element().getNames());
                 map(element().getDescriptions());
@@ -36,7 +36,7 @@ public class TopicMapping extends EntityMap<Topic> {
 
             @Override
             protected void map() {
-                property(element().getType());
+                property(element().getTypeValue());
                 property(element().getUserId());
                 map(element().getNames());
                 map(element().getDescriptions());
@@ -48,7 +48,7 @@ public class TopicMapping extends EntityMap<Topic> {
 
             @Override
             protected void map() {
-                property(element().getType());
+                property(element().getTypeValue());
                 property(element().getUserId());
                 map(element().getNames());
                 map(element().getDescriptions());

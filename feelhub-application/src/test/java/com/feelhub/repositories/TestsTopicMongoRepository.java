@@ -59,7 +59,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
 
         final DBObject topicFound = getTopic(realTopic.getId());
         assertThat(topicFound).isNotNull();
-        assertThat(topicFound.get("type").toString()).isEqualTo(realTopic.getType().toString());
+        assertThat(topicFound.get("typeValue").toString()).isEqualTo(realTopic.getType().toString());
         assertThat(topicFound.get("userId")).isEqualTo(realTopic.getUserId());
         assertThat(topicFound.get("names")).isNotNull();
         assertThat(topicFound.get("descriptions")).isNotNull();
@@ -75,7 +75,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
 
         final DBObject topicFound = getTopic(webTopic.getId());
         assertThat(topicFound).isNotNull();
-        assertThat(topicFound.get("type").toString()).isEqualTo(webTopic.getType().toString());
+        assertThat(topicFound.get("typeValue").toString()).isEqualTo(webTopic.getType().toString());
         assertThat(topicFound.get("userId")).isEqualTo(webTopic.getUserId());
         assertThat(topicFound.get("names")).isNotNull();
         assertThat(topicFound.get("descriptions")).isNotNull();
@@ -91,7 +91,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
 
         final DBObject topicFound = getTopic(geoTopic.getId());
         assertThat(topicFound).isNotNull();
-        assertThat(topicFound.get("type").toString()).isEqualTo(geoTopic.getType().toString());
+        assertThat(topicFound.get("typeValue").toString()).isEqualTo(geoTopic.getType().toString());
         assertThat(topicFound.get("userId")).isEqualTo(geoTopic.getUserId());
         assertThat(topicFound.get("names")).isNotNull();
         assertThat(topicFound.get("descriptions")).isNotNull();

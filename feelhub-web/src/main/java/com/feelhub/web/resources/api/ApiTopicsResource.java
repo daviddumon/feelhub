@@ -74,7 +74,7 @@ public class ApiTopicsResource extends ServerResource {
     public void createTopic(final Form form) {
         try {
             checkCredentials();
-            final String description = extractDescription(form);
+            final String description = extractName(form);
             final RealTopicType typeReal = extractType(form);
             final RealTopic realTopic = topicService.createTopic(CurrentUser.get().getLanguage(), description, typeReal, CurrentUser.get().getUser());
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + realTopic.getId()));
@@ -92,9 +92,9 @@ public class ApiTopicsResource extends ServerResource {
         }
     }
 
-    private String extractDescription(final Form form) {
-        if (form.getQueryString().contains("description")) {
-            return form.getFirstValue("description");
+    private String extractName(final Form form) {
+        if (form.getQueryString().contains("name")) {
+            return form.getFirstValue("name");
         } else {
             throw new FeelhubApiException();
         }

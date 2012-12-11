@@ -71,8 +71,8 @@ public class TestsTopicResource {
 
         final TopicData topicData = modelAndView.getData("topicData");
         assertThat(topicData.getId()).isEqualTo(realTopic.getId().toString());
-        assertThat(topicData.getDescription()).isEqualTo(realTopic.getDescription(FeelhubLanguage.reference()));
-        assertThat(topicData.getType()).isEqualTo(realTopic.getType());
+        assertThat(topicData.getName()).isEqualTo(realTopic.getDescription(FeelhubLanguage.reference()));
+        assertThat(topicData.getType()).isEqualTo(realTopic.getType().toString());
         assertThat(topicData.getSubTypes()).isEqualTo(realTopic.getSubTypes());
         //assertThat(topicData.getUrls()).isEqualTo(realTopic.getUrls());
     }

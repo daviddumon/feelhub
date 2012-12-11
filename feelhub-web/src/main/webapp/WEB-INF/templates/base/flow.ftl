@@ -2,7 +2,7 @@
     <@head.headbegin>
     <script type="text/javascript">
             <#if topicData??>
-            var topicData = ${topicData};
+            var topicData = ${topicData?string};
             <#else>
             var topicData = {};
             </#if>

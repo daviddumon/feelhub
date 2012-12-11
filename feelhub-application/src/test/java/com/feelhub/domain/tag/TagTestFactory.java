@@ -23,7 +23,11 @@ public class TagTestFactory {
     }
 
     public Tag newTagWithoutTopic() {
-        final Tag tag = new Tag("value");
+        return newTagWithoutTopic("value");
+    }
+
+    public Tag newTagWithoutTopic(final String value) {
+        final Tag tag = new Tag(value);
         Repositories.tags().add(tag);
         return tag;
     }

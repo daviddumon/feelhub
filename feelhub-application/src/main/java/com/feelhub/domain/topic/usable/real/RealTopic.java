@@ -2,6 +2,7 @@ package com.feelhub.domain.topic.usable.real;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.TopicType;
 import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.domain.translation.ReferenceTranslationRequestEvent;
 import com.google.common.collect.Lists;
@@ -14,8 +15,22 @@ public class RealTopic extends UsableTopic {
     protected RealTopic() {
     }
 
+    @Override
+    public TopicType getType() {
+        return RealTopicType.valueOf(typeValue);
+    }
+
+    public String getTypeValue() {
+        return typeValue;
+    }
+
+    public void setType(final RealTopicType type) {
+        this.typeValue = type.toString();
+    }
+
     public RealTopic(final UUID id, final RealTopicType type) {
-        super(id, type);
+        super(id);
+        this.typeValue = type.toString();
     }
 
     public List<String> getSubTypes() {
@@ -35,7 +50,7 @@ public class RealTopic extends UsableTopic {
     }
 
     private RealTopicType getRealTopicType() {
-        return (RealTopicType) type;
+        return RealTopicType.valueOf(typeValue);
     }
 
     private void addReferenceName(final FeelhubLanguage feelhubLanguage, final String name) {
@@ -43,8 +58,9 @@ public class RealTopic extends UsableTopic {
     }
 
     private boolean needReference() {
-        return !names.containsKey(FeelhubLanguage.reference());
+        return !names.containsKey(FeelhubLanguage.reference().getCode());
     }
 
     private final List<String> subTypes = Lists.newArrayList();
+    private String typeValue;
 }

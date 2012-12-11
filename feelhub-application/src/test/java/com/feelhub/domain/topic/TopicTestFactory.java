@@ -47,7 +47,9 @@ public class TopicTestFactory {
     }
 
     public RealTopic newSimpleRealTopic(final RealTopicType type) {
-        return new RealTopic(UUID.randomUUID(), type);
+        final RealTopic realTopic = new RealTopic(UUID.randomUUID(), type);
+        Repositories.topics().add(realTopic);
+        return realTopic;
     }
 
     public WebTopic newSimpleWebTopic(final WebTopicType type) {

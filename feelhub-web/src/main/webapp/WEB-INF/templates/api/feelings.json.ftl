@@ -10,7 +10,7 @@
     {
     "id":"${topicData.id}",
     "sentimentValue":"${topicData.sentimentValue}",
-    "description":"${topicData.description}",
+    "name":"${topicData.name}",
     "illustrationLink":"${topicData.illustrationLink}",
     "type":"${topicData.type}"
     }${topicData_has_next?string(",", "")}
