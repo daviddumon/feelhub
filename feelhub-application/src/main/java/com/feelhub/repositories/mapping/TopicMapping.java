@@ -26,8 +26,8 @@ public class TopicMapping extends EntityMap<Topic> {
             protected void map() {
                 property(element().getType());
                 property(element().getUserId());
-                hashmap(element().getNames());
-                hashmap(element().getDescriptions());
+                map(element().getNames());
+                map(element().getDescriptions());
                 collection(element().getSubTypes());
             }
         });
@@ -38,8 +38,8 @@ public class TopicMapping extends EntityMap<Topic> {
             protected void map() {
                 property(element().getType());
                 property(element().getUserId());
-                hashmap(element().getNames());
-                hashmap(element().getDescriptions());
+                map(element().getNames());
+                map(element().getDescriptions());
                 collection(element().getUrls());
             }
         });
@@ -50,8 +50,8 @@ public class TopicMapping extends EntityMap<Topic> {
             protected void map() {
                 property(element().getType());
                 property(element().getUserId());
-                hashmap(element().getNames());
-                hashmap(element().getDescriptions());
+                map(element().getNames());
+                map(element().getDescriptions());
             }
         });
 
