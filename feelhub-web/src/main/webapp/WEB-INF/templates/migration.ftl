@@ -22,7 +22,7 @@
 </@head.headend>
 <body>
 <div id="migration">
-    <img id="loading_gif" src="${root}/static/images/ajax-loader.gif"/>
+    <img id="loading_gif" src="${root}/static/images/ajax-loader-green.gif"/>
 
     <p>We are updating Feelhub !</p>
 
