@@ -11,13 +11,6 @@ define(['jquery'], function ($) {
                 }
             });
         });
-
-        $("#search").submit(function (event) {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            var query = $("#search input").val();
-            window.location.href = root + "/search/" + encodeURIComponent(query);
-        });
     }
 
     return {

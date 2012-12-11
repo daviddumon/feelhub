@@ -26,15 +26,15 @@ public class TestsNewTopicResource {
         });
         newTopicResource = injector.getInstance(NewTopicResource.class);
         ContextTestFactory.initResource(newTopicResource);
-        description = "description";
-        newTopicResource.getRequestAttributes().put("description", description);
-        final TopicData topicData = new TopicData.Builder().description(description).build();
-        when(topicDataFactory.getTopicData(description)).thenReturn(topicData);
+        name = "name";
+        newTopicResource.getRequestAttributes().put("name", name);
+        final TopicData topicData = new TopicData.Builder().description(name).build();
+        when(topicDataFactory.getTopicData(name)).thenReturn(topicData);
     }
 
     @Test
     public void isMapped() {
-        final ClientResource newTopicResource = restlet.newClientResource("/newtopic/description");
+        final ClientResource newTopicResource = restlet.newClientResource("/newtopic/name");
 
         newTopicResource.get();
 
@@ -59,7 +59,7 @@ public class TestsNewTopicResource {
     public void getTopicDataFromFactory() {
         newTopicResource.newTopic();
 
-        verify(topicDataFactory).getTopicData(description);
+        verify(topicDataFactory).getTopicData(name);
     }
 
     @Test
@@ -67,18 +67,18 @@ public class TestsNewTopicResource {
         final ModelAndView modelAndView = newTopicResource.newTopic();
 
         final TopicData topicData = modelAndView.getData("topicData");
-        assertThat(topicData.getDescription()).isEqualTo(description);
+        assertThat(topicData.getDescription()).isEqualTo(name);
     }
 
     @Test
     public void decodeTopicName() {
-        newTopicResource.getRequestAttributes().put("description", "The%20description");
-        when(topicDataFactory.getTopicData("The description")).thenReturn(new TopicData.Builder().description("The description").build());
+        newTopicResource.getRequestAttributes().put("name", "The%20name");
+        when(topicDataFactory.getTopicData("The name")).thenReturn(new TopicData.Builder().description("The name").build());
 
         final ModelAndView modelAndView = newTopicResource.newTopic();
 
         final TopicData topicData = modelAndView.getData("topicData");
-        assertThat(topicData.getDescription()).isEqualTo("The description");
+        assertThat(topicData.getDescription()).isEqualTo("The name");
     }
 
     @Test
@@ -90,5 +90,5 @@ public class TestsNewTopicResource {
 
     private NewTopicResource newTopicResource;
     private TopicDataFactory topicDataFactory;
-    private String description;
+    private String name;
 }

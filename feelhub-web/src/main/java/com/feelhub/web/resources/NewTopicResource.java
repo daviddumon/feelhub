@@ -18,14 +18,14 @@ public class NewTopicResource extends ServerResource {
 
     @Get
     public ModelAndView newTopic() {
-        final String description = getDecodedDescription();
-        final TopicData topicData = topicDataFactory.getTopicData(description);
+        final String name = getDecodedName();
+        final TopicData topicData = topicDataFactory.getTopicData(name);
         return ModelAndView.createNew("newtopic.ftl").with("topicData", topicData).with("types", Lists.newArrayList());
     }
 
-    public String getDecodedDescription() {
+    public String getDecodedName() {
         try {
-            return URLDecoder.decode(getRequestAttributes().get("description").toString().trim(), "UTF-8");
+            return URLDecoder.decode(getRequestAttributes().get("name").toString().trim(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "";

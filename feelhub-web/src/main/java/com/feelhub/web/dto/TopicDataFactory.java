@@ -50,9 +50,9 @@ public class TopicDataFactory {
         return builder.build();
     }
 
-    public TopicData getTopicData(final String description) {
+    public TopicData getTopicData(final String name) {
         final TopicData.Builder builder = new TopicData.Builder();
-        builder.description(description);
+        builder.description(name);
         return builder.build();
     }
 

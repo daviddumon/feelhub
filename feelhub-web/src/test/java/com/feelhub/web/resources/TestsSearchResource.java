@@ -5,7 +5,8 @@ import com.feelhub.web.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.*;
 import org.junit.*;
-import org.restlet.data.Status;
+import org.restlet.*;
+import org.restlet.data.*;
 
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class TestsSearchResource {
 
     @Test
     public void isMapped() {
-        final ClientResource searchResource = restlet.newClientResource("/search/" + query);
+        final ClientResource searchResource = restlet.newClientResource("/search?q=name");
 
         searchResource.get();
 
@@ -41,17 +42,25 @@ public class TestsSearchResource {
     }
 
     @Test
-    public void returnGoodTemplate() {
-        searchResource.getRequest().getAttributes().put("q", query);
+    public void errorIfNoQuery() {
+        final ClientResource searchResource = restlet.newClientResource("/search");
 
+        searchResource.get();
+
+        assertThat(searchResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
+    }
+
+    @Test
+    public void ifErrorReturnErrorTemplate() {
         final ModelAndView search = searchResource.search();
 
-        assertThat(search.getTemplate()).isEqualTo("search.ftl");
+        assertThat(search.getTemplate()).isEqualTo("error.ftl");
     }
 
     @Test
     public void putDescriptionInModel() {
-        searchResource.getRequest().getAttributes().put("q", query);
+        final Request request = new Request(Method.GET, "http://test.com?q=" + query);
+        searchResource.init(Context.getCurrent(), request, new Response(request));
 
         final ModelAndView results = searchResource.search();
 
@@ -61,6 +70,30 @@ public class TestsSearchResource {
         assertThat(data.get("q")).isNotNull();
         final String q = data.get("q").toString();
         assertThat(q).isEqualTo(query);
+    }
+
+    @Test
+    public void returnGoodTemplateForRealTopicQuery() {
+        final String realTag = "fruit";
+        final Request request = new Request(Method.GET, "http://test.com?q=" + realTag);
+        searchResource.init(Context.getCurrent(), request, new Response(request));
+
+        final ModelAndView modelAndView = searchResource.search();
+
+        assertThat(modelAndView.getTemplate()).isEqualTo("search.ftl");
+        assertThat(modelAndView.getData("type").toString()).isEqualTo("real");
+    }
+
+    @Test
+    public void returnGoodTemplateForWebTopicQuery() {
+        final String webTag = "http://www.google.fr";
+        final Request request = new Request(Method.GET, "http://test.com?q=" + webTag);
+        searchResource.init(Context.getCurrent(), request, new Response(request));
+
+        final ModelAndView modelAndView = searchResource.search();
+
+        assertThat(modelAndView.getTemplate()).isEqualTo("search.ftl");
+        assertThat(modelAndView.getData("type").toString()).isEqualTo("web");
     }
 
     private SearchResource searchResource;
