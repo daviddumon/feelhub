@@ -1,10 +1,14 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.*;
+import com.feelhub.domain.tag.Tag;
+import com.feelhub.domain.tag.*;
+import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
-import com.feelhub.web.dto.TopicDataFactory;
+import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -12,17 +16,58 @@ import org.apache.http.auth.AuthenticationException;
 import org.restlet.data.*;
 import org.restlet.resource.*;
 
+import java.util.*;
+
 public class ApiTopicsResource extends ServerResource {
 
     @Inject
-    public ApiTopicsResource(final TopicService topicService, final TopicDataFactory topicDataFactory) {
+    public ApiTopicsResource(final TagService tagService, final TopicService topicService, final TopicDataFactory topicDataFactory) {
+        this.tagService = tagService;
         this.topicService = topicService;
         this.topicDataFactory = topicDataFactory;
     }
 
     @Get
     public ModelAndView getTopics() {
-        return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", Lists.newArrayList());
+        try {
+            final String query = getQueryValue();
+            final Tag tag = tagService.lookUp(query);
+            final List<Topic> topics = getTopics(tag);
+            return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", getTopicDatas(topics));
+        } catch (FeelhubApiException e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", Lists.newArrayList());
+        } catch (TagNotFoundException e) {
+            setStatus(Status.SUCCESS_OK);
+            return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", Lists.newArrayList());
+        }
+    }
+
+    private List<Topic> getTopics(final Tag tag) {
+        List<Topic> topics = Lists.newArrayList();
+        for (UUID id : tag.getTopicIds()) {
+            try {
+                topics.add(topicService.lookUp(id));
+            } catch (TopicNotFound e) {
+            }
+        }
+        return topics;
+    }
+
+    private List<TopicData> getTopicDatas(final List<Topic> topics) {
+        List<TopicData> results = Lists.newArrayList();
+        for (Topic topic : topics) {
+            results.add(topicDataFactory.getTopicData((UsableTopic) topic, CurrentUser.get().getLanguage()));
+        }
+        return results;
+    }
+
+    public String getQueryValue() {
+        if (getQuery().getQueryString().contains("q")) {
+            return getQuery().getFirstValue("q").toString();
+        } else {
+            throw new FeelhubApiException();
+        }
     }
 
     @Post
@@ -63,6 +108,7 @@ public class ApiTopicsResource extends ServerResource {
         }
     }
 
+    private TagService tagService;
     private final TopicService topicService;
     private TopicDataFactory topicDataFactory;
 }

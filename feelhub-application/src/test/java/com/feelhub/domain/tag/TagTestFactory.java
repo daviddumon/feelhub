@@ -22,6 +22,12 @@ public class TagTestFactory {
         return tag;
     }
 
+    public Tag newTagWithoutTopic() {
+        final Tag tag = new Tag("value");
+        Repositories.tags().add(tag);
+        return tag;
+    }
+
     private RealTopic createAndPersistTopic() {
         final UUID id = UUID.randomUUID();
         final RealTopic realTopic = new RealTopic(id, RealTopicType.Automobile);

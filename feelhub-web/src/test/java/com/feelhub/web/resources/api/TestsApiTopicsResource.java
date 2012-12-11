@@ -1,6 +1,7 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.*;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.domain.user.User;
@@ -30,10 +31,12 @@ public class TestsApiTopicsResource {
         user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
         topicService = mock(TopicService.class);
+        tagService = mock(TagService.class);
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
                 bind(TopicService.class).toInstance(topicService);
+                bind(TagService.class).toInstance(tagService);
             }
         });
         apiTopicsResource = injector.getInstance(ApiTopicsResource.class);
@@ -102,6 +105,10 @@ public class TestsApiTopicsResource {
 
     @Test
     public void canGetTopics() {
+        when(tagService.lookUp(anyString())).thenReturn(new Tag());
+        final Request request = new Request(Method.GET, "http://test.com?q=test");
+        apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
+
         final ModelAndView modelAndView = apiTopicsResource.getTopics();
 
         assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
@@ -110,11 +117,56 @@ public class TestsApiTopicsResource {
 
     @Test
     public void modelHasTopicDatas() {
+        when(tagService.lookUp(anyString())).thenReturn(new Tag());
+        final Request request = new Request(Method.GET, "http://test.com?q=test");
+        apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
+
         final ModelAndView modelAndView = apiTopicsResource.getTopics();
 
         assertThat(modelAndView.getData("topicDatas")).isNotNull();
         final List<TopicData> topicDatas = modelAndView.getData("topicDatas");
         assertThat(topicDatas.size()).isZero();
+    }
+
+    @Test
+    public void returnListOfTopicData() {
+        final Tag tag = TestFactories.tags().newTagWithoutTopic();
+        final RealTopic topic1 = TestFactories.topics().newCompleteRealTopic();
+        tag.addTopic(topic1);
+        final RealTopic topic2 = TestFactories.topics().newCompleteRealTopic();
+        tag.addTopic(topic2);
+        when(tagService.lookUp(tag.getId())).thenReturn(tag);
+        when(topicService.lookUp(topic1.getId())).thenReturn(topic1);
+        when(topicService.lookUp(topic2.getId())).thenReturn(topic2);
+        final Request request = new Request(Method.GET, "http://test.com?q=" + tag.getId());
+        apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
+
+        final ModelAndView modelAndView = apiTopicsResource.getTopics();
+
+        assertThat(modelAndView.getData("topicDatas")).isNotNull();
+        final List<TopicData> topicDatas = modelAndView.getData("topicDatas");
+        assertThat(topicDatas.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void errorIfNoQuery() {
+        final Request request = new Request(Method.GET, "http://test.com");
+        apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
+
+        final ModelAndView modelAndView = apiTopicsResource.getTopics();
+
+        assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
+    }
+
+    @Test
+    public void canGetTopicsWithGoodStatus() {
+        when(tagService.lookUp(anyString())).thenReturn(new Tag());
+        final Request request = new Request(Method.GET, "http://test.com?q=test");
+        apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
+
+        final ModelAndView modelAndView = apiTopicsResource.getTopics();
+
+        assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
     }
 
     private Form getGoodForm() {
@@ -127,4 +179,5 @@ public class TestsApiTopicsResource {
     private ApiTopicsResource apiTopicsResource;
     private User user;
     private TopicService topicService;
+    private TagService tagService;
 }
