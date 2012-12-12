@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;
 
+@Ignore
 public class TestsTopic {
 
     @Rule
