@@ -53,6 +53,17 @@ public class TestsTagIndexer {
     }
 
     @Test
+    public void correctlySetTopicIdInTagWhenTagUniqueness() {
+        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID(), FakeUniqueTopicType.Unique);
+        final String tag = "tag-fr";
+        final TagRequestEvent tagRequestEvent = new TagRequestEvent(fakeTopic, tag);
+
+        DomainEventBus.INSTANCE.post(tagRequestEvent);
+
+        assertThat(Repositories.tags().getAll().get(0).getTopicIds()).contains(fakeTopic.getId());
+    }
+
+    @Test
     public void canUseExistingTag() {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID(), FakeUniqueTopicType.NotUnique);
         final String tag = "tag-fr";

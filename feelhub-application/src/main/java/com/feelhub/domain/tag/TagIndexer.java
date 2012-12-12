@@ -38,8 +38,10 @@ public class TagIndexer {
             final UsableTopic existingTopic = (UsableTopic) topicService.lookUp(id);
             if (existingTopic.getType().equals(topic.getType())) {
                 topic.changeCurrentId(existingTopic.getId());
+                return;
             }
         }
+        tag.addTopic(topic);
     }
 
     private void addTopicToTag(final UsableTopic topic, final Tag tag) {
