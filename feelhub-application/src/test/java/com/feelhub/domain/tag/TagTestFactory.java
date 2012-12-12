@@ -1,6 +1,6 @@
 package com.feelhub.domain.tag;
 
-import com.feelhub.domain.topic.usable.real.*;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
 
 import java.util.UUID;

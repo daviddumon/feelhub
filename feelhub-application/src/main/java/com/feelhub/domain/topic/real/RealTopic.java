@@ -1,14 +1,13 @@
-package com.feelhub.domain.topic.usable.real;
+package com.feelhub.domain.topic.real;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.TopicType;
-import com.feelhub.domain.topic.usable.UsableTopic;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.translation.ReferenceTranslationRequestEvent;
 
 import java.util.UUID;
 
-public class RealTopic extends UsableTopic {
+public class RealTopic extends Topic {
 
     //mongolink constructor do not delete!
     protected RealTopic() {

@@ -23,7 +23,8 @@ public class FeelingService {
     @Subscribe
     public void handle(final FeelingRequestEvent feelingRequestEvent) {
         sessionProvider.start();
-        //final List<Sentiment> sentiments = getSentiments(feelingRequestEvent);
+        //final List<Sentim
+        //ent> sentiments = getSentiments(feelingRequestEvent);
         //final Feeling feeling = buildFeeling(feelingRequestEvent, sentiments);
         final Feeling feeling = buildFeeling(feelingRequestEvent, new ArrayList<Sentiment>());
         //feelingRelationBinder.bind(feeling);

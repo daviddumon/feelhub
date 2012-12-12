@@ -1,7 +1,7 @@
 package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 import org.joda.time.DateTime;

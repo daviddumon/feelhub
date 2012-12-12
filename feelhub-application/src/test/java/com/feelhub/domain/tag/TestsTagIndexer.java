@@ -1,10 +1,9 @@
 package com.feelhub.domain.tag;
 
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.topic.TopicType;
-import com.feelhub.domain.topic.usable.UsableTopic;
-import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.domain.topic.*;
+import com.feelhub.repositories.*;
+import com.feelhub.repositories.fakeRepositories.*;
 import com.google.inject.*;
 import org.junit.*;
 
@@ -25,6 +24,7 @@ public class TestsTagIndexer {
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
+                bind(SessionProvider.class).to(FakeSessionProvider.class);
             }
         });
         tagIndexer = injector.getInstance(TagIndexer.class);
@@ -116,7 +116,7 @@ public class TestsTagIndexer {
         private final boolean isUnique;
     }
 
-    class FakeTopic extends UsableTopic {
+    class FakeTopic extends Topic {
         FakeTopic(final UUID id, final TopicType type) {
             super(id);
             this.type = type;

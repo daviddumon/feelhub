@@ -4,8 +4,7 @@ import com.feelhub.application.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.usable.UsableTopic;
-import com.feelhub.domain.topic.usable.real.*;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -136,7 +135,7 @@ public class TestsApiTopicsResource {
         tag.addTopic(topic1);
         final RealTopic topic2 = TestFactories.topics().newCompleteRealTopic();
         tag.addTopic(topic2);
-        List<UsableTopic> topics = Lists.newArrayList();
+        List<Topic> topics = Lists.newArrayList();
         topics.add(topic1);
         topics.add(topic2);
         when(topicService.getTopics(tag.getId())).thenReturn(topics);

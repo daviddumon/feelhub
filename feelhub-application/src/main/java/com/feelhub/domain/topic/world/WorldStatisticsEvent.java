@@ -1,4 +1,4 @@
-package com.feelhub.domain.topic.unusable;
+package com.feelhub.domain.topic.world;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 import com.feelhub.domain.feeling.Sentiment;

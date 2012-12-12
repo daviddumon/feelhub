@@ -2,7 +2,7 @@ package com.feelhub.domain.translation;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.google.common.eventbus.Subscribe;
 import com.memetix.mst.translate.Translate;
 

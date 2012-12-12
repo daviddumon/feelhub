@@ -1,6 +1,6 @@
 package com.feelhub.domain.feeling;
 
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.test.TestFactories;
 
 public class SentimentTestFactory {

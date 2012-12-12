@@ -1,10 +1,10 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.unusable.WorldTopic;
-import com.feelhub.domain.topic.usable.geo.*;
-import com.feelhub.domain.topic.usable.real.*;
-import com.feelhub.domain.topic.usable.web.*;
+import com.feelhub.domain.topic.geo.*;
+import com.feelhub.domain.topic.real.*;
+import com.feelhub.domain.topic.web.*;
+import com.feelhub.domain.topic.world.WorldTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 

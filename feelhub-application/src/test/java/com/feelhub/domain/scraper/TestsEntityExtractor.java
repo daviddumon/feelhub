@@ -1,7 +1,7 @@
 package com.feelhub.domain.scraper;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.usable.web.*;
+import com.feelhub.domain.topic.web.*;
 import com.feelhub.test.FakeInternet;
 import org.apache.commons.lang.WordUtils;
 import org.jsoup.nodes.Document;
@@ -10,6 +10,7 @@ import org.junit.*;
 import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
+
 @Ignore
 public class TestsEntityExtractor {
 

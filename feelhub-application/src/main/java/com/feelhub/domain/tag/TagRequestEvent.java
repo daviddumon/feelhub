@@ -1,12 +1,12 @@
 package com.feelhub.domain.tag;
 
 import com.feelhub.domain.eventbus.DomainEvent;
-import com.feelhub.domain.topic.usable.UsableTopic;
+import com.feelhub.domain.topic.Topic;
 
 public class TagRequestEvent extends DomainEvent {
 
-    public TagRequestEvent(final UsableTopic topic, final String name) {
-        this.usableTopic = topic;
+    public TagRequestEvent(final Topic topic, final String name) {
+        this.topic = topic;
         this.name = name;
     }
 
@@ -15,14 +15,14 @@ public class TagRequestEvent extends DomainEvent {
         return "Tag request event";
     }
 
-    public UsableTopic getUsableTopic() {
-        return usableTopic;
+    public Topic getTopic() {
+        return topic;
     }
 
     public String getName() {
         return name;
     }
 
-    private final UsableTopic usableTopic;
+    private final Topic topic;
     private final String name;
 }

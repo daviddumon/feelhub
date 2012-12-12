@@ -1,10 +1,10 @@
 package com.feelhub.repositories.mapping;
 
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.unusable.WorldTopic;
-import com.feelhub.domain.topic.usable.geo.GeoTopic;
-import com.feelhub.domain.topic.usable.real.RealTopic;
-import com.feelhub.domain.topic.usable.web.WebTopic;
+import com.feelhub.domain.topic.geo.GeoTopic;
+import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.topic.web.WebTopic;
+import com.feelhub.domain.topic.world.WorldTopic;
 import org.mongolink.domain.mapper.*;
 
 public class TopicMapping extends AggregateMap<Topic> {
@@ -19,18 +19,18 @@ public class TopicMapping extends AggregateMap<Topic> {
         property(element().getCurrentId());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
+        property(element().getUserId());
+        map(element().getNames());
+        map(element().getDescriptions());
+        collection(element().getSubTypes());
+        collection(element().getUrls());
+        property(element().getIllustrationLink());
 
         subclass(new SubclassMap<RealTopic>(RealTopic.class) {
 
             @Override
             protected void map() {
                 property(element().getTypeValue());
-                property(element().getUserId());
-                map(element().getNames());
-                map(element().getDescriptions());
-                collection(element().getSubTypes());
-                collection(element().getUrls());
-                property(element().getIllustrationLink());
             }
         });
 
@@ -39,12 +39,6 @@ public class TopicMapping extends AggregateMap<Topic> {
             @Override
             protected void map() {
                 property(element().getTypeValue());
-                property(element().getUserId());
-                map(element().getNames());
-                map(element().getDescriptions());
-                collection(element().getSubTypes());
-                collection(element().getUrls());
-                property(element().getIllustrationLink());
             }
         });
 
@@ -53,12 +47,6 @@ public class TopicMapping extends AggregateMap<Topic> {
             @Override
             protected void map() {
                 property(element().getTypeValue());
-                property(element().getUserId());
-                map(element().getNames());
-                map(element().getDescriptions());
-                collection(element().getSubTypes());
-                collection(element().getUrls());
-                property(element().getIllustrationLink());
             }
         });
 

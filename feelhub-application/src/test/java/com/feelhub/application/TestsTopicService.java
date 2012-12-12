@@ -4,9 +4,8 @@ import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.usable.UsableTopic;
-import com.feelhub.domain.topic.usable.real.*;
-import com.feelhub.domain.topic.usable.web.WebTopic;
+import com.feelhub.domain.topic.real.*;
+import com.feelhub.domain.topic.web.WebTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -65,7 +64,7 @@ public class TestsTopicService {
         tag.addTopic(TestFactories.topics().newCompleteRealTopic());
         tag.addTopic(TestFactories.topics().newCompleteRealTopic());
 
-        final List<UsableTopic> topics = topicService.getTopics(value);
+        final List<Topic> topics = topicService.getTopics(value);
 
         assertThat(topics.size()).isEqualTo(3);
     }

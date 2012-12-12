@@ -1,7 +1,7 @@
 package com.feelhub.domain.topic;
 
-import com.feelhub.domain.topic.unusable.WorldTopic;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.topic.world.WorldTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
 import com.google.inject.*;

@@ -2,7 +2,7 @@ package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.BaseEntity;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;

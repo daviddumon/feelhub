@@ -1,4 +1,4 @@
-package com.feelhub.domain.topic.usable.real;
+package com.feelhub.domain.topic.real;
 
 import com.feelhub.domain.topic.TopicType;
 

@@ -1,8 +1,8 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.unusable.WorldTopic;
-import com.feelhub.domain.topic.usable.real.*;
+import com.feelhub.domain.topic.real.*;
+import com.feelhub.domain.topic.world.WorldTopic;
 
 import java.util.UUID;
 

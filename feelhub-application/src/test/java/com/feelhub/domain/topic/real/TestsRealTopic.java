@@ -1,10 +1,10 @@
-package com.feelhub.domain.topic.usable.real;
+package com.feelhub.domain.topic.real;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.translation.ReferenceTranslationRequestEvent;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.*;
+import com.feelhub.test.SystemTime;
 import com.google.common.eventbus.Subscribe;
 import org.junit.*;
 

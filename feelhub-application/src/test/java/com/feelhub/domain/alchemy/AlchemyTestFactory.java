@@ -1,6 +1,6 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.topic.usable.real.*;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;

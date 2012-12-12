@@ -2,7 +2,7 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.alchemy.readmodel.AlchemyJsonEntity;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.usable.real.RealTopicType;
+import com.feelhub.domain.topic.real.RealTopicType;
 import org.apache.commons.lang.WordUtils;
 
 import java.util.regex.*;

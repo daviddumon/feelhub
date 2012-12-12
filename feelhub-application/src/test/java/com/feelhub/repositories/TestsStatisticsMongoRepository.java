@@ -2,7 +2,7 @@ package com.feelhub.repositories;
 
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.statistics.*;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.joda.time.*;

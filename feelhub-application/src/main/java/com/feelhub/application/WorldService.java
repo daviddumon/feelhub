@@ -1,7 +1,7 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.topic.TopicFactory;
-import com.feelhub.domain.topic.unusable.*;
+import com.feelhub.domain.topic.world.*;
 import com.feelhub.repositories.Repositories;
 import com.google.inject.Inject;
 

@@ -1,7 +1,7 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.eventbus.DomainEvent;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 
 public class AlchemyRequestEvent extends DomainEvent {
 

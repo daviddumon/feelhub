@@ -1,7 +1,7 @@
 package com.feelhub.domain.tag;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.topic.usable.UsableTopic;
+import com.feelhub.domain.topic.Topic;
 import com.google.common.collect.Lists;
 
 import java.util.*;
@@ -26,8 +26,8 @@ public class Tag extends BaseEntity {
         return id;
     }
 
-    public void addTopic(final UsableTopic usableTopic) {
-        topicIds.add(usableTopic.getId());
+    public void addTopic(final Topic topic) {
+        topicIds.add(topic.getId());
     }
 
     public List<UUID> getTopicIds() {

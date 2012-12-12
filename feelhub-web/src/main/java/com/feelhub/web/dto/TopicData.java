@@ -3,7 +3,7 @@ package com.feelhub.web.dto;
 import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.meta.Illustration;
 import com.feelhub.domain.topic.TopicType;
-import com.feelhub.domain.topic.unusable.UnusableTopicTypes;
+import com.feelhub.domain.topic.world.UnusableTopicTypes;
 import com.google.common.collect.Lists;
 import org.json.JSONObject;
 

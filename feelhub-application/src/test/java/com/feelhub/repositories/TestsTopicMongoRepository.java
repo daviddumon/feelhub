@@ -1,10 +1,10 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.topic.*;
-import com.feelhub.domain.topic.unusable.WorldTopic;
-import com.feelhub.domain.topic.usable.geo.GeoTopic;
-import com.feelhub.domain.topic.usable.real.RealTopic;
-import com.feelhub.domain.topic.usable.web.WebTopic;
+import com.feelhub.domain.topic.geo.GeoTopic;
+import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.topic.web.WebTopic;
+import com.feelhub.domain.topic.world.WorldTopic;
 import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
@@ -201,6 +201,11 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
     class FakeTopic extends Topic {
         FakeTopic(final UUID id) {
             super(id);
+        }
+
+        @Override
+        public TopicType getType() {
+            return null;
         }
     }
 }

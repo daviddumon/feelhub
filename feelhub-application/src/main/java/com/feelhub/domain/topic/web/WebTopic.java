@@ -1,11 +1,10 @@
-package com.feelhub.domain.topic.usable.web;
+package com.feelhub.domain.topic.web;
 
-import com.feelhub.domain.topic.TopicType;
-import com.feelhub.domain.topic.usable.UsableTopic;
+import com.feelhub.domain.topic.*;
 
 import java.util.UUID;
 
-public class WebTopic extends UsableTopic {
+public class WebTopic extends Topic {
 
     //mongolink
     protected WebTopic() {

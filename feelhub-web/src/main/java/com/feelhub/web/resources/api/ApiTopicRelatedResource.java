@@ -3,7 +3,6 @@ package com.feelhub.web.resources.api;
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.relation.Relation;
 import com.feelhub.domain.topic.*;
-import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
@@ -77,7 +76,7 @@ public class ApiTopicRelatedResource extends ServerResource {
 
     private void addTopicData(final Relation relation) {
         try {
-            final UsableTopic realTopic = (UsableTopic) topicService.lookUp(relation.getToId());
+            final Topic realTopic = topicService.lookUp(relation.getToId());
             final TopicData topicData = topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage());
             topicDataList.add(topicData);
         } catch (TopicNotFound e) {

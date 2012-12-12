@@ -3,7 +3,7 @@ package com.feelhub.domain.meta;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.scraper.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.usable.real.*;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;

@@ -1,7 +1,7 @@
 package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;

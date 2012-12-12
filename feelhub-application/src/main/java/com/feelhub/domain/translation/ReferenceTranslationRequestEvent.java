@@ -2,7 +2,7 @@ package com.feelhub.domain.translation;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 
 public class ReferenceTranslationRequestEvent extends DomainEvent {
 

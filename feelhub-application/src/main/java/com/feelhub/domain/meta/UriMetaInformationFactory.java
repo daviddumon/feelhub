@@ -1,9 +1,9 @@
 package com.feelhub.domain.meta;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.scraper.*;
+import com.feelhub.domain.scraper.Scraper;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.usable.real.*;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.*;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;

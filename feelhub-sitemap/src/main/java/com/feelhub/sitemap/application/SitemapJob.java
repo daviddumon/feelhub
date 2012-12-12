@@ -1,7 +1,7 @@
 package com.feelhub.sitemap.application;
 
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.sitemap.domain.*;
 import com.feelhub.sitemap.tools.SitemapProperties;
 import org.apache.log4j.Logger;

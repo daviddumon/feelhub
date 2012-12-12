@@ -1,7 +1,7 @@
 package com.feelhub.web.resources;
 
 import com.feelhub.application.TopicService;
-import com.feelhub.domain.topic.usable.UsableTopic;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.TopicDataFactory;
 import com.feelhub.web.representation.ModelAndView;
@@ -21,7 +21,7 @@ public class TopicResource extends ServerResource {
     @Get
     public ModelAndView getTopic() {
         extractUriValueFromUri();
-        final UsableTopic realTopic = (UsableTopic) topicService.lookUp(id);
+        final Topic realTopic = topicService.lookUp(id);
         return ModelAndView.createNew("topic.ftl").with("topicData", topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage()));
     }
 

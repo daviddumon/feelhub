@@ -4,9 +4,8 @@ import com.feelhub.domain.scraper.Scraper;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
-import com.feelhub.domain.topic.usable.UsableTopic;
-import com.feelhub.domain.topic.usable.real.*;
-import com.feelhub.domain.topic.usable.web.WebTopic;
+import com.feelhub.domain.topic.real.*;
+import com.feelhub.domain.topic.web.WebTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
@@ -42,12 +41,12 @@ public class TopicService {
         return null;
     }
 
-    public List<UsableTopic> getTopics(final String value) {
+    public List<Topic> getTopics(final String value) {
         final Tag tag = tagService.lookUp(value);
-        List<UsableTopic> topics = Lists.newArrayList();
+        List<Topic> topics = Lists.newArrayList();
         for (UUID id : tag.getTopicIds()) {
             try {
-                topics.add((UsableTopic) lookUp(id));
+                topics.add(lookUp(id));
             } catch (TopicNotFound e) {
             }
         }

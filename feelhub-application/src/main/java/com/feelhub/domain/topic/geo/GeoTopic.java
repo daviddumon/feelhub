@@ -1,11 +1,10 @@
-package com.feelhub.domain.topic.usable.geo;
+package com.feelhub.domain.topic.geo;
 
-import com.feelhub.domain.topic.TopicType;
-import com.feelhub.domain.topic.usable.UsableTopic;
+import com.feelhub.domain.topic.*;
 
 import java.util.UUID;
 
-public class GeoTopic extends UsableTopic {
+public class GeoTopic extends Topic {
 
     //mongolink
     protected GeoTopic() {

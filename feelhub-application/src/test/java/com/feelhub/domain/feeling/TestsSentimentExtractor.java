@@ -2,7 +2,7 @@ package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.feeling.context.SemanticContext;
 import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;

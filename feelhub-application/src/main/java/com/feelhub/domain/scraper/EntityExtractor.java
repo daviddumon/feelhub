@@ -1,7 +1,7 @@
 package com.feelhub.domain.scraper;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.usable.web.*;
+import com.feelhub.domain.topic.web.*;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.WordUtils;
 import org.jsoup.nodes.*;

@@ -2,9 +2,8 @@ package com.feelhub.web.resources;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.tag.TagNotFoundException;
-import com.feelhub.domain.topic.TopicNotFound;
-import com.feelhub.domain.topic.usable.UsableTopic;
-import com.feelhub.domain.topic.usable.real.RealTopicType;
+import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.FeelhubApiException;
@@ -55,9 +54,9 @@ public class NewTopicResource extends ServerResource {
     }
 
     private List<String> getForbiddenTypes(final String name) {
-        final List<UsableTopic> topics = topicService.getTopics(name);
+        final List<Topic> topics = topicService.getTopics(name);
         List<String> forbiddenTypes = Lists.newArrayList();
-        for (UsableTopic topic : topics) {
+        for (Topic topic : topics) {
             try {
                 if (topic.getType().hasTagUniqueness()) {
                     forbiddenTypes.add(topic.getType().toString());

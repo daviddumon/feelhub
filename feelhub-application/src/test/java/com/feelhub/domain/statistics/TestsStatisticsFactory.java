@@ -2,7 +2,7 @@ package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.topic.unusable.*;
+import com.feelhub.domain.topic.world.*;
 import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.*;

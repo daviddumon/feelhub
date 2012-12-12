@@ -1,6 +1,6 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.topic.unusable.WorldTopic;
+import com.feelhub.domain.topic.world.WorldTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;

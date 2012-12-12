@@ -1,4 +1,4 @@
-package com.feelhub.domain.topic.usable.geo;
+package com.feelhub.domain.topic.geo;
 
 import com.feelhub.domain.topic.TopicType;
 

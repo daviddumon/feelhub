@@ -2,8 +2,8 @@ package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.user.*;
-import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.repositories.*;
+import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
 import org.junit.*;
@@ -31,6 +31,7 @@ public class TestsActivationService {
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
+                bind(SessionProvider.class).to(FakeSessionProvider.class);
             }
         });
         activationService = injector.getInstance(ActivationService.class);

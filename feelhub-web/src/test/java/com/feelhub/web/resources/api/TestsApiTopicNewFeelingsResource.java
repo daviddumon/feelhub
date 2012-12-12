@@ -1,7 +1,7 @@
 package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;

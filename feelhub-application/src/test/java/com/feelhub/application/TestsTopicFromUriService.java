@@ -4,7 +4,7 @@ import com.feelhub.domain.alchemy.AlchemyRequestEvent;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.meta.UriMetaInformationRequestEvent;
 import com.feelhub.domain.scraper.*;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.google.inject.*;

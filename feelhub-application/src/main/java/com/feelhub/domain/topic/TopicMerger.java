@@ -6,7 +6,6 @@ import com.feelhub.domain.relation.RelationManager;
 import com.feelhub.domain.statistics.StatisticsManager;
 import com.feelhub.domain.tag.TagManager;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.repositories.Repositories;
 
 import java.util.*;
@@ -30,8 +29,8 @@ public class TopicMerger {
     }
 
     private void mergeData(final UUID newTopicId, final UUID oldTopicId) {
-        final UsableTopic newTopic = (UsableTopic) Repositories.topics().get(newTopicId);
-        final UsableTopic oldTopic = (UsableTopic) Repositories.topics().get(oldTopicId);
+        final Topic newTopic = Repositories.topics().get(newTopicId);
+        final Topic oldTopic = Repositories.topics().get(oldTopicId);
         mergeNames(newTopic, oldTopic);
         mergeDescriptions(newTopic, oldTopic);
         mergeIllustrationLink(newTopic, oldTopic);
@@ -39,7 +38,7 @@ public class TopicMerger {
         mergeUrls(newTopic, oldTopic);
     }
 
-    private void mergeNames(final UsableTopic newTopic, final UsableTopic oldTopic) {
+    private void mergeNames(final Topic newTopic, final Topic oldTopic) {
         final Iterator<Map.Entry<String, String>> iterator = oldTopic.getNames().entrySet().iterator();
         final Map<String, String> descriptions = newTopic.getNames();
         while (iterator.hasNext()) {
@@ -50,7 +49,7 @@ public class TopicMerger {
         }
     }
 
-    private void mergeDescriptions(final UsableTopic newTopic, final UsableTopic oldTopic) {
+    private void mergeDescriptions(final Topic newTopic, final Topic oldTopic) {
         final Iterator<Map.Entry<String, String>> iterator = oldTopic.getDescriptions().entrySet().iterator();
         final Map<String, String> descriptions = newTopic.getDescriptions();
         while (iterator.hasNext()) {
@@ -61,7 +60,7 @@ public class TopicMerger {
         }
     }
 
-    private void mergeIllustrationLink(final UsableTopic newTopic, final UsableTopic oldTopic) {
+    private void mergeIllustrationLink(final Topic newTopic, final Topic oldTopic) {
         if (newTopic.getIllustrationLink().isEmpty()) {
             if (!oldTopic.getIllustrationLink().isEmpty()) {
                 newTopic.setIllustrationLink(oldTopic.getIllustrationLink());
@@ -69,7 +68,7 @@ public class TopicMerger {
         }
     }
 
-    private void mergeSubtypes(final UsableTopic newTopic, final UsableTopic oldTopic) {
+    private void mergeSubtypes(final Topic newTopic, final Topic oldTopic) {
         for (String subtype : oldTopic.getSubTypes()) {
             if (!newTopic.getSubTypes().contains(subtype)) {
                 newTopic.addSubType(subtype);
@@ -77,7 +76,7 @@ public class TopicMerger {
         }
     }
 
-    private void mergeUrls(final UsableTopic newTopic, final UsableTopic oldTopic) {
+    private void mergeUrls(final Topic newTopic, final Topic oldTopic) {
         for (String url : oldTopic.getUrls()) {
             if (!newTopic.getUrls().contains(url)) {
                 newTopic.addUrl(url);

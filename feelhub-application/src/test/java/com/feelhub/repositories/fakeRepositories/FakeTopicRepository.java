@@ -1,10 +1,10 @@
 package com.feelhub.repositories.fakeRepositories;
 
 import com.feelhub.domain.topic.*;
-import com.feelhub.domain.topic.unusable.WorldTopic;
-import com.feelhub.domain.topic.usable.geo.GeoTopic;
-import com.feelhub.domain.topic.usable.real.RealTopic;
-import com.feelhub.domain.topic.usable.web.WebTopic;
+import com.feelhub.domain.topic.geo.GeoTopic;
+import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.topic.web.WebTopic;
+import com.feelhub.domain.topic.world.WorldTopic;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.internal.Nullable;

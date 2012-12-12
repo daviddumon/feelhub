@@ -1,7 +1,7 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.topic.usable.real.RealTopicType;
+import com.feelhub.domain.topic.real.RealTopicType;
 import com.google.common.collect.Lists;
 
 import java.util.*;

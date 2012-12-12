@@ -2,7 +2,7 @@ package com.feelhub.web.search;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.meta.Illustration;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.*;
 import com.google.common.collect.Lists;

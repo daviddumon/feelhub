@@ -1,4 +1,4 @@
-package com.feelhub.domain.topic.usable.geo;
+package com.feelhub.domain.topic.web;
 
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;
 
-public class TestsGeoTopic {
+public class TestsWebTopic {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -17,11 +17,11 @@ public class TestsGeoTopic {
     public SystemTime time = SystemTime.fixed();
 
     @Test
-    public void canCreateAGeoTopic() {
+    public void canCreateAWebTopic() {
         final UUID id = UUID.randomUUID();
-        final GeoTopicType type = GeoTopicType.Coords;
+        final WebTopicType type = WebTopicType.Article;
 
-        final GeoTopic topic = new GeoTopic(id, type);
+        final WebTopic topic = new WebTopic(id, type);
 
         assertThat(topic.getId()).isEqualTo(id);
         assertThat(topic.getCurrentId()).isEqualTo(id);

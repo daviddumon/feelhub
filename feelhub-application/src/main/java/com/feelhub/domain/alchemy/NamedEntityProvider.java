@@ -3,7 +3,7 @@ package com.feelhub.domain.alchemy;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feelhub.domain.alchemy.readmodel.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.usable.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;

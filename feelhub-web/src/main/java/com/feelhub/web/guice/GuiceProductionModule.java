@@ -6,7 +6,7 @@ import com.feelhub.domain.eventbus.DeadEventCatcher;
 import com.feelhub.domain.meta.*;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.domain.tag.TagIndexer;
-import com.feelhub.domain.topic.unusable.WorldListener;
+import com.feelhub.domain.topic.world.WorldListener;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.web.mail.MailWatcher;
 import com.google.inject.*;
