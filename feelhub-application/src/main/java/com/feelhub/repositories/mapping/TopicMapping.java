@@ -7,7 +7,7 @@ import com.feelhub.domain.topic.usable.real.RealTopic;
 import com.feelhub.domain.topic.usable.web.WebTopic;
 import org.mongolink.domain.mapper.*;
 
-public class TopicMapping extends EntityMap<Topic> {
+public class TopicMapping extends AggregateMap<Topic> {
 
     public TopicMapping() {
         super(Topic.class);

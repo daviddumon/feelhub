@@ -1,9 +1,9 @@
 package com.feelhub.repositories.mapping;
 
 import com.feelhub.domain.alchemy.AlchemyEntity;
-import org.mongolink.domain.mapper.EntityMap;
+import org.mongolink.domain.mapper.AggregateMap;
 
-public class AlchemyEntityMapping extends EntityMap<AlchemyEntity> {
+public class AlchemyEntityMapping extends AggregateMap<AlchemyEntity> {
 
     public AlchemyEntityMapping() {
         super(AlchemyEntity.class);

@@ -1,9 +1,9 @@
 package com.feelhub.repositories.mapping;
 
 import com.feelhub.domain.session.Session;
-import org.mongolink.domain.mapper.EntityMap;
+import org.mongolink.domain.mapper.AggregateMap;
 
-public class SessionMapping extends EntityMap<Session> {
+public class SessionMapping extends AggregateMap<Session> {
 
     public SessionMapping() {
         super(Session.class);

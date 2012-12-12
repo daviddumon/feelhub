@@ -1,9 +1,9 @@
 package com.feelhub.repositories.mapping;
 
 import com.feelhub.domain.user.Activation;
-import org.mongolink.domain.mapper.EntityMap;
+import org.mongolink.domain.mapper.AggregateMap;
 
-public class ActivationMapping extends EntityMap<Activation> {
+public class ActivationMapping extends AggregateMap<Activation> {
 
     public ActivationMapping() {
         super(Activation.class);

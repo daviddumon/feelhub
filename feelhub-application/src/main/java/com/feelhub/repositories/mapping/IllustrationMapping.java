@@ -1,9 +1,9 @@
 package com.feelhub.repositories.mapping;
 
 import com.feelhub.domain.meta.Illustration;
-import org.mongolink.domain.mapper.EntityMap;
+import org.mongolink.domain.mapper.AggregateMap;
 
-public class IllustrationMapping extends EntityMap<Illustration> {
+public class IllustrationMapping extends AggregateMap<Illustration> {
 
     public IllustrationMapping() {
         super(Illustration.class);

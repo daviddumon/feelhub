@@ -1,9 +1,9 @@
 package com.feelhub.repositories.mapping;
 
 import com.feelhub.domain.relation.Relation;
-import org.mongolink.domain.mapper.EntityMap;
+import org.mongolink.domain.mapper.AggregateMap;
 
-public class RelationMapping extends EntityMap<Relation> {
+public class RelationMapping extends AggregateMap<Relation> {
 
     public RelationMapping() {
         super(Relation.class);

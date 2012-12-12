@@ -1,9 +1,9 @@
 package com.feelhub.repositories.mapping;
 
 import com.feelhub.domain.statistics.Statistics;
-import org.mongolink.domain.mapper.EntityMap;
+import org.mongolink.domain.mapper.AggregateMap;
 
-public class StatisticsMapping extends EntityMap<Statistics> {
+public class StatisticsMapping extends AggregateMap<Statistics> {
 
     public StatisticsMapping() {
         super(Statistics.class);
