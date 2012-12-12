@@ -1,4 +1,4 @@
-package com.feelhub.domain.scraper.extractors;
+package com.feelhub.domain.scraper.pageanalyzer.extractors;
 
 import org.jsoup.nodes.*;
 

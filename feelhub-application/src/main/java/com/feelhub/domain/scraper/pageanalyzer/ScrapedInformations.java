@@ -1,4 +1,4 @@
-package com.feelhub.domain.scraper;
+package com.feelhub.domain.scraper.pageanalyzer;
 
 import java.util.*;
 
@@ -16,7 +16,7 @@ public class ScrapedInformations {
         if (notEmpty(scrapedTags.get("opengraphimage"))) {
             return scrapedTags.get("opengraphimage");
         } else {
-            if (Scraper.isFirstLevelUri(uri)) {
+            if (PageAnalyzer.isFirstLevelUri(uri)) {
                 return getIllustrationForFirstLevelDomain();
             } else {
                 return getIllustrationForNonFirstLevelDomain();

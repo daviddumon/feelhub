@@ -1,4 +1,4 @@
-package com.feelhub.domain.scraper.extractors;
+package com.feelhub.domain.scraper.pageanalyzer.extractors;
 
 import com.feelhub.test.FakeInternet;
 import org.jsoup.Jsoup;
@@ -9,29 +9,29 @@ import java.io.IOException;
 
 import static org.fest.assertions.Assertions.*;
 
-public class TestsOpenGraphTypeExtractor {
+public class TestsOpenGraphImageExtractor {
 
     @ClassRule
     public static FakeInternet internet = new FakeInternet();
 
     @Before
     public void before() {
-        openGraphTypeExtractor = new OpenGraphTypeExtractor();
+        openGraphImageExtractor = new OpenGraphImageExtractor();
     }
 
     @Test
     public void canGetName() {
-        assertThat(openGraphTypeExtractor.getName()).isEqualTo("opengraphtype");
+        assertThat(openGraphImageExtractor.getName()).isEqualTo("opengraphimage");
     }
 
     @Test
-    public void canFindOpenGraphType() {
+    public void canFindOpenGraphIllustration() {
         final String uri = internet.uri("opengraphextractor/illustration");
         final Document document = getDocument(uri);
 
-        final String result = openGraphTypeExtractor.apply(document);
+        final String result = openGraphImageExtractor.apply(document);
 
-        assertThat(result).isEqualTo("video");
+        assertThat(result).isEqualTo("http://i4.ytimg.com/vi/_IOqGclele4/mqdefault.jpg");
     }
 
     private Document getDocument(final String uri) {
@@ -42,5 +42,5 @@ public class TestsOpenGraphTypeExtractor {
         }
     }
 
-    private OpenGraphTypeExtractor openGraphTypeExtractor;
+    private OpenGraphImageExtractor openGraphImageExtractor;
 }

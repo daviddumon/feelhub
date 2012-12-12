@@ -1,4 +1,4 @@
-package com.feelhub.domain.scraper.miner;
+package com.feelhub.domain.scraper.pageanalyzer.miner;
 
 import com.feelhub.test.FakeInternet;
 import org.junit.*;

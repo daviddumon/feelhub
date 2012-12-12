@@ -1,4 +1,4 @@
-package com.feelhub.domain.scraper;
+package com.feelhub.domain.scraper.pageanalyzer;
 
 public class FakeScrapedInformations extends ScrapedInformations {
 

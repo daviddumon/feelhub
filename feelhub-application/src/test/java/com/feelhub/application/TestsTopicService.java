@@ -33,10 +33,10 @@ public class TestsTopicService {
     }
 
     @Test
-    public void canCreateATopic() {
+    public void canCreateARealTopic() {
         final User fakeActiveUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
 
-        final RealTopic realTopic = topicService.createTopic(FeelhubLanguage.REFERENCE, "name", RealTopicType.Automobile, fakeActiveUser);
+        final RealTopic realTopic = topicService.createRealTopic(FeelhubLanguage.REFERENCE, "name", RealTopicType.Automobile, fakeActiveUser);
 
         assertThat(realTopic).isNotNull();
         assertThat(realTopic.getUserId()).isEqualTo(fakeActiveUser.getId());

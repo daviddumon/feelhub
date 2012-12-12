@@ -1,7 +1,7 @@
-package com.feelhub.domain.scraper.extractors;
+package com.feelhub.domain.scraper.pageanalyzer.extractors;
 
 import com.feelhub.domain.scraper.EmptyElement;
-import com.feelhub.domain.scraper.miner.CSSMiner;
+import com.feelhub.domain.scraper.pageanalyzer.miner.CSSMiner;
 import com.google.common.collect.Lists;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;

@@ -5,6 +5,7 @@ import com.feelhub.test.fakeResources.alchemy.FakeAlchemyResource;
 import com.feelhub.test.fakeResources.bing.*;
 import com.feelhub.test.fakeResources.scraper.*;
 import com.feelhub.test.fakeResources.scraper.extractors.*;
+import com.feelhub.test.fakeResources.scraper.oganalyzer.*;
 import com.feelhub.test.fakeResources.scraper.tools.*;
 import freemarker.template.*;
 import org.apache.commons.io.FilenameUtils;
@@ -125,6 +126,8 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/miner/cssminer/simple", CSSMinerSimple.class);
                 router.attach("/css/css1", CSSMinerCss1.class);
                 router.attach("/css/css2", CSSMinerCss2.class);
+                router.attach("/oganalyzer/website", OgAnalyzerWebsiteFakeResource.class);
+                router.attach("/oganalyzer/empty", OgAnalyzerEmptyFakeResource.class);
             }
 
             private void attachBingResources(final Router router) {

@@ -74,9 +74,9 @@ public class ApiTopicsResource extends ServerResource {
     public void createTopic(final Form form) {
         try {
             checkCredentials();
-            final String description = extractName(form);
-            final RealTopicType typeReal = extractType(form);
-            final RealTopic realTopic = topicService.createTopic(CurrentUser.get().getLanguage(), description, typeReal, CurrentUser.get().getUser());
+            final String name = extractName(form);
+            final RealTopicType type = extractType(form);
+            final RealTopic realTopic = topicService.createRealTopic(CurrentUser.get().getLanguage(), name, type, CurrentUser.get().getUser());
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + realTopic.getId()));
             setStatus(Status.SUCCESS_CREATED);
         } catch (AuthenticationException e) {

@@ -47,7 +47,7 @@ public class TestsApiTopicsResource {
     @Test
     public void canCreateWithCorrectUser() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        when(topicService.createTopic(any(FeelhubLanguage.class), anyString(), any(RealTopicType.class), any(User.class))).thenReturn(realTopic);
+        when(topicService.createRealTopic(any(FeelhubLanguage.class), anyString(), any(RealTopicType.class), any(User.class))).thenReturn(realTopic);
 
         apiTopicsResource.createTopic(getGoodForm());
 
@@ -66,11 +66,11 @@ public class TestsApiTopicsResource {
     @Test
     public void createTopic() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        when(topicService.createTopic(any(FeelhubLanguage.class), anyString(), any(RealTopicType.class), any(User.class))).thenReturn(realTopic);
+        when(topicService.createRealTopic(any(FeelhubLanguage.class), anyString(), any(RealTopicType.class), any(User.class))).thenReturn(realTopic);
 
         apiTopicsResource.createTopic(getGoodForm());
 
-        verify(topicService).createTopic(CurrentUser.get().getLanguage(), getGoodForm().getFirstValue("name"), RealTopicType.valueOf(getGoodForm().getFirstValue("type")), CurrentUser.get().getUser());
+        verify(topicService).createRealTopic(CurrentUser.get().getLanguage(), getGoodForm().getFirstValue("name"), RealTopicType.valueOf(getGoodForm().getFirstValue("type")), CurrentUser.get().getUser());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class TestsApiTopicsResource {
     @Test
     public void setLocationRefToNewTopic() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        when(topicService.createTopic(any(FeelhubLanguage.class), anyString(), any(RealTopicType.class), any(User.class))).thenReturn(realTopic);
+        when(topicService.createRealTopic(any(FeelhubLanguage.class), anyString(), any(RealTopicType.class), any(User.class))).thenReturn(realTopic);
 
         apiTopicsResource.createTopic(getGoodForm());
 

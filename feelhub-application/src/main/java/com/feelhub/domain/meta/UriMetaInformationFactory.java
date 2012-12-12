@@ -21,11 +21,11 @@ public class UriMetaInformationFactory {
     @Subscribe
     public void handle(final UriMetaInformationRequestEvent uriMetaInformationRequestEvent) {
         sessionProvider.start();
-        final RealTopic realTopic = uriMetaInformationRequestEvent.getRealTopic();
-        final ScrapedInformations scrapedInformations = scraper.scrap(uriMetaInformationRequestEvent.getValue());
-        addIllustrations(realTopic, scrapedInformations.getIllustration());
-        addType(realTopic, scrapedInformations.getType());
-        addName(realTopic, scrapedInformations.getTitle());
+        //final RealTopic realTopic = uriMetaInformationRequestEvent.getRealTopic();
+        //final ScrapedInformations scrapedInformations = scraper.scrap(uriMetaInformationRequestEvent.getValue());
+        //addIllustrations(realTopic, scrapedInformations.getIllustration());
+        //addType(realTopic, scrapedInformations.getType());
+        //addName(realTopic, scrapedInformations.getTitle());
         sessionProvider.stop();
     }
 

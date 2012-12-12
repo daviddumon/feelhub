@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 
+@Ignore
 public class TestsUriMetaInformationFactory {
 
     @Rule
