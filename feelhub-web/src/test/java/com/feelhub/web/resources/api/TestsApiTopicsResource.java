@@ -3,6 +3,8 @@ package com.feelhub.web.resources.api;
 import com.feelhub.application.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -11,6 +13,7 @@ import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
 import com.feelhub.web.dto.TopicData;
 import com.feelhub.web.representation.ModelAndView;
+import com.google.common.collect.Lists;
 import com.google.inject.*;
 import org.junit.*;
 import org.restlet.*;
@@ -35,8 +38,8 @@ public class TestsApiTopicsResource {
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
-                bind(TopicService.class).toInstance(topicService);
                 bind(TagService.class).toInstance(tagService);
+                bind(TopicService.class).toInstance(topicService);
             }
         });
         apiTopicsResource = injector.getInstance(ApiTopicsResource.class);
@@ -105,7 +108,6 @@ public class TestsApiTopicsResource {
 
     @Test
     public void canGetTopics() {
-        when(tagService.lookUp(anyString())).thenReturn(new Tag());
         final Request request = new Request(Method.GET, "http://test.com?q=test");
         apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
 
@@ -117,7 +119,6 @@ public class TestsApiTopicsResource {
 
     @Test
     public void modelHasTopicDatas() {
-        when(tagService.lookUp(anyString())).thenReturn(new Tag());
         final Request request = new Request(Method.GET, "http://test.com?q=test");
         apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
 
@@ -135,9 +136,10 @@ public class TestsApiTopicsResource {
         tag.addTopic(topic1);
         final RealTopic topic2 = TestFactories.topics().newCompleteRealTopic();
         tag.addTopic(topic2);
-        when(tagService.lookUp(tag.getId())).thenReturn(tag);
-        when(topicService.lookUp(topic1.getId())).thenReturn(topic1);
-        when(topicService.lookUp(topic2.getId())).thenReturn(topic2);
+        List<UsableTopic> topics = Lists.newArrayList();
+        topics.add(topic1);
+        topics.add(topic2);
+        when(topicService.getTopics(tag.getId())).thenReturn(topics);
         final Request request = new Request(Method.GET, "http://test.com?q=" + tag.getId());
         apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
 
@@ -160,7 +162,6 @@ public class TestsApiTopicsResource {
 
     @Test
     public void canGetTopicsWithGoodStatus() {
-        when(tagService.lookUp(anyString())).thenReturn(new Tag());
         final Request request = new Request(Method.GET, "http://test.com?q=test");
         apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
 

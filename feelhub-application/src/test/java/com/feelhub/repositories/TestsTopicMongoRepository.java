@@ -64,6 +64,8 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("names")).isNotNull();
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();
+        assertThat(topicFound.get("urls")).isNotNull();
+        assertThat(topicFound.get("illustrationLink")).isEqualTo(realTopic.getIllustrationLink());
         assertThat(topicFound.get("__discriminator")).isEqualTo("RealTopic");
     }
 
@@ -79,7 +81,9 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("userId")).isEqualTo(webTopic.getUserId());
         assertThat(topicFound.get("names")).isNotNull();
         assertThat(topicFound.get("descriptions")).isNotNull();
+        assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("urls")).isNotNull();
+        assertThat(topicFound.get("illustrationLink")).isEqualTo(webTopic.getIllustrationLink());
         assertThat(topicFound.get("__discriminator")).isEqualTo("WebTopic");
     }
 
@@ -95,6 +99,9 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("userId")).isEqualTo(geoTopic.getUserId());
         assertThat(topicFound.get("names")).isNotNull();
         assertThat(topicFound.get("descriptions")).isNotNull();
+        assertThat(topicFound.get("subTypes")).isNotNull();
+        assertThat(topicFound.get("urls")).isNotNull();
+        assertThat(topicFound.get("illustrationLink")).isEqualTo(geoTopic.getIllustrationLink());
         assertThat(topicFound.get("__discriminator")).isEqualTo("GeoTopic");
     }
 

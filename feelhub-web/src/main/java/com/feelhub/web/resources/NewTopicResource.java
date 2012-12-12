@@ -1,7 +1,7 @@
 package com.feelhub.web.resources;
 
-import com.feelhub.application.*;
-import com.feelhub.domain.tag.*;
+import com.feelhub.application.TopicService;
+import com.feelhub.domain.tag.TagNotFoundException;
 import com.feelhub.domain.topic.TopicNotFound;
 import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.domain.topic.usable.real.RealTopicType;
@@ -15,13 +15,12 @@ import org.restlet.resource.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.*;
+import java.util.List;
 
 public class NewTopicResource extends ServerResource {
 
     @Inject
-    public NewTopicResource(final TagService tagService, final TopicService topicService, final TopicDataFactory topicDataFactory) {
-        this.tagService = tagService;
+    public NewTopicResource(final TopicService topicService, final TopicDataFactory topicDataFactory) {
         this.topicService = topicService;
         this.topicDataFactory = topicDataFactory;
     }
@@ -44,8 +43,7 @@ public class NewTopicResource extends ServerResource {
         List<String> types = Lists.newArrayList();
         List<String> forbiddenTypes = Lists.newArrayList();
         try {
-            final Tag tag = tagService.lookUp(name);
-            forbiddenTypes = getForbiddenTypes(tag);
+            forbiddenTypes = getForbiddenTypes(name);
         } catch (TagNotFoundException e) {
         }
         for (RealTopicType type : RealTopicType.values()) {
@@ -56,11 +54,11 @@ public class NewTopicResource extends ServerResource {
         return types;
     }
 
-    private List<String> getForbiddenTypes(final Tag tag) {
+    private List<String> getForbiddenTypes(final String name) {
+        final List<UsableTopic> topics = topicService.getTopics(name);
         List<String> forbiddenTypes = Lists.newArrayList();
-        for (UUID id : tag.getTopicIds()) {
+        for (UsableTopic topic : topics) {
             try {
-                final UsableTopic topic = (UsableTopic) topicService.lookUp(id);
                 if (topic.getType().hasTagUniqueness()) {
                     forbiddenTypes.add(topic.getType().toString());
                 }
@@ -82,7 +80,6 @@ public class NewTopicResource extends ServerResource {
         }
     }
 
-    private TagService tagService;
     private TopicService topicService;
     private TopicDataFactory topicDataFactory;
 }

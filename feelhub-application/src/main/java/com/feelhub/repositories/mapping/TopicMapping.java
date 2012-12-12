@@ -29,6 +29,8 @@ public class TopicMapping extends AggregateMap<Topic> {
                 map(element().getNames());
                 map(element().getDescriptions());
                 collection(element().getSubTypes());
+                collection(element().getUrls());
+                property(element().getIllustrationLink());
             }
         });
 
@@ -40,7 +42,9 @@ public class TopicMapping extends AggregateMap<Topic> {
                 property(element().getUserId());
                 map(element().getNames());
                 map(element().getDescriptions());
+                collection(element().getSubTypes());
                 collection(element().getUrls());
+                property(element().getIllustrationLink());
             }
         });
 
@@ -52,6 +56,9 @@ public class TopicMapping extends AggregateMap<Topic> {
                 property(element().getUserId());
                 map(element().getNames());
                 map(element().getDescriptions());
+                collection(element().getSubTypes());
+                collection(element().getUrls());
+                property(element().getIllustrationLink());
             }
         });
 

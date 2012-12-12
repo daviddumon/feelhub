@@ -5,9 +5,8 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.TopicType;
 import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.domain.translation.ReferenceTranslationRequestEvent;
-import com.google.common.collect.Lists;
 
-import java.util.*;
+import java.util.UUID;
 
 public class RealTopic extends UsableTopic {
 
@@ -33,14 +32,6 @@ public class RealTopic extends UsableTopic {
         this.typeValue = type.toString();
     }
 
-    public List<String> getSubTypes() {
-        return subTypes;
-    }
-
-    public void addSubType(final String subtype) {
-        subTypes.add(subtype);
-    }
-
     @Override
     public void addName(final FeelhubLanguage feelhubLanguage, final String name) {
         super.addName(feelhubLanguage, name);
@@ -61,6 +52,5 @@ public class RealTopic extends UsableTopic {
         return !names.containsKey(FeelhubLanguage.reference().getCode());
     }
 
-    private final List<String> subTypes = Lists.newArrayList();
     private String typeValue;
 }

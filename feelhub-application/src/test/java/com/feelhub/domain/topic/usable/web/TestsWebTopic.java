@@ -27,28 +27,4 @@ public class TestsWebTopic {
         assertThat(topic.getCurrentId()).isEqualTo(id);
         assertThat(topic.getType()).isEqualTo(type);
     }
-
-    @Test
-    public void hasUrls() {
-        final UUID id = UUID.randomUUID();
-        final WebTopicType type = WebTopicType.Article;
-
-        final WebTopic topic = new WebTopic(id, type);
-
-        assertThat(topic.getUrls()).isNotNull();
-        assertThat(topic.getUrls().size()).isZero();
-    }
-
-    @Test
-    public void canAddUrl() {
-        final UUID id = UUID.randomUUID();
-        final WebTopicType type = WebTopicType.Article;
-        final WebTopic topic = new WebTopic(id, type);
-        final String url = "http://www.url.com";
-
-        topic.addUrl(url);
-
-        assertThat(topic.getUrls().size()).isEqualTo(1);
-        assertThat(topic.getUrls().get(0)).isEqualTo(url);
-    }
 }

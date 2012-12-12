@@ -4,7 +4,7 @@ import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.tag.TagRequestEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
-import com.google.common.collect.Maps;
+import com.google.common.collect.*;
 import org.apache.commons.lang.WordUtils;
 
 import java.util.*;
@@ -43,6 +43,8 @@ public abstract class UsableTopic extends Topic {
             return names.get(feelhubLanguage.getCode());
         } else if (names.containsKey(FeelhubLanguage.reference().getCode())) {
             return names.get(FeelhubLanguage.reference().getCode());
+        } else if (names.containsKey(FeelhubLanguage.none().getCode())) {
+            return names.get(FeelhubLanguage.none().getCode());
         } else {
             return "";
         }
@@ -57,6 +59,8 @@ public abstract class UsableTopic extends Topic {
             return descriptions.get(language.getCode());
         } else if (descriptions.containsKey(FeelhubLanguage.reference().getCode())) {
             return descriptions.get(FeelhubLanguage.reference().getCode());
+        } else if (descriptions.containsKey(FeelhubLanguage.none().getCode())) {
+            return descriptions.get(FeelhubLanguage.none().getCode());
         } else {
             return "";
         }
@@ -70,7 +74,34 @@ public abstract class UsableTopic extends Topic {
         return descriptions;
     }
 
+    public List<String> getSubTypes() {
+        return subTypes;
+    }
+
+    public void addSubType(final String subtype) {
+        subTypes.add(subtype);
+    }
+
+    public List<String> getUrls() {
+        return urls;
+    }
+
+    public void addUrl(final String url) {
+        urls.add(url);
+    }
+
+    public String getIllustrationLink() {
+        return illustrationLink;
+    }
+
+    public void setIllustrationLink(final String illustrationLink) {
+        this.illustrationLink = illustrationLink;
+    }
+
     private UUID userId;
     protected Map<String, String> names = Maps.newHashMap();
     private final Map<String, String> descriptions = Maps.newHashMap();
+    private final List<String> subTypes = Lists.newArrayList();
+    private final List<String> urls = Lists.newArrayList();
+    private String illustrationLink = "";
 }

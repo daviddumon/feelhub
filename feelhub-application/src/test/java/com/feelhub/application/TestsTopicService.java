@@ -1,8 +1,10 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.domain.topic.usable.web.WebTopic;
 import com.feelhub.domain.user.User;
@@ -11,6 +13,8 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
 import org.junit.*;
+
+import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -51,6 +55,19 @@ public class TestsTopicService {
         final Topic topic = topicService.lookUp(webTopic.getId());
 
         assertThat(topic).isEqualTo(webTopic);
+    }
+
+    @Test
+    public void canGetTopicsFromString() {
+        final String value = "tag";
+        final Tag tag = TestFactories.tags().newTagWithoutTopic(value);
+        tag.addTopic(TestFactories.topics().newCompleteRealTopic());
+        tag.addTopic(TestFactories.topics().newCompleteRealTopic());
+        tag.addTopic(TestFactories.topics().newCompleteRealTopic());
+
+        final List<UsableTopic> topics = topicService.getTopics(value);
+
+        assertThat(topics.size()).isEqualTo(3);
     }
 
     private Injector injector;

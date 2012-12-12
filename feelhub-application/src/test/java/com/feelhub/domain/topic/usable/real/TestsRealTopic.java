@@ -36,25 +36,6 @@ public class TestsRealTopic {
     }
 
     @Test
-    public void hasSubTypes() {
-        final RealTopic realTopic = TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile);
-
-        assertThat(realTopic.getSubTypes()).isNotNull();
-        assertThat(realTopic.getSubTypes().size()).isZero();
-    }
-
-    @Test
-    public void canAddASubType() {
-        final RealTopic realTopic = TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile);
-        final String subtype = "subtype";
-
-        realTopic.addSubType(subtype);
-
-        assertThat(realTopic.getSubTypes().size()).isEqualTo(1);
-        assertThat(realTopic.getSubTypes().get(0)).isEqualTo(subtype);
-    }
-
-    @Test
     public void requestTranslationWhenAddingName() {
         bus.capture(ReferenceTranslationRequestEvent.class);
         final RealTopic anotherTopic = new RealTopic(UUID.randomUUID(), translatableType());

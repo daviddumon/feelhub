@@ -53,7 +53,9 @@ public class TopicTestFactory {
     }
 
     public WebTopic newSimpleWebTopic(final WebTopicType type) {
-        return new WebTopic(UUID.randomUUID(), type);
+        final WebTopic webTopic = new WebTopic(UUID.randomUUID(), type);
+        Repositories.topics().add(webTopic);
+        return webTopic;
     }
 
     public GeoTopic newSimpleGeoTopic(final GeoTopicType type) {

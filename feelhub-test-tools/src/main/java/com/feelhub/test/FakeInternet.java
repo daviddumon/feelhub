@@ -97,6 +97,8 @@ public class FakeInternet extends ExternalResource {
             }
 
             private void attachScrapersResources(final Router router) {
+                router.attach("/scraper/empty", ScraperEmptyResource.class);
+
                 router.attach("/", ScraperLogoPriority.class);
                 router.attach("/scraper/logopriority", ScraperLogoPriority.class);
                 router.attach("/scraper/logoprioritywithopengraph", ScraperLogoPriorityWithOpenGraph.class);

@@ -1,9 +1,7 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.application.*;
-import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.tag.*;
-import com.feelhub.domain.topic.*;
+import com.feelhub.application.TopicService;
+import com.feelhub.domain.tag.TagNotFoundException;
 import com.feelhub.domain.topic.usable.UsableTopic;
 import com.feelhub.domain.topic.usable.real.*;
 import com.feelhub.web.WebReferenceBuilder;
@@ -16,13 +14,12 @@ import org.apache.http.auth.AuthenticationException;
 import org.restlet.data.*;
 import org.restlet.resource.*;
 
-import java.util.*;
+import java.util.List;
 
 public class ApiTopicsResource extends ServerResource {
 
     @Inject
-    public ApiTopicsResource(final TagService tagService, final TopicService topicService, final TopicDataFactory topicDataFactory) {
-        this.tagService = tagService;
+    public ApiTopicsResource(final TopicService topicService, final TopicDataFactory topicDataFactory) {
         this.topicService = topicService;
         this.topicDataFactory = topicDataFactory;
     }
@@ -31,8 +28,7 @@ public class ApiTopicsResource extends ServerResource {
     public ModelAndView getTopics() {
         try {
             final String query = getQueryValue();
-            final Tag tag = tagService.lookUp(query);
-            final List<Topic> topics = getTopics(tag);
+            final List<UsableTopic> topics = topicService.getTopics(query);
             return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", getTopicDatas(topics));
         } catch (FeelhubApiException e) {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
@@ -43,21 +39,10 @@ public class ApiTopicsResource extends ServerResource {
         }
     }
 
-    private List<Topic> getTopics(final Tag tag) {
-        List<Topic> topics = Lists.newArrayList();
-        for (UUID id : tag.getTopicIds()) {
-            try {
-                topics.add(topicService.lookUp(id));
-            } catch (TopicNotFound e) {
-            }
-        }
-        return topics;
-    }
-
-    private List<TopicData> getTopicDatas(final List<Topic> topics) {
+    private List<TopicData> getTopicDatas(final List<UsableTopic> topics) {
         List<TopicData> results = Lists.newArrayList();
-        for (Topic topic : topics) {
-            results.add(topicDataFactory.getTopicData((UsableTopic) topic, CurrentUser.get().getLanguage()));
+        for (UsableTopic topic : topics) {
+            results.add(topicDataFactory.getTopicData(topic, CurrentUser.get().getLanguage()));
         }
         return results;
     }
@@ -108,7 +93,6 @@ public class ApiTopicsResource extends ServerResource {
         }
     }
 
-    private TagService tagService;
     private final TopicService topicService;
     private TopicDataFactory topicDataFactory;
 }

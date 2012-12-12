@@ -61,6 +61,17 @@ public class TestsUsableTopic {
     }
 
     @Test
+    public void canReturnNoneNameIfExists() {
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
+        final String name = "Name-none";
+        fakeUsableTopic.addName(FeelhubLanguage.none(), name);
+
+        final String frName = fakeUsableTopic.getName(FeelhubLanguage.fromCode("fr"));
+
+        assertThat(frName).isEqualTo(name);
+    }
+
+    @Test
     public void correctlyFormatNames() {
         final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
         final String name = "nAMe-refeRence";
@@ -101,6 +112,17 @@ public class TestsUsableTopic {
     }
 
     @Test
+    public void returnNoneDescriptionIfExists() {
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
+        final String description = "My description";
+        fakeUsableTopic.addDescription(FeelhubLanguage.none(), description);
+
+        final String frDescription = fakeUsableTopic.getDescription(FeelhubLanguage.fromCode("fr"));
+
+        assertThat(frDescription).isEqualTo(description);
+    }
+
+    @Test
     public void requestTagCreationWhenAddingDescription() {
         bus.capture(TagRequestEvent.class);
         final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
@@ -112,6 +134,62 @@ public class TestsUsableTopic {
         assertThat(tagRequestEvent).isNotNull();
         assertThat(tagRequestEvent.getUsableTopic()).isEqualTo(fakeUsableTopic);
         assertThat(tagRequestEvent.getName()).isEqualTo(referenceName);
+    }
+
+    @Test
+    public void hasSubTypes() {
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
+
+        assertThat(fakeUsableTopic.getSubTypes()).isNotNull();
+        assertThat(fakeUsableTopic.getSubTypes().size()).isZero();
+    }
+
+    @Test
+    public void canAddASubType() {
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
+        final String subtype = "subtype";
+
+        fakeUsableTopic.addSubType(subtype);
+
+        assertThat(fakeUsableTopic.getSubTypes().size()).isEqualTo(1);
+        assertThat(fakeUsableTopic.getSubTypes().get(0)).isEqualTo(subtype);
+    }
+
+    @Test
+    public void hasUrls() {
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
+
+        assertThat(fakeUsableTopic.getUrls()).isNotNull();
+        assertThat(fakeUsableTopic.getUrls().size()).isZero();
+    }
+
+    @Test
+    public void canAddUrl() {
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
+        final String url = "http://www.url.com";
+
+        fakeUsableTopic.addUrl(url);
+
+        assertThat(fakeUsableTopic.getUrls().size()).isEqualTo(1);
+        assertThat(fakeUsableTopic.getUrls().get(0)).isEqualTo(url);
+    }
+
+    @Test
+    public void hasAnIllustrationLink() {
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
+
+        assertThat(fakeUsableTopic.getIllustrationLink()).isNotNull();
+        assertThat(fakeUsableTopic.getIllustrationLink()).isEmpty();
+    }
+
+    @Test
+    public void canSetAnIllustrationLink() {
+        final FakeUsableTopic fakeUsableTopic = new FakeUsableTopic(UUID.randomUUID());
+        final String illustrationLink = "link";
+
+        fakeUsableTopic.setIllustrationLink(illustrationLink);
+
+        assertThat(fakeUsableTopic.getIllustrationLink()).isEqualTo(illustrationLink);
     }
 
     class FakeUsableTopic extends UsableTopic {
