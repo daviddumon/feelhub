@@ -2,7 +2,6 @@ package com.feelhub.repositories;
 
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.FeelingRepository;
-import com.feelhub.domain.meta.IllustrationRepository;
 import com.feelhub.domain.relation.RelationRepository;
 import com.feelhub.domain.session.SessionRepository;
 import com.feelhub.domain.statistics.StatisticsRepository;
@@ -44,10 +43,6 @@ public abstract class Repositories {
         return Repositories.soleInstance.getKeywordRepository();
     }
 
-    public static IllustrationRepository illustrations() {
-        return Repositories.soleInstance.getIllustrationRepository();
-    }
-
     public static AlchemyEntityRepository alchemyEntities() {
         return Repositories.soleInstance.getAlchemyEntityRepository();
     }
@@ -65,8 +60,6 @@ public abstract class Repositories {
     protected abstract AlchemyAnalysisRepository getAlchemyAnalysisRepository();
 
     protected abstract AlchemyEntityRepository getAlchemyEntityRepository();
-
-    protected abstract IllustrationRepository getIllustrationRepository();
 
     protected abstract TagRepository getKeywordRepository();
 

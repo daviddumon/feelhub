@@ -2,7 +2,6 @@ package com.feelhub.test;
 
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.meta.IllustrationTestFactory;
 import com.feelhub.domain.relation.RelationTestFactory;
 import com.feelhub.domain.session.SessionTestFactory;
 import com.feelhub.domain.statistics.StatisticsTestFactory;
@@ -49,10 +48,6 @@ public class TestFactories {
 
     public static TagTestFactory tags() {
         return new TagTestFactory();
-    }
-
-    public static IllustrationTestFactory illustrations() {
-        return new IllustrationTestFactory();
     }
 
     public static AlchemyTestFactory alchemy() {

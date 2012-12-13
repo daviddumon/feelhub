@@ -2,8 +2,8 @@ package com.feelhub.web.guice;
 
 import com.feelhub.application.*;
 import com.feelhub.domain.alchemy.AlchemyAnalyzer;
+import com.feelhub.domain.bingsearch.BingSearch;
 import com.feelhub.domain.eventbus.DeadEventCatcher;
-import com.feelhub.domain.meta.*;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.domain.tag.TagIndexer;
 import com.feelhub.domain.topic.world.WorldListener;
@@ -25,11 +25,10 @@ public class GuiceProductionModule extends AbstractModule {
         bind(FeelingService.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();
         bind(WorldListener.class).asEagerSingleton();
-        bind(WordIllustrationFactory.class).asEagerSingleton();
-        bind(UriMetaInformationFactory.class).asEagerSingleton();
         bind(AlchemyAnalyzer.class).asEagerSingleton();
         bind(ActivationService.class).asEagerSingleton();
         bind(TagIndexer.class).asEagerSingleton();
+        bind(BingSearch.class).asEagerSingleton();
     }
 
     private Properties properties() {

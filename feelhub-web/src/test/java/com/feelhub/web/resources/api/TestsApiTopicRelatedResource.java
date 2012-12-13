@@ -1,6 +1,5 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.domain.meta.Illustration;
 import com.feelhub.domain.relation.Relation;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
@@ -159,7 +158,7 @@ public class TestsApiTopicRelatedResource {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
         final Relation relation = TestFactories.relations().newRelation(from.getId(), to.getId());
-        final Illustration illustration = TestFactories.illustrations().newIllustration(to.getId());
+        //final Illustration illustration = TestFactories.illustrations().newIllustration(to.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/related");
 
         final Representation representation = resource.get();
@@ -170,7 +169,7 @@ public class TestsApiTopicRelatedResource {
         assertThat(keywordDataAsJson).isNotNull();
         assertThat(keywordDataAsJson.get("id").toString()).isEqualTo(to.getId().toString());
         assertThat(keywordDataAsJson.get("description").toString()).isEqualTo("Description-reference");
-        assertThat(keywordDataAsJson.get("illustrationLink").toString()).isEqualTo(illustration.getLink());
+        //assertThat(keywordDataAsJson.get("illustrationLink").toString()).isEqualTo(illustration.getLink());
     }
 
     private User user;

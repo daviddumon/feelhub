@@ -1,8 +1,7 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.meta.Illustration;
-import com.feelhub.domain.tag.TagRequestEvent;
+import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.web.*;
 import com.feelhub.domain.user.User;
@@ -60,11 +59,12 @@ public class TestsTopic {
     public void changeCurrentIdMergeTopics() {
         final WebTopic oldTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Article);
         final WebTopic newTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Article);
-        final Illustration illustration = TestFactories.illustrations().newIllustration(oldTopic.getId());
+        final Tag tag = TestFactories.tags().newTag("tag");
+        tag.addTopic(oldTopic);
 
         oldTopic.changeCurrentId(newTopic.getId());
 
-        assertThat(illustration.getTopicId()).isEqualTo(newTopic.getId());
+        assertThat(tag.getTopicIds()).contains(newTopic.getId());
     }
 
     @Test
@@ -236,6 +236,20 @@ public class TestsTopic {
         fakeTopic.setIllustrationLink(illustrationLink);
 
         assertThat(fakeTopic.getIllustrationLink()).isEqualTo(illustrationLink);
+    }
+
+    @Test
+    public void canCreateTags() {
+        bus.capture(TagRequestEvent.class);
+        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final String referenceName = "name-reference";
+
+        fakeTopic.createTags(referenceName);
+
+        final TagRequestEvent tagRequestEvent = bus.lastEvent(TagRequestEvent.class);
+        assertThat(tagRequestEvent).isNotNull();
+        assertThat(tagRequestEvent.getTopic()).isEqualTo(fakeTopic);
+        assertThat(tagRequestEvent.getName()).isEqualTo(referenceName);
     }
 
     class FakeTopic extends Topic {

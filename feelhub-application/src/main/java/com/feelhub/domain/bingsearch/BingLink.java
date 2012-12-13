@@ -2,10 +2,10 @@ package com.feelhub.domain.bingsearch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feelhub.domain.bingsearch.readmodel.*;
-import com.feelhub.tools.*;
+import com.feelhub.domain.tag.uri.*;
+import com.feelhub.tools.FeelhubApplicationProperties;
 import com.google.common.collect.Lists;
-import org.restlet.*;
-import org.restlet.data.Method;
+import com.google.inject.Inject;
 
 import java.io.*;
 import java.net.*;
@@ -13,7 +13,9 @@ import java.util.List;
 
 public class BingLink {
 
-    public BingLink() {
+    @Inject
+    public BingLink(final UriResolver uriResolver) {
+        this.uriResolver = uriResolver;
         feelhubApplicationProperties = new FeelhubApplicationProperties();
     }
 
@@ -35,17 +37,12 @@ public class BingLink {
             if (!type.isEmpty()) {
                 stringBuilder.append(URLEncoder.encode(" " + type, "UTF-8"));
             }
-            final String queryOptions = "'&Adult='Off'&$top=2&$format=JSON";
+            final String queryOptions = "'&Adult='Off'&$format=JSON";
             stringBuilder.append(queryOptions);
             return stringBuilder.toString();
         } catch (Exception e) {
         }
         return "";
-    }
-
-    private void addAuthorizationHeader(final URLConnection uc) {
-        final String basicAuth = "Basic OmQ1MllKNGlPWjBKTzZscWI3NnhHcndWV3BETzVDeXJ1bC9ETldtZk40NHM9";
-        uc.setRequestProperty("Authorization", basicAuth);
     }
 
     private List<String> getResults(final String query) {
@@ -61,6 +58,11 @@ public class BingLink {
             e.printStackTrace();
         }
         return results;
+    }
+
+    private void addAuthorizationHeader(final URLConnection uc) {
+        final String basicAuth = "Basic OmQ1MllKNGlPWjBKTzZscWI3NnhHcndWV3BETzVDeXJ1bC9ETldtZk40NHM9";
+        uc.setRequestProperty("Authorization", basicAuth);
     }
 
     private List<String> unmarshall(final InputStream inputStream) {
@@ -82,15 +84,14 @@ public class BingLink {
     }
 
     private String exist(final String result) {
-        final Client client = Clients.create();
-        final Request request = Requests.create(Method.HEAD, result);
-        final Response response = client.handle(request);
-        if (response.getStatus().isSuccess()) {
-            return result;
-        } else {
+        try {
+            final List<String> path = uriResolver.resolve(result);
+            return path.get(path.size() - 1);
+        } catch (UriException e) {
             throw new BadIllustrationLink();
         }
     }
 
     private FeelhubApplicationProperties feelhubApplicationProperties;
+    private UriResolver uriResolver;
 }

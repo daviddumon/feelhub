@@ -127,7 +127,7 @@ public class TestsTagIndexer {
             return type;
         }
 
-        private TopicType type;
+        private final TopicType type;
     }
 
     private TagIndexer tagIndexer;

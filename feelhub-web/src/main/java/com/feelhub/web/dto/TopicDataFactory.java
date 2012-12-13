@@ -2,10 +2,8 @@ package com.feelhub.web.dto;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.meta.Illustration;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 
@@ -43,10 +41,10 @@ public class TopicDataFactory {
         if (sentiment != null) {
             builder.sentimentValue(sentiment.getSentimentValue());
         }
-        final List<Illustration> illustrations = Repositories.illustrations().forTopicId(topic.getId());
-        if (!illustrations.isEmpty()) {
-            builder.illustration(illustrations.get(0));
-        }
+        //final List<Illustration> illustrations = Repositories.illustrations().forTopicId(topic.getId());
+        //if (!illustrations.isEmpty()) {
+        //    builder.illustration(illustrations.get(0));
+        //}
         return builder.build();
     }
 

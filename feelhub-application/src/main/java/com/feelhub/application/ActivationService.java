@@ -37,5 +37,5 @@ public class ActivationService {
         Repositories.activation().delete(activation);
     }
 
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
 }

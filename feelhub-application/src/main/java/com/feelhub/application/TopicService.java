@@ -43,8 +43,8 @@ public class TopicService {
 
     public List<Topic> getTopics(final String value) {
         final Tag tag = tagService.lookUp(value);
-        List<Topic> topics = Lists.newArrayList();
-        for (UUID id : tag.getTopicIds()) {
+        final List<Topic> topics = Lists.newArrayList();
+        for (final UUID id : tag.getTopicIds()) {
             try {
                 topics.add(lookUp(id));
             } catch (TopicNotFound e) {
@@ -54,6 +54,6 @@ public class TopicService {
     }
 
     private final TopicFactory topicFactory;
-    private Scraper scraper;
-    private TagService tagService;
+    private final Scraper scraper;
+    private final TagService tagService;
 }

@@ -28,3 +28,16 @@ public class TestsWebTopic {
         assertThat(topic.getType()).isEqualTo(type);
     }
 }
+
+//@Test
+//public void requestAlchemy() {
+//    bus.capture(AlchemyRequestEvent.class);
+//    final String value = "http://www.test.com";
+//
+//    final RealTopic realTopic = topicFromUriService.createTopicFromUri(value);
+//
+//    final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
+//    assertThat(alchemyRequestEvent).isNotNull();
+//    assertThat(alchemyRequestEvent.getRealTopic()).isEqualTo(realTopic);
+//    assertThat(alchemyRequestEvent.getValue()).isEqualTo(value);
+//}

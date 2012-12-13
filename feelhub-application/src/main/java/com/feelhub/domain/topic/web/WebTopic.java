@@ -31,3 +31,8 @@ public class WebTopic extends Topic {
 
     private String typeValue;
 }
+
+//private void requestAlchemyAnalysis(final RealTopic realTopic, final String value) {
+//    final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(realTopic, value);
+//    DomainEventBus.INSTANCE.post(alchemyRequestEvent);
+//}

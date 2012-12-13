@@ -1,7 +1,6 @@
 package com.feelhub.web.dto;
 
 import com.feelhub.domain.feeling.SentimentValue;
-import com.feelhub.domain.meta.Illustration;
 import com.feelhub.domain.topic.TopicType;
 import com.feelhub.domain.topic.world.UnusableTopicTypes;
 import com.google.common.collect.Lists;
@@ -19,11 +18,6 @@ public class TopicData {
 
         public Builder id(final UUID id) {
             this.id = id.toString();
-            return this;
-        }
-
-        public Builder illustration(final Illustration illustration) {
-            this.illustrationLink = illustration.getLink();
             return this;
         }
 

@@ -1,6 +1,6 @@
 package com.feelhub.web.tools;
 
-import com.feelhub.web.guice.*;
+import com.feelhub.web.guice.GuiceTestModule;
 import com.google.inject.*;
 import org.junit.*;
 

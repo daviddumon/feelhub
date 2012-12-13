@@ -2,7 +2,6 @@ package com.feelhub.repositories;
 
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.FeelingRepository;
-import com.feelhub.domain.meta.IllustrationRepository;
 import com.feelhub.domain.relation.RelationRepository;
 import com.feelhub.domain.session.SessionRepository;
 import com.feelhub.domain.statistics.StatisticsRepository;
@@ -32,11 +31,6 @@ public class MongoRepositories extends Repositories {
     @Override
     protected AlchemyEntityRepository getAlchemyEntityRepository() {
         return new AlchemyEntityMongoRepository(provider.get());
-    }
-
-    @Override
-    protected IllustrationRepository getIllustrationRepository() {
-        return new IllustrationMongoRepository(provider.get());
     }
 
     @Override

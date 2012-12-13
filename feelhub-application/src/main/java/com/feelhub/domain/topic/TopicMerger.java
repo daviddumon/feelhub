@@ -1,7 +1,6 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.feeling.FeelingManager;
-import com.feelhub.domain.meta.IllustrationManager;
 import com.feelhub.domain.relation.RelationManager;
 import com.feelhub.domain.statistics.StatisticsManager;
 import com.feelhub.domain.tag.TagManager;
@@ -15,7 +14,6 @@ public class TopicMerger {
     public void merge(final UUID newTopicId, final UUID oldTopicId) {
         final TopicPatch topicPatch = createTopicPatch(newTopicId, oldTopicId);
         tagManager.merge(topicPatch);
-        illustrationManager.merge(topicPatch);
         feelingManager.merge(topicPatch);
         relationManager.merge(topicPatch);
         statisticsManager.merge(topicPatch);
@@ -69,7 +67,7 @@ public class TopicMerger {
     }
 
     private void mergeSubtypes(final Topic newTopic, final Topic oldTopic) {
-        for (String subtype : oldTopic.getSubTypes()) {
+        for (final String subtype : oldTopic.getSubTypes()) {
             if (!newTopic.getSubTypes().contains(subtype)) {
                 newTopic.addSubType(subtype);
             }
@@ -77,7 +75,7 @@ public class TopicMerger {
     }
 
     private void mergeUrls(final Topic newTopic, final Topic oldTopic) {
-        for (String url : oldTopic.getUrls()) {
+        for (final String url : oldTopic.getUrls()) {
             if (!newTopic.getUrls().contains(url)) {
                 newTopic.addUrl(url);
             }
@@ -85,7 +83,6 @@ public class TopicMerger {
     }
 
     private final TagManager tagManager = new TagManager();
-    private final IllustrationManager illustrationManager = new IllustrationManager();
     private final FeelingManager feelingManager = new FeelingManager();
     private final RelationManager relationManager = new RelationManager();
     private final StatisticsManager statisticsManager = new StatisticsManager();

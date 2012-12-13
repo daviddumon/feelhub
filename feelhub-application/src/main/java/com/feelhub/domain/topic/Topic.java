@@ -50,7 +50,7 @@ public abstract class Topic extends BaseEntity {
         createTags(name);
     }
 
-    private void createTags(final String name) {
+    public void createTags(final String name) {
         DomainEventBus.INSTANCE.post(new TagRequestEvent(this, name));
     }
 

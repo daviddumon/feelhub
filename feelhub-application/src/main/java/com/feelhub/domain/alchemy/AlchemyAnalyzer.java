@@ -1,6 +1,5 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.application.WordService;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.relation.AlchemyRelationBinder;
 import com.feelhub.domain.tag.Tag;
@@ -14,10 +13,10 @@ import java.util.*;
 public class AlchemyAnalyzer {
 
     @Inject
-    public AlchemyAnalyzer(final SessionProvider sessionProvider, final NamedEntityProvider namedEntityProvider, final WordService wordService, final AlchemyRelationBinder alchemyRelationBinder) {
+    public AlchemyAnalyzer(final SessionProvider sessionProvider, final NamedEntityProvider namedEntityProvider, final AlchemyRelationBinder alchemyRelationBinder) {
         this.sessionProvider = sessionProvider;
         this.namedEntityProvider = namedEntityProvider;
-        this.wordService = wordService;
+        //this.wordService = wordService;
         this.alchemyRelationBinder = alchemyRelationBinder;
         DomainEventBus.INSTANCE.register(this);
     }
@@ -106,7 +105,7 @@ public class AlchemyAnalyzer {
         //alchemyRelationBinder.bind(event.getUri().getTopicId(), topicsAndScores);
     }
 
-    private final WordService wordService;
+    //private final WordService wordService;
     private final AlchemyRelationBinder alchemyRelationBinder;
     private final SessionProvider sessionProvider;
     private final NamedEntityProvider namedEntityProvider;

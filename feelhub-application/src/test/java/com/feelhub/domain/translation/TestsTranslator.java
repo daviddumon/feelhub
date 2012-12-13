@@ -31,7 +31,7 @@ public class TestsTranslator {
 
     @Test
     public void translateOnTranslationRequest() {
-        final RealTopic realTopic = TestFactories.topics().newRealTopicWithoutReference(RealTopicType.Anniversary);
+        final RealTopic realTopic = TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary);
         final String frName = "name-fr";
         final FeelhubLanguage fr = FeelhubLanguage.fromCode("fr");
         final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = new ReferenceTranslationRequestEvent(realTopic, fr, frName);

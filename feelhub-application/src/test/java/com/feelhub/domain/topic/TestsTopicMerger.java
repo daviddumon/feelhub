@@ -2,7 +2,6 @@ package com.feelhub.domain.topic;
 
 import com.feelhub.application.TagService;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.meta.Illustration;
 import com.feelhub.domain.relation.Relation;
 import com.feelhub.domain.statistics.*;
 import com.feelhub.domain.tag.Tag;
@@ -43,20 +42,6 @@ public class TestsTopicMerger {
         for (final Tag tag : Repositories.tags().getAll()) {
             assertThat(tag.getTopicIds()).contains(newRealTopic.getId());
             assertThat(oldRealTopic.getId()).isNotIn(tag.getTopicIds());
-        }
-    }
-
-    @Test
-    public void mergeIllustrations() {
-        final RealTopic newRealTopic = TestFactories.topics().newCompleteRealTopic("tag1");
-        final RealTopic oldRealTopic = TestFactories.topics().newCompleteRealTopic("tag2");
-        TestFactories.illustrations().newIllustration(newRealTopic.getId());
-        TestFactories.illustrations().newIllustration(oldRealTopic.getId());
-
-        topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
-
-        for (final Illustration illustration : Repositories.illustrations().getAll()) {
-            assertThat(illustration.getTopicId()).isEqualTo(newRealTopic.getId());
         }
     }
 

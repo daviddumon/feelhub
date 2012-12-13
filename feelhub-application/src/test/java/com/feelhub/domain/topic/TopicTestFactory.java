@@ -35,6 +35,7 @@ public class TopicTestFactory {
         webTopic.addDescription(FeelhubLanguage.reference(), "description-reference");
         webTopic.addName(FeelhubLanguage.reference(), "name-reference");
         webTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+        Repositories.topics().add(webTopic);
         return webTopic;
     }
 
@@ -43,6 +44,7 @@ public class TopicTestFactory {
         geoTopic.addDescription(FeelhubLanguage.reference(), "description-reference");
         geoTopic.addName(FeelhubLanguage.reference(), "name-reference");
         geoTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+        Repositories.topics().add(geoTopic);
         return geoTopic;
     }
 
@@ -59,10 +61,12 @@ public class TopicTestFactory {
     }
 
     public GeoTopic newSimpleGeoTopic(final GeoTopicType type) {
-        return new GeoTopic(UUID.randomUUID(), type);
+        final GeoTopic geoTopic = new GeoTopic(UUID.randomUUID(), type);
+        Repositories.topics().add(geoTopic);
+        return geoTopic;
     }
 
-    public RealTopic newRealTopicWithoutReference(final RealTopicType type) {
+    public RealTopic newRealTopicWithoutNames(final RealTopicType type) {
         final RealTopic realTopic = new RealTopic(UUID.randomUUID(), type);
         realTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
         Repositories.topics().add(realTopic);

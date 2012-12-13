@@ -21,6 +21,16 @@ public class AlchemyRelationBinder {
         connectAllTopicsToThemselves(realTopics);
     }
 
+    private void connectAllTopicsToMainTopicWithScore(final HashMap<UUID, Double> topicIds, final Topic to, final List<Topic> realTopics) {
+        for (final Map.Entry<UUID, Double> entry : topicIds.entrySet()) {
+            final UUID currentTopicId = entry.getKey();
+            final Double score = entry.getValue();
+            final Topic from = loadtopic(currentTopicId);
+            relationBuilder.connectTwoWays(from, to, score);
+            realTopics.add(from);
+        }
+    }
+
     private void connectAllTopicsToThemselves(final List<Topic> realTopics) {
         for (int i = 0; i < realTopics.size(); i++) {
             final Topic currentRealTopic = realTopics.get(i);
@@ -32,16 +42,6 @@ public class AlchemyRelationBinder {
         for (int i = beginningIndex; i < realTopics.size(); i++) {
             final Topic to = realTopics.get(i);
             relationBuilder.connectTwoWays(from, to);
-        }
-    }
-
-    private void connectAllTopicsToMainTopicWithScore(final HashMap<UUID, Double> topicIds, final Topic to, final List<Topic> realTopics) {
-        for (final Map.Entry<UUID, Double> entry : topicIds.entrySet()) {
-            final UUID currentTopicId = entry.getKey();
-            final Double score = entry.getValue();
-            final Topic from = loadtopic(currentTopicId);
-            relationBuilder.connectTwoWays(from, to, score);
-            realTopics.add(from);
         }
     }
 

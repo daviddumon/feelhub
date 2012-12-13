@@ -1,6 +1,8 @@
 package com.feelhub.domain.topic;
 
-import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.real.*;
+import com.feelhub.domain.topic.web.*;
 import com.feelhub.domain.topic.world.WorldTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
@@ -28,10 +30,22 @@ public class TestsTopicFactory {
     }
 
     @Test
-    public void canCreateTopic() {
-        final RealTopic realTopic = topicFactory.createRealTopic();
+    public void canCreateRealTopic() {
+        final RealTopic realTopic = topicFactory.createRealTopic(FeelhubLanguage.REFERENCE, "topic", RealTopicType.City);
 
         assertThat(realTopic).isNotNull();
+        assertThat(realTopic.getCurrentId()).isEqualTo(realTopic.getId());
+        assertThat(realTopic.getName(FeelhubLanguage.REFERENCE)).isEqualTo("Topic");
+        assertThat(realTopic.getType()).isEqualTo(RealTopicType.City);
+    }
+
+    @Test
+    public void canCreateWebTopic() {
+        final WebTopic webTopic = topicFactory.createWebTopic("http://www.url.com", WebTopicType.Article);
+
+        assertThat(webTopic).isNotNull();
+        assertThat(webTopic.getType()).isEqualTo(WebTopicType.Article);
+        assertThat(webTopic.getName(FeelhubLanguage.none())).isEqualTo("Http://www.url.com");
     }
 
     @Test
@@ -40,15 +54,6 @@ public class TestsTopicFactory {
 
         assertThat(worldTopic).isNotNull();
     }
-
-    //@Test
-    //public void canSetTranslationNeededForAWord() {
-    //    final Word word = tagFactory.createWord("value", FeelhubLanguage.fromCountryName("english"), TestFactories.topics().newTopic().getId());
-    //
-    //    word.setTranslationNeeded(true);
-    //
-    //    assertThat(word.isTranslationNeeded()).isTrue();
-    //}
 
     private TopicFactory topicFactory;
 }
