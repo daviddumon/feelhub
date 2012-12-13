@@ -61,8 +61,10 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
     @Override
     public Topic getCurrentTopic(final UUID id) {
         Topic topic = get(id);
-        while (!topic.getCurrentId().equals(topic.getId())) {
-            topic = get(topic.getCurrentId());
+        if (topic != null) {
+            while (!topic.getCurrentId().equals(topic.getId())) {
+                topic = get(topic.getCurrentId());
+            }
         }
         return topic;
     }

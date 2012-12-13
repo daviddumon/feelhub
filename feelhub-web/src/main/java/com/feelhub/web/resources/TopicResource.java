@@ -2,10 +2,12 @@ package com.feelhub.web.resources;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.TopicDataFactory;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.Inject;
+import org.restlet.data.Status;
 import org.restlet.resource.*;
 
 import java.util.UUID;
@@ -22,7 +24,17 @@ public class TopicResource extends ServerResource {
     public ModelAndView getTopic() {
         extractUriValueFromUri();
         final Topic realTopic = topicService.lookUp(id);
-        return ModelAndView.createNew("topic.ftl").with("topicData", topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage()));
+        if (checkCurrent(realTopic)) {
+            return ModelAndView.createNew("topic.ftl").with("topicData", topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage()));
+        } else {
+            setStatus(Status.REDIRECTION_PERMANENT);
+            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + realTopic.getCurrentId()));
+            return ModelAndView.createNew("topic.ftl").with("topicData", topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage()));
+        }
+    }
+
+    private boolean checkCurrent(final Topic realTopic) {
+        return realTopic.getId().equals(realTopic.getCurrentId());
     }
 
     private void extractUriValueFromUri() {

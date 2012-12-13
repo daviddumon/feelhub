@@ -34,7 +34,7 @@ public class ApiTopicRelatedResource extends ServerResource {
     private void getTopic() {
         try {
             topicId = getRequestAttributes().get("topicId").toString().trim();
-            realTopic = topicService.lookUp(UUID.fromString(topicId));
+            realTopic = topicService.lookUpCurrent(UUID.fromString(topicId));
             relationSearch.withTopicId(UUID.fromString(topicId));
         } catch (TopicNotFound e) {
             throw new FeelhubApiException();
@@ -76,7 +76,7 @@ public class ApiTopicRelatedResource extends ServerResource {
 
     private void addTopicData(final Relation relation) {
         try {
-            final Topic realTopic = topicService.lookUp(relation.getToId());
+            final Topic realTopic = topicService.lookUpCurrent(relation.getToId());
             final TopicData topicData = topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage());
             topicDataList.add(topicData);
         } catch (TopicNotFound e) {

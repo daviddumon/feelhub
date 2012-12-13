@@ -39,7 +39,7 @@ public class TagIndexer {
 
     private void addIfNotPresent(final Topic topic, final Tag tag) {
         for (final UUID id : tag.getTopicIds()) {
-            final Topic existingTopic = topicService.lookUp(id);
+            final Topic existingTopic = topicService.lookUpCurrent(id);
             if (existingTopic.getType().equals(topic.getType())) {
                 topic.changeCurrentId(existingTopic.getId());
                 return;

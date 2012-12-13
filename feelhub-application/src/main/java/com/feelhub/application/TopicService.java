@@ -30,6 +30,14 @@ public class TopicService {
         return topic;
     }
 
+    public Topic lookUpCurrent(final UUID id) {
+        final Topic topic = Repositories.topics().getCurrentTopic(id);
+        if (topic == null) {
+            throw new TopicNotFound();
+        }
+        return topic;
+    }
+
     public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType realTopicType, final User user) {
         final RealTopic realTopic = topicFactory.createRealTopic(feelhubLanguage, name, realTopicType);
         realTopic.setUserId(user.getId());
@@ -46,7 +54,7 @@ public class TopicService {
         final List<Topic> topics = Lists.newArrayList();
         for (final UUID id : tag.getTopicIds()) {
             try {
-                topics.add(lookUp(id));
+                topics.add(lookUpCurrent(id));
             } catch (TopicNotFound e) {
             }
         }

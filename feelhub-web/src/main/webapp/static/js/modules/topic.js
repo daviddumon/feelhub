@@ -21,13 +21,14 @@ define(['jquery'], function ($) {
     }
 
     function success(data, textStatus, jqXHR) {
-        $("#form textarea").val('');
-        $("#form textarea").height("30px");
-        if (topicId === "") {
-            pollForId(data.id, text, sentimentValue);
-        } else {
-            flow.pushFake(data.id, text, sentimentValue);
-        }
+        //$("#form textarea").val('');
+        //$("#form textarea").height("30px");
+        //if (topicId === "") {
+        //    pollForId(data.id, text, sentimentValue);
+        //} else {
+        //    flow.pushFake(data.id, text, sentimentValue);
+        //}
+        document.location.reload(true);
     }
 
     function error() {

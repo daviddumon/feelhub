@@ -28,7 +28,7 @@ public class ApiTopicFeelingsResource extends ServerResource {
     private Topic extractTopic() {
         try {
             final String topicId = getRequestAttributes().get("topicId").toString().trim();
-            return topicService.lookUp(UUID.fromString(topicId));
+            return topicService.lookUpCurrent(UUID.fromString(topicId));
         } catch (TopicNotFound e) {
             throw new FeelhubApiException();
         }

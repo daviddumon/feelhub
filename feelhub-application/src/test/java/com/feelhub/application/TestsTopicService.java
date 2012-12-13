@@ -57,6 +57,19 @@ public class TestsTopicService {
     }
 
     @Test
+    public void canLookupCurrentTopic() {
+        final WebTopic webTopic = TestFactories.topics().newCompleteWebTopic();
+        final WebTopic currentTopic = TestFactories.topics().newCompleteWebTopic();
+        webTopic.changeCurrentId(currentTopic.getId());
+        Repositories.topics().add(webTopic);
+        Repositories.topics().add(currentTopic);
+
+        final Topic topic = topicService.lookUpCurrent(webTopic.getId());
+
+        assertThat(topic).isEqualTo(currentTopic);
+    }
+
+    @Test
     public void canGetTopicsFromString() {
         final String value = "tag";
         final Tag tag = TestFactories.tags().newTagWithoutTopic(value);

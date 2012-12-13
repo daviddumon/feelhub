@@ -32,11 +32,11 @@ public class Relation extends BaseEntity {
     }
 
     public Topic getFrom() {
-        return Repositories.topics().get(fromId);
+        return Repositories.topics().getCurrentTopic(fromId);
     }
 
     public Topic getTo() {
-        return Repositories.topics().get(toId);
+        return Repositories.topics().getCurrentTopic(toId);
     }
 
     public UUID getFromId() {

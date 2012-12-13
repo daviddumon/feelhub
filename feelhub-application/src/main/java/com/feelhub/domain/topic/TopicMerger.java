@@ -27,6 +27,7 @@ public class TopicMerger {
     }
 
     private void mergeData(final UUID newTopicId, final UUID oldTopicId) {
+        //Do not use currentTopicId here! We cant to merge existing one!
         final Topic newTopic = Repositories.topics().get(newTopicId);
         final Topic oldTopic = Repositories.topics().get(oldTopicId);
         mergeNames(newTopic, oldTopic);

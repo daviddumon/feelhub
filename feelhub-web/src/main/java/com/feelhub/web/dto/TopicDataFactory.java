@@ -23,7 +23,7 @@ public class TopicDataFactory {
     public List<TopicData> getTopicDatas(final Feeling feeling, final FeelhubLanguage feelhubLanguage) {
         final List<TopicData> topicDatas = Lists.newArrayList();
         for (final Sentiment sentiment : feeling.getSentiments()) {
-            final Topic realTopic = topicService.lookUp(sentiment.getTopicId());
+            final Topic realTopic = topicService.lookUpCurrent(sentiment.getTopicId());
             final TopicData topicData = getTopicData(realTopic, feelhubLanguage, sentiment);
 
             topicDatas.add(topicData);

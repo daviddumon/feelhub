@@ -107,6 +107,18 @@ public class TestsTopicResource {
         //assertThat(topicData.getIllustrationLink()).isEqualTo(illustration.getLink());
     }
 
+    @Test
+    public void redirectIfCurrentIdIncorrect() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic newTopic = TestFactories.topics().newCompleteRealTopic();
+        realTopic.changeCurrentId(newTopic.getId());
+        final ClientResource clientResource = restlet.newClientResource("/topic/" + realTopic.getId());
+
+        clientResource.get();
+
+        assertThat(clientResource.getStatus()).isEqualTo(Status.REDIRECTION_PERMANENT);
+    }
+
     private User user;
     private Injector injector;
     private TopicResource topicResource;

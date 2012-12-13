@@ -46,8 +46,10 @@ public class TopicMongoRepository extends BaseMongoRepository<Topic> implements 
     @Override
     public Topic getCurrentTopic(final UUID id) {
         Topic topic = get(id);
-        while (!topic.getCurrentId().equals(topic.getId())) {
-            topic = get(topic.getCurrentId());
+        if (topic != null) {
+            while (!topic.getCurrentId().equals(topic.getId())) {
+                topic = get(topic.getCurrentId());
+            }
         }
         return topic;
     }

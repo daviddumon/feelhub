@@ -23,9 +23,9 @@ public class AlchemyRelationBinder {
 
     private void connectAllTopicsToMainTopicWithScore(final HashMap<UUID, Double> topicIds, final Topic to, final List<Topic> realTopics) {
         for (final Map.Entry<UUID, Double> entry : topicIds.entrySet()) {
-            final UUID currentTopicId = entry.getKey();
+            final UUID topicId = entry.getKey();
             final Double score = entry.getValue();
-            final Topic from = loadtopic(currentTopicId);
+            final Topic from = loadtopic(topicId);
             relationBuilder.connectTwoWays(from, to, score);
             realTopics.add(from);
         }
@@ -45,8 +45,8 @@ public class AlchemyRelationBinder {
         }
     }
 
-    private Topic loadtopic(final UUID currentTopicId) {
-        return Repositories.topics().get(currentTopicId);
+    private Topic loadtopic(final UUID topicId) {
+        return Repositories.topics().getCurrentTopic(topicId);
     }
 
     private final RelationBuilder relationBuilder;
