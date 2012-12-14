@@ -1,13 +1,20 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.*;
-import com.feelhub.domain.topic.web.*;
 import com.feelhub.domain.topic.world.WorldTopic;
+import com.google.inject.Inject;
 
 import java.util.UUID;
 
 public class TopicFactory {
+
+    @Inject
+    public TopicFactory(final UriResolver uriResolver) {
+        this.uriResolver = uriResolver;
+    }
 
     public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType type) {
         final UUID id = UUID.randomUUID();
@@ -20,9 +27,14 @@ public class TopicFactory {
         return new WorldTopic(UUID.randomUUID());
     }
 
-    public WebTopic createWebTopic(final String name, final WebTopicType type) {
-        final WebTopic webTopic = new WebTopic(UUID.randomUUID(), type);
-        webTopic.addName(FeelhubLanguage.none(), name);
-        return webTopic;
+    public HttpTopic createHttpTopic(final String name) {
+        final ResolverResult resolverResult = uriResolver.resolve(new Uri(name));
+        final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
+        httpTopic.setMediaType(resolverResult.getMediaType());
+        //todo enlever ca on add url, pas name
+        httpTopic.addName(FeelhubLanguage.none(), name);
+        return httpTopic;
     }
+
+    private UriResolver uriResolver;
 }

@@ -3,7 +3,7 @@ package com.feelhub.domain.topic;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.web.*;
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -44,9 +44,9 @@ public class TestsTopic {
 
     @Test
     public void canChangeCurrentId() {
-        final WebTopic oldTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Article);
+        final HttpTopic oldTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Article);
         final UUID oldId = oldTopic.getId();
-        final WebTopic newTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Article);
+        final HttpTopic newTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Article);
 
         oldTopic.changeCurrentId(newTopic.getId());
 
@@ -57,8 +57,8 @@ public class TestsTopic {
 
     @Test
     public void changeCurrentIdMergeTopics() {
-        final WebTopic oldTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Article);
-        final WebTopic newTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Article);
+        final HttpTopic oldTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Article);
+        final HttpTopic newTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Article);
         final Tag tag = TestFactories.tags().newTag("tag");
         tag.addTopic(oldTopic);
 
@@ -166,20 +166,6 @@ public class TestsTopic {
         final String frDescription = fakeTopic.getDescription(FeelhubLanguage.fromCode("fr"));
 
         assertThat(frDescription).isEqualTo(description);
-    }
-
-    @Test
-    public void requestTagCreationWhenAddingDescription() {
-        bus.capture(TagRequestEvent.class);
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
-        final String referenceName = "name-reference";
-
-        fakeTopic.addName(FeelhubLanguage.reference(), referenceName);
-
-        final TagRequestEvent tagRequestEvent = bus.lastEvent(TagRequestEvent.class);
-        assertThat(tagRequestEvent).isNotNull();
-        assertThat(tagRequestEvent.getTopic()).isEqualTo(fakeTopic);
-        assertThat(tagRequestEvent.getName()).isEqualTo(referenceName);
     }
 
     @Test

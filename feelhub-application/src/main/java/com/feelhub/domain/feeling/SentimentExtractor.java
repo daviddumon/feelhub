@@ -86,7 +86,7 @@ public class SentimentExtractor {
     }
 
     private boolean isUri(final String token) {
-        return TopicIdentifier.isWebTopic(token);
+        return TopicIdentifier.isHttpTopic(token);
     }
 
     private boolean hasAny(final TreeMap<Integer, SentimentValue> map) {

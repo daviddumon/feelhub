@@ -6,8 +6,8 @@ import com.feelhub.domain.relation.Relation;
 import com.feelhub.domain.statistics.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.web.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -91,91 +91,91 @@ public class TestsTopicMerger {
 
     @Test
     public void mergeNames() {
-        final WebTopic webTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        final WebTopic oldWebTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        webTopic.addName(FeelhubLanguage.REFERENCE, "Webtopic-reference");
-        webTopic.addName(FeelhubLanguage.fromCode("fr"), "Webtopic-fr");
-        oldWebTopic.addName(FeelhubLanguage.REFERENCE, "Oldwebtopic-reference");
-        oldWebTopic.addName(FeelhubLanguage.fromCode("de"), "Oldwebtopic-de");
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        httpTopic.addName(FeelhubLanguage.REFERENCE, "Webtopic-reference");
+        httpTopic.addName(FeelhubLanguage.fromCode("fr"), "Webtopic-fr");
+        oldHttpTopic.addName(FeelhubLanguage.REFERENCE, "Oldwebtopic-reference");
+        oldHttpTopic.addName(FeelhubLanguage.fromCode("de"), "Oldwebtopic-de");
 
-        topicMerger.merge(webTopic.getId(), oldWebTopic.getId());
+        topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(webTopic.getName(FeelhubLanguage.REFERENCE)).isEqualTo("Webtopic-reference");
-        assertThat(webTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("Webtopic-fr");
-        assertThat(webTopic.getName(FeelhubLanguage.fromCode("de"))).isEqualTo("Oldwebtopic-de");
+        assertThat(httpTopic.getName(FeelhubLanguage.REFERENCE)).isEqualTo("Webtopic-reference");
+        assertThat(httpTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("Webtopic-fr");
+        assertThat(httpTopic.getName(FeelhubLanguage.fromCode("de"))).isEqualTo("Oldwebtopic-de");
     }
 
     @Test
     public void mergeDescriptions() {
-        final WebTopic webTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        final WebTopic oldWebTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        webTopic.addDescription(FeelhubLanguage.REFERENCE, "Webtopic-reference");
-        webTopic.addDescription(FeelhubLanguage.fromCode("fr"), "Webtopic-fr");
-        oldWebTopic.addDescription(FeelhubLanguage.REFERENCE, "Oldwebtopic-reference");
-        oldWebTopic.addDescription(FeelhubLanguage.fromCode("de"), "Oldwebtopic-de");
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        httpTopic.addDescription(FeelhubLanguage.REFERENCE, "Webtopic-reference");
+        httpTopic.addDescription(FeelhubLanguage.fromCode("fr"), "Webtopic-fr");
+        oldHttpTopic.addDescription(FeelhubLanguage.REFERENCE, "Oldwebtopic-reference");
+        oldHttpTopic.addDescription(FeelhubLanguage.fromCode("de"), "Oldwebtopic-de");
 
-        topicMerger.merge(webTopic.getId(), oldWebTopic.getId());
+        topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(webTopic.getDescription(FeelhubLanguage.REFERENCE)).isEqualTo("Webtopic-reference");
-        assertThat(webTopic.getDescription(FeelhubLanguage.fromCode("fr"))).isEqualTo("Webtopic-fr");
-        assertThat(webTopic.getDescription(FeelhubLanguage.fromCode("de"))).isEqualTo("Oldwebtopic-de");
+        assertThat(httpTopic.getDescription(FeelhubLanguage.REFERENCE)).isEqualTo("Webtopic-reference");
+        assertThat(httpTopic.getDescription(FeelhubLanguage.fromCode("fr"))).isEqualTo("Webtopic-fr");
+        assertThat(httpTopic.getDescription(FeelhubLanguage.fromCode("de"))).isEqualTo("Oldwebtopic-de");
     }
 
     @Test
     public void mergeIllustrationLinksIfEmpty() {
-        final WebTopic webTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        final WebTopic oldWebTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        oldWebTopic.setIllustrationLink("illustrationLink");
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        oldHttpTopic.setIllustrationLink("illustrationLink");
 
-        topicMerger.merge(webTopic.getId(), oldWebTopic.getId());
+        topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(webTopic.getIllustrationLink()).isEqualTo(oldWebTopic.getIllustrationLink());
+        assertThat(httpTopic.getIllustrationLink()).isEqualTo(oldHttpTopic.getIllustrationLink());
     }
 
     @Test
     public void doNotMergeIllustrationLinksIfExists() {
-        final WebTopic webTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        final WebTopic oldWebTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        webTopic.setIllustrationLink("weblink");
-        oldWebTopic.setIllustrationLink("oldlink");
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        httpTopic.setIllustrationLink("weblink");
+        oldHttpTopic.setIllustrationLink("oldlink");
 
-        topicMerger.merge(webTopic.getId(), oldWebTopic.getId());
+        topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(webTopic.getIllustrationLink()).isEqualTo("weblink");
+        assertThat(httpTopic.getIllustrationLink()).isEqualTo("weblink");
     }
 
     @Test
     public void mergeSubtypes() {
-        final WebTopic webTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        final WebTopic oldWebTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        webTopic.addSubType("websub1");
-        oldWebTopic.addSubType("oldsub1");
-        oldWebTopic.addSubType("oldsub2");
-        oldWebTopic.addSubType("websub1");
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        httpTopic.addSubType("websub1");
+        oldHttpTopic.addSubType("oldsub1");
+        oldHttpTopic.addSubType("oldsub2");
+        oldHttpTopic.addSubType("websub1");
 
-        topicMerger.merge(webTopic.getId(), oldWebTopic.getId());
+        topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(webTopic.getSubTypes()).contains("websub1");
-        assertThat(webTopic.getSubTypes()).contains("oldsub1");
-        assertThat(webTopic.getSubTypes()).contains("oldsub2");
-        assertThat(webTopic.getSubTypes().size()).isEqualTo(3);
+        assertThat(httpTopic.getSubTypes()).contains("websub1");
+        assertThat(httpTopic.getSubTypes()).contains("oldsub1");
+        assertThat(httpTopic.getSubTypes()).contains("oldsub2");
+        assertThat(httpTopic.getSubTypes().size()).isEqualTo(3);
     }
 
     @Test
     public void mergeUrls() {
-        final WebTopic webTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        final WebTopic oldWebTopic = TestFactories.topics().newSimpleWebTopic(WebTopicType.Website);
-        webTopic.addUrl("weburl1");
-        oldWebTopic.addUrl("oldurl1");
-        oldWebTopic.addUrl("oldurl2");
-        oldWebTopic.addUrl("weburl1");
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        httpTopic.addUrl("weburl1");
+        oldHttpTopic.addUrl("oldurl1");
+        oldHttpTopic.addUrl("oldurl2");
+        oldHttpTopic.addUrl("weburl1");
 
-        topicMerger.merge(webTopic.getId(), oldWebTopic.getId());
+        topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(webTopic.getUrls()).contains("weburl1");
-        assertThat(webTopic.getUrls()).contains("oldurl1");
-        assertThat(webTopic.getUrls()).contains("oldurl2");
-        assertThat(webTopic.getUrls().size()).isEqualTo(3);
+        assertThat(httpTopic.getUrls()).contains("weburl1");
+        assertThat(httpTopic.getUrls()).contains("oldurl1");
+        assertThat(httpTopic.getUrls()).contains("oldurl2");
+        assertThat(httpTopic.getUrls().size()).isEqualTo(3);
     }
 
     private TopicMerger topicMerger;

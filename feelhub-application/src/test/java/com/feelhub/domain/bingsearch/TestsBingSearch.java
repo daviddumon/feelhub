@@ -5,14 +5,16 @@ import com.feelhub.domain.relation.BingRelationBinder;
 import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.http.HttpTopicType;
+import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.*;
-import com.feelhub.domain.topic.web.WebTopicType;
 import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
 import org.apache.commons.lang.WordUtils;
 import org.junit.*;
+import org.restlet.data.MediaType;
 
 import java.util.UUID;
 
@@ -30,6 +32,8 @@ public class TestsBingSearch {
     @Before
     public void before() {
         relationBinder = mock(BingRelationBinder.class);
+        final FakeUriResolver fakeUriResolver = new FakeUriResolver();
+        fakeUriResolver.thatFind(MediaType.IMAGE_JPEG);
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
@@ -37,6 +41,7 @@ public class TestsBingSearch {
                 bind(SessionProvider.class).to(FakeSessionProvider.class);
                 bind(BingRelationBinder.class).toInstance(relationBinder);
                 bind(TagIndexer.class).asEagerSingleton();
+                bind(UriResolver.class).toInstance(fakeUriResolver);
             }
         });
         bingSearch = injector.getInstance(BingSearch.class);
@@ -53,7 +58,7 @@ public class TestsBingSearch {
 
         assertThat(Repositories.topics().getAll().size()).isEqualTo(1);
         final Topic image = Repositories.topics().getAll().get(0);
-        assertThat(image.getType()).isEqualTo(WebTopicType.Image);
+        assertThat(image.getType()).isEqualTo(HttpTopicType.Image);
         assertThat(image.getIllustrationLink()).isEqualTo("query Automobilelink");
         assertThat(image.getName(FeelhubLanguage.none())).isEqualTo(WordUtils.capitalizeFully("query Automobilelink"));
         assertThat(image.getUrls()).contains("query Automobilelink");

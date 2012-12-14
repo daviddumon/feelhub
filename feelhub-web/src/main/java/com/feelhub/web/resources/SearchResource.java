@@ -13,8 +13,8 @@ public class SearchResource extends ServerResource {
         try {
             query = getSearchQuery();
             setStatus(Status.SUCCESS_OK);
-            if (TopicIdentifier.isWebTopic(query)) {
-                return ModelAndView.createNew("search.ftl").with("q", query).with("type", "web");
+            if (TopicIdentifier.isHttpTopic(query)) {
+                return ModelAndView.createNew("search.ftl").with("q", query).with("type", "http");
             } else {
                 return ModelAndView.createNew("search.ftl").with("q", query).with("type", "real");
             }

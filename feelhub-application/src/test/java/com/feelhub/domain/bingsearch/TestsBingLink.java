@@ -32,13 +32,6 @@ public class TestsBingLink {
     }
 
     @Test
-    public void doNotReturnImageLinkIfNotExisting() {
-        final List<String> illustrations = bingLink.getIllustrations("notexisting", "");
-
-        assertThat(illustrations.size()).isZero();
-    }
-
-    @Test
     public void returnUpTo2IllustrationsForAKeyword() {
         final List<String> illustrations = bingLink.getIllustrations("multiplevalues", "");
 

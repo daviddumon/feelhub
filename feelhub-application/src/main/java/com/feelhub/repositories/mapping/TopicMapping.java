@@ -1,9 +1,10 @@
 package com.feelhub.repositories.mapping;
 
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.geo.GeoTopic;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.web.WebTopic;
 import com.feelhub.domain.topic.world.WorldTopic;
 import org.mongolink.domain.mapper.*;
 
@@ -34,11 +35,12 @@ public class TopicMapping extends AggregateMap<Topic> {
             }
         });
 
-        subclass(new SubclassMap<WebTopic>(WebTopic.class) {
+        subclass(new SubclassMap<HttpTopic>(HttpTopic.class) {
 
             @Override
             protected void map() {
                 property(element().getTypeValue());
+                property(element().getMediaTypeValue());
             }
         });
 
@@ -51,6 +53,14 @@ public class TopicMapping extends AggregateMap<Topic> {
         });
 
         subclass(new SubclassMap<WorldTopic>(WorldTopic.class) {
+
+            @Override
+            protected void map() {
+
+            }
+        });
+
+        subclass(new SubclassMap<FtpTopic>(FtpTopic.class) {
 
             @Override
             protected void map() {

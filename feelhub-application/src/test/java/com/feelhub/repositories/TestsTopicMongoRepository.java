@@ -1,9 +1,10 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.geo.GeoTopic;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.web.WebTopic;
 import com.feelhub.domain.topic.world.WorldTopic;
 import com.feelhub.test.*;
 import com.mongodb.*;
@@ -70,21 +71,39 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canPersistAWebTopic() {
-        final WebTopic webTopic = TestFactories.topics().newCompleteWebTopic();
+    public void canPersistAnHttpTopic() {
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
 
-        repo.add(webTopic);
+        repo.add(httpTopic);
 
-        final DBObject topicFound = getTopic(webTopic.getId());
+        final DBObject topicFound = getTopic(httpTopic.getId());
         assertThat(topicFound).isNotNull();
-        assertThat(topicFound.get("typeValue").toString()).isEqualTo(webTopic.getType().toString());
-        assertThat(topicFound.get("userId")).isEqualTo(webTopic.getUserId());
+        assertThat(topicFound.get("typeValue").toString()).isEqualTo(httpTopic.getType().toString());
+        assertThat(topicFound.get("userId")).isEqualTo(httpTopic.getUserId());
         assertThat(topicFound.get("names")).isNotNull();
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("urls")).isNotNull();
-        assertThat(topicFound.get("illustrationLink")).isEqualTo(webTopic.getIllustrationLink());
-        assertThat(topicFound.get("__discriminator")).isEqualTo("WebTopic");
+        assertThat(topicFound.get("illustrationLink")).isEqualTo(httpTopic.getIllustrationLink());
+        assertThat(topicFound.get("__discriminator")).isEqualTo("HttpTopic");
+        assertThat(topicFound.get("mediaTypeValue").toString()).isEqualTo("text/html");
+    }
+
+    @Test
+    public void canPersistAnFtpTopic() {
+        final FtpTopic ftpTopic = TestFactories.topics().newSimpleFtpTopic();
+
+        repo.add(ftpTopic);
+
+        final DBObject topicFound = getTopic(ftpTopic.getId());
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.get("userId")).isEqualTo(ftpTopic.getUserId());
+        assertThat(topicFound.get("names")).isNotNull();
+        assertThat(topicFound.get("descriptions")).isNotNull();
+        assertThat(topicFound.get("subTypes")).isNotNull();
+        assertThat(topicFound.get("urls")).isNotNull();
+        assertThat(topicFound.get("illustrationLink")).isEqualTo(ftpTopic.getIllustrationLink());
+        assertThat(topicFound.get("__discriminator")).isEqualTo("FtpTopic");
     }
 
     @Test
@@ -121,15 +140,30 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canGetAWebTopic() {
+    public void canGetAnHttpTopic() {
         final DBCollection collection = mongo.getCollection("topic");
         final DBObject topic = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         topic.put("_id", id);
-        topic.put("__discriminator", "WebTopic");
+        topic.put("__discriminator", "HttpTopic");
         collection.insert(topic);
 
-        final WebTopic topicFound = repo.getWebTopic(id);
+        final HttpTopic topicFound = repo.getHttpTopic(id);
+
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.getId()).isEqualTo(id);
+    }
+
+    @Test
+    public void canGetAnFtpTopic() {
+        final DBCollection collection = mongo.getCollection("topic");
+        final DBObject topic = new BasicDBObject();
+        final UUID id = UUID.randomUUID();
+        topic.put("_id", id);
+        topic.put("__discriminator", "FtpTopic");
+        collection.insert(topic);
+
+        final FtpTopic topicFound = repo.getFtpTopic(id);
 
         assertThat(topicFound).isNotNull();
         assertThat(topicFound.getId()).isEqualTo(id);

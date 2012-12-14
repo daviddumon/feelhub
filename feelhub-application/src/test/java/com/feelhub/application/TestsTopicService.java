@@ -4,8 +4,8 @@ import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.*;
-import com.feelhub.domain.topic.web.WebTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -48,23 +48,23 @@ public class TestsTopicService {
 
     @Test
     public void canLookupTopic() {
-        final WebTopic webTopic = TestFactories.topics().newCompleteWebTopic();
-        Repositories.topics().add(webTopic);
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+        Repositories.topics().add(httpTopic);
 
-        final Topic topic = topicService.lookUp(webTopic.getId());
+        final Topic topic = topicService.lookUp(httpTopic.getId());
 
-        assertThat(topic).isEqualTo(webTopic);
+        assertThat(topic).isEqualTo(httpTopic);
     }
 
     @Test
     public void canLookupCurrentTopic() {
-        final WebTopic webTopic = TestFactories.topics().newCompleteWebTopic();
-        final WebTopic currentTopic = TestFactories.topics().newCompleteWebTopic();
-        webTopic.changeCurrentId(currentTopic.getId());
-        Repositories.topics().add(webTopic);
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+        final HttpTopic currentTopic = TestFactories.topics().newCompleteHttpTopic();
+        httpTopic.changeCurrentId(currentTopic.getId());
+        Repositories.topics().add(httpTopic);
         Repositories.topics().add(currentTopic);
 
-        final Topic topic = topicService.lookUpCurrent(webTopic.getId());
+        final Topic topic = topicService.lookUpCurrent(httpTopic.getId());
 
         assertThat(topic).isEqualTo(currentTopic);
     }

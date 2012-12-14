@@ -3,7 +3,7 @@ package com.feelhub.test.fakeResources.scraper;
 import org.restlet.representation.*;
 import org.restlet.resource.*;
 
-public class ScraperEmptyResource extends ServerResource {
+public class ScraperExtractorEmptyResource extends ServerResource {
 
     @Get
     public Representation represent() {

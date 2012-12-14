@@ -1,12 +1,14 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.geo.*;
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.real.*;
-import com.feelhub.domain.topic.web.*;
 import com.feelhub.domain.topic.world.WorldTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
+import org.restlet.data.MediaType;
 
 import java.util.UUID;
 
@@ -29,14 +31,22 @@ public class TopicTestFactory {
         return realTopic;
     }
 
-    public WebTopic newCompleteWebTopic() {
-        final WebTopic webTopic = new WebTopic(UUID.randomUUID(), WebTopicType.Article);
-        webTopic.addUrl("http://www.fakeurl.com");
-        webTopic.addDescription(FeelhubLanguage.reference(), "description-reference");
-        webTopic.addName(FeelhubLanguage.reference(), "name-reference");
-        webTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
-        Repositories.topics().add(webTopic);
-        return webTopic;
+    public HttpTopic newCompleteHttpTopic() {
+        final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
+        httpTopic.setType(HttpTopicType.Article);
+        httpTopic.setMediaType(MediaType.TEXT_HTML);
+        httpTopic.addUrl("http://www.fakeurl.com");
+        httpTopic.addDescription(FeelhubLanguage.reference(), "description-reference");
+        httpTopic.addName(FeelhubLanguage.reference(), "name-reference");
+        httpTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+        Repositories.topics().add(httpTopic);
+        return httpTopic;
+    }
+
+    public FtpTopic newSimpleFtpTopic() {
+        final FtpTopic ftpTopic = new FtpTopic(UUID.randomUUID());
+        Repositories.topics().add(ftpTopic);
+        return ftpTopic;
     }
 
     public GeoTopic newCompleteGeoTopic() {
@@ -54,10 +64,11 @@ public class TopicTestFactory {
         return realTopic;
     }
 
-    public WebTopic newSimpleWebTopic(final WebTopicType type) {
-        final WebTopic webTopic = new WebTopic(UUID.randomUUID(), type);
-        Repositories.topics().add(webTopic);
-        return webTopic;
+    public HttpTopic newSimpleHttpTopic(final HttpTopicType type) {
+        final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
+        httpTopic.setType(type);
+        Repositories.topics().add(httpTopic);
+        return httpTopic;
     }
 
     public GeoTopic newSimpleGeoTopic(final GeoTopicType type) {

@@ -2,10 +2,8 @@ package com.feelhub.domain.bingsearch;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feelhub.domain.bingsearch.readmodel.*;
-import com.feelhub.domain.tag.uri.*;
 import com.feelhub.tools.FeelhubApplicationProperties;
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
 
 import java.io.*;
 import java.net.*;
@@ -13,9 +11,7 @@ import java.util.List;
 
 public class BingLink {
 
-    @Inject
-    public BingLink(final UriResolver uriResolver) {
-        this.uriResolver = uriResolver;
+    public BingLink() {
         feelhubApplicationProperties = new FeelhubApplicationProperties();
     }
 
@@ -37,7 +33,7 @@ public class BingLink {
             if (!type.isEmpty()) {
                 stringBuilder.append(URLEncoder.encode(" " + type, "UTF-8"));
             }
-            final String queryOptions = "'&Adult='Off'&$format=JSON";
+            final String queryOptions = "'&Adult='Off'&$top=20&$format=JSON";
             stringBuilder.append(queryOptions);
             return stringBuilder.toString();
         } catch (Exception e) {
@@ -72,10 +68,7 @@ public class BingLink {
         try {
             bingResults = objectMapper.readValue(inputStream, BingResults.class);
             for (final BingEntity result : bingResults.d.results) {
-                try {
-                    links.add(exist(result.MediaUrl));
-                } catch (BadIllustrationLink e) {
-                }
+                links.add(result.MediaUrl);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,15 +76,5 @@ public class BingLink {
         return links;
     }
 
-    private String exist(final String result) {
-        try {
-            final List<String> path = uriResolver.resolve(result);
-            return path.get(path.size() - 1);
-        } catch (UriException e) {
-            throw new BadIllustrationLink();
-        }
-    }
-
     private FeelhubApplicationProperties feelhubApplicationProperties;
-    private UriResolver uriResolver;
 }

@@ -1,8 +1,9 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.*;
-import com.feelhub.domain.topic.web.*;
 import com.feelhub.domain.topic.world.WorldTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
@@ -24,6 +25,7 @@ public class TestsTopicFactory {
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
+                bind(UriResolver.class).to(FakeUriResolver.class);
             }
         });
         topicFactory = injector.getInstance(TopicFactory.class);
@@ -40,12 +42,12 @@ public class TestsTopicFactory {
     }
 
     @Test
-    public void canCreateWebTopic() {
-        final WebTopic webTopic = topicFactory.createWebTopic("http://www.url.com", WebTopicType.Article);
+    public void canCreateHttpTopic() {
+        final HttpTopic httpTopic = topicFactory.createHttpTopic("http://www.url.com");
 
-        assertThat(webTopic).isNotNull();
-        assertThat(webTopic.getType()).isEqualTo(WebTopicType.Article);
-        assertThat(webTopic.getName(FeelhubLanguage.none())).isEqualTo("Http://www.url.com");
+        assertThat(httpTopic).isNotNull();
+        assertThat(httpTopic.getType()).isEqualTo(HttpTopicType.Website);
+        assertThat(httpTopic.getName(FeelhubLanguage.none())).isEqualTo("Http://www.url.com");
     }
 
     @Test

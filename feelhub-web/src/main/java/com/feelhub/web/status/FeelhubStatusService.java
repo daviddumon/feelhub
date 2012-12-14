@@ -1,7 +1,7 @@
 package com.feelhub.web.status;
 
 import com.feelhub.domain.feeling.FeelingCreationException;
-import com.feelhub.domain.tag.uri.UriException;
+import com.feelhub.domain.topic.http.uri.UriException;
 import com.feelhub.domain.topic.TopicNotFound;
 import com.feelhub.domain.user.BadUserException;
 import com.feelhub.web.resources.api.FeelhubApiException;

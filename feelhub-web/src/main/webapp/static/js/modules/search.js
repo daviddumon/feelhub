@@ -24,7 +24,7 @@ define(['jquery', 'view/search/search-command-web-view', 'view/search/search-com
 
         function createCommand() {
             if (authentificated) {
-                if (type == 'web') {
+                if (type == 'http') {
                     webview.render(command_container);
                 } else if (type == 'real') {
                     realview.render(command_container);

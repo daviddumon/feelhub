@@ -1,13 +1,12 @@
-package com.feelhub.domain.topic.web;
+package com.feelhub.domain.topic.http;
 
 import com.feelhub.domain.topic.TopicType;
 
-public enum WebTopicType implements TopicType {
+public enum HttpTopicType implements TopicType {
 
     Article,
     Audio,
-    File,
-    Ftp,
+    Data,
     Image,
     Other,
     Video,

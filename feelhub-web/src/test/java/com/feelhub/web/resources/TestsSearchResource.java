@@ -93,7 +93,7 @@ public class TestsSearchResource {
         final ModelAndView modelAndView = searchResource.search();
 
         assertThat(modelAndView.getTemplate()).isEqualTo("search.ftl");
-        assertThat(modelAndView.getData("type").toString()).isEqualTo("web");
+        assertThat(modelAndView.getData("type").toString()).isEqualTo("http");
     }
 
     private SearchResource searchResource;

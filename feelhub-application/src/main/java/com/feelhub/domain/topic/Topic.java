@@ -47,11 +47,10 @@ public abstract class Topic extends BaseEntity {
 
     public void addName(final FeelhubLanguage feelhubLanguage, final String name) {
         names.put(feelhubLanguage.getCode(), WordUtils.capitalizeFully(name));
-        createTags(name);
     }
 
-    public void createTags(final String name) {
-        DomainEventBus.INSTANCE.post(new TagRequestEvent(this, name));
+    public void createTags(final String valueToIndex) {
+        DomainEventBus.INSTANCE.post(new TagRequestEvent(this, valueToIndex));
     }
 
     public String getName(final FeelhubLanguage feelhubLanguage) {

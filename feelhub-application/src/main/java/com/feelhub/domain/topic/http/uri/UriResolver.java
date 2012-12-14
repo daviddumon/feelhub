@@ -1,4 +1,4 @@
-package com.feelhub.domain.tag.uri;
+package com.feelhub.domain.topic.http.uri;
 
 import com.feelhub.tools.*;
 import com.google.common.collect.Lists;
@@ -9,20 +9,17 @@ import java.util.List;
 
 public class UriResolver {
 
-    public List<String> resolve(String uri) {
-        final List<String> path = Lists.newArrayList();
-        if (!uri.startsWith("http")) {
-            uri = "http://" + uri;
-        }
-        path.add(uri);
-        followRedirection(uri, path);
-        return path;
+    public ResolverResult resolve(Uri uri) {
+        final ResolverResult resolverResult = new ResolverResult();
+        resolverResult.addUriToPath(uri);
+        followRedirection(uri, resolverResult);
+        return resolverResult;
     }
 
-    private String followRedirection(final String uri, final List<String> path) {
+    private String followRedirection(final Uri uri, final ResolverResult resolverResult) {
         final Client client = Clients.create();
         try {
-            return doFollow(uri, client, path);
+            return doFollow(uri, client, resolverResult);
         } catch (Exception e) {
             throw new UriException(e);
         } finally {
@@ -30,19 +27,20 @@ public class UriResolver {
         }
     }
 
-    private String doFollow(final String uri, final Client client, final List<String> path) {
-        String currentUri = uri;
+    private String doFollow(final Uri uri, final Client client, final ResolverResult resolverResult) {
+        String currentUri = uri.getValue();
         Response response = null;
         do {
             final Request request = Requests.create(Method.HEAD, currentUri);
             response = client.handle(request);
             if (response.getStatus().isRedirection()) {
                 currentUri = response.getLocationRef().toString();
-                path.add(currentUri);
+                resolverResult.addUriToPath(new Uri(currentUri));
             }
             if (notExistingResource(response)) {
-                throw new UriException(uri, response.getStatus());
+                throw new UriException(uri.getValue(), response.getStatus());
             }
+            resolverResult.setMediaType(response.getEntity().getMediaType());
         } while (response.getStatus().isRedirection());
         return currentUri;
     }

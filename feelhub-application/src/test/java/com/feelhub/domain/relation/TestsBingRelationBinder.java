@@ -1,7 +1,7 @@
 package com.feelhub.domain.relation;
 
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.real.*;
-import com.feelhub.domain.topic.web.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -31,9 +31,9 @@ public class TestsBingRelationBinder {
     @Test
     public void canBindImagesToTopic() {
         final RealTopic laguna = TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile);
-        final List<WebTopic> images = Lists.newArrayList();
-        final WebTopic image1 = TestFactories.topics().newSimpleWebTopic(WebTopicType.Image);
-        final WebTopic image2 = TestFactories.topics().newSimpleWebTopic(WebTopicType.Image);
+        final List<HttpTopic> images = Lists.newArrayList();
+        final HttpTopic image1 = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Image);
+        final HttpTopic image2 = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Image);
         images.add(image1);
         images.add(image2);
 

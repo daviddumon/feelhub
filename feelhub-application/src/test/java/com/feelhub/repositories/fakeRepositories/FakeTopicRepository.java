@@ -1,9 +1,10 @@
 package com.feelhub.repositories.fakeRepositories;
 
 import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.geo.GeoTopic;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.web.WebTopic;
 import com.feelhub.domain.topic.world.WorldTopic;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -24,8 +25,8 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
     }
 
     @Override
-    public WebTopic getWebTopic(final UUID id) {
-        return (WebTopic) Iterables.find(getAll(), new Predicate<Topic>() {
+    public HttpTopic getHttpTopic(final UUID id) {
+        return (HttpTopic) Iterables.find(getAll(), new Predicate<Topic>() {
             @Override
             public boolean apply(@Nullable final Topic input) {
                 return input.getId().equals(id);
@@ -36,6 +37,16 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
     @Override
     public RealTopic getRealTopic(final UUID id) {
         return (RealTopic) Iterables.find(getAll(), new Predicate<Topic>() {
+            @Override
+            public boolean apply(@Nullable final Topic input) {
+                return input.getId().equals(id);
+            }
+        });
+    }
+
+    @Override
+    public FtpTopic getFtpTopic(final UUID id) {
+        return (FtpTopic) Iterables.find(getAll(), new Predicate<Topic>() {
             @Override
             public boolean apply(@Nullable final Topic input) {
                 return input.getId().equals(id);

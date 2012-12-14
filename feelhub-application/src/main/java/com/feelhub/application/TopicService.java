@@ -4,8 +4,8 @@ import com.feelhub.domain.scraper.Scraper;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.*;
-import com.feelhub.domain.topic.web.WebTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
@@ -45,7 +45,7 @@ public class TopicService {
         return realTopic;
     }
 
-    public WebTopic createWebTopic() {
+    public HttpTopic createHttpTopic() {
         return null;
     }
 
