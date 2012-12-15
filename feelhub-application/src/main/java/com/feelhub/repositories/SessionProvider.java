@@ -36,7 +36,10 @@ public class SessionProvider {
     }
 
     private final ThreadLocal<MongoSession> sessionContainer = new ThreadLocal<MongoSession>() {
-
+        @Override
+        protected MongoSession initialValue() {
+            return manager.createSession();
+        }
     };
-    protected MongoSessionManager manager;
+    protected volatile MongoSessionManager manager;
 }

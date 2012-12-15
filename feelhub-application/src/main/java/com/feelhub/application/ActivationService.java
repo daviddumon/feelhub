@@ -11,21 +11,18 @@ import java.util.UUID;
 public class ActivationService {
 
     @Inject
-    public ActivationService(final SessionProvider sessionProvider) {
-        this.sessionProvider = sessionProvider;
+    public ActivationService() {
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
     public void onUserCreated(final UserCreatedEvent event) {
-        sessionProvider.start();
         if (event.getUser().isActive()) {
             return;
         }
         final Activation activation = new Activation(event.getUser());
         Repositories.activation().add(activation);
         DomainEventBus.INSTANCE.post(new ActivationCreatedEvent(event.getUser(), activation));
-        sessionProvider.stop();
     }
 
     public void confirm(final UUID id) {
@@ -37,5 +34,4 @@ public class ActivationService {
         Repositories.activation().delete(activation);
     }
 
-    private final SessionProvider sessionProvider;
 }

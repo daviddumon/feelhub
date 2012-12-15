@@ -14,11 +14,17 @@ public class TestWithMongoRepository {
 
     @Before
     public void beforeMongoRepository() throws UnknownHostException {
-        final MongoSession session = fakePersistentContext.getSession();
+        session = fakePersistentContext.getSession();
+        session.start();
         mongo = (FakeDB) session.getDb();
         provider = IdentitySessionProvider(session);
         final MongoRepositories mongoRepos = new MongoRepositories(provider);
         Repositories.initialize(mongoRepos);
+    }
+
+    @After
+    public void afterMongoRepository() {
+        session.stop();
     }
 
     private SessionProvider IdentitySessionProvider(final MongoSession session) {
@@ -36,4 +42,5 @@ public class TestWithMongoRepository {
 
     protected FakeDB mongo;
     private SessionProvider provider;
+    private MongoSession session;
 }

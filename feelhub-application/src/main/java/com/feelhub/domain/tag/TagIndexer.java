@@ -1,9 +1,9 @@
 package com.feelhub.domain.tag;
 
-import com.feelhub.application.*;
+import com.feelhub.application.TagService;
+import com.feelhub.application.TopicService;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.repositories.SessionProvider;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 
@@ -12,8 +12,7 @@ import java.util.UUID;
 public class TagIndexer {
 
     @Inject
-    public TagIndexer(final SessionProvider sessionProvider, final TagService tagService, final TopicService topicService) {
-        this.sessionProvider = sessionProvider;
+    public TagIndexer(final TagService tagService, final TopicService topicService) {
         this.tagService = tagService;
         this.topicService = topicService;
         DomainEventBus.INSTANCE.register(this);
@@ -21,12 +20,10 @@ public class TagIndexer {
 
     @Subscribe
     public void onTagRequest(final TagRequestEvent tagRequestEvent) {
-        sessionProvider.start();
         final String name = tagRequestEvent.getName();
         final Topic topic = tagRequestEvent.getTopic();
         final Tag tag = lookUpOrCreateTag(name);
         index(topic, tag);
-        sessionProvider.stop();
     }
 
     private void index(final Topic topic, final Tag tag) {
@@ -62,7 +59,6 @@ public class TagIndexer {
         }
     }
 
-    private SessionProvider sessionProvider;
     private TagService tagService;
     private TopicService topicService;
 }

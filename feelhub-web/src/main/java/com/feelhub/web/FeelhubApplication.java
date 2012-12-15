@@ -1,15 +1,22 @@
 package com.feelhub.web;
 
 import com.feelhub.web.authentification.UserInfos;
-import com.feelhub.web.filter.*;
+import com.feelhub.web.filter.IdentityFilter;
+import com.feelhub.web.filter.OpenSessionInViewFilter;
 import com.feelhub.web.launch.LaunchRouter;
 import com.feelhub.web.migration.MigrationRunner;
-import com.feelhub.web.migration.web.*;
+import com.feelhub.web.migration.web.MigrationFilter;
+import com.feelhub.web.migration.web.MigrationRouter;
 import com.feelhub.web.status.FeelhubStatusService;
 import com.feelhub.web.tools.FeelhubWebProperties;
-import com.google.inject.*;
-import freemarker.template.*;
-import org.restlet.*;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateModelException;
+import org.restlet.Application;
+import org.restlet.Context;
+import org.restlet.Restlet;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 import org.restlet.service.TaskService;

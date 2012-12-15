@@ -12,8 +12,7 @@ import java.util.*;
 public class FeelingService {
 
     @Inject
-    public FeelingService(final SessionProvider sessionProvider, final FeelingRelationBinder feelingRelationBinder, final SentimentExtractor sentimentExtractor, final TagService tagService) {
-        this.sessionProvider = sessionProvider;
+    public FeelingService(final FeelingRelationBinder feelingRelationBinder, final SentimentExtractor sentimentExtractor, final TagService tagService) {
         this.feelingRelationBinder = feelingRelationBinder;
         this.sentimentExtractor = sentimentExtractor;
         this.tagService = tagService;
@@ -22,14 +21,12 @@ public class FeelingService {
 
     @Subscribe
     public void handle(final FeelingRequestEvent feelingRequestEvent) {
-        sessionProvider.start();
         //final List<Sentim
         //ent> sentiments = getSentiments(feelingRequestEvent);
         //final Feeling feeling = buildFeeling(feelingRequestEvent, sentiments);
         final Feeling feeling = buildFeeling(feelingRequestEvent, new ArrayList<Sentiment>());
         //feelingRelationBinder.bind(feeling);
         Repositories.feelings().add(feeling);
-        sessionProvider.stop();
     }
 
     //private List<Sentiment> getSentiments(final FeelingRequestEvent feelingRequestEvent) {
@@ -74,7 +71,6 @@ public class FeelingService {
         return builder.build();
     }
 
-    private final SessionProvider sessionProvider;
     private final TagService tagService;
     private final FeelingRelationBinder feelingRelationBinder;
     private final SentimentExtractor sentimentExtractor;

@@ -13,23 +13,18 @@ import java.util.List;
 public class StatisticsFactory {
 
     @Inject
-    public StatisticsFactory(final SessionProvider sessionProvider) {
-        this.sessionProvider = sessionProvider;
+    public StatisticsFactory() {
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
     public void handle(final SentimentStatisticsEvent event) {
-        sessionProvider.start();
         sentimentOn(event.getSentiment(), event.getDate());
-        sessionProvider.stop();
     }
 
     @Subscribe
     public void handle(final WorldStatisticsEvent event) {
-        sessionProvider.start();
         sentimentOn(event.getSentiment(), event.getDate());
-        sessionProvider.stop();
     }
 
     private void sentimentOn(final Sentiment sentiment, final DateTime date) {
@@ -59,5 +54,4 @@ public class StatisticsFactory {
         return stat;
     }
 
-    private final SessionProvider sessionProvider;
 }

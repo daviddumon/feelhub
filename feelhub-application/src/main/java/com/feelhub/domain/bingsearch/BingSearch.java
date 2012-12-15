@@ -16,8 +16,7 @@ import java.util.List;
 public class BingSearch {
 
     @Inject
-    public BingSearch(final SessionProvider sessionProvider, final BingLink bingLink, final TopicFactory topicFactory, final BingRelationBinder bingRelationBinder) {
-        this.sessionProvider = sessionProvider;
+    public BingSearch(final BingLink bingLink, final TopicFactory topicFactory, final BingRelationBinder bingRelationBinder) {
         this.bingLink = bingLink;
         this.topicFactory = topicFactory;
         this.bingRelationBinder = bingRelationBinder;
@@ -26,9 +25,7 @@ public class BingSearch {
 
     @Subscribe
     public void onBingRequest(final BingRequest bingRequest) {
-        sessionProvider.start();
         doBingSearch(bingRequest);
-        sessionProvider.stop();
     }
 
     private void doBingSearch(final BingRequest bingRequest) {
@@ -74,7 +71,6 @@ public class BingSearch {
         }
     }
 
-    private final SessionProvider sessionProvider;
     private final BingLink bingLink;
     private final TopicFactory topicFactory;
     private final BingRelationBinder bingRelationBinder;

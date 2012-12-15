@@ -15,8 +15,7 @@ import java.util.*;
 public class AlchemyAnalyzer {
 
     @Inject
-    public AlchemyAnalyzer(final SessionProvider sessionProvider, final NamedEntityProvider namedEntityProvider, final AlchemyRelationBinder alchemyRelationBinder, final TopicService topicService) {
-        this.sessionProvider = sessionProvider;
+    public AlchemyAnalyzer(final NamedEntityProvider namedEntityProvider, final AlchemyRelationBinder alchemyRelationBinder, final TopicService topicService) {
         this.namedEntityProvider = namedEntityProvider;
         this.alchemyRelationBinder = alchemyRelationBinder;
         this.topicService = topicService;
@@ -25,12 +24,10 @@ public class AlchemyAnalyzer {
 
     @Subscribe
     public void handle(final AlchemyRequestEvent event) {
-        sessionProvider.start();
         final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(event.getHttpTopic().getId());
         if (alchemyAnalysisList.isEmpty()) {
             addAlchemyAnalysis(event.getHttpTopic());
         }
-        sessionProvider.stop();
     }
 
     private void addAlchemyAnalysis(final HttpTopic httpTopic) {
@@ -124,6 +121,5 @@ public class AlchemyAnalyzer {
 
     private final AlchemyRelationBinder alchemyRelationBinder;
     private TopicService topicService;
-    private final SessionProvider sessionProvider;
     private final NamedEntityProvider namedEntityProvider;
 }
