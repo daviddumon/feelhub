@@ -16,7 +16,7 @@ public class AlchemyEntityMapping extends AggregateMap<AlchemyEntity> {
         property(element().getCreationDate());
         property(element().getLastModificationDate());
         property(element().getOpencyc());
-        property(element().getTypeReal());
+        property(element().getType());
         property(element().getUmbel());
         property(element().getWebsite());
         property(element().getYago());

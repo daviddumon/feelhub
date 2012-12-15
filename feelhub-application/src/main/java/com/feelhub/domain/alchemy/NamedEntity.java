@@ -8,7 +8,7 @@ import java.util.List;
 
 public class NamedEntity {
 
-    public RealTopicType typeReal;
+    public RealTopicType type;
     public Double relevance;
     public List<String> subType = Lists.newArrayList();
     public String website = "";

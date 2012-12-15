@@ -1,6 +1,7 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.topic.real.*;
+import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
@@ -9,7 +10,7 @@ import java.util.*;
 
 public class AlchemyTestFactory {
 
-    public AlchemyEntity newAlchemyEntityEntity(final UUID topicId) {
+    public AlchemyEntity newAlchemyEntity(final UUID topicId) {
         final AlchemyEntity alchemyEntity = new AlchemyEntity(topicId);
         alchemyEntity.setCensus("census");
         alchemyEntity.setCiafactbook("ciafactbook");
@@ -25,7 +26,7 @@ public class AlchemyTestFactory {
         subTypes.add("sub1");
         subTypes.add("sub2");
         alchemyEntity.setSubtype(subTypes);
-        alchemyEntity.setTypeReal(RealTopicType.Automobile);
+        alchemyEntity.setType(RealTopicType.Automobile);
         alchemyEntity.setUmbel("umbel");
         alchemyEntity.setWebsite("website");
         alchemyEntity.setYago("yago");
@@ -34,15 +35,15 @@ public class AlchemyTestFactory {
         return alchemyEntity;
     }
 
-    public AlchemyAnalysis newAlchemyAnalysis(final RealTopic realTopic) {
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(realTopic, "http://www.fakeurl.com");
+    public AlchemyAnalysis newAlchemyAnalysis(final HttpTopic httpTopic) {
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(httpTopic);
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
         return alchemyAnalysis;
     }
 
     public AlchemyAnalysis newAlchemyAnalysis() {
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(realTopic, "http://www.fakeurl.com");
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(httpTopic);
         Repositories.alchemyAnalysis().add(alchemyAnalysis);
         return alchemyAnalysis;
     }

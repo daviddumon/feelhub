@@ -20,7 +20,11 @@ public class TopicTestFactory {
     }
 
     public RealTopic newCompleteRealTopic(final String name) {
-        final RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Automobile);
+        return newCompleteRealTopic(name, RealTopicType.Automobile);
+    }
+
+    public RealTopic newCompleteRealTopic(final String name, final RealTopicType type) {
+        final RealTopic realTopic = new RealTopic(UUID.randomUUID(), type);
         realTopic.addName(FeelhubLanguage.reference(), name + "-reference");
         realTopic.addName(FeelhubLanguage.fromCode("fr"), name + "-fr");
         realTopic.addDescription(FeelhubLanguage.reference(), "description-reference");

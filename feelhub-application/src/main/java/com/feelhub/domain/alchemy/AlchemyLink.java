@@ -1,5 +1,6 @@
 package com.feelhub.domain.alchemy;
 
+import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.tools.FeelhubApplicationProperties;
 
 import java.io.*;
@@ -12,8 +13,8 @@ public class AlchemyLink {
         apiKey = feelhubApplicationProperties.getAlchemyApiKey();
     }
 
-    public InputStream get(final String uri) {
-        final String alchemyUri = buildUri(uri);
+    public InputStream get(final Uri uri) {
+        final String alchemyUri = buildUri(uri.getValue());
         URL url = null;
         try {
             url = new URL(alchemyUri);

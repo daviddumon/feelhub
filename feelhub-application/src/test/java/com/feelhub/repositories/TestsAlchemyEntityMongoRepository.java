@@ -39,7 +39,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
         subTypes.add("sub1");
         subTypes.add("sub2");
         alchemyEntity.setSubtype(subTypes);
-        alchemyEntity.setTypeReal(RealTopicType.Automobile);
+        alchemyEntity.setType(RealTopicType.Automobile);
         alchemyEntity.setUmbel("umbel");
         alchemyEntity.setWebsite("website");
         alchemyEntity.setYago("yago");
@@ -64,7 +64,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
         assertThat(alchemyFound.get("opencyc")).isEqualTo(alchemyEntity.getOpencyc());
         assertThat(alchemyFound.get("semanticcrunchbase")).isEqualTo(alchemyEntity.getSemanticcrunchbase());
         assertThat(alchemyFound.get("subtype")).isEqualTo(alchemyEntity.getSubtype());
-        assertThat(RealTopicType.valueOf(alchemyFound.get("typeReal").toString())).isEqualTo(alchemyEntity.getTypeReal());
+        assertThat(RealTopicType.valueOf(alchemyFound.get("type").toString())).isEqualTo(alchemyEntity.getType());
         assertThat(alchemyFound.get("umbel")).isEqualTo(alchemyEntity.getUmbel());
         assertThat(alchemyFound.get("website")).isEqualTo(alchemyEntity.getWebsite());
         assertThat(alchemyFound.get("yago")).isEqualTo(alchemyEntity.getYago());
@@ -87,9 +87,9 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
     @Test
     public void canGetForATopic() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.alchemy().newAlchemyEntityEntity(realTopic.getId());
-        TestFactories.alchemy().newAlchemyEntityEntity(realTopic.getId());
-        TestFactories.alchemy().newAlchemyEntityEntity(realTopic.getId());
+        TestFactories.alchemy().newAlchemyEntity(realTopic.getId());
+        TestFactories.alchemy().newAlchemyEntity(realTopic.getId());
+        TestFactories.alchemy().newAlchemyEntity(realTopic.getId());
 
         final List<AlchemyEntity> alchemyEntities = entityMongoRepository.forTopicId(realTopic.getId());
 

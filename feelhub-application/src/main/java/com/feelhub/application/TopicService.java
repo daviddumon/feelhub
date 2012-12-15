@@ -1,7 +1,7 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.scraper.Scraper;
-import com.feelhub.domain.tag.Tag;
+import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.HttpTopic;
@@ -38,9 +38,31 @@ public class TopicService {
         return topic;
     }
 
-    public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType realTopicType, final User user) {
-        final RealTopic realTopic = topicFactory.createRealTopic(feelhubLanguage, name, realTopicType);
+    public Topic lookUp(final String value, final RealTopicType type) {
+        try {
+            final Tag tag = tagService.lookUp(value);
+            for (final UUID id : tag.getTopicIds()) {
+                try {
+                    final Topic topic = lookUpCurrent(id);
+                    if (topic.getType().equals(type)) {
+                        return topic;
+                    }
+                } catch (TopicNotFound e) {
+                }
+            }
+        } catch (TagNotFoundException e) {
+        }
+        return null;
+    }
+
+    public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType type, final User user) {
+        final RealTopic realTopic = createRealTopic(feelhubLanguage, name, type);
         realTopic.setUserId(user.getId());
+        return realTopic;
+    }
+
+    public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType type) {
+        final RealTopic realTopic = topicFactory.createRealTopic(feelhubLanguage, name, type);
         Repositories.topics().add(realTopic);
         return realTopic;
     }
@@ -50,18 +72,21 @@ public class TopicService {
     }
 
     public List<Topic> getTopics(final String value) {
-        final Tag tag = tagService.lookUp(value);
         final List<Topic> topics = Lists.newArrayList();
-        for (final UUID id : tag.getTopicIds()) {
-            try {
-                topics.add(lookUpCurrent(id));
-            } catch (TopicNotFound e) {
+        try {
+            final Tag tag = tagService.lookUp(value);
+            for (final UUID id : tag.getTopicIds()) {
+                try {
+                    topics.add(lookUpCurrent(id));
+                } catch (TopicNotFound e) {
+                }
             }
+        } catch (TagNotFoundException e) {
         }
         return topics;
     }
 
-    private final TopicFactory topicFactory;
     private final Scraper scraper;
+    private final TopicFactory topicFactory;
     private final TagService tagService;
 }

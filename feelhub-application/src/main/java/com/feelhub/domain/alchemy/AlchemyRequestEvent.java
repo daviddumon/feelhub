@@ -1,13 +1,12 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.eventbus.DomainEvent;
-import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.topic.http.HttpTopic;
 
 public class AlchemyRequestEvent extends DomainEvent {
 
-    public AlchemyRequestEvent(final RealTopic realTopic, final String value) {
-        this.realTopic = realTopic;
-        this.value = value;
+    public AlchemyRequestEvent(final HttpTopic httpTopic) {
+        this.httpTopic = httpTopic;
     }
 
     @Override
@@ -19,14 +18,9 @@ public class AlchemyRequestEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    public RealTopic getRealTopic() {
-        return realTopic;
+    public HttpTopic getHttpTopic() {
+        return httpTopic;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    private final RealTopic realTopic;
-    private final String value;
+    private final HttpTopic httpTopic;
 }

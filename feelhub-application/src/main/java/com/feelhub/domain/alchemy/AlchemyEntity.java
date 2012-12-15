@@ -13,8 +13,8 @@ public class AlchemyEntity extends BaseEntity {
     }
 
     public AlchemyEntity(final UUID topicId) {
-        this.topicId = topicId;
         this.id = UUID.randomUUID();
+        this.topicId = topicId;
     }
 
     @Override
@@ -30,12 +30,12 @@ public class AlchemyEntity extends BaseEntity {
         this.topicId = topicId;
     }
 
-    public RealTopicType getTypeReal() {
-        return typeReal;
+    public RealTopicType getType() {
+        return type;
     }
 
-    public void setTypeReal(final RealTopicType typeReal) {
-        this.typeReal = typeReal;
+    public void setType(final RealTopicType type) {
+        this.type = type;
     }
 
     public List<String> getSubtype() {
@@ -164,7 +164,7 @@ public class AlchemyEntity extends BaseEntity {
 
     private UUID id;
     private UUID topicId;
-    private RealTopicType typeReal;
+    private RealTopicType type;
     private List<String> subtype = Lists.newArrayList();
     private String website = "";
     private String geo = "";

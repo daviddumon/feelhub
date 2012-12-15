@@ -1,6 +1,9 @@
 package com.feelhub.domain.topic.http;
 
+import com.feelhub.domain.alchemy.AlchemyRequestEvent;
+import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.http.uri.Uri;
 import org.restlet.data.MediaType;
 
 import java.util.UUID;
@@ -23,6 +26,19 @@ public class HttpTopic extends Topic {
     @Override
     public TopicType getType() {
         return HttpTopicType.valueOf(typeValue);
+    }
+
+    @Override
+    public void addUri(final Uri uri) {
+        super.addUri(uri);
+        if (HttpTopicType.valueOf(typeValue).equals(HttpTopicType.Website)) {
+            requestAlchemy();
+        }
+    }
+
+    private void requestAlchemy() {
+        final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(this);
+        DomainEventBus.INSTANCE.post(alchemyRequestEvent);
     }
 
     public String getTypeValue() {
@@ -73,8 +89,3 @@ public class HttpTopic extends Topic {
     private String typeValue;
     private String mediaTypeValue;
 }
-
-//private void requestAlchemyAnalysis(final RealTopic realTopic, final String value) {
-//    final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(realTopic, value);
-//    DomainEventBus.INSTANCE.post(alchemyRequestEvent);
-//}

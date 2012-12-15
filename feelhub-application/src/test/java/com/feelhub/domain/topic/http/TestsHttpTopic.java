@@ -1,5 +1,8 @@
 package com.feelhub.domain.topic.http;
 
+import com.feelhub.domain.alchemy.AlchemyRequestEvent;
+import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
 import org.restlet.data.MediaType;
@@ -12,6 +15,9 @@ public class TestsHttpTopic {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
 
     @Test
     public void canCreateAHttpTopic() {
@@ -173,17 +179,31 @@ public class TestsHttpTopic {
         assertThat(topic.getMediaType()).isEqualTo(mediaType);
         assertThat(topic.getType()).isEqualTo(type);
     }
-}
 
-//@Test
-//public void requestAlchemy() {
-//    bus.capture(AlchemyRequestEvent.class);
-//    final String value = "http://www.test.com";
-//
-//    final RealTopic realTopic = topicFromUriService.createTopicFromUri(value);
-//
-//    final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
-//    assertThat(alchemyRequestEvent).isNotNull();
-//    assertThat(alchemyRequestEvent.getRealTopic()).isEqualTo(realTopic);
-//    assertThat(alchemyRequestEvent.getValue()).isEqualTo(value);
-//}
+    @Test
+    public void addUrlRequestAlchemyIfTypeWebsite() {
+        bus.capture(AlchemyRequestEvent.class);
+        final Uri uri = new Uri("http://www.test.com");
+        final HttpTopic topic = new HttpTopic(UUID.randomUUID());
+        topic.setType(HttpTopicType.Website);
+
+        topic.addUri(uri);
+
+        final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
+        assertThat(alchemyRequestEvent).isNotNull();
+        assertThat(alchemyRequestEvent.getHttpTopic()).isEqualTo(topic);
+    }
+
+    @Test
+    public void doNotRequestAlchemyIfTypeDifferentFromWebsite() {
+        bus.capture(AlchemyRequestEvent.class);
+        final Uri uri = new Uri("http://www.test.com");
+        final HttpTopic topic = new HttpTopic(UUID.randomUUID());
+        topic.setType(HttpTopicType.Image);
+
+        topic.addUri(uri);
+
+        final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
+        assertThat(alchemyRequestEvent).isNull();
+    }
+}

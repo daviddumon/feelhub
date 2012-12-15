@@ -9,10 +9,10 @@ import java.util.List;
 
 public class NamedEntityTestFactory {
 
-    public List<NamedEntity> namedEntityWith2Keywords() {
+    public List<NamedEntity> namedEntityWith2Tags() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.typeReal = RealTopicType.Other;
+        entity.type = RealTopicType.Other;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -28,10 +28,10 @@ public class NamedEntityTestFactory {
         return result;
     }
 
-    public List<NamedEntity> namedEntityWith1Keyword() {
+    public List<NamedEntity> namedEntityWith1Tag() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.typeReal = RealTopicType.Other;
+        entity.type = RealTopicType.Other;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -46,10 +46,10 @@ public class NamedEntityTestFactory {
         return result;
     }
 
-    public List<NamedEntity> namedEntityWith1KeywordWithoutConcept() {
+    public List<NamedEntity> namedEntityWith1TagWithoutConcept() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.typeReal = RealTopicType.Other;
+        entity.type = RealTopicType.Other;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -64,10 +64,10 @@ public class NamedEntityTestFactory {
         return result;
     }
 
-    public List<NamedEntity> namedEntityWithoutKeywords() {
+    public List<NamedEntity> namedEntityWithoutTags() {
         final NamedEntity entity = new NamedEntity();
         entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-        entity.typeReal = RealTopicType.Other;
+        entity.type = RealTopicType.Other;
         final List<String> subtypes = Lists.newArrayList();
         subtypes.add("subtype1");
         subtypes.add("subtype2");
@@ -86,7 +86,7 @@ public class NamedEntityTestFactory {
         for (int i = 0; i < quantity; i++) {
             final NamedEntity entity = new NamedEntity();
             entity.feelhubLanguage = FeelhubLanguage.fromCountryName("english");
-            entity.typeReal = RealTopicType.Other;
+            entity.type = RealTopicType.Other;
             final List<String> subtypes = Lists.newArrayList();
             subtypes.add("subtype1");
             subtypes.add("subtype2");

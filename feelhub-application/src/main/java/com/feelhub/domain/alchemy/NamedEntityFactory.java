@@ -67,9 +67,9 @@ public class NamedEntityFactory {
 
     private void addFields(final NamedEntity entity, final AlchemyJsonEntity alchemyJsonEntity) {
         try {
-            entity.typeReal = RealTopicType.valueOf(WordUtils.capitalizeFully(alchemyJsonEntity.type));
+            entity.type = RealTopicType.valueOf(WordUtils.capitalizeFully(alchemyJsonEntity.type));
         } catch (IllegalArgumentException e) {
-            entity.typeReal = RealTopicType.Other;
+            entity.type = RealTopicType.Other;
         }
         entity.relevance = alchemyJsonEntity.relevance;
         if (isDisambiguated(alchemyJsonEntity)) {

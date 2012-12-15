@@ -23,6 +23,6 @@ public class ResolverResult {
         this.mediaType = mediaType;
     }
 
-    private List<Uri> path = Lists.newArrayList();
+    private final List<Uri> path = Lists.newArrayList();
     private MediaType mediaType;
 }

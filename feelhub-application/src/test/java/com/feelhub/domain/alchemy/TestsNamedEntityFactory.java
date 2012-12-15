@@ -117,7 +117,7 @@ public class TestsNamedEntityFactory {
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.typeReal).isEqualTo(RealTopicType.Other);
+        assertThat(namedEntity.type).isEqualTo(RealTopicType.Other);
         assertThat(namedEntity.feelhubLanguage).isEqualTo(FeelhubLanguage.none());
         assertThat(namedEntity.relevance).isEqualTo(alchemyJsonEntity.relevance);
     }
@@ -128,7 +128,7 @@ public class TestsNamedEntityFactory {
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.typeReal).isEqualTo(RealTopicType.Other);
+        assertThat(namedEntity.type).isEqualTo(RealTopicType.Other);
         assertThat(namedEntity.feelhubLanguage).isEqualTo(FeelhubLanguage.none());
         assertThat(namedEntity.relevance).isEqualTo(alchemyJsonEntity.relevance);
         assertThat(namedEntity.subType).isEqualTo(alchemyJsonEntity.disambiguated.subType);
@@ -212,7 +212,7 @@ public class TestsNamedEntityFactory {
 
         final NamedEntity namedEntity = namedEntityFactory.build(alchemyJsonEntity);
 
-        assertThat(namedEntity.typeReal).isEqualTo(RealTopicType.Other);
+        assertThat(namedEntity.type).isEqualTo(RealTopicType.Other);
     }
 
     private NamedEntityFactory namedEntityFactory;

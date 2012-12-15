@@ -1,7 +1,7 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
@@ -15,21 +15,19 @@ public class TestsAlchemyAnalysis {
 
     @Test
     public void canCreateAnAlchemyAnalysis() {
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final String value = "http://www.fakeurl.com";
+        final HttpTopic topic = TestFactories.topics().newCompleteHttpTopic();
 
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(realTopic, value);
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic);
 
         assertThat(alchemyAnalysis.getId()).isNotNull();
-        assertThat(alchemyAnalysis.getTopicId()).isEqualTo(realTopic.getId());
-        assertThat(alchemyAnalysis.getValue()).isEqualTo(value);
+        assertThat(alchemyAnalysis.getTopicId()).isEqualTo(topic.getId());
+        assertThat(alchemyAnalysis.getValue()).isEqualTo(topic.getUris().get(0).toString());
     }
 
     @Test
     public void canAddLanguage() {
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final String value = "http://www.fakeurl.com";
-        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(realTopic, value);
+        final HttpTopic topic = TestFactories.topics().newCompleteHttpTopic();
+        final AlchemyAnalysis alchemyAnalysis = new AlchemyAnalysis(topic);
 
         alchemyAnalysis.setLanguageCode(FeelhubLanguage.fromCountryName("english"));
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UriResolver {
 
-    public ResolverResult resolve(Uri uri) {
+    public ResolverResult resolve(final Uri uri) {
         final ResolverResult resolverResult = new ResolverResult();
         resolverResult.addUriToPath(uri);
         followRedirection(uri, resolverResult);
