@@ -6,7 +6,7 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.UriException;
-import com.feelhub.repositories.*;
+import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -33,7 +33,6 @@ public class BingSearch {
         final String query = bingRequest.getQuery();
         final List<HttpTopic> images = getImages(topic, query);
         setIllustrationForTopic(topic, images);
-        bindImagesToQuery(images, query);
         bingRelationBinder.bind(topic, images);
     }
 
@@ -62,12 +61,6 @@ public class BingSearch {
     private void setIllustrationForTopic(final Topic topic, final List<HttpTopic> images) {
         if (topic.getIllustrationLink().isEmpty() && !images.isEmpty()) {
             topic.setIllustrationLink(images.get(0).getIllustrationLink());
-        }
-    }
-
-    private void bindImagesToQuery(final List<HttpTopic> images, final String query) {
-        for (final HttpTopic image : images) {
-            image.createTags(query);
         }
     }
 

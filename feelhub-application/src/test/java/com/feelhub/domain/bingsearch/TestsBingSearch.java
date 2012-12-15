@@ -2,7 +2,7 @@ package com.feelhub.domain.bingsearch;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.relation.BingRelationBinder;
-import com.feelhub.domain.tag.*;
+import com.feelhub.domain.tag.TagIndexer;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicType;
@@ -86,19 +86,6 @@ public class TestsBingSearch {
         DomainEventBus.INSTANCE.post(bingRequest);
 
         assertThat(realTopic.getIllustrationLink()).isEqualTo("query Automobilelink");
-    }
-
-    @Test
-    public void imageHasTagsOnTopic() {
-        final RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Automobile);
-        final BingRequest bingRequest = new BingRequest();
-        bingRequest.setTopic(realTopic);
-        bingRequest.setQuery("query");
-
-        DomainEventBus.INSTANCE.post(bingRequest);
-
-        final Tag tag = Repositories.tags().get("query");
-        assertThat(tag.getTopicIds().size()).isEqualTo(1);
     }
 
     private BingSearch bingSearch;
