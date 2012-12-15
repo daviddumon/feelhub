@@ -31,8 +31,7 @@ public class TopicFactory {
         final ResolverResult resolverResult = uriResolver.resolve(new Uri(name));
         final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
         httpTopic.setMediaType(resolverResult.getMediaType());
-        //todo enlever ca on add url, pas name
-        httpTopic.addName(FeelhubLanguage.none(), name);
+        httpTopic.addUri(new Uri(name));
         return httpTopic;
     }
 

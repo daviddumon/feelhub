@@ -7,6 +7,7 @@ import com.feelhub.domain.statistics.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -162,20 +163,23 @@ public class TestsTopicMerger {
     }
 
     @Test
-    public void mergeUrls() {
+    public void mergeUris() {
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
-        httpTopic.addUrl("weburl1");
-        oldHttpTopic.addUrl("oldurl1");
-        oldHttpTopic.addUrl("oldurl2");
-        oldHttpTopic.addUrl("weburl1");
+        final Uri uri1 = new Uri("weburl1");
+        httpTopic.addUri(uri1);
+        final Uri uri2 = new Uri("oldurl1");
+        oldHttpTopic.addUri(uri2);
+        final Uri uri3 = new Uri("oldurl2");
+        oldHttpTopic.addUri(uri3);
+        oldHttpTopic.addUri(uri1);
 
         topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(httpTopic.getUrls()).contains("weburl1");
-        assertThat(httpTopic.getUrls()).contains("oldurl1");
-        assertThat(httpTopic.getUrls()).contains("oldurl2");
-        assertThat(httpTopic.getUrls().size()).isEqualTo(3);
+        assertThat(httpTopic.getUris()).contains(uri1);
+        assertThat(httpTopic.getUris()).contains(uri2);
+        assertThat(httpTopic.getUris()).contains(uri3);
+        assertThat(httpTopic.getUris().size()).isEqualTo(3);
     }
 
     private TopicMerger topicMerger;

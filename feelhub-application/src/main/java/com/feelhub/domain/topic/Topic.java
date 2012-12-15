@@ -4,6 +4,7 @@ import com.feelhub.domain.BaseEntity;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.tag.TagRequestEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.http.uri.Uri;
 import com.google.common.collect.*;
 import org.apache.commons.lang.WordUtils;
 
@@ -97,12 +98,12 @@ public abstract class Topic extends BaseEntity {
         subTypes.add(subtype);
     }
 
-    public List<String> getUrls() {
-        return urls;
+    public List<Uri> getUris() {
+        return uris;
     }
 
-    public void addUrl(final String url) {
-        urls.add(url);
+    public void addUri(final Uri uri) {
+        uris.add(uri);
     }
 
     public String getIllustrationLink() {
@@ -119,6 +120,6 @@ public abstract class Topic extends BaseEntity {
     protected Map<String, String> names = Maps.newHashMap();
     private final Map<String, String> descriptions = Maps.newHashMap();
     private final List<String> subTypes = Lists.newArrayList();
-    private final List<String> urls = Lists.newArrayList();
+    private final List<Uri> uris = Lists.newArrayList();
     private String illustrationLink = "";
 }

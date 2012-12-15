@@ -5,6 +5,7 @@ import com.feelhub.domain.relation.RelationManager;
 import com.feelhub.domain.statistics.StatisticsManager;
 import com.feelhub.domain.tag.TagManager;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.Repositories;
 
 import java.util.*;
@@ -34,7 +35,7 @@ public class TopicMerger {
         mergeDescriptions(newTopic, oldTopic);
         mergeIllustrationLink(newTopic, oldTopic);
         mergeSubtypes(newTopic, oldTopic);
-        mergeUrls(newTopic, oldTopic);
+        mergeUris(newTopic, oldTopic);
     }
 
     private void mergeNames(final Topic newTopic, final Topic oldTopic) {
@@ -75,10 +76,10 @@ public class TopicMerger {
         }
     }
 
-    private void mergeUrls(final Topic newTopic, final Topic oldTopic) {
-        for (final String url : oldTopic.getUrls()) {
-            if (!newTopic.getUrls().contains(url)) {
-                newTopic.addUrl(url);
+    private void mergeUris(final Topic newTopic, final Topic oldTopic) {
+        for (final Uri uri : oldTopic.getUris()) {
+            if (!newTopic.getUris().contains(uri)) {
+                newTopic.addUri(uri);
             }
         }
     }

@@ -4,6 +4,7 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.geo.*;
 import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.domain.topic.world.WorldTopic;
 import com.feelhub.repositories.Repositories;
@@ -35,7 +36,7 @@ public class TopicTestFactory {
         final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
         httpTopic.setType(HttpTopicType.Article);
         httpTopic.setMediaType(MediaType.TEXT_HTML);
-        httpTopic.addUrl("http://www.fakeurl.com");
+        httpTopic.addUri(new Uri("http://www.fakeurl.com"));
         httpTopic.addDescription(FeelhubLanguage.reference(), "description-reference");
         httpTopic.addName(FeelhubLanguage.reference(), "name-reference");
         httpTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());

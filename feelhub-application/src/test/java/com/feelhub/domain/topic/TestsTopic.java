@@ -4,6 +4,7 @@ import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -188,22 +189,22 @@ public class TestsTopic {
     }
 
     @Test
-    public void hasUrls() {
+    public void hasUris() {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
 
-        assertThat(fakeTopic.getUrls()).isNotNull();
-        assertThat(fakeTopic.getUrls().size()).isZero();
+        assertThat(fakeTopic.getUris()).isNotNull();
+        assertThat(fakeTopic.getUris().size()).isZero();
     }
 
     @Test
-    public void canAddUrl() {
+    public void canAddUri() {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
-        final String url = "http://www.url.com";
+        final Uri uri = new Uri("http://www.url.com");
 
-        fakeTopic.addUrl(url);
+        fakeTopic.addUri(uri);
 
-        assertThat(fakeTopic.getUrls().size()).isEqualTo(1);
-        assertThat(fakeTopic.getUrls().get(0)).isEqualTo(url);
+        assertThat(fakeTopic.getUris().size()).isEqualTo(1);
+        assertThat(fakeTopic.getUris().get(0)).isEqualTo(uri);
     }
 
     @Test

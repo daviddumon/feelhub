@@ -10,6 +10,10 @@ import java.util.regex.*;
 
 public class Uri {
 
+    //mongolink
+    protected Uri() {
+    }
+
     public Uri(final String value) {
         this.value = sanitize(value);
     }

@@ -61,7 +61,7 @@ public class TestsBingSearch {
         assertThat(image.getType()).isEqualTo(HttpTopicType.Image);
         assertThat(image.getIllustrationLink()).isEqualTo("query Automobilelink");
         assertThat(image.getName(FeelhubLanguage.none())).isEqualTo(WordUtils.capitalizeFully("query Automobilelink"));
-        assertThat(image.getUrls()).contains("query Automobilelink");
+        assertThat(image.getUris()).contains(new Uri("query Automobilelink"));
     }
 
     @Test

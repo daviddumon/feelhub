@@ -57,7 +57,7 @@ public class BingSearch {
         final HttpTopic image = topicFactory.createHttpTopic(illustration);
         image.setIllustrationLink(illustration);
         image.addName(FeelhubLanguage.none(), illustration);
-        image.addUrl(illustration);
+        image.createTags(illustration);
         Repositories.topics().add(image);
         return image;
     }

@@ -47,7 +47,7 @@ public class TestsTopicFactory {
 
         assertThat(httpTopic).isNotNull();
         assertThat(httpTopic.getType()).isEqualTo(HttpTopicType.Website);
-        assertThat(httpTopic.getName(FeelhubLanguage.none())).isEqualTo("Http://www.url.com");
+
     }
 
     @Test
