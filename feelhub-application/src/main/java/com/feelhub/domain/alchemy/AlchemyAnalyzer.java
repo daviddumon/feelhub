@@ -1,11 +1,11 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.*;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.relation.AlchemyRelationBinder;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.repositories.*;
+import com.feelhub.repositories.Repositories;
 import com.google.common.collect.*;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -68,7 +68,7 @@ public class AlchemyAnalyzer {
         final RealTopic realTopic = topicService.createRealTopic(namedEntity.feelhubLanguage, namedEntity.tags.get(0), namedEntity.type);
         realTopic.setUserId(userId);
         for (final String tag : namedEntity.tags) {
-            realTopic.createTags(tag);
+            topicService.index(realTopic, tag);
         }
         return realTopic;
     }
@@ -121,5 +121,6 @@ public class AlchemyAnalyzer {
 
     private final AlchemyRelationBinder alchemyRelationBinder;
     private TopicService topicService;
+    private UserService userService;
     private final NamedEntityProvider namedEntityProvider;
 }

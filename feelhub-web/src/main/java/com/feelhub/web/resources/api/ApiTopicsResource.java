@@ -40,8 +40,8 @@ public class ApiTopicsResource extends ServerResource {
     }
 
     private List<TopicData> getTopicDatas(final List<Topic> topics) {
-        List<TopicData> results = Lists.newArrayList();
-        for (Topic topic : topics) {
+        final List<TopicData> results = Lists.newArrayList();
+        for (final Topic topic : topics) {
             results.add(topicDataFactory.getTopicData(topic, CurrentUser.get().getLanguage()));
         }
         return results;

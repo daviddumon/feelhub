@@ -1,7 +1,7 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.tag.*;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
@@ -236,20 +236,6 @@ public class TestsTopic {
         fakeTopic.setIllustrationLink(illustrationLink);
 
         assertThat(fakeTopic.getIllustrationLink()).isEqualTo(illustrationLink);
-    }
-
-    @Test
-    public void canCreateTags() {
-        bus.capture(TagRequestEvent.class);
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
-        final String referenceName = "name-reference";
-
-        fakeTopic.createTags(referenceName);
-
-        final TagRequestEvent tagRequestEvent = bus.lastEvent(TagRequestEvent.class);
-        assertThat(tagRequestEvent).isNotNull();
-        assertThat(tagRequestEvent.getTopic()).isEqualTo(fakeTopic);
-        assertThat(tagRequestEvent.getName()).isEqualTo(referenceName);
     }
 
     class FakeTopic extends Topic {

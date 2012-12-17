@@ -1,12 +1,12 @@
 package com.feelhub.domain.bingsearch;
 
+import com.feelhub.application.TopicService;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.relation.BingRelationBinder;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
-import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.UriException;
-import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -17,9 +17,9 @@ import java.util.List;
 public class BingSearch {
 
     @Inject
-    public BingSearch(final BingLink bingLink, final TopicFactory topicFactory, final BingRelationBinder bingRelationBinder) {
+    public BingSearch(final BingLink bingLink, final TopicService topicService, final BingRelationBinder bingRelationBinder) {
         this.bingLink = bingLink;
-        this.topicFactory = topicFactory;
+        this.topicService = topicService;
         this.bingRelationBinder = bingRelationBinder;
         DomainEventBus.INSTANCE.register(this);
     }
@@ -52,11 +52,9 @@ public class BingSearch {
     }
 
     private HttpTopic createImage(final String illustration) {
-        final HttpTopic image = topicFactory.createHttpTopic(illustration, MediaType.IMAGE_ALL);
+        final HttpTopic image = topicService.createHttpTopic(illustration, MediaType.IMAGE_ALL);
         image.setIllustrationLink(illustration);
         image.addName(FeelhubLanguage.none(), illustration);
-        image.createTags(illustration);
-        Repositories.topics().add(image);
         return image;
     }
 
@@ -67,6 +65,6 @@ public class BingSearch {
     }
 
     private final BingLink bingLink;
-    private final TopicFactory topicFactory;
+    private final TopicService topicService;
     private final BingRelationBinder bingRelationBinder;
 }

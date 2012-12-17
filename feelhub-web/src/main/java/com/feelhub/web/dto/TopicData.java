@@ -47,7 +47,7 @@ public class TopicData {
         }
 
         private String id = "";
-        private String illustrationLink = "";
+        private final String illustrationLink = "";
         private String name = "";
         private SentimentValue sentimentValue = SentimentValue.none;
         private TopicType type = UnusableTopicTypes.None;

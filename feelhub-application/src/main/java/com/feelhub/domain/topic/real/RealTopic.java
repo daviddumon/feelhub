@@ -35,7 +35,6 @@ public class RealTopic extends Topic {
     @Override
     public void addName(final FeelhubLanguage feelhubLanguage, final String name) {
         super.addName(feelhubLanguage, name);
-        createTags(name);
         findReference(feelhubLanguage, name);
         findImages(name);
     }

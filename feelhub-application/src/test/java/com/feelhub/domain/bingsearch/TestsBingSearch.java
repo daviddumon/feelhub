@@ -2,7 +2,6 @@ package com.feelhub.domain.bingsearch;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.relation.BingRelationBinder;
-import com.feelhub.domain.tag.TagIndexer;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicType;
@@ -40,7 +39,6 @@ public class TestsBingSearch {
                 bind(BingLink.class).to(FakeBingLink.class);
                 bind(SessionProvider.class).to(FakeSessionProvider.class);
                 bind(BingRelationBinder.class).toInstance(relationBinder);
-                bind(TagIndexer.class).asEagerSingleton();
                 bind(UriResolver.class).toInstance(fakeUriResolver);
             }
         });

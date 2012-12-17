@@ -3,7 +3,7 @@ package com.feelhub.application;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.relation.FeelingRelationBinder;
-import com.feelhub.repositories.*;
+import com.feelhub.repositories.Repositories;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 

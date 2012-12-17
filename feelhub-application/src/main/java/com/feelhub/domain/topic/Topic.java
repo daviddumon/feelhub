@@ -1,9 +1,6 @@
 package com.feelhub.domain.topic;
 
-import com.feelhub.application.*;
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.google.common.collect.*;
@@ -50,11 +47,6 @@ public abstract class Topic extends BaseEntity {
 
     public void addName(final FeelhubLanguage feelhubLanguage, final String name) {
         names.put(feelhubLanguage.getCode(), WordUtils.capitalizeFully(name));
-    }
-
-    public void createTags(final String valueToIndex) {
-        final TagRequestEvent event = new TagRequestEvent(this, valueToIndex);
-
     }
 
     public String getName(final FeelhubLanguage feelhubLanguage) {

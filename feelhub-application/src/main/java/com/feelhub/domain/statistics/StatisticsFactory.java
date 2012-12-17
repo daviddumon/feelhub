@@ -3,7 +3,7 @@ package com.feelhub.domain.statistics;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.topic.world.WorldStatisticsEvent;
-import com.feelhub.repositories.*;
+import com.feelhub.repositories.Repositories;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import org.joda.time.DateTime;

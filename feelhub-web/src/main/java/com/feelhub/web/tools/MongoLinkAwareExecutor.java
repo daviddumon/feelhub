@@ -4,9 +4,7 @@ import com.feelhub.repositories.SessionProvider;
 import com.google.inject.Inject;
 import org.apache.log4j.Logger;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class MongoLinkAwareExecutor implements Executor {
 
@@ -29,8 +27,7 @@ public class MongoLinkAwareExecutor implements Executor {
                 sessionProvider.start();
                 try {
                     runnable.run();
-                }
-                finally {
+                } finally {
                     LOGGER.debug("Stopping session for async service");
                     sessionProvider.stop();
                 }

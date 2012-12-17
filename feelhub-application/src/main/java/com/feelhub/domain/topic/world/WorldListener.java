@@ -3,7 +3,6 @@ package com.feelhub.domain.topic.world;
 import com.feelhub.application.WorldService;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.repositories.SessionProvider;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 

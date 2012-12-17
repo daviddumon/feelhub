@@ -2,7 +2,6 @@ package com.feelhub.domain.topic.real;
 
 import com.feelhub.domain.bingsearch.BingRequest;
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.tag.TagRequestEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.translation.ReferenceTranslationRequestEvent;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -109,20 +108,6 @@ public class TestsRealTopic {
         assertThat(bingRequest).isNotNull();
         assertThat(bingRequest.getQuery()).isEqualTo("Description-es");
         assertThat(bingRequest.getTopic()).isEqualTo(topic);
-    }
-
-    @Test
-    public void requestTagCreationWhenAddingName() {
-        bus.capture(TagRequestEvent.class);
-        final RealTopic topic = new RealTopic(UUID.randomUUID(), untranslatableType());
-        final String referenceName = "name-reference";
-
-        topic.addName(FeelhubLanguage.reference(), referenceName);
-
-        final TagRequestEvent tagRequestEvent = bus.lastEvent(TagRequestEvent.class);
-        assertThat(tagRequestEvent).isNotNull();
-        assertThat(tagRequestEvent.getTopic()).isEqualTo(topic);
-        assertThat(tagRequestEvent.getName()).isEqualTo(referenceName);
     }
 
     private RealTopicType translatableType() {

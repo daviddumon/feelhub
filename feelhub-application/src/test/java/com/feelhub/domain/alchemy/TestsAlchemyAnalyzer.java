@@ -1,7 +1,7 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.tag.*;
+import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.domain.topic.real.RealTopic;
@@ -36,7 +36,6 @@ public class TestsAlchemyAnalyzer {
                 bind(SessionProvider.class).to(FakeSessionProvider.class);
                 bind(NamedEntityProvider.class).toInstance(entityProvider);
                 bind(Translator.class).to(FakeTranslator.class);
-                bind(TagIndexer.class).asEagerSingleton();
             }
         });
         injector.getInstance(AlchemyAnalyzer.class);

@@ -2,7 +2,7 @@ package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.user.*;
-import com.feelhub.repositories.*;
+import com.feelhub.repositories.Repositories;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 

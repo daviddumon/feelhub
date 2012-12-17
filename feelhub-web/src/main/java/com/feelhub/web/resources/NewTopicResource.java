@@ -39,13 +39,13 @@ public class NewTopicResource extends ServerResource {
     }
 
     private List<String> getUsableTypes(final String name) {
-        List<String> types = Lists.newArrayList();
+        final List<String> types = Lists.newArrayList();
         List<String> forbiddenTypes = Lists.newArrayList();
         try {
             forbiddenTypes = getForbiddenTypes(name);
         } catch (TagNotFoundException e) {
         }
-        for (RealTopicType type : RealTopicType.values()) {
+        for (final RealTopicType type : RealTopicType.values()) {
             if (!forbiddenTypes.contains(type.toString())) {
                 types.add(type.toString());
             }
@@ -55,8 +55,8 @@ public class NewTopicResource extends ServerResource {
 
     private List<String> getForbiddenTypes(final String name) {
         final List<Topic> topics = topicService.getTopics(name);
-        List<String> forbiddenTypes = Lists.newArrayList();
-        for (Topic topic : topics) {
+        final List<String> forbiddenTypes = Lists.newArrayList();
+        for (final Topic topic : topics) {
             try {
                 if (topic.getType().hasTagUniqueness()) {
                     forbiddenTypes.add(topic.getType().toString());

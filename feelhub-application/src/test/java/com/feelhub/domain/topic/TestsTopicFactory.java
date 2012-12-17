@@ -1,21 +1,16 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.domain.topic.world.WorldTopic;
-import com.feelhub.repositories.*;
-import com.feelhub.repositories.fakeRepositories.*;
+import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
 import com.google.inject.*;
 import org.junit.*;
-import org.junit.rules.ExpectedException;
 import org.restlet.data.MediaType;
-
-import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -30,20 +25,12 @@ public class TestsTopicFactory {
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     @Before
     public void before() {
-        final FakeUriResolver fakeUriResolver = new FakeUriResolver();
-        canonicalUri = "http://www.urlcanonique.com";
-        fakeUriResolver.thatFind(canonicalUri);
+        canonicalUri = new Uri("http://www.fakeurl.com");
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
-                bind(UriResolver.class).toInstance(fakeUriResolver);
-                bind(TagIndexer.class).asEagerSingleton();
-                bind(SessionProvider.class).to(FakeSessionProvider.class);
             }
         });
         topicFactory = injector.getInstance(TopicFactory.class);
@@ -61,7 +48,10 @@ public class TestsTopicFactory {
 
     @Test
     public void canCreateHttpTopic() {
-        final HttpTopic httpTopic = topicFactory.createHttpTopic("http://www.url.com");
+        final ResolverResult resolverResult = new ResolverResult();
+        resolverResult.setMediaType(MediaType.TEXT_HTML);
+        resolverResult.addUriToPath(canonicalUri);
+        final HttpTopic httpTopic = topicFactory.createHttpTopic("http://www.url.com", resolverResult);
 
         assertThat(httpTopic).isNotNull();
         assertThat(httpTopic.getType()).isEqualTo(HttpTopicType.Website);
@@ -69,18 +59,13 @@ public class TestsTopicFactory {
 
     @Test
     public void addCanonicalUriForHttpTopic() {
-        final HttpTopic httpTopic = topicFactory.createHttpTopic("http://www.url.com");
+        final ResolverResult resolverResult = new ResolverResult();
+        resolverResult.setMediaType(MediaType.TEXT_HTML);
+        resolverResult.addUriToPath(canonicalUri);
+        final HttpTopic httpTopic = topicFactory.createHttpTopic("http://www.url.com", resolverResult);
 
         assertThat(httpTopic.getUris().size()).isEqualTo(1);
-        assertThat(httpTopic.getUris()).contains(new Uri(canonicalUri));
-    }
-
-    @Test
-    public void createTagsForHttpTopic() {
-        topicFactory.createHttpTopic("http://www.url.com");
-
-        final List<Tag> tags = Repositories.tags().getAll();
-        assertThat(tags.size()).isEqualTo(8);
+        assertThat(httpTopic.getUris()).contains(canonicalUri);
     }
 
     @Test
@@ -90,13 +75,6 @@ public class TestsTopicFactory {
         assertThat(worldTopic).isNotNull();
     }
 
-    @Test
-    public void canSpecifyRestrictedMimeType() {
-        exception.expect(TopicException.class);
-
-        topicFactory.createHttpTopic("http://www.url.com", MediaType.IMAGE_ALL);
-    }
-
     private TopicFactory topicFactory;
-    private String canonicalUri;
+    private Uri canonicalUri;
 }

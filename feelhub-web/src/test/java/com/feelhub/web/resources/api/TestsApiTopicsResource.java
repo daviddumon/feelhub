@@ -135,7 +135,7 @@ public class TestsApiTopicsResource {
         tag.addTopic(topic1);
         final RealTopic topic2 = TestFactories.topics().newCompleteRealTopic();
         tag.addTopic(topic2);
-        List<Topic> topics = Lists.newArrayList();
+        final List<Topic> topics = Lists.newArrayList();
         topics.add(topic1);
         topics.add(topic2);
         when(topicService.getTopics(tag.getId())).thenReturn(topics);
