@@ -8,11 +8,13 @@ import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
+import com.google.inject.Injector;
 import org.junit.*;
 
 import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class TestsTopic {
 
@@ -66,6 +68,17 @@ public class TestsTopic {
         oldTopic.changeCurrentId(newTopic.getId());
 
         assertThat(tag.getTopicIds()).contains(newTopic.getId());
+    }
+
+    @Test
+    public void mergeOnlyIfDifferent() {
+        final HttpTopic topic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Article);
+        final TopicMerger topicMerger = mock(TopicMerger.class);
+        topic.setTopicMerger(topicMerger);
+
+        topic.changeCurrentId(topic.getId());
+
+        verify(topicMerger, never()).merge(any(UUID.class), any(UUID.class));
     }
 
     @Test
@@ -250,4 +263,6 @@ public class TestsTopic {
             return null;
         }
     }
+
+    private Injector injector;
 }

@@ -12,6 +12,8 @@ import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.SystemTime;
 import com.google.inject.*;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
+import org.restlet.data.MediaType;
 
 import java.util.List;
 
@@ -27,6 +29,9 @@ public class TestsTopicFactory {
 
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void before() {
@@ -83,6 +88,13 @@ public class TestsTopicFactory {
         final WorldTopic worldTopic = topicFactory.createWorldTopic();
 
         assertThat(worldTopic).isNotNull();
+    }
+
+    @Test
+    public void canSpecifyRestrictedMimeType() {
+        exception.expect(TopicException.class);
+
+        topicFactory.createHttpTopic("http://www.url.com", MediaType.IMAGE_ALL);
     }
 
     private TopicFactory topicFactory;

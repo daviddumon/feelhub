@@ -4,12 +4,13 @@ import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.relation.BingRelationBinder;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
-import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.UriException;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
+import org.restlet.data.MediaType;
 
 import java.util.List;
 
@@ -44,13 +45,14 @@ public class BingSearch {
                 final HttpTopic image = createImage(illustration);
                 images.add(image);
             } catch (UriException e) {
+            } catch (TopicException e) {
             }
         }
         return images;
     }
 
     private HttpTopic createImage(final String illustration) {
-        final HttpTopic image = topicFactory.createHttpTopic(illustration);
+        final HttpTopic image = topicFactory.createHttpTopic(illustration, MediaType.IMAGE_ALL);
         image.setIllustrationLink(illustration);
         image.addName(FeelhubLanguage.none(), illustration);
         image.createTags(illustration);

@@ -64,6 +64,19 @@ public class TestsTagIndexer {
     }
 
     @Test
+    public void doNotAddDoubleUniqueId() {
+        final FakeTopic newTopic = new FakeTopic(UUID.randomUUID(), FakeUniqueTopicType.Unique);
+        Repositories.topics().add(newTopic);
+        final String tag = "tag-fr";
+        createTagForFakeUniqueTopic(tag);
+        final TagRequestEvent tagRequestEvent = new TagRequestEvent(newTopic, tag);
+
+        DomainEventBus.INSTANCE.post(tagRequestEvent);
+
+        assertThat(Repositories.tags().getAll().get(0).getTopicIds().size()).isEqualTo(1);
+    }
+
+    @Test
     public void canUseExistingTag() {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID(), FakeUniqueTopicType.NotUnique);
         final String tag = "tag-fr";

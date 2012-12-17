@@ -1,8 +1,9 @@
 package com.feelhub.domain.topic;
 
+import com.feelhub.application.*;
 import com.feelhub.domain.BaseEntity;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.tag.TagRequestEvent;
+import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.google.common.collect.*;
@@ -31,9 +32,10 @@ public abstract class Topic extends BaseEntity {
     }
 
     public void changeCurrentId(final UUID currentId) {
-        this.currentId = currentId;
-        final TopicMerger topicMerger = new TopicMerger();
-        topicMerger.merge(this.getCurrentId(), this.getId());
+        if (!currentId.equals(this.currentId)) {
+            this.currentId = currentId;
+            topicMerger.merge(this.getCurrentId(), this.getId());
+        }
     }
 
     public abstract TopicType getType();
@@ -51,7 +53,8 @@ public abstract class Topic extends BaseEntity {
     }
 
     public void createTags(final String valueToIndex) {
-        DomainEventBus.INSTANCE.post(new TagRequestEvent(this, valueToIndex));
+        final TagRequestEvent event = new TagRequestEvent(this, valueToIndex);
+
     }
 
     public String getName(final FeelhubLanguage feelhubLanguage) {
@@ -114,6 +117,10 @@ public abstract class Topic extends BaseEntity {
         this.illustrationLink = illustrationLink;
     }
 
+    public void setTopicMerger(final TopicMerger topicMerger) {
+        this.topicMerger = topicMerger;
+    }
+
     protected UUID id;
     protected UUID currentId;
     private UUID userId;
@@ -122,4 +129,5 @@ public abstract class Topic extends BaseEntity {
     private final List<String> subTypes = Lists.newArrayList();
     private final List<Uri> uris = Lists.newArrayList();
     private String illustrationLink = "";
+    private TopicMerger topicMerger = new TopicMerger();
 }

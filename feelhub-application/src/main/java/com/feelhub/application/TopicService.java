@@ -68,6 +68,7 @@ public class TopicService {
     }
 
     public HttpTopic createHttpTopic() {
+        // APPELER URI RESOLVER ICI PUIS LA FACTORY
         return null;
     }
 

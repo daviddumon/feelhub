@@ -1,7 +1,6 @@
 package com.feelhub.domain.tag;
 
-import com.feelhub.application.TagService;
-import com.feelhub.application.TopicService;
+import com.feelhub.application.*;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.topic.Topic;
 import com.google.common.eventbus.Subscribe;
@@ -28,13 +27,13 @@ public class TagIndexer {
 
     private void index(final Topic topic, final Tag tag) {
         if (topic.getType().hasTagUniqueness()) {
-            addIfNotPresent(topic, tag);
+            addTopicIfNotPresent(topic, tag);
         } else {
             addTopicToTag(topic, tag);
         }
     }
 
-    private void addIfNotPresent(final Topic topic, final Tag tag) {
+    private void addTopicIfNotPresent(final Topic topic, final Tag tag) {
         for (final UUID id : tag.getTopicIds()) {
             final Topic existingTopic = topicService.lookUpCurrent(id);
             if (existingTopic.getType().equals(topic.getType())) {
