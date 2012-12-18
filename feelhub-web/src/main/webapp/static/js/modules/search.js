@@ -1,4 +1,4 @@
-define(['jquery', 'view/search/search-command-web-view', 'view/search/search-command-real-view'], function ($, webview, realview) {
+define(['jquery', 'view/search/search-command-http-view', 'view/search/search-command-real-view'], function ($, httpview, realview) {
 
     var api_end_point = "/api/topics?q=" + q;
     var command_container = "#command";
@@ -18,14 +18,13 @@ define(['jquery', 'view/search/search-command-web-view', 'view/search/search-com
         }
 
         function error() {
-            // update flow
-            createCommand();
+            console.log("error" + api_end_point);
         }
 
         function createCommand() {
             if (authentificated) {
                 if (type == 'http') {
-                    webview.render(command_container);
+                    httpview.render(command_container);
                 } else if (type == 'real') {
                     realview.render(command_container);
                 }

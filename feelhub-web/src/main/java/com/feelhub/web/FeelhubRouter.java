@@ -23,6 +23,8 @@ public class FeelhubRouter extends Router {
     }
 
     private void attachResources() {
+
+        // API
         attach("/api/topics", ApiTopicsResource.class);
         attach("/api/topic/{topicId}/statistics", ApiTopicStatisticsResource.class);
         attach("/api/topic/{topicId}/related", ApiTopicRelatedResource.class);
@@ -30,11 +32,8 @@ public class FeelhubRouter extends Router {
         attach("/api/topic/{topicId}/feeling/{feelingId}/new", ApiTopicNewFeelingsResource.class);
         attach("/api/feelings", ApiFeelingsResource.class);
 
+        // WEB
         attach("/topic/{id}", TopicResource.class);
-
-        attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
-        attach("/admin/events", AdminEventsResource.class);
-
         attach("/signup", SignupResource.class);
         attach("/sessions", SessionsResource.class);
         attach("/activation/{secret}", ActivationResource.class);
@@ -44,13 +43,15 @@ public class FeelhubRouter extends Router {
         attach("/search", SearchResource.class);
         attach("/newtopic", NewTopicResource.class);
         attach("/analyze", AnalyzeTopicResource.class);
-
         attach("/sitemap_index_{number}.xml", FeelhubSitemapIndexResource.class);
         attach("/sitemap_{number}.xml", FeelhubSitemapResource.class);
         attach("/social/facebook", FacebookResource.class);
         attach("/social/welcome", SocialWelcomeResource.class);
-
         attach("/", HomeResource.class);
+
+        //ADMIN
+        attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
+        attach("/admin/events", AdminEventsResource.class);
     }
 
     private void attachEncodedValue(final String pathTemplate, final Class<? extends ServerResource> targetClass) {

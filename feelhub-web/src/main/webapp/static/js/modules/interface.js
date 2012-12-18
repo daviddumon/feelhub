@@ -6,11 +6,18 @@ define(['jquery'], function ($) {
             $.ajax({
                 url:root + '/sessions',
                 type:'DELETE',
-                success:function (data, status, jqXHR) {
-                    location.reload();
-                }
+                success:success,
+                error:error
             });
         });
+    }
+
+    function success() {
+        document.location.reload();
+    }
+
+    function error() {
+        console.log("error while logging out.")
     }
 
     return {
