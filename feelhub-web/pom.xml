@@ -3,7 +3,7 @@
 
     <parent>
         <groupId>com.feelhub</groupId>
-        <artifactId>feelhub-parent</artifactId>
+        <artifactId>feelhub</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
