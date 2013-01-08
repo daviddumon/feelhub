@@ -3,7 +3,7 @@ package com.feelhub.web.dto;
 import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.world.UnusableTopicTypes;
+import com.feelhub.domain.topic.UnusableTopicTypes;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
@@ -39,14 +39,14 @@ public class TestsTopicData {
         //
         //final TopicData topicData = new TopicData.Builder().illustration(illustration).build();
         //
-        //assertThat(topicData.getIllustrationLink()).isEqualTo(illustration.getLink());
+        //assertThat(topicData.getIllustration()).isEqualTo(illustration.getLink());
     }
 
     @Test
     public void illustrationLinkDefaultValueIsEmpty() {
         final TopicData topicData = new TopicData.Builder().build();
 
-        assertThat(topicData.getIllustrationLink()).isEmpty();
+        assertThat(topicData.getIllustration()).isEmpty();
     }
 
     @Test
@@ -133,7 +133,7 @@ public class TestsTopicData {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final TopicData topicData = new TopicData.Builder().id(realTopic.getId()).type(realTopic.getType()).build();
 
-        assertThat(topicData.toString()).isEqualTo("{\"sentimentValue\":{},\"id\":\"" + realTopic.getId() + "\",\"illustrationLink\":\"\",\"urls\":[],\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
+        assertThat(topicData.toString()).isEqualTo("{\"sentimentValue\":{},\"id\":\"" + realTopic.getId() + "\",\"urls\":[],\"illustration\":\"\",\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
     }
 
 }

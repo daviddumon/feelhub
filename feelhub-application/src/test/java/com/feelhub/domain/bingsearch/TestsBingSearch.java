@@ -57,7 +57,7 @@ public class TestsBingSearch {
         assertThat(Repositories.topics().getAll().size()).isEqualTo(1);
         final Topic image = Repositories.topics().getAll().get(0);
         assertThat(image.getType()).isEqualTo(HttpTopicType.Image);
-        assertThat(image.getIllustrationLink()).isEqualTo("query Automobilelink");
+        assertThat(image.getIllustration()).isEqualTo("query Automobilelink");
         assertThat(image.getName(FeelhubLanguage.none())).isEqualTo(WordUtils.capitalizeFully("query Automobilelink"));
         assertThat(image.getUris()).contains(new Uri("query Automobilelink"));
     }
@@ -83,7 +83,7 @@ public class TestsBingSearch {
 
         DomainEventBus.INSTANCE.post(bingRequest);
 
-        assertThat(realTopic.getIllustrationLink()).isEqualTo("query Automobilelink");
+        assertThat(realTopic.getIllustration()).isEqualTo("query Automobilelink");
     }
 
     private BingSearch bingSearch;

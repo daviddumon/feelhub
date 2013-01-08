@@ -94,4 +94,11 @@ public class TopicTestFactory {
         Repositories.topics().add(worldTopic);
         return worldTopic;
     }
+
+    public HttpTopic newMediaTopic() {
+        final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
+        httpTopic.setType(HttpTopicType.Image);
+        Repositories.topics().add(httpTopic);
+        return httpTopic;
+    }
 }

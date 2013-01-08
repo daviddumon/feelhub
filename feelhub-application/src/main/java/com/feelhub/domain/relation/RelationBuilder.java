@@ -32,7 +32,20 @@ public class RelationBuilder {
     }
 
     private void createNewRelation(final Topic from, final Topic to, final double additionalWeight) {
-        final Relation relation = relationFactory.newRelation(from, to, additionalWeight);
+        if (to.getType().isMedia()) {
+            createMediaRelation(from, to);
+        } else {
+            createRelatedRelation(from, to, additionalWeight);
+        }
+    }
+
+    private void createMediaRelation(final Topic from, final Topic to) {
+        final Media media = relationFactory.newMedia(from, to);
+        Repositories.relations().add(media);
+    }
+
+    private void createRelatedRelation(final Topic from, final Topic to, final double additionalWeight) {
+        final Relation relation = relationFactory.newRelated(from, to, additionalWeight);
         Repositories.relations().add(relation);
     }
 

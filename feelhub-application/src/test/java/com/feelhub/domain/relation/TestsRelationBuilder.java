@@ -1,5 +1,6 @@
 package com.feelhub.domain.relation;
 
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -9,8 +10,7 @@ import org.junit.*;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsRelationBuilder {
 
@@ -35,23 +35,23 @@ public class TestsRelationBuilder {
         relationBuilder.connectTwoWays(from, to);
 
         final List<Relation> relations = Repositories.relations().getAll();
-        assertThat(relations.size(), is(2));
-        assertThat(relations.get(0).getWeight(), is(1.0));
-        assertThat(relations.get(1).getWeight(), is(1.0));
+        assertThat(relations.size()).isEqualTo(2);
+        assertThat(relations.get(0).getWeight()).isEqualTo(1.0);
+        assertThat(relations.get(1).getWeight()).isEqualTo(1.0);
     }
 
     @Test
     public void canConnectTwoTopicsWithAnExistingOneWayRelation() {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelation(from.getId(), to.getId());
+        TestFactories.relations().newRelated(from.getId(), to.getId());
 
         relationBuilder.connectTwoWays(from, to);
 
         final List<Relation> relations = Repositories.relations().getAll();
-        assertThat(relations.size(), is(2));
-        assertThat(relations.get(0).getWeight(), is(2.0));
-        assertThat(relations.get(1).getWeight(), is(1.0));
+        assertThat(relations.size()).isEqualTo(2);
+        assertThat(relations.get(0).getWeight()).isEqualTo(2.0);
+        assertThat(relations.get(1).getWeight()).isEqualTo(1.0);
     }
 
     @Test
@@ -61,7 +61,31 @@ public class TestsRelationBuilder {
         relationBuilder.connectTwoWays(realTopic, realTopic);
 
         final List<Relation> relations = Repositories.relations().getAll();
-        assertThat(relations.size(), is(0));
+        assertThat(relations.size()).isZero();
+    }
+
+    @Test
+    public void canCreateRelatedRelations() {
+        final RealTopic from = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic to = TestFactories.topics().newCompleteRealTopic();
+
+        relationBuilder.connectTwoWays(from, to);
+
+        final List<Relation> relations = Repositories.relations().getAll();
+        assertThat(relations.get(0).getClass()).isEqualTo(Related.class);
+        assertThat(relations.get(1).getClass()).isEqualTo(Related.class);
+    }
+
+    @Test
+    public void canCreateMediaRelations() {
+        final RealTopic from = TestFactories.topics().newCompleteRealTopic();
+        final HttpTopic to = TestFactories.topics().newMediaTopic();
+
+        relationBuilder.connectTwoWays(from, to);
+
+        final List<Relation> relations = Repositories.relations().getAll();
+        assertThat(relations.get(0).getClass()).isEqualTo(Media.class);
+        assertThat(relations.get(1).getClass()).isEqualTo(Related.class);
     }
 
     private RelationBuilder relationBuilder;

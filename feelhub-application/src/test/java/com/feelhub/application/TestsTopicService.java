@@ -214,6 +214,11 @@ public class TestsTopicService {
             return isUnique;
         }
 
+        @Override
+        public boolean isMedia() {
+            return false;
+        }
+
         private final boolean isUnique;
     }
 

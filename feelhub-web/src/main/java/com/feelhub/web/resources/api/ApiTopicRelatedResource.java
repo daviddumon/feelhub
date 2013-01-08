@@ -77,8 +77,8 @@ public class ApiTopicRelatedResource extends ServerResource {
 
     private void addTopicData(final Relation relation) {
         try {
-            final Topic realTopic = topicService.lookUpCurrent(relation.getToId());
-            final TopicData topicData = topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage());
+            final Topic topic = topicService.lookUpCurrent(relation.getToId());
+            final TopicData topicData = topicDataFactory.getTopicData(topic, CurrentUser.get().getLanguage());
             topicDataList.add(topicData);
         } catch (TopicNotFound e) {
             throw new FeelhubApiException();

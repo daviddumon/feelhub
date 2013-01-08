@@ -61,9 +61,9 @@ public class TopicMerger {
     }
 
     private void mergeIllustrationLink(final Topic newTopic, final Topic oldTopic) {
-        if (newTopic.getIllustrationLink().isEmpty()) {
-            if (!oldTopic.getIllustrationLink().isEmpty()) {
-                newTopic.setIllustrationLink(oldTopic.getIllustrationLink());
+        if (newTopic.getIllustration().isEmpty()) {
+            if (!oldTopic.getIllustration().isEmpty()) {
+                newTopic.setIllustration(oldTopic.getIllustration());
             }
         }
     }

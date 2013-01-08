@@ -101,12 +101,12 @@ public abstract class Topic extends BaseEntity {
         uris.add(uri);
     }
 
-    public String getIllustrationLink() {
-        return illustrationLink;
+    public String getIllustration() {
+        return illustration;
     }
 
-    public void setIllustrationLink(final String illustrationLink) {
-        this.illustrationLink = illustrationLink;
+    public void setIllustration(final String illustration) {
+        this.illustration = illustration;
     }
 
     public void setTopicMerger(final TopicMerger topicMerger) {
@@ -120,6 +120,6 @@ public abstract class Topic extends BaseEntity {
     private final Map<String, String> descriptions = Maps.newHashMap();
     private final List<String> subTypes = Lists.newArrayList();
     private final List<Uri> uris = Lists.newArrayList();
-    private String illustrationLink = "";
+    private String illustration = "";
     private TopicMerger topicMerger = new TopicMerger();
 }

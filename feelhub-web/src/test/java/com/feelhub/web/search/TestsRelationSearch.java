@@ -23,7 +23,7 @@ public class TestsRelationSearch extends TestWithMongoRepository {
     public void canGetARelation() {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelation(from.getId(), to.getId());
+        TestFactories.relations().newRelated(from.getId(), to.getId());
 
         final List<Relation> relations = relationSearch.execute();
 
@@ -34,8 +34,8 @@ public class TestsRelationSearch extends TestWithMongoRepository {
     public void canGetARelationForATopic() {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelation(from.getId(), to.getId());
-        TestFactories.relations().newRelations(10);
+        TestFactories.relations().newRelated(from.getId(), to.getId());
+        TestFactories.relations().newRelatedList(10);
 
         final List<Relation> relations = relationSearch.withTopicId(from.getId()).execute();
 
@@ -47,8 +47,8 @@ public class TestsRelationSearch extends TestWithMongoRepository {
     @Test
     public void canGetRelationsForATopic() {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelations(10, from.getId());
-        TestFactories.relations().newRelations(20);
+        TestFactories.relations().newRelatedList(10, from.getId());
+        TestFactories.relations().newRelatedList(20);
 
         final List<Relation> relations = relationSearch.withTopicId(from.getId()).execute();
 
@@ -58,8 +58,8 @@ public class TestsRelationSearch extends TestWithMongoRepository {
     @Test
     public void canLimitResults() {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelations(20);
-        TestFactories.relations().newRelations(10, from.getId());
+        TestFactories.relations().newRelatedList(20);
+        TestFactories.relations().newRelatedList(10, from.getId());
 
         final List<Relation> relations = relationSearch.withTopicId(from.getId()).withLimit(5).execute();
 
@@ -75,7 +75,7 @@ public class TestsRelationSearch extends TestWithMongoRepository {
     @Ignore
     public void canOrderWithWeight() {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelations(5, from.getId());
+        TestFactories.relations().newRelatedList(5, from.getId());
 
         final List<Relation> relations = relationSearch.withSort("weight", Order.DESCENDING).execute();
 
@@ -90,7 +90,7 @@ public class TestsRelationSearch extends TestWithMongoRepository {
     @Test
     public void canSkipResults() {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelations(5, from.getId());
+        TestFactories.relations().newRelatedList(5, from.getId());
 
         final List<Relation> relations = relationSearch.withSkip(2).execute();
 

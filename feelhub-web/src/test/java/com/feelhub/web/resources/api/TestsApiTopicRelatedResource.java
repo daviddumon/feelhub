@@ -68,7 +68,7 @@ public class TestsApiTopicRelatedResource {
 
     @Test
     public void canGetARelated() throws IOException, JSONException {
-        final Relation relation = TestFactories.relations().newRelation();
+        final Relation relation = TestFactories.relations().newRelated();
         final ClientResource relatedResource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/related?skip=0&limit=1");
 
         final Representation representation = relatedResource.get();
@@ -81,8 +81,8 @@ public class TestsApiTopicRelatedResource {
     @Test
     public void canGetRelatedForATopic() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelations(5, realTopic.getId());
-        TestFactories.relations().newRelations(20);
+        TestFactories.relations().newRelatedList(5, realTopic.getId());
+        TestFactories.relations().newRelatedList(20);
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related");
 
         final Representation representation = resource.get();
@@ -96,7 +96,7 @@ public class TestsApiTopicRelatedResource {
     @Test
     public void canGetRelatedWithSkip() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelations(5, realTopic.getId());
+        TestFactories.relations().newRelatedList(5, realTopic.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related?skip=2");
 
         final Representation representation = resource.get();
@@ -110,7 +110,7 @@ public class TestsApiTopicRelatedResource {
     @Test
     public void canGetRelatedWithLimit() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelations(5, realTopic.getId());
+        TestFactories.relations().newRelatedList(5, realTopic.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related?limit=2");
 
         final Representation representation = resource.get();
@@ -124,7 +124,7 @@ public class TestsApiTopicRelatedResource {
     @Test
     public void defaultLimitIs100() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelations(150, realTopic.getId());
+        TestFactories.relations().newRelatedList(150, realTopic.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related");
 
         final Representation representation = resource.get();
@@ -138,7 +138,7 @@ public class TestsApiTopicRelatedResource {
     @Test
     @Ignore
     public void canGetEmptyKeywordData() throws IOException, JSONException {
-        final Relation relation = TestFactories.relations().newRelation();
+        final Relation relation = TestFactories.relations().newRelated();
         final ClientResource resource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/related");
 
         final Representation representation = resource.get();
@@ -157,7 +157,7 @@ public class TestsApiTopicRelatedResource {
     public void canGetWithGoodIllustration() throws IOException, JSONException {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
-        final Relation relation = TestFactories.relations().newRelation(from.getId(), to.getId());
+        final Relation relation = TestFactories.relations().newRelated(from.getId(), to.getId());
         //final Illustration illustration = TestFactories.illustrations().newIllustration(to.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/related");
 

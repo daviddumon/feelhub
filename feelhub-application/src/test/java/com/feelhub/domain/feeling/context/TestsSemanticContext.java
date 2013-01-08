@@ -25,8 +25,8 @@ public class TestsSemanticContext {
         word2.addTopic(topic2);
         final Tag word3 = TestFactories.tags().newTag("word3");
         word3.addTopic(topic3);
-        TestFactories.relations().newRelation(topic1.getId(), topic2.getId());
-        TestFactories.relations().newRelation(topic1.getId(), topic3.getId());
+        TestFactories.relations().newRelated(topic1.getId(), topic2.getId());
+        TestFactories.relations().newRelated(topic1.getId(), topic3.getId());
 
         semanticContext.extractFor(topic1);
 

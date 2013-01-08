@@ -17,5 +17,10 @@ public enum GeoTopicType implements TopicType {
         return tagUniqueness;
     }
 
+    @Override
+    public boolean isMedia() {
+        return false;
+    }
+
     private final boolean tagUniqueness;
 }

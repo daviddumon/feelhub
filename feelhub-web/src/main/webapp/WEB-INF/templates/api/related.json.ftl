@@ -2,7 +2,7 @@
 <#list topicDataList as topicData>
 {
 "id":"${topicData.id}",
-"illustrationLink":"${topicData.illustrationLink}",
+"illustration":"${topicData.illustration}",
 "name":"${topicData.name}",
 "type":"${topicData.type}"
 }

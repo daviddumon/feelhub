@@ -1,7 +1,7 @@
 package com.feelhub.repositories.mapping;
 
-import com.feelhub.domain.relation.Relation;
-import org.mongolink.domain.mapper.AggregateMap;
+import com.feelhub.domain.relation.*;
+import org.mongolink.domain.mapper.*;
 
 public class RelationMapping extends AggregateMap<Relation> {
 
@@ -17,5 +17,19 @@ public class RelationMapping extends AggregateMap<Relation> {
         property(element().getWeight());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
+
+        subclass(new SubclassMap<Related>(Related.class) {
+
+            @Override
+            protected void map() {
+            }
+        });
+
+        subclass(new SubclassMap<Media>(Media.class) {
+
+            @Override
+            protected void map() {
+            }
+        });
     }
 }

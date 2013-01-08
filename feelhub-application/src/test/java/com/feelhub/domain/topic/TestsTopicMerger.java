@@ -67,8 +67,8 @@ public class TestsTopicMerger {
         final RealTopic newRealTopic = TestFactories.topics().newCompleteRealTopic("tag1");
         final RealTopic oldRealTopic = TestFactories.topics().newCompleteRealTopic("tag2");
         final RealTopic anotherRealTopic = TestFactories.topics().newCompleteRealTopic();
-        final Relation relation1 = TestFactories.relations().newRelation(oldRealTopic.getId(), anotherRealTopic.getId());
-        final Relation relation2 = TestFactories.relations().newRelation(anotherRealTopic.getId(), oldRealTopic.getId());
+        final Relation relation1 = TestFactories.relations().newRelated(oldRealTopic.getId(), anotherRealTopic.getId());
+        final Relation relation2 = TestFactories.relations().newRelated(anotherRealTopic.getId(), oldRealTopic.getId());
 
         topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
 
@@ -126,23 +126,23 @@ public class TestsTopicMerger {
     public void mergeIllustrationLinksIfEmpty() {
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
-        oldHttpTopic.setIllustrationLink("illustrationLink");
+        oldHttpTopic.setIllustration("illustrationLink");
 
         topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(httpTopic.getIllustrationLink()).isEqualTo(oldHttpTopic.getIllustrationLink());
+        assertThat(httpTopic.getIllustration()).isEqualTo(oldHttpTopic.getIllustration());
     }
 
     @Test
     public void doNotMergeIllustrationLinksIfExists() {
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
-        httpTopic.setIllustrationLink("weblink");
-        oldHttpTopic.setIllustrationLink("oldlink");
+        httpTopic.setIllustration("weblink");
+        oldHttpTopic.setIllustration("oldlink");
 
         topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(httpTopic.getIllustrationLink()).isEqualTo("weblink");
+        assertThat(httpTopic.getIllustration()).isEqualTo("weblink");
     }
 
     @Test

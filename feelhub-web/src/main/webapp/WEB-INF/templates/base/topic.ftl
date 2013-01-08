@@ -3,7 +3,7 @@
 "id":"${data.id}",
 "sentimentValue":"${data.sentimentValue}",
 "name":"${data.name}",
-"illustrationLink":"${data.illustrationLink}",
+"illustration":"${data.illustration}",
 "type":"${data.type}"
 }
 </#macro>

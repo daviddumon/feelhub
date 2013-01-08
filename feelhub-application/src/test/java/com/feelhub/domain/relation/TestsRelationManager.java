@@ -37,8 +37,8 @@ public class TestsRelationManager {
         final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
         final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
         final RealTopic realTopic3 = TestFactories.topics().newCompleteRealTopic();
-        final Relation relation1 = TestFactories.relations().newRelation(realTopic2.getId(), realTopic3.getId());
-        final Relation relation2 = TestFactories.relations().newRelation(realTopic3.getId(), realTopic2.getId());
+        final Relation relation1 = TestFactories.relations().newRelated(realTopic2.getId(), realTopic3.getId());
+        final Relation relation2 = TestFactories.relations().newRelated(realTopic3.getId(), realTopic2.getId());
         final TopicPatch topicPatch = new TopicPatch(realTopic1.getId());
         topicPatch.addOldTopicId(realTopic2.getId());
 
@@ -54,8 +54,8 @@ public class TestsRelationManager {
     public void canRemoveAutoRelation() {
         final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
         final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelation(realTopic1.getId(), realTopic2.getId());
-        TestFactories.relations().newRelation(realTopic2.getId(), realTopic1.getId());
+        TestFactories.relations().newRelated(realTopic1.getId(), realTopic2.getId());
+        TestFactories.relations().newRelated(realTopic2.getId(), realTopic1.getId());
         final TopicPatch topicPatch = new TopicPatch(realTopic1.getId());
         topicPatch.addOldTopicId(realTopic2.getId());
 
@@ -69,8 +69,8 @@ public class TestsRelationManager {
         final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
         final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
         final RealTopic realTopic3 = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelation(realTopic1.getId(), realTopic2.getId());
-        TestFactories.relations().newRelation(realTopic3.getId(), realTopic2.getId());
+        TestFactories.relations().newRelated(realTopic1.getId(), realTopic2.getId());
+        TestFactories.relations().newRelated(realTopic3.getId(), realTopic2.getId());
         final TopicPatch topicPatch = new TopicPatch(realTopic1.getId());
         topicPatch.addOldTopicId(realTopic3.getId());
 

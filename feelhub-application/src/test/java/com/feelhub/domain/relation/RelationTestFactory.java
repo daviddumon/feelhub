@@ -7,32 +7,32 @@ import java.util.UUID;
 
 public class RelationTestFactory {
 
-    public Relation newRelation() {
-        return newRelation(TestFactories.topics().newCompleteRealTopic().getId(), TestFactories.topics().newCompleteRealTopic().getId());
+    public Related newRelated() {
+        return newRelated(TestFactories.topics().newCompleteRealTopic().getId(), TestFactories.topics().newCompleteRealTopic().getId());
     }
 
-    public Relation newRelation(final UUID fromId, final UUID toId) {
-        return newRelation(fromId, toId, 1);
+    public Related newRelated(final UUID fromId, final UUID toId) {
+        return newRelated(fromId, toId, 1);
     }
 
-    public Relation newRelation(final UUID fromId, final UUID toId, final int weight) {
-        final Relation relation = new Relation(fromId, toId, 1.0);
-        relation.setWeight(weight);
-        Repositories.relations().add(relation);
-        return relation;
+    private Related newRelated(final UUID fromId, final UUID toId, final int weight) {
+        final Related related = new Related(fromId, toId, 1.0);
+        related.setWeight(weight);
+        Repositories.relations().add(related);
+        return related;
     }
 
-    public void newRelations(final int quantity) {
-        newRelations(quantity, TestFactories.topics().newCompleteRealTopic().getId());
+    public void newRelatedList(final int quantity) {
+        newRelatedList(quantity, TestFactories.topics().newCompleteRealTopic().getId());
     }
 
-    public void newRelations(final int quantity, final UUID fromid) {
+    public void newRelatedList(final int quantity, final UUID fromid) {
         for (int i = 0; i < quantity; i++) {
-            createARelation(fromid, i);
+            createARelated(fromid, i);
         }
     }
 
-    private void createARelation(final UUID fromId, final int weight) {
-        newRelation(fromId, TestFactories.topics().newCompleteRealTopic().getId(), weight);
+    private void createARelated(final UUID fromId, final int weight) {
+        newRelated(fromId, TestFactories.topics().newCompleteRealTopic().getId(), weight);
     }
 }

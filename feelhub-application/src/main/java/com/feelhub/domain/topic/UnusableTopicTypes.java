@@ -1,6 +1,4 @@
-package com.feelhub.domain.topic.world;
-
-import com.feelhub.domain.topic.TopicType;
+package com.feelhub.domain.topic;
 
 public enum UnusableTopicTypes implements TopicType {
 
@@ -8,6 +6,11 @@ public enum UnusableTopicTypes implements TopicType {
 
     @Override
     public boolean hasTagUniqueness() {
+        return false;
+    }
+
+    @Override
+    public boolean isMedia() {
         return false;
     }
 }

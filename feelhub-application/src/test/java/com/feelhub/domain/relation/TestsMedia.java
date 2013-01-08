@@ -8,7 +8,7 @@ import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
 
-public class TestsRelation {
+public class TestsMedia {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -26,35 +26,40 @@ public class TestsRelation {
         relationFactory = injector.getInstance(RelationFactory.class);
         from = TestFactories.topics().newCompleteRealTopic();
         to = TestFactories.topics().newCompleteRealTopic();
-        relation = relationFactory.newRelation(from, to, 1.0);
+        media = relationFactory.newMedia(from, to);
     }
 
     @Test
     public void canGetFromId() {
-        assertThat(relation.getFromId()).isEqualTo(from.getId());
+        assertThat(media.getFromId()).isEqualTo(from.getId());
     }
 
     @Test
     public void canGetFrom() {
-        assertThat(relation.getFrom()).isEqualTo(from);
+        assertThat(media.getFrom()).isEqualTo(from);
     }
 
     @Test
     public void canGetToId() {
-        assertThat(relation.getToId()).isEqualTo(to.getId());
+        assertThat(media.getToId()).isEqualTo(to.getId());
     }
 
     @Test
     public void canGetTo() {
-        assertThat(relation.getTo()).isEqualTo(to);
+        assertThat(media.getTo()).isEqualTo(to);
     }
 
     @Test
     public void hasACreationDate() {
-        assertThat(relation.getCreationDate()).isEqualTo(time.getNow());
+        assertThat(media.getCreationDate()).isEqualTo(time.getNow());
     }
 
-    private Relation relation;
+    @Test
+    public void weightIsZero() {
+        assertThat(media.getWeight()).isZero();
+    }
+
+    private Media media;
     private Topic to;
     private Topic from;
     private RelationFactory relationFactory;

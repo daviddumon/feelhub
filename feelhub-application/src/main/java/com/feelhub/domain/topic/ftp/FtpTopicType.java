@@ -10,4 +10,9 @@ public enum FtpTopicType implements TopicType {
     public boolean hasTagUniqueness() {
         return true;
     }
+
+    @Override
+    public boolean isMedia() {
+        return false;
+    }
 }

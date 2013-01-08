@@ -154,7 +154,7 @@ public class TestsSentimentExtractor {
         word1.addTopic(topic1);
         final Tag word2 = TestFactories.tags().newTag("word2");
         word2.addTopic(topic2);
-        TestFactories.relations().newRelation(topic1.getId(), topic2.getId());
+        TestFactories.relations().newRelated(topic1.getId(), topic2.getId());
         semanticContext.extractFor(topic1);
 
         testTest("J'aime les word2", SentimentValue.none, "word2", semanticContext);

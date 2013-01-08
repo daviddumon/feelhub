@@ -98,7 +98,7 @@ public class TestsTopicResource {
         final ModelAndView modelAndView = topicResource.getTopic();
 
         final TopicData topicData = modelAndView.getData("topicData");
-        //assertThat(topicData.getIllustrationLink()).isEqualTo(illustration.getLink());
+        //assertThat(topicData.getIllustration()).isEqualTo(illustration.getLink());
     }
 
     @Test

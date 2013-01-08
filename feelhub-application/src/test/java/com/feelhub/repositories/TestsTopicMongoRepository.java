@@ -66,7 +66,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("uris")).isNotNull();
-        assertThat(topicFound.get("illustrationLink")).isEqualTo(realTopic.getIllustrationLink());
+        assertThat(topicFound.get("illustration")).isEqualTo(realTopic.getIllustration());
         assertThat(topicFound.get("__discriminator")).isEqualTo("RealTopic");
     }
 
@@ -84,7 +84,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("uris")).isNotNull();
-        assertThat(topicFound.get("illustrationLink")).isEqualTo(httpTopic.getIllustrationLink());
+        assertThat(topicFound.get("illustration")).isEqualTo(httpTopic.getIllustration());
         assertThat(topicFound.get("__discriminator")).isEqualTo("HttpTopic");
         assertThat(topicFound.get("mediaTypeValue").toString()).isEqualTo("text/html");
     }
@@ -102,7 +102,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("uris")).isNotNull();
-        assertThat(topicFound.get("illustrationLink")).isEqualTo(ftpTopic.getIllustrationLink());
+        assertThat(topicFound.get("illustration")).isEqualTo(ftpTopic.getIllustration());
         assertThat(topicFound.get("__discriminator")).isEqualTo("FtpTopic");
     }
 
@@ -120,7 +120,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("uris")).isNotNull();
-        assertThat(topicFound.get("illustrationLink")).isEqualTo(geoTopic.getIllustrationLink());
+        assertThat(topicFound.get("illustration")).isEqualTo(geoTopic.getIllustration());
         assertThat(topicFound.get("__discriminator")).isEqualTo("GeoTopic");
     }
 

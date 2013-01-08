@@ -17,6 +17,6 @@ public class WorldTopic extends Topic {
 
     @Override
     public TopicType getType() {
-        return null;
+        return UnusableTopicTypes.None;
     }
 }

@@ -6,7 +6,7 @@ import com.feelhub.repositories.Repositories;
 
 import java.util.UUID;
 
-public class Relation extends BaseEntity {
+public abstract class Relation extends BaseEntity {
 
     // do not delete constructor for mongolink
     public Relation() {
@@ -16,13 +16,6 @@ public class Relation extends BaseEntity {
         this.id = UUID.randomUUID();
         this.fromId = fromId;
         this.toId = toId;
-        this.weight = weight;
-    }
-
-    public Relation(final Topic from, final Topic to, final double weight) {
-        this.id = UUID.randomUUID();
-        this.fromId = from.getId();
-        this.toId = to.getId();
         this.weight = weight;
     }
 

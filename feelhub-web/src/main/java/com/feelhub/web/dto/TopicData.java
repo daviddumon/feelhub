@@ -2,7 +2,7 @@ package com.feelhub.web.dto;
 
 import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.topic.TopicType;
-import com.feelhub.domain.topic.world.UnusableTopicTypes;
+import com.feelhub.domain.topic.UnusableTopicTypes;
 import com.google.common.collect.Lists;
 import org.json.JSONObject;
 
@@ -47,7 +47,7 @@ public class TopicData {
         }
 
         private String id = "";
-        private final String illustrationLink = "";
+        private final String illustration = "";
         private String name = "";
         private SentimentValue sentimentValue = SentimentValue.none;
         private TopicType type = UnusableTopicTypes.None;
@@ -57,7 +57,7 @@ public class TopicData {
 
     private TopicData(final Builder builder) {
         this.id = builder.id;
-        this.illustrationLink = builder.illustrationLink;
+        this.illustrationLink = builder.illustration;
         this.name = builder.name;
         this.sentimentValue = builder.sentimentValue;
         this.type = builder.type.toString();
@@ -69,7 +69,7 @@ public class TopicData {
         return id;
     }
 
-    public String getIllustrationLink() {
+    public String getIllustration() {
         return illustrationLink;
     }
 

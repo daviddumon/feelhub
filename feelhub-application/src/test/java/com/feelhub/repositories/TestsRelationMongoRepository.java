@@ -10,7 +10,6 @@ import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 
-
 public class TestsRelationMongoRepository extends TestWithMongoRepository {
 
     @Rule
@@ -22,34 +21,69 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canPersist() {
+    public void canPersistARelatedRelation() {
         final RealTopic left = TestFactories.topics().newCompleteRealTopic();
         final RealTopic right = TestFactories.topics().newCompleteRealTopic();
-        final Relation relation = new Relation(left, right, 1.0);
+        final Related related = new Related(left.getId(), right.getId(), 1.0);
 
-        repo.add(relation);
+        repo.add(related);
 
         final DBCollection relations = mongo.getCollection("relation");
         final DBObject query = new BasicDBObject();
-        query.put("_id", relation.getId());
+        query.put("_id", related.getId());
         final DBObject relationFound = relations.findOne(query);
         assertThat(relationFound).isNotNull();
-        assertThat(relationFound.get("_id").toString()).isEqualTo(relation.getId().toString());
-        assertThat(relationFound.get("fromId").toString()).isEqualTo(relation.getFromId().toString());
-        assertThat(relationFound.get("toId").toString()).isEqualTo(relation.getToId().toString());
-        assertThat(relationFound.get("creationDate")).isEqualTo(relation.getCreationDate().getMillis());
+        assertThat(relationFound.get("_id").toString()).isEqualTo(related.getId().toString());
+        assertThat(relationFound.get("fromId").toString()).isEqualTo(related.getFromId().toString());
+        assertThat(relationFound.get("toId").toString()).isEqualTo(related.getToId().toString());
+        assertThat(relationFound.get("creationDate")).isEqualTo(related.getCreationDate().getMillis());
         assertThat(relationFound.get("weight")).isEqualTo(1.0);
-        assertThat(relationFound.get("lastModificationDate")).isEqualTo(relation.getLastModificationDate().getMillis());
+        assertThat(relationFound.get("lastModificationDate")).isEqualTo(related.getLastModificationDate().getMillis());
+        assertThat(relationFound.get("__discriminator")).isEqualTo("Related");
     }
 
     @Test
-    public void canGet() {
+    public void canGetARelated() {
         final RealTopic left = TestFactories.topics().newCompleteRealTopic();
         final RealTopic right = TestFactories.topics().newCompleteRealTopic();
-        final Relation relation = new Relation(left, right, 1.0);
-        Repositories.relations().add(relation);
+        final Related related = new Related(left.getId(), right.getId(), 1.0);
+        Repositories.relations().add(related);
 
-        final Relation relationFound = repo.get(relation.getId());
+        final Relation relationFound = repo.get(related.getId());
+
+        assertThat(relationFound).isNotNull();
+    }
+
+    @Test
+    public void canPersistAMediaRelation() {
+        final RealTopic left = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic right = TestFactories.topics().newCompleteRealTopic();
+        final Media media = new Media(left.getId(), right.getId());
+
+        repo.add(media);
+
+        final DBCollection relations = mongo.getCollection("relation");
+        final DBObject query = new BasicDBObject();
+        query.put("_id", media.getId());
+        final DBObject relationFound = relations.findOne(query);
+        assertThat(relationFound).isNotNull();
+        assertThat(relationFound.get("_id").toString()).isEqualTo(media.getId().toString());
+        assertThat(relationFound.get("fromId").toString()).isEqualTo(media.getFromId().toString());
+        assertThat(relationFound.get("toId").toString()).isEqualTo(media.getToId().toString());
+        assertThat(relationFound.get("creationDate")).isEqualTo(media.getCreationDate().getMillis());
+        assertThat(relationFound.get("weight")).isEqualTo(0.0);
+        assertThat(relationFound.get("lastModificationDate")).isEqualTo(media.getLastModificationDate().getMillis());
+        assertThat(relationFound.get("__discriminator")).isEqualTo("Media");
+    }
+
+    @Test
+    public void canGetAMedia() {
+        final RealTopic left = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic right = TestFactories.topics().newCompleteRealTopic();
+        final Media media = new Media(left.getId(), right.getId());
+        Repositories.relations().add(media);
+
+        final Relation relationFound = repo.get(media.getId());
 
         assertThat(relationFound).isNotNull();
     }
@@ -58,7 +92,7 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     public void canLookupForFromAndTo() {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
-        final Relation relation = TestFactories.relations().newRelation(from.getId(), to.getId());
+        final Relation relation = TestFactories.relations().newRelated(from.getId(), to.getId());
 
         final Relation relationFound = repo.lookUp(from.getId(), to.getId());
 
@@ -70,8 +104,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     public void canGetAllRelationsContainingATopicId() {
         final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
         final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelation(realTopic1.getId(), realTopic2.getId());
-        TestFactories.relations().newRelation(realTopic2.getId(), realTopic1.getId());
+        TestFactories.relations().newRelated(realTopic1.getId(), realTopic2.getId());
+        TestFactories.relations().newRelated(realTopic2.getId(), realTopic1.getId());
 
         final List<Relation> relations = repo.containingTopicId(realTopic1.getId());
 
@@ -82,8 +116,8 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     public void canGetAllRelationsForATopicId() {
         final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
         final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelation(realTopic1.getId(), realTopic2.getId());
-        TestFactories.relations().newRelation(realTopic2.getId(), realTopic1.getId());
+        TestFactories.relations().newRelated(realTopic1.getId(), realTopic2.getId());
+        TestFactories.relations().newRelated(realTopic2.getId(), realTopic1.getId());
 
         final List<Relation> relations = repo.forTopicId(realTopic1.getId());
 

@@ -224,8 +224,8 @@ public class TestsTopic {
     public void hasAnIllustrationLink() {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
 
-        assertThat(fakeTopic.getIllustrationLink()).isNotNull();
-        assertThat(fakeTopic.getIllustrationLink()).isEmpty();
+        assertThat(fakeTopic.getIllustration()).isNotNull();
+        assertThat(fakeTopic.getIllustration()).isEmpty();
     }
 
     @Test
@@ -233,9 +233,9 @@ public class TestsTopic {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
         final String illustrationLink = "link";
 
-        fakeTopic.setIllustrationLink(illustrationLink);
+        fakeTopic.setIllustration(illustrationLink);
 
-        assertThat(fakeTopic.getIllustrationLink()).isEqualTo(illustrationLink);
+        assertThat(fakeTopic.getIllustration()).isEqualTo(illustrationLink);
     }
 
     class FakeTopic extends Topic {

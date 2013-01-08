@@ -4,7 +4,7 @@
 "id":"${topicData.id}",
 "sentimentValue":"${topicData.sentimentValue}",
 "name":"${topicData.name}",
-"illustrationLink":"${topicData.illustrationLink}",
+"illustration":"${topicData.illustration}",
 "type":"${topicData.type}"
 }${topicData_has_next?string(",", "")}
 </#list>

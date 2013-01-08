@@ -4,16 +4,27 @@ import com.feelhub.domain.topic.TopicType;
 
 public enum HttpTopicType implements TopicType {
 
-    Article,
-    Audio,
-    Data,
-    Image,
-    Other,
-    Video,
-    Website;
+    Article(false),
+    Audio(true),
+    Data(false),
+    Image(true),
+    Other(false),
+    Video(true),
+    Website(false);
+
+    HttpTopicType(final boolean media) {
+        this.media = media;
+    }
 
     @Override
     public boolean hasTagUniqueness() {
         return true;
     }
+
+    @Override
+    public boolean isMedia() {
+        return media;
+    }
+
+    private final boolean media;
 }

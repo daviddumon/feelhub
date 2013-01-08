@@ -46,6 +46,11 @@ public enum RealTopicType implements TopicType {
         return tagUniqueness;
     }
 
+    @Override
+    public boolean isMedia() {
+        return false;
+    }
+
     public boolean isTranslatable() {
         return translatable;
     }

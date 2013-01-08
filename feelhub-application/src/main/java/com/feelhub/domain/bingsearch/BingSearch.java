@@ -53,14 +53,14 @@ public class BingSearch {
 
     private HttpTopic createImage(final String illustration) {
         final HttpTopic image = topicService.createHttpTopic(illustration, MediaType.IMAGE_ALL);
-        image.setIllustrationLink(illustration);
+        image.setIllustration(illustration);
         image.addName(FeelhubLanguage.none(), illustration);
         return image;
     }
 
     private void setIllustrationForTopic(final Topic topic, final List<HttpTopic> images) {
-        if (topic.getIllustrationLink().isEmpty() && !images.isEmpty()) {
-            topic.setIllustrationLink(images.get(0).getIllustrationLink());
+        if (topic.getIllustration().isEmpty() && !images.isEmpty()) {
+            topic.setIllustration(images.get(0).getIllustration());
         }
     }
 

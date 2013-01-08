@@ -16,8 +16,8 @@ public class TopicDataFactory {
         this.topicService = topicService;
     }
 
-    public TopicData getTopicData(final Topic realTopic, final FeelhubLanguage feelhubLanguage) {
-        return getTopicData(realTopic, feelhubLanguage, null);
+    public TopicData getTopicData(final Topic topic, final FeelhubLanguage feelhubLanguage) {
+        return getTopicData(topic, feelhubLanguage, null);
     }
 
     public List<TopicData> getTopicDatas(final Feeling feeling, final FeelhubLanguage feelhubLanguage) {
