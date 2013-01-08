@@ -2,13 +2,13 @@ var FlowPositionTests = new TestCase("FlowPositionTests");
 
 FlowPositionTests.prototype = {
 
-    setUp:function () {
+    setUp: function () {
         createDocumentForFlowPositionTests();
         flow = new Flow();
         fakeMaxBox(flow);
     },
 
-    testCanCreateALine:function () {
+    testCanCreateALine: function () {
         flow.createLine();
 
         assertNotUndefined(flow.lines);
@@ -19,22 +19,22 @@ FlowPositionTests.prototype = {
         }
     },
 
-    testHasFreeLinesFlagArray: function() {
+    testHasFreeLinesFlagArray: function () {
         flow.createLine();
         flow.createLine();
         flow.createLine();
 
         assertNotUndefined(flow.freeLines);
-        assertEquals(3,flow.freeLines.length);
+        assertEquals(3, flow.freeLines.length);
         assertEquals(1, flow.freeLines[0]);
         assertEquals(1, flow.freeLines[1]);
         assertEquals(1, flow.freeLines[2]);
     },
 
-    testCanPutBox: function() {
+    testCanPutBox: function () {
         flow.createLine();
 
-        flow.putBox(0,0,1);
+        flow.putBox(0, 0, 1);
 
         assertEquals(1, flow.lines[0][0]);
         assertEquals(0, flow.lines[0][1]);
@@ -42,8 +42,8 @@ FlowPositionTests.prototype = {
         assertEquals(0, flow.lines[0][3]);
     },
 
-    testPutBoxCreateLine: function() {
-        flow.putBox(0,0,1);
+    testPutBoxCreateLine: function () {
+        flow.putBox(0, 0, 1);
 
         assertEquals(1, flow.lines[0][0]);
         assertEquals(0, flow.lines[0][1]);
@@ -51,11 +51,11 @@ FlowPositionTests.prototype = {
         assertEquals(0, flow.lines[0][3]);
     },
 
-    testCanPut2BoxesInLine: function() {
+    testCanPut2BoxesInLine: function () {
         flow.createLine();
 
-        flow.putBox(0,1,1);
-        flow.putBox(0,2,1);
+        flow.putBox(0, 1, 1);
+        flow.putBox(0, 2, 1);
 
         assertEquals(0, flow.lines[0][0]);
         assertEquals(1, flow.lines[0][1]);
@@ -63,10 +63,10 @@ FlowPositionTests.prototype = {
         assertEquals(0, flow.lines[0][3]);
     },
 
-    testCanPutBoxWithSizeOf2: function() {
+    testCanPutBoxWithSizeOf2: function () {
         flow.createLine();
 
-        flow.putBox(0,1,2);
+        flow.putBox(0, 1, 2);
 
         assertEquals(2, flow.lines.length);
         assertEquals(0, flow.lines[0][0]);
@@ -79,7 +79,7 @@ FlowPositionTests.prototype = {
         assertEquals(0, flow.lines[1][3]);
     },
 
-    testCanSetFullLineFlag: function() {
+    testCanSetFullLineFlag: function () {
         flow.createLine();
         flow.createLine();
         flow.lines[0][0] = 1;
@@ -91,55 +91,55 @@ FlowPositionTests.prototype = {
         flow.lines[1][2] = 0;
         flow.lines[1][3] = 0;
 
-        flow.putBox(0,2,2);
+        flow.putBox(0, 2, 2);
 
         assertEquals(0, flow.freeLines[0]);
         assertEquals(1, flow.freeLines[1]);
     },
 
-    testCanTestForFreeBlock: function() {
+    testCanTestForFreeBlock: function () {
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 1;
         flow.lines[0][2] = 1;
         flow.lines[0][3] = 0;
 
-        var notFree = flow.isBlockFree(0,1,1);
-        var free = flow.isBlockFree(0,3,1);
+        var notFree = flow.isBlockFree(0, 1, 1);
+        var free = flow.isBlockFree(0, 3, 1);
 
         assertFalse(notFree);
         assertTrue(free);
     },
 
-    testCanTestForFreeBlockOfBigSize: function() {
+    testCanTestForFreeBlockOfBigSize: function () {
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 0;
         flow.lines[0][2] = 0;
         flow.lines[0][3] = 1;
 
-        var free = flow.isBlockFree(0,1,2);
-        var notFree = flow.isBlockFree(0,2,2);
+        var free = flow.isBlockFree(0, 1, 2);
+        var notFree = flow.isBlockFree(0, 2, 2);
 
         assertFalse(notFree);
         assertTrue(free);
     },
 
-    testCanTestForFreeBlockWithBadSize: function() {
+    testCanTestForFreeBlockWithBadSize: function () {
         flow.createLine();
         flow.lines[0][0] = 0;
         flow.lines[0][1] = 0;
         flow.lines[0][2] = 0;
         flow.lines[0][3] = 0;
 
-        var notFree = flow.isBlockFree(0,0,5);
-        var free = flow.isBlockFree(0,0,4);
+        var notFree = flow.isBlockFree(0, 0, 5);
+        var free = flow.isBlockFree(0, 0, 4);
 
         assertFalse(notFree);
         assertTrue(free);
     },
 
-    testCanTestForSquare: function() {
+    testCanTestForSquare: function () {
         flow.createLine();
         flow.createLine();
         flow.lines[0][0] = 1;
@@ -151,28 +151,28 @@ FlowPositionTests.prototype = {
         flow.lines[1][2] = 0;
         flow.lines[1][3] = 0;
 
-        var good = flow.testForSquare(0,2,2);
-        var bad = flow.testForSquare(0,1,2);
+        var good = flow.testForSquare(0, 2, 2);
+        var bad = flow.testForSquare(0, 1, 2);
 
         assertTrue(good);
         assertFalse(bad);
     },
 
-    testCanTestForSquareWithLessLine: function() {
+    testCanTestForSquareWithLessLine: function () {
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 0;
         flow.lines[0][2] = 0;
         flow.lines[0][3] = 0;
 
-        var good = flow.testForSquare(0,1,3);
-        var bad = flow.testForSquare(0,0,4);
+        var good = flow.testForSquare(0, 1, 3);
+        var bad = flow.testForSquare(0, 0, 4);
 
         assertTrue(good);
         assertFalse(bad);
     },
 
-    testCanTestForSquareWithFullLine: function() {
+    testCanTestForSquareWithFullLine: function () {
         flow.createLine();
         flow.createLine();
         flow.createLine();
@@ -189,12 +189,12 @@ FlowPositionTests.prototype = {
         flow.lines[2][2] = 1;
         flow.lines[2][3] = 1;
 
-        var bad = flow.testForSquare(0,0,3);
+        var bad = flow.testForSquare(0, 0, 3);
 
         assertFalse(bad);
     },
 
-    testCanFindNextFreeSpace: function() {
+    testCanFindNextFreeSpace: function () {
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 1;
@@ -207,7 +207,7 @@ FlowPositionTests.prototype = {
         assertEquals(3, position.index);
     },
 
-    testCanFindNextFreeSpaceInner: function() {
+    testCanFindNextFreeSpaceInner: function () {
         flow.createLine();
         flow.createLine();
         flow.lines[0][0] = 1;
@@ -225,14 +225,14 @@ FlowPositionTests.prototype = {
         assertEquals(1, position.index);
     },
 
-    testCanFindNextFreeSpaceIfNoLines: function() {
+    testCanFindNextFreeSpaceIfNoLines: function () {
         var position = flow.findNextFreeSpace(1);
 
         assertEquals(0, position.line);
         assertEquals(0, position.index);
     },
 
-    testCanFindNextFreeSpaceFullLine: function() {
+    testCanFindNextFreeSpaceFullLine: function () {
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 1;
@@ -245,7 +245,7 @@ FlowPositionTests.prototype = {
         assertEquals(0, position.index);
     },
 
-    testCanFindNextFreeSpaceOfSize2: function() {
+    testCanFindNextFreeSpaceOfSize2: function () {
         flow.createLine();
         flow.createLine();
         flow.lines[0][0] = 1;
@@ -263,7 +263,7 @@ FlowPositionTests.prototype = {
         assertEquals(2, position.index);
     },
 
-    testCanFindNextFreeSpaceWithSizeOf2And1Line: function() {
+    testCanFindNextFreeSpaceWithSizeOf2And1Line: function () {
         flow.createLine();
         flow.lines[0][0] = 1;
         flow.lines[0][1] = 0;
@@ -276,7 +276,7 @@ FlowPositionTests.prototype = {
         assertEquals(1, position.index);
     },
 
-    testCanFindNextFreeSpaceWithSizeOfMax: function() {
+    testCanFindNextFreeSpaceWithSizeOfMax: function () {
         flow.createLine();
         flow.lines[0][0] = 0;
         flow.lines[0][1] = 0;
@@ -289,7 +289,7 @@ FlowPositionTests.prototype = {
         assertEquals(0, position.index);
     },
 
-    testCanGetTopPosition: function() {
+    testCanGetTopPosition: function () {
         flow.createLine();
 
         var top = flow.getTopPosition(0);
@@ -297,7 +297,7 @@ FlowPositionTests.prototype = {
         assertEquals(0, top);
     },
 
-    testCanGetTopPositionForIndexOne: function() {
+    testCanGetTopPositionForIndexOne: function () {
         flow.createLine();
 
         var top = flow.getTopPosition(1);

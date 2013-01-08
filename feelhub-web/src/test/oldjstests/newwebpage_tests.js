@@ -2,13 +2,13 @@ var NewTopicTests = TestCase("NewTopicTests");
 
 NewTopicTests.prototype = {
 
-    setUp: function() {
+    setUp: function () {
 
-        $.post = function(url, data, callback) {
+        $.post = function (url, data, callback) {
             postUrl = url;
             postData = data;
             var xhr = {
-                getResponseHeader : function(key) {
+                getResponseHeader: function (key) {
                     if (key == "Location") {
                         return "feelhub location";
                     }
@@ -17,17 +17,17 @@ NewTopicTests.prototype = {
             callback(null, "test", xhr);
         }
 
-        $.redirect = function(uri) {
+        $.redirect = function (uri) {
             redirectUri = uri;
         };
     },
 
-    tearDown: function() {
+    tearDown: function () {
         $.post = originalPost;
         $.redirect = originalRedirect;
     },
 
-    testRedirectOnSuccess: function() {
+    testRedirectOnSuccess: function () {
         newwebpage.create("uritocreate");
 
         assertEquals("http://localhost/webpages", postUrl);

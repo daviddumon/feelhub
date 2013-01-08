@@ -71,7 +71,7 @@ public class TopicService {
         return realTopic;
     }
 
-    public HttpTopic createHttpTopic(final String value) {
+    protected HttpTopic createHttpTopic(final String value) {
         return createHttpTopic(value, null);
     }
 

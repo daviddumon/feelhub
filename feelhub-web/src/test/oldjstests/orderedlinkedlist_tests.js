@@ -2,7 +2,7 @@ var OrderedLinkedListTests = new TestCase("LinkedListTests");
 
 OrderedLinkedListTests.prototype = {
 
-    testCanCreateLinkedList: function() {
+    testCanCreateLinkedList: function () {
         var list = new OrderedLinkedList();
 
         assertNotUndefined(list.currentNode);
@@ -13,7 +13,7 @@ OrderedLinkedListTests.prototype = {
         assertNull(list.endNode);
     },
 
-    testHasASortableProperty: function() {
+    testHasASortableProperty: function () {
         var list = new OrderedLinkedList("property");
 
         assertNotUndefined(list.sortableProperty);
@@ -21,13 +21,13 @@ OrderedLinkedListTests.prototype = {
         assertSame("property", list.sortableProperty);
     },
 
-    testReturnCurrentNullIfEmpty: function() {
+    testReturnCurrentNullIfEmpty: function () {
         var list = new OrderedLinkedList();
 
         assertNull(list.current());
     },
 
-    testCanAdd: function() {
+    testCanAdd: function () {
         var interval = new Date().interval("hour");
         var list = new OrderedLinkedList("property");
         var graph = new FakeGraph(interval);
@@ -38,7 +38,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(graph, list.startNode.data);
     },
 
-    testCanAddTwoElements: function() {
+    testCanAddTwoElements: function () {
         var interval = new Date().interval("hour");
         var list = new OrderedLinkedList("interval");
         var first = new FakeGraph(interval);
@@ -52,7 +52,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(second, list.endNode.data);
     },
 
-    testAddSetTheCurrentNode: function() {
+    testAddSetTheCurrentNode: function () {
         var interval = new Date().interval("hour");
         var list = new OrderedLinkedList();
         var graph = new FakeGraph(interval);
@@ -62,7 +62,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(graph, list.current());
     },
 
-    testAddSetTheCurrentNodeOnlyIfListEmpty: function() {
+    testAddSetTheCurrentNodeOnlyIfListEmpty: function () {
         var interval = new Date().interval("hour");
         var list = new OrderedLinkedList("interval");
         var first = new FakeGraph(interval);
@@ -74,7 +74,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(first, list.current());
     },
 
-    testCanGetNextFromCurrent: function() {
+    testCanGetNextFromCurrent: function () {
         var interval = new Date().interval("hour");
         var list = new OrderedLinkedList("interval");
         var first = new FakeGraph(interval);
@@ -87,7 +87,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(second, list.next());
     },
 
-    testCanFindNodeWithSortableProperty: function() {
+    testCanFindNodeWithSortableProperty: function () {
         var firstInterval = new Date().minusHour(1).interval("hour");
         var secondInterval = new Date().interval("hour");
         var first = new FakeGraph(firstInterval);
@@ -101,7 +101,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(fakegraph, second);
     },
 
-    testReturnNullIfNotFound: function() {
+    testReturnNullIfNotFound: function () {
         var firstInterval = new Date().minusHour(1).interval("hour");
         var secondInterval = new Date().interval("hour");
         var first = new FakeGraph(firstInterval);
@@ -113,7 +113,7 @@ OrderedLinkedListTests.prototype = {
         assertNull(list.find(new Date().plusDay(1).interval("hour")));
     },
 
-    testCanChangeCurrent: function() {
+    testCanChangeCurrent: function () {
         var firstInterval = new Date().minusHour(1).interval("hour");
         var secondInterval = new Date().interval("hour");
         var first = new FakeGraph(firstInterval);
@@ -127,7 +127,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(second, list.current());
     },
 
-    testCanInsertPrevious: function() {
+    testCanInsertPrevious: function () {
         var firstInterval = new Date().minusHour(1).interval("hour");
         var secondInterval = new Date().interval("hour");
         var thirdInterval = new Date().plusHour(1).interval("hour");
@@ -146,7 +146,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(first, list.previous());
     },
 
-    testSortWhenInsertingAnElement: function() {
+    testSortWhenInsertingAnElement: function () {
         var firstInterval = new Date().plusHour(1).interval("hour");
         var secondInterval = new Date().interval("hour");
         var thirdInterval = new Date().minusHour(1).interval("hour");
@@ -164,7 +164,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(null, list.next());
     },
 
-    testSortWhenInsertingALotOfElements: function() {
+    testSortWhenInsertingALotOfElements: function () {
         var firstInterval = new Date().interval("hour");
         var secondInterval = new Date().plusHour(10).interval("hour");
         var thirdInterval = new Date().minusHour(5).interval("hour");
@@ -185,7 +185,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(fourth, list.next());
     },
 
-    testSortWhenInsertingALotOfElementsAndSettingNewCurrent: function() {
+    testSortWhenInsertingALotOfElementsAndSettingNewCurrent: function () {
         var firstInterval = new Date().interval("hour");
         var secondInterval = new Date().plusHour(10).interval("hour");
         var thirdInterval = new Date().minusHour(5).interval("hour");
@@ -212,7 +212,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(first, list.next());
     },
 
-    testCanSetPreviousAsCurrentNode: function() {
+    testCanSetPreviousAsCurrentNode: function () {
         var firstInterval = new Date().minusHour(1).interval("hour");
         var secondInterval = new Date().interval("hour");
         var thirdInterval = new Date().plusHour(1).interval("hour");
@@ -237,7 +237,7 @@ OrderedLinkedListTests.prototype = {
         assertSame(first, list.current());
     },
 
-    testCanSetNextAsCurrentNide: function() {
+    testCanSetNextAsCurrentNide: function () {
         var firstInterval = new Date().minusHour(1).interval("hour");
         var secondInterval = new Date().interval("hour");
         var thirdInterval = new Date().plusHour(1).interval("hour");
@@ -259,7 +259,7 @@ OrderedLinkedListTests.prototype = {
 function FakeGraph(interval) {
     this.interval = (interval !== undefined ? interval : null);
 
-    this.equals = function(item) {
+    this.equals = function (item) {
         return this.interval.equals(item.interval);
     };
 };

@@ -1,3 +1,5 @@
+var languageCode = "en";
+
 require.config({
     baseUrl: '/test/',
     paths: {
@@ -13,7 +15,15 @@ require(['jquery', 'modules/topic'], function ($, topic) {
         setUp: function () {
             JsMockito.Integration.JsTestDriver();
 
-            /*:DOC += <form id='feeling_form'><textarea name="text" style="height: 60px;"></textarea></form> */
+            /*:DOC += <form id='feeling_form'>
+             <textarea name="text" style="height: 60px;">
+             </textarea>
+             <select>
+             <option value="fr">fr</option>
+             <option value="en">en</option>
+             <option value="de">de</option>
+             </select>
+             </form> */
 
             document.location.reload = mockFunction();
         },
@@ -45,6 +55,12 @@ require(['jquery', 'modules/topic'], function ($, topic) {
             $.ajaxcall.success();
 
             verify(document.location.reload)(true);
+        },
+
+        testSetLanguageCodeSelectedInTheForm: function() {
+            topic.init();
+
+            assertSame(languageCode, $("select option:selected").val());
         }
     });
 });

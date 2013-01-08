@@ -13,14 +13,14 @@ define(["jquery"], function ($) {
         if (topicId.length != 0) {
             var parameters = [];
             var uri = root + "/api/related?";
-            parameters.push({"value":"topicId=" + topicId});
-            parameters.push({"value":"limit=12"});
+            parameters.push({"value": "topicId=" + topicId});
+            parameters.push({"value": "limit=12"});
             if (typeof userLanguageCode !== 'undefined') {
-                parameters.push({"value":"languageCode=" + userLanguageCode});
+                parameters.push({"value": "languageCode=" + userLanguageCode});
             } else if (languageCode !== "none") {
-                parameters.push({"value":"languageCode=" + languageCode});
+                parameters.push({"value": "languageCode=" + languageCode});
             } else {
-                parameters.push({"value":"languageCode=en"});
+                parameters.push({"value": "languageCode=en"});
             }
             $.each(parameters, function (index, parameter) {
                 uri += parameter.value + "&";
@@ -32,10 +32,10 @@ define(["jquery"], function ($) {
                     //console.log("relation found " + keywordData.topicId);
 
                     var keyword_data = {
-                        topicId:keywordData.topicId,
-                        keywordValue:keywordData.keywordValue,
-                        url:buildInternalLink(keywordData.typeValue, keywordData.languageCode, keywordData.keywordValue),
-                        classes:"keyword_related"
+                        topicId: keywordData.topicId,
+                        keywordValue: keywordData.keywordValue,
+                        url: buildInternalLink(keywordData.typeValue, keywordData.languageCode, keywordData.keywordValue),
+                        classes: "keyword_related"
                     };
 
                     $("#related").append(ich.keyword(keyword_data));
@@ -62,9 +62,9 @@ define(["jquery"], function ($) {
 
             var parameters = [];
             var uri = root + "/api/" + typeValue + "?";
-            parameters.push({"value":"keywordValue=" + encodeURIComponent(keywordValue)});
+            parameters.push({"value": "keywordValue=" + encodeURIComponent(keywordValue)});
             if (languageCode !== "none") {
-                parameters.push({"value":"languageCode=" + languageCode});
+                parameters.push({"value": "languageCode=" + languageCode});
             }
             $.each(parameters, function (index, parameter) {
                 uri += parameter.value + "&";
@@ -86,9 +86,9 @@ define(["jquery"], function ($) {
     }
 
     return {
-        buildInternalLink:buildInternalLink,
-        RequestRelations:RequestRelations,
-        RequestCounters:RequestCounters,
-        pollForId:pollForId
+        buildInternalLink: buildInternalLink,
+        RequestRelations: RequestRelations,
+        RequestCounters: RequestCounters,
+        pollForId: pollForId
     }
 });

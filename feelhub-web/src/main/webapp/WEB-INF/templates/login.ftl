@@ -14,10 +14,10 @@
             <p>Hello ${userInfos.fullname} !</p>
 
             <p>Please enter your password, or <a href="javascript:void(0);" id="logout">change user</a> !</p>
-            <input name="email" value="${userInfos.email}" type="text" autocomplete="off" maxlength="100" aria-required="true" style="display: none"/>
+            <input name="email" value="${userInfos.email}" type="text" autocomplete="off" maxlength="100" style="display: none"/>
         <#else>
             <span class="help_text">Email</span>
-            <input name="email" value="" type="text" autocomplete="off" maxlength="100" aria-required="true"/>
+            <input name="email" value="" type="text" autocomplete="off" maxlength="100"/>
         </#if>
 
         <div class="error_text"></div>
@@ -25,7 +25,7 @@
 
     <div class="holder">
         <span class="help_text">Password</span>
-        <input name="password" value="" type="password" autocomplete="off" maxlength="100" aria-required="true"/>
+        <input name="password" value="" type="password" autocomplete="off" maxlength="100"/>
 
         <div class="error_text"></div>
     </div>

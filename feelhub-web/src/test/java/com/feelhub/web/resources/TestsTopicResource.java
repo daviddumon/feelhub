@@ -1,6 +1,5 @@
 package com.feelhub.web.resources;
 
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.TopicNotFound;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
@@ -61,7 +60,6 @@ public class TestsTopicResource {
     }
 
     @Test
-    @Ignore
     public void lookUpTopic() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         topicResource.getRequest().getAttributes().put("id", realTopic.getId());
@@ -70,10 +68,6 @@ public class TestsTopicResource {
 
         final TopicData topicData = modelAndView.getData("topicData");
         assertThat(topicData.getId()).isEqualTo(realTopic.getId().toString());
-        assertThat(topicData.getName()).isEqualTo(realTopic.getDescription(FeelhubLanguage.reference()));
-        assertThat(topicData.getType()).isEqualTo(realTopic.getType().toString());
-        assertThat(topicData.getSubTypes()).isEqualTo(realTopic.getSubTypes());
-        //assertThat(topicData.getUrls()).isEqualTo(realTopic.getUrls());
     }
 
     @Test
@@ -117,6 +111,16 @@ public class TestsTopicResource {
         clientResource.get();
 
         assertThat(clientResource.getStatus()).isEqualTo(Status.REDIRECTION_PERMANENT);
+    }
+
+    @Test
+    public void hasLocalesInModelData() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        topicResource.getRequest().getAttributes().put("id", realTopic.getId());
+
+        final ModelAndView modelAndView = topicResource.getTopic();
+
+        assertThat(modelAndView.getData("locales")).isNotNull();
     }
 
     private User user;

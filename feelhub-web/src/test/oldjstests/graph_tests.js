@@ -2,17 +2,17 @@ var GraphTests = new TestCase("GraphTests");
 
 GraphTests.prototype = {
 
-    setUp: function() {
+    setUp: function () {
         createDocument();
     },
 
-    testCanCreateAGraph: function() {
+    testCanCreateAGraph: function () {
         var graph = new Graph(start, end);
 
         assertNotUndefined(graph);
     },
 
-    testCanCreateABlock: function() {
+    testCanCreateABlock: function () {
         var interval = new Date().interval("hour");
 
         var block = new Block(interval);
@@ -20,32 +20,32 @@ GraphTests.prototype = {
         assertSame(interval, block.interval);
     },
 
-    testCanSetStartAndEnd: function() {
+    testCanSetStartAndEnd: function () {
         var graph = new Graph(start, end);
 
         assertEquals(start, graph.startInterval);
         assertEquals(end, graph.endInterval);
     },
 
-    testCanSetBlockWidth: function() {
+    testCanSetBlockWidth: function () {
         var graph = new Graph(start, end, 10);
 
         assertEquals(10, graph.blockWidth);
     },
 
-    testCanSetBlockStroke: function() {
+    testCanSetBlockStroke: function () {
         var graph = new Graph(start, end, 10, 5);
 
         assertEquals(5, graph.stroke);
     },
 
-    testCanSetGraphHeight: function() {
+    testCanSetGraphHeight: function () {
         var graph = new Graph(start, end, 10, 5, 200);
 
         assertEquals(200, graph.height);
     },
 
-    testCanSetData: function() {
+    testCanSetData: function () {
         var graph = new Graph(start, end, 10, 5, 200);
 
         graph.setBlocks(blocks);
@@ -58,7 +58,7 @@ GraphTests.prototype = {
         assertSame(blocks[2].interval, graph.blocks[2].interval);
     },
 
-    testCanBuildPaths: function() {
+    testCanBuildPaths: function () {
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
@@ -67,7 +67,7 @@ GraphTests.prototype = {
         assertSame(buildFakePath("neutral", 10), graph.path("neutral", 0, 0));
     },
 
-    testCanBuildTopStrokePaths: function() {
+    testCanBuildTopStrokePaths: function () {
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
@@ -76,7 +76,7 @@ GraphTests.prototype = {
         assertSame(buildFakeTopStroke("neutral", 10), graph.top("neutral", 0, 0));
     },
 
-    testCanBuildBottomStrokePaths: function() {
+    testCanBuildBottomStrokePaths: function () {
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
@@ -85,7 +85,7 @@ GraphTests.prototype = {
         assertSame(buildFakeBottomStroke("neutral", 10), graph.bottom("neutral", 0, 0));
     },
 
-    testCanDrawAGraph: function() {
+    testCanDrawAGraph: function () {
         var svg = new Raphael("svg", 800, 800);
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
@@ -111,8 +111,8 @@ GraphTests.prototype = {
         assertSame(blocks[2].timeLabel, labels[5].getElementsByTagName('tspan')[0].textContent);
     },
 
-    testCanDrawLabelsAtGoodXCoords: function() {
-        var svg = new Raphael("svg",800,800);
+    testCanDrawLabelsAtGoodXCoords: function () {
+        var svg = new Raphael("svg", 800, 800);
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
@@ -123,8 +123,8 @@ GraphTests.prototype = {
         //assertEquals(133, parseInt(labels[0].getAttribute("y")));
     },
 
-    testDoNotDrawSignLabelForEmptyStat: function() {
-        var svg = new Raphael("svg",800,800);
+    testDoNotDrawSignLabelForEmptyStat: function () {
+        var svg = new Raphael("svg", 800, 800);
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocksWithEmptySignLabels);
 
@@ -134,8 +134,8 @@ GraphTests.prototype = {
         assertEquals(4, labels.length);
     },
 
-    testAllGraphObjectsInASet: function() {
-        var svg = new Raphael("svg",800,800);
+    testAllGraphObjectsInASet: function () {
+        var svg = new Raphael("svg", 800, 800);
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
@@ -145,8 +145,8 @@ GraphTests.prototype = {
         assertEquals(15, graph.set.length);
     },
 
-    testCanRemoveGraphFromDOM: function() {
-        var svg = new Raphael("svg",800,800);
+    testCanRemoveGraphFromDOM: function () {
+        var svg = new Raphael("svg", 800, 800);
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
         graph.draw(svg, 100, 100, feelhub.colors);
@@ -159,7 +159,7 @@ GraphTests.prototype = {
         assertEquals(0, labels.length);
     },
 
-    testCanCompareGraphs: function() {
+    testCanCompareGraphs: function () {
         var firstGraph = new Graph(start, end, 10, 5, 200);
         firstGraph.setBlocks(blocks);
         var secondGraph = new Graph(start.previousInterval(), end.previousInterval(), 10, 5, 200);
@@ -171,12 +171,12 @@ GraphTests.prototype = {
         assertFalse(firstGraph.equals(secondGraph));
     },
 
-    testDrawHasACallbackFunction: function() {
+    testDrawHasACallbackFunction: function () {
         var call = false;
-        var svg = new Raphael("svg",800,800);
+        var svg = new Raphael("svg", 800, 800);
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
-        graph.draw(svg, 100, 100, feelhub.colors, function(){
+        graph.draw(svg, 100, 100, feelhub.colors, function () {
             call = true;
         });
 
@@ -185,7 +185,7 @@ GraphTests.prototype = {
 };
 
 function createDocument() {
-    var svg  = document.createElement('svg');
+    var svg = document.createElement('svg');
     svg.setAttribute("id", "svg");
     document.body.appendChild(svg);
 };
@@ -203,15 +203,15 @@ var blocks = [
             good: {
                 top: 27,
                 bottom: 18
-                },
+            },
             bad: {
                 top: 12,
                 bottom: 31
-                },
+            },
             neutral: {
                 top: 12,
                 bottom: 31
-                }
+            }
         }
     },
     {
@@ -223,15 +223,15 @@ var blocks = [
             good: {
                 top: 3,
                 bottom: 12
-                },
+            },
             bad: {
                 top: 34,
                 bottom: 31
-                },
+            },
             neutral: {
                 top: 234,
                 bottom: 11
-                }
+            }
         }
     },
     {
@@ -243,15 +243,15 @@ var blocks = [
             good: {
                 top: 32,
                 bottom: 12
-                },
+            },
             bad: {
                 top: 389,
                 bottom: 18
-                },
+            },
             neutral: {
                 top: 90,
                 bottom: 31
-                }
+            }
         }
     }
 ];
@@ -266,15 +266,15 @@ var blocksWithEmptySignLabels = [
             good: {
                 top: 27,
                 bottom: 18
-                },
+            },
             bad: {
                 top: 12,
                 bottom: 31
-                },
+            },
             neutral: {
                 top: 12,
                 bottom: 31
-                }
+            }
         }
     },
     {
@@ -286,15 +286,15 @@ var blocksWithEmptySignLabels = [
             good: {
                 top: 3,
                 bottom: 12
-                },
+            },
             bad: {
                 top: 34,
                 bottom: 31
-                },
+            },
             neutral: {
                 top: 234,
                 bottom: 11
-                }
+            }
         }
     },
     {
@@ -306,85 +306,85 @@ var blocksWithEmptySignLabels = [
             good: {
                 top: 32,
                 bottom: 12
-                },
+            },
             bad: {
                 top: 389,
                 bottom: 18
-                },
+            },
             neutral: {
                 top: 90,
                 bottom: 31
-                }
+            }
         }
     }
 ];
 
 function buildFakePath(type, blockWidth) {
     var path = "M" + blockWidth + "," + blocks[0].coords[type].bottom
-    + "L0," + blocks[0].coords[type].bottom
-    + "L0," + blocks[0].coords[type].top
-    + "L" + blockWidth + "," + blocks[0].coords[type].top;
+        + "L0," + blocks[0].coords[type].bottom
+        + "L0," + blocks[0].coords[type].top
+        + "L" + blockWidth + "," + blocks[0].coords[type].top;
 
     var bezierPointX01 = (blockWidth * 3) / 2;
     var bezierPointX12 = (blockWidth * 7) / 2;
 
     path += "C" + bezierPointX01 + "," + blocks[0].coords[type].top
-    + "," + bezierPointX01 + "," + blocks[1].coords[type].top
-    + "," + blockWidth * 2 + "," + blocks[1].coords[type].top
-    + "L" + blockWidth * 3 + "," + blocks[1].coords[type].top
-    + "C" + bezierPointX12 + "," + blocks[1].coords[type].top
-    + "," + bezierPointX12 + "," + blocks[2].coords[type].top
-    + "," + blockWidth * 4 + "," + blocks[2].coords[type].top
-    + "L" + blockWidth * 5 + "," + blocks[2].coords[type].top;
+        + "," + bezierPointX01 + "," + blocks[1].coords[type].top
+        + "," + blockWidth * 2 + "," + blocks[1].coords[type].top
+        + "L" + blockWidth * 3 + "," + blocks[1].coords[type].top
+        + "C" + bezierPointX12 + "," + blocks[1].coords[type].top
+        + "," + bezierPointX12 + "," + blocks[2].coords[type].top
+        + "," + blockWidth * 4 + "," + blocks[2].coords[type].top
+        + "L" + blockWidth * 5 + "," + blocks[2].coords[type].top;
 
     path += "L" + blockWidth * 5 + "," + blocks[blocks.length - 1].coords[type].bottom;
 
     path += "L" + blockWidth * 4 + "," + blocks[2].coords[type].bottom
-    + "C" + bezierPointX12 + "," + blocks[2].coords[type].bottom
-    + "," + bezierPointX12 + "," + blocks[1].coords[type].bottom
-    + "," + blockWidth * 3 + "," + blocks[1].coords[type].bottom
-    + "L" + blockWidth * 2 + "," + blocks[1].coords[type].bottom
-    + "C" + bezierPointX01 + "," + blocks[1].coords[type].bottom
-    + "," + bezierPointX01 + "," + blocks[0].coords[type].bottom
-    + "," + blockWidth * 1 + "," + blocks[0].coords[type].bottom;
+        + "C" + bezierPointX12 + "," + blocks[2].coords[type].bottom
+        + "," + bezierPointX12 + "," + blocks[1].coords[type].bottom
+        + "," + blockWidth * 3 + "," + blocks[1].coords[type].bottom
+        + "L" + blockWidth * 2 + "," + blocks[1].coords[type].bottom
+        + "C" + bezierPointX01 + "," + blocks[1].coords[type].bottom
+        + "," + bezierPointX01 + "," + blocks[0].coords[type].bottom
+        + "," + blockWidth * 1 + "," + blocks[0].coords[type].bottom;
 
     return path;
 };
 
 function buildFakeTopStroke(type, blockWidth) {
     var path = "M0," + blocks[0].coords[type].top
-    + "L" + blockWidth + "," + blocks[0].coords[type].top;
+        + "L" + blockWidth + "," + blocks[0].coords[type].top;
 
     var bezierPointX01 = blockWidth * 3 / 2;
     var bezierPointX12 = blockWidth * 7 / 2;
 
     path += "C" + bezierPointX01 + "," + blocks[0].coords[type].top
-    + "," + bezierPointX01 + "," + blocks[1].coords[type].top
-    + "," + blockWidth * 2 + "," + blocks[1].coords[type].top
-    + "L" + blockWidth * 3 + "," + blocks[1].coords[type].top
-    + "C" + bezierPointX12 + "," + blocks[1].coords[type].top
-    + "," + bezierPointX12 + "," + blocks[2].coords[type].top
-    + "," + blockWidth * 4 + "," + blocks[2].coords[type].top
-    + "L" + blockWidth * 5 + "," + blocks[2].coords[type].top;
+        + "," + bezierPointX01 + "," + blocks[1].coords[type].top
+        + "," + blockWidth * 2 + "," + blocks[1].coords[type].top
+        + "L" + blockWidth * 3 + "," + blocks[1].coords[type].top
+        + "C" + bezierPointX12 + "," + blocks[1].coords[type].top
+        + "," + bezierPointX12 + "," + blocks[2].coords[type].top
+        + "," + blockWidth * 4 + "," + blocks[2].coords[type].top
+        + "L" + blockWidth * 5 + "," + blocks[2].coords[type].top;
 
     return path;
 };
 
 function buildFakeBottomStroke(type, blockWidth) {
     var path = "M0," + blocks[0].coords[type].bottom
-    + "L" + blockWidth + "," + blocks[0].coords[type].bottom
+        + "L" + blockWidth + "," + blocks[0].coords[type].bottom
 
     var bezierPointX01 = blockWidth * 3 / 2;
     var bezierPointX12 = blockWidth * 7 / 2;
 
     path += "C" + bezierPointX01 + "," + blocks[0].coords[type].bottom
-    + "," + bezierPointX01 + "," + blocks[1].coords[type].bottom
-    + "," + blockWidth * 2 + "," + blocks[1].coords[type].bottom
-    + "L" + blockWidth * 3 + "," + blocks[1].coords[type].bottom
-    + "C" + bezierPointX12 + "," + blocks[1].coords[type].bottom
-    + "," + bezierPointX12 + "," + blocks[2].coords[type].bottom
-    + "," + blockWidth * 4 + "," + blocks[2].coords[type].bottom
-    + "L" + blockWidth * 5 + "," + blocks[2].coords[type].bottom;
+        + "," + bezierPointX01 + "," + blocks[1].coords[type].bottom
+        + "," + blockWidth * 2 + "," + blocks[1].coords[type].bottom
+        + "L" + blockWidth * 3 + "," + blocks[1].coords[type].bottom
+        + "C" + bezierPointX12 + "," + blocks[1].coords[type].bottom
+        + "," + bezierPointX12 + "," + blocks[2].coords[type].bottom
+        + "," + blockWidth * 4 + "," + blocks[2].coords[type].bottom
+        + "L" + blockWidth * 5 + "," + blocks[2].coords[type].bottom;
 
     return path;
 };

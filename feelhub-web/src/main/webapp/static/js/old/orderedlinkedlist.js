@@ -3,9 +3,9 @@ function OrderedLinkedList(sortableProperty) {
 
     this.add = function (element) {
         var node = {
-            data:element,
-            nextNode:null,
-            previousNode:null
+            data: element,
+            nextNode: null,
+            previousNode: null
         };
 
         if (this.length == 0) {

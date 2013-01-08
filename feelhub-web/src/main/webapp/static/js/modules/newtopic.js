@@ -1,4 +1,4 @@
-define(['plugins/domReady!','jquery'], function (doc,$) {
+define(['plugins/domReady!', 'jquery'], function (doc, $) {
 
     var container = "#createtopic";
     var api_end_point = "/api/topics";
@@ -6,11 +6,11 @@ define(['plugins/domReady!','jquery'], function (doc,$) {
     function init() {
         $(container).submit(function (event) {
             $.ajax({
-                url:root + api_end_point,
-                type:'POST',
-                data:$(container).serialize(),
-                success:success,
-                error:error
+                url: root + api_end_point,
+                type: 'POST',
+                data: $(container).serialize(),
+                success: success,
+                error: error
             });
             return false;
         });
@@ -25,6 +25,6 @@ define(['plugins/domReady!','jquery'], function (doc,$) {
     }
 
     return {
-        init:init
+        init: init
     };
 });

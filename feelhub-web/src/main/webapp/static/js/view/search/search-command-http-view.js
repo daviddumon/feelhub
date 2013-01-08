@@ -5,7 +5,7 @@ define(['jquery', 'plugins/hgn!templates/search_command_http_view'],
         var api_end_point = "/api/topics/http";
 
         function render(container) {
-            var search_command_web_view = template({"id":id});
+            var search_command_web_view = template({"id": id});
             $(container).append(search_command_web_view);
             bindBehavior();
         }
@@ -20,11 +20,11 @@ define(['jquery', 'plugins/hgn!templates/search_command_http_view'],
 
         function createNewHttpTopic() {
             $.ajax({
-                url:root + api_end_point,
-                type:'POST',
-                data:{"q":q},
-                success:success,
-                error:error
+                url: root + api_end_point,
+                type: 'POST',
+                data: {"q": q},
+                success: success,
+                error: error
             });
 
             function success(data, textStatus, jqXHR) {
@@ -46,6 +46,6 @@ define(['jquery', 'plugins/hgn!templates/search_command_http_view'],
         }
 
         return {
-            render:render
+            render: render
         }
     });

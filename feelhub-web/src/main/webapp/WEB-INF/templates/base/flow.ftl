@@ -6,6 +6,8 @@
             <#else>
             var topicData = {};
             </#if>
+
+            var languageCode = "${userInfos.languageCode}";
     </script>
     </@head.headbegin>
 
@@ -51,7 +53,7 @@
         <div>Please login or create an account!</div>
     </#if>
 </div>
-<ul id="flow">
+<ul id="feelings">
 </ul>
 </body>
 </html>

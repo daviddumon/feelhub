@@ -1,6 +1,7 @@
 package com.feelhub.web.resources;
 
 import com.feelhub.application.TopicService;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
@@ -25,7 +26,7 @@ public class TopicResource extends ServerResource {
         extractUriValueFromUri();
         final Topic realTopic = topicService.lookUp(id);
         if (checkCurrent(realTopic)) {
-            return ModelAndView.createNew("topic.ftl").with("topicData", topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage()));
+            return ModelAndView.createNew("topic.ftl").with("topicData", topicDataFactory.getTopicData(realTopic, CurrentUser.get().getLanguage())).with("locales", FeelhubLanguage.availables());
         } else {
             setStatus(Status.REDIRECTION_PERMANENT);
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + realTopic.getCurrentId()));

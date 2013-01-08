@@ -20,6 +20,6 @@ define(['jquery', 'plugins/hgn!templates/dashboard_related_element_edit', 'plugi
         }
 
         return {
-            render:render
+            render: render
         }
     });

@@ -2,7 +2,7 @@ var FeedTests = new TestCase("FeedTests");
 
 FeedTests.prototype = {
 
-    setUp: function() {
+    setUp: function () {
         createDocumentForTest();
         runTimeLine();
     },
@@ -51,11 +51,11 @@ FeedTests.prototype = {
 var divName = "timeline";
 
 function createDocumentForTest() {
-    var displayDiv  = document.createElement('displayDiv');
-    var backDiv     = document.createElement('backDiv');
-    var forwardDiv  = document.createElement('forwardDiv');
-    var upDiv  = document.createElement('upDiv');
-    var downDiv  = document.createElement('downDiv');
+    var displayDiv = document.createElement('displayDiv');
+    var backDiv = document.createElement('backDiv');
+    var forwardDiv = document.createElement('forwardDiv');
+    var upDiv = document.createElement('upDiv');
+    var downDiv = document.createElement('downDiv');
 
     displayDiv.setAttribute("id", divName + "_display");
     backDiv.setAttribute("id", divName + "_back");

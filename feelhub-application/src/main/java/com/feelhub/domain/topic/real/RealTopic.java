@@ -14,6 +14,11 @@ public class RealTopic extends Topic {
     protected RealTopic() {
     }
 
+    public RealTopic(final UUID id, final RealTopicType type) {
+        super(id);
+        this.typeValue = type.toString();
+    }
+
     @Override
     public TopicType getType() {
         return RealTopicType.valueOf(typeValue);
@@ -24,11 +29,6 @@ public class RealTopic extends Topic {
     }
 
     public void setType(final RealTopicType type) {
-        this.typeValue = type.toString();
-    }
-
-    public RealTopic(final UUID id, final RealTopicType type) {
-        super(id);
         this.typeValue = type.toString();
     }
 

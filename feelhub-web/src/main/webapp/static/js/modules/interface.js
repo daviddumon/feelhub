@@ -4,10 +4,10 @@ define(['jquery'], function ($) {
 
         $("#logout").click(function () {
             $.ajax({
-                url:root + '/sessions',
-                type:'DELETE',
-                success:success,
-                error:error
+                url: root + '/sessions',
+                type: 'DELETE',
+                success: success,
+                error: error
             });
         });
     }
@@ -21,6 +21,6 @@ define(['jquery'], function ($) {
     }
 
     return {
-        init:init
+        init: init
     };
 });

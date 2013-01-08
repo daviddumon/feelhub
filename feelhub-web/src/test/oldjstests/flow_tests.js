@@ -2,31 +2,31 @@ var FlowTests = new TestCase("FlowTests");
 
 FlowTests.prototype = {
 
-    setUp: function() {
+    setUp: function () {
         createDocumentForFlowTests();
-        flow = new Flow("flow.css","webpage","li",".feeling");
+        flow = new Flow("flow.css", "webpage", "li", ".feeling");
     },
 
-    testCanCreateAFlow: function() {
+    testCanCreateAFlow: function () {
         assertNotUndefined(flow);
         assertNotUndefined(flow.cssIndex);
         assertSame(0, flow.cssIndex);
         assertNotUndefined(flow.webpage);
     },
 
-    testCanFindStyleSheetIndex: function() {
+    testCanFindStyleSheetIndex: function () {
         var styleSheet = flow.findStyleSheetIndex();
 
         assertEquals(0, styleSheet);
     },
 
-    testCanFindPropertyValueFromCSS: function() {
+    testCanFindPropertyValueFromCSS: function () {
         var padding = flow.extractValueFromCSS("padding");
 
         assertSame("10px", padding);
     },
 
-    testCanInitValues: function() {
+    testCanInitValues: function () {
         assertNotUndefined(flow.width);
         assertNotUndefined(flow.padding);
         assertNotUndefined(flow.margin);
@@ -35,8 +35,8 @@ FlowTests.prototype = {
         assertSame("20px", flow.margin);
     },
 
-    testCanDrawABox: function() {
-        flow.drawBox("myfeeling","feeling feeling_good");
+    testCanDrawABox: function () {
+        flow.drawBox("myfeeling", "feeling feeling_good");
 
         var box = document.getElementById("webpage").getElementsByTagName('li');
         assertEquals(1, box.length);
@@ -44,8 +44,8 @@ FlowTests.prototype = {
         assertEquals("feeling feeling_good", box[0].className);
     },
 
-    testCanDrawABoxLink: function() {
-        flow.drawBoxLink("myfeeling","feeling feeling_good","fakelink");
+    testCanDrawABoxLink: function () {
+        flow.drawBoxLink("myfeeling", "feeling feeling_good", "fakelink");
 
         var feelinglink = document.getElementById("webpage").getElementsByTagName('a');
         assertEquals(1, feelinglink.length);
@@ -55,26 +55,26 @@ FlowTests.prototype = {
         assertEquals("feeling feeling_good", feelinglink[0].firstChild.className);
     },
 
-    testCanSetInitialMaxWidthWithCSS: function() {
+    testCanSetInitialMaxWidthWithCSS: function () {
         flow.drawBox("myfeeling", "feeling");
 
         var box = document.getElementById("webpage").getElementsByTagName('li');
         assertEquals(0, getWidth(box[0]));
     },
 
-    testReturnIDFromDrawing: function() {
+    testReturnIDFromDrawing: function () {
         var id = flow.drawBox("myfeeling", "feeling");
 
         assertEquals("feeling_1", id);
     },
 
-    testCanSetID: function(){
+    testCanSetID: function () {
         var id = flow.drawBox("myfeeling", "feeling");
 
         assertEquals(id, document.getElementsByTagName("li")[0].getAttribute("id"));
     },
 
-    testHasAMinHeightEqualsToInitialWidth: function() {
+    testHasAMinHeightEqualsToInitialWidth: function () {
         var id = flow.drawBox("myfeeling", "feeling");
 
         flow.compute(id);
@@ -84,7 +84,7 @@ FlowTests.prototype = {
         assertEquals(width, getHeight(box[0]));
     },
 
-    testDoNotMinimizeHeightIfSuperiorToWidth: function() {
+    testDoNotMinimizeHeightIfSuperiorToWidth: function () {
         var id = flow.drawBox(infinystring, "feeling");
         var box = document.getElementById("webpage").getElementsByTagName('li');
         var initialWidth = getWidth(box[0]);
@@ -94,36 +94,38 @@ FlowTests.prototype = {
         assertNotEquals(initialWidth, getHeight(box[0]));
     },
 
-    testCanGetNumericalValueFromPercent: function() {
+    testCanGetNumericalValueFromPercent: function () {
         var numerical = flow.numericalValueFrom("1%");
 
         assertEquals(0.01, numerical);
     },
 
-    testCanGetNumericalValueFromPx: function() {
+    testCanGetNumericalValueFromPx: function () {
         var numerical = flow.numericalValueFrom("10px");
 
         assertEquals(10, numerical);
     },
 
-    testCanFindMaxBox: function() {
+    testCanFindMaxBox: function () {
         assertEquals(3, flow.maxBox);
     },
 
-    testCanFindNextWidthFromInitial: function() {
+    testCanFindNextWidthFromInitial: function () {
         var docWidth = parseInt(document.width || document.body.offsetWidth);
         var margin = flow.numericalValueFrom(flow.margin);
         var padding = flow.numericalValueFrom(flow.padding);
 
         var next = flow.findWidthForSize(100);
-        
+
         assertEquals(100 + margin + flow.initial - 2 * padding, next);
     },
 
-    testCanGrowOnlyToMaxBox: function() {
+    testCanGrowOnlyToMaxBox: function () {
         var _findNextWidth = flow.findWidthForSize;
         var count = 0;
-        flow.findWidthForSize = function() {count++};
+        flow.findWidthForSize = function () {
+            count++
+        };
         var id = flow.drawBox(infinystring, "feeling");
 
         flow.compute(id);
@@ -132,7 +134,7 @@ FlowTests.prototype = {
         flow.findWidthForSize = _findNextWidth;
     },
 
-    testEnsurePositionAbsolute: function() {
+    testEnsurePositionAbsolute: function () {
         var id = flow.drawBox("myfeeling", "feeling");
 
         var box = document.getElementsByTagName("li");
@@ -142,46 +144,46 @@ FlowTests.prototype = {
 
 function createDocumentForFlowTests() {
     var webpageUL = document.createElement('webpageUL');
-    webpageUL.setAttribute("id","webpage");
+    webpageUL.setAttribute("id", "webpage");
     webpageUL.style.width = "400px";
     document.body.appendChild(webpageUL);
 }
 
 function getWidth(item) {
     var width = window.getComputedStyle(item, null).getPropertyCSSValue('width').cssText;
-    return parseInt(width.substring(0,width.length - 2));
+    return parseInt(width.substring(0, width.length - 2));
 }
 
 function getHeight(item) {
     var height = window.getComputedStyle(item, null).getPropertyCSSValue('height').cssText;
-    return parseInt(height.substring(0, height.length -2));
+    return parseInt(height.substring(0, height.length - 2));
 }
 
 var verylongstring = "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! ";
 var infinystring = "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-+ "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
-;
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+        + "This is a test string ! This is a test string ! This is a test string ! This is a test string ! This is a test string ! "
+    ;

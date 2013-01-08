@@ -8,25 +8,26 @@
 
     <div class="holder">
         <span class="help_text">Full name</span>
-        <input name="fullname" value="" type="text" autofocus autocomplete="off" maxlength="100" aria-required="true"/>
+        <input name="fullname" value="" type="text" autofocus autocomplete="off" maxlength="100"/>
 
         <div class="error_text"></div>
     </div>
     <div class="holder">
         <span class="help_text">Email</span>
-        <input name="email" value="" type="text" autocomplete="off" maxlength="100" aria-required="true"/>
+        <input name="email" value="" type="text" autocomplete="off" maxlength="100"/>
 
         <div class="error_text"></div>
     </div>
     <div class="holder">
         <span class="help_text">Password</span>
-        <input name="password" value="" type="password" autocomplete="off" maxlength="100" aria-required="true"/>
+        <input name="password" value="" type="password" autocomplete="off" maxlength="100"/>
 
         <div class="error_text"></div>
     </div>
     <div class="holder">
         <p>What is your favorite language :</p>
-        <select name="language" aria-required="true">
+        <select name="language">
+            <option value=""></option>
             <#list locales as locale>
                 <option value="${locale.code}">${locale.name}</option>
             </#list>

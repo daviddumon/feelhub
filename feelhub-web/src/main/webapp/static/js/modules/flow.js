@@ -22,7 +22,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     //    }
     //
 
-    var container = $("#flow");
+    var container = $("#feelings");
     var feelings, initial, skip, limit, maxBox, hasData, notLoading, basePollTime, lastFeelingId;
     var topicId = topicData.id;
 
@@ -67,8 +67,8 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                 uri += "/feelings";
             }
             uri += "?";
-            parameters.push({"value":"skip=" + skip});
-            parameters.push({"value":"limit=" + limit});
+            parameters.push({"value": "skip=" + skip});
+            parameters.push({"value": "limit=" + limit});
             $.each(parameters, function (index, parameter) {
                 uri += parameter.value + "&";
             });
@@ -140,12 +140,12 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                 var current = feeling.keywordDatas[i].topicId;
                 if (!(current in known_topics)) {
                     var keyword_data = {
-                        topicId:feeling.keywordDatas[i].topicId,
-                        sentimentValue:feeling.keywordDatas[i].sentimentValue,
-                        keywordValue:feeling.keywordDatas[i].keywordValue,
-                        url:buildInternalLink(feeling.keywordDatas[i].typeValue, feeling.keywordDatas[i].languageCode, feeling.keywordDatas[i].keywordValue),
-                        classes:"keyword_medium keyword_stack",
-                        illustrationLink:feeling.keywordDatas[i].illustrationLink
+                        topicId: feeling.keywordDatas[i].topicId,
+                        sentimentValue: feeling.keywordDatas[i].sentimentValue,
+                        keywordValue: feeling.keywordDatas[i].keywordValue,
+                        url: buildInternalLink(feeling.keywordDatas[i].typeValue, feeling.keywordDatas[i].languageCode, feeling.keywordDatas[i].keywordValue),
+                        classes: "keyword_medium keyword_stack",
+                        illustrationLink: feeling.keywordDatas[i].illustrationLink
                     };
                     keywordDatas.push(keyword_data);
                     known_topics[current] = true;
@@ -158,11 +158,11 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         shuffleAndMakeFirstLarge();
 
         var feelingData = {
-            id:feeling.id,
-            feeling_classes:classes,
-            text:text.split(/\r\n|\r|\n/),
-            keywordDatas:keywordDatas,
-            height:(keywordDatas.length != 0 ? 40 : 0) + 146 * (Math.floor(keywordDatas.length / 2) + keywordDatas.length % 2) + 'px'
+            id: feeling.id,
+            feeling_classes: classes,
+            text: text.split(/\r\n|\r|\n/),
+            keywordDatas: keywordDatas,
+            height: (keywordDatas.length != 0 ? 40 : 0) + 146 * (Math.floor(keywordDatas.length / 2) + keywordDatas.length % 2) + 'px'
         };
 
         if (feeling_sentiment_value !== "none") {
@@ -191,10 +191,10 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
             var parameters = [];
             var uri = root + "/api/newfeelings";
             if (topicId.length > 0) {
-                parameters.push({"value":"topicId=" + encodeURIComponent(topicId)});
+                parameters.push({"value": "topicId=" + encodeURIComponent(topicId)});
             }
             if (lastFeelingId) {
-                parameters.push({"value":"lastFeelingId=" + lastFeelingId});
+                parameters.push({"value": "lastFeelingId=" + lastFeelingId});
             }
             if (parameters.length > 0) {
                 uri += "?";
@@ -203,9 +203,9 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                 });
                 uri = uri.substr(0, uri.length - 1);
             }
-            //console.log(uri);
+
             $.getJSON(uri, function (data) {
-                //console.log(data);
+
                 if (data.length > 0) {
                     lastFeelingId = data[0].id;
                     data.reverse();
@@ -233,7 +233,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function reDraw(feeling, classes) {
-        //console.log("redraw flow");
         $.each(feelings, function (index, element) {
             var row = 0;
             var row_height = $("#feeling_list_" + row).height();
@@ -249,25 +248,8 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         });
     }
 
-    function pushFake(topicId, text, sentiment_value) {
-        //console.log("push fake : " + topicId + " - " + text + " - " + sentiment_value);
-        var fake_feeling = {
-            id:topicId,
-            text:text,
-            keywordDatas:[
-                {topicId:topicId, sentimentValue:sentiment_value}
-            ]
-        };
-
-        poll(500);
-
-        // A finir : on met le fake, et on poll
-        // Pour l'instant on poll juste comme un con
-    }
-
     return {
-        init:init,
-        reset:reset,
-        pushFake:pushFake
+        init: init,
+        reset: reset
     };
 });

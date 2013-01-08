@@ -26,7 +26,7 @@ var timeline = {};
     };
 
     function createDragPanel(width, height) {
-        var rect = instance.displaySvg.rect(0, 0, width, height).attr({"fill":"#000000", "opacity":0});
+        var rect = instance.displaySvg.rect(0, 0, width, height).attr({"fill": "#000000", "opacity": 0});
         rect.drag(function (dx, dy) {
 
             if (dx > 100) {
@@ -104,9 +104,9 @@ var timeline = {};
 
     this.back = function () {
         instance.nextAnimate = {
-            coords:instance.displayWidth,
-            delay:1000,
-            type:">"
+            coords: instance.displayWidth,
+            delay: 1000,
+            type: ">"
         };
 
         var graphToHide = instance.graphs[instance.granularity].next();
@@ -130,9 +130,9 @@ var timeline = {};
     this.forward = function () {
         instance.nextAnimate = {
             //coords: - instance.blockWidth * (instance.blockNumber - 1) / 2,
-            coords:-instance.displayWidth,
-            delay:1000,
-            type:">"
+            coords: -instance.displayWidth,
+            delay: 1000,
+            type: ">"
         };
 
         var graphToHide = instance.graphs[instance.granularity].previous();
@@ -158,9 +158,9 @@ var timeline = {};
 
         if (newGranularity != timeline.granularity) {
             instance.nextAnimate = {
-                coords:"0,250",
-                delay:500,
-                type:">"
+                coords: "0,250",
+                delay: 500,
+                type: ">"
             };
 
             var interval = instance.graphs[instance.granularity].current().startInterval.toInterval(newGranularity);
@@ -220,16 +220,16 @@ var timeline = {};
             instance.granularity = newGranularity;
         } else {
             instance.nextAnimate = {
-                coords:"0,30",
-                delay:300,
-                type:">"
+                coords: "0,30",
+                delay: 300,
+                type: ">"
             };
             instance.animate();
             setTimeout(function () {
                 instance.nextAnimate = {
-                    coords:"0,-30",
-                    delay:1500,
-                    type:"bounce"
+                    coords: "0,-30",
+                    delay: 1500,
+                    type: "bounce"
                 };
                 instance.animate();
             }, 300);
@@ -241,9 +241,9 @@ var timeline = {};
 
         if (newGranularity != timeline.granularity) {
             instance.nextAnimate = {
-                coords:"0,-250",
-                delay:500,
-                type:">"
+                coords: "0,-250",
+                delay: 500,
+                type: ">"
             };
 
             var interval = instance.graphs[instance.granularity].current().startInterval.toInterval(newGranularity);
@@ -303,16 +303,16 @@ var timeline = {};
             instance.granularity = newGranularity;
         } else {
             instance.nextAnimate = {
-                coords:"0,-30",
-                delay:300,
-                type:">"
+                coords: "0,-30",
+                delay: 300,
+                type: ">"
             };
             instance.animate();
             setTimeout(function () {
                 instance.nextAnimate = {
-                    coords:"0,30",
-                    delay:1500,
-                    type:"bounce"
+                    coords: "0,30",
+                    delay: 1500,
+                    type: "bounce"
                 };
                 instance.animate();
             }, 300);
@@ -385,8 +385,8 @@ var timeline = {};
             }
             else {
                 var emptystat = {
-                    time:currentInterval.startTime,
-                    feelings:[
+                    time: currentInterval.startTime,
+                    feelings: [
                         ["good", 0],
                         ["bad", 0],
                         ["neutral", 0]
@@ -446,18 +446,18 @@ var timeline = {};
     };
 
     this.signs = {
-        "neutral":"neutral",
-        "good":"good",
-        "bad":"bad"
+        "neutral": "neutral",
+        "good": "good",
+        "bad": "bad"
     };
 
     this.types = ["good", "neutral", "bad"];
 
     this.graphs = {
-        'hour':new OrderedLinkedList("startInterval"),
-        'day':new OrderedLinkedList("startInterval"),
-        'month':new OrderedLinkedList("startInterval"),
-        'year':new OrderedLinkedList("startInterval")
+        'hour': new OrderedLinkedList("startInterval"),
+        'day': new OrderedLinkedList("startInterval"),
+        'month': new OrderedLinkedList("startInterval"),
+        'year': new OrderedLinkedList("startInterval")
     };
 
     this.granularity;
@@ -484,9 +484,9 @@ var timeline = {};
     this.downButton;
     this.loadingCounter = 0;
     this.nextAnimate = {
-        coords:"",
-        delay:1000,
-        type:">"
+        coords: "",
+        delay: 1000,
+        type: ">"
     };
     this.granularityToRemove = "";
 }).call(timeline, jQuery);

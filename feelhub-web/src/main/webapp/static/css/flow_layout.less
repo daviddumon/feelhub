@@ -5,151 +5,92 @@
 
 body {
 
-    #slogan, #no-feelings {
-        text-align: center;
-        width: 100%;
-        display: block;
-        .font_logo;
-        color: @white;
-        font-size: 52px;
-    }
+  #slogan, #no-feelings {
+    text-align: center;
+    width: 100%;
+    display: block;
+    .font_logo;
+    color: @white;
+    font-size: 52px;
+  }
 
-    #slogan {
-        position: relative;
-        top: 50%;
-        margin-top: -26px;
-    }
+  #slogan {
+    position: relative;
+    top: 50%;
+    margin-top: -26px;
+  }
 
-    #main_keyword {
+  #main_keyword {
 
-        #counters {
+    #counters {
 
-            .counter {
-                width: 80px;
-                display: inline-block;
-                .rounded_down();
-                height: 50px;
+      .counter {
+        width: 80px;
+        display: inline-block;
+        .rounded_down();
+        height: 50px;
 
-                .smiley {
-                    border: none;
-                    width: 30px;
-                }
-
-                .counter_text {
-                    color: @white !important;
-                    font-size: 16px !important;
-                    .font_title();
-                }
-            }
-
-            #counter_good {
-                background-color: @good !important;
-            }
-
-            #counter_bad {
-                background-color: @bad !important;
-            }
-
-            #counter_neutral {
-                background-color: @neutral !important;
-            }
+        .smiley {
+          border: none;
+          width: 30px;
         }
-    }
 
-    #related {
-        margin: 0px auto;
-        height: 300px;
-        text-align: center;
-        vertical-align: top;
-        overflow: hidden;
-    }
-
-    #create_topic {
-        background-color: @blue-1;
-    }
-
-    #feeling_form {
-
-        textarea {
-            .rounded();
-
-            &:focus {
-                outline: none;
-            }
+        .counter_text {
+          color: @white !important;
+          font-size: 16px !important;
+          .font_title();
         }
+      }
+
+      #counter_good {
+        background-color: @good !important;
+      }
+
+      #counter_bad {
+        background-color: @bad !important;
+      }
+
+      #counter_neutral {
+        background-color: @neutral !important;
+      }
     }
+  }
 
-    #feelings {
-        width: 100%;
-        position: relative;
-        text-align: center;
+  #related {
+    margin: 0px auto;
+    height: 300px;
+    text-align: center;
+    vertical-align: top;
+    overflow: hidden;
+  }
 
-        .feeling_list {
-            width: 300px;
-            display: inline-block;
-            vertical-align: top;
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-    }
-
-//#bottom_wrapper {
-//    position: relative;
-//    width: 100%;
-//    clear: both;
-//.box {
-//    position: relative;
-//    text-align: center;
-//    vertical-align: top;
-//    margin-bottom: 20px;
-//    overflow: hidden;
-//    padding: 20px;
-//
-//    .box_title {
-//        height: 20px;
-//        .font_title();
-//        font-size: @font-big;
-//        color: @blue-3;
-//        font-weight: bold;
-//        margin-bottom: 20px;
-//    }
-//}
-//#left {
-//    float: left;
-//    width: 38%;
-//    margin-bottom: 20px;
-//
-//}
-//#right {
-//    float: right;
-//    width: 62%;
-//    text-align: center;
-//}
-//}
+  #create_topic {
+    background-color: @blue-1;
+  }
 }
 
 @media (min-width: 1600px) {
 
-    body {
-        #wrapper {
-            #left {
-                #related {
-                    max-width: 444px;
-                }
-            }
+  body {
+    #wrapper {
+      #left {
+        #related {
+          max-width: 444px;
         }
+      }
     }
+  }
 }
 
 @media (min-width: 1800px) {
 
-    body {
-        #wrapper {
-            #left {
-                #related {
-                    max-width: 592px;
-                }
-            }
+  body {
+    #wrapper {
+      #left {
+        #related {
+          max-width: 592px;
         }
+      }
     }
+  }
 }

@@ -2,57 +2,58 @@ var TimeLineTests = new TestCase("TimeLineTests");
 
 TimeLineTests.prototype = {
 
-    setUp: function() {
+    setUp: function () {
         testDate = new Date();
         createDocumentForTimeLineTests();
 
         fakeData = {
-            granularity : 'hour',
-            stats :[
+            granularity: 'hour',
+            stats: [
                 {
-                    time : testDate.minusHour(6).getTime(),
-                    feelings : {
-                        good : 18,
-                        neutral : 268,
-                        bad : 50
+                    time: testDate.minusHour(6).getTime(),
+                    feelings: {
+                        good: 18,
+                        neutral: 268,
+                        bad: 50
                     }
                 },
                 {
-                    time : testDate.plusHour(4).getTime(),
-                    feelings : {
-                        good : 12,
-                        bad : 53,
-                        neutral : 228
+                    time: testDate.plusHour(4).getTime(),
+                    feelings: {
+                        good: 12,
+                        bad: 53,
+                        neutral: 228
                     }
                 },
                 {
-                    time : testDate.plusHour(2).getTime(),
-                    feelings : {
-                        good : 23,
-                        bad : 64,
-                        neutral : 180
+                    time: testDate.plusHour(2).getTime(),
+                    feelings: {
+                        good: 23,
+                        bad: 64,
+                        neutral: 180
                     }
                 }
             ]
         };
 
-        $.getJSON = function(url, callback) {
+        $.getJSON = function (url, callback) {
             var jqxhr = {
-                complete: function(){}
+                complete: function () {
+                }
             };
             callback(fakeData);
             return jqxhr;
         };
 
-        timeline.init('hour',baseSource, timelineWidth, timelineHeight, spacer, stroke, blockNumber, divName);
+        timeline.init('hour', baseSource, timelineWidth, timelineHeight, spacer, stroke, blockNumber, divName);
     },
 
-    tearDown: function() {
+    tearDown: function () {
         $.getJSON = originalGetJSON;
         resetTimeline();
     },
 
-    testCanInitTimeline: function() {
+    testCanInitTimeline: function () {
         assertNotUndefined(timeline);
         assertNotNull(timeline);
         assertNotUndefined(timeline.displayWidth);
@@ -75,7 +76,7 @@ TimeLineTests.prototype = {
         assertSame('hour', timeline.granularity);
     },
 
-    testCanCreateDisplay: function() {
+    testCanCreateDisplay: function () {
         assertNotUndefined(timeline.displaySvg);
         var svg = document.getElementById(timeline.displayDiv).getElementsByTagName('svg')[0];
         assertNotUndefined(svg);
@@ -83,7 +84,7 @@ TimeLineTests.prototype = {
         assertEquals(timelineHeight, svg.getAttribute('height'));
     },
 
-    testCanCreateButtons: function() {
+    testCanCreateButtons: function () {
         //assertNotUndefined(timeline.backSvg);
         //assertNotUndefined(timeline.forwardSvg);
         //assertNotUndefined(timeline.upSvg);
@@ -122,7 +123,7 @@ TimeLineTests.prototype = {
         //assertEquals(1, downButton.length);
     },
 
-    testCanOrderFeelingsForStat: function() {
+    testCanOrderFeelingsForStat: function () {
         var stat = fakeData.stats[0];
 
         timeline.orderFeelingsFor(stat);
@@ -132,7 +133,7 @@ TimeLineTests.prototype = {
         assertEquals(18, stat.feelings[2][1]);
     },
 
-    testCanNormalizeData: function() {
+    testCanNormalizeData: function () {
         timeline.orderFeelingsFor(fakeData.stats[0]);
         var val1 = getNomarlizeFor(fakeData.stats[0].feelings[0][1]);
         var val2 = getNomarlizeFor(fakeData.stats[0].feelings[1][1]);
@@ -145,7 +146,7 @@ TimeLineTests.prototype = {
         assertEquals(val3, fakeData.stats[0].feelings[2][1]);
     },
 
-    testCanComputeBlockCoordsForStatAndInterval: function() {
+    testCanComputeBlockCoordsForStatAndInterval: function () {
         timeline.orderFeelingsFor(fakeData.stats[0]);
         var stat = fakeData.stats[0];
 
@@ -156,7 +157,7 @@ TimeLineTests.prototype = {
         checkGoodBlocksOK(stat, block);
     },
 
-    testInsertIntervalInBlock: function() {
+    testInsertIntervalInBlock: function () {
         timeline.orderFeelingsFor(fakeData.stats[0]);
         var stat = fakeData.stats[0];
         var interval = testDate.minusHour(2).interval("hour");
@@ -166,7 +167,7 @@ TimeLineTests.prototype = {
         assertSame(block.interval, interval);
     },
 
-    testCanComputeSignLabelForBlock: function() {
+    testCanComputeSignLabelForBlock: function () {
         timeline.orderFeelingsFor(fakeData.stats[0]);
         timeline.normalizeData(fakeData.stats[0]);
 
@@ -176,7 +177,7 @@ TimeLineTests.prototype = {
         assertSame("neutral", block.signLabel.text);
     },
 
-    testCanComputeTimeLabelForBlock: function() {
+    testCanComputeTimeLabelForBlock: function () {
         timeline.orderFeelingsFor(fakeData.stats[0]);
         timeline.normalizeData(fakeData.stats[0]);
 
@@ -186,7 +187,7 @@ TimeLineTests.prototype = {
         assertSame("now", block.timeLabel);
     },
 
-    testCanLoadData: function() {
+    testCanLoadData: function () {
         var graph = fakeGraph();
 
         timeline.loadBlocksFor(graph);
@@ -194,13 +195,13 @@ TimeLineTests.prototype = {
         assertEquals(1, graph.blocks.length);
     },
 
-    testCanBuildAGraph: function() {
+    testCanBuildAGraph: function () {
         var graph = timeline.buildGraph();
 
         assertNotUndefined(graph);
     },
 
-    testLoadDataIncreaseLoadingCounter: function() {
+    testLoadDataIncreaseLoadingCounter: function () {
         var graph = fakeGraph();
 
         timeline.loadBlocksFor(graph);
@@ -208,7 +209,7 @@ TimeLineTests.prototype = {
         assertEquals(1, timeline.loadingCounter);
     },
 
-    testCanDecreaseCounterWhenCheckAnimate: function() {
+    testCanDecreaseCounterWhenCheckAnimate: function () {
         timeline.loadingCounter = 2;
 
         timeline.checkAnimate();
@@ -216,11 +217,13 @@ TimeLineTests.prototype = {
         assertEquals(1, timeline.loadingCounter);
     },
 
-    testCallAnimateIfLoadingCounterReachZero: function() {
+    testCallAnimateIfLoadingCounterReachZero: function () {
         var originalAnimate = timeline.animate;
         var call = false;
         timeline.loadingCounter = 1;
-        timeline.animate = function() { call = true;};
+        timeline.animate = function () {
+            call = true;
+        };
 
         timeline.checkAnimate();
 
@@ -228,7 +231,7 @@ TimeLineTests.prototype = {
         timeline.animate = originalAnimate;
     },
 
-    testHasGranularityOrderedLinkedListOfGraphs: function() {
+    testHasGranularityOrderedLinkedListOfGraphs: function () {
         assertNotUndefined(timeline.graphs);
         assertEquals(0, timeline.graphs["hour"].length);
         assertEquals(0, timeline.graphs["day"].length);
@@ -236,7 +239,7 @@ TimeLineTests.prototype = {
         assertEquals(0, timeline.graphs["year"].length);
     },
 
-    testCanLoadMultiplesBlocks: function() {
+    testCanLoadMultiplesBlocks: function () {
         var graph = fakeGraph();
         testDate.minusHour(9);
         graph.startInterval = testDate.interval("hour");
@@ -245,19 +248,19 @@ TimeLineTests.prototype = {
 
         assertEquals(10, graph.blocks.length);
         var interval = graph.startInterval;
-        for(var i = 0; i < 10; i++) {
+        for (var i = 0; i < 10; i++) {
             assertSame(interval.startTime, graph.blocks[i].interval.startTime);
             interval = interval.nextInterval();
         }
     },
 
-    testCanLoadInitialGraphs: function() {
-        timeline.loadInitialGraphs(0,0);
+    testCanLoadInitialGraphs: function () {
+        timeline.loadInitialGraphs(0, 0);
 
         //assertEquals(3, timeline.graphs[timeline.granularity].length);
     },
 
-    testCanAnimateBack: function() {
+    testCanAnimateBack: function () {
         //timeline.loadInitialGraphs(0,0);
         //
         //timeline.back();
@@ -268,18 +271,18 @@ TimeLineTests.prototype = {
         //assertTrue(new Date().minusHour(2).interval("hour").equals(timeline.graphs[timeline.granularity].next().startInterval));
     },
 
-    testCanAnimateForward: function() {
-    //    timeline.loadInitialGraphs(0,0);
-    //
-    //    timeline.forward();
-    //
-    //    assertEquals(4, timeline.graphs[timeline.granularity].length);
-    //    assertTrue(new Date().minusHour(2).interval("hour").equals(timeline.graphs[timeline.granularity].previous().startInterval));
-    //    assertTrue(new Date().plusHour(3).interval("hour").equals(timeline.graphs[timeline.granularity].current().startInterval));
-    //    assertTrue(new Date().plusHour(8).interval("hour").equals(timeline.graphs[timeline.granularity].next().startInterval));
+    testCanAnimateForward: function () {
+        //    timeline.loadInitialGraphs(0,0);
+        //
+        //    timeline.forward();
+        //
+        //    assertEquals(4, timeline.graphs[timeline.granularity].length);
+        //    assertTrue(new Date().minusHour(2).interval("hour").equals(timeline.graphs[timeline.granularity].previous().startInterval));
+        //    assertTrue(new Date().plusHour(3).interval("hour").equals(timeline.graphs[timeline.granularity].current().startInterval));
+        //    assertTrue(new Date().plusHour(8).interval("hour").equals(timeline.graphs[timeline.granularity].next().startInterval));
     },
 
-    testCanAnimateUp: function() {
+    testCanAnimateUp: function () {
         //timeline.loadInitialGraphs(0,0);
         //
         //timeline.up();
@@ -288,7 +291,7 @@ TimeLineTests.prototype = {
         //assertEquals(3, timeline.graphs[timeline.granularity].length);
     },
 
-    testHasGranularityToRemove: function() {
+    testHasGranularityToRemove: function () {
         //timeline.loadInitialGraphs(0,0);
         //
         //timeline.up();
@@ -296,9 +299,9 @@ TimeLineTests.prototype = {
         //assertSame("hour", timeline.granularityToRemove);
     },
 
-    testCanAnimateDown: function() {
+    testCanAnimateDown: function () {
         timeline.granularity = "day";
-        timeline.loadInitialGraphs(0,0);
+        timeline.loadInitialGraphs(0, 0);
 
         timeline.down();
 
@@ -308,11 +311,11 @@ TimeLineTests.prototype = {
 };
 
 function createDocumentForTimeLineTests() {
-    var displayDiv  = document.createElement('displayDiv');
-    var backDiv     = document.createElement('backDiv');
-    var forwardDiv  = document.createElement('forwardDiv');
-    var upDiv  = document.createElement('upDiv');
-    var downDiv  = document.createElement('downDiv');
+    var displayDiv = document.createElement('displayDiv');
+    var backDiv = document.createElement('backDiv');
+    var forwardDiv = document.createElement('forwardDiv');
+    var upDiv = document.createElement('upDiv');
+    var downDiv = document.createElement('downDiv');
 
     displayDiv.setAttribute("id", divName + "_display");
     backDiv.setAttribute("id", divName + "_back");

@@ -23,4 +23,8 @@ public class UserInfos {
     public String getFullname() {
         return CurrentUser.get().getFullname();
     }
+
+    public String getLanguageCode() {
+        return CurrentUser.get().getLanguage().getCode();
+    }
 }

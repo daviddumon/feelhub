@@ -5,14 +5,14 @@ function Block(interval) {
     this.signLabel = {};
 
     this.coords = {
-        good:{
-            top:0, bottom:0
+        good: {
+            top: 0, bottom: 0
         },
-        bad:{
-            top:0, bottom:0
+        bad: {
+            top: 0, bottom: 0
         },
-        neutral:{
-            top:0, bottom:0
+        neutral: {
+            top: 0, bottom: 0
         },
     };
 }
@@ -85,20 +85,20 @@ function Graph(startInterval, endInterval, blockWidth, stroke, height) {
 
         $.each(timeline.types, function (index, type) {
             var path = svg.path(graph.path(type, x, y));
-            path.attr({stroke:colors[type].light,
-                "fill-opacity":1,
-                "stroke-width":0,
-                fill:colors[type].light});
+            path.attr({stroke: colors[type].light,
+                "fill-opacity": 1,
+                "stroke-width": 0,
+                fill: colors[type].light});
 
             var top = svg.path(graph.top(type, x, y));
-            top.attr({stroke:colors[type].light,
-                "fill-opacity":1,
-                "stroke-width":graph.stroke});
+            top.attr({stroke: colors[type].light,
+                "fill-opacity": 1,
+                "stroke-width": graph.stroke});
 
             var bottom = svg.path(graph.bottom(type, x, y));
-            bottom.attr({stroke:colors[type].light,
-                "fill-opacity":1,
-                "stroke-width":graph.stroke});
+            bottom.attr({stroke: colors[type].light,
+                "fill-opacity": 1,
+                "stroke-width": graph.stroke});
 
             path.toBack();
             top.toBack();
@@ -112,16 +112,16 @@ function Graph(startInterval, endInterval, blockWidth, stroke, height) {
         $.each(graph.blocks, function (index, block) {
             if (block.signLabel.text != "") {
                 var sign = svg.text(x + (2 * index + 0.5) * graph.blockWidth, y + block.signLabel.y, block.signLabel.text);
-                sign.attr({"fill":"#FFFFFF",
-                    "font-size":16,
-                    "font-family":"Helvetica Neue"});
+                sign.attr({"fill": "#FFFFFF",
+                    "font-size": 16,
+                    "font-family": "Helvetica Neue"});
                 graph.set.push(sign);
             }
 
             var time = svg.text(x + (2 * index + 0.5) * graph.blockWidth, y + parseInt(graph.height - 20 - graph.stroke), block.timeLabel);
-            time.attr({"fill":"#7BAFD1",
-                "font-size":12,
-                "font-family":"Helvetica Neue"});
+            time.attr({"fill": "#7BAFD1",
+                "font-size": 12,
+                "font-family": "Helvetica Neue"});
             graph.set.push(time);
         });
 
@@ -147,7 +147,7 @@ function Graph(startInterval, endInterval, blockWidth, stroke, height) {
 
     this.animate = function (coords, delay, type) {
         $.each(graph.set, function (index, element) {
-            element.animate({translation:coords}, delay, (type != null ? type : ">"));
+            element.animate({translation: coords}, delay, (type != null ? type : ">"));
         });
     };
 

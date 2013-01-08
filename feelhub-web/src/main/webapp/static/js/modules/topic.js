@@ -4,11 +4,22 @@ define(['jquery'], function ($) {
     var api_end_point = "/api/feelings";
 
     function init() {
+        setFormBehavior();
+    }
 
+    function setFormBehavior() {
+        setTextareaBehavior();
+        setSubmitBehavior();
+        setSelectedLanguage();
+    }
+
+    function setTextareaBehavior() {
         $(container).children().focus(function () {
             $("#feeling_form textarea").height("100px");
         });
+    }
 
+    function setSubmitBehavior() {
         $(container).submit(function () {
             $.ajax({
                 url: root + api_end_point,
@@ -19,6 +30,10 @@ define(['jquery'], function ($) {
             });
             return false;
         });
+    }
+
+    function setSelectedLanguage() {
+        $("#feeling_form select option[value=" + languageCode + "]").attr('selected', 'selected');
     }
 
     function success() {

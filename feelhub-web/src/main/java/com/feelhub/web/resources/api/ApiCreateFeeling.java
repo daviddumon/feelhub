@@ -15,12 +15,12 @@ import java.util.UUID;
 public class ApiCreateFeeling {
 
     public JsonRepresentation add(final Form form) throws JSONException, AuthenticationException {
-        final FeelingRequestEvent event = getEventBuilderFrom(form).build();
+        final FeelingRequestEvent event = getEventBuilderFor(form).build();
         DomainEventBus.INSTANCE.post(event);
         return new JsonRepresentation(getJsonResponse(event));
     }
 
-    private FeelingRequestEvent.Builder getEventBuilderFrom(final Form form) throws JSONException, AuthenticationException {
+    private FeelingRequestEvent.Builder getEventBuilderFor(final Form form) throws JSONException, AuthenticationException {
         final FeelingRequestEvent.Builder builder = new FeelingRequestEvent.Builder();
         builder.feelingId(UUID.randomUUID());
         builder.topicId(extractId(form));

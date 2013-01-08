@@ -6,10 +6,10 @@ define(['jquery', 'view/search/search-command-http-view', 'view/search/search-co
     function doSearch() {
 
         $.ajax({
-            url:root + api_end_point,
-            type:'GET',
-            success:success,
-            error:error
+            url: root + api_end_point,
+            type: 'GET',
+            success: success,
+            error: error
         });
 
         function success(data, textStatus, jqXHR) {
@@ -33,6 +33,6 @@ define(['jquery', 'view/search/search-command-http-view', 'view/search/search-co
     }
 
     return {
-        doSearch:doSearch
+        doSearch: doSearch
     }
 });

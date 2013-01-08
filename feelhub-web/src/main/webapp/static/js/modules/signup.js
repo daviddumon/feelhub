@@ -84,7 +84,7 @@ define(['jquery'], function ($) {
     }
 
     return {
-        init:init
+        init: init
     }
 
 });

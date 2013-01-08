@@ -21,6 +21,6 @@ define(['jquery', 'plugins/hgn!templates/dashboard_illustration_element_edit', '
         }
 
         return {
-            render:render
+            render: render
         }
     });

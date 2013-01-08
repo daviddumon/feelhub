@@ -12,6 +12,6 @@ define(["./dashboard-illustration-element-view",
         }
 
         return  {
-            render:render
+            render: render
         };
     });

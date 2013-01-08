@@ -9,7 +9,10 @@
 <form id="feeling_form" autocomplete="off">
     <div class="box_title">My feeling about this</div>
     <select name="language">
-        <option value="fr" selected="selected">fr</option>
+        <option value=""></option>
+        <#list locales as locale>
+            <option value="${locale.code}">${locale.name}</option>
+        </#list>
     </select>
     <textarea name="text"></textarea>
     <input type="hidden" name="topicId" value="${topicData.id}"/>
