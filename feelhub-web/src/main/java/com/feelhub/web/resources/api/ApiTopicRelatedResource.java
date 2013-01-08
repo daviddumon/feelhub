@@ -6,9 +6,10 @@ import com.feelhub.domain.topic.*;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.search.*;
+import com.feelhub.web.search.RelationSearch;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import org.mongolink.domain.criteria.Order;
 import org.restlet.data.*;
 import org.restlet.resource.*;
 
@@ -45,7 +46,7 @@ public class ApiTopicRelatedResource extends ServerResource {
         final Form form = getQuery();
         setUpSearchForLimitParameter(form);
         setUpSearchForSkipParameter(form);
-        relations = relationSearch.withSort("weight", Search.REVERSE_ORDER).execute();
+        relations = relationSearch.withSort("weight", Order.DESCENDING).execute();
     }
 
     private void setUpSearchForLimitParameter(final Form form) {

@@ -32,7 +32,7 @@ public class RelationSearch implements Search<Relation> {
     }
 
     @Override
-    public RelationSearch withSort(final String sortField, final int sortOrder) {
+    public RelationSearch withSort(final String sortField, final Order sortOrder) {
         criteria.sort(sortField, sortOrder);
         return this;
     }

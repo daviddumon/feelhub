@@ -9,6 +9,7 @@ import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.search.FeelingSearch;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import org.mongolink.domain.criteria.Order;
 import org.restlet.data.*;
 import org.restlet.resource.*;
 
@@ -37,7 +38,7 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
         getLastFeeling();
         feelingSearch.withSkip(0);
         feelingSearch.withLimit(30);
-        final List<Feeling> searchResult = feelingSearch.withSort("creationDate", FeelingSearch.REVERSE_ORDER).execute();
+        final List<Feeling> searchResult = feelingSearch.withSort("creationDate", Order.DESCENDING).execute();
         int i = 0;
         boolean found = false;
         while (!found & i < searchResult.size()) {
@@ -47,7 +48,7 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
                 feelings.add(searchResult.get(i++));
                 if (i % 30 == 0) {
                     feelingSearch.reset();
-                    feelingSearch.withSkip(i).withLimit(30).withSort("creationDate", FeelingSearch.REVERSE_ORDER).withTopicId(realTopic.getId());
+                    feelingSearch.withSkip(i).withLimit(30).withSort("creationDate", Order.DESCENDING).withTopicId(realTopic.getId());
                     searchResult.addAll(feelingSearch.execute());
                 }
             }

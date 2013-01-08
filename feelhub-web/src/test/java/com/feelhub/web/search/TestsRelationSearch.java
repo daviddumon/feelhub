@@ -5,6 +5,7 @@ import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
+import org.mongolink.domain.criteria.Order;
 
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class TestsRelationSearch extends TestWithMongoRepository {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
         TestFactories.relations().newRelations(5, from.getId());
 
-        final List<Relation> relations = relationSearch.withSort("weight", Search.REVERSE_ORDER).execute();
+        final List<Relation> relations = relationSearch.withSort("weight", Order.DESCENDING).execute();
 
         assertThat(relations.size()).isEqualTo(5);
         assertThat(relations.get(0).getWeight()).isEqualTo(4.0);

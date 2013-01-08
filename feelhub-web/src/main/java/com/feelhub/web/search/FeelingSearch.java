@@ -34,7 +34,7 @@ public class FeelingSearch implements Search<Feeling> {
     }
 
     @Override
-    public FeelingSearch withSort(final String sortField, final int sortOrder) {
+    public FeelingSearch withSort(final String sortField, final Order sortOrder) {
         criteria.sort(sortField, sortOrder);
         return this;
     }

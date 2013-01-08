@@ -31,7 +31,7 @@ public class StatisticsSearch implements Search<Statistics> {
     }
 
     @Override
-    public StatisticsSearch withSort(final String sortField, final int sortOrder) {
+    public StatisticsSearch withSort(final String sortField, final Order sortOrder) {
         return null;
     }
 

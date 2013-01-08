@@ -7,6 +7,7 @@ import com.feelhub.web.dto.*;
 import com.feelhub.web.search.FeelingSearch;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import org.mongolink.domain.criteria.Order;
 import org.restlet.data.Form;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class ApiFeelingSearch {
     private List<Feeling> doSearchWithQueryParameters(final Form query) {
         setUpSearchForLimitParameter(query);
         setUpSearchForSkipParameter(query);
-        return feelingSearch.withSort("creationDate", FeelingSearch.REVERSE_ORDER).execute();
+        return feelingSearch.withSort("creationDate", Order.DESCENDING).execute();
     }
 
     private void setUpSearchForLimitParameter(final Form form) {
