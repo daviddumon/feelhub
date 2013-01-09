@@ -107,7 +107,7 @@ public class TestsRealTopic {
         final BingRequest bingRequest = bus.lastEvent(BingRequest.class);
         assertThat(bingRequest).isNotNull();
         assertThat(bingRequest.getQuery()).isEqualTo("Description-es");
-        assertThat(bingRequest.getTopic()).isEqualTo(topic);
+        assertThat(bingRequest.getTopicId()).isEqualTo(topic.getId());
     }
 
     private RealTopicType translatableType() {

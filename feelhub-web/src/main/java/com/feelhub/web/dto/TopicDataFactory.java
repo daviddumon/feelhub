@@ -20,6 +20,21 @@ public class TopicDataFactory {
         return getTopicData(topic, feelhubLanguage, null);
     }
 
+    private TopicData getTopicData(final Topic topic, final FeelhubLanguage feelhubLanguage, final Sentiment sentiment) {
+        final TopicData.Builder builder = new TopicData.Builder();
+        builder.id(topic.getId());
+        builder.name(topic.getName(feelhubLanguage));
+        builder.type(topic.getType());
+        builder.illustration(topic.getIllustration());
+        builder.description(topic.getDescription(feelhubLanguage));
+        builder.subtypes(topic.getSubTypes());
+        builder.uris(topic.getUris());
+        if (sentiment != null) {
+            builder.sentimentValue(sentiment.getSentimentValue());
+        }
+        return builder.build();
+    }
+
     public List<TopicData> getTopicDatas(final Feeling feeling, final FeelhubLanguage feelhubLanguage) {
         final List<TopicData> topicDatas = Lists.newArrayList();
         for (final Sentiment sentiment : feeling.getSentiments()) {
@@ -29,23 +44,6 @@ public class TopicDataFactory {
             topicDatas.add(topicData);
         }
         return topicDatas;
-    }
-
-    private TopicData getTopicData(final Topic topic, final FeelhubLanguage feelhubLanguage, final Sentiment sentiment) {
-        final TopicData.Builder builder = new TopicData.Builder();
-        builder.id(topic.getId());
-        builder.name(topic.getDescription(feelhubLanguage));
-        builder.type(topic.getType());
-        //builder.subtypes(topic.getSubTypes());
-        //builder.urls(topic.getUrls());
-        if (sentiment != null) {
-            builder.sentimentValue(sentiment.getSentimentValue());
-        }
-        //final List<Illustration> illustrations = Repositories.illustrations().forTopicId(topic.getId());
-        //if (!illustrations.isEmpty()) {
-        //    builder.illustration(illustrations.get(0));
-        //}
-        return builder.build();
     }
 
     public TopicData getTopicData(final String name) {

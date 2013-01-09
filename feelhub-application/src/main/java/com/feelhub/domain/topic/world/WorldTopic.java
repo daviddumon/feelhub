@@ -19,4 +19,9 @@ public class WorldTopic extends Topic {
     public TopicType getType() {
         return UnusableTopicTypes.None;
     }
+
+    @Override
+    public String getTypeValue() {
+        return UnusableTopicTypes.None.toString();
+    }
 }

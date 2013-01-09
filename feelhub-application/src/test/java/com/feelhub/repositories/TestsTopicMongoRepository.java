@@ -241,5 +241,10 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         public TopicType getType() {
             return null;
         }
+
+        @Override
+        public String getTypeValue() {
+            return null;
+        }
     }
 }

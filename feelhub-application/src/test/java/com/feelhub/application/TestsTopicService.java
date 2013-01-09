@@ -233,6 +233,11 @@ public class TestsTopicService {
             return type;
         }
 
+        @Override
+        public String getTypeValue() {
+            return type.toString();
+        }
+
         private final TopicType type;
     }
 

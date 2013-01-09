@@ -2,14 +2,18 @@ package com.feelhub.web.dto;
 
 import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.topic.UnusableTopicTypes;
+import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.topic.http.uri.Uri;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
+import com.google.common.collect.Lists;
 import org.junit.*;
 
-import static org.fest.assertions.Assertions.*;
+import java.util.List;
 
+import static org.fest.assertions.Assertions.*;
 
 public class TestsTopicData {
 
@@ -17,7 +21,7 @@ public class TestsTopicData {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void topicDataHasId() {
+    public void hasId() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
 
         final TopicData topicData = new TopicData.Builder().id(realTopic.getId()).build();
@@ -33,13 +37,12 @@ public class TestsTopicData {
     }
 
     @Test
-    @Ignore
-    public void topicDataHasAnIllustration() {
-        //final Illustration illustration = TestFactories.illustrations().newIllustration(TestFactories.topics().newCompleteRealTopic().getId(), "mylink");
-        //
-        //final TopicData topicData = new TopicData.Builder().illustration(illustration).build();
-        //
-        //assertThat(topicData.getIllustration()).isEqualTo(illustration.getLink());
+    public void hasAnIllustration() {
+        final String illustration = "mylink";
+
+        final TopicData topicData = new TopicData.Builder().illustration(illustration).build();
+
+        assertThat(topicData.getIllustration()).isEqualTo(illustration);
     }
 
     @Test
@@ -50,23 +53,23 @@ public class TestsTopicData {
     }
 
     @Test
-    public void topicDataHasADescription() {
+    public void hasAName() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
 
-        final TopicData topicData = new TopicData.Builder().name(realTopic.getDescription(FeelhubLanguage.reference())).build();
+        final TopicData topicData = new TopicData.Builder().name(realTopic.getName(FeelhubLanguage.reference())).build();
 
-        assertThat(topicData.getName()).isEqualTo(realTopic.getDescription(FeelhubLanguage.reference()));
+        assertThat(topicData.getName()).isEqualTo(realTopic.getName(FeelhubLanguage.reference()));
     }
 
     @Test
-    public void descriptionValueDefaultValueIsEmpty() {
+    public void nameValueDefaultValueIsEmpty() {
         final TopicData topicData = new TopicData.Builder().build();
 
         assertThat(topicData.getName()).isEmpty();
     }
 
     @Test
-    public void topicDataHasASentimentValue() {
+    public void hasASentimentValue() {
         final TopicData topicData = new TopicData.Builder().sentimentValue(SentimentValue.good).build();
 
         assertThat(topicData.getSentimentValue()).isEqualTo(SentimentValue.good);
@@ -80,7 +83,7 @@ public class TestsTopicData {
     }
 
     @Test
-    public void topicDataHasAType() {
+    public void hasAType() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
 
         final TopicData topicData = new TopicData.Builder().type(realTopic.getType()).build();
@@ -96,7 +99,7 @@ public class TestsTopicData {
     }
 
     @Test
-    public void topicHasSubtypes() {
+    public void hasSubtypes() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
 
         final TopicData topicData = new TopicData.Builder().subtypes(realTopic.getSubTypes()).build();
@@ -112,20 +115,39 @@ public class TestsTopicData {
     }
 
     @Test
-    @Ignore
-    public void topicHasUrls() {
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+    public void topicHasUris() {
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
 
-        //final TopicData topicData = new TopicData.Builder().urls(realTopic.getUrls()).build();
-        //
-        //assertThat(topicData.getUrls()).isEqualTo(realTopic.getUrls());
+        final TopicData topicData = new TopicData.Builder().uris(httpTopic.getUris()).build();
+
+        List<String> uris = Lists.newArrayList();
+        for (Uri uri : httpTopic.getUris()) {
+            uris.add(uri.toString());
+        }
+        assertThat(topicData.getUris()).isEqualTo(uris);
     }
 
     @Test
     public void urlsHasADefaultValue() {
         final TopicData topicData = new TopicData.Builder().build();
 
-        assertThat(topicData.getUrls()).isEmpty();
+        assertThat(topicData.getUris()).isEmpty();
+    }
+
+    @Test
+    public void hasADescription() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+
+        final TopicData topicData = new TopicData.Builder().description(realTopic.getDescription(FeelhubLanguage.reference())).build();
+
+        assertThat(topicData.getDescription()).isEqualTo(realTopic.getDescription(FeelhubLanguage.reference()));
+    }
+
+    @Test
+    public void descriptionValueDefaultValueIsEmpty() {
+        final TopicData topicData = new TopicData.Builder().build();
+
+        assertThat(topicData.getName()).isEmpty();
     }
 
     @Test
@@ -133,7 +155,7 @@ public class TestsTopicData {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final TopicData topicData = new TopicData.Builder().id(realTopic.getId()).type(realTopic.getType()).build();
 
-        assertThat(topicData.toString()).isEqualTo("{\"sentimentValue\":{},\"id\":\"" + realTopic.getId() + "\",\"urls\":[],\"illustration\":\"\",\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
+        assertThat(topicData.toString()).isEqualTo("{\"sentimentValue\":{},\"id\":\"" + realTopic.getId() + "\",\"uris\":[],\"description\":\"\",\"illustration\":\"\",\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
     }
 
 }

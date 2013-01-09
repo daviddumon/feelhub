@@ -143,7 +143,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                         topicId: feeling.keywordDatas[i].topicId,
                         sentimentValue: feeling.keywordDatas[i].sentimentValue,
                         keywordValue: feeling.keywordDatas[i].keywordValue,
-                        url: buildInternalLink(feeling.keywordDatas[i].typeValue, feeling.keywordDatas[i].languageCode, feeling.keywordDatas[i].keywordValue),
+                        //url: buildInternalLink(feeling.keywordDatas[i].typeValue, feeling.keywordDatas[i].languageCode, feeling.keywordDatas[i].keywordValue),
                         classes: "keyword_medium keyword_stack",
                         illustrationLink: feeling.keywordDatas[i].illustrationLink
                     };

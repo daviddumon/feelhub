@@ -15,17 +15,17 @@ import org.restlet.resource.*;
 
 import java.util.*;
 
-public class ApiTopicRelatedResource extends ServerResource {
+public class ApiTopicMediasResource extends ServerResource {
 
     @Inject
-    public ApiTopicRelatedResource(final RelationSearch relationSearch, final TopicService topicService, final TopicDataFactory topicDataFactory) {
+    public ApiTopicMediasResource(final RelationSearch relationSearch, final TopicService topicService, final TopicDataFactory topicDataFactory) {
         this.relationSearch = relationSearch;
         this.topicService = topicService;
         this.topicDataFactory = topicDataFactory;
     }
 
     @Get
-    public ModelAndView getRelatedTopics() {
+    public ModelAndView getMediasTopics() {
         getTopic();
         doSearchWithQueryParameters();
         getTopicDataForEachRelation();
@@ -46,7 +46,7 @@ public class ApiTopicRelatedResource extends ServerResource {
         final Form form = getQuery();
         setUpSearchForLimitParameter(form);
         setUpSearchForSkipParameter(form);
-        relations = relationSearch.withSort("weight", Order.DESCENDING).withDiscriminator("Related").execute();
+        relations = relationSearch.withSort("weight", Order.DESCENDING).withDiscriminator("Media").execute();
     }
 
     private void setUpSearchForLimitParameter(final Form form) {

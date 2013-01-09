@@ -132,6 +132,17 @@ public class TestsTopic {
     }
 
     @Test
+    public void returnAnyNamesFinally() {
+        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final String name = "Name-fr";
+        fakeTopic.addName(FeelhubLanguage.fromCode("fr"), name);
+
+        final String anyName = fakeTopic.getName(FeelhubLanguage.reference());
+
+        assertThat(anyName).isEqualTo(name);
+    }
+
+    @Test
     public void correctlyFormatNames() {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
         final String name = "nAMe-refeRence";
@@ -246,6 +257,11 @@ public class TestsTopic {
 
         @Override
         public TopicType getType() {
+            return null;
+        }
+
+        @Override
+        public String getTypeValue() {
             return null;
         }
     }

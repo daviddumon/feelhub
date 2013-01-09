@@ -74,6 +74,7 @@ define(['jquery'], function ($) {
     }
 
     return {
-        init: init
+        init: init,
+        compute: compute_correct_values
     }
 })

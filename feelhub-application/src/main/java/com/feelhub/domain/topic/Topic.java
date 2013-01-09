@@ -37,6 +37,8 @@ public abstract class Topic extends BaseEntity {
 
     public abstract TopicType getType();
 
+    public abstract String getTypeValue();
+
     public void setUserId(final UUID userId) {
         this.userId = userId;
     }
@@ -56,6 +58,9 @@ public abstract class Topic extends BaseEntity {
             return names.get(FeelhubLanguage.reference().getCode());
         } else if (names.containsKey(FeelhubLanguage.none().getCode())) {
             return names.get(FeelhubLanguage.none().getCode());
+        } else if (names.size() > 0) {
+            final Iterator<String> iterator = names.values().iterator();
+            return iterator.next();
         } else {
             return "";
         }

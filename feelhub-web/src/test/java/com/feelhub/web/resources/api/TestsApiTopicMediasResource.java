@@ -20,7 +20,7 @@ import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;
 
-public class TestsApiTopicRelatedResource {
+public class TestsApiTopicMediasResource {
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
@@ -33,45 +33,45 @@ public class TestsApiTopicRelatedResource {
         user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
         injector = Guice.createInjector(new GuiceTestModule());
-        apiTopicRelatedResource = injector.getInstance(ApiTopicRelatedResource.class);
-        ContextTestFactory.initResource(apiTopicRelatedResource);
+        apiTopicMediasResource = injector.getInstance(ApiTopicMediasResource.class);
+        ContextTestFactory.initResource(apiTopicMediasResource);
     }
 
     @Test
-    public void apiTopicRelatedResourceIsMapped() {
+    public void apiTopicMediasResourceIsMapped() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final ClientResource relatedResource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related");
+        final ClientResource mediasResource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/medias");
 
-        relatedResource.get();
+        mediasResource.get();
 
-        assertThat(relatedResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
+        assertThat(mediasResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
     }
 
     @Test
     public void canGetWithQueryString() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final ClientResource relatedResource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related?q=test");
+        final ClientResource mediasResource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/medias?q=test");
 
-        relatedResource.get();
+        mediasResource.get();
 
-        assertThat(relatedResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
+        assertThat(mediasResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
     }
 
     @Test
     public void canThrowError() {
-        final ClientResource relatedResource = restlet.newClientResource("/api/topic/" + UUID.randomUUID() + "/related?q=test");
+        final ClientResource mediasResource = restlet.newClientResource("/api/topic/" + UUID.randomUUID() + "/medias?q=test");
 
-        relatedResource.get();
+        mediasResource.get();
 
-        assertThat(relatedResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
+        assertThat(mediasResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
     }
 
     @Test
-    public void canGetARelated() throws IOException, JSONException {
-        final Relation relation = TestFactories.relations().newRelated();
-        final ClientResource relatedResource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/related?skip=0&limit=1");
+    public void canGetAMedia() throws IOException, JSONException {
+        final Relation relation = TestFactories.relations().newMedia();
+        final ClientResource mediasResource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/medias?skip=0&limit=1");
 
-        final Representation representation = relatedResource.get();
+        final Representation representation = mediasResource.get();
 
         final JSONArray jsonArray = new JSONArray(representation.getText());
         assertThat(jsonArray).isNotNull();
@@ -79,11 +79,11 @@ public class TestsApiTopicRelatedResource {
     }
 
     @Test
-    public void canGetRelatedForATopic() throws IOException, JSONException {
+    public void canGetMediasForATopic() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelatedList(5, realTopic.getId());
-        TestFactories.relations().newRelatedList(20);
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related");
+        TestFactories.relations().newMediaList(5, realTopic.getId());
+        TestFactories.relations().newMediaList(20);
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/medias");
 
         final Representation representation = resource.get();
 
@@ -94,10 +94,10 @@ public class TestsApiTopicRelatedResource {
     }
 
     @Test
-    public void canGetRelatedWithSkip() throws IOException, JSONException {
+    public void canGetMediasWithSkip() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelatedList(5, realTopic.getId());
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related?skip=2");
+        TestFactories.relations().newMediaList(5, realTopic.getId());
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/medias?skip=2");
 
         final Representation representation = resource.get();
 
@@ -108,10 +108,10 @@ public class TestsApiTopicRelatedResource {
     }
 
     @Test
-    public void canGetRelatedWithLimit() throws IOException, JSONException {
+    public void canGetMediasWithLimit() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelatedList(5, realTopic.getId());
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related?limit=2");
+        TestFactories.relations().newMediaList(5, realTopic.getId());
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/medias?limit=2");
 
         final Representation representation = resource.get();
 
@@ -124,8 +124,8 @@ public class TestsApiTopicRelatedResource {
     @Test
     public void defaultLimitIs100() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelatedList(150, realTopic.getId());
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related");
+        TestFactories.relations().newMediaList(150, realTopic.getId());
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/medias");
 
         final Representation representation = resource.get();
 
@@ -137,18 +137,18 @@ public class TestsApiTopicRelatedResource {
 
     @Test
     public void canGetEmptyTopicData() throws IOException, JSONException {
-        final Relation relation = TestFactories.relations().newRelated();
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/related");
+        final Relation relation = TestFactories.relations().newMedia();
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/medias");
 
         final Representation representation = resource.get();
 
         assertThat(representation).isNotNull();
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        final JSONObject topicDataAsJson = jsonArray.getJSONObject(0);
-        assertThat(topicDataAsJson).isNotNull();
-        assertThat(topicDataAsJson.get("id").toString()).isEqualTo(relation.getToId().toString());
-        assertThat(topicDataAsJson.get("name").toString()).isEqualTo("Name-reference");
-        assertThat(topicDataAsJson.get("illustration").toString()).isEmpty();
+        final JSONObject keywordDataAsJson = jsonArray.getJSONObject(0);
+        assertThat(keywordDataAsJson).isNotNull();
+        assertThat(keywordDataAsJson.get("id").toString()).isEqualTo(relation.getToId().toString());
+        assertThat(keywordDataAsJson.get("name").toString()).isEqualTo("Name-reference");
+        assertThat(keywordDataAsJson.get("illustration").toString()).isEmpty();
     }
 
     @Test
@@ -172,5 +172,5 @@ public class TestsApiTopicRelatedResource {
 
     private User user;
     private Injector injector;
-    private ApiTopicRelatedResource apiTopicRelatedResource;
+    private ApiTopicMediasResource apiTopicMediasResource;
 }

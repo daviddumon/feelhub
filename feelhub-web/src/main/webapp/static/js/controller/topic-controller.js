@@ -11,17 +11,14 @@ require.config({
     }
 });
 
-require(["jquery", "modules/interface", "modules/topic", "view/dashboard/dashboard-view", "modules/flow", "modules/polling"],
-    function ($, interface, topic, dashboard, flow, polling) {
+require(["jquery", "modules/interface", "modules/topic", "view/dashboard/dashboard-common", "modules/flow", "modules/polling", "modules/carousel"],
+    function ($, interface, topic, dashboard_common, flow, polling, carousel) {
+        carousel.init();
         interface.init();
         topic.init();
-        dashboard.render(topicData, false);
+        dashboard_common.render(topicData);
         flow.init();
-
-        if (topicData.id !== "") {
-            $("#related").show();
-            $("#" + topicData.id + " img").attr("src", illustrationLink);
-            polling.RequestRelations(topicData.id);
-            polling.RequestCounters(topicData.id);
-        }
+        polling.RequestCounters();
+        polling.RequestMedias();
+        polling.RequestRelations();
     });

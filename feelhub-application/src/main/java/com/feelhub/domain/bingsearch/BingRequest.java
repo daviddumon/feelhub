@@ -1,22 +1,14 @@
 package com.feelhub.domain.bingsearch;
 
 import com.feelhub.domain.eventbus.DomainEvent;
-import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.real.RealTopic;
+
+import java.util.UUID;
 
 public class BingRequest extends DomainEvent {
 
     @Override
     public String toString() {
         return getClass().getSimpleName();
-    }
-
-    public void setTopic(final RealTopic realTopic) {
-        this.topic = realTopic;
-    }
-
-    public Topic getTopic() {
-        return topic;
     }
 
     public void setQuery(final String query) {
@@ -27,6 +19,25 @@ public class BingRequest extends DomainEvent {
         return query;
     }
 
-    private RealTopic topic;
+    public UUID getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(final UUID topicId) {
+        this.topicId = topicId;
+    }
+
+    private UUID topicId;
     private String query;
+
+    //todo bug race condition
+    //private Topic topic;
+    //
+    //public Topic getTopic() {
+    //    return topic;
+    //}
+    //
+    //public void setTopic(final Topic topic) {
+    //    this.topic = topic;
+    //}
 }

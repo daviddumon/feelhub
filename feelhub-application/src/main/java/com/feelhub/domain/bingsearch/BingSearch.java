@@ -30,7 +30,9 @@ public class BingSearch {
     }
 
     private void doBingSearch(final BingRequest bingRequest) {
-        final Topic topic = bingRequest.getTopic();
+        //todo bug race condition
+        final Topic topic = topicService.lookUpCurrent(bingRequest.getTopicId());
+        //final Topic topic = bingRequest.getTopic();
         final String query = bingRequest.getQuery();
         final List<HttpTopic> images = getImages(topic, query);
         setIllustrationForTopic(topic, images);

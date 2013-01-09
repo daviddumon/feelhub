@@ -59,7 +59,6 @@ public class FeelhubApplication extends Application {
         configuration.addAutoImport("head", "/base/head.ftl");
         configuration.addAutoImport("flow", "/base/flow.ftl");
         configuration.addAutoImport("noflow", "/base/noflow.ftl");
-        configuration.addAutoImport("topic", "/base/topic.ftl");
         configuration.setSharedVariable("dev", feelhubWebProperties.dev);
         configuration.setSharedVariable("root", feelhubWebProperties.domain + servletContext().getContextPath());
         configuration.setSharedVariable("buildtime", feelhubWebProperties.buildtime);

@@ -20,4 +20,9 @@ public class FtpTopic extends Topic {
     public TopicType getType() {
         return FtpTopicType.Ftp;
     }
+
+    @Override
+    public String getTypeValue() {
+        return FtpTopicType.Ftp.toString();
+    }
 }

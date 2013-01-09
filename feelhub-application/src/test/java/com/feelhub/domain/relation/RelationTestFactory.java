@@ -22,6 +22,16 @@ public class RelationTestFactory {
         return related;
     }
 
+    public Relation newMedia() {
+        return newMedia(TestFactories.topics().newCompleteRealTopic().getId(), TestFactories.topics().newCompleteRealTopic().getId());
+    }
+
+    public Media newMedia(final UUID fromId, final UUID toId) {
+        final Media media = new Media(fromId, toId);
+        Repositories.relations().add(media);
+        return media;
+    }
+
     public void newRelatedList(final int quantity) {
         newRelatedList(quantity, TestFactories.topics().newCompleteRealTopic().getId());
     }
@@ -34,5 +44,15 @@ public class RelationTestFactory {
 
     private void createARelated(final UUID fromId, final int weight) {
         newRelated(fromId, TestFactories.topics().newCompleteRealTopic().getId(), weight);
+    }
+
+    public void newMediaList(final int quantity) {
+        newMediaList(quantity, TestFactories.topics().newCompleteRealTopic().getId());
+    }
+
+    public void newMediaList(final int quantity, final UUID fromid) {
+        for (int i = 0; i < quantity; i++) {
+            newMedia(fromid, TestFactories.topics().newCompleteRealTopic().getId());
+        }
     }
 }

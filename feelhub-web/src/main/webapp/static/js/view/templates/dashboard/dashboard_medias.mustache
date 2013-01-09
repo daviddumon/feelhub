@@ -1,0 +1,8 @@
+<li id="dashboard-medias">
+    <div class="holder"><span>medias</span></div>
+    <div class="holder">
+        {{#medias}}
+        <a href="{{root}}/topic/{{id}}" class="illustration_relation"><img src="{{illustration}}" onLoad='OnImageLoad(event);'/><span>{{name}}</span></a>
+        {{/medias}}
+    </div>
+</li>

@@ -47,10 +47,6 @@
 </#macro>
 
 <#macro command>
-<div class="leaderboard">
-    <img src="${root}/static/images/fake/fakebanner468X60.png"/>
-</div>
-
 <div id="command">
     <#if userInfos.authenticated!false>
         <#nested/>

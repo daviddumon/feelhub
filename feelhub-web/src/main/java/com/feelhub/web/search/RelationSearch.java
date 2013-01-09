@@ -43,5 +43,10 @@ public class RelationSearch implements Search<Relation> {
         return this;
     }
 
+    public RelationSearch withDiscriminator(final String discriminator) {
+        criteria.add(Restrictions.equals("__discriminator", discriminator));
+        return this;
+    }
+
     private final Criteria criteria;
 }

@@ -52,7 +52,9 @@ public class RealTopic extends Topic {
     private void findImages(final String name) {
         final BingRequest bingRequest = new BingRequest();
         bingRequest.setQuery(name);
-        bingRequest.setTopic(this);
+        //todo bug race condition
+        bingRequest.setTopicId(this.getId());
+        //bingRequest.setTopic(this);
         DomainEventBus.INSTANCE.post(bingRequest);
     }
 

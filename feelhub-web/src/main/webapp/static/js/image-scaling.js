@@ -44,12 +44,14 @@ function OnImageLoad(evt) {
     var divWidth = $(img).parent().width();
     var divHeight = $(img).parent().height();
 
-    var result = ScaleImage(imageWidth, imageHeight, divWidth, divHeight, false);
+    if (divWidth != 0 && divHeight != 0) {
+        var result = ScaleImage(imageWidth, imageHeight, divWidth, divHeight, false);
 
-    img.width = result.width;
-    img.height = result.height;
-    $(img).css("left", result.targetleft);
-    $(img).css("top", result.targettop);
+        img.width = result.width;
+        img.height = result.height;
+        $(img).css("left", result.targetleft);
+        $(img).css("top", result.targettop);
+        //console.log("load event for image : " + img.src + " - container:" + divWidth + "," + divHeight + " - result:" + result.width + "," + result.height);
+    }
 
-    //console.log("load event for image : " + img.src + " - container:" + divWidth + "," + divHeight + " - result:" + result.width + "," + result.height);
 }

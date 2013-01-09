@@ -48,14 +48,15 @@ public class TestsBingSearch {
     @Test
     public void canCreateImageTopicFromIllustration() {
         final RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Automobile);
+        Repositories.topics().add(realTopic);
         final BingRequest bingRequest = new BingRequest();
-        bingRequest.setTopic(realTopic);
+        bingRequest.setTopicId(realTopic.getId());
         bingRequest.setQuery("query");
 
         DomainEventBus.INSTANCE.post(bingRequest);
 
-        assertThat(Repositories.topics().getAll().size()).isEqualTo(1);
-        final Topic image = Repositories.topics().getAll().get(0);
+        assertThat(Repositories.topics().getAll().size()).isEqualTo(2);
+        final Topic image = Repositories.topics().getAll().get(1);
         assertThat(image.getType()).isEqualTo(HttpTopicType.Image);
         assertThat(image.getIllustration()).isEqualTo("query Automobilelink");
         assertThat(image.getName(FeelhubLanguage.none())).isEqualTo(WordUtils.capitalizeFully("query Automobilelink"));
@@ -65,8 +66,9 @@ public class TestsBingSearch {
     @Test
     public void createRelationsBetweenTopicAndImages() {
         final RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Automobile);
+        Repositories.topics().add(realTopic);
         final BingRequest bingRequest = new BingRequest();
-        bingRequest.setTopic(realTopic);
+        bingRequest.setTopicId(realTopic.getId());
         bingRequest.setQuery("query");
 
         DomainEventBus.INSTANCE.post(bingRequest);
@@ -75,10 +77,10 @@ public class TestsBingSearch {
     }
 
     @Test
-    public void topicHasAnIllustrationLink() {
+    public void topicHasAnIllustration() {
         final RealTopic realTopic = TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile);
         final BingRequest bingRequest = new BingRequest();
-        bingRequest.setTopic(realTopic);
+        bingRequest.setTopicId(realTopic.getId());
         bingRequest.setQuery("query");
 
         DomainEventBus.INSTANCE.post(bingRequest);

@@ -1,16 +1,15 @@
 package com.feelhub.web.search;
 
-import com.feelhub.domain.relation.Relation;
+import com.feelhub.domain.relation.*;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
 import org.mongolink.domain.criteria.Order;
 
-import java.util.List;
+import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
-
 
 public class TestsRelationSearch extends TestWithMongoRepository {
 
@@ -98,6 +97,19 @@ public class TestsRelationSearch extends TestWithMongoRepository {
         assertThat(relations.get(0).getWeight()).isEqualTo(2.0);
         assertThat(relations.get(1).getWeight()).isEqualTo(3.0);
         assertThat(relations.get(2).getWeight()).isEqualTo(4.0);
+    }
+
+    @Test
+    public void canFilterWithDiscriminator() {
+        final RealTopic from = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic to = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.relations().newRelated(from.getId(), to.getId());
+        final Media media = TestFactories.relations().newMedia(from.getId(), to.getId());
+
+        final List<Relation> relations = relationSearch.withDiscriminator("Media").execute();
+
+        assertThat(relations.size()).isEqualTo(1);
+        assertThat(relations.get(0)).isEqualTo(media);
     }
 
     private RelationSearch relationSearch;

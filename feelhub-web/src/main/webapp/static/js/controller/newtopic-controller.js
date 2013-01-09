@@ -12,9 +12,9 @@ require.config(
     }
 );
 
-require(["plugins/domReady!", "jquery", "modules/interface", "modules/newtopic", "view/dashboard/dashboard-view"], function (doc, $, interface, newtopic, view) {
+require(["plugins/domReady!", "jquery", "modules/interface", "modules/newtopic", "view/dashboard/dashboard-newtopic"], function (doc, $, interface, newtopic, view) {
     interface.init();
     $('#carousel-wrapper, #command').wrapAll('<form id="createtopic">');
     newtopic.init();
-    view.render(topicData, true);
+    view.render(topicData);
 });

@@ -1,8 +1,8 @@
 package com.feelhub.web.dto;
 
 import com.feelhub.domain.feeling.SentimentValue;
-import com.feelhub.domain.topic.TopicType;
-import com.feelhub.domain.topic.UnusableTopicTypes;
+import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.http.uri.Uri;
 import com.google.common.collect.Lists;
 import org.json.JSONObject;
 
@@ -41,28 +41,42 @@ public class TopicData {
             return this;
         }
 
-        public Builder urls(final List<String> urls) {
-            this.urls = urls;
+        public Builder uris(final List<Uri> uris) {
+            for (Uri uri : uris) {
+                this.uris.add(uri.toString());
+            }
+            return this;
+        }
+
+        public Builder illustration(final String illustration) {
+            this.illustration = illustration;
+            return this;
+        }
+
+        public Builder description(final String description) {
+            this.description = description;
             return this;
         }
 
         private String id = "";
-        private final String illustration = "";
+        private String illustration = "";
         private String name = "";
         private SentimentValue sentimentValue = SentimentValue.none;
         private TopicType type = UnusableTopicTypes.None;
         private List<String> subTypes = Lists.newArrayList();
-        private List<String> urls = Lists.newArrayList();
+        private List<String> uris = Lists.newArrayList();
+        private String description = "";
     }
 
     private TopicData(final Builder builder) {
         this.id = builder.id;
-        this.illustrationLink = builder.illustration;
+        this.illustration = builder.illustration;
         this.name = builder.name;
         this.sentimentValue = builder.sentimentValue;
         this.type = builder.type.toString();
         this.subTypes = builder.subTypes;
-        this.urls = builder.urls;
+        this.uris = builder.uris;
+        this.description = builder.description;
     }
 
     public String getId() {
@@ -70,7 +84,7 @@ public class TopicData {
     }
 
     public String getIllustration() {
-        return illustrationLink;
+        return illustration;
     }
 
     public String getName() {
@@ -89,8 +103,12 @@ public class TopicData {
         return subTypes;
     }
 
-    public List<String> getUrls() {
-        return urls;
+    public List<String> getUris() {
+        return uris;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -99,10 +117,11 @@ public class TopicData {
     }
 
     private final String id;
-    private final String illustrationLink;
+    private final String illustration;
     private final String name;
     private final SentimentValue sentimentValue;
     private final String type;
     private final List<String> subTypes;
-    private final List<String> urls;
+    private final List<String> uris;
+    private final String description;
 }
