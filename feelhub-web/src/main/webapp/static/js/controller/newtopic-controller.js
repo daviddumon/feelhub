@@ -14,7 +14,7 @@ require.config(
 
 require(["plugins/domReady!", "jquery", "modules/interface", "modules/newtopic", "view/dashboard/dashboard-view"], function (doc, $, interface, newtopic, view) {
     interface.init();
-    $('#dashboard, #command').wrapAll('<form id="createtopic">');
+    $('#carousel-wrapper, #command').wrapAll('<form id="createtopic">');
     newtopic.init();
     view.render(topicData, true);
 });

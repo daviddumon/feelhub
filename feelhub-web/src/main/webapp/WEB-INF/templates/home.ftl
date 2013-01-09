@@ -3,7 +3,9 @@
 </@flow.js>
 
 <@flow.dashboard>
-<span id="slogan">Share your feelings with the world!</span>
+<div id="slogan">
+    <span>Share your feelings with the world!</span>
+</div>
 </@flow.dashboard>
 
 <@flow.command>

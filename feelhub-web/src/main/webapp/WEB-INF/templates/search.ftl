@@ -7,7 +7,9 @@
 </@flow.js>
 
 <@flow.dashboard>
-<span id="slogan">Topics for ${q}</span>
+<div id="slogan">
+    <span>Topics for ${q}</span>
+</div>
 </@flow.dashboard>
 
 <@flow.command>

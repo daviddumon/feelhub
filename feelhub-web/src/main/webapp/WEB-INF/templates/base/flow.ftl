@@ -42,17 +42,7 @@
 <body>
     <#include "header.ftl"/>
 
-<div id="carousel-wrapper">
-    <a href="javascript:void(0);" id="carousel-prev" class="nav"></a>
-
-    <div id="carousel">
-        <ul id="dashboard">
-            <#nested/>
-        </ul>
-    </div>
-
-    <a href="javascript:void(0);" id="carousel-next" class="nav"></a>
-</div>
+    <#nested/>
 
 </#macro>
 
