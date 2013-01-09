@@ -1,7 +1,8 @@
 define(["./dashboard-illustration-element-view",
     "./dashboard-description-element-view",
-    "./dashboard-related-element-view"],
-    function (diev, ddev, drev) {
+    "./dashboard-related-element-view",
+"modules/carousel"],
+    function (diev, ddev, drev, carousel) {
 
         var dashboard_container = "#dashboard";
 
@@ -9,6 +10,7 @@ define(["./dashboard-illustration-element-view",
             diev.render(topicData, editMode, dashboard_container);
             ddev.render(topicData, editMode, dashboard_container);
             drev.render(topicData, editMode, dashboard_container);
+            carousel.init();
         }
 
         return  {

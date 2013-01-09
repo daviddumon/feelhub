@@ -7,18 +7,20 @@
             var topicData = {};
             </#if>
 
-            var languageCode = "${userInfos.languageCode}";
+        var languageCode = "${userInfos.languageCode}";
     </script>
     </@head.headbegin>
 
     <@head.cssprod>
     <link rel="stylesheet" href="${root}/static/css/flow_layout.css?${buildtime}"/>
     <link rel="stylesheet" href="${root}/static/css/dashboard.css?${buildtime}"/>
+    <link rel="stylesheet" href="${root}/static/css/ad.css?${buildtime}"/>
     </@head.cssprod>
 
     <@head.cssdev>
     <link rel="stylesheet/less" type="text/css" href="${root}/static/css/flow_layout.less?${buildtime}"/>
     <link rel="stylesheet/less" type="text/css" href="${root}/static/css/dashboard.less?${buildtime}"/>
+    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/ad.less?${buildtime}"/>
     </@head.cssdev>
 
     <@head.jsprod>
@@ -40,12 +42,25 @@
 <body>
     <#include "header.ftl"/>
 
-<ul id="dashboard">
-    <#nested/>
-</ul>
+<div id="carousel-wrapper">
+    <a href="javascript:void(0);" id="carousel-prev" class="nav"></a>
+
+    <div id="carousel">
+        <ul id="dashboard">
+            <#nested/>
+        </ul>
+    </div>
+
+    <a href="javascript:void(0);" id="carousel-next" class="nav"></a>
+</div>
+
 </#macro>
 
 <#macro command>
+<div class="leaderboard">
+    <img src="${root}/static/images/fake/fakebanner468X60.png"/>
+</div>
+
 <div id="command">
     <#if userInfos.authenticated!false>
         <#nested/>
