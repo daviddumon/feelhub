@@ -1,4 +1,4 @@
-define(['jquery', 'plugins/hgn!templates/search_command_http_view'],
+define(['jquery', 'plugins/hgn!templates/search/search_command_http_view'],
     function ($, template) {
 
         var id = "create_http_topic";

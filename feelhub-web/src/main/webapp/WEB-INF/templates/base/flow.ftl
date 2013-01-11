@@ -12,13 +12,13 @@
     </@head.headbegin>
 
     <@head.cssprod>
-    <link rel="stylesheet" href="${root}/static/css/flow_layout.css?${buildtime}"/>
+    <link rel="stylesheet" href="${root}/static/css/flow.css?${buildtime}"/>
     <link rel="stylesheet" href="${root}/static/css/dashboard.css?${buildtime}"/>
     <link rel="stylesheet" href="${root}/static/css/ad.css?${buildtime}"/>
     </@head.cssprod>
 
     <@head.cssdev>
-    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/flow_layout.less?${buildtime}"/>
+    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/flow.less?${buildtime}"/>
     <link rel="stylesheet/less" type="text/css" href="${root}/static/css/dashboard.less?${buildtime}"/>
     <link rel="stylesheet/less" type="text/css" href="${root}/static/css/ad.less?${buildtime}"/>
     </@head.cssdev>
@@ -54,7 +54,7 @@
         <div>Please login or create an account!</div>
     </#if>
 </div>
-<ul id="feelings">
+<ul id="flow">
 </ul>
 </body>
 </html>

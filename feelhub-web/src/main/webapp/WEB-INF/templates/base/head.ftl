@@ -22,8 +22,7 @@
     <#if !dev>
         <link rel="stylesheet" href="${root}/static/css/reset.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/common.css?${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/keyword.css?${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/feeling.css?${buildtime}"/>
+        <link rel="stylesheet" href="${root}/static/css/topic.css?${buildtime}"/>
         <link rel="stylesheet" href="${root}/static/css/form.css?${buildtime}"/>
         <#nested/>
     </#if>
@@ -35,8 +34,7 @@
     <#if dev>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reset.less?${buildtime}"/>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/common.less?${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/keyword.less?${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/feeling.less?${buildtime}"/>
+        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/topic.less?${buildtime}"/>
         <link rel="stylesheet/less" type="text/css" href="${root}/static/css/form.less?${buildtime}"/>
         <#nested/>
     </#if>

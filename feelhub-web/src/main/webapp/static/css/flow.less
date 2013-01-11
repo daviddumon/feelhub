@@ -5,22 +5,68 @@
 
 body {
 
-  #feelings {
+  #no-feelings {
+    text-align: center;
+    width: 100%;
+    display: block;
+    .font_logo;
+    color: @white;
+    font-size: 52px;
+  }
+
+  #flow {
     width: 100%;
     position: relative;
     text-align: center;
+    margin-top: 20px;
 
-    .feeling_list {
+    .flow_list {
       width: 300px;
       display: inline-block;
       vertical-align: top;
       margin-left: 10px;
       margin-right: 10px;
 
-      .feeling {
+      .flow-element {
         display: block;
         width: 300px;
         list-style-type: none;
+      }
+
+      .topic {
+
+        a {
+          position: relative;
+          width: 256px;
+          height: 144px;
+          overflow: hidden;
+          border: @white solid 5px !important;
+          margin: 5px;
+          display: inline-block;
+
+          img {
+            position: absolute;
+          }
+
+          span {
+            position: absolute;
+            display: block;
+            width: 100%;
+            bottom: 0px;
+            left: 0px;
+            background: @grey-4;
+            background: rgba(0, 0, 0, .8);
+            .font_title();
+            color: @blue-1;
+            font-size: 8px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            min-height: @font-normal;
+          }
+        }
+      }
+
+      .feeling {
         background-color: @white !important;
         margin-bottom: 20px;
         .shadow();

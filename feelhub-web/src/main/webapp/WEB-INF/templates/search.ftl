@@ -8,7 +8,7 @@
 
 <@flow.dashboard>
 <div id="slogan">
-    <span>Topics for ${q}</span>
+    <span>Existing topics for ${q}</span>
 </div>
 </@flow.dashboard>
 

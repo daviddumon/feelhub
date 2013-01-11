@@ -1,4 +1,4 @@
-define(['jquery', 'plugins/hgn!templates/search_command_real_view'],
+define(['jquery', 'plugins/hgn!templates/search/search_command_real_view'],
     function ($, template) {
 
         function render(container) {
