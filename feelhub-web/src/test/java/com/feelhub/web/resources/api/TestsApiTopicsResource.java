@@ -4,6 +4,7 @@ import com.feelhub.application.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -47,20 +48,39 @@ public class TestsApiTopicsResource {
     }
 
     @Test
-    public void canCreateWithCorrectUser() {
+    public void canCreateRealTopicWithCorrectUser() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         when(topicService.createRealTopic(any(FeelhubLanguage.class), anyString(), any(RealTopicType.class), any(User.class))).thenReturn(realTopic);
 
-        apiTopicsResource.createTopic(getGoodForm());
+        apiTopicsResource.createTopic(getGoodFormWithRealTopic());
 
         assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.SUCCESS_CREATED);
     }
 
     @Test
-    public void cannotCreateWithoutAuthentificatedUser() {
+    public void canCreateHttpTopicWithCorrectUser() {
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+        when(topicService.createHttpTopic(anyString(), any(User.class))).thenReturn(httpTopic);
+
+        apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
+
+        assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.SUCCESS_CREATED);
+    }
+
+    @Test
+    public void cannotCreateRealTopicWithoutAuthentificatedUser() {
         CurrentUser.set(new AnonymousUser());
 
-        apiTopicsResource.createTopic(getGoodForm());
+        apiTopicsResource.createTopic(getGoodFormWithRealTopic());
+
+        assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_UNAUTHORIZED);
+    }
+
+    @Test
+    public void cannotCreateHttpTopicWithoutAuthentificatedUser() {
+        CurrentUser.set(new AnonymousUser());
+
+        apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
 
         assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_UNAUTHORIZED);
     }
@@ -70,9 +90,9 @@ public class TestsApiTopicsResource {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         when(topicService.createRealTopic(any(FeelhubLanguage.class), anyString(), any(RealTopicType.class), any(User.class))).thenReturn(realTopic);
 
-        apiTopicsResource.createTopic(getGoodForm());
+        apiTopicsResource.createTopic(getGoodFormWithRealTopic());
 
-        verify(topicService).createRealTopic(CurrentUser.get().getLanguage(), getGoodForm().getFirstValue("name"), RealTopicType.valueOf(getGoodForm().getFirstValue("type")), CurrentUser.get().getUser());
+        verify(topicService).createRealTopic(CurrentUser.get().getLanguage(), getGoodFormWithRealTopic().getFirstValue("name"), RealTopicType.valueOf(getGoodFormWithRealTopic().getFirstValue("type")), CurrentUser.get().getUser());
     }
 
     @Test
@@ -96,13 +116,23 @@ public class TestsApiTopicsResource {
     }
 
     @Test
-    public void setLocationRefToNewTopic() {
+    public void setLocationRefToNewRealTopic() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         when(topicService.createRealTopic(any(FeelhubLanguage.class), anyString(), any(RealTopicType.class), any(User.class))).thenReturn(realTopic);
 
-        apiTopicsResource.createTopic(getGoodForm());
+        apiTopicsResource.createTopic(getGoodFormWithRealTopic());
 
         assertThat(apiTopicsResource.getLocationRef().toString()).isEqualTo(new WebReferenceBuilder(apiTopicsResource.getContext()).buildUri("/topic/" + realTopic.getId()));
+    }
+
+    @Test
+    public void setLocationRefToNewHttpTopic() {
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+        when(topicService.createHttpTopic(anyString(), any(User.class))).thenReturn(httpTopic);
+
+        apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
+
+        assertThat(apiTopicsResource.getLocationRef().toString()).isEqualTo(new WebReferenceBuilder(apiTopicsResource.getContext()).buildUri("/topic/" + httpTopic.getId()));
     }
 
     @Test
@@ -169,10 +199,26 @@ public class TestsApiTopicsResource {
         assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.SUCCESS_OK);
     }
 
-    private Form getGoodForm() {
+    @Test
+    public void canCreateHttpTopic() {
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+        when(topicService.createHttpTopic(anyString(), any(User.class))).thenReturn(httpTopic);
+
+        apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
+
+        verify(topicService).createHttpTopic(getGoodFormWithHttpTopic().getFirstValue("name"), CurrentUser.get().getUser());
+    }
+
+    private Form getGoodFormWithRealTopic() {
         final Form form = new Form();
         form.add("name", "name");
         form.add("type", RealTopicType.Automobile.toString());
+        return form;
+    }
+
+    private Form getGoodFormWithHttpTopic() {
+        final Form form = new Form();
+        form.add("name", "http://www.google.fr");
         return form;
     }
 

@@ -7,7 +7,7 @@ define(['jquery', 'modules/flow', 'view/flow/topic-view', 'view/search/search-co
 
     function doSearch() {
         createCommand();
-        flow.init(api_end_point, "q=" + q,topicview);
+        flow.init(api_end_point, "q=" + q, topicview);
     }
 
     function createCommand() {

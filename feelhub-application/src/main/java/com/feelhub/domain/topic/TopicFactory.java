@@ -21,7 +21,7 @@ public class TopicFactory {
         return new WorldTopic(UUID.randomUUID());
     }
 
-    public HttpTopic createHttpTopic(final String name, final ResolverResult resolverResult) {
+    public HttpTopic createHttpTopic(final ResolverResult resolverResult) {
         final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
         httpTopic.setMediaType(resolverResult.getMediaType());
         httpTopic.addUri(getCanonical(resolverResult));

@@ -71,8 +71,11 @@ public class TopicService {
         return realTopic;
     }
 
-    protected HttpTopic createHttpTopic(final String value) {
-        return createHttpTopic(value, null);
+    public HttpTopic createHttpTopic(final String value, final User user) {
+        final ResolverResult resolverResult = uriResolver.resolve(new Uri(value));
+        final HttpTopic httpTopic = createHttpTopic(resolverResult);
+        httpTopic.setUserId(user.getId());
+        return httpTopic;
     }
 
     public HttpTopic createHttpTopic(final String value, final MediaType restrictedType) {
@@ -80,7 +83,11 @@ public class TopicService {
         if (restrictedType != null) {
             checkMediaType(resolverResult, restrictedType);
         }
-        final HttpTopic httpTopic = topicFactory.createHttpTopic(value, resolverResult);
+        return createHttpTopic(resolverResult);
+    }
+
+    private HttpTopic createHttpTopic(final ResolverResult resolverResult) {
+        final HttpTopic httpTopic = topicFactory.createHttpTopic(resolverResult);
         createTagsForHttpTopic(resolverResult, httpTopic);
         Repositories.topics().add(httpTopic);
         return httpTopic;

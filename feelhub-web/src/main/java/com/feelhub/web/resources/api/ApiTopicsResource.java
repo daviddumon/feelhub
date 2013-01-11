@@ -2,7 +2,8 @@ package com.feelhub.web.resources.api;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.tag.TagNotFoundException;
-import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
@@ -61,10 +62,11 @@ public class ApiTopicsResource extends ServerResource {
         try {
             checkCredentials();
             final String name = extractName(form);
-            final RealTopicType type = extractType(form);
-            final RealTopic realTopic = topicService.createRealTopic(CurrentUser.get().getLanguage(), name, type, CurrentUser.get().getUser());
-            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + realTopic.getId()));
-            setStatus(Status.SUCCESS_CREATED);
+            if (TopicIdentifier.isHttpTopic(name)) {
+                createHttpTopic(name);
+            } else {
+                createRealTopic(form, name);
+            }
         } catch (AuthenticationException e) {
             setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
         } catch (FeelhubApiException e) {
@@ -84,6 +86,19 @@ public class ApiTopicsResource extends ServerResource {
         } else {
             throw new FeelhubApiException();
         }
+    }
+
+    private void createHttpTopic(final String name) {
+        final HttpTopic httpTopic = topicService.createHttpTopic(name, CurrentUser.get().getUser());
+        setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + httpTopic.getId()));
+        setStatus(Status.SUCCESS_CREATED);
+    }
+
+    private void createRealTopic(final Form form, final String name) {
+        final RealTopicType type = extractType(form);
+        final RealTopic realTopic = topicService.createRealTopic(CurrentUser.get().getLanguage(), name, type, CurrentUser.get().getUser());
+        setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + realTopic.getId()));
+        setStatus(Status.SUCCESS_CREATED);
     }
 
     private RealTopicType extractType(final Form form) {

@@ -2,7 +2,7 @@ define(['jquery', 'plugins/hgn!templates/search/search_command_http_view'],
     function ($, template) {
 
         var id = "create_http_topic";
-        var api_end_point = "/api/topics/http";
+        var api_end_point = "/api/topics";
 
         function render(container) {
             var search_command_web_view = template({"id": id});
@@ -22,22 +22,13 @@ define(['jquery', 'plugins/hgn!templates/search/search_command_http_view'],
             $.ajax({
                 url: root + api_end_point,
                 type: 'POST',
-                data: {"q": q},
+                data: {"name": q},
                 success: success,
                 error: error
             });
-
-            function success(data, textStatus, jqXHR) {
-                // update flow
-                createCommand();
-            }
-
-            function error() {
-                console.log("error : " + api_end_point);
-            }
         }
 
-        function success(data, textStatus, jqXHR) {
+        function success() {
             document.location.reload();
         }
 

@@ -51,7 +51,7 @@ public class TestsTopicFactory {
         final ResolverResult resolverResult = new ResolverResult();
         resolverResult.setMediaType(MediaType.TEXT_HTML);
         resolverResult.addUriToPath(canonicalUri);
-        final HttpTopic httpTopic = topicFactory.createHttpTopic("http://www.url.com", resolverResult);
+        final HttpTopic httpTopic = topicFactory.createHttpTopic(resolverResult);
 
         assertThat(httpTopic).isNotNull();
         assertThat(httpTopic.getType()).isEqualTo(HttpTopicType.Website);
@@ -62,7 +62,7 @@ public class TestsTopicFactory {
         final ResolverResult resolverResult = new ResolverResult();
         resolverResult.setMediaType(MediaType.TEXT_HTML);
         resolverResult.addUriToPath(canonicalUri);
-        final HttpTopic httpTopic = topicFactory.createHttpTopic("http://www.url.com", resolverResult);
+        final HttpTopic httpTopic = topicFactory.createHttpTopic(resolverResult);
 
         assertThat(httpTopic.getUris().size()).isEqualTo(1);
         assertThat(httpTopic.getUris()).contains(canonicalUri);

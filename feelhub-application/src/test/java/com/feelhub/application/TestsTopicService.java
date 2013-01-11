@@ -59,10 +59,12 @@ public class TestsTopicService {
 
     @Test
     public void canCreateAHttpTopic() {
-        final HttpTopic httpTopic = topicService.createHttpTopic("value");
+        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
+        final HttpTopic httpTopic = topicService.createHttpTopic("value", user);
 
         assertThat(httpTopic).isNotNull();
         assertThat(Repositories.topics().getAll().size()).isEqualTo(1);
+        assertThat(httpTopic.getUserId()).isEqualTo(user.getId());
     }
 
     @Test
@@ -171,7 +173,7 @@ public class TestsTopicService {
 
     @Test
     public void createTagsForHttpTopic() {
-        topicService.createHttpTopic("http://www.url.com");
+        topicService.createHttpTopic("http://www.url.com", TestFactories.users().createFakeActiveUser("mail@mail.com"));
 
         final List<Tag> tags = Repositories.tags().getAll();
         assertThat(tags.size()).isEqualTo(8);
