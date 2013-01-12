@@ -8,7 +8,8 @@
 
 <@flow.dashboard>
 <div id="slogan">
-    <span>Topics for ${q}</span>
+    <span>Topics for</span>
+    <span>${q}</span>
 </div>
 </@flow.dashboard>
 

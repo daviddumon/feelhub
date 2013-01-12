@@ -6,14 +6,15 @@ define(['jquery', 'modules/flow', 'view/flow/topic-view', 'view/search/search-co
     var command_container = "#command";
 
     function doSearch() {
-        createCommand();
-        flow.init(api_end_point, "q=" + q, topicview);
+        flow.init(api_end_point, "q=" + q, topicview, createCommand);
     }
 
     function createCommand() {
         if (authentificated) {
             if (type == 'http') {
-                httpview.render(command_container);
+                if($("#flow li").length == 0) {
+                    httpview.render(command_container);
+                }
             } else if (type == 'real') {
                 realview.render(command_container);
             }

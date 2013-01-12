@@ -28,7 +28,7 @@ public class TopicMerger {
     }
 
     private void mergeData(final UUID newTopicId, final UUID oldTopicId) {
-        //Do not use currentTopicId here! We cant to merge existing one!
+        //Do not use currentTopicId here! We want to merge the existing one!
         final Topic newTopic = Repositories.topics().get(newTopicId);
         final Topic oldTopic = Repositories.topics().get(oldTopicId);
         mergeNames(newTopic, oldTopic);
@@ -40,10 +40,10 @@ public class TopicMerger {
 
     private void mergeNames(final Topic newTopic, final Topic oldTopic) {
         final Iterator<Map.Entry<String, String>> iterator = oldTopic.getNames().entrySet().iterator();
-        final Map<String, String> descriptions = newTopic.getNames();
+        final Map<String, String> names = newTopic.getNames();
         while (iterator.hasNext()) {
             final Map.Entry<String, String> next = iterator.next();
-            if (!descriptions.containsKey(next.getKey())) {
+            if (!names.containsKey(next.getKey())) {
                 newTopic.addName(FeelhubLanguage.fromCode(next.getKey()), next.getValue());
             }
         }

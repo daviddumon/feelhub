@@ -2,11 +2,11 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
     var container = $("#flow");
     var row_container = "#flow_list";
-    var parameter, data_view, doit, api_end_point, datas, initial, skip, limit, maxBox, hasData, notLoading, basePollTime, lastFeelingId;
+    var end_function, parameter, data_view, doit, api_end_point, datas, initial, skip, limit, maxBox, hasData, notLoading, basePollTime, lastFeelingId;
     var topicId = topicData.id;
 
-    function init(end_point, param, view) {
-        doInit(end_point, param, view);
+    function init(end_point, param, view, callback) {
+        doInit(end_point, param, view, callback);
         add_responsive_behavior();
         drawData();
         $(window).scroll(function () {
@@ -14,10 +14,11 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         });
     }
 
-    function doInit(end_point, param, view) {
+    function doInit(end_point, param, view, callback) {
         api_end_point = end_point;
         data_view = view;
         parameter = param;
+        end_function = callback;
         initial = 320;
         maxBox = Math.floor(container.innerWidth() / initial);
         skip = -30;
@@ -96,6 +97,8 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                         }
                     }, 200);
                 }
+
+                end_function();
             });
         }
 
