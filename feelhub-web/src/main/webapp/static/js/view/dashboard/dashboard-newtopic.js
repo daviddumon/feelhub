@@ -1,5 +1,5 @@
 define(["jquery",
-    "plugins/hgn!templates/dashboard/dashboard_newtopic_element",
+    "plugins/hgn!templates/dashboard/dashboard_newtopic",
     "modules/carousel"],
     function ($, template, carousel) {
 

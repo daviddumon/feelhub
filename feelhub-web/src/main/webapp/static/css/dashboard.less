@@ -122,10 +122,26 @@ body {
             font-weight: bold;
           }
 
+          canvas {
+            .rounded;
+          }
+
           img.smiley {
             width: 120px;
-            background-color: @good !important;
+            height: 120px;
             .rounded;
+          }
+
+          canvas.good, img.good {
+            background-color: @good !important;
+          }
+
+          canvas.bad, img.bad {
+            background-color: @bad !important;
+          }
+
+          canvas.neutral, img.neutral {
+            background-color: @neutral !important;
           }
 
           a.illustration_relation {
