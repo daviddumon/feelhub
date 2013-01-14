@@ -14,7 +14,7 @@ public class SentimentExtractor {
         final List<SentimentAndText> sentimentAndTexts = Lists.newArrayList();
         final String[] tokens = text.split("\\s");
         for (final String token : tokens) {
-            final TreeMap<Integer, SentimentValue> tokenTags = getSemanticTags(token);
+            final TreeMap<Integer, SentimentValue> tokenTags = getSemanticMarkups(token);
             if (hasAny(tokenTags)) {
                 extractSentimentAndTextFromSemanticToken(sentimentAndTexts, token, tokenTags);
             } else if (isUri(token)) {
@@ -23,7 +23,17 @@ public class SentimentExtractor {
                 sentimentAndTexts.add(new SentimentAndText(SentimentValue.none, token));
             }
         }
+        addSentimentForCurrentTopic(sentimentAndTexts);
         return sentimentAndTexts;
+    }
+
+    private void addSentimentForCurrentTopic(final List<SentimentAndText> sentimentAndTexts) {
+        final String markups = currentTopicMarkups.toString();
+        if (!markups.isEmpty()) {
+            final TreeMap<Integer, SentimentValue> semanticMarkups = getSemanticMarkups(markups);
+            final SentimentValue sentimentValue = getSentimentValue(semanticMarkups);
+            sentimentAndTexts.add(new SentimentAndText(sentimentValue, ""));
+        }
     }
 
     private void extractSentimentAndTextFromSemanticToken(final List<SentimentAndText> sentimentAndTexts, final String token, final TreeMap<Integer, SentimentValue> tokenTags) {
@@ -42,6 +52,8 @@ public class SentimentExtractor {
         if (cleanedToken.length() > 2) {
             final SentimentAndText sentimentAndText = new SentimentAndText(tokenSentimentValue, cleanedToken);
             sentimentAndTexts.add(sentimentAndText);
+        } else {
+            currentTopicMarkups.append(token);
         }
     }
 
@@ -76,7 +88,7 @@ public class SentimentExtractor {
         return cleanedToken;
     }
 
-    private TreeMap<Integer, SentimentValue> getSemanticTags(final String token) {
+    private TreeMap<Integer, SentimentValue> getSemanticMarkups(final String token) {
         final TreeMap<Integer, SentimentValue> counts = Maps.newTreeMap();
         counts.put(token.lastIndexOf("#"), SentimentValue.none);
         counts.put(token.lastIndexOf("-"), SentimentValue.bad);
@@ -96,6 +108,8 @@ public class SentimentExtractor {
     private SentimentValue getSentimentValue(final TreeMap<Integer, SentimentValue> map) {
         return map.lastEntry().getValue();
     }
+
+    private StringBuilder currentTopicMarkups = new StringBuilder();
 
     private static final String STRING_REPLACE_ALL = "[\\p{Punct}&&[^\\_^\\']]";
     private static final String STRING_REPLACE_SEMANTIC = "[\\+\\-\\=\\#]";

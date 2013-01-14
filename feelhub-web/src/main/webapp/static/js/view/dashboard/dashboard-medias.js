@@ -5,6 +5,11 @@ define(["jquery", "plugins/hgn!templates/dashboard/dashboard_medias", "modules/c
 
         function render(data) {
             if (data.length > 0) {
+                $.each(data, function (index, element) {
+                    if (element.illustration == "") {
+                        element.illustration = root + "/static/images/unknown.png";
+                    }
+                });
                 var element = template({"root": root, "medias": data});
                 $(dashboard_container).append(element);
                 carousel.compute();

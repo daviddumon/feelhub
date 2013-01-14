@@ -160,6 +160,16 @@ public class TestsSentimentExtractor {
         testTest("J'aime les word2", SentimentValue.none, "word2", semanticContext);
     }
 
+    @Test
+    public void canExtractSentimentForCurrentTopic() {
+        testText("J'aime beaucoup --+", SentimentValue.good, "");
+    }
+
+    @Test
+    public void canExtractSentimentForCurrentTopicWhenMultipleTokens() {
+        testText("-= J'aime beaucoup +++", SentimentValue.good, "");
+    }
+
     private void testTest(final String text, final SentimentValue sentimentValue, final String expected, final SemanticContext semanticContext) {
         final SentimentExtractor sentimentExtractor = new SentimentExtractor();
         final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(text, semanticContext);

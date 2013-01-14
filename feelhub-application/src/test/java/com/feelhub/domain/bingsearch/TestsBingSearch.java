@@ -51,6 +51,7 @@ public class TestsBingSearch {
         Repositories.topics().add(realTopic);
         final BingRequest bingRequest = new BingRequest();
         bingRequest.setTopicId(realTopic.getId());
+        bingRequest.setTopic(realTopic);
         bingRequest.setQuery("query");
 
         DomainEventBus.INSTANCE.post(bingRequest);
@@ -69,6 +70,7 @@ public class TestsBingSearch {
         Repositories.topics().add(realTopic);
         final BingRequest bingRequest = new BingRequest();
         bingRequest.setTopicId(realTopic.getId());
+        bingRequest.setTopic(realTopic);
         bingRequest.setQuery("query");
 
         DomainEventBus.INSTANCE.post(bingRequest);
@@ -81,6 +83,7 @@ public class TestsBingSearch {
         final RealTopic realTopic = TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile);
         final BingRequest bingRequest = new BingRequest();
         bingRequest.setTopicId(realTopic.getId());
+        bingRequest.setTopic(realTopic);
         bingRequest.setQuery("query");
 
         DomainEventBus.INSTANCE.post(bingRequest);

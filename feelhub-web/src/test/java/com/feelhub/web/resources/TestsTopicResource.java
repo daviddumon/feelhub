@@ -52,7 +52,7 @@ public class TestsTopicResource {
     @Test
     public void hasTopicDataInDataModel() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        topicResource.getRequest().getAttributes().put("id", realTopic.getId());
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
 
         final ModelAndView modelAndView = topicResource.getTopic();
 
@@ -62,7 +62,7 @@ public class TestsTopicResource {
     @Test
     public void lookUpTopic() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        topicResource.getRequest().getAttributes().put("id", realTopic.getId());
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
 
         final ModelAndView modelAndView = topicResource.getTopic();
 
@@ -73,7 +73,7 @@ public class TestsTopicResource {
     @Test
     public void setCorrectStatusOnSuccess() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        topicResource.getRequest().getAttributes().put("id", realTopic.getId());
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
 
         topicResource.getTopic();
 
@@ -83,7 +83,7 @@ public class TestsTopicResource {
     @Test
     public void canThrowTopicNotFound() {
         exception.expect(TopicNotFound.class);
-        topicResource.getRequest().getAttributes().put("id", UUID.randomUUID());
+        topicResource.getRequest().getAttributes().put("topicId", UUID.randomUUID());
 
         topicResource.getTopic();
     }
@@ -93,7 +93,7 @@ public class TestsTopicResource {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final String illustration = "illustration";
         realTopic.setIllustration(illustration);
-        topicResource.getRequest().getAttributes().put("id", realTopic.getId());
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
 
         final ModelAndView modelAndView = topicResource.getTopic();
 
@@ -117,7 +117,7 @@ public class TestsTopicResource {
     @Test
     public void hasLocalesInModelData() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        topicResource.getRequest().getAttributes().put("id", realTopic.getId());
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
 
         final ModelAndView modelAndView = topicResource.getTopic();
 

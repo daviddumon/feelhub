@@ -33,7 +33,7 @@ public class BingLink {
             if (!type.isEmpty()) {
                 stringBuilder.append(URLEncoder.encode(" " + type, "UTF-8"));
             }
-            final String queryOptions = "'&Adult='Off'&$top=10&$format=JSON";
+            final String queryOptions = "'&Adult='Off'&$top=6&$format=JSON";
             stringBuilder.append(queryOptions);
             return stringBuilder.toString();
         } catch (Exception e) {

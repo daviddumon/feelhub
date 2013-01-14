@@ -54,7 +54,7 @@ public class RealTopic extends Topic {
         bingRequest.setQuery(name);
         //todo bug race condition
         bingRequest.setTopicId(this.getId());
-        //bingRequest.setTopic(this);
+        bingRequest.setTopic(this);
         DomainEventBus.INSTANCE.post(bingRequest);
     }
 

@@ -1,4 +1,4 @@
-<li class="{{feeling_classes}}" id="{{id}}">
+<li class="flow-element feeling" id="{{id}}">
     {{#feeling_sentiment_value}}
     <img src="{{feeling_sentiment_value_illustration}}" class="img_{{feeling_sentiment_value}} feeling_sentiment_value_illustration"/>
     {{/feeling_sentiment_value}}
@@ -10,7 +10,10 @@
     {{/text}}
     <div class="feeling_related" style="height: {{height}}">
         {{#topicDatas}}
-        {{> topic}}
+            <a href="{{url}}" class="illustration_relation topic_stack topic_medium" id="{{topicId}}">
+                <img src="{{illustration}}" onload="OnImageLoad(event);"/>
+                <span class="{{sentimentValue}}">{{name}}</span>
+            </a>
         {{/topicDatas}}
     </div>
 </li>

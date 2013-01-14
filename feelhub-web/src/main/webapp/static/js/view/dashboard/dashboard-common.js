@@ -18,6 +18,9 @@ define(["jquery",
         }
 
         function renderTemplate(template, topicData) {
+            if (topicData.illustration == "") {
+                topicData.illustration = root + "/static/images/unknown.png";
+            }
             var element = template(topicData);
             $(dashboard_container).append(element);
             carousel.compute();

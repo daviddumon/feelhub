@@ -31,10 +31,11 @@ public class BingSearch {
 
     private void doBingSearch(final BingRequest bingRequest) {
         //todo bug race condition
-        final Topic topic = topicService.lookUpCurrent(bingRequest.getTopicId());
         //final Topic topic = bingRequest.getTopic();
         final String query = bingRequest.getQuery();
-        final List<HttpTopic> images = getImages(topic, query);
+        //final List<HttpTopic> images = getImages(topic, query);
+        final List<HttpTopic> images = getImages(bingRequest.getTopic(), query);
+        final Topic topic = topicService.lookUpCurrent(bingRequest.getTopicId());
         setIllustrationForTopic(topic, images);
         bingRelationBinder.bind(topic, images);
     }

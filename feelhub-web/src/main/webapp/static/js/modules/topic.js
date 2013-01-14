@@ -1,50 +1,54 @@
-define(['jquery'], function ($) {
+define(["jquery", "modules/flow", "view/flow/feeling-view"],
 
-    var container = "#feeling_form";
-    var api_end_point = "/api/feelings";
+    function ($, flow, view) {
 
-    function init() {
-        setFormBehavior();
-    }
+        var container = "#feeling_form";
+        var create_feeling_api_end_point = "/api/feelings";
+        var list_feeling_api_end_point = root + "/api/topic/" + topicData.id + "/feelings";
 
-    function setFormBehavior() {
-        setTextareaBehavior();
-        setSubmitBehavior();
-        setSelectedLanguage();
-    }
+        function init() {
+            setFormBehavior();
+            flow.init(list_feeling_api_end_point, null, view, null);
+        }
 
-    function setTextareaBehavior() {
-        $(container).children().focus(function () {
-            $("#feeling_form textarea").height("100px");
-        });
-    }
+        function setFormBehavior() {
+            setTextareaBehavior();
+            setSubmitBehavior();
+            setSelectedLanguage();
+        }
 
-    function setSubmitBehavior() {
-        $(container).submit(function () {
-            $.ajax({
-                url: root + api_end_point,
-                type: 'POST',
-                data: $(container).serialize(),
-                success: success,
-                error: error
+        function setTextareaBehavior() {
+            $(container).children().focus(function () {
+                $("#feeling_form textarea").height("100px");
             });
-            return false;
-        });
-    }
+        }
 
-    function setSelectedLanguage() {
-        $("#feeling_form select option[value=" + languageCode + "]").attr('selected', 'selected');
-    }
+        function setSubmitBehavior() {
+            $(container).submit(function () {
+                $.ajax({
+                    url: root + create_feeling_api_end_point,
+                    type: 'POST',
+                    data: $(container).serialize(),
+                    success: success,
+                    error: error
+                });
+                return false;
+            });
+        }
 
-    function success() {
-        document.location.reload(true);
-    }
+        function setSelectedLanguage() {
+            $("#feeling_form select option[value=" + languageCode + "]").attr('selected', 'selected');
+        }
 
-    function error() {
-        console.log("error while posting feeling.");
-    }
+        function success() {
+            document.location.reload(true);
+        }
 
-    return {
-        init: init
-    };
-});
+        function error() {
+            console.log("error while posting feeling.");
+        }
+
+        return {
+            init: init
+        };
+    });

@@ -39,7 +39,7 @@ public class TopicResource extends ServerResource {
     }
 
     private void extractUriValueFromUri() {
-        id = UUID.fromString(getRequestAttributes().get("id").toString());
+        id = UUID.fromString(getRequestAttributes().get("topicId").toString().trim());
     }
 
     private final TopicService topicService;
