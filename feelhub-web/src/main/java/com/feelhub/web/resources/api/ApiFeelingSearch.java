@@ -2,6 +2,7 @@ package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.user.User;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.search.FeelingSearch;
@@ -22,6 +23,11 @@ public class ApiFeelingSearch {
 
     public List<FeelingData> doSearch(final Topic realTopic, final Form query) {
         feelingSearch.withTopicId(realTopic.getId());
+        return doSearch(query);
+    }
+
+    public List<FeelingData> doSearch(final Form query, final User user) {
+        feelingSearch.withUserId(user.getId());
         return doSearch(query);
     }
 

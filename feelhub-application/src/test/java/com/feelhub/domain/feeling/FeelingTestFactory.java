@@ -58,4 +58,12 @@ public class FeelingTestFactory {
         Repositories.feelings().add(feeling);
         return feeling;
     }
+
+    public Feeling newFeeling(final UUID userId) {
+        final User user = Repositories.users().get(userId);
+        final Feeling feeling = new Feeling("text", user);
+        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
+        Repositories.feelings().add(feeling);
+        return feeling;
+    }
 }

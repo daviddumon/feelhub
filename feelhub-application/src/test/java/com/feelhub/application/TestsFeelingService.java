@@ -31,7 +31,7 @@ public class TestsFeelingService {
                 bind(SessionProvider.class).to(FakeSessionProvider.class);
             }
         });
-        injector.getInstance(FeelingService.class);
+        feelingService = injector.getInstance(FeelingService.class);
     }
 
     @Test
@@ -78,4 +78,5 @@ public class TestsFeelingService {
 
     private User user;
     private RealTopic topic;
+    private FeelingService feelingService;
 }

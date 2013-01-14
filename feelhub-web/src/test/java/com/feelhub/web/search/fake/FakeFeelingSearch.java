@@ -50,6 +50,20 @@ public class FakeFeelingSearch extends FeelingSearch {
         return this;
     }
 
+    public FeelingSearch withUserId(final UUID userID) {
+        feelings = Lists.newArrayList(Iterables.filter(feelings, new Predicate<Feeling>() {
+
+            @Override
+            public boolean apply(final Feeling feeling) {
+                if (feeling.getUserId().equals(userID)) {
+                    return true;
+                }
+                return false;
+            }
+        }));
+        return this;
+    }
+
     @Override
     public void reset() {
         feelings = Repositories.feelings().getAll();

@@ -9,8 +9,7 @@ import org.junit.*;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsFeelingMongoRepository extends TestWithMongoRepository {
 
@@ -31,13 +30,13 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
         final DBObject query = new BasicDBObject();
         query.put("_id", feeling.getId());
         final DBObject feelingFound = feelings.findOne(query);
-        assertThat(feelingFound, notNullValue());
-        assertThat(feelingFound.get("_id"), is((Object) feeling.getId()));
-        assertThat(feelingFound.get("text").toString(), is(feeling.getText()));
-        assertThat(feelingFound.get("languageCode").toString(), is(feeling.getLanguageCode()));
-        assertThat(feelingFound.get("creationDate"), is((Object) feeling.getCreationDate().getMillis()));
-        assertThat(feelingFound.get("lastModificationDate"), is((Object) feeling.getCreationDate().getMillis()));
-        assertThat(feelingFound.get("userId"), is((Object) activeUser.getId()));
+        assertThat(feelingFound).isNotNull();
+        assertThat(feelingFound.get("_id")).isEqualTo(feeling.getId());
+        assertThat(feelingFound.get("text").toString()).isEqualTo(feeling.getText());
+        assertThat(feelingFound.get("languageCode").toString()).isEqualTo(feeling.getLanguageCode());
+        assertThat(feelingFound.get("creationDate")).isEqualTo(feeling.getCreationDate().getMillis());
+        assertThat(feelingFound.get("lastModificationDate")).isEqualTo(feeling.getCreationDate().getMillis());
+        assertThat(feelingFound.get("userId")).isEqualTo(activeUser.getId());
     }
 
     @Test
@@ -46,7 +45,7 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
 
         final Feeling feelingFound = Repositories.feelings().get(feeling.getId());
 
-        assertThat(feelingFound, is(feeling));
+        assertThat(feelingFound).isEqualTo(feeling);
     }
 
     @Test
@@ -56,9 +55,9 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
 
         final List<Feeling> feelings = Repositories.feelings().getAll();
 
-        assertThat(feelings.size(), is(2));
-        assertThat(feelings.get(0), is(feeling0));
-        assertThat(feelings.get(1), is(feeling1));
+        assertThat(feelings.size()).isEqualTo(2);
+        assertThat(feelings.get(0)).isEqualTo(feeling0);
+        assertThat(feelings.get(1)).isEqualTo(feeling1);
     }
 
     @Test
@@ -71,7 +70,7 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
         final DBObject query = new BasicDBObject();
         query.put("_id", feeling.getId());
         final DBObject feelingFound = feelings.findOne(query);
-        assertThat(feelingFound.get("sentiments"), notNullValue());
+        assertThat(feelingFound.get("sentiments")).isNotNull();
     }
 
     @Ignore("on doit faire evoluer mongolink pour faire ce test ...")
@@ -89,6 +88,6 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
 
         final List<Feeling> feelings = Repositories.feelings().forTopicId(realTopic1.getId());
 
-        assertThat(feelings.size(), is(2));
+        assertThat(feelings.size()).isEqualTo(2);
     }
 }

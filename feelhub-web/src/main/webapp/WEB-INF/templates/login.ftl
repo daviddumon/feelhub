@@ -36,8 +36,8 @@
     </div>
     <div class="holder">
         <a id="login_submit" href="">login</a>
-        or
-        <a href="${facebookUrl}">login with facebook</a>
+        <#--or-->
+        <#--<a href="${facebookUrl}">login with facebook</a>-->
     </div>
 </form>
 </@noflow.body>

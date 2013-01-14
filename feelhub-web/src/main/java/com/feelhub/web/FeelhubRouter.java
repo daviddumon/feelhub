@@ -32,6 +32,7 @@ public class FeelhubRouter extends Router {
         attach("/api/topic/{topicId}/feelings", ApiTopicFeelingsResource.class);
         attach("/api/topic/{topicId}/feeling/{feelingId}/new", ApiTopicNewFeelingsResource.class);
         attach("/api/feelings", ApiFeelingsResource.class);
+        attach("/api/myfeelings", ApiMyFeelingsResource.class);
 
         // WEB
         attach("/topic/{topicId}", TopicResource.class);
@@ -48,6 +49,7 @@ public class FeelhubRouter extends Router {
         attach("/sitemap_{number}.xml", FeelhubSitemapResource.class);
         attach("/social/facebook", FacebookResource.class);
         attach("/social/welcome", SocialWelcomeResource.class);
+        attach("/myfeelings", MyFeelingsResource.class);
         attach("/", HomeResource.class);
 
         //ADMIN

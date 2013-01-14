@@ -45,6 +45,11 @@ public class FeelingSearch implements Search<Feeling> {
         return this;
     }
 
+    public FeelingSearch withUserId(final UUID userId) {
+        criteria.add(Restrictions.equals("userId", userId));
+        return this;
+    }
+
     public void reset() {
         criteria = provider.get().createCriteria(Feeling.class);
         criteria.add(Restrictions.notEquals("text", ""));
