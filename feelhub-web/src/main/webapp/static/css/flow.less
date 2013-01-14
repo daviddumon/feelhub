@@ -39,29 +39,29 @@ body {
           position: relative;
           width: 256px;
           height: 144px;
-          overflow: hidden;
           border: @white solid 5px !important;
           margin: 5px;
           display: inline-block;
+          overflow: hidden;
 
           img {
             position: absolute;
-          }
 
-          span {
-            position: absolute;
-            display: block;
-            width: 100%;
-            bottom: 0px;
-            left: 0px;
-            background: @grey-4;
-            background: rgba(0, 0, 0, .8);
-            .font_title();
-            color: @blue-1;
-            font-size: @font-normal;
-            padding-top: 4px;
-            padding-bottom: 4px;
-            min-height: @font-normal;
+            span {
+              position: absolute;
+              display: block;
+              width: 100%;
+              bottom: 0px;
+              left: 0px;
+              background: @grey-4;
+              background: rgba(0, 0, 0, .8);
+              .font_title();
+              color: @blue-1;
+              font-size: @font-normal;
+              padding-top: 4px;
+              padding-bottom: 4px;
+              min-height: @font-normal;
+            }
           }
         }
       }
@@ -87,7 +87,7 @@ body {
           }
         }
 
-        .feeling_sentiment_value_illustration {
+        .sentiment_illustration {
           position: relative;
           top: -7px;
           width: 14px;
@@ -116,6 +116,53 @@ body {
         .feeling_related {
           margin-left: 20px;
           padding-top: 40px;
+
+          a {
+            position: relative;
+            overflow: hidden;
+
+            img {
+              position: absolute;
+
+              span {
+                position: absolute;
+                display: block;
+                width: 100%;
+                bottom: 0px;
+                left: 0px;
+                background: @grey-4;
+                background: rgba(0, 0, 0, .8);
+                .font_title();
+                color: @blue-1;
+                font-size: @font-medium;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                min-height: @font-medium;
+                display: none;
+              }
+
+              &:hover {
+                span {
+                  display: inline;
+                }
+              }
+            }
+          }
+
+          a.topic_stack {
+            float: left !important;
+            border: 1px solid @white !important;
+          }
+
+          a.topic_medium {
+            width: 128px;
+            height: 144px;
+          }
+
+          a.topic_large {
+            width: 258px;
+            height: 144px;
+          }
         }
       }
     }

@@ -3,6 +3,8 @@
 </@flow.js>
 
 <@flow.dashboard>
+<div id="slogan">
+</div>
 </@flow.dashboard>
 
 <@flow.command>

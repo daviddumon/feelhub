@@ -15,6 +15,15 @@
   --webkit-border-bottom-left-radius: @radius;
 }
 
+.rounded_up(@radius: 10px) {
+  border-top-right-radius: @radius;
+  border-top-left-radius: @radius;
+  --moz-border-radius-top-right: @radius;
+  --moz-border-radius-top-left: @radius;
+  --webkit-border-top-right-radius: @radius;
+  --webkit-border-top-left-radius: @radius;
+}
+
 .font_text {
   font-family: 'Droid Serif', serif;
 }

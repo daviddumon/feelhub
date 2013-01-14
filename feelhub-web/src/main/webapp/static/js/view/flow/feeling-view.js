@@ -26,9 +26,10 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling"],
                             sentimentValue: feeling.topicDatas[i].sentimentValue,
                             name: feeling.topicDatas[i].name,
                             url: root + "/topic/" + feeling.topicDatas[i].id,
-                            illustration: feeling.topicDatas[i].illustration
+                            illustration: feeling.topicDatas[i].illustration,
+                            classes:"topic_medium topic_stack"
                         };
-                        if(topic_data.illustration == "") {
+                        if (topic_data.illustration == "") {
                             topic_data.illustration = root + "/static/images/unknown.png";
                         }
                         topicDatas.push(topic_data);
@@ -39,7 +40,7 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling"],
                 }
             }
 
-            //    shuffleAndMakeFirstLarge();
+            shuffleAndMakeFirstLarge();
 
             var feelingData = {
                 id: feeling.id,
@@ -53,18 +54,17 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling"],
                 feelingData["feeling_sentiment_value_illustration"] = root + "/static/images/smiley_" + feeling_sentiment_value + "_white_14.png";
             }
 
-            //console.log(feelingData);
             return feelingData;
 
             function shuffleAndMakeFirstLarge() {
-                //        if (topicDatas.length % 2 != 0) {
-                //            var shuffle_number = Math.floor(Math.random() * topicDatas.length);
-                //            for (var i = 0; i < shuffle_number; i++) {
-                //                var rd = topicDatas.shift();
-                //                topicDatas.push(rd);
-                //            }
-                //            topicDatas[0]["classes"] = "keyword_large keyword_stack";
-                //        }
+                if (topicDatas.length % 2 != 0) {
+                    var shuffle_number = Math.floor(Math.random() * topicDatas.length);
+                    for (var i = 0; i < shuffle_number; i++) {
+                        var rd = topicDatas.shift();
+                        topicDatas.push(rd);
+                    }
+                    topicDatas[0]["classes"] = "topic_large topic_stack";
+                }
             }
         }
 

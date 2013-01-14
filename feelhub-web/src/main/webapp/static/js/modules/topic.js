@@ -18,20 +18,22 @@ define(["jquery", "modules/flow", "view/flow/feeling-view"],
         }
 
         function setTextareaBehavior() {
-            $(container).children().focus(function () {
+            $("#feeling_form textarea").focus(function () {
                 $("#feeling_form textarea").height("100px");
             });
         }
 
         function setSubmitBehavior() {
             $(container).submit(function () {
-                $.ajax({
-                    url: root + create_feeling_api_end_point,
-                    type: 'POST',
-                    data: $(container).serialize(),
-                    success: success,
-                    error: error
-                });
+                if ($("#feeling_form textarea").val() !== "") {
+                    $.ajax({
+                        url: root + create_feeling_api_end_point,
+                        type: 'POST',
+                        data: $(container).serialize(),
+                        success: success,
+                        error: error
+                    });
+                }
                 return false;
             });
         }

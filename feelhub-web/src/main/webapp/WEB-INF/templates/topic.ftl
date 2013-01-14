@@ -17,7 +17,6 @@
 
 <@flow.command>
 <form id="feeling_form" autocomplete="off">
-    <div class="box_title">My feeling about this</div>
     <select name="language">
         <option value=""></option>
         <#list locales as locale>
@@ -27,7 +26,7 @@
     <textarea name="text"></textarea>
     <input type="hidden" name="topicId" value="${topicData.id}"/>
     <button type="submit">
-        share
+        share my feeling
     </button>
 </form>
 </@flow.command>
