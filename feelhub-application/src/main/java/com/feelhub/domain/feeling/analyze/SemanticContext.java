@@ -1,4 +1,4 @@
-package com.feelhub.domain.feeling.context;
+package com.feelhub.domain.feeling.analyze;
 
 import com.feelhub.domain.relation.Relation;
 import com.feelhub.domain.tag.Tag;
@@ -9,6 +9,10 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 public class SemanticContext {
+
+    public SemanticContext(final Topic topic) {
+
+    }
 
     public void extractFor(final Topic topic) {
         final List<Relation> relations = Repositories.relations().forTopicId(topic.getId());

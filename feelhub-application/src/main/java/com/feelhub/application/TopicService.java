@@ -78,6 +78,13 @@ public class TopicService {
         return httpTopic;
     }
 
+    public HttpTopic createHttpTopic(final String value, final UUID userId) {
+        final ResolverResult resolverResult = uriResolver.resolve(new Uri(value));
+        final HttpTopic httpTopic = createHttpTopic(resolverResult);
+        httpTopic.setUserId(userId);
+        return httpTopic;
+    }
+
     public HttpTopic createHttpTopic(final String value, final MediaType restrictedType) {
         final ResolverResult resolverResult = uriResolver.resolve(new Uri(value));
         if (restrictedType != null) {
@@ -148,11 +155,11 @@ public class TopicService {
         }
     }
 
-    private Tag lookUpOrCreateTag(final String description) {
+    private Tag lookUpOrCreateTag(final String name) {
         try {
-            return tagService.lookUp(description);
+            return tagService.lookUp(name);
         } catch (TagNotFoundException e) {
-            return tagService.createTag(description);
+            return tagService.createTag(name);
         }
     }
 

@@ -2,7 +2,7 @@ package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.feeling.context.SemanticContext;
+import com.feelhub.domain.feeling.analyze.SemanticContext;
 import com.feelhub.domain.relation.FeelingRelationBinder;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
@@ -14,9 +14,8 @@ import java.util.List;
 public class FeelingService {
 
     @Inject
-    public FeelingService(final FeelingRelationBinder feelingRelationBinder, final SentimentExtractor sentimentExtractor, final TopicService topicService) {
+    public FeelingService(final FeelingRelationBinder feelingRelationBinder, final TopicService topicService) {
         this.feelingRelationBinder = feelingRelationBinder;
-        this.sentimentExtractor = sentimentExtractor;
         this.topicService = topicService;
         DomainEventBus.INSTANCE.register(this);
     }
@@ -37,17 +36,18 @@ public class FeelingService {
 
     private List<Sentiment> fromText(final FeelingRequestEvent feelingRequestEvent) {
         final List<Sentiment> result = Lists.newArrayList();
-        final List<SentimentAndText> sentimentAndTexts = sentimentExtractor.extract(feelingRequestEvent.getText(), getSemanticContext(feelingRequestEvent));
-        for (final SentimentAndText sentimentAndText : sentimentAndTexts) {
-            if (sentimentAndText.text.isEmpty()) {
-                final Sentiment sentiment = new Sentiment(feelingRequestEvent.getTopicId(), sentimentAndText.sentimentValue);
-                result.add(sentiment);
-            } else {
+        //final List<SentimentAndText> sentimentAndTexts = sentimentAndTextExtractor.extract(feelingRequestEvent.getText(), getSemanticContext(feelingRequestEvent));
+        //final List<SentimentAndText> sentimentAndTexts = Lists.newArrayList();
+        //for (final SentimentAndText sentimentAndText : sentimentAndTexts) {
+        //    if (sentimentAndText.text.isEmpty()) {
+        //        final Sentiment sentiment = new Sentiment(feelingRequestEvent.getTopicId(), sentimentAndText.sentimentValue);
+        //        result.add(sentiment);
+        //    } else {
                 //        final Tag tag = tagService.lookUpOrCreate(sentimentAndText.text, feelingRequestEvent.getUserLanguage());
                 //        final Sentiment sentiment = new Sentiment(tag.getTopicId(), sentimentAndText.sentimentValue);
                 //        result.add(sentiment);
-            }
-        }
+            //}
+        //}
         return result;
     }
 
@@ -68,6 +68,5 @@ public class FeelingService {
     }
 
     private final FeelingRelationBinder feelingRelationBinder;
-    private final SentimentExtractor sentimentExtractor;
     private TopicService topicService;
 }

@@ -66,4 +66,12 @@ public class FeelingTestFactory {
         Repositories.feelings().add(feeling);
         return feeling;
     }
+
+    public Feeling newEmptyFeeling(final String text) {
+        final User activeUser = TestFactories.users().createFakeActiveUser("userforfeeling@mail.com");
+        final Feeling feeling = new Feeling(text, activeUser);
+        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
+        Repositories.feelings().add(feeling);
+        return feeling;
+    }
 }

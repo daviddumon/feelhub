@@ -1,5 +1,7 @@
 package com.feelhub.domain.feeling;
 
+import com.google.common.base.Objects;
+
 import java.util.UUID;
 
 public class Sentiment {
@@ -8,9 +10,30 @@ public class Sentiment {
     protected Sentiment() {
     }
 
+    public Sentiment(final SentimentValue sentimentValue) {
+        this.sentimentValue = sentimentValue;
+    }
+
     public Sentiment(final UUID topicId, final SentimentValue sentimentValue) {
         this.topicId = topicId;
         this.sentimentValue = sentimentValue;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || !getClass().isAssignableFrom(o.getClass())) {
+            return false;
+        }
+        final Sentiment sentiment = (Sentiment) o;
+        return Objects.equal(sentiment.getTopicId(), this.getTopicId()) && Objects.equal(sentiment.getSentimentValue(), this.getSentimentValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getTopicId() + getSentimentValue().toString());
     }
 
     public SentimentValue getSentimentValue() {
