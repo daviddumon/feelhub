@@ -52,7 +52,7 @@ public class FeelingService {
     }
 
     private SemanticContext getSemanticContext(final FeelingRequestEvent feelingRequestEvent) {
-        final SemanticContext semanticContext = new SemanticContext();
+        final SemanticContext semanticContext = new SemanticContext(null);
         //    semanticContext.extractFor(feelingRequestEvent.getKeywordValue(), FeelhubLanguage.fromCode(feelingRequestEvent.getUserLanguage().getCode()));
         return semanticContext;
     }
