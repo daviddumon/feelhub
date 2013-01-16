@@ -7,7 +7,7 @@ import com.google.common.collect.Maps;
 import java.util.*;
 import java.util.regex.*;
 
-public class TextParser {
+public class FuckTextParser {
 
     public Map<String, String> parse(final String text, final List<String> knownsTokens) {
         final HashMap<String, String> results = Maps.newHashMap();
