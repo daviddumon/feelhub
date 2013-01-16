@@ -4,6 +4,7 @@ import com.feelhub.application.TopicService;
 import com.feelhub.domain.tag.TagNotFoundException;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.real.RealTopicType;
+import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.FeelhubApiException;
@@ -54,7 +55,7 @@ public class NewTopicResource extends ServerResource {
     }
 
     private List<String> getForbiddenTypes(final String name) {
-        final List<Topic> topics = topicService.getTopics(name);
+        final List<Topic> topics = topicService.getTopics(name, CurrentUser.get().getLanguage());
         final List<String> forbiddenTypes = Lists.newArrayList();
         for (final Topic topic : topics) {
             try {

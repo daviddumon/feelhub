@@ -162,13 +162,13 @@ public class TestsApiTopicsResource {
     public void returnListOfTopicData() {
         final Tag tag = TestFactories.tags().newTagWithoutTopic();
         final RealTopic topic1 = TestFactories.topics().newCompleteRealTopic();
-        tag.addTopic(topic1);
+        tag.addTopic(topic1, CurrentUser.get().getLanguage());
         final RealTopic topic2 = TestFactories.topics().newCompleteRealTopic();
-        tag.addTopic(topic2);
+        tag.addTopic(topic2, CurrentUser.get().getLanguage());
         final List<Topic> topics = Lists.newArrayList();
         topics.add(topic1);
         topics.add(topic2);
-        when(topicService.getTopics(tag.getId())).thenReturn(topics);
+        when(topicService.getTopics(tag.getId(), CurrentUser.get().getLanguage())).thenReturn(topics);
         final Request request = new Request(Method.GET, "http://test.com?q=" + tag.getId());
         apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
 

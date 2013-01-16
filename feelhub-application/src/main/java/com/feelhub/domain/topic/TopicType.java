@@ -5,4 +5,6 @@ public interface TopicType {
     boolean hasTagUniqueness();
 
     boolean isMedia();
+
+    boolean isTranslatable();
 }

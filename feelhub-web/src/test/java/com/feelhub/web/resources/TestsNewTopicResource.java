@@ -5,6 +5,7 @@ import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
+import com.feelhub.web.authentification.*;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.*;
@@ -116,11 +117,12 @@ public class TestsNewTopicResource {
 
     @Test
     public void hasGoodListOfTypes() {
+        CurrentUser.set(new WebUser(TestFactories.users().createFakeActiveUser("mail@mail.com"),true));
         final Tag tag = TestFactories.tags().newTagWithoutTopic(query);
-        tag.addTopic(TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile));
-        tag.addTopic(TestFactories.topics().newSimpleRealTopic(RealTopicType.Company));
-        tag.addTopic(TestFactories.topics().newSimpleRealTopic(RealTopicType.Country));
-        tag.addTopic(TestFactories.topics().newSimpleRealTopic(RealTopicType.Facility));
+        tag.addTopic(TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile), CurrentUser.get().getLanguage());
+        tag.addTopic(TestFactories.topics().newSimpleRealTopic(RealTopicType.Company), CurrentUser.get().getLanguage());
+        tag.addTopic(TestFactories.topics().newSimpleRealTopic(RealTopicType.Country), CurrentUser.get().getLanguage());
+        tag.addTopic(TestFactories.topics().newSimpleRealTopic(RealTopicType.Facility), CurrentUser.get().getLanguage());
         final Request request = new Request(Method.GET, "http://test.com?q=" + query);
         newTopicResource.init(Context.getCurrent(), request, new Response(request));
 

@@ -14,9 +14,9 @@ public class FakeTagRepository extends FakeRepository<Tag> implements TagReposit
 
             @Override
             public boolean apply(final Tag input) {
-                final List<UUID> ids = input.getTopicIds();
-                for (final UUID id : ids) {
-                    if (id.equals(topicId)) {
+                final List<TagItem> topicsIds = input.getTopicIds();
+                for (final TagItem tagItem : topicsIds) {
+                    if (tagItem.getId().equals(topicId)) {
                         return true;
                     }
                 }

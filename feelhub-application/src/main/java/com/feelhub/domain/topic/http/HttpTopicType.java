@@ -26,5 +26,10 @@ public enum HttpTopicType implements TopicType {
         return media;
     }
 
+    @Override
+    public boolean isTranslatable() {
+        return false;
+    }
+
     private final boolean media;
 }

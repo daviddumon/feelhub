@@ -1,6 +1,7 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.tag.*;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.test.*;
 import com.mongodb.*;
@@ -49,10 +50,10 @@ public class TestsTagMongoRepository extends TestWithMongoRepository {
     public void canGetTagsWithTopicId() {
         final Tag tag = TestFactories.tags().newTag();
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        tag.addTopic(realTopic);
-        tag.addTopic(TestFactories.topics().newCompleteRealTopic());
+        tag.addTopic(realTopic, FeelhubLanguage.reference());
+        tag.addTopic(TestFactories.topics().newCompleteRealTopic(), FeelhubLanguage.reference());
         final Tag anotherTag = TestFactories.tags().newTag();
-        anotherTag.addTopic(TestFactories.topics().newCompleteRealTopic());
+        anotherTag.addTopic(TestFactories.topics().newCompleteRealTopic(), FeelhubLanguage.reference());
 
         final List<Tag> tags = repository.forTopicId(realTopic.getId());
 

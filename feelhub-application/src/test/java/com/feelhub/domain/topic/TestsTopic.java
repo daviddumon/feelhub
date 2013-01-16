@@ -63,11 +63,11 @@ public class TestsTopic {
         final HttpTopic oldTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Article);
         final HttpTopic newTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Article);
         final Tag tag = TestFactories.tags().newTag("tag");
-        tag.addTopic(oldTopic);
+        tag.addTopic(oldTopic, FeelhubLanguage.reference());
 
         oldTopic.changeCurrentId(newTopic.getId());
 
-        assertThat(tag.getTopicIds()).contains(newTopic.getId());
+        assertThat(tag.getTopicsIdFor(FeelhubLanguage.reference())).contains(newTopic.getId());
     }
 
     @Test

@@ -94,23 +94,39 @@ public class TestsTopicService {
     public void canGetTopicsFromString() {
         final String value = "tag";
         final Tag tag = TestFactories.tags().newTagWithoutTopic(value);
-        tag.addTopic(TestFactories.topics().newCompleteRealTopic());
-        tag.addTopic(TestFactories.topics().newCompleteRealTopic());
-        tag.addTopic(TestFactories.topics().newCompleteRealTopic());
+        tag.addTopic(TestFactories.topics().newCompleteRealTopic(), FeelhubLanguage.none());
+        tag.addTopic(TestFactories.topics().newCompleteRealTopic(), FeelhubLanguage.none());
+        tag.addTopic(TestFactories.topics().newCompleteRealTopic(), FeelhubLanguage.none());
 
-        final List<Topic> topics = topicService.getTopics(value);
+        final List<Topic> topics = topicService.getTopics(value, FeelhubLanguage.none());
 
         assertThat(topics.size()).isEqualTo(3);
     }
 
     @Test
-    public void canIndexTopic() {
+    public void canIndexNonTranslatableTopic() {
         final String value = "value";
         final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
 
-        topicService.index(httpTopic, value);
+        topicService.index(httpTopic, value, FeelhubLanguage.reference());
 
         assertThat(Repositories.tags().getAll().size()).isEqualTo(1);
+        final Tag tag = Repositories.tags().getAll().get(0);
+        assertThat(tag.getId()).isEqualTo(value);
+        assertThat(tag.getTopicsIdFor(FeelhubLanguage.none())).contains(httpTopic.getId());
+    }
+
+    @Test
+    public void canIndexTranslatableTopic() {
+        final String value = "value";
+        final RealTopic topic = TestFactories.topics().newCompleteRealTopic(value, RealTopicType.Anniversary);
+
+        topicService.index(topic, value, FeelhubLanguage.fromCode("de"));
+
+        assertThat(Repositories.tags().getAll().size()).isEqualTo(1);
+        final Tag tag = Repositories.tags().getAll().get(0);
+        assertThat(tag.getId()).isEqualTo(value);
+        assertThat(tag.getTopicsIdFor(FeelhubLanguage.fromCode("de"))).contains(topic.getId());
     }
 
     @Test
@@ -118,20 +134,19 @@ public class TestsTopicService {
         final String value = "value";
         final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
 
-        topicService.index(httpTopic, value);
+        topicService.index(httpTopic, value, FeelhubLanguage.none());
 
-        assertThat(Repositories.tags().getAll().get(0).getTopicIds()).contains(httpTopic.getId());
+        assertThat(Repositories.tags().getAll().get(0).getTopicsIdFor(FeelhubLanguage.none())).contains(httpTopic.getId());
     }
-
 
     @Test
     public void correctlySetTopicIdInTagWhenTagUniqueness() {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID(), FakeUniqueTopicType.Unique);
         final String tag = "tag-fr";
 
-        topicService.index(fakeTopic, tag);
+        topicService.index(fakeTopic, tag, FeelhubLanguage.none());
 
-        assertThat(Repositories.tags().getAll().get(0).getTopicIds()).contains(fakeTopic.getId());
+        assertThat(Repositories.tags().getAll().get(0).getTopicsIdFor(FeelhubLanguage.none())).contains(fakeTopic.getId());
     }
 
     @Test
@@ -141,19 +156,21 @@ public class TestsTopicService {
         final String tag = "tag-fr";
         createTagForFakeUniqueTopic(tag);
 
-        topicService.index(newTopic, tag);
+        topicService.index(newTopic, tag, FeelhubLanguage.none());
 
-        assertThat(Repositories.tags().getAll().get(0).getTopicIds().size()).isEqualTo(1);
+        assertThat(Repositories.tags().getAll().get(0).getTopicsIdFor(FeelhubLanguage.none()).size()).isEqualTo(1);
     }
 
     @Test
-    public void canUseExistingTag() {
+    public void canAddNotUniqueTopicToExistingTag() {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID(), FakeUniqueTopicType.NotUnique);
         final String tag = "tag-fr";
+        createTagForFakeNonUniqueTopic(tag);
 
-        topicService.index(fakeTopic, tag);
+        topicService.index(fakeTopic, tag, FeelhubLanguage.none());
 
         assertThat(Repositories.tags().getAll().size()).isEqualTo(1);
+        assertThat(Repositories.tags().getAll().get(0).getTopicsIdFor(FeelhubLanguage.none()).size()).isEqualTo(2);
     }
 
     @Test
@@ -163,11 +180,11 @@ public class TestsTopicService {
         final FakeTopic anotherTopic = new FakeTopic(UUID.randomUUID(), FakeUniqueTopicType.Unique);
         Repositories.topics().add(anotherTopic);
 
-        topicService.index(anotherTopic, value);
+        topicService.index(anotherTopic, value, FeelhubLanguage.none());
 
         final Tag tag = Repositories.tags().getAll().get(0);
-        assertThat(tag.getTopicIds().size()).isEqualTo(1);
-        assertThat(tag.getTopicIds()).contains(fakeTopic.getId());
+        assertThat(tag.getTopicsIdFor(FeelhubLanguage.none()).size()).isEqualTo(1);
+        assertThat(tag.getTopicsIdFor(FeelhubLanguage.none())).contains(fakeTopic.getId());
         assertThat(anotherTopic.getCurrentId()).isEqualTo(fakeTopic.getId());
     }
 
@@ -197,7 +214,16 @@ public class TestsTopicService {
     private FakeTopic createTagForFakeUniqueTopic(final String value) {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID(), FakeUniqueTopicType.Unique);
         final Tag tag = new Tag(value);
-        tag.addTopic(fakeTopic);
+        tag.addTopic(fakeTopic, FeelhubLanguage.none());
+        Repositories.tags().add(tag);
+        Repositories.topics().add(fakeTopic);
+        return fakeTopic;
+    }
+
+    private FakeTopic createTagForFakeNonUniqueTopic(final String value) {
+        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID(), FakeUniqueTopicType.NotUnique);
+        final Tag tag = new Tag(value);
+        tag.addTopic(fakeTopic, FeelhubLanguage.none());
         Repositories.tags().add(tag);
         Repositories.topics().add(fakeTopic);
         return fakeTopic;
@@ -218,6 +244,11 @@ public class TestsTopicService {
 
         @Override
         public boolean isMedia() {
+            return false;
+        }
+
+        @Override
+        public boolean isTranslatable() {
             return false;
         }
 

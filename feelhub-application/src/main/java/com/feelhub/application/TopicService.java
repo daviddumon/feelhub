@@ -41,10 +41,10 @@ public class TopicService {
         return topic;
     }
 
-    public Topic lookUp(final String value, final RealTopicType type) {
+    public Topic lookUp(final String value, final RealTopicType type, final FeelhubLanguage language) {
         try {
             final Tag tag = tagService.lookUp(value);
-            for (final UUID id : tag.getTopicIds()) {
+            for (final UUID id : tag.getTopicsIdFor(language)) {
                 try {
                     final Topic topic = lookUpCurrent(id);
                     if (topic.getType().equals(type)) {
@@ -66,7 +66,7 @@ public class TopicService {
 
     public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType type) {
         final RealTopic realTopic = topicFactory.createRealTopic(feelhubLanguage, name, type);
-        index(realTopic, name);
+        index(realTopic, name, feelhubLanguage);
         Repositories.topics().add(realTopic);
         return realTopic;
     }
@@ -109,16 +109,16 @@ public class TopicService {
     private void createTagsForHttpTopic(final ResolverResult resolverResult, final HttpTopic httpTopic) {
         for (final Uri uri : resolverResult.getPath()) {
             for (final String variation : uri.getVariations()) {
-                index(httpTopic, variation);
+                index(httpTopic, variation, FeelhubLanguage.none());
             }
         }
     }
 
-    public List<Topic> getTopics(final String value) {
+    public List<Topic> getTopics(final String value, final FeelhubLanguage language) {
         final List<Topic> topics = Lists.newArrayList();
         try {
             final Tag tag = tagService.lookUp(value);
-            for (final UUID id : tag.getTopicIds()) {
+            for (final UUID id : tag.getTopicsIdFor(language)) {
                 try {
                     topics.add(lookUpCurrent(id));
                 } catch (TopicNotFound e) {
@@ -129,29 +129,37 @@ public class TopicService {
         return topics;
     }
 
-    public void index(final Topic topic, final String value) {
+    public void index(final Topic topic, final String value, final FeelhubLanguage language) {
         final Tag tag = lookUpOrCreateTag(value);
-        if (topic.getType().hasTagUniqueness()) {
-            addTopicIfNotPresent(topic, tag);
+        if (topic.getType().isTranslatable()) {
+            indexForLanguage(topic, tag, language);
         } else {
-            addTopicToTag(topic, tag);
+            indexForLanguage(topic, tag, FeelhubLanguage.none());
         }
     }
 
-    private void addTopicIfNotPresent(final Topic topic, final Tag tag) {
-        for (final UUID id : tag.getTopicIds()) {
+    private void indexForLanguage(final Topic topic, final Tag tag, final FeelhubLanguage language) {
+        if (topic.getType().hasTagUniqueness()) {
+            addTopicIfNotPresent(topic, tag, language);
+        } else {
+            addTopicToTag(topic, tag, language);
+        }
+    }
+
+    private void addTopicIfNotPresent(final Topic topic, final Tag tag, final FeelhubLanguage language) {
+        for (final UUID id : tag.getTopicsIdFor(language)) {
             final Topic existingTopic = lookUpCurrent(id);
             if (existingTopic.getType().equals(topic.getType())) {
                 topic.changeCurrentId(existingTopic.getId());
                 return;
             }
         }
-        tag.addTopic(topic);
+        tag.addTopic(topic, language);
     }
 
-    private void addTopicToTag(final Topic topic, final Tag tag) {
-        if (!tag.getTopicIds().contains(topic.getId())) {
-            tag.addTopic(topic);
+    private void addTopicToTag(final Topic topic, final Tag tag, final FeelhubLanguage language) {
+        if (!tag.getTopicsIdFor(language).contains(topic.getId())) {
+            tag.addTopic(topic, language);
         }
     }
 

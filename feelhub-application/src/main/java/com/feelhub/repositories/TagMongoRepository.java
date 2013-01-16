@@ -15,7 +15,7 @@ public class TagMongoRepository extends BaseMongoRepository<Tag> implements TagR
     @Override
     public List<Tag> forTopicId(final UUID topicId) {
         final Criteria<Tag> criteria = createCriteria();
-        criteria.add(Restrictions.equals("topicIds", topicId));
+        criteria.add(Restrictions.equals("topicIds.id", topicId));
         return criteria.list();
     }
 }

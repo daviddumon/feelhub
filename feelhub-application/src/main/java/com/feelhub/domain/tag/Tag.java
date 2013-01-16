@@ -1,6 +1,7 @@
 package com.feelhub.domain.tag;
 
 import com.feelhub.domain.BaseEntity;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.google.common.collect.Lists;
 
@@ -12,8 +13,8 @@ public class Tag extends BaseEntity {
     public Tag() {
     }
 
-    public Tag(final String id) {
-        this.id = id;
+    public Tag(final String tagValue) {
+        this.id = tagValue;
     }
 
     @Override
@@ -26,14 +27,27 @@ public class Tag extends BaseEntity {
         return id;
     }
 
-    public void addTopic(final Topic topic) {
-        topicIds.add(topic.getId());
+    public void addTopic(final Topic topic, final FeelhubLanguage language) {
+        final TagItem tagItem = new TagItem();
+        tagItem.setId(topic.getId());
+        tagItem.setLanguageCode(language.getCode());
+        topicIds.add(tagItem);
     }
 
-    public List<UUID> getTopicIds() {
+    public List<TagItem> getTopicIds() {
         return topicIds;
     }
 
+    public List<UUID> getTopicsIdFor(final FeelhubLanguage language) {
+        List<UUID> results = Lists.newArrayList();
+        for (TagItem item : topicIds) {
+            if (item.getLanguageCode().equals(language.getCode())) {
+                results.add(item.getId());
+            }
+        }
+        return results;
+    }
+
     private String id;
-    private final List<UUID> topicIds = Lists.newArrayList();
+    private List<TagItem> topicIds = Lists.newArrayList();
 }

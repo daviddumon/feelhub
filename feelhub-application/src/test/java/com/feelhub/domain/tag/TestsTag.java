@@ -1,6 +1,6 @@
 package com.feelhub.domain.tag;
 
-import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -14,26 +14,24 @@ public class TestsTag {
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Test
-    public void canAddARealTopic() {
+    public void canAddATopicForALanguage() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final Tag tag = new Tag("value");
 
-        tag.addTopic(realTopic);
+        tag.addTopic(realTopic, FeelhubLanguage.reference());
 
-        assertThat(tag.getTopicIds()).isNotNull();
-        assertThat(tag.getTopicIds().size()).isEqualTo(1);
-        assertThat(tag.getTopicIds().get(0)).isEqualTo(realTopic.getId());
+        assertThat(tag.getTopicsIdFor(FeelhubLanguage.reference())).isNotNull();
+        assertThat(tag.getTopicsIdFor(FeelhubLanguage.reference()).size()).isEqualTo(1);
+        assertThat(tag.getTopicsIdFor(FeelhubLanguage.reference()).get(0)).isEqualTo(realTopic.getId());
     }
 
     @Test
-    public void canAddAWebTopic() {
-        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+    public void canGetEmptyTopicList() {
+        TestFactories.topics().newCompleteRealTopic();
+
         final Tag tag = new Tag("value");
 
-        tag.addTopic(httpTopic);
-
-        assertThat(tag.getTopicIds()).isNotNull();
-        assertThat(tag.getTopicIds().size()).isEqualTo(1);
-        assertThat(tag.getTopicIds().get(0)).isEqualTo(httpTopic.getId());
+        assertThat(tag.getTopicsIdFor(FeelhubLanguage.reference())).isNotNull();
+        assertThat(tag.getTopicsIdFor(FeelhubLanguage.reference()).size()).isZero();
     }
 }

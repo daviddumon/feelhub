@@ -29,7 +29,7 @@ public class ApiTopicsResource extends ServerResource {
     public ModelAndView getTopics() {
         try {
             final String query = getQueryValue();
-            final List<Topic> topics = topicService.getTopics(query);
+            final List<Topic> topics = topicService.getTopics(query, CurrentUser.get().getLanguage());
             setStatus(Status.SUCCESS_OK);
             return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", getTopicDatas(topics));
         } catch (FeelhubApiException e) {

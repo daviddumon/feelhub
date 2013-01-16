@@ -52,6 +52,7 @@ public class TestsTranslator {
         DomainEventBus.INSTANCE.post(referenceTranslationRequestEvent);
 
         assertThat(Repositories.tags().getAll().size()).isEqualTo(1);
+        assertThat(Repositories.tags().getAll().get(0).getTopicsIdFor(FeelhubLanguage.reference())).contains(realTopic.getId());
     }
 
     private Translator translator;

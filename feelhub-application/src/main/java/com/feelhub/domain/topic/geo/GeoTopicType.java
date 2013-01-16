@@ -22,5 +22,10 @@ public enum GeoTopicType implements TopicType {
         return false;
     }
 
+    @Override
+    public boolean isTranslatable() {
+        return false;
+    }
+
     private final boolean tagUniqueness;
 }

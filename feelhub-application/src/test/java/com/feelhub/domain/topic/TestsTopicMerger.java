@@ -36,13 +36,17 @@ public class TestsTopicMerger {
     @Test
     public void mergeTags() {
         final RealTopic newRealTopic = TestFactories.topics().newCompleteRealTopic("tag1");
+        final Tag tag1 = TestFactories.tags().newTag(newRealTopic.getName(FeelhubLanguage.reference()), FeelhubLanguage.reference());
+        tag1.addTopic(newRealTopic, FeelhubLanguage.reference());
         final RealTopic oldRealTopic = TestFactories.topics().newCompleteRealTopic("tag2");
+        final Tag tag2 = TestFactories.tags().newTag(oldRealTopic.getName(FeelhubLanguage.reference()), FeelhubLanguage.reference());
+        tag2.addTopic(oldRealTopic, FeelhubLanguage.reference());
 
         topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
 
         for (final Tag tag : Repositories.tags().getAll()) {
-            assertThat(tag.getTopicIds()).contains(newRealTopic.getId());
-            assertThat(oldRealTopic.getId()).isNotIn(tag.getTopicIds());
+            assertThat(tag.getTopicsIdFor(FeelhubLanguage.reference())).contains(newRealTopic.getId());
+            assertThat(oldRealTopic.getId()).isNotIn(tag.getTopicsIdFor(FeelhubLanguage.reference()));
         }
     }
 

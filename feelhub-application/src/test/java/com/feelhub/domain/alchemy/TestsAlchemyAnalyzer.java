@@ -42,7 +42,7 @@ public class TestsAlchemyAnalyzer {
     }
 
     @Test
-    public void ifNoKeywordsCreateNothing() {
+    public void ifNoEntitiesCreateNothing() {
         when(entityProvider.entitiesFor(Matchers.any(HttpTopic.class))).thenReturn(TestFactories.namedEntities().namedEntityWithoutTags());
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(httpTopic);
@@ -76,7 +76,7 @@ public class TestsAlchemyAnalyzer {
     }
 
     @Test
-    public void createTasForEachTagInNamedEntity() {
+    public void createTagForEachTagInNamedEntity() {
         when(entityProvider.entitiesFor(Matchers.any(HttpTopic.class))).thenReturn(TestFactories.namedEntities().namedEntityWith2Tags());
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(httpTopic);

@@ -15,4 +15,9 @@ public enum FtpTopicType implements TopicType {
     public boolean isMedia() {
         return false;
     }
+
+    @Override
+    public boolean isTranslatable() {
+        return false;
+    }
 }

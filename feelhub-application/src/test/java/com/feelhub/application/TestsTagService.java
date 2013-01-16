@@ -29,7 +29,7 @@ public class TestsTagService {
     }
 
     @Test
-    public void canFindTagForDescription() {
+    public void canFindTagForName() {
         final Tag tag = TestFactories.tags().newTag();
 
         final Tag foundTag = tagService.lookUp(tag.getId());

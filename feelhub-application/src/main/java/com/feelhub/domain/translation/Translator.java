@@ -25,8 +25,8 @@ public class Translator {
         final String name = referenceTranslationRequestEvent.getName();
         try {
             final String referenceDescription = translateToReference(name, feelhubLanguage);
-            realTopic.addName(FeelhubLanguage.REFERENCE, referenceDescription);
-            topicService.index(realTopic, referenceDescription);
+            realTopic.addName(FeelhubLanguage.reference(), referenceDescription);
+            topicService.index(realTopic, referenceDescription, FeelhubLanguage.reference());
         } catch (Exception e) {
             e.printStackTrace();
         }

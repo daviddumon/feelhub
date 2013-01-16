@@ -51,6 +51,7 @@ public enum RealTopicType implements TopicType {
         return false;
     }
 
+    @Override
     public boolean isTranslatable() {
         return translatable;
     }
