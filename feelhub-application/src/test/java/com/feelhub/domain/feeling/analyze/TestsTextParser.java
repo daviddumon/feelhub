@@ -174,7 +174,7 @@ public class TestsTextParser {
     }
 
     public void test(final String text) {
-        final FuckTextParser textParser = new FuckTextParser();
+        final TextParser textParser = new TextParser();
 
         Map<String, String> results = textParser.parse(text, knownsTokens);
         assertThat(results).isEqualTo(expectedResults);

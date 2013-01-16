@@ -13,7 +13,7 @@ import java.util.regex.*;
 public class SentimentExtractor {
 
     @Inject
-    public SentimentExtractor(final FuckTextParser textParser, final TopicService topicService) {
+    public SentimentExtractor(final TextParser textParser, final TopicService topicService) {
         this.textParser = textParser;
         this.topicService = topicService;
     }
@@ -60,6 +60,6 @@ public class SentimentExtractor {
         return count;
     }
 
-    private FuckTextParser textParser;
+    private TextParser textParser;
     private TopicService topicService;
 }
