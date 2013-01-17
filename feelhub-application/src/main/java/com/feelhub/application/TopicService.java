@@ -105,7 +105,7 @@ public class TopicService {
         return httpTopic;
     }
 
-    public HttpTopic createHttpTopic(final String value, final MediaType restrictedType) {
+    public HttpTopic createHttpTopicWithRestrictedMediaType(final String value, final MediaType restrictedType) {
         final ResolverResult resolverResult = uriResolver.resolve(new Uri(value));
         if (restrictedType != null) {
             checkMediaType(resolverResult, restrictedType);
@@ -115,8 +115,8 @@ public class TopicService {
 
     private HttpTopic createHttpTopic(final ResolverResult resolverResult) {
         final HttpTopic httpTopic = topicFactory.createHttpTopic(resolverResult);
-        createTagsForHttpTopic(resolverResult, httpTopic);
         Repositories.topics().add(httpTopic);
+        createTagsForHttpTopic(resolverResult, httpTopic);
         return httpTopic;
     }
 

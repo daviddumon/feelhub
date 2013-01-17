@@ -6,6 +6,7 @@ import com.feelhub.domain.bingsearch.BingSearch;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.domain.topic.world.WorldListener;
+import com.feelhub.domain.translation.Translator;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.web.mail.MailWatcher;
 import com.feelhub.web.tools.MongoLinkAwareExecutor;
@@ -30,7 +31,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(AlchemyAnalyzer.class).asEagerSingleton();
         bind(ActivationService.class).asEagerSingleton();
         bind(BingSearch.class).asEagerSingleton();
-        //bind(Translator.class).asEagerSingleton();
+        bind(Translator.class).asEagerSingleton();
     }
 
     private Properties properties() {

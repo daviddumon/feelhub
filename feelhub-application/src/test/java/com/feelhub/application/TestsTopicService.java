@@ -218,7 +218,12 @@ public class TestsTopicService {
     public void canSpecifyRestrictedMimeType() {
         exception.expect(TopicException.class);
 
-        topicService.createHttpTopic("http://www.url.com", MediaType.IMAGE_ALL);
+        topicService.createHttpTopicWithRestrictedMediaType("http://www.url.com", MediaType.IMAGE_ALL);
+    }
+
+    @Test
+    public void persistTopicBeforeTagIndexing() {
+        topicService.createHttpTopicWithRestrictedMediaType(canonicalUri, null);
     }
 
     private FakeTopic createTagForFakeUniqueTopic(final String value) {

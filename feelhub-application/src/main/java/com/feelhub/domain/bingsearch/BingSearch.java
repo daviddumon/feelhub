@@ -55,7 +55,7 @@ public class BingSearch {
     }
 
     private HttpTopic createImage(final String illustration) {
-        final HttpTopic image = topicService.createHttpTopic(illustration, MediaType.IMAGE_ALL);
+        final HttpTopic image = topicService.createHttpTopicWithRestrictedMediaType(illustration, MediaType.IMAGE_ALL);
         image.setIllustration(illustration);
         image.addName(FeelhubLanguage.none(), illustration);
         return image;

@@ -4,6 +4,7 @@ import com.feelhub.application.TopicService;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.repositories.Repositories;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.memetix.mst.translate.Translate;
@@ -25,8 +26,13 @@ public class Translator {
         final String name = referenceTranslationRequestEvent.getName();
         try {
             final String referenceDescription = translateToReference(name, feelhubLanguage);
-            realTopic.addName(FeelhubLanguage.reference(), referenceDescription);
-            topicService.index(realTopic, referenceDescription, FeelhubLanguage.reference());
+            //todo absolument horrible, enlever ca des qu'une solution est trouvée au probleme d'asynchronicité
+            try {
+                final RealTopic foundTopic = (RealTopic) Repositories.topics().get(realTopic.getId());
+                foundTopic.addName(FeelhubLanguage.reference(), referenceDescription);
+                topicService.index(foundTopic, referenceDescription, FeelhubLanguage.reference());
+            } catch (Exception e) {
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
