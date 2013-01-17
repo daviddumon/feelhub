@@ -4,6 +4,7 @@ import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.feeling.analyze.SemanticContext;
 import com.feelhub.domain.relation.FeelingRelationBinder;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
@@ -52,7 +53,7 @@ public class FeelingService {
     }
 
     private SemanticContext getSemanticContext(final FeelingRequestEvent feelingRequestEvent) {
-        final SemanticContext semanticContext = new SemanticContext(null);
+        final SemanticContext semanticContext = new SemanticContext(null, FeelhubLanguage.reference());
         //    semanticContext.extractFor(feelingRequestEvent.getKeywordValue(), FeelhubLanguage.fromCode(feelingRequestEvent.getUserLanguage().getCode()));
         return semanticContext;
     }

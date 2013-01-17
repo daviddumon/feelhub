@@ -113,15 +113,16 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canGetAllRelationsForATopicId() {
+    public void canGetAllRelatedForATopicId() {
         final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
         final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
         TestFactories.relations().newRelated(realTopic1.getId(), realTopic2.getId());
         TestFactories.relations().newRelated(realTopic2.getId(), realTopic1.getId());
+        TestFactories.relations().newMedia(realTopic1.getId(), realTopic2.getId());
 
-        final List<Relation> relations = repo.forTopicId(realTopic1.getId());
+        final List<Related> related = repo.relatedForTopicId(realTopic1.getId());
 
-        assertThat(relations.size()).isEqualTo(1);
+        assertThat(related.size()).isEqualTo(1);
     }
 
     private RelationRepository repo;

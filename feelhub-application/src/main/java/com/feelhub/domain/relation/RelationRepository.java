@@ -10,5 +10,5 @@ public interface RelationRepository extends Repository<Relation> {
 
     List<Relation> containingTopicId(final UUID topicId);
 
-    List<Relation> forTopicId(final UUID topicId);
+    List<Related> relatedForTopicId(final UUID topicId);
 }

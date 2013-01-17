@@ -32,8 +32,15 @@ public class RelationMongoRepository extends BaseMongoRepository<Relation> imple
     }
 
     @Override
-    public List<Relation> forTopicId(final UUID topicId) {
-        return getListWithFromIdEqualsTopicId(topicId);
+    public List<Related> relatedForTopicId(final UUID topicId) {
+        return getRelatedListWithFromIdEqualsTopicId(topicId);
+    }
+
+    private List<Related> getRelatedListWithFromIdEqualsTopicId(final UUID topicId) {
+        final Criteria fromCriteria = getSession().createCriteria(Relation.class);
+        fromCriteria.add(Restrictions.equals("__discriminator", "Related"));
+        fromCriteria.add(Restrictions.equals("fromId", topicId));
+        return fromCriteria.list();
     }
 
     private List<Relation> getListWithFromIdEqualsTopicId(final UUID topicId) {
