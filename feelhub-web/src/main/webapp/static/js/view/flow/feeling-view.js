@@ -24,6 +24,7 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling"],
                         var topic_data = {
                             topicId: feeling.topicDatas[i].id,
                             sentimentValue: feeling.topicDatas[i].sentimentValue,
+                            sentimentValueIllustration: root + "/static/images/smiley_" + feeling.topicDatas[i].sentimentValue + "_white_14.png",
                             name: feeling.topicDatas[i].name,
                             url: root + "/topic/" + feeling.topicDatas[i].id,
                             illustration: feeling.topicDatas[i].illustration,

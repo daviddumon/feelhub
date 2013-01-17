@@ -46,22 +46,22 @@ body {
 
           img {
             position: absolute;
+          }
 
-            span {
-              position: absolute;
-              display: block;
-              width: 100%;
-              bottom: 0px;
-              left: 0px;
-              background: @grey-4;
-              background: rgba(0, 0, 0, .8);
-              .font_title();
-              color: @blue-1;
-              font-size: @font-normal;
-              padding-top: 4px;
-              padding-bottom: 4px;
-              min-height: @font-normal;
-            }
+          span {
+            position: absolute;
+            display: block;
+            width: 100%;
+            bottom: 0px;
+            left: 0px;
+            background: @grey-4;
+            background: rgba(0, 0, 0, .8);
+            .font_title();
+            color: @blue-1;
+            font-size: @font-normal;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            min-height: @font-normal;
           }
         }
       }
@@ -87,7 +87,7 @@ body {
           }
         }
 
-        .sentiment_illustration {
+        .feeling_sentiment_illustration {
           position: relative;
           top: -7px;
           width: 14px;
@@ -121,30 +121,41 @@ body {
             position: relative;
             overflow: hidden;
 
-            img {
+            img.topic_illustration {
               position: absolute;
+              background-color: @blue-4;
+            }
 
+            img.topic_sentiment_illustration {
+              position: relative;
+              width: 14px;
+              height: 14px;
+              padding-bottom: 7px;
+              padding-left: 7px;
+              padding-right: 7px;
+              .rounded_down(50px);
+            }
+
+            span {
+              position: absolute;
+              display: block;
+              width: 100%;
+              bottom: 0px;
+              left: 0px;
+              background: @grey-4;
+              background: rgba(0, 0, 0, .8);
+              .font_title();
+              color: @blue-1;
+              font-size: @font-medium;
+              padding-top: 5px;
+              padding-bottom: 5px;
+              min-height: @font-medium;
+              display: none;
+            }
+
+            &:hover {
               span {
-                position: absolute;
-                display: block;
-                width: 100%;
-                bottom: 0px;
-                left: 0px;
-                background: @grey-4;
-                background: rgba(0, 0, 0, .8);
-                .font_title();
-                color: @blue-1;
-                font-size: @font-medium;
-                padding-top: 5px;
-                padding-bottom: 5px;
-                min-height: @font-medium;
-                display: none;
-              }
-
-              &:hover {
-                span {
-                  display: inline;
-                }
+                display: inline;
               }
             }
           }
