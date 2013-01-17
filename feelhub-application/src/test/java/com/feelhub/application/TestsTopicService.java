@@ -98,9 +98,19 @@ public class TestsTopicService {
         tag.addTopic(TestFactories.topics().newCompleteRealTopic(), FeelhubLanguage.none());
         tag.addTopic(TestFactories.topics().newCompleteRealTopic(), FeelhubLanguage.none());
 
-        final List<Topic> topics = topicService.getTopics(value, FeelhubLanguage.none());
+        final List<Topic> topics = topicService.getTopics(value, FeelhubLanguage.reference());
 
         assertThat(topics.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void canGetAllHttpTopics() {
+        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
+        topicService.createHttpTopic("value", user);
+
+        final List<Topic> topics = topicService.getTopics("value", FeelhubLanguage.fromCode("fr"));
+
+        assertThat(topics.size()).isEqualTo(1);
     }
 
     @Test

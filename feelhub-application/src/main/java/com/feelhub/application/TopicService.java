@@ -41,7 +41,7 @@ public class TopicService {
         return topic;
     }
 
-    public Topic lookUp(final String value, final RealTopicType type, final FeelhubLanguage language) {
+    public Topic lookUpRealTopic(final String value, final RealTopicType type, final FeelhubLanguage language) {
         try {
             final Tag tag = tagService.lookUp(value);
             for (final UUID id : tag.getTopicsIdFor(language)) {
@@ -56,6 +56,26 @@ public class TopicService {
         } catch (TagNotFoundException e) {
         }
         return null;
+    }
+
+    public List<Topic> getTopics(final String value, final FeelhubLanguage language) {
+        final List<Topic> topics = Lists.newArrayList();
+        try {
+            final Tag tag = tagService.lookUp(value);
+            addTopicsForLanguage(language, topics, tag);
+            addTopicsForLanguage(FeelhubLanguage.none(), topics, tag);
+        } catch (TagNotFoundException e) {
+        }
+        return topics;
+    }
+
+    private void addTopicsForLanguage(final FeelhubLanguage language, final List<Topic> topics, final Tag tag) {
+        for (final UUID id : tag.getTopicsIdFor(language)) {
+            try {
+                topics.add(lookUpCurrent(id));
+            } catch (TopicNotFound e) {
+            }
+        }
     }
 
     public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType type, final User user) {
@@ -112,21 +132,6 @@ public class TopicService {
                 index(httpTopic, variation, FeelhubLanguage.none());
             }
         }
-    }
-
-    public List<Topic> getTopics(final String value, final FeelhubLanguage language) {
-        final List<Topic> topics = Lists.newArrayList();
-        try {
-            final Tag tag = tagService.lookUp(value);
-            for (final UUID id : tag.getTopicsIdFor(language)) {
-                try {
-                    topics.add(lookUpCurrent(id));
-                } catch (TopicNotFound e) {
-                }
-            }
-        } catch (TagNotFoundException e) {
-        }
-        return topics;
     }
 
     public void index(final Topic topic, final String value, final FeelhubLanguage language) {

@@ -1,9 +1,12 @@
 package com.feelhub.domain.feeling.analyze;
 
 import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
+import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
@@ -40,7 +43,7 @@ public class TestsSentimentExtractor {
         final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
         expectedSentiments.add(new Sentiment(topic.getId(), SentimentValue.none));
 
-        final List<Sentiment> sentiments = sentimentExtractor.analyze("", topic.getId(), user.getId());
+        final List<Sentiment> sentiments = sentimentExtractor.analyze("", topic.getId(), user.getId(), FeelhubLanguage.reference());
 
         assertThat(sentiments).isEqualTo(expectedSentiments);
     }
@@ -49,7 +52,7 @@ public class TestsSentimentExtractor {
     public void createRealTopicWithoutTypes() {
         final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
 
-        final List<Sentiment> sentiments = sentimentExtractor.analyze("I like +#+oranges", topic.getId(), user.getId());
+        final List<Sentiment> sentiments = sentimentExtractor.analyze("I like +#+oranges", topic.getId(), user.getId(), FeelhubLanguage.reference());
 
         assertThat(sentiments.size()).isEqualTo(2);
         assertThat(sentiments.get(0).getTopicId()).isEqualTo(topic.getId());
@@ -62,13 +65,44 @@ public class TestsSentimentExtractor {
     public void canCreateHttpTopics() {
         final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
 
-        final List<Sentiment> sentiments = sentimentExtractor.analyze("I like -#-www.google.fr+", topic.getId(), user.getId());
+        final List<Sentiment> sentiments = sentimentExtractor.analyze("I like -#-www.google.fr+", topic.getId(), user.getId(), FeelhubLanguage.reference());
 
         assertThat(sentiments.size()).isEqualTo(2);
         assertThat(sentiments.get(0).getTopicId()).isEqualTo(topic.getId());
         assertThat(sentiments.get(0).getSentimentValue()).isEqualTo(SentimentValue.none);
         assertThat(sentiments.get(1).getTopicId()).isNotNull();
         assertThat(sentiments.get(1).getSentimentValue()).isEqualTo(SentimentValue.bad);
+    }
+
+    @Test
+    public void canCreateSentimentWithTopicFromSemanticContext() {
+        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic anotherTopic = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.tags().newTag("value1", anotherTopic, FeelhubLanguage.reference());
+        TestFactories.tags().newTag("value2", anotherTopic, FeelhubLanguage.fromCode("fr"));
+        TestFactories.relations().newRelated(topic.getId(), anotherTopic.getId());
+
+        final List<Sentiment> sentiments = sentimentExtractor.analyze("I like +value1 and +value2", topic.getId(), user.getId(), FeelhubLanguage.reference());
+
+        assertThat(sentiments.size()).isEqualTo(3);
+        assertThat(sentiments.get(0).getTopicId()).isEqualTo(topic.getId());
+        assertThat(sentiments.get(0).getSentimentValue()).isEqualTo(SentimentValue.none);
+        assertThat(sentiments.get(1).getTopicId()).isEqualTo(anotherTopic.getId());
+        assertThat(sentiments.get(1).getSentimentValue()).isEqualTo(SentimentValue.good);
+        assertThat(sentiments.get(2).getTopicId()).isNull();
+        assertThat(sentiments.get(2).getSentimentValue()).isEqualTo(SentimentValue.good);
+    }
+
+    @Test
+    public void canLookupHttpTopic() {
+        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+        TestFactories.tags().newTag("http://www.fakeurl.com", httpTopic, FeelhubLanguage.none());
+
+        final List<Sentiment> sentiments = sentimentExtractor.analyze("I like -http://www.fakeurl.com", topic.getId(), user.getId(), FeelhubLanguage.reference());
+
+        assertThat(sentiments.size()).isEqualTo(2);
+        assertThat(Repositories.topics().getAll().size()).isEqualTo(2);
     }
 
     private Injector injector;

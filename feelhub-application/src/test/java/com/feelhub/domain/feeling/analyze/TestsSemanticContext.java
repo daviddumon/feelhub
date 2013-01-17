@@ -24,7 +24,7 @@ public class TestsSemanticContext {
         TestFactories.relations().newRelated(topic1.getId(), topic2.getId());
         TestFactories.relations().newRelated(topic1.getId(), topic3.getId());
 
-        final SemanticContext semanticContext = new SemanticContext(topic1, FeelhubLanguage.reference());
+        final SemanticContext semanticContext = new SemanticContext(topic1.getId(), FeelhubLanguage.reference());
 
         assertThat(semanticContext.getKnownValues().size()).isEqualTo(3);
         assertThat(semanticContext.getKnownValues().keySet()).contains("value1");
@@ -43,7 +43,7 @@ public class TestsSemanticContext {
         TestFactories.relations().newRelated(topic1.getId(), topic2.getId());
         TestFactories.relations().newMedia(topic1.getId(), topic3.getId());
 
-        final SemanticContext semanticContext = new SemanticContext(topic1, FeelhubLanguage.reference());
+        final SemanticContext semanticContext = new SemanticContext(topic1.getId(), FeelhubLanguage.reference());
 
         assertThat(semanticContext.getKnownValues().size()).isEqualTo(2);
         assertThat(semanticContext.getKnownValues().keySet()).contains("value1");
@@ -61,7 +61,7 @@ public class TestsSemanticContext {
         TestFactories.relations().newRelated(topic1.getId(), topic2.getId());
         TestFactories.relations().newRelated(topic1.getId(), topic3.getId());
 
-        final SemanticContext semanticContext = new SemanticContext(topic1, FeelhubLanguage.fromCode("fr"));
+        final SemanticContext semanticContext = new SemanticContext(topic1.getId(), FeelhubLanguage.fromCode("fr"));
 
         assertThat(semanticContext.getKnownValues().size()).isEqualTo(1);
         assertThat(semanticContext.getKnownValues().keySet()).contains("value2");

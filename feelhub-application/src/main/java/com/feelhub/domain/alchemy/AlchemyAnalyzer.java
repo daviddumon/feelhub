@@ -57,7 +57,7 @@ public class AlchemyAnalyzer {
     }
 
     private RealTopic lookUpOrCreateTopic(final NamedEntity namedEntity, final UUID userId) {
-        final RealTopic realTopic = (RealTopic) topicService.lookUp(namedEntity.tags.get(0), namedEntity.type, namedEntity.feelhubLanguage);
+        final RealTopic realTopic = (RealTopic) topicService.lookUpRealTopic(namedEntity.tags.get(0), namedEntity.type, namedEntity.feelhubLanguage);
         if (realTopic == null) {
             return createTopic(namedEntity, userId);
         }

@@ -2,7 +2,8 @@ package com.feelhub.domain.feeling.analyze;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.topic.TopicIdentifier;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.google.common.collect.*;
 import com.google.inject.Inject;
@@ -18,24 +19,30 @@ public class SentimentExtractor {
         this.topicService = topicService;
     }
 
-    public List<Sentiment> analyze(final String text, final UUID topicId, final UUID userId) {
+    public List<Sentiment> analyze(final String text, final UUID topicId, final UUID userId, final FeelhubLanguage language) {
         final List<Sentiment> sentiments = Lists.newArrayList();
-        //todo : semanticContext
+        final SemanticContext semanticContext = new SemanticContext(topicId, language);
         final Map<String, String> parseResults = textParser.parse(text, new ArrayList<String>());
         final Iterator<Map.Entry<String, String>> iterator = parseResults.entrySet().iterator();
         while (iterator.hasNext()) {
             final Map.Entry<String, String> tokenAndSentiment = iterator.next();
             if (tokenAndSentiment.getKey().isEmpty()) {
-                final Sentiment sentiment = new Sentiment(topicId, getSentimentValue(tokenAndSentiment.getValue()));
-                sentiments.add(sentiment);
+                sentiments.add(new Sentiment(topicId, getSentimentValue(tokenAndSentiment.getValue())));
+            } else if (semanticContext.getKnownValues().keySet().contains(tokenAndSentiment.getKey())) {
+                sentiments.add(new Sentiment(semanticContext.getKnownValues().get(tokenAndSentiment.getKey()), getSentimentValue(tokenAndSentiment.getValue())));
             } else if (TopicIdentifier.isHttpTopic(tokenAndSentiment.getKey())) {
-                //todo get topic if it exists
-                //todo si uri exception alors on crée un RealTopic avec l'url
-                final HttpTopic httpTopic = topicService.createHttpTopic(tokenAndSentiment.getKey(), userId);
-                final Sentiment sentiment = new Sentiment(httpTopic.getId(), getSentimentValue(tokenAndSentiment.getValue()));
-                sentiments.add(sentiment);
+                final List<Topic> topics = topicService.getTopics(tokenAndSentiment.getKey(), language);
+                if (topics.size() == 1) {
+                    sentiments.add(new Sentiment(topics.get(0).getId(), getSentimentValue(tokenAndSentiment.getValue())));
+                } else {
+                    try {
+                        final HttpTopic httpTopic = topicService.createHttpTopic(tokenAndSentiment.getKey(), userId);
+                        sentiments.add(new Sentiment(httpTopic.getId(), getSentimentValue(tokenAndSentiment.getValue())));
+                    } catch (Exception e) {
+                        sentiments.add(new Sentiment(getSentimentValue(tokenAndSentiment.getValue())));
+                    }
+                }
             } else {
-                //todo si dans semanticcontext on met le topicId
                 sentiments.add(new Sentiment(getSentimentValue(tokenAndSentiment.getValue())));
             }
         }
