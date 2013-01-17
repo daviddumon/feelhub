@@ -19,34 +19,39 @@ public class TopicMongoRepository extends BaseMongoRepository<Topic> implements 
 
     @Override
     public WorldTopic getWorldTopic() {
-        final Criteria criteria = getSession().createCriteria(WorldTopic.class);
+        final Criteria criteria = getSession().createCriteria(Topic.class);
+        criteria.add(Restrictions.equals("__discriminator","WorldTopic"));
         return (WorldTopic) extractOne(criteria);
     }
 
     @Override
     public GeoTopic getGeoTopic(final UUID id) {
-        final Criteria criteria = getSession().createCriteria(GeoTopic.class);
+        final Criteria criteria = getSession().createCriteria(Topic.class);
+        criteria.add(Restrictions.equals("__discriminator","GeoTopic"));
         criteria.add(Restrictions.equals("_id", id));
         return (GeoTopic) extractOne(criteria);
     }
 
     @Override
     public HttpTopic getHttpTopic(final UUID id) {
-        final Criteria criteria = getSession().createCriteria(HttpTopic.class);
+        final Criteria criteria = getSession().createCriteria(Topic.class);
+        criteria.add(Restrictions.equals("__discriminator","HttpTopic"));
         criteria.add(Restrictions.equals("_id", id));
         return (HttpTopic) extractOne(criteria);
     }
 
     @Override
     public RealTopic getRealTopic(final UUID id) {
-        final Criteria criteria = getSession().createCriteria(RealTopic.class);
+        final Criteria criteria = getSession().createCriteria(Topic.class);
+        criteria.add(Restrictions.equals("__discriminator","RealTopic"));
         criteria.add(Restrictions.equals("_id", id));
         return (RealTopic) extractOne(criteria);
     }
 
     @Override
     public FtpTopic getFtpTopic(final UUID id) {
-        final Criteria criteria = getSession().createCriteria(FtpTopic.class);
+        final Criteria criteria = getSession().createCriteria(Topic.class);
+        criteria.add(Restrictions.equals("__discriminator","FtpTopic"));
         criteria.add(Restrictions.equals("_id", id));
         return (FtpTopic) extractOne(criteria);
     }

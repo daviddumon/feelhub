@@ -20,30 +20,34 @@ public class TopicDataFactory {
         return getTopicData(topic, feelhubLanguage, null);
     }
 
+    public List<TopicData> getTopicDatas(final Feeling feeling, final FeelhubLanguage feelhubLanguage) {
+        final List<TopicData> topicDatas = Lists.newArrayList();
+        for (final Sentiment sentiment : feeling.getSentiments()) {
+            if (sentiment.getTopicId() != null) {
+                final Topic topic = topicService.lookUpCurrent(sentiment.getTopicId());
+                topicDatas.add(getTopicData(topic, feelhubLanguage, sentiment));
+            } else {
+                topicDatas.add(getTopicData(null, feelhubLanguage, sentiment));
+            }
+        }
+        return topicDatas;
+    }
+
     private TopicData getTopicData(final Topic topic, final FeelhubLanguage feelhubLanguage, final Sentiment sentiment) {
         final TopicData.Builder builder = new TopicData.Builder();
-        builder.id(topic.getId());
-        builder.name(topic.getName(feelhubLanguage));
-        builder.type(topic.getType());
-        builder.illustration(topic.getIllustration());
-        builder.description(topic.getDescription(feelhubLanguage));
-        builder.subtypes(topic.getSubTypes());
-        builder.uris(topic.getUris());
+        if (topic != null) {
+            builder.id(topic.getId());
+            builder.name(topic.getName(feelhubLanguage));
+            builder.type(topic.getType());
+            builder.illustration(topic.getIllustration());
+            builder.description(topic.getDescription(feelhubLanguage));
+            builder.subtypes(topic.getSubTypes());
+            builder.uris(topic.getUris());
+        }
         if (sentiment != null) {
             builder.sentimentValue(sentiment.getSentimentValue());
         }
         return builder.build();
-    }
-
-    public List<TopicData> getTopicDatas(final Feeling feeling, final FeelhubLanguage feelhubLanguage) {
-        final List<TopicData> topicDatas = Lists.newArrayList();
-        for (final Sentiment sentiment : feeling.getSentiments()) {
-            final Topic realTopic = topicService.lookUpCurrent(sentiment.getTopicId());
-            final TopicData topicData = getTopicData(realTopic, feelhubLanguage, sentiment);
-
-            topicDatas.add(topicData);
-        }
-        return topicDatas;
     }
 
     public TopicData getTopicData(final String name) {

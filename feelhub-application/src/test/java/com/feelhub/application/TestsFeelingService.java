@@ -46,22 +46,8 @@ public class TestsFeelingService {
         assertThat(feeling.getText()).isEqualTo(event.getText());
         assertThat(feeling.getUserId()).isEqualTo(event.getUserId());
         assertThat(feeling.getLanguageCode()).isEqualTo(event.getLanguage().getCode());
-        //assertThat(feeling.getSentiments().size()).isEqualTo(3);
-//        assertThat(Repositories.relations().getAll().size()).isEqualTo(6);
-    }
-
-    @Test
-    public void createSemanticContextWithGoodValueAndLanguage() {
-//        final Tag word3 = TestFactories.tags().newTag("word3", FeelhubLanguage.fromCountryName("french"));
-//        final Tag word4 = TestFactories.tags().newTag("word4", FeelhubLanguage.fromCountryName("french"));
-//        TestFactories.relations().newRelation(word3.getTopicId(), word4.getTopicId());
-//        final FeelingRequestEvent event = getEvent();
-//
-//        DomainEventBus.INSTANCE.post(event);
-//
-//        assertThat(Repositories.feelings().getAll().size()).isEqualTo(1);
-//        final Feeling feeling = Repositories.feelings().get(event.getFeelingId());
-//        assertThat(feeling.getSentiments().size()).isEqualTo(4);
+        assertThat(feeling.getSentiments().size()).isEqualTo(3);
+        assertThat(Repositories.relations().getAll().size()).isZero();
     }
 
     private FeelingRequestEvent getEvent() {

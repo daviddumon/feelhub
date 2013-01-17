@@ -16,29 +16,31 @@ public class FeelingRelationBinder {
     }
 
     public void bind(final Feeling feeling) {
-        final List<Topic> realTopics = loadAllTopics(feeling.getSentiments());
-        createRelations(realTopics);
+        final List<Topic> topics = loadAllTopics(feeling.getSentiments());
+        createRelations(topics);
     }
 
     private List<Topic> loadAllTopics(final List<Sentiment> sentiments) {
         final List<Topic> topics = Lists.newArrayList();
         for (final Sentiment sentiment : sentiments) {
-            final Topic topic = Repositories.topics().getCurrentTopic(sentiment.getTopicId());
-            topics.add(topic);
+            if (sentiment.getTopicId() != null) {
+                final Topic topic = Repositories.topics().getCurrentTopic(sentiment.getTopicId());
+                topics.add(topic);
+            }
         }
         return topics;
     }
 
-    private void createRelations(final List<Topic> realTopics) {
-        for (int i = 0; i < realTopics.size(); i++) {
-            final Topic currentRealTopic = realTopics.get(i);
-            connectTopics(currentRealTopic, realTopics, i + 1);
+    private void createRelations(final List<Topic> topics) {
+        for (int i = 0; i < topics.size(); i++) {
+            final Topic currentRealTopic = topics.get(i);
+            connectTopics(currentRealTopic, topics, i + 1);
         }
     }
 
-    private void connectTopics(final Topic from, final List<Topic> realTopics, final int beginningIndex) {
-        for (int i = beginningIndex; i < realTopics.size(); i++) {
-            final Topic to = realTopics.get(i);
+    private void connectTopics(final Topic from, final List<Topic> topics, final int beginningIndex) {
+        for (int i = beginningIndex; i < topics.size(); i++) {
+            final Topic to = topics.get(i);
             relationBuilder.connectTwoWays(from, to);
         }
     }
