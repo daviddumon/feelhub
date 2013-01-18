@@ -22,7 +22,7 @@
         <#--<li><a href="">Sponsored</a></li>-->
         </ul>
         <ul id="header-bottom-right">
-            <li><a href="">About</a></li>
+            <li><a href="${root}/help">About</a></li>
         </ul>
     </div>
     <form method="get" action="${root}/search" id="search">

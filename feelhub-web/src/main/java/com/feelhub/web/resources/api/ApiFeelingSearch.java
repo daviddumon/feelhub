@@ -3,10 +3,8 @@ package com.feelhub.web.resources.api;
 import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.user.User;
-import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.search.FeelingSearch;
-import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import org.mongolink.domain.criteria.Order;
 import org.restlet.data.Form;
@@ -16,14 +14,15 @@ import java.util.List;
 public class ApiFeelingSearch {
 
     @Inject
-    public ApiFeelingSearch(final FeelingSearch feelingSearch, final TopicDataFactory topicDataFactory) {
+    public ApiFeelingSearch(final FeelingSearch feelingSearch, final FeelingDataFactory feelingDataFactory) {
         this.feelingSearch = feelingSearch;
-        this.topicDataFactory = topicDataFactory;
+        this.feelingDataFactory = feelingDataFactory;
     }
 
-    public List<FeelingData> doSearch(final Topic realTopic, final Form query) {
-        feelingSearch.withTopicId(realTopic.getId());
-        return doSearch(query);
+    public List<FeelingData> doSearch(final Topic topic, final Form query) {
+        feelingSearch.withTopicId(topic.getId());
+        final List<Feeling> feelings = doSearchWithQueryParameters(query);
+        return feelingDataFactory.getFeelingDatas(feelings, topic.getId());
     }
 
     public List<FeelingData> doSearch(final Form query, final User user) {
@@ -32,9 +31,9 @@ public class ApiFeelingSearch {
     }
 
     public List<FeelingData> doSearch(final Form query) {
+        feelingSearch.ignoreEmptyFeelings();
         final List<Feeling> feelings = doSearchWithQueryParameters(query);
-        final List<FeelingData> feelingDatas = getFeelingDatas(feelings);
-        return feelingDatas;
+        return feelingDataFactory.getFeelingDatas(feelings);
     }
 
     private List<Feeling> doSearchWithQueryParameters(final Form query) {
@@ -63,16 +62,7 @@ public class ApiFeelingSearch {
         }
     }
 
-    private List<FeelingData> getFeelingDatas(final List<Feeling> feelings) {
-        final List<FeelingData> feelingDatas = Lists.newArrayList();
-        for (final Feeling feeling : feelings) {
-            final List<TopicData> topicDatas = topicDataFactory.getTopicDatas(feeling, CurrentUser.get().getLanguage());
-            final FeelingData feelingData = new FeelingData(feeling, topicDatas);
-            feelingDatas.add(feelingData);
-        }
-        return feelingDatas;
-    }
-
     private final FeelingSearch feelingSearch;
-    private final TopicDataFactory topicDataFactory;
+    private FeelingDataFactory feelingDataFactory;
+
 }

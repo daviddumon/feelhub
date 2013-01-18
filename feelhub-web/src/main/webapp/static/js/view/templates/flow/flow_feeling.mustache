@@ -1,17 +1,12 @@
 <li class="flow-element feeling" id="{{id}}">
-    {{#feeling_sentiment_value}}
-    <img src="{{feeling_sentiment_value_illustration}}" class="img_{{feeling_sentiment_value}} feeling_sentiment_illustration"/>
-    {{/feeling_sentiment_value}}
-    {{^feeling_sentiment_value}}
-    <div class="feeling_spacer"></div>
-    {{/feeling_sentiment_value}}
+    <img src="{{root}}/static/images/smiley_{{feeling_sentiment_value}}_white_14.png" class="img_{{feeling_sentiment_value}} feeling_sentiment_illustration"/>
     {{#text}}
     <p>{{{.}}}&nbsp;</p>
     {{/text}}
     <div class="feeling_related" style="height: {{height}}">
         {{#topicDatas}}
-            <a href="{{url}}" class="{{classes}}" id="{{topicId}}">
-                <img src="{{sentimentValueIllustration}}" class="img_{{sentimentValue}} topic_sentiment_illustration" style="z-index: 1000;"/>
+            <a href="{{root}}/topic/{{id}}" class="{{classes}} topic_stack" id="{{id}}">
+                <img src="{{root}}/static/images/smiley_{{sentimentValue}}_white_14.png" class="img_{{sentimentValue}} topic_sentiment_illustration" style="z-index: 1000;"/>
                 <img src="{{illustration}}" class="topic_illustration" onload="OnImageLoad(event);"/>
                 <span class="{{sentimentValue}}">{{name}}</span>
             </a>

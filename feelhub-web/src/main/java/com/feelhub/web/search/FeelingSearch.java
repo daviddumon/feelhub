@@ -13,7 +13,6 @@ public class FeelingSearch implements Search<Feeling> {
     public FeelingSearch(final SessionProvider provider) {
         this.provider = provider;
         criteria = provider.get().createCriteria(Feeling.class);
-        criteria.add(Restrictions.notEquals("text", ""));
     }
 
     @Override
@@ -53,6 +52,11 @@ public class FeelingSearch implements Search<Feeling> {
     public void reset() {
         criteria = provider.get().createCriteria(Feeling.class);
         criteria.add(Restrictions.notEquals("text", ""));
+    }
+
+    public FeelingSearch ignoreEmptyFeelings() {
+        criteria.add(Restrictions.notEquals("text", ""));
+        return this;
     }
 
     private Criteria criteria;

@@ -4,7 +4,7 @@ import com.feelhub.web.*;
 import org.junit.*;
 import org.restlet.data.Status;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsAnalyzeTopicResource {
 

@@ -117,7 +117,7 @@ public class TestsNewTopicResource {
 
     @Test
     public void hasGoodListOfTypes() {
-        CurrentUser.set(new WebUser(TestFactories.users().createFakeActiveUser("mail@mail.com"),true));
+        CurrentUser.set(new WebUser(TestFactories.users().createFakeActiveUser("mail@mail.com"), true));
         final Tag tag = TestFactories.tags().newTagWithoutTopic(query);
         tag.addTopic(TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile), CurrentUser.get().getLanguage());
         tag.addTopic(TestFactories.topics().newSimpleRealTopic(RealTopicType.Company), CurrentUser.get().getLanguage());

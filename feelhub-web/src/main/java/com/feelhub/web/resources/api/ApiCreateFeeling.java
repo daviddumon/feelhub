@@ -44,10 +44,12 @@ public class ApiCreateFeeling {
 
     private String extractText(final Form form) {
         if (form.getQueryString().contains("text")) {
-            return form.getFirstValue("text");
-        } else {
-            throw new FeelhubApiException();
+            final String text = form.getFirstValue("text");
+            if (!text.isEmpty()) {
+                return text;
+            }
         }
+        throw new FeelhubApiException();
     }
 
     private FeelhubLanguage extractLanguageCode(final Form form) {

@@ -63,7 +63,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         function loadData() {
             var parameters = [];
             api_end_point += "?";
-            if(parameter) {
+            if (parameter) {
                 parameters.push({"value": parameter});
             }
             parameters.push({"value": "skip=" + skip});
@@ -98,7 +98,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                     }, 200);
                 }
 
-                if(end_function) {
+                if (end_function) {
                     end_function();
                 }
             });
@@ -172,6 +172,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         for (var i = 0; i < maxBox; i++) {
             list_view.render(container, i);
         }
+        data_view.reset();
         reDraw();
     }
 
@@ -187,7 +188,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                 }
             }
 
-            //$(row_container + "_" + row).append(data);
             data_view.render(data, row_container + "_" + row_index);
         });
     }

@@ -1,75 +1,75 @@
-define(["jquery", "plugins/hgn!templates/flow/flow_feeling"],
+define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templates/flow/flow_empty_feeling"],
 
-    function ($, template) {
+    function ($, feeling, counter) {
+
+        var last_feeling = "";
+        var last_counter = "";
 
         function render(data, container) {
+            if (data.text.length == 1 && data.text[0] == "") {
+                render_counter(data, container);
+            } else {
+                render_feeling(data, container);
+            }
+        }
+
+        function render_feeling(data, container) {
             data.root = root;
-            var element = template(prepare_data(data));
+            var element = feeling(prepare_data(data));
             $(container).append(element);
+            last_feeling = data.id;
         }
 
         function prepare_data(feeling) {
-            var text = feeling.text.replace(/[\#\+\-\=][^ ]+/g, function (match) {
-                match = match.replace(/[\#\+\-\=]/g, "");
-                return "<span>" + match + "</span>";
-            });
-            text = text.replace(/[\#\+\-\=]+/g, "");
+            feeling["root"] = root;
+            feeling["height"] = (feeling.topicDatas.length != 0 ? 40 : 0) + 146 * (Math.floor(feeling.topicDatas.length / 2) + feeling.topicDatas.length % 2) + 'px';
+            shuffleAndMakeFirstLarge(feeling.topicDatas);
+            return feeling;
+        }
 
-            var topicDatas = [];
-            var known_topics = [];
-            for (var i = 0; i < feeling.topicDatas.length; i++) {
-                if (feeling.topicDatas[i].id !== topicData.id) {
-                    var current = feeling.topicDatas[i].id;
-                    if (!(current in known_topics)) {
-                        var topic_data = {
-                            topicId: feeling.topicDatas[i].id,
-                            sentimentValue: feeling.topicDatas[i].sentimentValue,
-                            sentimentValueIllustration: root + "/static/images/smiley_" + feeling.topicDatas[i].sentimentValue + "_white_14.png",
-                            name: feeling.topicDatas[i].name,
-                            url: root + "/topic/" + feeling.topicDatas[i].id,
-                            illustration: feeling.topicDatas[i].illustration,
-                            classes:"topic_medium topic_stack"
-                        };
-                        if (topic_data.illustration == "") {
-                            topic_data.illustration = root + "/static/images/unknown.png";
-                        }
-                        topicDatas.push(topic_data);
-                        known_topics[current] = true;
-                    }
-                } else {
-                    var feeling_sentiment_value = feeling.topicDatas[i].sentimentValue;
+        function shuffleAndMakeFirstLarge(datas) {
+            if (datas.length % 2 != 0) {
+                var shuffle_number = Math.floor(Math.random() * datas.length);
+                for (var i = 0; i < shuffle_number; i++) {
+                    var rd = datas.shift();
+                    datas.push(rd);
                 }
-            }
-
-            shuffleAndMakeFirstLarge();
-
-            var feelingData = {
-                id: feeling.id,
-                text: text.split(/\r\n|\r|\n/),
-                topicDatas: topicDatas,
-                height: (topicDatas.length != 0 ? 40 : 0) + 146 * (Math.floor(topicDatas.length / 2) + topicDatas.length % 2) + 'px'
-            };
-
-            if (feeling_sentiment_value !== "none") {
-                feelingData["feeling_sentiment_value"] = feeling_sentiment_value;
-                feelingData["feeling_sentiment_value_illustration"] = root + "/static/images/smiley_" + feeling_sentiment_value + "_white_14.png";
-            }
-
-            return feelingData;
-
-            function shuffleAndMakeFirstLarge() {
-                if (topicDatas.length % 2 != 0) {
-                    var shuffle_number = Math.floor(Math.random() * topicDatas.length);
-                    for (var i = 0; i < shuffle_number; i++) {
-                        var rd = topicDatas.shift();
-                        topicDatas.push(rd);
-                    }
-                    topicDatas[0]["classes"] = "topic_large topic_stack";
-                }
+                datas[0]["classes"] = "topic_large";
             }
         }
 
+        function render_counter(data, container) {
+            if (last_counter == "" || last_feeling != last_counter) {
+                create_counter(data, container);
+            }
+            update_counter(data);
+        }
+
+        function update_counter(data) {
+            if (data.feeling_sentiment_value == "good") {
+                $("#counter_good_" + last_counter).text(parseInt($("#counter_good_" + last_counter).text()) + 1);
+            } else if (data.feeling_sentiment_value == "bad") {
+                $("#counter_bad_" + last_counter).text(parseInt($("#counter_bad_" + last_counter).text()) + 1);
+            } else {
+                $("#counter_neutral_" + last_counter).text(parseInt($("#counter_neutral_" + last_counter).text()) + 1);
+            }
+        }
+
+        function create_counter(data, container) {
+            data.root = root;
+            var element = counter(data);
+            $(container).append(element);
+            last_counter = data.id;
+            last_feeling = data.id;
+        }
+
+        function reset() {
+            last_counter = "";
+            last_feeling = "";
+        }
+
         return {
-            render: render
+            render: render,
+            reset: reset
         }
     });

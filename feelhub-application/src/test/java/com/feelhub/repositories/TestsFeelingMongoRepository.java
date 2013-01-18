@@ -7,7 +7,7 @@ import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
 
-import java.util.List;
+import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -20,8 +20,9 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
     public void canPersist() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final User activeUser = TestFactories.users().createFakeActiveUser("userforrepo@mail.com");
-        final Feeling feeling = new Feeling("yeah", activeUser);
-        feeling.addSentiment(realTopic, SentimentValue.bad);
+        final Feeling feeling = new Feeling(UUID.randomUUID(), "yeah", activeUser.getId());
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(realTopic, SentimentValue.bad);
+        feeling.addSentiment(sentiment);
         feeling.setLanguageCode("en");
 
         Repositories.feelings().add(feeling);
@@ -33,6 +34,7 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
         assertThat(feelingFound).isNotNull();
         assertThat(feelingFound.get("_id")).isEqualTo(feeling.getId());
         assertThat(feelingFound.get("text").toString()).isEqualTo(feeling.getText());
+        assertThat(feelingFound.get("rawText").toString()).isEqualTo(feeling.getText());
         assertThat(feelingFound.get("languageCode").toString()).isEqualTo(feeling.getLanguageCode());
         assertThat(feelingFound.get("creationDate")).isEqualTo(feeling.getCreationDate().getMillis());
         assertThat(feelingFound.get("lastModificationDate")).isEqualTo(feeling.getCreationDate().getMillis());
@@ -81,10 +83,10 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
         final Feeling op1 = TestFactories.feelings().newFeeling();
         final Feeling op2 = TestFactories.feelings().newFeeling();
         final Feeling op3 = TestFactories.feelings().newFeeling();
-        op1.addSentiment(realTopic1, SentimentValue.good);
-        op1.addSentiment(realTopic2, SentimentValue.bad);
-        op2.addSentiment(realTopic1, SentimentValue.good);
-        op3.addSentiment(realTopic2, SentimentValue.good);
+        op1.addSentiment(new Sentiment(realTopic1.getId(), SentimentValue.good));
+        op1.addSentiment(new Sentiment(realTopic2.getId(), SentimentValue.bad));
+        op2.addSentiment(new Sentiment(realTopic1.getId(), SentimentValue.good));
+        op3.addSentiment(new Sentiment(realTopic2.getId(), SentimentValue.good));
 
         final List<Feeling> feelings = Repositories.feelings().forTopicId(realTopic1.getId());
 

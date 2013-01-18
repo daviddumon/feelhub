@@ -9,8 +9,9 @@ import com.google.common.eventbus.Subscribe;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import java.util.UUID;
+
+import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TestsFeeling {
@@ -26,66 +27,83 @@ public class TestsFeeling {
 
     @Before
     public void before() {
-        activeUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
+        user = TestFactories.users().createFakeActiveUser("mail@mail.com");
     }
 
     @Test
     public void canCreateWithTextAndUser() {
-        final Feeling feeling = new Feeling("salut", activeUser);
+        final UUID id = UUID.randomUUID();
 
-        assertThat(feeling.getText(), is("salut"));
-        assertThat(feeling.getUserId(), is(activeUser.getId()));
-        assertThat(feeling.getId(), notNullValue());
+        final Feeling feeling = new Feeling(id, "hi!", user.getId());
+
+        assertThat(feeling.getId()).isEqualTo(id);
+        assertThat(feeling.getText()).isEqualTo("hi!");
+        assertThat(feeling.getRawText()).isEqualTo("hi!");
+        assertThat(feeling.getUserId()).isEqualTo(user.getId());
     }
 
     @Test
-    public void canAddSentimentsToFeeling() {
-        final Feeling feeling = new Feeling("my feeling", activeUser);
+    public void canAddSentimentToFeeling() {
+        final Feeling feeling = new Feeling(UUID.randomUUID(), "my feeling", user.getId());
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(realTopic, SentimentValue.good);
 
-        feeling.addSentiment(realTopic, SentimentValue.good);
+        feeling.addSentiment(sentiment);
 
-        assertThat(feeling.getCreationDate(), notNullValue());
-        assertThat(feeling.getCreationDate(), is(time.getNow()));
-        assertThat(feeling.getSentiments().size(), is(1));
-        assertThat(feeling.getSentiments().get(0).getTopicId(), is(realTopic.getId()));
-        assertThat(feeling.getSentiments().get(0).getSentimentValue(), is(SentimentValue.good));
+        assertThat(feeling.getCreationDate()).isNotNull();
+        assertThat(feeling.getCreationDate()).isEqualTo(time.getNow());
+        assertThat(feeling.getLastModificationDate()).isEqualTo(time.getNow());
+        assertThat(feeling.getSentiments().size()).isEqualTo(1);
+        assertThat(feeling.getSentiments().get(0).getTopicId()).isEqualTo(realTopic.getId());
+        assertThat(feeling.getSentiments().get(0).getSentimentValue()).isEqualTo(SentimentValue.good);
+    }
+
+    @Test
+    public void addSentimentUpdateLastModificationDate() {
+        final Feeling feeling = new Feeling(UUID.randomUUID(), "my feeling", user.getId());
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(realTopic, SentimentValue.good);
+        time.waitDays(1);
+
+        feeling.addSentiment(sentiment);
+
+        assertThat(feeling.getLastModificationDate()).isEqualTo(time.getNow());
     }
 
     @Test
     public void canSpreadSentimentEvents() {
-        final Feeling feeling = new Feeling("my feeling", activeUser);
+        final Feeling feeling = new Feeling(UUID.randomUUID(), "my feeling", user.getId());
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final SimpleSentimentListener simpleSentimentListener = mock(SimpleSentimentListener.class);
         DomainEventBus.INSTANCE.register(simpleSentimentListener);
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(realTopic, SentimentValue.good);
 
-        feeling.addSentiment(realTopic, SentimentValue.good);
+        feeling.addSentiment(sentiment);
 
         final ArgumentCaptor<SentimentStatisticsEvent> captor = ArgumentCaptor.forClass(SentimentStatisticsEvent.class);
         verify(simpleSentimentListener, times(1)).handle(captor.capture());
-        assertThat(captor.getValue(), instanceOf(SentimentStatisticsEvent.class));
+        assertThat(captor.getValue()).isInstanceOf(SentimentStatisticsEvent.class);
         final SentimentStatisticsEvent event = captor.getAllValues().get(0);
-        assertThat(event.getSentiment(), is(feeling.getSentiments().get(0)));
-    }
-
-    @Test
-    public void setLastModificationDateOnSentimentCreation() {
-        final Feeling feeling = new Feeling("my feeling", activeUser);
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        time.waitDays(1);
-
-        feeling.addSentiment(realTopic, SentimentValue.good);
-
-        assertThat(realTopic.getLastModificationDate(), is(time.getNow()));
+        assertThat(event.getSentiment()).isEqualTo(feeling.getSentiments().get(0));
     }
 
     @Test
     public void hasALanguage() {
-        final Feeling feeling = new Feeling("salut", activeUser);
+        final Feeling feeling = new Feeling(UUID.randomUUID(), "salut", user.getId());
 
         feeling.setLanguageCode("en");
 
-        assertThat(feeling.getLanguageCode(), is("en"));
+        assertThat(feeling.getLanguageCode()).isEqualTo("en");
+    }
+
+    @Test
+    public void sanitizeText() {
+        final String text = "I enjoy +this but unless ##This!, i would love it ---#+=";
+
+        final Feeling feeling = new Feeling(UUID.randomUUID(), text, user.getId());
+
+        assertThat(feeling.getRawText()).isEqualTo(text);
+        assertThat(feeling.getText()).isEqualTo("I enjoy this but unless This!, i would love it ");
     }
 
     private class SimpleSentimentListener {
@@ -96,5 +114,5 @@ public class TestsFeeling {
         }
     }
 
-    private User activeUser;
+    private User user;
 }

@@ -7,7 +7,7 @@ define(["jquery", "plugins/hgn!templates/dashboard/dashboard_sentiment", "module
             var element = template({"root": root});
             $(dashboard_container).append(element);
             carousel.compute();
-            canvas.draw(data, 0);
+            canvas.draw("canvas-sentiment", 0, 8);
         }
 
         return  {

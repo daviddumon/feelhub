@@ -7,7 +7,7 @@ import com.feelhub.test.TestFactories;
 import org.junit.*;
 import org.mongolink.domain.criteria.Order;
 
-import java.util.*;
+import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 

@@ -38,10 +38,14 @@ public class TestsFeelingManager {
         final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
         final Feeling feeling1 = TestFactories.feelings().newFeelingWithoutSentiments();
         final Feeling feeling2 = TestFactories.feelings().newFeelingWithoutSentiments();
-        feeling1.addSentiment(realTopic1, SentimentValue.good);
-        feeling2.addSentiment(realTopic1, SentimentValue.good);
-        feeling1.addSentiment(realTopic2, SentimentValue.bad);
-        feeling2.addSentiment(realTopic2, SentimentValue.bad);
+        final Sentiment sentiment1 = TestFactories.sentiments().newSentiment(realTopic1, SentimentValue.good);
+        final Sentiment sentiment2 = TestFactories.sentiments().newSentiment(realTopic1, SentimentValue.good);
+        final Sentiment sentiment3 = TestFactories.sentiments().newSentiment(realTopic2, SentimentValue.bad);
+        final Sentiment sentiment4 = TestFactories.sentiments().newSentiment(realTopic2, SentimentValue.bad);
+        feeling1.addSentiment(sentiment1);
+        feeling2.addSentiment(sentiment2);
+        feeling1.addSentiment(sentiment3);
+        feeling2.addSentiment(sentiment4);
         final TopicPatch topicPatch = new TopicPatch(realTopic1.getId());
         topicPatch.addOldTopicId(realTopic2.getId());
 

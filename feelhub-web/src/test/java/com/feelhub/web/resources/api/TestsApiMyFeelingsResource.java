@@ -6,7 +6,6 @@ import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
 import com.feelhub.web.guice.GuiceTestModule;
-import com.feelhub.web.resources.api.ApiMyFeelingsResource;
 import com.google.inject.*;
 import org.json.*;
 import org.junit.*;

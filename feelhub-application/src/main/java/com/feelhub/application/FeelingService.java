@@ -13,9 +13,10 @@ import java.util.List;
 public class FeelingService {
 
     @Inject
-    public FeelingService(final FeelingRelationBinder feelingRelationBinder, final SentimentExtractor sentimentExtractor) {
+    public FeelingService(final FeelingRelationBinder feelingRelationBinder, final SentimentExtractor sentimentExtractor, final FeelingFactory feelingFactory) {
         this.feelingRelationBinder = feelingRelationBinder;
         this.sentimentExtractor = sentimentExtractor;
+        this.feelingFactory = feelingFactory;
         DomainEventBus.INSTANCE.register(this);
     }
 
@@ -28,15 +29,15 @@ public class FeelingService {
     }
 
     private Feeling buildFeeling(final FeelingRequestEvent feelingRequestEvent, final List<Sentiment> sentiments) {
-        final Feeling.Builder builder = new Feeling.Builder();
-        builder.id(feelingRequestEvent.getFeelingId());
-        builder.text(feelingRequestEvent.getText());
-        builder.user(feelingRequestEvent.getUserId());
-        builder.language(feelingRequestEvent.getLanguage().getCode());
-        builder.sentiments(sentiments);
-        return builder.build();
+        final Feeling feeling = feelingFactory.createFeeling(feelingRequestEvent.getFeelingId(), feelingRequestEvent.getText(), feelingRequestEvent.getUserId());
+        feeling.setLanguageCode(feelingRequestEvent.getLanguage().getCode());
+        for (Sentiment sentiment : sentiments) {
+            feeling.addSentiment(sentiment);
+        }
+        return feeling;
     }
 
     private final FeelingRelationBinder feelingRelationBinder;
     private SentimentExtractor sentimentExtractor;
+    private FeelingFactory feelingFactory;
 }

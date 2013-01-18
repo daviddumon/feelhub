@@ -43,7 +43,7 @@ public class TestsFeelingService {
         assertThat(Repositories.feelings().getAll().size()).isEqualTo(1);
         final Feeling feeling = Repositories.feelings().get(event.getFeelingId());
         assertThat(feeling).isNotNull();
-        assertThat(feeling.getText()).isEqualTo(event.getText());
+        assertThat(feeling.getRawText()).isEqualTo(event.getText());
         assertThat(feeling.getUserId()).isEqualTo(event.getUserId());
         assertThat(feeling.getLanguageCode()).isEqualTo(event.getLanguage().getCode());
         assertThat(feeling.getSentiments().size()).isEqualTo(3);

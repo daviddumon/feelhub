@@ -2,14 +2,16 @@ define([],
 
     function () {
 
-        var container = "canvas-sentiment";
+        var container;
         var fill_color = "#FFFFFF";
-        var base_line = 80;
-        var left = 40;
-        var right = 80;
-        var width = 8;
+        var base_line, left, right, width;
 
-        function draw(data, score) {
+        function draw(container_name, score, size) {
+            width = size;
+            right = size * 10;
+            left = size * 5;
+            base_line = size * 10;
+            container = container_name;
             var canvas = document.getElementById(container);
             var context = canvas.getContext('2d');
             context.lineCap = 'round';

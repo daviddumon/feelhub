@@ -87,11 +87,11 @@ public class TestsFeelingSearch extends TestWithMongoRepository {
     }
 
     @Test
-    public void alwaysIgnoreEmptyFeelings() {
+    public void canIgnoreEmptyFeelings() {
         TestFactories.feelings().newFeelings(10);
         TestFactories.feelings().newFeelingWithText("");
 
-        final List<Feeling> feelings = feelingSearch.execute();
+        final List<Feeling> feelings = feelingSearch.ignoreEmptyFeelings().execute();
 
         assertThat(feelings.size()).isEqualTo(10);
     }

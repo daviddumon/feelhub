@@ -114,9 +114,10 @@ public class TextParser {
         }
     }
 
+    public static final String SENTIMENTS = "[\\+\\-\\=\\#]";
+
     private static final String PUNCT_BEFORE = "^(\\p{Punct})+";
     private static final String PUNCT_AFTER = "(\\p{Punct})+$";
-    private static final String SENTIMENTS = "[\\+\\-\\=\\#]";
     private static final String UNDERSCORE = "[\\_]";
     private static final String NUMBER = "^[\\p{Digit}]+$";
 }

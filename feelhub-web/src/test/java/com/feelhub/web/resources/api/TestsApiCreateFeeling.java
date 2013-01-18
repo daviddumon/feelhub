@@ -68,6 +68,17 @@ public class TestsApiCreateFeeling {
     }
 
     @Test
+    public void throwApiErrorEmptyText() throws AuthenticationException, JSONException {
+        exception.expect(FeelhubApiException.class);
+        final Form parameters = new Form();
+        parameters.add("text", "");
+        parameters.add("topicId", UUID.randomUUID().toString());
+        parameters.add("language", FeelhubLanguage.fromCode("fr").getCode());
+
+        apiCreateFeeling.add(parameters);
+    }
+
+    @Test
     public void throwApiErrorOnMissingLanguage() throws AuthenticationException, JSONException {
         exception.expect(FeelhubApiException.class);
         final Form parameters = new Form();

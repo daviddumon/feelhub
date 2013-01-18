@@ -16,7 +16,6 @@ import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 
-
 public class TestsApiTopicNewFeelingsResource {
 
     @Rule

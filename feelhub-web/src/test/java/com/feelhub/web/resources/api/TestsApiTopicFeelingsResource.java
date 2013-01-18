@@ -98,7 +98,7 @@ public class TestsApiTopicFeelingsResource {
 
         assertThat(representation).isNotNull();
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        assertThat(((JSONObject) jsonArray.get(0)).get("text").toString()).isEqualTo("i0");
+        assertThat(((JSONObject) jsonArray.get(0)).get("text").toString()).isEqualTo("[\"i0\"]");
     }
 
     @Test
