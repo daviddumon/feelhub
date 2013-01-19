@@ -44,4 +44,14 @@ public class TestsTopicSentimentScoreCalculator {
 
         assertThat(score).isEqualTo(100);
     }
+
+    @Test
+    public void canHave() {
+        TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
+        List<Sentiment> sentiments = Lists.newArrayList(TestFactories.sentiments().newGoodSentiment(), TestFactories.sentiments().newGoodSentiment(), TestFactories.sentiments().newBadSentiment());
+
+        int score = calculator.getSentimentScore(sentiments, new DateTime());
+
+        assertThat(score).isEqualTo(33);
+    }
 }

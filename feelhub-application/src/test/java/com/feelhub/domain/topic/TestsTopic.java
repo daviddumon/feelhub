@@ -262,6 +262,7 @@ public class TestsTopic {
     @Test
     public void hasASentimentScore() {
         final Topic topic = TestFactories.topics().newSimpleFtpTopic();
+
         TestFactories.feelings().newFeelings(topic.getCurrentId(), 1);
 
         assertThat(topic.getSentimentScore()).isEqualTo(-100);
