@@ -1,7 +1,9 @@
 package com.feelhub.domain.feeling;
 
 import com.google.common.base.Objects;
+import org.joda.time.DateTime;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class Sentiment {
@@ -53,7 +55,13 @@ public class Sentiment {
         return token;
     }
 
+    public DateTime getCreationDate() {
+        return creationDate;
+    }
+
     private UUID topicId;
     private SentimentValue sentimentValue;
     private String token;
+    private DateTime creationDate = new DateTime();
+
 }
