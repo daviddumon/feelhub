@@ -91,6 +91,7 @@ public class TestsSentimentExtractor {
         assertThat(sentiments.get(1).getSentimentValue()).isEqualTo(SentimentValue.good);
         assertThat(sentiments.get(2).getTopicId()).isNull();
         assertThat(sentiments.get(2).getSentimentValue()).isEqualTo(SentimentValue.good);
+        assertThat(sentiments.get(2).getToken()).isEqualTo("value2");
     }
 
     @Test

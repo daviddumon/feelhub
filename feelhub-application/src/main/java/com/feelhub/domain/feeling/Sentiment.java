@@ -10,8 +10,9 @@ public class Sentiment {
     protected Sentiment() {
     }
 
-    public Sentiment(final SentimentValue sentimentValue) {
+    public Sentiment(final SentimentValue sentimentValue, final String token) {
         this.sentimentValue = sentimentValue;
+        this.token = token;
     }
 
     public Sentiment(final UUID topicId, final SentimentValue sentimentValue) {
@@ -48,6 +49,11 @@ public class Sentiment {
         this.topicId = topicId;
     }
 
+    public String getToken() {
+        return token;
+    }
+
     private UUID topicId;
     private SentimentValue sentimentValue;
+    private String token;
 }

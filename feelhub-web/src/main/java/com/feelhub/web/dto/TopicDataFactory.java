@@ -44,6 +44,8 @@ public class TopicDataFactory {
             builder.subtypes(topic.getSubTypes());
             builder.uris(topic.getUris());
             builder.topicSentimentScore(topic.getSentimentScore());
+        } else {
+            builder.name(sentiment.getToken());
         }
         if (sentiment != null) {
             builder.sentimentValue(sentiment.getSentimentValue());

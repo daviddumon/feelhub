@@ -5,8 +5,7 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class TestsSentiment {
 
@@ -20,8 +19,17 @@ public class TestsSentiment {
 
         final Sentiment sentiment = new Sentiment(realTopic.getId(), sentimentValue);
 
-        assertThat(sentiment, notNullValue());
-        assertThat(sentiment.getTopicId(), is(realTopic.getId()));
-        assertThat(sentiment.getSentimentValue(), is(sentimentValue));
+        assertThat(sentiment).isNotNull();
+        assertThat(sentiment.getTopicId()).isEqualTo(realTopic.getId());
+        assertThat(sentiment.getSentimentValue()).isEqualTo(sentimentValue);
+    }
+
+    @Test
+    public void keepTokenInSentiment() {
+        final String token = "token";
+
+        final Sentiment sentiment = new Sentiment(SentimentValue.good, token);
+
+        assertThat(sentiment.getToken()).isEqualTo(token);
     }
 }
