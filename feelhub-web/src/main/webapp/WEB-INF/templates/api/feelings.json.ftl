@@ -1,7 +1,7 @@
 [
 <#list feelingDatas as feelingData>
 {
-"id":"${feelingData.id}",
+"feelingid":"${feelingData.id}",
 "text":
     [
     <#list feelingData.text as text>
@@ -15,7 +15,7 @@
 "topicDatas":   [
     <#list feelingData.topicDatas as topicData>
     {
-    "id":"${topicData.id}",
+    <#if topicData.id?has_content>"id":"${topicData.id}",</#if>
     "sentimentValue":"${topicData.sentimentValue}",
     "name":"${topicData.name}",
     "illustration":"${topicData.illustration}",
