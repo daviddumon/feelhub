@@ -1,8 +1,12 @@
 package com.feelhub.domain.topic;
 
+import com.feelhub.application.FeelingService;
 import com.feelhub.domain.BaseEntity;
+import com.feelhub.domain.feeling.Feeling;
+import com.feelhub.domain.feeling.Sentiment;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.uri.Uri;
+import com.feelhub.repositories.Repositories;
 import com.google.common.collect.*;
 import org.apache.commons.lang.WordUtils;
 
@@ -120,7 +124,14 @@ public abstract class Topic extends BaseEntity {
     }
 
     public int getSentimentScore() {
-        return 0;
+        int score = 0;
+        List<Feeling> feelings = Repositories.feelings().forTopicId(currentId);
+        for(Feeling feeling: feelings) {
+            for (Sentiment sentiment : feeling.getSentiments()) {
+                 score += sentiment.getSentimentValue().numericValue();
+            }
+        }
+        return score;
     }
 
     protected UUID id;

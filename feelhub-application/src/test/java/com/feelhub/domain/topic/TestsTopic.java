@@ -1,8 +1,10 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.domain.user.User;
@@ -11,6 +13,7 @@ import com.feelhub.test.TestFactories;
 import com.google.inject.Injector;
 import org.junit.*;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;
@@ -251,17 +254,17 @@ public class TestsTopic {
 
     @Test
     public void hasADefaultSentimentScore() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final Topic topic = TestFactories.topics().newSimpleFtpTopic();
 
-        assertThat(fakeTopic.getSentimentScore()).isEqualTo(0);
+        assertThat(topic.getSentimentScore()).isEqualTo(0);
     }
 
     @Test
-    @Ignore
     public void hasASentimentScore() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final Topic topic = TestFactories.topics().newSimpleFtpTopic();
+        TestFactories.feelings().newFeelings(topic.getCurrentId(), 1);
 
-        assertThat(fakeTopic.getSentimentScore()).isEqualTo(0);
+        assertThat(topic.getSentimentScore()).isEqualTo(-1);
     }
 
     class FakeTopic extends Topic {
