@@ -15,6 +15,7 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
 
         function render_feeling(data, container) {
             data.root = root;
+            data.realtypes = realtypes;
             var element = feeling(prepare_data(data));
             $(container).append(element);
             last_feeling = data.id;

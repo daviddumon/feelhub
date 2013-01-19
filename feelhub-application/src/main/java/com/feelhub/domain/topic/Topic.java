@@ -1,8 +1,7 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.feeling.Sentiment;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.Repositories;
@@ -128,7 +127,7 @@ public abstract class Topic extends BaseEntity {
     private List<Sentiment> getSentiments() {
         List<Sentiment> sentiments = Lists.newArrayList();
         List<Feeling> feelings = Repositories.feelings().forTopicId(currentId);
-        for(Feeling feeling: feelings) {
+        for (Feeling feeling : feelings) {
             for (Sentiment sentiment : feeling.getSentiments()) {
                 sentiments.add(sentiment);
             }
