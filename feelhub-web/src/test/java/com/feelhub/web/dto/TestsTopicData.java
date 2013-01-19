@@ -155,7 +155,7 @@ public class TestsTopicData {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final TopicData topicData = new TopicData.Builder().id(realTopic.getId()).type(realTopic.getType()).build();
 
-        assertThat(topicData.toString()).isEqualTo("{\"sentimentValue\":{},\"id\":\"" + realTopic.getId() + "\",\"uris\":[],\"description\":\"\",\"illustration\":\"\",\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
+        assertThat(topicData.toString()).isEqualTo("{\"sentimentValue\":{},\"id\":\"" + realTopic.getId() + "\",\"uris\":[],\"topicSentimentScore\":0,\"description\":\"\",\"illustration\":\"\",\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
     }
 
     @Test
