@@ -21,32 +21,33 @@ public class SentimentExtractor {
 
     public List<Sentiment> analyze(final String text, final UUID topicId, final UUID userId, final FeelhubLanguage language) {
         final List<Sentiment> sentiments = Lists.newArrayList();
-        final SemanticContext semanticContext = new SemanticContext(topicId, language);
         final Map<String, String> parseResults = textParser.parse(text, new ArrayList<String>());
-        final Iterator<Map.Entry<String, String>> iterator = parseResults.entrySet().iterator();
-        while (iterator.hasNext()) {
-            final Map.Entry<String, String> tokenAndSentiment = iterator.next();
-            if (tokenAndSentiment.getKey().isEmpty()) {
-                sentiments.add(new Sentiment(topicId, getSentimentValue(tokenAndSentiment.getValue())));
-            } else if (semanticContext.getKnownValues().keySet().contains(tokenAndSentiment.getKey())) {
-                sentiments.add(new Sentiment(semanticContext.getKnownValues().get(tokenAndSentiment.getKey()), getSentimentValue(tokenAndSentiment.getValue())));
-            } else if (TopicIdentifier.isHttpTopic(tokenAndSentiment.getKey())) {
-                final List<Topic> topics = topicService.getTopics(tokenAndSentiment.getKey(), language);
-                if (topics.size() == 1) {
-                    sentiments.add(new Sentiment(topics.get(0).getId(), getSentimentValue(tokenAndSentiment.getValue())));
-                } else {
-                    try {
-                        final HttpTopic httpTopic = topicService.createHttpTopic(tokenAndSentiment.getKey(), userId);
-                        sentiments.add(new Sentiment(httpTopic.getId(), getSentimentValue(tokenAndSentiment.getValue())));
-                    } catch (Exception e) {
-                        sentiments.add(new Sentiment(getSentimentValue(tokenAndSentiment.getValue())));
-                    }
-                }
-            } else {
-                sentiments.add(new Sentiment(getSentimentValue(tokenAndSentiment.getValue())));
-            }
+        final SemanticContext semanticContext = new SemanticContext(topicId, language);
+        for(Map.Entry<String, String> tokenAndSentiment : parseResults.entrySet()) {
+            sentiments.add(getSentiment(topicId, userId, language, getSentimentValue(tokenAndSentiment.getValue()), tokenAndSentiment.getKey(), semanticContext));
         }
         return sentiments;
+    }
+
+    private Sentiment getSentiment(UUID topicId, UUID userId, FeelhubLanguage language, SentimentValue sentimentValue, String token, SemanticContext semanticContext) {
+        if (token.isEmpty()) {
+            return new Sentiment(topicId, sentimentValue);
+        } else if (semanticContext.getKnownValues().keySet().contains(token)) {
+            return new Sentiment(semanticContext.getKnownValues().get(token), sentimentValue);
+        } else if (TopicIdentifier.isHttpTopic(token)) {
+            final List<Topic> topics = topicService.getTopics(token, language);
+            if (topics.size() == 1) {
+                return new Sentiment(topics.get(0).getId(), sentimentValue);
+            } else {
+                try {
+                    final HttpTopic httpTopic = topicService.createHttpTopic(token, userId);
+                    return new Sentiment(httpTopic.getId(), sentimentValue);
+                } catch (Exception e) {
+                    return new Sentiment(sentimentValue);
+                }
+            }
+        }
+        return new Sentiment(sentimentValue);
     }
 
     private SentimentValue getSentimentValue(final String semanticMarkups) {
