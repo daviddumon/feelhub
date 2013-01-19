@@ -249,6 +249,21 @@ public class TestsTopic {
         assertThat(fakeTopic.getIllustration()).isEqualTo(illustrationLink);
     }
 
+    @Test
+    public void hasADefaultSentimentScore() {
+        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+
+        assertThat(fakeTopic.getSentimentScore()).isEqualTo(0);
+    }
+
+    @Test
+    @Ignore
+    public void hasASentimentScore() {
+        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+
+        assertThat(fakeTopic.getSentimentScore()).isEqualTo(0);
+    }
+
     class FakeTopic extends Topic {
 
         public FakeTopic(final UUID id) {

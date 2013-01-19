@@ -158,4 +158,11 @@ public class TestsTopicData {
         assertThat(topicData.toString()).isEqualTo("{\"sentimentValue\":{},\"id\":\"" + realTopic.getId() + "\",\"uris\":[],\"description\":\"\",\"illustration\":\"\",\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
     }
 
+    @Test
+    public void hasATopicSentimentScore() {
+        final TopicData topicData = new TopicData.Builder().topicSentimentScore(10).build();
+
+        assertThat(topicData.getTopicSentimentScore()).isEqualTo(10);
+    }
+
 }

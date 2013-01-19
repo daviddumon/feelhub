@@ -6,6 +6,7 @@ import com.feelhub.domain.topic.http.uri.Uri;
 import com.google.common.collect.*;
 import org.apache.commons.lang.WordUtils;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public abstract class Topic extends BaseEntity {
@@ -118,6 +119,10 @@ public abstract class Topic extends BaseEntity {
         this.topicMerger = topicMerger;
     }
 
+    public int getSentimentScore() {
+        return 0;
+    }
+
     protected UUID id;
     protected UUID currentId;
     private UUID userId;
@@ -127,4 +132,5 @@ public abstract class Topic extends BaseEntity {
     private final List<Uri> uris = Lists.newArrayList();
     private String illustration = "";
     private TopicMerger topicMerger = new TopicMerger();
+
 }

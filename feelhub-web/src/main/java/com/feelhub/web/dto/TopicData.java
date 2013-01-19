@@ -6,6 +6,7 @@ import com.feelhub.domain.topic.http.uri.Uri;
 import com.google.common.collect.Lists;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class TopicData {
@@ -58,6 +59,11 @@ public class TopicData {
             return this;
         }
 
+        public Builder topicSentimentScore(final int topicSentimentScore) {
+            this.topicSentimentScore = topicSentimentScore;
+            return this;
+        }
+
         private String id = "";
         private String illustration = "";
         private String name = "";
@@ -66,6 +72,7 @@ public class TopicData {
         private List<String> subTypes = Lists.newArrayList();
         private List<String> uris = Lists.newArrayList();
         private String description = "";
+        private int topicSentimentScore;
     }
 
     private TopicData(final Builder builder) {
@@ -77,6 +84,7 @@ public class TopicData {
         this.subTypes = builder.subTypes;
         this.uris = builder.uris;
         this.description = builder.description;
+        this.topicSentimentScore = builder.topicSentimentScore;
     }
 
     public String getId() {
@@ -111,6 +119,10 @@ public class TopicData {
         return description;
     }
 
+    public int getTopicSentimentScore() {
+        return topicSentimentScore;
+    }
+
     @Override
     public String toString() {
         return new JSONObject(this).toString();
@@ -124,4 +136,5 @@ public class TopicData {
     private final List<String> subTypes;
     private final List<String> uris;
     private final String description;
+    private final int topicSentimentScore;
 }
