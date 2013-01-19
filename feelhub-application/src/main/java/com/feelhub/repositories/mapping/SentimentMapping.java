@@ -13,5 +13,6 @@ public class SentimentMapping extends ComponentMap<Sentiment> {
     protected void map() {
         property(element().getSentimentValue());
         property(element().getTopicId());
+        property(element().getToken());
     }
 }

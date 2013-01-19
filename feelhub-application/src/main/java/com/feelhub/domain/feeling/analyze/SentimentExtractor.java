@@ -23,7 +23,7 @@ public class SentimentExtractor {
         final List<Sentiment> sentiments = Lists.newArrayList();
         final Map<String, String> parseResults = textParser.parse(text, new ArrayList<String>());
         final SemanticContext semanticContext = new SemanticContext(topicId, language);
-        for(Map.Entry<String, String> tokenAndSentiment : parseResults.entrySet()) {
+        for (Map.Entry<String, String> tokenAndSentiment : parseResults.entrySet()) {
             sentiments.add(getSentiment(topicId, userId, language, getSentimentValue(tokenAndSentiment.getValue()), tokenAndSentiment.getKey(), semanticContext));
         }
         return sentiments;
@@ -43,11 +43,11 @@ public class SentimentExtractor {
                     final HttpTopic httpTopic = topicService.createHttpTopic(token, userId);
                     return new Sentiment(httpTopic.getId(), sentimentValue);
                 } catch (Exception e) {
-                    return new Sentiment(sentimentValue);
+                    return new Sentiment(sentimentValue, token);
                 }
             }
         }
-        return new Sentiment(sentimentValue);
+        return new Sentiment(sentimentValue, token);
     }
 
     private SentimentValue getSentimentValue(final String semanticMarkups) {

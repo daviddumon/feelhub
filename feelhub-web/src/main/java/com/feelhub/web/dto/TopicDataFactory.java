@@ -43,6 +43,8 @@ public class TopicDataFactory {
             builder.description(topic.getDescription(feelhubLanguage));
             builder.subtypes(topic.getSubTypes());
             builder.uris(topic.getUris());
+        } else {
+            builder.name(sentiment.getToken());
         }
         if (sentiment != null) {
             builder.sentimentValue(sentiment.getSentimentValue());

@@ -45,8 +45,8 @@ public class TestsApiFeelingSearch {
         CurrentUser.set(new WebUser(user, true));
         final Feeling feeling1 = TestFactories.feelings().newFeelingWithoutSentiments();
         final Feeling feeling2 = TestFactories.feelings().newFeelingWithoutSentiments();
-        feeling1.addSentiment(new Sentiment(SentimentValue.good));
-        feeling2.addSentiment(new Sentiment(SentimentValue.bad));
+        feeling1.addSentiment(new Sentiment(SentimentValue.good, ""));
+        feeling2.addSentiment(new Sentiment(SentimentValue.bad, ""));
 
         final List<FeelingData> feelings = apiFeelingSearch.doSearch(new Form());
 
