@@ -14,6 +14,13 @@
             {{/id}}
             {{^id}}
             <div class="{{classes}} topic_stack">
+                <select name="type">
+                    <option value="None" selected="selected"></option>
+                    {{#realtypes}}
+                        <option value="{{.}}">{{.}}</option>
+                    {{/realtypes}}
+                </select>
+                add a type
                 <span class="{{sentimentValue}}">{{name}}</span>
             </div>
             {{/id}}

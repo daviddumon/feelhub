@@ -1,24 +1,5 @@
 <#macro js>
     <@head.headbegin>
-    <script type="text/javascript">
-            <#if topicData??>
-            var topicData = ${topicData?string};
-            <#else>
-            var topicData = {};
-            </#if>
-
-            <#if realtypes??>
-            var realtypes = [
-                <#list realtypes as type>
-                    "${type}"${type_has_next?string(",", "")}
-                </#list>
-            ]
-            <#else>
-            var realtypes = [];
-            </#if>
-
-        var languageCode = "${userInfos.languageCode}";
-    </script>
     </@head.headbegin>
 
     <@head.cssprod>
@@ -42,6 +23,23 @@
     </@head.jsdev>
 
     <@head.js>
+    <script type="text/javascript">
+            <#if topicData??>
+            var topicData = ${topicData?string};
+            <#else>
+            var topicData = {};
+            </#if>
+
+            <#if realtypes??>
+            var realtypes = [
+                <#list realtypes as type>
+                    "${type}"${type_has_next?string(",", "")}
+                </#list>
+            ]
+            <#else>
+            var realtypes = [];
+            </#if>
+    </script>
         <#nested/>
     </@head.js>
 

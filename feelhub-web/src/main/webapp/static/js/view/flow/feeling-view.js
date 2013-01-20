@@ -1,6 +1,6 @@
-define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templates/flow/flow_empty_feeling"],
+define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templates/flow/flow_counter_feeling", "plugins/hgn!templates/flow/flow_editable_feeling"],
 
-    function ($, feeling, counter) {
+    function ($, feeling, counter, editable) {
 
         var last_feeling = "";
         var last_counter = "";
@@ -14,14 +14,23 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
         }
 
         function render_feeling(data, container) {
-            data.root = root;
-            data.realtypes = realtypes;
-            var element = feeling(prepare_data(data));
+            if (userId == data.userId) {
+                render_editable(data, container);
+            } else {
+                var element = feeling(prepare_data(data));
+                $(container).append(element);
+                last_feeling = data.id;
+            }
+        }
+
+        function render_editable(data, container) {
+            var element = editable(prepare_data(data));
             $(container).append(element);
             last_feeling = data.id;
         }
 
         function prepare_data(feeling) {
+            feeling["realtypes"] = realtypes;
             feeling["root"] = root;
             feeling["height"] = (feeling.topicDatas.length != 0 ? 40 : 0) + 146 * (Math.floor(feeling.topicDatas.length / 2) + feeling.topicDatas.length % 2) + 'px';
             shuffleAndMakeFirstLarge(feeling.topicDatas);

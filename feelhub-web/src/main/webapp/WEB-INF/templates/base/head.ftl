@@ -9,9 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
     <meta name="keywords" content="sentiment analysis"/>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-    <script type="text/javascript">
-        var root = "${root}";
-    </script>
 
     <#nested/>
 
@@ -59,12 +56,15 @@
 </#macro>
 
 <#macro js>
-
     <script type="text/javascript">
+        var root = "${root}";
         var authentificated = ${userInfos.authenticated?string};
-            <#if !userInfos.anonymous>
-            var userLanguageCode = "${userInfos.user.languageCode}";
-            </#if>
+        var languageCode = "${userInfos.languageCode}";
+        <#if !userInfos.anonymous>
+        var userId = "${userInfos.user.id}";
+        <#else>
+        var userId = "";
+        </#if>
     </script>
 
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?${buildtime}"></script>
