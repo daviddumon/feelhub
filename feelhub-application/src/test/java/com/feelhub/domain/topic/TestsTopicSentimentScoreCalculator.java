@@ -4,7 +4,6 @@ import com.feelhub.domain.feeling.Sentiment;
 import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
-import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.junit.Rule;
@@ -68,7 +67,7 @@ public class TestsTopicSentimentScoreCalculator {
 
         int score = calculator.sentimentScore(sentiments, new DateTime(10));
 
-        assertThat(score).isEqualTo(26);
+        assertThat(score).isIn(Lists.newArrayList(25, 26));
     }
 
     private Sentiment newSentiment(SentimentValue sentimentValue, long time) {

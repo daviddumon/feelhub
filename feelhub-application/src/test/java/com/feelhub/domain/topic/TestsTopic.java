@@ -9,8 +9,10 @@ import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.test.SystemTime;
 import com.feelhub.test.TestFactories;
 import com.google.inject.Injector;
+import org.joda.time.DateTime;
 import org.junit.*;
 
 import java.util.List;
@@ -26,6 +28,9 @@ public class TestsTopic {
 
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
+
+    @Rule
+    public SystemTime systemTime = SystemTime.fixed();
 
     @Test
     public void hasAnId() {
@@ -261,8 +266,10 @@ public class TestsTopic {
 
     @Test
     public void hasASentimentScore() {
+        systemTime.set(new DateTime(10));
         final Topic topic = TestFactories.topics().newSimpleFtpTopic();
 
+        systemTime.set(new DateTime(11));
         TestFactories.feelings().newFeelings(topic.getCurrentId(), 1);
 
         assertThat(topic.getSentimentScore()).isEqualTo(-100);
