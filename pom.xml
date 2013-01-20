@@ -18,7 +18,7 @@
     <properties>
         <restlet.version>2.0.15</restlet.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mongolink.version>0.0.9-SNAPSHOT</mongolink.version>
+        <mongolink.version>0.0.9</mongolink.version>
         <buildtime>${maven.build.timestamp}</buildtime>
         <status>ok</status>
         <facebook.appSecret>93847b17c5b7d9888d0f88417a195641</facebook.appSecret>
