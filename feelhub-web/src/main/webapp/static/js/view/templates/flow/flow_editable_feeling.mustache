@@ -6,23 +6,28 @@
     <div class="feeling_related" style="height: {{height}}">
         {{#topicDatas}}
             {{#id}}
-            <a href="{{root}}/topic/{{id}}" class="{{classes}} topic_stack" id="{{id}}">
+            <a href="{{root}}/topic/{{id}}" class="{{classes}} topic_stack" id="{{original_index}}">
                 <img src="{{root}}/static/images/smiley_{{sentimentValue}}_white_14.png" class="img_{{sentimentValue}} topic_sentiment_illustration" style="z-index: 1000;"/>
                 <img src="{{illustration}}" class="topic_illustration" onload="OnImageLoad(event);"/>
                 <span class="{{sentimentValue}}">{{name}}</span>
             </a>
             {{/id}}
             {{^id}}
-            <div class="{{classes}} topic_stack">
+            <form class="sentimentform">
+            <div class="{{classes}} topic_stack" id="{{original_index}}">
+                <input type="hidden" value="{{feelingid}}" name="feelingid"/>
+                <input type="hidden" value="{{original_index}}" name="index"/>
+                <input type="hidden" value="{{name}}" name="name"/>
                 <select name="type">
                     <option value="None" selected="selected"></option>
                     {{#realtypes}}
                         <option value="{{.}}">{{.}}</option>
                     {{/realtypes}}
                 </select>
-                add a type
+                <input type="submit" value="add a type"/>
                 <span class="{{sentimentValue}}">{{name}}</span>
             </div>
+            </form>
             {{/id}}
         {{/topicDatas}}
     </div>

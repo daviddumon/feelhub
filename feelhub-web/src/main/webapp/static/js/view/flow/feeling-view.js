@@ -38,6 +38,9 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
         }
 
         function shuffleAndMakeFirstLarge(datas) {
+            for(var i = 0; i < datas.length; i++) {
+                datas[i].original_index = i;
+            }
             if (datas.length % 2 != 0) {
                 var shuffle_number = Math.floor(Math.random() * datas.length);
                 for (var i = 0; i < shuffle_number; i++) {

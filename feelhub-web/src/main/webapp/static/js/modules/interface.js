@@ -10,9 +10,21 @@ define(['jquery'], function ($) {
                 error: error
             });
         });
+
+        $('body').on('submit', 'form.sentimentform', function () {
+            $.ajax({
+                url: root + "/api/feeling/" + $(this).find("[name=feelingid]").val() + "/sentiment/" + $(this).find("[name=index]").val(),
+                type: 'PUT',
+                data: $(this).serialize(),
+                success: success,
+                error: error
+            });
+            return false;
+        });
     }
 
     function success() {
+        console.log("success");
         document.location.reload();
     }
 
