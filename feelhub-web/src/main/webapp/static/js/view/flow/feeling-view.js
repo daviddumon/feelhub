@@ -38,8 +38,15 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
         }
 
         function shuffleAndMakeFirstLarge(datas) {
-            for(var i = 0; i < datas.length; i++) {
-                datas[i].original_index = i;
+            for (var i = 0; i < datas.length; i++) {
+                //attention hack degueu a enlever au plus vite
+                //faut separer les traitements suivant si on a un topic dans le context ou pas
+                if(typeof topicData.id != 'undefined') {
+                    console.log(topicData.id);
+                    datas[i].original_index = i + 1;
+                } else {
+                    datas[i].original_index = i;
+                }
             }
             if (datas.length % 2 != 0) {
                 var shuffle_number = Math.floor(Math.random() * datas.length);
