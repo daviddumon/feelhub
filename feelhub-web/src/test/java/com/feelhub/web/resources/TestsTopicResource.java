@@ -124,6 +124,16 @@ public class TestsTopicResource {
         assertThat(modelAndView.getData("locales")).isNotNull();
     }
 
+    @Test
+    public void hasRealTypesListInData() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
+
+        final ModelAndView modelAndView = topicResource.getTopic();
+
+        assertThat(modelAndView.getData("realtypes")).isNotNull();
+    }
+
     private User user;
     private Injector injector;
     private TopicResource topicResource;

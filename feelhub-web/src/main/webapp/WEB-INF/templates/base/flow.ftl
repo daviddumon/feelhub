@@ -7,6 +7,16 @@
             var topicData = {};
             </#if>
 
+            <#if realtypes??>
+            var realtypes = [
+                <#list realtypes as type>
+                    "${type}"${type_has_next?string(",", "")}
+                </#list>
+            ]
+            <#else>
+            var realtypes = [];
+            </#if>
+
         var languageCode = "${userInfos.languageCode}";
     </script>
     </@head.headbegin>
