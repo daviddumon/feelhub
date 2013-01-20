@@ -1,7 +1,9 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.feeling.Sentiment;
+import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.test.SystemTime;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
@@ -13,6 +15,10 @@ import java.util.List;
 import static org.fest.assertions.Assertions.assertThat;
 
 public class TestsTopicSentimentScoreCalculator {
+
+    @Rule
+    public SystemTime systemTime = SystemTime.fixed();
+
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
@@ -20,7 +26,7 @@ public class TestsTopicSentimentScoreCalculator {
     public void scoreIsZeroWhenNoSentiment() {
         TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
 
-        int score = calculator.getSentimentScore(Lists.<Sentiment>newArrayList(), null);
+        int score = calculator.sentimentScore(Lists.<Sentiment>newArrayList(), null);
 
         assertThat(score).isEqualTo(0);
     }
@@ -28,9 +34,9 @@ public class TestsTopicSentimentScoreCalculator {
     @Test
     public void scoreIsMinus100WhenAllSentimentsAreBad() {
         TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
-        List<Sentiment> sentiments = Lists.newArrayList(TestFactories.sentiments().newBadSentiment(), TestFactories.sentiments().newBadSentiment());
+        List<Sentiment> sentiments = Lists.newArrayList(newSentiment(SentimentValue.bad, 11), newSentiment(SentimentValue.bad, 12));
 
-        int score = calculator.getSentimentScore(sentiments, new DateTime());
+        int score = calculator.sentimentScore(sentiments, new DateTime(10));
 
         assertThat(score).isEqualTo(-100);
     }
@@ -38,20 +44,35 @@ public class TestsTopicSentimentScoreCalculator {
     @Test
     public void scoreIs100WhenAllSentimentsAreGood() {
         TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
-        List<Sentiment> sentiments = Lists.newArrayList(TestFactories.sentiments().newGoodSentiment(), TestFactories.sentiments().newGoodSentiment());
+        List<Sentiment> sentiments = Lists.newArrayList(newSentiment(SentimentValue.good, 11), newSentiment(SentimentValue.good, 12));
 
-        int score = calculator.getSentimentScore(sentiments, new DateTime());
+        int score = calculator.sentimentScore(sentiments, new DateTime(10));
 
         assertThat(score).isEqualTo(100);
     }
 
     @Test
-    public void canHave() {
+    public void scoreIsPonderatedByCreationDate() {
         TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
-        List<Sentiment> sentiments = Lists.newArrayList(TestFactories.sentiments().newGoodSentiment(), TestFactories.sentiments().newGoodSentiment(), TestFactories.sentiments().newBadSentiment());
+        List<Sentiment> sentiments = Lists.newArrayList();
+        sentiments.add(newSentiment(SentimentValue.bad, 11));
+        sentiments.add(newSentiment(SentimentValue.neutral, 12));
+        sentiments.add(newSentiment(SentimentValue.bad, 13));
+        sentiments.add(newSentiment(SentimentValue.bad, 14));
+        sentiments.add(newSentiment(SentimentValue.neutral, 15));
+        sentiments.add(newSentiment(SentimentValue.good, 16));
+        sentiments.add(newSentiment(SentimentValue.good, 17));
+        sentiments.add(newSentiment(SentimentValue.good, 18));
+        sentiments.add(newSentiment(SentimentValue.bad, 19));
+        sentiments.add(newSentiment(SentimentValue.good, 20));
 
-        int score = calculator.getSentimentScore(sentiments, new DateTime());
+        int score = calculator.sentimentScore(sentiments, new DateTime(10));
 
-        assertThat(score).isEqualTo(33);
+        assertThat(score).isEqualTo(26);
+    }
+
+    private Sentiment newSentiment(SentimentValue sentimentValue, long time) {
+        systemTime.set(new DateTime(time));
+        return new Sentiment(sentimentValue, "token");
     }
 }

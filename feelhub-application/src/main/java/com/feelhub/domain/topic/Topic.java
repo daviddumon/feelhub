@@ -122,7 +122,7 @@ public abstract class Topic extends BaseEntity {
     }
 
     public int getSentimentScore() {
-        return new TopicSentimentScoreCalculator().getSentimentScore(getSentiments(), creationDate);
+        return new TopicSentimentScoreCalculator().sentimentScore(getSentiments(), creationDate);
     }
 
     private List<Sentiment> getSentiments() {
