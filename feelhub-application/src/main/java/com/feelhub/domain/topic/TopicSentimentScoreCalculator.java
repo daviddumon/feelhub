@@ -1,18 +1,12 @@
 package com.feelhub.domain.topic;
 
 
-import com.feelhub.domain.feeling.Sentiment;
-import com.feelhub.domain.feeling.SentimentValue;
+import com.feelhub.domain.feeling.*;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Ordering;
+import com.google.common.collect.*;
 import org.joda.time.DateTime;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public final class TopicSentimentScoreCalculator {
 

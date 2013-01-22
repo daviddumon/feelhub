@@ -21,8 +21,8 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         end_function = callback;
         initial = 320;
         maxBox = Math.floor(container.innerWidth() / initial);
-        skip = -30;
-        limit = 30;
+        skip = -20;
+        limit = 20;
         hasData = true;
         notLoading = true;
         for (var i = 0; i < maxBox; i++) {
@@ -62,18 +62,18 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
         function loadData() {
             var parameters = [];
-            api_end_point += "?";
+            var uri = api_end_point + "?";
             if (parameter) {
                 parameters.push({"value": parameter});
             }
             parameters.push({"value": "skip=" + skip});
             parameters.push({"value": "limit=" + limit});
             $.each(parameters, function (index, parameter) {
-                api_end_point += parameter.value + "&";
+                uri += parameter.value + "&";
             });
-            api_end_point = api_end_point.substr(0, api_end_point.length - 1);
+            uri = uri.substr(0, uri.length - 1);
 
-            $.getJSON(api_end_point, function (data) {
+            $.getJSON(uri, function (data) {
                 if (data.length > 0) {
                     $.each(data, function (index, data) {
                         appendData(data);
