@@ -37,14 +37,14 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
             clearTimeout(doit);
             doit = setTimeout(function () {
                 endOfResize();
-            }, 100);
+            }, 200);
         });
 
-        $(window).on("orientationchange", function () {
+        $(window).on("resize", function () {
             clearTimeout(doit);
             doit = setTimeout(function () {
                 endOfResize();
-            }, 100);
+            }, 200);
         });
 
         function endOfResize() {
