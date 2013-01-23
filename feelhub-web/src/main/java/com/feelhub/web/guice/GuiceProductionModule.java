@@ -32,6 +32,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(ActivationService.class).asEagerSingleton();
         bind(BingSearch.class).asEagerSingleton();
         bind(Translator.class).asEagerSingleton();
+        //scraper
     }
 
     private Properties properties() {

@@ -1,6 +1,5 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.scraper.Scraper;
 import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
@@ -18,9 +17,8 @@ import java.util.*;
 public class TopicService {
 
     @Inject
-    public TopicService(final TopicFactory topicFactory, final Scraper scraper, final TagService tagService, final UriResolver uriResolver) {
+    public TopicService(final TopicFactory topicFactory, final TagService tagService, final UriResolver uriResolver) {
         this.topicFactory = topicFactory;
-        this.scraper = scraper;
         this.tagService = tagService;
         this.uriResolver = uriResolver;
     }
@@ -176,7 +174,6 @@ public class TopicService {
         }
     }
 
-    private final Scraper scraper;
     private final TopicFactory topicFactory;
     private final TagService tagService;
     private UriResolver uriResolver;

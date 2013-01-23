@@ -6,7 +6,6 @@ import com.feelhub.domain.topic.http.uri.Uri;
 import com.google.common.collect.Lists;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 public class TopicData {

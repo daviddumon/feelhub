@@ -47,6 +47,13 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
             }, 200);
         });
 
+        $(window).on("orientationchange", function () {
+            clearTimeout(doit);
+            doit = setTimeout(function () {
+                endOfResize();
+            }, 200);
+        });
+
         function endOfResize() {
             reset();
         }

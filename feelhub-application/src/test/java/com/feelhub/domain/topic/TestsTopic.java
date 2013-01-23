@@ -1,21 +1,17 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.SystemTime;
-import com.feelhub.test.TestFactories;
+import com.feelhub.test.*;
 import com.google.inject.Injector;
 import org.joda.time.DateTime;
 import org.junit.*;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;

@@ -1,55 +1,55 @@
-{"d":{
-    "results":[
+{"d": {
+    "results": [
         {
-            "__metadata":{
-                "uri":"https://api.datamarket.azure.com/Data.ashx/Bing/Search/Image?Query=\u0027Piraeus Bank Company\u0027&Adult=\u0027Off\u0027&$skip=0&$top=1",
-                "type":"ImageResult"
+            "__metadata": {
+                "uri": "https://api.datamarket.azure.com/Data.ashx/Bing/Search/Image?Query=\u0027Piraeus Bank Company\u0027&Adult=\u0027Off\u0027&$skip=0&$top=1",
+                "type": "ImageResult"
             },
-            "ID":"8fca851d-e89d-4774-831e-ea1eb9c3cc2c",
-            "Title":"piraeus-bank-asenovgrad.jpg",
-            "MediaUrl":"http://localhost:6162/images/simplevalueillustration.jpg",
-            "SourceUrl":"http://www.arketipo.gr/en/arketipo-bulgaria-ltd/piraeus-bank/piraeus-bank-asenovgrad-branch/",
-            "DisplayUrl":"www.arketipo.gr/en/arketipo-bulgaria-ltd/piraeus-bank/piraeus-bank-asenovgrad-branch",
-            "Width":"2592",
-            "Height":"1944",
-            "FileSize":"3234641",
-            "ContentType":"image/jpeg",
-            "Thumbnail":{
-                "__metadata":{
-                    "type":"Bing.Thumbnail"
+            "ID": "8fca851d-e89d-4774-831e-ea1eb9c3cc2c",
+            "Title": "piraeus-bank-asenovgrad.jpg",
+            "MediaUrl": "http://localhost:6162/images/simplevalueillustration.jpg",
+            "SourceUrl": "http://www.arketipo.gr/en/arketipo-bulgaria-ltd/piraeus-bank/piraeus-bank-asenovgrad-branch/",
+            "DisplayUrl": "www.arketipo.gr/en/arketipo-bulgaria-ltd/piraeus-bank/piraeus-bank-asenovgrad-branch",
+            "Width": "2592",
+            "Height": "1944",
+            "FileSize": "3234641",
+            "ContentType": "image/jpeg",
+            "Thumbnail": {
+                "__metadata": {
+                    "type": "Bing.Thumbnail"
                 },
-                "MediaUrl":"http://ts1.mm.bing.net/th?id=I.4580407312253812&pid=15.1&W=160&H=120",
-                "ContentType":"image/jpg",
-                "Width":"160",
-                "Height":"120",
-                "FileSize":"11878"
+                "MediaUrl": "http://ts1.mm.bing.net/th?id=I.4580407312253812&pid=15.1&W=160&H=120",
+                "ContentType": "image/jpg",
+                "Width": "160",
+                "Height": "120",
+                "FileSize": "11878"
             }
         },
         {
-            "__metadata":{
-                "uri":"https://api.datamarket.azure.com/Data.ashx/Bing/Search/Image?Query=\u0027Piraeus Bank Company\u0027&Adult=\u0027Off\u0027&$skip=1&$top=1",
-                "type":"ImageResult"
+            "__metadata": {
+                "uri": "https://api.datamarket.azure.com/Data.ashx/Bing/Search/Image?Query=\u0027Piraeus Bank Company\u0027&Adult=\u0027Off\u0027&$skip=1&$top=1",
+                "type": "ImageResult"
             },
-            "ID":"72d9ad0f-25e3-448b-a096-0e646d5353fb",
-            "Title":"Piraeus Bank Trapeza Peiraios Circuit",
-            "MediaUrl":"http://localhost:6162/images/simplevalueillustration.jpg",
-            "SourceUrl":"http://wn.com/PIRAEUS_BANK__TRAPEZA_PEIRAIOS__CIRCUIT",
-            "DisplayUrl":"wn.com/PIRAEUS_BANK__TRAPEZA_PEIRAIOS__CIRCUIT",
-            "Width":"1563",
-            "Height":"855",
-            "FileSize":"654188",
-            "ContentType":"image/jpeg",
-            "Thumbnail":{
-                "__metadata":{
-                    "type":"Bing.Thumbnail"
+            "ID": "72d9ad0f-25e3-448b-a096-0e646d5353fb",
+            "Title": "Piraeus Bank Trapeza Peiraios Circuit",
+            "MediaUrl": "http://localhost:6162/images/simplevalueillustration.jpg",
+            "SourceUrl": "http://wn.com/PIRAEUS_BANK__TRAPEZA_PEIRAIOS__CIRCUIT",
+            "DisplayUrl": "wn.com/PIRAEUS_BANK__TRAPEZA_PEIRAIOS__CIRCUIT",
+            "Width": "1563",
+            "Height": "855",
+            "FileSize": "654188",
+            "ContentType": "image/jpeg",
+            "Thumbnail": {
+                "__metadata": {
+                    "type": "Bing.Thumbnail"
                 },
-                "MediaUrl":"http://ts1.mm.bing.net/th?id=I.4702809608357124&pid=15.1&W=160&H=87",
-                "ContentType":"image/jpg",
-                "Width":"160",
-                "Height":"87",
-                "FileSize":"8969"
+                "MediaUrl": "http://ts1.mm.bing.net/th?id=I.4702809608357124&pid=15.1&W=160&H=87",
+                "ContentType": "image/jpg",
+                "Width": "160",
+                "Height": "87",
+                "FileSize": "8969"
             }
         }
     ],
-    "__next":"https://api.datamarket.azure.com/Data.ashx/Bing/Search/Image?Query=\u0027Piraeus%20Bank%20Company\u0027&Adult=\u0027Off\u0027&$skip=10&$top=10"
+    "__next": "https://api.datamarket.azure.com/Data.ashx/Bing/Search/Image?Query=\u0027Piraeus%20Bank%20Company\u0027&Adult=\u0027Off\u0027&$skip=10&$top=10"
 }}

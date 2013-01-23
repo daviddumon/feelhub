@@ -6,7 +6,7 @@ public enum SentimentValue {
         public int numericValue() {
             return 1;
         }
-    }, bad{
+    }, bad {
         @Override
         public int numericValue() {
             return -1;

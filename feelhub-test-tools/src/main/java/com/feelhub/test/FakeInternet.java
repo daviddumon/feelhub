@@ -2,11 +2,8 @@ package com.feelhub.test;
 
 import com.feelhub.test.fakeResources.*;
 import com.feelhub.test.fakeResources.alchemy.FakeAlchemyResource;
-import com.feelhub.test.fakeResources.bing.*;
+import com.feelhub.test.fakeResources.bing.BingFakeResource;
 import com.feelhub.test.fakeResources.scraper.*;
-import com.feelhub.test.fakeResources.scraper.extractors.*;
-import com.feelhub.test.fakeResources.scraper.oganalyzer.*;
-import com.feelhub.test.fakeResources.scraper.tools.*;
 import freemarker.template.*;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.rules.ExternalResource;
@@ -97,46 +94,16 @@ public class FakeInternet extends ExternalResource {
             }
 
             private void attachScrapersResources(final Router router) {
-                router.attach("/scraper/extractor/empty", ScraperExtractorEmptyResource.class);
-
-
-                router.attach("/scraper/empty", ScraperExtractorEmptyResource.class);
-                router.attach("/", ScraperLogoPriority.class);
-                router.attach("/scraper/logopriority", ScraperLogoPriority.class);
-                router.attach("/scraper/logoprioritywithopengraph", ScraperLogoPriorityWithOpenGraph.class);
-                router.attach("/titleextractor/titletag", TitleExtractorResourceWithTitleTag.class);
-                router.attach("/titleextractor/titletagbadhtml", TitleExtractorResourceWithBadHtml.class);
-                router.attach("/firstelementextractor/h2tag", FirstElementExtractorResourceWithH2Tag.class);
-                router.attach("/lastelementextractor/h1tag", LastElementExtractorWithH1TagResource.class);
-                router.attach("/lastelementextractor/bug/lemondefrnested", LastElementExtractorResourceLemondeBug.class);
-                router.attach("/logoextractor/withclasslogo", LogoExtractorResourceWithClassLogo.class);
-                router.attach("/logoextractor/withidlogo", LogoExtractorResourceWithIdLogo.class);
-                router.attach("/logoextractor/withaltlogo", LogoExtractorResourceWithAltLogo.class);
-                router.attach("/logoextractor/withclasslogopattern", LogoExtractorResourceWithClassLogoPattern.class);
-                router.attach("/logoextractor/withidlogopattern", LogoExtractorResourceWithIdLogoPattern.class);
-                router.attach("/logoextractor/withaltlogopattern", LogoExtractorResourceWithAltLogoPattern.class);
-                router.attach("/logoextractor/backgroundimage", LogoExtractorResourceWithBackgroundImage.class);
-                router.attach("/logoextractor/logofromnested", LogoExtractorResourceFromNested.class);
-                router.attach("/logoextractor/bug/tironfr", LogoExtractorResourceTironBug.class);
-                router.attach("/logoextractor/fromcss", LogoExtractorResourceFromCss.class);
-                router.attach("/logoextractor/withbannerpattern", LogoExtractorResourceWithBannerPattern.class);
-                router.attach("/logoextractor/withoutTLD", LogoExtractorResourceWithoutTLD.class);
-                router.attach("/logoextractor/io9bug", LogoExtractorResourceIo9bug.class);
-                router.attach("/imageextractor/withH1tag", ImageExtractorResourceWithH1Tag.class);
-                router.attach("/imageextractor/bug/slatefr", ImageExtractorResourceSlatefrBug.class);
-                router.attach("/imageextractor/bug/10sportbug", ImageExtractorResource10SportBug.class);
-                router.attach("/imageextractor/bug/liberation", ImageExtractorResourceLiberationBug.class);
-                router.attach("/opengraphextractor/illustration", OpenGraphExtractorWithIllustration.class);
-                router.attach("/miner/cssminer/simple", CSSMinerSimple.class);
-                router.attach("/css/css1", CSSMinerCss1.class);
-                router.attach("/css/css2", CSSMinerCss2.class);
-                router.attach("/oganalyzer/website", OgAnalyzerWebsiteFakeResource.class);
-                router.attach("/oganalyzer/empty", OgAnalyzerEmptyFakeResource.class);
+                router.attach("/scraper", ScraperFakeResource.class);
+                router.attach("/scraper/jsouptagextractor", JsoupTagExtractorFakeResource.class);
+                router.attach("/scraper/jsoupmetaextractor", JsoupMetaExtractorFakeResource.class);
+                router.attach("/scraper/jsoupattributextractor", JsoupAttributExtractorFakeResource.class);
+                router.attach("/scraper/jsouptitleextractor", JsoupTitleExtractorFakeResource.class);
+                router.attach("/scraper/httptopicanalyzer1", HttpTopicAnalyzer1FakeResource.class);
             }
 
             private void attachBingResources(final Router router) {
                 router.attach("/bing", BingFakeResource.class);
-                //router.attach("/images/simplevalueillustration.jpg", BingImageFakeResource.class);
             }
         };
     }
