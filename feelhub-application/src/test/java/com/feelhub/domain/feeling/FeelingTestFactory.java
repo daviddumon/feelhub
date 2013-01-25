@@ -43,10 +43,18 @@ public class FeelingTestFactory {
     }
 
     public Feeling newFeeling(final UUID topicId, final String text) {
+        final RealTopic realTopic = new RealTopic(topicId, RealTopicType.Automobile);
+        return newFeeling(realTopic, text);
+    }
+
+    public Feeling newFeeling(final RealTopic topic, final String text) {
+        return newFeeling(topic, text, SentimentValue.bad);
+    }
+
+    public Feeling newFeeling(RealTopic topic, String text, SentimentValue sentimentValue) {
         final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforfeeling@mail.com");
         final Feeling feeling = new Feeling(UUID.randomUUID(), text, activeUser.getId());
-        final RealTopic realTopic = new RealTopic(topicId, RealTopicType.Automobile);
-        final Sentiment sentiment = TestFactories.sentiments().newSentiment(realTopic, SentimentValue.bad);
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, sentimentValue);
         feeling.addSentiment(sentiment);
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
         Repositories.feelings().add(feeling);

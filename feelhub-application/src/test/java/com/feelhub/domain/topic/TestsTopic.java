@@ -2,11 +2,14 @@ package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.Feeling;
+import com.feelhub.domain.feeling.Sentiment;
+import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
@@ -259,7 +262,7 @@ public class TestsTopic {
 
     @Test
     public void hasADefaultSentimentScore() {
-        final Topic topic = TestFactories.topics().newSimpleFtpTopic();
+        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
 
         assertThat(topic.getSentimentScore()).isEqualTo(0);
     }
@@ -267,10 +270,24 @@ public class TestsTopic {
     @Test
     public void hasASentimentScore() {
         systemTime.set(new DateTime(10));
-        final Topic topic = TestFactories.topics().newSimpleFtpTopic();
+        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
 
         systemTime.set(new DateTime(11));
-        TestFactories.feelings().newFeelings(topic.getCurrentId(), 1);
+        TestFactories.feelings().newFeeling(topic, "aaa", SentimentValue.bad);
+
+        assertThat(topic.getSentimentScore()).isEqualTo(-100);
+    }
+
+    @Test
+    public void hasASentimentScoreWithSentimentsFromTopicOnly() {
+        systemTime.set(new DateTime(10));
+        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
+        systemTime.set(new DateTime(11));
+        Feeling feeling = TestFactories.feelings().newFeeling(topic, "aaa", SentimentValue.bad);
+
+        final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
+        sentiment.setTopicId(UUID.randomUUID());
+        feeling.addSentiment(sentiment);
 
         assertThat(topic.getSentimentScore()).isEqualTo(-100);
     }
