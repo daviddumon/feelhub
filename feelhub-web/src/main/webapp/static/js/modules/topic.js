@@ -39,7 +39,9 @@ define(["jquery", "modules/flow", "view/flow/feeling-view"],
         }
 
         function setSelectedLanguage() {
-            $("#feeling_form select option[value=" + languageCode + "]").attr('selected', 'selected');
+            console.log("select language:" + languageCode);
+            //$("#feeling_form select option[value=" + languageCode + "]").attr('selected', 'selected');
+            $("#feeling_form select option[value=" + languageCode + "]").prop('selected', true);
         }
 
         function success() {

@@ -42,7 +42,6 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
                 //attention hack degueu a enlever au plus vite
                 //faut separer les traitements suivant si on a un topic dans le context ou pas
                 if(typeof topicData.id != 'undefined') {
-                    console.log(topicData.id);
                     datas[i].original_index = i + 1;
                 } else {
                     datas[i].original_index = i;
