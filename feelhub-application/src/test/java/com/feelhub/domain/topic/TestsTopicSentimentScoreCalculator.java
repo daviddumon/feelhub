@@ -67,7 +67,7 @@ public class TestsTopicSentimentScoreCalculator {
 
         int score = calculator.sentimentScore(sentiments);
 
-        assertThat(score).isEqualTo(32);
+        assertThat(score).isIn(Lists.newArrayList(31, 32));
     }
 
     private Sentiment newSentiment(SentimentValue sentimentValue, long time) {
