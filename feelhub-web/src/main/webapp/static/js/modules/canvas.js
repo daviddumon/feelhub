@@ -1,10 +1,13 @@
-define([],
+define(["jquery"],
 
-    function () {
+    function ($) {
 
         var container;
         var fill_color = "#FFFFFF";
         var base_line, left, right, width;
+        var good_color = "#66CC33";
+        var neutral_color = "#0033FF";
+        var bad_color = "#FF3333";
 
         function draw(container_name, score, size) {
             width = size;
@@ -15,23 +18,21 @@ define([],
             var canvas = document.getElementById(container);
             var context = canvas.getContext('2d');
             context.lineCap = 'round';
-            draw_background(score);
+            draw_background(context,score);
             draw_eyes(context);
             draw_mouth(context, score);
         }
 
-        function draw_background(score) {
+        function draw_background(context, score) {
             //score ranges between -100 and 100
-            var background;
             if(score > 20) {
-                background = "good";
+                context.fillStyle = good_color;
             } else if (score < -20) {
-                background = "bad";
+                context.fillStyle = bad_color;
             } else {
-                background = "neutral";
+                context.fillStyle = neutral_color;
             }
-            $("#" + container).addClass(background);
-            $("#" + container + " img").addClass(background);
+            context.fillRect(0, 0, 120, 120);
         }
 
         function draw_eyes(context) {
