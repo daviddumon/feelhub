@@ -19,14 +19,14 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
             } else {
                 var element = feeling(prepare_data(data));
                 $(container).append(element);
-                last_feeling = data.id;
+                last_feeling = data.feelingid;
             }
         }
 
         function render_editable(data, container) {
             var element = editable(prepare_data(data));
             $(container).append(element);
-            last_feeling = data.id;
+            last_feeling = data.feelingid;
         }
 
         function prepare_data(feeling) {
@@ -78,8 +78,8 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
             data.root = root;
             var element = counter(data);
             $(container).append(element);
-            last_counter = data.id;
-            last_feeling = data.id;
+            last_counter = data.feelingid;
+            last_feeling = data.feelingid;
         }
 
         function reset() {
