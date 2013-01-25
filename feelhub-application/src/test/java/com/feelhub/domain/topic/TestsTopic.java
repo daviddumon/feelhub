@@ -2,14 +2,11 @@ package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.feeling.Sentiment;
-import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
-import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;

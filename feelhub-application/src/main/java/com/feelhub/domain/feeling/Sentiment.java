@@ -3,7 +3,6 @@ package com.feelhub.domain.feeling;
 import com.google.common.base.Objects;
 import org.joda.time.DateTime;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 public class Sentiment {

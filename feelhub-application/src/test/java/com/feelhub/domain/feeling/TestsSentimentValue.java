@@ -2,7 +2,7 @@ package com.feelhub.domain.feeling;
 
 import org.junit.Test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsSentimentValue {
 

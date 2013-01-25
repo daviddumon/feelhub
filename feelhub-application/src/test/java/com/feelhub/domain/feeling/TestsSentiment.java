@@ -2,12 +2,10 @@ package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.SystemTime;
-import com.feelhub.test.TestFactories;
-import org.joda.time.DateTime;
+import com.feelhub.test.*;
 import org.junit.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsSentiment {
 
