@@ -21,7 +21,7 @@ define(['jquery'], function ($) {
         });
 
         $("input").focusout(function () {
-            if ($(this).attr("value") == "") {
+            if ($(this).val() == "") {
                 $(this).parent().find(".help_text").show();
             }
             $(this).parent().find(".help_text").css("color", "#999999");
