@@ -1,14 +1,13 @@
 define(["jquery", "plugins/hgn!templates/dashboard/dashboard_medias", "modules/carousel"],
     function ($, template, carousel) {
 
-        var dashboard_container = "#dashboard";
+        var container = "#dashboard-main";
 
         function render(data) {
-            if (data.length > 0) {
-                var element = template({"root": root, "medias": data});
-                $(dashboard_container).append(element);
-                carousel.compute();
-            }
+            var main = data.shift();
+            var element = template({"root": root, "medias": data,"illustration":main.illustration});
+            $(container).append(element);
+            carousel.compute();
         }
 
         return  {

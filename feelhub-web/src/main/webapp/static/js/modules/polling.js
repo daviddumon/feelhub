@@ -1,8 +1,10 @@
 define(["jquery", "view/dashboard/dashboard-sentiment", "view/dashboard/dashboard-medias", "view/dashboard/dashboard-related"], function ($, sentiment_view, medias_view, related_view) {
 
     function RequestRelations() {
-        $.getJSON(root + "/api/topic/" + topicData.id + "/related?limit=6", function (data) {
-            related_view.render(data);
+        $.getJSON(root + "/api/topic/" + topicData.id + "/related?limit=12", function (data) {
+            if(data.length  > 0) {
+                related_view.render(data);
+            }
         });
     }
 
@@ -13,8 +15,10 @@ define(["jquery", "view/dashboard/dashboard-sentiment", "view/dashboard/dashboar
     }
 
     function RequestMedias() {
-        $.getJSON(root + "/api/topic/" + topicData.id + "/medias?limit=6", function (data) {
-            medias_view.render(data);
+        $.getJSON(root + "/api/topic/" + topicData.id + "/medias?limit=4", function (data) {
+            if(data.length  > 0) {
+                medias_view.render(data);
+            }
         });
     }
 
