@@ -129,7 +129,9 @@ public abstract class Topic extends BaseEntity {
         List<Feeling> feelings = Repositories.feelings().forTopicId(currentId);
         for (Feeling feeling : feelings) {
             for (Sentiment sentiment : feeling.getSentiments()) {
-                sentiments.add(sentiment);
+                if (sentiment.getTopicId().equals(currentId)) {
+                    sentiments.add(sentiment);
+                }
             }
         }
         return sentiments;
