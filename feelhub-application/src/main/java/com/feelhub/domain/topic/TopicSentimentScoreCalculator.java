@@ -10,16 +10,30 @@ import java.util.*;
 
 public final class TopicSentimentScoreCalculator {
 
-    int sentimentScore(List<Sentiment> sentiments, DateTime topicCreationDate) {
+    int sentimentScore(List<Sentiment> sentiments) {
         if (sentiments.isEmpty()) {
             return 0;
+        } else if (sentiments.size() == 1) {
+            return (int) sentimentScore(1d, sentiments.get(0).getSentimentValue());
         }
-        Sentiment lastSentiment = findLastSentiment(sentiments);
-        long offsetBetweenLastSentimentAndTopicCreation = Math.max(lastSentiment.getCreationDate().getMillis() - topicCreationDate.getMillis(), 1);
-        return sentimentScore(scoresBySentimentValue(sentiments, topicCreationDate, offsetBetweenLastSentimentAndTopicCreation));
+        return sentimentScore(scoresBySentimentValue(sentiments, firstSentiment(sentiments).getCreationDate(), offsetBetweenSentiments(sentiments)));
     }
 
-    private Sentiment findLastSentiment(List<Sentiment> sentiments) {
+    private Sentiment firstSentiment(List<Sentiment> sentiments) {
+        Ordering<Sentiment> ordering = new Ordering<Sentiment>() {
+            @Override
+            public int compare(Sentiment left, Sentiment right) {
+                return left.getCreationDate().compareTo(right.getCreationDate());
+            }
+        };
+        return ordering.min(sentiments);
+    }
+
+    private long offsetBetweenSentiments(List<Sentiment> sentiments) {
+        return lastSentiment(sentiments).getCreationDate().getMillis() - firstSentiment(sentiments).getCreationDate().getMillis();
+    }
+
+    private Sentiment lastSentiment(List<Sentiment> sentiments) {
         Ordering<Sentiment> ordering = new Ordering<Sentiment>() {
             @Override
             public int compare(Sentiment left, Sentiment right) {
@@ -29,10 +43,10 @@ public final class TopicSentimentScoreCalculator {
         return ordering.max(sentiments);
     }
 
-    private Map<SentimentValue, Double> scoresBySentimentValue(List<Sentiment> sentiments, DateTime topicCreationDate, double millisecondsUntilLastSentiment) {
+    private Map<SentimentValue, Double> scoresBySentimentValue(List<Sentiment> sentiments, DateTime firstSentiment, double offset) {
         Map<SentimentValue, Double> result = Maps.newHashMap();
         for (Map.Entry<SentimentValue, List<Sentiment>> entry : sentimentsBySentimentValue(sentiments).entrySet()) {
-            result.put(entry.getKey(), scoreForSentiments(topicCreationDate, millisecondsUntilLastSentiment, entry.getValue()));
+            result.put(entry.getKey(), scoreForSentiments(firstSentiment, offset, entry.getValue()));
         }
         return result;
     }
@@ -50,10 +64,10 @@ public final class TopicSentimentScoreCalculator {
         return result;
     }
 
-    private double scoreForSentiments(DateTime topicCreationDate, double millisecondsUntilLastSentiment, List<Sentiment> value) {
+    private double scoreForSentiments(DateTime firstSentiment, double offset, List<Sentiment> sentiments) {
         double score = 0;
-        for (Sentiment sentiment : value) {
-            score += (sentiment.getCreationDate().getMillis() - topicCreationDate.getMillis()) / millisecondsUntilLastSentiment;
+        for (Sentiment sentiment : sentiments) {
+            score += (sentiment.getCreationDate().getMillis() - firstSentiment.getMillis()) / offset;
         }
         return score;
     }
@@ -62,9 +76,14 @@ public final class TopicSentimentScoreCalculator {
         double totalScore = totalScore(scoreBySentimentValue);
         int finalResult = 0;
         for (Map.Entry<SentimentValue, Double> entry : scoreBySentimentValue.entrySet()) {
-            finalResult += ((entry.getValue() / totalScore) * 100) * entry.getKey().numericValue();
+            SentimentValue key = entry.getKey();
+            finalResult += sentimentScore(entry.getValue() / totalScore, key);
         }
         return finalResult;
+    }
+
+    private double sentimentScore(double ponderatedScore, SentimentValue sentimentValue) {
+        return (ponderatedScore * 100) * sentimentValue.numericValue();
     }
 
     private double totalScore(Map<SentimentValue, Double> result) {

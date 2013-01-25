@@ -25,7 +25,7 @@ public class TestsTopicSentimentScoreCalculator {
     public void scoreIsZeroWhenNoSentiment() {
         TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
 
-        int score = calculator.sentimentScore(Lists.<Sentiment>newArrayList(), null);
+        int score = calculator.sentimentScore(Lists.<Sentiment>newArrayList());
 
         assertThat(score).isEqualTo(0);
     }
@@ -35,7 +35,7 @@ public class TestsTopicSentimentScoreCalculator {
         TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
         List<Sentiment> sentiments = Lists.newArrayList(newSentiment(SentimentValue.bad, 11), newSentiment(SentimentValue.bad, 12));
 
-        int score = calculator.sentimentScore(sentiments, new DateTime(10));
+        int score = calculator.sentimentScore(sentiments);
 
         assertThat(score).isEqualTo(-100);
     }
@@ -45,7 +45,7 @@ public class TestsTopicSentimentScoreCalculator {
         TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
         List<Sentiment> sentiments = Lists.newArrayList(newSentiment(SentimentValue.good, 11), newSentiment(SentimentValue.good, 12));
 
-        int score = calculator.sentimentScore(sentiments, new DateTime(10));
+        int score = calculator.sentimentScore(sentiments);
 
         assertThat(score).isEqualTo(100);
     }
@@ -65,9 +65,9 @@ public class TestsTopicSentimentScoreCalculator {
         sentiments.add(newSentiment(SentimentValue.bad, 19));
         sentiments.add(newSentiment(SentimentValue.good, 20));
 
-        int score = calculator.sentimentScore(sentiments, new DateTime(10));
+        int score = calculator.sentimentScore(sentiments);
 
-        assertThat(score).isIn(Lists.newArrayList(25, 26));
+        assertThat(score).isEqualTo(32);
     }
 
     private Sentiment newSentiment(SentimentValue sentimentValue, long time) {
