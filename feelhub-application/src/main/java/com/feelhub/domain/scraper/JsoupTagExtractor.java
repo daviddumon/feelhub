@@ -2,7 +2,7 @@ package com.feelhub.domain.scraper;
 
 import org.jsoup.nodes.*;
 
-class JsoupTagExtractor {
+public class JsoupTagExtractor {
 
     String parse(final Document document, final String tag) {
         final Element element = document.select(tag).first();

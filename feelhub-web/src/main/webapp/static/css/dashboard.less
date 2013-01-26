@@ -25,7 +25,19 @@ body {
     text-align: center;
     margin-top: 20px;
     overflow: hidden;
-    height: 302px;
+
+    div#topic-name {
+      color: @blue-3;
+      min-height: 30px;
+      .font_title;
+      font-size: @font-big;
+      padding-top: 5px;
+      font-weight: bold;
+      background-color: @white;
+      .rounded_up();
+      margin: 0px auto 0px auto;
+      width: 300px;
+    }
 
     .nav {
       display: inline-block;
@@ -45,9 +57,9 @@ body {
       height: 0;
       border-top: 45px solid transparent;
       border-bottom: 45px solid transparent;
-      border-right: 30px solid @blue-1; //background: url('../images/direction_nav.png') no-repeat 0px -30px;
+      border-right: 30px solid @blue-1;
 
-      &:hover { //  background: url('../images/direction_nav.png') no-repeat 0px 0px;
+      &:hover {
         width: 0;
         height: 0;
         border-top: 45px solid transparent;
@@ -61,9 +73,9 @@ body {
       height: 0;
       border-top: 45px solid transparent;
       border-bottom: 45px solid transparent;
-      border-left: 30px solid @blue-1; //background: @blue-4 url('../images/direction_nav.png') no-repeat -30px -30px;
+      border-left: 30px solid @blue-1;
 
-      &:hover { //  background: @blue-4 url('../images/direction_nav.png') no-repeat -30px 0px;
+      &:hover {
         width: 0;
         height: 0;
         border-top: 45px solid transparent;
@@ -78,9 +90,8 @@ body {
       margin: 0px auto;
       overflow: hidden;
       display: inline-block;
-      border: 1px dashed @white;
       background-color: @white;
-      .rounded();
+      .rounded_down();
 
       #dashboard {
         vertical-align: top;
@@ -103,12 +114,6 @@ body {
             margin-top: 10px;
             margin-bottom: 10px;
             text-align: center;
-          }
-
-          span.name {
-            .font_title;
-            font-size: @font-big;
-            font-weight: bold;
           }
 
           span.type {

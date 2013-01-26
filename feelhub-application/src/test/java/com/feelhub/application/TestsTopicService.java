@@ -1,6 +1,7 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.scraper.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
@@ -40,6 +41,7 @@ public class TestsTopicService {
             @Override
             protected void configure() {
                 bind(UriResolver.class).toInstance(fakeUriResolver);
+                bind(Scraper.class).toInstance(new FakeScraper());
             }
         });
         topicService = injector.getInstance(TopicService.class);
@@ -60,7 +62,7 @@ public class TestsTopicService {
     @Test
     public void canCreateAHttpTopic() {
         final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final HttpTopic httpTopic = topicService.createHttpTopic("value", user);
+        final HttpTopic httpTopic = topicService.createHttpTopic("value", user.getId());
 
         assertThat(httpTopic).isNotNull();
         assertThat(Repositories.topics().getAll().size()).isEqualTo(1);
@@ -106,7 +108,7 @@ public class TestsTopicService {
     @Test
     public void canGetAllHttpTopics() {
         final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        topicService.createHttpTopic("value", user);
+        topicService.createHttpTopic("value", user.getId());
 
         final List<Topic> topics = topicService.getTopics("value", FeelhubLanguage.fromCode("fr"));
 
@@ -200,7 +202,7 @@ public class TestsTopicService {
 
     @Test
     public void createTagsForHttpTopic() {
-        topicService.createHttpTopic("http://www.url.com", TestFactories.users().createFakeActiveUser("mail@mail.com"));
+        topicService.createHttpTopic("http://www.url.com", TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
 
         final List<Tag> tags = Repositories.tags().getAll();
         assertThat(tags.size()).isEqualTo(8);
@@ -224,6 +226,20 @@ public class TestsTopicService {
     @Test
     public void persistTopicBeforeTagIndexing() {
         topicService.createHttpTopicWithRestrictedMediaType(canonicalUri, null);
+    }
+
+    @Test
+    public void scrapHttpTopicIfWebsite() {
+        final HttpTopic httpTopic = topicService.createHttpTopic("http://www.url.com", TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+
+        assertThat(httpTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("Name");
+    }
+
+    @Test
+    public void scrapOnlyHttpTopicWithGoodMediaFilter() {
+        final HttpTopic goodTopic = topicService.createHttpTopicWithRestrictedMediaType("http://www.url.com", MediaType.TEXT_HTML);
+
+        assertThat(goodTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("Name");
     }
 
     private FakeTopic createTagForFakeUniqueTopic(final String value) {

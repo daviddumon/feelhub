@@ -1,6 +1,7 @@
 package com.feelhub.domain.scraper;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.http.HttpTopicType;
 import com.feelhub.test.FakeInternet;
 import com.google.inject.*;
 import org.junit.*;
@@ -51,8 +52,8 @@ public class TestsScraper {
 
         final ScrapedInformation scrapedInformation = scraper.scrap(uri);
 
-        assertThat(scrapedInformation.getDescription()).isEqualTo("description meta");
-        assertThat(scrapedInformation.descriptions.size()).isEqualTo(4);
+        assertThat(scrapedInformation.getDescription()).isEqualTo("description og");
+        assertThat(scrapedInformation.descriptions.size()).isEqualTo(5);
     }
 
     @Test
@@ -74,6 +75,42 @@ public class TestsScraper {
 
         assertThat(scrapedInformation.getName()).isEqualTo("name og");
         assertThat(scrapedInformation.names.size()).isEqualTo(5);
+    }
+
+    @Test
+    public void canScrapImages() {
+        final String uri = internet.uri("scraper");
+
+        final ScrapedInformation scrapedInformation = scraper.scrap(uri);
+
+        assertThat(scrapedInformation.getImages().size()).isEqualTo(5);
+    }
+
+    @Test
+    public void canScrapVideos() {
+        final String uri = internet.uri("scraper");
+
+        final ScrapedInformation scrapedInformation = scraper.scrap(uri);
+
+        assertThat(scrapedInformation.getVideos().size()).isEqualTo(1);
+    }
+
+    @Test
+    public void canScrapAudio() {
+        final String uri = internet.uri("scraper");
+
+        final ScrapedInformation scrapedInformation = scraper.scrap(uri);
+
+        assertThat(scrapedInformation.getAudios().size()).isEqualTo(1);
+    }
+
+    @Test
+    public void canScrapType() {
+        final String uri = internet.uri("scraper");
+
+        final ScrapedInformation scrapedInformation = scraper.scrap(uri);
+
+        assertThat(scrapedInformation.getType()).isEqualTo(HttpTopicType.Article);
     }
 
     private Scraper scraper;

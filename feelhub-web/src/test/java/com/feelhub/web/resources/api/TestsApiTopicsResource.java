@@ -19,7 +19,7 @@ import org.junit.*;
 import org.restlet.*;
 import org.restlet.data.*;
 
-import java.util.List;
+import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -60,7 +60,7 @@ public class TestsApiTopicsResource {
     @Test
     public void canCreateHttpTopicWithCorrectUser() {
         final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
-        when(topicService.createHttpTopic(anyString(), any(User.class))).thenReturn(httpTopic);
+        when(topicService.createHttpTopic(anyString(), any(UUID.class))).thenReturn(httpTopic);
 
         apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
 
@@ -128,7 +128,7 @@ public class TestsApiTopicsResource {
     @Test
     public void setLocationRefToNewHttpTopic() {
         final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
-        when(topicService.createHttpTopic(anyString(), any(User.class))).thenReturn(httpTopic);
+        when(topicService.createHttpTopic(anyString(), any(UUID.class))).thenReturn(httpTopic);
 
         apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
 
@@ -202,11 +202,11 @@ public class TestsApiTopicsResource {
     @Test
     public void canCreateHttpTopic() {
         final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
-        when(topicService.createHttpTopic(anyString(), any(User.class))).thenReturn(httpTopic);
+        when(topicService.createHttpTopic(anyString(), any(UUID.class))).thenReturn(httpTopic);
 
         apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
 
-        verify(topicService).createHttpTopic(getGoodFormWithHttpTopic().getFirstValue("name"), CurrentUser.get().getUser());
+        verify(topicService).createHttpTopic(getGoodFormWithHttpTopic().getFirstValue("name"), CurrentUser.get().getUser().getId());
     }
 
     private Form getGoodFormWithRealTopic() {

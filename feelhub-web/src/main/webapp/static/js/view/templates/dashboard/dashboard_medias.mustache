@@ -1,8 +1,10 @@
-<div class="holder">
-    <div class="illustration_main_media"><img src="{{illustration}}" onLoad='OnImageLoad(event);'/></div>
-    <div class="other_medias">
-    {{#medias}}
-    <div class="illustration_media"><img src="{{illustration}}" onLoad='OnImageLoad(event);'/></div>
-    {{/medias}}
+<li id="dashboard-medias">
+    <div class="holder">
+        <div class="illustration_main_media"><img src="{{illustration}}" onLoad='OnImageLoad(event);'/></div>
+        <div class="other_medias">
+        {{#medias}}
+        <div class="illustration_media"><img src="{{illustration}}" onLoad='OnImageLoad(event);'/></div>
+        {{/medias}}
+        </div>
     </div>
-</div>
+</li>

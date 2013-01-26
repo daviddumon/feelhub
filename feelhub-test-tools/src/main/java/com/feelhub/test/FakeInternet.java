@@ -99,7 +99,6 @@ public class FakeInternet extends ExternalResource {
                 router.attach("/scraper/jsoupmetaextractor", JsoupMetaExtractorFakeResource.class);
                 router.attach("/scraper/jsoupattributextractor", JsoupAttributExtractorFakeResource.class);
                 router.attach("/scraper/jsouptitleextractor", JsoupTitleExtractorFakeResource.class);
-                router.attach("/scraper/httptopicanalyzer1", HttpTopicAnalyzer1FakeResource.class);
             }
 
             private void attachBingResources(final Router router) {

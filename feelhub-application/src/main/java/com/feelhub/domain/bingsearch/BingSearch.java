@@ -2,7 +2,7 @@ package com.feelhub.domain.bingsearch;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.relation.BingRelationBinder;
+import com.feelhub.domain.relation.MediaRelationBinder;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.HttpTopic;
@@ -17,10 +17,10 @@ import java.util.List;
 public class BingSearch {
 
     @Inject
-    public BingSearch(final BingLink bingLink, final TopicService topicService, final BingRelationBinder bingRelationBinder) {
+    public BingSearch(final BingLink bingLink, final TopicService topicService, final MediaRelationBinder mediaRelationBinder) {
         this.bingLink = bingLink;
         this.topicService = topicService;
-        this.bingRelationBinder = bingRelationBinder;
+        this.mediaRelationBinder = mediaRelationBinder;
         DomainEventBus.INSTANCE.register(this);
     }
 
@@ -37,7 +37,7 @@ public class BingSearch {
         final List<HttpTopic> images = getImages(bingRequest.getTopic(), query);
         final Topic topic = topicService.lookUpCurrent(bingRequest.getTopicId());
         setIllustrationForTopic(topic, images);
-        bingRelationBinder.bind(topic, images);
+        mediaRelationBinder.bind(topic, images);
     }
 
     private List<HttpTopic> getImages(final Topic topic, final String query) {
@@ -69,5 +69,5 @@ public class BingSearch {
 
     private final BingLink bingLink;
     private final TopicService topicService;
-    private final BingRelationBinder bingRelationBinder;
+    private final MediaRelationBinder mediaRelationBinder;
 }

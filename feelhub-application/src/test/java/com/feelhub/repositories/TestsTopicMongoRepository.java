@@ -87,6 +87,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("illustration")).isEqualTo(httpTopic.getIllustration());
         assertThat(topicFound.get("__discriminator")).isEqualTo("HttpTopic");
         assertThat(topicFound.get("mediaTypeValue").toString()).isEqualTo("text/html");
+        assertThat(topicFound.get("openGraphType").toString()).isEqualTo("article");
     }
 
     @Test

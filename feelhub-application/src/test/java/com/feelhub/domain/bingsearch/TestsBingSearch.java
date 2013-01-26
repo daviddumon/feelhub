@@ -1,7 +1,7 @@
 package com.feelhub.domain.bingsearch;
 
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.relation.BingRelationBinder;
+import com.feelhub.domain.relation.MediaRelationBinder;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicType;
@@ -30,7 +30,7 @@ public class TestsBingSearch {
 
     @Before
     public void before() {
-        relationBinder = mock(BingRelationBinder.class);
+        relationBinder = mock(MediaRelationBinder.class);
         final FakeUriResolver fakeUriResolver = new FakeUriResolver();
         fakeUriResolver.thatFind(MediaType.IMAGE_JPEG);
         final Injector injector = Guice.createInjector(new AbstractModule() {
@@ -38,7 +38,7 @@ public class TestsBingSearch {
             protected void configure() {
                 bind(BingLink.class).to(FakeBingLink.class);
                 bind(SessionProvider.class).to(FakeSessionProvider.class);
-                bind(BingRelationBinder.class).toInstance(relationBinder);
+                bind(MediaRelationBinder.class).toInstance(relationBinder);
                 bind(UriResolver.class).toInstance(fakeUriResolver);
             }
         });
@@ -92,5 +92,5 @@ public class TestsBingSearch {
     }
 
     private BingSearch bingSearch;
-    private BingRelationBinder relationBinder;
+    private MediaRelationBinder relationBinder;
 }

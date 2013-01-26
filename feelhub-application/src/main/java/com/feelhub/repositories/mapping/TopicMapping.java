@@ -41,6 +41,7 @@ public class TopicMapping extends AggregateMap<Topic> {
             protected void map() {
                 property(element().getTypeValue());
                 property(element().getMediaTypeValue());
+                property(element().getOpenGraphType());
             }
         });
 

@@ -4,6 +4,7 @@
 
 <@flow.dashboard>
 <div id="carousel-wrapper">
+    <div id="topic-name"></div>
     <a href="javascript:void(0);" id="carousel-prev" class="nav"></a>
 
     <div id="carousel">

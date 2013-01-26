@@ -86,6 +86,15 @@ public class HttpTopic extends Topic {
         return mediaTypeValue;
     }
 
+    public String getOpenGraphType() {
+        return openGraphType;
+    }
+
+    public void setOpenGraphType(final String openGraphType) {
+        this.openGraphType = openGraphType;
+    }
+
     private String typeValue;
     private String mediaTypeValue;
+    private String openGraphType;
 }

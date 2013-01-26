@@ -89,7 +89,7 @@ public class ApiTopicsResource extends ServerResource {
     }
 
     private void createHttpTopic(final String name) {
-        final HttpTopic httpTopic = topicService.createHttpTopic(name, CurrentUser.get().getUser());
+        final HttpTopic httpTopic = topicService.createHttpTopic(name, CurrentUser.get().getUser().getId());
         setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + httpTopic.getId()));
         setStatus(Status.SUCCESS_CREATED);
     }

@@ -1,9 +1,10 @@
 package com.feelhub.application;
 
+import com.feelhub.domain.scraper.HttpTopicAnalyzer;
 import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
-import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.domain.user.User;
@@ -17,10 +18,11 @@ import java.util.*;
 public class TopicService {
 
     @Inject
-    public TopicService(final TopicFactory topicFactory, final TagService tagService, final UriResolver uriResolver) {
+    public TopicService(final TopicFactory topicFactory, final TagService tagService, final UriResolver uriResolver, final HttpTopicAnalyzer httpTopicAnalyzer) {
         this.topicFactory = topicFactory;
         this.tagService = tagService;
         this.uriResolver = uriResolver;
+        this.httpTopicAnalyzer = httpTopicAnalyzer;
     }
 
     public Topic lookUp(final UUID id) {
@@ -89,17 +91,13 @@ public class TopicService {
         return realTopic;
     }
 
-    public HttpTopic createHttpTopic(final String value, final User user) {
-        final ResolverResult resolverResult = uriResolver.resolve(new Uri(value));
-        final HttpTopic httpTopic = createHttpTopic(resolverResult);
-        httpTopic.setUserId(user.getId());
-        return httpTopic;
-    }
-
     public HttpTopic createHttpTopic(final String value, final UUID userId) {
         final ResolverResult resolverResult = uriResolver.resolve(new Uri(value));
-        final HttpTopic httpTopic = createHttpTopic(resolverResult);
+        final HttpTopic httpTopic = topicFactory.createHttpTopic(resolverResult);
         httpTopic.setUserId(userId);
+        scrapHttpTopic(httpTopic);
+        Repositories.topics().add(httpTopic);
+        createTagsForHttpTopic(resolverResult, httpTopic);
         return httpTopic;
     }
 
@@ -108,14 +106,17 @@ public class TopicService {
         if (restrictedType != null) {
             checkMediaType(resolverResult, restrictedType);
         }
-        return createHttpTopic(resolverResult);
-    }
-
-    private HttpTopic createHttpTopic(final ResolverResult resolverResult) {
         final HttpTopic httpTopic = topicFactory.createHttpTopic(resolverResult);
+        scrapHttpTopic(httpTopic);
         Repositories.topics().add(httpTopic);
         createTagsForHttpTopic(resolverResult, httpTopic);
         return httpTopic;
+    }
+
+    private void scrapHttpTopic(final HttpTopic httpTopic) {
+        if (httpTopic.getType().equals(HttpTopicType.Website)) {
+            httpTopicAnalyzer.analyze(httpTopic);
+        }
     }
 
     private void checkMediaType(final ResolverResult resolverResult, final MediaType restrictedType) {
@@ -177,4 +178,5 @@ public class TopicService {
     private final TopicFactory topicFactory;
     private final TagService tagService;
     private UriResolver uriResolver;
+    private HttpTopicAnalyzer httpTopicAnalyzer;
 }

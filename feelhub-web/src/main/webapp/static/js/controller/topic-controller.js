@@ -11,12 +11,12 @@ require.config({
     }
 });
 
-require(["jquery", "modules/interface", "modules/topic", "view/dashboard/dashboard-common", "modules/polling", "modules/carousel"],
-    function ($, interface, topic, dashboard_common, polling, carousel) {
+require(["jquery", "modules/interface", "modules/topic", "view/dashboard/dashboard-info", "modules/polling", "modules/carousel"],
+    function ($, interface, topic, dashboard_info, polling, carousel) {
         carousel.init();
         interface.init();
         topic.init();
-        dashboard_common.render(topicData);
+        dashboard_info.render(topicData);
         polling.RequestCounters();
         polling.RequestMedias();
         polling.RequestRelations();

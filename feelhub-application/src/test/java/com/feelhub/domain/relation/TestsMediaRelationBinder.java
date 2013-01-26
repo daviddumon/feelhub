@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 
-public class TestsBingRelationBinder {
+public class TestsMediaRelationBinder {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -25,11 +25,11 @@ public class TestsBingRelationBinder {
             protected void configure() {
             }
         });
-        bingRelationBinder = injector.getInstance(BingRelationBinder.class);
+        mediaRelationBinder = injector.getInstance(MediaRelationBinder.class);
     }
 
     @Test
-    public void canBindImagesToTopic() {
+    public void canBindMediasToTopic() {
         final RealTopic laguna = TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile);
         final List<HttpTopic> images = Lists.newArrayList();
         final HttpTopic image1 = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Image);
@@ -37,12 +37,12 @@ public class TestsBingRelationBinder {
         images.add(image1);
         images.add(image2);
 
-        bingRelationBinder.bind(laguna, images);
+        mediaRelationBinder.bind(laguna, images);
 
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.size()).isEqualTo(6);
     }
 
-    private BingRelationBinder bingRelationBinder;
+    private MediaRelationBinder mediaRelationBinder;
 }
 

@@ -64,28 +64,17 @@ public class TestsScrapedInformation {
     }
 
     @Test
-    public void canAddIllustrationInformationWithScore() {
-        final String illustration = "my illustration";
+    public void canAddImage() {
+        final String image = "my image";
 
-        scrapedInformation.addIllustration(0, illustration);
+        scrapedInformation.addImage(image);
 
-        assertThat(scrapedInformation.getIllustration()).isEqualTo(illustration);
-    }
-
-    @Test
-    public void canGetTheBestIllustration() {
-        final String goodIllustration = "my illustration";
-
-        scrapedInformation.addIllustration(0, "bad illustration");
-        scrapedInformation.addIllustration(10, goodIllustration);
-        scrapedInformation.addIllustration(5, "another bad illustration");
-
-        assertThat(scrapedInformation.getIllustration()).isEqualTo(goodIllustration);
+        assertThat(scrapedInformation.getImages()).contains(image);
     }
 
     @Test
     public void canGetEmptyIllustration() {
-        assertThat(scrapedInformation.getIllustration()).isEmpty();
+        assertThat(scrapedInformation.getImages()).isEmpty();
     }
 
     @Test
@@ -130,6 +119,24 @@ public class TestsScrapedInformation {
     @Test
     public void defaultTypeIsWebsite() {
         assertThat(scrapedInformation.getType()).isEqualTo(HttpTopicType.Website);
+    }
+
+    @Test
+    public void canAddVideo() {
+        final String video = "my video link";
+
+        scrapedInformation.addVideo(video);
+
+        assertThat(scrapedInformation.getVideos()).contains(video);
+    }
+
+    @Test
+    public void canAddAudio() {
+        final String audio = "my audio link";
+
+        scrapedInformation.addAudio(audio);
+
+        assertThat(scrapedInformation.getAudios()).contains(audio);
     }
 
     private ScrapedInformation scrapedInformation;

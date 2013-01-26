@@ -50,6 +50,7 @@ define(['jquery'], function ($) {
         }
 
         $("#carousel").width(new_carousel_width);
+        $("#topic-name").width(new_carousel_width);
         $(".nav").css("display", new_nav_state);
 
         max_offset = new_carousel_width - current_dashboard_width;

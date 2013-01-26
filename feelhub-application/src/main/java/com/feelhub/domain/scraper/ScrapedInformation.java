@@ -6,7 +6,7 @@ import com.google.common.collect.*;
 
 import java.util.*;
 
-public class ScrapedInformation {
+class ScrapedInformation {
 
     public void addDescription(final int score, final String description) {
         descriptions.put(score, description);
@@ -30,15 +30,12 @@ public class ScrapedInformation {
         return names.lastEntry().getValue();
     }
 
-    public void addIllustration(final int score, final String illustration) {
-        illustrations.put(score, illustration);
+    public void addImage(final String illustration) {
+        images.add(illustration);
     }
 
-    public String getIllustration() {
-        if (illustrations.isEmpty()) {
-            return "";
-        }
-        return illustrations.lastEntry().getValue();
+    public List<String> getImages() {
+        return images;
     }
 
     public void addPerson(final String person) {
@@ -75,11 +72,29 @@ public class ScrapedInformation {
         return openGraphType;
     }
 
+    public void addVideo(final String video) {
+        videos.add(video);
+    }
+
+    public List<String> getVideos() {
+        return videos;
+    }
+
+    public void addAudio(final String audio) {
+        audios.add(audio);
+    }
+
+    public List<String> getAudios() {
+        return audios;
+    }
+
     protected TreeMap<Integer, String> descriptions = Maps.newTreeMap();
     protected TreeMap<Integer, String> names = Maps.newTreeMap();
-    protected TreeMap<Integer, String> illustrations = Maps.newTreeMap();
     protected TreeMap<Integer, FeelhubLanguage> languages = Maps.newTreeMap();
     private List<String> persons = Lists.newArrayList();
     protected HttpTopicType type = HttpTopicType.Website;
     private String openGraphType;
+    private List<String> images = Lists.newArrayList();
+    private List<String> videos = Lists.newArrayList();
+    private List<String> audios = Lists.newArrayList();
 }

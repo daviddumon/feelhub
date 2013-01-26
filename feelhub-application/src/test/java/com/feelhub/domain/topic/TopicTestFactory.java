@@ -44,6 +44,7 @@ public class TopicTestFactory {
         httpTopic.addDescription(FeelhubLanguage.reference(), "description-reference");
         httpTopic.addName(FeelhubLanguage.reference(), "name-reference");
         httpTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+        httpTopic.setOpenGraphType("article");
         Repositories.topics().add(httpTopic);
         return httpTopic;
     }

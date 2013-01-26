@@ -1,39 +1,42 @@
 package com.feelhub.domain.scraper;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.google.inject.Inject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-public class Scraper {
+import java.util.List;
 
-    @Inject
-    public Scraper(final JsoupTitleExtractor jsoupTitleExtractor, final JsoupTagExtractor jsoupTagExtractor, final JsoupAttributExtractor jsoupAttributExtractor) {
-        this.jsoupTitleExtractor = jsoupTitleExtractor;
-        this.jsoupTagExtractor = jsoupTagExtractor;
-        this.jsoupAttributExtractor = jsoupAttributExtractor;
-    }
+public class Scraper {
 
     public ScrapedInformation scrap(final String uri) {
         final ScrapedInformation scrapedInformation = new ScrapedInformation();
         final Document document = getDocument(uri);
+        scrapType(document, scrapedInformation);
         scrapLanguage(document, scrapedInformation);
         scrapDescription(document, scrapedInformation);
         scrapPersons(document, scrapedInformation);
         scrapName(document, scrapedInformation);
+        scrapImages(document, scrapedInformation);
+        scrapVideos(document, scrapedInformation);
+        scrapAudios(document, scrapedInformation);
         return scrapedInformation;
     }
 
+    private void scrapType(final Document document, final ScrapedInformation scrapedInformation) {
+        scrapedInformation.addType(jsoupAttributExtractor.parse(document, "meta[property=og:type]", "content"));
+    }
+
     private void scrapLanguage(final Document document, final ScrapedInformation scrapedInformation) {
-        scrapedInformation.addLanguage(10, FeelhubLanguage.fromCode(jsoupAttributExtractor.parse(document, "http-equiv[Content-Language]", "content")));
         scrapedInformation.addLanguage(20, FeelhubLanguage.fromCode(jsoupAttributExtractor.parse(document, "html", "lang")));
+        scrapedInformation.addLanguage(10, FeelhubLanguage.fromCode(jsoupAttributExtractor.parse(document, "http-equiv[Content-Language]", "content")));
     }
 
     private void scrapDescription(final Document document, final ScrapedInformation scrapedInformation) {
-        scrapedInformation.addDescription(100, jsoupAttributExtractor.parse(document, "meta[name=description]", "content"));
-        scrapedInformation.addDescription(90, jsoupAttributExtractor.parse(document, "meta[name=subject]", "content"));
-        scrapedInformation.addDescription(80, jsoupAttributExtractor.parse(document, "meta[name=topic]", "content"));
-        scrapedInformation.addDescription(70, jsoupAttributExtractor.parse(document, "meta[name=summary]", "content"));
+        scrapedInformation.addDescription(50, jsoupAttributExtractor.parse(document, "meta[property=og:description]", "content"));
+        scrapedInformation.addDescription(40, jsoupAttributExtractor.parse(document, "meta[name=description]", "content"));
+        scrapedInformation.addDescription(30, jsoupAttributExtractor.parse(document, "meta[name=subject]", "content"));
+        scrapedInformation.addDescription(20, jsoupAttributExtractor.parse(document, "meta[name=topic]", "content"));
+        scrapedInformation.addDescription(10, jsoupAttributExtractor.parse(document, "meta[name=summary]", "content"));
     }
 
     private void scrapPersons(final Document document, final ScrapedInformation scrapedInformation) {
@@ -52,11 +55,32 @@ public class Scraper {
     }
 
     private void scrapName(final Document document, final ScrapedInformation scrapedInformation) {
-        scrapedInformation.addName(100, jsoupAttributExtractor.parse(document, "meta[property=og:title]", "content"));
-        scrapedInformation.addName(90, jsoupTitleExtractor.parse(document));
-        scrapedInformation.addName(80, jsoupTagExtractor.parse(document, "h1"));
-        scrapedInformation.addName(70, jsoupTagExtractor.parse(document, "h2"));
-        scrapedInformation.addName(60, jsoupTagExtractor.parse(document, "h3"));
+        scrapedInformation.addName(50, jsoupAttributExtractor.parse(document, "meta[property=og:title]", "content"));
+        scrapedInformation.addName(40, jsoupTitleExtractor.parse(document));
+        scrapedInformation.addName(30, jsoupTagExtractor.parse(document, "h1"));
+        scrapedInformation.addName(20, jsoupTagExtractor.parse(document, "h2"));
+        scrapedInformation.addName(10, jsoupTagExtractor.parse(document, "h3"));
+    }
+
+    private void scrapImages(final Document document, final ScrapedInformation scrapedInformation) {
+        final List<String> images = jsoupGroupAttributExtractor.parse(document, "meta[property=og:image]", "content");
+        for (String image : images) {
+            scrapedInformation.addImage(image);
+        }
+    }
+
+    private void scrapVideos(final Document document, final ScrapedInformation scrapedInformation) {
+        final List<String> videos = jsoupGroupAttributExtractor.parse(document, "meta[property=og:video]", "content");
+        for (String video : videos) {
+            scrapedInformation.addVideo(video);
+        }
+    }
+
+    private void scrapAudios(final Document document, final ScrapedInformation scrapedInformation) {
+        final List<String> audios = jsoupGroupAttributExtractor.parse(document, "meta[property=og:video]", "content");
+        for (String audio : audios) {
+            scrapedInformation.addAudio(audio);
+        }
     }
 
     private Document getDocument(final String uri) {
@@ -70,7 +94,8 @@ public class Scraper {
 
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
     private final static int THREE_SECONDS = 3000;
-    private JsoupTitleExtractor jsoupTitleExtractor;
-    private JsoupTagExtractor jsoupTagExtractor;
-    private JsoupAttributExtractor jsoupAttributExtractor;
+    private JsoupTitleExtractor jsoupTitleExtractor = new JsoupTitleExtractor();
+    private JsoupTagExtractor jsoupTagExtractor = new JsoupTagExtractor();
+    private JsoupAttributExtractor jsoupAttributExtractor = new JsoupAttributExtractor();
+    private JsoupGroupAttributExtractor jsoupGroupAttributExtractor = new JsoupGroupAttributExtractor();
 }
