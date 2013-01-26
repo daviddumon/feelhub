@@ -4,7 +4,7 @@
     <p>{{{.}}}&nbsp;</p>
     {{/text}}
     <div class="feeling_related" style="height: {{height}}">
-        {{#topicDatas}}
+        {{#sentimentDatas}}
             {{#id}}
             <a href="{{root}}/topic/{{id}}" class="{{classes}} topic_stack" id="{{original_index}}">
                 <img src="{{root}}/static/images/smiley_{{sentimentValue}}_white_14.png" class="img_{{sentimentValue}} topic_sentiment_illustration" style="z-index: 1000;"/>
@@ -17,6 +17,6 @@
                 <span class="{{sentimentValue}}">{{name}}</span>
             </div>
             {{/id}}
-        {{/topicDatas}}
+        {{/sentimentDatas}}
     </div>
 </li>

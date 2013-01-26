@@ -32,8 +32,8 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
         function prepare_data(feeling) {
             feeling["realtypes"] = realtypes;
             feeling["root"] = root;
-            feeling["height"] = (feeling.topicDatas.length != 0 ? 40 : 0) + 162 * (Math.floor(feeling.topicDatas.length / 2) + feeling.topicDatas.length % 2) + 'px';
-            shuffleAndMakeFirstLarge(feeling.topicDatas);
+            feeling["height"] = (feeling.sentimentDatas.length != 0 ? 40 : 0) + 162 * (Math.floor(feeling.sentimentDatas.length / 2) + feeling.sentimentDatas.length % 2) + 'px';
+            shuffleAndMakeFirstLarge(feeling.sentimentDatas);
             return feeling;
         }
 

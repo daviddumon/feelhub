@@ -6,6 +6,7 @@ import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.dto.TopicData;
 import com.feelhub.web.dto.TopicDataFactory;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.common.collect.Lists;
@@ -25,16 +26,17 @@ public class TopicResource extends ServerResource {
 
     @Get
     public ModelAndView getTopic() {
-        extractUriValueFromUri();
-        final Topic topic = topicService.lookUp(id);
+        final Topic topic = topicService.lookUp(extractUriValueFromUri());
+        TopicData topicData = topicDataFactory.topicData(topic, CurrentUser.get().getLanguage());
+        ModelAndView topicData1 = ModelAndView.createNew("topic.ftl").with("topicData", topicData);
         if (checkCurrent(topic)) {
             final ArrayList<RealTopicType> realTopicTypes = Lists.newArrayList(RealTopicType.values());
-            return ModelAndView.createNew("topic.ftl").with("topicData", topicDataFactory.getTopicData(topic, CurrentUser.get().getLanguage())).with("locales", FeelhubLanguage.availables())
+            return topicData1.with("locales", FeelhubLanguage.availables())
                     .with("realtypes", realTopicTypes);
         } else {
             setStatus(Status.REDIRECTION_PERMANENT);
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + topic.getCurrentId()));
-            return ModelAndView.createNew("topic.ftl").with("topicData", topicDataFactory.getTopicData(topic, CurrentUser.get().getLanguage()));
+            return topicData1;
         }
     }
 
@@ -42,8 +44,8 @@ public class TopicResource extends ServerResource {
         return realTopic.getId().equals(realTopic.getCurrentId());
     }
 
-    private void extractUriValueFromUri() {
-        id = UUID.fromString(getRequestAttributes().get("topicId").toString().trim());
+    private UUID extractUriValueFromUri() {
+        return UUID.fromString(getRequestAttributes().get("topicId").toString().trim());
     }
 
     private final TopicService topicService;

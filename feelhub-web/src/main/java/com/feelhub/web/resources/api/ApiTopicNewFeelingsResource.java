@@ -26,7 +26,7 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
     @Get
     public ModelAndView represent() {
         final List<Feeling> feelings = doSearchWithQueryParameters();
-        final List<FeelingData> feelingDatas = feelingDataFactory.getFeelingDatas(feelings);
+        final List<FeelingData> feelingDatas = feelingDataFactory.feelingDatas(feelings);
         setStatus(Status.SUCCESS_OK);
         return ModelAndView.createNew("api/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
     }

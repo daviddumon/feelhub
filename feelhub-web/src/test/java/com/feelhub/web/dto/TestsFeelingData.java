@@ -53,38 +53,38 @@ public class TestsFeelingData {
 
     @Test
     public void hasTopicDataList() {
-        List<TopicData> topicDataList = Lists.newArrayList();
-        topicDataList.add(new TopicData.Builder().id(UUID.randomUUID()).build());
-        topicDataList.add(new TopicData.Builder().id(UUID.randomUUID()).build());
-        topicDataList.add(new TopicData.Builder().id(UUID.randomUUID()).build());
+        List<SentimentData> sentimentDataList = Lists.newArrayList();
+        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
+        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
+        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
 
-        final FeelingData feelingData = new FeelingData.Builder().topicDatas(topicDataList).build();
+        final FeelingData feelingData = new FeelingData.Builder().topicDatas(sentimentDataList).build();
 
-        assertThat(feelingData.getTopicDatas()).isEqualTo(topicDataList);
+        assertThat(feelingData.getSentimentDatas()).isEqualTo(sentimentDataList);
     }
 
     @Test
     public void canSetTopicDataAndContext() {
-        List<TopicData> topicDataList = Lists.newArrayList();
+        List<SentimentData> sentimentDataList = Lists.newArrayList();
         final UUID contextId = UUID.randomUUID();
-        topicDataList.add(new TopicData.Builder().id(contextId).sentimentValue(SentimentValue.good).build());
-        topicDataList.add(new TopicData.Builder().id(UUID.randomUUID()).build());
-        topicDataList.add(new TopicData.Builder().id(UUID.randomUUID()).build());
+        sentimentDataList.add(new SentimentData.Builder().id(contextId).sentimentValue(SentimentValue.good).build());
+        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
+        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
 
-        final FeelingData feelingData = new FeelingData.Builder().topicDatas(topicDataList, contextId).build();
+        final FeelingData feelingData = new FeelingData.Builder().topicDatas(sentimentDataList, contextId).build();
 
-        assertThat(feelingData.getTopicDatas().size()).isEqualTo(topicDataList.size() - 1);
+        assertThat(feelingData.getSentimentDatas().size()).isEqualTo(sentimentDataList.size() - 1);
         assertThat(feelingData.getFeelingSentimentValue()).isEqualTo(SentimentValue.good);
     }
 
     @Test
     public void feelingSentimentValueDefaultToNone() {
-        List<TopicData> topicDataList = Lists.newArrayList();
-        topicDataList.add(new TopicData.Builder().id(UUID.randomUUID()).build());
-        topicDataList.add(new TopicData.Builder().id(UUID.randomUUID()).build());
-        topicDataList.add(new TopicData.Builder().id(UUID.randomUUID()).build());
+        List<SentimentData> sentimentDataList = Lists.newArrayList();
+        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
+        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
+        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
 
-        final FeelingData feelingData = new FeelingData.Builder().topicDatas(topicDataList).build();
+        final FeelingData feelingData = new FeelingData.Builder().topicDatas(sentimentDataList).build();
 
         assertThat(feelingData.getFeelingSentimentValue()).isEqualTo(SentimentValue.none);
     }

@@ -1,6 +1,5 @@
 package com.feelhub.web.dto;
 
-import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.UnusableTopicTypes;
 import com.feelhub.domain.topic.http.HttpTopic;
@@ -9,11 +8,12 @@ import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
-import org.junit.*;
+import org.junit.Rule;
+import org.junit.Test;
 
 import java.util.List;
 
-import static org.fest.assertions.Assertions.*;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class TestsTopicData {
 
@@ -66,20 +66,6 @@ public class TestsTopicData {
         final TopicData topicData = new TopicData.Builder().build();
 
         assertThat(topicData.getName()).isEmpty();
-    }
-
-    @Test
-    public void hasASentimentValue() {
-        final TopicData topicData = new TopicData.Builder().sentimentValue(SentimentValue.good).build();
-
-        assertThat(topicData.getSentimentValue()).isEqualTo(SentimentValue.good);
-    }
-
-    @Test
-    public void sentimentHadADefaultValue() {
-        final TopicData topicData = new TopicData.Builder().build();
-
-        assertThat(topicData.getSentimentValue()).isEqualTo(SentimentValue.none);
     }
 
     @Test
@@ -155,7 +141,7 @@ public class TestsTopicData {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final TopicData topicData = new TopicData.Builder().id(realTopic.getId()).type(realTopic.getType()).build();
 
-        assertThat(topicData.toString()).isEqualTo("{\"sentimentValue\":{},\"id\":\"" + realTopic.getId() + "\",\"uris\":[],\"topicSentimentScore\":0,\"description\":\"\",\"illustration\":\"\",\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
+        assertThat(topicData.toString()).isEqualTo("{\"id\":\"" + realTopic.getId() + "\",\"uris\":[],\"topicSentimentScore\":0,\"description\":\"\",\"illustration\":\"\",\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
     }
 
     @Test

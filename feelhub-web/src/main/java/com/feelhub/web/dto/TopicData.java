@@ -1,12 +1,13 @@
 package com.feelhub.web.dto;
 
-import com.feelhub.domain.feeling.SentimentValue;
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.TopicType;
+import com.feelhub.domain.topic.UnusableTopicTypes;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.google.common.collect.Lists;
 import org.json.JSONObject;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class TopicData {
 
@@ -23,11 +24,6 @@ public class TopicData {
 
         public Builder name(final String name) {
             this.name = name;
-            return this;
-        }
-
-        public Builder sentimentValue(final SentimentValue sentimentValue) {
-            this.sentimentValue = sentimentValue;
             return this;
         }
 
@@ -66,7 +62,6 @@ public class TopicData {
         private String id = "";
         private String illustration = "";
         private String name = "";
-        private SentimentValue sentimentValue = SentimentValue.none;
         private TopicType type = UnusableTopicTypes.None;
         private List<String> subTypes = Lists.newArrayList();
         private List<String> uris = Lists.newArrayList();
@@ -78,7 +73,6 @@ public class TopicData {
         this.id = builder.id;
         this.illustration = builder.illustration;
         this.name = builder.name;
-        this.sentimentValue = builder.sentimentValue;
         this.type = builder.type.toString();
         this.subTypes = builder.subTypes;
         this.uris = builder.uris;
@@ -96,10 +90,6 @@ public class TopicData {
 
     public String getName() {
         return name;
-    }
-
-    public SentimentValue getSentimentValue() {
-        return sentimentValue;
     }
 
     public String getType() {
@@ -130,7 +120,6 @@ public class TopicData {
     private final String id;
     private final String illustration;
     private final String name;
-    private final SentimentValue sentimentValue;
     private final String type;
     private final List<String> subTypes;
     private final List<String> uris;

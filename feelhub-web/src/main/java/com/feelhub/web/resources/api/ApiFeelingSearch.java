@@ -22,7 +22,7 @@ public class ApiFeelingSearch {
     public List<FeelingData> doSearch(final Topic topic, final Form query) {
         feelingSearch.withTopicId(topic.getId());
         final List<Feeling> feelings = doSearchWithQueryParameters(query);
-        return feelingDataFactory.getFeelingDatas(feelings, topic.getId());
+        return feelingDataFactory.feelingDatas(feelings, topic.getId());
     }
 
     public List<FeelingData> doSearch(final Form query, final User user) {
@@ -33,7 +33,7 @@ public class ApiFeelingSearch {
     public List<FeelingData> doSearch(final Form query) {
         feelingSearch.ignoreEmptyFeelings();
         final List<Feeling> feelings = doSearchWithQueryParameters(query);
-        return feelingDataFactory.getFeelingDatas(feelings);
+        return feelingDataFactory.feelingDatas(feelings);
     }
 
     private List<Feeling> doSearchWithQueryParameters(final Form query) {

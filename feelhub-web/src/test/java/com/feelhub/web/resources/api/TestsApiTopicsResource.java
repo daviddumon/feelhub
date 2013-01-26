@@ -11,6 +11,7 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
+import com.feelhub.web.dto.SentimentData;
 import com.feelhub.web.dto.TopicData;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.common.collect.Lists;

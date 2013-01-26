@@ -12,15 +12,15 @@
 "languageCode":"${feelingData.languageCode}",
 "userId":"${feelingData.userId}",
 "feeling_sentiment_value":"${feelingData.feelingSentimentValue}",
-"topicDatas":   [
-    <#list feelingData.topicDatas as topicData>
+"sentimentDatas":   [
+    <#list feelingData.sentimentDatas as sentimentData>
     {
-    <#if topicData.id?has_content>"id":"${topicData.id}",</#if>
-    "sentimentValue":"${topicData.sentimentValue}",
-    "name":"${topicData.name}",
-    "illustration":"${topicData.illustration}",
-    "type":"${topicData.type}"
-    }${topicData_has_next?string(",", "")}
+    <#if sentimentData.id?has_content>"id":"${sentimentData.id}",</#if>
+    "sentimentValue":"${sentimentData.sentimentValue}",
+    "name":"${sentimentData.name}",
+    "illustration":"${sentimentData.illustration}",
+    "type":"${sentimentData.type}"
+    }${sentimentData_has_next?string(",", "")}
     </#list>
 ]
 }${feelingData_has_next?string(",", "")}

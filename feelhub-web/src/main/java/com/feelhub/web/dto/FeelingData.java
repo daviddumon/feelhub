@@ -33,17 +33,17 @@ public class FeelingData {
             return this;
         }
 
-        public Builder topicDatas(final List<TopicData> topicDatas) {
-            this.topicDatas = topicDatas;
+        public Builder topicDatas(final List<SentimentData> sentimentDatas) {
+            this.sentimentDatas = sentimentDatas;
             return this;
         }
 
-        public Builder topicDatas(final List<TopicData> topicDatas, final UUID contextId) {
-            for (TopicData topicData : topicDatas) {
-                if (!topicData.getId().equals(contextId.toString())) {
-                    this.topicDatas.add(topicData);
+        public Builder topicDatas(final List<SentimentData> sentimentDatas, final UUID contextId) {
+            for (SentimentData sentimentData : sentimentDatas) {
+                if (!sentimentData.getId().equals(contextId.toString())) {
+                    this.sentimentDatas.add(sentimentData);
                 } else {
-                    this.feelingSentimentValue = topicData.getSentimentValue();
+                    this.feelingSentimentValue = sentimentData.getSentimentValue();
                 }
             }
             return this;
@@ -53,7 +53,7 @@ public class FeelingData {
         private String text = "";
         private UUID userId;
         private String languageCode = "";
-        private List<TopicData> topicDatas = Lists.newArrayList();
+        private List<SentimentData> sentimentDatas = Lists.newArrayList();
         private SentimentValue feelingSentimentValue = SentimentValue.none;
     }
 
@@ -62,7 +62,7 @@ public class FeelingData {
         this.text = Lists.newArrayList(builder.text.split("\r\n"));
         this.languageCode = builder.languageCode;
         this.userId = builder.userId;
-        this.topicDatas = builder.topicDatas;
+        this.sentimentDatas = builder.sentimentDatas;
         this.feelingSentimentValue = builder.feelingSentimentValue;
     }
 
@@ -82,8 +82,8 @@ public class FeelingData {
         return languageCode;
     }
 
-    public List<TopicData> getTopicDatas() {
-        return topicDatas;
+    public List<SentimentData> getSentimentDatas() {
+        return sentimentDatas;
     }
 
     public SentimentValue getFeelingSentimentValue() {
@@ -94,6 +94,6 @@ public class FeelingData {
     private final UUID userId;
     private final List<String> text;
     private final String languageCode;
-    private final List<TopicData> topicDatas;
+    private final List<SentimentData> sentimentDatas;
     private final SentimentValue feelingSentimentValue;
 }

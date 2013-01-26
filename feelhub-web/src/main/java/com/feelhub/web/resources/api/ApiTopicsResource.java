@@ -27,24 +27,24 @@ public class ApiTopicsResource extends ServerResource {
 
     @Get
     public ModelAndView getTopics() {
+        List<TopicData> topicDatas = Lists.newArrayList();
         try {
             final String query = getQueryValue();
             final List<Topic> topics = topicService.getTopics(query, CurrentUser.get().getLanguage());
             setStatus(Status.SUCCESS_OK);
-            return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", getTopicDatas(topics));
+            topicDatas = getTopicDatas(topics);
         } catch (FeelhubApiException e) {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-            return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", Lists.newArrayList());
         } catch (TagNotFoundException e) {
             setStatus(Status.SUCCESS_OK);
-            return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", Lists.newArrayList());
         }
+        return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", topicDatas);
     }
 
     private List<TopicData> getTopicDatas(final List<Topic> topics) {
         final List<TopicData> results = Lists.newArrayList();
         for (final Topic topic : topics) {
-            results.add(topicDataFactory.getTopicData(topic, CurrentUser.get().getLanguage()));
+            results.add(topicDataFactory.simpleTopicData(topic, CurrentUser.get().getLanguage()));
         }
         return results;
     }

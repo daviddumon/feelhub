@@ -10,45 +10,45 @@ import java.util.*;
 public class FeelingDataFactory {
 
     @Inject
-    public FeelingDataFactory(final TopicDataFactory topicDataFactory) {
-        this.topicDataFactory = topicDataFactory;
+    public FeelingDataFactory(final SentimentDataFactory sentimentDataFactory) {
+        this.sentimentDataFactory = sentimentDataFactory;
     }
 
-    public List<FeelingData> getFeelingDatas(final List<Feeling> feelings, final UUID contextId) {
+    public List<FeelingData> feelingDatas(final List<Feeling> feelings, final UUID contextId) {
         final List<FeelingData> feelingDatas = Lists.newArrayList();
         for (final Feeling feeling : feelings) {
-            feelingDatas.add(getFeelingData(feeling, contextId));
+            feelingDatas.add(feelingData(feeling, contextId));
         }
         return feelingDatas;
     }
 
-    public List<FeelingData> getFeelingDatas(final List<Feeling> feelings) {
+    public List<FeelingData> feelingDatas(final List<Feeling> feelings) {
         final List<FeelingData> feelingDatas = Lists.newArrayList();
         for (final Feeling feeling : feelings) {
-            feelingDatas.add(getFeelingData(feeling));
+            feelingDatas.add(feelingData(feeling));
         }
         return feelingDatas;
     }
 
-    private FeelingData getFeelingData(final Feeling feeling, final UUID contextId) {
+    private FeelingData feelingData(final Feeling feeling, final UUID contextId) {
         final FeelingData.Builder builder = new FeelingData.Builder();
         builder.id(feeling.getId());
         builder.userId(feeling.getUserId());
         builder.text(feeling.getText());
         builder.languageCode(feeling.getLanguageCode());
-        builder.topicDatas(topicDataFactory.getTopicDatas(feeling, CurrentUser.get().getLanguage()), contextId);
+        builder.topicDatas(sentimentDataFactory.sentimentDatas(feeling, CurrentUser.get().getLanguage()), contextId);
         return builder.build();
     }
 
-    private FeelingData getFeelingData(final Feeling feeling) {
+    private FeelingData feelingData(final Feeling feeling) {
         final FeelingData.Builder builder = new FeelingData.Builder();
         builder.id(feeling.getId());
         builder.userId(feeling.getUserId());
         builder.text(feeling.getText());
         builder.languageCode(feeling.getLanguageCode());
-        builder.topicDatas(topicDataFactory.getTopicDatas(feeling, CurrentUser.get().getLanguage()));
+        builder.topicDatas(sentimentDataFactory.sentimentDatas(feeling, CurrentUser.get().getLanguage()));
         return builder.build();
     }
 
-    private TopicDataFactory topicDataFactory;
+    private SentimentDataFactory sentimentDataFactory;
 }

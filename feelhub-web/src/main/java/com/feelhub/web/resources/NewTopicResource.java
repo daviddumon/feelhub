@@ -30,7 +30,7 @@ public class NewTopicResource extends ServerResource {
         try {
             final String name = getDecodedName();
             final List<String> types = getUsableTypes(name);
-            final TopicData topicData = topicDataFactory.getTopicData(name);
+            final TopicData topicData = topicDataFactory.topicData(name);
             setStatus(Status.SUCCESS_OK);
             return ModelAndView.createNew("newtopic.ftl").with("topicData", topicData).with("types", types);
         } catch (FeelhubApiException e) {

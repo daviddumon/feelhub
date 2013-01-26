@@ -40,7 +40,7 @@ public class TestsNewTopicResource {
         query = "query";
         newTopicResource.getRequestAttributes().put("query", query);
         final TopicData topicData = new TopicData.Builder().name(query).build();
-        when(topicDataFactory.getTopicData(query)).thenReturn(topicData);
+        when(topicDataFactory.topicData(query)).thenReturn(topicData);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class TestsNewTopicResource {
 
         newTopicResource.newTopic();
 
-        verify(topicDataFactory).getTopicData(query);
+        verify(topicDataFactory).topicData(query);
     }
 
     @Test
@@ -97,7 +97,7 @@ public class TestsNewTopicResource {
     public void decodeTopicName() {
         final Request request = new Request(Method.GET, "http://test.com?q=The%20query");
         newTopicResource.init(Context.getCurrent(), request, new Response(request));
-        when(topicDataFactory.getTopicData("The query")).thenReturn(new TopicData.Builder().name("The query").build());
+        when(topicDataFactory.topicData("The query")).thenReturn(new TopicData.Builder().name("The query").build());
 
         final ModelAndView modelAndView = newTopicResource.newTopic();
 
