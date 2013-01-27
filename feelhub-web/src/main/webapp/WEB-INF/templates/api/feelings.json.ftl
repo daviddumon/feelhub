@@ -17,7 +17,7 @@
     {
     <#if sentimentData.id?has_content>"id":"${sentimentData.id}",</#if>
     "sentimentValue":"${sentimentData.sentimentValue}",
-    "name":"${sentimentData.name}",
+    "name":"${sentimentData.name?j_string}",
     "illustration":"${sentimentData.illustration}",
     "type":"${sentimentData.type}"
     }${sentimentData_has_next?string(",", "")}
