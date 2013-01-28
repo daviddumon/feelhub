@@ -9,7 +9,7 @@ define(["jquery", "plugins/hgn!templates/dashboard/dashboard_medias", "modules/c
                 main.illustration = root + "/static/images/unknown.png";
             }
             var element = template({"root": root, "medias": data, "illustration": main.illustration});
-            $(container).append(element);
+            $(container).prepend(element);
             carousel.compute();
         }
 
