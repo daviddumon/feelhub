@@ -31,7 +31,7 @@ public class SessionsResource extends ServerResource {
     }
 
     private AuthRequest extractUserDetails(final Form form) {
-        final String email = form.getFirstValue("email");
+        final String email = form.getFirstValue("email").toLowerCase();
         final String password = form.getFirstValue("password");
         final boolean remember = toBoolean(form.getFirstValue("remember"));
         return new AuthRequest(email, password, remember);

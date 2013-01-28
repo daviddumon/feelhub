@@ -67,6 +67,20 @@ public class TestsSessionsResource {
     }
 
     @Test
+    public void lowerCaseMail() {
+        final Form parameters = new Form();
+        parameters.add("email", "TEst@test.com");
+        parameters.add("password", "password");
+
+        resource.login(parameters);
+
+        final ArgumentCaptor<AuthRequest> captor = ArgumentCaptor.forClass(AuthRequest.class);
+        verify(authenticationManager).authenticate(captor.capture());
+        final AuthRequest auth = captor.getValue();
+        assertThat(auth.getUserId(), is("test@test.com"));
+    }
+
+    @Test
     public void sayUnauthorizedOnAuthFail() {
         final Form parameters = new Form();
         parameters.add("email", "toto");

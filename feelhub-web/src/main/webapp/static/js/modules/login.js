@@ -26,7 +26,6 @@ define(['jquery'], function ($) {
 
         $("input").focusout(function () {
             if ($(this).val() == "") {
-                console.log("focus out show sa mere");
                 $(this).parent().find(".help_text").show();
             }
             $(this).parent().find(".help_text").css("color", "#999999");
@@ -67,7 +66,6 @@ define(['jquery'], function ($) {
 
     function login() {
         if (checkForm()) {
-            //console.log($("#login").serialize());
             $.post(root + "/sessions?", $("#login").serialize(),function (data, status, jqXHR) {
                 document.location.href = referrer;
             }).error(function (jqXHR) {
@@ -76,7 +74,7 @@ define(['jquery'], function ($) {
                     } else if (jqXHR.status == 401) {
                         $("[name='password']").parent().find(".error_text").text("Wrong password");
                     } else if (jqXHR.status == 400) {
-                        //console.log("error : " + jqXHR.status + " while posting on " + root + "/sessions");
+
                     } else if (jqXHR.status == 500) {
                         $("[name='email']").parent().find(".error_text").text("This user is unknown");
                     }
