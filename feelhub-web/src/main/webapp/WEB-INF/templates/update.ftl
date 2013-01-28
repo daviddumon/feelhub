@@ -21,8 +21,10 @@
 <@head.headend>
 </@head.headend>
 <body>
-<div id="launch">
-    <p>Launching soon !</p>
+<div id="migration">
+    <p>We are updating Feelhub !</p>
+
+    <p>We apologize for the inconvenience</p>
 </div>
 </body>
 </html>

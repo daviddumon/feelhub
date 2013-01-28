@@ -2,7 +2,7 @@ package com.feelhub.web;
 
 import com.feelhub.web.authentification.UserInfos;
 import com.feelhub.web.filter.*;
-import com.feelhub.web.launch.LaunchRouter;
+import com.feelhub.web.update.UpdateRouter;
 import com.feelhub.web.migration.MigrationRunner;
 import com.feelhub.web.migration.web.*;
 import com.feelhub.web.status.FeelhubStatusService;
@@ -33,7 +33,7 @@ public class FeelhubApplication extends Application {
         feelhubWebProperties = injector.getInstance(FeelhubWebProperties.class);
         initFreemarkerConfiguration();
         setContextVariables();
-        if (!getContext().getAttributes().get("com.feelhub.status").equals("launch")) {
+        if (!getContext().getAttributes().get("com.feelhub.status").equals("update")) {
             runMigrations();
         }
         super.start();
@@ -83,11 +83,12 @@ public class FeelhubApplication extends Application {
     }
 
     private void setCorrectRouter(final Router router) {
-        if (getContext().getAttributes().get("com.feelhub.status").equals("launch")) {
-            final IdentityFilter filter = injector.getInstance(IdentityFilter.class);
-            filter.setContext(getContext());
-            filter.setNext(new LaunchRouter(getContext(), injector));
-            router.attach(filter);
+        if (getContext().getAttributes().get("com.feelhub.status").equals("update")) {
+            //final IdentityFilter filter = injector.getInstance(IdentityFilter.class);
+            //filter.setContext(getContext());
+            //filter.setNext(new LaunchRouter(getContext(), injector));
+            //router.attach(filter);
+            router.attach(new UpdateRouter(getContext(), injector));
         } else {
             router.attach(getOpenSessionInViewFilter());
         }

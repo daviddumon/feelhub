@@ -1,9 +1,9 @@
-package com.feelhub.web.launch;
+package com.feelhub.web.update;
 
 import com.feelhub.web.representation.ModelAndView;
 import org.restlet.resource.*;
 
-public class LaunchResource extends ServerResource {
+public class UpdateResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {

@@ -57,9 +57,9 @@
             </properties>
         </profile>
         <profile>
-            <id>launch</id>
+            <id>update</id>
             <properties>
-                <status>launch</status>
+                <status>update</status>
             </properties>
         </profile>
     </profiles>

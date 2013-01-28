@@ -1,4 +1,4 @@
-package com.feelhub.web.launch;
+package com.feelhub.web.update;
 
 import com.feelhub.web.guice.GuiceFinder;
 import com.google.inject.Injector;
@@ -6,13 +6,13 @@ import org.restlet.Context;
 import org.restlet.resource.Finder;
 import org.restlet.routing.Router;
 
-public class LaunchRouter extends Router {
+public class UpdateRouter extends Router {
 
-    public LaunchRouter(final Context context, final Injector injector) {
+    public UpdateRouter(final Context context, final Injector injector) {
         super(context);
         this.injector = injector;
         setDefaultMatchingMode(MODE_FIRST_MATCH);
-        attachDefault(LaunchResource.class);
+        attachDefault(UpdateResource.class);
     }
 
     @Override
