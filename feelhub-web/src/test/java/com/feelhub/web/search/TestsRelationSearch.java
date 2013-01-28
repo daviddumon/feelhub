@@ -1,6 +1,7 @@
 package com.feelhub.web.search;
 
 import com.feelhub.domain.relation.*;
+import com.feelhub.domain.relation.media.Media;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.TestFactories;

@@ -1,5 +1,6 @@
 package com.feelhub.domain.relation;
 
+import com.feelhub.domain.relation.media.Media;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.google.inject.Inject;
@@ -22,7 +23,7 @@ public class RelationBuilder {
 
     private void connectOneWay(final Topic left, final Topic right, final double additionalWeight) {
         if (!left.equals(right)) {
-            final Relation relation = Repositories.relations().lookUp(left.getId(), right.getId());
+            final Relation relation = Repositories.relations().lookUpRelated(left.getId(), right.getId());
             if (relation == null) {
                 createNewRelation(left, right, additionalWeight);
             } else {

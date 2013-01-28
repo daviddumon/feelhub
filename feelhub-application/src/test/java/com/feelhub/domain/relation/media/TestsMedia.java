@@ -1,5 +1,6 @@
-package com.feelhub.domain.relation;
+package com.feelhub.domain.relation.media;
 
+import com.feelhub.domain.relation.RelationFactory;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.*;

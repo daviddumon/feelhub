@@ -1,6 +1,6 @@
 package com.feelhub.domain.feeling.analyze;
 
-import com.feelhub.domain.relation.Related;
+import com.feelhub.domain.relation.related.Related;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;

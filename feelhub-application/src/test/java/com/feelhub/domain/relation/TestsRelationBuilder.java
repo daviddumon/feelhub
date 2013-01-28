@@ -1,5 +1,7 @@
 package com.feelhub.domain.relation;
 
+import com.feelhub.domain.relation.media.Media;
+import com.feelhub.domain.relation.related.Related;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;

@@ -41,9 +41,9 @@ public class TestsAlchemyRelationBinder {
 
         final List<Relation> relations = Repositories.relations().getAll();
         assertThat(relations.size(), is(6));
-        final Relation relation1 = Repositories.relations().lookUp(mainRealTopic.getId(), realTopic1.getId());
+        final Relation relation1 = Repositories.relations().lookUpRelated(mainRealTopic.getId(), realTopic1.getId());
         assertThat(relation1.getWeight(), is(1.2));
-        final Relation relation2 = Repositories.relations().lookUp(mainRealTopic.getId(), realTopic2.getId());
+        final Relation relation2 = Repositories.relations().lookUpRelated(mainRealTopic.getId(), realTopic2.getId());
         assertThat(relation2.getWeight(), is(1.6));
     }
 

@@ -1,4 +1,6 @@
-package com.feelhub.domain.relation;
+package com.feelhub.domain.relation.media;
+
+import com.feelhub.domain.relation.Relation;
 
 import java.util.UUID;
 

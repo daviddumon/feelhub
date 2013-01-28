@@ -1,6 +1,8 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.relation.*;
+import com.feelhub.domain.relation.media.Media;
+import com.feelhub.domain.relation.related.Related;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.test.*;
 import com.mongodb.*;
@@ -89,15 +91,49 @@ public class TestsRelationMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
-    public void canLookupForFromAndTo() {
+    public void canLookupRelatedForFromAndTo() {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
         final Relation relation = TestFactories.relations().newRelated(from.getId(), to.getId());
 
-        final Relation relationFound = repo.lookUp(from.getId(), to.getId());
+        final Relation relationFound = repo.lookUpRelated(from.getId(), to.getId());
 
         assertThat(relationFound).isNotNull();
         assertThat(relation.getId()).isEqualTo(relationFound.getId());
+    }
+
+    @Test
+    public void lookupRelatedDoNotReturnMedia() {
+        final RealTopic from = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic to = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.relations().newMedia(from.getId(), to.getId());
+
+        final Relation relationFound = repo.lookUpRelated(from.getId(), to.getId());
+
+        assertThat(relationFound).isNull();
+    }
+
+    @Test
+    public void canLookupMediaForFromAndTo() {
+        final RealTopic from = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic to = TestFactories.topics().newCompleteRealTopic();
+        final Relation relation = TestFactories.relations().newMedia(from.getId(), to.getId());
+
+        final Relation relationFound = repo.lookUpMedia(from.getId(), to.getId());
+
+        assertThat(relationFound).isNotNull();
+        assertThat(relation.getId()).isEqualTo(relationFound.getId());
+    }
+
+    @Test
+    public void lookupMediaDoNotReturnRelated() {
+        final RealTopic from = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic to = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.relations().newRelated(from.getId(), to.getId());
+
+        final Relation relationFound = repo.lookUpMedia(from.getId(), to.getId());
+
+        assertThat(relationFound).isNull();
     }
 
     @Test

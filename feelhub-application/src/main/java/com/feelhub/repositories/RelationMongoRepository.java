@@ -1,6 +1,8 @@
 package com.feelhub.repositories;
 
 import com.feelhub.domain.relation.*;
+import com.feelhub.domain.relation.media.Media;
+import com.feelhub.domain.relation.related.Related;
 import com.google.common.collect.Lists;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
@@ -14,8 +16,18 @@ public class RelationMongoRepository extends BaseMongoRepository<Relation> imple
     }
 
     @Override
-    public Relation lookUp(final UUID fromId, final UUID toId) {
-        final Criteria criteria = getSession().createCriteria(Relation.class);
+    public Relation lookUpRelated(final UUID fromId, final UUID toId) {
+        final Criteria criteria = getSession().createCriteria(Related.class);
+        criteria.add(Restrictions.equals("__discriminator", Related.class.getSimpleName()));
+        criteria.add(Restrictions.equals("fromId", fromId));
+        criteria.add(Restrictions.equals("toId", toId));
+        return extractOne(criteria);
+    }
+
+    @Override
+    public Relation lookUpMedia(final UUID fromId, final UUID toId) {
+        final Criteria criteria = getSession().createCriteria(Media.class);
+        criteria.add(Restrictions.equals("__discriminator", Media.class.getSimpleName()));
         criteria.add(Restrictions.equals("fromId", fromId));
         criteria.add(Restrictions.equals("toId", toId));
         return extractOne(criteria);

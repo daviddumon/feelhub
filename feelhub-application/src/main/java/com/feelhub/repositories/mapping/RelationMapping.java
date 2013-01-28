@@ -1,6 +1,8 @@
 package com.feelhub.repositories.mapping;
 
 import com.feelhub.domain.relation.*;
+import com.feelhub.domain.relation.media.Media;
+import com.feelhub.domain.relation.related.Related;
 import org.mongolink.domain.mapper.*;
 
 public class RelationMapping extends AggregateMap<Relation> {

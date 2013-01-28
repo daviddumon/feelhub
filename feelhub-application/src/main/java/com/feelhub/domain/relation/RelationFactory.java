@@ -1,5 +1,7 @@
 package com.feelhub.domain.relation;
 
+import com.feelhub.domain.relation.media.Media;
+import com.feelhub.domain.relation.related.Related;
 import com.feelhub.domain.topic.Topic;
 
 public class RelationFactory {

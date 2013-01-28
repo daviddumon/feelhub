@@ -28,7 +28,7 @@ public class RelationManager {
             if (relation.getToId().equals(newTopicId)) {
                 Repositories.relations().delete(relation);
             } else {
-                final Relation relationFound = Repositories.relations().lookUp(newTopicId, relation.getToId());
+                final Relation relationFound = Repositories.relations().lookUpRelated(newTopicId, relation.getToId());
                 if (relationFound != null) {
                     relationFound.addWeight(relation.getWeight());
                     Repositories.relations().delete(relation);
@@ -44,7 +44,7 @@ public class RelationManager {
             if (relation.getFromId().equals(newTopicId)) {
                 Repositories.relations().delete(relation);
             } else {
-                final Relation relationFound = Repositories.relations().lookUp(relation.getFromId(), newTopicId);
+                final Relation relationFound = Repositories.relations().lookUpRelated(relation.getFromId(), newTopicId);
                 if (relationFound != null) {
                     relationFound.addWeight(relation.getWeight());
                     Repositories.relations().delete(relation);
