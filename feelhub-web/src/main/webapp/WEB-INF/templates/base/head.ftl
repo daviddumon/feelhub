@@ -60,11 +60,11 @@
         var root = "${root}";
         var authentificated = ${userInfos.authenticated?string};
         var languageCode = "${userInfos.languageCode}";
-        <#if !userInfos.anonymous>
-        var userId = "${userInfos.user.id}";
-        <#else>
-        var userId = "";
-        </#if>
+            <#if !userInfos.anonymous>
+            var userId = "${userInfos.user.id}";
+            <#else>
+            var userId = "";
+            </#if>
     </script>
 
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?${buildtime}"></script>
@@ -78,6 +78,7 @@
     <#nested/>
 
     <#if !dev>
+
         <script type="text/javascript">
             var uvOptions = {};
             (function () {
