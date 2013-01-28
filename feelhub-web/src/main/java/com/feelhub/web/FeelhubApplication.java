@@ -2,11 +2,11 @@ package com.feelhub.web;
 
 import com.feelhub.web.authentification.UserInfos;
 import com.feelhub.web.filter.*;
-import com.feelhub.web.update.UpdateRouter;
 import com.feelhub.web.migration.MigrationRunner;
 import com.feelhub.web.migration.web.*;
 import com.feelhub.web.status.FeelhubStatusService;
 import com.feelhub.web.tools.FeelhubWebProperties;
+import com.feelhub.web.update.UpdateRouter;
 import com.google.inject.*;
 import freemarker.template.*;
 import org.restlet.*;
@@ -84,11 +84,10 @@ public class FeelhubApplication extends Application {
 
     private void setCorrectRouter(final Router router) {
         if (getContext().getAttributes().get("com.feelhub.status").equals("update")) {
-            //final IdentityFilter filter = injector.getInstance(IdentityFilter.class);
-            //filter.setContext(getContext());
-            //filter.setNext(new LaunchRouter(getContext(), injector));
-            //router.attach(filter);
-            router.attach(new UpdateRouter(getContext(), injector));
+            final IdentityFilter filter = injector.getInstance(IdentityFilter.class);
+            filter.setContext(getContext());
+            filter.setNext(new UpdateRouter(getContext(), injector));
+            router.attach(filter);
         } else {
             router.attach(getOpenSessionInViewFilter());
         }

@@ -7,6 +7,6 @@ public class UpdateResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
-        return ModelAndView.createNew("launch.ftl");
+        return ModelAndView.createNew("update.ftl");
     }
 }
