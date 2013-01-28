@@ -22,7 +22,11 @@ public class Feeling extends BaseEntity {
     }
 
     private String sanitize(final String text) {
-        return text.replaceAll(TextParser.SENTIMENTS, "");
+        final String result = text.replaceAll(TextParser.SENTIMENTS, "");
+        if (result.matches("^\\s+$")) {
+            return "";
+        }
+        return result;
     }
 
     public void addSentiment(final Sentiment sentiment) {

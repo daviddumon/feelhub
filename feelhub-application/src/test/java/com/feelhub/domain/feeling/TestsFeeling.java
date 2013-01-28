@@ -106,6 +106,16 @@ public class TestsFeeling {
         assertThat(feeling.getText()).isEqualTo("I enjoy this but unless This!, i would love it ");
     }
 
+    @Test
+    public void canSanitizeTextWithOnlySpacesAndSemanticMarkups() {
+        final String text = " + -";
+
+        final Feeling feeling = new Feeling(UUID.randomUUID(), text, user.getId());
+
+        assertThat(feeling.getRawText()).isEqualTo(text);
+        assertThat(feeling.getText()).isEqualTo("");
+    }
+
     private class SimpleSentimentListener {
 
         @Subscribe
