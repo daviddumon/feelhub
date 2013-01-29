@@ -23,6 +23,7 @@
         <status>ok</status>
         <facebook.appSecret>93847b17c5b7d9888d0f88417a195641</facebook.appSecret>
         <facebook.appId>160446520766643</facebook.appId>
+        <bingApiKey>d52YJ4iOZ0JO6lqb76xGrwVWpDO5Cyrul/DNWmfN44s=</bingApiKey>
     </properties>
 
     <profiles>

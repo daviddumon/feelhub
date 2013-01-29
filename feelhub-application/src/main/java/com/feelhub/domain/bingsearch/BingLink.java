@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feelhub.domain.bingsearch.readmodel.*;
 import com.feelhub.tools.FeelhubApplicationProperties;
 import com.google.common.collect.Lists;
+import com.sun.net.httpserver.BasicAuthenticator;
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.*;
 import java.net.*;
@@ -57,16 +59,15 @@ public class BingLink {
     }
 
     private void addAuthorizationHeader(final URLConnection uc) {
-        final String basicAuth = "Basic OmQ1MllKNGlPWjBKTzZscWI3NnhHcndWV3BETzVDeXJ1bC9ETldtZk40NHM9";
-        uc.setRequestProperty("Authorization", basicAuth);
+        String userAndKey = ":" + feelhubApplicationProperties.getBingApiKey();
+        uc.setRequestProperty("Authorization", "Basic " + new String(Base64.encodeBase64(userAndKey.getBytes())));
     }
 
     private List<String> unmarshall(final InputStream inputStream) {
         final List<String> links = Lists.newArrayList();
-        final ObjectMapper objectMapper = new ObjectMapper();
-        BingResults bingResults = null;
         try {
-            bingResults = objectMapper.readValue(inputStream, BingResults.class);
+            final ObjectMapper objectMapper = new ObjectMapper();
+            BingResults bingResults = objectMapper.readValue(inputStream, BingResults.class);
             for (final BingEntity result : bingResults.d.results) {
                 links.add(result.MediaUrl);
             }

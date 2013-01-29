@@ -9,29 +9,12 @@ import static org.hamcrest.Matchers.*;
 public class TestsFeelhubApplicationProperties {
 
     @Test
-    public void canGetDbSettings() {
-        final FeelhubApplicationProperties applicationProperties = new FeelhubApplicationProperties();
+    public void canGetProperties() {
+        final FeelhubApplicationProperties properties = new FeelhubApplicationProperties();
 
-        final Settings settings = applicationProperties.getDbSettings();
-
-        assertThat(settings.getDbName(), is("feelhub"));
-    }
-
-    @Test
-    public void canGetAlchemyApiKey() {
-        final FeelhubApplicationProperties applicationProperties = new FeelhubApplicationProperties();
-
-        final String alchemyApiKey = applicationProperties.getAlchemyApiKey();
-
-        assertThat(alchemyApiKey, is("testapikey"));
-    }
-
-    @Test
-    public void canGetBingRoot() {
-        final FeelhubApplicationProperties applicationProperties = new FeelhubApplicationProperties();
-
-        final String alchemyApiKey = applicationProperties.getBingRoot();
-
-        assertThat(alchemyApiKey, is("http://localhost:6162/bing?query='"));
+        assertThat(properties.getDbSettings().getDbName(), is("feelhub"));
+        assertThat(properties.getAlchemyApiKey(), is("testapikey"));
+        assertThat(properties.getBingApiKey(), is("testbingapikey"));
+        assertThat(properties.getBingRoot(), is("http://localhost:6162/bing?query='"));
     }
 }
