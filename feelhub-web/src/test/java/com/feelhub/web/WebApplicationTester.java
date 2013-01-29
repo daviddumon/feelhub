@@ -6,6 +6,7 @@ import com.feelhub.web.tools.FeelhubSitemapModuleLink;
 import com.google.common.eventbus.EventBus;
 import org.junit.rules.ExternalResource;
 import org.restlet.Context;
+import org.restlet.data.ChallengeResponse;
 
 public class WebApplicationTester extends ExternalResource {
 
@@ -25,6 +26,10 @@ public class WebApplicationTester extends ExternalResource {
         return new ClientResource(uri, application);
     }
 
+    public ClientResource newClientResource(String uri, ChallengeResponse challengeResponse) {
+        return new ClientResource(uri, application, challengeResponse);
+    }
+
     public void setSitemapLink(final FeelhubSitemapModuleLink feelhubSitemapModuleLink) {
         moduleGuiceTestModule.setFeelhubSitemapModuleLink(feelhubSitemapModuleLink);
     }
@@ -35,4 +40,5 @@ public class WebApplicationTester extends ExternalResource {
 
     private FeelhubApplication application;
     private final GuiceTestModule moduleGuiceTestModule = new GuiceTestModule();
+
 }

@@ -8,12 +8,18 @@ import com.feelhub.web.resources.authentification.*;
 import com.feelhub.web.resources.social.*;
 import com.google.inject.Injector;
 import org.restlet.Context;
+import org.restlet.data.ChallengeScheme;
 import org.restlet.resource.*;
 import org.restlet.routing.*;
+import org.restlet.security.ChallengeAuthenticator;
+import org.restlet.security.MapVerifier;
 
 import java.util.Map;
 
 public class FeelhubRouter extends Router {
+
+    public static String ADMIN_USER = "feelhub";
+    public static String ADMIN_PASSWORD = "unmotdepasseachanger";
 
     public FeelhubRouter(final Context context, final Injector injector) {
         super(context);
@@ -54,8 +60,18 @@ public class FeelhubRouter extends Router {
         attach("/", HomeResource.class);
 
         //ADMIN
-        attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
-        attach("/admin/events", AdminEventsResource.class);
+        attach("/admin/ftl/{name}", withSecurity(AdminFreemarkerResource.class));
+        attach("/admin/events", withSecurity(AdminEventsResource.class));
+    }
+
+    private ChallengeAuthenticator withSecurity(final Class<? extends ServerResource> clazz) {
+        final MapVerifier verifier = new MapVerifier();
+        verifier.getLocalSecrets().put(ADMIN_USER, ADMIN_PASSWORD.toCharArray());
+        final ChallengeAuthenticator sécurité = new ChallengeAuthenticator(getContext(),
+                ChallengeScheme.HTTP_BASIC, "Secured Area");
+        sécurité.setVerifier(verifier);
+        sécurité.setNext(clazz);
+        return sécurité;
     }
 
     private void attachEncodedValue(final String pathTemplate, final Class<? extends ServerResource> targetClass) {

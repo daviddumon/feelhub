@@ -15,18 +15,25 @@ public class AlchemyLink {
 
     public InputStream get(final Uri uri) {
         final String alchemyUri = buildUri(uri.getValue());
-        URL url = null;
+        InputStream inputStream;
         try {
-            url = new URL(alchemyUri);
+            URL url = new URL(alchemyUri);
             final HttpURLConnection handle = (HttpURLConnection) url.openConnection();
             handle.setDoOutput(true);
-            return handle.getInputStream();
+            inputStream = handle.getInputStream();
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
+        incrementApiCallsCount();
+        return inputStream;
+    }
+
+    private void incrementApiCallsCount() {
+        //To change body of created methods use File | Settings | File Templates.
     }
 
     private String buildUri(final String uri) {

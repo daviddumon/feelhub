@@ -14,6 +14,11 @@ public class ClientResource extends UniformResource {
         this.application = application;
     }
 
+    public ClientResource(final String uri, final Restlet application, final ChallengeResponse challengeResponse) {
+        this(uri, application);
+        this.challengeResponse = challengeResponse;
+    }
+
     public Representation get() {
         initHandling(Method.GET);
         return handle();
@@ -55,10 +60,19 @@ public class ClientResource extends UniformResource {
 
     @Override
     public Representation handle() {
-        application.handle(getRequest(), getResponse());
+        Request request = getRequest();
+        if (withSecurity()) {
+            request.setChallengeResponse(challengeResponse);
+        }
+        application.handle(request, getResponse());
         return getResponse().getEntity();
+    }
+
+    private boolean withSecurity() {
+        return challengeResponse != null;
     }
 
     private final Reference reference;
     private final Restlet application;
+    private ChallengeResponse challengeResponse;
 }
