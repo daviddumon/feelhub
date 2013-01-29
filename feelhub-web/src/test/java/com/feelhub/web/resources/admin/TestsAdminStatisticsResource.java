@@ -38,31 +38,21 @@ public class TestsAdminStatisticsResource {
     }
 
     @Test
-    public void hasAlchemyStatisticsInData() {
-        AdminStatistic alchemyStatistic = new AdminStatistic("022012", Api.Alchemy);
-        Repositories.adminStatistics().add(alchemyStatistic);
+    public void hasStatisticsInData() {
+        Repositories.adminStatistics().add(new AdminStatistic("012012", Api.Alchemy));
         Repositories.adminStatistics().add(new AdminStatistic("022012", Api.BingSearch));
+        Repositories.adminStatistics().add(new AdminStatistic("032012", Api.BingSearch));
 
         final ModelAndView modelAndView = new AdminStatisticsResource().represent();
 
-        assertThat(modelAndView.getData("alchemyStatistics")).isNotNull();
-        List<AdminStatistic> stats = modelAndView.getData("alchemyStatistics");
-        assertThat(stats).hasSize(1);
-        assertThat(stats.get(0).getId()).isEqualTo(alchemyStatistic.getId());
-    }
-
-    @Test
-    public void hasBingSearchStatisticsInData() {
-        Repositories.adminStatistics().add(new AdminStatistic("022012", Api.Alchemy));
-        AdminStatistic bingSearchStatistic = new AdminStatistic("022012", Api.BingSearch);
-        Repositories.adminStatistics().add(bingSearchStatistic);
-
-        final ModelAndView modelAndView = new AdminStatisticsResource().represent();
-
-        assertThat(modelAndView.getData("bingSearchStatistics")).isNotNull();
-        List<AdminStatistic> stats = modelAndView.getData("bingSearchStatistics");
-        assertThat(stats).hasSize(1);
-        assertThat(stats.get(0).getId()).isEqualTo(bingSearchStatistic.getId());
+        assertThat(modelAndView.getData("statistics")).isNotNull();
+        List<AdminStatisticsByApi> stats = modelAndView.getData("statistics");
+        assertThat(stats).hasSize(2);
+        assertThat(stats.get(0).getApi()).isEqualTo(Api.Alchemy);
+        assertThat(stats.get(0).getStatistics()).hasSize(1);
+        assertThat(stats.get(0).getStatistics().get(0).getMonth()).isEqualTo("012012");
+        assertThat(stats.get(1).getApi()).isEqualTo(Api.BingSearch);
+        assertThat(stats.get(1).getStatistics()).hasSize(2);
     }
 
     private ChallengeResponse challengeResponse() {
