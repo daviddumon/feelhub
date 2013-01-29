@@ -1,6 +1,7 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.domain.relation.Relation;
+import com.feelhub.domain.media.Media;
+import com.feelhub.domain.related.Related;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -68,8 +69,8 @@ public class TestsApiTopicMediasResource {
 
     @Test
     public void canGetAMedia() throws IOException, JSONException {
-        final Relation relation = TestFactories.relations().newMedia();
-        final ClientResource mediasResource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/medias?skip=0&limit=1");
+        final Media media = TestFactories.medias().newMedia();
+        final ClientResource mediasResource = restlet.newClientResource("/api/topic/" + media.getFromId() + "/medias?skip=0&limit=1");
 
         final Representation representation = mediasResource.get();
 
@@ -81,8 +82,8 @@ public class TestsApiTopicMediasResource {
     @Test
     public void canGetMediasForATopic() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newMediaList(5, realTopic.getId());
-        TestFactories.relations().newMediaList(20);
+        TestFactories.medias().newMediaList(5, realTopic.getId());
+        TestFactories.medias().newMediaList(20);
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/medias");
 
         final Representation representation = resource.get();
@@ -96,7 +97,7 @@ public class TestsApiTopicMediasResource {
     @Test
     public void canGetMediasWithSkip() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newMediaList(5, realTopic.getId());
+        TestFactories.medias().newMediaList(5, realTopic.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/medias?skip=2");
 
         final Representation representation = resource.get();
@@ -110,7 +111,7 @@ public class TestsApiTopicMediasResource {
     @Test
     public void canGetMediasWithLimit() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newMediaList(5, realTopic.getId());
+        TestFactories.medias().newMediaList(5, realTopic.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/medias?limit=2");
 
         final Representation representation = resource.get();
@@ -124,7 +125,7 @@ public class TestsApiTopicMediasResource {
     @Test
     public void defaultLimitIs100() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newMediaList(150, realTopic.getId());
+        TestFactories.medias().newMediaList(150, realTopic.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/medias");
 
         final Representation representation = resource.get();
@@ -137,8 +138,8 @@ public class TestsApiTopicMediasResource {
 
     @Test
     public void canGetEmptyTopicData() throws IOException, JSONException {
-        final Relation relation = TestFactories.relations().newMedia();
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/medias");
+        final Media media = TestFactories.medias().newMedia();
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + media.getFromId() + "/medias");
 
         final Representation representation = resource.get();
 
@@ -146,7 +147,7 @@ public class TestsApiTopicMediasResource {
         final JSONArray jsonArray = new JSONArray(representation.getText());
         final JSONObject keywordDataAsJson = jsonArray.getJSONObject(0);
         assertThat(keywordDataAsJson).isNotNull();
-        assertThat(keywordDataAsJson.get("id").toString()).isEqualTo(relation.getToId().toString());
+        assertThat(keywordDataAsJson.get("id").toString()).isEqualTo(media.getToId().toString());
         assertThat(keywordDataAsJson.get("name").toString()).isEqualTo("Name-reference");
         assertThat(keywordDataAsJson.get("illustration").toString()).isEmpty();
     }
@@ -155,10 +156,10 @@ public class TestsApiTopicMediasResource {
     public void canGetWithGoodIllustration() throws IOException, JSONException {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
-        final Relation relation = TestFactories.relations().newRelated(from.getId(), to.getId());
+        final Related related = TestFactories.related().newRelated(from.getId(), to.getId());
         final String illustration = "illustration";
         to.setIllustration(illustration);
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/related");
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + related.getFromId() + "/related");
 
         final Representation representation = resource.get();
 

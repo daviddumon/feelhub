@@ -80,7 +80,7 @@ public class TestsSentimentExtractor {
         final RealTopic anotherTopic = TestFactories.topics().newCompleteRealTopic();
         TestFactories.tags().newTag("value1", anotherTopic, FeelhubLanguage.reference());
         TestFactories.tags().newTag("value2", anotherTopic, FeelhubLanguage.fromCode("fr"));
-        TestFactories.relations().newRelated(topic.getId(), anotherTopic.getId());
+        TestFactories.related().newRelated(topic.getId(), anotherTopic.getId());
 
         final List<Sentiment> sentiments = sentimentExtractor.analyze("I like +value1 and +value2", topic.getId(), user.getId(), FeelhubLanguage.reference());
 

@@ -3,10 +3,7 @@ package com.feelhub.domain.alchemy;
 import com.feelhub.domain.admin.AdminStatisticCallsCounter;
 import com.feelhub.domain.admin.Api;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 
 public class FakeAlchemyLink extends AlchemyLink {
 

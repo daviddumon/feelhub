@@ -1,12 +1,12 @@
 package com.feelhub.web.resources.api;
 
 import com.feelhub.application.TopicService;
-import com.feelhub.domain.relation.Relation;
+import com.feelhub.domain.related.Related;
 import com.feelhub.domain.topic.*;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.search.RelationSearch;
+import com.feelhub.web.search.RelatedSearch;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import org.mongolink.domain.criteria.Order;
@@ -18,8 +18,8 @@ import java.util.*;
 public class ApiTopicRelatedResource extends ServerResource {
 
     @Inject
-    public ApiTopicRelatedResource(final RelationSearch relationSearch, final TopicService topicService, final TopicDataFactory topicDataFactory) {
-        this.relationSearch = relationSearch;
+    public ApiTopicRelatedResource(final RelatedSearch relatedSearch, final TopicService topicService, final TopicDataFactory topicDataFactory) {
+        this.relatedSearch = relatedSearch;
         this.topicService = topicService;
         this.topicDataFactory = topicDataFactory;
     }
@@ -28,15 +28,15 @@ public class ApiTopicRelatedResource extends ServerResource {
     public ModelAndView getRelatedTopics() {
         getTopic();
         doSearchWithQueryParameters();
-        getTopicDataForEachRelation();
-        return ModelAndView.createNew("api/relation.json.ftl", MediaType.APPLICATION_JSON).with("topicDataList", topicDataList);
+        getTopicDataForEachRelated();
+        return ModelAndView.createNew("api/related.json.ftl", MediaType.APPLICATION_JSON).with("topicDataList", topicDataList);
     }
 
     private void getTopic() {
         try {
-            topicId = getRequestAttributes().get("topicId").toString().trim();
-            topicService.lookUpCurrent(UUID.fromString(topicId));
-            relationSearch.withTopicId(UUID.fromString(topicId));
+            String topicId = getRequestAttributes().get("topicId").toString().trim();
+            final Topic topic = topicService.lookUpCurrent(UUID.fromString(topicId));
+            relatedSearch.withTopicId(topic.getCurrentId());
         } catch (TopicNotFound e) {
             throw new FeelhubApiException();
         }
@@ -46,7 +46,7 @@ public class ApiTopicRelatedResource extends ServerResource {
         final Form form = getQuery();
         setUpSearchForLimitParameter(form);
         setUpSearchForSkipParameter(form);
-        relations = relationSearch.withSort("weight", Order.DESCENDING).withDiscriminator("Related").execute();
+        relateds = relatedSearch.withSort("weight", Order.DESCENDING).execute();
     }
 
     private void setUpSearchForLimitParameter(final Form form) {
@@ -55,29 +55,29 @@ public class ApiTopicRelatedResource extends ServerResource {
             if (limit > 100) {
                 throw new FeelhubApiException();
             }
-            relationSearch.withLimit(limit);
+            relatedSearch.withLimit(limit);
         } else {
-            relationSearch.withLimit(100);
+            relatedSearch.withLimit(100);
         }
     }
 
     private void setUpSearchForSkipParameter(final Form form) {
         if (form.getQueryString().contains("skip")) {
-            relationSearch.withSkip(Integer.parseInt(form.getFirstValue("skip").trim()));
+            relatedSearch.withSkip(Integer.parseInt(form.getFirstValue("skip").trim()));
         } else {
-            relationSearch.withSkip(0);
+            relatedSearch.withSkip(0);
         }
     }
 
-    private void getTopicDataForEachRelation() {
-        for (final Relation relation : relations) {
-            addTopicData(relation);
+    private void getTopicDataForEachRelated() {
+        for (final Related related : relateds) {
+            addTopicData(related);
         }
     }
 
-    private void addTopicData(final Relation relation) {
+    private void addTopicData(final Related related) {
         try {
-            final Topic topic = topicService.lookUpCurrent(relation.getToId());
+            final Topic topic = topicService.lookUpCurrent(related.getToId());
             final TopicData topicData = topicDataFactory.simpleTopicData(topic, CurrentUser.get().getLanguage());
             topicDataList.add(topicData);
         } catch (TopicNotFound e) {
@@ -85,10 +85,9 @@ public class ApiTopicRelatedResource extends ServerResource {
         }
     }
 
-    private String topicId;
-    private final RelationSearch relationSearch;
+    private final RelatedSearch relatedSearch;
     private final TopicService topicService;
     private final TopicDataFactory topicDataFactory;
-    private List<Relation> relations = Lists.newArrayList();
+    private List<Related> relateds = Lists.newArrayList();
     private final List<TopicData> topicDataList = Lists.newArrayList();
 }

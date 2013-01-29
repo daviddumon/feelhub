@@ -11,15 +11,14 @@ import org.restlet.Context;
 import org.restlet.data.ChallengeScheme;
 import org.restlet.resource.*;
 import org.restlet.routing.*;
-import org.restlet.security.ChallengeAuthenticator;
-import org.restlet.security.MapVerifier;
+import org.restlet.security.*;
 
 import java.util.Map;
 
 public class FeelhubRouter extends Router {
 
     public static String ADMIN_USER = "feelhub";
-    public static String ADMIN_PASSWORD = "unmotdepasseachanger";
+    public static String ADMIN_PASSWORD = "youshallnotpass";
 
     public FeelhubRouter(final Context context, final Injector injector) {
         super(context);

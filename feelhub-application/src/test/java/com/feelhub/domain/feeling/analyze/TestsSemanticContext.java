@@ -21,8 +21,8 @@ public class TestsSemanticContext {
         TestFactories.tags().newTag("value1", topic2);
         TestFactories.tags().newTag("value2", topic2);
         TestFactories.tags().newTag("value3", topic3);
-        TestFactories.relations().newRelated(topic1.getId(), topic2.getId());
-        TestFactories.relations().newRelated(topic1.getId(), topic3.getId());
+        TestFactories.related().newRelated(topic1.getId(), topic2.getId());
+        TestFactories.related().newRelated(topic1.getId(), topic3.getId());
 
         final SemanticContext semanticContext = new SemanticContext(topic1.getId(), FeelhubLanguage.reference());
 
@@ -40,8 +40,8 @@ public class TestsSemanticContext {
         TestFactories.tags().newTag("value1", topic2);
         TestFactories.tags().newTag("value2", topic2);
         TestFactories.tags().newTag("value3", topic3);
-        TestFactories.relations().newRelated(topic1.getId(), topic2.getId());
-        TestFactories.relations().newMedia(topic1.getId(), topic3.getId());
+        TestFactories.related().newRelated(topic1.getId(), topic2.getId());
+        TestFactories.medias().newMedia(topic1.getId(), topic3.getId());
 
         final SemanticContext semanticContext = new SemanticContext(topic1.getId(), FeelhubLanguage.reference());
 
@@ -58,8 +58,8 @@ public class TestsSemanticContext {
         TestFactories.tags().newTag("value1", topic2, FeelhubLanguage.reference());
         TestFactories.tags().newTag("value2", topic2, FeelhubLanguage.fromCode("fr"));
         TestFactories.tags().newTag("value3", topic3, FeelhubLanguage.none());
-        TestFactories.relations().newRelated(topic1.getId(), topic2.getId());
-        TestFactories.relations().newRelated(topic1.getId(), topic3.getId());
+        TestFactories.related().newRelated(topic1.getId(), topic2.getId());
+        TestFactories.related().newRelated(topic1.getId(), topic3.getId());
 
         final SemanticContext semanticContext = new SemanticContext(topic1.getId(), FeelhubLanguage.fromCode("fr"));
 

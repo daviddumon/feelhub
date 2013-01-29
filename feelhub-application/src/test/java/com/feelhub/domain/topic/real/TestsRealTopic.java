@@ -1,6 +1,6 @@
 package com.feelhub.domain.topic.real;
 
-import com.feelhub.domain.bingsearch.BingRequest;
+import com.feelhub.domain.bing.BingRequest;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.translation.ReferenceTranslationRequestEvent;

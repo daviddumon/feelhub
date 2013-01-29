@@ -2,7 +2,7 @@ package com.feelhub.web.guice;
 
 import com.feelhub.application.*;
 import com.feelhub.domain.alchemy.AlchemyAnalyzer;
-import com.feelhub.domain.bingsearch.BingSearch;
+import com.feelhub.domain.bing.BingSearch;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.domain.topic.world.WorldListener;

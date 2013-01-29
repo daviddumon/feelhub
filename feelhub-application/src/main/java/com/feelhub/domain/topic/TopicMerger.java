@@ -1,7 +1,8 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.feeling.FeelingManager;
-import com.feelhub.domain.relation.RelationManager;
+import com.feelhub.domain.media.MediaManager;
+import com.feelhub.domain.related.RelatedManager;
 import com.feelhub.domain.statistics.StatisticsManager;
 import com.feelhub.domain.tag.TagManager;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
@@ -16,8 +17,9 @@ public class TopicMerger {
         final TopicPatch topicPatch = createTopicPatch(newTopicId, oldTopicId);
         tagManager.merge(topicPatch);
         feelingManager.merge(topicPatch);
-        relationManager.merge(topicPatch);
+        relatedManager.merge(topicPatch);
         statisticsManager.merge(topicPatch);
+        mediaManager.merge(topicPatch);
         mergeData(newTopicId, oldTopicId);
     }
 
@@ -86,6 +88,7 @@ public class TopicMerger {
 
     private final TagManager tagManager = new TagManager();
     private final FeelingManager feelingManager = new FeelingManager();
-    private final RelationManager relationManager = new RelationManager();
+    private final RelatedManager relatedManager = new RelatedManager();
+    private final MediaManager mediaManager = new MediaManager();
     private final StatisticsManager statisticsManager = new StatisticsManager();
 }
