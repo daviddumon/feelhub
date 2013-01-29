@@ -14,5 +14,7 @@ public class MediaMapping extends AggregateMap<Media> {
         id(element().getId()).natural();
         property(element().getFromId());
         property(element().getToId());
+        property(element().getCreationDate());
+        property(element().getLastModificationDate());
     }
 }

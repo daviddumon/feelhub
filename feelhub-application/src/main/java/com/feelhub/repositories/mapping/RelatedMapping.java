@@ -15,5 +15,7 @@ public class RelatedMapping extends AggregateMap<Related> {
         property(element().getFromId());
         property(element().getToId());
         property(element().getWeight());
+        property(element().getCreationDate());
+        property(element().getLastModificationDate());
     }
 }
