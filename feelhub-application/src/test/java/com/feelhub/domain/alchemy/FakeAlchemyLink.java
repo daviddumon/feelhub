@@ -1,14 +1,25 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.topic.http.uri.Uri;
+import com.feelhub.domain.admin.AlchemyCallsCounter;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class FakeAlchemyLink extends AlchemyLink {
 
+    public FakeAlchemyLink() {
+        super(new FakeAlchemyCallsCounter());
+    }
+
+    protected FakeAlchemyLink(AlchemyCallsCounter callsCounter) {
+        super(callsCounter);
+    }
+
     @Override
-    public InputStream get(final Uri uri) {
-        if (uri.equals(new Uri("http://www.error.com"))) {
+    protected InputStream get(final String uri) {
+        if (uri.contains("www.error.com")) {
             fileName = "error.json";
         }
         File file = new File("feelhub-application/src/test/java/com/feelhub/domain/alchemy/" + fileName);
@@ -24,4 +35,11 @@ public class FakeAlchemyLink extends AlchemyLink {
     }
 
     private String fileName = "alchemy.json";
+
+    private static class FakeAlchemyCallsCounter extends AlchemyCallsCounter {
+        @Override
+        public void increment() {
+
+        }
+    }
 }

@@ -62,6 +62,7 @@ public class FeelhubRouter extends Router {
         //ADMIN
         attach("/admin/ftl/{name}", withSecurity(AdminFreemarkerResource.class));
         attach("/admin/events", withSecurity(AdminEventsResource.class));
+        attach("/admin/statistics", withSecurity(AdminStatisticsResource.class));
     }
 
     private ChallengeAuthenticator withSecurity(final Class<? extends ServerResource> clazz) {

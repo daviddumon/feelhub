@@ -1,39 +1,46 @@
 package com.feelhub.domain.alchemy;
 
+import com.feelhub.domain.admin.AlchemyCallsCounter;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.tools.FeelhubApplicationProperties;
+import com.google.inject.Inject;
 
 import java.io.*;
 import java.net.*;
 
 public class AlchemyLink {
 
-    public AlchemyLink() {
+    @Inject
+    public AlchemyLink(AlchemyCallsCounter callsCounter) {
         final FeelhubApplicationProperties feelhubApplicationProperties = new FeelhubApplicationProperties();
         apiKey = feelhubApplicationProperties.getAlchemyApiKey();
+        this.callsCounter = callsCounter;
     }
 
     public InputStream get(final Uri uri) {
-        final String alchemyUri = buildUri(uri.getValue());
-        InputStream inputStream;
+        InputStream inputStream = get(buildUri(uri.getValue()));
+        if (inputStream != null) {
+            incrementApiCallsCount();
+        }
+        return inputStream;
+    }
+
+    protected InputStream get(String alchemyUri) {
         try {
             URL url = new URL(alchemyUri);
             final HttpURLConnection handle = (HttpURLConnection) url.openConnection();
             handle.setDoOutput(true);
-            inputStream = handle.getInputStream();
+            return handle.getInputStream();
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            return null;
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
         }
-        incrementApiCallsCount();
-        return inputStream;
+        return null;
     }
 
     private void incrementApiCallsCount() {
-        //To change body of created methods use File | Settings | File Templates.
+        callsCounter.increment();
     }
 
     private String buildUri(final String uri) {
@@ -48,4 +55,5 @@ public class AlchemyLink {
     }
 
     private final String apiKey;
+    private AlchemyCallsCounter callsCounter;
 }

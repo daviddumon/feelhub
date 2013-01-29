@@ -1,5 +1,6 @@
 package com.feelhub.repositories.fakeRepositories;
 
+import com.feelhub.domain.admin.AlchemyStatisticsRepository;
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.FeelingRepository;
 import com.feelhub.domain.relation.RelationRepository;
@@ -25,6 +26,11 @@ public class FakeMongoRepositories extends Repositories {
     @Override
     protected AlchemyEntityRepository getAlchemyEntityRepository() {
         return alchemyEntityRepository;
+    }
+
+    @Override
+    protected AlchemyStatisticsRepository getAlchemyStatisticsRepository() {
+        return alchemyStatisticsRepository;
     }
 
     @Override
@@ -72,4 +78,7 @@ public class FakeMongoRepositories extends Repositories {
     private final FakeAlchemyEntityRepository alchemyEntityRepository = new FakeAlchemyEntityRepository();
     private final FakeActivationRepository activationRepository = new FakeActivationRepository();
     private final AlchemyAnalysisRepository alchemyAnalysisRepository = new FakeAlchemyAnalysisRepository();
+    private AlchemyStatisticsRepository alchemyStatisticsRepository = new FakeAlchemyStatisticsRepository();
+
+
 }

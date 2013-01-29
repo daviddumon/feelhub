@@ -1,5 +1,6 @@
 package com.feelhub.repositories;
 
+import com.feelhub.domain.admin.AlchemyStatisticsRepository;
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.FeelingRepository;
 import com.feelhub.domain.relation.RelationRepository;
@@ -31,6 +32,11 @@ public class MongoRepositories extends Repositories {
     @Override
     protected AlchemyEntityRepository getAlchemyEntityRepository() {
         return new AlchemyEntityMongoRepository(provider.get());
+    }
+
+    @Override
+    protected AlchemyStatisticsRepository getAlchemyStatisticsRepository() {
+        return new AlchemyStatisticsMongoRepository(provider.get());
     }
 
     @Override
