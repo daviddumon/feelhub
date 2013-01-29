@@ -4,7 +4,7 @@ import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.topic.*;
 import org.json.JSONObject;
 
-import java.util.*;
+import java.util.UUID;
 
 public class SentimentData {
 

@@ -2,7 +2,8 @@ package com.feelhub.domain.topic;
 
 import com.feelhub.application.TagService;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.relation.Relation;
+import com.feelhub.domain.media.Media;
+import com.feelhub.domain.related.Related;
 import com.feelhub.domain.statistics.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
@@ -67,20 +68,37 @@ public class TestsTopicMerger {
     }
 
     @Test
-    public void mergeRelations() {
+    public void mergeRelated() {
         final RealTopic newRealTopic = TestFactories.topics().newCompleteRealTopic("tag1");
         final RealTopic oldRealTopic = TestFactories.topics().newCompleteRealTopic("tag2");
         final RealTopic anotherRealTopic = TestFactories.topics().newCompleteRealTopic();
-        final Relation relation1 = TestFactories.relations().newRelated(oldRealTopic.getId(), anotherRealTopic.getId());
-        final Relation relation2 = TestFactories.relations().newRelated(anotherRealTopic.getId(), oldRealTopic.getId());
+        final Related related1 = TestFactories.related().newRelated(oldRealTopic.getId(), anotherRealTopic.getId());
+        final Related related2 = TestFactories.related().newRelated(anotherRealTopic.getId(), oldRealTopic.getId());
 
         topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
 
-        assertThat(relation1.getFromId()).isEqualTo(newRealTopic.getId());
-        assertThat(relation1.getToId()).isEqualTo(anotherRealTopic.getId());
-        assertThat(relation2.getFromId()).isEqualTo(anotherRealTopic.getId());
-        assertThat(relation2.getToId()).isEqualTo(newRealTopic.getId());
+        assertThat(related1.getFromId()).isEqualTo(newRealTopic.getId());
+        assertThat(related1.getToId()).isEqualTo(anotherRealTopic.getId());
+        assertThat(related2.getFromId()).isEqualTo(anotherRealTopic.getId());
+        assertThat(related2.getToId()).isEqualTo(newRealTopic.getId());
     }
+
+    @Test
+    public void mergeMedias() {
+        final HttpTopic oldTopic = TestFactories.topics().newMediaTopic();
+        final HttpTopic newTopic = TestFactories.topics().newMediaTopic();
+        final RealTopic anotherRealTopic = TestFactories.topics().newCompleteRealTopic();
+        final Media media1 = TestFactories.medias().newMedia(oldTopic.getId(), anotherRealTopic.getId());
+        final Media media2 = TestFactories.medias().newMedia(anotherRealTopic.getId(), oldTopic.getId());
+
+        topicMerger.merge(newTopic.getId(), oldTopic.getId());
+
+        assertThat(media1.getFromId()).isEqualTo(newTopic.getId());
+        assertThat(media1.getToId()).isEqualTo(anotherRealTopic.getId());
+        assertThat(media2.getFromId()).isEqualTo(anotherRealTopic.getId());
+        assertThat(media2.getToId()).isEqualTo(newTopic.getId());
+    }
+
 
     @Test
     public void mergeStatistics() {

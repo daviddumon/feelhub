@@ -1,16 +1,14 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.admin.AlchemyCallsCounter;
-import com.feelhub.domain.admin.AlchemyStatistic;
+import com.feelhub.domain.admin.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
 import org.joda.time.DateTime;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsAlchemyLink {
 

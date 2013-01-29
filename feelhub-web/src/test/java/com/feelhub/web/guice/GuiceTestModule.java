@@ -1,7 +1,7 @@
 package com.feelhub.web.guice;
 
 import com.feelhub.domain.alchemy.*;
-import com.feelhub.domain.bingsearch.*;
+import com.feelhub.domain.bing.*;
 import com.feelhub.domain.scraper.*;
 import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.translation.*;
@@ -28,7 +28,8 @@ public class GuiceTestModule extends AbstractModule {
         bind(SessionProvider.class).to(FakeSessionProvider.class);
         bind(FeelingSearch.class).to(FakeFeelingSearch.class);
         bind(StatisticsSearch.class).to(FakeStatisticsSearch.class);
-        bind(RelationSearch.class).to(FakeRelationSearch.class);
+        bind(RelatedSearch.class).to(FakeRelatedSearch.class);
+        bind(MediaSearch.class).to(FakeMediaSearch.class);
         bind(UriResolver.class).to(FakeUriResolver.class);
         bind(MigrationRunner.class).to(FakeMigrationRunner.class);
         bind(MigrationFilter.class).to(FakeMigrationFilter.class);

@@ -1,26 +1,12 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.admin.AlchemyStatistic;
-import com.feelhub.domain.admin.AlchemyStatisticsRepository;
-import com.feelhub.domain.alchemy.AlchemyAnalysis;
-import com.feelhub.domain.alchemy.AlchemyAnalysisRepository;
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.admin.*;
 import com.feelhub.test.SystemTime;
-import com.feelhub.test.TestFactories;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import com.mongodb.*;
+import org.junit.*;
 
-import java.util.List;
-import java.util.UUID;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsAlchemyStatistcsMongoRepository extends TestWithMongoRepository {
 

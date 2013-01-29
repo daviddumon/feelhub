@@ -2,8 +2,7 @@ package com.feelhub.domain.admin;
 
 import com.feelhub.repositories.Repositories;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.*;
 
 public class AlchemyCallsCounter {
     public void increment() {

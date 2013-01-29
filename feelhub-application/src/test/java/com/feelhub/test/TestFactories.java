@@ -2,7 +2,8 @@ package com.feelhub.test;
 
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.relation.RelationTestFactory;
+import com.feelhub.domain.media.MediaTestFactory;
+import com.feelhub.domain.related.RelatedTestFactory;
 import com.feelhub.domain.session.SessionTestFactory;
 import com.feelhub.domain.statistics.StatisticsTestFactory;
 import com.feelhub.domain.tag.TagTestFactory;
@@ -30,8 +31,8 @@ public class TestFactories {
         return new NamedEntityTestFactory();
     }
 
-    public static RelationTestFactory relations() {
-        return new RelationTestFactory();
+    public static RelatedTestFactory related() {
+        return new RelatedTestFactory();
     }
 
     public static UserTestFactory users() {
@@ -52,5 +53,9 @@ public class TestFactories {
 
     public static AlchemyTestFactory alchemy() {
         return new AlchemyTestFactory();
+    }
+
+    public static MediaTestFactory medias() {
+        return new MediaTestFactory();
     }
 }

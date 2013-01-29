@@ -151,7 +151,7 @@ public class TestsAlchemyAnalyzer {
 
         DomainEventBus.INSTANCE.post(alchemyRequestEvent);
 
-        assertThat(Repositories.relations().getAll().size()).isEqualTo(2);
+        assertThat(Repositories.related().getAll().size()).isEqualTo(2);
     }
 
     private NamedEntityProvider entityProvider;

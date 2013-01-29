@@ -3,7 +3,7 @@ package com.feelhub.application;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.feeling.analyze.SentimentExtractor;
-import com.feelhub.domain.relation.FeelingRelationBinder;
+import com.feelhub.domain.feeling.FeelingRelationBinder;
 import com.feelhub.repositories.Repositories;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -24,7 +24,7 @@ public class FeelingService {
     public void handle(final FeelingRequestEvent event) {
         final List<Sentiment> sentiments = sentimentExtractor.analyze(event.getText(), event.getTopicId(), event.getUserId(), event.getLanguage());
         final Feeling feeling = buildFeeling(event, sentiments);
-        feelingRelationBinder.bind(feeling);
+        //feelingRelationBinder.bind(feeling);
         Repositories.feelings().add(feeling);
     }
 

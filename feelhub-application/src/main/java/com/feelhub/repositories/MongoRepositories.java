@@ -3,7 +3,8 @@ package com.feelhub.repositories;
 import com.feelhub.domain.admin.AlchemyStatisticsRepository;
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.FeelingRepository;
-import com.feelhub.domain.relation.RelationRepository;
+import com.feelhub.domain.media.MediaRepository;
+import com.feelhub.domain.related.RelatedRepository;
 import com.feelhub.domain.session.SessionRepository;
 import com.feelhub.domain.statistics.StatisticsRepository;
 import com.feelhub.domain.tag.TagRepository;
@@ -55,8 +56,8 @@ public class MongoRepositories extends Repositories {
     }
 
     @Override
-    protected RelationRepository getRelationRepository() {
-        return new RelationMongoRepository(provider.get());
+    protected RelatedRepository getRelatedRepository() {
+        return new RelatedMongoRepository(provider.get());
     }
 
     @Override
@@ -72,6 +73,11 @@ public class MongoRepositories extends Repositories {
     @Override
     protected UserRepository getUserRepository() {
         return new UserMongoRepository(provider.get());
+    }
+
+    @Override
+    protected MediaRepository getMediaRepository() {
+        return new MediaMongoRepository(provider.get());
     }
 
     private final SessionProvider provider;

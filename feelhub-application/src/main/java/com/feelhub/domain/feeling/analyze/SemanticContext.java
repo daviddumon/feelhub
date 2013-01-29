@@ -1,6 +1,6 @@
 package com.feelhub.domain.feeling.analyze;
 
-import com.feelhub.domain.relation.related.Related;
+import com.feelhub.domain.related.Related;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;
@@ -15,7 +15,7 @@ public class SemanticContext {
     }
 
     public void extractFor(final UUID topicId, final FeelhubLanguage language) {
-        final List<Related> relatedList = Repositories.relations().relatedForTopicId(topicId);
+        final List<Related> relatedList = Repositories.related().forTopicId(topicId);
         for (final Related related : relatedList) {
             final List<Tag> tags = Repositories.tags().forTopicId(related.getToId());
             for (final Tag tag : tags) {

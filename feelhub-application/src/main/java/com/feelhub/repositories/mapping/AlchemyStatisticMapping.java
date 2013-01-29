@@ -1,7 +1,6 @@
 package com.feelhub.repositories.mapping;
 
 import com.feelhub.domain.admin.AlchemyStatistic;
-import com.feelhub.domain.alchemy.AlchemyEntity;
 import org.mongolink.domain.mapper.AggregateMap;
 
 public class AlchemyStatisticMapping extends AggregateMap<AlchemyStatistic> {

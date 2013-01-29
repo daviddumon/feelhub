@@ -1,13 +1,11 @@
 package com.feelhub.web.dto;
 
-import com.feelhub.domain.topic.TopicType;
-import com.feelhub.domain.topic.UnusableTopicTypes;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.google.common.collect.Lists;
 import org.json.JSONObject;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class TopicData {
 

@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.domain.relation.Relation;
+import com.feelhub.domain.related.Related;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -68,8 +68,8 @@ public class TestsApiTopicRelatedResource {
 
     @Test
     public void canGetARelated() throws IOException, JSONException {
-        final Relation relation = TestFactories.relations().newRelated();
-        final ClientResource relatedResource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/related?skip=0&limit=1");
+        final Related related = TestFactories.related().newRelated();
+        final ClientResource relatedResource = restlet.newClientResource("/api/topic/" + related.getFromId() + "/related?skip=0&limit=1");
 
         final Representation representation = relatedResource.get();
 
@@ -81,8 +81,8 @@ public class TestsApiTopicRelatedResource {
     @Test
     public void canGetRelatedForATopic() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelatedList(5, realTopic.getId());
-        TestFactories.relations().newRelatedList(20);
+        TestFactories.related().newRelatedList(5, realTopic.getId());
+        TestFactories.related().newRelatedList(20);
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related");
 
         final Representation representation = resource.get();
@@ -96,7 +96,7 @@ public class TestsApiTopicRelatedResource {
     @Test
     public void canGetRelatedWithSkip() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelatedList(5, realTopic.getId());
+        TestFactories.related().newRelatedList(5, realTopic.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related?skip=2");
 
         final Representation representation = resource.get();
@@ -110,7 +110,7 @@ public class TestsApiTopicRelatedResource {
     @Test
     public void canGetRelatedWithLimit() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelatedList(5, realTopic.getId());
+        TestFactories.related().newRelatedList(5, realTopic.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related?limit=2");
 
         final Representation representation = resource.get();
@@ -124,7 +124,7 @@ public class TestsApiTopicRelatedResource {
     @Test
     public void defaultLimitIs100() throws IOException, JSONException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.relations().newRelatedList(150, realTopic.getId());
+        TestFactories.related().newRelatedList(150, realTopic.getId());
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/related");
 
         final Representation representation = resource.get();
@@ -137,8 +137,8 @@ public class TestsApiTopicRelatedResource {
 
     @Test
     public void canGetEmptyTopicData() throws IOException, JSONException {
-        final Relation relation = TestFactories.relations().newRelated();
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/related");
+        final Related related = TestFactories.related().newRelated();
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + related.getFromId() + "/related");
 
         final Representation representation = resource.get();
 
@@ -146,7 +146,7 @@ public class TestsApiTopicRelatedResource {
         final JSONArray jsonArray = new JSONArray(representation.getText());
         final JSONObject topicDataAsJson = jsonArray.getJSONObject(0);
         assertThat(topicDataAsJson).isNotNull();
-        assertThat(topicDataAsJson.get("id").toString()).isEqualTo(relation.getToId().toString());
+        assertThat(topicDataAsJson.get("id").toString()).isEqualTo(related.getToId().toString());
         assertThat(topicDataAsJson.get("name").toString()).isEqualTo("Name-reference");
         assertThat(topicDataAsJson.get("illustration").toString()).isEmpty();
     }
@@ -155,10 +155,10 @@ public class TestsApiTopicRelatedResource {
     public void canGetWithGoodIllustration() throws IOException, JSONException {
         final RealTopic from = TestFactories.topics().newCompleteRealTopic();
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
-        final Relation relation = TestFactories.relations().newRelated(from.getId(), to.getId());
+        final Related related = TestFactories.related().newRelated(from.getId(), to.getId());
         final String illustration = "illustration";
         to.setIllustration(illustration);
-        final ClientResource resource = restlet.newClientResource("/api/topic/" + relation.getFromId() + "/related");
+        final ClientResource resource = restlet.newClientResource("/api/topic/" + related.getFromId() + "/related");
 
         final Representation representation = resource.get();
 

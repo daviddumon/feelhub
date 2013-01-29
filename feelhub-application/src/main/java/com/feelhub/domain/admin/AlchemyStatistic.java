@@ -30,6 +30,7 @@ public class AlchemyStatistic extends BaseEntity {
     public void increment() {
         count++;
     }
+
     private UUID id = UUID.randomUUID();
     private String month;
     private int count;
