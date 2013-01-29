@@ -1,7 +1,8 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.admin.AlchemyCallsCounter;
-import com.feelhub.domain.admin.AlchemyStatistic;
+import com.feelhub.domain.admin.AdminStatistic;
+import com.feelhub.domain.admin.AdminStatisticCallsCounter;
+import com.feelhub.domain.admin.Api;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -23,27 +24,28 @@ public class TestsAlchemyLink {
     @Test
     public void canIncrementApiCallsCountWhenNoStatistic() {
         systemTime.set(new DateTime(2012, 1, 21, 12, 30));
-        FakeAlchemyLink alchemyLink = new FakeAlchemyLink(new AlchemyCallsCounter());
+        FakeAlchemyLink alchemyLink = new FakeAlchemyLink(new AdminStatisticCallsCounter());
 
         alchemyLink.get(new Uri("http://www.toto.com"));
 
-        assertThat(Repositories.alchemyStatistics().getAll()).hasSize(1);
-        AlchemyStatistic alchemyStatistic = Repositories.alchemyStatistics().getAll().get(0);
-        assertThat(alchemyStatistic.getMonth()).isEqualTo("012012");
-        assertThat(alchemyStatistic.getCount()).isEqualTo(1);
+        assertThat(Repositories.adminStatistics().getAll()).hasSize(1);
+        AdminStatistic adminStatistic = Repositories.adminStatistics().getAll().get(0);
+        assertThat(adminStatistic.getMonth()).isEqualTo("012012");
+        assertThat(adminStatistic.getCount()).isEqualTo(1);
+        assertThat(adminStatistic.getApi()).isEqualTo(Api.Alchemy);
     }
 
     @Test
     public void canIncrementApiCallsCountWhenAStatisticExists() {
         systemTime.set(new DateTime(2012, 1, 21, 12, 30));
-        AlchemyStatistic statistic = new AlchemyStatistic("012012");
+        AdminStatistic statistic = new AdminStatistic("012012", Api.Alchemy);
         statistic.increment();
-        Repositories.alchemyStatistics().add(statistic);
-        FakeAlchemyLink alchemyLink = new FakeAlchemyLink(new AlchemyCallsCounter());
+        Repositories.adminStatistics().add(statistic);
+        FakeAlchemyLink alchemyLink = new FakeAlchemyLink(new AdminStatisticCallsCounter());
 
         alchemyLink.get(new Uri("http://www.toto.com"));
 
-        AlchemyStatistic alchemyStatistic = Repositories.alchemyStatistics().getAll().get(0);
-        assertThat(alchemyStatistic.getCount()).isEqualTo(2);
+        AdminStatistic adminStatistic = Repositories.adminStatistics().getAll().get(0);
+        assertThat(adminStatistic.getCount()).isEqualTo(2);
     }
 }

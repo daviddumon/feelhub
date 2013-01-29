@@ -1,6 +1,7 @@
 package com.feelhub.web.resources.admin;
 
-import com.feelhub.domain.admin.AlchemyStatistic;
+import com.feelhub.domain.admin.AdminStatistic;
+import com.feelhub.domain.admin.Api;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.ClientResource;
@@ -10,12 +11,8 @@ import com.feelhub.web.representation.ModelAndView;
 import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
 import org.junit.Test;
-import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.data.ChallengeResponse;
 import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Method;
 import org.restlet.data.Status;
 
 import java.util.List;
@@ -41,14 +38,31 @@ public class TestsAdminStatisticsResource {
     }
 
     @Test
-    public void hasStatisticsInData() {
-        Repositories.alchemyStatistics().add(new AlchemyStatistic("022012"));
+    public void hasAlchemyStatisticsInData() {
+        AdminStatistic alchemyStatistic = new AdminStatistic("022012", Api.Alchemy);
+        Repositories.adminStatistics().add(alchemyStatistic);
+        Repositories.adminStatistics().add(new AdminStatistic("022012", Api.BingSearch));
 
         final ModelAndView modelAndView = new AdminStatisticsResource().represent();
 
         assertThat(modelAndView.getData("alchemyStatistics")).isNotNull();
-        List<AlchemyStatistic> stats = modelAndView.getData("alchemyStatistics");
+        List<AdminStatistic> stats = modelAndView.getData("alchemyStatistics");
         assertThat(stats).hasSize(1);
+        assertThat(stats.get(0).getId()).isEqualTo(alchemyStatistic.getId());
+    }
+
+    @Test
+    public void hasBingSearchStatisticsInData() {
+        Repositories.adminStatistics().add(new AdminStatistic("022012", Api.Alchemy));
+        AdminStatistic bingSearchStatistic = new AdminStatistic("022012", Api.BingSearch);
+        Repositories.adminStatistics().add(bingSearchStatistic);
+
+        final ModelAndView modelAndView = new AdminStatisticsResource().represent();
+
+        assertThat(modelAndView.getData("bingSearchStatistics")).isNotNull();
+        List<AdminStatistic> stats = modelAndView.getData("bingSearchStatistics");
+        assertThat(stats).hasSize(1);
+        assertThat(stats.get(0).getId()).isEqualTo(bingSearchStatistic.getId());
     }
 
     private ChallengeResponse challengeResponse() {

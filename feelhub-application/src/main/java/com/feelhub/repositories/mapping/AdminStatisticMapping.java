@@ -1,13 +1,12 @@
 package com.feelhub.repositories.mapping;
 
-import com.feelhub.domain.admin.AlchemyStatistic;
-import com.feelhub.domain.alchemy.AlchemyEntity;
+import com.feelhub.domain.admin.AdminStatistic;
 import org.mongolink.domain.mapper.AggregateMap;
 
-public class AlchemyStatisticMapping extends AggregateMap<AlchemyStatistic> {
+public class AdminStatisticMapping extends AggregateMap<AdminStatistic> {
 
-    public AlchemyStatisticMapping() {
-        super(AlchemyStatistic.class);
+    public AdminStatisticMapping() {
+        super(AdminStatistic.class);
     }
 
     @Override
@@ -17,5 +16,6 @@ public class AlchemyStatisticMapping extends AggregateMap<AlchemyStatistic> {
         property(element().getLastModificationDate());
         property(element().getMonth());
         property(element().getCount());
+        property(element().getApi());
     }
 }

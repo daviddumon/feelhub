@@ -5,15 +5,15 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class AlchemyCallsCounter {
-    public void increment() {
+public class AdminStatisticCallsCounter {
+    public void increment(Api api) {
         String month = currentMonth();
-        AlchemyStatistic alchemyStatistic = Repositories.alchemyStatistics().byMonth(month);
-        if (alchemyStatistic == null) {
-            alchemyStatistic = new AlchemyStatistic(month);
-            Repositories.alchemyStatistics().add(alchemyStatistic);
+        AdminStatistic adminStatistic = Repositories.adminStatistics().byMonthAndApi(month, api);
+        if (adminStatistic == null) {
+            adminStatistic = new AdminStatistic(month, api);
+            Repositories.adminStatistics().add(adminStatistic);
         }
-        alchemyStatistic.increment();
+        adminStatistic.increment();
     }
 
     private String currentMonth() {

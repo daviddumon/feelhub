@@ -4,14 +4,15 @@ import com.feelhub.domain.BaseEntity;
 
 import java.util.UUID;
 
-public class AlchemyStatistic extends BaseEntity {
+public class AdminStatistic extends BaseEntity {
 
-    protected AlchemyStatistic() {
+    protected AdminStatistic() {
         // mongolink
     }
 
-    public AlchemyStatistic(String month) {
+    public AdminStatistic(String month, Api api) {
         this.month = month;
+        this.api = api;
     }
 
     @Override
@@ -27,11 +28,17 @@ public class AlchemyStatistic extends BaseEntity {
         return count;
     }
 
+    public Api getApi() {
+        return api;
+    }
+
     public void increment() {
         count++;
     }
+
     private UUID id = UUID.randomUUID();
     private String month;
     private int count;
+    private Api api;
 
 }

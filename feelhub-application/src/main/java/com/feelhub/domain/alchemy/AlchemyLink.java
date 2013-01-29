@@ -1,6 +1,7 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.admin.AlchemyCallsCounter;
+import com.feelhub.domain.admin.AdminStatisticCallsCounter;
+import com.feelhub.domain.admin.Api;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.tools.FeelhubApplicationProperties;
 import com.google.inject.Inject;
@@ -11,7 +12,7 @@ import java.net.*;
 public class AlchemyLink {
 
     @Inject
-    public AlchemyLink(AlchemyCallsCounter callsCounter) {
+    public AlchemyLink(AdminStatisticCallsCounter callsCounter) {
         final FeelhubApplicationProperties feelhubApplicationProperties = new FeelhubApplicationProperties();
         apiKey = feelhubApplicationProperties.getAlchemyApiKey();
         this.callsCounter = callsCounter;
@@ -40,7 +41,7 @@ public class AlchemyLink {
     }
 
     private void incrementApiCallsCount() {
-        callsCounter.increment();
+        callsCounter.increment(Api.Alchemy);
     }
 
     private String buildUri(final String uri) {
@@ -55,5 +56,5 @@ public class AlchemyLink {
     }
 
     private final String apiKey;
-    private AlchemyCallsCounter callsCounter;
+    private AdminStatisticCallsCounter callsCounter;
 }
