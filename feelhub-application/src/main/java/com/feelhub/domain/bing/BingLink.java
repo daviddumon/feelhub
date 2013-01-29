@@ -1,9 +1,12 @@
 package com.feelhub.domain.bing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.feelhub.domain.admin.AdminStatisticCallsCounter;
+import com.feelhub.domain.admin.Api;
 import com.feelhub.domain.bing.readmodel.*;
 import com.feelhub.tools.FeelhubApplicationProperties;
 import com.google.common.collect.Lists;
+import com.google.inject.Inject;
 import com.sun.net.httpserver.BasicAuthenticator;
 import org.apache.commons.codec.binary.Base64;
 
@@ -13,7 +16,9 @@ import java.util.List;
 
 public class BingLink {
 
-    public BingLink() {
+    @Inject
+    public BingLink(AdminStatisticCallsCounter callsCounter) {
+        this.callsCounter = callsCounter;
         feelhubApplicationProperties = new FeelhubApplicationProperties();
     }
 
@@ -55,6 +60,7 @@ public class BingLink {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        callsCounter.increment(Api.BingSearch);
         return results;
     }
 
@@ -78,4 +84,5 @@ public class BingLink {
     }
 
     private FeelhubApplicationProperties feelhubApplicationProperties;
+    private AdminStatisticCallsCounter callsCounter;
 }

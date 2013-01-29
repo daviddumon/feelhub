@@ -1,5 +1,6 @@
 package com.feelhub.domain.bing;
 
+import com.feelhub.domain.admin.AdminStatisticCallsCounter;
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 public class FakeBingLink extends BingLink {
 
     public FakeBingLink() {
-        super();
+        super(new AdminStatisticCallsCounter());
     }
 
     @Override
