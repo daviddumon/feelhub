@@ -7,6 +7,7 @@ define(["jquery",
 
         function render(topicData) {
             $("#topic-name span").html(topicData.name);
+            topicData.root = root;
             renderTemplate(template, topicData);
         }
 
