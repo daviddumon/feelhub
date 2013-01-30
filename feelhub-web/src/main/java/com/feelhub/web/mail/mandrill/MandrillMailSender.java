@@ -1,5 +1,7 @@
 package com.feelhub.web.mail.mandrill;
 
+import com.feelhub.domain.admin.ApiCallEvent;
+import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.tools.Clients;
 import com.google.gson.Gson;
 import org.joda.time.DateTime;
@@ -12,6 +14,11 @@ public class MandrillMailSender {
     }
 
     public void send(final MandrillTemplateRequest message) {
+        sendMessage(message);
+        DomainEventBus.INSTANCE.post(ApiCallEvent.mandrill());
+    }
+
+    protected void sendMessage(MandrillTemplateRequest message) {
         message.key = KEY;
         message.async = false;
         message.message.from_email = FROM;

@@ -47,7 +47,7 @@ public class TestsAdminStatisticsResource {
 
         assertThat(modelAndView.getData("statistics")).isNotNull();
         List<AdminStatisticsByApi> stats = modelAndView.getData("statistics");
-        assertThat(stats).hasSize(2);
+        assertThat(stats).hasSize(Api.values().length);
         assertThat(stats.get(0).getApi()).isEqualTo(Api.Alchemy);
         assertThat(stats.get(0).getStatistics()).hasSize(1);
         assertThat(stats.get(0).getStatistics().get(0).getMonth()).isEqualTo("012012");

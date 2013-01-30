@@ -20,6 +20,7 @@ public class TestsTranslator {
 
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
+    private Translator translator;
 
     @Before
     public void before() {
@@ -29,7 +30,7 @@ public class TestsTranslator {
                 bind(Translator.class).to(FakeTranslator.class);
             }
         });
-        injector.getInstance(Translator.class);
+        translator = injector.getInstance(Translator.class);
     }
 
     @Test
@@ -58,7 +59,7 @@ public class TestsTranslator {
         final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = getEvent(TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary));
         bus.capture(ApiCallEvent.class);
 
-        DomainEventBus.INSTANCE.post(referenceTranslationRequestEvent);
+        translator.onTranslationRequest(referenceTranslationRequestEvent);
 
         ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
         assertThat(event).isNotNull();

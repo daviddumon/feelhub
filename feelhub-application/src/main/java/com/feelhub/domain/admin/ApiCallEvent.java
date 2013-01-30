@@ -2,7 +2,7 @@ package com.feelhub.domain.admin;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 
-public class ApiCallEvent extends DomainEvent{
+public class ApiCallEvent extends DomainEvent {
 
     public static ApiCallEvent bingSearch() {
         return new ApiCallEvent(Api.BingSearch);
@@ -10,6 +10,10 @@ public class ApiCallEvent extends DomainEvent{
 
     public static ApiCallEvent alchemy() {
         return new ApiCallEvent(Api.Alchemy);
+    }
+
+    public static DomainEvent mandrill() {
+        return new ApiCallEvent(Api.Mandrill);
     }
 
     public static DomainEvent microsoftTranslate(int increment) {

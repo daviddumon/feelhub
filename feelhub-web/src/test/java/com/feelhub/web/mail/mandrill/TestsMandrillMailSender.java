@@ -1,6 +1,15 @@
 package com.feelhub.web.mail.mandrill;
 
-import org.junit.*;
+import com.feelhub.domain.admin.Api;
+import com.feelhub.domain.admin.ApiCallEvent;
+import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.eventbus.WithDomainEvent;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class TestsMandrillMailSender {
 
@@ -8,6 +17,9 @@ public class TestsMandrillMailSender {
     public void avant() {
         mandrillMailSender = new MandrillMailSender();
     }
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
 
     @Test
     @Ignore("ça envoie le mail pour de vrai")
@@ -19,6 +31,23 @@ public class TestsMandrillMailSender {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void incrementApiCallsCounter() {
+        bus.capture(ApiCallEvent.class);
+
+        new MandrillMailSender() {
+            @Override
+            protected void sendMessage(MandrillTemplateRequest message) {
+
+            }
+        }.send(null);
+
+        ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
+        assertThat(event).isNotNull();
+        assertThat(event.getApi()).isEqualTo(Api.Mandrill);
+        assertThat(event.getIncrement()).isEqualTo(1);
     }
 
     private MandrillTemplateRequest aMessage() {

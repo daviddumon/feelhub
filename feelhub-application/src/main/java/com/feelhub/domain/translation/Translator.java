@@ -27,6 +27,7 @@ public class Translator {
         final String name = referenceTranslationRequestEvent.getName();
         try {
             final String referenceDescription = translateToReference(name, feelhubLanguage);
+            DomainEventBus.INSTANCE.post(ApiCallEvent.microsoftTranslate(name.length()));
             //todo absolument horrible, enlever ca des qu'une solution est trouvée au probleme d'asynchronicité
             try {
                 final RealTopic foundTopic = (RealTopic) Repositories.topics().get(realTopic.getId());
@@ -40,9 +41,7 @@ public class Translator {
     }
 
     protected String translateToReference(final String value, final FeelhubLanguage feelhubLanguage) throws Exception {
-        String result = Translate.execute(value, feelhubLanguage.getMicrosoftLanguage(), FeelhubLanguage.REFERENCE.getMicrosoftLanguage());
-        DomainEventBus.INSTANCE.post(ApiCallEvent.microsoftTranslate(value.length()));
-        return result;
+        return Translate.execute(value, feelhubLanguage.getMicrosoftLanguage(), FeelhubLanguage.REFERENCE.getMicrosoftLanguage());
     }
 
     private final TopicService topicService;
