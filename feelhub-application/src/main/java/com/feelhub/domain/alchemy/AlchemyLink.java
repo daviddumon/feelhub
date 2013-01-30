@@ -1,27 +1,29 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.admin.AdminStatisticCallsCounter;
-import com.feelhub.domain.admin.Api;
+import com.feelhub.domain.admin.ApiCallEvent;
+import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.tools.FeelhubApplicationProperties;
-import com.google.inject.Inject;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class AlchemyLink {
 
-    @Inject
-    public AlchemyLink(AdminStatisticCallsCounter callsCounter) {
+    public AlchemyLink() {
         final FeelhubApplicationProperties feelhubApplicationProperties = new FeelhubApplicationProperties();
         apiKey = feelhubApplicationProperties.getAlchemyApiKey();
-        this.callsCounter = callsCounter;
     }
 
     public InputStream get(final Uri uri) {
         InputStream inputStream = get(buildUri(uri.getValue()));
         if (inputStream != null) {
-            incrementApiCallsCount();
+            DomainEventBus.INSTANCE.post(ApiCallEvent.alchemy());
         }
         return inputStream;
     }
@@ -40,10 +42,6 @@ public class AlchemyLink {
         return null;
     }
 
-    private void incrementApiCallsCount() {
-        callsCounter.increment(Api.Alchemy);
-    }
-
     private String buildUri(final String uri) {
         final StringBuilder uriBuilder = new StringBuilder();
         try {
@@ -56,5 +54,4 @@ public class AlchemyLink {
     }
 
     private final String apiKey;
-    private AdminStatisticCallsCounter callsCounter;
 }

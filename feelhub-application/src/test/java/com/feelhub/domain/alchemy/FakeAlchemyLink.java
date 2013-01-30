@@ -1,19 +1,8 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.admin.AdminStatisticCallsCounter;
-import com.feelhub.domain.admin.Api;
-
 import java.io.*;
 
 public class FakeAlchemyLink extends AlchemyLink {
-
-    public FakeAlchemyLink() {
-        super(new FakeAdminStatisticCallsCounter());
-    }
-
-    protected FakeAlchemyLink(AdminStatisticCallsCounter callsCounter) {
-        super(callsCounter);
-    }
 
     @Override
     protected InputStream get(final String uri) {
@@ -33,11 +22,4 @@ public class FakeAlchemyLink extends AlchemyLink {
     }
 
     private String fileName = "alchemy.json";
-
-    private static class FakeAdminStatisticCallsCounter extends AdminStatisticCallsCounter {
-        @Override
-        public void increment(Api alchemy) {
-
-        }
-    }
 }

@@ -1,6 +1,7 @@
 package com.feelhub.web.guice;
 
 import com.feelhub.application.*;
+import com.feelhub.domain.admin.AdminApiCallsService;
 import com.feelhub.domain.alchemy.AlchemyAnalyzer;
 import com.feelhub.domain.bing.BingSearch;
 import com.feelhub.domain.eventbus.*;
@@ -32,6 +33,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(ActivationService.class).asEagerSingleton();
         bind(BingSearch.class).asEagerSingleton();
         bind(Translator.class).asEagerSingleton();
+        bind(AdminApiCallsService.class).asEagerSingleton();
     }
 
     private Properties properties() {

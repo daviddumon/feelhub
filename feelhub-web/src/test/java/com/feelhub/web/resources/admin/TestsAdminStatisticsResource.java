@@ -30,11 +30,11 @@ public class TestsAdminStatisticsResource {
 
     @Test
     public void isMappedWithSecurity() {
-        final ClientResource help = restlet.newClientResource("/admin/statistics", challengeResponse());
+        final ClientResource resource = restlet.newClientResource("/admin/statistics", challengeResponse());
 
-        help.get();
+        resource.get();
 
-        MatcherAssert.assertThat(help.getStatus(), is(Status.SUCCESS_OK));
+        MatcherAssert.assertThat(resource.getStatus(), is(Status.SUCCESS_OK));
     }
 
     @Test

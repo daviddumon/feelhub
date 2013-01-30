@@ -1,10 +1,25 @@
 package com.feelhub.domain.admin;
 
+import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.repositories.Repositories;
+import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import org.joda.time.DateTime;
-import org.joda.time.format.*;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
-public class AdminStatisticCallsCounter {
+public class AdminApiCallsService {
+
+    @Inject
+    public AdminApiCallsService() {
+        DomainEventBus.INSTANCE.register(this);
+    }
+
+    @Subscribe
+    public void onApiCall(final ApiCallEvent event) {
+        increment(event.getApi());
+    }
+
     public void increment(Api api) {
         String month = currentMonth();
         AdminStatistic adminStatistic = Repositories.adminStatistics().byMonthAndApi(month, api);

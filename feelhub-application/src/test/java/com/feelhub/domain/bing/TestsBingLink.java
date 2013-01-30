@@ -1,6 +1,8 @@
 package com.feelhub.domain.bing;
 
-import com.feelhub.repositories.Repositories;
+import com.feelhub.domain.admin.Api;
+import com.feelhub.domain.admin.ApiCallEvent;
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.FakeInternet;
 import com.google.inject.AbstractModule;
@@ -21,6 +23,9 @@ public class TestsBingLink {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
 
     @Before
     public void before() {
@@ -65,9 +70,14 @@ public class TestsBingLink {
 
     @Test
     public void incrementStatistic() {
+        bus.capture(ApiCallEvent.class);
+
         bingLink.getIllustrations("banana", "fruit");
 
-        assertThat(Repositories.adminStatistics().getAll()).hasSize(1);
+        ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
+        assertThat(event).isNotNull();
+        assertThat(event.getApi()).isEqualTo(Api.BingSearch);
+        assertThat(event.getIncrement()).isEqualTo(1);
     }
 
     private BingLink bingLink;
