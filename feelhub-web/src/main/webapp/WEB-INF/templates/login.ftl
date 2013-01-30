@@ -36,8 +36,11 @@
     </div>
     <div class="holder">
         <a id="login_submit" href="">login</a>
-        <#--or-->
-        <#--<a href="${facebookUrl}">login with facebook</a>-->
+
+        <div class="social">or</div>
+        <a href="${facebookUrl}" class="facebook_login">
+            <img src="${root}/static/images/facebook_login.png"/>
+        </a>
     </div>
 </form>
 </@noflow.body>
