@@ -8,6 +8,8 @@ import com.feelhub.domain.translation.*;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.repositories.fakeRepositories.FakeSessionProvider;
 import com.feelhub.web.filter.*;
+import com.feelhub.web.mail.FakeMailSender;
+import com.feelhub.web.mail.MailSender;
 import com.feelhub.web.migration.*;
 import com.feelhub.web.migration.web.MigrationFilter;
 import com.feelhub.web.search.*;
@@ -38,6 +40,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(Translator.class).to(FakeTranslator.class);
         bind(AlchemyLink.class).to(FakeAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
+        bind(MailSender.class).to(FakeMailSender.class);
     }
 
     private Properties properties() {

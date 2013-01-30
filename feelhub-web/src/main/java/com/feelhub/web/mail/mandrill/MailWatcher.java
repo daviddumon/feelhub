@@ -1,4 +1,4 @@
-package com.feelhub.web.mail;
+package com.feelhub.web.mail.mandrill;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.user.*;
