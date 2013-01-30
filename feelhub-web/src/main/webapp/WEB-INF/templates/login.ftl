@@ -13,7 +13,7 @@
         <#if !userInfos.anonymous>
             <p>Hello ${userInfos.fullname} !</p>
 
-            <p>Please enter your password, or <a href="javascript:void(0);" id="logout">change user</a> !</p>
+            <p>Please enter your password, or <a href="javascript:void(0);" class="logout">change user</a> !</p>
             <input name="email" value="${userInfos.email}" type="text" autocomplete="off" maxlength="100" style="display: none"/>
         <#else>
             <span class="help_text">Email</span>

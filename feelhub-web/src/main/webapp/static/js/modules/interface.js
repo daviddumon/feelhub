@@ -2,7 +2,7 @@ define(['jquery'], function ($) {
 
     function init() {
 
-        $("#logout").click(function () {
+        $(".logout").click(function () {
             $.ajax({
                 url: root + '/sessions',
                 type: 'DELETE',
