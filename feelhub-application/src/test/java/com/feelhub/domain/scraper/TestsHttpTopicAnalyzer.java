@@ -51,7 +51,7 @@ public class TestsHttpTopicAnalyzer {
         httpTopicAnalyzer.analyze(httpTopic);
 
         assertThat(httpTopic.getNames().size()).isEqualTo(1);
-        assertThat(httpTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("Name Og");
+        assertThat(httpTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("name og");
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.feelhub.domain.topic.http;
 
 import com.feelhub.domain.alchemy.AlchemyRequestEvent;
 import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;
@@ -205,5 +206,49 @@ public class TestsHttpTopic {
 
         final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
         assertThat(alchemyRequestEvent).isNull();
+    }
+
+    @Test
+    public void addUrlAddName() {
+        final Uri uri = new Uri("http://www.test.com");
+        final HttpTopic topic = new HttpTopic(UUID.randomUUID());
+        topic.setType(HttpTopicType.Image);
+
+        topic.addUri(uri);
+
+        assertThat(topic.getNames()).isNotEmpty();
+    }
+
+    @Test
+    public void addUrlDoNotAddANameForWebsite() {
+        final Uri uri = new Uri("http://www.test.com");
+        final HttpTopic topic = new HttpTopic(UUID.randomUUID());
+        topic.setType(HttpTopicType.Website);
+
+        topic.addUri(uri);
+
+        assertThat(topic.getNames()).isEmpty();
+    }
+
+    @Test
+    public void canUseRelevantPartOfUrlForName() {
+        final Uri uri = new Uri("http://www.test.com");
+        final HttpTopic topic = new HttpTopic(UUID.randomUUID());
+        topic.setType(HttpTopicType.Image);
+
+        topic.addUri(uri);
+
+        assertThat(topic.getName(FeelhubLanguage.none())).isEqualTo("www.test.com");
+    }
+
+    @Test
+    public void canUseRelevantPartOfComplexUrlForName() {
+        final Uri uri = new Uri("http://4.bp.blogspot.com/-w0o0maaaar8/tbj1tjirv7i/aaaaaaaaafu/ykidnobaxqu/s1600/javascript.jpg");
+        final HttpTopic topic = new HttpTopic(UUID.randomUUID());
+        topic.setType(HttpTopicType.Image);
+
+        topic.addUri(uri);
+
+        assertThat(topic.getName(FeelhubLanguage.none())).isEqualTo("javascript.jpg");
     }
 }

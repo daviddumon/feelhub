@@ -1,7 +1,6 @@
 package com.feelhub.domain.bing;
 
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicType;
 import com.feelhub.domain.topic.http.uri.*;
@@ -10,7 +9,6 @@ import com.feelhub.repositories.*;
 import com.feelhub.repositories.fakeRepositories.*;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
-import org.apache.commons.lang.WordUtils;
 import org.junit.*;
 import org.restlet.data.MediaType;
 
@@ -59,7 +57,6 @@ public class TestsBingSearch {
         final Topic image = Repositories.topics().getAll().get(1);
         assertThat(image.getType()).isEqualTo(HttpTopicType.Image);
         assertThat(image.getIllustration()).isEqualTo("query Automobilelink");
-        assertThat(image.getName(FeelhubLanguage.none())).isEqualTo(WordUtils.capitalizeFully("query Automobilelink"));
         assertThat(image.getUris()).contains(new Uri("query Automobilelink"));
     }
 

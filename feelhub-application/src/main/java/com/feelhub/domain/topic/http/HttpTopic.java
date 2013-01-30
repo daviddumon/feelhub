@@ -2,6 +2,7 @@ package com.feelhub.domain.topic.http;
 
 import com.feelhub.domain.alchemy.AlchemyRequestEvent;
 import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import org.restlet.data.MediaType;
@@ -33,8 +34,17 @@ public class HttpTopic extends Topic {
         super.addUri(uri);
         if (HttpTopicType.valueOf(typeValue).equals(HttpTopicType.Website)) {
             requestAlchemy();
+        } else {
+            final String uriAsString = uri.toString();
+            final int lastSlash = uriAsString.lastIndexOf("/");
+            addName(FeelhubLanguage.none(), uriAsString.substring(lastSlash + 1, uriAsString.length()));
         }
     }
+
+    public void addName(final FeelhubLanguage feelhubLanguage, final String name) {
+        names.put(feelhubLanguage.getCode(), name);
+    }
+
 
     private void requestAlchemy() {
         final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(this);

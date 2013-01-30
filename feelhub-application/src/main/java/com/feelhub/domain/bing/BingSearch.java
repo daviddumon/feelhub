@@ -2,7 +2,6 @@ package com.feelhub.domain.bing;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.UriException;
@@ -56,7 +55,6 @@ public class BingSearch {
     private HttpTopic createImage(final String illustration) {
         final HttpTopic image = topicService.createHttpTopicWithRestrictedMediaType(illustration, MediaType.IMAGE_ALL);
         image.setIllustration(illustration);
-        image.addName(FeelhubLanguage.none(), illustration);
         return image;
     }
 

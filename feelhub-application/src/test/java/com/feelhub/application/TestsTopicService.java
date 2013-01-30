@@ -232,14 +232,14 @@ public class TestsTopicService {
     public void scrapHttpTopicIfWebsite() {
         final HttpTopic httpTopic = topicService.createHttpTopic("http://www.url.com", TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
 
-        assertThat(httpTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("Name");
+        assertThat(httpTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("name");
     }
 
     @Test
     public void scrapOnlyHttpTopicWithGoodMediaFilter() {
         final HttpTopic goodTopic = topicService.createHttpTopicWithRestrictedMediaType("http://www.url.com", MediaType.TEXT_HTML);
 
-        assertThat(goodTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("Name");
+        assertThat(goodTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("name");
     }
 
     private FakeTopic createTagForFakeUniqueTopic(final String value) {
