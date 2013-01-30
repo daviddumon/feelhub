@@ -6,7 +6,7 @@ define(["jquery",
         var dashboard_container = "#dashboard";
 
         function render(topicData) {
-            $("#topic-name").html(topicData.name);
+            $("#topic-name span").html(topicData.name);
             renderTemplate(template, topicData);
         }
 

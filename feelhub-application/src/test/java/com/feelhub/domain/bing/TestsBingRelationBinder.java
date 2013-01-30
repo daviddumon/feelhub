@@ -44,7 +44,7 @@ public class TestsBingRelationBinder {
         final List<Related> relatedList = Repositories.related().getAll();
         assertThat(relatedList.size()).isEqualTo(2);
         final List<Media> mediaList = Repositories.medias().getAll();
-        assertThat(mediaList.size()).isEqualTo(2);
+        assertThat(mediaList.size()).isEqualTo(4);
     }
 
     private BingRelationBinder bingRelationBinder;
