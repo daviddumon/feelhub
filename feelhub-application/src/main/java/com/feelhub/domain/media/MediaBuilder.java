@@ -20,7 +20,7 @@ public class MediaBuilder {
         }
     }
 
-    private void connectOneWayWithMedia(final Topic from, final Topic to) {
+    public void connectOneWayWithMedia(final Topic from, final Topic to) {
         final Media media = Repositories.medias().lookUp(from.getId(), to.getId());
         if (media == null) {
             createNewMedia(from, to);

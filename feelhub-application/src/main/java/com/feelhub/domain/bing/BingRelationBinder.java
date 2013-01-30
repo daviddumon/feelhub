@@ -17,6 +17,7 @@ public class BingRelationBinder {
     public void bind(final Topic topic, final List<HttpTopic> medias) {
         for (final HttpTopic media : medias) {
             mediaBuilder.connectTwoWays(topic, media);
+            mediaBuilder.connectOneWayWithMedia(media, media);
         }
     }
 
