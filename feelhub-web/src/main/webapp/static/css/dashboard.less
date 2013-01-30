@@ -126,7 +126,7 @@ body {
             border: none;
           }
 
-          div.illustration_main_media {
+          a.illustration_main_media {
             width: 257px;
             height: 159px;
             overflow: hidden;
@@ -137,6 +137,23 @@ body {
             img {
               position: absolute;
             }
+
+            span {
+              position: absolute;
+              display: block;
+              width: 100%;
+              bottom: 0px;
+              left: 0px;
+              background: @grey-4;
+              background: rgba(0, 0, 0, .5);
+              .font_title();
+              color: @blue-1;
+              font-size: 8px;
+              padding-top: 2px;
+              padding-bottom: 2px;
+              min-height: @font-normal;
+              display: inline;
+            }
           }
 
           div.other_medias {
@@ -146,7 +163,7 @@ body {
             font-size: 0px;
             height: 52px;
 
-            div.illustration_media {
+            a.illustration_media {
               position: relative;
               width: 85px;
               height: 52px;
@@ -155,6 +172,23 @@ body {
 
               img {
                 position: absolute;
+              }
+
+              span {
+                position: absolute;
+                display: block;
+                width: 100%;
+                bottom: 0px;
+                left: 0px;
+                background: @grey-4;
+                background: rgba(0, 0, 0, .5);
+                .font_title();
+                color: @blue-1;
+                font-size: 8px;
+                padding-top: 2px;
+                padding-bottom: 2px;
+                min-height: @font-normal;
+                display: inline;
               }
             }
           }
@@ -212,7 +246,7 @@ body {
               bottom: 0px;
               left: 0px;
               background: @grey-4;
-              background: rgba(0, 0, 0, .8);
+              background: rgba(0, 0, 0, .5);
               .font_title();
               color: @blue-1;
               font-size: 8px;
