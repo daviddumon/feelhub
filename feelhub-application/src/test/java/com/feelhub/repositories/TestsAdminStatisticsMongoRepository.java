@@ -31,7 +31,7 @@ public class TestsAdminStatisticsMongoRepository extends TestWithMongoRepository
     @Test
     public void canPersistAdminStatistic() {
         AdminStatistic adminStatistic = new AdminStatistic("012012", Api.Alchemy);
-        adminStatistic.increment();
+        adminStatistic.increment(1);
 
         entityMongoRepository.add(adminStatistic);
 

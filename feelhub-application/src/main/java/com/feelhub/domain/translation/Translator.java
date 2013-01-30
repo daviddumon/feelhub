@@ -1,6 +1,7 @@
 package com.feelhub.domain.translation;
 
 import com.feelhub.application.TopicService;
+import com.feelhub.domain.admin.ApiCallEvent;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.real.RealTopic;
@@ -38,8 +39,10 @@ public class Translator {
         }
     }
 
-    public String translateToReference(final String value, final FeelhubLanguage feelhubLanguage) throws Exception {
-        return Translate.execute(value, feelhubLanguage.getMicrosoftLanguage(), FeelhubLanguage.REFERENCE.getMicrosoftLanguage());
+    private String translateToReference(final String value, final FeelhubLanguage feelhubLanguage) throws Exception {
+        String result = Translate.execute(value, feelhubLanguage.getMicrosoftLanguage(), FeelhubLanguage.REFERENCE.getMicrosoftLanguage());
+        DomainEventBus.INSTANCE.post(ApiCallEvent.microsoftTranslate(value.length()));
+        return result;
     }
 
     private final TopicService topicService;

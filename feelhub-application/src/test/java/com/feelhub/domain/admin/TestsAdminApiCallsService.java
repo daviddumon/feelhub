@@ -53,12 +53,20 @@ public class TestsAdminApiCallsService {
     public void canIncrementApiCallsCountWhenAStatisticExists() {
         systemTime.set(new DateTime(2012, 1, 21, 12, 30));
         AdminStatistic statistic = new AdminStatistic("012012", Api.Alchemy);
-        statistic.increment();
+        statistic.increment(1);
         Repositories.adminStatistics().add(statistic);
 
         DomainEventBus.INSTANCE.post(ApiCallEvent.alchemy());
 
         AdminStatistic adminStatistic = Repositories.adminStatistics().getAll().get(0);
         assertThat(adminStatistic.getCount()).isEqualTo(2);
+    }
+
+    @Test
+    public void canIncrementApiCallsCountWithAValue() {
+        DomainEventBus.INSTANCE.post(ApiCallEvent.microsoftTranslate(12));
+
+        AdminStatistic adminStatistic = Repositories.adminStatistics().getAll().get(0);
+        assertThat(adminStatistic.getCount()).isEqualTo(12);
     }
 }

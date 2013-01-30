@@ -1,5 +1,7 @@
 package com.feelhub.domain.translation;
 
+import com.feelhub.domain.admin.Api;
+import com.feelhub.domain.admin.ApiCallEvent;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.real.*;
@@ -27,15 +29,13 @@ public class TestsTranslator {
                 bind(Translator.class).to(FakeTranslator.class);
             }
         });
-        translator = injector.getInstance(Translator.class);
+        injector.getInstance(Translator.class);
     }
 
     @Test
     public void translateOnTranslationRequest() {
         final RealTopic realTopic = TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary);
-        final String frName = "name-fr";
-        final FeelhubLanguage fr = FeelhubLanguage.fromCode("fr");
-        final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = new ReferenceTranslationRequestEvent(realTopic, fr, frName);
+        final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = getEvent(realTopic);
 
         DomainEventBus.INSTANCE.post(referenceTranslationRequestEvent);
 
@@ -45,9 +45,7 @@ public class TestsTranslator {
     @Test
     public void addTagsForTranslation() {
         final RealTopic realTopic = TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary);
-        final String frName = "name-fr";
-        final FeelhubLanguage fr = FeelhubLanguage.fromCode("fr");
-        final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = new ReferenceTranslationRequestEvent(realTopic, fr, frName);
+        final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = getEvent(realTopic);
 
         DomainEventBus.INSTANCE.post(referenceTranslationRequestEvent);
 
@@ -55,5 +53,21 @@ public class TestsTranslator {
         assertThat(Repositories.tags().getAll().get(0).getTopicsIdFor(FeelhubLanguage.reference())).contains(realTopic.getId());
     }
 
-    private Translator translator;
+    @Test
+    public void incrementApiCallsCounter() {
+        final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = getEvent(TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary));
+        bus.capture(ApiCallEvent.class);
+
+        DomainEventBus.INSTANCE.post(referenceTranslationRequestEvent);
+
+        ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
+        assertThat(event).isNotNull();
+        assertThat(event.getApi()).isEqualTo(Api.MicrosoftTranslate);
+        assertThat(event.getIncrement()).isEqualTo(7);
+    }
+
+    private ReferenceTranslationRequestEvent getEvent(RealTopic realTopic) {
+        return new ReferenceTranslationRequestEvent(realTopic, FeelhubLanguage.fromCode("fr"), "name-fr");
+    }
+
 }

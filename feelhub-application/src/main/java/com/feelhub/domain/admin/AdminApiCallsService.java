@@ -17,17 +17,17 @@ public class AdminApiCallsService {
 
     @Subscribe
     public void onApiCall(final ApiCallEvent event) {
-        increment(event.getApi());
+        increment(event.getApi(), event.getIncrement());
     }
 
-    public void increment(Api api) {
+    public void increment(Api api, int increment) {
         String month = currentMonth();
         AdminStatistic adminStatistic = Repositories.adminStatistics().byMonthAndApi(month, api);
         if (adminStatistic == null) {
             adminStatistic = new AdminStatistic(month, api);
             Repositories.adminStatistics().add(adminStatistic);
         }
-        adminStatistic.increment();
+        adminStatistic.increment(increment);
     }
 
     private String currentMonth() {

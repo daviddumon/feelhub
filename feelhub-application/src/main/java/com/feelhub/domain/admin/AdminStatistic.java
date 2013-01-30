@@ -32,8 +32,8 @@ public class AdminStatistic extends BaseEntity {
         return api;
     }
 
-    public void increment() {
-        count++;
+    public void increment(int increment) {
+        count += increment;
     }
 
     private UUID id = UUID.randomUUID();

@@ -12,8 +12,17 @@ public class ApiCallEvent extends DomainEvent{
         return new ApiCallEvent(Api.Alchemy);
     }
 
+    public static DomainEvent microsoftTranslate(int increment) {
+        return new ApiCallEvent(Api.MicrosoftTranslate, increment);
+    }
+
     private ApiCallEvent(Api api) {
+        this(api, 1);
+    }
+
+    private ApiCallEvent(Api api, int increment) {
         this.api = api;
+        this.increment = increment;
     }
 
     public Api getApi() {
@@ -34,6 +43,6 @@ public class ApiCallEvent extends DomainEvent{
     }
 
     private Api api;
-    private int increment = 1;
+    private int increment;
 
 }
