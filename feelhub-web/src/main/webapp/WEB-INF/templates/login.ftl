@@ -1,5 +1,5 @@
 <@noflow.js>
-<script type="text/javascript" data-main="${root}/static/js/controller/login-controller" src="${root}/static/js/require.js?${buildtime}"></script>
+<script type="text/javascript" data-main="${root}/static/js/controller/login-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
 <script type="text/javascript">
     var referrer = "${referrer}";
 </script>

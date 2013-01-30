@@ -17,8 +17,8 @@
 <#macro cssprod>
 
     <#if !dev>
-        <link rel="stylesheet" href="${root}/static/css/reset.css?${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/common.css?${buildtime}"/>
+        <link rel="stylesheet" href="${root}/static/css/reset.css?cache=${buildtime}"/>
+        <link rel="stylesheet" href="${root}/static/css/common.css?cache=${buildtime}"/>
         <#nested/>
     </#if>
 
@@ -27,8 +27,8 @@
 <#macro cssdev>
 
     <#if dev>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reset.less?${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/common.less?${buildtime}"/>
+        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reset.less?cache=${buildtime}"/>
+        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/common.less?cache=${buildtime}"/>
         <#nested/>
     </#if>
 
@@ -38,8 +38,8 @@
 
     <#if !dev>
         <!--[if lt IE 9]>
-        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js?${buildtime}"></script>
-        <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?${buildtime}"></script>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js?cache=${buildtime}"></script>
+        <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?cache=${buildtime}"></script>
         <![endif]-->
         <#nested/>
     </#if>
@@ -49,7 +49,7 @@
 <#macro jsdev>
 
     <#if dev>
-        <script type="text/javascript" src="${root}/static/js/lib/less-1.3.0.min.js?${buildtime}"></script>
+        <script type="text/javascript" src="${root}/static/js/lib/less-1.3.0.min.js?cache=${buildtime}"></script>
         <#nested/>
     </#if>
 
@@ -67,8 +67,8 @@
             </#if>
     </script>
 
-    <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/image-scaling.js?${buildtime}"></script>
+    <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?cache=${buildtime}"></script>
+    <script type="text/javascript" src="${root}/static/js/image-scaling.js?cache=${buildtime}"></script>
     <#nested/>
 
 </#macro>

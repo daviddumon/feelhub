@@ -2,11 +2,11 @@
 </@head.headbegin>
 
 <@head.cssprod>
-<link rel="stylesheet" href="${root}/static/css/noflow_layout.css?${buildtime}"/>
+<link rel="stylesheet" href="${root}/static/css/noflow_layout.css?cache=${buildtime}"/>
 </@head.cssprod>
 
 <@head.cssdev>
-<link rel="stylesheet/less" type="text/css" href="${root}/static/css/noflow_layout.less?${buildtime}"/>
+<link rel="stylesheet/less" type="text/css" href="${root}/static/css/noflow_layout.less?cache=${buildtime}"/>
 </@head.cssdev>
 
 <@head.jsprod>
