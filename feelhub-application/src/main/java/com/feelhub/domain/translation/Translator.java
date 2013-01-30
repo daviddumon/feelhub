@@ -39,7 +39,7 @@ public class Translator {
         }
     }
 
-    private String translateToReference(final String value, final FeelhubLanguage feelhubLanguage) throws Exception {
+    protected String translateToReference(final String value, final FeelhubLanguage feelhubLanguage) throws Exception {
         String result = Translate.execute(value, feelhubLanguage.getMicrosoftLanguage(), FeelhubLanguage.REFERENCE.getMicrosoftLanguage());
         DomainEventBus.INSTANCE.post(ApiCallEvent.microsoftTranslate(value.length()));
         return result;

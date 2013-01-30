@@ -12,7 +12,7 @@ public class FakeTranslator extends Translator {
     }
 
     @Override
-    public String translateToReference(final String value, final FeelhubLanguage feelhubLanguage) throws Exception {
+    protected String translateToReference(final String value, final FeelhubLanguage feelhubLanguage) throws Exception {
         if (value.equals("Exception")) {
             throw new Exception();
         }
