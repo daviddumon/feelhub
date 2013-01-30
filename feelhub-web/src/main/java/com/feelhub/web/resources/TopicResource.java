@@ -26,16 +26,16 @@ public class TopicResource extends ServerResource {
     @Get
     public ModelAndView getTopic() {
         final Topic topic = topicService.lookUp(extractUriValueFromUri());
-        TopicData topicData = topicDataFactory.topicData(topic, CurrentUser.get().getLanguage());
-        ModelAndView topicData1 = ModelAndView.createNew("topic.ftl").with("topicData", topicData);
         if (checkCurrent(topic)) {
-            final ArrayList<RealTopicType> realTopicTypes = Lists.newArrayList(RealTopicType.values());
-            return topicData1.with("locales", FeelhubLanguage.availables())
-                    .with("realtypes", realTopicTypes);
+            TopicData topicData = topicDataFactory.topicData(topic, CurrentUser.get().getLanguage());
+            return ModelAndView.createNew("topic.ftl")
+                    .with("topicData", topicData)
+                    .with("locales", FeelhubLanguage.availables())
+                    .with("realtypes", Lists.newArrayList(RealTopicType.values()));
         } else {
             setStatus(Status.REDIRECTION_PERMANENT);
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + topic.getCurrentId()));
-            return topicData1;
+            return ModelAndView.empty();
         }
     }
 

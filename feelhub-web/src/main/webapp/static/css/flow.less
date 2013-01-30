@@ -58,10 +58,12 @@ body {
             background: rgba(0, 0, 0, .5);
             .font_title();
             color: @blue-1;
-            font-size: @font-normal;
-            padding-top: 4px;
-            padding-bottom: 4px;
-            min-height: @font-normal;
+            overflow: hidden;
+            .font_span();
+            font-size: 14px;
+            min-height: 21px;
+            max-height: 84px;
+            line-height: 1.5;
           }
         }
       }
@@ -142,11 +144,13 @@ body {
               background: rgba(0, 0, 0, .5);
               .font_title();
               color: @blue-1;
-              font-size: @font-medium;
-              padding-top: 5px;
-              padding-bottom: 5px;
-              min-height: @font-medium;
+              overflow: hidden;
               display: inline;
+              .font_span();
+              font-size: 14px;
+              min-height: 21px;
+              max-height: 84px;
+              line-height: 1.5;
             }
           }
 

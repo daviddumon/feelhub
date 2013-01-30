@@ -3,7 +3,7 @@
 <!-- Copyright Feelhub 2012 -->
 <html lang="en">
 <head>
-    <link href='//fonts.googleapis.com/css?family=Droid+Serif|Autour+One|Spicy+Rice' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Droid+Serif|Autour+One|Spicy+Rice|Roboto+Condensed' rel='stylesheet' type='text/css'>
     <title>Feelhub.com - Share your feelings with the world!</title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
