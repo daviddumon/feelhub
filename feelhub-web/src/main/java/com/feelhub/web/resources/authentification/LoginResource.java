@@ -1,8 +1,10 @@
 package com.feelhub.web.resources.authentification;
 
+import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.inject.Inject;
+import org.restlet.data.Reference;
 import org.restlet.resource.*;
 
 public class LoginResource extends ServerResource {
@@ -18,11 +20,17 @@ public class LoginResource extends ServerResource {
     }
 
     private String getReferrer() {
-        if (getRequest().getReferrerRef() != null) {
-            return getRequest().getReferrerRef().toString();
-        } else {
-            return "";
+        final Reference referrerRef = getRequest().getReferrerRef();
+        if (referrerRef != null) {
+            if (!referrerRef.toString().equalsIgnoreCase(getLogin()) && !referrerRef.toString().isEmpty()) {
+                return referrerRef.toString();
+            }
         }
+        return new WebReferenceBuilder(getContext()).buildUri("/");
+    }
+
+    public String getLogin() {
+        return new WebReferenceBuilder(getContext()).buildUri("/login");
     }
 
     private final FacebookConnector facebookConnector;

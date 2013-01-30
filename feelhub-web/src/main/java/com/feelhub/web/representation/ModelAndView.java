@@ -47,6 +47,5 @@ public class ModelAndView {
 
     private final String template;
     private final Map<String, Object> data = Maps.newConcurrentMap();
-
     private final MediaType type;
 }
