@@ -6,14 +6,14 @@
     <div class="feeling_related" style="height: {{height}}">
         {{#sentimentDatas}}
             {{#id}}
-            <a href="{{root}}/topic/{{id}}" class="{{classes}} topic_stack" id="{{original_index}}">
+            <a href="{{root}}/topic/{{id}}" class="{{classes}}" id="{{original_index}}">
                 <img src="{{root}}/static/images/smiley_{{sentimentValue}}_white_14.png" class="img_{{sentimentValue}} topic_sentiment_illustration" style="z-index: 1000;"/>
                 <img src="{{illustration}}" class="topic_illustration" onload="OnImageLoad(event);"/>
                 <span class="{{sentimentValue}}">{{name}}</span>
             </a>
             {{/id}}
             {{^id}}
-            <div class="{{classes}} topic_stack" id="{{original_index}}">
+            <div class="{{classes}}" id="{{original_index}}">
                 <span class="{{sentimentValue}}">{{name}}</span>
             </div>
             {{/id}}

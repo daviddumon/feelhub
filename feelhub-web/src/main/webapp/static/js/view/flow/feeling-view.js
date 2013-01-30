@@ -41,19 +41,24 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
             for (var i = 0; i < datas.length; i++) {
                 //attention hack degueu a enlever au plus vite
                 //faut separer les traitements suivant si on a un topic dans le context ou pas
-                if(typeof topicData.id != 'undefined') {
+                if (typeof topicData.id != 'undefined') {
                     datas[i].original_index = i + 1;
                 } else {
                     datas[i].original_index = i;
                 }
             }
+
+            $.each(datas, function (index, data) {
+                data.classes = "topic_stack";
+            });
+
             if (datas.length % 2 != 0) {
                 var shuffle_number = Math.floor(Math.random() * datas.length);
                 for (var i = 0; i < shuffle_number; i++) {
                     var rd = datas.shift();
                     datas.push(rd);
                 }
-                datas[0]["classes"] = "topic_large";
+                datas[0]["classes"] = " topic_large";
             }
         }
 
