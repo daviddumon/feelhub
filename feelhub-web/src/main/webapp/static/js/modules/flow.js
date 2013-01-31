@@ -2,7 +2,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
     var container = $("#flow");
     var row_container = "#flow_list";
-    var end_function, parameter, data_view, doit, api_end_point, datas, initial, skip, limit, maxBox, hasData, notLoading, basePollTime, lastFeelingId;
+    var end_function, parameter, data_view, doit, api_end_point, datas, initial, skip, limit, maxBox, hasData, notLoading, basePollTime, lastFeelingId, spacer;
     var topicId = topicData.id;
 
     function init(end_point, param, view, callback) {
@@ -20,7 +20,8 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         parameter = param;
         end_function = callback;
         initial = 320;
-        maxBox = Math.floor(container.innerWidth() / initial);
+        spacer = 40;
+        maxBox = Math.floor((container.innerWidth() - 100) / initial);
         skip = -20;
         limit = 20;
         hasData = true;
@@ -175,7 +176,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
     function reset() {
         container.empty();
-        maxBox = Math.floor(container.innerWidth() / initial);
+        maxBox = Math.floor((container.innerWidth() - spacer) / initial);
         for (var i = 0; i < maxBox; i++) {
             list_view.render(container, i);
         }
