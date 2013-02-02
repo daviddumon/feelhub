@@ -2,6 +2,8 @@ package com.feelhub.application.mail;
 
 public class FeelhubMail {
 
+    public static String DEFAULT_FROM = "register@feelhub.com";
+
     public FeelhubMail(String to, String subject, String content) {
         this.to = to;
         this.subject = subject;

@@ -14,7 +14,7 @@ public final class MailFactory {
         return new ValidationMailFactory().build(user, activationUri);
     }
 
-    public static FeelhubMail welcome(final User user, final Context context) {
+    public static FeelhubMail welcome(final User user) {
         return new WelcomeMailFactory().build(user);
     }
 }
