@@ -25,8 +25,8 @@ public class GuiceProductionModule extends AbstractModule {
     protected void configure() {
         Names.bindProperties(binder(), properties());
         bind(EventBus.class).to(AsyncEventBus.class).asEagerSingleton();
-        bind(MailWatcher.class).asEagerSingleton();
-        //bind(MailBuilder.class).asEagerSingleton();
+        //bind(MailWatcher.class).asEagerSingleton();
+        bind(MailBuilder.class).asEagerSingleton();
         bind(DeadEventCatcher.class).asEagerSingleton();
         bind(FeelingService.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();

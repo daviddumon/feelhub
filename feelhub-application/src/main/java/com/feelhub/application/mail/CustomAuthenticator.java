@@ -1,6 +1,7 @@
-package com.feelhub.web.mail;
+package com.feelhub.application.mail;
 
-import javax.mail.*;
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
 
 public class CustomAuthenticator extends Authenticator {
 

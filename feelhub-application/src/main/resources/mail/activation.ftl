@@ -1,4 +1,4 @@
-Dear ${name},
+Dear ${username},
 
 Thank you for registering with Feelhub!
 

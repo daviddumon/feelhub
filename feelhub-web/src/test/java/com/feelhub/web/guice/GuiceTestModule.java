@@ -9,7 +9,7 @@ import com.feelhub.repositories.SessionProvider;
 import com.feelhub.repositories.fakeRepositories.FakeSessionProvider;
 import com.feelhub.web.filter.*;
 import com.feelhub.web.mail.FakeMailSender;
-import com.feelhub.web.mail.MailSender;
+import com.feelhub.application.mail.MailSender;
 import com.feelhub.web.migration.*;
 import com.feelhub.web.migration.web.MigrationFilter;
 import com.feelhub.web.search.*;

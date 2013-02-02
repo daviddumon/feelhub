@@ -1,6 +1,8 @@
-package com.feelhub.web.mail;
+package com.feelhub.application.mail;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
 
 public class MailSender {
 
@@ -8,7 +10,7 @@ public class MailSender {
         try {
             Transport.send(message);
         } catch (MessagingException e) {
-            throw new EmailException();
+            throw new EmailException(e);
         }
     }
 }
