@@ -41,7 +41,7 @@ public class TestsMailBuilder {
         assertThat(mail.to()).isEqualTo(user.getEmail());
         assertThat(mail.from()).isEqualTo(FeelhubMail.DEFAULT_FROM);
         assertThat(mail.subject()).isEqualTo("Welcome to Feelhub !");
-        assertThat(mail.content()).contains("activate");
+        assertThat(mail.textContent()).contains("activate");
     }
 
     @Test
@@ -55,7 +55,7 @@ public class TestsMailBuilder {
         assertThat(mail.to()).isEqualTo(user.getEmail());
         assertThat(mail.from()).isEqualTo(FeelhubMail.DEFAULT_FROM);
         assertThat(mail.subject()).isEqualTo("Welcome to Feelhub !");
-        assertThat(mail.content()).contains("Thank you for registering with Feelhub");
+        assertThat(mail.textContent()).contains("Thank you for registering with Feelhub");
     }
 
     @Test

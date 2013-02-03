@@ -1,18 +1,27 @@
 package com.feelhub.application.mail;
 
+import com.feelhub.domain.admin.ApiCallEvent;
+import com.feelhub.domain.eventbus.DomainEventBus;
+
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class MailSender {
 
     public void send(final FeelhubMail message) {
         try {
-            Transport.send(new FeelhubMailToMimeMessage(getMailSession()).toMimeMessage(message));
+            sendMimeMessage(new FeelhubMailToMimeMessage(getMailSession()).toMimeMessage(message));
+            DomainEventBus.INSTANCE.post(ApiCallEvent.sendGrid());
         } catch (MessagingException e) {
             throw new EmailException(e);
         }
+    }
+
+    protected void sendMimeMessage(MimeMessage mimeMessage) throws MessagingException {
+        Transport.send(mimeMessage);
     }
 
     private Session getMailSession() {

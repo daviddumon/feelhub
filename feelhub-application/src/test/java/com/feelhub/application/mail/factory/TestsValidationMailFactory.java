@@ -25,7 +25,9 @@ public class TestsValidationMailFactory {
         assertThat(mail).isNotNull();
         assertThat(mail.to()).isEqualTo("toto@example.fr");
         assertThat(mail.subject()).isEqualTo("Welcome to Feelhub !");
-        assertThat(mail.content()).contains("anUriForTest");
-        assertThat(mail.content()).contains("a full name");
+        assertThat(mail.htmlContent()).contains("anUriForTest</a>");
+        assertThat(mail.htmlContent()).contains("<p>Dear a full name");
+        assertThat(mail.textContent()).contains("anUriForTest");
+        assertThat(mail.textContent()).doesNotContain("anUriForTest</a>");
     }
 }

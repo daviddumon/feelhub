@@ -24,6 +24,8 @@ public class TestsWelcomeMailFactory {
         assertThat(mail).isNotNull();
         assertThat(mail.to()).isEqualTo("toto@example.fr");
         assertThat(mail.subject()).isEqualTo("Welcome to Feelhub !");
-        assertThat(mail.content()).contains("Thank you for registering with Feelhub");
+        assertThat(mail.htmlContent()).contains("<p>Thank you for registering with Feelhub");
+        assertThat(mail.htmlContent()).contains("<p>Best regards,</p>");
+        assertThat(mail.textContent()).contains("Thank you for registering with Feelhub");
     }
 }

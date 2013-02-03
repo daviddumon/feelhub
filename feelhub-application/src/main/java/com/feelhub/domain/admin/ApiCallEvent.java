@@ -20,6 +20,10 @@ public class ApiCallEvent extends DomainEvent {
         return new ApiCallEvent(Api.MicrosoftTranslate, increment);
     }
 
+    public static DomainEvent sendGrid() {
+        return new ApiCallEvent(Api.SendGrid);
+    }
+
     private ApiCallEvent(Api api) {
         this(api, 1);
     }
@@ -48,5 +52,4 @@ public class ApiCallEvent extends DomainEvent {
 
     private Api api;
     private int increment;
-
 }
