@@ -1,4 +1,4 @@
-package com.feelhub.web.tools;
+package com.feelhub.tools;
 
 import com.feelhub.repositories.SessionProvider;
 import com.google.inject.Inject;

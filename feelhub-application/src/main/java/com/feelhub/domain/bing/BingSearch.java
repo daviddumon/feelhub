@@ -6,8 +6,10 @@ import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.UriException;
+import com.feelhub.tools.MongoLinkAwareExecutor;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
+import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
 import org.restlet.data.MediaType;
 
@@ -16,17 +18,27 @@ import java.util.List;
 public class BingSearch {
 
     @Inject
-    public BingSearch(final BingLink bingLink, final TopicService topicService, final BingRelationBinder bingRelationBinder, final Cloudinary cloudinary) {
+    public BingSearch(final BingLink bingLink, final TopicService topicService, final BingRelationBinder bingRelationBinder, final Cloudinary cloudinary, final MongoLinkAwareExecutor mongoLinkAwareExecutor) {
         this.bingLink = bingLink;
         this.topicService = topicService;
         this.bingRelationBinder = bingRelationBinder;
         this.cloudinary = cloudinary;
+        this.mongoLinkAwareExecutor = mongoLinkAwareExecutor;
         DomainEventBus.INSTANCE.register(this);
+        rateLimiter = RateLimiter.create(1.0);
     }
 
     @Subscribe
     public void onBingRequest(final BingRequest bingRequest) {
-        doBingSearch(bingRequest);
+        final Runnable runnable = new Runnable() {
+
+            @Override
+            public void run() {
+                doBingSearch(bingRequest);
+            }
+        };
+        rateLimiter.acquire();
+        mongoLinkAwareExecutor.execute(runnable);
     }
 
     private void doBingSearch(final BingRequest bingRequest) {
@@ -81,4 +93,6 @@ public class BingSearch {
     private final TopicService topicService;
     private final BingRelationBinder bingRelationBinder;
     private final Cloudinary cloudinary;
+    private MongoLinkAwareExecutor mongoLinkAwareExecutor;
+    private final RateLimiter rateLimiter;
 }

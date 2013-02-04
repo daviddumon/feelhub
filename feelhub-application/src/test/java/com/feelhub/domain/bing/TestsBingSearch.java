@@ -18,6 +18,7 @@ import java.util.UUID;
 import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@Ignore
 public class TestsBingSearch {
 
     @Rule

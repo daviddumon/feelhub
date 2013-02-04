@@ -69,6 +69,7 @@ public class TestsHttpTopicAnalyzer {
     }
 
     @Test
+    @Ignore
     public void canSetIllustrations() {
         final String uri = internet.uri("scraper");
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
