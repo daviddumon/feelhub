@@ -33,12 +33,12 @@ public class FeelingData {
             return this;
         }
 
-        public Builder topicDatas(final List<SentimentData> sentimentDatas) {
+        public Builder sentimentDatas(final List<SentimentData> sentimentDatas) {
             this.sentimentDatas = sentimentDatas;
             return this;
         }
 
-        public Builder topicDatas(final List<SentimentData> sentimentDatas, final UUID contextId) {
+        public Builder sentimentDatas(final List<SentimentData> sentimentDatas, final UUID contextId) {
             for (SentimentData sentimentData : sentimentDatas) {
                 if (!sentimentData.getId().equals(contextId.toString())) {
                     this.sentimentDatas.add(sentimentData);

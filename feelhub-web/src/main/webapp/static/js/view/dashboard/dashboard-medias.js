@@ -5,10 +5,10 @@ define(["jquery", "plugins/hgn!templates/dashboard/dashboard_medias", "modules/c
 
         function render(data) {
             var main = data.shift();
-            if (main.illustration == "") {
-                main.illustration = root + "/static/images/unknown.png";
+            if (main.thumbnailLarge == "") {
+                main.thumbnailLarge = root + "/static/images/unknown.png";
             }
-            var element = template({"root": root, "medias": data, "illustration": main.illustration,"type":main.type,"id":main.id});
+            var element = template({"root": root, "medias": data, "thumbnailLarge": main.thumbnailLarge, "type": main.type, "id": main.id});
             $(container).prepend(element);
             carousel.compute();
         }

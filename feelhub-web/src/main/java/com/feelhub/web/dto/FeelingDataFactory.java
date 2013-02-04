@@ -36,7 +36,7 @@ public class FeelingDataFactory {
         builder.userId(feeling.getUserId());
         builder.text(feeling.getText());
         builder.languageCode(feeling.getLanguageCode());
-        builder.topicDatas(sentimentDataFactory.sentimentDatas(feeling, CurrentUser.get().getLanguage()), contextId);
+        builder.sentimentDatas(sentimentDataFactory.sentimentDatas(feeling, CurrentUser.get().getLanguage()), contextId);
         return builder.build();
     }
 
@@ -46,7 +46,7 @@ public class FeelingDataFactory {
         builder.userId(feeling.getUserId());
         builder.text(feeling.getText());
         builder.languageCode(feeling.getLanguageCode());
-        builder.topicDatas(sentimentDataFactory.sentimentDatas(feeling, CurrentUser.get().getLanguage()));
+        builder.sentimentDatas(sentimentDataFactory.sentimentDatas(feeling, CurrentUser.get().getLanguage()));
         return builder.build();
     }
 

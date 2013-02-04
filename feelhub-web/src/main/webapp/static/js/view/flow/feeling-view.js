@@ -59,6 +59,7 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
                     datas.push(rd);
                 }
                 datas[0]["classes"] = " topic_large";
+                datas[0].thumbnailMedium = datas[0].thumbnailLarge
             }
         }
 

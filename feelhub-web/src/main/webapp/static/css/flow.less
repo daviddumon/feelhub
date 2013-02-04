@@ -35,10 +35,6 @@ body {
           display: inline-block;
           overflow: hidden;
 
-          img {
-            position: absolute;
-          }
-
           span {
             position: absolute;
             display: block;
@@ -105,21 +101,20 @@ body {
 
           a, div {
             position: relative;
-            overflow: hidden;
             background: url('../images/unknown.png') no-repeat center @moods-1;
 
-            img.topic_illustration {
-              position: absolute;
+            img {
+              position: relative;
+              top: -30px;
             }
 
             img.topic_sentiment_illustration {
               position: relative;
+              top: -7px;
               width: 14px;
               height: 14px;
-              padding-bottom: 7px;
-              padding-left: 7px;
-              padding-right: 7px;
-              .rounded_down(50px);
+              padding: 7px;
+              .rounded(50px);
             }
 
             span {
