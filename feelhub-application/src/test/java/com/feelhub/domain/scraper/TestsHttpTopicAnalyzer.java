@@ -1,5 +1,6 @@
 package com.feelhub.domain.scraper;
 
+import com.feelhub.domain.cloudinary.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
@@ -25,6 +26,7 @@ public class TestsHttpTopicAnalyzer {
         injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
+                bind(CloudinaryLink.class).to(FakeCloudinaryLink.class);
             }
         });
         httpTopicAnalyzer = injector.getInstance(HttpTopicAnalyzer.class);
@@ -67,7 +69,7 @@ public class TestsHttpTopicAnalyzer {
     }
 
     @Test
-    public void canSetIllustration() {
+    public void canSetIllustrations() {
         final String uri = internet.uri("scraper");
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         httpTopic.addUri(new Uri(uri));
@@ -75,6 +77,9 @@ public class TestsHttpTopicAnalyzer {
         httpTopicAnalyzer.analyze(httpTopic);
 
         assertThat(httpTopic.getIllustration()).isEqualTo("http://s1.lemde.fr/image/2013/01/25/540x270/1822831_3_dfb7_un-manifestant-lance-un-cocktail-molotov-contre_ed5d9c3af6a609128210a9cab7111290.jpg");
+        assertThat(httpTopic.getThumbnailLarge()).isEqualTo("thumbnail");
+        assertThat(httpTopic.getThumbnailMedium()).isEqualTo("thumbnail");
+        assertThat(httpTopic.getThumbnailSmall()).isEqualTo("thumbnail");
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.feelhub.domain.bing;
 
+import com.feelhub.domain.cloudinary.*;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicType;
@@ -37,6 +38,7 @@ public class TestsBingSearch {
                 bind(SessionProvider.class).to(FakeSessionProvider.class);
                 bind(BingRelationBinder.class).toInstance(relationBinder);
                 bind(UriResolver.class).toInstance(fakeUriResolver);
+                bind(CloudinaryLink.class).to(FakeCloudinaryLink.class);
             }
         });
         bingSearch = injector.getInstance(BingSearch.class);
@@ -57,6 +59,9 @@ public class TestsBingSearch {
         final Topic image = Repositories.topics().getAll().get(1);
         assertThat(image.getType()).isEqualTo(HttpTopicType.Image);
         assertThat(image.getIllustration()).isEqualTo("query Automobilelink");
+        assertThat(image.getThumbnailLarge()).isEqualTo("thumbnail");
+        assertThat(image.getThumbnailMedium()).isEqualTo("thumbnail");
+        assertThat(image.getThumbnailSmall()).isEqualTo("thumbnail");
         assertThat(image.getUris()).contains(new Uri("query Automobilelink"));
     }
 
@@ -85,6 +90,9 @@ public class TestsBingSearch {
         DomainEventBus.INSTANCE.post(bingRequest);
 
         assertThat(realTopic.getIllustration()).isEqualTo("query Automobilelink");
+        assertThat(realTopic.getThumbnailLarge()).isEqualTo("thumbnail");
+        assertThat(realTopic.getThumbnailMedium()).isEqualTo("thumbnail");
+        assertThat(realTopic.getThumbnailSmall()).isEqualTo("thumbnail");
     }
 
     private BingSearch bingSearch;

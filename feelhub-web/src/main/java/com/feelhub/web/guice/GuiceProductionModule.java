@@ -10,7 +10,6 @@ import com.feelhub.domain.topic.world.WorldListener;
 import com.feelhub.domain.translation.Translator;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.web.mail.MailBuilder;
-import com.feelhub.web.mail.mandrill.MailWatcher;
 import com.feelhub.web.tools.MongoLinkAwareExecutor;
 import com.google.common.eventbus.*;
 import com.google.inject.*;

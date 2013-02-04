@@ -2,14 +2,10 @@ package com.feelhub.application.mail;
 
 import com.feelhub.application.mail.factory.ResourceUtils;
 import com.google.common.collect.Maps;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
+import freemarker.template.*;
 
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class MailTemplate {
 
@@ -38,7 +34,7 @@ public class MailTemplate {
     }
 
     private String templatedMessage() {
-        HashMap<String,Object> map = Maps.newHashMap();
+        HashMap<String, Object> map = Maps.newHashMap();
         map.put("message", content);
         return apply(format.template(), map);
     }

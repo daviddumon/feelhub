@@ -32,6 +32,9 @@ public class TopicTestFactory {
         realTopic.addSubType("subtype1");
         realTopic.addSubType("subtype2");
         realTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+        realTopic.setThumbnailSmall("thumbnailSmall");
+        realTopic.setThumbnailMedium("thumbnailMedium");
+        realTopic.setThumbnailLarge("thumbnailLarge");
         Repositories.topics().add(realTopic);
         return realTopic;
     }
@@ -45,6 +48,9 @@ public class TopicTestFactory {
         httpTopic.addName(FeelhubLanguage.reference(), "name-reference");
         httpTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
         httpTopic.setOpenGraphType("article");
+        httpTopic.setThumbnailSmall("thumbnailSmall");
+        httpTopic.setThumbnailMedium("thumbnailMedium");
+        httpTopic.setThumbnailLarge("thumbnailLarge");
         Repositories.topics().add(httpTopic);
         return httpTopic;
     }

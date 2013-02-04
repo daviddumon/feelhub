@@ -148,7 +148,9 @@ public class TestsApiTopicRelatedResource {
         assertThat(topicDataAsJson).isNotNull();
         assertThat(topicDataAsJson.get("id").toString()).isEqualTo(related.getToId().toString());
         assertThat(topicDataAsJson.get("name").toString()).isEqualTo("Name-reference");
-        assertThat(topicDataAsJson.get("illustration").toString()).isEmpty();
+        assertThat(topicDataAsJson.get("thumbnailLarge").toString()).isEqualTo("thumbnailLarge");
+        assertThat(topicDataAsJson.get("thumbnailMedium").toString()).isEqualTo("thumbnailMedium");
+        assertThat(topicDataAsJson.get("thumbnailSmall").toString()).isEqualTo("thumbnailSmall");
     }
 
     @Test
@@ -157,17 +159,21 @@ public class TestsApiTopicRelatedResource {
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
         final Related related = TestFactories.related().newRelated(from.getId(), to.getId());
         final String illustration = "illustration";
-        to.setIllustration(illustration);
+        to.setThumbnailLarge(illustration);
+        to.setThumbnailMedium(illustration);
+        to.setThumbnailSmall(illustration);
         final ClientResource resource = restlet.newClientResource("/api/topic/" + related.getFromId() + "/related");
 
         final Representation representation = resource.get();
 
         assertThat(representation).isNotNull();
         final JSONArray jsonArray = new JSONArray(representation.getText());
-        final JSONObject keywordDataAsJson = jsonArray.getJSONObject(0);
-        assertThat(keywordDataAsJson).isNotNull();
-        assertThat(keywordDataAsJson.get("id").toString()).isEqualTo(to.getId().toString());
-        assertThat(keywordDataAsJson.get("illustration").toString()).isEqualTo(illustration);
+        final JSONObject topicDataAsJson = jsonArray.getJSONObject(0);
+        assertThat(topicDataAsJson).isNotNull();
+        assertThat(topicDataAsJson.get("id").toString()).isEqualTo(to.getId().toString());
+        assertThat(topicDataAsJson.get("thumbnailLarge").toString()).isEqualTo(illustration);
+        assertThat(topicDataAsJson.get("thumbnailMedium").toString()).isEqualTo(illustration);
+        assertThat(topicDataAsJson.get("thumbnailSmall").toString()).isEqualTo(illustration);
     }
 
     private User user;

@@ -38,6 +38,9 @@
                 <dbName>feelhub</dbName>
                 <dbPort>27017</dbPort>
                 <alchemyApiKey>db9abc8b6cfe6f2fb44b4b25db5b6ca402cc4957</alchemyApiKey>
+                <cloudinaryName>feelhubtest</cloudinaryName>
+                <cloudinaryApiKey>153974518959552</cloudinaryApiKey>
+                <cloudinaryApiSecret>cx_W-kI6ZL4eVEa9KtF5Mz9Ebjc</cloudinaryApiSecret>
             </properties>
         </profile>
         <profile>
@@ -47,6 +50,9 @@
                 <dbName>feelhub</dbName>
                 <dbPort>27017</dbPort>
                 <alchemyApiKey>e9bbb7fe647375f4b1d634f74d203283e6749230</alchemyApiKey>
+                <cloudinaryName>feelhubtest</cloudinaryName>
+                <cloudinaryApiKey>153974518959552</cloudinaryApiKey>
+                <cloudinaryApiSecret>cx_W-kI6ZL4eVEa9KtF5Mz9Ebjc</cloudinaryApiSecret>
             </properties>
         </profile>
         <profile>
@@ -56,6 +62,9 @@
                 <dbName>feelhub</dbName>
                 <dbPort>27017</dbPort>
                 <alchemyApiKey>e9bbb7fe647375f4b1d634f74d203283e6749230</alchemyApiKey>
+                <cloudinaryName>feelhub</cloudinaryName>
+                <cloudinaryApiKey>421165873128967</cloudinaryApiKey>
+                <cloudinaryApiSecret>bKcbW2GVwWNaimOqaBHVymffzmc</cloudinaryApiSecret>
             </properties>
         </profile>
         <profile>

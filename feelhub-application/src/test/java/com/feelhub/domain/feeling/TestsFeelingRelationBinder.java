@@ -1,6 +1,5 @@
 package com.feelhub.domain.feeling;
 
-import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.related.Related;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;

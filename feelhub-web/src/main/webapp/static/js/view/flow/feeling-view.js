@@ -32,7 +32,7 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
         function prepare_data(feeling) {
             feeling["realtypes"] = realtypes;
             feeling["root"] = root;
-            feeling["height"] = (feeling.sentimentDatas.length != 0 ? 40 : 0) + 162 * (Math.floor(feeling.sentimentDatas.length / 2) + feeling.sentimentDatas.length % 2) + 'px';
+            feeling["height"] = (feeling.sentimentDatas.length != 0 ? 40 : 0) + 168 * (Math.floor(feeling.sentimentDatas.length / 2) + feeling.sentimentDatas.length % 2) + 'px';
             shuffleAndMakeFirstLarge(feeling.sentimentDatas);
             return feeling;
         }
@@ -59,6 +59,7 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
                     datas.push(rd);
                 }
                 datas[0]["classes"] = " topic_large";
+                datas[0].thumbnailMedium = datas[0].thumbnailLarge
             }
         }
 

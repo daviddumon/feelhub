@@ -137,6 +137,30 @@ public abstract class Topic extends BaseEntity {
         return sentiments;
     }
 
+    public void setThumbnailLarge(final String thumbnailLarge) {
+        this.thumbnailLarge = thumbnailLarge;
+    }
+
+    public String getThumbnailLarge() {
+        return thumbnailLarge;
+    }
+
+    public String getThumbnailMedium() {
+        return thumbnailMedium;
+    }
+
+    public void setThumbnailMedium(final String thumbnailMedium) {
+        this.thumbnailMedium = thumbnailMedium;
+    }
+
+    public String getThumbnailSmall() {
+        return thumbnailSmall;
+    }
+
+    public void setThumbnailSmall(final String thumbnailSmall) {
+        this.thumbnailSmall = thumbnailSmall;
+    }
+
     protected UUID id;
     protected UUID currentId;
     private UUID userId;
@@ -146,5 +170,7 @@ public abstract class Topic extends BaseEntity {
     private final List<Uri> uris = Lists.newArrayList();
     private String illustration = "";
     private TopicMerger topicMerger = new TopicMerger();
-
+    private String thumbnailLarge;
+    private String thumbnailMedium;
+    private String thumbnailSmall;
 }

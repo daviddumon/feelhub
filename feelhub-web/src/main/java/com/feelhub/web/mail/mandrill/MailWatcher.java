@@ -2,7 +2,6 @@ package com.feelhub.web.mail.mandrill;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.user.*;
-import com.feelhub.web.mail.mandrill.*;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;

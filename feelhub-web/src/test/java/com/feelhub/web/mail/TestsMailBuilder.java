@@ -1,18 +1,13 @@
 package com.feelhub.web.mail;
 
 import com.feelhub.application.mail.FeelhubMail;
-import com.feelhub.domain.user.Activation;
-import com.feelhub.domain.user.ActivationCreatedEvent;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserCreatedEvent;
+import com.feelhub.domain.user.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.WebApplicationTester;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsMailBuilder {
 

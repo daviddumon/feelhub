@@ -68,7 +68,6 @@
     </script>
 
     <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?cache=${buildtime}"></script>
-    <script type="text/javascript" src="${root}/static/js/image-scaling.js?cache=${buildtime}"></script>
     <#nested/>
 
 </#macro>

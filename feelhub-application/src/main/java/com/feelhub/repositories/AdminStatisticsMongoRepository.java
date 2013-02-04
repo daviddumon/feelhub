@@ -1,11 +1,8 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.admin.AdminStatistic;
-import com.feelhub.domain.admin.AdminStatisticsRepository;
-import com.feelhub.domain.admin.Api;
+import com.feelhub.domain.admin.*;
 import org.mongolink.MongoSession;
-import org.mongolink.domain.criteria.Criteria;
-import org.mongolink.domain.criteria.Restrictions;
+import org.mongolink.domain.criteria.*;
 
 import java.util.List;
 

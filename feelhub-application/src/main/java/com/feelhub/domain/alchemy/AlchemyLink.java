@@ -5,13 +5,8 @@ import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.tools.FeelhubApplicationProperties;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.io.*;
+import java.net.*;
 
 public class AlchemyLink {
 

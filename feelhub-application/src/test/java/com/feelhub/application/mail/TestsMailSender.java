@@ -1,16 +1,14 @@
 package com.feelhub.application.mail;
 
 
-import com.feelhub.domain.admin.Api;
-import com.feelhub.domain.admin.ApiCallEvent;
+import com.feelhub.domain.admin.*;
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsMailSender {
 
@@ -22,7 +20,7 @@ public class TestsMailSender {
         bus.capture(ApiCallEvent.class);
         MailSender mailSender = mailSender();
 
-        mailSender.send(new FeelhubMail("charles@arpinum.fr", "subject", "content","content"));
+        mailSender.send(new FeelhubMail("charles@arpinum.fr", "subject", "content", "content"));
 
         ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
         assertThat(event).isNotNull();

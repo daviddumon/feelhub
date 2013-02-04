@@ -28,16 +28,12 @@ body {
 
         a {
           position: relative;
-          width: 258px;
-          height: 160px;
+          width: 272px;
+          height: 168px;
           border: @white solid 5px !important;
           margin: 5px;
           display: inline-block;
           overflow: hidden;
-
-          img {
-            position: absolute;
-          }
 
           span {
             position: absolute;
@@ -99,27 +95,26 @@ body {
         }
 
         .feeling_related {
-          margin-left: 20px;
+          margin-left: 14px;
           padding-top: 40px;
           overflow: hidden;
 
           a, div {
             position: relative;
-            overflow: hidden;
             background: url('../images/unknown.png') no-repeat center @moods-1;
 
-            img.topic_illustration {
-              position: absolute;
+            img {
+              position: relative;
+              top: -30px;
             }
 
             img.topic_sentiment_illustration {
               position: relative;
+              top: -7px;
               width: 14px;
               height: 14px;
-              padding-bottom: 7px;
-              padding-left: 7px;
-              padding-right: 7px;
-              .rounded_down(50px);
+              padding: 7px;
+              .rounded(50px);
             }
 
             span {
@@ -145,15 +140,15 @@ body {
           .topic_stack {
             float: left !important;
             border: 1px solid @white !important;
-            width: 128px;
-            height: 160px;
+            width: 135px;
+            height: 168px;
           }
 
           .topic_large {
             float: left !important;
             border: 1px solid @white !important;
-            width: 258px !important;
-            height: 160px !important;
+            width: 272px !important;
+            height: 168px !important;
           }
         }
 

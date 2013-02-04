@@ -1,19 +1,14 @@
 package com.feelhub.domain.admin;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.eventbus.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.google.inject.*;
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsAdminApiCallsService {
 

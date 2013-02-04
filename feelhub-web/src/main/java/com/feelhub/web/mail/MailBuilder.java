@@ -1,11 +1,11 @@
 package com.feelhub.web.mail;
 
-import com.feelhub.application.mail.*;
+import com.feelhub.application.mail.MailSender;
+import com.feelhub.application.mail.factory.MailFactory;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.user.*;
 import com.feelhub.web.WebReferenceBuilder;
-import com.feelhub.application.mail.factory.MailFactory;
-import com.google.common.eventbus.*;
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import org.restlet.Context;
 

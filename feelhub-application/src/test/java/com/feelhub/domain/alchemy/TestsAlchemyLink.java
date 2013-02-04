@@ -1,14 +1,12 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.domain.admin.Api;
-import com.feelhub.domain.admin.ApiCallEvent;
+import com.feelhub.domain.admin.*;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.test.SystemTime;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsAlchemyLink {
 

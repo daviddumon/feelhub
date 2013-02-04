@@ -1,10 +1,10 @@
 <li id="dashboard-medias">
     <div class="holder"><span>medias</span></div>
     <div class="holder">
-        <a href="{{root}}/topic/{{id}}" class="illustration_main_media"><img src="{{illustration}}" onLoad='OnImageLoad(event);'/><span>{{type}}</span></a>
+        <a href="{{root}}/topic/{{id}}" class="illustration_main_media"><img src="{{thumbnailLarge}}"/><span>{{type}}</span></a>
         <div class="other_medias">
         {{#medias}}
-        <a href="{{root}}/topic/{{id}}" class="illustration_media"><img src="{{illustration}}" onLoad='OnImageLoad(event);'/><span>{{type}}</span></a>
+        <a href="{{root}}/topic/{{id}}" class="illustration_media"><img src="{{thumbnailSmall}}"/><span>{{type}}</span></a>
         {{/medias}}
         </div>
     </div>

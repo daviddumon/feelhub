@@ -49,5 +49,17 @@ public class FeelhubApplicationProperties {
         return properties.getProperty("bingRoot");
     }
 
+    public String getCloudinaryName() {
+        return properties.getProperty("cloudinaryName");
+    }
+
+    public String getCloudinaryApiKey() {
+        return properties.getProperty("cloudinaryApiKey");
+    }
+
+    public String getCloudinaryApiSecret() {
+        return properties.getProperty("cloudinaryApiSecret");
+    }
+
     private final Properties properties;
 }

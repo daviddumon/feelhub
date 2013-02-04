@@ -1,24 +1,18 @@
 package com.feelhub.web.resources.admin;
 
-import com.feelhub.domain.admin.AdminStatistic;
-import com.feelhub.domain.admin.Api;
+import com.feelhub.domain.admin.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.web.ClientResource;
-import com.feelhub.web.FeelhubRouter;
-import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.*;
 import com.feelhub.web.representation.ModelAndView;
 import org.hamcrest.MatcherAssert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Status;
+import org.junit.*;
+import org.restlet.data.*;
 
 import java.util.List;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.fest.assertions.Assertions.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsAdminStatisticsResource {
 

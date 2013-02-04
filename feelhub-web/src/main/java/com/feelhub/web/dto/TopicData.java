@@ -42,8 +42,18 @@ public class TopicData {
             return this;
         }
 
-        public Builder illustration(final String illustration) {
-            this.illustration = illustration;
+        public Builder thumbnailLarge(final String thumbnailLarge) {
+            this.thumbnailLarge = thumbnailLarge;
+            return this;
+        }
+
+        public Builder thumbnailMedium(final String thumbnailMedium) {
+            this.thumbnailMedium = thumbnailMedium;
+            return this;
+        }
+
+        public Builder thumbnailSmall(final String thumbnailSmall) {
+            this.thumbnailSmall = thumbnailSmall;
             return this;
         }
 
@@ -58,7 +68,9 @@ public class TopicData {
         }
 
         private String id = "";
-        private String illustration = "";
+        private String thumbnailLarge = "";
+        private String thumbnailMedium = "";
+        private String thumbnailSmall = "";
         private String name = "";
         private TopicType type = UnusableTopicTypes.None;
         private List<String> subTypes = Lists.newArrayList();
@@ -69,21 +81,19 @@ public class TopicData {
 
     private TopicData(final Builder builder) {
         this.id = builder.id;
-        this.illustration = builder.illustration;
         this.name = builder.name;
         this.type = builder.type.toString();
         this.subTypes = builder.subTypes;
         this.uris = builder.uris;
         this.description = builder.description;
         this.topicSentimentScore = builder.topicSentimentScore;
+        this.thumbnailLarge = builder.thumbnailLarge;
+        this.thumbnailMedium = builder.thumbnailMedium;
+        this.thumbnailSmall = builder.thumbnailSmall;
     }
 
     public String getId() {
         return id;
-    }
-
-    public String getIllustration() {
-        return illustration;
     }
 
     public String getName() {
@@ -110,13 +120,27 @@ public class TopicData {
         return topicSentimentScore;
     }
 
+    public String getThumbnailLarge() {
+        return thumbnailLarge;
+    }
+
+    public String getThumbnailMedium() {
+        return thumbnailMedium;
+    }
+
+    public String getThumbnailSmall() {
+        return thumbnailSmall;
+    }
+
     @Override
     public String toString() {
         return new JSONObject(this).toString();
     }
 
     private final String id;
-    private final String illustration;
+    private final String thumbnailLarge;
+    private final String thumbnailMedium;
+    private final String thumbnailSmall;
     private final String name;
     private final String type;
     private final List<String> subTypes;

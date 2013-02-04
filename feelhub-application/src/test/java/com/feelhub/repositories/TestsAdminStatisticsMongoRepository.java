@@ -1,22 +1,14 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.admin.AdminStatistic;
-import com.feelhub.domain.admin.AdminStatisticsRepository;
-import com.feelhub.domain.admin.Api;
+import com.feelhub.domain.admin.*;
 import com.feelhub.test.SystemTime;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import com.mongodb.*;
+import org.junit.*;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 public class TestsAdminStatisticsMongoRepository extends TestWithMongoRepository {
 

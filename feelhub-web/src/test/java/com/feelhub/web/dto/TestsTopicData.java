@@ -36,19 +36,51 @@ public class TestsTopicData {
     }
 
     @Test
-    public void hasAnIllustration() {
-        final String illustration = "mylink";
+    public void hasAThumbnailLarge() {
+        final String thumbnailLarge = "mylink";
 
-        final TopicData topicData = new TopicData.Builder().illustration(illustration).build();
+        final TopicData topicData = new TopicData.Builder().thumbnailLarge(thumbnailLarge).build();
 
-        assertThat(topicData.getIllustration()).isEqualTo(illustration);
+        assertThat(topicData.getThumbnailLarge()).isEqualTo(thumbnailLarge);
     }
 
     @Test
-    public void illustrationLinkDefaultValueIsEmpty() {
+    public void thumbnailLargeDefaultValueIsEmpty() {
         final TopicData topicData = new TopicData.Builder().build();
 
-        assertThat(topicData.getIllustration()).isEmpty();
+        assertThat(topicData.getThumbnailLarge()).isEmpty();
+    }
+
+    @Test
+    public void hasAThumbnailMedium() {
+        final String thumbnailMedium = "mylink";
+
+        final TopicData topicData = new TopicData.Builder().thumbnailMedium(thumbnailMedium).build();
+
+        assertThat(topicData.getThumbnailMedium()).isEqualTo(thumbnailMedium);
+    }
+
+    @Test
+    public void thumbnailMediumDefaultValueIsEmpty() {
+        final TopicData topicData = new TopicData.Builder().build();
+
+        assertThat(topicData.getThumbnailMedium()).isEmpty();
+    }
+
+    @Test
+    public void hasAThumbnailSmall() {
+        final String thumbnailSmall = "mylink";
+
+        final TopicData topicData = new TopicData.Builder().thumbnailSmall(thumbnailSmall).build();
+
+        assertThat(topicData.getThumbnailSmall()).isEqualTo(thumbnailSmall);
+    }
+
+    @Test
+    public void thumbnailSmallDefaultValueIsEmpty() {
+        final TopicData topicData = new TopicData.Builder().build();
+
+        assertThat(topicData.getThumbnailSmall()).isEmpty();
     }
 
     @Test
@@ -133,14 +165,6 @@ public class TestsTopicData {
         final TopicData topicData = new TopicData.Builder().build();
 
         assertThat(topicData.getName()).isEmpty();
-    }
-
-    @Test
-    public void canRepresentInString() {
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final TopicData topicData = new TopicData.Builder().id(realTopic.getId()).type(realTopic.getType()).build();
-
-        assertThat(topicData.toString()).isEqualTo("{\"id\":\"" + realTopic.getId() + "\",\"uris\":[],\"topicSentimentScore\":0,\"description\":\"\",\"illustration\":\"\",\"name\":\"\",\"subTypes\":[],\"type\":\"Automobile\"}");
     }
 
     @Test

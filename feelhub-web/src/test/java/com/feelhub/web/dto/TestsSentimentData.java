@@ -32,19 +32,51 @@ public class TestsSentimentData {
     }
 
     @Test
-    public void hasAnIllustration() {
-        final String illustration = "mylink";
+    public void hasAThumbnailLarge() {
+        final String thumbnailLarge = "mylink";
 
-        final SentimentData sentimentData = new SentimentData.Builder().illustration(illustration).build();
+        final SentimentData sentimentData = new SentimentData.Builder().thumbnailLarge(thumbnailLarge).build();
 
-        assertThat(sentimentData.getIllustration()).isEqualTo(illustration);
+        assertThat(sentimentData.getThumbnailLarge()).isEqualTo(thumbnailLarge);
     }
 
     @Test
-    public void illustrationLinkDefaultValueIsEmpty() {
+    public void thumbnailLargeIsDefaultValueEmpty() {
         final SentimentData sentimentData = new SentimentData.Builder().build();
 
-        assertThat(sentimentData.getIllustration()).isEmpty();
+        assertThat(sentimentData.getThumbnailLarge()).isEmpty();
+    }
+
+    @Test
+    public void hasAThumbnailMedium() {
+        final String thumbnailMedium = "mylink";
+
+        final SentimentData sentimentData = new SentimentData.Builder().thumbnailMedium(thumbnailMedium).build();
+
+        assertThat(sentimentData.getThumbnailMedium()).isEqualTo(thumbnailMedium);
+    }
+
+    @Test
+    public void thumbnailMediumIsDefaultValueEmpty() {
+        final SentimentData sentimentData = new SentimentData.Builder().build();
+
+        assertThat(sentimentData.getThumbnailMedium()).isEmpty();
+    }
+
+    @Test
+    public void hasAThumbnailSmall() {
+        final String thumbnailSmall = "mylink";
+
+        final SentimentData sentimentData = new SentimentData.Builder().thumbnailSmall(thumbnailSmall).build();
+
+        assertThat(sentimentData.getThumbnailSmall()).isEqualTo(thumbnailSmall);
+    }
+
+    @Test
+    public void thumbnailSmallIsDefaultValueEmpty() {
+        final SentimentData sentimentData = new SentimentData.Builder().build();
+
+        assertThat(sentimentData.getThumbnailSmall()).isEmpty();
     }
 
     @Test
@@ -99,13 +131,4 @@ public class TestsSentimentData {
 
         assertThat(sentimentData.getName()).isEmpty();
     }
-
-    @Test
-    public void canRepresentInString() {
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final SentimentData sentimentData = new SentimentData.Builder().id(realTopic.getId()).type(realTopic.getType()).build();
-
-        assertThat(sentimentData.toString()).isEqualTo("{\"sentimentValue\":{},\"id\":\"" + realTopic.getId() + "\",\"illustration\":\"\",\"name\":\"\",\"type\":\"Automobile\"}");
-    }
-
 }

@@ -13,7 +13,7 @@ import com.google.inject.Inject;
 import org.restlet.data.Status;
 import org.restlet.resource.*;
 
-import java.util.*;
+import java.util.UUID;
 
 public class TopicResource extends ServerResource {
 

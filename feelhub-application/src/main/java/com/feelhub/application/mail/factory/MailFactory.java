@@ -2,7 +2,6 @@ package com.feelhub.application.mail.factory;
 
 import com.feelhub.application.mail.FeelhubMail;
 import com.feelhub.domain.user.User;
-import org.restlet.Context;
 
 public final class MailFactory {
 

@@ -1,20 +1,15 @@
 package com.feelhub.domain.bing;
 
-import com.feelhub.domain.admin.Api;
-import com.feelhub.domain.admin.ApiCallEvent;
+import com.feelhub.domain.admin.*;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.FakeInternet;
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import com.google.inject.*;
+import org.junit.*;
 
 import java.util.List;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsBingLink {
 

@@ -58,7 +58,7 @@ public class TestsFeelingData {
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
 
-        final FeelingData feelingData = new FeelingData.Builder().topicDatas(sentimentDataList).build();
+        final FeelingData feelingData = new FeelingData.Builder().sentimentDatas(sentimentDataList).build();
 
         assertThat(feelingData.getSentimentDatas()).isEqualTo(sentimentDataList);
     }
@@ -71,7 +71,7 @@ public class TestsFeelingData {
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
 
-        final FeelingData feelingData = new FeelingData.Builder().topicDatas(sentimentDataList, contextId).build();
+        final FeelingData feelingData = new FeelingData.Builder().sentimentDatas(sentimentDataList, contextId).build();
 
         assertThat(feelingData.getSentimentDatas().size()).isEqualTo(sentimentDataList.size() - 1);
         assertThat(feelingData.getFeelingSentimentValue()).isEqualTo(SentimentValue.good);
@@ -84,7 +84,7 @@ public class TestsFeelingData {
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
 
-        final FeelingData feelingData = new FeelingData.Builder().topicDatas(sentimentDataList).build();
+        final FeelingData feelingData = new FeelingData.Builder().sentimentDatas(sentimentDataList).build();
 
         assertThat(feelingData.getFeelingSentimentValue()).isEqualTo(SentimentValue.none);
     }

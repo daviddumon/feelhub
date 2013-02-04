@@ -1,15 +1,10 @@
 package com.feelhub.web.mail.mandrill;
 
-import com.feelhub.domain.admin.Api;
-import com.feelhub.domain.admin.ApiCallEvent;
-import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.admin.*;
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsMandrillMailSender {
 

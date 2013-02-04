@@ -1,7 +1,6 @@
 package com.feelhub.web.resources.admin;
 
-import com.feelhub.domain.admin.AdminStatistic;
-import com.feelhub.domain.admin.Api;
+import com.feelhub.domain.admin.*;
 
 import java.util.List;
 

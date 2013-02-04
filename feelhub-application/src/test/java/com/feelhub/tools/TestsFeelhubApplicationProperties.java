@@ -1,7 +1,6 @@
 package com.feelhub.tools;
 
 import org.junit.Test;
-import org.mongolink.Settings;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;

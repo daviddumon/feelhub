@@ -3,9 +3,7 @@ package com.feelhub.application.mail;
 import com.feelhub.domain.admin.ApiCallEvent;
 import com.feelhub.domain.eventbus.DomainEventBus;
 
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 

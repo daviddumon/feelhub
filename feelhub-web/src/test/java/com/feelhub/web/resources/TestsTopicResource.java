@@ -92,14 +92,18 @@ public class TestsTopicResource {
     public void topicDataWithGoodValuesForExistingTopicAndIllustration() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final String illustration = "illustration";
-        realTopic.setIllustration(illustration);
+        realTopic.setThumbnailLarge(illustration);
+        realTopic.setThumbnailMedium(illustration);
+        realTopic.setThumbnailSmall(illustration);
         topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
 
         final ModelAndView modelAndView = topicResource.getTopic();
 
         final TopicData topicData = modelAndView.getData("topicData");
         assertThat(topicData.getId()).isEqualTo(realTopic.getCurrentId().toString());
-        assertThat(topicData.getIllustration()).isEqualTo(illustration);
+        assertThat(topicData.getThumbnailSmall()).isEqualTo(illustration);
+        assertThat(topicData.getThumbnailMedium()).isEqualTo(illustration);
+        assertThat(topicData.getThumbnailLarge()).isEqualTo(illustration);
     }
 
     @Test

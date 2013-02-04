@@ -1,7 +1,6 @@
 package com.feelhub.application.mail.factory;
 
-import com.feelhub.application.mail.FeelhubMail;
-import com.feelhub.application.mail.MailTemplate;
+import com.feelhub.application.mail.*;
 import com.feelhub.domain.user.User;
 import com.google.common.collect.Maps;
 

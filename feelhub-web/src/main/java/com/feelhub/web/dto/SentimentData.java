@@ -34,13 +34,25 @@ public class SentimentData {
             return this;
         }
 
-        public Builder illustration(final String illustration) {
-            this.illustration = illustration;
+        public Builder thumbnailLarge(final String thumbnailLarge) {
+            this.thumbnailLarge = thumbnailLarge;
+            return this;
+        }
+
+        public Builder thumbnailMedium(final String thumbnailMedium) {
+            this.thumbnailMedium = thumbnailMedium;
+            return this;
+        }
+
+        public Builder thumbnailSmall(final String thumbnailSmall) {
+            this.thumbnailSmall = thumbnailSmall;
             return this;
         }
 
         private String id = "";
-        private String illustration = "";
+        private String thumbnailLarge = "";
+        private String thumbnailMedium = "";
+        private String thumbnailSmall = "";
         private String name = "";
         private SentimentValue sentimentValue = SentimentValue.none;
         private TopicType type = UnusableTopicTypes.None;
@@ -48,7 +60,9 @@ public class SentimentData {
 
     private SentimentData(final Builder builder) {
         this.id = builder.id;
-        this.illustration = builder.illustration;
+        this.thumbnailLarge = builder.thumbnailLarge;
+        this.thumbnailMedium = builder.thumbnailMedium;
+        this.thumbnailSmall = builder.thumbnailSmall;
         this.name = builder.name;
         this.sentimentValue = builder.sentimentValue;
         this.type = builder.type.toString();
@@ -58,8 +72,16 @@ public class SentimentData {
         return id;
     }
 
-    public String getIllustration() {
-        return illustration;
+    public String getThumbnailLarge() {
+        return thumbnailLarge;
+    }
+
+    public String getThumbnailMedium() {
+        return thumbnailMedium;
+    }
+
+    public String getThumbnailSmall() {
+        return thumbnailSmall;
     }
 
     public String getName() {
@@ -80,7 +102,9 @@ public class SentimentData {
     }
 
     private final String id;
-    private final String illustration;
+    private final String thumbnailLarge;
+    private final String thumbnailMedium;
+    private final String thumbnailSmall;
     private final String name;
     private final SentimentValue sentimentValue;
     private final String type;
