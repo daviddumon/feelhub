@@ -28,6 +28,10 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
     public void canPersistATopic() {
         final UUID id = UUID.randomUUID();
         final FakeTopic fakeTopic = new FakeTopic(id);
+        fakeTopic.setIllustration("illustration");
+        fakeTopic.setThumbnailSmall("tbsmall");
+        fakeTopic.setThumbnailMedium("tbmedium");
+        fakeTopic.setThumbnailLarge("tblarge");
 
         repo.add(fakeTopic);
 
@@ -37,6 +41,10 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("currentId")).isEqualTo(id);
         assertThat(topicFound.get("creationDate")).isEqualTo(fakeTopic.getCreationDate().getMillis());
         assertThat(topicFound.get("lastModificationDate")).isEqualTo(fakeTopic.getLastModificationDate().getMillis());
+        assertThat(topicFound.get("illustration")).isEqualTo(fakeTopic.getIllustration());
+        assertThat(topicFound.get("thumbnailLarge")).isEqualTo(fakeTopic.getThumbnailLarge());
+        assertThat(topicFound.get("thumbnailMedium")).isEqualTo(fakeTopic.getThumbnailMedium());
+        assertThat(topicFound.get("thumbnailSmall")).isEqualTo(fakeTopic.getThumbnailSmall());
     }
 
     @Test
@@ -66,7 +74,6 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("uris")).isNotNull();
-        assertThat(topicFound.get("illustration")).isEqualTo(realTopic.getIllustration());
         assertThat(topicFound.get("__discriminator")).isEqualTo("RealTopic");
     }
 
