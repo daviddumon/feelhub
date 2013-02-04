@@ -24,7 +24,7 @@ public class HttpTopicAnalyzer {
         httpTopic.setOpenGraphType(scrapedInformation.getOpenGraphType());
         if (!scrapedInformation.getImages().isEmpty()) {
             httpTopic.setIllustration(scrapedInformation.getImages().get(0));
-            getThumbnails(httpTopic);
+            //getThumbnails(httpTopic);
         }
         return getMedias(scrapedInformation);
     }

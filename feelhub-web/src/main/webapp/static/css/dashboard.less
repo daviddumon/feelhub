@@ -139,6 +139,11 @@ body {
             margin: 0px auto !important;
             display: block;
 
+            img {
+              width: 272px;
+              height: 168px;
+            }
+
             span {
               position: absolute;
               display: block;
@@ -167,11 +172,16 @@ body {
             height: 56px;
 
             a.illustration_media {
-              position: relative;
               width: 90px;
               height: 56px;
+              position: relative;
               overflow: hidden;
               display: inline-block;
+
+              img {
+                width: 90px;
+                height: 56px;
+              }
 
               span {
                 position: absolute;
@@ -236,13 +246,18 @@ body {
           }
 
           a.illustration_relation {
-            position: relative;
             width: 90px;
             height: 56px;
+            position: relative;
             overflow: hidden;
             display: inline-block;
             margin: 1px;
-            background: url('../images/unknown.png') no-repeat center @blue-4;
+            background: no-repeat center @blue-4;
+
+            img {
+              width: 90px;
+              height: 56px;
+            }
 
             span {
               position: absolute;
