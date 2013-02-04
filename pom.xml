@@ -13,6 +13,7 @@
         <module>feelhub-web</module>
         <module>feelhub-sitemap</module>
         <module>feelhub-test-tools</module>
+        <module>feelhub-patch</module>
     </modules>
 
     <properties>
