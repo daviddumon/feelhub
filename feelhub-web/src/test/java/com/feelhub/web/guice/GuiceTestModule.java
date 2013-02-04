@@ -1,7 +1,9 @@
 package com.feelhub.web.guice;
 
+import com.feelhub.application.mail.MailSender;
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.bing.*;
+import com.feelhub.domain.cloudinary.*;
 import com.feelhub.domain.scraper.*;
 import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.translation.*;
@@ -9,7 +11,6 @@ import com.feelhub.repositories.SessionProvider;
 import com.feelhub.repositories.fakeRepositories.FakeSessionProvider;
 import com.feelhub.web.filter.*;
 import com.feelhub.web.mail.FakeMailSender;
-import com.feelhub.application.mail.MailSender;
 import com.feelhub.web.migration.*;
 import com.feelhub.web.migration.web.MigrationFilter;
 import com.feelhub.web.search.*;
@@ -41,6 +42,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(AlchemyLink.class).to(FakeAlchemyLink.class);
         bind(BingLink.class).to(FakeBingLink.class);
         bind(MailSender.class).to(FakeMailSender.class);
+        bind(CloudinaryLink.class).to(FakeCloudinaryLink.class);
     }
 
     private Properties properties() {
