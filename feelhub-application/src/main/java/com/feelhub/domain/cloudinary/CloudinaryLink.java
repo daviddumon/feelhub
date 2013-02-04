@@ -83,7 +83,7 @@ public class CloudinaryLink {
     private String getRequestStringToSign(final Map<String, String> paramsToSign) {
         Collection<String> params = new ArrayList<String>();
         for (Map.Entry<String, String> param : new TreeMap<String, String>(paramsToSign).entrySet()) {
-            if (StringUtils.isNotBlank(param.getValue())) {
+            if (StringUtils.isNotBlank(param.getValue()) && !param.getKey().equalsIgnoreCase("file")) {
                 params.add(param.getKey() + "=" + param.getValue());
             }
         }
