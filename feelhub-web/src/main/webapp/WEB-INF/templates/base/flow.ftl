@@ -3,17 +3,11 @@
     </@head.headbegin>
 
     <@head.cssprod>
-    <link rel="stylesheet" href="${root}/static/css/dashboard.css?cache=${buildtime}"/>
-    <link rel="stylesheet" href="${root}/static/css/command.css?cache=${buildtime}"/>
     <link rel="stylesheet" href="${root}/static/css/flow.css?cache=${buildtime}"/>
-    <link rel="stylesheet" href="${root}/static/css/ad.css?cache=${buildtime}"/>
     </@head.cssprod>
 
     <@head.cssdev>
-    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/dashboard.less?cache=${buildtime}"/>
-    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/command.less?cache=${buildtime}"/>
-    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/flow.less?cache=${buildtime}"/>
-    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/ad.less?cache=${buildtime}"/>
+    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/less/flow.less?cache=${buildtime}"/>
     </@head.cssdev>
 
     <@head.jsprod>

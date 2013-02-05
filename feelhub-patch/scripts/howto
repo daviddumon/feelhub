@@ -1,0 +1,7 @@
+Compiler en mode production :
+maven clean package -P production
+
+scp le jar sur un tomcat
+puis java -jar {patcheur}
+
+scp -i ../../../feelhub-documents/aws/certifications/steambeat.pem -P 22 feelhub-patch-0.0.1-SNAPSHOT-jar-with-dependencies.jar ec2-user@ec2-54-234-163-10.compute-1.amazonaws.com:

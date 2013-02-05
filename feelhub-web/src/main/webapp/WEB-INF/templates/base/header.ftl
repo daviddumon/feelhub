@@ -1,4 +1,4 @@
-<header xmlns="http://www.w3.org/1999/html">
+<header>
     <div id="header-top">
         <a id="home_link" href="${root}">Feelhub<span>.com</span></a>
 
@@ -16,10 +16,6 @@
         <#if userInfos.authenticated!false>
             <li><a href="${root}/myfeelings">My feelings</a></li>
         </#if>
-        <#--<li><a href="">Near me</a></li>-->
-        <#--<li><a href="">Channels</a></li>-->
-        <#--<li><a href="">Trends</a></li>-->
-        <#--<li><a href="">Sponsored</a></li>-->
         </ul>
         <ul id="header-bottom-right">
             <li><a href="${root}/help">About</a></li>

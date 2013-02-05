@@ -17,8 +17,6 @@
 <#macro cssprod>
 
     <#if !dev>
-        <link rel="stylesheet" href="${root}/static/css/reset.css?cache=${buildtime}"/>
-        <link rel="stylesheet" href="${root}/static/css/common.css?cache=${buildtime}"/>
         <#nested/>
     </#if>
 
@@ -27,8 +25,6 @@
 <#macro cssdev>
 
     <#if dev>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/reset.less?cache=${buildtime}"/>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/common.less?cache=${buildtime}"/>
         <#nested/>
     </#if>
 
@@ -49,7 +45,7 @@
 <#macro jsdev>
 
     <#if dev>
-        <script type="text/javascript" src="${root}/static/js/lib/less-1.3.0.min.js?cache=${buildtime}"></script>
+        <script type="text/javascript" src="${root}/static/js/lib/less-1.3.3.min.js?cache=${buildtime}"></script>
         <#nested/>
     </#if>
 
@@ -67,7 +63,6 @@
             </#if>
     </script>
 
-    <script type="text/javascript" src="${root}/static/js/lib/modernizr.custom.21481.min.js?cache=${buildtime}"></script>
     <#nested/>
 
 </#macro>
