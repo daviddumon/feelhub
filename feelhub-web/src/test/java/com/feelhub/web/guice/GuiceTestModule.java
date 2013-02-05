@@ -11,8 +11,6 @@ import com.feelhub.repositories.SessionProvider;
 import com.feelhub.repositories.fakeRepositories.FakeSessionProvider;
 import com.feelhub.web.filter.*;
 import com.feelhub.web.mail.FakeMailSender;
-import com.feelhub.web.migration.*;
-import com.feelhub.web.migration.web.MigrationFilter;
 import com.feelhub.web.search.*;
 import com.feelhub.web.search.fake.*;
 import com.feelhub.web.tools.FeelhubSitemapModuleLink;
@@ -34,8 +32,6 @@ public class GuiceTestModule extends AbstractModule {
         bind(RelatedSearch.class).to(FakeRelatedSearch.class);
         bind(MediaSearch.class).to(FakeMediaSearch.class);
         bind(UriResolver.class).to(FakeUriResolver.class);
-        bind(MigrationRunner.class).to(FakeMigrationRunner.class);
-        bind(MigrationFilter.class).to(FakeMigrationFilter.class);
         bind(Scraper.class).to(FakeScraper.class);
         bind(NamedEntityProvider.class).toInstance(new NamedEntityProvider(new FakeAlchemyLink(), new NamedEntityFactory()));
         bind(Translator.class).to(FakeTranslator.class);
