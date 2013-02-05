@@ -22,7 +22,7 @@ public class FeelhubApplicationProperties {
                 .withHost(getDbHost())
                 .withPort(getDbPort())
                 .withDbName(getDbName())
-                .withDefaultUpdateStrategy(UpdateStrategies.OVERWRITE);
+                .withDefaultUpdateStrategy(UpdateStrategies.DIFF);
     }
 
     private String getDbHost() {
