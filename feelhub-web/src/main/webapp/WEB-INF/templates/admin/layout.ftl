@@ -8,7 +8,7 @@
         <#if !dev>
         <link rel="stylesheet" type="text/css" href="${root}/static/css/admin.css?cache=${buildtime}"/>
         <#else>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/less/admin.less?cache=${buildtime}"/>
+        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/admin.less?cache=${buildtime}"/>
         <script type="text/javascript" src="${root}/static/js/lib/less-1.3.3.min.js?cache=${buildtime}"></script>
         </#if>
     </head>

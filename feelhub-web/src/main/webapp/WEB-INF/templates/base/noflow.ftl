@@ -7,7 +7,7 @@
     </@head.cssprod>
 
     <@head.cssdev>
-    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/less/noflow.less?cache=${buildtime}"/>
+    <link rel="stylesheet/less" type="text/css" href="${root}/static/css/noflow.less?cache=${buildtime}"/>
     </@head.cssdev>
 
     <@head.jsprod>
