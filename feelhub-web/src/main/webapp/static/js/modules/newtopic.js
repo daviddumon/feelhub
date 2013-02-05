@@ -21,7 +21,7 @@ define(['plugins/domReady!', 'jquery'], function (doc, $) {
     }
 
     function error() {
-        console.log("newtopic ajax error");
+
     }
 
     return {

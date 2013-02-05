@@ -1,4 +1,4 @@
-<#macro js>
+<#macro jsprod>
     <@head.headbegin>
     </@head.headbegin>
 
@@ -11,11 +11,17 @@
     </@head.cssdev>
 
     <@head.jsprod>
+        <#nested/>
     </@head.jsprod>
+</#macro>
 
+<#macro jsdev>
     <@head.jsdev>
+        <#nested/>
     </@head.jsdev>
+</#macro>
 
+<#macro js>
     <@head.js>
     <script type="text/javascript">
             <#if topicData??>

@@ -33,7 +33,7 @@ define(['jquery', 'plugins/hgn!templates/search/search_command_http_view'],
         }
 
         function error() {
-            console.log("error");
+
         }
 
         return {

@@ -138,6 +138,39 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>requirejs</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.mcheely</groupId>
+                        <artifactId>requirejs-maven-plugin</artifactId>
+                        <version>1.0.4</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>optimize</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <configFile>
+                                ${project.basedir}/src/main/webapp/static/js/app.build.js
+                            </configFile>
+                            <optimizerFile>
+                                ${project.basedir}/src/main/webapp/static/js/r.js
+                            </optimizerFile>
+                            <filterConfig>
+                                false
+                            </filterConfig>
+                            <skip>
+                                false
+                            </skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <build>

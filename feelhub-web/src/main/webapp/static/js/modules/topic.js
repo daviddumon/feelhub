@@ -47,7 +47,6 @@ define(["jquery", "modules/flow", "view/flow/feeling-view"],
         }
 
         function error() {
-            console.log("error while posting feeling.");
         }
 
         return {

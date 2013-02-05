@@ -24,12 +24,11 @@ define(['jquery'], function ($) {
     }
 
     function success() {
-        console.log("success");
         document.location.reload();
     }
 
     function error() {
-        console.log("error while logging out.")
+
     }
 
     return {

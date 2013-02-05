@@ -39,7 +39,7 @@ define(['jquery'], function ($) {
                         } else if (jqXHR.status == 409) {
                             $("[name='email']").parent().find(".error_text").text("This email is already used!");
                         } else if (jqXHR.status == 400) {
-                            //console.log("error : " + jqXHR.status + " while posting on " + root + "/signup");
+
                         }
                     });
             }

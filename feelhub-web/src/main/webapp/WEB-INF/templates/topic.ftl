@@ -1,5 +1,12 @@
-<@flow.js>
+<@flow.jsprod>
+<script type="text/javascript" data-main="${root}/static/js/controller-built/topic-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
+</@flow.jsprod>
+
+<@flow.jsdev>
 <script type="text/javascript" data-main="${root}/static/js/controller/topic-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
+</@flow.jsdev>
+
+<@flow.js>
 </@flow.js>
 
 <@flow.dashboard>
