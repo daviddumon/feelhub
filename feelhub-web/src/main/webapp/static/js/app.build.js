@@ -40,5 +40,9 @@
         hogan: "../plugins/hogan",
         text: "../plugins/text"
     },
-    preserveLicenseComments: false
+    preserveLicenseComments: false,
+    stubModules: ['text', 'hgn'],
+    pragmasOnSave: {
+        excludeHogan: true
+    }
 })
