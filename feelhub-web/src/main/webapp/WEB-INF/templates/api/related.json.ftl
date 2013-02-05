@@ -2,10 +2,10 @@
 <#list topicDataList as topicData>
 {
 "id":"${topicData.id}",
-"name":"${topicData.name}",
-    <#if topicData.thumbnailLarge?has_content>"thumbnailLarge":"${topicData.thumbnailLarge?j_string}",</#if>
-    <#if topicData.thumbnailMedium?has_content>"thumbnailMedium":"${topicData.thumbnailMedium?j_string}",</#if>
-    <#if topicData.thumbnailSmall?has_content>"thumbnailSmall":"${topicData.thumbnailSmall?j_string}",</#if>
+"name":"${topicData.name?j_string}",
+"thumbnailLarge":"${topicData.thumbnailLarge?j_string}",
+"thumbnailMedium":"${topicData.thumbnailMedium?j_string}",
+"thumbnailSmall":"${topicData.thumbnailSmall?j_string}",
 "type":"${topicData.type}"
 }
 ${topicData_has_next?string(",", "")}

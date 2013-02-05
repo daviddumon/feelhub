@@ -1,7 +1,7 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.scraper.*;
+import com.feelhub.domain.scraper.HttpTopicAnalyzeRequest;
 import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;

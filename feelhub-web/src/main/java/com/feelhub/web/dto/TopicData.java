@@ -16,12 +16,16 @@ public class TopicData {
         }
 
         public Builder id(final UUID id) {
-            this.id = id.toString();
+            if (id != null) {
+                this.id = id.toString();
+            }
             return this;
         }
 
         public Builder name(final String name) {
-            this.name = name;
+            if (name != null) {
+                this.name = name;
+            }
             return this;
         }
 
@@ -43,22 +47,30 @@ public class TopicData {
         }
 
         public Builder thumbnailLarge(final String thumbnailLarge) {
-            this.thumbnailLarge = thumbnailLarge;
+            if (thumbnailLarge != null) {
+                this.thumbnailLarge = thumbnailLarge;
+            }
             return this;
         }
 
         public Builder thumbnailMedium(final String thumbnailMedium) {
-            this.thumbnailMedium = thumbnailMedium;
+            if (thumbnailMedium != null) {
+                this.thumbnailMedium = thumbnailMedium;
+            }
             return this;
         }
 
         public Builder thumbnailSmall(final String thumbnailSmall) {
-            this.thumbnailSmall = thumbnailSmall;
+            if (thumbnailSmall != null) {
+                this.thumbnailSmall = thumbnailSmall;
+            }
             return this;
         }
 
         public Builder description(final String description) {
-            this.description = description;
+            if (description != null) {
+                this.description = description;
+            }
             return this;
         }
 

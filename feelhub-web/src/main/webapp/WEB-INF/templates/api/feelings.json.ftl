@@ -15,12 +15,12 @@
 "sentimentDatas":   [
     <#list feelingData.sentimentDatas as sentimentData>
     {
-    <#if sentimentData.id?has_content>"id":"${sentimentData.id}",</#if>
+        <#if sentimentData.id?has_content>"id":"${sentimentData.id}",</#if>
     "sentimentValue":"${sentimentData.sentimentValue}",
     "name":"${sentimentData.name?j_string}",
-    <#if sentimentData.thumbnailLarge?has_content>"thumbnailLarge":"${sentimentData.thumbnailLarge?j_string}",</#if>
-    <#if sentimentData.thumbnailMedium?has_content>"thumbnailMedium":"${sentimentData.thumbnailMedium?j_string}",</#if>
-    <#if sentimentData.thumbnailSmall?has_content>"thumbnailSmall":"${sentimentData.thumbnailSmall?j_string}",</#if>
+    "thumbnailLarge":"${sentimentData.thumbnailLarge?j_string}",
+    "thumbnailMedium":"${sentimentData.thumbnailMedium?j_string}",
+    "thumbnailSmall":"${sentimentData.thumbnailSmall?j_string}",
     "type":"${sentimentData.type}"
     }${sentimentData_has_next?string(",", "")}
     </#list>

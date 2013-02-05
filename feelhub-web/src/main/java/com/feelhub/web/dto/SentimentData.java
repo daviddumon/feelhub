@@ -15,37 +15,51 @@ public class SentimentData {
         }
 
         public Builder id(final UUID id) {
-            this.id = id.toString();
+            if (id != null) {
+                this.id = id.toString();
+            }
             return this;
         }
 
         public Builder name(final String name) {
-            this.name = name;
+            if (name != null) {
+                this.name = name;
+            }
             return this;
         }
 
         public Builder sentimentValue(final SentimentValue sentimentValue) {
-            this.sentimentValue = sentimentValue;
+            if (sentimentValue != null) {
+                this.sentimentValue = sentimentValue;
+            }
             return this;
         }
 
         public Builder type(final TopicType type) {
-            this.type = type;
+            if (type != null) {
+                this.type = type;
+            }
             return this;
         }
 
         public Builder thumbnailLarge(final String thumbnailLarge) {
-            this.thumbnailLarge = thumbnailLarge;
+            if (thumbnailLarge != null) {
+                this.thumbnailLarge = thumbnailLarge;
+            }
             return this;
         }
 
         public Builder thumbnailMedium(final String thumbnailMedium) {
-            this.thumbnailMedium = thumbnailMedium;
+            if (thumbnailMedium != null) {
+                this.thumbnailMedium = thumbnailMedium;
+            }
             return this;
         }
 
         public Builder thumbnailSmall(final String thumbnailSmall) {
-            this.thumbnailSmall = thumbnailSmall;
+            if (thumbnailSmall != null) {
+                this.thumbnailSmall = thumbnailSmall;
+            }
             return this;
         }
 
