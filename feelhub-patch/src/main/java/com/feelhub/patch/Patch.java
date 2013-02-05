@@ -13,7 +13,6 @@ public abstract class Patch {
 
     public void execute() {
         try {
-            //patchBdd();
             initializeRepositories();
             if (withBusinessPatch()) {
                 patchBusiness();
@@ -47,17 +46,8 @@ public abstract class Patch {
 
     protected abstract void doBusinessPatch();
 
-    //private void patchBdd() {
-    //    executeScripts("scripts", ConfigurationBase.chaîneConnexionBailleur());
-    //}
-
-    //private void executeScripts(final String cheminScripts) {
-    //    final Script script = new Script(cheminScripts, version());
-    //    script.exécute();
-    //}
-
     public abstract Version version();
 
-    private SessionProvider sessionProvider;
-    private static final Logger LOGGER = Logger.getLogger(Patch.class);
+    protected SessionProvider sessionProvider;
+    protected static final Logger LOGGER = Logger.getLogger(Patch.class);
 }

@@ -4,12 +4,13 @@ import com.feelhub.repositories.SessionProvider;
 import org.apache.log4j.Logger;
 
 public final class Main {
+
 	private Main() {
 	}
 
 	public static void main(final String[] args) {
 		LOGGER.info("Patch begin");
-        new PatchTest(new SessionProvider()).execute();
+        new PatchCloudinary(new SessionProvider()).execute();
     	LOGGER.info("Patch end");
 	}
 

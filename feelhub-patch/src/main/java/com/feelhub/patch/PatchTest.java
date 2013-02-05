@@ -5,6 +5,7 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.SessionProvider;
 
 public class PatchTest extends Patch {
+
     public PatchTest(SessionProvider sessionProvider) {
         super(sessionProvider);
     }
