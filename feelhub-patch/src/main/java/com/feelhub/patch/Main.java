@@ -1,5 +1,6 @@
 package com.feelhub.patch;
 
+import com.feelhub.repositories.SessionProvider;
 import org.apache.log4j.Logger;
 
 public final class Main {
@@ -8,7 +9,7 @@ public final class Main {
 
 	public static void main(final String[] args) {
 		LOGGER.info("Patch begin");
-        new PatchTest(null).execute();
+        new PatchTest(new SessionProvider()).execute();
     	LOGGER.info("Patch end");
 	}
 
