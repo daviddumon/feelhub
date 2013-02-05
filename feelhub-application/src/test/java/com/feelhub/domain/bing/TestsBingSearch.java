@@ -1,7 +1,7 @@
 package com.feelhub.domain.bing;
 
 import com.feelhub.domain.cloudinary.*;
-import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicType;
 import com.feelhub.domain.topic.http.uri.*;
@@ -18,7 +18,6 @@ import java.util.UUID;
 import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@Ignore
 public class TestsBingSearch {
 
     @Rule
@@ -54,7 +53,7 @@ public class TestsBingSearch {
         bingRequest.setTopic(realTopic);
         bingRequest.setQuery("query");
 
-        DomainEventBus.INSTANCE.post(bingRequest);
+        bingSearch.doBingSearch(bingRequest);
 
         assertThat(Repositories.topics().getAll().size()).isEqualTo(2);
         final Topic image = Repositories.topics().getAll().get(1);
@@ -75,7 +74,7 @@ public class TestsBingSearch {
         bingRequest.setTopic(realTopic);
         bingRequest.setQuery("query");
 
-        DomainEventBus.INSTANCE.post(bingRequest);
+        bingSearch.doBingSearch(bingRequest);
 
         verify(relationBinder).bind(any(Topic.class), anyList());
     }
@@ -88,7 +87,7 @@ public class TestsBingSearch {
         bingRequest.setTopic(realTopic);
         bingRequest.setQuery("query");
 
-        DomainEventBus.INSTANCE.post(bingRequest);
+        bingSearch.doBingSearch(bingRequest);
 
         assertThat(realTopic.getIllustration()).isEqualTo("query Automobilelink");
         assertThat(realTopic.getThumbnailLarge()).isEqualTo("thumbnail");

@@ -41,7 +41,7 @@ public class BingSearch {
         mongoLinkAwareExecutor.execute(runnable);
     }
 
-    private void doBingSearch(final BingRequest bingRequest) {
+    protected void doBingSearch(final BingRequest bingRequest) {
         //todo bug race condition
         //final Topic topic = bingRequest.getTopic();
         final String query = bingRequest.getQuery();

@@ -5,6 +5,7 @@ import com.feelhub.domain.admin.AdminApiCallsService;
 import com.feelhub.domain.alchemy.AlchemyAnalyzer;
 import com.feelhub.domain.bing.BingSearch;
 import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.scraper.HttpTopicAnalyzer;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.domain.topic.world.WorldListener;
 import com.feelhub.domain.translation.Translator;
@@ -35,6 +36,7 @@ public class GuiceProductionModule extends AbstractModule {
         bind(BingSearch.class).asEagerSingleton();
         bind(Translator.class).asEagerSingleton();
         bind(AdminApiCallsService.class).asEagerSingleton();
+        bind(HttpTopicAnalyzer.class).asEagerSingleton();
     }
 
     private Properties properties() {

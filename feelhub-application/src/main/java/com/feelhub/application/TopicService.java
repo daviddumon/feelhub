@@ -1,6 +1,7 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.scraper.HttpTopicAnalyzer;
+import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.scraper.*;
 import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
@@ -18,11 +19,10 @@ import java.util.*;
 public class TopicService {
 
     @Inject
-    public TopicService(final TopicFactory topicFactory, final TagService tagService, final UriResolver uriResolver, final HttpTopicAnalyzer httpTopicAnalyzer) {
+    public TopicService(final TopicFactory topicFactory, final TagService tagService, final UriResolver uriResolver) {
         this.topicFactory = topicFactory;
         this.tagService = tagService;
         this.uriResolver = uriResolver;
-        this.httpTopicAnalyzer = httpTopicAnalyzer;
     }
 
     public Topic lookUp(final UUID id) {
@@ -115,7 +115,9 @@ public class TopicService {
 
     private void scrapHttpTopic(final HttpTopic httpTopic) {
         if (httpTopic.getType().equals(HttpTopicType.Website)) {
-            httpTopicAnalyzer.analyze(httpTopic);
+            final HttpTopicAnalyzeRequest httpTopicAnalyzeRequest = new HttpTopicAnalyzeRequest();
+            httpTopicAnalyzeRequest.setHttpTopic(httpTopic);
+            DomainEventBus.INSTANCE.post(httpTopicAnalyzeRequest);
         }
     }
 
@@ -178,5 +180,4 @@ public class TopicService {
     private final TopicFactory topicFactory;
     private final TagService tagService;
     private UriResolver uriResolver;
-    private HttpTopicAnalyzer httpTopicAnalyzer;
 }
