@@ -73,26 +73,33 @@
 
     <#if !dev>
 
-        <script type="text/javascript">
-            reformal_wdg_domain = "feelhub";
-            reformal_wdg_mode = 0;
-            reformal_wdg_title = "feelhub";
-            reformal_wdg_ltitle = "Leave feedback";
-            reformal_wdg_lfont = "";
-            reformal_wdg_lsize = "";
-            reformal_wdg_color = "#FFA000";
-            reformal_wdg_bcolor = "#516683";
-            reformal_wdg_tcolor = "#FFFFFF";
-            reformal_wdg_align = "left";
-            reformal_wdg_waction = 0;
-            reformal_wdg_vcolor = "#9FCE54";
-            reformal_wdg_cmline = "#E0E0E0";
-            reformal_wdg_glcolor = "#105895";
-            reformal_wdg_tbcolor = "#FFFFFF";
-            reformal_wdg_bimage = "8489db229aa0a66ab6b80ebbe0bb26cd.png";
+        <script type='text/javascript'>
+            var _ues = {
+                host: 'feelhub.userecho.com',
+                forum: '17423',
+                lang: 'en',
+                tab_icon_show: false,
+                tab_corner_radius: 10,
+                tab_font_size: 20,
+                tab_image_hash: 'ZmVlZGJhY2s%3D',
+                tab_chat_hash: 'Y2hhdA%3D%3D',
+                tab_alignment: 'left',
+                tab_text_color: '#FFFFFF',
+                tab_text_shadow_color: '#00000055',
+                tab_bg_color: '#57A957',
+                tab_hover_color: '#F45C5C'
+            };
+
+            (function () {
+                var _ue = document.createElement('script');
+                _ue.type = 'text/javascript';
+                _ue.async = true;
+                _ue.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.userecho.com/js/widget-1.4.gz.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(_ue, s);
+            })();
+
         </script>
-        <script type="text/javascript" language="JavaScript" src="http://idea.informer.com/tab6.js?domain=feelhub"></script>
-        <noscript><a href="http://feelhub.idea.informer.com">feelhub feedback </a> <a href="http://idea.informer.com"><img src="http://widget.idea.informer.com/tmpl/images/widget_logo.jpg"/></a></noscript>
 
         <script type="text/javascript">
             var _gaq = _gaq || [];
