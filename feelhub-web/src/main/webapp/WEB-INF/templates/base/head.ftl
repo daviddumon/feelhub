@@ -74,16 +74,25 @@
     <#if !dev>
 
         <script type="text/javascript">
-            var uvOptions = {};
-            (function () {
-                var uv = document.createElement('script');
-                uv.type = 'text/javascript';
-                uv.async = true;
-                uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/G00yvG6dRhvx0Oag2Yn2Yw.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(uv, s);
-            })();
+            reformal_wdg_domain = "feelhub";
+            reformal_wdg_mode = 0;
+            reformal_wdg_title = "feelhub";
+            reformal_wdg_ltitle = "Leave feedback";
+            reformal_wdg_lfont = "";
+            reformal_wdg_lsize = "";
+            reformal_wdg_color = "#FFA000";
+            reformal_wdg_bcolor = "#516683";
+            reformal_wdg_tcolor = "#FFFFFF";
+            reformal_wdg_align = "left";
+            reformal_wdg_waction = 0;
+            reformal_wdg_vcolor = "#9FCE54";
+            reformal_wdg_cmline = "#E0E0E0";
+            reformal_wdg_glcolor = "#105895";
+            reformal_wdg_tbcolor = "#FFFFFF";
+            reformal_wdg_bimage = "8489db229aa0a66ab6b80ebbe0bb26cd.png";
         </script>
+        <script type="text/javascript" language="JavaScript" src="http://idea.informer.com/tab6.js?domain=feelhub"></script>
+        <noscript><a href="http://feelhub.idea.informer.com">feelhub feedback </a> <a href="http://idea.informer.com"><img src="http://widget.idea.informer.com/tmpl/images/widget_logo.jpg"/></a></noscript>
 
         <script type="text/javascript">
             var _gaq = _gaq || [];
