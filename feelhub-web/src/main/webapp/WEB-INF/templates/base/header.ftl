@@ -4,10 +4,8 @@
 
         <div id="login_helper">
 
-        <#if userInfos.authenticated>
+        <#if userInfos.authenticated || !userInfos.anonymous>
             <p>Hello ${userInfos.user.fullname}! - <a href="javascript:void(0);" class="logout">logout</a></p>
-        <#elseif !userInfos.anonymous>
-            <p>Hello ${userInfos.user.fullname}!</p>
         </#if>
         </div>
     </div>

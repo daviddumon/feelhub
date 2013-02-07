@@ -61,9 +61,9 @@
     <#if userInfos.authenticated>
         <#nested/>
     <#elseif !userInfos.anonymous>
-        <p><a href="${root}/login" class="login-button call-to-action">LOGIN</a></p>
+        <a href="${root}/login" class="login-button call-to-action">LOGIN</a>
     <#else>
-        <p><a href="${root}/login" class="login-button call-to-action">LOGIN</a> or <a href="${root}/signup" class="signup-button call-to-action">SIGN UP</a></p>
+        <a href="${root}/login" class="login-button call-to-action">LOGIN</a> <span class="or">or</span> <a href="${root}/signup" class="signup-button call-to-action">SIGN UP</a>
     </#if>
 </div>
 <ul id="flow">
