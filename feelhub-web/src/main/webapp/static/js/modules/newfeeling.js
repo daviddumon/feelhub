@@ -6,10 +6,30 @@ define([], function () {
     function init() {
         $(container + " button").click(function () {
             $(container + " .hidden-form").css("display", "inline");
+            $(container + " textarea").focus();
         });
-
+        setTextareaBehavior();
         setSubmitBehavior();
         setSelectedLanguage();
+    }
+
+    function setTextareaBehavior() {
+        $(container + " textarea").keypress(function (event) {
+            $(this).parent().find(".help_text").hide();
+            if (event.shiftKey) {
+                var code = event.keyCode || event.which;
+                if (code == 13) {
+                    submit();
+                    return false;
+                }
+            }
+        });
+
+        $(container + " textarea").focusout(function () {
+            if ($(this).val() == "") {
+                $(this).parent().find(".help_text").show();
+            }
+        });
     }
 
     function setSelectedLanguage() {
@@ -18,17 +38,21 @@ define([], function () {
 
     function setSubmitBehavior() {
         $(container).submit(function () {
-            if ($("#feeling_form textarea").val() !== "") {
-                $.ajax({
-                    url: root + create_feeling_api_end_point,
-                    type: 'POST',
-                    data: $(container).serialize(),
-                    success: success,
-                    error: error
-                });
-            }
+            submit();
             return false;
         });
+    }
+
+    function submit() {
+        if ($("#feeling_form textarea").val() !== "") {
+            $.ajax({
+                url: root + create_feeling_api_end_point,
+                type: 'POST',
+                data: $(container).serialize(),
+                success: success,
+                error: error
+            });
+        }
     }
 
     function success() {

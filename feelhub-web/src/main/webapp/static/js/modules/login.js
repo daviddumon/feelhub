@@ -6,10 +6,6 @@ define(['jquery'], function ($) {
             $(this).parent().find("input").focus();
         });
 
-        $("input").focusin(function () {
-            $(this).parent().find(".help_text").css("color", "#CCCCCC");
-        });
-
         $("input").keypress(function (event) {
             $(this).parent().find(".help_text").hide();
             var code = event.keyCode || event.which;
@@ -18,17 +14,10 @@ define(['jquery'], function ($) {
             }
         });
 
-        $("input").change(function (event) {
-            if ($(this).val() !== "") {
-                $(this).parent().find(".help_text").hide();
-            }
-        });
-
         $("input").focusout(function () {
             if ($(this).val() == "") {
                 $(this).parent().find(".help_text").show();
             }
-            $(this).parent().find(".help_text").css("color", "#999999");
         });
 
         $("#login_submit").click(function (e) {

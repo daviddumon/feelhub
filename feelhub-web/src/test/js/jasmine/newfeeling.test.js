@@ -26,6 +26,7 @@ define(['jquery', 'modules/newfeeling'], function ($, newfeeling) {
             $(container + " button").click();
 
             expect($(container + " .hidden-form").css("display")).toBe("inline");
+            expect($(container + " textarea").is(":focus")).toBe(true);
         });
 
         it('post new feeling on second click', function () {
@@ -34,13 +35,19 @@ define(['jquery', 'modules/newfeeling'], function ($, newfeeling) {
             $(container + " button").click();
             $(container + " button").click();
 
-
+            //fake ajax
         });
 
         it('select good language on load', function () {
             newfeeling.init();
 
             expect($(container + " select :selected").html()).toBe("french");
+        });
+
+        it("has default textarea with incentive", function() {
+            newfeeling.init();
+
+
         });
     });
 });
