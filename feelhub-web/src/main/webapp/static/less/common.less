@@ -14,13 +14,12 @@ body {
     overflow: hidden;
 
     #header-top {
-      height: 68px;
+      height: 54px;
       margin: 0px auto;
       text-align: center;
       overflow: hidden;
 
       a {
-        font-weight: bold;
         color: @white;
 
         &:hover {
@@ -29,7 +28,7 @@ body {
       }
 
       #home_link {
-        padding-top: 20px;
+        padding-top: 6px;
         margin-left: 15%;
         float: left;
         font-size: 42px;
@@ -42,7 +41,7 @@ body {
       }
 
       #login_helper {
-        padding-top: 42px;
+        padding-top: 28px;
         margin-right: 15%;
         float: right;
         font-size: 14px;
@@ -51,18 +50,22 @@ body {
         p {
           color: @white;
         }
+
+        a {
+          text-decoration: underline;
+        }
       }
     }
 
     #header-bottom {
       background-color: @moods-1;
-      height: 32px;
+      height: 28px;
       border-top: 4px solid @white;
       border-bottom: 4px solid @white;
       overflow: hidden;
 
       ul {
-        padding-top: 10px;
+        padding-top: 8px;
 
         li {
           list-style: none;
@@ -118,6 +121,40 @@ body {
           outline: none !important;
         }
       }
+    }
+  }
+
+  .call-to-action {
+    cursor: pointer;
+    color: @moods-1;
+    .font_span;
+    font-weight: bold;
+    font-size: @font-medium;
+    text-decoration: none;
+    .rounded();
+    font-size: 28px;
+    text-decoration: none;
+    background-color: @neutral;
+    border: none;
+    background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+    background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+    background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+    background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+    background: -o-linear-gradient(top, #65a9d7, #3e779d);
+    background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+    -webkit-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(255, 255, 255, 0.4) 0 1px 0;
+    -moz-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(255, 255, 255, 0.4) 0 1px 0;
+    box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(255, 255, 255, 0.4) 0 1px 0;
+
+    &:hover, &:focus {
+      color: @white !important;
+      -moz-box-shadow: 0 0 10px 0px #FFF;
+      -webkit-box-shadow: 0 0 10px 0px #FFF;
+      box-shadow: 0 0 10px 0px #FFF;
+    }
+
+    &:active {
+      .insetshadow();
     }
   }
 }

@@ -24,17 +24,5 @@
 </@flow.dashboard>
 
 <@flow.command>
-<form id="feeling_form" autocomplete="off">
-    <select name="language">
-        <option value=""></option>
-        <#list locales as locale>
-            <option value="${locale.code}">${locale.name}</option>
-        </#list>
-    </select>
-    <textarea name="text"></textarea>
-    <input type="hidden" name="topicId" value="${topicData.id}"/>
-    <button type="submit">
-        share my feeling
-    </button>
-</form>
+    <#include "newfeeling.ftl"/>
 </@flow.command>

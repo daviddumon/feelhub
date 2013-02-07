@@ -1,5 +1,6 @@
 package com.feelhub.web.resources;
 
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.representation.ModelAndView;
@@ -12,7 +13,7 @@ public class MyFeelingsResource extends ServerResource {
     public ModelAndView getMyFeelings() {
         try {
             checkCredentials();
-            return ModelAndView.createNew("myfeelings.ftl");
+            return ModelAndView.createNew("myfeelings.ftl").with("locales", FeelhubLanguage.availables());
         } catch (AuthenticationException e) {
             redirectSeeOther(new WebReferenceBuilder(getContext()).buildUri("/login"));
             return ModelAndView.createNew("empty.ftl");

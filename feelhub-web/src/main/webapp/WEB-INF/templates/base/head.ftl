@@ -45,7 +45,7 @@
 <#macro jsdev>
 
     <#if dev>
-        <script type="text/javascript" src="${root}/static/js/lib/less-1.3.3.min.js?cache=${buildtime}"></script>
+        <script type="text/javascript" src="${root}/static/js/less-1.3.3.min.js?cache=${buildtime}"></script>
         <#nested/>
     </#if>
 

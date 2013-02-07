@@ -8,6 +8,8 @@ require.config(
     }
 );
 
-require(["plugins/domReady!", "modules/interface"], function (doc, interface) {
-    interface.init();
-});
+require(["plugins/domReady!", "modules/interface"],
+
+    function (doc, interface) {
+        interface.init();
+    });

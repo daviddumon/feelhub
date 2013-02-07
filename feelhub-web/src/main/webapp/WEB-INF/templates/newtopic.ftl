@@ -33,5 +33,5 @@
 </@flow.dashboard>
 
 <@flow.command>
-<input type="submit" name="submit" class="create-topic" value="create"/>
+<input type="submit" name="submit" class="create-topic call-to-action" value="CREATE"/>
 </@flow.command>

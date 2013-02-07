@@ -8,9 +8,11 @@ require.config(
     }
 );
 
-require(["plugins/domReady!", "modules/interface"], function (doc, interface) {
-    interface.init();
-    setTimeout(function () {
-        window.location.href = root + "/login";
-    }, 2000);
-});
+require(["plugins/domReady!", "modules/interface"],
+
+    function (doc, interface) {
+        interface.init();
+        setTimeout(function () {
+            window.location.href = root + "/login";
+        }, 2000);
+    });

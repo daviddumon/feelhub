@@ -58,10 +58,12 @@
 
 <#macro command>
 <div id="command">
-    <#if userInfos.authenticated!false>
+    <#if userInfos.authenticated>
         <#nested/>
+    <#elseif !userInfos.anonymous>
+        <p><a href="${root}/login" class="login-button call-to-action">LOGIN</a></p>
     <#else>
-        <div>Please login or create an account!</div>
+        <p><a href="${root}/login" class="login-button call-to-action">LOGIN</a> or <a href="${root}/signup" class="signup-button call-to-action">SIGN UP</a></p>
     </#if>
 </div>
 <ul id="flow">

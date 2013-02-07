@@ -8,7 +8,9 @@ require.config(
     }
 );
 
-require(["plugins/domReady!", "modules/interface", "modules/signup"], function (doc, interface, signup) {
-    interface.init();
-    signup.init();
-});
+require(["plugins/domReady!", "modules/interface", "modules/signup"],
+
+    function (doc, interface, signup) {
+        interface.init();
+        signup.init();
+    });

@@ -7,7 +7,7 @@ body {
     .font_logo;
     color: @white;
     font-size: 40px;
-    height: 332px;
+    height: 302px;
     margin-top: 20px;
     display: block;
 
@@ -21,6 +21,8 @@ body {
     text-align: center;
     margin-top: 20px;
     overflow: hidden;
+    z-index: 10;
+    position: relative;
 
     div#topic-name {
       min-height: 30px;
@@ -43,7 +45,7 @@ body {
     .nav {
       display: inline-block;
       vertical-align: top;
-      margin-top: 105px;
+      margin-top: 75px;
       width: 30px;
       height: 90px;
       display: none;
@@ -87,7 +89,7 @@ body {
 
     #carousel {
       width: 300px;
-      height: 300px;
+      height: 260px;
       margin: 0px auto;
       overflow: hidden;
       display: inline-block;
@@ -96,13 +98,14 @@ body {
 
       #dashboard {
         vertical-align: top;
-        height: 300px;
+        height: 100%;
         text-align: center;
         color: @grey-4;
         font-weight: bold;
 
         li {
-          padding: 10px;
+          padding-left: 10px;
+          padding-right: 10px;
           width: 280px;
           height: 100%;
           overflow: hidden;
@@ -112,7 +115,7 @@ body {
           text-align: center;
 
           div.holder {
-            margin-top: 10px;
+            //margin-top: 10px;
             margin-bottom: 10px;
             text-align: center;
           }

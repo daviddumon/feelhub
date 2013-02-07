@@ -8,7 +8,9 @@ require.config(
     }
 );
 
-require(["plugins/domReady!", "modules/interface", "modules/login"], function (doc, interface, login) {
-    interface.init();
-    login.init();
-});
+require(["plugins/domReady!", "modules/interface", "modules/login"],
+
+    function (doc, interface, login) {
+        interface.init();
+        login.init();
+    });

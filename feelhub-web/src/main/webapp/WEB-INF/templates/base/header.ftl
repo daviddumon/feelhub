@@ -3,17 +3,18 @@
         <a id="home_link" href="${root}">Feelhub<span>.com</span></a>
 
         <div id="login_helper">
-        <#if !userInfos.anonymous>
-            <p>Hello ${userInfos.user.fullname}! - <#if userInfos.authenticated><a href="javascript:void(0);" class="logout">logout</a><#else><a href="${root}/login">login</a></#if>   </p>
-        <#else>
-            <p><a href="${root}/login">login</a> or <a href="${root}/signup">create account</a></p>
+
+        <#if userInfos.authenticated>
+            <p>Hello ${userInfos.user.fullname}! - <a href="javascript:void(0);" class="logout">logout</a></p>
+        <#elseif !userInfos.anonymous>
+            <p>Hello ${userInfos.user.fullname}!</p>
         </#if>
         </div>
     </div>
     <div id="header-bottom">
         <ul id="header-bottom-left">
             <li><a href="${root}">Latest</a></li>
-        <#if userInfos.authenticated!false>
+        <#if userInfos.authenticated>
             <li><a href="${root}/myfeelings">My feelings</a></li>
         </#if>
         </ul>

@@ -11,12 +11,14 @@ require.config({
     }
 });
 
-require(["jquery", "modules/interface", "modules/topic", "view/dashboard/dashboard-info", "modules/polling", "modules/carousel"],
-    function ($, interface, topic, dashboard_info, polling, carousel) {
+require(["plugins/domReady!", "jquery", "modules/interface", "modules/flow", "view/dashboard/dashboard-info", "modules/polling", "modules/carousel", "view/flow/feeling-view", "modules/newfeeling"],
+
+    function (doc, $, interface, flow, dashboard_info, polling, carousel, feeling_view, newfeeling) {
         carousel.init();
         interface.init();
-        topic.init();
         dashboard_info.render(topicData);
+        newfeeling.init();
+        flow.init(root + "/api/topic/" + topicData.id + "/feelings", null, feeling_view, null);
         polling.RequestCounters();
         polling.RequestMedias();
         polling.RequestRelations();

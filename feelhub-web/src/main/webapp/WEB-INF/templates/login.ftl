@@ -42,7 +42,7 @@
         <div class="error_text"></div>
     </div>
     <div class="holder">
-        <a id="login_submit" href="">login</a>
+        <a id="login_submit" href="" class="call-to-action">LOGIN</a>
 
         <div class="social">or</div>
         <a href="${facebookUrl}" class="facebook_login">
