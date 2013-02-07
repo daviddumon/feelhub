@@ -21,7 +21,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         end_function = callback;
         initial = 320;
         spacer = 40;
-        maxBox = Math.floor((container.innerWidth() - 100) / initial);
+        maxBox = Math.floor((container.innerWidth() - spacer) / initial);
         if(maxBox < 1) {
             maxBox = 1;
         }
