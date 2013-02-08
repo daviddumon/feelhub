@@ -16,7 +16,8 @@ body {
       }
 
       .hidden-form {
-        display: none;
+        height: 0px;
+        overflow: hidden;
       }
 
       input, textarea, select {
@@ -42,6 +43,7 @@ body {
       }
 
       .help_text {
+        display: none;
         position: absolute;
         left: 30px;
         top: 50px;
@@ -53,17 +55,14 @@ body {
       textarea {
         font-size: @font-normal;
         width: 240px;
-        height: 100px;
+        height: 100%;
         border: none;
         resize: none;
         background-color: @white !important;
         padding-top: 36px;
         padding-left: 20px;
         padding-right: 20px;
-
-        //&:focus {
-          outline: none;
-        //}
+        outline: none;
 
         @media (min-width: 640px) {
           width: 540px;

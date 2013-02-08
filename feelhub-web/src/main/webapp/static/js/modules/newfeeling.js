@@ -5,8 +5,9 @@ define([], function () {
 
     function init() {
         $(container + " button").click(function () {
-            $(container + " .hidden-form").show(400);
+            $(container + " .hidden-form").animate({height:240}, 200);
             $(container + " textarea").focus();
+            $(container + " .help_text").show();
         });
         setTextareaBehavior();
         setSubmitBehavior();
