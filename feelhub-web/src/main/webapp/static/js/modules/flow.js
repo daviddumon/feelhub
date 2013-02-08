@@ -6,7 +6,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     var topicId = topicData.id;
 
     function init(end_point, param, view, callback) {
-        console.log("init");
         doInit(end_point, param, view, callback);
         add_responsive_behavior();
         drawData();
@@ -16,17 +15,11 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function doInit(end_point, param, view, callback) {
-        console.log("doInit");
         api_end_point = end_point;
         data_view = view;
         parameter = param;
         end_function = callback;
-        initial = 320;
-        spacer = 40;
-        maxBox = Math.floor((container.innerWidth() - spacer) / initial);
-        if(maxBox < 1) {
-            maxBox = 1;
-        }
+        computeMaxBox();
         skip = -20;
         limit = 20;
         hasData = true;
@@ -38,10 +31,17 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         basePollTime = 60000;
     }
 
+    function computeMaxBox() {
+        initial = 320;
+        spacer = 40;
+        maxBox = Math.floor((container.innerWidth() - spacer) / initial);
+        if (maxBox < 1) {
+            maxBox = 1;
+        }
+    }
+
     function add_responsive_behavior() {
-        console.log("addresponsive");
         $(window).resize(function () {
-            console.log("resize1");
             clearTimeout(doit);
             doit = setTimeout(function () {
                 endOfResize();
@@ -49,7 +49,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         });
 
         $(window).on("resize", function () {
-            console.log("resize2");
             clearTimeout(doit);
             doit = setTimeout(function () {
                 endOfResize();
@@ -57,7 +56,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         });
 
         $(window).on("orientationchange", function () {
-            console.log("resize3");
             clearTimeout(doit);
             doit = setTimeout(function () {
                 endOfResize();
@@ -70,7 +68,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function drawData() {
-        console.log("drawdata");
         if (needData() && hasData && notLoading) {
             notLoading = false;
             skip += limit;
@@ -78,7 +75,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         }
 
         function loadData() {
-            console.log("loaddata");
             var parameters = [];
             var uri = api_end_point + "?";
             if (parameter) {
@@ -131,7 +127,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function appendData(data) {
-        console.log("appenddata");
         var row_index = 0;
         var row_height = $(row_container + "_" + row_index).height();
         for (var i = 1; i < maxBox; i++) {
@@ -186,10 +181,8 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     //}
 
     function reset() {
-        console.log("reset");
         container.empty();
-        maxBox = Math.floor((container.innerWidth() - spacer) / initial);
-        console.log("newMax: " + maxBox);
+        computeMaxBox();
         for (var i = 0; i < maxBox; i++) {
             list_view.render(container, i);
         }
@@ -198,8 +191,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function reDraw() {
-        console.log("redraw");
-        console.log("data redraw " + datas);
         $.each(datas, function (index, data) {
 
             var row_index = 0;
@@ -211,7 +202,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                     row_height = current_height;
                 }
             }
-            console.log("redraw data : " + data + " " + row_container + " " + row_index);
+
             data_view.render(data, row_container + "_" + row_index);
         });
     }
