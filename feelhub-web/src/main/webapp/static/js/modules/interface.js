@@ -1,20 +1,20 @@
-define(['jquery'], function ($) {
+define(["jquery"], function ($) {
 
     function init() {
 
         $(".logout").click(function () {
             $.ajax({
-                url: root + '/sessions',
-                type: 'DELETE',
+                url: root + "/sessions",
+                type: "DELETE",
                 success: success,
                 error: error
             });
         });
 
-        $('body').on('submit', 'form.sentimentform', function () {
+        $("body").on("submit", "form.sentimentform", function () {
             $.ajax({
                 url: root + "/api/feeling/" + $(this).find("[name=feelingid]").val() + "/sentiment/" + $(this).find("[name=index]").val(),
-                type: 'PUT',
+                type: "PUT",
                 data: $(this).serialize(),
                 success: success,
                 error: error

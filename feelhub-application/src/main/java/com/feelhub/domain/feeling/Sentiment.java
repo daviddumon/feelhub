@@ -11,11 +11,6 @@ public class Sentiment {
     protected Sentiment() {
     }
 
-    public Sentiment(final SentimentValue sentimentValue, final String token) {
-        this.sentimentValue = sentimentValue;
-        this.token = token;
-    }
-
     public Sentiment(final UUID topicId, final SentimentValue sentimentValue) {
         this.topicId = topicId;
         this.sentimentValue = sentimentValue;
@@ -50,17 +45,11 @@ public class Sentiment {
         this.topicId = topicId;
     }
 
-    public String getToken() {
-        return token;
-    }
-
     public DateTime getCreationDate() {
         return creationDate;
     }
 
     private UUID topicId;
     private SentimentValue sentimentValue;
-    private String token;
     private DateTime creationDate = new DateTime();
-
 }

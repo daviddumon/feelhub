@@ -1,0 +1,116 @@
+/* Copyright Feelhub 2012 */
+body {
+
+  .topic {
+    position: relative;
+    display: block;
+    background: no-repeat center @grey-3;
+    cursor: pointer;
+
+    img.topic-sentiment {
+      position: relative;
+      top: -7px;
+      width: 14px;
+      height: 14px;
+      padding: 7px;
+      .rounded(50px);
+      z-index: 1000;
+    }
+
+    span {
+      position: absolute;
+      display: block;
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+      background: @grey-4;
+      background: rgba(0, 0, 0, .5);
+      color: @white;
+      overflow: hidden;
+      .font_span();
+    }
+  }
+
+  .topic-large {
+    width: 272px;
+    height: 168px;
+
+    img.illustration {
+      width: 272px;
+      height: 168px;
+    }
+
+    span {
+      font-size: 14px;
+      min-height: 21px;
+      max-height: 84px;
+      line-height: 1.5;
+    }
+  }
+
+  .topic-medium {
+    width: 135px;
+    height: 168px;
+
+    img.illustration {
+      width: 135px;
+      height: 168px;
+    }
+
+    span {
+      font-size: 14px;
+      min-height: 21px;
+      max-height: 84px;
+      line-height: 1.5;
+    }
+  }
+
+  .topic-small {
+    width: 90px;
+    height: 56px;
+
+    img.illustration {
+      width: 90px;
+      height: 56px;
+    }
+
+    span {
+      font-size: 10px;
+      min-height: 12px;
+      max-height: 24px;
+      line-height: 1.2;
+    }
+  }
+
+  .topic-inline {
+    display: inline-block;
+  }
+
+  .topic-center {
+    margin: 0px auto !important;
+  }
+
+  .topic-spacer {
+    margin: 1px;
+  }
+
+  .topic-search {
+    margin: 5px;
+  }
+
+  .topic-form {
+    margin: 8px 2px 8px 2px;
+  }
+
+  .topic-with-sentiment {
+
+    img.illustration {
+      position: relative;
+      top: -30px !important;
+    }
+  }
+
+  .topic-float {
+    float: left !important;
+  }
+}

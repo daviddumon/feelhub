@@ -60,7 +60,7 @@ body {
       height: 0;
       border-top: 45px solid transparent;
       border-bottom: 45px solid transparent;
-      border-right: 30px solid @moods-1;
+      border-right: 30px solid @grey-3;
 
       &:hover {
         width: 0;
@@ -76,7 +76,7 @@ body {
       height: 0;
       border-top: 45px solid transparent;
       border-bottom: 45px solid transparent;
-      border-left: 30px solid @moods-1;
+      border-left: 30px solid @grey-3;
 
       &:hover {
         width: 0;
@@ -115,7 +115,6 @@ body {
           text-align: center;
 
           div.holder {
-            //margin-top: 10px;
             margin-bottom: 10px;
             text-align: center;
           }
@@ -130,77 +129,12 @@ body {
             border: none;
           }
 
-          a.illustration_main_media {
-            width: 272px;
-            height: 168px;
-            overflow: hidden;
-            position: relative;
-            margin: 0px auto !important;
-            display: block;
-
-            img {
-              width: 272px;
-              height: 168px;
-            }
-
-            span {
-              position: absolute;
-              display: block;
-              width: 100%;
-              bottom: 0px;
-              left: 0px;
-              background: @grey-4;
-              background: rgba(0, 0, 0, .5);
-              .font_title();
-              color: @white;
-              font-size: 10px;
-              min-height: 12px;
-              max-height: 24px;
-              line-height: 1.2;
-              display: inline;
-              overflow: hidden;
-              .font_span();
-            }
-          }
-
           div.other_medias {
             width: 272px;
             overflow: hidden;
             margin: 1px auto !important;
             font-size: 0px;
             height: 56px;
-
-            a.illustration_media {
-              width: 90px;
-              height: 56px;
-              position: relative;
-              overflow: hidden;
-              display: inline-block;
-
-              img {
-                width: 90px;
-                height: 56px;
-              }
-
-              span {
-                position: absolute;
-                display: block;
-                width: 100%;
-                bottom: 0px;
-                left: 0px;
-                background: @grey-4;
-                background: rgba(0, 0, 0, .5);
-                .font_title();
-                color: @white;
-                font-size: 10px;
-                min-height: 12px;
-                max-height: 24px;
-                line-height: 1.2;
-                display: inline;
-                overflow: hidden;
-                .font_span();
-              }
-            }
           }
 
           .description, .uris, .subtypes {
@@ -228,54 +162,9 @@ body {
             .rounded;
           }
 
-          img.good {
-            background-color: @good !important;
-          }
-
-          img.bad {
-            background-color: @bad !important;
-          }
-
-          img.neutral {
-            background-color: @neutral !important;
-          }
-
           div.related {
             font-size: 0px;
-          }
-
-          a.illustration_relation {
-            width: 90px;
-            height: 56px;
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            margin: 1px;
-            background: no-repeat center @blue-4;
-
-            img {
-              width: 90px;
-              height: 56px;
-            }
-
-            span {
-              position: absolute;
-              display: block;
-              width: 100%;
-              bottom: 0px;
-              left: 0px;
-              background: @grey-4;
-              background: rgba(0, 0, 0, .5);
-              .font_title();
-              color: @white;
-              font-size: 10px;
-              min-height: 12px;
-              max-height: 24px;
-              line-height: 1.2;
-              display: inline;
-              overflow: hidden;
-              .font_span();
-            }
+            vertical-align: top;
           }
         }
       }

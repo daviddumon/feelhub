@@ -6,20 +6,20 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     var topicId = topicData.id;
 
     function init(end_point, param, view, callback) {
-        doInit(end_point, param, view, callback);
+        do_init(end_point, param, view, callback);
         add_responsive_behavior();
-        drawData();
+        draw_data();
         $(window).scroll(function () {
-            drawData();
+            draw_data();
         });
     }
 
-    function doInit(end_point, param, view, callback) {
+    function do_init(end_point, param, view, callback) {
         api_end_point = end_point;
         data_view = view;
         parameter = param;
         end_function = callback;
-        computeMaxBox();
+        compute_max_box();
         skip = -20;
         limit = 20;
         hasData = true;
@@ -31,7 +31,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         basePollTime = 60000;
     }
 
-    function computeMaxBox() {
+    function compute_max_box() {
         initial = 320;
         spacer = 40;
         maxBox = Math.floor((container.innerWidth() - spacer) / initial);
@@ -44,37 +44,37 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         $(window).resize(function () {
             clearTimeout(doit);
             doit = setTimeout(function () {
-                endOfResize();
+                end_of_resize();
             }, 200);
         });
 
         $(window).on("resize", function () {
             clearTimeout(doit);
             doit = setTimeout(function () {
-                endOfResize();
+                end_of_resize();
             }, 200);
         });
 
         $(window).on("orientationchange", function () {
             clearTimeout(doit);
             doit = setTimeout(function () {
-                endOfResize();
+                end_of_resize();
             }, 200);
         });
 
-        function endOfResize() {
+        function end_of_resize() {
             reset();
         }
     }
 
-    function drawData() {
-        if (needData() && hasData && notLoading) {
+    function draw_data() {
+        if (need_data() && hasData && notLoading) {
             notLoading = false;
             skip += limit;
-            loadData();
+            load_data();
         }
 
-        function loadData() {
+        function load_data() {
             var parameters = [];
             var uri = api_end_point + "?";
             if (parameter) {
@@ -90,7 +90,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {
                     $.each(data, function (index, data) {
-                        appendData(data);
+                        append_data(data);
                     });
 
                     //if (skip == 0) {
@@ -103,9 +103,9 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                     }
 
                     setTimeout(function () {
-                        if (needData() && hasData) {
+                        if (need_data() && hasData) {
                             skip += limit;
-                            loadData();
+                            load_data();
                         } else {
                             notLoading = true;
                         }
@@ -118,7 +118,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
             });
         }
 
-        function needData() {
+        function need_data() {
             var docHeight = container.height();
             var scrollTop = $(window).scrollTop();
             var trigger = $(window).height() * 3;
@@ -126,7 +126,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         }
     }
 
-    function appendData(data) {
+    function append_data(data) {
         var row_index = 0;
         var row_height = $(row_container + "_" + row_index).height();
         for (var i = 1; i < maxBox; i++) {
@@ -182,15 +182,15 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
     function reset() {
         container.empty();
-        computeMaxBox();
+        compute_max_box();
         for (var i = 0; i < maxBox; i++) {
             list_view.render(container, i);
         }
         data_view.reset();
-        reDraw();
+        re_draw();
     }
 
-    function reDraw() {
+    function re_draw() {
         $.each(datas, function (index, data) {
 
             var row_index = 0;

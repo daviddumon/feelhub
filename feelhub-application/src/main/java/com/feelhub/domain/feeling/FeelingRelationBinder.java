@@ -23,10 +23,8 @@ public class FeelingRelationBinder {
     private List<Topic> loadAllTopics(final List<Sentiment> sentiments) {
         final List<Topic> topics = Lists.newArrayList();
         for (final Sentiment sentiment : sentiments) {
-            if (sentiment.getTopicId() != null) {
-                final Topic topic = Repositories.topics().getCurrentTopic(sentiment.getTopicId());
-                topics.add(topic);
-            }
+            final Topic topic = Repositories.topics().getCurrentTopic(sentiment.getTopicId());
+            topics.add(topic);
         }
         return topics;
     }

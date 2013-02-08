@@ -2,12 +2,12 @@ package com.feelhub.domain.topic;
 
 import com.feelhub.domain.feeling.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.SystemTime;
+import com.feelhub.test.*;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.junit.*;
 
-import java.util.List;
+import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -70,6 +70,6 @@ public class TestsTopicSentimentScoreCalculator {
 
     private Sentiment newSentiment(SentimentValue sentimentValue, long time) {
         systemTime.set(new DateTime(time));
-        return new Sentiment(sentimentValue, "token");
+        return new Sentiment(UUID.randomUUID(), sentimentValue);
     }
 }

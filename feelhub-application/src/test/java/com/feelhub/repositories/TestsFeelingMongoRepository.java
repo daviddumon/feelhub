@@ -34,7 +34,6 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
         assertThat(feelingFound).isNotNull();
         assertThat(feelingFound.get("_id")).isEqualTo(feeling.getId());
         assertThat(feelingFound.get("text").toString()).isEqualTo(feeling.getText());
-        assertThat(feelingFound.get("rawText").toString()).isEqualTo(feeling.getText());
         assertThat(feelingFound.get("languageCode").toString()).isEqualTo(feeling.getLanguageCode());
         assertThat(feelingFound.get("creationDate")).isEqualTo(feeling.getCreationDate().getMillis());
         assertThat(feelingFound.get("lastModificationDate")).isEqualTo(feeling.getCreationDate().getMillis());

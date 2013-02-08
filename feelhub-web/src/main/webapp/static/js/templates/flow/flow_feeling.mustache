@@ -1,0 +1,22 @@
+<li class="flow-element feeling" id="{{feelingid}}">
+    {{#feeling_sentiment_value}}
+    <img src="{{root}}/static/images/smiley_{{feeling_sentiment_value}}_white_14.png" class="img_{{feeling_sentiment_value}} feeling_sentiment_illustration"/>
+    {{/feeling_sentiment_value}}
+    {{^feeling_sentiment_value}}
+        <div class="feeling_spacer"></div>
+    {{/feeling_sentiment_value}}
+    {{#text}}
+    <p>{{{.}}}&nbsp;</p>
+    {{/text}}
+    <div class="feeling_related" style="height: {{height}}">
+        {{#sentimentDatas}}
+            {{#id}}
+            <a href="{{root}}/topic/{{id}}" class="topic topic-float topic-spacer topic-with-sentiment {{classes}}">
+                <img src="{{root}}/static/images/smiley_{{sentimentValue}}_white_14.png" class="img_{{sentimentValue}} topic-sentiment"/>
+                <img src="{{thumbnailMedium}}" class="illustration"/>
+                <span class="{{sentimentValue}} name">{{name}}</span>
+            </a>
+            {{/id}}
+        {{/sentimentDatas}}
+    </div>
+</li>

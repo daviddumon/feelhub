@@ -85,7 +85,7 @@ public class FakeMongoRepositories extends Repositories {
     private final FakeAlchemyEntityRepository alchemyEntityRepository = new FakeAlchemyEntityRepository();
     private final FakeActivationRepository activationRepository = new FakeActivationRepository();
     private final AlchemyAnalysisRepository alchemyAnalysisRepository = new FakeAlchemyAnalysisRepository();
-    private AdminStatisticsRepository adminStatisticsRepository = new FakeAdminStatisticsRepository();
+    private final AdminStatisticsRepository adminStatisticsRepository = new FakeAdminStatisticsRepository();
 
 
 }

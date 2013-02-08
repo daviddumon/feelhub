@@ -1,4 +1,4 @@
-define(['jquery', 'plugins/hgn!templates/flow/flow_list'], function ($, template) {
+define(["jquery", "plugins/hgn!templates/flow/flow_list"], function ($, template) {
 
     function render(container, index) {
         var list = template({"index": index});

@@ -73,7 +73,7 @@
 
     <#if !dev>
 
-        <!--<script type='text/javascript'>
+        <script type='text/javascript'>
             var _ues = {
                 host: 'feelhub.userecho.com',
                 forum: '17423',
@@ -99,7 +99,7 @@
                 s.parentNode.insertBefore(_ue, s);
             })();
 
-        </script>-->
+        </script>
 
         <script type="text/javascript">
             var _gaq = _gaq || [];

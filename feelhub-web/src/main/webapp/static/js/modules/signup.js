@@ -1,5 +1,5 @@
 /* Copyright Feelhub 2012 */
-define(['jquery'], function ($) {
+define(["jquery"], function ($) {
 
     function init() {
         $(".help_text").click(function () {
@@ -23,7 +23,7 @@ define(['jquery'], function ($) {
         $("#signup_submit").click(function (e) {
             e.preventDefault();
             e.stopPropagation();
-            if (checkForm()) {
+            if (check_form()) {
                 $.post(root + "/signup?", $("#signup").serialize(),function (data, status, jqXHR) {
                     document.location.href = root + "/welcome";
                 }).error(function (jqXHR) {
@@ -39,14 +39,14 @@ define(['jquery'], function ($) {
         });
     }
 
-    function checkForm() {
-        var name_check = checkName();
-        var email_check = checkEmail();
-        var password_check = checkPassword();
+    function check_form() {
+        var name_check = check_name();
+        var email_check = check_email();
+        var password_check = check_password();
         return name_check && email_check && password_check;
     }
 
-    function checkName() {
+    function check_name() {
         if ($("[name='fullname']").val().length == 0) {
             $("[name='fullname']").parent().find(".error_text").text("Please enter your name!");
             return false;
@@ -56,7 +56,7 @@ define(['jquery'], function ($) {
         }
     }
 
-    function checkEmail() {
+    function check_email() {
         if ($("[name='email']").val().length == 0) {
             $("[name='email']").parent().find(".error_text").text("Please enter your email!");
             return false;
@@ -66,7 +66,7 @@ define(['jquery'], function ($) {
         }
     }
 
-    function checkPassword() {
+    function check_password() {
         if ($("[name='password']").val().length < 6) {
             $("[name='password']").parent().find(".error_text").text("Password must be at least 6 characters!");
             return false;

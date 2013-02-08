@@ -17,6 +17,7 @@ files = [
     {pattern: 'src/main/webapp/static/js/modules/**/*', included: false},
     {pattern: 'src/main/webapp/static/js/plugins/**/*', included: false},
     {pattern: 'src/main/webapp/static/js/view/**/*', included: false},
+    {pattern: 'src/main/webapp/static/js/templates/**/*', included: false},
     {pattern: 'src/test/js/jasmine/**/*.test.js', included: false},
     'src/test/js/main-test.js'
 ];
@@ -74,4 +75,4 @@ captureTimeout = 60000;
 
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit
-singleRun = true;
+singleRun = false;

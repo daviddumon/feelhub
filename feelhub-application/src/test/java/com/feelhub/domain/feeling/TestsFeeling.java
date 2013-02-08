@@ -38,7 +38,6 @@ public class TestsFeeling {
 
         assertThat(feeling.getId()).isEqualTo(id);
         assertThat(feeling.getText()).isEqualTo("hi!");
-        assertThat(feeling.getRawText()).isEqualTo("hi!");
         assertThat(feeling.getUserId()).isEqualTo(user.getId());
     }
 
@@ -94,26 +93,6 @@ public class TestsFeeling {
         feeling.setLanguageCode("en");
 
         assertThat(feeling.getLanguageCode()).isEqualTo("en");
-    }
-
-    @Test
-    public void sanitizeText() {
-        final String text = "I enjoy +this but unless ##This!, i would love it ---#+=";
-
-        final Feeling feeling = new Feeling(UUID.randomUUID(), text, user.getId());
-
-        assertThat(feeling.getRawText()).isEqualTo(text);
-        assertThat(feeling.getText()).isEqualTo("I enjoy this but unless This!, i would love it ");
-    }
-
-    @Test
-    public void canSanitizeTextWithOnlySpacesAndSemanticMarkups() {
-        final String text = " + -";
-
-        final Feeling feeling = new Feeling(UUID.randomUUID(), text, user.getId());
-
-        assertThat(feeling.getRawText()).isEqualTo(text);
-        assertThat(feeling.getText()).isEqualTo("");
     }
 
     private class SimpleSentimentListener {

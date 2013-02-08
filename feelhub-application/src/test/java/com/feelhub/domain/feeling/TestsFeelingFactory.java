@@ -28,7 +28,7 @@ public class TestsFeelingFactory {
         final Feeling feeling = feelingFactory.createFeeling(id, text, user.getId());
 
         assertThat(feeling.getId()).isEqualTo(id);
-        assertThat(feeling.getRawText()).isEqualTo(text);
+        assertThat(feeling.getText()).isEqualTo(text);
         assertThat(feeling.getUserId()).isEqualTo(user.getId());
     }
 

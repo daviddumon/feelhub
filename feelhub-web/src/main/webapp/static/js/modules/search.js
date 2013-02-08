@@ -1,27 +1,27 @@
-define(['jquery', 'modules/flow', 'view/flow/topic-view', 'view/search/search-command-http-view', 'view/search/search-command-real-view'],
+define(["jquery", "modules/flow", "view/flow/topic-view", "view/search/search-command-http-view", "view/search/search-command-real-view"],
 
     function ($, flow, topicview, httpview, realview) {
 
     var api_end_point = root + "/api/topics";
     var command_container = "#command";
 
-    function doSearch() {
-        flow.init(api_end_point, "q=" + q, topicview, createCommand);
+    function do_search() {
+        flow.init(api_end_point, "q=" + q, topicview, create_command);
     }
 
-    function createCommand() {
+    function create_command() {
         if (authentificated) {
-            if (type == 'http') {
+            if (type == "http") {
                 if($("#flow li").length == 0) {
                     httpview.render(command_container);
                 }
-            } else if (type == 'real') {
+            } else if (type == "real") {
                 realview.render(command_container);
             }
         }
     }
 
     return {
-        doSearch: doSearch
+        do_search: do_search
     }
 });

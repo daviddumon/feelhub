@@ -1,4 +1,4 @@
-define(['plugins/domReady!', 'jquery'], function (doc, $) {
+define(["plugins/domReady!", "jquery"], function (doc, $) {
 
     var container = "#createtopic";
     var api_end_point = "/api/topics";
@@ -7,7 +7,7 @@ define(['plugins/domReady!', 'jquery'], function (doc, $) {
         $(container).submit(function (event) {
             $.ajax({
                 url: root + api_end_point,
-                type: 'POST',
+                type: "POST",
                 data: $(container).serialize(),
                 success: success,
                 error: error
@@ -17,7 +17,7 @@ define(['plugins/domReady!', 'jquery'], function (doc, $) {
     }
 
     function success(data, textStatus, jqXHR) {
-        document.location.href = jqXHR.getResponseHeader('Location');
+        document.location.href = jqXHR.getResponseHeader("Location");
     }
 
     function error() {

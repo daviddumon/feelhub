@@ -11,7 +11,7 @@
 ],
 "languageCode":"${feelingData.languageCode}",
 "userId":"${feelingData.userId}",
-"feeling_sentiment_value":"${feelingData.feelingSentimentValue}",
+<#if feelingData.feelingSentimentValue?has_content>"feeling_sentiment_value":"${feelingData.feelingSentimentValue}",</#if>
 "sentimentDatas":   [
     <#list feelingData.sentimentDatas as sentimentData>
     {

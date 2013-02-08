@@ -25,11 +25,8 @@ public class SentimentDataFactory {
     }
 
     private SentimentData sentimentData(FeelhubLanguage feelhubLanguage, Sentiment sentiment) {
-        if (sentiment.getTopicId() != null) {
-            final Topic topic = topicService.lookUpCurrent(sentiment.getTopicId());
-            return sentimentData(topic, feelhubLanguage, sentiment);
-        }
-        return sentimentData(sentiment);
+        final Topic topic = topicService.lookUpCurrent(sentiment.getTopicId());
+        return sentimentData(topic, feelhubLanguage, sentiment);
     }
 
     private SentimentData sentimentData(final Topic topic, final FeelhubLanguage feelhubLanguage, final Sentiment sentiment) {
@@ -40,13 +37,6 @@ public class SentimentDataFactory {
         builder.thumbnailLarge(topic.getThumbnailLarge());
         builder.thumbnailMedium(topic.getThumbnailMedium());
         builder.thumbnailSmall(topic.getThumbnailSmall());
-        builder.sentimentValue(sentiment.getSentimentValue());
-        return builder.build();
-    }
-
-    private SentimentData sentimentData(final Sentiment sentiment) {
-        final SentimentData.Builder builder = new SentimentData.Builder();
-        builder.name(sentiment.getToken());
         builder.sentimentValue(sentiment.getSentimentValue());
         return builder.build();
     }

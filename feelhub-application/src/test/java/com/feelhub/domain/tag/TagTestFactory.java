@@ -2,6 +2,7 @@ package com.feelhub.domain.tag;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
 
@@ -20,6 +21,13 @@ public class TagTestFactory {
     public Tag newTag(final String value, final RealTopic realTopic) {
         final Tag tag = new Tag(value);
         tag.addTopic(realTopic, FeelhubLanguage.reference());
+        Repositories.tags().add(tag);
+        return tag;
+    }
+
+    public Tag newTag(final String value, final HttpTopic topic) {
+        final Tag tag = new Tag(value);
+        tag.addTopic(topic, FeelhubLanguage.reference());
         Repositories.tags().add(tag);
         return tag;
     }

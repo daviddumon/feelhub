@@ -12,7 +12,7 @@ require.config({
         'modules': 'src/main/webapp/static/js/modules',
         'hogan': 'src/main/webapp/static/js/plugins/hogan',
         'text': 'src/main/webapp/static/js/plugins/text',
-        'templates': 'src/main/webapp/static/js/view/templates'
+        'templates': 'src/main/webapp/static/js/templates'
     }
 });
 

@@ -1,7 +1,7 @@
 package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.feeling.FeelingRequestEvent;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -11,10 +11,10 @@ import com.feelhub.web.authentification.*;
 import com.feelhub.web.guice.GuiceTestModule;
 import com.google.inject.*;
 import org.apache.http.auth.AuthenticationException;
-import org.json.JSONException;
+import org.json.*;
 import org.junit.*;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.restlet.data.Form;
 
 import java.util.UUID;
 
@@ -45,65 +45,56 @@ public class TestsApiCreateFeeling {
     @Test
     public void postAnFeelingRequestEvent() throws AuthenticationException, JSONException {
         events.capture(FeelingRequestEvent.class);
-        final Form goodForm = getGoodForm();
+        final JSONObject jsonObject = getGoodJson();
 
-        apiCreateFeeling.add(goodForm);
+        apiCreateFeeling.add(jsonObject);
 
         final FeelingRequestEvent feelingRequestEvent = events.lastEvent(FeelingRequestEvent.class);
         assertThat(feelingRequestEvent).isNotNull();
-        assertThat(feelingRequestEvent.getText()).isEqualTo("my feeling +sentiment");
-        assertThat(feelingRequestEvent.getLanguage()).isEqualTo(FeelhubLanguage.fromCode("fr"));
+        assertThat(feelingRequestEvent.getText()).isEqualTo(jsonObject.getString("text"));
+        assertThat(feelingRequestEvent.getLanguage()).isEqualTo(FeelhubLanguage.fromCode(jsonObject.getString("languageCode")));
         assertThat(feelingRequestEvent.getUserId()).isEqualTo(CurrentUser.get().getUser().getId());
-        assertThat(feelingRequestEvent.getTopicId().toString()).isEqualTo(goodForm.getFirstValue("topicId"));
-    }
-
-    @Test
-    public void throwApiErrorOnMissingTopic() throws AuthenticationException, JSONException {
-        exception.expect(FeelhubApiException.class);
-        final Form parameters = new Form();
-        parameters.add("text", "my feeling +sentiment");
-        parameters.add("language", FeelhubLanguage.fromCode("fr").getCode());
-
-        apiCreateFeeling.add(parameters);
-    }
-
-    @Test
-    public void throwApiErrorEmptyText() throws AuthenticationException, JSONException {
-        exception.expect(FeelhubApiException.class);
-        final Form parameters = new Form();
-        parameters.add("text", "");
-        parameters.add("topicId", UUID.randomUUID().toString());
-        parameters.add("language", FeelhubLanguage.fromCode("fr").getCode());
-
-        apiCreateFeeling.add(parameters);
+        assertThat(feelingRequestEvent.getSentiments().size()).isEqualTo(2);
     }
 
     @Test
     public void throwApiErrorOnMissingLanguage() throws AuthenticationException, JSONException {
         exception.expect(FeelhubApiException.class);
-        final Form parameters = new Form();
-        parameters.add("topicId", UUID.randomUUID().toString());
-        parameters.add("text", "my feeling +sentiment");
 
-        apiCreateFeeling.add(parameters);
+        apiCreateFeeling.add(new JSONObject("{text: \"test\"}"));
     }
 
     @Test
     public void throwApiErrorOnMissingText() throws AuthenticationException, JSONException {
         exception.expect(FeelhubApiException.class);
-        final Form parameters = new Form();
-        parameters.add("topicId", UUID.randomUUID().toString());
-        parameters.add("language", FeelhubLanguage.fromCode("fr").getCode());
 
-        apiCreateFeeling.add(parameters);
+        apiCreateFeeling.add(new JSONObject("{languageCode: \"fr\"}"));
     }
 
-    private Form getGoodForm() {
-        final Form parameters = new Form();
-        parameters.add("topicId", UUID.randomUUID().toString());
-        parameters.add("text", "my feeling +sentiment");
-        parameters.add("language", FeelhubLanguage.fromCode("fr").getCode());
-        return parameters;
+    private JSONObject getGoodJson() throws JSONException {
+        final JSONArray data = getJsonArray();
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("languageCode", FeelhubLanguage.fromCode("fr").getCode());
+        jsonObject.put("text", "my feeling");
+        jsonObject.put("topics", data);
+        return jsonObject;
+    }
+
+    private JSONArray getJsonArray() throws JSONException {
+        final JSONArray data = new JSONArray();
+        final JSONObject first = new JSONObject();
+        first.put("id", UUID.randomUUID().toString());
+        first.put("name", "noname");
+        first.put("type", "notype");
+        first.put("sentiment", SentimentValue.bad.toString());
+        final JSONObject second = new JSONObject();
+        second.put("id", "new");
+        second.put("name", "name");
+        second.put("type", "other");
+        second.put("sentiment", SentimentValue.bad.toString());
+        data.put(first);
+        data.put(second);
+        return data;
     }
 
     private ApiCreateFeeling apiCreateFeeling;

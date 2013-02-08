@@ -4,7 +4,7 @@ import com.feelhub.domain.eventbus.DomainEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
 
-import java.util.UUID;
+import java.util.*;
 
 public class FeelingRequestEvent extends DomainEvent {
 
@@ -34,8 +34,8 @@ public class FeelingRequestEvent extends DomainEvent {
             return this;
         }
 
-        public Builder topicId(final UUID topicId) {
-            this.topicId = topicId;
+        public Builder sentiments(final List<Sentiment> sentiments) {
+            this.sentiments = sentiments;
             return this;
         }
 
@@ -43,7 +43,7 @@ public class FeelingRequestEvent extends DomainEvent {
         private FeelhubLanguage language = FeelhubLanguage.none();
         private UUID feelingId;
         private UUID userId;
-        private UUID topicId;
+        private List<Sentiment> sentiments;
     }
 
     private FeelingRequestEvent(final Builder builder) {
@@ -51,7 +51,7 @@ public class FeelingRequestEvent extends DomainEvent {
         this.language = builder.language;
         this.feelingId = builder.feelingId;
         this.userId = builder.userId;
-        this.topicId = builder.topicId;
+        this.sentiments = builder.sentiments;
     }
 
     @Override
@@ -75,13 +75,13 @@ public class FeelingRequestEvent extends DomainEvent {
         return userId;
     }
 
-    public UUID getTopicId() {
-        return topicId;
+    public List<Sentiment> getSentiments() {
+        return sentiments;
     }
 
     private final String text;
     private final FeelhubLanguage language;
     private final UUID feelingId;
     private final UUID userId;
-    private final UUID topicId;
+    private final List<Sentiment> sentiments;
 }

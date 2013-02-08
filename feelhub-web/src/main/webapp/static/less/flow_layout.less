@@ -20,35 +20,9 @@ body {
         list-style-type: none;
       }
 
-      .topic {
-
-        a {
-          position: relative;
-          width: 272px;
-          height: 168px;
-          border: @white solid 5px !important;
-          margin: 5px;
-          display: inline-block;
-          overflow: hidden;
-
-          span {
-            position: absolute;
-            display: block;
-            width: 100%;
-            bottom: 0px;
-            left: 0px;
-            background: @grey-4;
-            background: rgba(0, 0, 0, .5);
-            .font_title();
-            color: @white;
-            overflow: hidden;
-            .font_span();
-            font-size: 14px;
-            min-height: 21px;
-            max-height: 84px;
-            line-height: 1.5;
-          }
-        }
+      .feeling_spacer {
+        height: 40px;
+        width: 100%;
       }
 
       .feeling {
@@ -78,74 +52,10 @@ body {
           .rounded(50px);
         }
 
-        .img_bad {
-          background-color: @bad;
-        }
-
-        .img_good {
-          background-color: @good;
-        }
-
-        .img_neutral {
-          background-color: @neutral;
-        }
-
         .feeling_related {
           margin-left: 14px;
           padding-top: 40px;
           overflow: hidden;
-
-          a, div {
-            position: relative;
-            background: no-repeat center @moods-1;
-
-            img.topic_illustration {
-              position: relative;
-              top: -30px;
-            }
-
-            img.topic_sentiment_illustration {
-              position: relative;
-              top: -7px;
-              width: 14px;
-              height: 14px;
-              padding: 7px;
-              .rounded(50px);
-            }
-
-            span {
-              position: absolute;
-              display: block;
-              width: 100%;
-              bottom: 0px;
-              left: 0px;
-              background: @grey-4;
-              background: rgba(0, 0, 0, .5);
-              .font_title();
-              color: @white;
-              overflow: hidden;
-              display: inline;
-              .font_span();
-              font-size: 14px;
-              min-height: 21px;
-              max-height: 84px;
-              line-height: 1.5;
-            }
-          }
-
-          .topic_stack {
-            float: left !important;
-            border: 1px solid @white !important;
-            width: 135px;
-            height: 168px;
-          }
-
-          .topic_large {
-            float: left !important;
-            border: 1px solid @white !important;
-            width: 272px !important;
-            height: 168px !important;
-          }
         }
 
         div.counter {

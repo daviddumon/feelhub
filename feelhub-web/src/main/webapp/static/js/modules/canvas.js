@@ -16,8 +16,8 @@ define(["jquery"],
             base_line = size * 10;
             container = container_name;
             var canvas = document.getElementById(container);
-            var context = canvas.getContext('2d');
-            context.lineCap = 'round';
+            var context = canvas.getContext("2d");
+            context.lineCap = "round";
             draw_background(context,score);
             draw_eyes(context);
             draw_mouth(context, score);

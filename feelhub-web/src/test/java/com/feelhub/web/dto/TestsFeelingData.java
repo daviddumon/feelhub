@@ -78,7 +78,7 @@ public class TestsFeelingData {
     }
 
     @Test
-    public void feelingSentimentValueDefaultToNone() {
+    public void feelingSentimentValueDefaultToNull() {
         List<SentimentData> sentimentDataList = Lists.newArrayList();
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
@@ -86,6 +86,6 @@ public class TestsFeelingData {
 
         final FeelingData feelingData = new FeelingData.Builder().sentimentDatas(sentimentDataList).build();
 
-        assertThat(feelingData.getFeelingSentimentValue()).isEqualTo(SentimentValue.none);
+        assertThat(feelingData.getFeelingSentimentValue()).isNull();
     }
 }

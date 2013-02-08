@@ -1,5 +1,5 @@
 /* Copyright Feelhub 2012 */
-define(['jquery'], function ($) {
+define(["jquery"], function ($) {
 
     var offset, max_offset = 0;
     var nav_width = 60;

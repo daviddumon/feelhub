@@ -33,13 +33,4 @@ public class TestsSentiment {
 
         assertThat(sentiment.getCreationDate()).isEqualTo(time.getNow());
     }
-
-    @Test
-    public void keepTokenInSentiment() {
-        final String token = "token";
-
-        final Sentiment sentiment = new Sentiment(SentimentValue.good, token);
-
-        assertThat(sentiment.getToken()).isEqualTo(token);
-    }
 }

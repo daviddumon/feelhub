@@ -54,7 +54,7 @@ public class FeelingData {
         private UUID userId;
         private String languageCode = "";
         private List<SentimentData> sentimentDatas = Lists.newArrayList();
-        private SentimentValue feelingSentimentValue = SentimentValue.none;
+        private SentimentValue feelingSentimentValue = null;
     }
 
     private FeelingData(final Builder builder) {
