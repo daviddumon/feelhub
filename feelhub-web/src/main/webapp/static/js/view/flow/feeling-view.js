@@ -89,6 +89,7 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
         }
 
         function reset() {
+            console.log("feeling view reset");
             last_counter = "";
             last_feeling = "";
         }
