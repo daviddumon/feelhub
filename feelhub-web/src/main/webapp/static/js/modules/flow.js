@@ -6,6 +6,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     var topicId = topicData.id;
 
     function init(end_point, param, view, callback) {
+        console.log("init");
         doInit(end_point, param, view, callback);
         add_responsive_behavior();
         drawData();
@@ -15,6 +16,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function doInit(end_point, param, view, callback) {
+        console.log("doInit");
         api_end_point = end_point;
         data_view = view;
         parameter = param;
@@ -37,6 +39,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function add_responsive_behavior() {
+        console.log("addresponsive");
         $(window).resize(function () {
             clearTimeout(doit);
             doit = setTimeout(function () {
@@ -64,7 +67,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function drawData() {
-
+        console.log("drawdata");
         if (needData() && hasData && notLoading) {
             notLoading = false;
             skip += limit;
@@ -72,6 +75,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         }
 
         function loadData() {
+            console.log("loaddata");
             var parameters = [];
             var uri = api_end_point + "?";
             if (parameter) {
@@ -124,6 +128,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function appendData(data) {
+        console.log("appenddata");
         var row_index = 0;
         var row_height = $(row_container + "_" + row_index).height();
         for (var i = 1; i < maxBox; i++) {
@@ -178,6 +183,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     //}
 
     function reset() {
+        console.log("reset");
         container.empty();
         maxBox = Math.floor((container.innerWidth() - spacer) / initial);
         for (var i = 0; i < maxBox; i++) {
@@ -188,6 +194,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function reDraw() {
+        console.log("redraw");
         $.each(datas, function (index, data) {
             var row_index = 0;
             var row_height = $(row_container + "_" + row_index).height();
