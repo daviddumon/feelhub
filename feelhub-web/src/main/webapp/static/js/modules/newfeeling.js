@@ -5,7 +5,7 @@ define([], function () {
 
     function init() {
         $(container + " button").click(function () {
-            $(container + " .hidden-form").css("display", "inline");
+            $(container + " .hidden-form").show(400);
             $(container + " textarea").focus();
         });
         setTextareaBehavior();

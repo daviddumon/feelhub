@@ -3,16 +3,17 @@ body {
 
   #command {
     text-align: center;
-    width: 300px;
     margin: 40px auto;
-
-    @media (min-width: 640px) {
-      width: 600px;
-    }
+    width: 100%;
 
     #feeling_form {
       position: relative;
       margin: 0px auto;
+      width: 300px;
+
+      @media (min-width: 640px) {
+        width: 600px;
+      }
 
       .hidden-form {
         display: none;
@@ -60,9 +61,9 @@ body {
         padding-left: 20px;
         padding-right: 20px;
 
-        &:focus {
+        //&:focus {
           outline: none;
-        }
+        //}
 
         @media (min-width: 640px) {
           width: 540px;
