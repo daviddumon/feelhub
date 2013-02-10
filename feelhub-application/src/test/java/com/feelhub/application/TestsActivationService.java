@@ -1,12 +1,14 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.user.*;
-import com.feelhub.repositories.*;
-import com.feelhub.repositories.fakeRepositories.*;
+import com.feelhub.repositories.Repositories;
+import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.google.inject.*;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.UUID;
@@ -28,13 +30,7 @@ public class TestsActivationService {
 
     @Before
     public void avant() {
-        final Injector injector = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-                bind(SessionProvider.class).to(FakeSessionProvider.class);
-            }
-        });
-        activationService = injector.getInstance(ActivationService.class);
+        activationService = new ActivationService();
     }
 
     @Test

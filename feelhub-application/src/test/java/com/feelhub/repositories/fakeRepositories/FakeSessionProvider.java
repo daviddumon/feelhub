@@ -1,23 +1,24 @@
 package com.feelhub.repositories.fakeRepositories;
 
 import com.feelhub.repositories.SessionProvider;
-import org.mongolink.*;
+import org.mongolink.MongoSession;
+import org.mongolink.MongoSessionManager;
+import org.mongolink.Settings;
 import org.mongolink.domain.mapper.ContextBuilder;
-import org.mongolink.test.*;
+import org.mongolink.test.FongoDbFactory;
 
 public class FakeSessionProvider extends SessionProvider {
 
+    public FakeSessionProvider() {
+        final ContextBuilder context = new ContextBuilder("com.feelhub.repositories.mapping");
+        sessionManager = MongoSessionManager.create(context, Settings.defaultInstance()
+                .withDbFactory(FongoDbFactory.class));
+    }
+
     @Override
     public MongoSession get() {
-        final ContextBuilder context = new ContextBuilder("com.feelhub.repositories.mapping");
-        manager = MongoSessionManager.create(context, Settings.defaultInstance()
-                .withDbFactory(FakeDBFactory.class)
-                .withCriteriaFactory(FakeCriteriaFactory.class));
-        return manager.createSession();
+        return sessionManager.createSession();
     }
 
-    @Override
-    public void init() {
-
-    }
+    private  MongoSessionManager sessionManager;
 }

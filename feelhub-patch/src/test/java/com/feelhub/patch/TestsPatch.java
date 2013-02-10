@@ -2,14 +2,14 @@ package com.feelhub.patch;
 
 import com.feelhub.repositories.MongoRepositories;
 import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.SessionProvider;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mongolink.test.FongoDbFactory;
 
 import java.sql.SQLException;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TestsPatch {
 
@@ -20,7 +20,7 @@ public class TestsPatch {
 
     @After
     public void after() {
-        FongoDBFactory.clean();
+        FongoDbFactory.clean();
     }
 
 	@Test

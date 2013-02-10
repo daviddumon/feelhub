@@ -23,7 +23,6 @@ public class TestsWorldListener {
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
-                bind(SessionProvider.class).to(FakeSessionProvider.class);
             }
         });
         injector.getInstance(WorldListener.class);

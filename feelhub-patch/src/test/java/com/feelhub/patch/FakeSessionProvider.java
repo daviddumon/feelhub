@@ -5,6 +5,7 @@ import org.mongolink.MongoSession;
 import org.mongolink.MongoSessionManager;
 import org.mongolink.Settings;
 import org.mongolink.domain.mapper.ContextBuilder;
+import org.mongolink.test.FongoDbFactory;
 
 public class FakeSessionProvider extends SessionProvider {
 
@@ -19,7 +20,7 @@ public class FakeSessionProvider extends SessionProvider {
     @Override
     public void init() {
         ContextBuilder contextBuilder = new ContextBuilder("com.feelhub.repositories.mapping");
-        manager = MongoSessionManager.create(contextBuilder, Settings.defaultInstance().withDbFactory(FongoDBFactory.class));
+        manager = MongoSessionManager.create(contextBuilder, Settings.defaultInstance().withDbFactory(FongoDbFactory.class));
     }
 
     @Override

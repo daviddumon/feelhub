@@ -23,7 +23,7 @@ public class TestsActivationMongoRepository extends TestWithMongoRepository {
 
         repository.add(activation);
 
-        final DBCollection collection = mongo.getCollection("activation");
+        final DBCollection collection = getMongo().getCollection("activation");
         final DBObject query = new BasicDBObject();
         query.put("_id", activation.getId());
         final DBObject activationFound = collection.findOne(query);

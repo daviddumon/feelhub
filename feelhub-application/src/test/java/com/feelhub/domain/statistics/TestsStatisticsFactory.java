@@ -1,14 +1,20 @@
 package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.topic.world.*;
-import com.feelhub.repositories.*;
-import com.feelhub.repositories.fakeRepositories.*;
-import com.feelhub.test.*;
-import com.google.inject.*;
+import com.feelhub.domain.feeling.Sentiment;
+import com.feelhub.domain.feeling.SentimentStatisticsEvent;
+import com.feelhub.domain.feeling.SentimentValue;
+import com.feelhub.domain.topic.world.WorldStatisticsEvent;
+import com.feelhub.domain.topic.world.WorldTopic;
+import com.feelhub.repositories.Repositories;
+import com.feelhub.repositories.fakeRepositories.FakeStatisticsRepository;
+import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.test.SystemTime;
+import com.feelhub.test.TestFactories;
 import org.joda.time.Interval;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -25,13 +31,7 @@ public class TestsStatisticsFactory {
 
     @Before
     public void before() {
-        final Injector injector = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-                bind(SessionProvider.class).to(FakeSessionProvider.class);
-            }
-        });
-        statisticsFactory = injector.getInstance(StatisticsFactory.class);
+        statisticsFactory = new StatisticsFactory();
     }
 
     @Test

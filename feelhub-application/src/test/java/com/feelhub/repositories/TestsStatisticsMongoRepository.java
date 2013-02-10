@@ -29,7 +29,7 @@ public class TestsStatisticsMongoRepository extends TestWithMongoRepository {
 
         Repositories.statistics().add(stat);
 
-        final DBCollection collection = mongo.getCollection("statistics");
+        final DBCollection collection = getMongo().getCollection("statistics");
         final DBObject query = new BasicDBObject();
         query.put("_id", stat.getId());
         final DBObject documentFound = collection.findOne(query);

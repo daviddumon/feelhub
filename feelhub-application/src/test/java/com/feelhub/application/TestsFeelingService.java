@@ -28,7 +28,6 @@ public class TestsFeelingService {
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
-                bind(SessionProvider.class).to(FakeSessionProvider.class);
             }
         });
         feelingService = injector.getInstance(FeelingService.class);

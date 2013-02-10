@@ -35,7 +35,6 @@ public class TestsBingSearch {
             @Override
             protected void configure() {
                 bind(BingLink.class).to(FakeBingLink.class);
-                bind(SessionProvider.class).to(FakeSessionProvider.class);
                 bind(BingRelationBinder.class).toInstance(relationBinder);
                 bind(UriResolver.class).toInstance(fakeUriResolver);
                 bind(CloudinaryLink.class).to(FakeCloudinaryLink.class);

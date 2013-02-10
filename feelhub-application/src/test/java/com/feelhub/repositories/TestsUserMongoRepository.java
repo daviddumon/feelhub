@@ -51,7 +51,7 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetAnUser() {
-        final DBCollection collection = mongo.getCollection("user");
+        final DBCollection collection = getMongo().getCollection("user");
         final DBObject user = new BasicDBObject();
         final UUID uuid = UUID.randomUUID();
         user.put("_id", uuid);
@@ -64,10 +64,11 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetByEmail() {
-        final DBCollection collection = mongo.getCollection("user");
+        final DBCollection collection = getMongo().getCollection("user");
         final DBObject user = new BasicDBObject();
-        user.put("_id", "test");
+        user.put("_id", UUID.randomUUID());
         user.put("email", "jb@test.com");
+        user.put("active", true);
         collection.insert(user);
 
         final User userFound = repository.forEmail("jb@test.com");
@@ -76,10 +77,12 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
     }
 
     @Test
+    @Ignore("fongo n'a pas l'air de gérer elemMatch")
     public void canGetByNetwork() {
         final User user = new User();
         user.addSocialAuth(new SocialAuth(SocialNetwork.FACEBOOK, "id", "token"));
         repository.add(user);
+
 
         final User userFound = repository.findBySocialNetwork(SocialNetwork.FACEBOOK, "id");
 
@@ -88,7 +91,7 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
     }
 
     private DBObject getUserFromDB(final UUID id) {
-        final DBCollection collection = mongo.getCollection("user");
+        final DBCollection collection = getMongo().getCollection("user");
         final DBObject query = new BasicDBObject();
         query.put("_id", id);
         return collection.findOne(query);

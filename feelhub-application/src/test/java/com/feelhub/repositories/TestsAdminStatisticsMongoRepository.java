@@ -62,7 +62,7 @@ public class TestsAdminStatisticsMongoRepository extends TestWithMongoRepository
     }
 
     private DBObject getAlchemyStatisticFromDB(final Object id) {
-        final DBCollection collection = mongo.getCollection("adminstatistic");
+        final DBCollection collection = getMongo().getCollection("adminstatistic");
         final DBObject query = new BasicDBObject();
         query.put("_id", id);
         return collection.findOne(query);

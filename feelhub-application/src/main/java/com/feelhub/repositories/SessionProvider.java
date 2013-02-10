@@ -6,9 +6,6 @@ import org.mongolink.domain.mapper.ContextBuilder;
 
 public class SessionProvider {
 
-    public SessionProvider() {
-    }
-
     public void init() {
         final FeelhubApplicationProperties props = new FeelhubApplicationProperties();
         final ContextBuilder context = new ContextBuilder("com.feelhub.repositories.mapping");

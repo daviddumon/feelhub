@@ -39,7 +39,7 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
 
     @Test
     public void canGetAlchemyAnalysis() {
-        final DBCollection collection = mongo.getCollection("alchemyanalysis");
+        final DBCollection collection = getMongo().getCollection("alchemyanalysis");
         final DBObject alchemyAnalysis = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         alchemyAnalysis.put("_id", id);
@@ -64,7 +64,7 @@ public class TestsAlchemyAnalysisMongoRepository extends TestWithMongoRepository
     }
 
     private DBObject getAlchemyAnalysisFromDB(final Object id) {
-        final DBCollection collection = mongo.getCollection("alchemyanalysis");
+        final DBCollection collection = getMongo().getCollection("alchemyanalysis");
         final DBObject query = new BasicDBObject();
         query.put("_id", id);
         return collection.findOne(query);

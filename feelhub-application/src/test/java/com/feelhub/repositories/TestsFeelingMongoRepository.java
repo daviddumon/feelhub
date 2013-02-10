@@ -27,7 +27,7 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
 
         Repositories.feelings().add(feeling);
 
-        final DBCollection feelings = mongo.getCollection("feeling");
+        final DBCollection feelings = getMongo().getCollection("feeling");
         final DBObject query = new BasicDBObject();
         query.put("_id", feeling.getId());
         final DBObject feelingFound = feelings.findOne(query);
@@ -68,7 +68,7 @@ public class TestsFeelingMongoRepository extends TestWithMongoRepository {
 
         Repositories.feelings().add(feeling);
 
-        final DBCollection feelings = mongo.getCollection("feeling");
+        final DBCollection feelings = getMongo().getCollection("feeling");
         final DBObject query = new BasicDBObject();
         query.put("_id", feeling.getId());
         final DBObject feelingFound = feelings.findOne(query);

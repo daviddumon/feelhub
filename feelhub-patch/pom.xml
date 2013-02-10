@@ -17,9 +17,9 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.foursquare</groupId>
-            <artifactId>fongo</artifactId>
-            <version>1.0.3</version>
+            <groupId>org.mongolink</groupId>
+            <artifactId>mongolink-testtools</artifactId>
+            <version>0.0.11-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

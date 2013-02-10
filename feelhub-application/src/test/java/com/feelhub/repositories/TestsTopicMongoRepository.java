@@ -134,7 +134,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetAWorldTopic() {
-        final DBCollection collection = mongo.getCollection("topic");
+        final DBCollection collection = getMongo().getCollection("topic");
         final DBObject topic = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         topic.put("_id", id);
@@ -149,7 +149,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetAnHttpTopic() {
-        final DBCollection collection = mongo.getCollection("topic");
+        final DBCollection collection = getMongo().getCollection("topic");
         final DBObject topic = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         topic.put("_id", id);
@@ -164,7 +164,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetAnFtpTopic() {
-        final DBCollection collection = mongo.getCollection("topic");
+        final DBCollection collection = getMongo().getCollection("topic");
         final DBObject topic = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         topic.put("_id", id);
@@ -179,7 +179,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetARealTopic() {
-        final DBCollection collection = mongo.getCollection("topic");
+        final DBCollection collection = getMongo().getCollection("topic");
         final DBObject topic = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         topic.put("_id", id);
@@ -194,7 +194,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetAGeoTopic() {
-        final DBCollection collection = mongo.getCollection("topic");
+        final DBCollection collection = getMongo().getCollection("topic");
         final DBObject topic = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         topic.put("_id", id);
@@ -232,7 +232,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
     }
 
     private DBObject getTopic(final UUID id) {
-        final DBCollection collection = mongo.getCollection("topic");
+        final DBCollection collection = getMongo().getCollection("topic");
         final DBObject query = new BasicDBObject();
         query.put("_id", id);
         return collection.findOne(query);

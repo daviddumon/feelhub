@@ -29,7 +29,7 @@ public class TestsMediaMongoRepository extends TestWithMongoRepository {
 
         repository.add(media);
 
-        final DBCollection relations = mongo.getCollection("media");
+        final DBCollection relations = getMongo().getCollection("media");
         final DBObject query = new BasicDBObject();
         query.put("_id", media.getId());
         final DBObject mediaFound = relations.findOne(query);

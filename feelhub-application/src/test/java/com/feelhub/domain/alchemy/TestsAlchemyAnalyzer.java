@@ -33,7 +33,6 @@ public class TestsAlchemyAnalyzer {
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
-                bind(SessionProvider.class).to(FakeSessionProvider.class);
                 bind(NamedEntityProvider.class).toInstance(entityProvider);
                 bind(Translator.class).to(FakeTranslator.class);
             }

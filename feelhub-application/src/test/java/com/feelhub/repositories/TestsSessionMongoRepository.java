@@ -40,7 +40,7 @@ public class TestsSessionMongoRepository extends TestWithMongoRepository {
     }
 
     private DBObject getSessionFromDB(final Object token) {
-        final DBCollection collection = mongo.getCollection("session");
+        final DBCollection collection = getMongo().getCollection("session");
         final DBObject query = new BasicDBObject();
         query.put("_id", token);
         return collection.findOne(query);
@@ -48,7 +48,7 @@ public class TestsSessionMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetASession() {
-        final DBCollection collection = mongo.getCollection("session");
+        final DBCollection collection = getMongo().getCollection("session");
         final DBObject session = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         session.put("_id", id);

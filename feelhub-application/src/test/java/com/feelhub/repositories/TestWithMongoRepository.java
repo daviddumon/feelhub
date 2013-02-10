@@ -1,31 +1,30 @@
 package com.feelhub.repositories;
 
-import com.mongodb.FakeDB;
-import org.junit.*;
+import com.mongodb.DB;
+import org.junit.Before;
+import org.junit.Rule;
 import org.mongolink.MongoSession;
-import org.mongolink.test.FakePersistentContext;
+import org.mongolink.test.MongolinkRule;
 
 import java.net.UnknownHostException;
 
 public class TestWithMongoRepository {
 
+    public DB getMongo() {
+        return session.getDb();
+    }
+
     @Rule
-    public FakePersistentContext fakePersistentContext = new FakePersistentContext("com.feelhub.repositories.mapping");
+    public MongolinkRule mongolink = MongolinkRule.withPackage("com.feelhub.repositories.mapping");
 
     @Before
     public void beforeMongoRepository() throws UnknownHostException {
-        session = fakePersistentContext.getSession();
-        session.start();
-        mongo = (FakeDB) session.getDb();
+        session = mongolink.getCurrentSession();
         provider = IdentitySessionProvider(session);
         final MongoRepositories mongoRepos = new MongoRepositories(provider);
         Repositories.initialize(mongoRepos);
     }
 
-    @After
-    public void afterMongoRepository() {
-        session.stop();
-    }
 
     private SessionProvider IdentitySessionProvider(final MongoSession session) {
         return new SessionProvider() {
@@ -40,7 +39,6 @@ public class TestWithMongoRepository {
         return provider;
     }
 
-    protected FakeDB mongo;
     private SessionProvider provider;
     private MongoSession session;
 }

@@ -35,7 +35,7 @@ public class TestsTagMongoRepository extends TestWithMongoRepository {
 
     @Test
     public void canGetATag() {
-        final DBCollection collection = mongo.getCollection("tag");
+        final DBCollection collection = getMongo().getCollection("tag");
         final DBObject tag = new BasicDBObject();
         tag.put("_id", "value");
         collection.insert(tag);
@@ -63,7 +63,7 @@ public class TestsTagMongoRepository extends TestWithMongoRepository {
     }
 
     private DBObject getTagFromDB(final Object id) {
-        final DBCollection collection = mongo.getCollection("tag");
+        final DBCollection collection = getMongo().getCollection("tag");
         final DBObject query = new BasicDBObject();
         query.put("_id", id);
         return collection.findOne(query);

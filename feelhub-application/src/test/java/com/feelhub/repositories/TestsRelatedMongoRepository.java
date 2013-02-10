@@ -28,7 +28,7 @@ public class TestsRelatedMongoRepository extends TestWithMongoRepository {
 
         repo.add(related);
 
-        final DBCollection relations = mongo.getCollection("related");
+        final DBCollection relations = getMongo().getCollection("related");
         final DBObject query = new BasicDBObject();
         query.put("_id", related.getId());
         final DBObject relationFound = relations.findOne(query);

@@ -258,11 +258,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mongolink</groupId>
-            <artifactId>mongolink-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.feelhub</groupId>
             <artifactId>feelhub-test-tools</artifactId>
             <scope>test</scope>
