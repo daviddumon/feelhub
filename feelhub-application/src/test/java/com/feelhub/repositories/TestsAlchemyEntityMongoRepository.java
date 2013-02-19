@@ -69,6 +69,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
         assertThat(alchemyFound.get("website")).isEqualTo(alchemyEntity.getWebsite());
         assertThat(alchemyFound.get("yago")).isEqualTo(alchemyEntity.getYago());
         assertThat(alchemyFound.get("relevance")).isEqualTo(0.5);
+        assertThat(alchemyFound.get("type")).isEqualTo(RealTopicType.Automobile.name());
     }
 
     @Test
@@ -77,6 +78,7 @@ public class TestsAlchemyEntityMongoRepository extends TestWithMongoRepository {
         final DBObject alchemy = new BasicDBObject();
         final UUID id = UUID.randomUUID();
         alchemy.put("_id", id);
+        alchemy.put("type", RealTopicType.Automobile.name());
         collection.insert(alchemy);
 
         final AlchemyEntity alchemyEntityFound = entityMongoRepository.get(id);
