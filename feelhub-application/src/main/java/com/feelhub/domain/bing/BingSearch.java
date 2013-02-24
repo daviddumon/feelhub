@@ -10,7 +10,6 @@ import com.feelhub.domain.topic.TopicException;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.UriException;
 import com.feelhub.repositories.Repositories;
-import com.feelhub.tools.MongoLinkAwareExecutor;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.util.concurrent.RateLimiter;
@@ -87,6 +86,5 @@ public class BingSearch {
     private final TopicService topicService;
     private final BingRelationBinder bingRelationBinder;
     private final Cloudinary cloudinary;
-    private MongoLinkAwareExecutor mongoLinkAwareExecutor;
     private final RateLimiter rateLimiter;
 }

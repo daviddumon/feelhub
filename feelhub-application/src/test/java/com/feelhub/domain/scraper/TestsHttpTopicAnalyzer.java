@@ -38,7 +38,7 @@ public class TestsHttpTopicAnalyzer {
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         httpTopic.addUri(new Uri(uri));
 
-        httpTopicAnalyzer.analyze(httpTopic);
+        httpTopicAnalyzer.analyze(httpTopic.getId());
 
         assertThat(httpTopic.getDescriptions().size()).isEqualTo(1);
         assertThat(httpTopic.getDescription(FeelhubLanguage.fromCode("fr"))).isEqualTo("description og");
@@ -50,7 +50,7 @@ public class TestsHttpTopicAnalyzer {
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         httpTopic.addUri(new Uri(uri));
 
-        httpTopicAnalyzer.analyze(httpTopic);
+        httpTopicAnalyzer.analyze(httpTopic.getId());
 
         assertThat(httpTopic.getNames().size()).isEqualTo(1);
         assertThat(httpTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo("name og");
@@ -62,7 +62,7 @@ public class TestsHttpTopicAnalyzer {
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         httpTopic.addUri(new Uri(uri));
 
-        httpTopicAnalyzer.analyze(httpTopic);
+        httpTopicAnalyzer.analyze(httpTopic.getId());
 
         assertThat(httpTopic.getType()).isEqualTo(HttpTopicType.Article);
         assertThat(httpTopic.getOpenGraphType()).isEqualTo("article");
@@ -74,7 +74,7 @@ public class TestsHttpTopicAnalyzer {
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         httpTopic.addUri(new Uri(uri));
 
-        httpTopicAnalyzer.analyze(httpTopic);
+        httpTopicAnalyzer.analyze(httpTopic.getId());
 
         assertThat(httpTopic.getIllustration()).isEqualTo("http://s1.lemde.fr/image/2013/01/25/540x270/1822831_3_dfb7_un-manifestant-lance-un-cocktail-molotov-contre_ed5d9c3af6a609128210a9cab7111290.jpg");
         assertThat(httpTopic.getThumbnailLarge()).isEqualTo("thumbnail");
@@ -88,7 +88,7 @@ public class TestsHttpTopicAnalyzer {
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         httpTopic.addUri(new Uri(uri));
 
-        final List<String> medias = httpTopicAnalyzer.analyze(httpTopic);
+        final List<String> medias = httpTopicAnalyzer.analyze(httpTopic.getId());
 
         assertThat(medias.size()).isEqualTo(11);
     }

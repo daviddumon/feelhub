@@ -1,7 +1,8 @@
 package com.feelhub.domain.scraper;
 
 import com.feelhub.domain.eventbus.DomainEvent;
-import com.feelhub.domain.topic.http.HttpTopic;
+
+import java.util.UUID;
 
 public class HttpTopicAnalyzeRequest extends DomainEvent {
 
@@ -10,13 +11,13 @@ public class HttpTopicAnalyzeRequest extends DomainEvent {
         return this.getClass().getSimpleName();
     }
 
-    public HttpTopic getHttpTopic() {
-        return httpTopic;
+    public void setHttpTopicId(UUID httpTopicId) {
+        this.httpTopicId = httpTopicId;
     }
 
-    public void setHttpTopic(final HttpTopic httpTopic) {
-        this.httpTopic = httpTopic;
+    public UUID getHttpTopicId() {
+        return httpTopicId;
     }
 
-    private HttpTopic httpTopic;
+    private UUID httpTopicId;
 }

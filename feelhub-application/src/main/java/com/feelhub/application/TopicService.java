@@ -116,7 +116,7 @@ public class TopicService {
     private void scrapHttpTopic(final HttpTopic httpTopic) {
         if (httpTopic.getType().equals(HttpTopicType.Website)) {
             final HttpTopicAnalyzeRequest httpTopicAnalyzeRequest = new HttpTopicAnalyzeRequest();
-            httpTopicAnalyzeRequest.setHttpTopic(httpTopic);
+            httpTopicAnalyzeRequest.setHttpTopicId(httpTopic.getId());
             DomainEventBus.INSTANCE.post(httpTopicAnalyzeRequest);
         }
     }
