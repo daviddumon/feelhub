@@ -1,11 +1,15 @@
 package com.feelhub.domain.bing;
 
 import com.feelhub.application.TopicService;
-import com.feelhub.domain.cloudinary.*;
+import com.feelhub.domain.cloudinary.Cloudinary;
+import com.feelhub.domain.cloudinary.CloudinaryException;
+import com.feelhub.domain.cloudinary.CloudinaryThumbnails;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.TopicException;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.UriException;
+import com.feelhub.repositories.Repositories;
 import com.feelhub.tools.MongoLinkAwareExecutor;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
@@ -18,36 +22,26 @@ import java.util.List;
 public class BingSearch {
 
     @Inject
-    public BingSearch(final BingLink bingLink, final TopicService topicService, final BingRelationBinder bingRelationBinder, final Cloudinary cloudinary, final MongoLinkAwareExecutor mongoLinkAwareExecutor) {
+    public BingSearch(final BingLink bingLink, final TopicService topicService, final BingRelationBinder bingRelationBinder, final Cloudinary cloudinary) {
         this.bingLink = bingLink;
         this.topicService = topicService;
         this.bingRelationBinder = bingRelationBinder;
         this.cloudinary = cloudinary;
-        this.mongoLinkAwareExecutor = mongoLinkAwareExecutor;
         DomainEventBus.INSTANCE.register(this);
         rateLimiter = RateLimiter.create(1.0);
     }
 
     @Subscribe
     public void onBingRequest(final BingRequest bingRequest) {
-        final Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-                doBingSearch(bingRequest);
-            }
-        };
         rateLimiter.acquire();
-        mongoLinkAwareExecutor.execute(runnable);
+        doBingSearch(bingRequest);
     }
 
     protected void doBingSearch(final BingRequest bingRequest) {
-        //todo bug race condition
-        //final Topic topic = bingRequest.getTopic();
+        final Topic topic = Repositories.topics().get(bingRequest.getTopicId());
         final String query = bingRequest.getQuery();
         //final List<HttpTopic> images = getImages(topic, query);
-        final List<HttpTopic> images = getImages(bingRequest.getTopic(), query);
-        final Topic topic = topicService.lookUpCurrent(bingRequest.getTopicId());
+        final List<HttpTopic> images = getImages(topic, query);
         setIllustrationForTopic(topic, images);
         bingRelationBinder.bind(topic, images);
     }

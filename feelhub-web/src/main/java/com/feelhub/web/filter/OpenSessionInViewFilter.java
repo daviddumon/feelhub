@@ -1,5 +1,6 @@
 package com.feelhub.web.filter;
 
+import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.repositories.*;
 import org.restlet.*;
 import org.restlet.routing.Filter;
@@ -34,6 +35,7 @@ public class OpenSessionInViewFilter extends Filter {
     @Override
     protected void afterHandle(final Request request, final Response response) {
         provider.stop();
+        DomainEventBus.INSTANCE.propagate();
     }
 
     @Override

@@ -19,22 +19,14 @@ import java.util.*;
 public class TopicService {
 
     @Inject
-    public TopicService(final TopicFactory topicFactory, final TagService tagService, final UriResolver uriResolver) {
-        this.topicFactory = topicFactory;
+    public TopicService(final TagService tagService, final UriResolver uriResolver) {
+        this.topicFactory = new TopicFactory();
         this.tagService = tagService;
         this.uriResolver = uriResolver;
     }
 
     public Topic lookUp(final UUID id) {
         final Topic topic = Repositories.topics().get(id);
-        if (topic == null) {
-            throw new TopicNotFound();
-        }
-        return topic;
-    }
-
-    public Topic lookUpCurrent(final UUID id) {
-        final Topic topic = Repositories.topics().getCurrentTopic(id);
         if (topic == null) {
             throw new TopicNotFound();
         }
@@ -76,6 +68,14 @@ public class TopicService {
             } catch (TopicNotFound e) {
             }
         }
+    }
+
+    public Topic lookUpCurrent(final UUID id) {
+        final Topic topic = Repositories.topics().getCurrentTopic(id);
+        if (topic == null) {
+            throw new TopicNotFound();
+        }
+        return topic;
     }
 
     public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType type, final User user) {

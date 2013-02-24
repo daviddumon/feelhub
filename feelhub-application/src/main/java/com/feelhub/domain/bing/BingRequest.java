@@ -1,7 +1,6 @@
 package com.feelhub.domain.bing;
 
 import com.feelhub.domain.eventbus.DomainEvent;
-import com.feelhub.domain.topic.Topic;
 
 import java.util.UUID;
 
@@ -31,14 +30,4 @@ public class BingRequest extends DomainEvent {
     private UUID topicId;
     private String query;
 
-    //todo bug race condition
-    private Topic topic;
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(final Topic topic) {
-        this.topic = topic;
-    }
 }

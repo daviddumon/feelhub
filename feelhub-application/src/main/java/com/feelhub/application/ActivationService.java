@@ -17,12 +17,16 @@ public class ActivationService {
 
     @Subscribe
     public void onUserCreated(final UserCreatedEvent event) {
-        if (event.getUser().isActive()) {
+        createActivation(event.getUser());
+    }
+
+    void createActivation(User user) {
+        if (user.isActive()) {
             return;
         }
-        final Activation activation = new Activation(event.getUser());
+        final Activation activation = new Activation(user);
         Repositories.activation().add(activation);
-        DomainEventBus.INSTANCE.post(new ActivationCreatedEvent(event.getUser(), activation));
+        DomainEventBus.INSTANCE.post(new ActivationCreatedEvent(user, activation));
     }
 
     public void confirm(final UUID id) {

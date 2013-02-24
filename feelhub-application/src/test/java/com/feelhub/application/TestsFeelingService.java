@@ -37,7 +37,7 @@ public class TestsFeelingService {
     public void canAddFeelingAndSentiments() {
         final FeelingRequestEvent event = getEvent();
 
-        DomainEventBus.INSTANCE.post(event);
+        feelingService.handle(event);
 
         assertThat(Repositories.feelings().getAll().size()).isEqualTo(1);
         final Feeling feeling = Repositories.feelings().get(event.getFeelingId());

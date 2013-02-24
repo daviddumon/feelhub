@@ -11,6 +11,7 @@ public class WithDomainEvent extends ExternalResource {
     @Override
     protected void before() throws Throwable {
         DomainEventBus.INSTANCE.setEventBus(new EventBus());
+        DomainEventBus.INSTANCE.progateOnPost();
     }
 
     public <T extends DomainEvent> void capture(final Class<T> type) {

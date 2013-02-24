@@ -56,16 +56,18 @@ public abstract class Topic extends BaseEntity {
     public String getName(final FeelhubLanguage feelhubLanguage) {
         if (names.containsKey(feelhubLanguage.getCode())) {
             return names.get(feelhubLanguage.getCode());
-        } else if (names.containsKey(FeelhubLanguage.reference().getCode())) {
+        }
+        if (names.containsKey(FeelhubLanguage.reference().getCode())) {
             return names.get(FeelhubLanguage.reference().getCode());
-        } else if (names.containsKey(FeelhubLanguage.none().getCode())) {
+        }
+        if (names.containsKey(FeelhubLanguage.none().getCode())) {
             return names.get(FeelhubLanguage.none().getCode());
-        } else if (names.size() > 0) {
+        }
+        if (names.size() > 0) {
             final Iterator<String> iterator = names.values().iterator();
             return iterator.next();
-        } else {
-            return "";
         }
+        return "";
     }
 
     public void addDescription(final FeelhubLanguage language, final String description) {

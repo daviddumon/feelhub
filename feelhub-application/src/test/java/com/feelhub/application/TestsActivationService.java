@@ -1,6 +1,5 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.user.*;
 import com.feelhub.repositories.Repositories;
@@ -36,7 +35,8 @@ public class TestsActivationService {
     @Test
     public void canCreateActivation() {
         final User user = new User();
-        DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
+
+        activationService.onUserCreated(new UserCreatedEvent(user));
 
         assertThat(Repositories.activation().getAll()).hasSize(1);
         final Activation activation = Repositories.activation().getAll().get(0);
@@ -48,7 +48,7 @@ public class TestsActivationService {
         final User user = new User();
         user.activate();
 
-        DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
+        activationService.onUserCreated(new UserCreatedEvent(user));
 
         assertThat(Repositories.activation().getAll()).hasSize(0);
     }
