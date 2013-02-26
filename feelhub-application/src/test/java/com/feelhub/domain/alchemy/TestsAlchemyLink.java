@@ -18,7 +18,6 @@ public class TestsAlchemyLink {
 
     @Test
     public void incrementStatistic() {
-        bus.capture(ApiCallEvent.class);
         FakeAlchemyLink alchemyLink = new FakeAlchemyLink();
 
         alchemyLink.get(new Uri("http://www.toto.com"));

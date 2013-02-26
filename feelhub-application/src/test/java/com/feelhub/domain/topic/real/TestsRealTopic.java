@@ -1,13 +1,14 @@
 package com.feelhub.domain.topic.real;
 
-import com.feelhub.domain.bing.BingRequest;
-import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.translation.ReferenceTranslationRequestEvent;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
 import com.google.common.eventbus.Subscribe;
-import org.junit.*;
+import org.junit.Rule;
+import org.junit.Test;
 
 import java.util.UUID;
 
@@ -38,7 +39,6 @@ public class TestsRealTopic {
 
     @Test
     public void requestTranslationWhenAddingName() {
-        bus.capture(ReferenceTranslationRequestEvent.class);
         final RealTopic topic = new RealTopic(UUID.randomUUID(), translatableType());
 
         topic.addName(FeelhubLanguage.fromCode("es"), "Description-es");
@@ -50,7 +50,6 @@ public class TestsRealTopic {
 
     @Test
     public void onlyRequestTranslationForTranslableTopics() {
-        bus.capture(ReferenceTranslationRequestEvent.class);
         final RealTopic topic = new RealTopic(UUID.randomUUID(), untranslatableType());
 
         topic.addName(FeelhubLanguage.fromCode("es"), "Description-es");
@@ -62,7 +61,6 @@ public class TestsRealTopic {
     @Test
     public void onlyRequestTranslationIfTranslationNeeded() {
         new FakeRealTopicTranslator();
-        bus.capture(ReferenceTranslationRequestEvent.class);
         final RealTopic anotherTopic = new RealTopic(UUID.randomUUID(), translatableType());
         final FeelhubLanguage language = FeelhubLanguage.fromCode("fr");
         final String name = "Description-language";
@@ -77,7 +75,6 @@ public class TestsRealTopic {
 
     @Test
     public void doNotTranslateForReferenceLanguage() {
-        bus.capture(ReferenceTranslationRequestEvent.class);
         final RealTopic topic = new RealTopic(UUID.randomUUID(), translatableType());
 
         topic.addName(FeelhubLanguage.reference(), "Description-reference");
@@ -88,26 +85,12 @@ public class TestsRealTopic {
 
     @Test
     public void doNotTranslateForNoneLanguage() {
-        bus.capture(ReferenceTranslationRequestEvent.class);
         final RealTopic topic = new RealTopic(UUID.randomUUID(), translatableType());
 
         topic.addName(FeelhubLanguage.none(), "Description-reference");
 
         final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = bus.lastEvent(ReferenceTranslationRequestEvent.class);
         assertThat(referenceTranslationRequestEvent).isNull();
-    }
-
-    @Test
-    public void fetchImagesWhenAddingName() {
-        bus.capture(BingRequest.class);
-        final RealTopic topic = new RealTopic(UUID.randomUUID(), untranslatableType());
-
-        topic.addName(FeelhubLanguage.fromCode("es"), "Description-es");
-
-        final BingRequest bingRequest = bus.lastEvent(BingRequest.class);
-        assertThat(bingRequest).isNotNull();
-        assertThat(bingRequest.getQuery()).isEqualTo("Description-es");
-        assertThat(bingRequest.getTopicId()).isEqualTo(topic.getId());
     }
 
     private RealTopicType translatableType() {

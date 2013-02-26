@@ -1,9 +1,8 @@
 package com.feelhub.domain.topic.http;
 
-import com.feelhub.domain.alchemy.AlchemyRequestEvent;
-import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.TopicType;
 import com.feelhub.domain.topic.http.uri.Uri;
 import org.restlet.data.MediaType;
 
@@ -20,39 +19,36 @@ public class HttpTopic extends Topic {
         super(id);
     }
 
-    public void setType(final HttpTopicType type) {
-        this.typeValue = type.toString();
-    }
-
     @Override
     public TopicType getType() {
         return HttpTopicType.valueOf(typeValue);
     }
 
+    public void setType(final HttpTopicType type) {
+        this.typeValue = type.toString();
+    }
+
     @Override
     public void addUri(final Uri uri) {
         super.addUri(uri);
-        if (HttpTopicType.valueOf(typeValue).equals(HttpTopicType.Website)) {
-            requestAlchemy();
-        } else {
+        if(getType() != HttpTopicType.Website) {
             final String uriAsString = uri.toString();
             final int lastSlash = uriAsString.lastIndexOf("/");
             addName(FeelhubLanguage.none(), uriAsString.substring(lastSlash + 1, uriAsString.length()));
         }
     }
 
+    @Override
     public void addName(final FeelhubLanguage feelhubLanguage, final String name) {
         names.put(feelhubLanguage.getCode(), name);
     }
 
-
-    private void requestAlchemy() {
-        final AlchemyRequestEvent alchemyRequestEvent = new AlchemyRequestEvent(this);
-        DomainEventBus.INSTANCE.post(alchemyRequestEvent);
-    }
-
     public String getTypeValue() {
         return typeValue;
+    }
+
+    public MediaType getMediaType() {
+        return MediaType.valueOf(mediaTypeValue);
     }
 
     public void setMediaType(final MediaType mediaType) {
@@ -88,10 +84,6 @@ public class HttpTopic extends Topic {
         }
     }
 
-    public MediaType getMediaType() {
-        return MediaType.valueOf(mediaTypeValue);
-    }
-
     public String getMediaTypeValue() {
         return mediaTypeValue;
     }
@@ -104,7 +96,7 @@ public class HttpTopic extends Topic {
         this.openGraphType = openGraphType;
     }
 
-    private String typeValue;
+    private String typeValue = HttpTopicType.Website.name();
     private String mediaTypeValue;
     private String openGraphType;
 }

@@ -1,16 +1,20 @@
 package com.feelhub.domain.bing;
 
-import com.feelhub.domain.cloudinary.*;
+import com.feelhub.domain.cloudinary.Cloudinary;
+import com.feelhub.domain.cloudinary.FakeCloudinaryLink;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicType;
-import com.feelhub.domain.topic.http.uri.*;
-import com.feelhub.domain.topic.real.*;
-import com.feelhub.repositories.*;
-import com.feelhub.repositories.fakeRepositories.*;
+import com.feelhub.domain.topic.http.uri.FakeUriResolver;
+import com.feelhub.domain.topic.http.uri.Uri;
+import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopicType;
+import com.feelhub.repositories.Repositories;
+import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.google.inject.*;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.restlet.data.MediaType;
 
 import java.util.UUID;
@@ -31,27 +35,16 @@ public class TestsBingSearch {
         relationBinder = mock(BingRelationBinder.class);
         final FakeUriResolver fakeUriResolver = new FakeUriResolver();
         fakeUriResolver.thatFind(MediaType.IMAGE_JPEG);
-        final Injector injector = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-                bind(BingLink.class).to(FakeBingLink.class);
-                bind(BingRelationBinder.class).toInstance(relationBinder);
-                bind(UriResolver.class).toInstance(fakeUriResolver);
-                bind(CloudinaryLink.class).to(FakeCloudinaryLink.class);
-            }
-        });
-        bingSearch = injector.getInstance(BingSearch.class);
+        bingSearch = new BingSearch(new FakeBingLink(), relationBinder, new Cloudinary(new FakeCloudinaryLink()));
+        bingSearch.uriResolver = fakeUriResolver;
     }
 
     @Test
     public void canCreateImageTopicFromIllustration() {
         final RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Automobile);
         Repositories.topics().add(realTopic);
-        final BingRequest bingRequest = new BingRequest();
-        bingRequest.setTopicId(realTopic.getId());
-        bingRequest.setQuery("query");
 
-        bingSearch.doBingSearch(bingRequest);
+        bingSearch.doBingSearch(realTopic, "query");
 
         assertThat(Repositories.topics().getAll().size()).isEqualTo(2);
         final Topic image = Repositories.topics().getAll().get(1);
@@ -67,11 +60,8 @@ public class TestsBingSearch {
     public void createRelationsBetweenTopicAndImages() {
         final RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Automobile);
         Repositories.topics().add(realTopic);
-        final BingRequest bingRequest = new BingRequest();
-        bingRequest.setTopicId(realTopic.getId());
-        bingRequest.setQuery("query");
 
-        bingSearch.doBingSearch(bingRequest);
+        bingSearch.doBingSearch(realTopic, "query");
 
         verify(relationBinder).bind(any(Topic.class), anyList());
     }
@@ -79,11 +69,8 @@ public class TestsBingSearch {
     @Test
     public void topicHasAnIllustration() {
         final RealTopic realTopic = TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile);
-        final BingRequest bingRequest = new BingRequest();
-        bingRequest.setTopicId(realTopic.getId());
-        bingRequest.setQuery("query");
 
-        bingSearch.doBingSearch(bingRequest);
+        bingSearch.doBingSearch(realTopic, "query");
 
         assertThat(realTopic.getIllustration()).isEqualTo("query Automobilelink");
         assertThat(realTopic.getThumbnailLarge()).isEqualTo("thumbnail");

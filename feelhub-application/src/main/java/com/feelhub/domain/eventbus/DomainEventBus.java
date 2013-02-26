@@ -2,6 +2,7 @@ package com.feelhub.domain.eventbus;
 
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public enum DomainEventBus {
     public void propagate() {
         ArrayList<DomainEvent> eventsToPost = Lists.newArrayList(currentEvents.get());
         for (DomainEvent domainEvent : eventsToPost) {
+            LOGGER.debug(String.format("Propagating %s", domainEvent));
             eventBus.post(domainEvent);
         }
         currentEvents.get().removeAll(eventsToPost);
@@ -56,4 +58,5 @@ public enum DomainEventBus {
         }
     };
     private boolean propagateOnPost;
+    private static final Logger LOGGER = Logger.getLogger(DomainEventBus.class);
 }

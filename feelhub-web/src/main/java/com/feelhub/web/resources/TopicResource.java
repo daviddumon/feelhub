@@ -49,5 +49,4 @@ public class TopicResource extends ServerResource {
 
     private final TopicService topicService;
     private final TopicDataFactory topicDataFactory;
-    private UUID id;
 }

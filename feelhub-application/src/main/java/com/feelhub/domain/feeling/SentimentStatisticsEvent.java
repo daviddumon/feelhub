@@ -2,9 +2,12 @@ package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class SentimentStatisticsEvent extends DomainEvent {
 
     public SentimentStatisticsEvent(final Sentiment sentiment) {
+        checkNotNull(sentiment);
         this.sentiment = sentiment;
     }
 

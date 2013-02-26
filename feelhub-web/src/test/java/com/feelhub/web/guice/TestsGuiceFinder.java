@@ -30,7 +30,7 @@ public class TestsGuiceFinder {
         protected void configure() {
             bind(SessionProvider.class).to(FakeSessionProvider.class);
             bind(Scraper.class).to(FakeScraper.class);
-            bind(NamedEntityProvider.class).toInstance(new NamedEntityProvider(new FakeAlchemyLink(), new NamedEntityFactory()));
+            bind(NamedEntityProvider.class).toInstance(new NamedEntityProvider(new FakeAlchemyLink()));
         }
     }
 }

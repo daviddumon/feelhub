@@ -1,5 +1,6 @@
 package com.feelhub.tools;
 
+import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.repositories.SessionProvider;
 import com.google.inject.Inject;
 import org.apache.log4j.Logger;
@@ -29,6 +30,7 @@ public class MongoLinkAwareExecutor implements Executor {
                     runnable.run();
                 } finally {
                     LOGGER.debug("Stopping session for async service");
+                    DomainEventBus.INSTANCE.propagate();
                     sessionProvider.stop();
                 }
             }

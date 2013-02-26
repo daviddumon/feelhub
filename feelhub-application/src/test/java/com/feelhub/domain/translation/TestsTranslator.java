@@ -56,7 +56,6 @@ public class TestsTranslator {
     @Test
     public void incrementApiCallsCounter() {
         final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = getEvent(TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary));
-        bus.capture(ApiCallEvent.class);
 
         translator.onTranslationRequest(referenceTranslationRequestEvent);
 

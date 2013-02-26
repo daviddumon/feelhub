@@ -65,8 +65,6 @@ public class TestsBingLink {
 
     @Test
     public void incrementStatistic() {
-        bus.capture(ApiCallEvent.class);
-
         bingLink.getIllustrations("banana", "fruit");
 
         ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);

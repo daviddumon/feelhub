@@ -30,8 +30,6 @@ public class TestsMandrillMailSender {
 
     @Test
     public void incrementApiCallsCounter() {
-        bus.capture(ApiCallEvent.class);
-
         new MandrillMailSender() {
             @Override
             protected void sendMessage(MandrillTemplateRequest message) {

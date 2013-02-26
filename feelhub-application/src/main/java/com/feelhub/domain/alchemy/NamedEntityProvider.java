@@ -14,9 +14,8 @@ import java.util.List;
 public class NamedEntityProvider {
 
     @Inject
-    public NamedEntityProvider(final AlchemyLink alchemyLink, final NamedEntityFactory namedEntityFactory) {
+    public NamedEntityProvider(final AlchemyLink alchemyLink) {
         this.alchemyLink = alchemyLink;
-        this.namedEntityFactory = namedEntityFactory;
     }
 
     public List<NamedEntity> entitiesFor(final HttpTopic topic) {
@@ -60,5 +59,5 @@ public class NamedEntityProvider {
     }
 
     private final AlchemyLink alchemyLink;
-    private final NamedEntityFactory namedEntityFactory;
+    private final NamedEntityFactory namedEntityFactory = new NamedEntityFactory();
 }

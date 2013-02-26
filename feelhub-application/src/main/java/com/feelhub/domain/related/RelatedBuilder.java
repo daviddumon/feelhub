@@ -2,14 +2,9 @@ package com.feelhub.domain.related;
 
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
-import com.google.inject.Inject;
 
 public class RelatedBuilder {
 
-    @Inject
-    public RelatedBuilder(final RelatedFactory relatedFactory) {
-        this.relatedFactory = relatedFactory;
-    }
 
     public void connectTwoWays(final Topic from, final Topic to) {
         connectTwoWays(from, to, 0.0);
@@ -36,5 +31,5 @@ public class RelatedBuilder {
         Repositories.related().add(related);
     }
 
-    private final RelatedFactory relatedFactory;
+    private final RelatedFactory relatedFactory = new RelatedFactory();
 }

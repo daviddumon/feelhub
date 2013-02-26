@@ -22,7 +22,6 @@ public class TestsUser {
 
     @Test
     public void canCreate() {
-        bus.capture(UserCreatedEvent.class);
         final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "FR_fr");
 
         assertThat(user.getId()).isNotNull();
@@ -133,7 +132,6 @@ public class TestsUser {
 
     @Test
     public void canCreateFromFacebook() {
-        bus.capture(UserCreatedEvent.class);
         final User user = new UserFactory().createFromFacebook("1234", "email@email.com", "first", "last", "fr_FR", "token");
 
         assertThat(user).isNotNull();

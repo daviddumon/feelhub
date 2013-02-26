@@ -30,7 +30,6 @@ public class TestsWorldListener {
 
     @Test
     public void addPostEventForWorldStatisticsOnSentimentEvent() {
-        bus.capture(WorldStatisticsEvent.class);
         final WorldTopic worldTopic = TestFactories.topics().newWorldTopic();
         final Sentiment sentiment = TestFactories.sentiments().newSentiment();
         final SentimentStatisticsEvent sentimentStatisticsEvent = new SentimentStatisticsEvent(sentiment);
@@ -46,7 +45,6 @@ public class TestsWorldListener {
 
     @Test
     public void canCreateWorldIfNotPresent() {
-        bus.capture(WorldStatisticsEvent.class);
         final Sentiment sentiment = TestFactories.sentiments().newSentiment();
         final SentimentStatisticsEvent sentimentStatisticsEvent = new SentimentStatisticsEvent(sentiment);
 

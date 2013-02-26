@@ -1,5 +1,6 @@
 package com.feelhub.web;
 
+import com.feelhub.domain.DomainWorkersModule;
 import com.feelhub.web.authentification.UserInfos;
 import com.feelhub.web.filter.*;
 import com.feelhub.web.mail.MailBuilder;
@@ -23,7 +24,7 @@ public class FeelhubApplication extends Application {
     }
 
     public void initializeGuice(final Module module) {
-        injector = Guice.createInjector(module);
+        injector = Guice.createInjector(module, new DomainWorkersModule());
     }
 
     @Override

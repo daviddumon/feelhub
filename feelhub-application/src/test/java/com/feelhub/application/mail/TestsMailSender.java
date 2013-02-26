@@ -17,7 +17,6 @@ public class TestsMailSender {
 
     @Test
     public void incrementStatistic() {
-        bus.capture(ApiCallEvent.class);
         MailSender mailSender = mailSender();
 
         mailSender.send(new FeelhubMail("charles@arpinum.fr", "subject", "content", "content"));

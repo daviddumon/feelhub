@@ -4,6 +4,8 @@ import com.feelhub.domain.cloudinary.Cloudinary;
 import com.feelhub.domain.cloudinary.CloudinaryThumbnails;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
+import com.feelhub.domain.topic.http.HttpTopicType;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
@@ -24,13 +26,16 @@ public class HttpTopicAnalyzer {
     }
 
     @Subscribe
-    public void onHttpTopicAnalyzeRequest(final HttpTopicAnalyzeRequest httpTopicAnalyzeRequest) {
+    public void onHttpTopicAnalyzeRequest(final HttpTopicCreatedEvent event) {
         rateLimiter.acquire();
-        analyze(httpTopicAnalyzeRequest.getHttpTopicId());
+        analyze(event.topicId);
     }
 
     public List<String> analyze(final UUID topicId) {
         HttpTopic httpTopic = Repositories.topics().getHttpTopic(topicId);
+        if (!httpTopic.getType().equals(HttpTopicType.Website)) {
+            return Lists.newArrayList();
+        }
         final ScrapedInformation scrapedInformation = scraper.scrap(getCanonical(httpTopic));
         httpTopic.addDescription(scrapedInformation.getLanguage(), scrapedInformation.getDescription());
         setName(httpTopic, scrapedInformation);

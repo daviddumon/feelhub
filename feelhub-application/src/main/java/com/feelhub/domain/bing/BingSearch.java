@@ -1,14 +1,18 @@
 package com.feelhub.domain.bing;
 
-import com.feelhub.application.TopicService;
 import com.feelhub.domain.cloudinary.Cloudinary;
 import com.feelhub.domain.cloudinary.CloudinaryException;
 import com.feelhub.domain.cloudinary.CloudinaryThumbnails;
 import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.TopicException;
+import com.feelhub.domain.topic.TopicFactory;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.UriException;
+import com.feelhub.domain.topic.http.uri.UriResolver;
+import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopicCreatedEvent;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
@@ -21,9 +25,8 @@ import java.util.List;
 public class BingSearch {
 
     @Inject
-    public BingSearch(final BingLink bingLink, final TopicService topicService, final BingRelationBinder bingRelationBinder, final Cloudinary cloudinary) {
+    public BingSearch(final BingLink bingLink, final BingRelationBinder bingRelationBinder, final Cloudinary cloudinary) {
         this.bingLink = bingLink;
-        this.topicService = topicService;
         this.bingRelationBinder = bingRelationBinder;
         this.cloudinary = cloudinary;
         DomainEventBus.INSTANCE.register(this);
@@ -31,17 +34,15 @@ public class BingSearch {
     }
 
     @Subscribe
-    public void onBingRequest(final BingRequest bingRequest) {
+    public void onRealTopicCreated(RealTopicCreatedEvent event) {
         rateLimiter.acquire();
-        doBingSearch(bingRequest);
+        RealTopic realTopic = Repositories.topics().getRealTopic(event.eventId);
+        doBingSearch(realTopic, realTopic.getName(FeelhubLanguage.none()));
     }
 
-    protected void doBingSearch(final BingRequest bingRequest) {
-        final Topic topic = Repositories.topics().get(bingRequest.getTopicId());
-        final String query = bingRequest.getQuery();
-        //final List<HttpTopic> images = getImages(topic, query);
+    void doBingSearch(Topic topic, String query) {
         final List<HttpTopic> images = getImages(topic, query);
-        setIllustrationForTopic(topic, images);
+        topic.setIllustrations(images);
         bingRelationBinder.bind(topic, images);
     }
 
@@ -64,27 +65,19 @@ public class BingSearch {
     }
 
     private HttpTopic createImage(final String illustration) {
-        final HttpTopic image = topicService.createHttpTopicWithRestrictedMediaType(illustration, MediaType.IMAGE_ALL);
+        final HttpTopic image = new TopicFactory().createHttpTopicWithMediaType(illustration, MediaType.IMAGE_ALL, uriResolver);
         image.setIllustration(illustration);
         final CloudinaryThumbnails thumbnails = cloudinary.getThumbnails(illustration);
         image.setThumbnailLarge(thumbnails.getThumbnailLarge());
         image.setThumbnailMedium(thumbnails.getThumbnailMedium());
         image.setThumbnailSmall(thumbnails.getThumbnailSmall());
+        Repositories.topics().add(image);
         return image;
     }
 
-    private void setIllustrationForTopic(final Topic topic, final List<HttpTopic> images) {
-        if (topic.getIllustration().isEmpty() && !images.isEmpty()) {
-            topic.setIllustration(images.get(0).getIllustration());
-            topic.setThumbnailLarge(images.get(0).getThumbnailLarge());
-            topic.setThumbnailMedium(images.get(0).getThumbnailMedium());
-            topic.setThumbnailSmall(images.get(0).getThumbnailSmall());
-        }
-    }
-
     private final BingLink bingLink;
-    private final TopicService topicService;
     private final BingRelationBinder bingRelationBinder;
     private final Cloudinary cloudinary;
     private final RateLimiter rateLimiter;
+    UriResolver uriResolver = new UriResolver();
 }

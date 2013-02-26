@@ -1,13 +1,21 @@
 package com.feelhub.domain.scraper;
 
-import com.feelhub.domain.cloudinary.*;
+import com.feelhub.domain.cloudinary.CloudinaryLink;
+import com.feelhub.domain.cloudinary.FakeCloudinaryLink;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.topic.http.HttpTopicType;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.*;
-import com.google.inject.*;
-import org.junit.*;
+import com.feelhub.test.FakeInternet;
+import com.feelhub.test.TestFactories;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
+import org.junit.Test;
 
 import java.util.List;
 

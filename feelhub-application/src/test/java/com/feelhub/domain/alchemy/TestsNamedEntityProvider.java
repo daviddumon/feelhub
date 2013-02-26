@@ -6,8 +6,9 @@ import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.google.inject.*;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.List;
@@ -24,13 +25,7 @@ public class TestsNamedEntityProvider {
 
     @Before
     public void before() {
-        final Injector injector = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-                bind(AlchemyLink.class).to(FakeAlchemyLink.class);
-            }
-        });
-        namedEntityProvider = injector.getInstance(NamedEntityProvider.class);
+        namedEntityProvider = new NamedEntityProvider(new FakeAlchemyLink());
     }
 
     @Test

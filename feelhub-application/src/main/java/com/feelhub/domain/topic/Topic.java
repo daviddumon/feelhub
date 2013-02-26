@@ -3,6 +3,7 @@ package com.feelhub.domain.topic;
 import com.feelhub.domain.BaseEntity;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.*;
@@ -64,8 +65,7 @@ public abstract class Topic extends BaseEntity {
             return names.get(FeelhubLanguage.none().getCode());
         }
         if (names.size() > 0) {
-            final Iterator<String> iterator = names.values().iterator();
-            return iterator.next();
+            return Iterables.get(names.values(), 0);
         }
         return "";
     }
@@ -161,6 +161,15 @@ public abstract class Topic extends BaseEntity {
 
     public void setThumbnailSmall(final String thumbnailSmall) {
         this.thumbnailSmall = thumbnailSmall;
+    }
+
+    public void setIllustrations(final List<HttpTopic> images) {
+        if (getIllustration().isEmpty() && !images.isEmpty()) {
+            setIllustration(images.get(0).getIllustration());
+            setThumbnailLarge(images.get(0).getThumbnailLarge());
+            setThumbnailMedium(images.get(0).getThumbnailMedium());
+            setThumbnailSmall(images.get(0).getThumbnailSmall());
+        }
     }
 
     protected UUID id;

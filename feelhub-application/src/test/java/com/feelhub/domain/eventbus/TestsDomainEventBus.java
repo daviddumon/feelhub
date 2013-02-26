@@ -1,10 +1,15 @@
 package com.feelhub.domain.eventbus;
 
+import com.feelhub.domain.feeling.Sentiment;
 import com.feelhub.domain.feeling.SentimentStatisticsEvent;
+import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
 import com.google.common.eventbus.Subscribe;
-import org.junit.*;
+import org.junit.Rule;
+import org.junit.Test;
+
+import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
@@ -22,7 +27,7 @@ public class TestsDomainEventBus {
     @Test
     public void canUseAsyncEventBus() {
         final SimpleEventListener simpleEventListener = mock(SimpleEventListener.class);
-        final SentimentStatisticsEvent sentimentStatisticsEvent = new SentimentStatisticsEvent(null);
+        final SentimentStatisticsEvent sentimentStatisticsEvent = new SentimentStatisticsEvent(new Sentiment(UUID.randomUUID(), SentimentValue.bad));
         DomainEventBus.INSTANCE.register(simpleEventListener);
 
         DomainEventBus.INSTANCE.post(sentimentStatisticsEvent);
@@ -34,7 +39,7 @@ public class TestsDomainEventBus {
     public void canSpreadEventToMultipleListeners() {
         final SimpleEventListener listener1 = mock(SimpleEventListener.class);
         final SimpleEventListener listener2 = mock(SimpleEventListener.class);
-        final SentimentStatisticsEvent feelingCreatedEvent = new SentimentStatisticsEvent(null);
+        final SentimentStatisticsEvent feelingCreatedEvent = new SentimentStatisticsEvent(new Sentiment(UUID.randomUUID(), SentimentValue.bad));
         DomainEventBus.INSTANCE.register(listener1);
         DomainEventBus.INSTANCE.register(listener2);
 

@@ -55,7 +55,6 @@ public class TestsActivationService {
 
     @Test
     public void canPropagateSendMail() {
-        bus.capture(ActivationCreatedEvent.class);
         final User user = new User();
 
         activationService.onUserCreated(new UserCreatedEvent(user));

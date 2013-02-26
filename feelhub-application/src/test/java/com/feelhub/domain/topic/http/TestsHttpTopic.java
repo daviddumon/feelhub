@@ -1,6 +1,5 @@
 package com.feelhub.domain.topic.http;
 
-import com.feelhub.domain.alchemy.AlchemyRequestEvent;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.uri.Uri;
@@ -179,33 +178,6 @@ public class TestsHttpTopic {
 
         assertThat(topic.getMediaType()).isEqualTo(mediaType);
         assertThat(topic.getType()).isEqualTo(type);
-    }
-
-    @Test
-    public void addUrlRequestAlchemyIfTypeWebsite() {
-        bus.capture(AlchemyRequestEvent.class);
-        final Uri uri = new Uri("http://www.test.com");
-        final HttpTopic topic = new HttpTopic(UUID.randomUUID());
-        topic.setType(HttpTopicType.Website);
-
-        topic.addUri(uri);
-
-        final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
-        assertThat(alchemyRequestEvent).isNotNull();
-        assertThat(alchemyRequestEvent.getHttpTopic()).isEqualTo(topic);
-    }
-
-    @Test
-    public void doNotRequestAlchemyIfTypeDifferentFromWebsite() {
-        bus.capture(AlchemyRequestEvent.class);
-        final Uri uri = new Uri("http://www.test.com");
-        final HttpTopic topic = new HttpTopic(UUID.randomUUID());
-        topic.setType(HttpTopicType.Image);
-
-        topic.addUri(uri);
-
-        final AlchemyRequestEvent alchemyRequestEvent = bus.lastEvent(AlchemyRequestEvent.class);
-        assertThat(alchemyRequestEvent).isNull();
     }
 
     @Test

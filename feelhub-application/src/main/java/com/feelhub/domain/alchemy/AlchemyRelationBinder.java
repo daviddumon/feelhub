@@ -15,14 +15,14 @@ public class AlchemyRelationBinder {
         this.relatedBuilder = relatedBuilder;
     }
 
-    public void bind(final UUID mainTopicId, final HashMap<UUID, Double> topicIds) {
+    public void bind(final UUID mainTopicId, final Map<UUID, Double> topicIds) {
         final Topic mainRealTopic = loadTopic(mainTopicId);
         final List<Topic> realTopics = Lists.newArrayList();
         connectAllTopicsToMainTopicWithScore(topicIds, mainRealTopic, realTopics);
         connectAllTopicsToThemselves(realTopics);
     }
 
-    private void connectAllTopicsToMainTopicWithScore(final HashMap<UUID, Double> topicIds, final Topic to, final List<Topic> realTopics) {
+    private void connectAllTopicsToMainTopicWithScore(final Map<UUID, Double> topicIds, final Topic to, final List<Topic> realTopics) {
         for (final Map.Entry<UUID, Double> entry : topicIds.entrySet()) {
             final UUID topicId = entry.getKey();
             final Double score = entry.getValue();
