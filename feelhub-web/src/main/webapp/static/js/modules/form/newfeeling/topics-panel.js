@@ -94,6 +94,16 @@ define(["jquery", "view/command/new-feeling-topics-topic-view"], function ($, vi
         return topics;
     }
 
+    function get_active_topics() {
+        var active_topics = [];
+        $.each(topics, function (index, topic) {
+            if(topic.active) {
+                active_topics.push(topic);
+            }
+        });
+        return active_topics;
+    }
+
     //testing
     function test_reset() {
         topics = [];
@@ -102,8 +112,9 @@ define(["jquery", "view/command/new-feeling-topics-topic-view"], function ($, vi
     return {
         add_topic: add_topic,
         invalidate: invalidate,
-        get_topics: get_topics,
+        get_active_topics:get_active_topics,
         //test purpose
+        get_topics: get_topics,
         test_reset: test_reset
     }
 });

@@ -1,131 +1,132 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="Chrome 25.0 (Mac)" package="" timestamp="2013-02-27T13:59:33" id="0" hostname="MacBook-Air-de-David.local" tests="123" errors="0" failures="0" time="0.185">
+  <testsuite name="Chrome 25.0 (Mac)" package="" timestamp="2013-02-27T14:37:01" id="0" hostname="MacBook-Air-de-David.local" tests="124" errors="0" failures="0" time="0.149">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.99 Safari/537.22"/>
     </properties>
-    <testcase name="can detect happy smiley" time="0.003" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
+    <testcase name="can detect happy smiley" time="0.002" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
     <testcase name="can detect sad smiley" time="0.001" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
     <testcase name="can return sentiment none if no smileys" time="0" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
     <testcase name="can detect smileys with radius" time="0" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
-    <testcase name="can detect plus sign" time="0" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
-    <testcase name="can detect minus sign" time="0.001" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
+    <testcase name="can detect plus sign" time="0.001" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
+    <testcase name="can detect minus sign" time="0" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
     <testcase name="can detect equal sign" time="0" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
-    <testcase name="can detect neutral smiley" time="0.002" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
-    <testcase name="can analyze text" time="0" classname="Chrome 25.0 (Mac).context parser tests"/>
+    <testcase name="can detect neutral smiley" time="0.001" classname="Chrome 25.0 (Mac).sentiment dectector tests"/>
+    <testcase name="can analyze text" time="0.001" classname="Chrome 25.0 (Mac).context parser tests"/>
     <testcase name="can parse token in context" time="0.001" classname="Chrome 25.0 (Mac).context parser tests"/>
-    <testcase name="can parse complex context&apos;s token" time="0.001" classname="Chrome 25.0 (Mac).context parser tests"/>
-    <testcase name="can bind context tag to topic&apos;s id" time="0.001" classname="Chrome 25.0 (Mac).context parser tests"/>
+    <testcase name="can parse complex context&apos;s token" time="0" classname="Chrome 25.0 (Mac).context parser tests"/>
+    <testcase name="can bind context tag to topic&apos;s id" time="0" classname="Chrome 25.0 (Mac).context parser tests"/>
     <testcase name="can match loosely context token" time="0" classname="Chrome 25.0 (Mac).context parser tests"/>
     <testcase name="can match multiple context tokens" time="0" classname="Chrome 25.0 (Mac).context parser tests"/>
-    <testcase name="do not match small words" time="0.001" classname="Chrome 25.0 (Mac).context parser tests"/>
-    <testcase name="matches only full words" time="0" classname="Chrome 25.0 (Mac).context parser tests"/>
+    <testcase name="do not match small words" time="0" classname="Chrome 25.0 (Mac).context parser tests"/>
+    <testcase name="matches only full words" time="0.001" classname="Chrome 25.0 (Mac).context parser tests"/>
     <testcase name="has thumbnail" time="0" classname="Chrome 25.0 (Mac).context parser tests"/>
     <testcase name="has good sentiment" time="0" classname="Chrome 25.0 (Mac).context parser tests"/>
-    <testcase name="can analyze text" time="0.001" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
+    <testcase name="can analyze text" time="0" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
     <testcase name="can detect hashtag" time="0.001" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
     <testcase name="lowercase hashtab" time="0" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
     <testcase name="can handle punctuation near hashtags" time="0" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
-    <testcase name="can parse complex situations" time="0" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
+    <testcase name="can parse complex situations" time="0.001" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
     <testcase name="can parse accents" time="0" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
-    <testcase name="can use apostrophe" time="0" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
-    <testcase name="set default sentiment to none" time="0.001" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
+    <testcase name="can use apostrophe" time="0.001" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
+    <testcase name="set default sentiment to none" time="0" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
     <testcase name="set parse good sentiment" time="0" classname="Chrome 25.0 (Mac).hashtag parser tests"/>
-    <testcase name="can analyze text" time="0" classname="Chrome 25.0 (Mac).uri parser tests"/>
-    <testcase name="can parse complete uri" time="0.001" classname="Chrome 25.0 (Mac).uri parser tests"/>
+    <testcase name="can analyze text" time="0.001" classname="Chrome 25.0 (Mac).uri parser tests"/>
+    <testcase name="can parse complete uri" time="0" classname="Chrome 25.0 (Mac).uri parser tests"/>
     <testcase name="can parse uncomplete uri" time="0" classname="Chrome 25.0 (Mac).uri parser tests"/>
-    <testcase name="can parse differents uris in same text" time="0.002" classname="Chrome 25.0 (Mac).uri parser tests"/>
+    <testcase name="can parse differents uris in same text" time="0.001" classname="Chrome 25.0 (Mac).uri parser tests"/>
     <testcase name="can parse uris with different cases" time="0" classname="Chrome 25.0 (Mac).uri parser tests"/>
-    <testcase name="can parse complex situations" time="0.001" classname="Chrome 25.0 (Mac).uri parser tests"/>
+    <testcase name="can parse complex situations" time="0.002" classname="Chrome 25.0 (Mac).uri parser tests"/>
     <testcase name="set default sentiment to none" time="0" classname="Chrome 25.0 (Mac).uri parser tests"/>
     <testcase name="can parse sentiment" time="0" classname="Chrome 25.0 (Mac).uri parser tests"/>
     <testcase name="can analyze text" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="can detect hashtag" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="can parse complete uri" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
-    <testcase name="can parse uncomplete uri" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
+    <testcase name="can parse uncomplete uri" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="can parse differents uris in same text" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="can parse uris with different cases" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="lowercase real tokens" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="can stack exact same tokens" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="can handle punctuation near real tokens" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="can parse complex situations" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
-    <testcase name="can parse accents" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
+    <testcase name="can parse accents" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="can use apostrophe" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="set default sentiment to none" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
-    <testcase name="can parse token in context" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
-    <testcase name="can parse complex context&apos;s token" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
+    <testcase name="can parse token in context" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
+    <testcase name="can parse complex context&apos;s token" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
     <testcase name="can bind context tag to topic&apos;s id" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
-    <testcase name="has thumbnail" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
-    <testcase name="can parse sentiments" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
-    <testcase name="can render the view" time="0.013" classname="Chrome 25.0 (Mac).helper-feel view tests"/>
-    <testcase name="can clear the view" time="0.004" classname="Chrome 25.0 (Mac).helper-feel view tests"/>
-    <testcase name="triggers event sentiment-change on image click" time="0.011" classname="Chrome 25.0 (Mac).helper-feel view tests"/>
+    <testcase name="has thumbnail" time="0.001" classname="Chrome 25.0 (Mac).parser tests"/>
+    <testcase name="can parse sentiments" time="0" classname="Chrome 25.0 (Mac).parser tests"/>
+    <testcase name="can render the view" time="0.008" classname="Chrome 25.0 (Mac).helper-feel view tests"/>
+    <testcase name="can clear the view" time="0.002" classname="Chrome 25.0 (Mac).helper-feel view tests"/>
+    <testcase name="triggers event sentiment-change on image click" time="0.008" classname="Chrome 25.0 (Mac).helper-feel view tests"/>
     <testcase name="triggers event next-question on image click" time="0.004" classname="Chrome 25.0 (Mac).helper-feel view tests"/>
-    <testcase name="can render the view" time="0.003" classname="Chrome 25.0 (Mac).helper choice view tests"/>
+    <testcase name="can render the view" time="0.002" classname="Chrome 25.0 (Mac).helper choice view tests"/>
     <testcase name="can clear the view" time="0.002" classname="Chrome 25.0 (Mac).helper choice view tests"/>
-    <testcase name="triggers next-question event on image click" time="0.005" classname="Chrome 25.0 (Mac).helper choice view tests"/>
-    <testcase name="triggers set-topic event on image click" time="0.005" classname="Chrome 25.0 (Mac).helper choice view tests"/>
-    <testcase name="can render sentiment" time="0.003" classname="Chrome 25.0 (Mac).new-feeling-topics-topic-view tests"/>
+    <testcase name="triggers next-question event on image click" time="0.003" classname="Chrome 25.0 (Mac).helper choice view tests"/>
+    <testcase name="triggers set-topic event on image click" time="0.004" classname="Chrome 25.0 (Mac).helper choice view tests"/>
+    <testcase name="can render sentiment" time="0.002" classname="Chrome 25.0 (Mac).new-feeling-topics-topic-view tests"/>
     <testcase name="can empty the container" time="0.002" classname="Chrome 25.0 (Mac).new-feeling-topics-topic-view tests"/>
-    <testcase name="can trigger custom event on topic click" time="0.004" classname="Chrome 25.0 (Mac).new-feeling-topics-topic-view tests"/>
-    <testcase name="can add a sentiment" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="can use data for sentiment creation" time="0.002" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="has default values for sentiment data" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="does not create sentiment without name" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="can trigger custom event on topic click" time="0.003" classname="Chrome 25.0 (Mac).new-feeling-topics-topic-view tests"/>
+    <testcase name="can add a sentiment" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="can use data for sentiment creation" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="has default values for sentiment data" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="does not create sentiment without name" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
     <testcase name="adds sentiment only once" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
     <testcase name="can invalidate existing sentiments" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
     <testcase name="has permanent option" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="has default permanent value of false" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="only invalidates non permanent sentiments" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="draws newly added sentiment" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="reset the view when invalidate" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="redraw all actives sentiments when invalidate" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="updates existing sentiment with new sentiment from text" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="has a boolean for the question answer on sentiment" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="can change sentiment of topic when sentiment-change event is triggered" time="0.002" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="sets topic on set-topic event" time="0.01" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="has default permanent value of false" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="only invalidates non permanent sentiments" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="draws newly added sentiment" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="reset the view when invalidate" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="redraw all actives sentiments when invalidate" time="0.003" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="updates existing sentiment with new sentiment from text" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="has a boolean for the question answer on sentiment" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="can change sentiment of topic when sentiment-change event is triggered" time="0" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="sets topic on set-topic event" time="0.003" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
     <testcase name="triggers category-question if set-topic event with new id" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="doest not trigger category-question for uri" time="0.002" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
-    <testcase name="sets category on set-category event" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="doest not trigger category-question for uri" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="sets category on set-category event" time="0.003" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
+    <testcase name="can get active topics list" time="0.001" classname="Chrome 25.0 (Mac).topics-panel form tests"/>
     <testcase name="can render the view" time="0.001" classname="Chrome 25.0 (Mac).helper category view tests"/>
     <testcase name="can clear the view" time="0.002" classname="Chrome 25.0 (Mac).helper category view tests"/>
     <testcase name="triggers next-question event on image click" time="0.003" classname="Chrome 25.0 (Mac).helper category view tests"/>
-    <testcase name="triggers set-category event on image click" time="0.005" classname="Chrome 25.0 (Mac).helper category view tests"/>
-    <testcase name="adds question for sentiment with sentiment value of none" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="triggers set-category event on image click" time="0.004" classname="Chrome 25.0 (Mac).helper category view tests"/>
+    <testcase name="adds question for sentiment with sentiment value of none" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="only adds questions for sentiment with names" time="0" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="executes view when added" time="0" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="doest not add twice the same question" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="executes view when added" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="doest not add twice the same question" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="does not execute render function if a current question is already set" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="calls render function with good data" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="executes render function when set as active with an already current function" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="executes end of current question when set a new active question" time="0.004" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="executes next question start when asked" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="executes current question end when asked next question" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="executes render function when set as active with an already current function" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="executes end of current question when set a new active question" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="executes next question start when asked" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="executes current question end when asked next question" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="can invalidate a question" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="only invalidate functions with boolean set to true" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="only invalidate functions with boolean set to true" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="can invalidate multiple functions" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="sets current question to null if no other question" time="0.005" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="uses existing questions when setting active topic" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="sets current question to null if no other question" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="uses existing questions when setting active topic" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="can search for known topics if no id" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="creates questions when receiving known topics list" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="creates questions when receiving known topics list" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="creates choice question only if previous existing topics" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="triggers set-topic event if no choices" time="0" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="passes invalidate boolean to all questions" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="passes invalidate boolean to all questions" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="has list of known topics in question data" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="sets active on topic-click event" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="renders next question on next-question event" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="reactivates known questions when adding a known topic" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="can not set active unknown questions" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="renders next question on next-question event" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="reactivates known questions when adding a known topic" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="can not set active unknown questions" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="do not activate sentiment question if existing" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="sets current question to answered on next-question event" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="sets current question to answered on next-question event" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="does not reactivate known questions if answered" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="triggers set-topic event for uri names" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="can add a category question" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="do not duplicate category question" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="can add a category question" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="do not duplicate category question" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="adds category question on category-question event" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="renders category question when set active" time="0.001" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="redraw known category questions" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
-    <testcase name="can save data on next question" time="0.003" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="renders category question when set active" time="0" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="redraw known category questions" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
+    <testcase name="can save data on next question" time="0.002" classname="Chrome 25.0 (Mac).helper-panel tests suite"/>
     <testcase name="trigger next-question event on ignore" time="0.003" classname="Chrome 25.0 (Mac).new form feeling tests"/>
     <system-out/>
     <system-err/>

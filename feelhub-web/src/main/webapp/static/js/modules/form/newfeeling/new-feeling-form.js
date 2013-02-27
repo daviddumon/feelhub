@@ -59,7 +59,7 @@ define(["jquery", "modules/parser/parser", "modules/form/newfeeling/helper-panel
 
         function get_topics() {
             var result = new Array();
-            var topic_list = topics.get_topics();
+            var topic_list = topics.get_active_topics();
             $.each(topic_list, function (index, data) {
                 var element = {
                     "id": data.id,
@@ -136,7 +136,6 @@ define(["jquery", "modules/parser/parser", "modules/form/newfeeling/helper-panel
             });
             return result;
         }
-
 
         function set_selected_language() {
             $("#feeling-form select option[value=" + languageCode + "]").prop("selected", true);

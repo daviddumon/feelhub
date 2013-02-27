@@ -177,6 +177,15 @@ define(["modules/form/newfeeling/topics-panel", "view/command/new-feeling-topics
             var topic = topics.get_topics()[0];
             expect(topic.type).toBe("other");
         });
+
+        it("can get active topics list", function () {
+            topics.add_topic({"name": data.name, "sentiment": "none"});
+            topics.invalidate();
+
+            topics.add_topic({"name": "other", "sentiment": "none"});
+
+            expect(topics.get_active_topics().length).toEqual(1);
+        });
     });
 })
 
