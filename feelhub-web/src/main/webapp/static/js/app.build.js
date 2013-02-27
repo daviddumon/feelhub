@@ -36,7 +36,7 @@
         view: "../view",
         modules: "../modules",
         plugins: "../plugins",
-        templates: "../view/templates",
+        templates: "../templates",
         hogan: "../plugins/hogan",
         text: "../plugins/text"
     },
