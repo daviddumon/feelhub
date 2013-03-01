@@ -9,7 +9,9 @@ import java.util.*;
 class ScrapedInformation {
 
     public void addDescription(final int score, final String description) {
-        descriptions.put(score, description);
+        if (!description.isEmpty()) {
+            descriptions.put(score, description);
+        }
     }
 
     public String getDescription() {
@@ -20,7 +22,9 @@ class ScrapedInformation {
     }
 
     public void addName(final int score, final String name) {
-        names.put(score, name);
+        if (!name.isEmpty()) {
+            names.put(score, name);
+        }
     }
 
     public String getName() {

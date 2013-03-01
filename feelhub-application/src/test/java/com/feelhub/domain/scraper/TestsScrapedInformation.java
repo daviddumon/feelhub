@@ -34,6 +34,17 @@ public class TestsScrapedInformation {
     }
 
     @Test
+    public void ignoreEmptyDescription() {
+        final String goodDescription = "my description";
+
+        scrapedInformation.addDescription(0, "bad description");
+        scrapedInformation.addDescription(10, goodDescription);
+        scrapedInformation.addDescription(20, "");
+
+        assertThat(scrapedInformation.getDescription()).isEqualTo(goodDescription);
+    }
+
+    @Test
     public void canGetEmptyDescription() {
         assertThat(scrapedInformation.getDescription()).isEmpty();
     }
@@ -54,6 +65,17 @@ public class TestsScrapedInformation {
         scrapedInformation.addName(0, "bad name");
         scrapedInformation.addName(10, goodName);
         scrapedInformation.addName(5, "another bad name");
+
+        assertThat(scrapedInformation.getName()).isEqualTo(goodName);
+    }
+
+    @Test
+    public void ignoreEmptyName() {
+        final String goodName = "my name";
+
+        scrapedInformation.addName(0, "bad name");
+        scrapedInformation.addName(10, goodName);
+        scrapedInformation.addName(20, "");
 
         assertThat(scrapedInformation.getName()).isEqualTo(goodName);
     }
