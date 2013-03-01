@@ -6,7 +6,7 @@ define(["jquery", "modules/flow", "view/flow/topic-view", "view/search/search-co
     var command_container = "#command";
 
     function do_search() {
-        flow.init(api_end_point, "q=" + q, topicview, create_command);
+        flow.init(api_end_point, q, topicview, create_command);
     }
 
     function create_command() {
