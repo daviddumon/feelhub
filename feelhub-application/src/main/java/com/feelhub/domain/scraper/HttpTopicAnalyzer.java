@@ -33,7 +33,7 @@ public class HttpTopicAnalyzer {
         HttpTopic httpTopic = Repositories.topics().getHttpTopic(topicId);
         final ScrapedInformation scrapedInformation = scraper.scrap(getCanonical(httpTopic));
         httpTopic.addDescription(scrapedInformation.getLanguage(), scrapedInformation.getDescription());
-        httpTopic.addName(scrapedInformation.getLanguage(), scrapedInformation.getName());
+        setName(httpTopic, scrapedInformation);
         httpTopic.setType(scrapedInformation.getType());
         httpTopic.setOpenGraphType(scrapedInformation.getOpenGraphType());
         if (!scrapedInformation.getImages().isEmpty()) {
@@ -41,6 +41,14 @@ public class HttpTopicAnalyzer {
             getThumbnails(httpTopic);
         }
         return getMedias(scrapedInformation);
+    }
+
+    private void setName(final HttpTopic httpTopic, final ScrapedInformation scrapedInformation) {
+        if (scrapedInformation.getName().isEmpty()) {
+            httpTopic.addName(scrapedInformation.getLanguage(), getCanonical(httpTopic));
+        } else {
+            httpTopic.addName(scrapedInformation.getLanguage(), scrapedInformation.getName());
+        }
     }
 
     private void getThumbnails(final HttpTopic httpTopic) {

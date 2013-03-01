@@ -57,6 +57,18 @@ public class TestsHttpTopicAnalyzer {
     }
 
     @Test
+    public void setCanonicalIfNoName() {
+        final String uri = internet.uri("scraper/empty");
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        httpTopic.addUri(new Uri(uri));
+
+        httpTopicAnalyzer.analyze(httpTopic.getId());
+
+        assertThat(httpTopic.getNames().size()).isEqualTo(1);
+        assertThat(httpTopic.getName(FeelhubLanguage.fromCode("fr"))).isEqualTo(uri);
+    }
+
+    @Test
     public void canSetHttpTopicType() {
         final String uri = internet.uri("scraper");
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);

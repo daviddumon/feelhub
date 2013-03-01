@@ -96,6 +96,7 @@ public class FakeInternet extends ExternalResource {
             private void attachScrapersResources(final Router router) {
                 router.attach("/scraper", ScraperFakeResource.class);
                 router.attach("/scraper/jsouptagextractor", JsoupTagExtractorFakeResource.class);
+                router.attach("/scraper/empty", EmptyFakeResource.class);
                 router.attach("/scraper/jsoupmetaextractor", JsoupMetaExtractorFakeResource.class);
                 router.attach("/scraper/jsoupattributextractor", JsoupAttributExtractorFakeResource.class);
                 router.attach("/scraper/jsouptitleextractor", JsoupTitleExtractorFakeResource.class);
