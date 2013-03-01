@@ -18,11 +18,11 @@ public class TestsAlchemyLink {
 
     @Test
     public void incrementStatistic() {
-        FakeAlchemyLink alchemyLink = new FakeAlchemyLink();
+        final FakeAlchemyLink alchemyLink = new FakeAlchemyLink();
 
         alchemyLink.get(new Uri("http://www.toto.com"));
 
-        ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
+        final ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
         assertThat(event).isNotNull();
         assertThat(event.getApi()).isEqualTo(Api.Alchemy);
         assertThat(event.getIncrement()).isEqualTo(1);

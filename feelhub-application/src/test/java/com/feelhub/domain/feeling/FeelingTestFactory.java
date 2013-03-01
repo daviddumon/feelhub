@@ -51,7 +51,7 @@ public class FeelingTestFactory {
         return newFeeling(topic, text, SentimentValue.bad);
     }
 
-    public Feeling newFeeling(RealTopic topic, String text, SentimentValue sentimentValue) {
+    public Feeling newFeeling(final RealTopic topic, final String text, final SentimentValue sentimentValue) {
         final User activeUser = TestFactories.users().createFakeActiveUser(text + "userforfeeling@mail.com");
         final Feeling feeling = new Feeling(UUID.randomUUID(), text, activeUser.getId());
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, sentimentValue);

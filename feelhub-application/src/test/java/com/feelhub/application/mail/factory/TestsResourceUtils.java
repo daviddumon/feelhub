@@ -8,7 +8,7 @@ public class TestsResourceUtils {
 
     @Test
     public void canGetFileContent() {
-        String content = ResourceUtils.resource("template-test.ftl");
+        final String content = ResourceUtils.resource("template-test.ftl");
 
         assertThat(content).isEqualTo("a simple template ${withData}\nwith multi line\n");
     }

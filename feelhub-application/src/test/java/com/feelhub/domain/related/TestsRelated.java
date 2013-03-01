@@ -23,7 +23,7 @@ public class TestsRelated {
             protected void configure() {
             }
         });
-        relatedFactory = injector.getInstance(RelatedFactory.class);
+        final RelatedFactory relatedFactory = injector.getInstance(RelatedFactory.class);
         from = TestFactories.topics().newCompleteRealTopic();
         to = TestFactories.topics().newCompleteRealTopic();
         related = relatedFactory.newRelated(from, to, 1.0);
@@ -47,5 +47,4 @@ public class TestsRelated {
     private Related related;
     private Topic to;
     private Topic from;
-    private RelatedFactory relatedFactory;
 }

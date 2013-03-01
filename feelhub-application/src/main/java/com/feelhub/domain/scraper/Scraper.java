@@ -64,21 +64,21 @@ public class Scraper {
 
     private void scrapImages(final Document document, final ScrapedInformation scrapedInformation) {
         final List<String> images = jsoupGroupAttributExtractor.parse(document, "meta[property=og:image]", "content");
-        for (String image : images) {
+        for (final String image : images) {
             scrapedInformation.addImage(image);
         }
     }
 
     private void scrapVideos(final Document document, final ScrapedInformation scrapedInformation) {
         final List<String> videos = jsoupGroupAttributExtractor.parse(document, "meta[property=og:video]", "content");
-        for (String video : videos) {
+        for (final String video : videos) {
             scrapedInformation.addVideo(video);
         }
     }
 
     private void scrapAudios(final Document document, final ScrapedInformation scrapedInformation) {
         final List<String> audios = jsoupGroupAttributExtractor.parse(document, "meta[property=og:video]", "content");
-        for (String audio : audios) {
+        for (final String audio : audios) {
             scrapedInformation.addAudio(audio);
         }
     }

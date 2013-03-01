@@ -6,9 +6,9 @@ import com.google.common.base.Objects;
 
 import java.util.UUID;
 
-public class HttpTopicCreatedEvent extends DomainEvent{
+public class HttpTopicCreatedEvent extends DomainEvent {
 
-    public HttpTopicCreatedEvent(UUID topicId, ResolverResult resolverResult) {
+    public HttpTopicCreatedEvent(final UUID topicId, final ResolverResult resolverResult) {
         this.topicId = topicId;
         this.resolverResult = resolverResult;
     }

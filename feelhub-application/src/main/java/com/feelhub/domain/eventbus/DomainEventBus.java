@@ -4,8 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public enum DomainEventBus {
 
@@ -16,13 +15,13 @@ public enum DomainEventBus {
     }
 
     public void propagate() {
-        ArrayList<DomainEvent> eventsToPost = Lists.newArrayList(currentEvents.get());
-        for (DomainEvent domainEvent : eventsToPost) {
+        final ArrayList<DomainEvent> eventsToPost = Lists.newArrayList(currentEvents.get());
+        for (final DomainEvent domainEvent : eventsToPost) {
             LOGGER.debug(String.format("Propagating %s", domainEvent));
             eventBus.post(domainEvent);
         }
         currentEvents.get().removeAll(eventsToPost);
-        if(!currentEvents.get().isEmpty()) {
+        if (!currentEvents.get().isEmpty()) {
             propagate();
         }
     }
@@ -41,7 +40,7 @@ public enum DomainEventBus {
 
     public void post(final DomainEvent event) {
         currentEvents.get().add(event);
-        if(propagateOnPost) {
+        if (propagateOnPost) {
             propagate();
         }
     }

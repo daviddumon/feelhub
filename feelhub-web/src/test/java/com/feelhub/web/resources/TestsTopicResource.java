@@ -32,9 +32,9 @@ public class TestsTopicResource {
 
     @Before
     public void before() {
-        user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
-        injector = Guice.createInjector(new GuiceTestModule());
+        final Injector injector = Guice.createInjector(new GuiceTestModule());
         topicResource = injector.getInstance(TopicResource.class);
         ContextTestFactory.initResource(topicResource);
     }
@@ -138,7 +138,5 @@ public class TestsTopicResource {
         assertThat(modelAndView.getData("realtypes")).isNotNull();
     }
 
-    private User user;
-    private Injector injector;
     private TopicResource topicResource;
 }

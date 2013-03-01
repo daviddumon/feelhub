@@ -12,10 +12,10 @@ public class TestsMailTemplate {
 
     @Test
     public void canGetFromText() {
-        Map<String, Object> data = Maps.newHashMap();
+        final Map<String, Object> data = Maps.newHashMap();
         data.put("withData", "toto");
 
-        String result = new MailTemplate(ResourceUtils.resource("template-test.ftl"), MailTemplate.Format.TEXT).apply(data);
+        final String result = new MailTemplate(ResourceUtils.resource("template-test.ftl"), MailTemplate.Format.TEXT).apply(data);
 
         assertThat(result).startsWith("a simple template toto");
         assertThat(result).contains("Best regards,");
@@ -23,10 +23,10 @@ public class TestsMailTemplate {
 
     @Test
     public void canGetFromHtml() {
-        Map<String, Object> data = Maps.newHashMap();
+        final Map<String, Object> data = Maps.newHashMap();
         data.put("withData", "toto");
 
-        String result = new MailTemplate(ResourceUtils.resource("template-test.ftl"), MailTemplate.Format.HTML).apply(data);
+        final String result = new MailTemplate(ResourceUtils.resource("template-test.ftl"), MailTemplate.Format.HTML).apply(data);
 
         assertThat(result).contains("a simple template toto");
         assertThat(result).contains("<p>Best regards,</p>");

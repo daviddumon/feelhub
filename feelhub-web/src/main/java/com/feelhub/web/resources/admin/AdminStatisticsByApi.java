@@ -6,7 +6,7 @@ import java.util.List;
 
 public class AdminStatisticsByApi {
 
-    public AdminStatisticsByApi(Api api, List<AdminStatistic> statistics) {
+    public AdminStatisticsByApi(final Api api, final List<AdminStatistic> statistics) {
         this.api = api;
         this.statistics = statistics;
     }
@@ -19,6 +19,6 @@ public class AdminStatisticsByApi {
         return statistics;
     }
 
-    private Api api;
-    private List<AdminStatistic> statistics;
+    private final Api api;
+    private final List<AdminStatistic> statistics;
 }

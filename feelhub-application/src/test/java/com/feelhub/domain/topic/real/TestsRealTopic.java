@@ -1,14 +1,12 @@
 package com.feelhub.domain.topic.real;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.translation.ReferenceTranslationRequestEvent;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
 import com.google.common.eventbus.Subscribe;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.UUID;
 

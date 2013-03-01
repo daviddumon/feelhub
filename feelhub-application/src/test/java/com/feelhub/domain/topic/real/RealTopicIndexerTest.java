@@ -3,8 +3,7 @@ package com.feelhub.domain.topic.real;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.UUID;
 
@@ -17,7 +16,7 @@ public class RealTopicIndexerTest {
 
     @Test
     public void canTagTopic() {
-        RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Other);
+        final RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Other);
         realTopic.addName(FeelhubLanguage.REFERENCE, "test");
 
         new RealTopicIndexer().index(realTopic);

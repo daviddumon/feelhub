@@ -29,7 +29,7 @@ public class TestsSentiment {
 
     @Test
     public void hasACreationDate() {
-        Sentiment sentiment = new Sentiment();
+        final Sentiment sentiment = new Sentiment();
 
         assertThat(sentiment.getCreationDate()).isEqualTo(time.getNow());
     }

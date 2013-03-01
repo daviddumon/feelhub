@@ -11,7 +11,7 @@ public class TagManager {
         for (final UUID oldTopicId : topicPatch.getOldTopicIds()) {
             final List<Tag> tags = Repositories.tags().forTopicId(oldTopicId);
             for (final Tag tag : tags) {
-                for (TagItem tagItem : tag.getTopicIds()) {
+                for (final TagItem tagItem : tag.getTopicIds()) {
                     if (tagItem.getId().equals(oldTopicId)) {
                         tagItem.setId(topicPatch.getNewTopicId());
                     }

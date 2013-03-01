@@ -3,7 +3,7 @@ package com.feelhub.domain.alchemy;
 import com.feelhub.domain.topic.real.RealTopic;
 
 public class AlchemyEntityFactory {
-    AlchemyEntity create(NamedEntity namedEntity, RealTopic realTopic) {
+    AlchemyEntity create(final NamedEntity namedEntity, final RealTopic realTopic) {
         final AlchemyEntity alchemyEntity = new AlchemyEntity(realTopic.getId());
         alchemyEntity.setCensus(namedEntity.census);
         alchemyEntity.setCiafactbook(namedEntity.ciaFactbook);

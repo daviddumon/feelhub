@@ -2,31 +2,22 @@ package com.feelhub.web.resources.api;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.application.command.CommandBus;
-import com.feelhub.application.command.topic.CreateHttpTopicCommand;
-import com.feelhub.application.command.topic.CreateRealTopicCommand;
+import com.feelhub.application.command.topic.*;
 import com.feelhub.domain.tag.TagNotFoundException;
-import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.TopicIdentifier;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
-import com.feelhub.web.dto.TopicData;
-import com.feelhub.web.dto.TopicDataFactory;
+import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.common.collect.Lists;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.*;
 import com.google.inject.Inject;
 import org.apache.http.auth.AuthenticationException;
-import org.restlet.data.Form;
-import org.restlet.data.MediaType;
-import org.restlet.data.Status;
-import org.restlet.resource.Get;
-import org.restlet.resource.Post;
-import org.restlet.resource.ServerResource;
+import org.restlet.data.*;
+import org.restlet.resource.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class ApiTopicsResource extends ServerResource {
 
@@ -101,17 +92,17 @@ public class ApiTopicsResource extends ServerResource {
     }
 
     private void createHttpTopic(final String name) {
-        CreateHttpTopicCommand command = new CreateHttpTopicCommand(name, CurrentUser.get().getUser().getId());
-        ListenableFuture<UUID> result = bus.execute(command);
-        UUID topicId = Futures.getUnchecked(result);
+        final CreateHttpTopicCommand command = new CreateHttpTopicCommand(name, CurrentUser.get().getUser().getId());
+        final ListenableFuture<UUID> result = bus.execute(command);
+        final UUID topicId = Futures.getUnchecked(result);
         setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + topicId));
         setStatus(Status.SUCCESS_CREATED);
     }
 
     private void createRealTopic(final Form form, final String name) {
         final RealTopicType type = extractType(form);
-        CreateRealTopicCommand command = new CreateRealTopicCommand(CurrentUser.get().getLanguage(), name, type, CurrentUser.get().getUser().getId());
-        UUID topicId = Futures.getUnchecked(bus.execute(command));
+        final CreateRealTopicCommand command = new CreateRealTopicCommand(CurrentUser.get().getLanguage(), name, type, CurrentUser.get().getUser().getId());
+        final UUID topicId = Futures.getUnchecked(bus.execute(command));
         setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + topicId));
         setStatus(Status.SUCCESS_CREATED);
     }
@@ -125,6 +116,6 @@ public class ApiTopicsResource extends ServerResource {
     }
 
     private final TopicService topicService;
-    private TopicDataFactory topicDataFactory;
-    private CommandBus bus;
+    private final TopicDataFactory topicDataFactory;
+    private final CommandBus bus;
 }

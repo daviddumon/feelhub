@@ -18,7 +18,7 @@ public class MailSender {
         }
     }
 
-    protected void sendMimeMessage(MimeMessage mimeMessage) throws MessagingException {
+    protected void sendMimeMessage(final MimeMessage mimeMessage) throws MessagingException {
         Transport.send(mimeMessage);
     }
 

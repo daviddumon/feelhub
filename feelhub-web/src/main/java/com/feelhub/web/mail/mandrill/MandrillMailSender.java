@@ -18,7 +18,7 @@ public class MandrillMailSender {
         DomainEventBus.INSTANCE.post(ApiCallEvent.mandrill());
     }
 
-    protected void sendMessage(MandrillTemplateRequest message) {
+    protected void sendMessage(final MandrillTemplateRequest message) {
         message.key = KEY;
         message.async = false;
         message.message.from_email = FROM;

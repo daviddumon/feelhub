@@ -4,7 +4,7 @@ public class FeelhubMail {
 
     public static String DEFAULT_FROM = "register@feelhub.com";
 
-    public FeelhubMail(String to, String subject, String textContent, String htmlContent) {
+    public FeelhubMail(final String to, final String subject, final String textContent, final String htmlContent) {
         this.to = to;
         this.subject = subject;
         this.textContent = textContent;
@@ -20,6 +20,7 @@ public class FeelhubMail {
     }
 
     public String from() {
+        final String from = "register@feelhub.com";
         return from;
     }
 
@@ -31,10 +32,9 @@ public class FeelhubMail {
         return textContent;
     }
 
-    private String to;
-    private String subject;
+    private final String to;
+    private final String subject;
     private final String textContent;
     private final String htmlContent;
-    private String from = "register@feelhub.com";
 
 }

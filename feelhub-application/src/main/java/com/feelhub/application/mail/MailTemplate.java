@@ -12,7 +12,7 @@ public class MailTemplate {
     public enum Format {
         HTML("mail/layout-html.ftl"), TEXT("mail/layout-text.ftl");
 
-        Format(String templatePath) {
+        Format(final String templatePath) {
 
             this.templatePath = templatePath;
         }
@@ -24,7 +24,7 @@ public class MailTemplate {
         private String templatePath;
     }
 
-    public MailTemplate(final String content, Format format) {
+    public MailTemplate(final String content, final Format format) {
         this.content = content;
         this.format = format;
     }
@@ -34,12 +34,12 @@ public class MailTemplate {
     }
 
     private String templatedMessage() {
-        HashMap<String, Object> map = Maps.newHashMap();
+        final HashMap<String, Object> map = Maps.newHashMap();
         map.put("message", content);
         return apply(format.template(), map);
     }
 
-    private String apply(String template1, Map<String, Object> data) {
+    private String apply(final String template1, final Map<String, Object> data) {
         final Writer writer = new StringWriter();
         try {
             final Template temp = new Template("name", new StringReader(template1), configuration());

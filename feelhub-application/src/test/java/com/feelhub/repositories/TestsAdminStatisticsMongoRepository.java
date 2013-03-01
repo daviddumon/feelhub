@@ -22,7 +22,7 @@ public class TestsAdminStatisticsMongoRepository extends TestWithMongoRepository
 
     @Test
     public void canPersistAdminStatistic() {
-        AdminStatistic adminStatistic = new AdminStatistic("012012", Api.Alchemy);
+        final AdminStatistic adminStatistic = new AdminStatistic("012012", Api.Alchemy);
         adminStatistic.increment(1);
 
         entityMongoRepository.add(adminStatistic);
@@ -36,11 +36,11 @@ public class TestsAdminStatisticsMongoRepository extends TestWithMongoRepository
 
     @Test
     public void canGetAdminStatisticByMonthAndApi() {
-        AdminStatistic alchemyStat = new AdminStatistic("012012", Api.Alchemy);
+        final AdminStatistic alchemyStat = new AdminStatistic("012012", Api.Alchemy);
         entityMongoRepository.add(alchemyStat);
         entityMongoRepository.add(new AdminStatistic("012012", Api.BingSearch));
 
-        AdminStatistic adminStatistic = entityMongoRepository.byMonthAndApi("012012", Api.Alchemy);
+        final AdminStatistic adminStatistic = entityMongoRepository.byMonthAndApi("012012", Api.Alchemy);
 
         assertThat(adminStatistic, notNullValue());
         assertThat(adminStatistic.getId(), is(alchemyStat.getId()));
@@ -48,13 +48,13 @@ public class TestsAdminStatisticsMongoRepository extends TestWithMongoRepository
 
     @Test
     public void canGetAllAdminStatisticsByApi() {
-        AdminStatistic anAlchemyStat = new AdminStatistic("012012", Api.Alchemy);
+        final AdminStatistic anAlchemyStat = new AdminStatistic("012012", Api.Alchemy);
         entityMongoRepository.add(anAlchemyStat);
-        AdminStatistic anotherAlchemyStat = new AdminStatistic("022012", Api.Alchemy);
+        final AdminStatistic anotherAlchemyStat = new AdminStatistic("022012", Api.Alchemy);
         entityMongoRepository.add(anotherAlchemyStat);
         entityMongoRepository.add(new AdminStatistic("022012", Api.BingSearch));
 
-        List<AdminStatistic> adminStatistics = entityMongoRepository.getAll(Api.Alchemy);
+        final List<AdminStatistic> adminStatistics = entityMongoRepository.getAll(Api.Alchemy);
 
         assertThat(adminStatistics.size(), is(2));
         assertThat(adminStatistics, hasItem(anAlchemyStat));

@@ -23,7 +23,7 @@ public class WebApplicationTester extends ExternalResource {
         return new ClientResource(uri, application);
     }
 
-    public ClientResource newClientResource(String uri, ChallengeResponse challengeResponse) {
+    public ClientResource newClientResource(final String uri, final ChallengeResponse challengeResponse) {
         return new ClientResource(uri, application, challengeResponse);
     }
 

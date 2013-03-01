@@ -18,7 +18,7 @@ public class SitemapJob implements Job {
     public SitemapJob() {
         final SitemapProperties sitemapProperties = new SitemapProperties();
         final ContextBuilder context = new ContextBuilder("com.feelhub.repositories.mapping");
-        manager = MongoSessionManager.create(context, sitemapProperties.getDbSettings());
+        final MongoSessionManager manager = MongoSessionManager.create(context, sitemapProperties.getDbSettings());
         session = manager.createSession();
     }
 
@@ -72,7 +72,6 @@ public class SitemapJob implements Job {
         return lastBuildDate;
     }
 
-    private MongoSessionManager manager;
     private final MongoSession session;
     private static DateTime lastBuildDate = new DateTime(1L);
     private DateTime queryDate;

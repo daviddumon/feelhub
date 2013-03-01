@@ -25,7 +25,7 @@ public class Cloudinary {
     }
 
     private String getThumbnailLarge(final String source) throws Exception {
-        Map<String, String> params = Maps.newHashMap();
+        final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
         params.put("transformation", "w_272,h_168,c_fill,g_face,q_60");
         params.put("file", source);
@@ -33,7 +33,7 @@ public class Cloudinary {
     }
 
     private String getThumbnailMedium(final String source) throws Exception {
-        Map<String, String> params = Maps.newHashMap();
+        final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
         params.put("transformation", "w_135,h_168,c_fill,g_face,q_60");
         params.put("file", source);
@@ -41,7 +41,7 @@ public class Cloudinary {
     }
 
     private String getThumbnailSmall(final String source) throws Exception {
-        Map<String, String> params = Maps.newHashMap();
+        final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
         params.put("transformation", "w_90,h_56,c_fill,g_face,q_60");
         params.put("file", source);

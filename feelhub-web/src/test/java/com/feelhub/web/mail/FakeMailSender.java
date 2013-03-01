@@ -16,5 +16,5 @@ public class FakeMailSender extends MailSender {
         return messages;
     }
 
-    private List<FeelhubMail> messages = Lists.newArrayList();
+    private final List<FeelhubMail> messages = Lists.newArrayList();
 }

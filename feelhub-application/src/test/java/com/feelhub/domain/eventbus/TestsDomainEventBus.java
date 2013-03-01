@@ -1,13 +1,10 @@
 package com.feelhub.domain.eventbus;
 
-import com.feelhub.domain.feeling.Sentiment;
-import com.feelhub.domain.feeling.SentimentStatisticsEvent;
-import com.feelhub.domain.feeling.SentimentValue;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.SystemTime;
 import com.google.common.eventbus.Subscribe;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.UUID;
 

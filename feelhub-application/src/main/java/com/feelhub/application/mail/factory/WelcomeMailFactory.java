@@ -7,7 +7,7 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 
 public class WelcomeMailFactory {
-    public FeelhubMail build(User user) {
+    public FeelhubMail build(final User user) {
         return new FeelhubMail(user.getEmail(), "Welcome to Feelhub !", textContent(), htmlContent());
     }
 

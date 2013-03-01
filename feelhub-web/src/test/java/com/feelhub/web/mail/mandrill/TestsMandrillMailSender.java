@@ -32,12 +32,12 @@ public class TestsMandrillMailSender {
     public void incrementApiCallsCounter() {
         new MandrillMailSender() {
             @Override
-            protected void sendMessage(MandrillTemplateRequest message) {
+            protected void sendMessage(final MandrillTemplateRequest message) {
 
             }
         }.send(null);
 
-        ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
+        final ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
         assertThat(event).isNotNull();
         assertThat(event.getApi()).isEqualTo(Api.Mandrill);
         assertThat(event.getIncrement()).isEqualTo(1);

@@ -16,9 +16,9 @@ public class TestsWelcomeMailFactory {
 
     @Test
     public void canGetMail() {
-        User user = TestFactories.users().createActiveUser("toto@example.fr");
+        final User user = TestFactories.users().createActiveUser("toto@example.fr");
 
-        FeelhubMail mail = new WelcomeMailFactory().build(user);
+        final FeelhubMail mail = new WelcomeMailFactory().build(user);
 
         assertThat(mail).isNotNull();
         assertThat(mail.to()).isEqualTo("toto@example.fr");

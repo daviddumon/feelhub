@@ -1,12 +1,11 @@
 package com.feelhub.patch;
 
 import com.feelhub.domain.admin.AdminStatistic;
-import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.SessionProvider;
+import com.feelhub.repositories.*;
 
 public class PatchTest extends Patch {
 
-    public PatchTest(SessionProvider sessionProvider) {
+    public PatchTest(final SessionProvider sessionProvider) {
         super(sessionProvider);
     }
 
@@ -17,7 +16,7 @@ public class PatchTest extends Patch {
 
     @Override
     protected void doBusinessPatch() {
-        for(AdminStatistic stat : Repositories.adminStatistics().getAll()) {
+        for (final AdminStatistic stat : Repositories.adminStatistics().getAll()) {
             System.out.println("######PATCH TEST#######" + stat.getCount());
         }
     }

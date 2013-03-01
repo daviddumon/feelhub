@@ -1,19 +1,15 @@
 package com.feelhub.domain.scraper;
 
-import com.feelhub.domain.cloudinary.Cloudinary;
-import com.feelhub.domain.cloudinary.CloudinaryThumbnails;
+import com.feelhub.domain.cloudinary.*;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
-import com.feelhub.domain.topic.http.HttpTopicType;
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class HttpTopicAnalyzer {
 
@@ -32,7 +28,7 @@ public class HttpTopicAnalyzer {
     }
 
     public List<String> analyze(final UUID topicId) {
-        HttpTopic httpTopic = Repositories.topics().getHttpTopic(topicId);
+        final HttpTopic httpTopic = Repositories.topics().getHttpTopic(topicId);
         if (!httpTopic.getType().equals(HttpTopicType.Website)) {
             return Lists.newArrayList();
         }
@@ -64,7 +60,7 @@ public class HttpTopicAnalyzer {
     }
 
     private List<String> getMedias(final ScrapedInformation scrapedInformation) {
-        List<String> medias = Lists.newArrayList();
+        final List<String> medias = Lists.newArrayList();
         medias.addAll(scrapedInformation.getImages());
         medias.addAll(scrapedInformation.getAudios());
         medias.addAll(scrapedInformation.getImages());
@@ -79,7 +75,7 @@ public class HttpTopicAnalyzer {
         }
     }
 
-    private Scraper scraper;
-    private Cloudinary cloudinary;
+    private final Scraper scraper;
+    private final Cloudinary cloudinary;
     private final RateLimiter rateLimiter;
 }

@@ -9,7 +9,7 @@ public final class MailFactory {
 
     }
 
-    public static FeelhubMail validation(final User user, String activationUri) {
+    public static FeelhubMail validation(final User user, final String activationUri) {
         return new ValidationMailFactory().build(user, activationUri);
     }
 

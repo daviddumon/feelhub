@@ -16,7 +16,7 @@ public class ApiCallEvent extends DomainEvent {
         return new ApiCallEvent(Api.Mandrill);
     }
 
-    public static DomainEvent microsoftTranslate(int increment) {
+    public static DomainEvent microsoftTranslate(final int increment) {
         return new ApiCallEvent(Api.MicrosoftTranslate, increment);
     }
 
@@ -24,11 +24,11 @@ public class ApiCallEvent extends DomainEvent {
         return new ApiCallEvent(Api.SendGrid);
     }
 
-    private ApiCallEvent(Api api) {
+    private ApiCallEvent(final Api api) {
         this(api, 1);
     }
 
-    private ApiCallEvent(Api api, int increment) {
+    private ApiCallEvent(final Api api, final int increment) {
         this.api = api;
         this.increment = increment;
     }
@@ -50,6 +50,6 @@ public class ApiCallEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    private Api api;
-    private int increment;
+    private final Api api;
+    private final int increment;
 }

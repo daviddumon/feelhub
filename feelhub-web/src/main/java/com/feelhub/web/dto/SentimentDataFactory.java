@@ -24,7 +24,7 @@ public class SentimentDataFactory {
         return sentimentDatas;
     }
 
-    private SentimentData sentimentData(FeelhubLanguage feelhubLanguage, Sentiment sentiment) {
+    private SentimentData sentimentData(final FeelhubLanguage feelhubLanguage, final Sentiment sentiment) {
         final Topic topic = topicService.lookUpCurrent(sentiment.getTopicId());
         return sentimentData(topic, feelhubLanguage, sentiment);
     }

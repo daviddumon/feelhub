@@ -40,7 +40,7 @@ public class TopicData {
         }
 
         public Builder uris(final List<Uri> uris) {
-            for (Uri uri : uris) {
+            for (final Uri uri : uris) {
                 this.uris.add(uri.toString());
             }
             return this;
@@ -86,7 +86,7 @@ public class TopicData {
         private String name = "";
         private TopicType type = UnusableTopicTypes.None;
         private List<String> subTypes = Lists.newArrayList();
-        private List<String> uris = Lists.newArrayList();
+        private final List<String> uris = Lists.newArrayList();
         private String description = "";
         private int topicSentimentScore;
     }

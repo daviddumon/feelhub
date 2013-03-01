@@ -75,7 +75,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         }
 
         function load_data() {
-            console.log(parameter);
             var parameters = [];
             var uri = api_end_point + "?";
             if (parameter) {
@@ -87,7 +86,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                 uri += parameter.value + "&";
             });
             uri = uri.substr(0, uri.length - 1);
-            console.log(uri);
+
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {
                     $.each(data, function (index, data) {

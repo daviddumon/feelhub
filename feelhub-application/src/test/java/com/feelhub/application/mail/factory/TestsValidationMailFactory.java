@@ -16,10 +16,10 @@ public class TestsValidationMailFactory {
 
     @Test
     public void canGetMail() {
-        User user = TestFactories.users().createActiveUser("toto@example.fr");
+        final User user = TestFactories.users().createActiveUser("toto@example.fr");
         user.setFullname("a full name");
 
-        FeelhubMail mail = new ValidationMailFactory().build(user, "anUriForTest");
+        final FeelhubMail mail = new ValidationMailFactory().build(user, "anUriForTest");
 
         assertThat(mail).isNotNull();
         assertThat(mail.to()).isEqualTo("toto@example.fr");

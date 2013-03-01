@@ -1,28 +1,19 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.scraper.FakeScraper;
-import com.feelhub.domain.scraper.HttpTopicAnalyzer;
-import com.feelhub.domain.scraper.Scraper;
+import com.feelhub.domain.scraper.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.TopicIndexer;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.http.uri.FakeUriResolver;
-import com.feelhub.domain.topic.http.uri.UriResolver;
+import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.tools.FakeMongoLinkAwareExecutor;
-import com.feelhub.tools.MongoLinkAwareExecutor;
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import com.feelhub.tools.*;
+import com.google.inject.*;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import java.util.List;
@@ -43,9 +34,9 @@ public class TestsTopicService {
     @Before
     public void before() {
         final FakeUriResolver fakeUriResolver = new FakeUriResolver();
-        canonicalUri = "http://www.urlcanonique.com";
+        final String canonicalUri = "http://www.urlcanonique.com";
         fakeUriResolver.thatFind(canonicalUri);
-        injector = Guice.createInjector(new AbstractModule() {
+        final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
                 bind(UriResolver.class).toInstance(fakeUriResolver);
@@ -86,7 +77,7 @@ public class TestsTopicService {
     @Test
     public void canGetAllHttpTopics() {
         final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
         new TopicIndexer(httpTopic).index("value", FeelhubLanguage.REFERENCE);
         httpTopic.setUserId(user.getId());
 
@@ -95,7 +86,5 @@ public class TestsTopicService {
         assertThat(topics.size()).isEqualTo(1);
     }
 
-    private Injector injector;
     private TopicService topicService;
-    private String canonicalUri;
 }

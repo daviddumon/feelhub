@@ -8,7 +8,7 @@ public class EmailException extends DomainException {
         super();
     }
 
-    public EmailException(Exception e) {
+    public EmailException(final Exception e) {
         super(e);
     }
 

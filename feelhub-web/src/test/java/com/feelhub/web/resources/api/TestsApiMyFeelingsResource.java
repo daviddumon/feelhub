@@ -33,8 +33,8 @@ public class TestsApiMyFeelingsResource {
     public void before() {
         user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
-        injector = Guice.createInjector(new GuiceTestModule());
-        apiMyFeelingsResource = injector.getInstance(ApiMyFeelingsResource.class);
+        final Injector injector = Guice.createInjector(new GuiceTestModule());
+        final ApiMyFeelingsResource apiMyFeelingsResource = injector.getInstance(ApiMyFeelingsResource.class);
         ContextTestFactory.initResource(apiMyFeelingsResource);
     }
 
@@ -64,6 +64,4 @@ public class TestsApiMyFeelingsResource {
     }
 
     private User user;
-    private Injector injector;
-    private ApiMyFeelingsResource apiMyFeelingsResource;
 }

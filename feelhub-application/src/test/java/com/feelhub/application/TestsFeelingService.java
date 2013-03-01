@@ -51,8 +51,8 @@ public class TestsFeelingService {
     }
 
     private FeelingRequestEvent getEvent() {
-        topic = TestFactories.topics().newCompleteRealTopic();
-        user = TestFactories.users().createFakeActiveUser("feeling@mail.com");
+        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
+        final User user = TestFactories.users().createFakeActiveUser("feeling@mail.com");
         final FeelingRequestEvent.Builder builder = new FeelingRequestEvent.Builder();
         builder.feelingId(UUID.randomUUID());
         builder.user(user);
@@ -64,14 +64,12 @@ public class TestsFeelingService {
 
 
     public List<Sentiment> getSentiments() {
-        List<Sentiment> sentiments = Lists.newArrayList();
+        final List<Sentiment> sentiments = Lists.newArrayList();
         sentiments.add(TestFactories.sentiments().newBadSentiment());
         sentiments.add(TestFactories.sentiments().newGoodSentiment());
         sentiments.add(TestFactories.sentiments().newGoodSentiment());
         return sentiments;
     }
 
-    private User user;
-    private RealTopic topic;
     private FeelingService feelingService;
 }

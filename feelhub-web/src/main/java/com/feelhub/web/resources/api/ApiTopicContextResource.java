@@ -24,7 +24,7 @@ public class ApiTopicContextResource extends ServerResource {
     @Get
     public ModelAndView getSemanticContext() {
         final Topic topic = getTopic();
-        final Map<Tag,Topic> tagTopicMap = topicContext.extractFor(topic.getId(), CurrentUser.get().getLanguage());
+        final Map<Tag, Topic> tagTopicMap = topicContext.extractFor(topic.getId(), CurrentUser.get().getLanguage());
         return ModelAndView.createNew("api/context.json.ftl", MediaType.APPLICATION_JSON).with("contextDatas", getContextData(tagTopicMap));
     }
 
@@ -38,7 +38,7 @@ public class ApiTopicContextResource extends ServerResource {
     }
 
     private List<ContextData> getContextData(final Map<Tag, Topic> values) {
-        List<ContextData> results = Lists.newArrayList();
+        final List<ContextData> results = Lists.newArrayList();
         final Iterator<Map.Entry<Tag, Topic>> iterator = values.entrySet().iterator();
         while (iterator.hasNext()) {
             final Map.Entry<Tag, Topic> entry = iterator.next();
@@ -53,6 +53,6 @@ public class ApiTopicContextResource extends ServerResource {
         return results;
     }
 
-    private TopicService topicService;
-    private TopicContext topicContext;
+    private final TopicService topicService;
+    private final TopicContext topicContext;
 }

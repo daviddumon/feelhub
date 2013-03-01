@@ -34,7 +34,7 @@ public class ApiTopicRelatedResource extends ServerResource {
 
     private void getTopic() {
         try {
-            String topicId = getRequestAttributes().get("topicId").toString().trim();
+            final String topicId = getRequestAttributes().get("topicId").toString().trim();
             final Topic topic = topicService.lookUpCurrent(UUID.fromString(topicId));
             relatedSearch.withTopicId(topic.getCurrentId());
         } catch (TopicNotFound e) {

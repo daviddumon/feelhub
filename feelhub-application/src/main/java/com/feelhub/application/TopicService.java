@@ -1,17 +1,14 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.tag.TagNotFoundException;
+import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.TopicNotFound;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class TopicService {
 
@@ -28,7 +25,7 @@ public class TopicService {
         return topic;
     }
 
-    public Topic lookUpRealTopic(final String value, final RealTopicType type, final FeelhubLanguage language) {
+    public Topic lookUpTopic(final String value, final RealTopicType type, final FeelhubLanguage language) {
         try {
             final Tag tag = tagService.lookUp(value);
             for (final UUID id : tag.getTopicsIdFor(language)) {

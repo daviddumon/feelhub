@@ -5,9 +5,8 @@ import com.google.common.base.Objects;
 
 import java.util.UUID;
 
-public class RealTopicCreatedEvent extends DomainEvent
-{
-    public RealTopicCreatedEvent(UUID eventId) {
+public class RealTopicCreatedEvent extends DomainEvent {
+    public RealTopicCreatedEvent(final UUID eventId) {
         this.eventId = eventId;
     }
 

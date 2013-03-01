@@ -7,9 +7,8 @@ public class TestsFakeTopicRepository {
 
     @Before
     public void before() {
-        fakeKeywordRepository = new FakeTopicRepository();
+        final FakeTopicRepository fakeKeywordRepository = new FakeTopicRepository();
     }
 
 
-    private FakeTopicRepository fakeKeywordRepository;
 }

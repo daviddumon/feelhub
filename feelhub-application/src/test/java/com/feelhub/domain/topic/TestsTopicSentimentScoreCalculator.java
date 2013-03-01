@@ -2,7 +2,7 @@ package com.feelhub.domain.topic;
 
 import com.feelhub.domain.feeling.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.*;
+import com.feelhub.test.SystemTime;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.junit.*;
@@ -21,37 +21,37 @@ public class TestsTopicSentimentScoreCalculator {
 
     @Test
     public void scoreIsZeroWhenNoSentiment() {
-        TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
+        final TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
 
-        int score = calculator.sentimentScore(Lists.<Sentiment>newArrayList());
+        final int score = calculator.sentimentScore(Lists.<Sentiment>newArrayList());
 
         assertThat(score).isEqualTo(0);
     }
 
     @Test
     public void scoreIsMinus100WhenAllSentimentsAreBad() {
-        TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
-        List<Sentiment> sentiments = Lists.newArrayList(newSentiment(SentimentValue.bad, 11), newSentiment(SentimentValue.bad, 12));
+        final TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
+        final List<Sentiment> sentiments = Lists.newArrayList(newSentiment(SentimentValue.bad, 11), newSentiment(SentimentValue.bad, 12));
 
-        int score = calculator.sentimentScore(sentiments);
+        final int score = calculator.sentimentScore(sentiments);
 
         assertThat(score).isEqualTo(-100);
     }
 
     @Test
     public void scoreIs100WhenAllSentimentsAreGood() {
-        TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
-        List<Sentiment> sentiments = Lists.newArrayList(newSentiment(SentimentValue.good, 11), newSentiment(SentimentValue.good, 12));
+        final TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
+        final List<Sentiment> sentiments = Lists.newArrayList(newSentiment(SentimentValue.good, 11), newSentiment(SentimentValue.good, 12));
 
-        int score = calculator.sentimentScore(sentiments);
+        final int score = calculator.sentimentScore(sentiments);
 
         assertThat(score).isEqualTo(100);
     }
 
     @Test
     public void scoreIsPonderatedByCreationDate() {
-        TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
-        List<Sentiment> sentiments = Lists.newArrayList();
+        final TopicSentimentScoreCalculator calculator = new TopicSentimentScoreCalculator();
+        final List<Sentiment> sentiments = Lists.newArrayList();
         sentiments.add(newSentiment(SentimentValue.bad, 11));
         sentiments.add(newSentiment(SentimentValue.neutral, 12));
         sentiments.add(newSentiment(SentimentValue.bad, 13));
@@ -63,12 +63,12 @@ public class TestsTopicSentimentScoreCalculator {
         sentiments.add(newSentiment(SentimentValue.bad, 19));
         sentiments.add(newSentiment(SentimentValue.good, 20));
 
-        int score = calculator.sentimentScore(sentiments);
+        final int score = calculator.sentimentScore(sentiments);
 
         assertThat(score).isIn(Lists.newArrayList(31, 32));
     }
 
-    private Sentiment newSentiment(SentimentValue sentimentValue, long time) {
+    private Sentiment newSentiment(final SentimentValue sentimentValue, final long time) {
         systemTime.set(new DateTime(time));
         return new Sentiment(UUID.randomUUID(), sentimentValue);
     }

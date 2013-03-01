@@ -1,8 +1,7 @@
 package com.feelhub.repositories;
 
 import com.mongodb.DB;
-import org.junit.Before;
-import org.junit.Rule;
+import org.junit.*;
 import org.mongolink.MongoSession;
 import org.mongolink.test.MongolinkRule;
 

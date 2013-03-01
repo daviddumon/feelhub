@@ -95,10 +95,10 @@ class ScrapedInformation {
     protected TreeMap<Integer, String> descriptions = Maps.newTreeMap();
     protected TreeMap<Integer, String> names = Maps.newTreeMap();
     protected TreeMap<Integer, FeelhubLanguage> languages = Maps.newTreeMap();
-    private List<String> persons = Lists.newArrayList();
+    private final List<String> persons = Lists.newArrayList();
     protected HttpTopicType type = HttpTopicType.Website;
     private String openGraphType;
-    private List<String> images = Lists.newArrayList();
-    private List<String> videos = Lists.newArrayList();
-    private List<String> audios = Lists.newArrayList();
+    private final List<String> images = Lists.newArrayList();
+    private final List<String> videos = Lists.newArrayList();
+    private final List<String> audios = Lists.newArrayList();
 }

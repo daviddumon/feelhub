@@ -5,14 +5,14 @@ import org.apache.log4j.Logger;
 
 public final class Main {
 
-	private Main() {
-	}
+    private Main() {
+    }
 
-	public static void main(final String[] args) {
-		LOGGER.info("Patch begin");
+    public static void main(final String[] args) {
+        LOGGER.info("Patch begin");
         new PatchCloudinary(new SessionProvider()).execute();
-    	LOGGER.info("Patch end");
-	}
+        LOGGER.info("Patch end");
+    }
 
-	private static final Logger LOGGER = Logger.getLogger(Main.class);
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
 }

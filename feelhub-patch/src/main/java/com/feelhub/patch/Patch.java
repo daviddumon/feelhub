@@ -1,13 +1,11 @@
 package com.feelhub.patch;
 
-import com.feelhub.repositories.MongoRepositories;
-import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.SessionProvider;
+import com.feelhub.repositories.*;
 import org.apache.log4j.Logger;
 
 public abstract class Patch {
 
-    public Patch(SessionProvider sessionProvider) {
+    public Patch(final SessionProvider sessionProvider) {
         this.sessionProvider = sessionProvider;
     }
 

@@ -8,8 +8,8 @@ import java.util.List;
 public class FakeAdminStatisticsRepository extends FakeRepository<AdminStatistic> implements AdminStatisticsRepository {
 
     @Override
-    public AdminStatistic byMonthAndApi(String month, Api api) {
-        for (AdminStatistic stat : getAll()) {
+    public AdminStatistic byMonthAndApi(final String month, final Api api) {
+        for (final AdminStatistic stat : getAll()) {
             if (stat.getApi() == api && month.equals(stat.getMonth())) {
                 return stat;
             }
@@ -18,9 +18,9 @@ public class FakeAdminStatisticsRepository extends FakeRepository<AdminStatistic
     }
 
     @Override
-    public List<AdminStatistic> getAll(Api api) {
-        List<AdminStatistic> result = Lists.newArrayList();
-        for (AdminStatistic stat : getAll()) {
+    public List<AdminStatistic> getAll(final Api api) {
+        final List<AdminStatistic> result = Lists.newArrayList();
+        for (final AdminStatistic stat : getAll()) {
             if (stat.getApi() == api) {
                 result.add(stat);
             }

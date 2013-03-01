@@ -21,7 +21,7 @@ public class TestsApiFeelingSearch {
 
     @Before
     public void before() {
-        injector = Guice.createInjector(new GuiceTestModule());
+        final Injector injector = Guice.createInjector(new GuiceTestModule());
         apiFeelingSearch = injector.getInstance(ApiFeelingSearch.class);
     }
 
@@ -38,6 +38,5 @@ public class TestsApiFeelingSearch {
         assertThat(feelings.size()).isEqualTo(2);
     }
 
-    private Injector injector;
     private ApiFeelingSearch apiFeelingSearch;
 }

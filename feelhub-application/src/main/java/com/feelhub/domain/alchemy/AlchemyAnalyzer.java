@@ -3,23 +3,17 @@ package com.feelhub.domain.alchemy;
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.TopicFactory;
-import com.feelhub.domain.topic.TopicIndexer;
-import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
-import com.feelhub.domain.topic.http.HttpTopicType;
+import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.collect.*;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class AlchemyAnalyzer {
 
@@ -36,8 +30,8 @@ public class AlchemyAnalyzer {
         analyze(Repositories.topics().getHttpTopic(event.topicId));
     }
 
-    void analyze(HttpTopic httpTopic) {
-        if(httpTopic.getType() != HttpTopicType.Website) {
+    void analyze(final HttpTopic httpTopic) {
+        if (httpTopic.getType() != HttpTopicType.Website) {
             return;
         }
         LOGGER.debug(String.format("Running alchemy analysis for {%s}", httpTopic.getName(FeelhubLanguage.REFERENCE)));
@@ -74,8 +68,8 @@ public class AlchemyAnalyzer {
     }
 
     private AlchemyEntity findOrCreateAlchemyEntity(final NamedEntity namedEntity, final RealTopic realTopic) {
-        Optional<AlchemyEntity> alchemyEntityOptional = existingAlchemyEntity(realTopic.getId());
-        if(alchemyEntityOptional.isPresent()) {
+        final Optional<AlchemyEntity> alchemyEntityOptional = existingAlchemyEntity(realTopic.getId());
+        if (alchemyEntityOptional.isPresent()) {
             return alchemyEntityOptional.get();
         }
         return createAlchemyEntity(namedEntity, realTopic);
@@ -96,7 +90,7 @@ public class AlchemyAnalyzer {
     }
 
     private RealTopic lookUpOrCreateTopic(final NamedEntity namedEntity, final UUID userId) {
-        final RealTopic realTopic = (RealTopic) topicService.lookUpRealTopic(namedEntity.tags.get(0), namedEntity.type, namedEntity.feelhubLanguage);
+        final RealTopic realTopic = (RealTopic) topicService.lookUpTopic(namedEntity.tags.get(0), namedEntity.type, namedEntity.feelhubLanguage);
         if (realTopic == null) {
             return createTopic(namedEntity, userId);
         }
@@ -104,9 +98,9 @@ public class AlchemyAnalyzer {
     }
 
     private RealTopic createTopic(final NamedEntity namedEntity, final UUID userId) {
-        RealTopic realTopic = new TopicFactory().createRealTopic(namedEntity.feelhubLanguage, namedEntity.tags.get(0), namedEntity.type, userId);
+        final RealTopic realTopic = new TopicFactory().createRealTopic(namedEntity.feelhubLanguage, namedEntity.tags.get(0), namedEntity.type, userId);
         Repositories.topics().add(realTopic);
-        TopicIndexer indexer = new TopicIndexer(realTopic);
+        final TopicIndexer indexer = new TopicIndexer(realTopic);
         for (final String tag : namedEntity.tags) {
             indexer.index(tag, namedEntity.feelhubLanguage);
         }
@@ -123,6 +117,6 @@ public class AlchemyAnalyzer {
 
     private final AlchemyRelationBinder alchemyRelationBinder;
     private final NamedEntityProvider namedEntityProvider;
-    private TopicService topicService;
+    private final TopicService topicService;
     private static final Logger LOGGER = Logger.getLogger(AlchemyAnalyzer.class);
 }

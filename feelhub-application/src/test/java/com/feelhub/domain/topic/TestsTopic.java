@@ -308,7 +308,7 @@ public class TestsTopic {
         systemTime.set(new DateTime(10));
         final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
         systemTime.set(new DateTime(11));
-        Feeling feeling = TestFactories.feelings().newFeeling(topic, "aaa", SentimentValue.bad);
+        final Feeling feeling = TestFactories.feelings().newFeeling(topic, "aaa", SentimentValue.bad);
 
         final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
         sentiment.setTopicId(UUID.randomUUID());

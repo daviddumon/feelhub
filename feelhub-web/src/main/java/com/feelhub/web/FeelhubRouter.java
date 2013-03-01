@@ -56,6 +56,7 @@ public class FeelhubRouter extends Router {
         attach("/social/facebook", FacebookResource.class);
         attach("/social/welcome", SocialWelcomeResource.class);
         attach("/myfeelings", MyFeelingsResource.class);
+        attach("/bookmarklet", BookmarkletResource.class);
         attach("/", HomeResource.class);
 
         //ADMIN

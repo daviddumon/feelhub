@@ -32,7 +32,7 @@ public class TestsMailBuilder {
         mailBuilder.onActivationCreated(new ActivationCreatedEvent(user, activation));
 
         assertThat(mailSender.messages()).hasSize(1);
-        FeelhubMail mail = mailSender.messages().get(0);
+        final FeelhubMail mail = mailSender.messages().get(0);
         assertThat(mail.to()).isEqualTo(user.getEmail());
         assertThat(mail.from()).isEqualTo(FeelhubMail.DEFAULT_FROM);
         assertThat(mail.subject()).isEqualTo("Welcome to Feelhub !");
@@ -41,12 +41,12 @@ public class TestsMailBuilder {
 
     @Test
     public void canSendAnEmailOnUserCreated() {
-        User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
 
         mailBuilder.onUserCreated(new UserCreatedEvent(user));
 
         assertThat(mailSender.messages()).hasSize(1);
-        FeelhubMail mail = mailSender.messages().get(0);
+        final FeelhubMail mail = mailSender.messages().get(0);
         assertThat(mail.to()).isEqualTo(user.getEmail());
         assertThat(mail.from()).isEqualTo(FeelhubMail.DEFAULT_FROM);
         assertThat(mail.subject()).isEqualTo("Welcome to Feelhub !");
@@ -55,7 +55,7 @@ public class TestsMailBuilder {
 
     @Test
     public void dontSendAnEmailOnUserCreatedIfUserInactive() {
-        User user = TestFactories.users().createFakeUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com");
 
         mailBuilder.onUserCreated(new UserCreatedEvent(user));
 

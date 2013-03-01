@@ -1,27 +1,20 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.application.TagService;
-import com.feelhub.application.TopicService;
-import com.feelhub.application.command.Command;
-import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.*;
+import com.feelhub.application.command.*;
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.feeling.FeelingRequestEvent;
-import com.feelhub.domain.feeling.SentimentValue;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.tag.TagFactory;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.WebApplicationTester;
-import com.feelhub.web.authentification.CurrentUser;
-import com.feelhub.web.authentification.WebUser;
+import com.feelhub.web.authentification.*;
 import com.google.common.util.concurrent.Futures;
 import org.apache.http.auth.AuthenticationException;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.junit.Before;
-import org.junit.Rule;
+import org.json.*;
+import org.junit.*;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 

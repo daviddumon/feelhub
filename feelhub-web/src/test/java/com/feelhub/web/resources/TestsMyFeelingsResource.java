@@ -23,7 +23,7 @@ public class TestsMyFeelingsResource {
 
     @Before
     public void before() {
-        user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
         final Injector injector = Guice.createInjector(new GuiceTestModule());
         myFeelingsResource = injector.getInstance(MyFeelingsResource.class);
@@ -46,6 +46,5 @@ public class TestsMyFeelingsResource {
         assertThat(modelAndView.getData("locales")).isNotNull();
     }
 
-    private User user;
     private MyFeelingsResource myFeelingsResource;
 }

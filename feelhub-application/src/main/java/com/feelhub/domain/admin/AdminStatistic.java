@@ -10,7 +10,7 @@ public class AdminStatistic extends BaseEntity {
         // mongolink
     }
 
-    public AdminStatistic(String month, Api api) {
+    public AdminStatistic(final String month, final Api api) {
         this.month = month;
         this.api = api;
     }
@@ -32,11 +32,11 @@ public class AdminStatistic extends BaseEntity {
         return api;
     }
 
-    public void increment(int increment) {
+    public void increment(final int increment) {
         count += increment;
     }
 
-    private UUID id = UUID.randomUUID();
+    private final UUID id = UUID.randomUUID();
     private String month;
     private int count;
     private Api api;

@@ -61,7 +61,7 @@ public class BingLink {
     }
 
     private void addAuthorizationHeader(final URLConnection uc) {
-        String userAndKey = ":" + feelhubApplicationProperties.getBingApiKey();
+        final String userAndKey = ":" + feelhubApplicationProperties.getBingApiKey();
         uc.setRequestProperty("Authorization", "Basic " + new String(Base64.encodeBase64(userAndKey.getBytes())));
     }
 
@@ -69,7 +69,7 @@ public class BingLink {
         final List<String> links = Lists.newArrayList();
         try {
             final ObjectMapper objectMapper = new ObjectMapper();
-            BingResults bingResults = objectMapper.readValue(inputStream, BingResults.class);
+            final BingResults bingResults = objectMapper.readValue(inputStream, BingResults.class);
             for (final BingEntity result : bingResults.d.results) {
                 links.add(result.MediaUrl);
             }

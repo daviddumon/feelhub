@@ -40,7 +40,7 @@ public class TestsAdminStatisticsResource {
         final ModelAndView modelAndView = new AdminStatisticsResource().represent();
 
         assertThat(modelAndView.getData("statistics")).isNotNull();
-        List<AdminStatisticsByApi> stats = modelAndView.getData("statistics");
+        final List<AdminStatisticsByApi> stats = modelAndView.getData("statistics");
         assertThat(stats).hasSize(Api.values().length);
         assertThat(stats.get(0).getApi()).isEqualTo(Api.Alchemy);
         assertThat(stats.get(0).getStatistics()).hasSize(1);

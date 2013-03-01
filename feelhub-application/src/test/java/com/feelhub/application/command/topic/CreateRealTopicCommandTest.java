@@ -7,8 +7,7 @@ import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.UUID;
 
@@ -23,10 +22,10 @@ public class CreateRealTopicCommandTest {
     public void canCreateARealTopic() {
         final User fakeActiveUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
 
-        UUID topicId = new CreateRealTopicCommand(FeelhubLanguage.REFERENCE, "name", RealTopicType.Automobile, fakeActiveUser.getId()).execute();
+        final UUID topicId = new CreateRealTopicCommand(FeelhubLanguage.REFERENCE, "name", RealTopicType.Automobile, fakeActiveUser.getId()).execute();
 
 
-        Topic realTopic = Repositories.topics().get(topicId);
+        final Topic realTopic = Repositories.topics().get(topicId);
         assertThat(realTopic).isNotNull();
         assertThat(realTopic.getUserId()).isEqualTo(fakeActiveUser.getId());
         assertThat(realTopic.getName(FeelhubLanguage.REFERENCE)).isEqualTo("Name");

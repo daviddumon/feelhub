@@ -7,7 +7,7 @@
         </layout>
     </appender>
     <logger name="org.mongolink">
-        <level value="warn"></level>
+        <level value="error"></level>
     </logger>
     <root>
         <level value="error"/>

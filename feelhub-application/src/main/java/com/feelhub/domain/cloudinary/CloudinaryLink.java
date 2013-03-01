@@ -24,13 +24,13 @@ public class CloudinaryLink {
         cloudinaryName = feelhubApplicationProperties.getCloudinaryName();
     }
 
-    public String getIllustration(Map<String, String> params) throws IOException {
+    public String getIllustration(final Map<String, String> params) throws IOException {
         buildUploadParams(params);
-        String responseData = getResponseData(params);
+        final String responseData = getResponseData(params);
         return extractIllustrationFromJsonResponse(responseData);
     }
 
-    private void buildUploadParams(Map<String, String> params) {
+    private void buildUploadParams(final Map<String, String> params) {
         params.put("timestamp", new Long(System.currentTimeMillis() / 1000L).toString());
         try {
             params.put("signature", apiSignRequest(params));
@@ -41,16 +41,16 @@ public class CloudinaryLink {
     }
 
     private String getResponseData(final Map<String, String> params) throws IOException {
-        HttpClient client = new DefaultHttpClient();
-        HttpPost postMethod = new HttpPost(cloudinaryApiUrl());
+        final HttpClient client = new DefaultHttpClient();
+        final HttpPost postMethod = new HttpPost(cloudinaryApiUrl());
         setEntityForRequest(params, postMethod);
-        HttpResponse response = client.execute(postMethod);
+        final HttpResponse response = client.execute(postMethod);
         return readFully(response.getEntity().getContent());
     }
 
     private void setEntityForRequest(final Map<String, String> params, final HttpPost postMethod) throws UnsupportedEncodingException {
-        MultipartEntity multipart = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-        for (Map.Entry<String, String> param : params.entrySet()) {
+        final MultipartEntity multipart = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+        for (final Map.Entry<String, String> param : params.entrySet()) {
             if (StringUtils.isNotBlank(param.getValue())) {
                 multipart.addPart(param.getKey(), new StringBody(param.getValue()));
             }
@@ -58,9 +58,9 @@ public class CloudinaryLink {
         postMethod.setEntity(multipart);
     }
 
-    private static String readFully(InputStream in) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
+    private static String readFully(final InputStream in) throws IOException {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final byte[] buffer = new byte[1024];
         int length = 0;
         while ((length = in.read(buffer)) != -1) {
             baos.write(buffer, 0, length);
@@ -69,20 +69,20 @@ public class CloudinaryLink {
     }
 
     private String cloudinaryApiUrl() {
-        String cloudinary = "https://api.cloudinary.com";
-        String resource_type = "image";
+        final String cloudinary = "https://api.cloudinary.com";
+        final String resource_type = "image";
         return StringUtils.join(new String[]{cloudinary, "v1_1", cloudinaryName, resource_type, "upload"}, "/");
     }
 
-    private String apiSignRequest(Map<String, String> paramsToSign) throws NoSuchAlgorithmException {
-        String to_sign = getRequestStringToSign(paramsToSign);
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
+    private String apiSignRequest(final Map<String, String> paramsToSign) throws NoSuchAlgorithmException {
+        final String to_sign = getRequestStringToSign(paramsToSign);
+        final MessageDigest md = MessageDigest.getInstance("SHA-1");
         return Hex.encodeHexString(md.digest((to_sign + apiSecret).getBytes()));
     }
 
     private String getRequestStringToSign(final Map<String, String> paramsToSign) {
-        Collection<String> params = new ArrayList<String>();
-        for (Map.Entry<String, String> param : new TreeMap<String, String>(paramsToSign).entrySet()) {
+        final Collection<String> params = new ArrayList<String>();
+        for (final Map.Entry<String, String> param : new TreeMap<String, String>(paramsToSign).entrySet()) {
             if (StringUtils.isNotBlank(param.getValue()) && !param.getKey().equalsIgnoreCase("file")) {
                 params.add(param.getKey() + "=" + param.getValue());
             }
@@ -92,7 +92,7 @@ public class CloudinaryLink {
 
     private String extractIllustrationFromJsonResponse(final String responseData) {
         try {
-            Map<String, String> result = (Map<String, String>) JSONValue.parseWithException(responseData);
+            final Map<String, String> result = (Map<String, String>) JSONValue.parseWithException(responseData);
             if (result.containsKey("error")) {
                 throw new CloudinaryException();
             }

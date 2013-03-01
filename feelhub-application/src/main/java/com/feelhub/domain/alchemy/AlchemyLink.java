@@ -16,16 +16,16 @@ public class AlchemyLink {
     }
 
     public InputStream get(final Uri uri) {
-        InputStream inputStream = get(buildUri(uri.getValue()));
+        final InputStream inputStream = get(buildUri(uri.getValue()));
         if (inputStream != null) {
             DomainEventBus.INSTANCE.post(ApiCallEvent.alchemy());
         }
         return inputStream;
     }
 
-    protected InputStream get(String alchemyUri) {
+    protected InputStream get(final String alchemyUri) {
         try {
-            URL url = new URL(alchemyUri);
+            final URL url = new URL(alchemyUri);
             final HttpURLConnection handle = (HttpURLConnection) url.openConnection();
             handle.setDoOutput(true);
             return handle.getInputStream();

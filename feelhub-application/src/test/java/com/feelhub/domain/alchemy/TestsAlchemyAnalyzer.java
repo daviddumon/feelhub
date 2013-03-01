@@ -1,21 +1,17 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.application.TagService;
-import com.feelhub.application.TopicService;
+import com.feelhub.application.*;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.related.RelatedBuilder;
 import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.http.HttpTopicType;
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.Matchers;
 
 import java.util.List;

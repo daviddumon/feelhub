@@ -30,8 +30,8 @@ public class TestsCloudinary {
 
     @Test
     public void tryToGetThumbnailLarge() throws IOException {
-        String source = "source";
-        Map<String, String> params = Maps.newHashMap();
+        final String source = "source";
+        final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
         params.put("transformation", "w_272,h_168,c_fill,g_face,q_60");
         params.put("file", source);
@@ -43,8 +43,8 @@ public class TestsCloudinary {
 
     @Test
     public void tryToGetThumbnailMedium() throws IOException {
-        String source = "source";
-        Map<String, String> params = Maps.newHashMap();
+        final String source = "source";
+        final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
         params.put("transformation", "w_135,h_168,c_fill,g_face,q_60");
         params.put("file", source);
@@ -56,8 +56,8 @@ public class TestsCloudinary {
 
     @Test
     public void tryToGetThumbnailSmall() throws IOException {
-        String source = "source";
-        Map<String, String> params = Maps.newHashMap();
+        final String source = "source";
+        final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
         params.put("transformation", "w_90,h_56,c_fill,g_face,q_60");
         params.put("file", source);
@@ -69,10 +69,10 @@ public class TestsCloudinary {
 
     @Test
     public void returnAllThumbnails() throws IOException {
-        String source = "source";
+        final String source = "source";
         when(cloudinaryLink.getIllustration(anyMap())).thenReturn("thumbnail");
 
-        CloudinaryThumbnails cloudinaryThumbnails = cloudinary.getThumbnails(source);
+        final CloudinaryThumbnails cloudinaryThumbnails = cloudinary.getThumbnails(source);
 
         assertThat(cloudinaryThumbnails).isNotNull();
         assertThat(cloudinaryThumbnails.getThumbnailSmall()).isEqualTo("thumbnail");

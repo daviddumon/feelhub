@@ -39,7 +39,7 @@ public class FeelingData {
         }
 
         public Builder sentimentDatas(final List<SentimentData> sentimentDatas, final UUID contextId) {
-            for (SentimentData sentimentData : sentimentDatas) {
+            for (final SentimentData sentimentData : sentimentDatas) {
                 if (!sentimentData.getId().equals(contextId.toString())) {
                     this.sentimentDatas.add(sentimentData);
                 } else {

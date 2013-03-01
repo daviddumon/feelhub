@@ -2,7 +2,7 @@ package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.*;
 
 public class SentimentStatisticsEvent extends DomainEvent {
 

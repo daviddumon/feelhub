@@ -1,20 +1,13 @@
 package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.feeling.Sentiment;
-import com.feelhub.domain.feeling.SentimentStatisticsEvent;
-import com.feelhub.domain.feeling.SentimentValue;
-import com.feelhub.domain.topic.world.WorldStatisticsEvent;
-import com.feelhub.domain.topic.world.WorldTopic;
+import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.topic.world.*;
 import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.fakeRepositories.FakeStatisticsRepository;
-import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.SystemTime;
-import com.feelhub.test.TestFactories;
+import com.feelhub.repositories.fakeRepositories.*;
+import com.feelhub.test.*;
 import org.joda.time.Interval;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.List;
 

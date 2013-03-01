@@ -53,7 +53,7 @@ public class TestsFeelingData {
 
     @Test
     public void hasTopicDataList() {
-        List<SentimentData> sentimentDataList = Lists.newArrayList();
+        final List<SentimentData> sentimentDataList = Lists.newArrayList();
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
@@ -65,7 +65,7 @@ public class TestsFeelingData {
 
     @Test
     public void canSetTopicDataAndContext() {
-        List<SentimentData> sentimentDataList = Lists.newArrayList();
+        final List<SentimentData> sentimentDataList = Lists.newArrayList();
         final UUID contextId = UUID.randomUUID();
         sentimentDataList.add(new SentimentData.Builder().id(contextId).sentimentValue(SentimentValue.good).build());
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
@@ -79,7 +79,7 @@ public class TestsFeelingData {
 
     @Test
     public void feelingSentimentValueDefaultToNull() {
-        List<SentimentData> sentimentDataList = Lists.newArrayList();
+        final List<SentimentData> sentimentDataList = Lists.newArrayList();
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
         sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());

@@ -63,6 +63,6 @@ public class ApiFeelingSearch {
     }
 
     private final FeelingSearch feelingSearch;
-    private FeelingDataFactory feelingDataFactory;
+    private final FeelingDataFactory feelingDataFactory;
 
 }

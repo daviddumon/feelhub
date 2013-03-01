@@ -1,9 +1,7 @@
 package com.feelhub.repositories.fakeRepositories;
 
 import com.feelhub.repositories.SessionProvider;
-import org.mongolink.MongoSession;
-import org.mongolink.MongoSessionManager;
-import org.mongolink.Settings;
+import org.mongolink.*;
 import org.mongolink.domain.mapper.ContextBuilder;
 import org.mongolink.test.FongoDbFactory;
 
@@ -20,5 +18,5 @@ public class FakeSessionProvider extends SessionProvider {
         return sessionManager.createSession();
     }
 
-    private  MongoSessionManager sessionManager;
+    private final MongoSessionManager sessionManager;
 }

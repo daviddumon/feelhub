@@ -1,8 +1,7 @@
 package com.feelhub.domain.topic.http;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.TopicType;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import org.restlet.data.MediaType;
 
@@ -31,7 +30,7 @@ public class HttpTopic extends Topic {
     @Override
     public void addUri(final Uri uri) {
         super.addUri(uri);
-        if(getType() != HttpTopicType.Website) {
+        if (getType() != HttpTopicType.Website) {
             final String uriAsString = uri.toString();
             final int lastSlash = uriAsString.lastIndexOf("/");
             addName(FeelhubLanguage.none(), uriAsString.substring(lastSlash + 1, uriAsString.length()));

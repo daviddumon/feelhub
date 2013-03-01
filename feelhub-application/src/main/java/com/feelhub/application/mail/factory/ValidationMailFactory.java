@@ -7,21 +7,21 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 
 public class ValidationMailFactory {
-    public FeelhubMail build(User user, String activationUri) {
+    public FeelhubMail build(final User user, final String activationUri) {
         return new FeelhubMail(user.getEmail(), "Welcome to Feelhub !", textContent(user, activationUri), htmlContent(user, activationUri));
     }
 
-    private String textContent(User user, String activationUri) {
+    private String textContent(final User user, final String activationUri) {
         return new MailTemplate(ResourceUtils.resource("mail/activation-text.ftl"), MailTemplate.Format.TEXT).apply(validationData(user, activationUri));
     }
 
-    private String htmlContent(User user, String activationUri) {
+    private String htmlContent(final User user, final String activationUri) {
         return new MailTemplate(ResourceUtils.resource("mail/activation-html.ftl"), MailTemplate.Format.HTML).apply(validationData(user, activationUri));
     }
 
 
-    private Map<String, Object> validationData(User user, String activationUri) {
-        Map<String, Object> result = Maps.newHashMap();
+    private Map<String, Object> validationData(final User user, final String activationUri) {
+        final Map<String, Object> result = Maps.newHashMap();
         result.put("username", user.getFullname());
         result.put("activation_link", activationUri);
         return result;

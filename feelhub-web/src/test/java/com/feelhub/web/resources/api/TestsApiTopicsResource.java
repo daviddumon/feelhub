@@ -1,40 +1,26 @@
 package com.feelhub.web.resources.api;
 
 import com.feelhub.application.TopicService;
-import com.feelhub.application.command.Command;
-import com.feelhub.application.command.CommandBus;
-import com.feelhub.application.command.topic.CreateHttpTopicCommand;
-import com.feelhub.application.command.topic.CreateRealTopicCommand;
+import com.feelhub.application.command.*;
+import com.feelhub.application.command.topic.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.real.RealTopicType;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.ContextTestFactory;
-import com.feelhub.web.WebReferenceBuilder;
-import com.feelhub.web.authentification.AnonymousUser;
-import com.feelhub.web.authentification.CurrentUser;
-import com.feelhub.web.authentification.WebUser;
-import com.feelhub.web.dto.TopicData;
-import com.feelhub.web.dto.TopicDataFactory;
+import com.feelhub.web.*;
+import com.feelhub.web.authentification.*;
+import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Futures;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.ArgumentCaptor;
-import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Form;
-import org.restlet.data.Method;
-import org.restlet.data.Status;
+import org.restlet.*;
+import org.restlet.data.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -61,9 +47,9 @@ public class TestsApiTopicsResource {
 
         apiTopicsResource.createTopic(getGoodFormWithRealTopic());
 
-        ArgumentCaptor<CreateRealTopicCommand> captor = ArgumentCaptor.forClass(CreateRealTopicCommand.class);
+        final ArgumentCaptor<CreateRealTopicCommand> captor = ArgumentCaptor.forClass(CreateRealTopicCommand.class);
         verify(commandBus).execute(captor.capture());
-        CreateRealTopicCommand command = captor.getValue();
+        final CreateRealTopicCommand command = captor.getValue();
         assertThat(command.name).isEqualTo("name");
         assertThat(command.userID).isEqualTo(user.getId());
         assertThat(command.feelhubLanguage).isEqualTo(user.getLanguage());
@@ -73,7 +59,7 @@ public class TestsApiTopicsResource {
 
     @Test
     public void setLocationRefToNewRealTopic() {
-        UUID topicId = UUID.randomUUID();
+        final UUID topicId = UUID.randomUUID();
         when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateCheckedFuture(topicId));
 
         apiTopicsResource.createTopic(getGoodFormWithRealTopic());
@@ -130,7 +116,7 @@ public class TestsApiTopicsResource {
 
     @Test
     public void setLocationRefToNewHttpTopic() {
-        UUID id = UUID.randomUUID();
+        final UUID id = UUID.randomUUID();
         when(commandBus.execute(any(CreateHttpTopicCommand.class))).thenReturn(Futures.immediateCheckedFuture(id));
 
 
@@ -209,9 +195,9 @@ public class TestsApiTopicsResource {
 
         apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
 
-        ArgumentCaptor<CreateHttpTopicCommand> captor = ArgumentCaptor.forClass(CreateHttpTopicCommand.class);
+        final ArgumentCaptor<CreateHttpTopicCommand> captor = ArgumentCaptor.forClass(CreateHttpTopicCommand.class);
         verify(commandBus).execute(captor.capture());
-        CreateHttpTopicCommand value = captor.getValue();
+        final CreateHttpTopicCommand value = captor.getValue();
         assertThat(value.userId).isEqualTo(user.getId());
         assertThat(value.value).isEqualTo("http://www.google.fr");
     }

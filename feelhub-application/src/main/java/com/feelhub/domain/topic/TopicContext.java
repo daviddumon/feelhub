@@ -19,7 +19,7 @@ public class TopicContext {
     }
 
     public Map<Tag, Topic> extractFor(final UUID topicId, final FeelhubLanguage language) {
-        Map<Tag, Topic> results = Maps.newHashMap();
+        final Map<Tag, Topic> results = Maps.newHashMap();
         final List<Related> relatedList = Repositories.related().forTopicId(topicId);
         for (final Related related : relatedList) {
             try {
@@ -37,12 +37,12 @@ public class TopicContext {
     }
 
     private boolean isTagIndexingTopicInGoodLanguage(final FeelhubLanguage language, final Topic topic, final Tag tag) {
-        for (UUID id : tag.getTopicsIdFor(language)) {
+        for (final UUID id : tag.getTopicsIdFor(language)) {
             if (id.equals(topic.getCurrentId())) {
                 return true;
             }
         }
-        for (UUID id : tag.getTopicsIdFor(FeelhubLanguage.none())) {
+        for (final UUID id : tag.getTopicsIdFor(FeelhubLanguage.none())) {
             if (id.equals(topic.getCurrentId())) {
                 return true;
             }
@@ -50,5 +50,5 @@ public class TopicContext {
         return false;
     }
 
-    private TopicService topicService;
+    private final TopicService topicService;
 }

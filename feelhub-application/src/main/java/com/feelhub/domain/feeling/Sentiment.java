@@ -51,5 +51,5 @@ public class Sentiment {
 
     private UUID topicId;
     private SentimentValue sentimentValue;
-    private DateTime creationDate = new DateTime();
+    private final DateTime creationDate = new DateTime();
 }

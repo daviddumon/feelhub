@@ -60,7 +60,7 @@ public class ClientResource extends UniformResource {
 
     @Override
     public Representation handle() {
-        Request request = getRequest();
+        final Request request = getRequest();
         if (withSecurity()) {
             request.setChallengeResponse(challengeResponse);
         }

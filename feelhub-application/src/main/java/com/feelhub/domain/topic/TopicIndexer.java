@@ -1,14 +1,13 @@
 package com.feelhub.domain.topic;
 
-import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.tag.TagFactory;
+import com.feelhub.domain.tag.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;
 
 import java.util.UUID;
 
 public class TopicIndexer {
-    public TopicIndexer(Topic topic) {
+    public TopicIndexer(final Topic topic) {
         this.topic = topic;
     }
 
@@ -55,5 +54,5 @@ public class TopicIndexer {
         tag.addTopic(topic, language);
     }
 
-    private Topic topic;
+    private final Topic topic;
 }

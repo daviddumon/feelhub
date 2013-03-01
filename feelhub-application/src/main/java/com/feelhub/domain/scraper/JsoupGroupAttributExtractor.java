@@ -9,9 +9,9 @@ import java.util.List;
 public class JsoupGroupAttributExtractor {
 
     List<String> parse(final Document document, final String tag, final String attribut) {
-        List<String> result = Lists.newArrayList();
+        final List<String> result = Lists.newArrayList();
         final Elements elements = document.select(tag);
-        for (Element element : elements) {
+        for (final Element element : elements) {
             result.add(element.attr(attribut));
         }
         return result;

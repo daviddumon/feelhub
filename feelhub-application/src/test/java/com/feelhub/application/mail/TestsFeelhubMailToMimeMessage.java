@@ -12,10 +12,10 @@ public class TestsFeelhubMailToMimeMessage {
 
     @Test
     public void canConvert() throws MessagingException, IOException {
-        Session session = null;
-        FeelhubMail mail = new FeelhubMail("to@example.fr", "the subject", "the content", "the html content");
+        final Session session = null;
+        final FeelhubMail mail = new FeelhubMail("to@example.fr", "the subject", "the content", "the html content");
 
-        MimeMessage mimeMessage = new FeelhubMailToMimeMessage(session).toMimeMessage(mail);
+        final MimeMessage mimeMessage = new FeelhubMailToMimeMessage(session).toMimeMessage(mail);
 
         assertThat(mimeMessage).isNotNull();
         assertThat(mimeMessage.getRecipients(Message.RecipientType.TO)).hasSize(1);
@@ -24,11 +24,11 @@ public class TestsFeelhubMailToMimeMessage {
         assertThat(mimeMessage.getFrom()[0].toString()).isEqualTo("register@feelhub.com");
         assertThat(mimeMessage.getSubject()).isEqualTo("the subject");
         assertThat(mimeMessage.getContent()).isInstanceOf(Multipart.class);
-        Multipart part = (Multipart) mimeMessage.getContent();
+        final Multipart part = (Multipart) mimeMessage.getContent();
         assertThat(part.getCount()).isEqualTo(2);
-        BodyPart textBodyPart = part.getBodyPart(0);
+        final BodyPart textBodyPart = part.getBodyPart(0);
         assertThat(textBodyPart.getContent()).isEqualTo("the content");
-        BodyPart htmlBodyPart = part.getBodyPart(1);
+        final BodyPart htmlBodyPart = part.getBodyPart(1);
         assertThat(htmlBodyPart.getContent()).isEqualTo("the html content");
     }
 

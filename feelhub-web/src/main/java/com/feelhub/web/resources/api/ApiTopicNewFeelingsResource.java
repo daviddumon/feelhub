@@ -69,7 +69,7 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
         lastFeelingId = UUID.fromString(getRequestAttributes().get("feelingId").toString());
     }
 
-    private FeelingDataFactory feelingDataFactory;
+    private final FeelingDataFactory feelingDataFactory;
     private final FeelingSearch feelingSearch;
     private final TopicService topicService;
     private UUID lastFeelingId;

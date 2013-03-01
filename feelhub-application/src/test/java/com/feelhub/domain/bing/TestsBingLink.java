@@ -67,7 +67,7 @@ public class TestsBingLink {
     public void incrementStatistic() {
         bingLink.getIllustrations("banana", "fruit");
 
-        ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
+        final ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
         assertThat(event).isNotNull();
         assertThat(event.getApi()).isEqualTo(Api.BingSearch);
         assertThat(event.getIncrement()).isEqualTo(1);

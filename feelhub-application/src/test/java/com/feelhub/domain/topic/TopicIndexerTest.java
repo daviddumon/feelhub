@@ -3,13 +3,11 @@ package com.feelhub.domain.topic;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.real.RealTopicType;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.UUID;
 

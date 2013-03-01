@@ -10,7 +10,7 @@ public class BingFakeResource extends ServerResource {
 
     @Get
     public FileRepresentation represent() {
-        String query = getQuery().getFirstValue("query").trim();
+        final String query = getQuery().getFirstValue("query").trim();
         final String filename = query.replaceAll("\\'", "");
         File file = new File("feelhub-test-tools/src/main/java/com/feelhub/test/fakeResources/bing/" + filename + ".json");
         if (!file.exists()) {

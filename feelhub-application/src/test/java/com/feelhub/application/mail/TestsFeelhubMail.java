@@ -8,7 +8,7 @@ public class TestsFeelhubMail {
 
     @Test
     public void canCreate() {
-        FeelhubMail mail = new FeelhubMail("to", "title", "content", "contentHtml");
+        final FeelhubMail mail = new FeelhubMail("to", "title", "content", "contentHtml");
 
         assertThat(mail.to()).isEqualTo("to");
         assertThat(mail.subject()).isEqualTo("title");
@@ -18,7 +18,7 @@ public class TestsFeelhubMail {
 
     @Test
     public void defaultFromIsRegister() {
-        FeelhubMail mail = new FeelhubMail("to", "title", "content", "contentHtml");
+        final FeelhubMail mail = new FeelhubMail("to", "title", "content", "contentHtml");
 
         assertThat(mail.from()).isEqualTo("register@feelhub.com");
     }

@@ -30,10 +30,10 @@ public class TestsApiTopicRelatedResource {
 
     @Before
     public void before() {
-        user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
-        injector = Guice.createInjector(new GuiceTestModule());
-        apiTopicRelatedResource = injector.getInstance(ApiTopicRelatedResource.class);
+        final Injector injector = Guice.createInjector(new GuiceTestModule());
+        final ApiTopicRelatedResource apiTopicRelatedResource = injector.getInstance(ApiTopicRelatedResource.class);
         ContextTestFactory.initResource(apiTopicRelatedResource);
     }
 
@@ -176,7 +176,4 @@ public class TestsApiTopicRelatedResource {
         assertThat(topicDataAsJson.get("thumbnailSmall").toString()).isEqualTo(illustration);
     }
 
-    private User user;
-    private Injector injector;
-    private ApiTopicRelatedResource apiTopicRelatedResource;
 }

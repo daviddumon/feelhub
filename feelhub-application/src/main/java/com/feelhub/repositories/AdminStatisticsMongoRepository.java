@@ -13,7 +13,7 @@ public class AdminStatisticsMongoRepository extends BaseMongoRepository<AdminSta
     }
 
     @Override
-    public AdminStatistic byMonthAndApi(String month, Api api) {
+    public AdminStatistic byMonthAndApi(final String month, final Api api) {
         final Criteria criteria = getSession().createCriteria(AdminStatistic.class);
         criteria.add(Restrictions.equals("month", month));
         criteria.add(Restrictions.equals("api", api));
@@ -21,7 +21,7 @@ public class AdminStatisticsMongoRepository extends BaseMongoRepository<AdminSta
     }
 
     @Override
-    public List<AdminStatistic> getAll(Api api) {
+    public List<AdminStatistic> getAll(final Api api) {
         final Criteria criteria = getSession().createCriteria(AdminStatistic.class);
         criteria.add(Restrictions.equals("api", api));
         return criteria.list();

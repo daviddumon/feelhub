@@ -19,8 +19,8 @@ public class AdminApiCallsService {
         increment(event.getApi(), event.getIncrement());
     }
 
-    public void increment(Api api, int increment) {
-        String month = currentMonth();
+    public void increment(final Api api, final int increment) {
+        final String month = currentMonth();
         AdminStatistic adminStatistic = Repositories.adminStatistics().byMonthAndApi(month, api);
         if (adminStatistic == null) {
             adminStatistic = new AdminStatistic(month, api);
@@ -30,7 +30,7 @@ public class AdminApiCallsService {
     }
 
     private String currentMonth() {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("MMyyyy");
+        final DateTimeFormatter formatter = DateTimeFormat.forPattern("MMyyyy");
         return formatter.print(new DateTime());
     }
 }

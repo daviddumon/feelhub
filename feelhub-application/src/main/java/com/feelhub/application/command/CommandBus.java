@@ -2,18 +2,15 @@ package com.feelhub.application.command;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.repositories.SessionProvider;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
+import com.google.common.util.concurrent.*;
 
 import javax.inject.Inject;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class CommandBus {
 
     @Inject
-    public CommandBus(SessionProvider sessionProvider) {
+    public CommandBus(final SessionProvider sessionProvider) {
         this.sessionProvider = sessionProvider;
     }
 
@@ -36,6 +33,6 @@ public class CommandBus {
         };
     }
 
-    private SessionProvider sessionProvider;
+    private final SessionProvider sessionProvider;
     public static final ListeningExecutorService EXECUTOR_SERVICE = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
 }

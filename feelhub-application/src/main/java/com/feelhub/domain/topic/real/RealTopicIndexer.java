@@ -15,15 +15,15 @@ public class RealTopicIndexer {
     }
 
     @Subscribe
-    public void handle(RealTopicCreatedEvent event) {
+    public void handle(final RealTopicCreatedEvent event) {
         index(Repositories.topics().getRealTopic(event.eventId));
     }
 
 
-    public void index(RealTopic topic) {
-        TopicIndexer topicIndexer = new TopicIndexer(topic);
-        Map<String,String> names = topic.getNames();
-        for (String language : names.keySet()) {
+    public void index(final RealTopic topic) {
+        final TopicIndexer topicIndexer = new TopicIndexer(topic);
+        final Map<String, String> names = topic.getNames();
+        for (final String language : names.keySet()) {
             topicIndexer.index(topic.getName(FeelhubLanguage.fromCode(language)), FeelhubLanguage.fromCode(language));
         }
     }

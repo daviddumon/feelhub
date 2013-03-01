@@ -1,12 +1,11 @@
 package com.feelhub.patch;
 
 import com.feelhub.domain.user.User;
-import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.SessionProvider;
+import com.feelhub.repositories.*;
 
-public class FakePatch extends Patch{
+public class FakePatch extends Patch {
 
-    public FakePatch(SessionProvider sessionProvider) {
+    public FakePatch(final SessionProvider sessionProvider) {
         super(sessionProvider);
     }
 

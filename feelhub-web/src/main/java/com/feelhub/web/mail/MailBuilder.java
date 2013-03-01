@@ -18,7 +18,7 @@ public class MailBuilder {
     }
 
     @Subscribe
-    public void onActivationCreated(ActivationCreatedEvent event) {
+    public void onActivationCreated(final ActivationCreatedEvent event) {
         mailSender.send(MailFactory.validation(event.getUser(), new WebReferenceBuilder(context).buildUri("/activation/" + event.getActivation().getId())));
     }
 
@@ -33,6 +33,6 @@ public class MailBuilder {
         this.context = context;
     }
 
-    private MailSender mailSender;
+    private final MailSender mailSender;
     private Context context;
 }

@@ -47,5 +47,5 @@ public class MediaBuilder {
     }
 
     private final MediaFactory mediaFactory;
-    private RelatedFactory relatedFactory;
+    private final RelatedFactory relatedFactory;
 }

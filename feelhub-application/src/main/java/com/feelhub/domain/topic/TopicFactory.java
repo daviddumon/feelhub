@@ -2,14 +2,9 @@ package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
-import com.feelhub.domain.topic.http.uri.ResolverResult;
-import com.feelhub.domain.topic.http.uri.Uri;
-import com.feelhub.domain.topic.http.uri.UriResolver;
-import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.real.RealTopicCreatedEvent;
-import com.feelhub.domain.topic.real.RealTopicType;
+import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.http.uri.*;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.domain.topic.world.WorldTopic;
 import org.restlet.data.MediaType;
 
@@ -17,7 +12,7 @@ import java.util.UUID;
 
 public class TopicFactory {
 
-    public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType type, UUID userID) {
+    public RealTopic createRealTopic(final FeelhubLanguage feelhubLanguage, final String name, final RealTopicType type, final UUID userID) {
         final UUID id = UUID.randomUUID();
         final RealTopic realTopic = new RealTopic(id, type);
         realTopic.setUserId(userID);
@@ -30,7 +25,7 @@ public class TopicFactory {
         return new WorldTopic(UUID.randomUUID());
     }
 
-    public HttpTopic createHttpTopicWithMediaType(final String value, final MediaType restrictedType, UriResolver uriResolver) {
+    public HttpTopic createHttpTopicWithMediaType(final String value, final MediaType restrictedType, final UriResolver uriResolver) {
         final ResolverResult resolverResult = uriResolver.resolve(new Uri(value));
         if (restrictedType != null) {
             checkMediaType(resolverResult, restrictedType);
@@ -47,16 +42,16 @@ public class TopicFactory {
         }
     }
 
-    public HttpTopic createHttpTopic(String value, UUID userId, UriResolver resolver) {
+    public HttpTopic createHttpTopic(final String value, final UUID userId, final UriResolver resolver) {
         final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
         httpTopic.setUserId(userId);
-        Uri uri = new Uri(value);
+        final Uri uri = new Uri(value);
         fillHttpTopicDatas(resolver, httpTopic, uri);
         return httpTopic;
     }
 
-    private void fillHttpTopicDatas(UriResolver resolver, HttpTopic httpTopic, Uri uri) {
-        ResolverResult resolverResult = resolver.resolve(uri);
+    private void fillHttpTopicDatas(final UriResolver resolver, final HttpTopic httpTopic, final Uri uri) {
+        final ResolverResult resolverResult = resolver.resolve(uri);
         httpTopic.addUri(getCanonical(resolverResult));
         DomainEventBus.INSTANCE.post(new HttpTopicCreatedEvent(httpTopic.getId(), resolverResult));
     }

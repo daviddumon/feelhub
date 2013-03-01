@@ -5,11 +5,11 @@ import javax.mail.internet.*;
 
 public class FeelhubMailToMimeMessage {
 
-    public FeelhubMailToMimeMessage(Session mailSession) {
+    public FeelhubMailToMimeMessage(final Session mailSession) {
         this.mailSession = mailSession;
     }
 
-    public MimeMessage toMimeMessage(FeelhubMail mail) {
+    public MimeMessage toMimeMessage(final FeelhubMail mail) {
         final MimeMessage mimeMessage = new MimeMessage(mailSession);
         try {
             mimeMessage.setFrom(new InternetAddress(mail.from()));

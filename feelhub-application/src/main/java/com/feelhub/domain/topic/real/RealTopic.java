@@ -2,8 +2,7 @@ package com.feelhub.domain.topic.real;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.TopicType;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.translation.ReferenceTranslationRequestEvent;
 
 import java.util.UUID;

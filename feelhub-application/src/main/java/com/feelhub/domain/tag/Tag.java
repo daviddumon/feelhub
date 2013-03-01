@@ -39,8 +39,8 @@ public class Tag extends BaseEntity {
     }
 
     public List<UUID> getTopicsIdFor(final FeelhubLanguage language) {
-        List<UUID> results = Lists.newArrayList();
-        for (TagItem item : topicIds) {
+        final List<UUID> results = Lists.newArrayList();
+        for (final TagItem item : topicIds) {
             if (item.getLanguageCode().equals(language.getCode())) {
                 results.add(item.getId());
             }
@@ -49,5 +49,5 @@ public class Tag extends BaseEntity {
     }
 
     private String id;
-    private List<TagItem> topicIds = Lists.newArrayList();
+    private final List<TagItem> topicIds = Lists.newArrayList();
 }

@@ -39,7 +39,7 @@ public class TestsTopicContext {
         TestFactories.related().newRelated(topic1.getId(), topic2.getId());
         TestFactories.related().newRelated(topic1.getId(), topic3.getId());
 
-        final Map<Tag,Topic> tagTopicMap = topicContext.extractFor(topic1.getId(), FeelhubLanguage.reference());
+        final Map<Tag, Topic> tagTopicMap = topicContext.extractFor(topic1.getId(), FeelhubLanguage.reference());
 
         assertThat(tagTopicMap.size()).isEqualTo(3);
         assertThat(tagTopicMap.keySet()).contains(value1);

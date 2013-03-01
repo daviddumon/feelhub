@@ -1,20 +1,15 @@
 package com.feelhub.domain.bing;
 
-import com.feelhub.domain.cloudinary.Cloudinary;
-import com.feelhub.domain.cloudinary.FakeCloudinaryLink;
+import com.feelhub.domain.cloudinary.*;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicType;
-import com.feelhub.domain.topic.http.uri.FakeUriResolver;
-import com.feelhub.domain.topic.http.uri.Uri;
-import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.real.RealTopicType;
+import com.feelhub.domain.topic.http.uri.*;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.restlet.data.MediaType;
 
 import java.util.UUID;

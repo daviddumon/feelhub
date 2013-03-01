@@ -31,10 +31,10 @@ public class TestsApiTopicMediasResource {
 
     @Before
     public void before() {
-        user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
-        injector = Guice.createInjector(new GuiceTestModule());
-        apiTopicMediasResource = injector.getInstance(ApiTopicMediasResource.class);
+        final Injector injector = Guice.createInjector(new GuiceTestModule());
+        final ApiTopicMediasResource apiTopicMediasResource = injector.getInstance(ApiTopicMediasResource.class);
         ContextTestFactory.initResource(apiTopicMediasResource);
     }
 
@@ -177,7 +177,4 @@ public class TestsApiTopicMediasResource {
         assertThat(topicDataAsJson.get("thumbnailSmall").toString()).isEqualTo(illustration);
     }
 
-    private User user;
-    private Injector injector;
-    private ApiTopicMediasResource apiTopicMediasResource;
 }

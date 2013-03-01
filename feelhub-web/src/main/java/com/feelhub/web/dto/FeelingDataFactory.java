@@ -50,5 +50,5 @@ public class FeelingDataFactory {
         return builder.build();
     }
 
-    private SentimentDataFactory sentimentDataFactory;
+    private final SentimentDataFactory sentimentDataFactory;
 }

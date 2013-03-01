@@ -1,9 +1,9 @@
 package com.feelhub.sitemap.web;
 
-import com.google.inject.*;
 import com.feelhub.sitemap.application.SitemapScheduler;
 import com.feelhub.sitemap.guice.SitemapModule;
 import com.feelhub.sitemap.tools.SitemapProperties;
+import com.google.inject.*;
 import freemarker.template.*;
 import org.restlet.*;
 
@@ -18,7 +18,7 @@ public class SitemapApplication extends Application {
 
     @Override
     public synchronized void start() throws Exception {
-        sitemapScheduler = injector.getInstance(SitemapScheduler.class);
+        final SitemapScheduler sitemapScheduler = injector.getInstance(SitemapScheduler.class);
         sitemapProperties = new SitemapProperties();
         initFreemarkerConfiguration();
         sitemapScheduler.initialize();
@@ -49,5 +49,4 @@ public class SitemapApplication extends Application {
 
     private SitemapProperties sitemapProperties;
     private Injector injector = Guice.createInjector(new SitemapModule());
-    private SitemapScheduler sitemapScheduler;
 }

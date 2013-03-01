@@ -1,18 +1,12 @@
 package com.feelhub.domain.bing;
 
-import com.feelhub.domain.cloudinary.Cloudinary;
-import com.feelhub.domain.cloudinary.CloudinaryException;
-import com.feelhub.domain.cloudinary.CloudinaryThumbnails;
+import com.feelhub.domain.cloudinary.*;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.TopicException;
-import com.feelhub.domain.topic.TopicFactory;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.http.uri.UriException;
-import com.feelhub.domain.topic.http.uri.UriResolver;
-import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.real.RealTopicCreatedEvent;
+import com.feelhub.domain.topic.http.uri.*;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
@@ -34,13 +28,13 @@ public class BingSearch {
     }
 
     @Subscribe
-    public void onRealTopicCreated(RealTopicCreatedEvent event) {
+    public void onRealTopicCreated(final RealTopicCreatedEvent event) {
         rateLimiter.acquire();
-        RealTopic realTopic = Repositories.topics().getRealTopic(event.eventId);
+        final RealTopic realTopic = Repositories.topics().getRealTopic(event.eventId);
         doBingSearch(realTopic, realTopic.getName(FeelhubLanguage.none()));
     }
 
-    void doBingSearch(Topic topic, String query) {
+    void doBingSearch(final Topic topic, final String query) {
         final List<HttpTopic> images = getImages(topic, query);
         topic.setIllustrations(images);
         bingRelationBinder.bind(topic, images);

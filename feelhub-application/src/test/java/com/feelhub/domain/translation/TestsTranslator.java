@@ -59,13 +59,13 @@ public class TestsTranslator {
 
         translator.onTranslationRequest(referenceTranslationRequestEvent);
 
-        ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
+        final ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
         assertThat(event).isNotNull();
         assertThat(event.getApi()).isEqualTo(Api.MicrosoftTranslate);
         assertThat(event.getIncrement()).isEqualTo(7);
     }
 
-    private ReferenceTranslationRequestEvent getEvent(RealTopic realTopic) {
+    private ReferenceTranslationRequestEvent getEvent(final RealTopic realTopic) {
         return new ReferenceTranslationRequestEvent(realTopic, FeelhubLanguage.fromCode("fr"), "name-fr");
     }
 

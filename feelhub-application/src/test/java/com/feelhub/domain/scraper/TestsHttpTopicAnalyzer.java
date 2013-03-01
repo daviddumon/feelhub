@@ -1,21 +1,13 @@
 package com.feelhub.domain.scraper;
 
-import com.feelhub.domain.cloudinary.CloudinaryLink;
-import com.feelhub.domain.cloudinary.FakeCloudinaryLink;
+import com.feelhub.domain.cloudinary.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.http.HttpTopicType;
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.FakeInternet;
-import com.feelhub.test.TestFactories;
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import com.feelhub.test.*;
+import com.google.inject.*;
+import org.junit.*;
 
 import java.util.List;
 
@@ -31,7 +23,7 @@ public class TestsHttpTopicAnalyzer {
 
     @Before
     public void before() {
-        injector = Guice.createInjector(new AbstractModule() {
+        final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
                 bind(CloudinaryLink.class).to(FakeCloudinaryLink.class);
@@ -114,5 +106,4 @@ public class TestsHttpTopicAnalyzer {
     }
 
     private HttpTopicAnalyzer httpTopicAnalyzer;
-    private Injector injector;
 }

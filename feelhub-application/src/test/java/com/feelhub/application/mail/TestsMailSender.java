@@ -17,11 +17,11 @@ public class TestsMailSender {
 
     @Test
     public void incrementStatistic() {
-        MailSender mailSender = mailSender();
+        final MailSender mailSender = mailSender();
 
         mailSender.send(new FeelhubMail("charles@arpinum.fr", "subject", "content", "content"));
 
-        ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
+        final ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
         assertThat(event).isNotNull();
         assertThat(event.getApi()).isEqualTo(Api.SendGrid);
         assertThat(event.getIncrement()).isEqualTo(1);
@@ -30,7 +30,7 @@ public class TestsMailSender {
     private MailSender mailSender() {
         return new MailSender() {
             @Override
-            protected void sendMimeMessage(MimeMessage mimeMessage) throws MessagingException {
+            protected void sendMimeMessage(final MimeMessage mimeMessage) throws MessagingException {
 
             }
         };

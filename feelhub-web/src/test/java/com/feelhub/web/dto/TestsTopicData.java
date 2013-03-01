@@ -137,8 +137,8 @@ public class TestsTopicData {
 
         final TopicData topicData = new TopicData.Builder().uris(httpTopic.getUris()).build();
 
-        List<String> uris = Lists.newArrayList();
-        for (Uri uri : httpTopic.getUris()) {
+        final List<String> uris = Lists.newArrayList();
+        for (final Uri uri : httpTopic.getUris()) {
             uris.add(uri.toString());
         }
         assertThat(topicData.getUris()).isEqualTo(uris);

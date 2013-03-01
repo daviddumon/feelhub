@@ -3,8 +3,7 @@ package com.feelhub.application.command.topic;
 import com.feelhub.application.command.Command;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.TopicFactory;
-import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.real.RealTopicType;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
 
 import java.util.UUID;

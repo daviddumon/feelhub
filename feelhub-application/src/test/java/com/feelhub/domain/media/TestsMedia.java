@@ -23,7 +23,7 @@ public class TestsMedia {
             protected void configure() {
             }
         });
-        mediaFactory = injector.getInstance(MediaFactory.class);
+        final MediaFactory mediaFactory = injector.getInstance(MediaFactory.class);
         from = TestFactories.topics().newCompleteRealTopic();
         to = TestFactories.topics().newCompleteRealTopic();
         media = mediaFactory.newMedia(from, to);
@@ -42,5 +42,4 @@ public class TestsMedia {
     private Media media;
     private Topic to;
     private Topic from;
-    private MediaFactory mediaFactory;
 }

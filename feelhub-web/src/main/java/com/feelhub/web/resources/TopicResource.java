@@ -27,7 +27,7 @@ public class TopicResource extends ServerResource {
     public ModelAndView getTopic() {
         final Topic topic = topicService.lookUp(extractUriValueFromUri());
         if (checkCurrent(topic)) {
-            TopicData topicData = topicDataFactory.topicData(topic, CurrentUser.get().getLanguage());
+            final TopicData topicData = topicDataFactory.topicData(topic, CurrentUser.get().getLanguage());
             return ModelAndView.createNew("topic.ftl")
                     .with("topicData", topicData)
                     .with("locales", FeelhubLanguage.availables())

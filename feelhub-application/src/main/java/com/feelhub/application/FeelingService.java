@@ -25,7 +25,7 @@ public class FeelingService {
     private Feeling buildFeeling(final FeelingRequestEvent feelingRequestEvent) {
         final Feeling feeling = feelingFactory.createFeeling(feelingRequestEvent.getFeelingId(), feelingRequestEvent.getText(), feelingRequestEvent.getUserId());
         feeling.setLanguageCode(feelingRequestEvent.getLanguage().getCode());
-        for (Sentiment sentiment : feelingRequestEvent.getSentiments()) {
+        for (final Sentiment sentiment : feelingRequestEvent.getSentiments()) {
             feeling.addSentiment(sentiment);
         }
         return feeling;

@@ -2,8 +2,8 @@ package com.feelhub.domain.topic.world;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.feeling.*;
-import com.feelhub.repositories.*;
-import com.feelhub.repositories.fakeRepositories.*;
+import com.feelhub.repositories.Repositories;
+import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.inject.*;
 import org.junit.*;

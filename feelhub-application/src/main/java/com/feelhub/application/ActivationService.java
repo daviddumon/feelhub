@@ -20,7 +20,7 @@ public class ActivationService {
         createActivation(event.getUser());
     }
 
-    void createActivation(User user) {
+    void createActivation(final User user) {
         if (user.isActive()) {
             return;
         }
