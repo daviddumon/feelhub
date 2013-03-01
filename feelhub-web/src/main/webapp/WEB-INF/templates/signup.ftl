@@ -45,10 +45,10 @@
     <div class="holder">
         <a id="signup_submit" href="" class="call-to-action">SIGNUP</a>
 
-        <div class="social">or</div>
-        <a href="${facebookUrl}" class="facebook_login">
-            <img src="${root}/static/images/facebook_login.png"/>
-        </a>
+        <#--<div class="social">or</div>-->
+        <#--<a href="${facebookUrl}" class="facebook_login">-->
+            <#--<img src="${root}/static/images/facebook_login.png"/>-->
+        <#--</a>-->
     </div>
 </form>
 </@noflow.body>
