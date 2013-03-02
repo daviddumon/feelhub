@@ -5,8 +5,13 @@ import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.TopicIndexer;
 import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopicCreatedEvent;
+import com.feelhub.repositories.Repositories;
+import com.google.common.collect.Iterables;
 import com.google.common.eventbus.Subscribe;
 import com.memetix.mst.translate.Translate;
+
+import java.util.Map;
 
 public class Translator {
 
@@ -17,15 +22,23 @@ public class Translator {
     }
 
     @Subscribe
-    public void onTranslationRequest(final ReferenceTranslationRequestEvent referenceTranslationRequestEvent) {
-        final RealTopic realTopic = referenceTranslationRequestEvent.getRealTopic();
-        final FeelhubLanguage feelhubLanguage = referenceTranslationRequestEvent.getFeelhubLanguage();
-        final String name = referenceTranslationRequestEvent.getName();
+    public void onTranslationRequest(final RealTopicCreatedEvent event) {
+        final RealTopic realTopic = Repositories.topics().getRealTopic(event.eventId);
+        translateReference(realTopic);
+
+    }
+
+    void translateReference(RealTopic realTopic) {
+        if (!realTopic.mustTranslate()) {
+            return;
+        }
+        Map.Entry<String, String> nameAndLanguage = Iterables.get(realTopic.getNames().entrySet(), 0);
+        final FeelhubLanguage feelhubLanguage = FeelhubLanguage.fromCode(nameAndLanguage.getKey());
+        final String name = nameAndLanguage.getValue();
         final String referenceDescription = translateToReference(name, feelhubLanguage);
         DomainEventBus.INSTANCE.post(ApiCallEvent.microsoftTranslate(name.length()));
         realTopic.addName(FeelhubLanguage.reference(), referenceDescription);
         new TopicIndexer(realTopic).index(referenceDescription, FeelhubLanguage.reference());
-
     }
 
     protected String translateToReference(final String value, final FeelhubLanguage feelhubLanguage) {

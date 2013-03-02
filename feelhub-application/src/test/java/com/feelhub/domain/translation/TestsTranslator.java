@@ -35,19 +35,19 @@ public class TestsTranslator {
     @Test
     public void translateOnTranslationRequest() {
         final RealTopic realTopic = TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary);
-        final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = getEvent(realTopic);
+        realTopic.addName(FeelhubLanguage.fromCode("fr"), "test");
 
-        DomainEventBus.INSTANCE.post(referenceTranslationRequestEvent);
+        translator.translateReference(realTopic);
 
-        assertThat(realTopic.getNames().size()).isEqualTo(1);
+        assertThat(realTopic.getNames().size()).isEqualTo(2);
     }
 
     @Test
     public void addTagsForTranslation() {
         final RealTopic realTopic = TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary);
-        final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = getEvent(realTopic);
+        realTopic.addName(FeelhubLanguage.fromCode("fr"), "test");
 
-        DomainEventBus.INSTANCE.post(referenceTranslationRequestEvent);
+        translator.translateReference(realTopic);
 
         assertThat(Repositories.tags().getAll().size()).isEqualTo(1);
         assertThat(Repositories.tags().getAll().get(0).getTopicsIdFor(FeelhubLanguage.reference())).contains(realTopic.getId());
@@ -55,18 +55,15 @@ public class TestsTranslator {
 
     @Test
     public void incrementApiCallsCounter() {
-        final ReferenceTranslationRequestEvent referenceTranslationRequestEvent = getEvent(TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary));
+        RealTopic topic = TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary);
+        topic.addName(FeelhubLanguage.fromCode("fr"), "test");
 
-        translator.onTranslationRequest(referenceTranslationRequestEvent);
+        translator.translateReference(topic);
 
         final ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
         assertThat(event).isNotNull();
         assertThat(event.getApi()).isEqualTo(Api.MicrosoftTranslate);
-        assertThat(event.getIncrement()).isEqualTo(7);
-    }
-
-    private ReferenceTranslationRequestEvent getEvent(final RealTopic realTopic) {
-        return new ReferenceTranslationRequestEvent(realTopic, FeelhubLanguage.fromCode("fr"), "name-fr");
+        assertThat(event.getIncrement()).isEqualTo(4);
     }
 
 }

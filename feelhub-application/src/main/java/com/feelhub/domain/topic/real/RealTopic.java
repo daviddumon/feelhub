@@ -1,9 +1,9 @@
 package com.feelhub.domain.topic.real;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.*;
-import com.feelhub.domain.translation.ReferenceTranslationRequestEvent;
+import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.TopicType;
+import com.google.common.base.Strings;
 
 import java.util.UUID;
 
@@ -30,21 +30,18 @@ public class RealTopic extends Topic {
     @Override
     public void addName(final FeelhubLanguage feelhubLanguage, final String name) {
         super.addName(feelhubLanguage, name);
-        findReference(feelhubLanguage, name);
     }
 
-    private void findReference(final FeelhubLanguage feelhubLanguage, final String name) {
-        if (getRealTopicType().isTranslatable() && needReference() && !feelhubLanguage.isNone()) {
-            addReferenceName(feelhubLanguage, name);
-        }
-    }
-
-    private RealTopicType getRealTopicType() {
+    public RealTopicType getRealTopicType() {
         return RealTopicType.valueOf(typeValue);
     }
 
-    private void addReferenceName(final FeelhubLanguage feelhubLanguage, final String name) {
-        DomainEventBus.INSTANCE.post(new ReferenceTranslationRequestEvent(this, feelhubLanguage, name));
+    public boolean mustTranslate() {
+        return getRealTopicType().isTranslatable() && needReference() && !names.isEmpty() && !onlyHasNoneLanguageName();
+    }
+
+    private boolean onlyHasNoneLanguageName() {
+        return names.size() == 1 && !Strings.isNullOrEmpty(names.get(FeelhubLanguage.none().getCode()));
     }
 
     private boolean needReference() {

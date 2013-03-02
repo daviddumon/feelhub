@@ -1,6 +1,7 @@
 package com.feelhub.domain.admin;
 
 import com.feelhub.domain.eventbus.DomainEvent;
+import com.google.common.base.Objects;
 
 public class ApiCallEvent extends DomainEvent {
 
@@ -43,11 +44,7 @@ public class ApiCallEvent extends DomainEvent {
 
     @Override
     public String toString() {
-        final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(date.toString());
-        stringBuilder.append(" - ");
-        stringBuilder.append(getClass().getSimpleName() + " ");
-        return stringBuilder.toString();
+        return Objects.toStringHelper(this).add("Date", date).toString();
     }
 
     private final Api api;
