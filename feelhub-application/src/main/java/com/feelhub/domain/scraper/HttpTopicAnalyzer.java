@@ -22,14 +22,14 @@ public class HttpTopicAnalyzer {
     }
 
     @Subscribe
-    public void onHttpTopicAnalyzeRequest(final HttpTopicCreatedEvent event) {
+    public void onHttpTopicCreated(final HttpTopicCreatedEvent event) {
         rateLimiter.acquire();
         analyze(event.topicId);
     }
 
     public List<String> analyze(final UUID topicId) {
         final HttpTopic httpTopic = Repositories.topics().getHttpTopic(topicId);
-        if (!httpTopic.getType().equals(HttpTopicType.Website)) {
+        if (!HttpTopicType.Website.equals(httpTopic.getType())) {
             return Lists.newArrayList();
         }
         final ScrapedInformation scrapedInformation = scraper.scrap(getCanonical(httpTopic));
