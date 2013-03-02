@@ -1,5 +1,6 @@
 package com.feelhub.web.guice;
 
+import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.mail.MailSender;
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.bing.*;
@@ -14,6 +15,7 @@ import com.feelhub.web.mail.FakeMailSender;
 import com.feelhub.web.search.*;
 import com.feelhub.web.search.fake.*;
 import com.feelhub.web.tools.FeelhubSitemapModuleLink;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.google.inject.*;
 import com.google.inject.name.Names;
 
@@ -39,6 +41,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(BingLink.class).to(FakeBingLink.class);
         bind(MailSender.class).to(FakeMailSender.class);
         bind(CloudinaryLink.class).to(FakeCloudinaryLink.class);
+        bind(CommandBus.class).toInstance(new CommandBus(MoreExecutors.sameThreadExecutor()));
     }
 
     private Properties properties() {
