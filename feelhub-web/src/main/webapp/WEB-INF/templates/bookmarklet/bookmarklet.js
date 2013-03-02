@@ -4,7 +4,7 @@
             throw(0);
         }
         if (document.location.href != 'about:blank') {
-            var url = '${root}/search?q=' + encodeURIComponent(document.location.href);
+            var url = '${root}/bookmarklet?q=' + encodeURIComponent(document.location.href);
             if (!window.open(url)) {
                 location.href = url;
             }
