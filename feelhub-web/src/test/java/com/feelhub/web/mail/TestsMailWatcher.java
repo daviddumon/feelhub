@@ -2,6 +2,8 @@ package com.feelhub.web.mail;
 
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.activation.Activation;
+import com.feelhub.domain.user.activation.ActivationCreatedEvent;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.mail.mandrill.*;
@@ -33,12 +35,12 @@ public class TestsMailWatcher {
         final User user = TestFactories.users().createActiveUser("test@test.com");
         final Activation activation = new Activation(user);
 
-        DomainEventBus.INSTANCE.post(new ActivationCreatedEvent(user, activation));
+        DomainEventBus.INSTANCE.post(new ActivationCreatedEvent(user.getId(), activation.getId()));
 
         final ArgumentCaptor<MandrillTemplateRequest> captor = ArgumentCaptor.forClass(MandrillTemplateRequest.class);
         verify(mailSender).send(captor.capture());
         final MandrillTemplateRequest request = captor.getValue();
-        assertThat(request.template_name).isEqualTo("Activation");
+        assertThat(request.template_name).isEqualTo("activation");
         assertThat(request.message.to).hasSize(1);
         assertThat(request.message.subject).isEqualTo("Welcome to Feelhub !");
         final MandrillRecipient recipient = request.message.to.get(0);

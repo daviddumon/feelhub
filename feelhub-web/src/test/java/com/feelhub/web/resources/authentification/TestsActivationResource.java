@@ -1,10 +1,17 @@
 package com.feelhub.web.resources.authentification;
 
-import com.feelhub.application.ActivationService;
+import com.feelhub.application.command.Command;
+import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.user.activation.ConfirmActivationCommand;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.web.*;
+import com.feelhub.web.ClientResource;
+import com.feelhub.web.ContextTestFactory;
+import com.feelhub.web.WebApplicationTester;
 import com.feelhub.web.representation.ModelAndView;
-import org.junit.*;
+import com.google.common.util.concurrent.Futures;
+import org.junit.Rule;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.restlet.data.Status;
 
 import java.util.UUID;
@@ -22,15 +29,19 @@ public class TestsActivationResource {
 
     @Test
     public void canConfirm() {
-        final ActivationService activationService = mock(ActivationService.class);
-        final ActivationResource resource = new ActivationResource(activationService);
+        CommandBus bus = mock(CommandBus.class);
+        when(bus.execute(any(Command.class))).thenReturn(Futures.immediateFuture(null));
+        final ActivationResource resource = new ActivationResource(bus);
         ContextTestFactory.initResource(resource);
         final UUID uuid = UUID.randomUUID();
         resource.getRequest().getAttributes().put("secret", uuid.toString());
 
         final ModelAndView view = resource.confirm();
 
-        verify(activationService).confirm(uuid);
+
+        ArgumentCaptor<ConfirmActivationCommand> captor = ArgumentCaptor.forClass(ConfirmActivationCommand.class);
+        verify(bus).execute(captor.capture());
+        assertThat(captor.getValue().activationId).isEqualTo(uuid);
         assertThat(view.getTemplate()).isEqualTo("activation.ftl");
     }
 

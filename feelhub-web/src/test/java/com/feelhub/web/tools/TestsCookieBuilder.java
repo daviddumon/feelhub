@@ -77,9 +77,9 @@ public class TestsCookieBuilder {
 
     @Test
     public void canCreateEraseIdCookie() {
-        final CookieSetting cookie = new CookieBuilder(new FeelhubWebProperties()).eraseIdCookie("userId");
+        final CookieSetting cookie = new CookieBuilder(new FeelhubWebProperties()).eraseIdCookie("activationId");
 
-        assertThat(cookie.getValue()).isEqualTo("userId");
+        assertThat(cookie.getValue()).isEqualTo("activationId");
         assertThat(cookie.getName()).isEqualTo("id");
         assertThat(cookie.getMaxAge()).isEqualTo(0);
     }

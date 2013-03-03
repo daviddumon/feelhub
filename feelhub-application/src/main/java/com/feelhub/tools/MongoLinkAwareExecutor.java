@@ -31,8 +31,8 @@ public class MongoLinkAwareExecutor extends AbstractExecutorService {
                     runnable.run();
                 } finally {
                     LOGGER.debug("Stopping session for async service");
-                    DomainEventBus.INSTANCE.propagate();
                     sessionProvider.stop();
+                    DomainEventBus.INSTANCE.propagate();
                 }
             }
         };

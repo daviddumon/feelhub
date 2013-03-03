@@ -45,7 +45,7 @@ public class TestsMandrillMailSender {
 
     private MandrillTemplateRequest aMessage() {
         final MandrillTemplateRequest request = new MandrillTemplateRequest();
-        request.template_name = "Activation";
+        request.template_name = "activation";
         request.message = new MandrillMessage();
         request.message.addMergeVar("ACTIVATION", "http://feelhub.com");
         request.message.subject = "Welcome to Feelhub !";

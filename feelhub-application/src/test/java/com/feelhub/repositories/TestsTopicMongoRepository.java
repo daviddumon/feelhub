@@ -105,7 +105,7 @@ public class TestsTopicMongoRepository extends TestWithMongoRepository {
 
         final DBObject topicFound = getTopic(ftpTopic.getId());
         assertThat(topicFound).isNotNull();
-        assertThat(topicFound.get("userId")).isEqualTo(ftpTopic.getUserId());
+        assertThat(topicFound.get("activationId")).isEqualTo(ftpTopic.getUserId());
         assertThat(topicFound.get("names")).isNotNull();
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();

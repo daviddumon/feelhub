@@ -2,6 +2,8 @@ package com.feelhub.web.mail;
 
 import com.feelhub.application.mail.FeelhubMail;
 import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.activation.Activation;
+import com.feelhub.domain.user.activation.ActivationCreatedEvent;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.WebApplicationTester;
@@ -29,7 +31,7 @@ public class TestsMailBuilder {
         final User user = TestFactories.users().createFakeUser("mail@mail.com");
         final Activation activation = new Activation(user);
 
-        mailBuilder.onActivationCreated(new ActivationCreatedEvent(user, activation));
+        mailBuilder.onActivationCreated(new ActivationCreatedEvent(user.getId(), activation.getId()));
 
         assertThat(mailSender.messages()).hasSize(1);
         final FeelhubMail mail = mailSender.messages().get(0);

@@ -1,5 +1,6 @@
-package com.feelhub.domain.user;
+package com.feelhub.domain.user.activation;
 
+import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import org.junit.*;

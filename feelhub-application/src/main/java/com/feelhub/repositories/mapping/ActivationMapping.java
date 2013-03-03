@@ -1,6 +1,6 @@
 package com.feelhub.repositories.mapping;
 
-import com.feelhub.domain.user.Activation;
+import com.feelhub.domain.user.activation.Activation;
 import org.mongolink.domain.mapper.AggregateMap;
 
 public class ActivationMapping extends AggregateMap<Activation> {

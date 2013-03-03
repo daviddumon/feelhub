@@ -1,4 +1,4 @@
-package com.feelhub.domain.user;
+package com.feelhub.domain.user.activation;
 
 import com.feelhub.domain.DomainException;
 

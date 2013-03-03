@@ -1,6 +1,5 @@
 package com.feelhub.web.guice;
 
-import com.feelhub.application.ActivationService;
 import com.feelhub.application.FeelingService;
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.domain.admin.AdminApiCallsService;
@@ -34,7 +33,6 @@ public class GuiceProductionModule extends AbstractModule {
         bind(FeelingService.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();
         bind(WorldListener.class).asEagerSingleton();
-        bind(ActivationService.class).asEagerSingleton();
         bind(AdminApiCallsService.class).asEagerSingleton();
         bind(Translator.class).asEagerSingleton();
         bind(MongoLinkAwareExecutor.class).in(Singleton.class);

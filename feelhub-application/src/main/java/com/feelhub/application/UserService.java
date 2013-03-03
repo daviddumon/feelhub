@@ -11,12 +11,6 @@ public class UserService {
         this.userFactory = userFactory;
     }
 
-    public User createUser(final String email, final String password, final String fullname, final String language) {
-        final User user = userFactory.createUser(email, password, fullname, language);
-        Repositories.users().add(user);
-        return user;
-    }
-
     public User findOrCreateForFacebook(final String id, final String email, final String firstName, final String lastName, final String language, final String token) {
         final User user = Repositories.users().findBySocialNetwork(SocialNetwork.FACEBOOK, id);
         if (user != null) {

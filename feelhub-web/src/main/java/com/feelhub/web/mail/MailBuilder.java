@@ -3,7 +3,10 @@ package com.feelhub.web.mail;
 import com.feelhub.application.mail.MailSender;
 import com.feelhub.application.mail.factory.MailFactory;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.UserCreatedEvent;
+import com.feelhub.domain.user.activation.ActivationCreatedEvent;
+import com.feelhub.repositories.Repositories;
 import com.feelhub.web.WebReferenceBuilder;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -19,7 +22,8 @@ public class MailBuilder {
 
     @Subscribe
     public void onActivationCreated(final ActivationCreatedEvent event) {
-        mailSender.send(MailFactory.validation(event.getUser(), new WebReferenceBuilder(context).buildUri("/activation/" + event.getActivation().getId())));
+        User user = Repositories.users().get(event.userId);
+        mailSender.send(MailFactory.validation(user, new WebReferenceBuilder(context).buildUri("/activation/" + event.activationId)));
     }
 
     @Subscribe
