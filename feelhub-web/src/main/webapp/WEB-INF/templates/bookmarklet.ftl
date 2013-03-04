@@ -7,6 +7,9 @@
 </@noflow.jsdev>
 
 <@noflow.js>
+<script type="text/javascript">
+    var uri = "${uri}";
+</script>
 </@noflow.js>
 
 <@noflow.body>

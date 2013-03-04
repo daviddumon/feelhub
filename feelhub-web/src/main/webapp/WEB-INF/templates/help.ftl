@@ -12,7 +12,7 @@
 <@noflow.body>
 <div id="help">
 
-    <p>Drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include 'bookmarklet/bookmarklet.js' />">Feelhub!</a></p>
+    <p>Drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include 'bookmarklet/bookmarklet-snippet.js' />">Feelhub!</a></p>
 
 </div>
 </@noflow.body>
