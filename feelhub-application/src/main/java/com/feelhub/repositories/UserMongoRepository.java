@@ -26,7 +26,7 @@ public class UserMongoRepository extends BaseMongoRepository<User> implements Us
     public Optional<User> forEmail(final String email) {
         final Criteria criteria = createCriteria();
         criteria.add(Restrictions.equals("email", email));
-        return Optional.of(extractOne(criteria));
+        return Optional.fromNullable(extractOne(criteria));
     }
 
     @Override
