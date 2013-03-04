@@ -8,6 +8,7 @@ import com.feelhub.domain.topic.real.RealTopicIndexer;
 import com.google.inject.AbstractModule;
 
 public class DomainWorkersModule extends AbstractModule {
+
     @Override
     protected void configure() {
         bind(RealTopicIndexer.class).asEagerSingleton();

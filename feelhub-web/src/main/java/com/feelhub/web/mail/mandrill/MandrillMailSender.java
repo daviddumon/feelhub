@@ -35,7 +35,6 @@ public class MandrillMailSender {
         }
     }
 
-
     private static final String KEY = "c00ab9f2-b4bf-4fe7-8953-a2dae1e4bf10";
     private static final String URI = "https://mandrillapp.com/api";
     private static final String VERSION = "1.0";

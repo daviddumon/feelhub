@@ -31,7 +31,6 @@ public class TopicFactory {
             checkMediaType(resolverResult, restrictedType);
         }
         final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
-        httpTopic.setMediaType(restrictedType);
         fillHttpTopicDatas(uriResolver, httpTopic, new Uri(value));
         return httpTopic;
     }
@@ -52,6 +51,7 @@ public class TopicFactory {
 
     private void fillHttpTopicDatas(final UriResolver resolver, final HttpTopic httpTopic, final Uri uri) {
         final ResolverResult resolverResult = resolver.resolve(uri);
+        httpTopic.setMediaType(resolverResult.getMediaType());
         httpTopic.addUri(getCanonical(resolverResult));
         DomainEventBus.INSTANCE.post(new HttpTopicCreatedEvent(httpTopic.getId(), resolverResult));
     }

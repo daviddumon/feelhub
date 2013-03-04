@@ -29,9 +29,13 @@ public class HttpTopicAnalyzer {
 
     public List<String> analyze(final UUID topicId) {
         final HttpTopic httpTopic = Repositories.topics().getHttpTopic(topicId);
-        if (!HttpTopicType.Website.equals(httpTopic.getType())) {
-            return Lists.newArrayList();
+        if (HttpTopicType.Website.equals(httpTopic.getType())) {
+            return scrap(httpTopic);
         }
+        return Lists.newArrayList();
+    }
+
+    private List<String> scrap(final HttpTopic httpTopic) {
         final ScrapedInformation scrapedInformation = scraper.scrap(getCanonical(httpTopic));
         httpTopic.addDescription(scrapedInformation.getLanguage(), scrapedInformation.getDescription());
         setName(httpTopic, scrapedInformation);

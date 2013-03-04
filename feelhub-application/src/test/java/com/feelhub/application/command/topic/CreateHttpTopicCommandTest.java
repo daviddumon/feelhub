@@ -8,6 +8,7 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
+import org.restlet.data.MediaType;
 
 import java.util.UUID;
 
@@ -28,6 +29,7 @@ public class CreateHttpTopicCommandTest {
         final CreateHttpTopicCommand command = new CreateHttpTopicCommand("value", user.getId());
         command.resolver = mock(UriResolver.class);
         final ResolverResult resolverResult = new ResolverResult();
+        resolverResult.setMediaType(MediaType.TEXT_HTML);
         resolverResult.getPath().add(new Uri("http://class"));
         when(command.resolver.resolve(any(Uri.class))).thenReturn(resolverResult);
 
