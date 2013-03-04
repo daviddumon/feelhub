@@ -24,13 +24,13 @@ public class BingSearch {
         this.bingRelationBinder = bingRelationBinder;
         this.cloudinary = cloudinary;
         DomainEventBus.INSTANCE.register(this);
-        rateLimiter = RateLimiter.create(1.0);
+        rateLimiter = RateLimiter.create(5.0);
     }
 
     @Subscribe
     public void onRealTopicCreated(final RealTopicCreatedEvent event) {
         rateLimiter.acquire();
-        final RealTopic realTopic = Repositories.topics().getRealTopic(event.eventId);
+        final RealTopic realTopic = Repositories.topics().getRealTopic(event.topicId);
         doBingSearch(realTopic, realTopic.getName(FeelhubLanguage.none()));
     }
 

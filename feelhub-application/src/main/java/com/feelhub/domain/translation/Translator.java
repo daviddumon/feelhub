@@ -23,7 +23,7 @@ public class Translator {
 
     @Subscribe
     public void onRealTopicCreated(final RealTopicCreatedEvent event) {
-        final RealTopic realTopic = Repositories.topics().getRealTopic(event.eventId);
+        final RealTopic realTopic = Repositories.topics().getRealTopic(event.topicId);
         translateReference(realTopic);
 
     }

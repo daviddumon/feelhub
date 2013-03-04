@@ -16,7 +16,7 @@ public class RealTopicIndexer {
 
     @Subscribe
     public void handle(final RealTopicCreatedEvent event) {
-        index(Repositories.topics().getRealTopic(event.eventId));
+        index(Repositories.topics().getRealTopic(event.topicId));
     }
 
 

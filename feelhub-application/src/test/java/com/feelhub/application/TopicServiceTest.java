@@ -33,16 +33,9 @@ public class TopicServiceTest {
 
     @Before
     public void before() {
-        final FakeUriResolver fakeUriResolver = new FakeUriResolver();
-        final String canonicalUri = "http://www.urlcanonique.com";
-        fakeUriResolver.thatFind(canonicalUri);
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
-                bind(UriResolver.class).toInstance(fakeUriResolver);
-                bind(Scraper.class).toInstance(new FakeScraper());
-                bind(MongoLinkAwareExecutor.class).to(FakeMongoLinkAwareExecutor.class);
-                bind(HttpTopicAnalyzer.class).asEagerSingleton();
             }
         });
         topicService = injector.getInstance(TopicService.class);

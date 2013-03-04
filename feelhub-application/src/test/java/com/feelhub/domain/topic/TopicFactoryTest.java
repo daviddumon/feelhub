@@ -99,6 +99,19 @@ public class TopicFactoryTest {
     }
 
     @Test
+    public void resolveOnlyOnce() {
+        final ResolverResult resolverResult = new ResolverResult();
+        resolverResult.setMediaType(MediaType.TEXT_HTML);
+        resolverResult.addUriToPath(canonicalUri);
+        final UriResolver uriResolver = mock(UriResolver.class);
+        when(uriResolver.resolve(new Uri("value"))).thenReturn(resolverResult);
+
+        final HttpTopic topic = topicFactory.createHttpTopic("value", UUID.randomUUID(), uriResolver);
+
+        verify(uriResolver, times(1)).resolve(new Uri("value"));
+    }
+
+    @Test
     public void canCreateWorldTopic() {
         final WorldTopic worldTopic = topicFactory.createWorldTopic();
 
