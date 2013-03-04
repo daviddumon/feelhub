@@ -7,8 +7,9 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.BadEmail;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
-import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.inject.Inject;
 import org.restlet.data.Form;
 import org.restlet.data.Status;
@@ -37,22 +38,21 @@ public class SignupResource extends ServerResource {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
             return;
         }
-        Futures.addCallback(bus.execute(createCommand(form)), new FutureCallback<UUID>() {
-            @Override
-            public void onSuccess(UUID result) {
-                setStatus(Status.SUCCESS_CREATED);
+        ListenableFuture<UUID> result = bus.execute(createCommand(form));
+        try {
+            Futures.getUnchecked(result);
+            setStatus(Status.SUCCESS_CREATED);
+        } catch (Exception e) {
+            if(EmailAlreadyUsed.class.isAssignableFrom(Throwables.getRootCause(e).getClass())) {
+                setStatus(Status.CLIENT_ERROR_CONFLICT);
+                return;
             }
-
-            @Override
-            public void onFailure(Throwable t) {
-                if (EmailAlreadyUsed.class.isAssignableFrom(t.getClass())) {
-                    setStatus(Status.CLIENT_ERROR_CONFLICT);
-                }
-                if (BadEmail.class.isAssignableFrom(t.getClass())) {
-                    setStatus(Status.CLIENT_ERROR_PRECONDITION_FAILED);
-                }
+            if(BadEmail.class.isAssignableFrom(Throwables.getRootCause(e).getClass())) {
+                setStatus(Status.CLIENT_ERROR_PRECONDITION_FAILED);
+                return;
             }
-        });
+            Throwables.propagate(e);
+        }
     }
 
     private CreateUserCommand createCommand(Form form) {
