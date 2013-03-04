@@ -1,6 +1,7 @@
 package com.feelhub.repositories.fakeRepositories;
 
 import com.feelhub.domain.user.*;
+import com.google.common.base.Optional;
 
 import java.util.UUID;
 
@@ -12,13 +13,13 @@ public class FakeUserRepository extends FakeRepository<User> implements UserRepo
     }
 
     @Override
-    public User forEmail(final String email) {
+    public Optional<User> forEmail(final String email) {
         for (final User user : getAll()) {
             if (email.equals(user.getEmail())) {
-                return user;
+                return Optional.of(user);
             }
         }
-        return null;
+        return Optional.absent();
     }
 
     @Override

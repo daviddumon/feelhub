@@ -2,6 +2,7 @@ package com.feelhub.web.authentification;
 
 import com.feelhub.domain.user.*;
 import com.feelhub.repositories.Repositories;
+import com.google.common.base.Optional;
 
 public class FeelhubAuthenticator implements Authenticator {
     @Override
@@ -13,11 +14,11 @@ public class FeelhubAuthenticator implements Authenticator {
     }
 
     public User getUser(final String id) {
-        final User user = Repositories.users().forEmail(id);
-        if (user == null) {
+        final Optional<User> user = Repositories.users().forEmail(id);
+        if (!user.isPresent()) {
             throw new BadUserException("This user does not exist!");
         }
-        return user;
+        return user.get();
     }
 
     private void checkUser(final User user) {

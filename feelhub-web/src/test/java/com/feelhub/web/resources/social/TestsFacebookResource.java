@@ -1,16 +1,26 @@
 package com.feelhub.web.resources.social;
 
-import com.feelhub.application.UserService;
+import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.user.CreateUserFromFacebookCommand;
+import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.ContextTestFactory;
-import com.feelhub.web.authentification.*;
+import com.feelhub.web.authentification.AuthMethod;
+import com.feelhub.web.authentification.AuthRequest;
+import com.feelhub.web.authentification.AuthenticationManager;
 import com.feelhub.web.social.FacebookConnector;
+import com.google.common.util.concurrent.Futures;
 import com.restfb.types.User;
 import org.joda.time.DateTime;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.restlet.*;
-import org.restlet.data.*;
+import org.restlet.Context;
+import org.restlet.Request;
+import org.restlet.Response;
+import org.restlet.data.Method;
+import org.restlet.data.Status;
 import org.scribe.model.Token;
 
 import static org.fest.assertions.Assertions.*;
@@ -20,7 +30,6 @@ public class TestsFacebookResource {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
-    private UserService userService;
 
     @Before
     public void setUp() throws Exception {
@@ -28,8 +37,8 @@ public class TestsFacebookResource {
         authenticationManager = mock(AuthenticationManager.class);
         facebookConnector = mock(FacebookConnector.class);
         when(facebookConnector.getAccesToken(anyString())).thenReturn(new Token("token", "secret"));
-        userService = mock(UserService.class);
-        facebookResource = new FacebookResource(facebookConnector, userService, authenticationManager);
+        commandBus = mock(CommandBus.class);
+        facebookResource = new FacebookResource(facebookConnector, authenticationManager, commandBus);
         final Request request = new Request(Method.GET, "http://test.com?code=toto");
         facebookResource.init(context, request, new Response(request));
     }
@@ -41,7 +50,15 @@ public class TestsFacebookResource {
 
         facebookResource.facebookReturn();
 
-        verify(userService).findOrCreateForFacebook("test", "toto@gmail.com", "Jb", "Dusse", "fr_FR", "token");
+        ArgumentCaptor<CreateUserFromFacebookCommand> captor = ArgumentCaptor.forClass(CreateUserFromFacebookCommand.class);
+        verify(commandBus).execute(captor.capture());
+        CreateUserFromFacebookCommand command = captor.getValue();
+        assertThat(command.email).isEqualTo("toto@gmail.com");
+        assertThat(command.firstName).isEqualTo("Jb");
+        assertThat(command.lastName).isEqualTo("Dusse");
+        assertThat(command.id).isEqualTo("test");
+        assertThat(command.token).isEqualTo("token");
+        assertThat(command.language).isEqualTo("fr_FR");
     }
 
     @Test
@@ -91,15 +108,17 @@ public class TestsFacebookResource {
 
     private com.feelhub.domain.user.User newUser() {
         final com.feelhub.domain.user.User user = new com.feelhub.domain.user.User();
-        when(userService.findOrCreateForFacebook(anyString(), anyString(), anyString(), anyString(), anyString(), anyString()))
-                .thenReturn(user);
+        Repositories.users().add(user);
+        when(commandBus.execute(any(CreateUserFromFacebookCommand.class)))
+                .thenReturn(Futures.immediateFuture(user.getId()));
         return user;
     }
 
     private void oldUser() {
         final com.feelhub.domain.user.User user = new com.feelhub.domain.user.User();
-        when(userService.findOrCreateForFacebook(anyString(), anyString(), anyString(), anyString(), anyString(), anyString()))
-                .thenReturn(user);
+        Repositories.users().add(user);
+        when(commandBus.execute(any(CreateUserFromFacebookCommand.class)))
+                .thenReturn(Futures.immediateFuture(user.getId()));
         user.setCreationDate(DateTime.now().minusDays(1));
     }
 
@@ -107,6 +126,7 @@ public class TestsFacebookResource {
 
 
     private FacebookResource facebookResource;
+    private CommandBus commandBus;
 
     private class FakeFbUser extends User {
         public String email;

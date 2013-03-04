@@ -4,6 +4,7 @@ import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.session.EmailAlreadyUsed;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.repositories.Repositories;
+import com.google.common.base.Optional;
 
 public class UserFactory {
 
@@ -33,8 +34,8 @@ public class UserFactory {
     }
 
     private void checkForExistingEmail(final String email) {
-        final User user = Repositories.users().forEmail(email.toLowerCase().trim());
-        if (user != null) {
+        final Optional<User> user = Repositories.users().forEmail(email.toLowerCase().trim());
+        if (user.isPresent()) {
             throw new EmailAlreadyUsed();
         }
     }

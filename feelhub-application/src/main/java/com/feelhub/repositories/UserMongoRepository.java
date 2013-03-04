@@ -1,10 +1,15 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.SocialNetwork;
+import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.UserRepository;
+import com.google.common.base.Optional;
 import org.mongolink.MongoSession;
-import org.mongolink.domain.criteria.*;
+import org.mongolink.domain.criteria.Criteria;
+import org.mongolink.domain.criteria.Restrictions;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class UserMongoRepository extends BaseMongoRepository<User> implements UserRepository {
 
@@ -18,10 +23,10 @@ public class UserMongoRepository extends BaseMongoRepository<User> implements Us
     }
 
     @Override
-    public User forEmail(final String email) {
+    public Optional<User> forEmail(final String email) {
         final Criteria criteria = createCriteria();
         criteria.add(Restrictions.equals("email", email));
-        return extractOne(criteria);
+        return Optional.of(extractOne(criteria));
     }
 
     @Override

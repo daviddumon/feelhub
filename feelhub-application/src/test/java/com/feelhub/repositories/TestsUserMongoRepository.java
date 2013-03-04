@@ -3,6 +3,7 @@ package com.feelhub.repositories;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.*;
 import com.feelhub.test.SystemTime;
+import com.google.common.base.Optional;
 import com.mongodb.*;
 import org.junit.*;
 
@@ -71,9 +72,9 @@ public class TestsUserMongoRepository extends TestWithMongoRepository {
         user.put("active", true);
         collection.insert(user);
 
-        final User userFound = repository.forEmail("jb@test.com");
+        final Optional<User> userFound = repository.forEmail("jb@test.com");
 
-        assertThat(userFound).isNotNull();
+        assertThat(userFound.isPresent()).isTrue();
     }
 
     @Test
