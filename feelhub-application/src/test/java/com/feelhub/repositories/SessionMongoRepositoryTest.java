@@ -31,7 +31,7 @@ public class SessionMongoRepositoryTest extends TestWithMongoRepository {
 
         final DBObject sessionFound = getSessionFromDB(session.getId());
         assertThat(sessionFound, notNullValue());
-        assertThat(sessionFound.get("_id"), is(session.getId()));
+        assertThat(sessionFound.get("_id"), is((Object) session.getId()));
         assertThat(sessionFound.get("_id"), is((Object) session.getToken()));
         assertThat(sessionFound.get("userId"), is((Object) session.getUserId()));
         assertThat(sessionFound.get("creationDate"), is((Object) time.getNow().getMillis()));

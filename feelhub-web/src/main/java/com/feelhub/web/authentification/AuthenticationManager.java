@@ -1,36 +1,44 @@
 package com.feelhub.web.authentification;
 
 import com.feelhub.application.SessionService;
-import com.feelhub.domain.session.Session;
+import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.session.CreateSessionCommand;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
-import com.feelhub.web.tools.*;
+import com.feelhub.web.tools.CookieBuilder;
+import com.feelhub.web.tools.CookieManager;
+import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.common.collect.Maps;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.inject.Inject;
 import org.joda.time.DateTime;
 import org.restlet.data.Cookie;
 
-import java.util.*;
+import java.util.Map;
+import java.util.UUID;
 
 public class AuthenticationManager {
 
     @Inject
-    public AuthenticationManager(final SessionService sessionService, final FeelhubWebProperties properties, final CookieManager cookieManager) {
+    public AuthenticationManager(final SessionService sessionService, final FeelhubWebProperties properties, final CookieManager cookieManager, final CommandBus commandBus) {
         this.sessionService = sessionService;
         this.properties = properties;
         this.cookieManager = cookieManager;
+        this.commandBus = commandBus;
     }
 
     public void authenticate(final AuthRequest authRequest) {
         final User user = authenticators.get(authRequest.getAuthMethod()).authenticate(authRequest);
-        final Session session = sessionService.createSession(user, new DateTime().plusSeconds(lifeTime(authRequest.isRemember())));
-        setCookiesInResponse(authRequest.isRemember(), user, session);
+        CreateSessionCommand command = new CreateSessionCommand(user.getId(), new DateTime().plusSeconds(lifeTime(authRequest.isRemember())));
+        ListenableFuture<UUID> result = commandBus.execute(command);
+        setCookiesInResponse(authRequest.isRemember(), user, Futures.getUnchecked(result));
     }
 
-    private void setCookiesInResponse(final boolean remember, final User user, final Session session) {
+    private void setCookiesInResponse(final boolean remember, final User user, final UUID sessionToken) {
         final CookieBuilder cookieBuilder = cookieManager.cookieBuilder();
         cookieManager.setCookie(cookieBuilder.idCookie(user));
-        cookieManager.setCookie(cookieBuilder.tokenCookie(session, remember));
+        cookieManager.setCookie(cookieBuilder.tokenCookie(sessionToken, remember));
     }
 
     private int lifeTime(final boolean remember) {
@@ -86,6 +94,7 @@ public class AuthenticationManager {
     private final SessionService sessionService;
     private final FeelhubWebProperties properties;
     private final CookieManager cookieManager;
+    private CommandBus commandBus;
     private final Map<AuthMethod, Authenticator> authenticators = Maps.newConcurrentMap();
 
     {

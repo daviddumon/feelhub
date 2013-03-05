@@ -1,15 +1,24 @@
 package com.feelhub.web.authentification;
 
 import com.feelhub.application.SessionService;
+import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.session.CreateSessionCommand;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.tools.*;
+import com.feelhub.web.tools.CookieBuilder;
+import com.feelhub.web.tools.CookieManager;
+import com.feelhub.web.tools.FeelhubWebProperties;
+import com.google.common.util.concurrent.Futures;
 import org.joda.time.DateTime;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.restlet.data.*;
+import org.restlet.data.Cookie;
+import org.restlet.data.CookieSetting;
 
 import java.util.UUID;
 
@@ -23,7 +32,8 @@ public class AuthenticationManagerTest {
         cookieManager = mock(CookieManager.class);
         when(cookieManager.cookieBuilder()).thenReturn(new CookieBuilder(new FeelhubWebProperties()));
         sessionService = mock(SessionService.class);
-        manager = new AuthenticationManager(sessionService, new FeelhubWebProperties(), cookieManager);
+        commandBus = mock(CommandBus.class);
+        manager = new AuthenticationManager(sessionService, new FeelhubWebProperties(), cookieManager, commandBus);
         user = TestFactories.users().createActiveUser("test@test.com");
     }
 
@@ -34,7 +44,7 @@ public class AuthenticationManagerTest {
 
     @Test
     public void setCookieOnSuccessLogin() {
-        when(sessionService.createSession(eq(user), any(DateTime.class))).thenReturn(new Session(DateTime.now(), user));
+        when(commandBus.execute(any(CreateSessionCommand.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
         manager.authenticate(new AuthRequest(user.getEmail(), "password", true));
 
         verify(cookieManager, times(2)).setCookie(any(CookieSetting.class));
@@ -133,7 +143,7 @@ public class AuthenticationManagerTest {
 
     @Test
     public void canAuthenticateFromFacebook() {
-        when(sessionService.createSession(any(User.class), any(DateTime.class))).thenReturn(new Session(DateTime.now(), user));
+        when(commandBus.execute(any(CreateSessionCommand.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
 
         manager.authenticate(AuthRequest.facebook(user.getId().toString()));
 
@@ -147,4 +157,5 @@ public class AuthenticationManagerTest {
     private SessionService sessionService;
     private AuthenticationManager manager;
     private User user;
+    private CommandBus commandBus;
 }

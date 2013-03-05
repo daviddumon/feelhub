@@ -1,19 +1,13 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.session.*;
+import com.feelhub.domain.session.Session;
+import com.feelhub.domain.session.SessionException;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
-import org.joda.time.DateTime;
 
 import java.util.UUID;
 
 public class SessionService {
-
-    public Session createSession(final User user, final DateTime expirationDate) {
-        final Session session = new Session(expirationDate, user);
-        Repositories.sessions().add(session);
-        return session;
-    }
 
     public boolean authentificate(final User user, final UUID token) {
         try {

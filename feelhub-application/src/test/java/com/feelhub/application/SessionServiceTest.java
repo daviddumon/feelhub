@@ -4,10 +4,14 @@ import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.*;
-import com.google.inject.*;
-import org.joda.time.DateTime;
-import org.junit.*;
+import com.feelhub.test.SystemTime;
+import com.feelhub.test.TestFactories;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -32,21 +36,6 @@ public class SessionServiceTest {
         user = TestFactories.users().createFakeActiveUser("mail@mail.com");
     }
 
-    @Test
-    public void canCreateASessionForAnUser() {
-        final Session session = sessionService.createSession(user, new DateTime().plusHours(1));
-
-        assertThat(session, notNullValue());
-        assertThat(session.getUserId(), is(user.getId()));
-        assertThat(session.getToken(), notNullValue());
-    }
-
-    @Test
-    public void persistSession() {
-        sessionService.createSession(user, new DateTime().plusHours(1));
-
-        assertThat(Repositories.sessions().getAll().size(), is(1));
-    }
 
     @Test
     public void canDeteleSession() {

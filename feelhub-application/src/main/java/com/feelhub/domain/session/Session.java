@@ -19,7 +19,7 @@ public class Session extends BaseEntity {
     }
 
     @Override
-    public Object getId() {
+    public UUID getId() {
         return token;
     }
 

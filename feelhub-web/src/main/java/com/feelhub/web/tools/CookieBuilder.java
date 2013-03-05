@@ -1,8 +1,9 @@
 package com.feelhub.web.tools;
 
-import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import org.restlet.data.CookieSetting;
+
+import java.util.UUID;
 
 public final class CookieBuilder {
 
@@ -28,10 +29,10 @@ public final class CookieBuilder {
         return newCookie(ID, "id cookie");
     }
 
-    public CookieSetting tokenCookie(final Session session, final boolean remember) {
+    public CookieSetting tokenCookie(final UUID sessionToken, final boolean remember) {
         final CookieSetting result = baseSessionCookie();
         result.setMaxAge(getSessionCookieTime(remember));
-        result.setValue(session.getToken().toString());
+        result.setValue(sessionToken.toString());
         return result;
     }
 

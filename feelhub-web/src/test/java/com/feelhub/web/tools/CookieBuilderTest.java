@@ -40,7 +40,7 @@ public class CookieBuilderTest {
         properties.cookieBaseTime = 1;
         final Session session = new Session(DateTime.now(), new User());
 
-        final CookieSetting cookie = new CookieBuilder(properties).tokenCookie(session, false);
+        final CookieSetting cookie = new CookieBuilder(properties).tokenCookie(session.getToken(), false);
 
         assertThat(cookie.getValue()).isEqualTo(session.getId().toString());
         assertThat(cookie.getComment()).isEqualTo("session cookie");
@@ -62,7 +62,7 @@ public class CookieBuilderTest {
         properties.cookieBaseTime = 1;
         final Session session = new Session(DateTime.now(), new User());
 
-        final CookieSetting cookie = new CookieBuilder(properties).tokenCookie(session, true);
+        final CookieSetting cookie = new CookieBuilder(properties).tokenCookie(session.getToken(), true);
 
         assertThat(cookie.getValue()).isEqualTo(session.getId().toString());
         assertThat(cookie.getComment()).isEqualTo("session cookie");
