@@ -30,7 +30,7 @@ public class AlchemyAnalyzerTest {
     @Before
     public void setUp() throws Exception {
         entityProvider = mock(NamedEntityProvider.class);
-        alchemyAnalyzer = new AlchemyAnalyzer(entityProvider, new AlchemyRelationBinder(new RelatedBuilder()), new TopicService(new TagService(null)));
+        alchemyAnalyzer = new AlchemyAnalyzer(entityProvider, new AlchemyRelationBinder(new RelatedBuilder()), new TopicService(new TagService()));
     }
 
     @Test

@@ -9,6 +9,7 @@ import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
+import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import org.apache.log4j.Logger;
@@ -26,6 +27,7 @@ public class AlchemyAnalyzer {
     }
 
     @Subscribe
+    @AllowConcurrentEvents
     public void onHttpTopicCreated(final HttpTopicCreatedEvent event) {
         analyze(Repositories.topics().getHttpTopic(event.topicId));
     }

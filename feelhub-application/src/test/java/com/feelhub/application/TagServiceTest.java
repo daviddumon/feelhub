@@ -1,11 +1,13 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.tag.*;
+import com.feelhub.domain.tag.Tag;
+import com.feelhub.domain.tag.TagNotFoundException;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.google.inject.*;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.fest.assertions.Assertions.*;
@@ -20,12 +22,7 @@ public class TagServiceTest {
 
     @Before
     public void before() {
-        final Injector injector = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-            }
-        });
-        tagService = injector.getInstance(TagService.class);
+        tagService = new TagService();
     }
 
     @Test
@@ -45,25 +42,6 @@ public class TagServiceTest {
         TestFactories.tags().newTag();
 
         tagService.lookUp("anothervalue");
-    }
-
-    @Test
-    public void canCreateTag() {
-        final String value = "value";
-
-        final Tag tag = tagService.createTag(value);
-
-        assertThat(Repositories.tags().getAll().size()).isEqualTo(1);
-        assertThat(Repositories.tags().getAll().get(0)).isEqualTo(tag);
-    }
-
-    @Test
-    public void canCreateTagInLowercase() {
-        final String value = "TaG";
-
-        final Tag tag = tagService.createTag(value);
-
-        assertThat(tag.getId()).isEqualTo(value.toLowerCase());
     }
 
     @Test
