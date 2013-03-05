@@ -1,22 +1,26 @@
 package com.feelhub.web.resources.api;
 
-import com.feelhub.application.*;
-import com.feelhub.application.command.*;
-import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.feeling.*;
-import com.feelhub.domain.tag.TagFactory;
+import com.feelhub.application.command.Command;
+import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.feeling.CreateFeelingCommand;
+import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.WebApplicationTester;
-import com.feelhub.web.authentification.*;
+import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.authentification.WebUser;
 import com.google.common.util.concurrent.Futures;
 import org.apache.http.auth.AuthenticationException;
-import org.json.*;
-import org.junit.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.ArgumentCaptor;
 
 import java.util.UUID;
 
@@ -34,30 +38,29 @@ public class ApiCreateFeelingTest {
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
 
-    @Rule
-    public WithDomainEvent events = new WithDomainEvent();
-
     @Before
     public void before() {
         final User fakeActiveUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
         CurrentUser.set(new WebUser(fakeActiveUser, true));
         commandBus = mock(CommandBus.class);
-        apiCreateFeeling = new ApiCreateFeeling(new TopicService(new TagService(new TagFactory())), commandBus);
+        apiCreateFeeling = new ApiCreateFeeling(commandBus);
     }
 
     @Test
-    public void postAnFeelingRequestEvent() throws AuthenticationException, JSONException {
+    public void postAFeelingRequestEvent() throws AuthenticationException, JSONException {
         when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
         final JSONObject jsonObject = getGoodJson();
 
         apiCreateFeeling.add(jsonObject);
 
-        final FeelingRequestEvent feelingRequestEvent = events.lastEvent(FeelingRequestEvent.class);
-        assertThat(feelingRequestEvent).isNotNull();
-        assertThat(feelingRequestEvent.getText()).isEqualTo(jsonObject.getString("text"));
-        assertThat(feelingRequestEvent.getLanguage()).isEqualTo(FeelhubLanguage.fromCode(jsonObject.getString("languageCode")));
-        assertThat(feelingRequestEvent.getUserId()).isEqualTo(CurrentUser.get().getUser().getId());
-        assertThat(feelingRequestEvent.getSentiments().size()).isEqualTo(2);
+        ArgumentCaptor<CreateFeelingCommand> captor = ArgumentCaptor.forClass(CreateFeelingCommand.class);
+        verify(commandBus, atLeastOnce()).execute(captor.capture());
+        CreateFeelingCommand createFeelingCommand = captor.getValue();
+        assertThat(createFeelingCommand).isNotNull();
+        assertThat(createFeelingCommand.text).isEqualTo(jsonObject.getString("text"));
+        assertThat(createFeelingCommand.language).isEqualTo(FeelhubLanguage.fromCode(jsonObject.getString("languageCode")));
+        assertThat(createFeelingCommand.userId).isEqualTo(CurrentUser.get().getUser().getId());
+        assertThat(createFeelingCommand.sentiments.size()).isEqualTo(2);
     }
 
     @Test

@@ -4,13 +4,11 @@ import com.feelhub.domain.related.RelatedBuilder;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
 
 import java.util.List;
 
 public class FeelingRelationBinder {
 
-    @Inject
     public FeelingRelationBinder(final RelatedBuilder relatedBuilder) {
         this.relatedBuilder = relatedBuilder;
     }

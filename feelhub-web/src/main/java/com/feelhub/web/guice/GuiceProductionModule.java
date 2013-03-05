@@ -1,17 +1,20 @@
 package com.feelhub.web.guice;
 
-import com.feelhub.application.FeelingService;
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.domain.admin.AdminApiCallsService;
-import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.eventbus.DeadEventCatcher;
+import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.domain.topic.world.WorldListener;
 import com.feelhub.domain.translation.Translator;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.tools.MongoLinkAwareExecutor;
 import com.feelhub.web.mail.MailBuilder;
-import com.google.common.eventbus.*;
-import com.google.inject.*;
+import com.google.common.eventbus.AsyncEventBus;
+import com.google.common.eventbus.EventBus;
+import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 
 import java.io.IOException;
@@ -26,7 +29,6 @@ public class GuiceProductionModule extends AbstractModule {
         bind(EventBus.class).to(AsyncEventBus.class).asEagerSingleton();
         bind(MailBuilder.class).asEagerSingleton();
         bind(DeadEventCatcher.class).asEagerSingleton();
-        bind(FeelingService.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();
         bind(WorldListener.class).asEagerSingleton();
         bind(AdminApiCallsService.class).asEagerSingleton();

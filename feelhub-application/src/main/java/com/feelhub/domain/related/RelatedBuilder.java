@@ -5,7 +5,6 @@ import com.feelhub.repositories.Repositories;
 
 public class RelatedBuilder {
 
-
     public void connectTwoWays(final Topic from, final Topic to) {
         connectTwoWays(from, to, 0.0);
     }

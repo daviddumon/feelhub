@@ -1,59 +1,45 @@
-package com.feelhub.application;
+package com.feelhub.application.command.feeling;
 
-import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.feeling.Feeling;
+import com.feelhub.domain.feeling.Sentiment;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
-import com.google.inject.*;
-import org.junit.*;
+import org.junit.Rule;
+import org.junit.Test;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;
 
-public class FeelingServiceTest {
+public class CreateFeelingCommandTest {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
 
-    @Rule
-    public WithDomainEvent bus = new WithDomainEvent();
-
-    @Before
-    public void before() {
-        final Injector injector = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-            }
-        });
-        feelingService = injector.getInstance(FeelingService.class);
-    }
-
     @Test
     public void canAddFeelingAndSentiments() {
-        final FeelingRequestEvent event = getEvent();
+        final CreateFeelingCommand command = createCommand();
 
-        feelingService.handle(event);
+        UUID feelingId = command.execute();
 
         assertThat(Repositories.feelings().getAll().size()).isEqualTo(1);
-        final Feeling feeling = Repositories.feelings().get(event.getFeelingId());
+        final Feeling feeling = Repositories.feelings().get(feelingId);
         assertThat(feeling).isNotNull();
-        assertThat(feeling.getText()).isEqualTo(event.getText());
-        assertThat(feeling.getUserId()).isEqualTo(event.getUserId());
-        assertThat(feeling.getLanguageCode()).isEqualTo(event.getLanguage().getCode());
+        assertThat(feeling.getText()).isEqualTo(command.text);
+        assertThat(feeling.getUserId()).isEqualTo(command.userId);
+        assertThat(feeling.getLanguageCode()).isEqualTo(command.language.getCode());
         assertThat(feeling.getSentiments().size()).isEqualTo(3);
         assertThat(Repositories.related().getAll().size()).isEqualTo(6);
     }
 
-    private FeelingRequestEvent getEvent() {
-        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
+    private CreateFeelingCommand createCommand() {
         final User user = TestFactories.users().createFakeActiveUser("feeling@mail.com");
-        final FeelingRequestEvent.Builder builder = new FeelingRequestEvent.Builder();
+        final CreateFeelingCommand.Builder builder = new CreateFeelingCommand.Builder();
         builder.feelingId(UUID.randomUUID());
         builder.user(user);
         builder.languageCode(FeelhubLanguage.reference());
@@ -71,5 +57,4 @@ public class FeelingServiceTest {
         return sentiments;
     }
 
-    private FeelingService feelingService;
 }

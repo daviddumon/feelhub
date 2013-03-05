@@ -3,9 +3,9 @@ package com.feelhub.domain.feeling;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.*;
-
-import java.util.UUID;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -21,13 +21,12 @@ public class FeelingFactoryTest {
 
     @Test
     public void canCreateAFeeling() {
-        final UUID id = UUID.randomUUID();
         final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
         final String text = "hi!";
 
-        final Feeling feeling = feelingFactory.createFeeling(id, text, user.getId());
+        final Feeling feeling = feelingFactory.createFeeling(text, user.getId());
 
-        assertThat(feeling.getId()).isEqualTo(id);
+        assertThat(feeling.getId()).isNotNull();
         assertThat(feeling.getText()).isEqualTo(text);
         assertThat(feeling.getUserId()).isEqualTo(user.getId());
     }
