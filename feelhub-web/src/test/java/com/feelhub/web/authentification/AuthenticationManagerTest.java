@@ -2,6 +2,7 @@ package com.feelhub.web.authentification;
 
 import com.feelhub.application.SessionService;
 import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.session.AuthenticateCommand;
 import com.feelhub.application.command.session.CreateSessionCommand;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
@@ -95,14 +96,7 @@ public class AuthenticationManagerTest {
 
     private void authenticate() {
         cookieWithKnownUser();
-        when(sessionService.authentificate(any(User.class), any(UUID.class))).thenReturn(true);
-    }
-
-    private void cookieWithKnownUser() {
-        final CookieSetting cookieSetting = new CookieSetting();
-        cookieSetting.setName("id");
-        cookieSetting.setValue(user.getId().toString());
-        when(cookieManager.getCookie("id")).thenReturn(cookieSetting);
+        when(commandBus.execute(any(AuthenticateCommand.class))).thenReturn(Futures.immediateFuture(true));
     }
 
     @Test
@@ -134,11 +128,19 @@ public class AuthenticationManagerTest {
     @Test
     public void notAuthentificatedIfNoSession() {
         cookieWithKnownUser();
+        when(commandBus.execute(any(AuthenticateCommand.class))).thenReturn(Futures.immediateFuture(false));
 
         manager.initRequest();
 
         assertThat(CurrentUser.get().isAuthenticated()).isFalse();
         assertThat(CurrentUser.get().getFullname()).isEqualTo("full name");
+    }
+
+    private void cookieWithKnownUser() {
+        final CookieSetting cookieSetting = new CookieSetting();
+        cookieSetting.setName("id");
+        cookieSetting.setValue(user.getId().toString());
+        when(cookieManager.getCookie("id")).thenReturn(cookieSetting);
     }
 
     @Test

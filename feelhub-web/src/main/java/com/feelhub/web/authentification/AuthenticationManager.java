@@ -2,6 +2,7 @@ package com.feelhub.web.authentification;
 
 import com.feelhub.application.SessionService;
 import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.session.AuthenticateCommand;
 import com.feelhub.application.command.session.CreateSessionCommand;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
@@ -75,7 +76,8 @@ public class AuthenticationManager {
         if (identityCookie != null) {
             final User user = Repositories.users().get(identityCookie.getValue());
             if (user != null) {
-                CurrentUser.set(new WebUser(user, sessionService.authentificate(user, getToken())));
+                ListenableFuture<Boolean> result = commandBus.execute(new AuthenticateCommand(user.getId(), getToken()));
+                CurrentUser.set(new WebUser(user, Futures.getUnchecked(result)));
                 return;
             }
         }

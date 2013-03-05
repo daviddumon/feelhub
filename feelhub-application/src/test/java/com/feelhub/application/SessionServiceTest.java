@@ -13,9 +13,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 public class SessionServiceTest {
 
@@ -46,41 +45,6 @@ public class SessionServiceTest {
         assertThat(Repositories.sessions().getAll().size(), is(0));
     }
 
-    @Test
-    public void cannotAuthentificateWithoutSession() {
-        final boolean result = sessionService.authentificate(user, null);
-
-        assertFalse(result);
-    }
-
-    @Test
-    public void canAuthentificateWithSession() {
-        final Session session = TestFactories.sessions().createSessionFor(user);
-
-        final boolean result = sessionService.authentificate(user, session.getToken());
-
-        assertTrue(result);
-    }
-
-    @Test
-    public void mustHaveAGoodSessionForUser() {
-        final User otherUser = TestFactories.users().createFakeActiveUser("othermail@mail.com");
-        final Session session = TestFactories.sessions().createSessionFor(otherUser);
-
-        final boolean result = sessionService.authentificate(user, session.getToken());
-
-        assertFalse(result);
-    }
-
-    @Test
-    public void cannotAuthentificateForAnExpiredSession() {
-        final Session session = TestFactories.sessions().createSessionFor(user);
-        time.waitDays(1);
-
-        final boolean result = sessionService.authentificate(user, session.getToken());
-
-        assertFalse(result);
-    }
 
     private SessionService sessionService;
     private User user;
