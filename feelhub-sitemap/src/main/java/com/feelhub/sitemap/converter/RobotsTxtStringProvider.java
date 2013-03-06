@@ -1,7 +1,6 @@
 package com.feelhub.sitemap.converter;
 
 import com.feelhub.sitemap.domain.SitemapIndex;
-import com.feelhub.sitemap.tools.SitemapProperties;
 import com.google.common.collect.Maps;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -17,7 +16,7 @@ import java.util.Map;
 public class RobotsTxtStringProvider {
     public String toString(List<SitemapIndex> indexes, String root) {
         HashMap<String, Object> map = Maps.newHashMap();
-        map.put("root", root);
+        map.put("prefix", root);
         map.put("indexes", indexes);
         return process(map);
     }
