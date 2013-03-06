@@ -29,7 +29,7 @@ public class Sitemap {
     }
 
     public String getLoc() {
-        return "/sitemap_" + String.format("%05d", 1) + ".xml";
+        return "/sitemap_" + String.format("%05d", index) + ".xml";
     }
 
     public int getIndex() {

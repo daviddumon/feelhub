@@ -10,19 +10,18 @@ import org.apache.log4j.Logger;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RobotsTxtStringProvider {
+public class RobotsTxtStringConverter {
     public String toString(List<SitemapIndex> indexes) {
-        HashMap<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = Maps.newHashMap();
         map.put("prefix", new SitemapProperties().getRoot());
         map.put("indexes", indexes);
         return process(map);
     }
 
-    public String process(final Map<String, Object> data) {
+    private String process(final Map<String, Object> data) {
         final Writer writer = new StringWriter();
         try {
             final Template temp = new Template("name", new InputStreamReader(getClass().getResourceAsStream("/templates/robots.ftl")), configuration());
@@ -40,5 +39,5 @@ public class RobotsTxtStringProvider {
         return configuration;
     }
 
-    private static final Logger logger = Logger.getLogger(RobotsTxtStringProvider.class);
+    private static final Logger logger = Logger.getLogger(RobotsTxtStringConverter.class);
 }

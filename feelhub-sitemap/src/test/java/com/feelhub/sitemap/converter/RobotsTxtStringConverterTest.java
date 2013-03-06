@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class RobotsTxtStringProviderTest {
+public class RobotsTxtStringConverterTest {
 
     @Test
     public void canConvertRobotsTxt() {
@@ -21,7 +21,7 @@ public class RobotsTxtStringProviderTest {
         sitemapIndex1.setIndex(145);
         indexes.add(sitemapIndex1);
 
-        String robots = new RobotsTxtStringProvider().toString(indexes);
+        String robots = new RobotsTxtStringConverter().toString(indexes);
 
         assertThat(robots).isEqualTo("User-agent: *\n" + "Disallow:\n" + "Sitemap: toto:8080/sitemap_index_00123.xml\n" + "Sitemap: toto:8080/sitemap_index_00145.xml\n");
     }

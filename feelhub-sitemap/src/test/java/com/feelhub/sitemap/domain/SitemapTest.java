@@ -5,8 +5,8 @@ import com.google.common.collect.Lists;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.fest.assertions.Assertions.assertThat;
+
 
 public class SitemapTest {
 
@@ -21,7 +21,14 @@ public class SitemapTest {
 
         final Sitemap sitemap = new Sitemap(Lists.newArrayList(oldEntry, newEntry));
 
-        assertThat(sitemap.getLastMod(), is(newEntry.getLastMod()));
+        assertThat(sitemap.getLastMod()).isEqualTo(newEntry.getLastMod());
     }
 
+    @Test
+    public void canGetLoc() {
+        final Sitemap sitemap = new Sitemap(Lists.<SitemapEntry>newArrayList());
+        sitemap.setIndex(124);
+
+        assertThat(sitemap.getLoc()).isEqualTo("/sitemap_00124.xml");
+    }
 }
