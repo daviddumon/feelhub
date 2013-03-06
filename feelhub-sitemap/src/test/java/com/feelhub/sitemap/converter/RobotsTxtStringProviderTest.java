@@ -21,8 +21,8 @@ public class RobotsTxtStringProviderTest {
         sitemapIndex1.setIndex(145);
         indexes.add(sitemapIndex1);
 
-        String robots = new RobotsTxtStringProvider().toString(indexes, "localhost:8080");
+        String robots = new RobotsTxtStringProvider().toString(indexes);
 
-        assertThat(robots).isEqualTo("User-agent: *\n" + "Disallow:\n" + "Sitemap: localhost:8080/sitemap_index_00123.xml\n" + "Sitemap: localhost:8080/sitemap_index_00145.xml\n");
+        assertThat(robots).isEqualTo("User-agent: *\n" + "Disallow:\n" + "Sitemap: toto:8080/sitemap_index_00123.xml\n" + "Sitemap: toto:8080/sitemap_index_00145.xml\n");
     }
 }
