@@ -1,64 +1,27 @@
 package com.feelhub.sitemap.domain;
 
-import com.feelhub.sitemap.test.WithFakeData;
 import com.feelhub.test.SystemTime;
-import org.junit.*;
-import org.junit.rules.ExpectedException;
+import com.google.common.collect.Lists;
+import org.junit.Rule;
+import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class SitemapTest {
 
     @Rule
-    public ExpectedException exception = ExpectedException.none();
-
-    @Rule
     public SystemTime time = SystemTime.fixed();
-
-    @Rule
-    public WithFakeData withFakeData = new WithFakeData();
-
-    @Test
-    public void hasALoc() {
-        final Sitemap sitemap = new Sitemap(1);
-
-        assertThat(sitemap.getLoc(), is("/sitemap_00001.xml"));
-    }
-
-    @Test
-    public void knowsItsIndex() {
-        final Sitemap sitemap = new Sitemap(1);
-
-        assertThat(sitemap.getIndex(), is(1));
-    }
-
-    @Test
-    public void hasSitemapEntries() {
-        final Sitemap sitemap = new Sitemap(1);
-
-        assertThat(sitemap.getEntries(), notNullValue());
-        assertThat(sitemap.getEntries().size(), is(Sitemap.getCapacity()));
-    }
 
     @Test
     public void hasLastMod() {
+        SitemapEntry oldEntry = new SitemapEntry("one", Frequency.hourly, 0.5);
         time.waitDays(1);
-        SitemapEntryRepository.add(new SitemapEntry("one", Frequency.hourly, 0.5));
-        time.waitDays(1);
-        final SitemapEntry older = new SitemapEntry("older", Frequency.hourly, 0.5);
-        SitemapEntryRepository.add(older);
-        time.waitDays(1);
+        final SitemapEntry newEntry = new SitemapEntry("older", Frequency.hourly, 0.5);
 
-        final Sitemap sitemap = new Sitemap(4);
+        final Sitemap sitemap = new Sitemap(Lists.newArrayList(oldEntry, newEntry));
 
-        assertThat(sitemap.getLastMod(), is(older.getLastMod()));
+        assertThat(sitemap.getLastMod(), is(newEntry.getLastMod()));
     }
 
-    @Test
-    public void canNotCreateASitemapWithNegativeIndex() {
-        exception.expect(SitemapCreationException.class);
-
-        new Sitemap(-1);
-    }
 }

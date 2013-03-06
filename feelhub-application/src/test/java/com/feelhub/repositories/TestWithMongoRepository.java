@@ -38,6 +38,10 @@ public class TestWithMongoRepository {
         return provider;
     }
 
+    public MongoSession getSession() {
+        return session;
+    }
+
     private SessionProvider provider;
     private MongoSession session;
 }

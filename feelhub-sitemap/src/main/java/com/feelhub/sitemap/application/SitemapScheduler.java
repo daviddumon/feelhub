@@ -1,20 +1,18 @@
 package com.feelhub.sitemap.application;
 
-import com.feelhub.sitemap.domain.*;
 import com.feelhub.sitemap.tools.SitemapProperties;
 import org.joda.time.DateTime;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
-import static org.quartz.JobBuilder.*;
-import static org.quartz.SimpleScheduleBuilder.*;
-import static org.quartz.TriggerBuilder.*;
+import static org.quartz.JobBuilder.newJob;
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
+import static org.quartz.TriggerBuilder.newTrigger;
 
 public class SitemapScheduler {
 
     public void initialize() {
         initializeScheduler();
-        createRootInSitemap();
     }
 
     private void initializeScheduler() {
@@ -24,11 +22,6 @@ public class SitemapScheduler {
             scheduler.start();
         } catch (SchedulerException e) {
         }
-    }
-
-    private void createRootInSitemap() {
-        final SitemapEntry root = new SitemapEntry("", Frequency.always, 0.8);
-        SitemapEntryRepository.add(root);
     }
 
     public void run() {

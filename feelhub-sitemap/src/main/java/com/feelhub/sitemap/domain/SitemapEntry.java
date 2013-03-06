@@ -28,10 +28,6 @@ public class SitemapEntry extends BaseEntity {
         return priority;
     }
 
-    public void setLastMod(final DateTime dateTime) {
-        this.lastMod = dateTime;
-    }
-
     @Override
     public Object getId() {
         return loc;

@@ -1,17 +1,18 @@
 package com.feelhub.sitemap.application;
 
 import com.feelhub.repositories.TestWithMongoRepository;
-import com.feelhub.sitemap.domain.SitemapEntryRepository;
 import com.feelhub.sitemap.test.FakeSitemapJob;
 import com.feelhub.test.SystemTime;
-import com.google.inject.*;
-import org.junit.*;
-import org.quartz.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.quartz.JobKey;
+import org.quartz.SchedulerException;
+import org.quartz.TriggerKey;
 
 import javax.servlet.ServletException;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class SitemapSchedulerTest extends TestWithMongoRepository {
 
@@ -20,12 +21,7 @@ public class SitemapSchedulerTest extends TestWithMongoRepository {
 
     @Before
     public void before() {
-        final Injector injector = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-            }
-        });
-        sitemapScheduler = injector.getInstance(SitemapScheduler.class);
+        sitemapScheduler = new SitemapScheduler();
         sitemapScheduler.setSitemapJobClass(FakeSitemapJob.class);
     }
 
@@ -41,13 +37,6 @@ public class SitemapSchedulerTest extends TestWithMongoRepository {
         assertTrue(sitemapScheduler.getScheduler().isStarted());
         assertTrue(sitemapScheduler.getScheduler().checkExists(hiramJob));
         assertTrue(sitemapScheduler.getScheduler().checkExists(triggerKey));
-    }
-
-    @Test
-    public void addRootOnlyFirstTime() throws InterruptedException, ServletException {
-        sitemapScheduler.initialize();
-
-        assertThat(SitemapEntryRepository.get(""), notNullValue());
     }
 
     private SitemapScheduler sitemapScheduler;

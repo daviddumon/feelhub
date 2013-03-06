@@ -1,5 +1,5 @@
 User-agent: *
 Disallow:
 <#list indexes as index>
-Sitemap: ${root}${index.loc}
+Sitemap: ${root}${index}
 </#list>

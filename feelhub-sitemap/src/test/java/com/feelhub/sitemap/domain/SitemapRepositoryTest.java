@@ -1,6 +1,5 @@
 package com.feelhub.sitemap.domain;
 
-import com.feelhub.sitemap.test.WithFakeData;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
@@ -11,46 +10,37 @@ import static org.hamcrest.Matchers.*;
 
 public class SitemapRepositoryTest {
 
-    @Rule
+/*    @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    @Rule
-    public WithFakeData fakeData = new WithFakeData();
 
     @Test
     public void canBuildSitemapsListFromSitemapEntries() {
-        assertThat(SitemapRepository.getSitemaps(), notNullValue());
-        assertThat(SitemapRepository.getSitemaps().size(), is(5));
+        assertThat(SitemapIndexBuilder.getSitemaps(), notNullValue());
+        assertThat(SitemapIndexBuilder.getSitemaps().size(), is(5));
     }
 
     @Test
     public void canGetASitemapFromIndex() {
-        SitemapRepository.buildAllSitemaps();
+        SitemapIndexBuilder.buildAllSitemaps(entries);
 
-        final Sitemap sitemap = SitemapRepository.getSitemap(1);
+        final Sitemap sitemap = SitemapIndexBuilder.getSitemap(1);
 
         assertThat(sitemap, notNullValue());
     }
 
     @Test
-    public void thrownExceptionForUnknownSitemap() {
-        exception.expect(SitemapNotFoundException.class);
-
-        SitemapRepository.getSitemap(10);
-    }
-
-    @Test
     public void canClearSitemapsList() {
-        SitemapRepository.clear();
+        SitemapIndexBuilder.clear();
 
-        assertThat(SitemapRepository.getSitemaps().size(), is(0));
+        assertThat(SitemapIndexBuilder.getSitemaps().size(), is(0));
     }
 
     @Test
     public void canGetSitemapsForSitemapIndex() {
         final SitemapIndex sitemapIndex = new SitemapIndex(1);
 
-        final List<Sitemap> sitemaps = SitemapRepository.getSitemapsFor(sitemapIndex);
+        final List<Sitemap> sitemaps = SitemapIndexBuilder.getSitemapsFor(sitemapIndex);
 
         assertThat(sitemaps, notNullValue());
         assertThat(sitemaps.size(), is(2));
@@ -58,13 +48,13 @@ public class SitemapRepositoryTest {
 
     @Test
     public void canGetEntriesForWrongIndexes() {
-        assertThat(SitemapRepository.getSitemapsFor(new SitemapIndex(30)), notNullValue());
+        assertThat(SitemapIndexBuilder.getSitemapsFor(new SitemapIndex(30)), notNullValue());
     }
 
     @Test
     public void canMakeGoodPartition() {
-        assertThat(SitemapRepository.getSitemapsFor(new SitemapIndex(0)).size(), is(3));
-        assertThat(SitemapRepository.getSitemapsFor(new SitemapIndex(1)).size(), is(2));
-        assertThat(SitemapRepository.getSitemapsFor(new SitemapIndex(4)).size(), is(0));
-    }
+        assertThat(SitemapIndexBuilder.getSitemapsFor(new SitemapIndex(0)).size(), is(3));
+        assertThat(SitemapIndexBuilder.getSitemapsFor(new SitemapIndex(1)).size(), is(2));
+        assertThat(SitemapIndexBuilder.getSitemapsFor(new SitemapIndex(4)).size(), is(0));
+    }*/
 }
