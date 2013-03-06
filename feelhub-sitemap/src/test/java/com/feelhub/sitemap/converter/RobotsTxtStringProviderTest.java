@@ -14,11 +14,15 @@ public class RobotsTxtStringProviderTest {
     @Test
     public void canConvertRobotsTxt() {
         List<SitemapIndex> indexes = Lists.newArrayList();
-        indexes.add(new SitemapIndex(Lists.<Sitemap>newArrayList()));
-        indexes.add(new SitemapIndex(Lists.<Sitemap>newArrayList()));
+        SitemapIndex sitemapIndex = new SitemapIndex(Lists.<Sitemap>newArrayList());
+        sitemapIndex.setIndex(123);
+        indexes.add(sitemapIndex);
+        SitemapIndex sitemapIndex1 = new SitemapIndex(Lists.<Sitemap>newArrayList());
+        sitemapIndex1.setIndex(145);
+        indexes.add(sitemapIndex1);
 
-        String robots = new RobotsTxtStringProvider().toString(indexes);
+        String robots = new RobotsTxtStringProvider().toString(indexes, "localhost:8080");
 
-        assertThat(robots).isEqualTo("User-agent: *\n" + "Disallow:\n" + "Sitemap: localhost:8080/sitemap_index_00000.xml\n" + "Sitemap: localhost:8080/sitemap_index_00001.xml\n");
+        assertThat(robots).isEqualTo("User-agent: *\n" + "Disallow:\n" + "Sitemap: localhost:8080/sitemap_index_00123.xml\n" + "Sitemap: localhost:8080/sitemap_index_00145.xml\n");
     }
 }
