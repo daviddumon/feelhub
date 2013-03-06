@@ -1,9 +1,9 @@
 package com.feelhub.web.authentification;
 
-import com.feelhub.application.SessionService;
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.session.AuthenticateCommand;
 import com.feelhub.application.command.session.CreateSessionCommand;
+import com.feelhub.application.command.session.DeleteSessionCommand;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.web.tools.CookieBuilder;
@@ -22,8 +22,7 @@ import java.util.UUID;
 public class AuthenticationManager {
 
     @Inject
-    public AuthenticationManager(final SessionService sessionService, final FeelhubWebProperties properties, final CookieManager cookieManager, final CommandBus commandBus) {
-        this.sessionService = sessionService;
+    public AuthenticationManager(final FeelhubWebProperties properties, final CookieManager cookieManager, final CommandBus commandBus) {
         this.properties = properties;
         this.cookieManager = cookieManager;
         this.commandBus = commandBus;
@@ -55,7 +54,8 @@ public class AuthenticationManager {
         final Cookie sessionCookie = cookieManager.getCookie(CookieBuilder.SESSION);
         final Cookie id = cookieManager.getCookie(CookieBuilder.ID);
         if (sessionCookie != null && id != null) {
-            sessionService.deleteSession(UUID.fromString(sessionCookie.getValue()));
+            DeleteSessionCommand deleteSession = new DeleteSessionCommand(UUID.fromString(sessionCookie.getValue()));
+            commandBus.execute(deleteSession);
             cookieManager.setCookie(cookieBuilder.eraseIdCookie(id.getValue()));
             cookieManager.setCookie(cookieBuilder.eraseSessionCookie(sessionCookie.getValue()));
             return true;
@@ -93,7 +93,6 @@ public class AuthenticationManager {
         }
     }
 
-    private final SessionService sessionService;
     private final FeelhubWebProperties properties;
     private final CookieManager cookieManager;
     private CommandBus commandBus;

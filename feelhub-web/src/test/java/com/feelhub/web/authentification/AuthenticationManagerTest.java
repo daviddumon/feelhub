@@ -1,9 +1,9 @@
 package com.feelhub.web.authentification;
 
-import com.feelhub.application.SessionService;
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.session.AuthenticateCommand;
 import com.feelhub.application.command.session.CreateSessionCommand;
+import com.feelhub.application.command.session.DeleteSessionCommand;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -32,9 +32,8 @@ public class AuthenticationManagerTest {
     public void setUp() throws Exception {
         cookieManager = mock(CookieManager.class);
         when(cookieManager.cookieBuilder()).thenReturn(new CookieBuilder(new FeelhubWebProperties()));
-        sessionService = mock(SessionService.class);
         commandBus = mock(CommandBus.class);
-        manager = new AuthenticationManager(sessionService, new FeelhubWebProperties(), cookieManager, commandBus);
+        manager = new AuthenticationManager(new FeelhubWebProperties(), cookieManager, commandBus);
         user = TestFactories.users().createActiveUser("test@test.com");
     }
 
@@ -70,7 +69,9 @@ public class AuthenticationManagerTest {
 
         manager.logout();
 
-        verify(sessionService).deleteSession((UUID) session.getId());
+        ArgumentCaptor<DeleteSessionCommand> captor = ArgumentCaptor.forClass(DeleteSessionCommand.class);
+        verify(commandBus).execute(captor.capture());
+        assertThat(captor.getValue().token).isEqualTo(session.getToken());
     }
 
     @Test
@@ -156,7 +157,6 @@ public class AuthenticationManagerTest {
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
     private CookieManager cookieManager;
-    private SessionService sessionService;
     private AuthenticationManager manager;
     private User user;
     private CommandBus commandBus;
