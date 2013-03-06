@@ -5,6 +5,7 @@ import com.feelhub.domain.bing.BingSearch;
 import com.feelhub.domain.scraper.HttpTopicAnalyzer;
 import com.feelhub.domain.topic.http.HttpTopicIndexer;
 import com.feelhub.domain.topic.real.RealTopicIndexer;
+import com.feelhub.domain.topic.world.WorldListener;
 import com.google.inject.AbstractModule;
 
 public class DomainWorkersModule extends AbstractModule {
@@ -16,5 +17,6 @@ public class DomainWorkersModule extends AbstractModule {
         bind(BingSearch.class).asEagerSingleton();
         bind(AlchemyAnalyzer.class).asEagerSingleton();
         bind(HttpTopicAnalyzer.class).asEagerSingleton();
+        bind(WorldListener.class).asEagerSingleton();
     }
 }

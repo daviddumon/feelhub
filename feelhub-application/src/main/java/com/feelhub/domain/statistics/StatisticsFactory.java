@@ -18,7 +18,7 @@ public class StatisticsFactory {
     }
 
     @Subscribe
-    public void handle(final SentimentStatisticsEvent event) {
+    public void handle(final SentimentAddedEvent event) {
         sentimentOn(event.getSentiment(), event.getDate());
     }
 

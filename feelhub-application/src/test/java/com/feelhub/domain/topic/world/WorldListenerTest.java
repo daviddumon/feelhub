@@ -1,12 +1,15 @@
 package com.feelhub.domain.topic.world;
 
-import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.feeling.Sentiment;
+import com.feelhub.domain.feeling.SentimentAddedEvent;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.google.inject.*;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -18,23 +21,36 @@ public class WorldListenerTest {
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
 
+
     @Before
     public void before() {
-        final Injector injector = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-            }
-        });
-        injector.getInstance(WorldListener.class);
+        worldListener = new WorldListener();
+    }
+
+    @Test
+    public void canLookupWorld() {
+        final WorldTopic worldTopic = TestFactories.topics().newWorldTopic();
+
+        final WorldTopic worldTopicFound = worldListener.lookUpOrCreateWorld();
+
+        assertThat(worldTopicFound).isNotNull();
+        assertThat(worldTopicFound).isEqualTo(worldTopic);
+    }
+
+    @Test
+    public void canCreateWorldIfItDoesNotExists() {
+        worldListener.lookUpOrCreateWorld();
+
+        assertThat(Repositories.topics().getWorldTopic()).isNotNull();
     }
 
     @Test
     public void addPostEventForWorldStatisticsOnSentimentEvent() {
         final WorldTopic worldTopic = TestFactories.topics().newWorldTopic();
         final Sentiment sentiment = TestFactories.sentiments().newSentiment();
-        final SentimentStatisticsEvent sentimentStatisticsEvent = new SentimentStatisticsEvent(sentiment);
+        final SentimentAddedEvent sentimentStatisticsEvent = new SentimentAddedEvent(sentiment);
 
-        DomainEventBus.INSTANCE.post(sentimentStatisticsEvent);
+        worldListener.handle(sentimentStatisticsEvent);
 
         final WorldStatisticsEvent worldStatisticsEvent = bus.lastEvent(WorldStatisticsEvent.class);
         assertThat(worldStatisticsEvent).isNotNull();
@@ -44,15 +60,15 @@ public class WorldListenerTest {
     }
 
     @Test
-    public void canCreateWorldIfNotPresent() {
+    public void listenToSentimentAdded() {
         final Sentiment sentiment = TestFactories.sentiments().newSentiment();
-        final SentimentStatisticsEvent sentimentStatisticsEvent = new SentimentStatisticsEvent(sentiment);
+        final SentimentAddedEvent sentimentStatisticsEvent = new SentimentAddedEvent(sentiment);
 
         DomainEventBus.INSTANCE.post(sentimentStatisticsEvent);
 
         final WorldTopic worldTopic = Repositories.topics().getWorldTopic();
         assertThat(worldTopic).isNotNull();
-        final WorldStatisticsEvent worldStatisticsEvent = bus.lastEvent(WorldStatisticsEvent.class);
-        assertThat(worldStatisticsEvent.getSentiment().getTopicId()).isEqualTo(worldTopic.getId());
     }
+
+    private WorldListener worldListener;
 }

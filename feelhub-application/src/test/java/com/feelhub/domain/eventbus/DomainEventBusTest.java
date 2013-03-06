@@ -24,19 +24,19 @@ public class DomainEventBusTest {
     @Test
     public void canUseAsyncEventBus() {
         final SimpleEventListener simpleEventListener = mock(SimpleEventListener.class);
-        final SentimentStatisticsEvent sentimentStatisticsEvent = new SentimentStatisticsEvent(new Sentiment(UUID.randomUUID(), SentimentValue.bad));
+        final SentimentAddedEvent sentimentAddedEvent = new SentimentAddedEvent(new Sentiment(UUID.randomUUID(), SentimentValue.bad));
         DomainEventBus.INSTANCE.register(simpleEventListener);
 
-        DomainEventBus.INSTANCE.post(sentimentStatisticsEvent);
+        DomainEventBus.INSTANCE.post(sentimentAddedEvent);
 
-        verify(simpleEventListener, times(1)).handle(sentimentStatisticsEvent);
+        verify(simpleEventListener, times(1)).handle(sentimentAddedEvent);
     }
 
     @Test
     public void canSpreadEventToMultipleListeners() {
         final SimpleEventListener listener1 = mock(SimpleEventListener.class);
         final SimpleEventListener listener2 = mock(SimpleEventListener.class);
-        final SentimentStatisticsEvent feelingCreatedEvent = new SentimentStatisticsEvent(new Sentiment(UUID.randomUUID(), SentimentValue.bad));
+        final SentimentAddedEvent feelingCreatedEvent = new SentimentAddedEvent(new Sentiment(UUID.randomUUID(), SentimentValue.bad));
         DomainEventBus.INSTANCE.register(listener1);
         DomainEventBus.INSTANCE.register(listener2);
 
@@ -49,7 +49,7 @@ public class DomainEventBusTest {
     private class SimpleEventListener {
 
         @Subscribe
-        public void handle(final SentimentStatisticsEvent sentimentStatisticsEvent) {
+        public void handle(final SentimentAddedEvent sentimentAddedEvent) {
 
         }
     }

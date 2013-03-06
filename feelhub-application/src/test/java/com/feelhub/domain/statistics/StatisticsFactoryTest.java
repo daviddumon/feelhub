@@ -29,7 +29,7 @@ public class StatisticsFactoryTest {
 
     @Test
     public void canRecordGoodSentiment() {
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
 
         statisticsFactory.handle(event);
 
@@ -38,7 +38,7 @@ public class StatisticsFactoryTest {
 
     @Test
     public void canRecordBadSentiment() {
-        final SentimentStatisticsEvent event = getBadSentimentEvent();
+        final SentimentAddedEvent event = getBadSentimentEvent();
 
         statisticsFactory.handle(event);
 
@@ -47,7 +47,7 @@ public class StatisticsFactoryTest {
 
     @Test
     public void canRecordForHour() {
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
         time.waitDays(1);
 
         statisticsFactory.handle(event);
@@ -60,7 +60,7 @@ public class StatisticsFactoryTest {
 
     @Test
     public void canRecordForDay() {
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
 
         statisticsFactory.handle(event);
 
@@ -71,7 +71,7 @@ public class StatisticsFactoryTest {
 
     @Test
     public void canRecordForMonth() {
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
 
         statisticsFactory.handle(event);
 
@@ -82,7 +82,7 @@ public class StatisticsFactoryTest {
 
     @Test
     public void canRecordForYear() {
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
 
         statisticsFactory.handle(event);
 
@@ -93,7 +93,7 @@ public class StatisticsFactoryTest {
 
     @Test
     public void canRecord2SentimentsForYear() {
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
         DomainEventBus.INSTANCE.post(event);
 
         statisticsFactory.handle(event);
@@ -107,7 +107,7 @@ public class StatisticsFactoryTest {
     @Test
     public void canRecordSentimentForLastYear() {
         time.set(time.getNow().minusYears(3));
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
 
         time.set(time.getNow().plusYears(3));
         statisticsFactory.handle(event);
@@ -120,9 +120,9 @@ public class StatisticsFactoryTest {
     @Test
     public void canRecordSentimentsForLastMonth() {
         time.set(time.getNow().minusMonths(3));
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
         time.set(time.getNow().minusMonths(5));
-        statisticsFactory.handle(new SentimentStatisticsEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
+        statisticsFactory.handle(new SentimentAddedEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
 
         time.set(time.getNow().plusMonths(8));
         statisticsFactory.handle(event);
@@ -134,9 +134,9 @@ public class StatisticsFactoryTest {
     @Test
     public void canRecordSentimentsForLastDay() {
         time.set(time.getNow().minusDays(3));
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
         time.set(time.getNow().minusDays(5));
-        statisticsFactory.handle(new SentimentStatisticsEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
+        statisticsFactory.handle(new SentimentAddedEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
 
         time.set(time.getNow().plusDays(8));
         statisticsFactory.handle(event);
@@ -148,9 +148,9 @@ public class StatisticsFactoryTest {
     @Test
     public void canRecordSentimentsForLastHour() {
         time.set(time.getNow().minusHours(3));
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsFactory.handle(new SentimentStatisticsEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
+        statisticsFactory.handle(new SentimentAddedEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
 
         time.set(time.getNow().plusHours(8));
         statisticsFactory.handle(event);
@@ -162,9 +162,9 @@ public class StatisticsFactoryTest {
     @Test
     public void canFetchStatisticsWithGranularityAllForTopic() {
         time.set(time.getNow().minusHours(3));
-        final SentimentStatisticsEvent event = getGoodSentimentEvent();
+        final SentimentAddedEvent event = getGoodSentimentEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsFactory.handle(new SentimentStatisticsEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
+        statisticsFactory.handle(new SentimentAddedEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
 
         time.set(time.getNow().plusHours(8));
         statisticsFactory.handle(event);
@@ -186,13 +186,13 @@ public class StatisticsFactoryTest {
         assertThat(statisticsList.size(), is(5));
     }
 
-    private SentimentStatisticsEvent getGoodSentimentEvent() {
-        final SentimentStatisticsEvent event = new SentimentStatisticsEvent(TestFactories.sentiments().newGoodSentiment());
+    private SentimentAddedEvent getGoodSentimentEvent() {
+        final SentimentAddedEvent event = new SentimentAddedEvent(TestFactories.sentiments().newGoodSentiment());
         return event;
     }
 
-    private SentimentStatisticsEvent getBadSentimentEvent() {
-        final SentimentStatisticsEvent event = new SentimentStatisticsEvent(TestFactories.sentiments().newBadSentiment());
+    private SentimentAddedEvent getBadSentimentEvent() {
+        final SentimentAddedEvent event = new SentimentAddedEvent(TestFactories.sentiments().newBadSentiment());
         return event;
     }
 

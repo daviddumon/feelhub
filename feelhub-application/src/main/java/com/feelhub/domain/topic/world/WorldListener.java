@@ -1,26 +1,49 @@
 package com.feelhub.domain.topic.world;
 
-import com.feelhub.application.WorldService;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.feeling.Sentiment;
+import com.feelhub.domain.feeling.SentimentAddedEvent;
+import com.feelhub.domain.topic.TopicFactory;
+import com.feelhub.repositories.Repositories;
+import com.google.common.base.Optional;
+import com.google.common.base.Supplier;
 import com.google.common.eventbus.Subscribe;
-import com.google.inject.Inject;
 
 public class WorldListener {
 
-    @Inject
-    public WorldListener(final WorldService worldService) {
-        this.worldService = worldService;
+    public WorldListener() {
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
-    public void handle(final SentimentStatisticsEvent sentimentStatisticsEvent) {
-        final WorldTopic worldTopic = worldService.lookUpOrCreateWorld();
-        final Sentiment sentiment = new Sentiment(worldTopic.getId(), sentimentStatisticsEvent.getSentiment().getSentimentValue());
+    public void handle(final SentimentAddedEvent sentimentAddedEvent) {
+        final WorldTopic worldTopic = lookUpOrCreateWorld();
+        final Sentiment sentiment = new Sentiment(worldTopic.getId(), sentimentAddedEvent.getSentiment().getSentimentValue());
         final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(sentiment);
         DomainEventBus.INSTANCE.post(worldStatisticsEvent);
     }
 
-    private final WorldService worldService;
+    WorldTopic lookUpOrCreateWorld() {
+       return lookUp().or(worldSupplier());
+    }
+
+    private Supplier<WorldTopic> worldSupplier() {
+        return new Supplier<WorldTopic>() {
+            @Override
+            public WorldTopic get() {
+                return createWorld();
+            }
+        };
+    }
+
+    private Optional<WorldTopic> lookUp() {
+        return Optional.fromNullable(Repositories.topics().getWorldTopic());
+    }
+
+    private WorldTopic createWorld() {
+        final WorldTopic worldTopic = new TopicFactory().createWorldTopic();
+        Repositories.topics().add(worldTopic);
+        return worldTopic;
+    }
+
 }

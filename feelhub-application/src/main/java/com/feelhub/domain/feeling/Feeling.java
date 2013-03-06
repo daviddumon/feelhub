@@ -22,7 +22,7 @@ public class Feeling extends BaseEntity {
     public void addSentiment(final Sentiment sentiment) {
         sentiments.add(sentiment);
         this.setLastModificationDate(new DateTime());
-        DomainEventBus.INSTANCE.post(new SentimentStatisticsEvent(sentiment));
+        DomainEventBus.INSTANCE.post(new SentimentAddedEvent(sentiment));
     }
 
     public UUID getId() {

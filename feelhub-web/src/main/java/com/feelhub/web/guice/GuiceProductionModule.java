@@ -5,7 +5,6 @@ import com.feelhub.domain.admin.AdminApiCallsService;
 import com.feelhub.domain.eventbus.DeadEventCatcher;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.statistics.StatisticsFactory;
-import com.feelhub.domain.topic.world.WorldListener;
 import com.feelhub.domain.translation.Translator;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.tools.MongoLinkAwareExecutor;
@@ -30,7 +29,6 @@ public class GuiceProductionModule extends AbstractModule {
         bind(MailBuilder.class).asEagerSingleton();
         bind(DeadEventCatcher.class).asEagerSingleton();
         bind(StatisticsFactory.class).asEagerSingleton();
-        bind(WorldListener.class).asEagerSingleton();
         bind(AdminApiCallsService.class).asEagerSingleton();
         bind(Translator.class).asEagerSingleton();
         bind(MongoLinkAwareExecutor.class).in(Singleton.class);

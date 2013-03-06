@@ -79,10 +79,10 @@ public class FeelingTest {
 
         feeling.addSentiment(sentiment);
 
-        final ArgumentCaptor<SentimentStatisticsEvent> captor = ArgumentCaptor.forClass(SentimentStatisticsEvent.class);
+        final ArgumentCaptor<SentimentAddedEvent> captor = ArgumentCaptor.forClass(SentimentAddedEvent.class);
         verify(simpleSentimentListener, times(1)).handle(captor.capture());
-        assertThat(captor.getValue()).isInstanceOf(SentimentStatisticsEvent.class);
-        final SentimentStatisticsEvent event = captor.getAllValues().get(0);
+        assertThat(captor.getValue()).isInstanceOf(SentimentAddedEvent.class);
+        final SentimentAddedEvent event = captor.getAllValues().get(0);
         assertThat(event.getSentiment()).isEqualTo(feeling.getSentiments().get(0));
     }
 
@@ -98,7 +98,7 @@ public class FeelingTest {
     private class SimpleSentimentListener {
 
         @Subscribe
-        public void handle(final SentimentStatisticsEvent sentimentStatisticsEvent) {
+        public void handle(final SentimentAddedEvent sentimentAddedEvent) {
 
         }
     }
