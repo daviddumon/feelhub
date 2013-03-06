@@ -3,12 +3,12 @@ package com.feelhub.sitemap.domain;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 public class Sitemap {
 
     public Sitemap(List<SitemapEntry> entries) {
-        this.loc = "/sitemap_" + String.format("%05d", 1) + ".xml";
         this.entries = entries;
     }
 
@@ -29,9 +29,17 @@ public class Sitemap {
     }
 
     public String getLoc() {
-        return loc;
+        return "/sitemap_" + String.format("%05d", 1) + ".xml";
     }
 
-    private final String loc;
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
     private List<SitemapEntry> entries = Lists.newArrayList();
+    private int index;
 }

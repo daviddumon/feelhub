@@ -14,8 +14,11 @@ public class SitemapIndexBuilder {
     private List<SitemapIndex> sitemapIndexes(List<Sitemap> sitemaps) {
         List<List<Sitemap>> partitionnedSitemaps = Lists.partition(sitemaps, SitemapPreferences.sitemapIndexCapacity());
         List<SitemapIndex> sitemapIndexes = Lists.newArrayList();
+        int i = 0;
         for (List<Sitemap> partition : partitionnedSitemaps) {
-            sitemapIndexes.add(new SitemapIndex(partition));
+            SitemapIndex sitemapIndex = new SitemapIndex(partition);
+            sitemapIndex.setIndex(i++);
+            sitemapIndexes.add(sitemapIndex);
         }
         return sitemapIndexes;
     }
@@ -23,8 +26,11 @@ public class SitemapIndexBuilder {
     private List<Sitemap> sitemaps(List<SitemapEntry> entries) {
         List<List<SitemapEntry>> partitionnedEntries = Lists.partition(entries, SitemapPreferences.sitemapCapacity());
         List<Sitemap> sitemaps = Lists.newArrayList();
+        int i = 0;
         for (List<SitemapEntry> partition : partitionnedEntries) {
-            sitemaps.add(new Sitemap(partition));
+            Sitemap sitemap = new Sitemap(partition);
+            sitemap.setIndex(i++);
+            sitemaps.add(sitemap);
         }
         return sitemaps;
     }

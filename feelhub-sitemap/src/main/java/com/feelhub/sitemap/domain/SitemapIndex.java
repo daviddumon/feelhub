@@ -16,6 +16,10 @@ public class SitemapIndex {
         return "/sitemap_index_" + String.format("%05d", index) + ".xml";
     }
 
+    public int getIndex() {
+        return index;
+    }
+
     public void setIndex(int index) {
         this.index = index;
     }

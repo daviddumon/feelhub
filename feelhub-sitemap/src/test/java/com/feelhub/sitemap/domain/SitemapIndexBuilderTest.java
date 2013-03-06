@@ -26,17 +26,12 @@ public class SitemapIndexBuilderTest {
         assertThat(secondIndex.getSitemaps().get(0).getEntries()).hasSize(2);
     }
 
-    private List<SitemapEntry> createEntries(int count) {
-        List<SitemapEntry> entries = Lists.newArrayList();
-        for (int i = 0; i < count; i++) {
-            entries.add(new SitemapEntry("sitemap" + i, Frequency.hourly, 0.5));
-        }
-        return entries;
-    }
-
     @Test
     public void addARootEntry() {
-        List<SitemapIndex> sitemapIndexes = new SitemapIndexBuilder().build(Lists.<SitemapEntry>newArrayList());
+        SitemapPreferences.setSitemapIndexCapacity(2);
+        SitemapPreferences.setSitemapCapacity(2);
+
+        List<SitemapIndex> sitemapIndexes = new SitemapIndexBuilder().build(createEntries(0));
 
         assertThat(sitemapIndexes).hasSize(1);
         SitemapIndex firstIndex = sitemapIndexes.get(0);
@@ -45,4 +40,23 @@ public class SitemapIndexBuilderTest {
         assertThat(firstIndex.getSitemaps().get(0).getEntries().get(0)).isEqualTo(new SitemapEntry("", Frequency.hourly, 0.8));
     }
 
+    @Test
+    public void indexAreSet() {
+        SitemapPreferences.setSitemapIndexCapacity(2);
+        SitemapPreferences.setSitemapCapacity(1);
+
+        List<SitemapIndex> sitemapIndexes = new SitemapIndexBuilder().build(createEntries(1));
+
+        assertThat(sitemapIndexes.get(0).getIndex()).isEqualTo(0);
+        assertThat(sitemapIndexes.get(0).getSitemaps().get(0).getIndex()).isEqualTo(0);
+        assertThat(sitemapIndexes.get(0).getSitemaps().get(1).getIndex()).isEqualTo(1);
+    }
+
+    private List<SitemapEntry> createEntries(int count) {
+        List<SitemapEntry> entries = Lists.newArrayList();
+        for (int i = 0; i < count; i++) {
+            entries.add(new SitemapEntry("sitemap" + i, Frequency.hourly, 0.5));
+        }
+        return entries;
+    }
 }
