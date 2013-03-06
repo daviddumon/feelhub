@@ -1,23 +1,17 @@
 package com.feelhub.web.authentification;
 
 import com.feelhub.application.command.CommandBus;
-import com.feelhub.application.command.session.AuthenticateCommand;
-import com.feelhub.application.command.session.CreateSessionCommand;
-import com.feelhub.application.command.session.DeleteSessionCommand;
+import com.feelhub.application.command.session.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
-import com.feelhub.web.tools.CookieBuilder;
-import com.feelhub.web.tools.CookieManager;
-import com.feelhub.web.tools.FeelhubWebProperties;
+import com.feelhub.web.tools.*;
 import com.google.common.collect.Maps;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.*;
 import com.google.inject.Inject;
 import org.joda.time.DateTime;
 import org.restlet.data.Cookie;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class AuthenticationManager {
 
@@ -54,8 +48,8 @@ public class AuthenticationManager {
         final Cookie sessionCookie = cookieManager.getCookie(CookieBuilder.SESSION);
         final Cookie id = cookieManager.getCookie(CookieBuilder.ID);
         if (sessionCookie != null && id != null) {
-            DeleteSessionCommand deleteSession = new DeleteSessionCommand(UUID.fromString(sessionCookie.getValue()));
-            commandBus.execute(deleteSession);
+            //DeleteSessionCommand deleteSession = new DeleteSessionCommand(UUID.fromString(sessionCookie.getValue()));
+            //commandBus.execute(deleteSession);
             cookieManager.setCookie(cookieBuilder.eraseIdCookie(id.getValue()));
             cookieManager.setCookie(cookieBuilder.eraseSessionCookie(sessionCookie.getValue()));
             return true;
