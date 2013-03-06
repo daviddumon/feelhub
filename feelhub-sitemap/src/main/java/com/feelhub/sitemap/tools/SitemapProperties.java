@@ -10,7 +10,7 @@ public class SitemapProperties {
     public SitemapProperties() {
         properties = new Properties();
         try {
-            properties.load(getClass().getResourceAsStream("/sitemap.properties"));
+            properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("sitemap.properties"));
         } catch (IOException e) {
             throw new RuntimeException("Error loading properties", e);
         }
