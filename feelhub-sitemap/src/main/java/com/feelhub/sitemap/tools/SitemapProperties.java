@@ -16,15 +16,15 @@ public class SitemapProperties {
         }
     }
 
-    public String getDbHost() {
+    private String getDbHost() {
         return properties.getProperty("dbHost");
     }
 
-    public int getDbPort() {
+    private int getDbPort() {
         return Integer.valueOf(properties.getProperty("dbPort"));
     }
 
-    public String getDbName() {
+    private String getDbName() {
         return properties.getProperty("dbName");
     }
 
