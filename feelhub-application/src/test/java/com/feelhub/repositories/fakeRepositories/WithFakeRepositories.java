@@ -7,7 +7,7 @@ public class WithFakeRepositories extends ExternalResource {
 
     @Override
     protected void before() throws Throwable {
-        Repositories.initialize(new FakeMongoRepositories());
+        Repositories.initialize(new FakeRepositories());
     }
 
     @Override

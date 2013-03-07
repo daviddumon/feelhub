@@ -4,14 +4,20 @@ import com.feelhub.domain.media.Media;
 import com.feelhub.domain.related.Related;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
-import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.*;
-import com.feelhub.web.authentification.*;
+import com.feelhub.web.ClientResource;
+import com.feelhub.web.ContextTestFactory;
+import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.authentification.WebUser;
 import com.feelhub.web.guice.GuiceTestModule;
-import com.google.inject.*;
-import org.json.*;
-import org.junit.*;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
@@ -25,9 +31,6 @@ public class ApiTopicMediasResourceTest {
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
-
-    @Rule
-    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Before
     public void before() {

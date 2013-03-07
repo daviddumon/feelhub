@@ -1,15 +1,22 @@
 package com.feelhub.web;
 
 import com.feelhub.domain.DomainWorkersModule;
+import com.feelhub.repositories.Repositories;
 import com.feelhub.web.authentification.UserInfos;
-import com.feelhub.web.filter.*;
+import com.feelhub.web.filter.IdentityFilter;
+import com.feelhub.web.filter.OpenSessionInViewFilter;
 import com.feelhub.web.mail.MailBuilder;
 import com.feelhub.web.status.FeelhubStatusService;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.feelhub.web.update.UpdateRouter;
-import com.google.inject.*;
-import freemarker.template.*;
-import org.restlet.*;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateModelException;
+import org.restlet.Application;
+import org.restlet.Context;
+import org.restlet.Restlet;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 
@@ -34,6 +41,7 @@ public class FeelhubApplication extends Application {
         setContextVariables();
         final MailBuilder mailBuilder = injector.getInstance(MailBuilder.class);
         mailBuilder.setContext(getContext());
+        Repositories.initialize(injector.getInstance(Repositories.class));
         super.start();
     }
 

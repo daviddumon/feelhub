@@ -13,7 +13,7 @@ import com.feelhub.domain.user.*;
 import com.feelhub.domain.user.activation.ActivationRepository;
 import com.feelhub.repositories.Repositories;
 
-public class FakeMongoRepositories extends Repositories {
+public class FakeRepositories extends Repositories {
 
     @Override
     protected ActivationRepository getActivationRepository() {

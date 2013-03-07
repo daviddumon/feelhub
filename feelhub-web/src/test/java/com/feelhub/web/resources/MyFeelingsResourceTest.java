@@ -1,14 +1,19 @@
 package com.feelhub.web.resources;
 
 import com.feelhub.domain.user.User;
-import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.*;
-import com.feelhub.web.authentification.*;
+import com.feelhub.web.ClientResource;
+import com.feelhub.web.ContextTestFactory;
+import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.authentification.WebUser;
 import com.feelhub.web.guice.GuiceTestModule;
 import com.feelhub.web.representation.ModelAndView;
-import com.google.inject.*;
-import org.junit.*;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.restlet.data.Status;
 
 import static org.fest.assertions.Assertions.*;
@@ -17,9 +22,6 @@ public class MyFeelingsResourceTest {
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
-
-    @Rule
-    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Before
     public void before() {

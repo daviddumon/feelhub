@@ -2,11 +2,13 @@ package com.feelhub.web.resources.authentification;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.*;
-import org.junit.*;
-import org.restlet.data.*;
+import com.feelhub.web.ClientResource;
+import com.feelhub.web.WebApplicationTester;
+import org.junit.Rule;
+import org.junit.Test;
+import org.restlet.data.Form;
+import org.restlet.data.Status;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -15,9 +17,6 @@ public class SignupResourceTest {
 
     @Rule
     public WebApplicationTester restlet = new WebApplicationTester();
-
-    @Rule
-    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
