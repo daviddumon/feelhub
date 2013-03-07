@@ -27,8 +27,7 @@ public class S3SitemapsRepository extends SitemapsRepository {
         putObject(new RobotsTxtToStringConverter(sitemapIndexes).toString(), "robots.txt");
         for (SitemapIndex sitemapIndex : sitemapIndexes) {
             putObject(new SitemapIndexToStringConverter(sitemapIndex).toString(), sitemapIndex.getName());
-            List<Sitemap> sitemaps = sitemapIndex.getSitemaps();
-            for (Sitemap sitemap : sitemaps) {
+            for (Sitemap sitemap : sitemapIndex.getSitemaps()) {
                  putObject(new SitemapToStringConverter(sitemap).toString(), sitemap.getName());
             }
         }
@@ -38,9 +37,9 @@ public class S3SitemapsRepository extends SitemapsRepository {
         s3.putObject(new PutObjectRequest(BUCKET_NAME, objectName, new ByteArrayInputStream(content.getBytes()), objectMetadata(content)));
     }
 
-    private ObjectMetadata objectMetadata(String robotsTxt) {
+    private ObjectMetadata objectMetadata(String content) {
         ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentLength(robotsTxt.length());
+        metadata.setContentLength(content.length());
         return metadata;
     }
 
