@@ -29,7 +29,7 @@ public class SitemapIndexStringConverterTest {
         assertThat(result).isEqualTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<sitemapindex xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd\" xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n" +
                 "<sitemap>\n" +
-                "<loc>localhost:8080/sitemap_00067.xml</loc>\n" +
+                "<loc>toto:8080/sitemap_00067.xml</loc>\n" +
                 "<lastmod>2013-03-06T12:15:00.000+01:00</lastmod>\n" +
                 "</sitemap>\n" +
                 "</sitemapindex>");
