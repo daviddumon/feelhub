@@ -48,8 +48,8 @@ public class AuthenticationManager {
         final Cookie sessionCookie = cookieManager.getCookie(CookieBuilder.SESSION);
         final Cookie id = cookieManager.getCookie(CookieBuilder.ID);
         if (sessionCookie != null && id != null) {
-            //DeleteSessionCommand deleteSession = new DeleteSessionCommand(UUID.fromString(sessionCookie.getValue()));
-            //commandBus.execute(deleteSession);
+            DeleteSessionCommand deleteSession = new DeleteSessionCommand(UUID.fromString(sessionCookie.getValue()));
+            commandBus.execute(deleteSession);
             cookieManager.setCookie(cookieBuilder.eraseIdCookie(id.getValue()));
             cookieManager.setCookie(cookieBuilder.eraseSessionCookie(sessionCookie.getValue()));
             return true;

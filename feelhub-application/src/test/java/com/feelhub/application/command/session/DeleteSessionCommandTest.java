@@ -26,11 +26,10 @@ public class DeleteSessionCommandTest {
 
 
     @Test
-    @Ignore("JB")
     public void canDeteleSession() {
         final Session session = TestFactories.sessions().createSessionFor(user);
 
-        //new DeleteSessionCommand(session.getToken()).execute();
+        new DeleteSessionCommand(session.getToken()).execute();
 
         assertThat(Repositories.sessions().getAll().size(), is(0));
     }
