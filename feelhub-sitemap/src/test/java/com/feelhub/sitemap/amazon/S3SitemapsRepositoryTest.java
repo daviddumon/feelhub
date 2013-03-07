@@ -1,6 +1,7 @@
 package com.feelhub.sitemap.amazon;
 
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.StorageClass;
 import com.feelhub.sitemap.amazon.S3SitemapsRepository;
 import com.feelhub.sitemap.converter.RobotsTxtToStringConverter;
 import com.feelhub.sitemap.converter.SitemapIndexToStringConverter;
@@ -41,6 +42,7 @@ public class S3SitemapsRepositoryTest {
         PutObjectRequest putObjectRequest = s3.getPutObjectRequests().get(0);
         assertThat(putObjectRequest.getKey()).isEqualTo("robots.txt");
         assertThat(putObjectRequest.getBucketName()).isEqualTo(S3SitemapsRepository.BUCKET_NAME);
+        assertThat(putObjectRequest.getStorageClass()).isEqualTo(StorageClass.ReducedRedundancy.toString());
         assertThat(toString(putObjectRequest.getInputStream())).isEqualTo(robotsTxtInString());
         assertThat(putObjectRequest.getMetadata().getContentLength()).isEqualTo(robotsTxtInString().length());
     }

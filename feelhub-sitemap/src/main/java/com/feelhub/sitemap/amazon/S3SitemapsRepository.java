@@ -4,6 +4,7 @@ package com.feelhub.sitemap.amazon;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.StorageClass;
 import com.feelhub.sitemap.application.SitemapsRepository;
 import com.feelhub.sitemap.converter.RobotsTxtToStringConverter;
 import com.feelhub.sitemap.converter.SitemapIndexToStringConverter;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class S3SitemapsRepository extends SitemapsRepository {
 
-    public static final String BUCKET_NAME = "sitemaps";
+    public static final String BUCKET_NAME = "feelhub-sitemaps";
 
     public S3SitemapsRepository(AmazonS3 s3) {
         this.s3 = s3;
@@ -34,7 +35,9 @@ public class S3SitemapsRepository extends SitemapsRepository {
     }
 
     private void putObject(String content, String objectName) {
-        s3.putObject(new PutObjectRequest(BUCKET_NAME, objectName, new ByteArrayInputStream(content.getBytes()), objectMetadata(content)));
+        PutObjectRequest putObjectRequest = new PutObjectRequest(BUCKET_NAME, objectName, new ByteArrayInputStream(content.getBytes()), objectMetadata(content));
+        putObjectRequest.setStorageClass(StorageClass.ReducedRedundancy);
+        s3.putObject(putObjectRequest);
     }
 
     private ObjectMetadata objectMetadata(String content) {
