@@ -2,9 +2,7 @@ package com.feelhub.sitemap.amazon;
 
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.StorageClass;
+import com.amazonaws.services.s3.model.*;
 import com.feelhub.sitemap.application.SitemapsRepository;
 import com.feelhub.sitemap.converter.RobotsTxtToStringConverter;
 import com.feelhub.sitemap.converter.SitemapIndexToStringConverter;
@@ -13,6 +11,7 @@ import com.feelhub.sitemap.domain.Sitemap;
 import com.feelhub.sitemap.domain.SitemapIndex;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 public class S3SitemapsRepository extends SitemapsRepository {
@@ -32,6 +31,11 @@ public class S3SitemapsRepository extends SitemapsRepository {
                  putObject(new SitemapToStringConverter(sitemap).toString(), sitemap.getName());
             }
         }
+    }
+
+    @Override
+    public InputStream get(String objectKey) {
+        return s3.getObject(new GetObjectRequest(BUCKET_NAME, objectKey)).getObjectContent();
     }
 
     private void putObject(String content, String objectName) {

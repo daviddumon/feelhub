@@ -1,5 +1,6 @@
 package com.feelhub.sitemap.amazon;
 
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.StorageClass;
 import com.feelhub.sitemap.amazon.S3SitemapsRepository;
@@ -16,6 +17,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.restlet.resource.Get;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -93,6 +95,16 @@ public class S3SitemapsRepositoryTest {
         SitemapIndex sitemapIndex = new SitemapIndex(Lists.<Sitemap>newArrayList(sitemap));
         sitemapIndex.setIndex(1234);
         return Lists.newArrayList(sitemapIndex);
+    }
+
+    @Test
+    public void canGetObject() throws IOException {
+        InputStream inputStream = s3SitemapsRepository.get("robots.txt");
+
+        assertThat(IOUtils.toByteArray(inputStream)).isEqualTo("toto".getBytes());
+        GetObjectRequest getObjectRequest = s3.getGetObjectRequests().get(0);
+        assertThat(getObjectRequest.getKey()).isEqualTo("robots.txt");
+        assertThat(getObjectRequest.getBucketName()).isEqualTo(S3SitemapsRepository.BUCKET_NAME);
     }
 
     private FakeAmazonS3 s3;

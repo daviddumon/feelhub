@@ -1,28 +1,37 @@
 package com.feelhub.web.tools;
 
-import com.feelhub.test.FakeInternet;
+import com.feelhub.sitemap.application.SitemapsRepository;
+import com.feelhub.sitemap.domain.SitemapIndex;
 import org.apache.commons.io.IOUtils;
-import org.junit.*;
+import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.List;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FeelhubSitemapModuleLinkTest {
 
-    @ClassRule
-    public static FakeInternet internet = new FakeInternet();
-
     @Test
-    @Ignore("connection refused on CI")
     public void canGetSitemap() throws Exception {
+        SitemapsRepository.initialize(new FakeSitemapsRepository());
         final FeelhubSitemapModuleLink feelhubSitemapModuleLink = new FeelhubSitemapModuleLink();
 
         final InputStream stream = feelhubSitemapModuleLink.get("00001");
 
-        assertThat(stream, notNullValue());
-        final String sitemap = IOUtils.toString(stream);
-        assertThat(sitemap, is("index : 00001"));
+        assertThat(IOUtils.toString(stream)).isEqualTo("00001");
+    }
+
+    private class FakeSitemapsRepository extends SitemapsRepository {
+        @Override
+        public void put(List<SitemapIndex> sitemapIndexes) {
+
+        }
+
+        @Override
+        public InputStream get(String objectKey) {
+            return new ByteArrayInputStream(objectKey.getBytes());
+        }
     }
 }
