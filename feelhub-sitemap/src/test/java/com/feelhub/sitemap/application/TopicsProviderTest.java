@@ -1,5 +1,6 @@
 package com.feelhub.sitemap.application;
 
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.sitemap.test.TestWithMongo;
 import com.feelhub.test.TestFactories;
@@ -21,7 +22,7 @@ public class TopicsProviderTest extends TestWithMongo {
         TestFactories.topics().newCompleteRealTopic();
         session.stop();
 
-        List<RealTopic> topics = new TopicsProvider().topics(newSession());
+        List<Topic> topics = new TopicsProvider().topics(newSession());
 
         assertThat(topics).hasSize(3);
     }

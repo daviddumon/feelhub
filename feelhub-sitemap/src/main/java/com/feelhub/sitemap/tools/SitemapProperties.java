@@ -35,10 +35,6 @@ public class SitemapProperties {
                 .withDbName(getDbName());
     }
 
-    public int getDelay() {
-        return Integer.valueOf(properties.getProperty("delay"));
-    }
-
     public String getRoot() {
         return properties.getProperty("root");
     }
