@@ -4,6 +4,7 @@ import com.feelhub.repositories.MongoRepositories;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.SessionProvider;
 import com.mongodb.DB;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.mongolink.MongoSession;
@@ -18,9 +19,14 @@ import java.net.UnknownHostException;
 public class TestWithMongo {
 
     @Before
-    public void beforeMongoRepository() throws UnknownHostException {
+    public void beforeMongo() throws UnknownHostException {
         ContextBuilder contextBuilder = new ContextBuilder("com.feelhub.repositories.mapping");
         sessionManager = MongoSessionManager.create(contextBuilder, Settings.defaultInstance().withDbFactory(FongoDbFactory.class));
+    }
+
+    @After
+    public void afterMongo() {
+        FongoDbFactory.clean();
     }
 
     public MongoSession newSession() {
