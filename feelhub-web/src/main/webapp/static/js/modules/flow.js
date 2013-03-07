@@ -3,7 +3,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     var container = $("#flow");
     var row_container = "#flow_list";
     var end_function, parameter, data_view, doit, api_end_point, datas, initial, skip, limit, maxBox, hasData, notLoading, basePollTime, lastFeelingId, spacer;
-    var topicId = topicData.id;
 
     function init(end_point, param, view, callback) {
         do_init(end_point, param, view, callback);
@@ -44,6 +43,12 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         $.each(initial_datas, function (index, data) {
             append_data(data);
         });
+        if (initial_datas.length != limit) {
+            hasData = false;
+        }
+        if (end_function) {
+            end_function();
+        }
     }
 
     function add_responsive_behavior() {
@@ -99,11 +104,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                         append_data(data);
                     });
 
-                    //if (skip == 0) {
-                    //    lastFeelingId = data[0].id;
-                    //    poll(basePollTime);
-                    //}
-
                     if (data.length != limit) {
                         hasData = false;
                     }
@@ -116,10 +116,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                             notLoading = true;
                         }
                     }, 200);
-                }
-
-                if (end_function) {
-                    end_function();
                 }
             });
         }
@@ -146,45 +142,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         data_view.render(data, row_container + "_" + row_index);
         datas.push(data);
     }
-
-    //function poll(time) {
-    //    clearInterval(pollNewFeelings);
-    //
-    //    var pollNewFeelings = setInterval(function () {
-    //        var parameters = [];
-    //        var uri = root + "/api/newfeelings";
-    //        if (topicId.length > 0) {
-    //            parameters.push({"value": "topicId=" + encodeURIComponent(topicId)});
-    //        }
-    //        if (lastFeelingId) {
-    //            parameters.push({"value": "lastFeelingId=" + lastFeelingId});
-    //        }
-    //        if (parameters.length > 0) {
-    //            uri += "?";
-    //            $.each(parameters, function (index, parameter) {
-    //                uri += parameter.value + "&";
-    //            });
-    //            uri = uri.substr(0, uri.length - 1);
-    //        }
-    //
-    //        $.getJSON(uri, function (data) {
-    //
-    //            if (data.length > 0) {
-    //                lastFeelingId = data[0].id;
-    //                data.reverse();
-    //                $.each(data, function (index, feeling) {
-    //                    var element = getFeeling(feeling, "feeling");
-    //                    datas.unshift(element);
-    //                });
-    //                reset();
-    //                poll(basePollTime);
-    //            }
-    //        })
-    //            .error(function () {
-    //                clearInterval(pollNewFeelings);
-    //            });
-    //    }, time);
-    //}
 
     function reset() {
         container.empty();

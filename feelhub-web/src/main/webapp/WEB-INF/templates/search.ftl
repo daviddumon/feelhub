@@ -10,6 +10,21 @@
 <script type="text/javascript">
     var q = "${q}";
     var type = "${type}";
+
+    var initial_datas = [
+        <#if topicDatas??>
+            <#list topicDatas as topicData>
+                {
+                    "id": "${topicData.id}",
+                    "name": "${topicData.name?j_string}",
+                    "thumbnailLarge": "${topicData.thumbnailLarge?j_string}",
+                    "thumbnailMedium": "${topicData.thumbnailMedium?j_string}",
+                    "thumbnailSmall": "${topicData.thumbnailSmall?j_string}",
+                    "type": "${topicData.type}"
+                }${topicData_has_next?string(",", "")}
+            </#list>
+        </#if>
+    ]
 </script>
 </@flow.js>
 

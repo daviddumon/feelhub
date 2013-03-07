@@ -1,16 +1,23 @@
 package com.feelhub.web.resources;
 
+import com.feelhub.application.TopicService;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
+import com.feelhub.web.dto.TopicData;
 import com.feelhub.web.representation.ModelAndView;
+import com.google.common.collect.Lists;
 import com.google.inject.*;
 import org.junit.*;
 import org.restlet.*;
 import org.restlet.data.*;
 
-import java.util.Map;
+import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class SearchResourceTest {
 
@@ -22,9 +29,11 @@ public class SearchResourceTest {
 
     @Before
     public void before() {
+        topicService = mock(TopicService.class);
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
+                bind(TopicService.class).toInstance(topicService);
             }
         });
         searchResource = injector.getInstance(SearchResource.class);
@@ -96,6 +105,56 @@ public class SearchResourceTest {
         assertThat(modelAndView.getData("type").toString()).isEqualTo("http");
     }
 
+    @Test
+    public void fetchInitialSearchResults() {
+        final String webTag = "http://www.google.fr";
+        final Request request = new Request(Method.GET, "http://test.com?q=" + webTag);
+        searchResource.init(Context.getCurrent(), request, new Response(request));
+
+        final ModelAndView modelAndView = searchResource.search();
+
+        verify(topicService).getTopics(webTag, FeelhubLanguage.reference());
+    }
+
+    @Test
+    public void hasInitialDatasInModelForHttpTopic() {
+        final String webTag = "http://www.google.fr";
+        final Request request = new Request(Method.GET, "http://test.com?q=" + webTag);
+        searchResource.init(Context.getCurrent(), request, new Response(request));
+
+        final ModelAndView modelAndView = searchResource.search();
+
+        assertThat(modelAndView.getData("topicDatas")).isNotNull();
+    }
+
+    @Test
+    public void hasInitialDatasInModelForRealTopic() {
+        final String realTag = "fruit";
+        final Request request = new Request(Method.GET, "http://test.com?q=" + realTag);
+        searchResource.init(Context.getCurrent(), request, new Response(request));
+
+        final ModelAndView modelAndView = searchResource.search();
+
+        assertThat(modelAndView.getData("topicDatas")).isNotNull();
+    }
+
+    @Test
+    public void dataIsSearchResults() {
+        final String realTag = "fruit";
+        final Request request = new Request(Method.GET, "http://test.com?q=" + realTag);
+        searchResource.init(Context.getCurrent(), request, new Response(request));
+        List<Topic> results = Lists.newArrayList();
+        results.add(TestFactories.topics().newCompleteRealTopic());
+        results.add(TestFactories.topics().newCompleteRealTopic());
+        when(topicService.getTopics(realTag, FeelhubLanguage.reference())).thenReturn(results);
+
+        final ModelAndView modelAndView = searchResource.search();
+
+        List<TopicData> topicDatas = modelAndView.getData("topicDatas");
+        assertThat(topicDatas.size()).isEqualTo(2);
+    }
+
     private SearchResource searchResource;
     private String query;
+    private TopicService topicService;
 }
