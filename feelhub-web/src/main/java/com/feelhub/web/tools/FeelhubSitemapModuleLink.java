@@ -12,7 +12,7 @@ import java.io.*;
 public class FeelhubSitemapModuleLink {
 
     public InputStream get(final String index) {
-        final Request request = Requests.create(Method.GET, createSitemapUrl(index));
+        final Request request = Requests.create(Method.GET, index);
         final Client client = Clients.create();
         try {
             final Response response = client.handle(request);
@@ -33,11 +33,4 @@ public class FeelhubSitemapModuleLink {
         return result;
     }
 
-    private String createSitemapUrl(final String index) {
-        return sitemapBuilderAddress() + index;
-    }
-
-    private String sitemapBuilderAddress() {
-        return new FeelhubWebProperties().sitemapBuilder;
-    }
 }

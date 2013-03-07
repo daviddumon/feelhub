@@ -1,4 +1,4 @@
-package com.feelhub.web.resources;
+package com.feelhub.web.resources.sitemap;
 
 import com.feelhub.web.*;
 import com.feelhub.web.tools.FeelhubSitemapModuleLink;
@@ -13,7 +13,6 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
-@Ignore("non understandable compression on tomcat ...")
 public class FeelhubRobotsResourceTest {
 
     @Rule
@@ -37,12 +36,12 @@ public class FeelhubRobotsResourceTest {
 
     @Test
     public void doesUseSitemapLink() throws IOException {
-        when(feelhubSitemapModuleLink.get("/robots.txt")).thenReturn(IOUtils.toInputStream("robots"));
+        when(feelhubSitemapModuleLink.get("robots.txt")).thenReturn(IOUtils.toInputStream("robots"));
         final ClientResource resource = restlet.newClientResource("/robots.txt");
 
         final Representation representation = resource.get();
 
-        verify(feelhubSitemapModuleLink).get("/robots.txt");
+        verify(feelhubSitemapModuleLink).get("robots.txt");
         assertThat(representation.getText(), is("robots"));
     }
 

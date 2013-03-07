@@ -1,4 +1,4 @@
-package com.feelhub.web.resources;
+package com.feelhub.web.resources.sitemap;
 
 import com.feelhub.web.representation.FeelhubSitemapRepresentation;
 import com.feelhub.web.tools.FeelhubSitemapModuleLink;
@@ -18,7 +18,7 @@ public class FeelhubSitemapIndexResource extends ServerResource {
     @Get
     public Representation represent() {
         final String index = getRequestAttributes().get("number").toString();
-        final InputStream sitemapIndex = feelhubSitemapModuleLink.get("/sitemap_index_" + index + ".xml");
+        final InputStream sitemapIndex = feelhubSitemapModuleLink.get("sitemap_index_" + index + ".xml");
         return new FeelhubSitemapRepresentation(sitemapIndex);
     }
 

@@ -5,6 +5,9 @@ import com.feelhub.web.resources.*;
 import com.feelhub.web.resources.admin.*;
 import com.feelhub.web.resources.api.*;
 import com.feelhub.web.resources.authentification.*;
+import com.feelhub.web.resources.sitemap.FeelhubRobotsResource;
+import com.feelhub.web.resources.sitemap.FeelhubSitemapIndexResource;
+import com.feelhub.web.resources.sitemap.FeelhubSitemapResource;
 import com.feelhub.web.resources.social.*;
 import com.google.inject.Injector;
 import org.restlet.Context;
@@ -41,6 +44,7 @@ public class FeelhubRouter extends Router {
         attach("/api/myfeelings", ApiMyFeelingsResource.class);
 
         // WEB
+        attach("/robots.txt", FeelhubRobotsResource.class);
         attach("/topic/{topicId}", TopicResource.class);
         attach("/signup", SignupResource.class);
         attach("/sessions", SessionsResource.class);

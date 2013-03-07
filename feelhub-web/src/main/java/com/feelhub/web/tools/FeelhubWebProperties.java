@@ -46,10 +46,6 @@ public class FeelhubWebProperties {
     public String buildtime;
 
     @Inject
-    @Named("sitemapBuilder")
-    public String sitemapBuilder;
-
-    @Inject
     @Named("domain")
     public String domain;
 

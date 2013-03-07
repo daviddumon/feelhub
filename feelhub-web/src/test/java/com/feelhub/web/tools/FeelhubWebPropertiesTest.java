@@ -16,14 +16,6 @@ public class FeelhubWebPropertiesTest {
     }
 
     @Test
-    public void canGetSitemapBuilderAddress() {
-
-        final String address = feelhubWebProperties.sitemapBuilder;
-
-        assertThat(address, is("http://localhost:6162"));
-    }
-
-    @Test
     public void canGetBuildTimeParameter() {
         final String buildTime = feelhubWebProperties.buildtime;
 

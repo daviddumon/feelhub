@@ -1,4 +1,4 @@
-package com.feelhub.web.resources;
+package com.feelhub.web.resources.sitemap;
 
 import com.feelhub.web.representation.FeelhubRobotsRepresentation;
 import com.feelhub.web.tools.FeelhubSitemapModuleLink;
@@ -17,8 +17,7 @@ public class FeelhubRobotsResource extends ServerResource {
 
     @Get
     public Representation represent() {
-        final InputStream robots = feelhubSitemapModuleLink.get("/robots.txt");
-        return new FeelhubRobotsRepresentation(robots);
+        return new FeelhubRobotsRepresentation(feelhubSitemapModuleLink.get("robots.txt"));
     }
 
     private final FeelhubSitemapModuleLink feelhubSitemapModuleLink;

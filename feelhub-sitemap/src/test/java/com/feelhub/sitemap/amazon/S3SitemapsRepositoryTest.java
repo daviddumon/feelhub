@@ -1,4 +1,4 @@
-package com.feelhub.sitemap.application;
+package com.feelhub.sitemap.amazon;
 
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.feelhub.sitemap.amazon.S3SitemapsRepository;

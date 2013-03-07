@@ -1,4 +1,4 @@
-package com.feelhub.web.resources;
+package com.feelhub.web.resources.sitemap;
 
 import com.feelhub.web.*;
 import com.feelhub.web.tools.FeelhubSitemapModuleLink;
@@ -36,12 +36,12 @@ public class FeelhubSitemapResourceTest {
 
     @Test
     public void doesUseSitemapLink() throws IOException {
-        when(feelhubSitemapModuleLink.get("/sitemap_00001.xml")).thenReturn(IOUtils.toInputStream("sitemap"));
+        when(feelhubSitemapModuleLink.get("sitemap_00001.xml")).thenReturn(IOUtils.toInputStream("sitemap"));
         final ClientResource resource = restlet.newClientResource("/sitemap_00001.xml");
 
         final Representation representation = resource.get();
 
-        verify(feelhubSitemapModuleLink).get("/sitemap_00001.xml");
+        verify(feelhubSitemapModuleLink).get("sitemap_00001.xml");
         assertThat(representation.getText(), is("sitemap"));
     }
 

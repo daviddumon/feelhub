@@ -1,7 +1,11 @@
 package com.feelhub.web;
 
+import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.feelhub.domain.DomainWorkersModule;
 import com.feelhub.repositories.Repositories;
+import com.feelhub.sitemap.amazon.S3SitemapsRepository;
+import com.feelhub.sitemap.application.SitemapsRepository;
 import com.feelhub.web.authentification.UserInfos;
 import com.feelhub.web.filter.IdentityFilter;
 import com.feelhub.web.filter.OpenSessionInViewFilter;
@@ -42,6 +46,7 @@ public class FeelhubApplication extends Application {
         final MailBuilder mailBuilder = injector.getInstance(MailBuilder.class);
         mailBuilder.setContext(getContext());
         Repositories.initialize(injector.getInstance(Repositories.class));
+        SitemapsRepository.initialize(new S3SitemapsRepository(new AmazonS3Client(new ClasspathPropertiesFileCredentialsProvider())));
         super.start();
     }
 

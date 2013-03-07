@@ -202,9 +202,13 @@
         <dependency>
             <groupId>com.feelhub</groupId>
             <artifactId>feelhub-application</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.feelhub</groupId>
+            <artifactId>feelhub-sitemap</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
