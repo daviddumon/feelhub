@@ -4,8 +4,7 @@ import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.SystemTime;
-import com.feelhub.test.TestFactories;
+import com.feelhub.test.*;
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -24,7 +23,6 @@ public class DeleteSessionCommandTest {
         user = TestFactories.users().createFakeActiveUser("mail@mail.com");
     }
 
-
     @Test
     public void canDeteleSession() {
         final Session session = TestFactories.sessions().createSessionFor(user);
@@ -33,7 +31,6 @@ public class DeleteSessionCommandTest {
 
         assertThat(Repositories.sessions().getAll().size(), is(0));
     }
-
 
     private User user;
 }

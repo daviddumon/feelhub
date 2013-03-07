@@ -7,8 +7,8 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
     function init(end_point, param, view, callback) {
         do_init(end_point, param, view, callback);
+        render_initial_datas();
         add_responsive_behavior();
-        draw_data();
         $(window).scroll(function () {
             draw_data();
         });
@@ -20,7 +20,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         parameter = param;
         end_function = callback;
         compute_max_box();
-        skip = -20;
+        skip = 0;
         limit = 20;
         hasData = true;
         notLoading = true;
@@ -38,6 +38,12 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         if (maxBox < 1) {
             maxBox = 1;
         }
+    }
+
+    function render_initial_datas() {
+        $.each(initial_datas, function (index, data) {
+            append_data(data);
+        });
     }
 
     function add_responsive_behavior() {
@@ -121,7 +127,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         function need_data() {
             var docHeight = container.height();
             var scrollTop = $(window).scrollTop();
-            var trigger = $(window).height() * 3;
+            var trigger = $(window).height() * 2;
             return (docHeight - scrollTop) < trigger;
         }
     }

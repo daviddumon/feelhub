@@ -1,23 +1,25 @@
 package com.feelhub.web.resources;
 
-import com.feelhub.domain.topic.TopicNotFound;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
-import com.feelhub.web.dto.TopicData;
-import com.feelhub.web.guice.GuiceTestModule;
+import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
+import com.feelhub.web.resources.api.ApiFeelingSearch;
+import com.google.common.collect.Lists;
 import com.google.inject.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
-import org.restlet.data.Status;
+import org.restlet.data.*;
 
-import java.util.UUID;
+import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class TopicResourceTest {
 
@@ -34,7 +36,13 @@ public class TopicResourceTest {
     public void before() {
         final User user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
-        final Injector injector = Guice.createInjector(new GuiceTestModule());
+        apiFeelingSearch = mock(ApiFeelingSearch.class);
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(ApiFeelingSearch.class).toInstance(apiFeelingSearch);
+            }
+        });
         topicResource = injector.getInstance(TopicResource.class);
         ContextTestFactory.initResource(topicResource);
     }
@@ -138,5 +146,41 @@ public class TopicResourceTest {
         assertThat(modelAndView.getData("realtypes")).isNotNull();
     }
 
+    @Test
+    public void fetchInitialFeelingsForTopic() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
+
+        final ModelAndView modelAndView = topicResource.getTopic();
+
+        verify(apiFeelingSearch).doSearch(any(Topic.class), any(Form.class));
+    }
+
+    @Test
+    public void hasFeelingDatasInModel() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
+
+        final ModelAndView modelAndView = topicResource.getTopic();
+
+        assertThat(modelAndView.getData("feelingDatas")).isNotNull();
+    }
+
+    @Test
+    public void feelingDatasIsFeelingsForTopic() {
+        List<FeelingData> initialDatas = Lists.newArrayList();
+        initialDatas.add(new FeelingData.Builder().build());
+        initialDatas.add(new FeelingData.Builder().build());
+        when(apiFeelingSearch.doSearch(any(Topic.class), any(Form.class))).thenReturn(initialDatas);
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
+
+        final ModelAndView modelAndView = topicResource.getTopic();
+
+        List<FeelingData> result =  modelAndView.getData("feelingDatas");
+        assertThat(result.size()).isEqualTo(2);
+    }
+
     private TopicResource topicResource;
+    private ApiFeelingSearch apiFeelingSearch;
 }

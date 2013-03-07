@@ -3,11 +3,12 @@ package com.feelhub.web.search;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.user.User;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.*;
 import org.junit.*;
 
-import java.util.List;
+import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -93,6 +94,17 @@ public class FeelingSearchTest extends TestWithMongoRepository {
         final List<Feeling> feelings = feelingSearch.withTopicId(realTopic.getId()).execute();
 
         assertThat(feelings.size()).isEqualTo(10);
+    }
+
+    @Test
+    public void canGetAFeelingForAUser() {
+        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
+        TestFactories.feelings().newFeeling(user.getId());
+        TestFactories.feelings().newFeelings(10);
+
+        final List<Feeling> feelings = feelingSearch.withUserId(user.getId()).execute();
+
+        assertThat(feelings.size()).isEqualTo(1);
     }
 
     private FeelingSearch feelingSearch;
