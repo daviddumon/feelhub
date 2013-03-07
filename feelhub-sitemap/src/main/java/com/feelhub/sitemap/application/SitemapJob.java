@@ -3,6 +3,7 @@ package com.feelhub.sitemap.application;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.sitemap.domain.Frequency;
 import com.feelhub.sitemap.domain.SitemapEntry;
+import com.feelhub.sitemap.domain.SitemapIndex;
 import com.feelhub.sitemap.domain.SitemapIndexBuilder;
 import com.feelhub.sitemap.tools.SitemapProperties;
 import com.google.common.collect.Lists;
@@ -32,7 +33,12 @@ public class SitemapJob implements Job {
     @Override
     public void execute(final JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.info("Beginning new sitemap job");
-        new SitemapIndexBuilder().build(sitemapEntriesFor(new TopicsProvider().topics(session), "topics"));
+        List<SitemapIndex> sitemapIndexes = sitemapIndexes();
+        SitemapsRepository.instance().put(sitemapIndexes);
+    }
+
+    private List<SitemapIndex> sitemapIndexes() {
+        return new SitemapIndexBuilder().build(sitemapEntriesFor(new TopicsProvider().topics(session), "topics"));
     }
 
     private List<SitemapEntry> sitemapEntriesFor(final List<RealTopic> realTopics, final String uriToken) {

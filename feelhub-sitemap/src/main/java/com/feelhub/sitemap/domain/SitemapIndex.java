@@ -13,7 +13,11 @@ public class SitemapIndex {
     }
 
     public String getLoc() {
-        return "/sitemap_index_" + String.format("%05d", index) + ".xml";
+        return "/" + getName();
+    }
+
+    public String getName() {
+        return "sitemap_index_" + String.format("%05d", index) + ".xml";
     }
 
     public int getIndex() {

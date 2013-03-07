@@ -1,6 +1,7 @@
 package com.feelhub.sitemap.application;
 
 import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.sitemap.test.TestWithMongo;
 import com.feelhub.test.TestFactories;
 import org.junit.Test;
 import org.mongolink.MongoSession;

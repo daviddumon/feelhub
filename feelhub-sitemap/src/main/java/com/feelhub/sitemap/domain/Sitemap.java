@@ -28,8 +28,12 @@ public class Sitemap {
         return dates.isEmpty() ? new DateTime() : Collections.max(dates);
     }
 
+    public String getName() {
+        return "sitemap_" + String.format("%05d", index) + ".xml";
+    }
+
     public String getLoc() {
-        return "/sitemap_" + String.format("%05d", index) + ".xml";
+        return "/" + getName();
     }
 
     public int getIndex() {

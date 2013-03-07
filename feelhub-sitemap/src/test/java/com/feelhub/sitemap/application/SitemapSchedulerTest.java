@@ -32,7 +32,6 @@ public class SitemapSchedulerTest extends TestWithMongoRepository {
 
         sitemapScheduler.initialize();
         sitemapScheduler.run();
-        Thread.sleep(1500);
 
         assertTrue(sitemapScheduler.getScheduler().isStarted());
         assertTrue(sitemapScheduler.getScheduler().checkExists(hiramJob));

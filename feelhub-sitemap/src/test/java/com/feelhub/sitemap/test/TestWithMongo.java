@@ -1,4 +1,4 @@
-package com.feelhub.sitemap.application;
+package com.feelhub.sitemap.test;
 
 import com.feelhub.repositories.MongoRepositories;
 import com.feelhub.repositories.Repositories;

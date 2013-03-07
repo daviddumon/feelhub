@@ -1,5 +1,6 @@
 package com.feelhub.sitemap.application;
 
+import com.feelhub.sitemap.amazon.S3SitemapsRepository;
 import com.feelhub.sitemap.tools.SitemapProperties;
 import org.joda.time.DateTime;
 import org.quartz.*;
@@ -17,6 +18,7 @@ public class SitemapScheduler {
 
     private void initializeScheduler() {
         sitemapProperties = new SitemapProperties();
+        SitemapsRepository.initialize(new S3SitemapsRepository());
         try {
             scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
