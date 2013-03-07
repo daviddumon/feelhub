@@ -7,9 +7,9 @@ import com.google.common.collect.Maps;
 import java.util.List;
 import java.util.Map;
 
-public class RobotsTxtStringConverter extends FreemarkerConverter {
+public class RobotsTxtToStringConverter extends ToStringConverter {
 
-    public RobotsTxtStringConverter(List<SitemapIndex> indexes) {
+    public RobotsTxtToStringConverter(List<SitemapIndex> indexes) {
         this.indexes = indexes;
     }
 

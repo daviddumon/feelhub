@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class SitemapIndexStringConverterTest {
+public class SitemapIndexToStringConverterTest {
 
     @Rule
     public SystemTime time = SystemTime.fixed();
@@ -24,7 +24,7 @@ public class SitemapIndexStringConverterTest {
         sitemap.setIndex(67);
         SitemapIndex sitemapIndex = new SitemapIndex(Lists.newArrayList(sitemap));
 
-        String result = new SitemapIndexStringConverter(sitemapIndex).toString();
+        String result = new SitemapIndexToStringConverter(sitemapIndex).toString();
 
         assertThat(result).isEqualTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<sitemapindex xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd\" xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n" +

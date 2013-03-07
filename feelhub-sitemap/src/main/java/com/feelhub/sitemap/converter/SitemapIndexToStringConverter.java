@@ -13,9 +13,9 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SitemapIndexStringConverter extends FreemarkerConverter {
+public class SitemapIndexToStringConverter extends ToStringConverter {
 
-    public SitemapIndexStringConverter(SitemapIndex sitemapIndex) {
+    public SitemapIndexToStringConverter(SitemapIndex sitemapIndex) {
         this.sitemapIndex = sitemapIndex;
     }
 
@@ -26,7 +26,7 @@ public class SitemapIndexStringConverter extends FreemarkerConverter {
 
     @Override
     protected Map<String, Object> data() {
-        HashMap<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = Maps.newHashMap();
         map.put("prefix", new SitemapProperties().getRoot());
         map.put("sitemaps", sitemapIndex.getSitemaps());
         return map;

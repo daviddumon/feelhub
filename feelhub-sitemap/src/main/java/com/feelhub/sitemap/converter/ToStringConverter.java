@@ -9,7 +9,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
 
-public abstract class FreemarkerConverter {
+public abstract class ToStringConverter {
 
     public String toString() {
         return process(data());
@@ -37,6 +37,6 @@ public abstract class FreemarkerConverter {
 
     protected abstract Map<String, Object> data();
 
-    private static final Logger logger = Logger.getLogger(FreemarkerConverter.class);
+    private static final Logger logger = Logger.getLogger(ToStringConverter.class);
 
 }
