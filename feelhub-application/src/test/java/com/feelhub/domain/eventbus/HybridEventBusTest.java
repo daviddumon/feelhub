@@ -20,6 +20,7 @@ public class HybridEventBusTest {
     }
 
     @Test
+    @Ignore
     public void canPropagateNow() {
         ImmediateEventListener listener = new ImmediateEventListener();
         eventBus.register(listener);
@@ -45,7 +46,7 @@ public class HybridEventBusTest {
         eventBus.register(listener);
         eventBus.post(new HttpTopicCreatedEvent(UUID.randomUUID(), new ResolverResult()));
 
-        eventBus.propagateAsync();
+        eventBus.propagate();
 
         assertThat(listener.handled).isTrue();
     }
@@ -58,7 +59,7 @@ public class HybridEventBusTest {
         ImmediateEventListener immediateListener = new ImmediateEventListener();
         eventBus.register(immediateListener);
 
-        eventBus.propagateAsync();
+        eventBus.propagate();
 
         assertThat(immediateListener.handled).isTrue();
     }

@@ -1,7 +1,9 @@
 package com.feelhub.web;
 
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.web.guice.GuiceTestModule;
 import freemarker.template.Configuration;
+import org.junit.Rule;
 import org.junit.Test;
 import org.restlet.Context;
 
@@ -13,8 +15,12 @@ import static org.mockito.Mockito.*;
 
 public class FeelhubApplicationTest {
 
+    @Rule
+    public WithDomainEvent event = new WithDomainEvent();
+
     @Test
     public void canInitFeemarker() throws Exception {
+
         final Context context = createContext();
         final FeelhubApplication application = new FeelhubApplication(context);
         application.initializeGuice(new GuiceTestModule());

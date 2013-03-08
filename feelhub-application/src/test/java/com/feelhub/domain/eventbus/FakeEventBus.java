@@ -15,6 +15,7 @@ public class FakeEventBus extends HybridEventBus {
     public void post(final Object event) {
         eventsCaptured.put((Class<? extends DomainEvent>) event.getClass(), event);
         super.post(event);
+        super.propagate();
     }
 
     <T extends DomainEvent> T lastEvent(final Class<T> type) {

@@ -1,5 +1,6 @@
 package com.feelhub.web.dto;
 
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
@@ -16,6 +17,9 @@ public class FeelingDataTest {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public WithDomainEvent withDomainEvent = new WithDomainEvent();
 
     @Test
     public void hasFeelingId() {

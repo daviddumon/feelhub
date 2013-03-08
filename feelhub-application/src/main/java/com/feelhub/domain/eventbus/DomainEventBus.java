@@ -8,12 +8,8 @@ public enum DomainEventBus {
 
     INSTANCE;
 
-    public void propagateSync() {
-        eventBus.propagateSync();
-    }
-
     public void propagate() {
-        eventBus.propagateAsync();
+        eventBus.propagate();
     }
 
     private DomainEventBus() {

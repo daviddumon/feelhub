@@ -28,19 +28,11 @@ public class CommandBus {
                     return command.execute();
                 } finally {
                     sessionProvider.stop();
-                    propagateSyncEvents();
                     DomainEventBus.INSTANCE.propagate();
                 }
             }
 
-            private void propagateSyncEvents() {
-                sessionProvider.start();
-                try {
-                    DomainEventBus.INSTANCE.propagateSync();
-                } finally {
-                    sessionProvider.stop();
-                }
-            }
+
         };
     }
 

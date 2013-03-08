@@ -1,5 +1,6 @@
 package com.feelhub.application.command.feeling;
 
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
@@ -17,6 +18,9 @@ public class CreateFeelingCommandTest {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public WithDomainEvent withDomainEvent = new WithDomainEvent();
 
     @Test
     public void canAddFeelingAndSentiments() {
