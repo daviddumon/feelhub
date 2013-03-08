@@ -1,21 +1,16 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.feeling.Sentiment;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.Repositories;
 import com.google.common.base.Objects;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.collect.*;
 import org.apache.commons.lang.WordUtils;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 
 public abstract class Topic extends BaseEntity {
@@ -184,6 +179,7 @@ public abstract class Topic extends BaseEntity {
         return Objects.toStringHelper(this).add("Id", getId()).add("Name", getName(FeelhubLanguage.REFERENCE))
                 .add("Type", getType()).toString();
     }
+
     private final Map<String, String> descriptions = Maps.newHashMap();
     private final List<String> subTypes = Lists.newArrayList();
     private final List<Uri> uris = Lists.newArrayList();

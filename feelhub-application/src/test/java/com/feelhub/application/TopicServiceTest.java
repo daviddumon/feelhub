@@ -1,17 +1,14 @@
 package com.feelhub.application;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.scraper.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.tools.*;
 import com.google.inject.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;

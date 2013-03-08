@@ -1,7 +1,6 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.tag.TagNotFoundException;
+import com.feelhub.domain.tag.*;
 import com.feelhub.repositories.Repositories;
 
 public class TagService {

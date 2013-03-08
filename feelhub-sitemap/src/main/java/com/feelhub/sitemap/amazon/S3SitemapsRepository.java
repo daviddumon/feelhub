@@ -4,14 +4,10 @@ package com.feelhub.sitemap.amazon;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.feelhub.sitemap.application.SitemapsRepository;
-import com.feelhub.sitemap.converter.RobotsTxtToStringConverter;
-import com.feelhub.sitemap.converter.SitemapIndexToStringConverter;
-import com.feelhub.sitemap.converter.SitemapToStringConverter;
-import com.feelhub.sitemap.domain.Sitemap;
-import com.feelhub.sitemap.domain.SitemapIndex;
+import com.feelhub.sitemap.converter.*;
+import com.feelhub.sitemap.domain.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 
 public class S3SitemapsRepository extends SitemapsRepository {
@@ -28,7 +24,7 @@ public class S3SitemapsRepository extends SitemapsRepository {
         for (SitemapIndex sitemapIndex : sitemapIndexes) {
             putObject(new SitemapIndexToStringConverter(sitemapIndex).toString(), sitemapIndex.getName());
             for (Sitemap sitemap : sitemapIndex.getSitemaps()) {
-                 putObject(new SitemapToStringConverter(sitemap).toString(), sitemap.getName());
+                putObject(new SitemapToStringConverter(sitemap).toString(), sitemap.getName());
             }
         }
     }

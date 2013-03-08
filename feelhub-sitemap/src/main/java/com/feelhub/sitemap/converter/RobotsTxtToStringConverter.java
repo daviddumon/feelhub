@@ -4,8 +4,7 @@ import com.feelhub.sitemap.domain.SitemapIndex;
 import com.feelhub.sitemap.tools.SitemapProperties;
 import com.google.common.collect.Maps;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RobotsTxtToStringConverter extends ToStringConverter {
 

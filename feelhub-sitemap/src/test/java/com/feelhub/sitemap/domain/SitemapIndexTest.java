@@ -3,7 +3,7 @@ package com.feelhub.sitemap.domain;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class SitemapIndexTest {
     @Test

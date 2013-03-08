@@ -13,7 +13,7 @@ public enum DomainEventBus {
     }
 
     public void propagate() {
-       eventBus.propagateAsync();
+        eventBus.propagateAsync();
     }
 
     private DomainEventBus() {

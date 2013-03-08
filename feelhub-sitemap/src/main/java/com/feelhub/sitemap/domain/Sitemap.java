@@ -3,8 +3,7 @@ package com.feelhub.sitemap.domain;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Sitemap {
 

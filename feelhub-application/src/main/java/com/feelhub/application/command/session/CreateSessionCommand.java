@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 
 import java.util.UUID;
 
-public class CreateSessionCommand implements Command<UUID>{
+public class CreateSessionCommand implements Command<UUID> {
 
     public CreateSessionCommand(UUID userId, DateTime expirationDate) {
         this.userId = userId;

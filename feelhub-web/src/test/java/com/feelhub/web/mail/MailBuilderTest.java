@@ -2,8 +2,7 @@ package com.feelhub.web.mail;
 
 import com.feelhub.application.mail.FeelhubMail;
 import com.feelhub.domain.user.*;
-import com.feelhub.domain.user.activation.Activation;
-import com.feelhub.domain.user.activation.ActivationCreatedEvent;
+import com.feelhub.domain.user.activation.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.WebApplicationTester;

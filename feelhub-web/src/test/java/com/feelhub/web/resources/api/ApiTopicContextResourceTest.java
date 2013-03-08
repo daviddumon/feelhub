@@ -2,11 +2,9 @@ package com.feelhub.web.resources.api;
 
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.ClientResource;
-import com.feelhub.web.WebApplicationTester;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.junit.Rule;
+import com.feelhub.web.*;
+import org.json.*;
+import org.junit.*;
 import org.junit.Test;
 import org.restlet.representation.Representation;
 

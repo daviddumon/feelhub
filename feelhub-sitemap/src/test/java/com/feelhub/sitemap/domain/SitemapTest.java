@@ -2,10 +2,9 @@ package com.feelhub.sitemap.domain;
 
 import com.feelhub.test.SystemTime;
 import com.google.common.collect.Lists;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 
 public class SitemapTest {

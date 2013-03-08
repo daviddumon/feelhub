@@ -1,6 +1,5 @@
 package com.feelhub.sitemap.application;
 
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.feelhub.sitemap.domain.SitemapIndex;
 
 import java.io.InputStream;

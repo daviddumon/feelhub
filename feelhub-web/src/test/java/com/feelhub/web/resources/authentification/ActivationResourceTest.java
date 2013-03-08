@@ -1,16 +1,12 @@
 package com.feelhub.web.resources.authentification;
 
-import com.feelhub.application.command.Command;
-import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.*;
 import com.feelhub.application.command.user.activation.ConfirmActivationCommand;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.web.ClientResource;
-import com.feelhub.web.ContextTestFactory;
-import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.common.util.concurrent.Futures;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.Status;
 

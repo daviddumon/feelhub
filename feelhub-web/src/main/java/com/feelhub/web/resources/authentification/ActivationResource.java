@@ -4,12 +4,10 @@ import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.user.activation.ConfirmActivationCommand;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.representation.ModelAndView;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.*;
 import com.google.inject.Inject;
 import org.restlet.data.Status;
-import org.restlet.resource.Get;
-import org.restlet.resource.ServerResource;
+import org.restlet.resource.*;
 
 import java.util.UUID;
 

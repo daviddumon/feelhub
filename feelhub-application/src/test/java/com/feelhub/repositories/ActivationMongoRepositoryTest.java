@@ -1,8 +1,7 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.user.*;
-import com.feelhub.domain.user.activation.Activation;
-import com.feelhub.domain.user.activation.ActivationRepository;
+import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.activation.*;
 import com.mongodb.*;
 import org.junit.*;
 

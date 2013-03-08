@@ -1,15 +1,11 @@
 package com.feelhub.domain.topic.world;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.feeling.Sentiment;
-import com.feelhub.domain.feeling.SentimentAddedEvent;
+import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
 

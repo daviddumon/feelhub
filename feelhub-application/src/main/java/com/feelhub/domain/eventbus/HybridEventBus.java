@@ -1,19 +1,15 @@
 package com.feelhub.domain.eventbus;
 
 import com.google.common.collect.Queues;
-import com.google.common.eventbus.AsyncEventBus;
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.*;
 import com.google.common.reflect.TypeToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
 import java.lang.reflect.Method;
 import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executor;
+import java.util.concurrent.*;
 
-public class HybridEventBus  {
+public class HybridEventBus {
 
     public HybridEventBus(Executor executor) {
         this.asyncEventBus = new AsyncEventBus("async event bus", executor);
@@ -52,7 +48,7 @@ public class HybridEventBus  {
     }
 
     public void propagateAsync() {
-        while(!currentEvents.get().isEmpty()) {
+        while (!currentEvents.get().isEmpty()) {
             LOGGER.debug("Propagating {}", currentEvents.get().peek());
             asyncEventBus.post(currentEvents.get().poll());
         }
@@ -71,7 +67,7 @@ public class HybridEventBus  {
             return Queues.newConcurrentLinkedQueue();
         }
     };
-    
+
     private final EventBus asyncEventBus;
     private final EventBus syncEventBus;
     private static final Logger LOGGER = LoggerFactory.getLogger(HybridEventBus.class);

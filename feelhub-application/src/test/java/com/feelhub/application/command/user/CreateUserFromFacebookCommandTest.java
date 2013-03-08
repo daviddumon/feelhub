@@ -1,16 +1,12 @@
 package com.feelhub.application.command.user;
 
-import com.feelhub.domain.user.SocialAuth;
-import com.feelhub.domain.user.SocialNetwork;
-import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class CreateUserFromFacebookCommandTest {

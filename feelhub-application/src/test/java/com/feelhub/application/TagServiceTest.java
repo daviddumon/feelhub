@@ -1,13 +1,10 @@
 package com.feelhub.application;
 
-import com.feelhub.domain.tag.Tag;
-import com.feelhub.domain.tag.TagNotFoundException;
+import com.feelhub.domain.tag.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import static org.fest.assertions.Assertions.*;

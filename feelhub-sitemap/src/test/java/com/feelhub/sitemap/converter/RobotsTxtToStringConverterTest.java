@@ -1,13 +1,12 @@
 package com.feelhub.sitemap.converter;
 
-import com.feelhub.sitemap.domain.Sitemap;
-import com.feelhub.sitemap.domain.SitemapIndex;
+import com.feelhub.sitemap.domain.*;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class RobotsTxtToStringConverterTest {
 

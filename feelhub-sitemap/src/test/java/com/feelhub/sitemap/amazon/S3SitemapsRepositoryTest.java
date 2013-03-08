@@ -1,30 +1,18 @@
 package com.feelhub.sitemap.amazon;
 
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.StorageClass;
-import com.feelhub.sitemap.amazon.S3SitemapsRepository;
-import com.feelhub.sitemap.converter.RobotsTxtToStringConverter;
-import com.feelhub.sitemap.converter.SitemapIndexToStringConverter;
-import com.feelhub.sitemap.converter.SitemapToStringConverter;
-import com.feelhub.sitemap.domain.Sitemap;
-import com.feelhub.sitemap.domain.SitemapEntry;
-import com.feelhub.sitemap.domain.SitemapIndex;
+import com.amazonaws.services.s3.model.*;
+import com.feelhub.sitemap.converter.*;
+import com.feelhub.sitemap.domain.*;
 import com.feelhub.sitemap.test.FakeAmazonS3;
 import com.feelhub.test.SystemTime;
 import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.restlet.resource.Get;
+import org.junit.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.ArrayList;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class S3SitemapsRepositoryTest {
 

@@ -3,8 +3,7 @@ package com.feelhub.sitemap;
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.feelhub.sitemap.amazon.S3SitemapsRepository;
-import com.feelhub.sitemap.application.SitemapsBuilderJob;
-import com.feelhub.sitemap.application.SitemapsRepository;
+import com.feelhub.sitemap.application.*;
 import org.quartz.JobExecutionException;
 
 public class Main {

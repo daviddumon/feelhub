@@ -5,11 +5,10 @@ import com.feelhub.sitemap.domain.SitemapIndex;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class FeelhubSitemapModuleLinkTest {
 

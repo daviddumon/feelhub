@@ -9,7 +9,7 @@ import com.feelhub.domain.session.SessionRepository;
 import com.feelhub.domain.statistics.StatisticsRepository;
 import com.feelhub.domain.tag.TagRepository;
 import com.feelhub.domain.topic.TopicRepository;
-import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.UserRepository;
 import com.feelhub.domain.user.activation.ActivationRepository;
 
 import javax.inject.Inject;

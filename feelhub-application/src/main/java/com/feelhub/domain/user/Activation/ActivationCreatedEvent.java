@@ -14,7 +14,7 @@ public class ActivationCreatedEvent extends DomainEvent {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("User Id", userId).add("Activation id", activationId).toString();
+        return Objects.toStringHelper(this).add("User Id", userId).add("activation id", activationId).toString();
     }
 
     public final UUID userId;

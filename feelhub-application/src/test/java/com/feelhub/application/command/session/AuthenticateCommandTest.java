@@ -3,11 +3,8 @@ package com.feelhub.application.command.session;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.SystemTime;
-import com.feelhub.test.TestFactories;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import com.feelhub.test.*;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 

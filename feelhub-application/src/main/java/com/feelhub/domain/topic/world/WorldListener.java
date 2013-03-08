@@ -1,12 +1,10 @@
 package com.feelhub.domain.topic.world;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.feeling.Sentiment;
-import com.feelhub.domain.feeling.SentimentAddedEvent;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.topic.TopicFactory;
 import com.feelhub.repositories.Repositories;
-import com.google.common.base.Optional;
-import com.google.common.base.Supplier;
+import com.google.common.base.*;
 import com.google.common.eventbus.Subscribe;
 
 public class WorldListener {
@@ -24,7 +22,7 @@ public class WorldListener {
     }
 
     WorldTopic lookUpOrCreateWorld() {
-       return lookUp().or(worldSupplier());
+        return lookUp().or(worldSupplier());
     }
 
     private Supplier<WorldTopic> worldSupplier() {

@@ -52,8 +52,8 @@ public class TopicResource extends ServerResource {
 
     private List<FeelingData> getInitialFeelingDatas() {
         final Form parameters = new Form();
-        parameters.add("skip","0");
-        parameters.add("limit","20");
+        parameters.add("skip", "0");
+        parameters.add("limit", "20");
         return apiFeelingSearch.doSearch(topic, parameters);
     }
 

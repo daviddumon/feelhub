@@ -1,10 +1,8 @@
 package com.feelhub.application.command.user;
 
 import com.feelhub.application.command.Command;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserFactory;
-import com.feelhub.domain.user.activation.Activation;
-import com.feelhub.domain.user.activation.ActivationFactory;
+import com.feelhub.domain.user.*;
+import com.feelhub.domain.user.activation.*;
 import com.feelhub.repositories.Repositories;
 
 import java.util.UUID;

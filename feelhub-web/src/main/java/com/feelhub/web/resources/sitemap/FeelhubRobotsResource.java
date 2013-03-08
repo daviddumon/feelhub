@@ -6,7 +6,6 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.*;
 
 import javax.inject.Inject;
-import java.io.InputStream;
 
 public class FeelhubRobotsResource extends ServerResource {
 

@@ -1,7 +1,6 @@
 package com.feelhub.sitemap.application;
 
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.sitemap.test.TestWithMongo;
 import com.feelhub.test.TestFactories;
 import org.junit.Test;
@@ -9,7 +8,7 @@ import org.mongolink.MongoSession;
 
 import java.util.List;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TopicsProviderTest extends TestWithMongo {
 

@@ -177,7 +177,7 @@ public class TopicResourceTest {
 
         final ModelAndView modelAndView = topicResource.getTopic();
 
-        List<FeelingData> result =  modelAndView.getData("feelingDatas");
+        List<FeelingData> result = modelAndView.getData("feelingDatas");
         assertThat(result.size()).isEqualTo(2);
     }
 

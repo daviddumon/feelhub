@@ -1,15 +1,11 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.user.SocialNetwork;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserRepository;
+import com.feelhub.domain.user.*;
 import com.google.common.base.Optional;
 import org.mongolink.MongoSession;
-import org.mongolink.domain.criteria.Criteria;
-import org.mongolink.domain.criteria.Restrictions;
+import org.mongolink.domain.criteria.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class UserMongoRepository extends BaseMongoRepository<User> implements UserRepository {
 

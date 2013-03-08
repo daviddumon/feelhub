@@ -2,8 +2,7 @@ package com.feelhub.domain.user.activation;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.user.User;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
 

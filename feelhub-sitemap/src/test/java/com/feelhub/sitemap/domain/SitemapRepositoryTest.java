@@ -1,13 +1,5 @@
 package com.feelhub.sitemap.domain;
 
-import org.junit.*;
-import org.junit.rules.ExpectedException;
-
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-
 public class SitemapRepositoryTest {
 
 /*    @Rule

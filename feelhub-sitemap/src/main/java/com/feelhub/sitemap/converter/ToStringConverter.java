@@ -1,13 +1,9 @@
 package com.feelhub.sitemap.converter;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import freemarker.template.*;
+import org.slf4j.*;
 
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.Map;
 
 public abstract class ToStringConverter {

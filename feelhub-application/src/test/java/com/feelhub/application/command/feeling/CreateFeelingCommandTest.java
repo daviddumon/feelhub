@@ -1,18 +1,15 @@
 package com.feelhub.application.command.feeling;
 
-import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.feeling.Sentiment;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.google.common.collect.Lists;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
 

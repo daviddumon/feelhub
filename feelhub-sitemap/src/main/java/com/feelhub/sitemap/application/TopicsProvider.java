@@ -1,7 +1,6 @@
 package com.feelhub.sitemap.application;
 
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.real.RealTopic;
 import org.mongolink.MongoSession;
 
 import java.util.List;

@@ -3,7 +3,7 @@ package com.feelhub.sitemap.domain;
 import com.feelhub.test.SystemTime;
 import org.junit.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class SitemapEntryTest {
 

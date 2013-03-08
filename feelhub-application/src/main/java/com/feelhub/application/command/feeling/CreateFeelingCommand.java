@@ -1,17 +1,13 @@
 package com.feelhub.application.command.feeling;
 
 import com.feelhub.application.command.Command;
-import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.feeling.FeelingFactory;
-import com.feelhub.domain.feeling.FeelingRelationBinder;
-import com.feelhub.domain.feeling.Sentiment;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.related.RelatedBuilder;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class CreateFeelingCommand implements Command<UUID> {
 

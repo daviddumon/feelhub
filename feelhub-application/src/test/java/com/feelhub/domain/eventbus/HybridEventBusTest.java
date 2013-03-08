@@ -5,12 +5,11 @@ import com.feelhub.domain.topic.http.uri.ResolverResult;
 import com.feelhub.domain.topic.real.RealTopicCreatedEvent;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.util.concurrent.MoreExecutors;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.UUID;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class HybridEventBusTest {
 

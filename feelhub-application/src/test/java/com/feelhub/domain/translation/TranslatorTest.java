@@ -1,7 +1,7 @@
 package com.feelhub.domain.translation;
 
 import com.feelhub.domain.admin.*;
-import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;

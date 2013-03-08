@@ -1,8 +1,7 @@
 package com.feelhub.web.mail.mandrill;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserCreatedEvent;
+import com.feelhub.domain.user.*;
 import com.feelhub.domain.user.activation.ActivationCreatedEvent;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.web.tools.FeelhubWebProperties;

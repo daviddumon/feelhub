@@ -1,18 +1,10 @@
 package com.feelhub.sitemap.test;
 
-import com.feelhub.repositories.MongoRepositories;
-import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.SessionProvider;
-import com.mongodb.DB;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.mongolink.MongoSession;
-import org.mongolink.MongoSessionManager;
-import org.mongolink.Settings;
+import com.feelhub.repositories.*;
+import org.junit.*;
+import org.mongolink.*;
 import org.mongolink.domain.mapper.ContextBuilder;
 import org.mongolink.test.FongoDbFactory;
-import org.mongolink.test.MongolinkRule;
 
 import java.net.UnknownHostException;
 

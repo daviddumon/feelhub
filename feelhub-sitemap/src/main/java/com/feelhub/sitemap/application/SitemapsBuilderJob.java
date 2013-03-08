@@ -1,18 +1,13 @@
 package com.feelhub.sitemap.application;
 
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.sitemap.domain.Frequency;
-import com.feelhub.sitemap.domain.SitemapEntry;
-import com.feelhub.sitemap.domain.SitemapIndex;
-import com.feelhub.sitemap.domain.SitemapIndexBuilder;
+import com.feelhub.sitemap.domain.*;
 import com.feelhub.sitemap.tools.SitemapProperties;
 import com.google.common.collect.Lists;
-import org.mongolink.MongoSession;
-import org.mongolink.MongoSessionManager;
+import org.mongolink.*;
 import org.mongolink.domain.mapper.ContextBuilder;
 import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
 import java.util.List;
 

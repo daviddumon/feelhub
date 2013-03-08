@@ -8,7 +8,7 @@ import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.test.*;
 import org.junit.*;
 
-import java.util.*;
+import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 

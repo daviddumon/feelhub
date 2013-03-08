@@ -8,14 +8,10 @@ import com.feelhub.domain.user.BadEmail;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.common.base.Throwables;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.*;
 import com.google.inject.Inject;
-import org.restlet.data.Form;
-import org.restlet.data.Status;
-import org.restlet.resource.Get;
-import org.restlet.resource.Post;
-import org.restlet.resource.ServerResource;
+import org.restlet.data.*;
+import org.restlet.resource.*;
 
 import java.util.UUID;
 
@@ -43,11 +39,11 @@ public class SignupResource extends ServerResource {
             Futures.getUnchecked(result);
             setStatus(Status.SUCCESS_CREATED);
         } catch (Exception e) {
-            if(EmailAlreadyUsed.class.isAssignableFrom(Throwables.getRootCause(e).getClass())) {
+            if (EmailAlreadyUsed.class.isAssignableFrom(Throwables.getRootCause(e).getClass())) {
                 setStatus(Status.CLIENT_ERROR_CONFLICT);
                 return;
             }
-            if(BadEmail.class.isAssignableFrom(Throwables.getRootCause(e).getClass())) {
+            if (BadEmail.class.isAssignableFrom(Throwables.getRootCause(e).getClass())) {
                 setStatus(Status.CLIENT_ERROR_PRECONDITION_FAILED);
                 return;
             }

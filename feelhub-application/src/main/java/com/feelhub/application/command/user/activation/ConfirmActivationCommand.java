@@ -1,8 +1,7 @@
 package com.feelhub.application.command.user.activation;
 
 import com.feelhub.application.command.Command;
-import com.feelhub.domain.user.activation.Activation;
-import com.feelhub.domain.user.activation.ActivationNotFoundException;
+import com.feelhub.domain.user.activation.*;
 import com.feelhub.repositories.Repositories;
 
 import java.util.UUID;

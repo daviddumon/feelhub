@@ -40,7 +40,7 @@ public class UriResolver {
             if (notExistingResource(response)) {
                 throw new UriException(uri.getValue(), response.getStatus());
             }
-            if(response.getEntity() != null) {
+            if (response.getEntity() != null) {
                 resolverResult.setMediaType(response.getEntity().getMediaType());
             }
         } while (response.getStatus().isRedirection());
