@@ -90,7 +90,7 @@ public class ApiCreateFeelingTest {
     }
 
     private JSONObject getGoodJsonWithANoneSentiment() throws JSONException {
-        return getGoodJson(getJsonArray("none", SentimentValue.bad.toString()));
+        return getGoodJson(getJsonArray(SentimentValue.bad.toString(), "none"));
     }
 
     private JSONObject getGoodJson(JSONArray topics) throws JSONException {
@@ -108,12 +108,12 @@ public class ApiCreateFeelingTest {
     private JSONArray getJsonArray(String firstSentimentValue, String secondSentimentValue) throws JSONException {
         final JSONArray data = new JSONArray();
         final JSONObject first = new JSONObject();
-        first.put("id", UUID.randomUUID().toString());
+        first.put("id", "new");
         first.put("name", "noname");
         first.put("type", "notype");
         first.put("sentiment", firstSentimentValue);
         final JSONObject second = new JSONObject();
-        second.put("id", "new");
+        second.put("id", UUID.randomUUID().toString());
         second.put("name", "name");
         second.put("type", "other");
         second.put("sentiment", secondSentimentValue);
