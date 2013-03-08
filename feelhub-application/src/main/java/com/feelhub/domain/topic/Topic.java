@@ -1,15 +1,22 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.feeling.Feeling;
+import com.feelhub.domain.feeling.Sentiment;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.Repositories;
-import com.google.common.collect.*;
+import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang.WordUtils;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 
 public abstract class Topic extends BaseEntity {
 
@@ -22,15 +29,6 @@ public abstract class Topic extends BaseEntity {
         this.currentId = id;
     }
 
-    @Override
-    public UUID getId() {
-        return id;
-    }
-
-    public UUID getCurrentId() {
-        return currentId;
-    }
-
     public void changeCurrentId(final UUID currentId) {
         if (!currentId.equals(this.currentId)) {
             this.currentId = currentId;
@@ -38,16 +36,25 @@ public abstract class Topic extends BaseEntity {
         }
     }
 
+    public UUID getCurrentId() {
+        return currentId;
+    }
+
+    @Override
+    public UUID getId() {
+        return id;
+    }
+
     public abstract TopicType getType();
 
     public abstract String getTypeValue();
 
-    public void setUserId(final UUID userId) {
-        this.userId = userId;
-    }
-
     public UUID getUserId() {
         return userId;
+    }
+
+    public void setUserId(final UUID userId) {
+        this.userId = userId;
     }
 
     public void addName(final FeelhubLanguage feelhubLanguage, final String name) {
@@ -110,14 +117,6 @@ public abstract class Topic extends BaseEntity {
         uris.add(uri);
     }
 
-    public String getIllustration() {
-        return illustration;
-    }
-
-    public void setIllustration(final String illustration) {
-        this.illustration = illustration;
-    }
-
     public void setTopicMerger(final TopicMerger topicMerger) {
         this.topicMerger = topicMerger;
     }
@@ -139,20 +138,13 @@ public abstract class Topic extends BaseEntity {
         return sentiments;
     }
 
-    public void setThumbnailLarge(final String thumbnailLarge) {
-        this.thumbnailLarge = thumbnailLarge;
-    }
-
-    public String getThumbnailLarge() {
-        return thumbnailLarge;
-    }
-
-    public String getThumbnailMedium() {
-        return thumbnailMedium;
-    }
-
-    public void setThumbnailMedium(final String thumbnailMedium) {
-        this.thumbnailMedium = thumbnailMedium;
+    public void setIllustrations(final List<HttpTopic> images) {
+        if (getIllustration().isEmpty() && !images.isEmpty()) {
+            setIllustration(images.get(0).getIllustration());
+            setThumbnailLarge(images.get(0).getThumbnailLarge());
+            setThumbnailMedium(images.get(0).getThumbnailMedium());
+            setThumbnailSmall(images.get(0).getThumbnailSmall());
+        }
     }
 
     public String getThumbnailSmall() {
@@ -163,22 +155,42 @@ public abstract class Topic extends BaseEntity {
         this.thumbnailSmall = thumbnailSmall;
     }
 
-    public void setIllustrations(final List<HttpTopic> images) {
-        if (getIllustration().isEmpty() && !images.isEmpty()) {
-            setIllustration(images.get(0).getIllustration());
-            setThumbnailLarge(images.get(0).getThumbnailLarge());
-            setThumbnailMedium(images.get(0).getThumbnailMedium());
-            setThumbnailSmall(images.get(0).getThumbnailSmall());
-        }
+    public String getThumbnailMedium() {
+        return thumbnailMedium;
     }
 
-    protected UUID id;
-    protected UUID currentId;
-    private UUID userId;
-    protected Map<String, String> names = Maps.newHashMap();
+    public void setThumbnailMedium(final String thumbnailMedium) {
+        this.thumbnailMedium = thumbnailMedium;
+    }
+
+    public String getThumbnailLarge() {
+        return thumbnailLarge;
+    }
+
+    public void setThumbnailLarge(final String thumbnailLarge) {
+        this.thumbnailLarge = thumbnailLarge;
+    }
+
+    public String getIllustration() {
+        return illustration;
+    }
+
+    public void setIllustration(final String illustration) {
+        this.illustration = illustration;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("Id", getId()).add("Name", getName(FeelhubLanguage.REFERENCE))
+                .add("Type", getType()).toString();
+    }
     private final Map<String, String> descriptions = Maps.newHashMap();
     private final List<String> subTypes = Lists.newArrayList();
     private final List<Uri> uris = Lists.newArrayList();
+    protected UUID id;
+    protected UUID currentId;
+    protected Map<String, String> names = Maps.newHashMap();
+    private UUID userId;
     private String illustration = "";
     private TopicMerger topicMerger = new TopicMerger();
     private String thumbnailLarge;

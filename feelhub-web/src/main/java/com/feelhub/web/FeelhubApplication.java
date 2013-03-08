@@ -16,6 +16,7 @@ import com.feelhub.web.update.UpdateRouter;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.google.inject.Stage;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateModelException;
 import org.restlet.Application;
@@ -26,16 +27,26 @@ import org.restlet.routing.Router;
 
 import javax.servlet.ServletContext;
 import java.util.Locale;
+import java.util.logging.Handler;
+import java.util.logging.LogManager;
 
 public class FeelhubApplication extends Application {
+
+
 
     public FeelhubApplication(final Context context) {
         super(context);
         setStatusService(new FeelhubStatusService());
+        // Désactivation des log JUL
+        final java.util.logging.Logger rootLogger = LogManager.getLogManager().getLogger("");
+        final Handler[] handlers = rootLogger.getHandlers();
+        for (int i = 0; i < handlers.length; i++) {
+            rootLogger.removeHandler(handlers[i]);
+        }
     }
 
     public void initializeGuice(final Module module) {
-        injector = Guice.createInjector(module, new DomainWorkersModule());
+        injector = Guice.createInjector(Stage.PRODUCTION, module, new DomainWorkersModule());
     }
 
     @Override

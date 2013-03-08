@@ -8,7 +8,6 @@ public class WithDomainEvent extends ExternalResource {
     protected void before() throws Throwable {
         fakeEventBus = new FakeEventBus();
         DomainEventBus.INSTANCE.setEventBus(fakeEventBus);
-        DomainEventBus.INSTANCE.progateOnPost();
     }
 
     public <T extends DomainEvent> T lastEvent(final Class<T> type) {

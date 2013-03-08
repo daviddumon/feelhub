@@ -3,10 +3,15 @@ package com.feelhub.tools;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.repositories.SessionProvider;
 import com.google.inject.Inject;
-import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.AbstractExecutorService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class MongoLinkAwareExecutor extends AbstractExecutorService {
 
@@ -25,12 +30,14 @@ public class MongoLinkAwareExecutor extends AbstractExecutorService {
         return new Runnable() {
             @Override
             public void run() {
-                LOGGER.debug("Starting session for async service");
+                final Long timestamp = new DateTime().getMillis();
+                LOGGER.debug("Starting session for async service : {}", timestamp);
                 sessionProvider.start();
                 try {
                     runnable.run();
                 } finally {
-                    LOGGER.debug("Stopping session for async service");
+                    LOGGER.debug("Stopping session for async service : {}", timestamp);
+                    DomainEventBus.INSTANCE.propagateSync();
                     sessionProvider.stop();
                     DomainEventBus.INSTANCE.propagate();
                 }
@@ -65,5 +72,5 @@ public class MongoLinkAwareExecutor extends AbstractExecutorService {
 
     private final SessionProvider sessionProvider;
     private final ExecutorService executorService;
-    private static final Logger LOGGER = Logger.getLogger(MongoLinkAwareExecutor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MongoLinkAwareExecutor.class);
 }

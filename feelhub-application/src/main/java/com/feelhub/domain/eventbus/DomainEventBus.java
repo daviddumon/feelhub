@@ -1,36 +1,25 @@
 package com.feelhub.domain.eventbus;
 
 import com.google.common.collect.Lists;
-import com.google.common.eventbus.EventBus;
-import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.List;
 
 public enum DomainEventBus {
 
     INSTANCE;
 
-    public void progateOnPost() {
-        propagateOnPost = true;
+    public void propagateSync() {
+        eventBus.propagateSync();
     }
 
     public void propagate() {
-        final ArrayList<DomainEvent> eventsToPost = Lists.newArrayList(currentEvents.get());
-        for (final DomainEvent domainEvent : eventsToPost) {
-            LOGGER.debug(String.format("Propagating %s", domainEvent));
-            eventBus.post(domainEvent);
-        }
-        currentEvents.get().removeAll(eventsToPost);
-        if (!currentEvents.get().isEmpty()) {
-            propagate();
-        }
+       eventBus.propagateAsync();
     }
 
     private DomainEventBus() {
-        eventBus = new EventBus();
     }
 
-    public void setEventBus(final EventBus eventBus) {
+    public void setEventBus(final HybridEventBus eventBus) {
         this.eventBus = eventBus;
     }
 
@@ -39,23 +28,13 @@ public enum DomainEventBus {
     }
 
     public void post(final DomainEvent event) {
-        currentEvents.get().add(event);
-        if (propagateOnPost) {
-            propagate();
-        }
+        eventBus.post(event);
     }
 
     public List<DomainEvent> getEvents() {
         return Lists.newArrayList();
     }
 
-    private EventBus eventBus;
-    private final ThreadLocal<List<DomainEvent>> currentEvents = new ThreadLocal<List<DomainEvent>>() {
-        @Override
-        protected List<DomainEvent> initialValue() {
-            return Lists.newArrayList();
-        }
-    };
-    private boolean propagateOnPost;
-    private static final Logger LOGGER = Logger.getLogger(DomainEventBus.class);
+    private HybridEventBus eventBus;
+
 }

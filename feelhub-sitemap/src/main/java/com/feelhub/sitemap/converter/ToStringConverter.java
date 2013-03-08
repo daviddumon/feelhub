@@ -2,7 +2,8 @@ package com.feelhub.sitemap.converter;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStreamReader;
 import java.io.StringWriter;
@@ -37,6 +38,6 @@ public abstract class ToStringConverter {
 
     protected abstract Map<String, Object> data();
 
-    private static final Logger logger = Logger.getLogger(ToStringConverter.class);
+    private static final Logger logger = LoggerFactory.getLogger(ToStringConverter.class);
 
 }

@@ -2,19 +2,24 @@ package com.feelhub.domain.alchemy;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.*;
-import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.TopicFactory;
+import com.feelhub.domain.topic.TopicIndexer;
+import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
+import com.feelhub.domain.topic.http.HttpTopicType;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.base.Optional;
-import com.google.common.collect.*;
-import com.google.common.eventbus.AllowConcurrentEvents;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public class AlchemyAnalyzer {
 
@@ -27,7 +32,6 @@ public class AlchemyAnalyzer {
     }
 
     @Subscribe
-    @AllowConcurrentEvents
     public void onHttpTopicCreated(final HttpTopicCreatedEvent event) {
         analyze(Repositories.topics().getHttpTopic(event.topicId));
     }
@@ -36,7 +40,7 @@ public class AlchemyAnalyzer {
         if (httpTopic.getType() != HttpTopicType.Website) {
             return;
         }
-        LOGGER.debug(String.format("Running alchemy analysis for {%s}", httpTopic.getName(FeelhubLanguage.REFERENCE)));
+        LOGGER.debug("Running alchemy analysis for {}", httpTopic);
         final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(httpTopic.getId());
         if (alchemyAnalysisList.isEmpty()) {
             performAlchemyAnalysis(httpTopic);
@@ -46,7 +50,7 @@ public class AlchemyAnalyzer {
     private void performAlchemyAnalysis(final HttpTopic httpTopic) {
         try {
             final List<NamedEntity> namedEntities = namedEntityProvider.entitiesFor(httpTopic);
-            LOGGER.debug(String.format("%s entities found", namedEntities.size()));
+            LOGGER.debug("{} entities found", namedEntities.size());
             final List<AlchemyEntity> entities = createTopicAndAlchemyEntities(namedEntities, httpTopic.getUserId());
             createRelations(httpTopic, entities);
         } catch (AlchemyException e) {
@@ -120,5 +124,5 @@ public class AlchemyAnalyzer {
     private final AlchemyRelationBinder alchemyRelationBinder;
     private final NamedEntityProvider namedEntityProvider;
     private final TopicService topicService;
-    private static final Logger LOGGER = Logger.getLogger(AlchemyAnalyzer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AlchemyAnalyzer.class);
 }

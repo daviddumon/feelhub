@@ -1,11 +1,15 @@
 package com.feelhub.domain.eventbus;
 
 import com.google.common.collect.Maps;
-import com.google.common.eventbus.EventBus;
+import com.google.common.util.concurrent.MoreExecutors;
 
 import java.util.Map;
 
-public class FakeEventBus extends EventBus {
+public class FakeEventBus extends HybridEventBus {
+
+    public FakeEventBus() {
+        super(MoreExecutors.sameThreadExecutor());
+    }
 
     @Override
     public void post(final Object event) {

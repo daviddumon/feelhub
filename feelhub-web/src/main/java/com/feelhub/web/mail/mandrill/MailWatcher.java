@@ -8,7 +8,7 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MailWatcher {
 
@@ -17,7 +17,7 @@ public class MailWatcher {
         this.mailSender = mailSender;
         this.properties = properties;
         DomainEventBus.INSTANCE.register(this);
-        Logger.getLogger(MailWatcher.class).info("Waiting for mail to send");
+        LoggerFactory.getLogger(MailWatcher.class).info("Waiting for mail to send");
     }
 
     @Subscribe

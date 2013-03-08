@@ -1,7 +1,10 @@
 package com.feelhub.patch;
 
-import com.feelhub.repositories.*;
-import org.apache.log4j.Logger;
+import com.feelhub.repositories.MongoRepositories;
+import com.feelhub.repositories.Repositories;
+import com.feelhub.repositories.SessionProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class Patch {
 
@@ -47,5 +50,5 @@ public abstract class Patch {
     public abstract Version version();
 
     protected SessionProvider sessionProvider;
-    protected static final Logger LOGGER = Logger.getLogger(Patch.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Patch.class);
 }

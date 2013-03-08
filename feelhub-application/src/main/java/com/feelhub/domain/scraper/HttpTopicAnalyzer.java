@@ -1,15 +1,19 @@
 package com.feelhub.domain.scraper;
 
-import com.feelhub.domain.cloudinary.*;
+import com.feelhub.domain.cloudinary.Cloudinary;
+import com.feelhub.domain.cloudinary.CloudinaryThumbnails;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
+import com.feelhub.domain.topic.http.HttpTopicType;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class HttpTopicAnalyzer {
 
@@ -22,6 +26,7 @@ public class HttpTopicAnalyzer {
     }
 
     @Subscribe
+    //@Immediate
     public void onHttpTopicCreated(final HttpTopicCreatedEvent event) {
         rateLimiter.acquire();
         analyze(event.topicId);

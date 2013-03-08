@@ -4,6 +4,7 @@ import com.feelhub.application.command.CommandBus;
 import com.feelhub.domain.admin.AdminApiCallsService;
 import com.feelhub.domain.eventbus.DeadEventCatcher;
 import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.eventbus.HybridEventBus;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.domain.translation.Translator;
 import com.feelhub.repositories.MongoRepositories;
@@ -11,8 +12,6 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.tools.MongoLinkAwareExecutor;
 import com.feelhub.web.mail.MailBuilder;
-import com.google.common.eventbus.AsyncEventBus;
-import com.google.common.eventbus.EventBus;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -27,14 +26,13 @@ public class GuiceProductionModule extends AbstractModule {
     protected void configure() {
         Names.bindProperties(binder(), properties());
         //bind(MailWatcher.class).asEagerSingleton();
-        bind(EventBus.class).to(AsyncEventBus.class).asEagerSingleton();
-        bind(MailBuilder.class).asEagerSingleton();
-        bind(DeadEventCatcher.class).asEagerSingleton();
-        bind(StatisticsFactory.class).asEagerSingleton();
-        bind(AdminApiCallsService.class).asEagerSingleton();
-        bind(Translator.class).asEagerSingleton();
+        bind(MailBuilder.class).in(Singleton.class);
+        bind(DeadEventCatcher.class).in(Singleton.class);
+        bind(StatisticsFactory.class).in(Singleton.class);
+        bind(AdminApiCallsService.class).in(Singleton.class);
+        bind(Translator.class).in(Singleton.class);
         bind(MongoLinkAwareExecutor.class).in(Singleton.class);
-        bind(Repositories.class).to(MongoRepositories.class);
+        bind(Repositories.class).to(MongoRepositories.class).in(Singleton.class);
     }
 
     private Properties properties() {
@@ -57,14 +55,15 @@ public class GuiceProductionModule extends AbstractModule {
 
     @Provides
     @Singleton
-    public CommandBus commandBus(final MongoLinkAwareExecutor executor) {
-        return new CommandBus(executor);
+    public CommandBus commandBus(final SessionProvider provider) {
+        return new CommandBus(provider);
     }
 
     @Provides
-    public AsyncEventBus eventBus(final MongoLinkAwareExecutor executor) {
-        final AsyncEventBus asyncEventBus = new AsyncEventBus(executor);
-        DomainEventBus.INSTANCE.setEventBus(asyncEventBus);
-        return asyncEventBus;
+    @Singleton
+    public HybridEventBus eventBus(final MongoLinkAwareExecutor executor) {
+        final HybridEventBus eventBus = new HybridEventBus(executor);
+        DomainEventBus.INSTANCE.setEventBus(eventBus);
+        return eventBus;
     }
 }

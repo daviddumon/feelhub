@@ -31,9 +31,9 @@ import com.feelhub.web.search.fake.FakeMediaSearch;
 import com.feelhub.web.search.fake.FakeRelatedSearch;
 import com.feelhub.web.search.fake.FakeStatisticsSearch;
 import com.feelhub.web.tools.FeelhubSitemapModuleLink;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(BingLink.class).to(FakeBingLink.class);
         bind(MailSender.class).to(FakeMailSender.class);
         bind(CloudinaryLink.class).to(FakeCloudinaryLink.class);
-        bind(CommandBus.class).toInstance(new CommandBus(MoreExecutors.sameThreadExecutor()));
+        bind(CommandBus.class).in(Singleton.class);
         bind(Repositories.class).to(FakeRepositories.class);
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
     }

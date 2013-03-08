@@ -1,7 +1,8 @@
 package com.feelhub.patch;
 
 import com.feelhub.repositories.SessionProvider;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Main {
 
@@ -14,5 +15,5 @@ public final class Main {
         LOGGER.info("Patch end");
     }
 
-    private static final Logger LOGGER = Logger.getLogger(Main.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 }

@@ -5,7 +5,10 @@
         </encoder>
     </appender>
 
-    <root level="error">
+    <logger name="org.mongolink" level="ERROR"/>
+    <logger name="org.restlet" level="WARN"/>
+
+    <root level="DEBUG">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
