@@ -1,6 +1,7 @@
 package com.feelhub.sitemap.tools;
 
 import org.mongolink.Settings;
+import org.mongolink.domain.UpdateStrategies;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -32,7 +33,7 @@ public class SitemapProperties {
         return Settings.defaultInstance()
                 .withHost(getDbHost())
                 .withPort(getDbPort())
-                .withDbName(getDbName());
+                .withDbName(getDbName()).withDefaultUpdateStrategy(UpdateStrategies.DIFF);
     }
 
     public String getRoot() {

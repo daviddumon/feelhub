@@ -1,12 +1,13 @@
 package com.feelhub.sitemap.application;
 
-import com.feelhub.sitemap.test.*;
+import com.feelhub.sitemap.test.FakeSitemapsRepository;
+import com.feelhub.sitemap.test.TestWithMongo;
 import com.feelhub.test.TestFactories;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 import org.mongolink.MongoSession;
-import org.quartz.JobExecutionException;
 
-import static org.fest.assertions.Assertions.*;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class SitemapsBuilderJobTest extends TestWithMongo {
 
@@ -23,7 +24,7 @@ public class SitemapsBuilderJobTest extends TestWithMongo {
     }
 
     @Test
-    public void canExecute() throws JobExecutionException {
+    public void canExecute() {
         final SitemapsBuilderJob sitemapsBuilderJob = new SitemapsBuilderJob(newSession());
 
         sitemapsBuilderJob.execute();
