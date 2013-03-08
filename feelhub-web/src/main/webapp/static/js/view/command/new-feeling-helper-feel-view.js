@@ -11,9 +11,10 @@ define(["jquery", "plugins/hgn!templates/command/new_feeling_helper_feel"], func
         $("#form-right-panel").trigger("next-question");
     });
 
-    function render(data) {
+    function render(data, invalidate) {
         $(container).empty();
         data.root = root;
+        data.invalidate = invalidate;
         var question = template(data);
         $(container).append(question);
         $(".form-help").fadeIn(1000);

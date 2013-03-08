@@ -203,7 +203,7 @@ define(["jquery",
 
         function draw_next_question() {
             current_question = active_questions[0];
-            (current_question.view.render)(current_question.data);
+            (current_question.view.render)(current_question.data, current_question.invalidate);
         }
 
         function add_submit_question() {

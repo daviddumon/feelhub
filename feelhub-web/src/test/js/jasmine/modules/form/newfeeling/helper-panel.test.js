@@ -83,7 +83,7 @@ define(["modules/form/newfeeling/helper-panel", "view/command/new-feeling-helper
 
                 helper.add_questions(topic_with_id);
 
-                expect(helper_feel_view.render).toHaveBeenCalledWith({"topic": topic_with_id, "other": {}});
+                expect(helper_feel_view.render).toHaveBeenCalledWith({"topic": topic_with_id, "other": {}}, true);
             });
 
             it("executes render function when set as active with an already current function", function () {

@@ -106,7 +106,7 @@ public class SentimentDataTest {
     public void sentimentHadADefaultValue() {
         final SentimentData sentimentData = new SentimentData.Builder().build();
 
-        assertThat(sentimentData.getSentimentValue()).isEqualTo(SentimentValue.none);
+        assertThat(sentimentData.getSentimentValue()).isEqualTo(SentimentValue.neutral);
     }
 
     @Test

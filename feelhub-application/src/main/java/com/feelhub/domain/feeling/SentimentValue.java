@@ -1,19 +1,17 @@
 package com.feelhub.domain.feeling;
 
 public enum SentimentValue {
-    good {
-        @Override
-        public int numericValue() {
-            return 1;
-        }
-    }, bad {
-        @Override
-        public int numericValue() {
-            return -1;
-        }
-    }, neutral, none;
+    good(1), bad(-1), neutral(0);
+
+    SentimentValue(int numericValue) {
+        this.numericValue = numericValue;
+    }
 
     public int numericValue() {
-        return 0;
+        return numericValue;
     }
+
+    private int numericValue;
 }
+
+

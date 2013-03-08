@@ -10,9 +10,17 @@ define(["jquery", "view/command/new-feeling-helper-feel-view"], function ($, vie
         });
 
         it("can render the view", function () {
-            view.render({});
+            view.render({}, true);
 
             expect($(".form-help").length).toEqual(1);
+            expect($(".form-help .ignore-button").length).toEqual(1);
+        });
+
+        it("can render the view without ignore button", function () {
+            view.render({}, false);
+
+            expect($(".form-help").length).toEqual(1);
+            expect($(".form-help .ignore-button").length).toEqual(0);
         });
 
         it("can clear the view", function () {

@@ -68,7 +68,7 @@ public class SentimentData {
         private String thumbnailMedium = "";
         private String thumbnailSmall = "";
         private String name = "";
-        private SentimentValue sentimentValue = SentimentValue.none;
+        private SentimentValue sentimentValue = SentimentValue.neutral;
         private TopicType type = UnusableTopicTypes.None;
     }
 

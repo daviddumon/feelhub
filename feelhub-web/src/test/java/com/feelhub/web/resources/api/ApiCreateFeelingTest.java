@@ -55,7 +55,20 @@ public class ApiCreateFeelingTest {
         assertThat(createFeelingCommand.text).isEqualTo(jsonObject.getString("text"));
         assertThat(createFeelingCommand.language).isEqualTo(FeelhubLanguage.fromCode(jsonObject.getString("languageCode")));
         assertThat(createFeelingCommand.userId).isEqualTo(CurrentUser.get().getUser().getId());
-        assertThat(createFeelingCommand.sentiments.size()).isEqualTo(2);
+        assertThat(createFeelingCommand.sentiments).hasSize(2);
+    }
+
+    @Test
+    public void noneSentimentsAreFiltered() throws JSONException, AuthenticationException {
+        when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
+        final JSONObject jsonObject = getGoodJsonWithANoneSentiment();
+
+        apiCreateFeeling.add(jsonObject);
+
+        ArgumentCaptor<CreateFeelingCommand> captor = ArgumentCaptor.forClass(CreateFeelingCommand.class);
+        CreateFeelingCommand createFeelingCommand = captor.getValue();
+        assertThat(createFeelingCommand.sentiments).hasSize(1);
+        assertThat(createFeelingCommand.sentiments.get(0).getSentimentValue()).isEqualTo(SentimentValue.bad);
     }
 
     @Test
@@ -73,26 +86,37 @@ public class ApiCreateFeelingTest {
     }
 
     private JSONObject getGoodJson() throws JSONException {
-        final JSONArray data = getJsonArray();
+        return getGoodJson(getJsonArray());
+    }
+
+    private JSONObject getGoodJsonWithANoneSentiment() throws JSONException {
+        return getGoodJson(getJsonArray("none", SentimentValue.bad.toString()));
+    }
+
+    private JSONObject getGoodJson(JSONArray topics) throws JSONException {
         final JSONObject jsonObject = new JSONObject();
         jsonObject.put("languageCode", FeelhubLanguage.fromCode("fr").getCode());
         jsonObject.put("text", "my feeling");
-        jsonObject.put("topics", data);
+        jsonObject.put("topics", topics);
         return jsonObject;
     }
 
     private JSONArray getJsonArray() throws JSONException {
+        return getJsonArray(SentimentValue.bad.toString(), SentimentValue.bad.toString());
+    }
+
+    private JSONArray getJsonArray(String firstSentimentValue, String secondSentimentValue) throws JSONException {
         final JSONArray data = new JSONArray();
         final JSONObject first = new JSONObject();
         first.put("id", UUID.randomUUID().toString());
         first.put("name", "noname");
         first.put("type", "notype");
-        first.put("sentiment", SentimentValue.bad.toString());
+        first.put("sentiment", firstSentimentValue);
         final JSONObject second = new JSONObject();
         second.put("id", "new");
         second.put("name", "name");
         second.put("type", "other");
-        second.put("sentiment", SentimentValue.bad.toString());
+        second.put("sentiment", secondSentimentValue);
         data.put(first);
         data.put(second);
         return data;

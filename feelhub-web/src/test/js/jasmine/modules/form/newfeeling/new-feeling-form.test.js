@@ -11,7 +11,7 @@ define(["jquery", "modules/form/newfeeling/new-feeling-form", "view/command/new-
             });
 
             it("trigger next-question event on ignore", function () {
-                view.render({});
+                view.render({}, true);
                 var callback = jasmine.createSpy("callback");
                 $("#form-right-panel").on("next-question", callback);
 
