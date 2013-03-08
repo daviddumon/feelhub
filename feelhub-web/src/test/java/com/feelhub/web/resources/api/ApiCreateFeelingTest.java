@@ -66,6 +66,7 @@ public class ApiCreateFeelingTest {
         apiCreateFeeling.add(jsonObject);
 
         ArgumentCaptor<CreateFeelingCommand> captor = ArgumentCaptor.forClass(CreateFeelingCommand.class);
+        verify(commandBus, atLeastOnce()).execute(captor.capture());
         CreateFeelingCommand createFeelingCommand = captor.getValue();
         assertThat(createFeelingCommand.sentiments).hasSize(1);
         assertThat(createFeelingCommand.sentiments.get(0).getSentimentValue()).isEqualTo(SentimentValue.bad);
@@ -90,7 +91,7 @@ public class ApiCreateFeelingTest {
     }
 
     private JSONObject getGoodJsonWithANoneSentiment() throws JSONException {
-        return getGoodJson(getJsonArray(SentimentValue.bad.toString(), "none"));
+        return getGoodJson(getJsonArray("none", SentimentValue.bad.toString()));
     }
 
     private JSONObject getGoodJson(JSONArray topics) throws JSONException {
@@ -108,12 +109,12 @@ public class ApiCreateFeelingTest {
     private JSONArray getJsonArray(String firstSentimentValue, String secondSentimentValue) throws JSONException {
         final JSONArray data = new JSONArray();
         final JSONObject first = new JSONObject();
-        first.put("id", "new");
+        first.put("id", UUID.randomUUID().toString());
         first.put("name", "noname");
         first.put("type", "notype");
         first.put("sentiment", firstSentimentValue);
         final JSONObject second = new JSONObject();
-        second.put("id", UUID.randomUUID().toString());
+        second.put("id", "new");
         second.put("name", "name");
         second.put("type", "other");
         second.put("sentiment", secondSentimentValue);
