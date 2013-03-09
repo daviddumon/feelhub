@@ -9,6 +9,7 @@ import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
 import com.feelhub.domain.topic.http.HttpTopicType;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
+import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
@@ -30,6 +31,7 @@ public class HttpTopicAnalyzer {
 
     @Subscribe
     @Synchronize
+    @AllowConcurrentEvents
     public void onHttpTopicCreated(final HttpTopicCreatedEvent event) {
         rateLimiter.acquire();
         analyze(event.topicId);

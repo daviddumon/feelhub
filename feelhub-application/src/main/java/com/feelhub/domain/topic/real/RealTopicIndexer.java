@@ -1,9 +1,11 @@
 package com.feelhub.domain.topic.real;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.eventbus.Synchronize;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.TopicIndexer;
 import com.feelhub.repositories.Repositories;
+import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.Subscribe;
 
 import java.util.Map;
@@ -15,6 +17,8 @@ public class RealTopicIndexer {
     }
 
     @Subscribe
+    @Synchronize
+    @AllowConcurrentEvents
     public void handle(final RealTopicCreatedEvent event) {
         index(Repositories.topics().getRealTopic(event.topicId));
     }

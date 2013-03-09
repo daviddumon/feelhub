@@ -9,6 +9,7 @@ import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
+import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
@@ -28,6 +29,7 @@ public class BingSearch {
     }
 
     @Subscribe
+    @AllowConcurrentEvents
     public void onRealTopicCreated(final RealTopicCreatedEvent event) {
         rateLimiter.acquire();
         final RealTopic realTopic = Repositories.topics().getRealTopic(event.topicId);

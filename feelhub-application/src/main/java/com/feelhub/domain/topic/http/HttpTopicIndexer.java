@@ -1,10 +1,12 @@
 package com.feelhub.domain.topic.http;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.eventbus.Synchronize;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.TopicIndexer;
 import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.repositories.Repositories;
+import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.Subscribe;
 
 public class HttpTopicIndexer {
@@ -15,6 +17,8 @@ public class HttpTopicIndexer {
     }
 
     @Subscribe
+    @AllowConcurrentEvents
+    @Synchronize
     public void onHttpTopicCreated(final HttpTopicCreatedEvent event) {
         final HttpTopic httpTopic = Repositories.topics().getHttpTopic(event.topicId);
         index(httpTopic, event.resolverResult);
