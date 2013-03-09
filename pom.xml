@@ -58,7 +58,7 @@
         <profile>
             <id>production</id>
             <properties>
-                <dbHost>ec2-107-22-149-150.compute-1.amazonaws.com</dbHost>
+                <dbHost>ec2-54-234-85-10.compute-1.amazonaws.com</dbHost>
                 <dbName>feelhub</dbName>
                 <dbPort>27017</dbPort>
                 <alchemyApiKey>e9bbb7fe647375f4b1d634f74d203283e6749230</alchemyApiKey>
