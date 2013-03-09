@@ -16,19 +16,8 @@ public class HybridEventBusTest {
     @Before
     public void setUp() throws Exception {
         eventBus = new HybridEventBus(MoreExecutors.sameThreadExecutor());
-
     }
 
-    @Test
-    @Ignore
-    public void canPropagateNow() {
-        ImmediateEventListener listener = new ImmediateEventListener();
-        eventBus.register(listener);
-
-        eventBus.post(new HttpTopicCreatedEvent(UUID.randomUUID(), new ResolverResult()));
-
-        assertThat(listener.handled).isTrue();
-    }
 
     @Test
     public void doNotPropagateToAsyncNow() {
@@ -69,13 +58,13 @@ public class HybridEventBusTest {
     private class ImmediateEventListener {
 
         @Subscribe
-        @Immediate
+        @Synchronize
         public void onEvent(HttpTopicCreatedEvent event) {
             handled = true;
         }
 
         @Subscribe
-        @Immediate
+        @Synchronize
         public void onEvent(RealTopicCreatedEvent event) {
             handled = true;
         }

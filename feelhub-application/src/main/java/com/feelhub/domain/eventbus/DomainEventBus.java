@@ -1,9 +1,5 @@
 package com.feelhub.domain.eventbus;
 
-import com.google.common.collect.Lists;
-
-import java.util.List;
-
 public enum DomainEventBus {
 
     INSTANCE;
@@ -25,10 +21,6 @@ public enum DomainEventBus {
 
     public void post(final DomainEvent event) {
         eventBus.post(event);
-    }
-
-    public List<DomainEvent> getEvents() {
-        return Lists.newArrayList();
     }
 
     private HybridEventBus eventBus;

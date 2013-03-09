@@ -10,7 +10,5 @@ public class DeadEventCatcher {
 
     @Subscribe
     public void handle(final DeadEvent deadEvent) {
-        final FeelhubDeadEvent feelhubDeadEvent = new FeelhubDeadEvent(deadEvent);
-        DomainEventBus.INSTANCE.getEvents().add(feelhubDeadEvent);
     }
 }

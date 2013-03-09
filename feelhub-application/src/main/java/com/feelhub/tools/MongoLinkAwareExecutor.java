@@ -13,13 +13,13 @@ public class MongoLinkAwareExecutor extends AbstractExecutorService {
 
     @Inject
     public MongoLinkAwareExecutor(final SessionProvider sessionProvider) {
-        executorService = Executors.newCachedThreadPool();
+        delegate = Executors.newCachedThreadPool();
         this.sessionProvider = sessionProvider;
     }
 
     @Override
     public void execute(final Runnable runnable) {
-        executorService.execute(encapsulate(runnable));
+        delegate.execute(encapsulate(runnable));
     }
 
     private Runnable encapsulate(final Runnable runnable) {
@@ -42,30 +42,30 @@ public class MongoLinkAwareExecutor extends AbstractExecutorService {
 
     @Override
     public void shutdown() {
-        executorService.shutdown();
+        delegate.shutdown();
     }
 
     @Override
     public List<Runnable> shutdownNow() {
-        return executorService.shutdownNow();
+        return delegate.shutdownNow();
     }
 
     @Override
     public boolean isShutdown() {
-        return executorService.isShutdown();
+        return delegate.isShutdown();
     }
 
     @Override
     public boolean isTerminated() {
-        return executorService.isTerminated();
+        return delegate.isTerminated();
     }
 
     @Override
     public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
-        return executorService.awaitTermination(timeout, unit);
+        return delegate.awaitTermination(timeout, unit);
     }
 
     private final SessionProvider sessionProvider;
-    private final ExecutorService executorService;
+    private final ExecutorService delegate;
     private static final Logger LOGGER = LoggerFactory.getLogger(MongoLinkAwareExecutor.class);
 }

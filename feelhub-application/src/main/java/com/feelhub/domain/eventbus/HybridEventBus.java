@@ -5,28 +5,36 @@ import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.reflect.TypeToken;
+import com.google.common.util.concurrent.AbstractListeningExecutorService;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFutureTask;
+import com.google.common.util.concurrent.ListeningExecutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class HybridEventBus {
 
-    public HybridEventBus(Executor executor) {
-        this.eventBus = new AsyncEventBus("async event bus", executor);
+    public HybridEventBus(ExecutorService executor) {
+        this.asyncEventBus = new AsyncEventBus("async event bus", executor);
+        this.syncableEventBus = new AsyncEventBus("async event bus", new ListenableSyncExecutor(executor));
     }
 
     public void register(Object listener) {
-        if (isImmediate(listener)) {
-            //syncEventBus.register(listener);
+        if (isSynchronize(listener)) {
+            syncableEventBus.register(listener);
+        } else {
+            asyncEventBus.register(listener);
         }
-        eventBus.register(listener);
     }
 
-    private boolean isImmediate(Object listener) {
+    private boolean isSynchronize(Object listener) {
         Class<?> clazz = listener.getClass();
         Set<? extends Class<?>> supers = TypeToken.of(clazz).getTypes().rawTypes();
 
@@ -34,7 +42,7 @@ public class HybridEventBus {
             for (Class<?> c : supers) {
                 try {
                     Method m = c.getMethod(method.getName(), method.getParameterTypes());
-                    if (m.isAnnotationPresent(Subscribe.class) && m.getAnnotation(Immediate.class) != null) {
+                    if (m.isAnnotationPresent(Subscribe.class) && m.getAnnotation(Synchronize.class) != null) {
                         return true;
                     }
                 } catch (NoSuchMethodException ignored) {
@@ -50,10 +58,24 @@ public class HybridEventBus {
     }
 
     public void propagate() {
+        propagateSyncable();
+        propagateAsync();
+    }
+
+    private void propagateSyncable() {
         ConcurrentLinkedQueue<Object> events = currentEvents.get();
-        while (!events.isEmpty()) {
+        if(!events.isEmpty())  LOGGER.debug("Propagating events to syncable listeners");
+        for (Object event : events) {
+            LOGGER.debug("Propagating {}", event);
+            syncableEventBus.post(event);
+        }
+    }
+
+    private void propagateAsync() {
+        if(!currentEvents.get().isEmpty()) LOGGER.debug("Propagating events to async listeners");
+        while (!currentEvents.get().isEmpty()) {
             LOGGER.debug("Propagating {}", currentEvents.get().peek());
-            eventBus.post(events.poll());
+            asyncEventBus.post(currentEvents.get().poll());
         }
     }
 
@@ -64,5 +86,52 @@ public class HybridEventBus {
             return Queues.newConcurrentLinkedQueue();
         }
     };
-    private final EventBus eventBus;
+
+    private final EventBus asyncEventBus;
+    private final EventBus syncableEventBus;
+
+
+    private class ListenableSyncExecutor extends AbstractListeningExecutorService implements ListeningExecutorService {
+
+        public ListenableSyncExecutor(ExecutorService executor) {
+            this.delegate = executor;
+        }
+
+        @Override
+        public boolean awaitTermination(long timeout, TimeUnit unit)
+                throws InterruptedException {
+            return delegate.awaitTermination(timeout, unit);
+        }
+
+        @Override
+        public boolean isShutdown() {
+            return delegate.isShutdown();
+        }
+
+        @Override
+        public boolean isTerminated() {
+            return delegate.isTerminated();
+        }
+
+        @Override
+        public void shutdown() {
+            delegate.shutdown();
+        }
+
+        @Override
+        public List<Runnable> shutdownNow() {
+            return delegate.shutdownNow();
+        }
+
+        @Override
+        public void execute(Runnable command) {
+            LOGGER.debug("Starting new syncable thread");
+            ListenableFutureTask<Object> listenableTask = ListenableFutureTask.create(command, null);
+            delegate.execute(listenableTask);
+            Futures.getUnchecked(listenableTask);
+            LOGGER.debug("Syncable thread returned");
+        }
+
+        private ExecutorService delegate;
+    }
 }
