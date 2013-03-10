@@ -232,7 +232,7 @@
             <artifactId>org.restlet.ext.slf4j</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
+            <groupId>org.apache.commons</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
 
