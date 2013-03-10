@@ -8,7 +8,6 @@ import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.topic.world.WorldTopic;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.google.inject.internal.Nullable;
 
 import java.util.UUID;
 
@@ -18,7 +17,7 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
     public GeoTopic getGeoTopic(final UUID id) {
         return (GeoTopic) Iterables.find(getAll(), new Predicate<Topic>() {
             @Override
-            public boolean apply(@Nullable final Topic input) {
+            public boolean apply(final Topic input) {
                 return input.getId().equals(id);
             }
         });
@@ -28,7 +27,7 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
     public HttpTopic getHttpTopic(final UUID id) {
         return (HttpTopic) Iterables.find(getAll(), new Predicate<Topic>() {
             @Override
-            public boolean apply(@Nullable final Topic input) {
+            public boolean apply(final Topic input) {
                 return input.getId().equals(id);
             }
         });
@@ -38,7 +37,7 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
     public RealTopic getRealTopic(final UUID id) {
         return (RealTopic) Iterables.find(getAll(), new Predicate<Topic>() {
             @Override
-            public boolean apply(@Nullable final Topic input) {
+            public boolean apply(final Topic input) {
                 return input.getId().equals(id);
             }
         });
@@ -48,7 +47,7 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
     public FtpTopic getFtpTopic(final UUID id) {
         return (FtpTopic) Iterables.find(getAll(), new Predicate<Topic>() {
             @Override
-            public boolean apply(@Nullable final Topic input) {
+            public boolean apply(final Topic input) {
                 return input.getId().equals(id);
             }
         });
@@ -60,7 +59,7 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
             return (WorldTopic) Iterables.find(getAll(), new Predicate<Topic>() {
 
                 @Override
-                public boolean apply(@Nullable final Topic input) {
+                public boolean apply(final Topic input) {
                     return input.getClass().equals(WorldTopic.class);
                 }
             });

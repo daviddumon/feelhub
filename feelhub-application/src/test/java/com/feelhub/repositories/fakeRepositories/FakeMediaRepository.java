@@ -1,7 +1,7 @@
 package com.feelhub.repositories.fakeRepositories;
 
 import com.feelhub.domain.media.*;
-import com.google.common.base.*;
+import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 
 import java.util.*;
@@ -14,7 +14,7 @@ public class FakeMediaRepository extends FakeRepository<Media> implements MediaR
             return Iterables.find(getAll(), new Predicate<Media>() {
 
                 @Override
-                public boolean apply(@Nullable final Media input) {
+                public boolean apply(final Media input) {
                     if (input.getFromId().equals(fromId) && input.getToId().equals(toId)) {
                         return true;
                     }

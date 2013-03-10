@@ -12,7 +12,6 @@
     <artifactId>feelhub-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <description>free speech everywhere</description>
 
     <profiles>
         <profile>
@@ -193,12 +192,6 @@
             <groupId>org.easytesting</groupId>
             <artifactId>fest-assert</artifactId>
             <version>1.4</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.feelhub</groupId>
