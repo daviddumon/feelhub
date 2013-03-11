@@ -133,12 +133,12 @@ public abstract class Topic extends BaseEntity {
         return sentiments;
     }
 
-    public void setIllustrations(final List<HttpTopic> images) {
-        if (getIllustration().isEmpty() && !images.isEmpty()) {
-            setIllustration(images.get(0).getIllustration());
-            setThumbnailLarge(images.get(0).getThumbnailLarge());
-            setThumbnailMedium(images.get(0).getThumbnailMedium());
-            setThumbnailSmall(images.get(0).getThumbnailSmall());
+    public void setIllustrations(final HttpTopic image) {
+        if (getIllustration().isEmpty()) {
+            setIllustration(image.getIllustration());
+            setThumbnailLarge(image.getThumbnailLarge());
+            setThumbnailMedium(image.getThumbnailMedium());
+            setThumbnailSmall(image.getThumbnailSmall());
         }
     }
 

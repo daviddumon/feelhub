@@ -24,7 +24,6 @@ public class Translator {
     public void onRealTopicCreated(final RealTopicCreatedEvent event) {
         final RealTopic realTopic = Repositories.topics().getRealTopic(event.topicId);
         translateReference(realTopic);
-
     }
 
     void translateReference(RealTopic realTopic) {

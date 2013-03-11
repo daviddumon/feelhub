@@ -1,6 +1,5 @@
 package com.feelhub.domain.bing;
 
-import com.feelhub.domain.cloudinary.*;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicType;
@@ -8,7 +7,6 @@ import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.TestFactories;
 import org.junit.*;
 import org.restlet.data.MediaType;
 
@@ -30,7 +28,7 @@ public class BingSearchTest {
         relationBinder = mock(BingRelationBinder.class);
         final FakeUriResolver fakeUriResolver = new FakeUriResolver();
         fakeUriResolver.thatFind(MediaType.IMAGE_JPEG);
-        bingSearch = new BingSearch(new FakeBingLink(), relationBinder, new Cloudinary(new FakeCloudinaryLink()));
+        bingSearch = new BingSearch(new FakeBingLink(), relationBinder);
         bingSearch.uriResolver = fakeUriResolver;
     }
 
@@ -44,11 +42,8 @@ public class BingSearchTest {
         assertThat(Repositories.topics().getAll().size()).isEqualTo(2);
         final Topic image = Repositories.topics().getAll().get(1);
         assertThat(image.getType()).isEqualTo(HttpTopicType.Image);
-        assertThat(image.getIllustration()).isEqualTo("query Automobilelink");
-        assertThat(image.getThumbnailLarge()).isEqualTo("thumbnail");
-        assertThat(image.getThumbnailMedium()).isEqualTo("thumbnail");
-        assertThat(image.getThumbnailSmall()).isEqualTo("thumbnail");
-        assertThat(image.getUris()).contains(new Uri("query Automobilelink"));
+        assertThat(image.getIllustration()).isEqualTo("querylink");
+        assertThat(image.getUris()).contains(new Uri("querylink"));
     }
 
     @Test
@@ -59,18 +54,6 @@ public class BingSearchTest {
         bingSearch.doBingSearch(realTopic, "query");
 
         verify(relationBinder).bind(any(Topic.class), anyList());
-    }
-
-    @Test
-    public void topicHasAnIllustration() {
-        final RealTopic realTopic = TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile);
-
-        bingSearch.doBingSearch(realTopic, "query");
-
-        assertThat(realTopic.getIllustration()).isEqualTo("query Automobilelink");
-        assertThat(realTopic.getThumbnailLarge()).isEqualTo("thumbnail");
-        assertThat(realTopic.getThumbnailMedium()).isEqualTo("thumbnail");
-        assertThat(realTopic.getThumbnailSmall()).isEqualTo("thumbnail");
     }
 
     private BingSearch bingSearch;

@@ -1,23 +1,14 @@
 package com.feelhub.domain.eventbus;
 
 import com.google.common.collect.Queues;
-import com.google.common.eventbus.AsyncEventBus;
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.*;
 import com.google.common.reflect.TypeToken;
-import com.google.common.util.concurrent.AbstractListeningExecutorService;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFutureTask;
-import com.google.common.util.concurrent.ListeningExecutorService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.google.common.util.concurrent.*;
+import org.slf4j.*;
 
 import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
+import java.util.concurrent.*;
 
 public class HybridEventBus {
 
@@ -64,7 +55,9 @@ public class HybridEventBus {
 
     private void propagateSyncable() {
         ConcurrentLinkedQueue<Object> events = currentEvents.get();
-        if(!events.isEmpty())  LOGGER.debug("Propagating events to syncable listeners");
+        if (!events.isEmpty()) {
+            LOGGER.debug("Propagating events to syncable listeners");
+        }
         for (Object event : events) {
             LOGGER.debug("Propagating {}", event);
             syncableEventBus.post(event);
@@ -72,7 +65,9 @@ public class HybridEventBus {
     }
 
     private void propagateAsync() {
-        if(!currentEvents.get().isEmpty()) LOGGER.debug("Propagating events to async listeners");
+        if (!currentEvents.get().isEmpty()) {
+            LOGGER.debug("Propagating events to async listeners");
+        }
         while (!currentEvents.get().isEmpty()) {
             LOGGER.debug("Propagating {}", currentEvents.get().peek());
             asyncEventBus.post(currentEvents.get().poll());

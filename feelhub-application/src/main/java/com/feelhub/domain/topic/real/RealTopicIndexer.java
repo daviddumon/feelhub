@@ -1,12 +1,10 @@
 package com.feelhub.domain.topic.real;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.eventbus.Synchronize;
+import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.TopicIndexer;
 import com.feelhub.repositories.Repositories;
-import com.google.common.eventbus.AllowConcurrentEvents;
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.*;
 
 import java.util.Map;
 

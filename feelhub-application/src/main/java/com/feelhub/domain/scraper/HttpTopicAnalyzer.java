@@ -1,23 +1,16 @@
 package com.feelhub.domain.scraper;
 
-import com.feelhub.domain.cloudinary.Cloudinary;
-import com.feelhub.domain.cloudinary.CloudinaryThumbnails;
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.eventbus.Synchronize;
-import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
-import com.feelhub.domain.topic.http.HttpTopicType;
+import com.feelhub.domain.cloudinary.*;
+import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.topic.http.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
-import com.google.common.eventbus.AllowConcurrentEvents;
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.*;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class HttpTopicAnalyzer {
 
@@ -39,7 +32,7 @@ public class HttpTopicAnalyzer {
 
     public List<String> analyze(final UUID topicId) {
         final HttpTopic httpTopic = Repositories.topics().getHttpTopic(topicId);
-        LOGGER.debug("Analysing topic : {}" , httpTopic);
+        LOGGER.debug("Analysing topic : {}", httpTopic);
         if (HttpTopicType.Website.equals(httpTopic.getType())) {
             return scrap(httpTopic);
         }

@@ -1,5 +1,11 @@
 package com.feelhub.domain.cloudinary;
 
+import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.media.MediaCreatedEvent;
+import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.real.*;
+import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
+import com.feelhub.test.TestFactories;
 import com.google.common.collect.Maps;
 import com.google.inject.*;
 import org.junit.*;
@@ -15,6 +21,12 @@ public class CloudinaryTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
+
+    @Rule
+    public WithFakeRepositories repositories = new WithFakeRepositories();
 
     @Before
     public void before() {
@@ -86,6 +98,20 @@ public class CloudinaryTest {
         when(cloudinaryLink.getIllustration(anyMap())).thenThrow(new IOException());
 
         cloudinary.getThumbnails("source");
+    }
+
+    @Test
+    public void topicHasAnIllustration() throws IOException {
+        when(cloudinaryLink.getIllustration(anyMap())).thenReturn("thumbnail");
+        final RealTopic realTopic = TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile);
+        final HttpTopic image = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Image);
+        final MediaCreatedEvent mediaCreatedEvent = new MediaCreatedEvent(realTopic.getCurrentId(), image.getCurrentId());
+
+        DomainEventBus.INSTANCE.post(mediaCreatedEvent);
+
+        assertThat(realTopic.getThumbnailLarge()).isEqualTo("thumbnail");
+        assertThat(realTopic.getThumbnailMedium()).isEqualTo("thumbnail");
+        assertThat(realTopic.getThumbnailSmall()).isEqualTo("thumbnail");
     }
 
     private Cloudinary cloudinary;
