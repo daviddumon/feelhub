@@ -34,7 +34,7 @@ public class BingLinkTest {
 
     @Test
     public void canGetSimpleMediaUrl() {
-        final List<String> illustrations = bingLink.getIllustrations("simplevalue", "");
+        final List<String> illustrations = bingLink.getIllustrations("simplevalue");
 
         assertThat(illustrations.size()).isEqualTo(1);
         assertThat(illustrations.get(0)).isEqualTo(internet.uri("images/simplevalueillustration.jpg"));
@@ -42,22 +42,14 @@ public class BingLinkTest {
 
     @Test
     public void returnUpTo2IllustrationsForAKeyword() {
-        final List<String> illustrations = bingLink.getIllustrations("multiplevalues", "");
+        final List<String> illustrations = bingLink.getIllustrations("multiplevalues");
 
         assertThat(illustrations.size()).isEqualTo(2);
     }
 
     @Test
-    public void canGetLinksWithTypeParameter() {
-        final List<String> illustrations = bingLink.getIllustrations("pear", "fruit");
-
-        assertThat(illustrations.size()).isEqualTo(1);
-        assertThat(illustrations.get(0)).isEqualTo(internet.uri("images/simplevalueillustration.jpg"));
-    }
-
-    @Test
     public void tryWithoutTypeParameterIfNoResult() {
-        final List<String> illustrations = bingLink.getIllustrations("banana", "fruit");
+        final List<String> illustrations = bingLink.getIllustrations("banana");
 
         assertThat(illustrations.size()).isEqualTo(1);
         assertThat(illustrations.get(0)).isEqualTo(internet.uri("images/simplevalueillustration.jpg"));
@@ -65,7 +57,7 @@ public class BingLinkTest {
 
     @Test
     public void incrementStatistic() {
-        bingLink.getIllustrations("banana", "fruit");
+        bingLink.getIllustrations("banana");
 
         final ApiCallEvent event = bus.lastEvent(ApiCallEvent.class);
         assertThat(event).isNotNull();

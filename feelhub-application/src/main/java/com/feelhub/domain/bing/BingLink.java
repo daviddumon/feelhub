@@ -18,24 +18,18 @@ public class BingLink {
         feelhubApplicationProperties = new FeelhubApplicationProperties();
     }
 
-    public List<String> getIllustrations(final String value, final String type) {
+    public List<String> getIllustrations(final String value) {
         final List<String> results = Lists.newArrayList();
-        results.addAll(getResults(buildQueryFor(value, type)));
-        if (results.isEmpty()) {
-            results.addAll(getResults(buildQueryFor(value, "")));
-        }
+        results.addAll(getResults(buildQueryFor(value)));
         return results;
     }
 
-    private String buildQueryFor(final String value, final String type) {
+    private String buildQueryFor(final String value) {
         try {
             final StringBuilder stringBuilder = new StringBuilder();
             final String queryRoot = feelhubApplicationProperties.getBingRoot();
             stringBuilder.append(queryRoot);
             stringBuilder.append(URLEncoder.encode(value, "UTF-8"));
-            if (!type.isEmpty()) {
-                stringBuilder.append(URLEncoder.encode(" " + type, "UTF-8"));
-            }
             final String queryOptions = "'&Adult='Off'&$top=5&$format=JSON";
             stringBuilder.append(queryOptions);
             return stringBuilder.toString();
