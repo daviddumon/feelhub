@@ -31,7 +31,7 @@ exclude = [
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['dots', 'junit'];
+reporters = ['dots'];
 
 // web server port
 port = 9876;
