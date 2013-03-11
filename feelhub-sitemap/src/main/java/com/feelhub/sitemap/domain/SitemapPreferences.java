@@ -18,7 +18,7 @@ public class SitemapPreferences {
         return sitemapIndexCapacity;
     }
 
-    private static int sitemapCapacity = 1000;
-    private static int sitemapIndexCapacity = 1000;
+    private static int sitemapCapacity = 5000;
+    private static int sitemapIndexCapacity = 5000;
 
 }
