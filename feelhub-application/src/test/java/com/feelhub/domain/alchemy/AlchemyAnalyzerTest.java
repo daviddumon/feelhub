@@ -44,6 +44,16 @@ public class AlchemyAnalyzerTest {
     }
 
     @Test
+    public void runAnalysisForArticle() {
+        when(entityProvider.entitiesFor(Matchers.any(HttpTopic.class))).thenReturn(TestFactories.namedEntities().namedEntityWith1Tag());
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Article);
+
+        alchemyAnalyzer.analyze(httpTopic);
+
+        assertThat(Repositories.alchemyEntities().getAll().size()).isEqualTo(1);
+    }
+
+    @Test
     public void ifNoEntitiesCreateNothing() {
         when(entityProvider.entitiesFor(Matchers.any(HttpTopic.class))).thenReturn(TestFactories.namedEntities().namedEntityWithoutTags());
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);

@@ -8,8 +8,7 @@ import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
-import com.google.common.eventbus.AllowConcurrentEvents;
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.*;
 import com.google.inject.Inject;
 import org.slf4j.*;
 
@@ -32,14 +31,17 @@ public class AlchemyAnalyzer {
     }
 
     void analyze(final HttpTopic httpTopic) {
-        if (httpTopic.getType() != HttpTopicType.Website) {
-            return;
+        if (isAnalysable(httpTopic)) {
+            LOGGER.debug("Running alchemy analysis for {}", httpTopic);
+            final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(httpTopic.getId());
+            if (alchemyAnalysisList.isEmpty()) {
+                performAlchemyAnalysis(httpTopic);
+            }
         }
-        LOGGER.debug("Running alchemy analysis for {}", httpTopic);
-        final List<AlchemyAnalysis> alchemyAnalysisList = Repositories.alchemyAnalysis().forTopicId(httpTopic.getId());
-        if (alchemyAnalysisList.isEmpty()) {
-            performAlchemyAnalysis(httpTopic);
-        }
+    }
+
+    private boolean isAnalysable(final HttpTopic httpTopic) {
+        return httpTopic.getType() == HttpTopicType.Website || httpTopic.getType() == HttpTopicType.Article;
     }
 
     private void performAlchemyAnalysis(final HttpTopic httpTopic) {
