@@ -56,7 +56,7 @@
         <profile>
             <id>production</id>
             <properties>
-                <dbAddresses>ec2-54-234-85-10.compute-1.amazonaws.com:27017</dbAddresses>
+                <dbAddresses>ec2-54-234-85-10.compute-1.amazonaws.com:27017,ec2-54-224-31-25.compute-1.amazonaws.com:27017,ec2-54-234-85-10.compute-1.amazonaws.com:27017</dbAddresses>
                 <dbName>feelhub</dbName>
                 <alchemyApiKey>e9bbb7fe647375f4b1d634f74d203283e6749230</alchemyApiKey>
                 <cloudinaryName>feelhub</cloudinaryName>
