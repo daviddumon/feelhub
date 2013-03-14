@@ -1,26 +1,47 @@
 package com.feelhub.web.resources.authentification;
 
+import com.feelhub.application.command.Command;
+import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.user.CreateUserCommand;
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.repositories.Repositories;
-import com.feelhub.test.TestFactories;
-import com.feelhub.web.*;
-import org.junit.*;
-import org.restlet.data.*;
+import com.feelhub.domain.session.EmailAlreadyUsed;
+import com.feelhub.domain.user.BadEmail;
+import com.feelhub.web.ContextTestFactory;
+import com.feelhub.web.representation.ModelAndView;
+import com.feelhub.web.social.FacebookConnector;
+import com.google.common.util.concurrent.Futures;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.restlet.data.Form;
+import org.restlet.data.Language;
+import org.restlet.data.Preference;
+import org.restlet.data.Status;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import java.util.UUID;
+
+import static org.fest.assertions.Assertions.*;
+import static org.fest.assertions.MapAssert.*;
+import static org.mockito.Mockito.*;
 
 public class SignupResourceTest {
 
     @Rule
-    public WebApplicationTester restlet = new WebApplicationTester();
-
-    @Rule
     public WithDomainEvent bus = new WithDomainEvent();
+
+    @Before
+    public void setUp() throws Exception {
+        commandBus = mock(CommandBus.class);
+        FacebookConnector facebookConnector = mock(FacebookConnector.class);
+        when(facebookConnector.getUrl()).thenReturn("toto");
+        resource = new SignupResource(facebookConnector, commandBus);
+        ContextTestFactory.initResource(resource);
+    }
 
     @Test
     public void canSignup() {
-        final ClientResource signup = restlet.newClientResource("/signup");
+        when(commandBus.execute(any(CreateUserCommand.class))).thenReturn(Futures.immediateFuture(UUID.randomUUID()));
         final Form parameters = new Form();
         final String email = "mail@mail.com";
         parameters.add("fullname", "fullname");
@@ -28,54 +49,68 @@ public class SignupResourceTest {
         parameters.add("email", email);
         parameters.add("password", "password");
 
-        signup.post(parameters);
+        resource.signup(parameters);
 
-        assertThat(signup.getStatus(), is(Status.SUCCESS_CREATED));
-        assertThat(Repositories.users().getAll().size(), is(1));
-        assertThat(Repositories.users().getAll().get(0).getEmail(), is(email));
+        assertThat(resource.getStatus()).isEqualTo(Status.SUCCESS_CREATED);
+        ArgumentCaptor<CreateUserCommand> captor = ArgumentCaptor.forClass(CreateUserCommand.class);
+        verify(commandBus).execute(captor.capture());
+        CreateUserCommand command = captor.getValue();
+        assertThat(command.email).isEqualTo(email);
+        assertThat(command.fullname).isEqualTo("fullname");
     }
 
     @Test
     public void returnErrorOnKnownEmail() {
-        final ClientResource signup = restlet.newClientResource("/signup");
+        when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateFailedFuture(new EmailAlreadyUsed()));
         final String email = "mail@mail.com";
-        TestFactories.users().createFakeUser(email);
         final Form parameters = new Form();
         parameters.add("email", email);
         parameters.add("password", "password");
         parameters.add("fullname", "");
         parameters.add("language", "");
 
-        signup.post(parameters);
+        resource.signup(parameters);
 
-        assertThat(signup.getStatus(), is(Status.CLIENT_ERROR_CONFLICT));
+        assertThat(resource.getStatus()).isEqualTo(Status.CLIENT_ERROR_CONFLICT);
     }
 
     @Test
     public void returnErrorOnBadEmail() {
-        final ClientResource signup = restlet.newClientResource("/signup");
+        when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateFailedFuture(new BadEmail()));
         final Form parameters = new Form();
         parameters.add("email", "mail.com");
         parameters.add("password", "password");
         parameters.add("fullname", "");
         parameters.add("language", "");
 
-        signup.post(parameters);
+        resource.signup(parameters);
 
-        assertThat(signup.getStatus(), is(Status.CLIENT_ERROR_PRECONDITION_FAILED));
+        assertThat(resource.getStatus()).isEqualTo(Status.CLIENT_ERROR_PRECONDITION_FAILED);
     }
 
     @Test
     public void returnBadRequestIfMissingParameter() {
-        final ClientResource signup = restlet.newClientResource("/signup");
         final Form parameters = new Form();
         final String email = "mail@mail.com";
         parameters.add("fullname", "");
         parameters.add("email", email);
         parameters.add("password", "password");
 
-        signup.post(parameters);
+        resource.signup(parameters);
 
-        assertThat(signup.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
+        assertThat(resource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
     }
+
+    @Test
+    public void canPassFavoriteLanguage() {
+        resource.getRequest().getClientInfo().getAcceptedLanguages().add(new Preference<Language>(new Language("fr")));
+
+        ModelAndView modelAndView = resource.represent();
+
+        assertThat(modelAndView.getData()).includes(entry("preferedLanguage", "fr"));
+
+    }
+
+    private CommandBus commandBus;
+    private SignupResource resource;
 }

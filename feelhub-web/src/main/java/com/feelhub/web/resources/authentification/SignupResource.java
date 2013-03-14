@@ -25,7 +25,17 @@ public class SignupResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
-        return ModelAndView.createNew("signup.ftl").with("facebookUrl", connector.getUrl()).with("locales", FeelhubLanguage.availables());
+        return ModelAndView.createNew("signup.ftl")
+                .with("facebookUrl", connector.getUrl())
+                .with("locales", FeelhubLanguage.availables())
+                .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
+    }
+
+    private Language getPreferedLanguage() {
+        if (getRequest().getClientInfo().getAcceptedLanguages().isEmpty()) {
+            return Language.ENGLISH;
+        }
+        return getRequest().getClientInfo().getAcceptedLanguages().get(0).getMetadata();
     }
 
     @Post

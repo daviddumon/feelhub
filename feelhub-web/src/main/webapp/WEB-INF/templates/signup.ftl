@@ -36,7 +36,11 @@
         <select name="language">
             <option value=""></option>
             <#list locales as locale>
-                <option value="${locale.code}">${locale.localizedName}</option>
+                <#if locale.code == preferedLanguage>
+                    <option selected="true" value="${locale.code}">${locale.localizedName}</option>
+                <#else>
+                    <option value="${locale.code}">${locale.localizedName}</option>
+                </#if>
             </#list>
         </select>
 
