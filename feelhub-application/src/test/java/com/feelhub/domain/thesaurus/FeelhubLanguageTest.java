@@ -112,4 +112,11 @@ public class FeelhubLanguageTest {
         assertThat(languages).isNotEmpty();
         assertThat(languages.get(0).getName()).isEqualTo("Albanian");
     }
+
+    @Test
+    public void canGetLanguageNameInItsOwnLocale() {
+        assertThat(FeelhubLanguage.fromCode("fr").getLocalizedName()).isEqualTo("Français");
+        assertThat(FeelhubLanguage.fromCode("en").getLocalizedName()).isEqualTo("English");
+        assertThat(FeelhubLanguage.fromCode("ar").getLocalizedName()).isEqualTo("العربية");
+    }
 }

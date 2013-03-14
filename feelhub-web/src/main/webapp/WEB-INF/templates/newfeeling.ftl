@@ -3,7 +3,7 @@
         <select name="language">
             <option value=""></option>
         <#list locales as locale>
-            <option value="${locale.code}">${locale.name}</option>
+            <option value="${locale.code}">${locale.localizedName}</option>
         </#list>
         </select>
         <span class="help_text">Hi <#if userInfos.authenticated || !userInfos.anonymous>${userInfos.fullname}</#if>! How do you feel ?</span>
