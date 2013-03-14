@@ -16,4 +16,5 @@ public class FeelhubApplicationPropertiesTest {
         assertThat(properties.getBingApiKey(), is("testbingapikey"));
         assertThat(properties.getBingRoot(), is("http://localhost:6162/bing?query='"));
     }
+
 }

@@ -1,9 +1,13 @@
 package com.feelhub.tools;
 
+import com.google.common.collect.Lists;
+import com.mongodb.ServerAddress;
 import org.mongolink.Settings;
 import org.mongolink.domain.UpdateStrategies;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.List;
 import java.util.Properties;
 
 public class FeelhubApplicationProperties {
@@ -18,19 +22,25 @@ public class FeelhubApplicationProperties {
     }
 
     public Settings getDbSettings() {
-        return Settings.defaultInstance()
-                .withHost(getDbHost())
-                .withPort(getDbPort())
+        return Settings.defaultInstance().withAddresses(getServerAddresses())
                 .withDbName(getDbName())
                 .withDefaultUpdateStrategy(UpdateStrategies.DIFF);
     }
 
-    private String getDbHost() {
-        return properties.getProperty("dbHost");
+    private List<ServerAddress> getServerAddresses() {
+        return parseAddresses(properties.getProperty("dbAddresses"));
     }
 
-    private int getDbPort() {
-        return Integer.valueOf(properties.getProperty("dbPort"));
+    private List<ServerAddress> parseAddresses(String dbAddresses) {
+        List<ServerAddress> adresses = Lists.newArrayList();
+        for (String address : dbAddresses.split(",")) {
+            try {
+                adresses.add(new ServerAddress(address));
+            } catch (UnknownHostException e) {
+                throw new FeelhubConfigurationException(e);
+            }
+        }
+        return adresses;
     }
 
     private String getDbName() {

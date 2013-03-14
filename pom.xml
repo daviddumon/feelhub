@@ -19,7 +19,7 @@
     <properties>
         <restlet.version>2.0.15</restlet.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mongolink.version>0.0.13</mongolink.version>
+        <mongolink.version>0.0.14-SNAPSHOT</mongolink.version>
         <buildtime>${maven.build.timestamp}</buildtime>
         <status>ok</status>
         <facebook.appSecret>93847b17c5b7d9888d0f88417a195641</facebook.appSecret>
@@ -34,9 +34,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <dbHost>127.0.0.1</dbHost>
+                <dbAddresses>127.0.0.1:27017</dbAddresses>
                 <dbName>feelhub</dbName>
-                <dbPort>27017</dbPort>
                 <alchemyApiKey>db9abc8b6cfe6f2fb44b4b25db5b6ca402cc4957</alchemyApiKey>
                 <cloudinaryName>feelhubtest</cloudinaryName>
                 <cloudinaryApiKey>153974518959552</cloudinaryApiKey>
@@ -46,9 +45,8 @@
         <profile>
             <id>test</id>
             <properties>
-                <dbHost>127.0.0.1</dbHost>
+                <dbAddresses>127.0.0.1:27017</dbAddresses>
                 <dbName>feelhub</dbName>
-                <dbPort>27017</dbPort>
                 <alchemyApiKey>e9bbb7fe647375f4b1d634f74d203283e6749230</alchemyApiKey>
                 <cloudinaryName>feelhubtest</cloudinaryName>
                 <cloudinaryApiKey>153974518959552</cloudinaryApiKey>
@@ -58,9 +56,8 @@
         <profile>
             <id>production</id>
             <properties>
-                <dbHost>ec2-54-234-85-10.compute-1.amazonaws.com</dbHost>
+                <dbAddresses>ec2-54-234-85-10.compute-1.amazonaws.com:27017</dbAddresses>
                 <dbName>feelhub</dbName>
-                <dbPort>27017</dbPort>
                 <alchemyApiKey>e9bbb7fe647375f4b1d634f74d203283e6749230</alchemyApiKey>
                 <cloudinaryName>feelhub</cloudinaryName>
                 <cloudinaryApiKey>421165873128967</cloudinaryApiKey>
