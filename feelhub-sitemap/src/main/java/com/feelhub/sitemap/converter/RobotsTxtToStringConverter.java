@@ -8,13 +8,13 @@ import java.util.*;
 
 public class RobotsTxtToStringConverter extends ToStringConverter {
 
-    public RobotsTxtToStringConverter(List<SitemapIndex> indexes) {
+    public RobotsTxtToStringConverter(final List<SitemapIndex> indexes) {
         this.indexes = indexes;
     }
 
     @Override
     protected Map<String, Object> data() {
-        Map<String, Object> map = Maps.newHashMap();
+        final Map<String, Object> map = Maps.newHashMap();
         map.put("prefix", new SitemapProperties().getRoot());
         map.put("indexes", indexes);
         return map;
@@ -25,5 +25,5 @@ public class RobotsTxtToStringConverter extends ToStringConverter {
         return "/templates/robots.ftl";
     }
 
-    private List<SitemapIndex> indexes;
+    private final List<SitemapIndex> indexes;
 }

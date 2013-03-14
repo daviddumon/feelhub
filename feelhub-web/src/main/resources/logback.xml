@@ -6,9 +6,9 @@
     </appender>
 
     <logger name="org.mongolink" level="ERROR"/>
-    <logger name="org.restlet" level="WARN"/>
+    <logger name="org.restlet" level="ERROR"/>
 
     <root level="DEBUG">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

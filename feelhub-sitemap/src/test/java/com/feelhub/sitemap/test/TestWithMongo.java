@@ -12,7 +12,7 @@ public class TestWithMongo {
 
     @Before
     public void beforeMongo() throws UnknownHostException {
-        ContextBuilder contextBuilder = new ContextBuilder("com.feelhub.repositories.mapping");
+        final ContextBuilder contextBuilder = new ContextBuilder("com.feelhub.repositories.mapping");
         sessionManager = MongoSessionManager.create(contextBuilder, Settings.defaultInstance().withDbFactory(FongoDbFactory.class));
     }
 
@@ -22,7 +22,7 @@ public class TestWithMongo {
     }
 
     public MongoSession newSession() {
-        MongoSession session = sessionManager.createSession();
+        final MongoSession session = sessionManager.createSession();
         final MongoRepositories mongoRepos = new MongoRepositories(IdentitySessionProvider(session));
         Repositories.initialize(mongoRepos);
         return session;

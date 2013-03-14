@@ -11,7 +11,7 @@ public abstract class SitemapsRepository {
         return instance;
     }
 
-    public static void initialize(SitemapsRepository instance) {
+    public static void initialize(final SitemapsRepository instance) {
         SitemapsRepository.instance = instance;
     }
 

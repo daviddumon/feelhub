@@ -23,11 +23,11 @@ public class ActivationResource extends ServerResource {
         final UUID secret = UUID.fromString(getRequestAttributes().get("secret").toString());
         Futures.addCallback(bus.execute(new ConfirmActivationCommand(secret)), new FutureCallback<Object>() {
             @Override
-            public void onSuccess(Object result) {
+            public void onSuccess(final Object result) {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(final Throwable t) {
                 setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/"));
                 setStatus(Status.REDIRECTION_PERMANENT);
             }
@@ -35,5 +35,5 @@ public class ActivationResource extends ServerResource {
         return ModelAndView.createNew("activation.ftl");
     }
 
-    private CommandBus bus;
+    private final CommandBus bus;
 }

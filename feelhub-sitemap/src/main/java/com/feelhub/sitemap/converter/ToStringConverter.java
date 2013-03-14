@@ -12,7 +12,7 @@ public abstract class ToStringConverter {
         return process(data());
     }
 
-    private String process(Map<String, Object> data) {
+    private String process(final Map<String, Object> data) {
         final Writer writer = new StringWriter();
         try {
             final Template temp = new Template("name", new InputStreamReader(getClass().getResourceAsStream(template())), configuration());

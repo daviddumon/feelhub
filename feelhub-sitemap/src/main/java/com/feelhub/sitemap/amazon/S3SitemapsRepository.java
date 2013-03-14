@@ -14,37 +14,37 @@ public class S3SitemapsRepository extends SitemapsRepository {
 
     public static final String BUCKET_NAME = "feelhub-sitemaps";
 
-    public S3SitemapsRepository(AmazonS3 s3) {
+    public S3SitemapsRepository(final AmazonS3 s3) {
         this.s3 = s3;
     }
 
     @Override
-    public void put(List<SitemapIndex> sitemapIndexes) {
+    public void put(final List<SitemapIndex> sitemapIndexes) {
         putObject(new RobotsTxtToStringConverter(sitemapIndexes).toString(), "robots.txt");
-        for (SitemapIndex sitemapIndex : sitemapIndexes) {
+        for (final SitemapIndex sitemapIndex : sitemapIndexes) {
             putObject(new SitemapIndexToStringConverter(sitemapIndex).toString(), sitemapIndex.getName());
-            for (Sitemap sitemap : sitemapIndex.getSitemaps()) {
+            for (final Sitemap sitemap : sitemapIndex.getSitemaps()) {
                 putObject(new SitemapToStringConverter(sitemap).toString(), sitemap.getName());
             }
         }
     }
 
     @Override
-    public InputStream get(String objectKey) {
+    public InputStream get(final String objectKey) {
         return s3.getObject(new GetObjectRequest(BUCKET_NAME, objectKey)).getObjectContent();
     }
 
-    private void putObject(String content, String objectName) {
-        PutObjectRequest putObjectRequest = new PutObjectRequest(BUCKET_NAME, objectName, new ByteArrayInputStream(content.getBytes()), objectMetadata(content));
+    private void putObject(final String content, final String objectName) {
+        final PutObjectRequest putObjectRequest = new PutObjectRequest(BUCKET_NAME, objectName, new ByteArrayInputStream(content.getBytes()), objectMetadata(content));
         putObjectRequest.setStorageClass(StorageClass.ReducedRedundancy);
         s3.putObject(putObjectRequest);
     }
 
-    private ObjectMetadata objectMetadata(String content) {
-        ObjectMetadata metadata = new ObjectMetadata();
+    private ObjectMetadata objectMetadata(final String content) {
+        final ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(content.length());
         return metadata;
     }
 
-    private AmazonS3 s3;
+    private final AmazonS3 s3;
 }

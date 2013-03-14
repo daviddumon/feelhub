@@ -21,7 +21,7 @@ public class HybridEventBusTest {
 
     @Test
     public void doNotPropagateToAsyncNow() {
-        AsyncEventListener listener = new AsyncEventListener();
+        final AsyncEventListener listener = new AsyncEventListener();
         eventBus.register(listener);
 
         eventBus.post(new HttpTopicCreatedEvent(UUID.randomUUID(), new ResolverResult()));
@@ -31,7 +31,7 @@ public class HybridEventBusTest {
 
     @Test
     public void canProgagateToAsyncListeners() {
-        AsyncEventListener listener = new AsyncEventListener();
+        final AsyncEventListener listener = new AsyncEventListener();
         eventBus.register(listener);
         eventBus.post(new HttpTopicCreatedEvent(UUID.randomUUID(), new ResolverResult()));
 
@@ -42,10 +42,10 @@ public class HybridEventBusTest {
 
     @Test
     public void asynclyCreatedEventAreAlsoHandledBySyncListeners() {
-        AsyncEventListener listener = new AsyncEventListener();
+        final AsyncEventListener listener = new AsyncEventListener();
         eventBus.register(listener);
         eventBus.post(new HttpTopicCreatedEvent(UUID.randomUUID(), new ResolverResult()));
-        ImmediateEventListener immediateListener = new ImmediateEventListener();
+        final ImmediateEventListener immediateListener = new ImmediateEventListener();
         eventBus.register(immediateListener);
 
         eventBus.propagate();
@@ -59,13 +59,13 @@ public class HybridEventBusTest {
 
         @Subscribe
         @Synchronize
-        public void onEvent(HttpTopicCreatedEvent event) {
+        public void onEvent(final HttpTopicCreatedEvent event) {
             handled = true;
         }
 
         @Subscribe
         @Synchronize
-        public void onEvent(RealTopicCreatedEvent event) {
+        public void onEvent(final RealTopicCreatedEvent event) {
             handled = true;
         }
 
@@ -76,7 +76,7 @@ public class HybridEventBusTest {
     private class AsyncEventListener {
 
         @Subscribe
-        public void onEvent(HttpTopicCreatedEvent event) {
+        public void onEvent(final HttpTopicCreatedEvent event) {
             handled = true;
             eventBus.post(new RealTopicCreatedEvent(UUID.randomUUID()));
         }

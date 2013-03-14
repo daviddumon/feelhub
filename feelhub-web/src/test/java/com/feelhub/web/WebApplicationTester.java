@@ -1,7 +1,6 @@
 package com.feelhub.web;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.eventbus.HybridEventBus;
+import com.feelhub.domain.eventbus.*;
 import com.feelhub.web.guice.GuiceTestModule;
 import com.feelhub.web.tools.FeelhubSitemapModuleLink;
 import com.google.common.util.concurrent.MoreExecutors;

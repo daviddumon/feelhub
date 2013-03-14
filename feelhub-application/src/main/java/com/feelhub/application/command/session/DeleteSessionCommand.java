@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class DeleteSessionCommand implements Command<Object> {
 
-    public DeleteSessionCommand(UUID token) {
+    public DeleteSessionCommand(final UUID token) {
         this.token = token;
     }
 

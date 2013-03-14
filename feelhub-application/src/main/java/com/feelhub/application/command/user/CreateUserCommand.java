@@ -8,7 +8,7 @@ import com.feelhub.repositories.Repositories;
 import java.util.UUID;
 
 public class CreateUserCommand implements Command<UUID> {
-    public CreateUserCommand(String email, String password, String fullname, String language) {
+    public CreateUserCommand(final String email, final String password, final String fullname, final String language) {
         this.email = email;
         this.password = password;
         this.fullname = fullname;

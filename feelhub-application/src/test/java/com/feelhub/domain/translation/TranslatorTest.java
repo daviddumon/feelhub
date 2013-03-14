@@ -55,7 +55,7 @@ public class TranslatorTest {
 
     @Test
     public void incrementApiCallsCounter() {
-        RealTopic topic = TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary);
+        final RealTopic topic = TestFactories.topics().newRealTopicWithoutNames(RealTopicType.Anniversary);
         topic.addName(FeelhubLanguage.fromCode("fr"), "test");
 
         translator.translateReference(topic);

@@ -267,7 +267,7 @@ define(["modules/form/newfeeling/helper-panel", "view/command/new-feeling-helper
                 expect(helper.get_active_questions().length).toEqual(0);
             });
 
-            it("do not activate sentiment question if existing", function () {
+            it("does not activate sentiment question if existing", function () {
                 helper.add_questions(topic_with_sentiment);
 
                 expect(helper.get_known_questions().length).toEqual(1);

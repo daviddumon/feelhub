@@ -29,5 +29,5 @@ public class HomeResource extends ServerResource {
         return apiFeelingSearch.doSearch(parameters);
     }
 
-    private ApiFeelingSearch apiFeelingSearch;
+    private final ApiFeelingSearch apiFeelingSearch;
 }

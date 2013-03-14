@@ -34,7 +34,7 @@ public class SitemapEntry extends BaseEntity {
     }
 
     private final String loc;
-    private DateTime lastMod;
+    private final DateTime lastMod;
     private final Frequency frequency;
     private final double priority;
 }

@@ -1,6 +1,12 @@
 define(["jquery"], function ($) {
 
+    var trigger_height = 0;
+    var doit, document_height;
+    var move_dashboard;
+
     function init() {
+        add_responsive_behavior();
+        check_dashboard_state();
 
         $(".logout").click(function () {
             $.ajax({
@@ -21,6 +27,57 @@ define(["jquery"], function ($) {
             });
             return false;
         });
+
+        $(window).scroll(function () {
+            if (move_dashboard) {
+                if ($(window).scrollTop() > trigger_height + 40) {
+                    if ($("#dashboard").css("position") != 'fixed') {
+                        $("#dashboard").css("position", "fixed");
+                        $("#dashboard").css("top", -trigger_height);
+                    }
+                } else {
+                    if ($("#dashboard").css("position") != 'absolute') {
+                        $("#dashboard").css("position", "absolute");
+                        $("#dashboard").css("top", "42px");
+                    }
+                }
+            }
+        });
+    }
+
+    function add_responsive_behavior() {
+        $(window).on("resize", function () {
+            clearTimeout(doit);
+            doit = setTimeout(function () {
+                end_of_resize();
+            }, 200);
+        });
+
+        $(window).on("orientationchange", function () {
+            clearTimeout(doit);
+            doit = setTimeout(function () {
+                end_of_resize();
+            }, 200);
+        });
+
+        function end_of_resize() {
+            check_dashboard_state();
+        }
+    }
+
+    function check_dashboard_state() {
+        if ($(window).width() >= 640) {
+            trigger_height = $("#dashboard").height() + 40 - $(window).height();
+            if (trigger_height > 0) {
+                move_dashboard = true;
+                $("#dashboard").css("position", "absolute");
+                $("#dashboard").css("top", "42px");
+            } else {
+                move_dashboard = false;
+                $("#dashboard").css("position", "fixed");
+                $("#dashboard").css("top", "42px");
+            }
+        }
     }
 
     function success() {

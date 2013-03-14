@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Sitemap {
 
-    public Sitemap(List<SitemapEntry> entries) {
+    public Sitemap(final List<SitemapEntry> entries) {
         this.entries = entries;
     }
 
@@ -39,7 +39,7 @@ public class Sitemap {
         return index;
     }
 
-    public void setIndex(int index) {
+    public void setIndex(final int index) {
         this.index = index;
     }
 

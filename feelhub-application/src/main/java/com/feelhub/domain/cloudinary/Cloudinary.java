@@ -18,7 +18,7 @@ public class Cloudinary {
     public Cloudinary(final CloudinaryLink cloudinaryLink) {
         this.cloudinaryLink = cloudinaryLink;
         DomainEventBus.INSTANCE.register(this);
-        rateLimiter = RateLimiter.create(5.0);
+        final RateLimiter rateLimiter = RateLimiter.create(5.0);
     }
 
     @Subscribe
@@ -74,5 +74,4 @@ public class Cloudinary {
     }
 
     private final CloudinaryLink cloudinaryLink;
-    private final RateLimiter rateLimiter;
 }

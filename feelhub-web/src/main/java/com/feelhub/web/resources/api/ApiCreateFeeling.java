@@ -2,13 +2,10 @@ package com.feelhub.web.resources.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.feelhub.application.command.Command;
-import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.*;
 import com.feelhub.application.command.feeling.CreateFeelingCommand;
-import com.feelhub.application.command.topic.CreateHttpTopicCommand;
-import com.feelhub.application.command.topic.CreateRealTopicCommand;
-import com.feelhub.domain.feeling.Sentiment;
-import com.feelhub.domain.feeling.SentimentValue;
+import com.feelhub.application.command.topic.*;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.TopicIdentifier;
 import com.feelhub.domain.topic.real.RealTopicType;
@@ -16,16 +13,13 @@ import com.feelhub.domain.user.User;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.resources.api.readmodel.SentimentMapper;
 import com.google.common.collect.Lists;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.*;
 import com.google.inject.Inject;
 import org.apache.http.auth.AuthenticationException;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 import org.restlet.ext.json.JsonRepresentation;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class ApiCreateFeeling {
 
@@ -36,7 +30,7 @@ public class ApiCreateFeeling {
 
     public JsonRepresentation add(final JSONObject jsonObject) throws JSONException, AuthenticationException {
         final CreateFeelingCommand command = createCommandFrom(jsonObject);
-        ListenableFuture<UUID> result = commandBus.execute(command);
+        final ListenableFuture<UUID> result = commandBus.execute(command);
         return new JsonRepresentation(getJsonResponse(Futures.getUnchecked(result)));
     }
 
@@ -97,15 +91,15 @@ public class ApiCreateFeeling {
         return sentiments;
     }
 
-    private boolean usableSentiment(SentimentMapper sentimentMapper) {
+    private boolean usableSentiment(final SentimentMapper sentimentMapper) {
         return !sentimentMapper.sentiment.equalsIgnoreCase("none");
     }
 
-    private boolean newTopic(SentimentMapper sentimentMapper) {
+    private boolean newTopic(final SentimentMapper sentimentMapper) {
         return sentimentMapper.id.equalsIgnoreCase("new");
     }
 
-    private Command<UUID> getCreateTopicCommand(SentimentMapper sentimentMapper) {
+    private Command<UUID> getCreateTopicCommand(final SentimentMapper sentimentMapper) {
         if (TopicIdentifier.isHttpTopic(sentimentMapper.name)) {
             return new CreateHttpTopicCommand(sentimentMapper.name, CurrentUser.get().getUser().getId());
         }

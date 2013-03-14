@@ -31,7 +31,7 @@ public class CreateUserCommandTest {
         final String fullname = "David John";
         final String language = "en";
 
-        UUID userId = new CreateUserCommand(email, password, fullname, language).execute();
+        final UUID userId = new CreateUserCommand(email, password, fullname, language).execute();
 
         assertThat(Repositories.users().getAll().size(), is(1));
         final User user = Repositories.users().get(userId);
@@ -68,10 +68,10 @@ public class CreateUserCommandTest {
     @Test
     public void createActivation() {
 
-        UUID userId = new CreateUserCommand("mail@mail.com", "password", "David John", "en").execute();
+        final UUID userId = new CreateUserCommand("mail@mail.com", "password", "David John", "en").execute();
 
         assertThat(Repositories.activation().getAll().size(), is(1));
-        Activation activation = Repositories.activation().getAll().get(0);
+        final Activation activation = Repositories.activation().getAll().get(0);
         Assert.assertThat(activation.getUserId(), is(userId));
     }
 }

@@ -26,17 +26,17 @@ public class ApiTopicRelatedResource extends ServerResource {
 
     @Get
     public ModelAndView getRelatedTopics() {
-        getTopic();
+        final Topic topic = getTopic();
+        relatedSearch.withTopicId(topic.getCurrentId());
         doSearchWithQueryParameters();
         getTopicDataForEachRelated();
         return ModelAndView.createNew("api/related.json.ftl", MediaType.APPLICATION_JSON).with("topicDataList", topicDataList);
     }
 
-    private void getTopic() {
+    private Topic getTopic() {
         try {
             final String topicId = getRequestAttributes().get("topicId").toString().trim();
-            final Topic topic = topicService.lookUpCurrent(UUID.fromString(topicId));
-            relatedSearch.withTopicId(topic.getCurrentId());
+            return topicService.lookUpCurrent(UUID.fromString(topicId));
         } catch (TopicNotFound e) {
             throw new FeelhubApiException();
         }

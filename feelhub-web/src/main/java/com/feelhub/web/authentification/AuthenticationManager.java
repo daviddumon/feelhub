@@ -24,8 +24,8 @@ public class AuthenticationManager {
 
     public void authenticate(final AuthRequest authRequest) {
         final User user = authenticators.get(authRequest.getAuthMethod()).authenticate(authRequest);
-        CreateSessionCommand command = new CreateSessionCommand(user.getId(), new DateTime().plusSeconds(lifeTime(authRequest.isRemember())));
-        ListenableFuture<UUID> result = commandBus.execute(command);
+        final CreateSessionCommand command = new CreateSessionCommand(user.getId(), new DateTime().plusSeconds(lifeTime(authRequest.isRemember())));
+        final ListenableFuture<UUID> result = commandBus.execute(command);
         setCookiesInResponse(authRequest.isRemember(), user, Futures.getUnchecked(result));
     }
 
@@ -48,7 +48,7 @@ public class AuthenticationManager {
         final Cookie sessionCookie = cookieManager.getCookie(CookieBuilder.SESSION);
         final Cookie id = cookieManager.getCookie(CookieBuilder.ID);
         if (sessionCookie != null && id != null) {
-            DeleteSessionCommand deleteSession = new DeleteSessionCommand(UUID.fromString(sessionCookie.getValue()));
+            final DeleteSessionCommand deleteSession = new DeleteSessionCommand(UUID.fromString(sessionCookie.getValue()));
             commandBus.execute(deleteSession);
             cookieManager.setCookie(cookieBuilder.eraseIdCookie(id.getValue()));
             cookieManager.setCookie(cookieBuilder.eraseSessionCookie(sessionCookie.getValue()));
@@ -70,7 +70,7 @@ public class AuthenticationManager {
         if (identityCookie != null) {
             final User user = Repositories.users().get(identityCookie.getValue());
             if (user != null) {
-                ListenableFuture<Boolean> result = commandBus.execute(new AuthenticateCommand(user.getId(), getToken()));
+                final ListenableFuture<Boolean> result = commandBus.execute(new AuthenticateCommand(user.getId(), getToken()));
                 CurrentUser.set(new WebUser(user, Futures.getUnchecked(result)));
                 return;
             }
@@ -89,7 +89,7 @@ public class AuthenticationManager {
 
     private final FeelhubWebProperties properties;
     private final CookieManager cookieManager;
-    private CommandBus commandBus;
+    private final CommandBus commandBus;
     private final Map<AuthMethod, Authenticator> authenticators = Maps.newConcurrentMap();
 
     {

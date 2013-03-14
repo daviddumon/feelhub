@@ -23,10 +23,10 @@ public class CreateSessionCommandTest {
 
     @Test
     public void canCreateASessionForAnUser() {
-        User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
+        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
         final UUID sessionId = new CreateSessionCommand(user.getId(), new DateTime().plusHours(1)).execute();
 
-        Session session = Repositories.sessions().get(sessionId);
+        final Session session = Repositories.sessions().get(sessionId);
         assertThat(session, notNullValue());
         assertThat(session.getUserId(), is(user.getId()));
         assertThat(session.getToken(), notNullValue());

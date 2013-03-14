@@ -1,12 +1,9 @@
 package com.feelhub.domain.thesaurus;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.base.*;
+import com.google.common.collect.*;
 import com.memetix.mst.language.Language;
-import org.apache.commons.lang.LocaleUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.*;
 
 import java.util.*;
 
@@ -91,7 +88,7 @@ public class FeelhubLanguage {
     }
 
     public String getLocalizedName() {
-        Locale locale = LocaleUtils.toLocale(code);
+        final Locale locale = LocaleUtils.toLocale(code);
         return StringUtils.capitalize(locale.getDisplayName(locale));
     }
 

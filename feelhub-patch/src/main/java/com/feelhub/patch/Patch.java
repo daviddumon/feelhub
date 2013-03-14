@@ -1,10 +1,7 @@
 package com.feelhub.patch;
 
-import com.feelhub.repositories.MongoRepositories;
-import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.SessionProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.feelhub.repositories.*;
+import org.slf4j.*;
 
 public abstract class Patch {
 

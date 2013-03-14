@@ -21,7 +21,7 @@ public class MailBuilder {
 
     @Subscribe
     public void onActivationCreated(final ActivationCreatedEvent event) {
-        User user = Repositories.users().get(event.userId);
+        final User user = Repositories.users().get(event.userId);
         mailSender.send(MailFactory.validation(user, new WebReferenceBuilder(context).buildUri("/activation/" + event.activationId)));
     }
 

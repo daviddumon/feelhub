@@ -3,7 +3,7 @@ package com.feelhub.domain.feeling;
 public enum SentimentValue {
     good(1), bad(-1), neutral(0);
 
-    SentimentValue(int numericValue) {
+    SentimentValue(final int numericValue) {
         this.numericValue = numericValue;
     }
 
@@ -11,7 +11,7 @@ public enum SentimentValue {
         return numericValue;
     }
 
-    private int numericValue;
+    private final int numericValue;
 }
 
 

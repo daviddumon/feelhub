@@ -29,7 +29,7 @@ public class ApiMyFeelingsResourceTest {
 
     @Before
     public void before() {
-        user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
+        final User user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
         apiFeelingSearchMock = mock(ApiFeelingSearch.class);
         final Injector injector = Guice.createInjector(new AbstractModule() {
@@ -52,7 +52,7 @@ public class ApiMyFeelingsResourceTest {
 
     @Test
     public void hasFeelings() throws IOException, JSONException {
-        List<FeelingData> feelingDatas = Lists.newArrayList();
+        final List<FeelingData> feelingDatas = Lists.newArrayList();
         feelingDatas.add(new FeelingData.Builder().build());
         feelingDatas.add(new FeelingData.Builder().build());
         when(apiFeelingSearchMock.doSearch(any(Form.class), any(User.class))).thenReturn(feelingDatas);
@@ -65,6 +65,5 @@ public class ApiMyFeelingsResourceTest {
     }
 
     private ApiFeelingSearch apiFeelingSearchMock;
-    private User user;
     private ApiMyFeelingsResource apiMyFeelingsResource;
 }

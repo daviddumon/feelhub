@@ -12,15 +12,15 @@ public class RobotsTxtToStringConverterTest {
 
     @Test
     public void canConvertRobotsTxt() {
-        List<SitemapIndex> indexes = Lists.newArrayList();
-        SitemapIndex sitemapIndex = new SitemapIndex(Lists.<Sitemap>newArrayList());
+        final List<SitemapIndex> indexes = Lists.newArrayList();
+        final SitemapIndex sitemapIndex = new SitemapIndex(Lists.<Sitemap>newArrayList());
         sitemapIndex.setIndex(123);
         indexes.add(sitemapIndex);
-        SitemapIndex sitemapIndex1 = new SitemapIndex(Lists.<Sitemap>newArrayList());
+        final SitemapIndex sitemapIndex1 = new SitemapIndex(Lists.<Sitemap>newArrayList());
         sitemapIndex1.setIndex(145);
         indexes.add(sitemapIndex1);
 
-        String robots = new RobotsTxtToStringConverter(indexes).toString();
+        final String robots = new RobotsTxtToStringConverter(indexes).toString();
 
         assertThat(robots).isEqualTo("User-agent: *\n" + "Disallow:\n" + "Sitemap: toto:8080/sitemap_index_00123.xml\n" + "Sitemap: toto:8080/sitemap_index_00145.xml\n");
     }

@@ -3,13 +3,17 @@ package com.feelhub.web.resources;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
+import com.feelhub.repositories.SessionProvider;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
 import com.feelhub.web.dto.*;
+import com.feelhub.web.guice.DummySessionProvider;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.ApiFeelingSearch;
+import com.feelhub.web.search.*;
+import com.feelhub.web.search.fake.*;
 import com.google.common.collect.Lists;
 import com.google.inject.*;
 import org.junit.*;
@@ -40,7 +44,10 @@ public class TopicResourceTest {
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
+                bind(SessionProvider.class).to(DummySessionProvider.class);
                 bind(ApiFeelingSearch.class).toInstance(apiFeelingSearch);
+                bind(RelatedSearch.class).to(FakeRelatedSearch.class);
+                bind(MediaSearch.class).to(FakeMediaSearch.class);
             }
         });
         topicResource = injector.getInstance(TopicResource.class);
@@ -137,16 +144,6 @@ public class TopicResourceTest {
     }
 
     @Test
-    public void hasRealTypesListInData() {
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
-
-        final ModelAndView modelAndView = topicResource.getTopic();
-
-        assertThat(modelAndView.getData("realtypes")).isNotNull();
-    }
-
-    @Test
     public void fetchInitialFeelingsForTopic() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
@@ -168,7 +165,7 @@ public class TopicResourceTest {
 
     @Test
     public void feelingDatasIsFeelingsForTopic() {
-        List<FeelingData> initialDatas = Lists.newArrayList();
+        final List<FeelingData> initialDatas = Lists.newArrayList();
         initialDatas.add(new FeelingData.Builder().build());
         initialDatas.add(new FeelingData.Builder().build());
         when(apiFeelingSearch.doSearch(any(Topic.class), any(Form.class))).thenReturn(initialDatas);
@@ -177,7 +174,7 @@ public class TopicResourceTest {
 
         final ModelAndView modelAndView = topicResource.getTopic();
 
-        List<FeelingData> result = modelAndView.getData("feelingDatas");
+        final List<FeelingData> result = modelAndView.getData("feelingDatas");
         assertThat(result.size()).isEqualTo(2);
     }
 

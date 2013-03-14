@@ -61,7 +61,7 @@ public class MongoLinkAwareExecutor extends AbstractExecutorService {
     }
 
     @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+    public boolean awaitTermination(final long timeout, final TimeUnit unit) throws InterruptedException {
         return delegate.awaitTermination(timeout, unit);
     }
 

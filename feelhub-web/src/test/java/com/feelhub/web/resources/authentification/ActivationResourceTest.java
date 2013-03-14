@@ -4,7 +4,7 @@ import com.feelhub.application.command.*;
 import com.feelhub.application.command.user.activation.ConfirmActivationCommand;
 import com.feelhub.domain.user.activation.ActivationNotFoundException;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.web.*;
+import com.feelhub.web.ContextTestFactory;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.common.util.concurrent.Futures;
 import org.junit.*;
@@ -24,7 +24,7 @@ public class ActivationResourceTest {
 
     @Test
     public void canConfirm() {
-        CommandBus bus = mock(CommandBus.class);
+        final CommandBus bus = mock(CommandBus.class);
         when(bus.execute(any(Command.class))).thenReturn(Futures.immediateFuture(null));
         final ActivationResource resource = new ActivationResource(bus);
         ContextTestFactory.initResource(resource);
@@ -34,7 +34,7 @@ public class ActivationResourceTest {
         final ModelAndView view = resource.confirm();
 
 
-        ArgumentCaptor<ConfirmActivationCommand> captor = ArgumentCaptor.forClass(ConfirmActivationCommand.class);
+        final ArgumentCaptor<ConfirmActivationCommand> captor = ArgumentCaptor.forClass(ConfirmActivationCommand.class);
         verify(bus).execute(captor.capture());
         assertThat(captor.getValue().activationId).isEqualTo(uuid);
         assertThat(view.getTemplate()).isEqualTo("activation.ftl");
@@ -42,7 +42,7 @@ public class ActivationResourceTest {
 
     @Test
     public void redirectToHomeIfNoActivation() {
-        CommandBus bus = mock(CommandBus.class);
+        final CommandBus bus = mock(CommandBus.class);
         when(bus.execute(any(Command.class))).thenReturn(Futures.immediateFailedFuture(new ActivationNotFoundException()));
         final ActivationResource resource = new ActivationResource(bus);
         ContextTestFactory.initResource(resource);

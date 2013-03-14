@@ -2,21 +2,26 @@
 body {
 
   #command {
-    text-align: center;
-    margin: 40px auto;
-    width: 100%;
+    position: relative;
+    left: 38%;
+    margin-top: 82px;
+    width: 62%;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
+
+    @media (max-width: 1040px) {
+      margin-top: 40px;
+      left: 0px;
+      width: 100%;
+    }
 
     #feeling-form {
       position: relative;
       margin: 0px auto;
-      width: 640px;
-      background-color: @white !important;
-      height: 264px;
-      .rounded();
-
-      @media (max-width: 640px) {
-        display: none;
-      }
+      width: 620px;
+      height: 260px;
 
       input, textarea, select {
         -webkit-appearance: none;
@@ -26,53 +31,56 @@ body {
 
       #form-left-panel {
         position: relative;
-        background-color: @white !important;
-        width: 300px;
         float: left;
+        height: 100%;
+        background-color: @white !important;
+        width: 50%;
+        overflow: hidden;
         .rounded_left();
 
         select {
           position: relative;
-          top: 10px;
-          left: 100px;
+          top: 5px;
+          left: 200px;
+          display: block;
           font-size: 10px;
           color: @grey-4;
           border: none;
           border-bottom: 1px dotted @grey-1;
           outline: none;
-          .rounded(0px);
+          .rounded(0);
           z-index: 1000;
         }
 
         .help_text {
-          display: none;
           position: absolute;
-          left: 20px;
-          top: 32px;
+          display: none;
+          left: 22px;
+          top: 35px;
           color: @grey-1 !important;
           font-size: @font-normal;
+          .font_text;
         }
 
         textarea {
           position: relative;
-          top: -13px;
           font-size: @font-normal;
-          height: 150px;
+          height: 160px;
           border: none;
           resize: none;
           background-color: transparent !important;
-          padding-top: 30px;
-          padding-left: 20px;
-          padding-right: 20px;
+          padding: 20px;
           outline: none;
           box-sizing: border-box;
+          .font_text;
           width: 100%;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
         }
 
-        #form-sentiments {
+        #form-topics {
+          text-align: center;
           box-sizing: border-box;
-          margin: 25px auto 0px auto;
-          background-color: @white !important;
           width: 100%;
         }
       }
@@ -82,9 +90,10 @@ body {
         float: right;
         height: 100%;
         background-color: @grey-3 !important;
-        width: 300px;
+        width: 50%;
         overflow: hidden;
         .rounded_right();
+        text-align: center;
 
         input[type=submit] {
           position: absolute;
@@ -156,18 +165,31 @@ body {
       }
     }
 
+    #login-panel {
+      margin: 0px auto;
+      text-align: center;
+
+      a {
+        display: inline-block;
+        padding: 10px 20px;
+        width: 120px;
+        margin: 40px;
+      }
+
+      span {
+
+      }
+    }
+
     .create-topic {
-      width: 200px;
+      width: 300px !important;
       padding: 10px 20px;
-    }
-
-    .login-button, .signup-button {
-      padding: 10px 20px;
-    }
-
-    .or {
-      margin-left: 5px;
-      margin-right: 5px;
     }
   }
+
+  .search {
+    left: 0px !important;
+    width: 100% !important;
+  }
 }
+

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class SitemapIndexToStringConverter extends ToStringConverter {
 
-    public SitemapIndexToStringConverter(SitemapIndex sitemapIndex) {
+    public SitemapIndexToStringConverter(final SitemapIndex sitemapIndex) {
         this.sitemapIndex = sitemapIndex;
     }
 
@@ -19,11 +19,11 @@ public class SitemapIndexToStringConverter extends ToStringConverter {
 
     @Override
     protected Map<String, Object> data() {
-        Map<String, Object> map = Maps.newHashMap();
+        final Map<String, Object> map = Maps.newHashMap();
         map.put("prefix", new SitemapProperties().getRoot());
         map.put("sitemaps", sitemapIndex.getSitemaps());
         return map;
     }
 
-    private SitemapIndex sitemapIndex;
+    private final SitemapIndex sitemapIndex;
 }

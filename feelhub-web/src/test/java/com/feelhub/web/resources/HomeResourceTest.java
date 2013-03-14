@@ -53,7 +53,7 @@ public class HomeResourceTest {
 
     @Test
     public void hasFeelingDatasInModel() {
-        List<FeelingData> initialDatas = Lists.newArrayList();
+        final List<FeelingData> initialDatas = Lists.newArrayList();
         initialDatas.add(new FeelingData.Builder().build());
         initialDatas.add(new FeelingData.Builder().build());
         when(apiFeelingSearch.doSearch(any(Form.class))).thenReturn(initialDatas);

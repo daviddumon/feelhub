@@ -1,23 +1,14 @@
 package com.feelhub.web.resources.authentification;
 
 import com.feelhub.domain.session.Session;
-import com.feelhub.domain.user.BadPasswordException;
-import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.*;
 import com.feelhub.repositories.Repositories;
-import com.feelhub.test.SystemTime;
-import com.feelhub.test.TestFactories;
-import com.feelhub.web.ClientResource;
-import com.feelhub.web.ContextTestFactory;
-import com.feelhub.web.WebApplicationTester;
-import com.feelhub.web.authentification.AuthMethod;
-import com.feelhub.web.authentification.AuthRequest;
-import com.feelhub.web.authentification.AuthenticationManager;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import com.feelhub.test.*;
+import com.feelhub.web.*;
+import com.feelhub.web.authentification.*;
+import org.junit.*;
 import org.mockito.ArgumentCaptor;
-import org.restlet.data.Form;
-import org.restlet.data.Status;
+import org.restlet.data.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;

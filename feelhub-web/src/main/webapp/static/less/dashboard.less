@@ -1,6 +1,129 @@
 /* Copyright Feelhub 2012 */
 body {
 
+  #dashboard {
+    position: absolute;
+    top: 42px;
+    width: 38%;
+    text-align: center;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+
+    ul {
+      .shadow();
+      .rounded();
+      width: 80%;
+      padding: 5px;
+      background-color: @white;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      margin: 40px auto;
+
+      .li-title {
+        width: 100%;
+        background-color: @blue-steel;
+        color: @white;
+        padding: 5px;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      li {
+        list-style-type: none;
+        overflow: hidden;
+        display: block;
+        min-height: 60px;
+        border-bottom: 1px solid @blue-steel;
+        padding: 15px;
+        border: none;
+
+        div.holder {
+          margin-bottom: 10px;
+          text-align: center;
+
+          span.type, span.name, .description, .uris, .subtypes {
+            .font_title;
+            font-size: @font-normal;
+            font-weight: bold;
+            color: @grey-4;
+            word-wrap: break-word;
+          }
+
+          img {
+            border: none;
+          }
+
+          .uris {
+            text-decoration: underline;
+          }
+
+          .linkicon {
+
+          }
+
+          div.related, div.medias {
+            font-size: 0px;
+            vertical-align: top;
+          }
+
+          canvas {
+            .rounded;
+          }
+
+          img.smiley {
+            width: 120px;
+            height: 120px;
+            .rounded;
+          }
+        }
+      }
+
+      li.li-border {
+        border-bottom: 1px solid @blue-steel !important;
+      }
+    }
+
+    @media (max-width: 1040px) {
+      position: relative !important;
+      top: 0px !important;
+      width: 100%;
+      margin: 0px;
+
+      ul {
+        margin: 0px;
+        width: 100%;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        border-radius: inherit;
+        --moz-border-radius: inherit;
+        --webkit-border-radius: inherit;
+        vertical-align: top;
+
+        .li-title {
+          display: none;
+        }
+
+        li {
+          display: none;
+          border: none;
+          padding: 0px;
+          margin: 0px;
+        }
+
+        #dashboard-name {
+          display: inline-block;
+        }
+      }
+    }
+
+    @media (min-width: 640px) {
+      #dashboard-sentiment {
+        display: inline-block;
+      }
+    }
+  }
+
   #slogan {
     text-align: center;
     width: 100%;
@@ -14,160 +137,6 @@ body {
     span {
       position: relative;
       top: 146px;
-    }
-  }
-
-  #carousel-wrapper {
-    text-align: center;
-    margin-top: 20px;
-    overflow: hidden;
-    z-index: 10;
-    position: relative;
-
-    div#topic-name {
-      min-height: 30px;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      background-color: @white;
-      .rounded_up();
-      margin: 0px auto 0px auto;
-      width: 300px;
-
-      span {
-        color: @grey-4;
-        .font_title;
-        font-size: @font-big;
-        font-weight: bold;
-        word-wrap: break-word;
-      }
-    }
-
-    .nav {
-      display: inline-block;
-      vertical-align: top;
-      margin-top: 75px;
-      width: 30px;
-      height: 90px;
-      display: none;
-
-      @media (max-width: 380px) {
-        display: none;
-      }
-    }
-
-    #carousel-prev {
-      width: 0;
-      height: 0;
-      border-top: 45px solid transparent;
-      border-bottom: 45px solid transparent;
-      border-right: 30px solid @grey-3;
-
-      &:hover {
-        width: 0;
-        height: 0;
-        border-top: 45px solid transparent;
-        border-bottom: 45px solid transparent;
-        border-right: 30px solid @white;
-      }
-    }
-
-    #carousel-next {
-      width: 0;
-      height: 0;
-      border-top: 45px solid transparent;
-      border-bottom: 45px solid transparent;
-      border-left: 30px solid @grey-3;
-
-      &:hover {
-        width: 0;
-        height: 0;
-        border-top: 45px solid transparent;
-        border-bottom: 45px solid transparent;
-        border-left: 30px solid @white;
-      }
-    }
-
-    #carousel {
-      width: 300px;
-      height: 260px;
-      margin: 0px auto;
-      overflow: hidden;
-      display: inline-block;
-      background-color: @white;
-      .rounded_down();
-
-      #dashboard {
-        vertical-align: top;
-        height: 100%;
-        text-align: center;
-        color: @grey-4;
-        font-weight: bold;
-
-        li {
-          padding-left: 10px;
-          padding-right: 10px;
-          width: 280px;
-          height: 100%;
-          overflow: hidden;
-          list-style-type: none;
-          float: left;
-          display: block;
-          text-align: center;
-
-          div.holder {
-            margin-bottom: 10px;
-            text-align: center;
-          }
-
-          span.type {
-            .font_title;
-            font-size: @font-normal;
-            font-weight: bold;
-          }
-
-          img {
-            border: none;
-          }
-
-          div.other_medias {
-            width: 272px;
-            overflow: hidden;
-            margin: 1px auto !important;
-            font-size: 0px;
-            height: 56px;
-          }
-
-          .description, .uris, .subtypes {
-            font-size: @font-normal;
-            .font_title;
-            font-weight: bold;
-            color: @grey-4;
-          }
-
-          .uris {
-            text-decoration: underline;
-          }
-
-          .linkicon {
-
-          }
-
-          canvas {
-            .rounded;
-          }
-
-          img.smiley {
-            width: 120px;
-            height: 120px;
-            .rounded;
-          }
-
-          div.related {
-            font-size: 0px;
-            vertical-align: top;
-          }
-        }
-      }
     }
   }
 }

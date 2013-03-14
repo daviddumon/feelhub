@@ -10,7 +10,7 @@ public class MandrillMailSenderTest {
 
     @Before
     public void avant() {
-        mandrillMailSender = new MandrillMailSender();
+        final MandrillMailSender mandrillMailSender = new MandrillMailSender();
     }
 
     @Rule
@@ -45,5 +45,4 @@ public class MandrillMailSenderTest {
         return request;
     }
 
-    private MandrillMailSender mandrillMailSender;
 }

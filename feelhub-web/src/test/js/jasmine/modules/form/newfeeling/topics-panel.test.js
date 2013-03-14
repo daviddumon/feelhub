@@ -149,15 +149,19 @@ define(["modules/form/newfeeling/topics-panel", "view/command/new-feeling-topics
             expect(topic.id).toBe("new");
         });
 
-        it("triggers category-question if set-topic event with new id", function () {
-            topics.add_topic(data);
-            var callback = jasmine.createSpy("callback");
-            $("#form-right-panel").on("category-question", callback);
-
-            $("#form-left-panel").trigger("set-topic", {"name": data.name, "id": "new"});
-
-            expect(callback).toHaveBeenCalled();
-        });
+        //
+        // @ignore : we need to refacto the category system and tags
+        // before reenabling category question
+        //
+        //it("triggers category-question if set-topic event with new id", function () {
+        //    topics.add_topic(data);
+        //    var callback = jasmine.createSpy("callback");
+        //    $("#form-right-panel").on("category-question", callback);
+        //
+        //    $("#form-left-panel").trigger("set-topic", {"name": data.name, "id": "new"});
+        //
+        //    expect(callback).toHaveBeenCalled();
+        //});
 
         it("doest not trigger category-question for uri", function () {
             topics.add_topic({"name": "www.feelhub.com"});

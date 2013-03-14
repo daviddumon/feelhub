@@ -40,10 +40,10 @@ public class FacebookResource extends ServerResource {
         }
     }
 
-    private com.feelhub.domain.user.User getOrCreateUser(Token accesToken, User facebookUser) {
-        CreateUserFromFacebookCommand command = new CreateUserFromFacebookCommand(facebookUser.getId(), facebookUser.getEmail(),
+    private com.feelhub.domain.user.User getOrCreateUser(final Token accesToken, final User facebookUser) {
+        final CreateUserFromFacebookCommand command = new CreateUserFromFacebookCommand(facebookUser.getId(), facebookUser.getEmail(),
                 facebookUser.getFirstName(), facebookUser.getLastName(), facebookUser.getLocale(), accesToken.getToken());
-        UUID userId = Futures.getUnchecked(bus.execute(command));
+        final UUID userId = Futures.getUnchecked(bus.execute(command));
         return Repositories.users().get(userId);
     }
 

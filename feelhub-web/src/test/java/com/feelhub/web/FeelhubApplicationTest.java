@@ -3,8 +3,7 @@ package com.feelhub.web;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.web.guice.GuiceTestModule;
 import freemarker.template.Configuration;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.restlet.Context;
 
 import javax.servlet.ServletContext;

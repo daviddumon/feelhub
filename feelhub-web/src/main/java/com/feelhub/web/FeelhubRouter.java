@@ -52,7 +52,6 @@ public class FeelhubRouter extends Router {
         attach("/welcome", WelcomeResource.class);
         attach("/search", SearchResource.class);
         attach("/newtopic", NewTopicResource.class);
-        attach("/analyze", AnalyzeTopicResource.class);
         attach("/sitemap_index_{number}.xml", FeelhubSitemapIndexResource.class);
         attach("/sitemap_{number}.xml", FeelhubSitemapResource.class);
         attach("/social/facebook", FacebookResource.class);

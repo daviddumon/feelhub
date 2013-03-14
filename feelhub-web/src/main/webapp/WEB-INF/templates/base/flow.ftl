@@ -29,16 +29,6 @@
             <#else>
             var topicData = {};
             </#if>
-
-            <#if realtypes??>
-            var realtypes = [
-                <#list realtypes as type>
-                    "${type}"${type_has_next?string(",", "")}
-                </#list>
-            ]
-            <#else>
-            var realtypes = [];
-            </#if>
     </script>
         <#nested/>
     </@head.js>
@@ -61,9 +51,13 @@
     <#if userInfos.authenticated>
         <#nested/>
     <#elseif !userInfos.anonymous>
-        <a href="${root}/login" class="login-button call-to-action">LOGIN</a>
+        <div id="login-panel">
+            <a href="${root}/login" class="login-button call-to-action">LOGIN</a>
+        </div>
     <#else>
-        <a href="${root}/login" class="login-button call-to-action">LOGIN</a> <span class="or">or</span> <a href="${root}/signup" class="signup-button call-to-action">SIGN UP</a>
+        <div id="login-panel">
+            <a href="${root}/login" class="login-button call-to-action">LOGIN</a> <span>or</span> <a href="${root}/signup" class="signup-button call-to-action">SIGN UP</a>
+        </div>
     </#if>
 </div>
 <ul id="flow">

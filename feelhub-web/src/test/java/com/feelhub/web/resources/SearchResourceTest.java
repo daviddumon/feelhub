@@ -143,14 +143,14 @@ public class SearchResourceTest {
         final String realTag = "fruit";
         final Request request = new Request(Method.GET, "http://test.com?q=" + realTag);
         searchResource.init(Context.getCurrent(), request, new Response(request));
-        List<Topic> results = Lists.newArrayList();
+        final List<Topic> results = Lists.newArrayList();
         results.add(TestFactories.topics().newCompleteRealTopic());
         results.add(TestFactories.topics().newCompleteRealTopic());
         when(topicService.getTopics(realTag, FeelhubLanguage.reference())).thenReturn(results);
 
         final ModelAndView modelAndView = searchResource.search();
 
-        List<TopicData> topicDatas = modelAndView.getData("topicDatas");
+        final List<TopicData> topicDatas = modelAndView.getData("topicDatas");
         assertThat(topicDatas.size()).isEqualTo(2);
     }
 

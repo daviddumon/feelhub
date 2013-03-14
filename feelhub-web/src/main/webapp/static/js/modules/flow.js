@@ -32,7 +32,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
     function compute_max_box() {
         initial = 320;
-        spacer = 40;
+        spacer = 0;
         maxBox = Math.floor((container.innerWidth() - spacer) / initial);
         if (maxBox < 1) {
             maxBox = 1;
@@ -52,13 +52,6 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function add_responsive_behavior() {
-        $(window).resize(function () {
-            clearTimeout(doit);
-            doit = setTimeout(function () {
-                end_of_resize();
-            }, 200);
-        });
-
         $(window).on("resize", function () {
             clearTimeout(doit);
             doit = setTimeout(function () {

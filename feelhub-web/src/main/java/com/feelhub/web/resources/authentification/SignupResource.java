@@ -44,7 +44,7 @@ public class SignupResource extends ServerResource {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
             return;
         }
-        ListenableFuture<UUID> result = bus.execute(createCommand(form));
+        final ListenableFuture<UUID> result = bus.execute(createCommand(form));
         try {
             Futures.getUnchecked(result);
             setStatus(Status.SUCCESS_CREATED);
@@ -61,7 +61,7 @@ public class SignupResource extends ServerResource {
         }
     }
 
-    private CreateUserCommand createCommand(Form form) {
+    private CreateUserCommand createCommand(final Form form) {
         final String email = form.getFirstValue("email");
         final String password = form.getFirstValue("password");
         final String fullname = form.getFirstValue("fullname");
@@ -77,5 +77,5 @@ public class SignupResource extends ServerResource {
     }
 
     private final FacebookConnector connector;
-    private CommandBus bus;
+    private final CommandBus bus;
 }

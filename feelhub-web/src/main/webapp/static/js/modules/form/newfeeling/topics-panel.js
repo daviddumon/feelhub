@@ -18,7 +18,7 @@ define(["jquery", "view/command/new-feeling-topics-topic-view"], function ($, vi
             topics[index].id = data.id;
             topics[index].thumbnailSmall = data.thumbnailSmall;
             if (data.id === "new" && !uri.test(data.name)) {
-                $("#form-right-panel").trigger("category-question", topics[index]);
+                //$("#form-right-panel").trigger("category-question", topics[index]);
             }
         }
         re_draw();

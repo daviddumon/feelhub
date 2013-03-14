@@ -18,7 +18,7 @@ define(["jquery",
             if (topic.name !== "") {
                 add_question_feel(topic, invalidate);
                 add_question_choice(topic, invalidate);
-                add_question_category(topic);
+                add_existing_question_category(topic);
             }
         }
 
@@ -64,7 +64,7 @@ define(["jquery",
             });
         }
 
-        function add_question_category(topic) {
+        function add_existing_question_category(topic) {
             var index = get_known_question_index(helper_category_view, topic);
             if (index >= 0) {
                 activate_known_question(index);

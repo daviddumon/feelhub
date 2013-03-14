@@ -15,7 +15,7 @@ public class ActivationFactoryTest {
     public void canPropagateEvent() {
         final User user = new User();
 
-        Activation activation = new ActivationFactory().createForUser(user);
+        final Activation activation = new ActivationFactory().createForUser(user);
 
         final ActivationCreatedEvent event = events.lastEvent(ActivationCreatedEvent.class);
         assertThat(event).isNotNull();

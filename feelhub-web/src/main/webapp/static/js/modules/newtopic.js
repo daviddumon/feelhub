@@ -1,6 +1,6 @@
 define(["plugins/domReady!", "jquery"], function (doc, $) {
 
-    var container = "#createtopic";
+    var container = "#newtopic";
     var api_end_point = "/api/topics";
 
     function init() {

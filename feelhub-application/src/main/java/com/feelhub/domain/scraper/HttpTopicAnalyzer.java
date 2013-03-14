@@ -86,5 +86,5 @@ public class HttpTopicAnalyzer {
     private final Scraper scraper;
     private final Cloudinary cloudinary;
     private final RateLimiter rateLimiter;
-    private Logger LOGGER = LoggerFactory.getLogger(HttpTopicAnalyzer.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(HttpTopicAnalyzer.class);
 }

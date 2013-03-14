@@ -2,10 +2,16 @@
 body {
 
   #flow {
-    width: 100%;
     position: relative;
+    width: 62%;
+    left: 38%;
     text-align: center;
     margin-top: 40px;
+
+    @media (max-width: 1040px) {
+      left: 0px;
+      width: 100%;
+    }
 
     .flow_list {
       width: 300px;
@@ -82,5 +88,10 @@ body {
         }
       }
     }
+  }
+
+  .search {
+    left: 0px !important;
+    width: 100% !important;
   }
 }

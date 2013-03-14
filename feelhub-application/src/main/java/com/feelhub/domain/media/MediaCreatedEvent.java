@@ -25,6 +25,6 @@ public class MediaCreatedEvent extends DomainEvent {
         return toId;
     }
 
-    private UUID fromId;
-    private UUID toId;
+    private final UUID fromId;
+    private final UUID toId;
 }

@@ -8,19 +8,19 @@ import java.io.ByteArrayInputStream;
 import java.util.List;
 
 public class FakeAmazonS3 extends AmazonS3Client {
-    private List<PutObjectRequest> putObjectRequests = Lists.newArrayList();
-    private List<GetObjectRequest> getObjectRequests = Lists.newArrayList();
+    private final List<PutObjectRequest> putObjectRequests = Lists.newArrayList();
+    private final List<GetObjectRequest> getObjectRequests = Lists.newArrayList();
 
     @Override
-    public PutObjectResult putObject(PutObjectRequest putObjectRequest) {
+    public PutObjectResult putObject(final PutObjectRequest putObjectRequest) {
         getPutObjectRequests().add(putObjectRequest);
         return null;
     }
 
     @Override
-    public S3Object getObject(GetObjectRequest getObjectRequest) {
+    public S3Object getObject(final GetObjectRequest getObjectRequest) {
         getObjectRequests.add(getObjectRequest);
-        S3Object s3Object = new S3Object();
+        final S3Object s3Object = new S3Object();
         s3Object.setObjectContent(new ByteArrayInputStream("toto".getBytes()));
         return s3Object;
     }

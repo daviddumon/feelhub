@@ -26,11 +26,11 @@ public class Translator {
         translateReference(realTopic);
     }
 
-    void translateReference(RealTopic realTopic) {
+    void translateReference(final RealTopic realTopic) {
         if (!realTopic.mustTranslate()) {
             return;
         }
-        Map.Entry<String, String> nameAndLanguage = Iterables.get(realTopic.getNames().entrySet(), 0);
+        final Map.Entry<String, String> nameAndLanguage = Iterables.get(realTopic.getNames().entrySet(), 0);
         final FeelhubLanguage feelhubLanguage = FeelhubLanguage.fromCode(nameAndLanguage.getKey());
         final String name = nameAndLanguage.getValue();
         final String referenceDescription = translateToReference(name, feelhubLanguage);

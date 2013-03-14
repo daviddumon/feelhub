@@ -10,7 +10,7 @@ public class DummySessionProvider extends SessionProvider {
 
     @Override
     public MongoSession get() {
-        MongoSession session = mock(MongoSession.class);
+        final MongoSession session = mock(MongoSession.class);
         when(session.createCriteria(any(Class.class))).thenReturn(mock(Criteria.class));
         return session;
     }

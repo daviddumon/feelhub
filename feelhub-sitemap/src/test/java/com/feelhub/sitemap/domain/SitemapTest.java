@@ -14,7 +14,7 @@ public class SitemapTest {
 
     @Test
     public void hasLastMod() {
-        SitemapEntry oldEntry = new SitemapEntry("one", Frequency.hourly, 0.5);
+        final SitemapEntry oldEntry = new SitemapEntry("one", Frequency.hourly, 0.5);
         time.waitDays(1);
         final SitemapEntry newEntry = new SitemapEntry("older", Frequency.hourly, 0.5);
 

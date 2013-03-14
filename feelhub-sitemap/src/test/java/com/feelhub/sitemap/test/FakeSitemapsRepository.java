@@ -9,12 +9,12 @@ import java.util.List;
 public class FakeSitemapsRepository extends SitemapsRepository {
 
     @Override
-    public void put(List<SitemapIndex> sitemapIndexes) {
+    public void put(final List<SitemapIndex> sitemapIndexes) {
         this.sitemapIndexes = sitemapIndexes;
     }
 
     @Override
-    public InputStream get(String objectKey) {
+    public InputStream get(final String objectKey) {
         return null;
     }
 

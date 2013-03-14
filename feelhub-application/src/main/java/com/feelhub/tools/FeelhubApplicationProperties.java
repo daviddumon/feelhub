@@ -7,8 +7,7 @@ import org.mongolink.domain.UpdateStrategies;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class FeelhubApplicationProperties {
 
@@ -31,9 +30,9 @@ public class FeelhubApplicationProperties {
         return parseAddresses(properties.getProperty("dbAddresses"));
     }
 
-    private List<ServerAddress> parseAddresses(String dbAddresses) {
-        List<ServerAddress> adresses = Lists.newArrayList();
-        for (String address : dbAddresses.split(",")) {
+    private List<ServerAddress> parseAddresses(final String dbAddresses) {
+        final List<ServerAddress> adresses = Lists.newArrayList();
+        for (final String address : dbAddresses.split(",")) {
             try {
                 adresses.add(new ServerAddress(address));
             } catch (UnknownHostException e) {

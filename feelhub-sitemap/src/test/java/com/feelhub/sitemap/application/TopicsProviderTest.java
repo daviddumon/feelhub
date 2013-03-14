@@ -14,14 +14,14 @@ public class TopicsProviderTest extends TestWithMongo {
 
     @Test
     public void canGetTopics() {
-        MongoSession session = newSession();
+        final MongoSession session = newSession();
         session.start();
         TestFactories.topics().newCompleteRealTopic();
         TestFactories.topics().newCompleteRealTopic();
         TestFactories.topics().newCompleteRealTopic();
         session.stop();
 
-        List<Topic> topics = new TopicsProvider().topics(newSession());
+        final List<Topic> topics = new TopicsProvider().topics(newSession());
 
         assertThat(topics).hasSize(3);
     }

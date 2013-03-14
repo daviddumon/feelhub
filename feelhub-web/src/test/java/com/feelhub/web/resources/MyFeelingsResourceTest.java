@@ -74,14 +74,14 @@ public class MyFeelingsResourceTest {
 
     @Test
     public void feelingDatasIsFeelingsForTopic() {
-        List<FeelingData> initialDatas = Lists.newArrayList();
+        final List<FeelingData> initialDatas = Lists.newArrayList();
         initialDatas.add(new FeelingData.Builder().build());
         initialDatas.add(new FeelingData.Builder().build());
         when(apiFeelingSearch.doSearch(any(Form.class), any(User.class))).thenReturn(initialDatas);
 
         final ModelAndView modelAndView = myFeelingsResource.getMyFeelings();
 
-        List<FeelingData> result = modelAndView.getData("feelingDatas");
+        final List<FeelingData> result = modelAndView.getData("feelingDatas");
         assertThat(result.size()).isEqualTo(2);
     }
 

@@ -105,6 +105,8 @@ define(["jquery", "modules/parser/parser", "modules/form/newfeeling/helper-panel
                     $(this).parent().find(".help_text").show();
                 }
             });
+
+            $(container + " textarea").focus();
         }
 
         function analyze_text(text) {

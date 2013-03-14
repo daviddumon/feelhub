@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class AuthenticateCommand implements Command<Boolean> {
 
-    public AuthenticateCommand(UUID userId, UUID token) {
+    public AuthenticateCommand(final UUID userId, final UUID token) {
         this.userId = userId;
         this.token = token;
     }

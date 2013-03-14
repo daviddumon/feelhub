@@ -29,7 +29,7 @@ public class S3SitemapsRepositoryTest {
     public void canPutRobotsTxt() throws IOException {
         s3SitemapsRepository.put(sitemapsIndexes());
 
-        PutObjectRequest putObjectRequest = s3.getPutObjectRequests().get(0);
+        final PutObjectRequest putObjectRequest = s3.getPutObjectRequests().get(0);
         assertThat(putObjectRequest.getKey()).isEqualTo("robots.txt");
         assertThat(putObjectRequest.getBucketName()).isEqualTo(S3SitemapsRepository.BUCKET_NAME);
         assertThat(putObjectRequest.getStorageClass()).isEqualTo(StorageClass.ReducedRedundancy.toString());
@@ -45,7 +45,7 @@ public class S3SitemapsRepositoryTest {
     public void canPutSitemapIndexes() throws IOException {
         s3SitemapsRepository.put(sitemapsIndexes());
 
-        PutObjectRequest putObjectRequest = s3.getPutObjectRequests().get(1);
+        final PutObjectRequest putObjectRequest = s3.getPutObjectRequests().get(1);
         assertThat(putObjectRequest.getKey()).isEqualTo("sitemap_index_01234.xml");
         assertThat(putObjectRequest.getBucketName()).isEqualTo(S3SitemapsRepository.BUCKET_NAME);
         assertThat(toString(putObjectRequest.getInputStream())).isEqualTo(sitemapIndexInString());
@@ -60,7 +60,7 @@ public class S3SitemapsRepositoryTest {
     public void canPutSitemap() throws IOException {
         s3SitemapsRepository.put(sitemapsIndexes());
 
-        PutObjectRequest putObjectRequest = s3.getPutObjectRequests().get(2);
+        final PutObjectRequest putObjectRequest = s3.getPutObjectRequests().get(2);
         assertThat(putObjectRequest.getKey()).isEqualTo("sitemap_08765.xml");
         assertThat(putObjectRequest.getBucketName()).isEqualTo(S3SitemapsRepository.BUCKET_NAME);
         assertThat(toString(putObjectRequest.getInputStream())).isEqualTo(sitemapInString());
@@ -71,26 +71,26 @@ public class S3SitemapsRepositoryTest {
         return new SitemapToStringConverter(sitemapsIndexes().get(0).getSitemaps().get(0)).toString();
     }
 
-    private String toString(InputStream inputStream) throws IOException {
-        StringWriter writer = new StringWriter();
+    private String toString(final InputStream inputStream) throws IOException {
+        final StringWriter writer = new StringWriter();
         IOUtils.copy(inputStream, writer);
         return writer.toString();
     }
 
     private ArrayList<SitemapIndex> sitemapsIndexes() {
-        Sitemap sitemap = new Sitemap(Lists.<SitemapEntry>newArrayList());
+        final Sitemap sitemap = new Sitemap(Lists.<SitemapEntry>newArrayList());
         sitemap.setIndex(8765);
-        SitemapIndex sitemapIndex = new SitemapIndex(Lists.<Sitemap>newArrayList(sitemap));
+        final SitemapIndex sitemapIndex = new SitemapIndex(Lists.<Sitemap>newArrayList(sitemap));
         sitemapIndex.setIndex(1234);
         return Lists.newArrayList(sitemapIndex);
     }
 
     @Test
     public void canGetObject() throws IOException {
-        InputStream inputStream = s3SitemapsRepository.get("robots.txt");
+        final InputStream inputStream = s3SitemapsRepository.get("robots.txt");
 
         assertThat(IOUtils.toByteArray(inputStream)).isEqualTo("toto".getBytes());
-        GetObjectRequest getObjectRequest = s3.getGetObjectRequests().get(0);
+        final GetObjectRequest getObjectRequest = s3.getGetObjectRequests().get(0);
         assertThat(getObjectRequest.getKey()).isEqualTo("robots.txt");
         assertThat(getObjectRequest.getBucketName()).isEqualTo(S3SitemapsRepository.BUCKET_NAME);
     }

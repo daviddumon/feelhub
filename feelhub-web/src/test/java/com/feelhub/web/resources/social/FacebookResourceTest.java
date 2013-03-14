@@ -43,9 +43,9 @@ public class FacebookResourceTest {
 
         facebookResource.facebookReturn();
 
-        ArgumentCaptor<CreateUserFromFacebookCommand> captor = ArgumentCaptor.forClass(CreateUserFromFacebookCommand.class);
+        final ArgumentCaptor<CreateUserFromFacebookCommand> captor = ArgumentCaptor.forClass(CreateUserFromFacebookCommand.class);
         verify(commandBus).execute(captor.capture());
-        CreateUserFromFacebookCommand command = captor.getValue();
+        final CreateUserFromFacebookCommand command = captor.getValue();
         assertThat(command.email).isEqualTo("toto@gmail.com");
         assertThat(command.firstName).isEqualTo("Jb");
         assertThat(command.lastName).isEqualTo("Dusse");

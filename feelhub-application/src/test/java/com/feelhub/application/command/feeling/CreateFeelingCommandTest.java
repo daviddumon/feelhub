@@ -26,7 +26,7 @@ public class CreateFeelingCommandTest {
     public void canAddFeelingAndSentiments() {
         final CreateFeelingCommand command = createCommand();
 
-        UUID feelingId = command.execute();
+        final UUID feelingId = command.execute();
 
         assertThat(Repositories.feelings().getAll().size()).isEqualTo(1);
         final Feeling feeling = Repositories.feelings().get(feelingId);

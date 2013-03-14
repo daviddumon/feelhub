@@ -4,7 +4,7 @@ import java.util.List;
 
 public class SitemapIndex {
 
-    public SitemapIndex(List<Sitemap> sitemaps) {
+    public SitemapIndex(final List<Sitemap> sitemaps) {
         this.sitemaps = sitemaps;
     }
 
@@ -24,11 +24,11 @@ public class SitemapIndex {
         return index;
     }
 
-    public void setIndex(int index) {
+    public void setIndex(final int index) {
         this.index = index;
     }
 
-    private List<Sitemap> sitemaps;
+    private final List<Sitemap> sitemaps;
 
     private int index;
 

@@ -2,7 +2,7 @@ package com.feelhub.sitemap.domain;
 
 public class SitemapPreferences {
 
-    public static void setSitemapCapacity(int sitemapCapacity) {
+    public static void setSitemapCapacity(final int sitemapCapacity) {
         SitemapPreferences.sitemapCapacity = sitemapCapacity;
     }
 
@@ -10,7 +10,7 @@ public class SitemapPreferences {
         return sitemapCapacity;
     }
 
-    public static void setSitemapIndexCapacity(int sitemapIndexCapacity) {
+    public static void setSitemapIndexCapacity(final int sitemapIndexCapacity) {
         SitemapPreferences.sitemapIndexCapacity = sitemapIndexCapacity;
     }
 

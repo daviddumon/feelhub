@@ -1,13 +1,11 @@
 package com.feelhub.sitemap.application;
 
-import com.feelhub.sitemap.test.FakeSitemapsRepository;
-import com.feelhub.sitemap.test.TestWithMongo;
+import com.feelhub.sitemap.test.*;
 import com.feelhub.test.TestFactories;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.mongolink.MongoSession;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class SitemapsBuilderJobTest extends TestWithMongo {
 
@@ -17,7 +15,7 @@ public class SitemapsBuilderJobTest extends TestWithMongo {
     public void before() {
         sitemapRepository = new FakeSitemapsRepository();
         SitemapsRepository.initialize(sitemapRepository);
-        MongoSession session = newSession();
+        final MongoSession session = newSession();
         session.start();
         TestFactories.topics().newCompleteRealTopic();
         session.stop();

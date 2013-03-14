@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class CreateSessionCommand implements Command<UUID> {
 
-    public CreateSessionCommand(UUID userId, DateTime expirationDate) {
+    public CreateSessionCommand(final UUID userId, final DateTime expirationDate) {
         this.userId = userId;
         this.expirationDate = expirationDate;
     }

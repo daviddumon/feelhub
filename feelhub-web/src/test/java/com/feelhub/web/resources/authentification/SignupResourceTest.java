@@ -1,7 +1,6 @@
 package com.feelhub.web.resources.authentification;
 
-import com.feelhub.application.command.Command;
-import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.*;
 import com.feelhub.application.command.user.CreateUserCommand;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.session.EmailAlreadyUsed;
@@ -10,14 +9,9 @@ import com.feelhub.web.ContextTestFactory;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.common.util.concurrent.Futures;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.ArgumentCaptor;
-import org.restlet.data.Form;
-import org.restlet.data.Language;
-import org.restlet.data.Preference;
-import org.restlet.data.Status;
+import org.restlet.data.*;
 
 import java.util.UUID;
 
@@ -33,7 +27,7 @@ public class SignupResourceTest {
     @Before
     public void setUp() throws Exception {
         commandBus = mock(CommandBus.class);
-        FacebookConnector facebookConnector = mock(FacebookConnector.class);
+        final FacebookConnector facebookConnector = mock(FacebookConnector.class);
         when(facebookConnector.getUrl()).thenReturn("toto");
         resource = new SignupResource(facebookConnector, commandBus);
         ContextTestFactory.initResource(resource);
@@ -52,9 +46,9 @@ public class SignupResourceTest {
         resource.signup(parameters);
 
         assertThat(resource.getStatus()).isEqualTo(Status.SUCCESS_CREATED);
-        ArgumentCaptor<CreateUserCommand> captor = ArgumentCaptor.forClass(CreateUserCommand.class);
+        final ArgumentCaptor<CreateUserCommand> captor = ArgumentCaptor.forClass(CreateUserCommand.class);
         verify(commandBus).execute(captor.capture());
-        CreateUserCommand command = captor.getValue();
+        final CreateUserCommand command = captor.getValue();
         assertThat(command.email).isEqualTo(email);
         assertThat(command.fullname).isEqualTo("fullname");
     }
@@ -105,7 +99,7 @@ public class SignupResourceTest {
     public void canPassFavoriteLanguage() {
         resource.getRequest().getClientInfo().getAcceptedLanguages().add(new Preference<Language>(new Language("fr")));
 
-        ModelAndView modelAndView = resource.represent();
+        final ModelAndView modelAndView = resource.represent();
 
         assertThat(modelAndView.getData()).includes(entry("preferedLanguage", "fr"));
 
