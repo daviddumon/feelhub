@@ -2,6 +2,7 @@ package com.feelhub.web.resources.authentification;
 
 import com.feelhub.application.command.*;
 import com.feelhub.application.command.user.activation.ConfirmActivationCommand;
+import com.feelhub.domain.user.activation.ActivationNotFoundException;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.*;
 import com.feelhub.web.representation.ModelAndView;
@@ -17,8 +18,6 @@ import static org.mockito.Mockito.*;
 
 public class ActivationResourceTest {
 
-    @Rule
-    public WebApplicationTester restlet = new WebApplicationTester();
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -43,10 +42,14 @@ public class ActivationResourceTest {
 
     @Test
     public void redirectToHomeIfNoActivation() {
-        final ClientResource badActivationResource = restlet.newClientResource("/activation/" + UUID.randomUUID().toString());
+        CommandBus bus = mock(CommandBus.class);
+        when(bus.execute(any(Command.class))).thenReturn(Futures.immediateFailedFuture(new ActivationNotFoundException()));
+        final ActivationResource resource = new ActivationResource(bus);
+        ContextTestFactory.initResource(resource);
+        resource.getRequest().getAttributes().put("secret", UUID.randomUUID());
 
-        badActivationResource.get();
+        resource.confirm();
 
-        assertThat(badActivationResource.getStatus()).isEqualTo(Status.REDIRECTION_PERMANENT);
+        assertThat(resource.getStatus()).isEqualTo(Status.REDIRECTION_PERMANENT);
     }
 }
