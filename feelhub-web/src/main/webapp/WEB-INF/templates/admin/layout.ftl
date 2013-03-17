@@ -1,20 +1,35 @@
-<#macro adminLayout page>
+<#macro adminLayout>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <title>Feelhub.com - Administration</title>
-        <meta charset="utf-8"/>
-        <link href='//fonts.googleapis.com/css?family=Droid+Serif|Autour+One|Spicy+Rice|Roboto+Condensed' rel='stylesheet' type='text/css'>
-        <#if !dev>
-        <link rel="stylesheet" type="text/css" href="${root}/static/css/admin.css?cache=${buildtime}"/>
-        <#else>
-        <link rel="stylesheet/less" type="text/css" href="${root}/static/css/admin.less?cache=${buildtime}"/>
-        <script type="text/javascript" src="${root}/static/js/lib/less-1.3.3.min.js?cache=${buildtime}"></script>
-        </#if>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
     </head>
     <body>
-        <div id="${page}">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="/admin">Feelhub.com - Administration</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <li><a href="${root}/admin/analytic/daily">Analytic</a></li>
+                            <li><a href="${root}/admin/statistics">Statistics</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="container" style="margin-top:50px">
             <#nested>
         </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
     </body>
+</html>
 </#macro>

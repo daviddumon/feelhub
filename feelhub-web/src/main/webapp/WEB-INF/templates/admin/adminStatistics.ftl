@@ -1,5 +1,5 @@
 <#import "layout.ftl" as layout/>
-<@layout.adminLayout "admin">
+<@layout.adminLayout>
 <h1>Statistics</h1>
 <h2>Current</h2>
 <table class="current">

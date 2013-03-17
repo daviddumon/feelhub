@@ -1,5 +1,5 @@
 <#import "../layout.ftl" as layout/>
-<@layout.adminLayout "admin">
+<@layout.adminLayout>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
     google.load("visualization", "1", {packages:["corechart"]});
