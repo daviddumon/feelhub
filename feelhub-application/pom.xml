@@ -103,6 +103,11 @@
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jongo</groupId>
+            <artifactId>jongo</artifactId>
+            <version>0.3</version>
+        </dependency>
 
         <dependency>
             <groupId>org.mongolink</groupId>

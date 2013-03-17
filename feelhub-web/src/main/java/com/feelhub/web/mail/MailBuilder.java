@@ -27,8 +27,8 @@ public class MailBuilder {
 
     @Subscribe
     public void onUserCreated(final UserCreatedEvent event) {
-        if (event.getUser().isActive()) {
-            mailSender.send(MailFactory.welcome(event.getUser()));
+        if (event.user.isActive()) {
+            mailSender.send(MailFactory.welcome(event.user));
         }
     }
 

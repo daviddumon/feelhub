@@ -10,6 +10,7 @@ import com.feelhub.web.social.FacebookConnector;
 import com.google.common.util.concurrent.Futures;
 import com.restfb.types.User;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import org.restlet.*;
@@ -108,11 +109,12 @@ public class FacebookResourceTest {
     }
 
     private void oldUser() {
+        DateTimeUtils.setCurrentMillisFixed(new DateTime().minusDays(1).getMillis());
         final com.feelhub.domain.user.User user = new com.feelhub.domain.user.User();
         Repositories.users().add(user);
         when(commandBus.execute(any(CreateUserFromFacebookCommand.class)))
                 .thenReturn(Futures.immediateFuture(user.getId()));
-        user.setCreationDate(DateTime.now().minusDays(1));
+        DateTimeUtils.setCurrentMillisSystem();
     }
 
     private FacebookConnector facebookConnector;

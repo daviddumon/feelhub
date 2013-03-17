@@ -28,8 +28,8 @@ public class MailWatcher {
 
     @Subscribe
     public void onUserCreated(final UserCreatedEvent event) {
-        if (event.getUser().isActive()) {
-            mailSender.send(createTemplateRequest(event.getUser(), "Welcome", "Welcome to Feelhub !"));
+        if (event.user.isActive()) {
+            mailSender.send(createTemplateRequest(event.user, "Welcome", "Welcome to Feelhub !"));
         }
     }
 

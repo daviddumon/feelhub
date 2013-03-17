@@ -1,5 +1,6 @@
 package com.feelhub.application.command.session;
 
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
@@ -20,6 +21,9 @@ public class CreateSessionCommandTest {
 
     @Rule
     public SystemTime time = SystemTime.fixed();
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
 
     @Test
     public void canCreateASessionForAnUser() {

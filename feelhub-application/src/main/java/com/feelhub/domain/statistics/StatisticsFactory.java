@@ -19,12 +19,12 @@ public class StatisticsFactory {
 
     @Subscribe
     public void handle(final SentimentAddedEvent event) {
-        sentimentOn(event.getSentiment(), event.getDate());
+        sentimentOn(event.getSentiment(), event.date);
     }
 
     @Subscribe
     public void handle(final WorldStatisticsEvent event) {
-        sentimentOn(event.getSentiment(), event.getDate());
+        sentimentOn(event.getSentiment(), event.date);
     }
 
     private void sentimentOn(final Sentiment sentiment, final DateTime date) {

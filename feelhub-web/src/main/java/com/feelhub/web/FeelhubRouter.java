@@ -2,17 +2,31 @@ package com.feelhub.web;
 
 import com.feelhub.web.guice.GuiceFinder;
 import com.feelhub.web.resources.*;
-import com.feelhub.web.resources.admin.*;
+import com.feelhub.web.resources.admin.AdminEventsResource;
+import com.feelhub.web.resources.admin.AdminFreemarkerResource;
+import com.feelhub.web.resources.admin.AdminStatisticsResource;
+import com.feelhub.web.resources.admin.analytic.DailyUserStatisticsResource;
 import com.feelhub.web.resources.api.*;
-import com.feelhub.web.resources.authentification.*;
-import com.feelhub.web.resources.sitemap.*;
-import com.feelhub.web.resources.social.*;
+import com.feelhub.web.resources.authentification.ActivationResource;
+import com.feelhub.web.resources.authentification.LoginResource;
+import com.feelhub.web.resources.authentification.SessionsResource;
+import com.feelhub.web.resources.authentification.SignupResource;
+import com.feelhub.web.resources.sitemap.FeelhubRobotsResource;
+import com.feelhub.web.resources.sitemap.FeelhubSitemapIndexResource;
+import com.feelhub.web.resources.sitemap.FeelhubSitemapResource;
+import com.feelhub.web.resources.social.FacebookResource;
+import com.feelhub.web.resources.social.SocialWelcomeResource;
 import com.google.inject.Injector;
 import org.restlet.Context;
+import org.restlet.Restlet;
 import org.restlet.data.ChallengeScheme;
-import org.restlet.resource.*;
-import org.restlet.routing.*;
-import org.restlet.security.*;
+import org.restlet.resource.Finder;
+import org.restlet.resource.ServerResource;
+import org.restlet.routing.Router;
+import org.restlet.routing.TemplateRoute;
+import org.restlet.routing.Variable;
+import org.restlet.security.ChallengeAuthenticator;
+import org.restlet.security.MapVerifier;
 
 import java.util.Map;
 
@@ -29,19 +43,12 @@ public class FeelhubRouter extends Router {
     }
 
     private void attachResources() {
+        attachApiResources();
+        attachWebResources();
+        attachAdminResources();
+    }
 
-        // API
-        attach("/api/topics", ApiTopicsResource.class);
-        attach("/api/topic/{topicId}/statistics", ApiTopicStatisticsResource.class);
-        attach("/api/topic/{topicId}/related", ApiTopicRelatedResource.class);
-        attach("/api/topic/{topicId}/medias", ApiTopicMediasResource.class);
-        attach("/api/topic/{topicId}/feelings", ApiTopicFeelingsResource.class);
-        attach("/api/topic/{topicId}/context", ApiTopicContextResource.class);
-        attach("/api/topic/{topicId}/feeling/{feelingId}/new", ApiTopicNewFeelingsResource.class);
-        attach("/api/feelings", ApiFeelingsResource.class);
-        attach("/api/myfeelings", ApiMyFeelingsResource.class);
-
-        // WEB
+    private void attachWebResources() {
         attach("/robots.txt", FeelhubRobotsResource.class);
         attach("/topic/{topicId}", TopicResource.class);
         attach("/signup", SignupResource.class);
@@ -59,20 +66,41 @@ public class FeelhubRouter extends Router {
         attach("/myfeelings", MyFeelingsResource.class);
         attach("/bookmarklet", BookmarkletResource.class);
         attach("/", HomeResource.class);
-
-        //ADMIN
-        attach("/admin/ftl/{name}", withSecurity(AdminFreemarkerResource.class));
-        attach("/admin/events", withSecurity(AdminEventsResource.class));
-        attach("/admin/statistics", withSecurity(AdminStatisticsResource.class));
     }
 
-    private ChallengeAuthenticator withSecurity(final Class<? extends ServerResource> clazz) {
+    private void attachApiResources() {
+        attach("/api/topics", ApiTopicsResource.class);
+        attach("/api/topic/{topicId}/statistics", ApiTopicStatisticsResource.class);
+        attach("/api/topic/{topicId}/related", ApiTopicRelatedResource.class);
+        attach("/api/topic/{topicId}/medias", ApiTopicMediasResource.class);
+        attach("/api/topic/{topicId}/feelings", ApiTopicFeelingsResource.class);
+        attach("/api/topic/{topicId}/context", ApiTopicContextResource.class);
+        attach("/api/topic/{topicId}/feeling/{feelingId}/new", ApiTopicNewFeelingsResource.class);
+        attach("/api/feelings", ApiFeelingsResource.class);
+        attach("/api/myfeelings", ApiMyFeelingsResource.class);
+    }
+
+    private void attachAdminResources() {
+        Router router = new Router(getContext()) {
+            @Override
+            public Finder createFinder(Class<?> targetClass) {
+                return new GuiceFinder(getContext(), targetClass, injector);
+            }
+        };
+        router.attach("/admin/analytic/daily", DailyUserStatisticsResource.class);
+        router.attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
+        router.attach("/admin/events", AdminEventsResource.class);
+        router.attach("/admin/statistics", AdminStatisticsResource.class);
+        attach(withSecurity(router));
+    }
+
+    private ChallengeAuthenticator withSecurity(Restlet next) {
         final MapVerifier verifier = new MapVerifier();
         verifier.getLocalSecrets().put(ADMIN_USER, ADMIN_PASSWORD.toCharArray());
         final ChallengeAuthenticator sécurité = new ChallengeAuthenticator(getContext(),
                 ChallengeScheme.HTTP_BASIC, "Secured Area");
         sécurité.setVerifier(verifier);
-        sécurité.setNext(clazz);
+        sécurité.setNext(next);
         return sécurité;
     }
 

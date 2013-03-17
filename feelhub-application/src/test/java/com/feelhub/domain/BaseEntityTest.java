@@ -68,16 +68,6 @@ public class BaseEntityTest {
     }
 
     @Test
-    public void canSetCreationDate() {
-        final FakeEntity entity = createEntity(1);
-        time.waitDays(1);
-
-        entity.setCreationDate(time.getNow());
-
-        assertThat(entity.getCreationDate()).isEqualTo(time.getNow());
-    }
-
-    @Test
     public void hasModificationDate() {
         final FakeEntity entity = createEntity(1);
 

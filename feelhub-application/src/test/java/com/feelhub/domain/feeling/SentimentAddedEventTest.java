@@ -21,8 +21,8 @@ public class SentimentAddedEventTest {
 
         final SentimentAddedEvent sentimentAddedEvent = new SentimentAddedEvent(sentiment);
 
-        assertThat(sentimentAddedEvent.getDate(), notNullValue());
-        assertThat(sentimentAddedEvent.getDate(), is(time.getNow()));
+        assertThat(sentimentAddedEvent.date, notNullValue());
+        assertThat(sentimentAddedEvent.date, is(time.getNow()));
         assertThat(sentimentAddedEvent.getSentiment(), is(sentiment));
     }
 }

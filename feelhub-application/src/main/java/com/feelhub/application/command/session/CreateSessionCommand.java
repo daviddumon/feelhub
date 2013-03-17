@@ -2,6 +2,8 @@ package com.feelhub.application.command.session;
 
 import com.feelhub.application.command.Command;
 import com.feelhub.domain.session.Session;
+import com.feelhub.domain.session.SessionFactory;
+import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import org.joda.time.DateTime;
 
@@ -16,7 +18,8 @@ public class CreateSessionCommand implements Command<UUID> {
 
     @Override
     public UUID execute() {
-        final Session session = new Session(expirationDate, Repositories.users().get(userId));
+        User user = Repositories.users().get(userId);
+        final Session session = new SessionFactory().create(user, expirationDate);
         Repositories.sessions().add(session);
         return session.getId();
     }

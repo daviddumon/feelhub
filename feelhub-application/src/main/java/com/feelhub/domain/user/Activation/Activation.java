@@ -1,6 +1,7 @@
 package com.feelhub.domain.user.activation;
 
 import com.feelhub.domain.BaseEntity;
+import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 
@@ -28,6 +29,7 @@ public class Activation extends BaseEntity {
 
     public void confirm() {
         Repositories.users().get(userId).activate();
+        DomainEventBus.INSTANCE.post(new UserActivatedEvent(userId));
     }
 
     private UUID id;

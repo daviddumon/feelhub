@@ -1,5 +1,6 @@
 package com.feelhub.web.guice;
 
+import com.feelhub.analytic.daily.DailyUserStatisticsCounter;
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.mail.MailSender;
 import com.feelhub.domain.alchemy.*;
@@ -20,6 +21,8 @@ import com.google.inject.name.Names;
 
 import java.io.IOException;
 import java.util.Properties;
+
+import static org.mockito.Mockito.mock;
 
 public class GuiceTestModule extends AbstractModule {
 
@@ -42,6 +45,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(CommandBus.class).in(Singleton.class);
         bind(Repositories.class).to(FakeRepositories.class);
         bind(OpenSessionInViewFilter.class).to(FakeOpenSessionInViewFilter.class);
+        bind(DailyUserStatisticsCounter.class).toInstance(mock(DailyUserStatisticsCounter.class));
     }
 
     private Properties properties() {

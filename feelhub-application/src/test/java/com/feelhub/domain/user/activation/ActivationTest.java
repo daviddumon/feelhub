@@ -1,5 +1,6 @@
 package com.feelhub.domain.user.activation;
 
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -11,6 +12,9 @@ public class ActivationTest {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
 
     @Test
     public void canCreateActivation() {
@@ -30,5 +34,6 @@ public class ActivationTest {
         activation.confirm();
 
         assertThat(user.isActive()).isTrue();
+        assertThat(bus.lastEvent(UserActivatedEvent.class)).isNotNull();
     }
 }

@@ -8,10 +8,6 @@ public class UserCreatedEvent extends DomainEvent {
         this.user = user;
     }
 
-    public User getUser() {
-        return user;
-    }
-
     @Override
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();
@@ -23,5 +19,5 @@ public class UserCreatedEvent extends DomainEvent {
         return stringBuilder.toString();
     }
 
-    private final User user;
+    public final User user;
 }

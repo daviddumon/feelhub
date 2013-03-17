@@ -2,6 +2,7 @@ package com.feelhub.web;
 
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.feelhub.analytic.AnalyticWorkersModule;
 import com.feelhub.domain.DomainWorkersModule;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.sitemap.amazon.S3SitemapsRepository;
@@ -37,7 +38,7 @@ public class FeelhubApplication extends Application {
     }
 
     public void initializeGuice(final Module module) {
-        injector = Guice.createInjector(Stage.PRODUCTION, module, new DomainWorkersModule());
+        injector = Guice.createInjector(Stage.PRODUCTION, module, new DomainWorkersModule(), new AnalyticWorkersModule());
     }
 
     @Override

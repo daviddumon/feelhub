@@ -26,7 +26,7 @@ public class UserTest {
 
         assertThat(user.getId()).isNotNull();
         final UserCreatedEvent event = bus.lastEvent(UserCreatedEvent.class);
-        assertThat(event.getUser()).isEqualTo(user);
+        assertThat(event.user).isEqualTo(user);
     }
 
     @Test
@@ -143,6 +143,6 @@ public class UserTest {
         assertThat(user.getSocialAuth(SocialNetwork.FACEBOOK).getToken()).isEqualTo("token");
         final UserCreatedEvent event = bus.lastEvent(UserCreatedEvent.class);
         assertThat(event).isNotNull();
-        assertThat(event.getUser()).isEqualTo(user);
+        assertThat(event.user).isEqualTo(user);
     }
 }

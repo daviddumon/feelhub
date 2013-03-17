@@ -4,16 +4,12 @@ import org.joda.time.DateTime;
 
 public abstract class DomainEvent implements Comparable<DomainEvent> {
 
-    public DateTime getDate() {
-        return date;
-    }
-
     abstract public String toString();
 
     @Override
     public int compareTo(final DomainEvent o) {
-        return this.date.getMillis() < o.getDate().getMillis() ? 0 : 1;
+        return this.date.getMillis() < o.date.getMillis() ? 0 : 1;
     }
 
-    protected DateTime date = new DateTime();
+    public final DateTime date = new DateTime();
 }
