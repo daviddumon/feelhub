@@ -4,6 +4,7 @@ import com.feelhub.web.guice.GuiceFinder;
 import com.feelhub.web.resources.*;
 import com.feelhub.web.resources.admin.AdminEventsResource;
 import com.feelhub.web.resources.admin.AdminFreemarkerResource;
+import com.feelhub.web.resources.admin.AdminResource;
 import com.feelhub.web.resources.admin.AdminStatisticsResource;
 import com.feelhub.web.resources.admin.analytic.DailyUserStatisticsResource;
 import com.feelhub.web.resources.api.*;
@@ -87,6 +88,7 @@ public class FeelhubRouter extends Router {
                 return new GuiceFinder(getContext(), targetClass, injector);
             }
         };
+        router.attach("/admin",AdminResource.class);
         router.attach("/admin/analytic/daily", DailyUserStatisticsResource.class);
         router.attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
         router.attach("/admin/events", AdminEventsResource.class);
