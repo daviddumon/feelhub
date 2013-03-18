@@ -29,7 +29,7 @@ public class SitemapsBuilderJob {
     }
 
     private List<SitemapIndex> sitemapIndexes() {
-        return new SitemapIndexBuilder().build(sitemapEntriesFor(new TopicsProvider().topics(session), "topics"));
+        return new SitemapIndexBuilder().build(sitemapEntriesFor(new TopicsProvider().topics(session), "topic"));
     }
 
     private List<SitemapEntry> sitemapEntriesFor(final List<Topic> topics, final String uriToken) {
