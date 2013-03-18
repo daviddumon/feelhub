@@ -100,6 +100,6 @@
 </div>
 </@flow.dashboard>
 
-<@flow.command>
+<@flow.command classes="with-dashboard">
     <#include "newfeeling.ftl"/>
 </@flow.command>
