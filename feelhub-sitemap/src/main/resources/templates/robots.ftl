@@ -1,5 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /social/facebook
 <#list indexes as index>
 Sitemap: ${prefix}${index.loc}
 </#list>
