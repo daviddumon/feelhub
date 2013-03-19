@@ -2,7 +2,7 @@
 <@layout.adminLayout>
 <h1>Statistics</h1>
 <h2>Current</h2>
-<table class="current">
+<table class="table table-striped">
     <tbody>
     <#list statistics as statisticByApi>
         <#if statisticByApi.statistics?size != 0>
@@ -25,7 +25,7 @@
 
 <#macro statistic statisticByApi>
 <h2>${statisticByApi.api}</h2>
-<table>
+<table class="table table-striped">
     <tbody>
         <#list statisticByApi.statistics as stat>
         <tr>
