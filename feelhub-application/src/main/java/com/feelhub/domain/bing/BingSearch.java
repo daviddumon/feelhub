@@ -32,7 +32,7 @@ public class BingSearch {
     public void onRealTopicCreated(final RealTopicCreatedEvent event) {
         rateLimiter.acquire();
         final RealTopic realTopic = Repositories.topics().getRealTopic(event.topicId);
-        doBingSearch(realTopic, realTopic.getName(FeelhubLanguage.none()));
+        doBingSearch(realTopic, realTopic.getName(event.feelhubLanguage));
     }
 
     void doBingSearch(final Topic topic, final String query) {

@@ -1,5 +1,6 @@
 package com.feelhub.domain.eventbus;
 
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
 import com.feelhub.domain.topic.http.uri.ResolverResult;
 import com.feelhub.domain.topic.real.RealTopicCreatedEvent;
@@ -78,7 +79,7 @@ public class HybridEventBusTest {
         @Subscribe
         public void onEvent(final HttpTopicCreatedEvent event) {
             handled = true;
-            eventBus.post(new RealTopicCreatedEvent(UUID.randomUUID()));
+            eventBus.post(new RealTopicCreatedEvent(UUID.randomUUID(), FeelhubLanguage.reference()));
         }
 
         public boolean handled;

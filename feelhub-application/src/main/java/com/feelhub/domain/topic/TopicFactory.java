@@ -17,7 +17,7 @@ public class TopicFactory {
         final RealTopic realTopic = new RealTopic(id, type);
         realTopic.setUserId(userID);
         realTopic.addName(feelhubLanguage, name);
-        DomainEventBus.INSTANCE.post(new RealTopicCreatedEvent(id));
+        DomainEventBus.INSTANCE.post(new RealTopicCreatedEvent(id, feelhubLanguage));
         return realTopic;
     }
 
