@@ -30,7 +30,7 @@ public class BingLink {
             final String queryRoot = feelhubApplicationProperties.getBingRoot();
             stringBuilder.append(queryRoot);
             stringBuilder.append(URLEncoder.encode(value, "UTF-8"));
-            final String queryOptions = "'&Adult='Off'&$top=5&$format=JSON";
+            final String queryOptions = "'&Adult='Moderate'&$top=5&$format=JSON";
             stringBuilder.append(queryOptions);
             return stringBuilder.toString();
         } catch (Exception e) {
