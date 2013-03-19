@@ -6,7 +6,11 @@
     <link href='//fonts.googleapis.com/css?family=Droid+Serif|Autour+One|Spicy+Rice|Roboto+Condensed' rel='stylesheet' type='text/css'>
     <#if topicData??>
         <title>Feelhub.com - ${topicData.name}</title>
-        <meta name="description" content="${topicData.description}"/>
+        <#if topicData.description?has_content>
+            <meta name="description" content="${topicData.description}"/>
+        <#else>
+            <meta name="description" content="${topicData.name}"/>
+        </#if>
     <#else>
         <title>Feelhub.com - Share your feelings with the world!</title>
         <meta name="description" content="Share your feelings with the world!"/>
