@@ -4,10 +4,16 @@
 <html lang="en">
 <head>
     <link href='//fonts.googleapis.com/css?family=Droid+Serif|Autour+One|Spicy+Rice|Roboto+Condensed' rel='stylesheet' type='text/css'>
-    <title>Feelhub.com - Share your feelings with the world!</title>
+    <#if topicData??>
+        <title>Feelhub.com - ${topicData.name}</title>
+        <meta name="description" content="${topicData.description}"/>
+    <#else>
+        <title>Feelhub.com - Share your feelings with the world!</title>
+        <meta name="description" content="Share your feelings with the world!"/>
+    </#if>
+
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
-    <meta name="keywords" content="sentiment analysis"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, target-densitydpi=device-dpi">
 
     <#nested/>
