@@ -12,12 +12,11 @@ require.config(
     }
 );
 
-require(["plugins/domReady!", "modules/interface", "modules/flow", "view/flow/feeling-view", "modules/form/newfeeling/new-feeling-form", "modules/canvas"],
+require(["plugins/domReady!", "modules/interface", "modules/flow", "view/flow/feeling-view", "modules/form/newfeeling/new-feeling-form"],
 
-    function (doc, interface, flow, view, new_feeling_form, canvas) {
+    function (doc, interface, flow, view, new_feeling_form) {
         var list_feeling_api_end_point = root + "/api/feelings";
         interface.init();
         new_feeling_form.init();
         flow.init(list_feeling_api_end_point, null, view, null);
-        canvas.draw("canvas-sentiment", 100, 8);
     });

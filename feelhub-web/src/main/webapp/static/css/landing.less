@@ -2,56 +2,166 @@
 @import "../less/import/colors";
 @import "../less/import/mixins";
 @import "../less/reset";
+@import "../less/common";
 
 body {
-  background-image: url('../images/bg.jpg') !important;
-  .font_title;
-  font-size: @font-normal;
-
-  a {
-    text-decoration: none;
-  }
-
-  img {
-    border: none;
-  }
 
   div#panel-1 {
-    width: 100%;
+    width: 80%;
+    margin: 0px auto;
     height: 600px;
     overflow: hidden;
 
-    div#up {
-      height: 100px;
-      width: 100%;
-      background-color: red;
-    }
-
     div#left {
       float: left;
-      height: 500px;
-      width: 50%;
-
-      h1, h2 {
-        color: @blue-steel;
-        font-weight: bold;
-        .font_logo;
-      }
+      height: 100%;
+      width: 62%;
+      text-align: center;
 
       h1 {
-        font-size: 34px;
+        color: @blue-steel;
+        font-size: 56px;
+        .font_slogan;
       }
 
       h2 {
+        display: block;
+        background-color: @blue-steel;
+        color: @artic-winter;
+        width: 300px;
+        .font_logo;
+        font-size: 34px;
+        margin: 120px auto 80px auto;
+        .rounded();
+        padding: 5px;
+        .shadow();
 
+        span {
+          font-size: 21px;
+        }
       }
     }
 
     div#right {
       float: right;
-      height: 500px;
-      width: 50%;
-      background-color: yellow;
+      height: 100%;
+      width: 38%;
+      text-align: center;
+
+      #login {
+        display: block;
+        margin: 40px auto;
+        width: 200px !important;
+        font-size: 14px !important;
+        padding: 4px !important;
+      }
+
+      hr {
+        margin: 40px auto;
+        width: 60%;
+        background-color: @blue-steel;
+        height: 1px;
+        border: none;
+      }
+
+      form#signup {
+
+        .holder {
+          position: relative;
+          text-align: center;
+          width: 60%;
+          margin: 0px auto;
+
+          .help_text {
+            position: absolute;
+            left: 12px;
+            top: 15px;
+            z-index: 1000;
+            font-size: 14px;
+            color: @grey-1 !important;
+          }
+
+          input[type="text"], input[type="password"] {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            position: relative;
+            width: 100%;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 14px;
+            border: 2px solid @white !important;
+          }
+
+          select {
+            position: relative;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            width: 100%;
+            font-size: 24px;
+          }
+
+          .error_text {
+            width: 100%;
+            margin: 0px auto;
+            min-height: 10px;
+            font-size: 14px;
+            color: red;
+          }
+
+          #login_submit, #signup_submit, #newtopic_submit {
+            margin-top: 40px;
+            display: block;
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          div.social {
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: @blue-steel;
+            font-size: 14px;
+          }
+
+          #facebook_login {
+            display: block;
+            width: 100%;
+            background: url('../images/facebook.png') no-repeat 20px 9px #3b5998 !important;
+            padding-top: 16px;
+            padding-bottom: 16px;
+            font-size: 16px;
+            color: @grey-3;
+            .font_span;
+            font-weight: bold;
+            text-decoration: none;
+            .rounded();
+            text-decoration: none;
+            border: none;
+            -webkit-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(255, 255, 255, 0.4) 0 1px 0;
+            -moz-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(255, 255, 255, 0.4) 0 1px 0;
+            box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(255, 255, 255, 0.4) 0 1px 0;
+
+            &:hover, &:focus {
+              color: @white !important;
+              -moz-box-shadow: 0 0 10px 0px @white;
+              -webkit-box-shadow: 0 0 10px 0px @white;
+              box-shadow: 0 0 10px 0px @white;
+              background-color: #4c70ba !important;
+            }
+
+            &:active {
+              .insetshadow();
+            }
+          }
+        }
+      }
     }
   }
 
@@ -62,7 +172,6 @@ body {
     height: 300px;
     background-color: @blue-steel;
     color: @white;
-    .font_title;
     overflow: hidden;
 
     ul {
@@ -72,14 +181,23 @@ body {
       li {
         padding: 20px;
         display: inline-block;
-        width: 300px;
+        width: 320px;
         height: 100%;
         vertical-align: top;
 
-        span.li-title {
-          font-size: 16px;
-          font-weight: bold;
+        div.li-title {
+          margin-top: 20px;
+          font-size: 24px;
+          //font-weight: bold;
           vertical-align: top;
+          .font_title;
+        }
+
+        div.li-description {
+          margin-top: 40px;
+          font-size: 15px;
+          color: @artic-winter;
+          .font_text;
         }
       }
     }

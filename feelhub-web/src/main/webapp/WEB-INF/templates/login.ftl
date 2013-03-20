@@ -43,10 +43,9 @@
     </div>
     <div class="holder">
         <a id="login_submit" href="" class="call-to-action">LOGIN</a>
-        <div class="social">or</div>
-        <a href="${facebookUrl}" class="facebook_login">
-            <img src="${root}/static/images/facebook_login.png"/>
-        </a>
+
+        <div class="social">or you may sign in with</div>
+        <a href="${facebookUrl}" id="facebook_login">Sign in with Facebook</a>
     </div>
 </form>
 </@noflow.body>
