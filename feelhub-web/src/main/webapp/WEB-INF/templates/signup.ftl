@@ -83,20 +83,29 @@
         <li>
             <div class="li-title">Express yourself</div>
             <div class="li-description">On Feelhub, you can say anything about everything!</div>
+            <img src="${root}/static/images/smiley_good_white.png" id="landing-good"/>
+            <img src="${root}/static/images/smiley_neutral_white.png" id="landing-neutral"/>
+            <img src="${root}/static/images/smiley_bad_white.png" id="landing-bad"/>
         </li>
         <li>
             <div class="li-title">Share with others</div>
             <div class="li-description">Everybody can see your feelings and react to them!</div>
+            <img src="${root}/static/images/flow.png" width="80%"/>
         </li>
         <li>
             <div class="li-title">Discover and explore</div>
             <div class="li-description">Explore other people sentiments, discover new trends and follow feelings about things you care about!</div>
+            <img src="${root}/static/images/related.png" width="90%"/>
         </li>
     </ul>
 </div>
 
 <div id="panel-3">
-<#--&copy; 2013 Feelhub-->
+    <ul>
+        <li>&copy; 2013 Feelhub</li>
+        <li>follow us on twitter : <a href="https://twitter.com/feelhub">@feelhub</a></li>
+        <li><a href="mailto:contact@feelhub.com">contact</a></li>
+    </ul>
 </div>
 </body>
 </html>
