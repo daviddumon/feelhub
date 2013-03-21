@@ -180,6 +180,10 @@ public abstract class Topic extends BaseEntity {
                 .add("Type", getType()).toString();
     }
 
+    public boolean hasUser() {
+        return userId != null;
+    }
+
     private final Map<String, String> descriptions = Maps.newHashMap();
     private final List<String> subTypes = Lists.newArrayList();
     private final List<Uri> uris = Lists.newArrayList();

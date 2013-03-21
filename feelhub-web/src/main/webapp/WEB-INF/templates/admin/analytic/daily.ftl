@@ -6,14 +6,14 @@
     google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart() {
-        drawDailyTrends();
-        drawCumulative();
+
+        drawLive();
 
         function drawDailyTrends() {
             var dailyStats = [
                 ['Day', 'Activation', 'Login'],
                 <#list datas as data>
-                    ['${data.date?date}',  ${data.activationsPercentage}, ${data.loginsPercentage}]<#if data_has_next>,</#if>
+                    ['${data.date?date}',  1, 1]<#if data_has_next>,</#if>
                 </#list>
             ];
 
@@ -27,24 +27,24 @@
             chart.draw(data, options);
         }
 
-        function drawCumulative() {
+        function drawLive() {
             var dailyStats = [
-                ['Day', 'Users'],
+                ['Day', 'New Users', 'Logins', 'Http Topics', 'Real Topics', 'Cumulated'],
                 <#list datas as data>
-                    ['${data.date?date}',  ${data.creations}]<#if data_has_next>,</#if>
+                    ['${data.date?date}',  ${data.signups}, ${data.logins}, ${data.httpTopics}, ${data.realTopics}, ${data.topics}]<#if data_has_next>,</#if>
                 </#list>
             ];
 
             var data = google.visualization.arrayToDataTable(dailyStats);
             var options = {
-                title: 'User per day'
+                title: 'Live stats'
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('cumulative'));
+            var chart = new google.visualization.LineChart(document.getElementById('live'));
             chart.draw(data, options);
         }
     }
 </script>
-<div id="daily" style="width: 900px; height: 500px;"></div>
-<div id="cumulative" style="width: 900px; height: 500px;"></div>
+<div id="live" style="width: 900px; height: 500px;"></div>
+
 </@>

@@ -17,6 +17,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
+import com.mongodb.DB;
 import org.jongo.Jongo;
 import org.mongolink.Settings;
 
@@ -68,6 +69,14 @@ public class GuiceProductionModule extends AbstractModule {
         final HybridEventBus eventBus = new HybridEventBus(executor);
         DomainEventBus.INSTANCE.setEventBus(eventBus);
         return eventBus;
+    }
+
+    @Provides
+    @Singleton
+    public DB dbProvider() {
+        FeelhubApplicationProperties props = new FeelhubApplicationProperties();
+        Settings dbSettings = props.getDbSettings();
+        return dbSettings.createDbFactory().get(dbSettings.getDbName());
     }
 
     @Provides
