@@ -11,13 +11,9 @@ import static org.fest.assertions.Assertions.*;
 
 public class SitemapToStringConverterTest {
 
-    @Rule
-    public SystemTime time = SystemTime.fixed();
-
     @Test
     public void canConvert() {
-        time.set(new DateTime(2013, 3, 06, 12, 15));
-        final Sitemap sitemap = new Sitemap(Lists.<SitemapEntry>newArrayList(new SitemapEntry("/feeling92", Frequency.hourly, 0.8)));
+        final Sitemap sitemap = new Sitemap(Lists.<SitemapEntry>newArrayList(new SitemapEntry("/feeling92", Frequency.hourly, 0.8, new DateTime(2013, 3, 06, 12, 15))));
 
         final String result = new SitemapToStringConverter(sitemap).toString();
 

@@ -2,6 +2,7 @@ package com.feelhub.sitemap.domain;
 
 import com.feelhub.test.SystemTime;
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
 import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
@@ -14,9 +15,9 @@ public class SitemapTest {
 
     @Test
     public void hasLastMod() {
-        final SitemapEntry oldEntry = new SitemapEntry("one", Frequency.hourly, 0.5);
+        final SitemapEntry oldEntry = new SitemapEntry("one", Frequency.hourly, 0.5, new DateTime());
         time.waitDays(1);
-        final SitemapEntry newEntry = new SitemapEntry("older", Frequency.hourly, 0.5);
+        final SitemapEntry newEntry = new SitemapEntry("older", Frequency.hourly, 0.5, new DateTime());
 
         final Sitemap sitemap = new Sitemap(Lists.newArrayList(oldEntry, newEntry));
 

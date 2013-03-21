@@ -35,7 +35,7 @@ public class SitemapsBuilderJob {
     private List<SitemapEntry> sitemapEntriesFor(final List<Topic> topics, final String uriToken) {
         final List<SitemapEntry> result = Lists.newArrayList();
         for (final Topic topic : topics) {
-            result.add(new SitemapEntry("/" + uriToken + "/" + topic.getId().toString(), Frequency.hourly, 0.5));
+            result.add(new SitemapEntry("/" + uriToken + "/" + topic.getId().toString(), Frequency.hourly, 0.5, topic.getLastModificationDate()));
         }
         return result;
     }

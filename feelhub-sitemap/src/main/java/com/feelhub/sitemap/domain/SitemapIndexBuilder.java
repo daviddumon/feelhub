@@ -1,13 +1,14 @@
 package com.feelhub.sitemap.domain;
 
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
 
 import java.util.List;
 
 public class SitemapIndexBuilder {
 
     public List<SitemapIndex> build(final List<SitemapEntry> entries) {
-        entries.add(0, new SitemapEntry("", Frequency.hourly, 0.8));
+        entries.add(0, new SitemapEntry("", Frequency.hourly, 0.8, DateTime.now()));
         return sitemapIndexes(sitemaps(entries));
     }
 

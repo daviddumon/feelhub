@@ -1,6 +1,7 @@
 package com.feelhub.sitemap.domain;
 
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class SitemapIndexBuilderTest {
         final SitemapIndex firstIndex = sitemapIndexes.get(0);
         assertThat(firstIndex.getSitemaps()).hasSize(1);
         assertThat(firstIndex.getSitemaps().get(0).getEntries()).hasSize(1);
-        assertThat(firstIndex.getSitemaps().get(0).getEntries().get(0)).isEqualTo(new SitemapEntry("", Frequency.hourly, 0.8));
+        assertThat(firstIndex.getSitemaps().get(0).getEntries().get(0)).isEqualTo(new SitemapEntry("", Frequency.hourly, 0.8, DateTime.now()));
     }
 
     @Test
@@ -55,7 +56,7 @@ public class SitemapIndexBuilderTest {
     private List<SitemapEntry> createEntries(final int count) {
         final List<SitemapEntry> entries = Lists.newArrayList();
         for (int i = 0; i < count; i++) {
-            entries.add(new SitemapEntry("sitemap" + i, Frequency.hourly, 0.5));
+            entries.add(new SitemapEntry("sitemap" + i, Frequency.hourly, 0.5, DateTime.now()));
         }
         return entries;
     }
