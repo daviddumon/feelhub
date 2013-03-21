@@ -2,6 +2,7 @@ package com.feelhub.sitemap.tools;
 
 import com.feelhub.tools.FeelhubConfigurationException;
 import com.google.common.collect.Lists;
+import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
 import org.mongolink.Settings;
 import org.mongolink.domain.UpdateStrategies;
@@ -43,7 +44,7 @@ public class SitemapProperties {
 
     public Settings getDbSettings() {
         return Settings.defaultInstance().withAddresses(getServerAddresses())
-                .withDbName(getDbName()).withDefaultUpdateStrategy(UpdateStrategies.DIFF);
+                .withDbName(getDbName()).withDefaultUpdateStrategy(UpdateStrategies.DIFF).withReadPreference(ReadPreference.secondary());
     }
 
     public String getRoot() {
