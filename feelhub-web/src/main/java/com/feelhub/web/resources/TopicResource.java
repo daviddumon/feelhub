@@ -36,17 +36,30 @@ public class TopicResource extends ServerResource {
         topic = topicService.lookUp(extractUriValueFromUri());
         if (checkCurrent(topic)) {
             final TopicData topicData = topicDataFactory.topicData(topic, CurrentUser.get().getLanguage());
-            return ModelAndView.createNew("topic.ftl")
-                    .with("topicData", topicData)
-                    .with("locales", FeelhubLanguage.availables())
-                    .with("relatedDatas", getRelatedDatas())
-                    .with("mediaDatas", getMediaDatas())
-                    .with("feelingDatas", getInitialFeelingDatas());
+            return getGoodTemplate(topicData);
         } else {
             setStatus(Status.REDIRECTION_PERMANENT);
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + topic.getCurrentId()));
             return ModelAndView.empty();
         }
+    }
+
+    private ModelAndView getGoodTemplate(final TopicData topicData) {
+        final String templateName = getTemplateName();
+        return ModelAndView.createNew(templateName)
+                .with("topicData", topicData)
+                .with("locales", FeelhubLanguage.availables())
+                .with("relatedDatas", getRelatedDatas())
+                .with("mediaDatas", getMediaDatas())
+                .with("feelingDatas", getInitialFeelingDatas(templateName));
+    }
+
+    private String getTemplateName() {
+        final Form query = getQuery();
+        if (query != null && query.getFirstValue("_escaped_fragment_") != null) {
+            return "topic-crawlable.ftl";
+        }
+        return "topic.ftl";
     }
 
     private List<TopicData> getRelatedDatas() {
@@ -96,10 +109,12 @@ public class TopicResource extends ServerResource {
         return realTopic.getId().equals(realTopic.getCurrentId());
     }
 
-    private List<FeelingData> getInitialFeelingDatas() {
+    private List<FeelingData> getInitialFeelingDatas(final String templateName) {
         final Form parameters = new Form();
         parameters.add("skip", "0");
-        parameters.add("limit", "20");
+        if (templateName.equalsIgnoreCase("topic.ftl")) {
+            parameters.add("limit", "20");
+        }
         return apiFeelingSearch.doSearch(topic, parameters);
     }
 

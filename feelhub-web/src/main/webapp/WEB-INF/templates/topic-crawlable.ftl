@@ -1,45 +1,11 @@
 <@flow.jsprod>
-<script type="text/javascript" data-main="${root}/static/js/controller-built/topic-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@flow.jsprod>
 
 <@flow.jsdev>
-<script type="text/javascript" data-main="${root}/static/js/controller/topic-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@flow.jsdev>
 
 <@flow.js>
-<script type="text/javascript">
-    var initial_datas = [
-        <#if feelingDatas??>
-            <#list feelingDatas as feelingData>
-                {
-                    "feelingid": "${feelingData.id}",
-                    "text": [
-                        <#list feelingData.text as text>
-                            "${text?j_string}"
-                        ${text_has_next?string(",", "")}
-                        </#list>
-                    ],
-                    "languageCode": "${feelingData.languageCode}",
-                    "userId": "${feelingData.userId}",
-                        <#if feelingData.feelingSentimentValue?has_content>"feeling_sentiment_value": "${feelingData.feelingSentimentValue}",</#if>
-                    "sentimentDatas": [
-                        <#list feelingData.sentimentDatas as sentimentData>
-                            {
-                                    <#if sentimentData.id?has_content>"id": "${sentimentData.id}",</#if>
-                                "sentimentValue": "${sentimentData.sentimentValue}",
-                                "name": "${sentimentData.name?j_string}",
-                                "thumbnailLarge": "${sentimentData.thumbnailLarge?j_string}",
-                                "thumbnailMedium": "${sentimentData.thumbnailMedium?j_string}",
-                                "thumbnailSmall": "${sentimentData.thumbnailSmall?j_string}",
-                                "type": "${sentimentData.type}"
-                            }${sentimentData_has_next?string(",", "")}
-                        </#list>
-                    ]
-                }${feelingData_has_next?string(",", "")}
-            </#list>
-        </#if>
-    ]
-</script>
+<meta name="fragment" content="!">
 </@flow.js>
 
 <@flow.dashboard>
@@ -105,5 +71,31 @@
 </@flow.command>
 
 <@flow.feelings>
-
+<div class='flow_list' id='flow_list_0'>
+    <#if feelingDatas??>
+        <#list feelingDatas as feelingData>
+            <li class="flow-element feeling" id="${feelingData.id}">
+                <#if feelingData.feelingSentimentValue?has_content>
+                    <img src="${root}/static/images/smiley_${feelingData.feelingSentimentValue}_white_14.png" class="img_${feelingData.feelingSentimentValue} feeling_sentiment_illustration"/>
+                <#else>
+                    <div class="feeling_spacer"></div>
+                </#if>
+                <#list feelingData.text as text>
+                    <p>${text?j_string}&nbsp;</p>
+                </#list>
+                <div class="feeling_related" style="">
+                    <#list feelingData.sentimentDatas as sentimentData>
+                        <#if sentimentData.id?has_content>
+                            <a href="${root}/topic/${sentimentData.id}" class="topic topic-float topic-spacer topic-with-sentiment topic-medium">
+                                <img src="${root}/static/images/smiley_${sentimentData.sentimentValue}_white_14.png" class="img_${sentimentData.sentimentValue} topic-sentiment"/>
+                                <img src="${sentimentData.thumbnailMedium?j_string}" class="illustration"/>
+                                <span class="${sentimentData.sentimentValue} name">${sentimentData.name?j_string}</span>
+                            </a>
+                        </#if>
+                    </#list>
+                </div>
+            </li>
+        </#list>
+    </#if>
+</div>
 </@flow.feelings>

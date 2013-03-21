@@ -71,3 +71,7 @@
 <@flow.command classes="">
     <#include "newfeeling.ftl"/>
 </@flow.command>
+
+<@flow.feelings>
+
+</@flow.feelings>

@@ -61,7 +61,11 @@
             </div>
         </#if>
     </div>
+</#macro>
+
+<#macro feelings>
     <ul id="flow">
+        <#nested/>
     </ul>
 </div>
 </body>

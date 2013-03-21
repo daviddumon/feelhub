@@ -19,6 +19,7 @@ import com.google.inject.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.restlet.data.*;
+import org.restlet.representation.Representation;
 
 import java.util.*;
 
@@ -176,6 +177,16 @@ public class TopicResourceTest {
 
         final List<FeelingData> result = modelAndView.getData("feelingDatas");
         assertThat(result.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void returnNormalFtl() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
+
+        final ModelAndView modelAndView = topicResource.getTopic();
+
+        assertThat(modelAndView.getTemplate()).isEqualTo("topic.ftl");
     }
 
     private TopicResource topicResource;
