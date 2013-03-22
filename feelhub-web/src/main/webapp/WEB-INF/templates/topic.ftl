@@ -1,4 +1,5 @@
 <@flow.jsprod>
+<meta name="fragment" content="!">
 <script type="text/javascript" data-main="${root}/static/js/controller-built/topic-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@flow.jsprod>
 

@@ -5,7 +5,6 @@
 </@flow.jsdev>
 
 <@flow.js>
-<meta name="fragment" content="!">
 </@flow.js>
 
 <@flow.dashboard>
