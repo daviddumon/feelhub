@@ -15,6 +15,7 @@ public class FeelhubAuthenticatorTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
+    @Ignore
     public void cannotAuthenticateIfAccountIsNotActive() {
         final User fakeUser = TestFactories.users().createFakeUser("mail@mail.com");
 

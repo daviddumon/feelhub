@@ -15,7 +15,7 @@
 
     <p>Welcome to FeelHub! </p>
 
-    <p>For maximum awesome, drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include '../bookmarklet/bookmarklet-snippet.js' />">Feelhub!</a></p>
+    <p>Please drag this bookmarklet to your bookmarks bar : <a id="bookmarklet" href="javascript:<#include '../bookmarklet/bookmarklet-snippet.js' />">Feelhub!</a></p>
 
     <a href="${root}">return to home</a>
 </div>

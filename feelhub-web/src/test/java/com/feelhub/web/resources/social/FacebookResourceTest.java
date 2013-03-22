@@ -82,7 +82,7 @@ public class FacebookResourceTest {
     }
 
     @Test
-    public void welcomeNewUser() {
+    public void redirectNewUserToHome() {
         newUser();
         validUser();
 

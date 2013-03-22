@@ -8,7 +8,7 @@ public class FeelhubAuthenticator implements Authenticator {
     @Override
     public User authenticate(final AuthRequest authRequest) {
         final User user = getUser(authRequest.getUserId());
-        checkUser(user);
+        //checkUser(user);
         checkPassword(user, authRequest.getPassword());
         return user;
     }
