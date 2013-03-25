@@ -30,7 +30,7 @@ public class UserStatisticsWorker {
     @AllowConcurrentEvents
     public void onUserCreated(UserCreatedEvent userCreatedEvent) {
         StatisticsCounter counter = counterUpdate(userCreatedEvent.user.getId())
-                .set("creationDate", userCreatedEvent.user.getCreationDate().getMillis());
+                .set("creationDate", userCreatedEvent.user.getCreationDate().toDate());
         executor.execute(counter);
     }
 

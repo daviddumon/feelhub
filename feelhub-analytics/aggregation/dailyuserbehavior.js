@@ -1,4 +1,4 @@
-var workingDate = moment().subtract('days', 1);
+var workingDate = moment();
 var bucket = workingDate.format("YYYY.M.D");
 var idStat = workingDate.format("YYYYMD");
 var match = {};
@@ -14,7 +14,7 @@ var project = {
 };
 
 var result = _.extend(totals(), uniqueLogins(), usersWithOneFeeling(), usersWithOneTopic());
-db.newuserdailybehavior.insert(result);
+db.newuserdailybehavior.update({_id : idStat}, result,{upsert : true});
 
 function totals() {
 	return db.userstatistic.aggregate({

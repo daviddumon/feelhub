@@ -45,7 +45,7 @@ public class UserStatisticsWorkerTest {
         assertThat(statisticsCounter.getCollectionName()).isEqualTo("userstatistic");
         assertThat(statisticsCounter.getIdField()).isEqualTo("_id");
         assertThat(statisticsCounter.getIdValue()).isEqualTo(user.getId());
-        assertThat(statisticsCounter.hasSet("creationDate", user.getCreationDate().getMillis())).isTrue();
+        assertThat(statisticsCounter.hasSet("creationDate", user.getCreationDate().toDate())).isTrue();
     }
 
     private StatisticsCounter lastCounter() {
