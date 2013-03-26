@@ -6,6 +6,7 @@ import com.feelhub.web.resources.admin.AdminEventsResource;
 import com.feelhub.web.resources.admin.AdminFreemarkerResource;
 import com.feelhub.web.resources.admin.AdminResource;
 import com.feelhub.web.resources.admin.AdminStatisticsResource;
+import com.feelhub.web.resources.admin.analytic.ActiveUserDailyBehaviorResource;
 import com.feelhub.web.resources.admin.analytic.DailyLiveStatisticsResource;
 import com.feelhub.web.resources.admin.analytic.NewUserDailyBehaviorResource;
 import com.feelhub.web.resources.api.*;
@@ -92,6 +93,7 @@ public class FeelhubRouter extends Router {
         router.attach("/admin",AdminResource.class);
         router.attach("/admin/analytic/live", DailyLiveStatisticsResource.class);
         router.attach("/admin/analytic/newuser", NewUserDailyBehaviorResource.class);
+        router.attach("/admin/analytic/dailybehavior", ActiveUserDailyBehaviorResource.class);
         router.attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
         router.attach("/admin/events", AdminEventsResource.class);
         router.attach("/admin/statistics", AdminStatisticsResource.class);
