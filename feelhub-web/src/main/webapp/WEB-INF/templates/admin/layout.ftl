@@ -18,7 +18,7 @@
                     <a class="brand" href="/admin">Feelhub.com - Administration</a>
                     <div class="nav-collapse">
                         <ul class="nav">
-                            <li><a href="${root}/admin/analytic/daily">Analytic</a></li>
+                            <li><a href="${root}/admin/analytic/live">Analytic</a></li>
                             <li><a href="${root}/admin/statistics">Statistics</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
