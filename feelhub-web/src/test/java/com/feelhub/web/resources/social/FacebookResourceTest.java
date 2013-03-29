@@ -2,6 +2,7 @@ package com.feelhub.web.resources.social;
 
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.user.CreateUserFromFacebookCommand;
+import com.feelhub.application.command.user.CreateUserFromSocialNetworkCommand;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.ContextTestFactory;
@@ -42,11 +43,11 @@ public class FacebookResourceTest {
         newUser();
         validUser();
 
-        facebookResource.facebookReturn();
+        facebookResource.returns();
 
-        final ArgumentCaptor<CreateUserFromFacebookCommand> captor = ArgumentCaptor.forClass(CreateUserFromFacebookCommand.class);
+        final ArgumentCaptor<CreateUserFromSocialNetworkCommand> captor = ArgumentCaptor.forClass(CreateUserFromSocialNetworkCommand.class);
         verify(commandBus).execute(captor.capture());
-        final CreateUserFromFacebookCommand command = captor.getValue();
+        final CreateUserFromSocialNetworkCommand command = captor.getValue();
         assertThat(command.email).isEqualTo("toto@gmail.com");
         assertThat(command.firstName).isEqualTo("Jb");
         assertThat(command.lastName).isEqualTo("Dusse");
@@ -60,14 +61,14 @@ public class FacebookResourceTest {
         final com.feelhub.domain.user.User user = newUser();
         validUser();
 
-        facebookResource.facebookReturn();
+        facebookResource.returns();
 
         final ArgumentCaptor<AuthRequest> captor = ArgumentCaptor.forClass(AuthRequest.class);
         verify(authenticationManager).authenticate(captor.capture());
         final AuthRequest authRequest = captor.getValue();
         assertThat(authRequest).isNotNull();
         assertThat(authRequest.getUserId()).isEqualTo(user.getId().toString());
-        assertThat(authRequest.getAuthMethod()).isEqualTo(AuthMethod.FACEBOOK);
+        assertThat(authRequest.getAuthMethod()).isEqualTo(AuthMethod.SOCIALNETWORK);
     }
 
     @Test
@@ -75,7 +76,7 @@ public class FacebookResourceTest {
         oldUser();
         validUser();
 
-        facebookResource.facebookReturn();
+        facebookResource.returns();
 
         assertThat(facebookResource.getLocationRef().toString()).isEqualTo("https://thedomain/");
         assertThat(facebookResource.getStatus()).isEqualTo(Status.REDIRECTION_TEMPORARY);
@@ -86,7 +87,7 @@ public class FacebookResourceTest {
         newUser();
         validUser();
 
-        facebookResource.facebookReturn();
+        facebookResource.returns();
 
         assertThat(facebookResource.getStatus()).isEqualTo(Status.REDIRECTION_TEMPORARY);
         assertThat(facebookResource.getLocationRef().toString()).isEqualTo("https://thedomain//social/welcome");

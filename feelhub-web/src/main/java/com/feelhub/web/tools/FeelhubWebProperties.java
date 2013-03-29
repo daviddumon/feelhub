@@ -56,4 +56,12 @@ public class FeelhubWebProperties {
     @Inject
     @Named("facebook.appSecret")
     public String facebookAppSecret;
+
+    @Inject
+    @Named("google.appId")
+    public String googleAppId;
+
+    @Inject
+    @Named("google.appSecret")
+    public String googleAppSecret;
 }

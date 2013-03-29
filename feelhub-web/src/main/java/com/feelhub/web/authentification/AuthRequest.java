@@ -2,9 +2,9 @@ package com.feelhub.web.authentification;
 
 public class AuthRequest {
 
-    public static AuthRequest facebook(final String id) {
+    public static AuthRequest socialNetwork(final String id) {
         final AuthRequest result = new AuthRequest();
-        result.authMethod = AuthMethod.FACEBOOK;
+        result.authMethod = AuthMethod.SOCIALNETWORK;
         result.userId = id;
         return result;
     }

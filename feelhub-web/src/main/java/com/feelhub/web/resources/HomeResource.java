@@ -1,30 +1,32 @@
 package com.feelhub.web.resources;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.FeelingData;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.ApiFeelingSearch;
-import com.feelhub.web.resources.authentification.SignupResource;
 import com.google.inject.Inject;
 import org.restlet.data.Form;
-import org.restlet.resource.*;
+import org.restlet.data.Status;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
 import java.util.List;
 
 public class HomeResource extends ServerResource {
 
     @Inject
-    public HomeResource(final ApiFeelingSearch apiFeelingSearch, final SignupResource signupResource) {
+    public HomeResource(final ApiFeelingSearch apiFeelingSearch) {
         this.apiFeelingSearch = apiFeelingSearch;
-        this.signupResource = signupResource;
     }
 
     @Get
-    public ModelAndView getHome() {
+    public ModelAndView represent() {
         if (CurrentUser.get().isAnonymous()) {
-            signupResource.setRequest(getRequest());
-            return signupResource.represent();
+            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/signup"));
+            setStatus(Status.REDIRECTION_TEMPORARY);
+            return null;
         }
         return ModelAndView.createNew("home.ftl").with("locales", FeelhubLanguage.availables()).with("feelingDatas", getInitialFeelingDatas());
     }
@@ -37,5 +39,4 @@ public class HomeResource extends ServerResource {
     }
 
     private final ApiFeelingSearch apiFeelingSearch;
-    private SignupResource signupResource;
 }

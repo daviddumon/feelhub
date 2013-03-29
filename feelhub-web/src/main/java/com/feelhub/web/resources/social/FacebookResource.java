@@ -2,56 +2,38 @@ package com.feelhub.web.resources.social;
 
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.user.CreateUserFromFacebookCommand;
+import com.feelhub.application.command.user.CreateUserFromSocialNetworkCommand;
 import com.feelhub.repositories.Repositories;
-import com.feelhub.web.WebReferenceBuilder;
-import com.feelhub.web.authentification.*;
+import com.feelhub.web.authentification.AuthenticationManager;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.common.util.concurrent.Futures;
 import com.google.inject.Inject;
 import com.restfb.types.User;
-import org.joda.time.*;
-import org.restlet.data.Status;
-import org.restlet.resource.*;
 import org.scribe.model.Token;
 
 import java.util.UUID;
 
-public class FacebookResource extends ServerResource {
+public class FacebookResource extends OauthResource {
 
     @Inject
     public FacebookResource(final FacebookConnector connector, final AuthenticationManager authenticationManager, final CommandBus bus) {
+        super(authenticationManager, bus);
         this.connector = connector;
-        this.authenticationManager = authenticationManager;
-        this.bus = bus;
     }
 
-    @Get
-    public void facebookReturn() {
-        final String facebookCode = getQuery().getFirstValue("code");
-        final Token accesToken = connector.getAccesToken(facebookCode);
-        final User facebookUser = connector.getUser(accesToken);
-        final com.feelhub.domain.user.User user = getOrCreateUser(accesToken, facebookUser);
-        authenticationManager.authenticate(AuthRequest.facebook(user.getId().toString()));
-        setStatus(Status.REDIRECTION_TEMPORARY);
-        if (isOldUser(user)) {
-            setLocationRef(new WebReferenceBuilder(getContext()).buildUri(""));
-        } else {
-            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/social/welcome"));
-        }
+    @Override
+    Token accessToken(String code) {
+        return connector.getAccesToken(code);
     }
 
-    private com.feelhub.domain.user.User getOrCreateUser(final Token accesToken, final User facebookUser) {
-        final CreateUserFromFacebookCommand command = new CreateUserFromFacebookCommand(facebookUser.getId(), facebookUser.getEmail(),
+    @Override
+    protected com.feelhub.domain.user.User getOrCreateUser(final Token accesToken) {
+        User facebookUser = connector.getUser(accesToken);
+        final CreateUserFromSocialNetworkCommand command = new CreateUserFromFacebookCommand(facebookUser.getId(), facebookUser.getEmail(),
                 facebookUser.getFirstName(), facebookUser.getLastName(), facebookUser.getLocale(), accesToken.getToken());
         final UUID userId = Futures.getUnchecked(bus.execute(command));
         return Repositories.users().get(userId);
     }
 
-    private boolean isOldUser(final com.feelhub.domain.user.User newUser) {
-        return !Days.daysBetween(newUser.getCreationDate(), DateTime.now()).isLessThan(Days.ONE);
-    }
-
     private final FacebookConnector connector;
-    private final AuthenticationManager authenticationManager;
-    private final CommandBus bus;
 }

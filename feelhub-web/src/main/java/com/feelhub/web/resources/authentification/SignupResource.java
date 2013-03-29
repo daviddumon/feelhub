@@ -5,6 +5,7 @@ import com.feelhub.application.command.user.CreateUserCommand;
 import com.feelhub.domain.session.EmailAlreadyUsed;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.BadEmail;
+import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.common.base.Throwables;
@@ -27,6 +28,7 @@ public class SignupResource extends ServerResource {
     public ModelAndView represent() {
         return ModelAndView.createNew("signup.ftl")
                 .with("facebookUrl", connector.getUrl())
+                .with("googleUrl", new WebReferenceBuilder(getContext()).buildUri("/social/google-signup"))
                 .with("locales", FeelhubLanguage.availables())
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
     }

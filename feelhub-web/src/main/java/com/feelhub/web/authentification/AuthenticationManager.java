@@ -94,7 +94,7 @@ public class AuthenticationManager {
 
     {
         authenticators.put(AuthMethod.FEELHUB, new FeelhubAuthenticator());
-        authenticators.put(AuthMethod.FACEBOOK, new FacebookAuthenticator());
+        authenticators.put(AuthMethod.SOCIALNETWORK, new SocialNetworkAuthenticator());
     }
 }
 

@@ -13,7 +13,8 @@ public class GuiceFinder extends Finder {
 
     @Override
     public ServerResource create(final Request request, final Response response) {
-        return (ServerResource) injector.getInstance(getTargetClass());
+        ServerResource result = (ServerResource) injector.getInstance(getTargetClass());
+        return  result;
     }
 
     private final Injector injector;

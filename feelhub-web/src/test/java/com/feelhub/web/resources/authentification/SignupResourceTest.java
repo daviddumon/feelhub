@@ -105,6 +105,13 @@ public class SignupResourceTest {
 
     }
 
+    @Test
+    public void canPassGoogleLoginUrl() {
+        ModelAndView modelAndView = resource.represent();
+
+        assertThat(modelAndView.getData()).includes(entry("googleUrl", "https://thedomain//social/google-signup"));
+    }
+
     private CommandBus commandBus;
     private SignupResource resource;
 }

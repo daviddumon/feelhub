@@ -17,9 +17,17 @@ public class UserFactory {
     }
 
     public User createFromFacebook(final String facebookId, final String email, final String firstName, final String lastName, final String language, final String token) {
+        return createFromSocialNetwork(facebookId, email, firstName, lastName, language, token, SocialNetwork.FACEBOOK);
+    }
+
+    public User createFromGoogle(final String googleId, final String email, final String firstName, final String lastName, final String language, final String token) {
+        return createFromSocialNetwork(googleId, email, firstName, lastName, language, token, SocialNetwork.GOOGLE);
+    }
+
+    private User createFromSocialNetwork(String googleId, String email, String firstName, String lastName, String language, String token, SocialNetwork socialNetwork) {
         final User user = commonUser(email, firstName + " " + lastName);
         user.setLanguage(FeelhubLanguage.fromCode(language));
-        user.addSocialAuth(new SocialAuth(SocialNetwork.FACEBOOK, facebookId, token));
+        user.addSocialAuth(new SocialAuth(socialNetwork, googleId, token));
         user.activate();
         DomainEventBus.INSTANCE.post(new UserCreatedEvent(user));
         return user;

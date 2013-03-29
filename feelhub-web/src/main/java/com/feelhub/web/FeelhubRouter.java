@@ -18,6 +18,8 @@ import com.feelhub.web.resources.sitemap.FeelhubRobotsResource;
 import com.feelhub.web.resources.sitemap.FeelhubSitemapIndexResource;
 import com.feelhub.web.resources.sitemap.FeelhubSitemapResource;
 import com.feelhub.web.resources.social.FacebookResource;
+import com.feelhub.web.resources.social.GoogleResource;
+import com.feelhub.web.resources.social.GoogleSignupResource;
 import com.feelhub.web.resources.social.SocialWelcomeResource;
 import com.google.inject.Injector;
 import org.restlet.Context;
@@ -77,6 +79,8 @@ public class FeelhubRouter extends Router {
         attach("/sitemap_index_{number}.xml", FeelhubSitemapIndexResource.class);
         attach("/sitemap_{number}.xml", FeelhubSitemapResource.class);
         attach("/social/facebook", FacebookResource.class);
+        attach("/social/google-signup", GoogleSignupResource.class);
+        attach("/social/google", GoogleResource.class);
         attach("/social/welcome", SocialWelcomeResource.class);
         attach("/myfeelings", MyFeelingsResource.class);
         attach("/bookmarklet", BookmarkletResource.class);

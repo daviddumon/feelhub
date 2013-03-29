@@ -141,7 +141,7 @@ public class AuthenticationManagerTest {
     public void canAuthenticateFromFacebook() {
         when(commandBus.execute(any(CreateSessionCommand.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
 
-        manager.authenticate(AuthRequest.facebook(user.getId().toString()));
+        manager.authenticate(AuthRequest.socialNetwork(user.getId().toString()));
 
         final ArgumentCaptor<CookieSetting> captor = ArgumentCaptor.forClass(CookieSetting.class);
         verify(cookieManager, times(2)).setCookie(captor.capture());

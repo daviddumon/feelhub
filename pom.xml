@@ -40,6 +40,8 @@
                 <cloudinaryApiSecret>cx_W-kI6ZL4eVEa9KtF5Mz9Ebjc</cloudinaryApiSecret>
                 <facebook.appSecret>93847b17c5b7d9888d0f88417a195641</facebook.appSecret>
                 <facebook.appId>160446520766643</facebook.appId>
+                <google.appSecret>XjTZO_1lbTGpJkH90Fx_Q3im</google.appSecret>
+                <google.appId>443870691929.apps.googleusercontent.com</google.appId>
             </properties>
         </profile>
         <profile>
@@ -53,6 +55,8 @@
                 <cloudinaryApiSecret>cx_W-kI6ZL4eVEa9KtF5Mz9Ebjc</cloudinaryApiSecret>
                 <facebook.appSecret>93847b17c5b7d9888d0f88417a195641</facebook.appSecret>
                 <facebook.appId>160446520766643</facebook.appId>
+                <google.appSecret>XjTZO_1lbTGpJkH90Fx_Q3im</google.appSecret>
+                <google.appId>443870691929.apps.googleusercontent.com</google.appId>
             </properties>
         </profile>
         <profile>
@@ -66,6 +70,8 @@
                 <cloudinaryApiSecret>bKcbW2GVwWNaimOqaBHVymffzmc</cloudinaryApiSecret>
                 <facebook.appSecret>367c7f96a666eae7beb81e3140ce4ae9</facebook.appSecret>
                 <facebook.appId>114190192104578</facebook.appId>
+                <google.appSecret>XjTZO_1lbTGpJkH90Fx_Q3im</google.appSecret>
+                <google.appId>443870691929.apps.googleusercontent.com</google.appId>
             </properties>
         </profile>
         <profile>

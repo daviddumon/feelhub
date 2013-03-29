@@ -9,9 +9,6 @@ import static org.fest.assertions.Assertions.*;
 
 public class FacebookConnectorTest {
 
-    @Rule
-    public WebApplicationTester webApp = new WebApplicationTester();
-
     @After
     public void tearDown() throws Exception {
         Context.setCurrent(null);
