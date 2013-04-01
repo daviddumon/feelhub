@@ -46,6 +46,7 @@
 
         <div class="social">or you may sign in with</div>
         <a href="${facebookUrl}" id="facebook_login">Sign in with Facebook</a>
+        <a href="${googleUrl}" id="google_login">Sign in with Google</a>
     </div>
 </form>
 </@noflow.body>

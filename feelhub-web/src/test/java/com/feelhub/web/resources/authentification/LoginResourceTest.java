@@ -34,13 +34,24 @@ public class LoginResourceTest {
     public void canForgeFacebookUrl() {
         final FacebookConnector facebook = mock(FacebookConnector.class);
         final LoginResource login = new LoginResource(facebook);
-        login.setRequest(new Request());
         when(facebook.getUrl()).thenReturn("une url");
         ContextTestFactory.initResource(login);
 
         final ModelAndView modelAndView = login.represent();
 
         assertThat(modelAndView.<String>getData("facebookUrl")).isEqualTo("une url");
+    }
+
+    @Test
+    public void canForgeGoogleUrl() {
+        final FacebookConnector facebook = mock(FacebookConnector.class);
+        when(facebook.getUrl()).thenReturn("une url");
+        final LoginResource login = new LoginResource(facebook);
+        ContextTestFactory.initResource(login);
+
+        final ModelAndView modelAndView = login.represent();
+
+        assertThat(modelAndView.<String>getData("googleUrl")).isEqualTo("https://thedomain//social/google-signup");
     }
 
     @Test

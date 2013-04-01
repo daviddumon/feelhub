@@ -5,7 +5,8 @@ import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.inject.Inject;
 import org.restlet.data.Reference;
-import org.restlet.resource.*;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
 public class LoginResource extends ServerResource {
 
@@ -16,7 +17,9 @@ public class LoginResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
-        return ModelAndView.createNew("login.ftl").with("facebookUrl", facebookConnector.getUrl()).with("referrer", getReferrer());
+        return ModelAndView.createNew("login.ftl")
+                .with("googleUrl", new WebReferenceBuilder(getContext()).buildUri("/social/google-signup"))
+                .with("facebookUrl", facebookConnector.getUrl()).with("referrer", getReferrer());
     }
 
     private String getReferrer() {
