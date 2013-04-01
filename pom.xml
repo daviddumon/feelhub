@@ -70,8 +70,8 @@
                 <cloudinaryApiSecret>bKcbW2GVwWNaimOqaBHVymffzmc</cloudinaryApiSecret>
                 <facebook.appSecret>367c7f96a666eae7beb81e3140ce4ae9</facebook.appSecret>
                 <facebook.appId>114190192104578</facebook.appId>
-                <google.appSecret>XjTZO_1lbTGpJkH90Fx_Q3im</google.appSecret>
-                <google.appId>443870691929.apps.googleusercontent.com</google.appId>
+                <google.appSecret>6-WX8ZwU8LQmxy0HJKHb766q</google.appSecret>
+                <google.appId>443870691929-dckpivd0313p7943df3bipl3rcp5jbd4.apps.googleusercontent.com</google.appId>
             </properties>
         </profile>
         <profile>
