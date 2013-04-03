@@ -1,11 +1,8 @@
 package com.feelhub.analytic;
 
 import com.foursquare.fongo.Fongo;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBObject;
-import org.junit.Before;
-import org.junit.Test;
+import com.mongodb.*;
+import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
 

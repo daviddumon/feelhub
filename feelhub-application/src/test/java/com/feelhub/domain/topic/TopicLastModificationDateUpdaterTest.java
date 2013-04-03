@@ -2,17 +2,14 @@ package com.feelhub.domain.topic;
 
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.feeling.FeelingCreatedEvent;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.SystemTime;
-import com.feelhub.test.TestFactories;
+import com.feelhub.test.*;
 import org.joda.time.DateTime;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class TopicLastModificationDateUpdaterTest {
 

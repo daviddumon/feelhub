@@ -1,19 +1,15 @@
 package com.feelhub.analytic.live;
 
-import com.feelhub.analytic.StatisticsCounter;
-import com.feelhub.analytic.StatisticsCounterExecutor;
+import com.feelhub.analytic.*;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.FeelingCreatedEvent;
 import com.feelhub.domain.session.SessionCreatedEvent;
 import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
 import com.feelhub.domain.topic.real.RealTopicCreatedEvent;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserCreatedEvent;
+import com.feelhub.domain.user.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.ArgumentCaptor;
 
 import java.util.UUID;

@@ -1,8 +1,7 @@
 package com.feelhub.tools;
 
 import org.joda.time.*;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
