@@ -18,7 +18,7 @@ public class StatisticsCounterExecutorTest {
     public void canExecuteUpdate() {
         executor.execute(new StatisticsCounter("collection").withId("date", 1).inc("count"));
 
-        DBObject object = db.getCollection("collection").findOne(new BasicDBObject());
+        final DBObject object = db.getCollection("collection").findOne(new BasicDBObject());
         assertThat(object).isNotNull();
         assertThat(object.get("date")).isEqualTo(1);
         assertThat(object.get("count")).isEqualTo(1);
@@ -28,7 +28,7 @@ public class StatisticsCounterExecutorTest {
     public void canExecuteMultipleInc() {
         executor.execute(new StatisticsCounter("collection").withId("date", 1).inc("count").inc("other"));
 
-        DBObject object = db.getCollection("collection").findOne(new BasicDBObject());
+        final DBObject object = db.getCollection("collection").findOne(new BasicDBObject());
         assertThat(object).isNotNull();
         assertThat(object.get("count")).isEqualTo(1);
         assertThat(object.get("other")).isEqualTo(1);

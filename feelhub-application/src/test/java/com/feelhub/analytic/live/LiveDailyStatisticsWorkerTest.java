@@ -35,17 +35,17 @@ public class LiveDailyStatisticsWorkerTest {
     public void canCountAccountCreation() {
         worker.onUserCreated(new UserCreatedEvent(TestFactories.users().createFakeUser("test@test.com")));
 
-        StatisticsCounter counter = lastCounter();
+        final StatisticsCounter counter = lastCounter();
         assertThat(counter.hasInc("signups")).isTrue();
     }
 
     @Test
     public void incrementLogInCount() {
-        User user = TestFactories.users().createActiveUser("test@test.com");
+        final User user = TestFactories.users().createActiveUser("test@test.com");
 
         worker.onSessionCreated(new SessionCreatedEvent(UUID.randomUUID(), user.getId()));
 
-        StatisticsCounter counter = lastCounter();
+        final StatisticsCounter counter = lastCounter();
         assertThat(counter.hasInc("logins")).isTrue();
     }
 
@@ -53,7 +53,7 @@ public class LiveDailyStatisticsWorkerTest {
     public void incrementsHttpTopicCount() {
         worker.onHttpTopicCreated(new HttpTopicCreatedEvent(UUID.randomUUID(), null));
 
-        StatisticsCounter counter = lastCounter();
+        final StatisticsCounter counter = lastCounter();
         assertThat(counter.hasInc("httpTopics")).isTrue();
         assertThat(counter.hasInc("topics")).isTrue();
     }
@@ -62,7 +62,7 @@ public class LiveDailyStatisticsWorkerTest {
     public void incrementsRealTopicCount() {
         worker.onRealTopicCreated(new RealTopicCreatedEvent(UUID.randomUUID(), null));
 
-        StatisticsCounter counter = lastCounter();
+        final StatisticsCounter counter = lastCounter();
         assertThat(counter.hasInc("realTopics")).isTrue();
         assertThat(counter.hasInc("topics")).isTrue();
     }
@@ -71,12 +71,12 @@ public class LiveDailyStatisticsWorkerTest {
     public void incrementsFeelingCount() {
         worker.onFeelingCreated(new FeelingCreatedEvent(UUID.randomUUID(), UUID.randomUUID()));
 
-        StatisticsCounter counter = lastCounter();
+        final StatisticsCounter counter = lastCounter();
         assertThat(counter.hasInc("feelings")).isTrue();
     }
 
     private StatisticsCounter lastCounter() {
-        ArgumentCaptor<StatisticsCounter> captor = ArgumentCaptor.forClass(StatisticsCounter.class);
+        final ArgumentCaptor<StatisticsCounter> captor = ArgumentCaptor.forClass(StatisticsCounter.class);
         verify(executor).execute(captor.capture());
         return captor.getValue();
     }

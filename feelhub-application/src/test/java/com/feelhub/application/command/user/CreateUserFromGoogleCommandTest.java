@@ -24,21 +24,21 @@ public class CreateUserFromGoogleCommandTest {
 
     @Test
     public void returnsCorrectSocialNetwork() {
-        CreateUserFromGoogleCommand command = new CreateUserFromGoogleCommand("", "", "", "", "", "");
+        final CreateUserFromGoogleCommand command = new CreateUserFromGoogleCommand("", "", "", "", "", "");
 
-        SocialNetwork socialNetwork = command.socialNetwork();
+        final SocialNetwork socialNetwork = command.socialNetwork();
 
         assertThat(socialNetwork).isEqualTo(SocialNetwork.GOOGLE);
     }
 
     @Test
     public void canCreateUser() {
-        CreateUserFromGoogleCommand command = new CreateUserFromGoogleCommand("id", "jb@gmail.com", "jb", "dusse", "fr_fr", "token");
+        final CreateUserFromGoogleCommand command = new CreateUserFromGoogleCommand("id", "jb@gmail.com", "jb", "dusse", "fr_fr", "token");
 
-        UUID id = command.execute();
+        final UUID id = command.execute();
 
         assertThat(id).isNotNull();
-        User user = Repositories.users().get(id);
+        final User user = Repositories.users().get(id);
         assertThat(user.getSocialAuth(SocialNetwork.GOOGLE)).isNotNull();
     }
 }

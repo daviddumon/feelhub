@@ -40,7 +40,7 @@ public class FeelingFactoryTest {
 
         final Feeling feeling = feelingFactory.createFeeling(text, user.getId());
 
-        FeelingCreatedEvent lastEvent = events.lastEvent(FeelingCreatedEvent.class);
+        final FeelingCreatedEvent lastEvent = events.lastEvent(FeelingCreatedEvent.class);
         assertThat(lastEvent).isNotNull();
         assertThat(lastEvent.feelingId).isEqualTo(feeling.getId());
     }

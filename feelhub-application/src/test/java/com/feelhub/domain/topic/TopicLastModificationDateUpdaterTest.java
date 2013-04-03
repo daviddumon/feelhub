@@ -27,8 +27,8 @@ public class TopicLastModificationDateUpdaterTest {
         time.set(new DateTime(2012, 12, 1, 0, 0));
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         realTopic.setLastModificationDate(new DateTime(1, 1, 1, 0, 0));
-        Feeling feeling = TestFactories.feelings().newFeeling(realTopic.getId(), "text");
-        FeelingCreatedEvent event = new FeelingCreatedEvent(feeling.getId(), feeling.getUserId());
+        final Feeling feeling = TestFactories.feelings().newFeeling(realTopic.getId(), "text");
+        final FeelingCreatedEvent event = new FeelingCreatedEvent(feeling.getId(), feeling.getUserId());
 
         new TopicLastModificationDateUpdater().onFeelingCreated(event);
 

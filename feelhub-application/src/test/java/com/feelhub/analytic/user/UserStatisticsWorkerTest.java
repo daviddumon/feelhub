@@ -30,11 +30,11 @@ public class UserStatisticsWorkerTest {
 
     @Test
     public void createStatOnCreation() {
-        User user = TestFactories.users().createActiveUser("test@test.com");
+        final User user = TestFactories.users().createActiveUser("test@test.com");
 
         worker.onUserCreated(new UserCreatedEvent(user));
 
-        StatisticsCounter statisticsCounter = lastCounter();
+        final StatisticsCounter statisticsCounter = lastCounter();
         assertThat(statisticsCounter.getCollectionName()).isEqualTo("userstatistic");
         assertThat(statisticsCounter.getIdField()).isEqualTo("_id");
         assertThat(statisticsCounter.getIdValue()).isEqualTo(user.getId());
@@ -42,18 +42,18 @@ public class UserStatisticsWorkerTest {
     }
 
     private StatisticsCounter lastCounter() {
-        ArgumentCaptor<StatisticsCounter> captor = ArgumentCaptor.forClass(StatisticsCounter.class);
+        final ArgumentCaptor<StatisticsCounter> captor = ArgumentCaptor.forClass(StatisticsCounter.class);
         verify(counterExecutor).execute(captor.capture());
         return captor.getValue();
     }
 
     @Test
     public void canIncrementsLoginCount() {
-        UUID userId = UUID.randomUUID();
+        final UUID userId = UUID.randomUUID();
 
         worker.onSessionCreated(new SessionCreatedEvent(UUID.randomUUID(), userId));
 
-        StatisticsCounter counter = lastCounter();
+        final StatisticsCounter counter = lastCounter();
         assertThat(counter.hasInc("2013.1.1.logins")).isTrue();
     }
 
@@ -61,19 +61,19 @@ public class UserStatisticsWorkerTest {
     public void canIncrementFeeling() {
         worker.onFeelingCreated(new FeelingCreatedEvent(UUID.randomUUID(), UUID.randomUUID()));
 
-        StatisticsCounter counter = lastCounter();
+        final StatisticsCounter counter = lastCounter();
         assertThat(counter.hasInc("feelings")).isTrue();
         assertThat(counter.hasInc("2013.1.1.feelings")).isTrue();
     }
 
     @Test
     public void canIncrementHttpTopicCount() {
-        HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+        final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
         httpTopic.setUserId(UUID.randomUUID());
 
         worker.onHttpTopicCreated(new HttpTopicCreatedEvent(httpTopic.getId(), null));
 
-        StatisticsCounter counter = lastCounter();
+        final StatisticsCounter counter = lastCounter();
         assertThat(counter.getIdValue()).isEqualTo(httpTopic.getUserId());
         assertThat(counter.hasInc("httpTopics")).isTrue();
         assertThat(counter.hasInc("2013.1.1.httpTopics")).isTrue();
@@ -81,12 +81,12 @@ public class UserStatisticsWorkerTest {
 
     @Test
     public void canIncrementRealTopicCount() {
-        RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         realTopic.setUserId(UUID.randomUUID());
 
         worker.onRealTopicCreated(new RealTopicCreatedEvent(realTopic.getId(), FeelhubLanguage.REFERENCE));
 
-        StatisticsCounter counter = lastCounter();
+        final StatisticsCounter counter = lastCounter();
         assertThat(counter.getIdValue()).isEqualTo(realTopic.getUserId());
         assertThat(counter.hasInc("realTopics")).isTrue();
         assertThat(counter.hasInc("2013.1.1.realTopics")).isTrue();
