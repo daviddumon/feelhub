@@ -1,7 +1,6 @@
 package com.feelhub.analytic.user;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.Date;
 
 @SuppressWarnings("UnusedDeclaration")
@@ -44,21 +43,21 @@ public class NewUserDailyBehavior {
     }
 
     public double getPercentageLogins() {
-        if(totalSignups == 0) {
+        if (totalSignups == 0) {
             return 0;
         }
         return (uniqueLogins * 100) / totalSignups;
     }
 
     public double getPercentageFeeling() {
-        if(totalSignups == 0) {
+        if (totalSignups == 0) {
             return 0;
         }
         return (postFeeling * 100) / totalSignups;
     }
 
     public double getPercentageTopic() {
-        if(totalSignups == 0) {
+        if (totalSignups == 0) {
             return 0;
         }
         return (postTopic * 100) / totalSignups;

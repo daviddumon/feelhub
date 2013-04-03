@@ -5,7 +5,7 @@ import com.google.common.base.Objects;
 
 import java.util.UUID;
 
-public class UserActivatedEvent extends DomainEvent{
+public class UserActivatedEvent extends DomainEvent {
 
 
     public UserActivatedEvent(final UUID userId) {

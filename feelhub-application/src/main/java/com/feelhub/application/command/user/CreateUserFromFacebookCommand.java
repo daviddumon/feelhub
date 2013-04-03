@@ -1,8 +1,6 @@
 package com.feelhub.application.command.user;
 
-import com.feelhub.domain.user.SocialNetwork;
-import com.feelhub.domain.user.User;
-import com.feelhub.domain.user.UserFactory;
+import com.feelhub.domain.user.*;
 
 public class CreateUserFromFacebookCommand extends CreateUserFromSocialNetworkCommand {
 

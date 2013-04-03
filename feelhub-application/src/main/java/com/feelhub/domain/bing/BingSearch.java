@@ -3,7 +3,6 @@ package com.feelhub.domain.bing;
 import com.feelhub.domain.cloudinary.CloudinaryException;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.media.MediaCreatedEvent;
-import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.*;

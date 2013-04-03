@@ -1,18 +1,14 @@
 package com.feelhub.analytic.user;
 
-import com.feelhub.analytic.StatisticsCounter;
-import com.feelhub.analytic.StatisticsCounterExecutor;
+import com.feelhub.analytic.*;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.FeelingCreatedEvent;
 import com.feelhub.domain.session.SessionCreatedEvent;
-import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.domain.topic.http.HttpTopicCreatedEvent;
-import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.domain.topic.real.RealTopicCreatedEvent;
+import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.real.*;
 import com.feelhub.domain.user.UserCreatedEvent;
 import com.feelhub.repositories.Repositories;
-import com.google.common.eventbus.AllowConcurrentEvents;
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.*;
 import org.joda.time.DateTime;
 
 import javax.inject.Inject;
@@ -50,7 +46,7 @@ public class UserStatisticsWorker {
     @AllowConcurrentEvents
     public void onHttpTopicCreated(final HttpTopicCreatedEvent event) {
         final HttpTopic httpTopic = Repositories.topics().getHttpTopic(event.topicId);
-        if(httpTopic.hasUser()) {
+        if (httpTopic.hasUser()) {
             executor.execute(counterUpdate(httpTopic.getUserId()).inc(getTimedInc(HTTP_TOPICS)).inc(HTTP_TOPICS));
         }
     }
@@ -59,7 +55,7 @@ public class UserStatisticsWorker {
     @AllowConcurrentEvents
     public void onRealTopicCreated(final RealTopicCreatedEvent event) {
         final RealTopic topic = Repositories.topics().getRealTopic(event.topicId);
-        if(topic.hasUser()) {
+        if (topic.hasUser()) {
             executor.execute(counterUpdate(topic.getUserId()).inc(getTimedInc(REAL_TOPICS)).inc(REAL_TOPICS));
         }
     }
@@ -71,7 +67,6 @@ public class UserStatisticsWorker {
     private String getTimedInc(final String key) {
         return new DateTime().toString("y.M.d") + "." + key;
     }
-
 
 
     public static final String REAL_TOPICS = "realTopics";

@@ -1,8 +1,7 @@
 package com.feelhub.application.command.session;
 
 import com.feelhub.application.command.Command;
-import com.feelhub.domain.session.Session;
-import com.feelhub.domain.session.SessionFactory;
+import com.feelhub.domain.session.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import org.joda.time.DateTime;

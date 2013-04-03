@@ -1,12 +1,9 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.feeling.Feeling;
-import com.feelhub.domain.feeling.FeelingCreatedEvent;
-import com.feelhub.domain.feeling.Sentiment;
+import com.feelhub.domain.feeling.*;
 import com.feelhub.repositories.Repositories;
-import com.google.common.eventbus.AllowConcurrentEvents;
-import com.google.common.eventbus.Subscribe;
+import com.google.common.eventbus.*;
 
 public class TopicLastModificationDateUpdater {
     public TopicLastModificationDateUpdater() {

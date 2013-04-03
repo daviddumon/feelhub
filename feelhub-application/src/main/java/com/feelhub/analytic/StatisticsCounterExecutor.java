@@ -1,7 +1,6 @@
 package com.feelhub.analytic;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
+import com.mongodb.*;
 
 import javax.inject.Inject;
 

@@ -1,12 +1,9 @@
 package com.feelhub.analytic;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
+import com.google.common.collect.*;
+import com.mongodb.*;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StatisticsCounter {
 
@@ -51,7 +48,7 @@ public class StatisticsCounter {
     }
 
     private void fillSet(final BasicDBObject result) {
-        if(sets.isEmpty()) {
+        if (sets.isEmpty()) {
             return;
         }
         final BasicDBObject modifier = new BasicDBObject();
@@ -60,7 +57,7 @@ public class StatisticsCounter {
     }
 
     private void fillInc(final BasicDBObject result) {
-        if(incs.isEmpty()) {
+        if (incs.isEmpty()) {
             return;
         }
         final BasicDBObject modifier = new BasicDBObject();

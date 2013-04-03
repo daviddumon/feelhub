@@ -1,9 +1,7 @@
 package com.feelhub.application.command.user;
 
 import com.feelhub.application.command.Command;
-import com.feelhub.domain.user.SocialAuth;
-import com.feelhub.domain.user.SocialNetwork;
-import com.feelhub.domain.user.User;
+import com.feelhub.domain.user.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.base.Optional;
 

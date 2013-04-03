@@ -1,12 +1,10 @@
 package com.feelhub.analytic.user;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.Date;
 
 @SuppressWarnings("UnusedDeclaration")
 public class ActiveUserDailyBehavior {
-
 
 
     public Date getDate() {
@@ -16,7 +14,6 @@ public class ActiveUserDailyBehavior {
             return new Date();
         }
     }
-
 
 
     public long getTotalActives() {
