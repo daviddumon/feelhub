@@ -14,8 +14,6 @@ require({
         'text': 'src/main/webapp/static/js/plugins/text',
         'templates': 'src/main/webapp/static/js/templates'
     },
-    // ask requirejs to load these files (all our tests)
     deps: tests,
-    // start test run, once requirejs is done
     callback: window.__karma__.start
 });
