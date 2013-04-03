@@ -40,5 +40,4 @@ public class SitemapsBuilderJobTest extends TestWithMongo {
         assertThat(sitemapEntries).hasSize(2);
         assertThat(sitemapEntries.get(1).getLastMod()).isEqualTo(DateTime.parse("01"));
     }
-
 }
