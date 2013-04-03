@@ -3,25 +3,19 @@ package com.feelhub.web.social;
 import com.feelhub.tools.Clients;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.tools.FeelhubWebProperties;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
+import com.google.common.util.concurrent.*;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-import org.restlet.Client;
-import org.restlet.Context;
+import org.restlet.*;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.data.Method;
 import org.scribe.builder.ServiceBuilder;
-import org.scribe.model.Token;
-import org.scribe.model.Verifier;
+import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
 
 import javax.inject.Singleton;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 @Singleton
 public class GoogleConnector {
@@ -42,7 +36,7 @@ public class GoogleConnector {
     }
 
     public GoogleUser getUser(final Token accessToken) {
-        ListenableFuture<GoogleUser> getUser = executor.submit(fetchUserData(accessToken));
+        final ListenableFuture<GoogleUser> getUser = executor.submit(fetchUserData(accessToken));
         return Futures.getUnchecked(getUser);
     }
 
@@ -51,12 +45,12 @@ public class GoogleConnector {
             @Override
             public GoogleUser call() throws Exception {
                 final String url = String.format(USER_INFO_URL, accessToken.getToken());
-                Request request = new Request(Method.GET, url);
-                Response representation = getUserInfo(request);
+                final Request request = new Request(Method.GET, url);
+                final Response representation = getUserInfo(request);
                 return new Gson().fromJson(representation.getEntityAsText(), GoogleUser.class);
             }
 
-            private Response getUserInfo(Request request) {
+            private Response getUserInfo(final Request request) {
 
                 final Client client = Clients.create();
                 try {

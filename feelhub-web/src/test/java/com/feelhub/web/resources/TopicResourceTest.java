@@ -19,7 +19,6 @@ import com.google.inject.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.restlet.data.*;
-import org.restlet.representation.Representation;
 
 import java.util.*;
 

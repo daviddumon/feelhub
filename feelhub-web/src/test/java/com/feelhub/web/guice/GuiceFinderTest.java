@@ -4,7 +4,7 @@ import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.scraper.*;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.repositories.fakeRepositories.FakeSessionProvider;
-import com.feelhub.web.resources.*;
+import com.feelhub.web.resources.HelpResource;
 import com.google.inject.*;
 import org.junit.Test;
 import org.restlet.Context;

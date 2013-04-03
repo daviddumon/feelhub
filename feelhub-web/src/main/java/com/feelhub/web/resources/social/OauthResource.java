@@ -2,13 +2,10 @@ package com.feelhub.web.resources.social;
 
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.web.WebReferenceBuilder;
-import com.feelhub.web.authentification.AuthRequest;
-import com.feelhub.web.authentification.AuthenticationManager;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
+import com.feelhub.web.authentification.*;
+import org.joda.time.*;
 import org.restlet.data.Status;
-import org.restlet.resource.Get;
-import org.restlet.resource.ServerResource;
+import org.restlet.resource.*;
 import org.scribe.model.Token;
 
 public abstract class OauthResource extends ServerResource {

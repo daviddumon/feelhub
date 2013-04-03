@@ -3,13 +3,12 @@ package com.feelhub.web.resources.social;
 import com.feelhub.web.social.GoogleConnector;
 import com.google.inject.Inject;
 import org.restlet.data.Status;
-import org.restlet.resource.Get;
-import org.restlet.resource.ServerResource;
+import org.restlet.resource.*;
 
 public class GoogleSignupResource extends ServerResource {
 
     @Inject
-    public GoogleSignupResource(GoogleConnector connector) {
+    public GoogleSignupResource(final GoogleConnector connector) {
         this.connector = connector;
     }
 
@@ -19,5 +18,5 @@ public class GoogleSignupResource extends ServerResource {
         setLocationRef(connector.getUrl());
     }
 
-    private GoogleConnector connector;
+    private final GoogleConnector connector;
 }

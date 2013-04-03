@@ -1,8 +1,7 @@
 package com.feelhub.sitemap.application;
 
 import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.sitemap.domain.SitemapEntry;
-import com.feelhub.sitemap.domain.SitemapIndex;
+import com.feelhub.sitemap.domain.*;
 import com.feelhub.sitemap.test.*;
 import com.feelhub.test.TestFactories;
 import org.joda.time.DateTime;
@@ -23,7 +22,7 @@ public class SitemapsBuilderJobTest extends TestWithMongo {
         SitemapsRepository.initialize(sitemapRepository);
         final MongoSession session = newSession();
         session.start();
-        RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         realTopic.setLastModificationDate(DateTime.parse("01"));
         session.stop();
     }
@@ -35,9 +34,9 @@ public class SitemapsBuilderJobTest extends TestWithMongo {
 
         sitemapsBuilderJob.execute();
 
-        List<SitemapIndex> indexes = sitemapRepository.getSitemapIndexes();
+        final List<SitemapIndex> indexes = sitemapRepository.getSitemapIndexes();
         assertThat(indexes).hasSize(1);
-        List<SitemapEntry> sitemapEntries = indexes.get(0).getSitemaps().get(0).getEntries();
+        final List<SitemapEntry> sitemapEntries = indexes.get(0).getSitemaps().get(0).getEntries();
         assertThat(sitemapEntries).hasSize(2);
         assertThat(sitemapEntries.get(1).getLastMod()).isEqualTo(DateTime.parse("01"));
     }

@@ -1,16 +1,11 @@
 package com.feelhub.web.resources.admin;
 
-import com.feelhub.web.ClientResource;
-import com.feelhub.web.FeelhubRouter;
-import com.feelhub.web.WebApplicationTester;
+import com.feelhub.web.*;
 import org.hamcrest.MatcherAssert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Status;
+import org.junit.*;
+import org.restlet.data.*;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 public class AdminResourceTest {
 

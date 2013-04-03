@@ -1,6 +1,6 @@
 package com.feelhub.web.social;
 
-import com.feelhub.web.*;
+import com.feelhub.web.ContextTestFactory;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import org.junit.*;
 import org.restlet.Context;

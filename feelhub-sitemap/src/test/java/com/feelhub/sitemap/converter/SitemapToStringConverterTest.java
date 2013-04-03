@@ -2,10 +2,9 @@ package com.feelhub.sitemap.converter;
 
 
 import com.feelhub.sitemap.domain.*;
-import com.feelhub.test.SystemTime;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
-import org.junit.*;
+import org.junit.Test;
 
 import static org.fest.assertions.Assertions.*;
 

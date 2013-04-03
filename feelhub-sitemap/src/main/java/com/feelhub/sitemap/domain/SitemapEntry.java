@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 
 public class SitemapEntry extends BaseEntity {
 
-    public SitemapEntry(final String loc, final Frequency frequency, final double priority, DateTime lastModificationDate) {
+    public SitemapEntry(final String loc, final Frequency frequency, final double priority, final DateTime lastModificationDate) {
         this.loc = loc;
         this.frequency = frequency;
         lastMod = lastModificationDate;

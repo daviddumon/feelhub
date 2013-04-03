@@ -3,19 +3,18 @@ package com.feelhub.web.resources.social;
 import com.feelhub.web.ContextTestFactory;
 import com.feelhub.web.social.GoogleConnector;
 import org.junit.Test;
-import org.restlet.data.Reference;
-import org.restlet.data.Status;
+import org.restlet.data.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class GoogleSignupResourceTest {
 
     @Test
     public void canRedirectToGoogleAuth() {
-        GoogleConnector connector = mock(GoogleConnector.class);
+        final GoogleConnector connector = mock(GoogleConnector.class);
         when(connector.getUrl()).thenReturn("http://test");
-        GoogleSignupResource resource = new GoogleSignupResource(connector);
+        final GoogleSignupResource resource = new GoogleSignupResource(connector);
         ContextTestFactory.initResource(resource);
 
         resource.redirect();

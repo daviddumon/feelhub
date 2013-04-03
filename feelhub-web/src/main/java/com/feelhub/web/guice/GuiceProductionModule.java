@@ -2,20 +2,13 @@ package com.feelhub.web.guice;
 
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.domain.admin.AdminApiCallsService;
-import com.feelhub.domain.eventbus.DeadEventCatcher;
-import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.eventbus.HybridEventBus;
+import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.statistics.StatisticsFactory;
 import com.feelhub.domain.translation.Translator;
-import com.feelhub.repositories.MongoRepositories;
-import com.feelhub.repositories.Repositories;
-import com.feelhub.repositories.SessionProvider;
-import com.feelhub.tools.FeelhubApplicationProperties;
-import com.feelhub.tools.MongoLinkAwareExecutor;
+import com.feelhub.repositories.*;
+import com.feelhub.tools.*;
 import com.feelhub.web.mail.MailBuilder;
-import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
+import com.google.inject.*;
 import com.google.inject.name.Names;
 import com.mongodb.DB;
 import org.jongo.Jongo;
@@ -74,16 +67,16 @@ public class GuiceProductionModule extends AbstractModule {
     @Provides
     @Singleton
     public DB dbProvider() {
-        FeelhubApplicationProperties props = new FeelhubApplicationProperties();
-        Settings dbSettings = props.getDbSettings();
+        final FeelhubApplicationProperties props = new FeelhubApplicationProperties();
+        final Settings dbSettings = props.getDbSettings();
         return dbSettings.createDbFactory().get(dbSettings.getDbName());
     }
 
     @Provides
     @Singleton
     public Jongo jongoProvider() {
-        FeelhubApplicationProperties props = new FeelhubApplicationProperties();
-        Settings dbSettings = props.getDbSettings();
+        final FeelhubApplicationProperties props = new FeelhubApplicationProperties();
+        final Settings dbSettings = props.getDbSettings();
         return new Jongo(dbSettings.createDbFactory().get(dbSettings.getDbName()));
     }
 }

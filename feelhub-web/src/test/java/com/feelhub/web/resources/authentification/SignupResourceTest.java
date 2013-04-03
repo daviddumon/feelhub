@@ -107,7 +107,7 @@ public class SignupResourceTest {
 
     @Test
     public void canPassGoogleLoginUrl() {
-        ModelAndView modelAndView = resource.represent();
+        final ModelAndView modelAndView = resource.represent();
 
         assertThat(modelAndView.getData()).includes(entry("googleUrl", "https://thedomain//social/google-signup"));
     }

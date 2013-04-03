@@ -2,8 +2,7 @@ package com.feelhub.sitemap.tools;
 
 import com.feelhub.tools.FeelhubConfigurationException;
 import com.google.common.collect.Lists;
-import com.mongodb.ReadPreference;
-import com.mongodb.ServerAddress;
+import com.mongodb.*;
 import org.mongolink.Settings;
 import org.mongolink.domain.UpdateStrategies;
 

@@ -1,8 +1,7 @@
 package com.feelhub.web.resources.social;
 
 import com.feelhub.application.command.CommandBus;
-import com.feelhub.application.command.user.CreateUserFromFacebookCommand;
-import com.feelhub.application.command.user.CreateUserFromSocialNetworkCommand;
+import com.feelhub.application.command.user.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.ContextTestFactory;
@@ -10,8 +9,7 @@ import com.feelhub.web.authentification.*;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.common.util.concurrent.Futures;
 import com.restfb.types.User;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeUtils;
+import org.joda.time.*;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import org.restlet.*;

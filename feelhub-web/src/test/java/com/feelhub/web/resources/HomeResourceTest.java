@@ -3,18 +3,13 @@ package com.feelhub.web.resources;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.ContextTestFactory;
-import com.feelhub.web.authentification.CurrentUser;
-import com.feelhub.web.authentification.WebUser;
+import com.feelhub.web.authentification.*;
 import com.feelhub.web.dto.FeelingData;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.ApiFeelingSearch;
 import com.google.common.collect.Lists;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.restlet.data.Form;
-import org.restlet.data.Reference;
-import org.restlet.data.Status;
+import org.junit.*;
+import org.restlet.data.*;
 
 import java.util.List;
 

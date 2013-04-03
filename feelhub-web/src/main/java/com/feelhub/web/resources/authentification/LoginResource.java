@@ -5,8 +5,7 @@ import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.social.FacebookConnector;
 import com.google.inject.Inject;
 import org.restlet.data.Reference;
-import org.restlet.resource.Get;
-import org.restlet.resource.ServerResource;
+import org.restlet.resource.*;
 
 public class LoginResource extends ServerResource {
 

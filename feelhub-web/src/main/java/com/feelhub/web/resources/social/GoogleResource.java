@@ -1,13 +1,11 @@
 package com.feelhub.web.resources.social;
 
 import com.feelhub.application.command.CommandBus;
-import com.feelhub.application.command.user.CreateUserFromGoogleCommand;
-import com.feelhub.application.command.user.CreateUserFromSocialNetworkCommand;
+import com.feelhub.application.command.user.*;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.web.authentification.AuthenticationManager;
-import com.feelhub.web.social.GoogleConnector;
-import com.feelhub.web.social.GoogleUser;
+import com.feelhub.web.social.*;
 import com.google.common.util.concurrent.Futures;
 import org.scribe.model.Token;
 
@@ -18,19 +16,19 @@ public class GoogleResource extends OauthResource {
 
 
     @Inject
-    public GoogleResource(GoogleConnector connector, AuthenticationManager authenticationManager, CommandBus bus) {
+    public GoogleResource(final GoogleConnector connector, final AuthenticationManager authenticationManager, final CommandBus bus) {
         super(authenticationManager, bus);
         this.connector = connector;
     }
 
     @Override
-    Token accessToken(String code) {
+    Token accessToken(final String code) {
         return connector.getAccesToken(code);
     }
 
     @Override
-    protected User getOrCreateUser(Token accessToken) {
-        GoogleUser googleUser = connector.getUser(accessToken);
+    protected User getOrCreateUser(final Token accessToken) {
+        final GoogleUser googleUser = connector.getUser(accessToken);
         final CreateUserFromSocialNetworkCommand command = new CreateUserFromGoogleCommand(googleUser.id, googleUser.email,
                 googleUser.given_name, googleUser.family_name, googleUser.locale, accessToken.getToken());
         final UUID userId = Futures.getUnchecked(bus.execute(command));
@@ -38,5 +36,5 @@ public class GoogleResource extends OauthResource {
     }
 
 
-    private GoogleConnector connector;
+    private final GoogleConnector connector;
 }

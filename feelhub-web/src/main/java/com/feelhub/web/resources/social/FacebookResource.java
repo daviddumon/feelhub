@@ -1,8 +1,7 @@
 package com.feelhub.web.resources.social;
 
 import com.feelhub.application.command.CommandBus;
-import com.feelhub.application.command.user.CreateUserFromFacebookCommand;
-import com.feelhub.application.command.user.CreateUserFromSocialNetworkCommand;
+import com.feelhub.application.command.user.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.web.authentification.AuthenticationManager;
 import com.feelhub.web.social.FacebookConnector;
@@ -22,13 +21,13 @@ public class FacebookResource extends OauthResource {
     }
 
     @Override
-    Token accessToken(String code) {
+    Token accessToken(final String code) {
         return connector.getAccesToken(code);
     }
 
     @Override
     protected com.feelhub.domain.user.User getOrCreateUser(final Token accesToken) {
-        User facebookUser = connector.getUser(accesToken);
+        final User facebookUser = connector.getUser(accesToken);
         final CreateUserFromSocialNetworkCommand command = new CreateUserFromFacebookCommand(facebookUser.getId(), facebookUser.getEmail(),
                 facebookUser.getFirstName(), facebookUser.getLastName(), facebookUser.getLocale(), accesToken.getToken());
         final UUID userId = Futures.getUnchecked(bus.execute(command));

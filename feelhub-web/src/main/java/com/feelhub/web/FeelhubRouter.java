@@ -2,36 +2,18 @@ package com.feelhub.web;
 
 import com.feelhub.web.guice.GuiceFinder;
 import com.feelhub.web.resources.*;
-import com.feelhub.web.resources.admin.AdminEventsResource;
-import com.feelhub.web.resources.admin.AdminFreemarkerResource;
-import com.feelhub.web.resources.admin.AdminResource;
-import com.feelhub.web.resources.admin.AdminStatisticsResource;
-import com.feelhub.web.resources.admin.analytic.ActiveUserDailyBehaviorResource;
-import com.feelhub.web.resources.admin.analytic.DailyLiveStatisticsResource;
-import com.feelhub.web.resources.admin.analytic.NewUserDailyBehaviorResource;
+import com.feelhub.web.resources.admin.*;
+import com.feelhub.web.resources.admin.analytic.*;
 import com.feelhub.web.resources.api.*;
-import com.feelhub.web.resources.authentification.ActivationResource;
-import com.feelhub.web.resources.authentification.LoginResource;
-import com.feelhub.web.resources.authentification.SessionsResource;
-import com.feelhub.web.resources.authentification.SignupResource;
-import com.feelhub.web.resources.sitemap.FeelhubRobotsResource;
-import com.feelhub.web.resources.sitemap.FeelhubSitemapIndexResource;
-import com.feelhub.web.resources.sitemap.FeelhubSitemapResource;
-import com.feelhub.web.resources.social.FacebookResource;
-import com.feelhub.web.resources.social.GoogleResource;
-import com.feelhub.web.resources.social.GoogleSignupResource;
-import com.feelhub.web.resources.social.SocialWelcomeResource;
+import com.feelhub.web.resources.authentification.*;
+import com.feelhub.web.resources.sitemap.*;
+import com.feelhub.web.resources.social.*;
 import com.google.inject.Injector;
-import org.restlet.Context;
-import org.restlet.Restlet;
+import org.restlet.*;
 import org.restlet.data.ChallengeScheme;
-import org.restlet.resource.Finder;
-import org.restlet.resource.ServerResource;
-import org.restlet.routing.Router;
-import org.restlet.routing.TemplateRoute;
-import org.restlet.routing.Variable;
-import org.restlet.security.ChallengeAuthenticator;
-import org.restlet.security.MapVerifier;
+import org.restlet.resource.*;
+import org.restlet.routing.*;
+import org.restlet.security.*;
 
 import java.util.Map;
 
@@ -88,13 +70,13 @@ public class FeelhubRouter extends Router {
     }
 
     private void attachAdminResources() {
-        Router router = new Router(getContext()) {
+        final Router router = new Router(getContext()) {
             @Override
-            public Finder createFinder(Class<?> targetClass) {
+            public Finder createFinder(final Class<?> targetClass) {
                 return new GuiceFinder(getContext(), targetClass, injector);
             }
         };
-        router.attach("/admin",AdminResource.class);
+        router.attach("/admin", AdminResource.class);
         router.attach("/admin/analytic/live", DailyLiveStatisticsResource.class);
         router.attach("/admin/analytic/newuser", NewUserDailyBehaviorResource.class);
         router.attach("/admin/analytic/dailybehavior", ActiveUserDailyBehaviorResource.class);
@@ -104,7 +86,7 @@ public class FeelhubRouter extends Router {
         attach(withSecurity(router));
     }
 
-    private ChallengeAuthenticator withSecurity(Restlet next) {
+    private ChallengeAuthenticator withSecurity(final Restlet next) {
         final MapVerifier verifier = new MapVerifier();
         verifier.getLocalSecrets().put(ADMIN_USER, ADMIN_PASSWORD.toCharArray());
         final ChallengeAuthenticator sécurité = new ChallengeAuthenticator(getContext(),
