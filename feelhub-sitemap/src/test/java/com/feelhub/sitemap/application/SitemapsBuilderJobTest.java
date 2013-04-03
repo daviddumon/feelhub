@@ -28,7 +28,6 @@ public class SitemapsBuilderJobTest extends TestWithMongo {
     }
 
     @Test
-    @Ignore("ne passes pas sur la ci")
     public void canExecute() {
         final SitemapsBuilderJob sitemapsBuilderJob = new SitemapsBuilderJob(newSession());
 
