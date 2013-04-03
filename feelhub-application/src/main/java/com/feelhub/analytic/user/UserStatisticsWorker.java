@@ -21,35 +21,35 @@ import java.util.UUID;
 public class UserStatisticsWorker {
 
     @Inject
-    public UserStatisticsWorker(StatisticsCounterExecutor executor) {
+    public UserStatisticsWorker(final StatisticsCounterExecutor executor) {
         this.executor = executor;
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onUserCreated(UserCreatedEvent userCreatedEvent) {
-        StatisticsCounter counter = counterUpdate(userCreatedEvent.user.getId())
+    public void onUserCreated(final UserCreatedEvent userCreatedEvent) {
+        final StatisticsCounter counter = counterUpdate(userCreatedEvent.user.getId())
                 .set("creationDate", userCreatedEvent.user.getCreationDate().toDate());
         executor.execute(counter);
     }
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onSessionCreated(SessionCreatedEvent event) {
+    public void onSessionCreated(final SessionCreatedEvent event) {
         executor.execute(counterUpdate(event.userId).inc(getTimedInc(LOGINS)).inc(LOGINS));
     }
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onFeelingCreated(FeelingCreatedEvent event) {
+    public void onFeelingCreated(final FeelingCreatedEvent event) {
         executor.execute(counterUpdate(event.userId).inc(getTimedInc(FEELINGS)).inc(FEELINGS));
     }
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onHttpTopicCreated(HttpTopicCreatedEvent event) {
-        HttpTopic httpTopic = Repositories.topics().getHttpTopic(event.topicId);
+    public void onHttpTopicCreated(final HttpTopicCreatedEvent event) {
+        final HttpTopic httpTopic = Repositories.topics().getHttpTopic(event.topicId);
         if(httpTopic.hasUser()) {
             executor.execute(counterUpdate(httpTopic.getUserId()).inc(getTimedInc(HTTP_TOPICS)).inc(HTTP_TOPICS));
         }
@@ -57,18 +57,18 @@ public class UserStatisticsWorker {
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onRealTopicCreated(RealTopicCreatedEvent event) {
-        RealTopic topic = Repositories.topics().getRealTopic(event.topicId);
+    public void onRealTopicCreated(final RealTopicCreatedEvent event) {
+        final RealTopic topic = Repositories.topics().getRealTopic(event.topicId);
         if(topic.hasUser()) {
             executor.execute(counterUpdate(topic.getUserId()).inc(getTimedInc(REAL_TOPICS)).inc(REAL_TOPICS));
         }
     }
 
-    private StatisticsCounter counterUpdate(UUID userId) {
+    private StatisticsCounter counterUpdate(final UUID userId) {
         return new StatisticsCounter("userstatistic").withId("_id", userId);
     }
 
-    private String getTimedInc(String key) {
+    private String getTimedInc(final String key) {
         return new DateTime().toString("y.M.d") + "." + key;
     }
 
@@ -79,5 +79,5 @@ public class UserStatisticsWorker {
     public static final String FEELINGS = "feelings";
     public static final String LOGINS = "logins";
 
-    private StatisticsCounterExecutor executor;
+    private final StatisticsCounterExecutor executor;
 }

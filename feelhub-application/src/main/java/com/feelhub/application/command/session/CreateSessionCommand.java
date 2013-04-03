@@ -18,7 +18,7 @@ public class CreateSessionCommand implements Command<UUID> {
 
     @Override
     public UUID execute() {
-        User user = Repositories.users().get(userId);
+        final User user = Repositories.users().get(userId);
         final Session session = new SessionFactory().create(user, expirationDate);
         Repositories.sessions().add(session);
         return session.getId();

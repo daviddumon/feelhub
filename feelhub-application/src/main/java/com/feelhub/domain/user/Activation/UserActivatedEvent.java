@@ -8,7 +8,7 @@ import java.util.UUID;
 public class UserActivatedEvent extends DomainEvent{
 
 
-    public UserActivatedEvent(UUID userId) {
+    public UserActivatedEvent(final UUID userId) {
         this.userId = userId;
     }
 

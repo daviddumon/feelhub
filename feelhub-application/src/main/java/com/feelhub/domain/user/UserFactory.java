@@ -24,7 +24,7 @@ public class UserFactory {
         return createFromSocialNetwork(googleId, email, firstName, lastName, language, token, SocialNetwork.GOOGLE);
     }
 
-    private User createFromSocialNetwork(String googleId, String email, String firstName, String lastName, String language, String token, SocialNetwork socialNetwork) {
+    private User createFromSocialNetwork(final String googleId, final String email, final String firstName, final String lastName, final String language, final String token, final SocialNetwork socialNetwork) {
         final User user = commonUser(email, firstName + " " + lastName);
         user.setLanguage(FeelhubLanguage.fromCode(language));
         user.addSocialAuth(new SocialAuth(socialNetwork, googleId, token));

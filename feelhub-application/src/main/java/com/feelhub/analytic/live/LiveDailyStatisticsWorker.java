@@ -18,39 +18,39 @@ import javax.inject.Inject;
 public class LiveDailyStatisticsWorker {
 
     @Inject
-    public LiveDailyStatisticsWorker(StatisticsCounterExecutor executor) {
+    public LiveDailyStatisticsWorker(final StatisticsCounterExecutor executor) {
         this.executor = executor;
         DomainEventBus.INSTANCE.register(this);
     }
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onUserCreated(UserCreatedEvent event) {
-        StatisticsCounter counter = counterUpdate().inc("signups");
+    public void onUserCreated(final UserCreatedEvent event) {
+        final StatisticsCounter counter = counterUpdate().inc("signups");
         executor.execute(counter);
     }
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onSessionCreated(SessionCreatedEvent sessionCreatedEvent) {
+    public void onSessionCreated(final SessionCreatedEvent sessionCreatedEvent) {
         executor.execute(counterUpdate().inc("logins"));
     }
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onHttpTopicCreated(HttpTopicCreatedEvent event) {
+    public void onHttpTopicCreated(final HttpTopicCreatedEvent event) {
         executor.execute(counterUpdate().inc("httpTopics").inc("topics"));
     }
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onRealTopicCreated(RealTopicCreatedEvent event) {
+    public void onRealTopicCreated(final RealTopicCreatedEvent event) {
         executor.execute(counterUpdate().inc("realTopics").inc("topics"));
     }
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onFeelingCreated(FeelingCreatedEvent event) {
+    public void onFeelingCreated(final FeelingCreatedEvent event) {
         executor.execute(counterUpdate().inc("feelings"));
     }
 
@@ -58,5 +58,5 @@ public class LiveDailyStatisticsWorker {
         return new StatisticsCounter("dailylivestatistics").withId("date", new DateMidnight().toDate());
     }
 
-    private StatisticsCounterExecutor executor;
+    private final StatisticsCounterExecutor executor;
 }

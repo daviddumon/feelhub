@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class FeelingCreatedEvent extends DomainEvent {
 
-    public FeelingCreatedEvent(UUID feelingId, UUID userId) {
+    public FeelingCreatedEvent(final UUID feelingId, final UUID userId) {
         this.feelingId = feelingId;
         this.userId = userId;
     }

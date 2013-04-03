@@ -6,7 +6,7 @@ import com.google.common.base.Objects;
 import java.util.UUID;
 
 public class SessionCreatedEvent extends DomainEvent {
-    public SessionCreatedEvent(UUID sessionId, UUID userId) {
+    public SessionCreatedEvent(final UUID sessionId, final UUID userId) {
         this.sessionId = sessionId;
         this.userId = userId;
     }

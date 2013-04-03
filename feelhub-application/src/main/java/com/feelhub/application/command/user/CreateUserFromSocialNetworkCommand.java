@@ -30,7 +30,7 @@ public abstract class CreateUserFromSocialNetworkCommand implements Command<UUID
             byEmail.get().addSocialAuth(new SocialAuth(socialNetwork(), id, token));
             return byEmail.get().getId();
         }
-        User userCreated = create();
+        final User userCreated = create();
         Repositories.users().add(userCreated);
         return userCreated.getId();
     }
