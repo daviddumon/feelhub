@@ -21,11 +21,6 @@ public class HomeResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
-        if (CurrentUser.get().isAnonymous()) {
-            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/signup"));
-            setStatus(Status.REDIRECTION_TEMPORARY);
-            return null;
-        }
         return ModelAndView.createNew("home.ftl").with("locales", FeelhubLanguage.availables()).with("feelingDatas", getInitialFeelingDatas());
     }
 

@@ -16,10 +16,7 @@ import java.util.List;
 import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
-//@Ignore("ils me petent les couilles les tests web")
-// ils péteraient pas les couilles s'ils étaient bien faits. C'était quoi cette horreur d'implémentation et de tests ??!?
 public class HomeResourceTest {
-
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -51,16 +48,6 @@ public class HomeResourceTest {
         assertThat(modelAndView.getData("feelingDatas")).isNotNull();
         final List<FeelingData> result = modelAndView.getData("feelingDatas");
         assertThat(result.size()).isEqualTo(2);
-    }
-
-    @Test
-    public void redirectsOnAnonymousUser() {
-        CurrentUser.set(WebUser.anonymous());
-
-        homeResource.represent();
-
-        assertThat(homeResource.getStatus()).isEqualTo(Status.REDIRECTION_TEMPORARY);
-        assertThat(homeResource.getLocationRef()).isEqualTo(new Reference("https://thedomain//signup"));
     }
 
     private HomeResource homeResource;
