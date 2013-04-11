@@ -20,17 +20,17 @@ public class ContextData {
         this.id = id;
     }
 
-    public String getThumbnailSmall() {
-        return thumbnailSmall;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setThumbnailSmall(final String thumbnailSmall) {
-        if (thumbnailSmall != null) {
-            this.thumbnailSmall = thumbnailSmall;
+    public void setThumbnail(final String thumbnail) {
+        if (thumbnail != null) {
+            this.thumbnail = thumbnail;
         }
     }
 
     private String value = "";
     private UUID id;
-    private String thumbnailSmall = "";
+    private String thumbnail = "";
 }

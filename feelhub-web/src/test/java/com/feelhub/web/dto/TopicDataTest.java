@@ -36,51 +36,19 @@ public class TopicDataTest {
     }
 
     @Test
-    public void hasAThumbnailLarge() {
-        final String thumbnailLarge = "mylink";
+    public void hasAThumbnail() {
+        final String thumbnail = "mylink";
 
-        final TopicData topicData = new TopicData.Builder().thumbnailLarge(thumbnailLarge).build();
+        final TopicData topicData = new TopicData.Builder().thumbnail(thumbnail).build();
 
-        assertThat(topicData.getThumbnailLarge()).isEqualTo(thumbnailLarge);
+        assertThat(topicData.getThumbnail()).isEqualTo(thumbnail);
     }
 
     @Test
-    public void thumbnailLargeDefaultValueIsEmpty() {
+    public void thumbnailDefaultValueIsEmpty() {
         final TopicData topicData = new TopicData.Builder().build();
 
-        assertThat(topicData.getThumbnailLarge()).isEmpty();
-    }
-
-    @Test
-    public void hasAThumbnailMedium() {
-        final String thumbnailMedium = "mylink";
-
-        final TopicData topicData = new TopicData.Builder().thumbnailMedium(thumbnailMedium).build();
-
-        assertThat(topicData.getThumbnailMedium()).isEqualTo(thumbnailMedium);
-    }
-
-    @Test
-    public void thumbnailMediumDefaultValueIsEmpty() {
-        final TopicData topicData = new TopicData.Builder().build();
-
-        assertThat(topicData.getThumbnailMedium()).isEmpty();
-    }
-
-    @Test
-    public void hasAThumbnailSmall() {
-        final String thumbnailSmall = "mylink";
-
-        final TopicData topicData = new TopicData.Builder().thumbnailSmall(thumbnailSmall).build();
-
-        assertThat(topicData.getThumbnailSmall()).isEqualTo(thumbnailSmall);
-    }
-
-    @Test
-    public void thumbnailSmallDefaultValueIsEmpty() {
-        final TopicData topicData = new TopicData.Builder().build();
-
-        assertThat(topicData.getThumbnailSmall()).isEmpty();
+        assertThat(topicData.getThumbnail()).isEmpty();
     }
 
     @Test

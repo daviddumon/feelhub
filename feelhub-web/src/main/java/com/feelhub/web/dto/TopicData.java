@@ -46,23 +46,9 @@ public class TopicData {
             return this;
         }
 
-        public Builder thumbnailLarge(final String thumbnailLarge) {
-            if (thumbnailLarge != null) {
-                this.thumbnailLarge = thumbnailLarge;
-            }
-            return this;
-        }
-
-        public Builder thumbnailMedium(final String thumbnailMedium) {
-            if (thumbnailMedium != null) {
-                this.thumbnailMedium = thumbnailMedium;
-            }
-            return this;
-        }
-
-        public Builder thumbnailSmall(final String thumbnailSmall) {
-            if (thumbnailSmall != null) {
-                this.thumbnailSmall = thumbnailSmall;
+        public Builder thumbnail(final String thumbnail) {
+            if (thumbnail != null) {
+                this.thumbnail = thumbnail;
             }
             return this;
         }
@@ -80,9 +66,7 @@ public class TopicData {
         }
 
         private String id = "";
-        private String thumbnailLarge = "";
-        private String thumbnailMedium = "";
-        private String thumbnailSmall = "";
+        private String thumbnail = "";
         private String name = "";
         private TopicType type = UnusableTopicTypes.None;
         private List<String> subTypes = Lists.newArrayList();
@@ -99,9 +83,7 @@ public class TopicData {
         this.uris = builder.uris;
         this.description = builder.description;
         this.topicSentimentScore = builder.topicSentimentScore;
-        this.thumbnailLarge = builder.thumbnailLarge;
-        this.thumbnailMedium = builder.thumbnailMedium;
-        this.thumbnailSmall = builder.thumbnailSmall;
+        this.thumbnail = builder.thumbnail;
     }
 
     public String getId() {
@@ -132,16 +114,8 @@ public class TopicData {
         return topicSentimentScore;
     }
 
-    public String getThumbnailLarge() {
-        return thumbnailLarge;
-    }
-
-    public String getThumbnailMedium() {
-        return thumbnailMedium;
-    }
-
-    public String getThumbnailSmall() {
-        return thumbnailSmall;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
     @Override
@@ -150,9 +124,7 @@ public class TopicData {
     }
 
     private final String id;
-    private final String thumbnailLarge;
-    private final String thumbnailMedium;
-    private final String thumbnailSmall;
+    private final String thumbnail;
     private final String name;
     private final String type;
     private final List<String> subTypes;

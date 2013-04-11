@@ -144,9 +144,7 @@ public class ApiTopicRelatedResourceTest {
         assertThat(topicDataAsJson).isNotNull();
         assertThat(topicDataAsJson.get("id").toString()).isEqualTo(related.getToId().toString());
         assertThat(topicDataAsJson.get("name").toString()).isEqualTo("Name-reference");
-        assertThat(topicDataAsJson.get("thumbnailLarge").toString()).isEqualTo("thumbnailLarge");
-        assertThat(topicDataAsJson.get("thumbnailMedium").toString()).isEqualTo("thumbnailMedium");
-        assertThat(topicDataAsJson.get("thumbnailSmall").toString()).isEqualTo("thumbnailSmall");
+        assertThat(topicDataAsJson.get("thumbnail").toString()).isEqualTo("thumbnailLarge");
     }
 
     @Test
@@ -167,9 +165,7 @@ public class ApiTopicRelatedResourceTest {
         final JSONObject topicDataAsJson = jsonArray.getJSONObject(0);
         assertThat(topicDataAsJson).isNotNull();
         assertThat(topicDataAsJson.get("id").toString()).isEqualTo(to.getId().toString());
-        assertThat(topicDataAsJson.get("thumbnailLarge").toString()).isEqualTo(illustration);
-        assertThat(topicDataAsJson.get("thumbnailMedium").toString()).isEqualTo(illustration);
-        assertThat(topicDataAsJson.get("thumbnailSmall").toString()).isEqualTo(illustration);
+        assertThat(topicDataAsJson.get("thumbnail").toString()).isEqualTo(illustration);
     }
 
 }

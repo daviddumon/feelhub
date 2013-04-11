@@ -116,9 +116,7 @@ public class TopicResourceTest {
 
         final TopicData topicData = modelAndView.getData("topicData");
         assertThat(topicData.getId()).isEqualTo(realTopic.getCurrentId().toString());
-        assertThat(topicData.getThumbnailSmall()).isEqualTo(illustration);
-        assertThat(topicData.getThumbnailMedium()).isEqualTo(illustration);
-        assertThat(topicData.getThumbnailLarge()).isEqualTo(illustration);
+        assertThat(topicData.getThumbnail()).isEqualTo(illustration);
     }
 
     @Test

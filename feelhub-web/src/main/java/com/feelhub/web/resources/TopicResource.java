@@ -27,7 +27,7 @@ public class TopicResource extends ServerResource {
         this.topicDataFactory = topicDataFactory;
         this.apiFeelingSearch = apiFeelingSearch;
         this.relatedSearch = relatedSearch;
-        this.mediaSearch = mediaSearch;
+        final MediaSearch mediaSearch1 = mediaSearch;
     }
 
     @Get
@@ -113,6 +113,5 @@ public class TopicResource extends ServerResource {
     private final TopicDataFactory topicDataFactory;
     private final ApiFeelingSearch apiFeelingSearch;
     private final RelatedSearch relatedSearch;
-    private final MediaSearch mediaSearch;
     private Topic topic;
 }

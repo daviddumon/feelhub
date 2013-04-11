@@ -42,41 +42,23 @@ public class SentimentData {
             return this;
         }
 
-        public Builder thumbnailLarge(final String thumbnailLarge) {
-            if (thumbnailLarge != null) {
-                this.thumbnailLarge = thumbnailLarge;
-            }
-            return this;
-        }
-
-        public Builder thumbnailMedium(final String thumbnailMedium) {
-            if (thumbnailMedium != null) {
-                this.thumbnailMedium = thumbnailMedium;
-            }
-            return this;
-        }
-
-        public Builder thumbnailSmall(final String thumbnailSmall) {
-            if (thumbnailSmall != null) {
-                this.thumbnailSmall = thumbnailSmall;
+        public Builder thumbnail(final String thumbnail) {
+            if (thumbnail != null) {
+                this.thumbnail = thumbnail;
             }
             return this;
         }
 
         private String id = "";
-        private String thumbnailLarge = "";
-        private String thumbnailMedium = "";
-        private String thumbnailSmall = "";
         private String name = "";
         private SentimentValue sentimentValue = SentimentValue.neutral;
         private TopicType type = UnusableTopicTypes.None;
+        private String thumbnail = "";
     }
 
     private SentimentData(final Builder builder) {
         this.id = builder.id;
-        this.thumbnailLarge = builder.thumbnailLarge;
-        this.thumbnailMedium = builder.thumbnailMedium;
-        this.thumbnailSmall = builder.thumbnailSmall;
+        this.thumbnail = builder.thumbnail;
         this.name = builder.name;
         this.sentimentValue = builder.sentimentValue;
         this.type = builder.type.toString();
@@ -86,16 +68,8 @@ public class SentimentData {
         return id;
     }
 
-    public String getThumbnailLarge() {
-        return thumbnailLarge;
-    }
-
-    public String getThumbnailMedium() {
-        return thumbnailMedium;
-    }
-
-    public String getThumbnailSmall() {
-        return thumbnailSmall;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
     public String getName() {
@@ -116,9 +90,7 @@ public class SentimentData {
     }
 
     private final String id;
-    private final String thumbnailLarge;
-    private final String thumbnailMedium;
-    private final String thumbnailSmall;
+    private final String thumbnail;
     private final String name;
     private final SentimentValue sentimentValue;
     private final String type;

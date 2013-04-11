@@ -34,9 +34,7 @@ public class SentimentDataFactory {
         builder.id(topic.getId());
         builder.name(topic.getName(feelhubLanguage));
         builder.type(topic.getType());
-        builder.thumbnailLarge(topic.getThumbnailLarge());
-        builder.thumbnailMedium(topic.getThumbnailMedium());
-        builder.thumbnailSmall(topic.getThumbnailSmall());
+        builder.thumbnail(topic.getThumbnailLarge());
         builder.sentimentValue(sentiment.getSentimentValue());
         return builder.build();
     }

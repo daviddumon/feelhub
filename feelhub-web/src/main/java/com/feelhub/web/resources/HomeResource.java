@@ -1,13 +1,11 @@
 package com.feelhub.web.resources;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.web.WebReferenceBuilder;
-import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.FeelingData;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.ApiFeelingSearch;
 import com.google.inject.Inject;
-import org.restlet.data.*;
+import org.restlet.data.Form;
 import org.restlet.resource.*;
 
 import java.util.List;

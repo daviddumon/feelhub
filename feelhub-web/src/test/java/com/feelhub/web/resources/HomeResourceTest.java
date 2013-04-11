@@ -9,7 +9,7 @@ import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.ApiFeelingSearch;
 import com.google.common.collect.Lists;
 import org.junit.*;
-import org.restlet.data.*;
+import org.restlet.data.Form;
 
 import java.util.List;
 

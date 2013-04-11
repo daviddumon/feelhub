@@ -32,51 +32,19 @@ public class SentimentDataTest {
     }
 
     @Test
-    public void hasAThumbnailLarge() {
-        final String thumbnailLarge = "mylink";
+    public void hasAThumbnail() {
+        final String thumbnail = "mylink";
 
-        final SentimentData sentimentData = new SentimentData.Builder().thumbnailLarge(thumbnailLarge).build();
+        final SentimentData sentimentData = new SentimentData.Builder().thumbnail(thumbnail).build();
 
-        assertThat(sentimentData.getThumbnailLarge()).isEqualTo(thumbnailLarge);
+        assertThat(sentimentData.getThumbnail()).isEqualTo(thumbnail);
     }
 
     @Test
-    public void thumbnailLargeIsDefaultValueEmpty() {
+    public void thumbnailIsDefaultValueEmpty() {
         final SentimentData sentimentData = new SentimentData.Builder().build();
 
-        assertThat(sentimentData.getThumbnailLarge()).isEmpty();
-    }
-
-    @Test
-    public void hasAThumbnailMedium() {
-        final String thumbnailMedium = "mylink";
-
-        final SentimentData sentimentData = new SentimentData.Builder().thumbnailMedium(thumbnailMedium).build();
-
-        assertThat(sentimentData.getThumbnailMedium()).isEqualTo(thumbnailMedium);
-    }
-
-    @Test
-    public void thumbnailMediumIsDefaultValueEmpty() {
-        final SentimentData sentimentData = new SentimentData.Builder().build();
-
-        assertThat(sentimentData.getThumbnailMedium()).isEmpty();
-    }
-
-    @Test
-    public void hasAThumbnailSmall() {
-        final String thumbnailSmall = "mylink";
-
-        final SentimentData sentimentData = new SentimentData.Builder().thumbnailSmall(thumbnailSmall).build();
-
-        assertThat(sentimentData.getThumbnailSmall()).isEqualTo(thumbnailSmall);
-    }
-
-    @Test
-    public void thumbnailSmallIsDefaultValueEmpty() {
-        final SentimentData sentimentData = new SentimentData.Builder().build();
-
-        assertThat(sentimentData.getThumbnailSmall()).isEmpty();
+        assertThat(sentimentData.getThumbnail()).isEmpty();
     }
 
     @Test

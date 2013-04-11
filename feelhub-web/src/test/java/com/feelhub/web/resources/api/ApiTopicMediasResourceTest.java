@@ -145,9 +145,7 @@ public class ApiTopicMediasResourceTest {
         assertThat(keywordDataAsJson).isNotNull();
         assertThat(keywordDataAsJson.get("id").toString()).isEqualTo(media.getToId().toString());
         assertThat(keywordDataAsJson.get("name").toString()).isEqualTo("Name-reference");
-        assertThat(keywordDataAsJson.get("thumbnailLarge").toString()).isEqualTo("thumbnailLarge");
-        assertThat(keywordDataAsJson.get("thumbnailMedium").toString()).isEqualTo("thumbnailMedium");
-        assertThat(keywordDataAsJson.get("thumbnailSmall").toString()).isEqualTo("thumbnailSmall");
+        assertThat(keywordDataAsJson.get("thumbnail").toString()).isEqualTo("thumbnailLarge");
     }
 
     @Test
@@ -168,9 +166,7 @@ public class ApiTopicMediasResourceTest {
         final JSONObject topicDataAsJson = jsonArray.getJSONObject(0);
         assertThat(topicDataAsJson).isNotNull();
         assertThat(topicDataAsJson.get("id").toString()).isEqualTo(to.getId().toString());
-        assertThat(topicDataAsJson.get("thumbnailLarge").toString()).isEqualTo(illustration);
-        assertThat(topicDataAsJson.get("thumbnailMedium").toString()).isEqualTo(illustration);
-        assertThat(topicDataAsJson.get("thumbnailSmall").toString()).isEqualTo(illustration);
+        assertThat(topicDataAsJson.get("thumbnail").toString()).isEqualTo(illustration);
     }
 
 }
