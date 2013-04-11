@@ -29,8 +29,6 @@
                                 "sentimentValue": "${sentimentData.sentimentValue}",
                                 "name": "${sentimentData.name?j_string}",
                                 "thumbnailLarge": "${sentimentData.thumbnailLarge?j_string}",
-                                "thumbnailMedium": "${sentimentData.thumbnailMedium?j_string}",
-                                "thumbnailSmall": "${sentimentData.thumbnailSmall?j_string}",
                                 "type": "${sentimentData.type}"
                             }${sentimentData_has_next?string(",", "")}
                         </#list>
@@ -43,29 +41,6 @@
 </@flow.js>
 
 <@flow.dashboard>
-<#--<div id="dashboard">-->
-    <#--<ul>-->
-        <#--<li id="dashboard-sentiment">-->
-            <#--<div class="holder">-->
-                <#--<canvas id="canvas-sentiment" width="120" height="120">-->
-                    <#--<img class="smiley good" src="${root}/static/images/smiley_good_white.png"/>-->
-                <#--</canvas>-->
-            <#--</div>-->
-        <#--</li>-->
-        <#--<div class="li-title">trends</div>-->
-        <#--<li id="dashboard-info">-->
-
-        <#--</li>-->
-        <#--<div class="li-title">most liked topics</div>-->
-        <#--<li id="dashboard-related">-->
-
-        <#--</li>-->
-        <#--<div class="li-title">most disliked topics</div>-->
-        <#--<li id="dashboard-medias" class="last">-->
-
-        <#--</li>-->
-    <#--</ul>-->
-<#--</div>-->
 </@flow.dashboard>
 
 <@flow.command classes="">

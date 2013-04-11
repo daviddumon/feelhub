@@ -49,7 +49,6 @@ public class TopicResource extends ServerResource {
                 .with("topicData", topicData)
                 .with("locales", FeelhubLanguage.availables())
                 .with("relatedDatas", getRelatedDatas())
-                .with("mediaDatas", getMediaDatas())
                 .with("feelingDatas", getInitialFeelingDatas(templateName));
     }
 
@@ -74,13 +73,6 @@ public class TopicResource extends ServerResource {
             results.add(getTopicData(related.getToId()));
         }
         return results;
-    }
-
-    private List<TopicData> getMediaDatas() {
-        mediaSearch.withTopicId(topic.getCurrentId());
-        mediaSearch.withLimit(12);
-        mediaSearch.withSkip(0);
-        return buildTopicDataListFromMedia(mediaSearch.execute());
     }
 
     private List<TopicData> buildTopicDataListFromMedia(final List<Media> mediaList) {

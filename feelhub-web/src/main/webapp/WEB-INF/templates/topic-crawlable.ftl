@@ -43,23 +43,11 @@
                 <div class="holder">
                     <div class="related">
                         <#list relatedDatas as related>
-                            <a href="${root}/topic/${related.id}" class="topic topic-small topic-inline topic-spacer"><img src="${related.thumbnailSmall}" class="illustration"/><span>${related.name}</span></a>
+                            <a href="${root}/topic/${related.id}" class="topic topic-small topic-inline topic-spacer"><img src="${related.thumbnailLarge}" class="illustration"/><span>${related.name}</span></a>
                         </#list>
                     </div>
                 </div>
             </#if>
-        </li>
-        <div class="li-title">medias</div>
-        <li id="dashboard-medias">
-            <div class="holder">
-                <#if mediaDatas?has_content>
-                    <div class="medias">
-                        <#list mediaDatas as media>
-                            <a href="${root}/topic/${media.id}" class="topic topic-small topic-inline topic-spacer"><img src="${media.thumbnailSmall}" class="illustration"/><span>${media.type}</span></a>
-                        </#list>
-                    </div>
-                </#if>
-            </div>
         </li>
     </ul>
 </div>
@@ -85,9 +73,9 @@
                 <div class="feeling_related" style="">
                     <#list feelingData.sentimentDatas as sentimentData>
                         <#if sentimentData.id?has_content>
-                            <a href="${root}/topic/${sentimentData.id}" class="topic topic-float topic-spacer topic-with-sentiment topic-medium">
+                            <a href="${root}/topic/${sentimentData.id}" class="topic topic-float topic-spacer topic-with-sentiment topic-large">
                                 <img src="${root}/static/images/smiley_${sentimentData.sentimentValue}_white_14.png" class="img_${sentimentData.sentimentValue} topic-sentiment"/>
-                                <img src="${sentimentData.thumbnailMedium?j_string}" class="illustration"/>
+                                <img src="${sentimentData.thumbnailLarge?j_string}" class="illustration"/>
                                 <span class="${sentimentData.sentimentValue} name">${sentimentData.name?j_string}</span>
                             </a>
                         </#if>
