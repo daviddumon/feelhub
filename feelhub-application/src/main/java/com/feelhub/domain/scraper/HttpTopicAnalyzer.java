@@ -1,6 +1,6 @@
 package com.feelhub.domain.scraper;
 
-import com.feelhub.domain.cloudinary.*;
+import com.feelhub.domain.cloudinary.Cloudinary;
 import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.repositories.Repositories;
@@ -47,7 +47,7 @@ public class HttpTopicAnalyzer {
         httpTopic.setOpenGraphType(scrapedInformation.getOpenGraphType());
         if (!scrapedInformation.getImages().isEmpty()) {
             httpTopic.setIllustration(scrapedInformation.getImages().get(0));
-            getThumbnails(httpTopic);
+            getThumbnail(httpTopic);
         }
         return getMedias(scrapedInformation);
     }
@@ -60,11 +60,9 @@ public class HttpTopicAnalyzer {
         }
     }
 
-    private void getThumbnails(final HttpTopic httpTopic) {
-        final CloudinaryThumbnails thumbnails = cloudinary.getThumbnails(httpTopic.getIllustration());
-        httpTopic.setThumbnailLarge(thumbnails.getThumbnailLarge());
-        httpTopic.setThumbnailMedium(thumbnails.getThumbnailMedium());
-        httpTopic.setThumbnailSmall(thumbnails.getThumbnailSmall());
+    private void getThumbnail(final HttpTopic httpTopic) {
+        final String thumbnail = cloudinary.getThumbnail(httpTopic.getIllustration());
+        httpTopic.setThumbnail(thumbnail);
     }
 
     private List<String> getMedias(final ScrapedInformation scrapedInformation) {

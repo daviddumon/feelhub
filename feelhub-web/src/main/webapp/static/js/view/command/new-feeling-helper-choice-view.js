@@ -6,7 +6,7 @@ define(["jquery", "plugins/hgn!templates/command/new_feeling_helper_choice"], fu
         var data = {
             "name": $(this).attr("topic-name"),
             "id": $(this).attr("topic-id"),
-            "thumbnailSmall": $(this).attr("topic-thumbnail"),
+            "thumbnail": $(this).attr("topic-thumbnail"),
             "type": $(this).attr("topic-type")
         };
         $("#form-right-panel").trigger("next-question");

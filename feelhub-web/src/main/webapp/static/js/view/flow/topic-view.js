@@ -4,8 +4,8 @@ define(["jquery","plugins/hgn!templates/flow/flow_topic"],
 
         function render(data, container) {
             data.root =  root;
-            if(data.thumbnailLarge == "") {
-                data.thumbnailLarge = root + "/static/images/unknown.png";
+            if(data.thumbnail == "") {
+                data.thumbnail = root + "/static/images/unknown.png";
             }
             var element = template(data);
             $(container).append(element);

@@ -20,7 +20,7 @@ define(["jquery", "modules/parser/parser", "modules/form/newfeeling/helper-panel
 
         function add_topic() {
             if (typeof topicData.id != "undefined") {
-                var data = {"name": topicData.name.toLowerCase(), "id": topicData.id, "type": topicData.type, "thumbnailSmall": topicData.thumbnailSmall, "sentiment": "none"};
+                var data = {"name": topicData.name.toLowerCase(), "id": topicData.id, "type": topicData.type, "thumbnail": topicData.thumbnail, "sentiment": "none"};
                 var topic = topics.add_topic(data, true);
                 helper.add_questions(topic, false);
             }

@@ -7,28 +7,28 @@ define(["modules/form/newfeeling/helper-panel", "view/command/new-feeling-helper
             var topic_with_id = {
                 "name": "topic1",
                 "id": "id",
-                "thumbnailSmall": "thumbnailSmall",
+                "thumbnail": "thumbnail",
                 "sentiment": "none"
             };
 
             var topic_without_id = {
                 "name": "topic2",
                 "id": "",
-                "thumbnailSmall": "thumbnailSmall",
+                "thumbnail": "thumbnail",
                 "sentiment": "none"
             };
 
             var topic_with_sentiment = {
                 "name": "topic3",
                 "id": "",
-                "thumbnailSmall": "thumbnailSmall",
+                "thumbnail": "thumbnail",
                 "sentiment": "good"
             }
 
             var topic_without_name = {
                 "name": "",
                 "id": "id",
-                "thumbnailSmall": "thumbnailSmall",
+                "thumbnail": "thumbnail",
                 "sentiment": "none"
             }
 

@@ -10,6 +10,7 @@ import com.google.common.eventbus.*;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class Cloudinary {
@@ -26,51 +27,21 @@ public class Cloudinary {
     public void onMediaCreatedEvent(final MediaCreatedEvent mediaCreatedEvent) {
         final Topic topic = Repositories.topics().getCurrentTopic(mediaCreatedEvent.getFromId());
         final HttpTopic image = Repositories.topics().getHttpTopic(mediaCreatedEvent.getToId());
-        final CloudinaryThumbnails thumbnails = getThumbnails(image.getIllustration());
-        setThumbnails(image, thumbnails);
-        topic.setIllustrations(image);
+        final String thumbnail = getThumbnail(image.getIllustration());
+        image.setThumbnail(thumbnail);
+        topic.setIllustrationAndThumbnail(image);
     }
 
-    public CloudinaryThumbnails getThumbnails(final String source) {
+    public String getThumbnail(final String source) {
+        final Map<String, String> params = Maps.newHashMap();
+        params.put("format", "jpg");
+        params.put("transformation", "w_564,h_348,c_fill,g_face,q_80");
+        params.put("file", source);
         try {
-            final CloudinaryThumbnails cloudinaryThumbnails = new CloudinaryThumbnails();
-            cloudinaryThumbnails.setThumbnailLarge(getThumbnailLarge(source));
-            cloudinaryThumbnails.setThumbnailMedium(getThumbnailMedium(source));
-            cloudinaryThumbnails.setThumbnailSmall(getThumbnailSmall(source));
-            return cloudinaryThumbnails;
-        } catch (Exception e) {
+            return cloudinaryLink.getIllustration(params);
+        } catch (IOException e) {
             throw new CloudinaryException();
         }
-    }
-
-    private String getThumbnailLarge(final String source) throws Exception {
-        final Map<String, String> params = Maps.newHashMap();
-        params.put("format", "jpg");
-        params.put("transformation", "w_272,h_168,c_fill,g_face,q_60");
-        params.put("file", source);
-        return cloudinaryLink.getIllustration(params);
-    }
-
-    private String getThumbnailMedium(final String source) throws Exception {
-        final Map<String, String> params = Maps.newHashMap();
-        params.put("format", "jpg");
-        params.put("transformation", "w_135,h_168,c_fill,g_face,q_60");
-        params.put("file", source);
-        return cloudinaryLink.getIllustration(params);
-    }
-
-    private String getThumbnailSmall(final String source) throws Exception {
-        final Map<String, String> params = Maps.newHashMap();
-        params.put("format", "jpg");
-        params.put("transformation", "w_90,h_56,c_fill,g_face,q_60");
-        params.put("file", source);
-        return cloudinaryLink.getIllustration(params);
-    }
-
-    private void setThumbnails(final Topic topic, final CloudinaryThumbnails thumbnails) {
-        topic.setThumbnailLarge(thumbnails.getThumbnailLarge());
-        topic.setThumbnailMedium(thumbnails.getThumbnailMedium());
-        topic.setThumbnailSmall(thumbnails.getThumbnailSmall());
     }
 
     private final CloudinaryLink cloudinaryLink;

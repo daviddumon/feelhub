@@ -41,55 +41,16 @@ public class CloudinaryTest {
     }
 
     @Test
-    public void tryToGetThumbnailLarge() throws IOException {
+    public void tryToGetThumbnail() throws IOException {
         final String source = "source";
         final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
-        params.put("transformation", "w_272,h_168,c_fill,g_face,q_60");
+        params.put("transformation", "w_564,h_348,c_fill,g_face,q_80");
         params.put("file", source);
 
-        cloudinary.getThumbnails(source);
+        cloudinary.getThumbnail(source);
 
         verify(cloudinaryLink).getIllustration(params);
-    }
-
-    @Test
-    public void tryToGetThumbnailMedium() throws IOException {
-        final String source = "source";
-        final Map<String, String> params = Maps.newHashMap();
-        params.put("format", "jpg");
-        params.put("transformation", "w_135,h_168,c_fill,g_face,q_60");
-        params.put("file", source);
-
-        cloudinary.getThumbnails(source);
-
-        verify(cloudinaryLink).getIllustration(params);
-    }
-
-    @Test
-    public void tryToGetThumbnailSmall() throws IOException {
-        final String source = "source";
-        final Map<String, String> params = Maps.newHashMap();
-        params.put("format", "jpg");
-        params.put("transformation", "w_90,h_56,c_fill,g_face,q_60");
-        params.put("file", source);
-
-        cloudinary.getThumbnails(source);
-
-        verify(cloudinaryLink).getIllustration(params);
-    }
-
-    @Test
-    public void returnAllThumbnails() throws IOException {
-        final String source = "source";
-        when(cloudinaryLink.getIllustration(anyMap())).thenReturn("thumbnail");
-
-        final CloudinaryThumbnails cloudinaryThumbnails = cloudinary.getThumbnails(source);
-
-        assertThat(cloudinaryThumbnails).isNotNull();
-        assertThat(cloudinaryThumbnails.getThumbnailSmall()).isEqualTo("thumbnail");
-        assertThat(cloudinaryThumbnails.getThumbnailMedium()).isEqualTo("thumbnail");
-        assertThat(cloudinaryThumbnails.getThumbnailLarge()).isEqualTo("thumbnail");
     }
 
     @Test
@@ -97,7 +58,7 @@ public class CloudinaryTest {
         exception.expect(CloudinaryException.class);
         when(cloudinaryLink.getIllustration(anyMap())).thenThrow(new IOException());
 
-        cloudinary.getThumbnails("source");
+        cloudinary.getThumbnail("source");
     }
 
     @Test
@@ -109,9 +70,7 @@ public class CloudinaryTest {
 
         DomainEventBus.INSTANCE.post(mediaCreatedEvent);
 
-        assertThat(realTopic.getThumbnailLarge()).isEqualTo("thumbnail");
-        assertThat(realTopic.getThumbnailMedium()).isEqualTo("thumbnail");
-        assertThat(realTopic.getThumbnailSmall()).isEqualTo("thumbnail");
+        assertThat(realTopic.getThumbnail()).isEqualTo("thumbnail");
     }
 
     private Cloudinary cloudinary;

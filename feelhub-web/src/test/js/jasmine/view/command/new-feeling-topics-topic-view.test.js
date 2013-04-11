@@ -6,7 +6,7 @@ define(["jquery","view/command/new-feeling-topics-topic-view"], function ($, vie
             "name": "name1",
             "sentiment": "good",
             "id": "myid",
-            "thumbnailSmall": "thumb"
+            "thumbnail": "thumb"
         };
 
         beforeEach(function () {

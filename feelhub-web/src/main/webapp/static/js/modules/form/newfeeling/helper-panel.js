@@ -52,10 +52,10 @@ define(["jquery",
         function search_known_topics(topic, invalidate) {
             $.getJSON(root + "/api/topics?q=" + topic.name, function (data) {
                 if (data.length == 0) {
-                    $("#form-left-panel").trigger("set-topic", {"name": topic.name, "id": "new", "thumbnailSmall": root + "/static/images/new.jpg"});
+                    $("#form-left-panel").trigger("set-topic", {"name": topic.name, "id": "new", "thumbnail": root + "/static/images/new.jpg"});
                 } else {
                     if (uri.test(topic.name) && data.length == 1) {
-                        $("#form-left-panel").trigger("set-topic", {"name": topic.name, "id": data[0].id, "thumbnailSmall": data[0].thumbnailSmall});
+                        $("#form-left-panel").trigger("set-topic", {"name": topic.name, "id": data[0].id, "thumbnail": data[0].thumbnail});
                     } else {
                         push_known_question(helper_choice_view, topic, data, invalidate);
                         push_active_question(helper_choice_view, topic, data, invalidate);

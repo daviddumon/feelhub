@@ -16,7 +16,7 @@ define(["jquery", "view/command/new-feeling-topics-topic-view"], function ($, vi
         var index = index_of(data.name);
         if (index != -1) {
             topics[index].id = data.id;
-            topics[index].thumbnailSmall = data.thumbnailSmall;
+            topics[index].thumbnail = data.thumbnail;
             if (data.id === "new" && !uri.test(data.name)) {
                 //$("#form-right-panel").trigger("category-question", topics[index]);
             }
@@ -44,7 +44,7 @@ define(["jquery", "view/command/new-feeling-topics-topic-view"], function ($, vi
         if (data.name != null && data.name.length > 0) {
             data.sentiment = data.sentiment || "none";
             data.id = data.id || "";
-            data.thumbnailSmall = data.thumbnailSmall || "";
+            data.thumbnail = data.thumbnail || "";
             data.active = true;
             data.permanent = permanent || false;
             data.unset = true;

@@ -29,9 +29,7 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         final UUID id = UUID.randomUUID();
         final FakeTopic fakeTopic = new FakeTopic(id);
         fakeTopic.setIllustration("illustration");
-        fakeTopic.setThumbnailSmall("tbsmall");
-        fakeTopic.setThumbnailMedium("tbmedium");
-        fakeTopic.setThumbnailLarge("tblarge");
+        fakeTopic.setThumbnail("tb");
 
         repo.add(fakeTopic);
 
@@ -42,9 +40,7 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("creationDate")).isEqualTo(fakeTopic.getCreationDate().getMillis());
         assertThat(topicFound.get("lastModificationDate")).isEqualTo(fakeTopic.getLastModificationDate().getMillis());
         assertThat(topicFound.get("illustration")).isEqualTo(fakeTopic.getIllustration());
-        assertThat(topicFound.get("thumbnailLarge")).isEqualTo(fakeTopic.getThumbnailLarge());
-        assertThat(topicFound.get("thumbnailMedium")).isEqualTo(fakeTopic.getThumbnailMedium());
-        assertThat(topicFound.get("thumbnailSmall")).isEqualTo(fakeTopic.getThumbnailSmall());
+        assertThat(topicFound.get("thumbnail")).isEqualTo(fakeTopic.getThumbnail());
     }
 
     @Test

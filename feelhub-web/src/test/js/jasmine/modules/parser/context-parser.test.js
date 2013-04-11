@@ -91,18 +91,18 @@ define(["modules/parser/context-parser"], function (parser) {
         it("has thumbnail", function () {
             var text = "i'm in the context yeah";
             var context = [
-                {"value": "yeah", "thumbnailSmall": "thumb"}
+                {"value": "yeah", "thumbnail": "thumb"}
             ];
 
             var result = parser.analyze(text, context);
 
-            expect(result[0].thumbnailSmall).toEqual("thumb");
+            expect(result[0].thumbnail).toEqual("thumb");
         });
 
         it("has good sentiment", function () {
             var text = "i'm in the context yeah :)";
             var context = [
-                {"value": "yeah", "thumbnailSmall": "thumb"}
+                {"value": "yeah", "thumbnail": "thumb"}
             ];
 
             var result = parser.analyze(text, context);

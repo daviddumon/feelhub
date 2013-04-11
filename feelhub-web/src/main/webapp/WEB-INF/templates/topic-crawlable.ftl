@@ -11,7 +11,7 @@
 <div id="dashboard">
     <ul>
         <li id="dashboard-name" class="li-border">
-            <div class="topic topic-large topic-center topic-no-cursor"><img src="${topicData.thumbnailLarge}" class="illustration"/><span>${topicData.name}</span></div>
+            <div class="topic topic-large topic-center topic-no-cursor"><img src="${topicData.thumbnail}" class="illustration"/><span>${topicData.name}</span></div>
         </li>
         <li id="dashboard-sentiment">
             <div class="holder">
@@ -43,7 +43,7 @@
                 <div class="holder">
                     <div class="related">
                         <#list relatedDatas as related>
-                            <a href="${root}/topic/${related.id}" class="topic topic-small topic-inline topic-spacer"><img src="${related.thumbnailLarge}" class="illustration"/><span>${related.name}</span></a>
+                            <a href="${root}/topic/${related.id}" class="topic topic-small topic-inline topic-spacer"><img src="${related.thumbnail}" class="illustration"/><span>${related.name}</span></a>
                         </#list>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                         <#if sentimentData.id?has_content>
                             <a href="${root}/topic/${sentimentData.id}" class="topic topic-float topic-spacer topic-with-sentiment topic-large">
                                 <img src="${root}/static/images/smiley_${sentimentData.sentimentValue}_white_14.png" class="img_${sentimentData.sentimentValue} topic-sentiment"/>
-                                <img src="${sentimentData.thumbnailLarge?j_string}" class="illustration"/>
+                                <img src="${sentimentData.thumbnail?j_string}" class="illustration"/>
                                 <span class="${sentimentData.sentimentValue} name">${sentimentData.name?j_string}</span>
                             </a>
                         </#if>

@@ -145,7 +145,7 @@ public class ApiTopicMediasResourceTest {
         assertThat(keywordDataAsJson).isNotNull();
         assertThat(keywordDataAsJson.get("id").toString()).isEqualTo(media.getToId().toString());
         assertThat(keywordDataAsJson.get("name").toString()).isEqualTo("Name-reference");
-        assertThat(keywordDataAsJson.get("thumbnail").toString()).isEqualTo("thumbnailLarge");
+        assertThat(keywordDataAsJson.get("thumbnail").toString()).isEqualTo("thumbnail");
     }
 
     @Test
@@ -154,9 +154,7 @@ public class ApiTopicMediasResourceTest {
         final RealTopic to = TestFactories.topics().newCompleteRealTopic();
         final Related related = TestFactories.related().newRelated(from.getId(), to.getId());
         final String illustration = "illustration";
-        to.setThumbnailSmall(illustration);
-        to.setThumbnailMedium(illustration);
-        to.setThumbnailLarge(illustration);
+        to.setThumbnail(illustration);
         final ClientResource resource = restlet.newClientResource("/api/topic/" + related.getFromId() + "/related");
 
         final Representation representation = resource.get();

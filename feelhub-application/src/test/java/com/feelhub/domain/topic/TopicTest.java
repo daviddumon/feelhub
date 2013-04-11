@@ -256,33 +256,13 @@ public class TopicTest {
     }
 
     @Test
-    public void canSetThumbnailLarge() {
+    public void canSetThumbnail() {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
-        final String thumbnailLarge = "link";
+        final String thumbnail = "link";
 
-        fakeTopic.setThumbnailLarge(thumbnailLarge);
+        fakeTopic.setThumbnail(thumbnail);
 
-        assertThat(fakeTopic.getThumbnailLarge()).isEqualTo(thumbnailLarge);
-    }
-
-    @Test
-    public void canSetThumbnailMedium() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
-        final String thumbnailMedium = "link";
-
-        fakeTopic.setThumbnailMedium(thumbnailMedium);
-
-        assertThat(fakeTopic.getThumbnailMedium()).isEqualTo(thumbnailMedium);
-    }
-
-    @Test
-    public void canSetThumbnailSmall() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
-        final String thumbnailSmall = "link";
-
-        fakeTopic.setThumbnailSmall(thumbnailSmall);
-
-        assertThat(fakeTopic.getThumbnailSmall()).isEqualTo(thumbnailSmall);
+        assertThat(fakeTopic.getThumbnail()).isEqualTo(thumbnail);
     }
 
     @Test

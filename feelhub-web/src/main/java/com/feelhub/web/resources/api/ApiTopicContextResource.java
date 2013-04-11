@@ -47,7 +47,7 @@ public class ApiTopicContextResource extends ServerResource {
             final ContextData contextData = new ContextData();
             contextData.setValue(tag.getId());
             contextData.setId(topic.getId());
-            contextData.setThumbnail(topic.getThumbnailSmall());
+            contextData.setThumbnail(topic.getThumbnail());
             results.add(contextData);
         }
         return results;

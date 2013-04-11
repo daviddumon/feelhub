@@ -30,19 +30,19 @@ public class PatchCloudinary extends Patch {
         for (final Topic topic : topicList) {
             try {
                 if (topic.getIllustration() != null && !topic.getIllustration().isEmpty()) {
-                    if (topic.getThumbnailLarge() == null || topic.getThumbnailLarge().isEmpty()) {
-                        rateLimiter.acquire();
-                        System.out.println("Creating thumbnails for " + topic.getIllustration());
-                        final Runnable runnable = new Runnable() {
-
-                            @Override
-                            public void run() {
-                                createThumbnails(topic.getIllustration(), topic.getCurrentId());
-                            }
-                        };
-                        mongoLinkAwareExecutor.execute(runnable);
-                        thumbs++;
-                    }
+                    //if (topic.getThumbnailLarge() == null || topic.getThumbnailLarge().isEmpty()) {
+                    //    rateLimiter.acquire();
+                    //    System.out.println("Creating thumbnails for " + topic.getIllustration());
+                    //    final Runnable runnable = new Runnable() {
+                    //
+                    //        @Override
+                    //        public void run() {
+                    //            createThumbnails(topic.getIllustration(), topic.getCurrentId());
+                    //        }
+                    //    };
+                    //    mongoLinkAwareExecutor.execute(runnable);
+                    //    thumbs++;
+                    //}
                 }
             } catch (Exception e) {
             }
@@ -54,11 +54,11 @@ public class PatchCloudinary extends Patch {
 
     private void createThumbnails(final String illustration, final UUID topicId) {
         final Cloudinary cloudinary = new Cloudinary(new CloudinaryLink());
-        final CloudinaryThumbnails thumbnails = cloudinary.getThumbnails(illustration);
+        //final CloudinaryThumbnails thumbnails = cloudinary.getThumbnails(illustration);
         final Topic currentTopic = Repositories.topics().getCurrentTopic(topicId);
-        currentTopic.setThumbnailLarge(thumbnails.getThumbnailLarge());
-        currentTopic.setThumbnailMedium(thumbnails.getThumbnailMedium());
-        currentTopic.setThumbnailSmall(thumbnails.getThumbnailSmall());
+        //currentTopic.setThumbnailLarge(thumbnails.getThumbnailLarge());
+        //currentTopic.setThumbnailMedium(thumbnails.getThumbnailMedium());
+        //currentTopic.setThumbnailSmall(thumbnails.getThumbnailSmall());
     }
 
     @Override

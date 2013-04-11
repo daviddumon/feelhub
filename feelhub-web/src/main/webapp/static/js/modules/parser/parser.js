@@ -39,9 +39,9 @@ define(["jquery", "modules/parser/uri-parser", "modules/parser/hashtag-parser", 
 
     function add(results, result) {
         result.id = result.id || "";
-        result.thumbnailSmall = result.thumbnailSmall || "";
+        result.thumbnail = result.thumbnail || "";
         if (check_name(result.name, results)) {
-            results.push({"name": result.name, "sentiment": result.sentiment, "id": result.id, "thumbnailSmall": result.thumbnailSmall});
+            results.push({"name": result.name, "sentiment": result.sentiment, "id": result.id, "thumbnail": result.thumbnail});
         }
     }
 

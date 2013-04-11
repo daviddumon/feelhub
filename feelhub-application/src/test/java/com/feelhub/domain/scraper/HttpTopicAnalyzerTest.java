@@ -1,6 +1,7 @@
 package com.feelhub.domain.scraper;
 
 import com.feelhub.domain.cloudinary.*;
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.Uri;
@@ -20,6 +21,9 @@ public class HttpTopicAnalyzerTest {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
 
     @Before
     public void before() {
@@ -89,9 +93,7 @@ public class HttpTopicAnalyzerTest {
         httpTopicAnalyzer.analyze(httpTopic.getId());
 
         assertThat(httpTopic.getIllustration()).isEqualTo("http://s1.lemde.fr/image/2013/01/25/540x270/1822831_3_dfb7_un-manifestant-lance-un-cocktail-molotov-contre_ed5d9c3af6a609128210a9cab7111290.jpg");
-        assertThat(httpTopic.getThumbnailLarge()).isEqualTo("thumbnail");
-        assertThat(httpTopic.getThumbnailMedium()).isEqualTo("thumbnail");
-        assertThat(httpTopic.getThumbnailSmall()).isEqualTo("thumbnail");
+        assertThat(httpTopic.getThumbnail()).isEqualTo("thumbnail");
     }
 
     @Test

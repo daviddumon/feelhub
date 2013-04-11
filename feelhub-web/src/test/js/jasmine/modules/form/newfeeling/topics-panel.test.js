@@ -8,7 +8,7 @@ define(["modules/form/newfeeling/topics-panel", "view/command/new-feeling-topics
             "name": "name1",
             "sentiment": "good",
             "id": "myid",
-            "thumbnailSmall": "thumb"
+            "thumbnail": "thumb"
         };
 
         beforeEach(function () {
@@ -30,7 +30,7 @@ define(["modules/form/newfeeling/topics-panel", "view/command/new-feeling-topics
             expect(topic.name).toBe(data.name);
             expect(topic.sentiment).toBe(data.sentiment);
             expect(topic.id).toBe(data.id);
-            expect(topic.thumbnailSmall).toBe(data.thumbnailSmall);
+            expect(topic.thumbnail).toBe(data.thumbnail);
         });
 
         it("has default values for sentiment data", function () {
@@ -39,7 +39,7 @@ define(["modules/form/newfeeling/topics-panel", "view/command/new-feeling-topics
             var topic = topics.get_topics()[0];
             expect(topic.sentiment).toBe("none");
             expect(topic.id).toBe("");
-            expect(topic.thumbnailSmall).toBe("");
+            expect(topic.thumbnail).toBe("");
         });
 
         it("does not create sentiment without name", function () {

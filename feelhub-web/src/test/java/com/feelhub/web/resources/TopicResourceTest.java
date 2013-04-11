@@ -107,9 +107,7 @@ public class TopicResourceTest {
     public void topicDataWithGoodValuesForExistingTopicAndIllustration() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final String illustration = "illustration";
-        realTopic.setThumbnailLarge(illustration);
-        realTopic.setThumbnailMedium(illustration);
-        realTopic.setThumbnailSmall(illustration);
+        realTopic.setThumbnail(illustration);
         topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
 
         final ModelAndView modelAndView = topicResource.getTopic();

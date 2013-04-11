@@ -30,7 +30,7 @@ define(["jquery", "modules/parser/sentiment-detector"], function ($, detector) {
             var element_words = element.value.split(/\s/);
             $.each(element_words, function (index, word) {
                 if (word === clean_token) {
-                    add(results, {"name": element.value, "id": element.id, "thumbnailSmall": element.thumbnailSmall, "sentiment": detector.get_sentiment(token, text, 5)});
+                    add(results, {"name": element.value, "id": element.id, "thumbnail": element.thumbnail, "sentiment": detector.get_sentiment(token, text, 5)});
                 }
             });
         });
@@ -40,8 +40,8 @@ define(["jquery", "modules/parser/sentiment-detector"], function ($, detector) {
         if (options.name.indexOf("'") >= 0) {
             options.name = options.name.substring(options.name.indexOf("'") + 1);
         }
-        options.thumbnailSmall = options.thumbnailSmall || "";
-        results.push({"name": options.name, "sentiment": options.sentiment, "id": options.id, "thumbnailSmall": options.thumbnailSmall});
+        options.thumbnail = options.thumbnail || "";
+        results.push({"name": options.name, "sentiment": options.sentiment, "id": options.id, "thumbnail": options.thumbnail});
     }
 
     return {

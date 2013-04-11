@@ -11,7 +11,7 @@ public class TopicDataFactory {
             builder.id(topic.getId());
             builder.name(topic.getName(feelhubLanguage));
             builder.type(topic.getType());
-            builder.thumbnail(topic.getThumbnailLarge());
+            builder.thumbnail(topic.getThumbnail());
             builder.description(topic.getDescription(feelhubLanguage));
             builder.subtypes(topic.getSubTypes());
             builder.uris(topic.getUris());
@@ -32,7 +32,7 @@ public class TopicDataFactory {
             builder.id(topic.getId());
             builder.name(topic.getName(feelhubLanguage));
             builder.type(topic.getType());
-            builder.thumbnail(topic.getThumbnailLarge());
+            builder.thumbnail(topic.getThumbnail());
         }
         return builder.build();
     }

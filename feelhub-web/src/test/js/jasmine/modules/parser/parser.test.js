@@ -158,12 +158,12 @@ define(["modules/parser/parser"], function (parser) {
         it("has thumbnail", function () {
             var text = "i'm in the context yeah";
             parser.set_context([
-                {"value": "yeah", "thumbnailSmall": "thumb"}
+                {"value": "yeah", "thumbnail": "thumb"}
             ]);
 
             var result = parser.analyze(text);
 
-            expect(result[0].thumbnailSmall).toEqual("thumb");
+            expect(result[0].thumbnail).toEqual("thumb");
         });
 
         it("can parse sentiments", function () {

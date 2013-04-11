@@ -133,37 +133,11 @@ public abstract class Topic extends BaseEntity {
         return sentiments;
     }
 
-    public void setIllustrations(final HttpTopic image) {
+    public void setIllustrationAndThumbnail(final HttpTopic image) {
         if (getIllustration().isEmpty()) {
             setIllustration(image.getIllustration());
-            setThumbnailLarge(image.getThumbnailLarge());
-            setThumbnailMedium(image.getThumbnailMedium());
-            setThumbnailSmall(image.getThumbnailSmall());
+            setThumbnail(image.getThumbnail());
         }
-    }
-
-    public String getThumbnailSmall() {
-        return thumbnailSmall;
-    }
-
-    public void setThumbnailSmall(final String thumbnailSmall) {
-        this.thumbnailSmall = thumbnailSmall;
-    }
-
-    public String getThumbnailMedium() {
-        return thumbnailMedium;
-    }
-
-    public void setThumbnailMedium(final String thumbnailMedium) {
-        this.thumbnailMedium = thumbnailMedium;
-    }
-
-    public String getThumbnailLarge() {
-        return thumbnailLarge;
-    }
-
-    public void setThumbnailLarge(final String thumbnailLarge) {
-        this.thumbnailLarge = thumbnailLarge;
     }
 
     public String getIllustration() {
@@ -184,6 +158,14 @@ public abstract class Topic extends BaseEntity {
         return userId != null;
     }
 
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(final String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
     private final Map<String, String> descriptions = Maps.newHashMap();
     private final List<String> subTypes = Lists.newArrayList();
     private final List<Uri> uris = Lists.newArrayList();
@@ -193,7 +175,5 @@ public abstract class Topic extends BaseEntity {
     private UUID userId;
     private String illustration = "";
     private TopicMerger topicMerger = new TopicMerger();
-    private String thumbnailLarge;
-    private String thumbnailMedium;
-    private String thumbnailSmall;
+    private String thumbnail;
 }
