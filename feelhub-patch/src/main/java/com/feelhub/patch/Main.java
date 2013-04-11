@@ -1,6 +1,9 @@
 package com.feelhub.patch;
 
+import com.feelhub.analytic.AnalyticWorkersModule;
+import com.feelhub.domain.DomainWorkersModule;
 import com.feelhub.repositories.SessionProvider;
+import com.google.inject.*;
 import org.slf4j.*;
 
 public final class Main {
@@ -9,8 +12,9 @@ public final class Main {
     }
 
     public static void main(final String[] args) {
+        Guice.createInjector(Stage.PRODUCTION, new GuicePatchModule(), new DomainWorkersModule(), new AnalyticWorkersModule());
         LOGGER.info("Patch begin");
-        new PatchCloudinary(new SessionProvider()).execute();
+        new Patch_2013_04_11_1(new SessionProvider()).execute();
         LOGGER.info("Patch end");
     }
 
