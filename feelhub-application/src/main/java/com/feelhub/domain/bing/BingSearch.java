@@ -44,7 +44,7 @@ public class BingSearch {
         final List<String> illustrations = bingLink.getIllustrations(query);
 
         int i = 0;
-        while (i < illustrations.size() && images.size() < 5) {
+        while (i < illustrations.size() && images.size() < 1) {
             final String illustration = illustrations.get(i++);
             try {
                 final HttpTopic image = createImage(illustration);

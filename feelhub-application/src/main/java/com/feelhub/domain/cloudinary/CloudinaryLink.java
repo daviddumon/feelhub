@@ -98,6 +98,7 @@ public class CloudinaryLink {
             }
             return result.get("secure_url");
         } catch (Exception e) {
+            System.out.println(responseData);
             throw new CloudinaryException();
         }
     }
