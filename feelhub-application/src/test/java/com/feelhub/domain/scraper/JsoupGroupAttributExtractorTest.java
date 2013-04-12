@@ -27,7 +27,7 @@ public class JsoupGroupAttributExtractorTest {
 
         final List<String> result = jsoupGroupAttributExtractor.parse(document, "meta[property=og:image]", "content");
 
-        assertThat(result.size()).isEqualTo(5);
+        assertThat(result.size()).isEqualTo(6);
     }
 
     private Document getDocument(final String uri) {
