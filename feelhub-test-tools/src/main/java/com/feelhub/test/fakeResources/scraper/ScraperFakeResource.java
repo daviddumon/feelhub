@@ -41,6 +41,7 @@ public class ScraperFakeResource extends ServerResource {
                 "<meta property='og:image:height' content = '270' >" +
                 "<meta property='og:image:width' content = '540' >" +
                 "<meta property='og:image:type' content = 'image/jpeg' >" +
+                "<meta property='og:image' content = '' >" +
                 "<meta property='og:video' content='http://www.youtube.com/v/-7RY95j4lw0?version=3&amp;autohide=1'>" +
                 "<meta property='og:video:type' content='application/x-shockwave-flash'>" +
                 "<meta property='og:video:width' content='1920'>" +

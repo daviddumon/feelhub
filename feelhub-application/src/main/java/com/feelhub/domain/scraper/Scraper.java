@@ -65,7 +65,9 @@ public class Scraper {
     private void scrapImages(final Document document, final ScrapedInformation scrapedInformation) {
         final List<String> images = jsoupGroupAttributExtractor.parse(document, "meta[property=og:image]", "content");
         for (final String image : images) {
-            scrapedInformation.addImage(image);
+            if (!image.isEmpty()) {
+                scrapedInformation.addImage(image);
+            }
         }
     }
 
