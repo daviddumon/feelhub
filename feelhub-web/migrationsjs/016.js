@@ -1,3 +1,5 @@
+rs.slaveOk();
+
 var topics = 0, deleted = 0, keeped = 0;
 
 function in_feeling(id) {
@@ -22,7 +24,7 @@ function in_related(id) {
     return result;
 }
 
-db.topic.find().limit(10).forEach(function (topic) {
+db.topic.find().forEach(function (topic) {
     if (in_feeling(topic._id) || in_related(topic._id)) {
         keeped++;
     } else {
