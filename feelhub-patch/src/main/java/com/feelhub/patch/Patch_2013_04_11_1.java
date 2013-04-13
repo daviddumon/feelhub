@@ -57,7 +57,7 @@ public class Patch_2013_04_11_1 extends Patch {
         final Cloudinary cloudinary = new Cloudinary(new CloudinaryLink());
         final String thumbnail;
         try {
-            thumbnail = cloudinary.getThumbnail(illustration);
+            thumbnail = cloudinary.getCloudinaryImage(illustration);
             final Topic currentTopic = Repositories.topics().getCurrentTopic(topicId);
             currentTopic.setThumbnail(thumbnail);
             System.out.println(currentTopic.getCurrentId() + " : " + thumbnail + " (topic)");

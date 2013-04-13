@@ -1,8 +1,7 @@
 package com.feelhub.domain.cloudinary;
 
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.media.MediaCreatedEvent;
-import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -48,7 +47,7 @@ public class CloudinaryTest {
         params.put("transformation", "w_564,h_348,c_fill,g_face,q_80");
         params.put("file", source);
 
-        cloudinary.getThumbnail(source);
+        cloudinary.getCloudinaryImage(source);
 
         verify(cloudinaryLink).getIllustration(params);
     }
@@ -58,19 +57,25 @@ public class CloudinaryTest {
         exception.expect(CloudinaryException.class);
         when(cloudinaryLink.getIllustration(anyMap())).thenThrow(new IOException());
 
-        cloudinary.getThumbnail("source");
+        cloudinary.getCloudinaryImage("source");
     }
 
     @Test
-    public void topicHasAnIllustration() throws IOException {
+    public void topicHasAThumbnail() throws IOException {
         when(cloudinaryLink.getIllustration(anyMap())).thenReturn("thumbnail");
         final RealTopic realTopic = TestFactories.topics().newSimpleRealTopic(RealTopicType.Automobile);
-        final HttpTopic image = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Image);
-        final MediaCreatedEvent mediaCreatedEvent = new MediaCreatedEvent(realTopic.getCurrentId(), image.getCurrentId());
+        final Thumbnail thumbnail = new Thumbnail();
+        thumbnail.setOrigin("origin");
+        final ThumbnailCreatedEvent thumbnailCreatedEvent = new ThumbnailCreatedEvent();
+        thumbnailCreatedEvent.setThumbnail(thumbnail);
+        thumbnailCreatedEvent.setTopicId(realTopic.getCurrentId());
 
-        DomainEventBus.INSTANCE.post(mediaCreatedEvent);
+        DomainEventBus.INSTANCE.post(thumbnailCreatedEvent);
 
         assertThat(realTopic.getThumbnail()).isEqualTo("thumbnail");
+        assertThat(realTopic.getThumbnails().size()).isEqualTo(1);
+        assertThat(realTopic.getThumbnails().get(0).getOrigin()).isEqualTo("origin");
+        assertThat(realTopic.getThumbnails().get(0).getCloudinary()).isEqualTo("thumbnail");
     }
 
     private Cloudinary cloudinary;

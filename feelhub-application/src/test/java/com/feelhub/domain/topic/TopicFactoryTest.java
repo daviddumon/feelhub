@@ -119,13 +119,6 @@ public class TopicFactoryTest {
     }
 
     @Test
-    public void canSpecifyRestrictedMimeType() {
-        exception.expect(TopicException.class);
-
-        new TopicFactory().createHttpTopicWithMediaType("http://www.url.com", MediaType.IMAGE_ALL, new FakeUriResolver());
-    }
-
-    @Test
     public void setsMediaType() {
         final ResolverResult resolverResult = new ResolverResult();
         resolverResult.setMediaType(MediaType.IMAGE_BMP);

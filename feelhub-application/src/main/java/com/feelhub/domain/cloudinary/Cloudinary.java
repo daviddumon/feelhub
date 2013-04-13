@@ -1,9 +1,7 @@
 package com.feelhub.domain.cloudinary;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.media.MediaCreatedEvent;
-import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Maps;
 import com.google.common.eventbus.*;
@@ -24,15 +22,16 @@ public class Cloudinary {
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onMediaCreatedEvent(final MediaCreatedEvent mediaCreatedEvent) {
-        final Topic topic = Repositories.topics().getCurrentTopic(mediaCreatedEvent.getFromId());
-        final HttpTopic image = Repositories.topics().getHttpTopic(mediaCreatedEvent.getToId());
-        final String thumbnail = getThumbnail(image.getIllustration());
-        image.setThumbnail(thumbnail);
-        topic.setIllustrationAndThumbnail(image);
+    public void onMediaCreatedEvent(final ThumbnailCreatedEvent thumbnailCreatedEvent) {
+        final Topic topic = Repositories.topics().getCurrentTopic(thumbnailCreatedEvent.getTopicId());
+        final Thumbnail thumbnail = thumbnailCreatedEvent.getThumbnail();
+        final String cloudinaryImage = getCloudinaryImage(thumbnail.getOrigin());
+        thumbnail.setCloudinary(cloudinaryImage);
+        topic.addThumbnail(thumbnail);
+        topic.setThumbnail(cloudinaryImage);
     }
 
-    public String getThumbnail(final String source) {
+    public String getCloudinaryImage(final String source) {
         final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
         params.put("transformation", "w_564,h_348,c_fill,g_face,q_80");

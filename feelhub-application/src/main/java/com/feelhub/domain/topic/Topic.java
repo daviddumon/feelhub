@@ -3,7 +3,6 @@ package com.feelhub.domain.topic;
 import com.feelhub.domain.BaseEntity;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.Repositories;
 import com.google.common.base.Objects;
@@ -133,13 +132,6 @@ public abstract class Topic extends BaseEntity {
         return sentiments;
     }
 
-    public void setIllustrationAndThumbnail(final HttpTopic image) {
-        if (getIllustration().isEmpty()) {
-            setIllustration(image.getIllustration());
-            setThumbnail(image.getThumbnail());
-        }
-    }
-
     public String getIllustration() {
         return illustration;
     }
@@ -166,6 +158,14 @@ public abstract class Topic extends BaseEntity {
         this.thumbnail = thumbnail;
     }
 
+    public List<Thumbnail> getThumbnails() {
+        return thumbnails;
+    }
+
+    public void addThumbnail(final Thumbnail thumbnail) {
+        thumbnails.add(thumbnail);
+    }
+
     private final Map<String, String> descriptions = Maps.newHashMap();
     private final List<String> subTypes = Lists.newArrayList();
     private final List<Uri> uris = Lists.newArrayList();
@@ -175,5 +175,6 @@ public abstract class Topic extends BaseEntity {
     private UUID userId;
     private String illustration = "";
     private TopicMerger topicMerger = new TopicMerger();
-    private String thumbnail;
+    private String thumbnail = "";
+    private List<Thumbnail> thumbnails = Lists.newArrayList();
 }

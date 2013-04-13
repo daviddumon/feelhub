@@ -238,24 +238,6 @@ public class TopicTest {
     }
 
     @Test
-    public void hasAnIllustrationLink() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
-
-        assertThat(fakeTopic.getIllustration()).isNotNull();
-        assertThat(fakeTopic.getIllustration()).isEmpty();
-    }
-
-    @Test
-    public void canSetAnIllustration() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
-        final String illustration = "link";
-
-        fakeTopic.setIllustration(illustration);
-
-        assertThat(fakeTopic.getIllustration()).isEqualTo(illustration);
-    }
-
-    @Test
     public void canSetThumbnail() {
         final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
         final String thumbnail = "link";
@@ -295,6 +277,24 @@ public class TopicTest {
         feeling.addSentiment(sentiment);
 
         assertThat(topic.getSentimentScore()).isEqualTo(-100);
+    }
+
+    @Test
+    public void keepThumbnailsCollection() {
+        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+
+        assertThat(fakeTopic.getThumbnails()).isNotNull();
+        assertThat(fakeTopic.getThumbnails()).isEmpty();
+    }
+
+    @Test
+    public void canAddAThumbnail() {
+        final Thumbnail thumbnail = new Thumbnail();
+        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+
+        fakeTopic.addThumbnail(thumbnail);
+
+        assertThat(fakeTopic.getThumbnails().size()).isEqualTo(1);
     }
 
     class FakeTopic extends Topic {

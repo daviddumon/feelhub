@@ -50,7 +50,7 @@ public class HttpTopicAnalyzer {
             getThumbnail(httpTopic);
         } else {
             httpTopic.setIllustration("http://ec2-107-22-105-164.compute-1.amazonaws.com:3000/?url=" + getCanonical(httpTopic) + "&clipRect={%22top%22:0,%22left%22:0,%22width%22:1024,%22height%22:600}");
-            final String thumbnail = cloudinary.getThumbnail(httpTopic.getIllustration());
+            final String thumbnail = cloudinary.getCloudinaryImage(httpTopic.getIllustration());
             httpTopic.setThumbnail(thumbnail);
         }
         return getMedias(scrapedInformation);
@@ -65,7 +65,7 @@ public class HttpTopicAnalyzer {
     }
 
     private void getThumbnail(final HttpTopic httpTopic) {
-        final String thumbnail = cloudinary.getThumbnail(httpTopic.getIllustration());
+        final String thumbnail = cloudinary.getCloudinaryImage(httpTopic.getIllustration());
         httpTopic.setThumbnail(thumbnail);
     }
 

@@ -25,16 +25,6 @@ public class TopicFactory {
         return new WorldTopic(UUID.randomUUID());
     }
 
-    public HttpTopic createHttpTopicWithMediaType(final String value, final MediaType restrictedType, final UriResolver uriResolver) {
-        final ResolverResult resolverResult = uriResolver.resolve(new Uri(value));
-        if (restrictedType != null) {
-            checkMediaType(resolverResult, restrictedType);
-        }
-        final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
-        fillHttpTopicDatas(resolverResult, httpTopic);
-        return httpTopic;
-    }
-
     private void checkMediaType(final ResolverResult resolverResult, final MediaType restrictedType) {
         if (!resolverResult.getMediaType().getMainType().equalsIgnoreCase(restrictedType.getMainType())) {
             throw new TopicException();

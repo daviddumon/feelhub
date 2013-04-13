@@ -2,26 +2,21 @@ package com.feelhub.domain.bing;
 
 import com.feelhub.domain.cloudinary.CloudinaryException;
 import com.feelhub.domain.eventbus.DomainEventBus;
-import com.feelhub.domain.media.MediaCreatedEvent;
 import com.feelhub.domain.topic.*;
-import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
-import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
-import org.restlet.data.MediaType;
 
 import java.util.List;
 
 public class BingSearch {
 
     @Inject
-    public BingSearch(final BingLink bingLink, final BingRelationBinder bingRelationBinder) {
+    public BingSearch(final BingLink bingLink, final UriResolver uriResolver) {
         this.bingLink = bingLink;
-        this.bingRelationBinder = bingRelationBinder;
         DomainEventBus.INSTANCE.register(this);
         rateLimiter = RateLimiter.create(5.0);
     }
@@ -35,38 +30,42 @@ public class BingSearch {
     }
 
     void doBingSearch(final Topic topic, final String query) {
-        final List<HttpTopic> images = getImages(topic, query);
-        bingRelationBinder.bind(topic, images);
+        final List<String> illustrations = bingLink.getIllustrations(query);
+        final Thumbnail thumbnail = findThumbnail(illustrations);
+        if (thumbnail != null) {
+            postThumnailCreatedEvent(topic, thumbnail);
+        }
     }
 
-    private List<HttpTopic> getImages(final Topic topic, final String query) {
-        final List<HttpTopic> images = Lists.newArrayList();
-        final List<String> illustrations = bingLink.getIllustrations(query);
-
+    private Thumbnail findThumbnail(final List<String> illustrations) {
         int i = 0;
-        while (i < illustrations.size() && images.size() < 1) {
+        while (i < illustrations.size()) {
             final String illustration = illustrations.get(i++);
             try {
-                final HttpTopic image = createImage(illustration);
-                DomainEventBus.INSTANCE.post(new MediaCreatedEvent(topic.getCurrentId(), image.getCurrentId()));
-                images.add(image);
+                final ResolverResult resolverResult = uriResolver.resolve(new Uri(illustration));
+                final Thumbnail thumbnail = new Thumbnail();
+                thumbnail.setOrigin(getCanonical(resolverResult).toString());
+                return thumbnail;
             } catch (UriException e) {
             } catch (TopicException e) {
             } catch (CloudinaryException e) {
             }
         }
-        return images;
+        return null;
     }
 
-    private HttpTopic createImage(final String illustration) {
-        final HttpTopic image = new TopicFactory().createHttpTopicWithMediaType(illustration, MediaType.IMAGE_ALL, uriResolver);
-        image.setIllustration(illustration);
-        Repositories.topics().add(image);
-        return image;
+    private void postThumnailCreatedEvent(final Topic topic, final Thumbnail thumbnail) {
+        final ThumbnailCreatedEvent event = new ThumbnailCreatedEvent();
+        event.setTopicId(topic.getCurrentId());
+        event.setThumbnail(thumbnail);
+        DomainEventBus.INSTANCE.post(event);
+    }
+
+    private Uri getCanonical(final ResolverResult resolverResult) {
+        return resolverResult.getPath().get(resolverResult.getPath().size() - 1);
     }
 
     private final BingLink bingLink;
-    private final BingRelationBinder bingRelationBinder;
     private final RateLimiter rateLimiter;
     UriResolver uriResolver = new UriResolver();
 }

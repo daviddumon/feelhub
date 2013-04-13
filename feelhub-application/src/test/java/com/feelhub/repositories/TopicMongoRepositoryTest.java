@@ -10,7 +10,7 @@ import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
 
-import java.util.UUID;
+import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -28,8 +28,11 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
     public void canPersistATopic() {
         final UUID id = UUID.randomUUID();
         final FakeTopic fakeTopic = new FakeTopic(id);
-        fakeTopic.setIllustration("illustration");
         fakeTopic.setThumbnail("tb");
+        final Thumbnail thumbnail = new Thumbnail();
+        thumbnail.setOrigin("origin");
+        thumbnail.setCloudinary("cloudinary");
+        fakeTopic.addThumbnail(thumbnail);
 
         repo.add(fakeTopic);
 
@@ -39,8 +42,8 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("currentId")).isEqualTo(id);
         assertThat(topicFound.get("creationDate")).isEqualTo(fakeTopic.getCreationDate().getMillis());
         assertThat(topicFound.get("lastModificationDate")).isEqualTo(fakeTopic.getLastModificationDate().getMillis());
-        assertThat(topicFound.get("illustration")).isEqualTo(fakeTopic.getIllustration());
         assertThat(topicFound.get("thumbnail")).isEqualTo(fakeTopic.getThumbnail());
+        assertThat(((List<Thumbnail>)topicFound.get("thumbnails")).size()).isEqualTo(1);
     }
 
     @Test
@@ -87,7 +90,6 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("uris")).isNotNull();
-        assertThat(topicFound.get("illustration")).isEqualTo(httpTopic.getIllustration());
         assertThat(topicFound.get("__discriminator")).isEqualTo("HttpTopic");
         assertThat(topicFound.get("mediaTypeValue").toString()).isEqualTo("text/html");
         assertThat(topicFound.get("openGraphType").toString()).isEqualTo("article");
@@ -106,7 +108,6 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("uris")).isNotNull();
-        assertThat(topicFound.get("illustration")).isEqualTo(ftpTopic.getIllustration());
         assertThat(topicFound.get("__discriminator")).isEqualTo("FtpTopic");
     }
 
@@ -124,7 +125,6 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("descriptions")).isNotNull();
         assertThat(topicFound.get("subTypes")).isNotNull();
         assertThat(topicFound.get("uris")).isNotNull();
-        assertThat(topicFound.get("illustration")).isEqualTo(geoTopic.getIllustration());
         assertThat(topicFound.get("__discriminator")).isEqualTo("GeoTopic");
     }
 
