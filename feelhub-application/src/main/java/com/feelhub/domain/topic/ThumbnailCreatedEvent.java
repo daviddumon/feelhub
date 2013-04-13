@@ -2,7 +2,6 @@ package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.DomainEvent;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 public class ThumbnailCreatedEvent extends DomainEvent {

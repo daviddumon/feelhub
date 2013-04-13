@@ -3,7 +3,6 @@ package com.feelhub.repositories;
 import com.feelhub.domain.admin.AdminStatisticsRepository;
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.FeelingRepository;
-import com.feelhub.domain.media.MediaRepository;
 import com.feelhub.domain.related.RelatedRepository;
 import com.feelhub.domain.session.SessionRepository;
 import com.feelhub.domain.statistics.StatisticsRepository;
@@ -24,10 +23,6 @@ public abstract class Repositories {
 
     public static RelatedRepository related() {
         return Repositories.soleInstance.getRelatedRepository();
-    }
-
-    public static MediaRepository medias() {
-        return Repositories.soleInstance.getMediaRepository();
     }
 
     public static StatisticsRepository statistics() {
@@ -87,8 +82,6 @@ public abstract class Repositories {
     protected abstract StatisticsRepository getStatisticsRepository();
 
     protected abstract UserRepository getUserRepository();
-
-    protected abstract MediaRepository getMediaRepository();
 
     private static Repositories soleInstance;
 

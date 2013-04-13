@@ -33,7 +33,6 @@ public class GuiceTestModule extends AbstractModule {
         bind(FeelingSearch.class).to(FakeFeelingSearch.class);
         bind(StatisticsSearch.class).to(FakeStatisticsSearch.class);
         bind(RelatedSearch.class).to(FakeRelatedSearch.class);
-        bind(MediaSearch.class).to(FakeMediaSearch.class);
         bind(UriResolver.class).to(FakeUriResolver.class);
         bind(Scraper.class).to(FakeScraper.class);
         bind(NamedEntityProvider.class).toInstance(new NamedEntityProvider(new FakeAlchemyLink()));

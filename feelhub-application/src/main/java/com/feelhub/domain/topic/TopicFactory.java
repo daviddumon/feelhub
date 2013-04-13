@@ -6,7 +6,6 @@ import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.domain.topic.world.WorldTopic;
-import org.restlet.data.MediaType;
 
 import java.util.UUID;
 
@@ -23,12 +22,6 @@ public class TopicFactory {
 
     public WorldTopic createWorldTopic() {
         return new WorldTopic(UUID.randomUUID());
-    }
-
-    private void checkMediaType(final ResolverResult resolverResult, final MediaType restrictedType) {
-        if (!resolverResult.getMediaType().getMainType().equalsIgnoreCase(restrictedType.getMainType())) {
-            throw new TopicException();
-        }
     }
 
     public HttpTopic createHttpTopic(final String value, final UUID userId, final UriResolver uriResolver) {

@@ -1,7 +1,6 @@
 package com.feelhub.patch;
 
 import com.feelhub.domain.cloudinary.*;
-import com.feelhub.domain.media.Media;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.tools.MongoLinkAwareExecutor;
@@ -68,14 +67,14 @@ public class Patch_2013_04_11_1 extends Patch {
     }
 
     private void setThumbnailForMediaLinked(final Topic currentTopic, final String thumbnail) {
-        final List<Media> medias = Repositories.medias().containingTopicId(currentTopic.getCurrentId());
-        for (Media media : medias) {
-            if (!media.getFromId().equals(currentTopic.getCurrentId())) {
-                final Topic fromId = Repositories.topics().getCurrentTopic(media.getFromId());
-                fromId.setThumbnail(thumbnail);
-                System.out.println(fromId.getCurrentId() + " : " + thumbnail + " (media)");
-            }
-        }
+        //final List<Media> medias = Repositories.medias().containingTopicId(currentTopic.getCurrentId());
+        //for (Media media : medias) {
+        //    if (!media.getFromId().equals(currentTopic.getCurrentId())) {
+        //        final Topic fromId = Repositories.topics().getCurrentTopic(media.getFromId());
+        //        fromId.setThumbnail(thumbnail);
+        //        System.out.println(fromId.getCurrentId() + " : " + thumbnail + " (media)");
+        //    }
+        //}
     }
 
     @Override

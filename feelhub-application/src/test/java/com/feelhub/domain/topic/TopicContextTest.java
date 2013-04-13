@@ -48,24 +48,6 @@ public class TopicContextTest {
     }
 
     @Test
-    public void mediaDoNotBelongToTopicContext() {
-        final RealTopic topic1 = TestFactories.topics().newCompleteRealTopic("name1");
-        final RealTopic topic2 = TestFactories.topics().newCompleteRealTopic("name2");
-        final RealTopic topic3 = TestFactories.topics().newCompleteRealTopic("name3");
-        final Tag value1 = TestFactories.tags().newTag("value1", topic2);
-        final Tag value2 = TestFactories.tags().newTag("value2", topic2);
-        TestFactories.tags().newTag("value3", topic3);
-        TestFactories.related().newRelated(topic1.getId(), topic2.getId());
-        TestFactories.medias().newMedia(topic1.getId(), topic3.getId());
-
-        final Map<Tag, Topic> tagTopicMap = topicContext.extractFor(topic1.getId(), FeelhubLanguage.reference());
-
-        assertThat(tagTopicMap.size()).isEqualTo(2);
-        assertThat(tagTopicMap.keySet()).contains(value1);
-        assertThat(tagTopicMap.keySet()).contains(value1);
-    }
-
-    @Test
     public void onlyGetTagsWithGoodLanguage() {
         final RealTopic topic1 = TestFactories.topics().newCompleteRealTopic("name1");
         final RealTopic topic2 = TestFactories.topics().newCompleteRealTopic("name2");

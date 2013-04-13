@@ -43,7 +43,7 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("creationDate")).isEqualTo(fakeTopic.getCreationDate().getMillis());
         assertThat(topicFound.get("lastModificationDate")).isEqualTo(fakeTopic.getLastModificationDate().getMillis());
         assertThat(topicFound.get("thumbnail")).isEqualTo(fakeTopic.getThumbnail());
-        assertThat(((List<Thumbnail>)topicFound.get("thumbnails")).size()).isEqualTo(1);
+        assertThat(((List<Thumbnail>) topicFound.get("thumbnails")).size()).isEqualTo(1);
     }
 
     @Test

@@ -3,7 +3,6 @@ package com.feelhub.repositories.fakeRepositories;
 import com.feelhub.domain.admin.AdminStatisticsRepository;
 import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.feeling.FeelingRepository;
-import com.feelhub.domain.media.MediaRepository;
 import com.feelhub.domain.related.RelatedRepository;
 import com.feelhub.domain.session.SessionRepository;
 import com.feelhub.domain.statistics.StatisticsRepository;
@@ -70,14 +69,8 @@ public class FakeRepositories extends Repositories {
         return userRepository;
     }
 
-    @Override
-    protected MediaRepository getMediaRepository() {
-        return mediaRepository;
-    }
-
     private final FakeFeelingRepository feelingRepository = new FakeFeelingRepository();
     private final RelatedRepository relationFakeRepository = new FakeRelatedRepository();
-    private final MediaRepository mediaRepository = new FakeMediaRepository();
     private final FakeStatisticsRepository statisticsRepository = new FakeStatisticsRepository();
     private final FakeUserRepository userRepository = new FakeUserRepository();
     private final FakeSessionRepository sessionRepository = new FakeSessionRepository();
