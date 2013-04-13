@@ -132,14 +132,6 @@ public abstract class Topic extends BaseEntity {
         return sentiments;
     }
 
-    public String getIllustration() {
-        return illustration;
-    }
-
-    public void setIllustration(final String illustration) {
-        this.illustration = illustration;
-    }
-
     @Override
     public String toString() {
         return Objects.toStringHelper(this).add("Id", getId()).add("Name", getName(FeelhubLanguage.REFERENCE))
@@ -173,7 +165,6 @@ public abstract class Topic extends BaseEntity {
     protected UUID currentId;
     protected Map<String, String> names = Maps.newHashMap();
     private UUID userId;
-    private String illustration = "";
     private TopicMerger topicMerger = new TopicMerger();
     private String thumbnail = "";
     private List<Thumbnail> thumbnails = Lists.newArrayList();

@@ -33,7 +33,7 @@ public class TopicMerger {
         final Topic oldTopic = Repositories.topics().get(oldTopicId);
         mergeNames(newTopic, oldTopic);
         mergeDescriptions(newTopic, oldTopic);
-        mergeIllustrationLink(newTopic, oldTopic);
+        mergeThumbnail(newTopic, oldTopic);
         mergeSubtypes(newTopic, oldTopic);
         mergeUris(newTopic, oldTopic);
     }
@@ -60,10 +60,10 @@ public class TopicMerger {
         }
     }
 
-    private void mergeIllustrationLink(final Topic newTopic, final Topic oldTopic) {
-        if (newTopic.getIllustration().isEmpty()) {
-            if (!oldTopic.getIllustration().isEmpty()) {
-                newTopic.setIllustration(oldTopic.getIllustration());
+    private void mergeThumbnail(final Topic newTopic, final Topic oldTopic) {
+        if (newTopic.getThumbnail().isEmpty()) {
+            if (!oldTopic.getThumbnail().isEmpty()) {
+                newTopic.setThumbnail(oldTopic.getThumbnail());
             }
         }
     }

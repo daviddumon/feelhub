@@ -29,25 +29,26 @@ public class PatchCloudinary extends Patch {
         int thumbs = 0;
         for (final Topic topic : topicList) {
             try {
-                if (topic.getIllustration() != null && !topic.getIllustration().isEmpty()) {
-                    //if (topic.getThumbnailLarge() == null || topic.getThumbnailLarge().isEmpty()) {
-                    //    rateLimiter.acquire();
-                    //    System.out.println("Creating thumbnails for " + topic.getIllustration());
-                    //    final Runnable runnable = new Runnable() {
-                    //
-                    //        @Override
-                    //        public void run() {
-                    //            createThumbnails(topic.getIllustration(), topic.getCurrentId());
-                    //        }
-                    //    };
-                    //    mongoLinkAwareExecutor.execute(runnable);
-                    //    thumbs++;
-                    //}
-                }
+                //if (topic.getIllustration() != null && !topic.getIllustration().isEmpty()) {
+                //if (topic.getThumbnailLarge() == null || topic.getThumbnailLarge().isEmpty()) {
+                //    rateLimiter.acquire();
+                //    System.out.println("Creating thumbnails for " + topic.getIllustration());
+                //    final Runnable runnable = new Runnable() {
+                //
+                //        @Override
+                //        public void run() {
+                //            createThumbnails(topic.getIllustration(), topic.getCurrentId());
+                //        }
+                //    };
+                //    mongoLinkAwareExecutor.execute(runnable);
+                //    thumbs++;
+                //}
+                //}
             } catch (Exception e) {
             }
             counter++;
         }
+
         System.out.println("end of patch, number of topics : " + counter + " number of thumbs :" + thumbs);
         System.out.println("Cloudinary patch end");
     }

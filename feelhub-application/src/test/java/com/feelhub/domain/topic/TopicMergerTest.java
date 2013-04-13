@@ -1,6 +1,7 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.application.TagService;
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.related.Related;
 import com.feelhub.domain.statistics.*;
@@ -21,6 +22,9 @@ public class TopicMergerTest {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
 
     @Before
     public void before() {
@@ -127,26 +131,26 @@ public class TopicMergerTest {
     }
 
     @Test
-    public void mergeIllustrationLinksIfEmpty() {
+    public void mergeThumbnailIfEmpty() {
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
-        oldHttpTopic.setIllustration("illustrationLink");
+        oldHttpTopic.setThumbnail("illustrationLink");
 
         topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(httpTopic.getIllustration()).isEqualTo(oldHttpTopic.getIllustration());
+        assertThat(httpTopic.getThumbnail()).isEqualTo(oldHttpTopic.getThumbnail());
     }
 
     @Test
-    public void doNotMergeIllustrationLinksIfExists() {
+    public void doNotMergeThumbnailIfExists() {
         final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
         final HttpTopic oldHttpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
-        httpTopic.setIllustration("weblink");
-        oldHttpTopic.setIllustration("oldlink");
+        httpTopic.setThumbnail("weblink");
+        oldHttpTopic.setThumbnail("oldlink");
 
         topicMerger.merge(httpTopic.getId(), oldHttpTopic.getId());
 
-        assertThat(httpTopic.getIllustration()).isEqualTo("weblink");
+        assertThat(httpTopic.getThumbnail()).isEqualTo("weblink");
     }
 
     @Test
