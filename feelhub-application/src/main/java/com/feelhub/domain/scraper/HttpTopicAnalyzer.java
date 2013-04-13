@@ -2,6 +2,7 @@ package com.feelhub.domain.scraper;
 
 import com.feelhub.domain.cloudinary.Cloudinary;
 import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.topic.Thumbnail;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
@@ -46,12 +47,13 @@ public class HttpTopicAnalyzer {
         httpTopic.setType(scrapedInformation.getType());
         httpTopic.setOpenGraphType(scrapedInformation.getOpenGraphType());
         if (!scrapedInformation.getImages().isEmpty()) {
-            httpTopic.setIllustration(scrapedInformation.getImages().get(0));
-            getThumbnail(httpTopic);
+            final Thumbnail thumbnail = getThumbnail(scrapedInformation.getImages().get(0));
+            httpTopic.addThumbnail(thumbnail);
+            httpTopic.setThumbnail(thumbnail.getCloudinary());
         } else {
-            httpTopic.setIllustration("http://ec2-107-22-105-164.compute-1.amazonaws.com:3000/?url=" + getCanonical(httpTopic) + "&clipRect={%22top%22:0,%22left%22:0,%22width%22:1024,%22height%22:600}");
-            final String thumbnail = cloudinary.getCloudinaryImage(httpTopic.getIllustration());
-            httpTopic.setThumbnail(thumbnail);
+            final Thumbnail thumbnail = getThumbnail("http://ec2-107-22-105-164.compute-1.amazonaws.com:3000/?url=" + getCanonical(httpTopic) + "&clipRect={%22top%22:0,%22left%22:0,%22width%22:1692,%22height%22:1044}");
+            httpTopic.addThumbnail(thumbnail);
+            httpTopic.setThumbnail(thumbnail.getCloudinary());
         }
         return getMedias(scrapedInformation);
     }
@@ -64,9 +66,12 @@ public class HttpTopicAnalyzer {
         }
     }
 
-    private void getThumbnail(final HttpTopic httpTopic) {
-        final String thumbnail = cloudinary.getCloudinaryImage(httpTopic.getIllustration());
-        httpTopic.setThumbnail(thumbnail);
+    private Thumbnail getThumbnail(final String origin) {
+        final Thumbnail thumbnail = new Thumbnail();
+        final String cloudinaryImage = cloudinary.getCloudinaryImage(origin);
+        thumbnail.setOrigin(origin);
+        thumbnail.setCloudinary(cloudinaryImage);
+        return thumbnail;
     }
 
     private List<String> getMedias(final ScrapedInformation scrapedInformation) {

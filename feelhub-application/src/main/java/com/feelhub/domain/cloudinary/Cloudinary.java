@@ -34,7 +34,7 @@ public class Cloudinary {
     public String getCloudinaryImage(final String source) {
         final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
-        params.put("transformation", "w_564,h_348,c_fill,g_face,q_80");
+        params.put("transformation", "w_564,h_348,c_fill,g_face,q_75");
         params.put("file", source);
         try {
             return cloudinaryLink.getIllustration(params);

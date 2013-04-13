@@ -92,8 +92,10 @@ public class HttpTopicAnalyzerTest {
 
         httpTopicAnalyzer.analyze(httpTopic.getId());
 
-        assertThat(httpTopic.getIllustration()).isEqualTo("http://s1.lemde.fr/image/2013/01/25/540x270/1822831_3_dfb7_un-manifestant-lance-un-cocktail-molotov-contre_ed5d9c3af6a609128210a9cab7111290.jpg");
         assertThat(httpTopic.getThumbnail()).isEqualTo("thumbnail");
+        assertThat(httpTopic.getThumbnails().size()).isEqualTo(1);
+        assertThat(httpTopic.getThumbnails().get(0).getOrigin()).isEqualTo("http://s1.lemde.fr/image/2013/01/25/540x270/1822831_3_dfb7_un-manifestant-lance-un-cocktail-molotov-contre_ed5d9c3af6a609128210a9cab7111290.jpg");
+        assertThat(httpTopic.getThumbnails().get(0).getCloudinary()).isEqualTo("thumbnail");
     }
 
     @Test
