@@ -1,18 +1,30 @@
-var begin = new Date();
 var FoundException = {};
 rs.slaveOk();
 
-var topics = 0, deleted = 0, keeped = 0;
+var topics = 0, deleted = 0, keeped = 0, count = 0;
+
+var feelings = new Array();
+db.feeling.find().forEach(function (feeling) {
+    feeling.sentiments.forEach(function (sentiment) {
+        feelings.push(sentiment.topicId.hex());
+    });
+});
+
+var relateds = new Array();
+db.related.find().forEach(function (related) {
+    relateds.push(related.toId.hex());
+});
+
+print(feelings.length);
+print(relateds.length);
 
 function in_feeling(id) {
     try {
-        db.feeling.find().forEach(function (feeling) {
-            feeling.sentiments.forEach(function (sentiment) {
-                if (sentiment.topicId.hex() === id.hex()) {
-                    throw new FoundException();
-                }
-            });
-        });
+        for(var i = 0; i < feelings.length; i ++) {
+            if(feelings[i] === id.hex()) {
+                throw new FoundException();
+            }
+        }
         return false;
     } catch (e) {
         return true;
@@ -21,11 +33,11 @@ function in_feeling(id) {
 
 function in_related(id) {
     try {
-        db.related.find().forEach(function (related) {
-            if (related.toId.hex() === id.hex()) {
+        for(var i = 0; i < relateds.length;i++) {
+            if(relateds[i] === id.hex()) {
                 throw new FoundException();
             }
-        });
+        }
         return false;
     } catch (e) {
         return true;
@@ -33,7 +45,7 @@ function in_related(id) {
 }
 
 db.topic.find().forEach(function (topic) {
-    print("topic : " + topic._id);
+    print("topic : " + topic._id + " count:" + count);
     if (in_feeling(topic._id) || in_related(topic._id)) {
         keeped++;
     } else {
@@ -42,9 +54,9 @@ db.topic.find().forEach(function (topic) {
         print("deleted");
     }
     topics++;
+    count++;
 });
 
 print("total : " + topics);
 print("delete : " + deleted);
 print("keeped : " + keeped);
-print("time : " + (new Date() - begin));
