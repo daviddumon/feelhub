@@ -43,5 +43,17 @@ public class Cloudinary {
         }
     }
 
+    public String getCloudinaryImageForWebsite(final String source) {
+        final Map<String, String> params = Maps.newHashMap();
+        params.put("format", "jpg");
+        params.put("transformation", "w_564,h_348,c_scale,q_75");
+        params.put("file", source);
+        try {
+            return cloudinaryLink.getIllustration(params);
+        } catch (IOException e) {
+            throw new CloudinaryException();
+        }
+    }
+
     private final CloudinaryLink cloudinaryLink;
 }

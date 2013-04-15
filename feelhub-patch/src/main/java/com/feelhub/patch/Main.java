@@ -14,7 +14,7 @@ public final class Main {
     public static void main(final String[] args) {
         Guice.createInjector(Stage.PRODUCTION, new GuicePatchModule(), new DomainWorkersModule(), new AnalyticWorkersModule());
         LOGGER.info("Patch begin");
-        new Patch_2013_04_13_1(new SessionProvider()).execute();
+        new Patch_2013_04_15_1(new SessionProvider()).execute();
         LOGGER.info("Patch end");
     }
 

@@ -68,7 +68,7 @@ public class HttpTopicAnalyzer {
 
     private Thumbnail getThumbnail(final String origin) {
         final Thumbnail thumbnail = new Thumbnail();
-        final String cloudinaryImage = cloudinary.getCloudinaryImage(origin);
+        final String cloudinaryImage = cloudinary.getCloudinaryImageForWebsite(origin);
         thumbnail.setOrigin(origin);
         thumbnail.setCloudinary(cloudinaryImage);
         return thumbnail;
