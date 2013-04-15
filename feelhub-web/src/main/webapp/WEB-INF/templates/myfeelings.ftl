@@ -44,7 +44,7 @@
 </@flow.dashboard>
 
 <@flow.command classes="">
-    <#include "newfeeling.ftl"/>
+    <#--<#include "newfeeling.ftl"/>-->
 </@flow.command>
 
 <@flow.feelings>
