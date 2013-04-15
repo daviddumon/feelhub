@@ -1,0 +1,4 @@
+db.topic.update({"_id": BinData(3,"aUIyTPjRzWhlsbVdmHnljg==")}, {$set: {"thumbnails.0.origin": "http://cdn.arstechnica.net/wp-content/uploads/2013/01/mega10-640x474.jpg"}});
+db.topic.update({"_id": BinData(3,"S0YMC+nbYqMFjg/6cqtCkA==")}, {$set: {"thumbnails.0.origin": "http://www.dtom.fr/wp-content/uploads/2013/02/Benoit-XVI.jpeg"}});
+db.topic.update({"_id": BinData(3,"2E3vtF9pMa1qGw9bKJ0/mg==")}, {$set: {"thumbnails.0.origin": "http://9to5google.files.wordpress.com/2013/03/happy-5th-birthday-youtube-501ecffedf.jpg"}});
+db.topic.update({"_id": BinData(3,"0kTo5B904QoV758Dqm6ilQ==")}, {$set: {"thumbnails.0.origin": "https://lh3.ggpht.com/-kosG3QYqULhDW7HdPuIJEXwJNh9MqcYGOXePyflFYdtQcqt-ycRvE0y1kSVSuKBTQ=w705"}});

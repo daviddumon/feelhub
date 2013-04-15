@@ -2,7 +2,7 @@ package com.feelhub.patch;
 
 import com.feelhub.domain.cloudinary.*;
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.http.*;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.repositories.*;
 import com.feelhub.tools.MongoLinkAwareExecutor;
 import com.google.common.util.concurrent.RateLimiter;
@@ -23,7 +23,7 @@ public class Patch_2013_04_15_1 extends Patch {
     @Override
     protected void doBusinessPatch() {
         System.out.println("Cloudinary patch begin");
-        final RateLimiter rateLimiter = RateLimiter.create(0.1);
+        final RateLimiter rateLimiter = RateLimiter.create(0.2);
         final MongoLinkAwareExecutor mongoLinkAwareExecutor = new MongoLinkAwareExecutor(sessionProvider);
         final List<Topic> topicList = Repositories.topics().getAll();
         int counter = 0;
@@ -32,19 +32,17 @@ public class Patch_2013_04_15_1 extends Patch {
             try {
                 try {
                     final HttpTopic httpTopic = (HttpTopic) topic;
-                    if (httpTopic.getType().equals(HttpTopicType.Website) || httpTopic.getType().equals(HttpTopicType.Article)) {
-                        if ((httpTopic.getThumbnail() == null || httpTopic.getThumbnail().isEmpty()) && !httpTopic.getThumbnails().isEmpty() && !httpTopic.getThumbnails().get(0).getOrigin().isEmpty()) {
-                            rateLimiter.acquire();
-                            final Runnable runnable = new Runnable() {
+                    if ((httpTopic.getThumbnail() == null || httpTopic.getThumbnail().isEmpty()) && !httpTopic.getThumbnails().isEmpty() && !httpTopic.getThumbnails().get(0).getOrigin().isEmpty()) {
+                        rateLimiter.acquire();
+                        final Runnable runnable = new Runnable() {
 
-                                @Override
-                                public void run() {
-                                    createThumbnail(httpTopic.getThumbnails().get(0).getOrigin(), httpTopic.getCurrentId());
-                                }
-                            };
-                            mongoLinkAwareExecutor.execute(runnable);
-                            thumbs++;
-                        }
+                            @Override
+                            public void run() {
+                                createThumbnail(httpTopic.getThumbnails().get(0).getOrigin(), httpTopic.getCurrentId());
+                            }
+                        };
+                        mongoLinkAwareExecutor.execute(runnable);
+                        thumbs++;
                     }
                 } catch (Exception e) {
                 }
