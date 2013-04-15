@@ -29,7 +29,7 @@ public class BingSearch {
         doBingSearch(realTopic, realTopic.getName(event.feelhubLanguage));
     }
 
-    void doBingSearch(final Topic topic, final String query) {
+    public void doBingSearch(final Topic topic, final String query) {
         final List<String> illustrations = bingLink.getIllustrations(query);
         final Thumbnail thumbnail = findThumbnail(illustrations);
         if (thumbnail != null) {

@@ -1,0 +1,1 @@
+db.topic.update({}, {$unset: {illustration:1}}, false, true);
