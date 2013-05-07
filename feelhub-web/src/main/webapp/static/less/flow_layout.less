@@ -21,7 +21,7 @@ body {
         display: block;
         width: 100%;
         list-style-type: none;
-        padding-bottom: 40px;
+        padding-bottom: 20px;
       }
 
       .feeling {
@@ -29,11 +29,25 @@ body {
         margin-bottom: 20px;
         .shadow();
 
-        p {
-          padding-left: 20px;
-          padding-right: 20px;
-          word-wrap: break-word;
-          text-align: left;
+        .sentiment {
+          vertical-align: top;
+          min-height: 60px;
+
+          canvas {
+            float: left;
+            margin-left: 20px;
+            .rounded;
+          }
+
+          .text {
+
+            p {
+              padding-left: 100px;
+              padding-right: 20px;
+              word-wrap: break-word;
+              text-align: left;
+            }
+          }
         }
 
         .feeling_sentiment_illustration {
@@ -47,8 +61,8 @@ body {
         }
 
         .feeling_related {
-          padding-bottom: 40px;
           overflow: hidden;
+          padding-bottom: 20px;
         }
 
         div.counter {

@@ -32,7 +32,7 @@ define(["jquery"],
             } else {
                 context.fillStyle = neutral_color;
             }
-            context.fillRect(0, 0, 120, 120);
+            context.fillRect(0, 0, 60, 60);
         }
 
         function draw_eyes(context) {

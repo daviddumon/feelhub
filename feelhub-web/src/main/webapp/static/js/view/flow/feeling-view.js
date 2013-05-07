@@ -1,6 +1,6 @@
-define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templates/flow/flow_counter_feeling"],
+define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templates/flow/flow_counter_feeling", "modules/canvas"],
 
-    function ($, feeling, counter) {
+    function ($, feeling, counter, canvas) {
 
         var last_feeling = "";
         var last_counter = "";
@@ -17,6 +17,13 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
             var element = feeling(prepare_data(data, width));
             $(container).append(element);
             last_feeling = data.feelingid;
+            if(data.sentimentDatas[0].sentimentValue == "bad") {
+                canvas.draw("canvas-" + data.feelingid, -40, 4);
+            } else if (data.sentimentDatas[0].sentimentValue == "good") {
+                canvas.draw("canvas-" + data.feelingid, 40, 4);
+            } else {
+                canvas.draw("canvas-" + data.feelingid, 0, 4);
+            }
         }
 
         function prepare_data(feeling, width) {

@@ -9,7 +9,12 @@
             {{/id}}
         {{/sentimentDatas}}
     </div>
-    {{#text}}
-    <p>{{{.}}}&nbsp;</p>
-    {{/text}}
+    <div class="sentiment">
+        <canvas id="canvas-{{feelingid}}" width="60px" height="60px"></canvas>
+        <div class="text">
+            {{#text}}
+                <p>{{{.}}}&nbsp;</p>
+            {{/text}}
+        </div>
+    </div>
 </li>
