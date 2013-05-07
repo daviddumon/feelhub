@@ -12,11 +12,10 @@ require.config(
     }
 );
 
-require(["plugins/domReady!", "modules/interface", "modules/flow", "view/flow/feeling-view", "modules/form/newfeeling/new-feeling-form"],
+require(["plugins/domReady!", "modules/interface", "modules/flow", "view/flow/feeling-view"],
 
-    function (doc, interface, flow, view, new_feeling_form) {
+    function (doc, interface, flow, view) {
         var list_feeling_api_end_point = root + "/api/feelings";
         interface.init();
-        new_feeling_form.init();
         flow.init(list_feeling_api_end_point, null, view, null);
     });

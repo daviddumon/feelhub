@@ -2,7 +2,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
     var container = $("#flow");
     var row_container = "#flow_list";
-    var end_function, parameter, data_view, doit, api_end_point, datas, initial, skip, limit, maxBox, hasData, notLoading, basePollTime, lastFeelingId, spacer;
+    var end_function, parameter, data_view, doit, api_end_point, datas, target_width, box_width, skip, limit, maxBox, hasData, notLoading, basePollTime, lastFeelingId, spacer;
 
     function init(end_point, param, view, callback) {
         do_init(end_point, param, view, callback);
@@ -11,6 +11,12 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         $(window).scroll(function () {
             draw_data();
         });
+    }
+
+    function render_list() {
+        for (var i = 0; i < maxBox; i++) {
+            list_view.render(container, i, box_width - 20);
+        }
     }
 
     function do_init(end_point, param, view, callback) {
@@ -23,17 +29,16 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         limit = 20;
         hasData = true;
         notLoading = true;
-        for (var i = 0; i < maxBox; i++) {
-            list_view.render(container, i);
-        }
+        render_list();
         datas = [];
         basePollTime = 60000;
     }
 
     function compute_max_box() {
-        initial = 320;
-        spacer = 0;
-        maxBox = Math.floor((container.innerWidth() - spacer) / initial);
+        spacer = 20;
+        target_width = 584;
+        maxBox = Math.ceil((container.innerWidth() - spacer) / target_width);
+        box_width = (container.innerWidth() - spacer) / maxBox;
         if (maxBox < 1) {
             maxBox = 1;
         }
@@ -139,9 +144,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     function reset() {
         container.empty();
         compute_max_box();
-        for (var i = 0; i < maxBox; i++) {
-            list_view.render(container, i);
-        }
+        render_list();
         data_view.reset();
         re_draw();
     }
