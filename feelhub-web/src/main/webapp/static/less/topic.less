@@ -3,6 +3,8 @@ body {
 
   .topic {
     position: relative;
+    left: -1px;
+    top: -1px;
     display: block;
     background: no-repeat center @grey-3;
     cursor: pointer;
@@ -32,13 +34,6 @@ body {
   }
 
   .topic-large {
-    width: 272px;
-    height: 168px;
-
-    img.illustration {
-      width: 272px;
-      height: 168px;
-    }
 
     span {
       font-size: 14px;
@@ -102,16 +97,16 @@ body {
     margin: 8px 2px 8px 2px;
   }
 
+  .topic-float {
+    float: left !important;
+  }
+
   .topic-with-sentiment {
 
     img.illustration {
       position: relative;
       top: -30px !important;
     }
-  }
-
-  .topic-float {
-    float: left !important;
   }
 
   .topic-no-cursor {

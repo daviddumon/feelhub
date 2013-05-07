@@ -15,7 +15,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
     function render_list() {
         for (var i = 0; i < maxBox; i++) {
-            list_view.render(container, i, box_width - 20);
+            list_view.render(container, i, box_width);
         }
     }
 
@@ -25,8 +25,8 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         parameter = param;
         end_function = callback;
         compute_max_box();
-        skip = 0;
-        limit = 20;
+        skip = -10;
+        limit = 30;
         hasData = true;
         notLoading = true;
         render_list();
@@ -36,9 +36,10 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
     function compute_max_box() {
         spacer = 20;
+        var margin = 20;
         target_width = 584;
         maxBox = Math.ceil((container.innerWidth() - spacer) / target_width);
-        box_width = (container.innerWidth() - spacer) / maxBox;
+        box_width = ((container.innerWidth() - spacer) / maxBox) - margin;
         if (maxBox < 1) {
             maxBox = 1;
         }
@@ -48,7 +49,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         $.each(initial_datas, function (index, data) {
             append_data(data);
         });
-        if (initial_datas.length != limit) {
+        if (initial_datas.length != 20) {
             hasData = false;
         }
         if (end_function) {
@@ -95,7 +96,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
                 uri += parameter.value + "&";
             });
             uri = uri.substr(0, uri.length - 1);
-
+            console.log(uri);
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {
                     $.each(data, function (index, data) {
@@ -121,12 +122,12 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
         function need_data() {
             var docHeight = container.height();
             var scrollTop = $(window).scrollTop();
-            var trigger = $(window).height() * 2;
+            var trigger = $(window).height() * 3;
             return (docHeight - scrollTop) < trigger;
         }
     }
 
-    function append_data(data) {
+    function draw_feeling(data) {
         var row_index = 0;
         var row_height = $(row_container + "_" + row_index).height();
         for (var i = 1; i < maxBox; i++) {
@@ -137,7 +138,11 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
             }
         }
 
-        data_view.render(data, row_container + "_" + row_index);
+        data_view.render(data, row_container + "_" + row_index, box_width);
+    }
+
+    function append_data(data) {
+        draw_feeling(data);
         datas.push(data);
     }
 
@@ -151,18 +156,7 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
 
     function re_draw() {
         $.each(datas, function (index, data) {
-
-            var row_index = 0;
-            var row_height = $(row_container + "_" + row_index).height();
-            for (var i = 1; i < maxBox; i++) {
-                var current_height = $(row_container + "_" + i).height()
-                if (current_height < row_height) {
-                    row_index = i;
-                    row_height = current_height;
-                }
-            }
-
-            data_view.render(data, row_container + "_" + row_index);
+            draw_feeling(data);
         });
     }
 
