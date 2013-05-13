@@ -49,7 +49,7 @@
         </li>
         <li id="dashboard-sentiment">
             <div class="holder">
-                <canvas id="canvas-sentiment" width="120" height="120">
+                <canvas id="canvas-sentiment" width="60" height="60">
                     <img class="smiley good" src="${root}/static/images/smiley_good_white.png"/>
                 </canvas>
             </div>

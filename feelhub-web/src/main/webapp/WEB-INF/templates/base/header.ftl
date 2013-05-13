@@ -6,7 +6,7 @@
     </form>
     <div id="login_helper">
     <#if userInfos.authenticated || !userInfos.anonymous>
-        <p>Hello <a href="${root}/myfeelings">${userInfos.user.fullname}</a> ! - <a href="javascript:void(0);" class="logout">logout</a></p>
+        <p>Hello ${userInfos.user.fullname} ! - <a href="javascript:void(0);" class="logout">logout</a></p>
     </#if>
     </div>
 </header>

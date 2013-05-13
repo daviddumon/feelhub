@@ -17,5 +17,5 @@ require(["plugins/domReady!", "jquery", "modules/interface", "modules/flow", "vi
         interface.init();
         form_new_feeling.init();
         flow.init(root + "/api/topic/" + topicData.id + "/feelings", null, feeling_view, null);
-        canvas.draw("canvas-sentiment", topicData.topicSentimentScore, 8);
+        canvas.draw("canvas-sentiment", topicData.topicSentimentScore, 4);
     });
