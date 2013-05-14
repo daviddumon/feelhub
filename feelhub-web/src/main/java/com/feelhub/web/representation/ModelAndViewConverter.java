@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ModelAndViewConverter extends ConverterHelper {
+
     @Override
     public List<Class<?>> getObjectClasses(final Variant variant) {
         return Lists.newArrayList();

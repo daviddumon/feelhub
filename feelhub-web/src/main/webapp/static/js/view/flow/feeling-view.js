@@ -17,12 +17,19 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
             var element = feeling(prepare_data(data, width));
             $(container).append(element);
             last_feeling = data.feelingid;
-            if(data.sentimentDatas[0].sentimentValue == "bad") {
-                canvas.draw("canvas-" + data.feelingid, -40, 4);
-            } else if (data.sentimentDatas[0].sentimentValue == "good") {
-                canvas.draw("canvas-" + data.feelingid, 40, 4);
+            var sentiment;
+            if(data.sentimentDatas.length > 0) {
+                sentiment = data.sentimentDatas[0].sentimentValue;
             } else {
-                canvas.draw("canvas-" + data.feelingid, 0, 4);
+                sentiment = data.feeling_sentiment_value;
+            }
+
+            if(sentiment == "bad") {
+                canvas.draw("canvas-" + data.feelingid, -40, 51);
+            } else if (sentiment == "good") {
+                canvas.draw("canvas-" + data.feelingid, 40, 51);
+            } else {
+                canvas.draw("canvas-" + data.feelingid, 0, 51);
             }
         }
 

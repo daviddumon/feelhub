@@ -1,4 +1,4 @@
-define(["jquery"], function ($) {
+define(["jquery", "modules/messages"], function ($, messages) {
 
     var trigger_height = 0;
     var doit, document_height;
@@ -7,6 +7,7 @@ define(["jquery"], function ($) {
     function init() {
         add_responsive_behavior();
         check_dashboard_state();
+        messages.display_messages();
 
         $(".logout").click(function () {
             $.ajax({

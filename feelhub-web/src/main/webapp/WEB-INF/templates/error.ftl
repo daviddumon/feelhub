@@ -10,10 +10,8 @@
 </@noflow.js>
 
 <@noflow.body>
-<div id="error">
-    <img src="${root}/static/images/smiley_bad_white.png"/>
-
-    <p>There is a great disturbance in the Force</p>
-    <a href="${root}/">return to home</a>
+<div id="error" class="fixed-message">
+    <a id="home_link" href="${root}">Feelhub<span>.com</span></a>
+    <p>There was a great disturbance in the Force</p>
 </div>
 </@noflow.body>

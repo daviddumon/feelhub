@@ -55,7 +55,6 @@ public class FeelhubRouter extends Router {
         attach("/help", HelpResource.class);
         attach("/welcome", WelcomeResource.class);
         attach("/search", SearchResource.class);
-        attach("/newtopic", NewTopicResource.class);
         attach("/sitemap_index_{number}.xml", FeelhubSitemapIndexResource.class);
         attach("/sitemap_{number}.xml", FeelhubSitemapResource.class);
         attach("/social/facebook", FacebookResource.class);
@@ -63,6 +62,7 @@ public class FeelhubRouter extends Router {
         attach("/social/google", GoogleResource.class);
         attach("/social/welcome", SocialWelcomeResource.class);
         attach("/bookmarklet", BookmarkletResource.class);
+        attach("/error", ErrorResource.class);
         attach("/", HomeResource.class);
     }
 

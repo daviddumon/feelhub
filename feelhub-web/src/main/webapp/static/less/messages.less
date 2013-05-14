@@ -1,0 +1,39 @@
+body {
+
+  #messages {
+    position: fixed;
+    width: 100%;
+    z-index: 20000;
+
+    div.message {
+      width: 100%;
+      color: @white;
+      font-size: @font-big;
+      display: none;
+      position: relative;
+      cursor: pointer;
+
+      p.message-text {
+        width: 60%;
+        text-align: center;
+        margin: 0px auto;
+        padding: 12px;
+        word-wrap: break-word;
+        line-height: 31.4px;
+        .font_title;
+        font-size: 19.4px;
+      }
+
+      div.message-close {
+        display: none;
+        position: absolute;
+        right: 31.4px;
+        top: 19.4px;
+        word-wrap: break-word;
+        line-height: 19.4px;
+        .font_title;
+        font-size: 12px;
+      }
+    }
+  }
+}

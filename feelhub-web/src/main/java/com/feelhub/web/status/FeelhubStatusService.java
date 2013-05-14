@@ -1,14 +1,13 @@
 package com.feelhub.web.status;
 
-import com.feelhub.domain.feeling.FeelingCreationException;
-import com.feelhub.domain.topic.TopicNotFound;
-import com.feelhub.domain.topic.http.uri.UriException;
 import com.feelhub.domain.user.BadUserException;
 import com.feelhub.web.resources.api.FeelhubApiException;
 import com.google.common.collect.Maps;
 import org.restlet.*;
 import org.restlet.data.Status;
+import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
+import org.restlet.routing.Filter;
 import org.restlet.service.StatusService;
 
 import java.util.Map;
@@ -16,11 +15,8 @@ import java.util.Map;
 public class FeelhubStatusService extends StatusService {
 
     public FeelhubStatusService() {
-        resolvers.put(UriException.class, new ExceptionResolver400());
         resolvers.put(FeelhubApiException.class, new JsonExceptionResolver());
-        resolvers.put(FeelingCreationException.class, new ExceptionResolver400());
         resolvers.put(BadUserException.class, new UserExceptionResolver());
-        resolvers.put(TopicNotFound.class, new ExceptionResolver404());
     }
 
     @Override

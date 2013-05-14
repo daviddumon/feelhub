@@ -1,16 +1,35 @@
 /* Copyright Feelhub 2012 */
 .fixed_info(@color) {
+  display: none;
   position: fixed;
-  top: 50%;
   left: 50%;
   text-align: center;
-  padding-top: 4%;
-  padding-bottom: 4%;
-  width: 40%;
-  margin-left: -20%;
-  margin-top: -12%;
+  width: 564px;
+  margin-left: -282px;
   background-color: @color !important;
+  overflow: auto;
   .rounded();
+
+  a {
+    display: block;
+    .font_logo;
+    font-size: 34px;
+    color: @white;
+    padding: 34px;
+    text-decoration: underline;
+
+    span {
+      font-size: 19.4px;
+      font-weight: normal !important;
+    }
+  }
+
+  p {
+    padding: 34px;
+    font-size: 19.4px;
+    line-height: 19.4px;
+    color: @white !important;
+  }
 }
 
 .relative_info(@color) {
@@ -46,29 +65,6 @@ body {
 
   #error {
     .fixed_info(@bad);
-
-    img {
-      width: 64px;
-      margin-top: -8%;
-      margin-bottom: 2%;
-    }
-
-    p {
-      font-size: 2em;
-      line-height: 2em;
-      color: @white !important;
-    }
-
-    a {
-      position: relative;
-      top: 20px;
-      margin: 0 auto;
-      color: @white;
-      font-size: 1.5em;
-      font-weight: bold;
-      text-decoration: underline !important;
-    }
-
   }
 
   #thankyou, #launch, #migration, #wait {

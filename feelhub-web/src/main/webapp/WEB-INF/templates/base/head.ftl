@@ -83,34 +83,6 @@
 
     <#if !dev>
 
-        <#--<script type='text/javascript'>-->
-            <#--var _ues = {-->
-                <#--host: 'feelhub.userecho.com',-->
-                <#--forum: '17423',-->
-                <#--lang: 'en',-->
-                <#--tab_icon_show: false,-->
-                <#--tab_corner_radius: 10,-->
-                <#--tab_font_size: 20,-->
-                <#--tab_image_hash: 'ZmVlZGJhY2s%3D',-->
-                <#--tab_chat_hash: 'Y2hhdA%3D%3D',-->
-                <#--tab_alignment: 'left',-->
-                <#--tab_text_color: '#FFFFFF',-->
-                <#--tab_text_shadow_color: '#00000055',-->
-                <#--tab_bg_color: '#57A957',-->
-                <#--tab_hover_color: '#F45C5C'-->
-            <#--};-->
-
-            <#--(function () {-->
-                <#--var _ue = document.createElement('script');-->
-                <#--_ue.type = 'text/javascript';-->
-                <#--_ue.async = true;-->
-                <#--_ue.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.userecho.com/js/widget-1.4.gz.js';-->
-                <#--var s = document.getElementsByTagName('script')[0];-->
-                <#--s.parentNode.insertBefore(_ue, s);-->
-            <#--})();-->
-
-        <#--</script>-->
-
         <script type="text/javascript">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-35946821-1']);
