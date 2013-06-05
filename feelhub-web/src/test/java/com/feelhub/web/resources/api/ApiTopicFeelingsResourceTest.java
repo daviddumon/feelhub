@@ -72,7 +72,7 @@ public class ApiTopicFeelingsResourceTest {
     }
 
     @Test
-    public void canThrowException() {
+    public void canSetBadRequestIfUnknownTopic() {
         final ClientResource feelingsResource = restlet.newClientResource("/api/topic/" + UUID.randomUUID() + "/feelings");
 
         feelingsResource.get();

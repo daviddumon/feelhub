@@ -10,7 +10,6 @@ import com.feelhub.sitemap.application.SitemapsRepository;
 import com.feelhub.web.authentification.UserInfos;
 import com.feelhub.web.filter.*;
 import com.feelhub.web.mail.MailBuilder;
-import com.feelhub.web.status.FeelhubStatusService;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.feelhub.web.update.UpdateRouter;
 import com.google.inject.*;
@@ -29,7 +28,6 @@ public class FeelhubApplication extends Application {
 
     public FeelhubApplication(final Context context) {
         super(context);
-        setStatusService(new FeelhubStatusService());
         // Désactivation des log JUL
         final java.util.logging.Logger rootLogger = LogManager.getLogManager().getLogger("");
         final Handler[] handlers = rootLogger.getHandlers();
@@ -66,7 +64,7 @@ public class FeelhubApplication extends Application {
         configuration.setEncoding(Locale.ROOT, "UTF-8");
         configuration.addAutoImport("head", "/base/head.ftl");
         configuration.addAutoImport("flow", "/base/flow.ftl");
-        configuration.addAutoImport("noflow", "/base/noflow.ftl");
+        configuration.addAutoImport("fixed", "/base/fixed.ftl");
         configuration.setSharedVariable("dev", feelhubWebProperties.dev);
         configuration.setSharedVariable("root", feelhubWebProperties.domain + servletContext().getContextPath());
         configuration.setSharedVariable("buildtime", feelhubWebProperties.buildtime);

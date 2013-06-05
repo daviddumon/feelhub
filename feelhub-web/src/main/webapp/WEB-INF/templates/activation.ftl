@@ -1,16 +1,16 @@
-<@noflow.jsprod>
+<@fixed.jsprod>
 <script type="text/javascript" data-main="${root}/static/js/controller/activation-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@noflow.jsprod>
+</@fixed.jsprod>
 
-<@noflow.jsdev>
+<@fixed.jsdev>
 <script type="text/javascript" data-main="${root}/static/js/controller-built/activation-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@noflow.jsdev>
+</@fixed.jsdev>
 
-<@noflow.js>
-</@noflow.js>
+<@fixed.js>
+</@fixed.js>
 
-<@noflow.body>
+<@fixed.body>
 <div id="thankyou">
     <p>Thank you !</p>
 </div>
-</@noflow.body>
+</@fixed.body>

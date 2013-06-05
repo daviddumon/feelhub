@@ -24,10 +24,18 @@ public class ApiTopicStatisticsResource extends ServerResource {
 
     @Get
     public ModelAndView represent() throws JSONException {
-        extractRequestAttributes();
-        extractParameters(getQuery());
-        fetchStatistics();
-        return ModelAndView.createNew("api/statistics.json.ftl", MediaType.APPLICATION_JSON).with("statistics", statistics);
+        try {
+            extractRequestAttributes();
+            extractParameters(getQuery());
+            fetchStatistics();
+            return ModelAndView.createNew("api/statistics.json.ftl", MediaType.APPLICATION_JSON).with("statistics", statistics);
+        } catch (FeelhubApiException e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        } catch (TopicNotFound e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        }
     }
 
     private void extractRequestAttributes() {
@@ -49,12 +57,8 @@ public class ApiTopicStatisticsResource extends ServerResource {
     }
 
     private void fetchStatistics() {
-        try {
-            final Topic realTopic = topicService.lookUpCurrent(UUID.fromString(topicId));
-            statistics = statisticsSearch.withTopicId(realTopic.getId()).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
-        } catch (TopicNotFound e) {
-            throw new FeelhubApiException();
-        }
+        final Topic realTopic = topicService.lookUpCurrent(UUID.fromString(topicId));
+        statistics = statisticsSearch.withTopicId(realTopic.getId()).withGranularity(granularity).withInterval(new Interval(start, end)).execute();
     }
 
     private List<Statistics> statistics = Lists.newArrayList();

@@ -1,17 +1,17 @@
-<@noflow.jsprod>
-<script type="text/javascript" data-main="${root}/static/js/controller-built/common-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@noflow.jsprod>
+<@fixed.jsprod>
+<script type="text/javascript" data-main="${root}/static/js/controller-built/fixed-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
+</@fixed.jsprod>
 
-<@noflow.jsdev>
-<script type="text/javascript" data-main="${root}/static/js/controller/common-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@noflow.jsdev>
+<@fixed.jsdev>
+<script type="text/javascript" data-main="${root}/static/js/controller/fixed-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
+</@fixed.jsdev>
 
-<@noflow.js>
-</@noflow.js>
+<@fixed.js>
+</@fixed.js>
 
-<@noflow.body>
+<@fixed.body>
 <div id="error" class="fixed-message">
     <a id="home_link" href="${root}">Feelhub<span>.com</span></a>
     <p>There was a great disturbance in the Force</p>
 </div>
-</@noflow.body>
+</@fixed.body>

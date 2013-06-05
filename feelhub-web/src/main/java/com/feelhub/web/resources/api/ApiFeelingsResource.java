@@ -21,25 +21,26 @@ public class ApiFeelingsResource extends ServerResource {
     }
 
     @Post
-    public JsonRepresentation add(final JsonRepresentation entity) {
+    public JsonRepresentation add(final JsonRepresentation entity) throws AuthenticationException {
         try {
             checkCredentials();
             setStatus(Status.SUCCESS_CREATED);
             return apiCreateFeeling.add(entity.getJsonObject());
         } catch (JSONException e) {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-        } catch (AuthenticationException e) {
-            setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
-        } catch (FeelhubApiException e) {
-            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return new JsonRepresentation(new JSONObject());
         }
-        return new JsonRepresentation(new JSONObject());
     }
 
     @Get
     public ModelAndView getFeelings() throws JSONException {
-        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(getQuery());
-        return ModelAndView.createNew("api/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
+        try {
+            final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(getQuery());
+            return ModelAndView.createNew("api/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
+        } catch (FeelhubApiException e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        }
     }
 
     private void checkCredentials() throws AuthenticationException {

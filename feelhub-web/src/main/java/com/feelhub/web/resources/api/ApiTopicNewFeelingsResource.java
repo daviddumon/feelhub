@@ -25,10 +25,18 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
-        final List<Feeling> feelings = doSearchWithQueryParameters();
-        final List<FeelingData> feelingDatas = feelingDataFactory.feelingDatas(feelings);
-        setStatus(Status.SUCCESS_OK);
-        return ModelAndView.createNew("api/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
+        try {
+            final List<Feeling> feelings = doSearchWithQueryParameters();
+            final List<FeelingData> feelingDatas = feelingDataFactory.feelingDatas(feelings);
+            setStatus(Status.SUCCESS_OK);
+            return ModelAndView.createNew("api/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
+        } catch (TopicNotFound e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        } catch (FeelhubApiException e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        }
     }
 
     private List<Feeling> doSearchWithQueryParameters() {
@@ -56,13 +64,9 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
     }
 
     private void setUpSearchForTopicId() {
-        try {
-            final String topicId = getRequestAttributes().get("topicId").toString().trim();
-            realTopic = topicService.lookUpCurrent(UUID.fromString(topicId));
-            feelingSearch.withTopicId(realTopic.getId());
-        } catch (TopicNotFound e) {
-            throw new FeelhubApiException();
-        }
+        final String topicId = getRequestAttributes().get("topicId").toString().trim();
+        realTopic = topicService.lookUpCurrent(UUID.fromString(topicId));
+        feelingSearch.withTopicId(realTopic.getId());
     }
 
     private void getLastFeeling() {

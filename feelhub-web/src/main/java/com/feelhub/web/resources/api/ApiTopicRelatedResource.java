@@ -26,20 +26,24 @@ public class ApiTopicRelatedResource extends ServerResource {
 
     @Get
     public ModelAndView getRelatedTopics() {
-        final Topic topic = getTopic();
-        relatedSearch.withTopicId(topic.getCurrentId());
-        doSearchWithQueryParameters();
-        getTopicDataForEachRelated();
-        return ModelAndView.createNew("api/related.json.ftl", MediaType.APPLICATION_JSON).with("topicDataList", topicDataList);
+        try {
+            final Topic topic = getTopic();
+            relatedSearch.withTopicId(topic.getCurrentId());
+            doSearchWithQueryParameters();
+            getTopicDataForEachRelated();
+            return ModelAndView.createNew("api/related.json.ftl", MediaType.APPLICATION_JSON).with("topicDataList", topicDataList);
+        } catch (TopicNotFound e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        } catch (FeelhubApiException e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        }
     }
 
     private Topic getTopic() {
-        try {
-            final String topicId = getRequestAttributes().get("topicId").toString().trim();
-            return topicService.lookUpCurrent(UUID.fromString(topicId));
-        } catch (TopicNotFound e) {
-            throw new FeelhubApiException();
-        }
+        final String topicId = getRequestAttributes().get("topicId").toString().trim();
+        return topicService.lookUpCurrent(UUID.fromString(topicId));
     }
 
     private void doSearchWithQueryParameters() {
@@ -76,13 +80,9 @@ public class ApiTopicRelatedResource extends ServerResource {
     }
 
     private void addTopicData(final Related related) {
-        try {
-            final Topic topic = topicService.lookUpCurrent(related.getToId());
-            final TopicData topicData = topicDataFactory.simpleTopicData(topic, CurrentUser.get().getLanguage());
-            topicDataList.add(topicData);
-        } catch (TopicNotFound e) {
-            throw new FeelhubApiException();
-        }
+        final Topic topic = topicService.lookUpCurrent(related.getToId());
+        final TopicData topicData = topicDataFactory.simpleTopicData(topic, CurrentUser.get().getLanguage());
+        topicDataList.add(topicData);
     }
 
     private final RelatedSearch relatedSearch;

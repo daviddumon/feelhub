@@ -3,7 +3,6 @@ package com.feelhub.web.resources.api;
 import com.feelhub.application.TopicService;
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.topic.*;
-import com.feelhub.domain.tag.TagNotFoundException;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.web.WebReferenceBuilder;
@@ -31,16 +30,10 @@ public class ApiTopicsResource extends ServerResource {
     @Get
     public ModelAndView getTopics() {
         List<TopicData> topicDatas = Lists.newArrayList();
-        try {
-            final String query = getQueryValue();
-            final List<Topic> topics = topicService.getTopics(query, CurrentUser.get().getLanguage());
-            setStatus(Status.SUCCESS_OK);
-            topicDatas = getTopicDatas(topics);
-        } catch (FeelhubApiException e) {
-            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-        } catch (TagNotFoundException e) {
-            setStatus(Status.SUCCESS_OK);
-        }
+        final String query = getQueryValue();
+        final List<Topic> topics = topicService.getTopics(query, CurrentUser.get().getLanguage());
+        setStatus(Status.SUCCESS_OK);
+        topicDatas = getTopicDatas(topics);
         return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", topicDatas);
     }
 

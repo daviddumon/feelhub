@@ -1,30 +1,19 @@
-<@head.headbegin>
-</@head.headbegin>
+<@fixed.jsprod>
+<script type="text/javascript" data-main="${root}/static/js/controller-built/fixed-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
+</@fixed.jsprod>
 
-<@head.cssprod>
-<link rel="stylesheet" href="${root}/static/css/noflow.css?cache=${buildtime}"/>
-</@head.cssprod>
+<@fixed.jsdev>
+<script type="text/javascript" data-main="${root}/static/js/controller/fixed-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
+</@fixed.jsdev>
 
-<@head.cssdev>
-<link rel="stylesheet/less" type="text/css" href="${root}/static/css/noflow.less?cache=${buildtime}"/>
-</@head.cssdev>
+<@fixed.js>
+</@fixed.js>
 
-<@head.jsprod>
-</@head.jsprod>
-
-<@head.jsdev>
-</@head.jsdev>
-
-<@head.js>
-</@head.js>
-
-<@head.headend>
-</@head.headend>
-<body>
+<@fixed.body>
 <div id="migration">
     <p>We are updating Feelhub !</p>
 
     <p>We apologize for the inconvenience</p>
 </div>
-</body>
-</html>
+</@fixed.body>
+

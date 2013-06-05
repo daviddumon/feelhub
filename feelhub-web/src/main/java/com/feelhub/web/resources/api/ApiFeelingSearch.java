@@ -46,7 +46,7 @@ public class ApiFeelingSearch {
         if (form.getQueryString().contains("limit")) {
             final int limit = Integer.parseInt(form.getFirstValue("limit").trim());
             if (limit > 100) {
-                throw new FeelhubApiException();
+                throw new FeelhubApiException("You can only set limit to a max value of 100");
             }
             feelingSearch.withLimit(limit);
         } else {

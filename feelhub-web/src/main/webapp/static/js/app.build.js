@@ -13,7 +13,7 @@
             name: "activation-controller"
         },
         {
-            name: "common-controller"
+            name: "fixed-controller"
         },
         {
             name: "home-controller"
@@ -23,9 +23,6 @@
         },
         {
             name: "myfeelings-controller"
-        },
-        {
-            name: "newtopic-controller"
         },
         {
             name: "search-controller"

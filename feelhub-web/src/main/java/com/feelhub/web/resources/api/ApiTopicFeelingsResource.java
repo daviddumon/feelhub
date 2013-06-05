@@ -5,8 +5,7 @@ import com.feelhub.domain.topic.*;
 import com.feelhub.web.dto.FeelingData;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.inject.Inject;
-import org.json.JSONException;
-import org.restlet.data.MediaType;
+import org.restlet.data.*;
 import org.restlet.resource.*;
 
 import java.util.*;
@@ -20,18 +19,22 @@ public class ApiTopicFeelingsResource extends ServerResource {
     }
 
     @Get
-    public ModelAndView getFeelings() throws JSONException {
-        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(extractTopic(), getQuery());
-        return ModelAndView.createNew("api/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
+    public ModelAndView getFeelings() {
+        try {
+            final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(extractTopic(), getQuery());
+            return ModelAndView.createNew("api/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
+        } catch (TopicNotFound e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        } catch (FeelhubApiException e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        }
     }
 
     private Topic extractTopic() {
-        try {
-            final String topicId = getRequestAttributes().get("topicId").toString().trim();
-            return topicService.lookUpCurrent(UUID.fromString(topicId));
-        } catch (TopicNotFound e) {
-            throw new FeelhubApiException();
-        }
+        final String topicId = getRequestAttributes().get("topicId").toString().trim();
+        return topicService.lookUpCurrent(UUID.fromString(topicId));
     }
 
     private final ApiFeelingSearch apiFeelingSearch;

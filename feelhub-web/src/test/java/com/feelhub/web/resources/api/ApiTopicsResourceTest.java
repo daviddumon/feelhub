@@ -16,6 +16,7 @@ import com.feelhub.web.representation.ModelAndView;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Futures;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentCaptor;
 import org.restlet.*;
 import org.restlet.data.*;
@@ -29,6 +30,9 @@ public class ApiTopicsResourceTest {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void before() {
@@ -171,12 +175,11 @@ public class ApiTopicsResourceTest {
 
     @Test
     public void errorIfNoQuery() {
+        exception.expect(FeelhubApiException.class);
         final Request request = new Request(Method.GET, "http://test.com");
         apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
 
         apiTopicsResource.getTopics();
-
-        assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
     }
 
     @Test

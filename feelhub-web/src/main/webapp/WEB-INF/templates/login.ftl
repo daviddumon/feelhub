@@ -1,18 +1,18 @@
-<@noflow.jsprod>
+<@fixed.jsprod>
 <script type="text/javascript" data-main="${root}/static/js/controller-built/login-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@noflow.jsprod>
+</@fixed.jsprod>
 
-<@noflow.jsdev>
+<@fixed.jsdev>
 <script type="text/javascript" data-main="${root}/static/js/controller/login-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@noflow.jsdev>
+</@fixed.jsdev>
 
-<@noflow.js>
+<@fixed.js>
 <script type="text/javascript">
     var referrer = "${referrer}";
 </script>
-</@noflow.js>
+</@fixed.js>
 
-<@noflow.body>
+<@fixed.body>
 <form id="login">
     <h1>WELCOME</h1>
 
@@ -49,4 +49,4 @@
         <a href="${googleUrl}" id="google_login">Sign in with Google</a>
     </div>
 </form>
-</@noflow.body>
+</@fixed.body>

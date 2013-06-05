@@ -8,7 +8,7 @@ import com.feelhub.web.dto.ContextData;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import org.restlet.data.MediaType;
+import org.restlet.data.*;
 import org.restlet.resource.*;
 
 import java.util.*;
@@ -23,18 +23,22 @@ public class ApiTopicContextResource extends ServerResource {
 
     @Get
     public ModelAndView getSemanticContext() {
-        final Topic topic = getTopic();
-        final Map<Tag, Topic> tagTopicMap = topicContext.extractFor(topic.getId(), CurrentUser.get().getLanguage());
-        return ModelAndView.createNew("api/context.json.ftl", MediaType.APPLICATION_JSON).with("contextDatas", getContextData(tagTopicMap));
+        try {
+            final Topic topic = getTopic();
+            final Map<Tag, Topic> tagTopicMap = topicContext.extractFor(topic.getId(), CurrentUser.get().getLanguage());
+            return ModelAndView.createNew("api/context.json.ftl", MediaType.APPLICATION_JSON).with("contextDatas", getContextData(tagTopicMap));
+        } catch (TopicNotFound e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        } catch (FeelhubApiException e) {
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            return ModelAndView.createNew("api/api-error.ftl").with("exception", e);
+        }
     }
 
     private Topic getTopic() {
-        try {
-            final String topicId = getRequestAttributes().get("topicId").toString().trim();
-            return topicService.lookUpCurrent(UUID.fromString(topicId));
-        } catch (TopicNotFound e) {
-            throw new FeelhubApiException();
-        }
+        final String topicId = getRequestAttributes().get("topicId").toString().trim();
+        return topicService.lookUpCurrent(UUID.fromString(topicId));
     }
 
     private List<ContextData> getContextData(final Map<Tag, Topic> values) {
