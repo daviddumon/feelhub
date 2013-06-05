@@ -24,6 +24,9 @@
 </@head.headend>
 
 <body>
+
+<div id="messages"></div>
+
 <div id="panel-1">
 
     <div id="left">

@@ -66,11 +66,24 @@
         var root = "${root}";
         var authentificated = ${userInfos.authenticated?string};
         var languageCode = "${userInfos.languageCode}";
+
             <#if !userInfos.anonymous>
             var userId = "${userInfos.user.id}";
             <#else>
             var userId = "";
             </#if>
+
+        var initial_messages = [
+            <#if messages??>
+                <#list messages as message>
+                    {
+                        feeling: "${message.feeling}",
+                        text: "${message.text?j_string}",
+                        timer: "${message.secondTimer}"
+                    }${message_has_next?string(",", "")}
+                </#list>
+            </#if>
+        ];
     </script>
 
     <#nested/>

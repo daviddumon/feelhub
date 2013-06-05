@@ -10,6 +10,7 @@ import com.feelhub.sitemap.application.SitemapsRepository;
 import com.feelhub.web.authentification.UserInfos;
 import com.feelhub.web.filter.*;
 import com.feelhub.web.mail.MailBuilder;
+import com.feelhub.web.status.FeelhubStatusService;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.feelhub.web.update.UpdateRouter;
 import com.google.inject.*;
@@ -28,6 +29,7 @@ public class FeelhubApplication extends Application {
 
     public FeelhubApplication(final Context context) {
         super(context);
+        setStatusService(new FeelhubStatusService());
         // Désactivation des log JUL
         final java.util.logging.Logger rootLogger = LogManager.getLogManager().getLogger("");
         final Handler[] handlers = rootLogger.getHandlers();

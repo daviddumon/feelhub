@@ -1,6 +1,7 @@
 package com.feelhub.web.resources.social;
 
 import com.feelhub.application.command.CommandBus;
+import com.feelhub.domain.user.User;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.*;
 import org.joda.time.*;
@@ -19,7 +20,7 @@ public abstract class OauthResource extends ServerResource {
     public void returns() {
         final String code = getQuery().getFirstValue("code");
         final Token accesToken = accessToken(code);
-        final com.feelhub.domain.user.User user = getOrCreateUser(accesToken);
+        final User user = getOrCreateUser(accesToken);
         authenticationManager.authenticate(AuthRequest.socialNetwork(user.getId().toString()));
         setStatus(Status.REDIRECTION_TEMPORARY);
         if (isOldUser(user)) {
@@ -31,9 +32,9 @@ public abstract class OauthResource extends ServerResource {
 
     abstract Token accessToken(String code);
 
-    protected abstract com.feelhub.domain.user.User getOrCreateUser(Token accesToken);
+    protected abstract User getOrCreateUser(Token accesToken);
 
-    private boolean isOldUser(final com.feelhub.domain.user.User newUser) {
+    private boolean isOldUser(final User newUser) {
         return !Days.daysBetween(newUser.getCreationDate(), DateTime.now()).isLessThan(Days.ONE);
     }
 

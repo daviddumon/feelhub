@@ -41,17 +41,7 @@
 <#macro dashboard>
 <body>
 
-<div id="messages">
-    <#if messages??>
-        <#list messages as message>
-            <div class="message feeling-${message.feeling}" data-second-timer="${message.secondTimer}">
-                <p class="message-text">${message.text?j_string}</p>
-
-                <div class="message-close">click to close this message</div>
-            </div>
-        </#list>
-    </#if>
-</div>
+<div id="messages"></div>
 
     <#nested/>
 

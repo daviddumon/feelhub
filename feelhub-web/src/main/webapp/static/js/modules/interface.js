@@ -7,7 +7,7 @@ define(["jquery", "modules/messages"], function ($, messages) {
     function init() {
         add_responsive_behavior();
         check_dashboard_state();
-        messages.display_messages();
+        messages.init();
 
         $(".logout").click(function () {
             $.ajax({

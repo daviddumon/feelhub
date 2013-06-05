@@ -33,6 +33,9 @@
 
 <#macro body>
 <body>
+
+<div id="messages"></div>
+
     <#nested/>
 </body>
 </html>
