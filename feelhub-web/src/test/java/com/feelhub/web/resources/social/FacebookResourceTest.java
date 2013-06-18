@@ -7,6 +7,7 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.ContextTestFactory;
 import com.feelhub.web.authentification.*;
 import com.feelhub.web.social.FacebookConnector;
+import com.feelhub.web.tools.*;
 import com.google.common.util.concurrent.Futures;
 import com.restfb.types.User;
 import org.joda.time.*;
@@ -31,7 +32,7 @@ public class FacebookResourceTest {
         facebookConnector = mock(FacebookConnector.class);
         when(facebookConnector.getAccesToken(anyString())).thenReturn(new Token("token", "secret"));
         commandBus = mock(CommandBus.class);
-        facebookResource = new FacebookResource(facebookConnector, authenticationManager, commandBus);
+        facebookResource = new FacebookResource(facebookConnector, authenticationManager, commandBus, new CookieManager(new FeelhubWebProperties()));
         final Request request = new Request(Method.GET, "http://test.com?code=toto");
         facebookResource.init(context, request, new Response(request));
     }
@@ -76,7 +77,7 @@ public class FacebookResourceTest {
 
         facebookResource.returns();
 
-        assertThat(facebookResource.getLocationRef().toString()).isEqualTo("https://thedomain/");
+        assertThat(facebookResource.getLocationRef().toString()).isEqualTo("https://thedomain//");
         assertThat(facebookResource.getStatus()).isEqualTo(Status.REDIRECTION_TEMPORARY);
     }
 
@@ -88,7 +89,7 @@ public class FacebookResourceTest {
         facebookResource.returns();
 
         assertThat(facebookResource.getStatus()).isEqualTo(Status.REDIRECTION_TEMPORARY);
-        assertThat(facebookResource.getLocationRef().toString()).isEqualTo("https://thedomain//social/welcome");
+        assertThat(facebookResource.getLocationRef().toString()).isEqualTo("https://thedomain//");
     }
 
     private void validUser() {

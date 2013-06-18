@@ -7,9 +7,16 @@ define(["jquery", "modules/messages"], function ($, messages) {
         });
 
         $("input").keypress(function (event) {
+            $(this).parent().find(".help_text").hide();
             var code = event.keyCode || event.which;
             if (code == 13) {
                 login();
+            }
+        });
+
+        $("input").focusout(function () {
+            if ($(this).val() == "") {
+                $(this).parent().find(".help_text").show();
             }
         });
 

@@ -26,6 +26,18 @@ public class FeelhubMessage {
         this.secondTimer = secondTimer;
     }
 
+    public String toJSON() {
+        final StringBuilder json = new StringBuilder();
+        json.append("{\"feeling\":\"");
+        json.append(feeling);
+        json.append("\",\"text\":\"");
+        json.append(text);
+        json.append("\",\"timer\":");
+        json.append(secondTimer);
+        json.append("}");
+        return json.toString();
+    }
+
     private String text;
     private String feeling;
     private int secondTimer = 0;

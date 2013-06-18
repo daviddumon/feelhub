@@ -1,6 +1,7 @@
 package com.feelhub.web.tools;
 
 import com.feelhub.domain.user.User;
+import com.feelhub.web.dto.FeelhubMessage;
 import org.restlet.data.CookieSetting;
 
 import java.util.UUID;
@@ -23,6 +24,13 @@ public final class CookieBuilder {
         id.setValue(value);
         id.setMaxAge(0);
         return id;
+    }
+
+    public CookieSetting messageCookie(final FeelhubMessage feelhubMessage) {
+        final CookieSetting message = newCookie("message", "message cookie");
+        message.setAccessRestricted(false);
+        message.setValue(feelhubMessage.toJSON());
+        return message;
     }
 
     private CookieSetting baseIdCookie() {
@@ -55,14 +63,14 @@ public final class CookieBuilder {
     }
 
     private CookieSetting newCookie(final String name, final String comment) {
-        final CookieSetting session = new CookieSetting();
-        session.setName(name);
-        session.setComment(comment);
-        session.setAccessRestricted(true);
-        session.setSecure(properties.secureMode);
-        session.setDomain(properties.cookie);
-        session.setPath("/");
-        return session;
+        final CookieSetting cookie = new CookieSetting();
+        cookie.setName(name);
+        cookie.setComment(comment);
+        cookie.setAccessRestricted(true);
+        cookie.setSecure(properties.secureMode);
+        cookie.setDomain(properties.cookie);
+        cookie.setPath("/");
+        return cookie;
     }
 
     private final FeelhubWebProperties properties;

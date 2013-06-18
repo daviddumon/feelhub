@@ -5,6 +5,7 @@ import com.feelhub.application.command.user.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.web.authentification.AuthenticationManager;
 import com.feelhub.web.social.FacebookConnector;
+import com.feelhub.web.tools.CookieManager;
 import com.google.common.util.concurrent.Futures;
 import com.google.inject.Inject;
 import com.restfb.types.User;
@@ -15,8 +16,8 @@ import java.util.UUID;
 public class FacebookResource extends OauthResource {
 
     @Inject
-    public FacebookResource(final FacebookConnector connector, final AuthenticationManager authenticationManager, final CommandBus bus) {
-        super(authenticationManager, bus);
+    public FacebookResource(final FacebookConnector connector, final AuthenticationManager authenticationManager, final CommandBus bus, final CookieManager cookieManager) {
+        super(authenticationManager, bus, cookieManager);
         this.connector = connector;
     }
 

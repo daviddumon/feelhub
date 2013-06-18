@@ -7,6 +7,7 @@ define(["jquery", "view/messages/messages-view"], function ($, view) {
         view.clear();
         add_messages_from_storage();
         add_messages_from_head();
+        add_messages_from_cookies();
         append_message_behavior();
     }
 
@@ -33,6 +34,24 @@ define(["jquery", "view/messages/messages-view"], function ($, view) {
             });
         });
     }
+
+    function add_messages_from_cookies() {
+        var message = JSON.parse(getCookie("message"));
+        if (message) {
+            view.render({
+                feeling: message.feeling,
+                text: message.text,
+                timer: message.timer,
+                index: message_index++
+            });
+        }
+        document.cookie = "message=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=" + cookie;
+
+        function getCookie(sKey) {
+            return unescape(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+        }
+    }
+
 
     function append_message_behavior() {
         $(container).on("click", ".message", function () {

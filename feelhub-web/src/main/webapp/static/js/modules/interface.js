@@ -82,11 +82,12 @@ define(["jquery", "modules/messages"], function ($, messages) {
     }
 
     function success() {
+        messages.store_message("neutral", "Goodbye!", 3);
         document.location.reload();
     }
 
     function error() {
-
+        messages.store_message("bad", "There was a disturbance in the Force", 3);
     }
 
     return {

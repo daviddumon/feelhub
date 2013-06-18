@@ -1,7 +1,9 @@
 package com.feelhub.web.tools;
 
+import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
+import com.feelhub.web.dto.FeelhubMessage;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.restlet.data.CookieSetting;
@@ -91,5 +93,19 @@ public class CookieBuilderTest {
         assertThat(cookie.getName()).isEqualTo("session");
         assertThat(cookie.getValue()).isEqualTo("uuid");
         assertThat(cookie.getMaxAge()).isEqualTo(0);
+    }
+
+    @Test
+    public void canCreateMessageCookie() {
+        final FeelhubMessage feelhubMessage = new FeelhubMessage();
+        feelhubMessage.setFeeling(SentimentValue.good.toString());
+        feelhubMessage.setSecondTimer(3);
+        feelhubMessage.setText("This is good!");
+        final CookieSetting cookie = new CookieBuilder(new FeelhubWebProperties()).messageCookie(feelhubMessage);
+
+        assertThat(cookie.getName()).isEqualTo("message");
+        assertThat(((CookieSetting) cookie).isAccessRestricted()).isFalse();
+        assertThat(cookie.getValue()).isEqualTo(feelhubMessage.toJSON());
+        assertThat(cookie.getMaxAge()).isEqualTo(-1);
     }
 }

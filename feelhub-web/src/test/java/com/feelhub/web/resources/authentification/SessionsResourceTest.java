@@ -6,6 +6,7 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.test.*;
 import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
+import com.feelhub.web.tools.*;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.*;
@@ -126,4 +127,6 @@ public class SessionsResourceTest {
         assertThat(sessions.getStatus(), is(Status.CLIENT_ERROR_BAD_REQUEST));
         assertThat(Repositories.sessions().getAll().size(), is(1));
     }
+
+    private CookieManager cookieManager;
 }

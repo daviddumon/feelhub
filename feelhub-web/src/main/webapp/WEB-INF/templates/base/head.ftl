@@ -64,6 +64,7 @@
 <#macro js>
     <script type="text/javascript">
         var root = "${root}";
+        var cookie = "${cookie}";
         var authentificated = ${userInfos.authenticated?string};
         var languageCode = "${userInfos.languageCode}";
 

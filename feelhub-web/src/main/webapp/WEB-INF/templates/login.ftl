@@ -26,20 +26,14 @@
             <span class="help_text">Email</span>
             <input name="email" value="" type="text" autocomplete="off" maxlength="100"/>
         </#if>
-
-        <div class="error_text"></div>
     </div>
 
     <div class="holder">
         <span class="help_text">Password</span>
         <input name="password" value="" type="password" autocomplete="off" maxlength="100"/>
-
-        <div class="error_text"></div>
     </div>
     <div class="holder">
         <input name="remember" type="checkbox" id="login_remember"/><label for="login_remember">remember me</label>
-
-        <div class="error_text"></div>
     </div>
     <div class="holder">
         <a id="login_submit" href="" class="call-to-action">LOGIN</a>

@@ -69,6 +69,7 @@ public class FeelhubApplication extends Application {
         configuration.addAutoImport("fixed", "/base/fixed.ftl");
         configuration.setSharedVariable("dev", feelhubWebProperties.dev);
         configuration.setSharedVariable("root", feelhubWebProperties.domain + servletContext().getContextPath());
+        configuration.setSharedVariable("cookie", feelhubWebProperties.cookie);
         configuration.setSharedVariable("buildtime", feelhubWebProperties.buildtime);
         configuration.setSharedVariable("userInfos", new UserInfos());
         getContext().getAttributes().put("org.freemarker.Configuration", configuration);

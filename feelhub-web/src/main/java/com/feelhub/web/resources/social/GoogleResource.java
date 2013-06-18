@@ -6,6 +6,7 @@ import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.web.authentification.AuthenticationManager;
 import com.feelhub.web.social.*;
+import com.feelhub.web.tools.CookieManager;
 import com.google.common.util.concurrent.Futures;
 import org.scribe.model.Token;
 
@@ -16,8 +17,8 @@ public class GoogleResource extends OauthResource {
 
 
     @Inject
-    public GoogleResource(final GoogleConnector connector, final AuthenticationManager authenticationManager, final CommandBus bus) {
-        super(authenticationManager, bus);
+    public GoogleResource(final GoogleConnector connector, final AuthenticationManager authenticationManager, final CommandBus bus, final CookieManager cookieManager) {
+        super(authenticationManager, bus, cookieManager);
         this.connector = connector;
     }
 
