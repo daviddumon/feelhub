@@ -48,20 +48,20 @@
 </#macro>
 
 <#macro command classes>
-<div id="right-panel" class="${classes}">
-    <div id="command">
-        <#if userInfos.authenticated>
-            <#nested/>
-        <#elseif !userInfos.anonymous>
-            <div id="login-panel">
-                <a href="${root}/login" class="login-button call-to-action">LOGIN</a>
-            </div>
-        <#else>
-            <div id="login-panel">
-                <a href="${root}/login" class="login-button call-to-action">LOGIN</a> <span>or</span> <a href="${root}/signup" class="signup-button call-to-action">SIGN UP</a>
-            </div>
-        </#if>
-    </div>
+<#--<div id="right-panel" class="${classes}">-->
+    <#--<div id="command">-->
+        <#--<#if userInfos.authenticated>-->
+            <#--<#nested/>-->
+        <#--<#elseif !userInfos.anonymous>-->
+            <#--<div id="login-panel">-->
+                <#--<a href="${root}/login" class="login-button call-to-action">LOGIN</a>-->
+            <#--</div>-->
+        <#--<#else>-->
+            <#--<div id="login-panel">-->
+                <#--<a href="${root}/login" class="login-button call-to-action">LOGIN</a> <span>or</span> <a href="${root}/signup" class="signup-button call-to-action">SIGN UP</a>-->
+            <#--</div>-->
+        <#--</#if>-->
+    <#--</div>-->
 </#macro>
 
 <#macro feelings>

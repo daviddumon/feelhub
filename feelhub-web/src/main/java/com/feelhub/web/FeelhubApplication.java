@@ -26,11 +26,9 @@ import java.util.logging.*;
 
 public class FeelhubApplication extends Application {
 
-
     public FeelhubApplication(final Context context) {
         super(context);
         setStatusService(new FeelhubStatusService());
-        // Désactivation des log JUL
         final java.util.logging.Logger rootLogger = LogManager.getLogManager().getLogger("");
         final Handler[] handlers = rootLogger.getHandlers();
         for (final Handler handler : handlers) {

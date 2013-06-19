@@ -63,15 +63,24 @@
 
 <#macro js>
     <script type="text/javascript">
-        var root = "${root}";
-        var cookie = "${cookie}";
-        var authentificated = ${userInfos.authenticated?string};
-        var languageCode = "${userInfos.languageCode}";
+            <#if root??>
+            var root = "${root}";
+            </#if>
 
-            <#if !userInfos.anonymous>
-            var userId = "${userInfos.user.id}";
-            <#else>
-            var userId = "";
+            <#if cookie??>
+            var cookie = "${cookie}";
+            </#if>
+
+            <#if userInfos??>
+
+            var authentificated = ${userInfos.authenticated?string};
+            var languageCode = "${userInfos.languageCode}";
+
+                <#if !userInfos.anonymous>
+                var userId = "${userInfos.user.id}";
+                <#else>
+                var userId = "";
+                </#if>
             </#if>
 
         var initial_messages = [

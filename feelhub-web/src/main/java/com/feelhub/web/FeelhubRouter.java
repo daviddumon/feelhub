@@ -9,7 +9,7 @@ import com.feelhub.web.resources.authentification.*;
 import com.feelhub.web.resources.sitemap.*;
 import com.feelhub.web.resources.social.*;
 import com.google.inject.Injector;
-import org.restlet.*;
+import org.restlet.Context;
 import org.restlet.data.ChallengeScheme;
 import org.restlet.resource.*;
 import org.restlet.routing.*;
@@ -25,14 +25,33 @@ public class FeelhubRouter extends Router {
     public FeelhubRouter(final Context context, final Injector injector) {
         super(context);
         this.injector = injector;
-        setDefaultMatchingMode(MODE_FIRST_MATCH);
+        setDefaultMatchingMode(MODE_BEST_MATCH);
         attachResources();
     }
 
     private void attachResources() {
+        attachAdminResources();
         attachApiResources();
         attachWebResources();
-        attachAdminResources();
+    }
+
+    private void attachAdminResources() {
+        attachWithSecurity("/admin", AdminResource.class);
+        attachWithSecurity("/admin/analytic/live", DailyLiveStatisticsResource.class);
+        attachWithSecurity("/admin/analytic/newuser", NewUserDailyBehaviorResource.class);
+        attachWithSecurity("/admin/analytic/dailybehavior", ActiveUserDailyBehaviorResource.class);
+        attachWithSecurity("/admin/ftl/{name}", AdminFreemarkerResource.class);
+        attachWithSecurity("/admin/events", AdminEventsResource.class);
+        attachWithSecurity("/admin/statistics", AdminStatisticsResource.class);
+    }
+
+    private void attachWithSecurity(final String path, final Class next) {
+        final MapVerifier verifier = new MapVerifier();
+        verifier.getLocalSecrets().put(ADMIN_USER, ADMIN_PASSWORD.toCharArray());
+        final ChallengeAuthenticator challengeAuthenticator = new ChallengeAuthenticator(getContext(), ChallengeScheme.HTTP_BASIC, "Secured Area");
+        challengeAuthenticator.setVerifier(verifier);
+        challengeAuthenticator.setNext(next);
+        attach(path, challengeAuthenticator);
     }
 
     private void attachApiResources() {
@@ -65,42 +84,15 @@ public class FeelhubRouter extends Router {
         attach("/", HomeResource.class);
     }
 
-    private void attachAdminResources() {
-        final Router router = new Router(getContext()) {
-            @Override
-            public Finder createFinder(final Class<?> targetClass) {
-                return new GuiceFinder(getContext(), targetClass, injector);
-            }
-        };
-        router.attach("/admin", AdminResource.class);
-        router.attach("/admin/analytic/live", DailyLiveStatisticsResource.class);
-        router.attach("/admin/analytic/newuser", NewUserDailyBehaviorResource.class);
-        router.attach("/admin/analytic/dailybehavior", ActiveUserDailyBehaviorResource.class);
-        router.attach("/admin/ftl/{name}", AdminFreemarkerResource.class);
-        router.attach("/admin/events", AdminEventsResource.class);
-        router.attach("/admin/statistics", AdminStatisticsResource.class);
-        attach(withSecurity(router));
-    }
-
-    private ChallengeAuthenticator withSecurity(final Restlet next) {
-        final MapVerifier verifier = new MapVerifier();
-        verifier.getLocalSecrets().put(ADMIN_USER, ADMIN_PASSWORD.toCharArray());
-        final ChallengeAuthenticator sécurité = new ChallengeAuthenticator(getContext(),
-                ChallengeScheme.HTTP_BASIC, "Secured Area");
-        sécurité.setVerifier(verifier);
-        sécurité.setNext(next);
-        return sécurité;
+    @Override
+    public Finder createFinder(final Class<?> targetClass) {
+        return new GuiceFinder(getContext(), targetClass, injector);
     }
 
     private void attachEncodedValue(final String pathTemplate, final Class<? extends ServerResource> targetClass) {
         final TemplateRoute route = attach(pathTemplate, targetClass);
         final Map<String, Variable> variables = route.getTemplate().getVariables();
         variables.put("value", new Variable(Variable.TYPE_URI_ALL, "", true, false, true, true));
-    }
-
-    @Override
-    public Finder createFinder(final Class<?> targetClass) {
-        return new GuiceFinder(getContext(), targetClass, injector);
     }
 
     private final Injector injector;

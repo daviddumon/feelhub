@@ -10,15 +10,15 @@ define(["jquery", "modules/flow", "view/flow/topic-view", "view/search/search-co
     }
 
     function create_command() {
-        if (authentificated) {
-            if (type == "http") {
-                if($("#flow li").length == 0) {
-                    httpview.render(command_container);
-                }
-            } else if (type == "real") {
-                realview.render(command_container);
-            }
-        }
+        //if (authentificated) {
+        //    if (type == "http") {
+        //        if($("#flow li").length == 0) {
+        //            httpview.render(command_container);
+        //        }
+        //    } else if (type == "real") {
+        //        realview.render(command_container);
+        //    }
+        //}
     }
 
     return {
