@@ -3,12 +3,14 @@ define(["jquery"],
     function ($) {
 
         function search_topic_for() {
-            $.ajax({
-                url: root + "/api/topics?q=" + uri,
-                type: "GET",
-                success: handle,
-                error: error
-            });
+            if (uri != "") {
+                $.ajax({
+                    url: root + "/api/topics?q=" + uri,
+                    type: "GET",
+                    success: handle,
+                    error: error
+                });
+            }
         }
 
         function handle(data) {
@@ -33,9 +35,9 @@ define(["jquery"],
             redirect(jqXHR.getResponseHeader('Location'));
         }
 
-        function error(jqXHR, textStatus,errorThrown) {
+        function error(jqXHR, textStatus, errorThrown) {
             console.log("error");
-            if(jqXHR.status == 401) {
+            if (jqXHR.status == 401) {
                 redirect(root + "/login");
             }
         }

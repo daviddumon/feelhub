@@ -44,6 +44,9 @@ define(["jquery", "modules/messages"], function ($, messages) {
                 }
             }
         });
+
+        $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
+        $(".fixed-panel").show();
     }
 
     function add_responsive_behavior() {
@@ -63,6 +66,7 @@ define(["jquery", "modules/messages"], function ($, messages) {
 
         function end_of_resize() {
             check_dashboard_state();
+            $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
         }
     }
 

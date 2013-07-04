@@ -1,21 +1,24 @@
-<@fixed.jsprod>
+<@base.head_production>
+<link rel="stylesheet" href="${root}/static/css/fixed.css?cache=${buildtime}"/>
 <script type="text/javascript" data-main="${root}/static/js/controller-built/bookmarklet-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@fixed.jsprod>
+</@base.head_production>
 
-<@fixed.jsdev>
+<@base.head_development>
+<link rel="stylesheet/less" type="text/css" href="${root}/static/css/fixed.less?cache=${buildtime}"/>
 <script type="text/javascript" data-main="${root}/static/js/controller/bookmarklet-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@fixed.jsdev>
+</@base.head_development>
 
-<@fixed.js>
-<script type="text/javascript">
+<@base.head_common>
+    <#if uri??>
     var uri = "${uri}";
-</script>
-</@fixed.js>
+    <#else>
+    var uri = "";
+    </#if>
+</@base.head_common>
 
-<@fixed.body>
-<div id="wait">
-    <img id="loading_gif" src="${root}/static/images/ajax-loader-green.gif"/>
-
-    <p>We are looking for ${uri}</p>
+<@base.body>
+<div id="bookmarklet" class="fixed-panel">
+    <p>Please wait</p>
+    <img id="loading_gif" src="${root}/static/images/ajax-loader-green.gif" border="0" alt="loading"/>
 </div>
-</@fixed.body>
+</@base.body>

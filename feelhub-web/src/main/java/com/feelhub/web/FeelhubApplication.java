@@ -64,7 +64,7 @@ public class FeelhubApplication extends Application {
         configuration.setEncoding(Locale.ROOT, "UTF-8");
         configuration.addAutoImport("head", "/base/head.ftl");
         configuration.addAutoImport("flow", "/base/flow.ftl");
-        configuration.addAutoImport("fixed", "/base/fixed.ftl");
+        configuration.addAutoImport("base", "/base.ftl");
         configuration.setSharedVariable("dev", feelhubWebProperties.dev);
         configuration.setSharedVariable("root", feelhubWebProperties.domain + servletContext().getContextPath());
         configuration.setSharedVariable("cookie", feelhubWebProperties.cookie);

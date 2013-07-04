@@ -36,13 +36,13 @@ public class FeelhubRouter extends Router {
     }
 
     private void attachAdminResources() {
-        attachWithSecurity("/admin", AdminResource.class);
         attachWithSecurity("/admin/analytic/live", DailyLiveStatisticsResource.class);
         attachWithSecurity("/admin/analytic/newuser", NewUserDailyBehaviorResource.class);
         attachWithSecurity("/admin/analytic/dailybehavior", ActiveUserDailyBehaviorResource.class);
         attachWithSecurity("/admin/ftl/{name}", AdminFreemarkerResource.class);
         attachWithSecurity("/admin/events", AdminEventsResource.class);
         attachWithSecurity("/admin/statistics", AdminStatisticsResource.class);
+        attachWithSecurity("/admin", AdminResource.class);
     }
 
     private void attachWithSecurity(final String path, final Class next) {
@@ -71,16 +71,13 @@ public class FeelhubRouter extends Router {
         attach("/sessions", SessionsResource.class);
         attach("/activation/{secret}", ActivationResource.class);
         attach("/login", LoginResource.class);
-        attach("/help", HelpResource.class);
         attach("/search", SearchResource.class);
         attach("/sitemap_index_{number}.xml", FeelhubSitemapIndexResource.class);
         attach("/sitemap_{number}.xml", FeelhubSitemapResource.class);
         attach("/social/facebook", FacebookResource.class);
         attach("/social/google-signup", GoogleSignupResource.class);
         attach("/social/google", GoogleResource.class);
-        attach("/social/welcome", SocialWelcomeResource.class);
         attach("/bookmarklet", BookmarkletResource.class);
-        attach("/error", ErrorResource.class);
         attach("/", HomeResource.class);
     }
 

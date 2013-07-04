@@ -1,17 +1,20 @@
-<@fixed.jsprod>
+<@base.head_production>
+<link rel="stylesheet" href="${root}/static/css/fixed.css?cache=${buildtime}"/>
 <script type="text/javascript" data-main="${root}/static/js/controller-built/fixed-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@fixed.jsprod>
+</@base.head_production>
 
-<@fixed.jsdev>
+<@base.head_development>
+<link rel="stylesheet/less" type="text/css" href="${root}/static/css/fixed.less?cache=${buildtime}"/>
 <script type="text/javascript" data-main="${root}/static/js/controller/fixed-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@fixed.jsdev>
+</@base.head_development>
 
-<@fixed.js>
-</@fixed.js>
+<@base.head_common>
+</@base.head_common>
 
-<@fixed.body>
-<div id="error" class="fixed-message">
+<@base.body>
+<div id="error" class="fixed-panel">
     <a id="home_link" href="${root}">Feelhub<span>.com</span></a>
+
     <p>There was a great disturbance in the Force</p>
 </div>
-</@fixed.body>
+</@base.body>

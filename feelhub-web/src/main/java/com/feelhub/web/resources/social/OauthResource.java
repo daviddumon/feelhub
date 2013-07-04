@@ -1,7 +1,6 @@
 package com.feelhub.web.resources.social;
 
 import com.feelhub.application.command.CommandBus;
-import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.user.User;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.*;
@@ -28,19 +27,12 @@ public abstract class OauthResource extends ServerResource {
         authenticationManager.authenticate(AuthRequest.socialNetwork(user.getId().toString()));
         setStatus(Status.REDIRECTION_TEMPORARY);
         if (isOldUser(user)) {
+            cookieManager.setCookie(cookieManager.cookieBuilder().messageCookie(FeelhubMessage.getWelcomeBackMessage()));
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/"));
         } else {
-            cookieManager.setCookie(cookieManager.cookieBuilder().messageCookie(getWelcomeMessage()));
+            cookieManager.setCookie(cookieManager.cookieBuilder().messageCookie(FeelhubMessage.getWelcomeMessage()));
             setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/"));
         }
-    }
-
-    private FeelhubMessage getWelcomeMessage() {
-        final FeelhubMessage feelhubMessage = new FeelhubMessage();
-        feelhubMessage.setFeeling(SentimentValue.good.toString());
-        feelhubMessage.setSecondTimer(3);
-        feelhubMessage.setText("Welcome to Feelhub! We hope you will enjoy it :)");
-        return feelhubMessage;
     }
 
     abstract Token accessToken(String code);

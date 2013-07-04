@@ -6,7 +6,7 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.test.*;
 import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
-import com.feelhub.web.tools.*;
+import com.feelhub.web.tools.CookieManager;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.*;

@@ -1,10 +1,6 @@
 package com.feelhub.web.status;
 
-import com.amazonaws.util.json.JSONException;
-import com.feelhub.domain.user.BadUserException;
-import com.feelhub.web.resources.api.FeelhubApiException;
 import com.google.common.collect.Maps;
-import org.apache.http.auth.AuthenticationException;
 import org.restlet.*;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
@@ -15,7 +11,6 @@ import java.util.Map;
 public class FeelhubStatusService extends StatusService {
 
     public FeelhubStatusService() {
-
     }
 
     @Override

@@ -1,54 +1,35 @@
 package com.feelhub.web.resources.authentification;
 
-import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.user.activation.ConfirmActivationCommand;
-import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.dto.FeelhubMessage;
-import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.resources.HomeResource;
-import com.feelhub.web.resources.api.ApiFeelingSearch;
-import com.google.common.collect.Lists;
-import com.google.common.util.concurrent.*;
+import com.feelhub.web.tools.CookieManager;
 import com.google.inject.Inject;
 import org.restlet.data.Status;
-import org.restlet.resource.Get;
+import org.restlet.resource.*;
 
 import java.util.UUID;
 
-public class ActivationResource extends HomeResource {
+public class ActivationResource extends ServerResource {
 
     @Inject
-    public ActivationResource(final CommandBus bus, final ApiFeelingSearch apiFeelingSearch) {
-        super(apiFeelingSearch);
-        this.bus = bus;
+    public ActivationResource(final CookieManager cookieManager) {
+        this.cookieManager = cookieManager;
     }
 
     @Get
-    public ModelAndView confirm() {
+    public void confirm() {
         final UUID secret = UUID.fromString(getRequestAttributes().get("secret").toString());
-        Futures.addCallback(bus.execute(new ConfirmActivationCommand(secret)), new FutureCallback<Object>() {
-            @Override
-            public void onSuccess(final Object result) {
-            }
-
-            @Override
-            public void onFailure(final Throwable t) {
-                setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/error"));
-                setStatus(Status.REDIRECTION_PERMANENT);
-            }
-        });
-        final ModelAndView modelAndView = super.represent();
-        return modelAndView.with("messages", Lists.newArrayList(getActivationMessage()));
+        final ConfirmActivationCommand confirmActivationCommand = new ConfirmActivationCommand(secret);
+        try {
+            confirmActivationCommand.execute();
+            cookieManager.setCookie(cookieManager.cookieBuilder().messageCookie(FeelhubMessage.getActivationMessage()));
+        } catch (Exception e) {
+            cookieManager.setCookie(cookieManager.cookieBuilder().messageCookie(FeelhubMessage.getErrorMessage()));
+        }
+        setStatus(Status.REDIRECTION_TEMPORARY);
+        setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/"));
     }
 
-    private FeelhubMessage getActivationMessage() {
-        final FeelhubMessage feelhubMessage = new FeelhubMessage();
-        feelhubMessage.setFeeling(SentimentValue.good.toString());
-        feelhubMessage.setText("Your account has been activated! Enjoy Feelhub!");
-        feelhubMessage.setSecondTimer(3);
-        return feelhubMessage;
-    }
-
-    private final CommandBus bus;
+    private final CookieManager cookieManager;
 }

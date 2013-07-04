@@ -4,7 +4,8 @@ import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.scraper.*;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.repositories.fakeRepositories.FakeSessionProvider;
-import com.feelhub.web.resources.HelpResource;
+import com.feelhub.web.resources.authentification.ActivationResource;
+import com.feelhub.web.update.UpdateResource;
 import com.google.inject.*;
 import org.junit.Test;
 import org.restlet.Context;
@@ -18,11 +19,11 @@ public class GuiceFinderTest {
     @Test
     public void canRetrieveResource() {
         final Injector injector = Guice.createInjector(new TestModule());
-        final GuiceFinder finder = new GuiceFinder(new Context(), HelpResource.class, injector);
+        final GuiceFinder finder = new GuiceFinder(new Context(), UpdateResource.class, injector);
 
         final ServerResource serverResource = finder.create(null, null);
 
-        assertThat(serverResource, instanceOf(HelpResource.class));
+        assertThat(serverResource, instanceOf(UpdateResource.class));
     }
 
     private class TestModule extends AbstractModule {

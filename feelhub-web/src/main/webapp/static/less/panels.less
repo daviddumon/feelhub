@@ -1,36 +1,4 @@
 /* Copyright Feelhub 2012 */
-.fixed_info(@color) {
-  //display: none;
-  position: fixed;
-  left: 50%;
-  text-align: center;
-  width: 564px;
-  margin-left: -282px;
-  background-color: @color !important;
-  overflow: auto;
-  .rounded();
-
-  a {
-    display: block;
-    .font_logo;
-    font-size: 34px;
-    color: @white;
-    padding: 34px;
-    text-decoration: underline;
-
-    span {
-      font-size: 19.4px;
-      font-weight: normal !important;
-    }
-  }
-
-  p {
-    padding: 34px;
-    font-size: 19.4px;
-    line-height: 19.4px;
-    color: @white !important;
-  }
-}
 
 .relative_info(@color) {
   position: relative;
@@ -56,43 +24,52 @@
 body {
 
   #bookmarklet {
-    .rounded();
-    color: @white !important;
-    .font_title();
-    background-color: @grey-4 !important;
-    padding: 5px;
+    background-color: @good !important;
+
+    #loading_gif {
+      width: 34px;
+      margin: 19.4px;
+    }
+  }
+
+  #update {
+    background-color: @good !important;
   }
 
   #error {
-    .fixed_info(@bad);
+    background-color: @bad !important;
   }
 
-  #thankyou, #launch, #migration, #wait {
-    .fixed_info(@good);
+  .fixed-panel {
+    display: none;
+    position: fixed;
+    left: 50%;
+    text-align: center;
+    width: 564px;
+    margin-left: -282px;
+    overflow: none;
 
-    p {
-      font-size: 1.5em;
-      color: @white !important;
-      .font_title();
-      line-height: 2em;
-    }
-
-    #loading_gif {
-      width: 36px;
-      margin-bottom: 4%;
-    }
-  }
-
-  #help {
-    .relative_info(@grey-3);
-
-    p {
-      margin: 20px;
-    }
+    .rounded();
 
     a {
+      display: block;
+      .font_logo;
+      font-size: 34px;
+      color: @white;
+      padding: 34px;
+      text-decoration: underline;
+
+      span {
+        font-size: 19.4px;
+        font-weight: normal !important;
+      }
+    }
+
+    p {
+      padding: 34px;
+      font-size: 19.4px;
+      line-height: 19.4px;
       color: @white !important;
-      text-decoration: underline !important;
     }
   }
 

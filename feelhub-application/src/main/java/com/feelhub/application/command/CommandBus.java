@@ -31,8 +31,6 @@ public class CommandBus {
                     DomainEventBus.INSTANCE.propagate();
                 }
             }
-
-
         };
     }
 
