@@ -8,13 +8,13 @@
 <script type="text/javascript" data-main="${root}/static/js/controller/bookmarklet-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@base.head_development>
 
-<@base.head_common>
+<@base.js>
     <#if uri??>
     var uri = "${uri}";
     <#else>
     var uri = "";
     </#if>
-</@base.head_common>
+</@base.js>
 
 <@base.body>
 <div id="bookmarklet" class="fixed-panel">

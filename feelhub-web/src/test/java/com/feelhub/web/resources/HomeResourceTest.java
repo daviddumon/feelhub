@@ -24,7 +24,7 @@ public class HomeResourceTest {
     @Before
     public void before() {
         apiFeelingSearch = mock(ApiFeelingSearch.class);
-        homeResource = new HomeResource(apiFeelingSearch);
+        homeResource = new HomeResource(apiFeelingSearch, null);
         ContextTestFactory.initResource(homeResource);
         CurrentUser.set(new WebUser(TestFactories.users().createActiveUser("test@test.com"), true));
     }

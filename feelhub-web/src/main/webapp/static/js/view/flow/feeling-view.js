@@ -18,13 +18,13 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
             $(container).append(element);
             last_feeling = data.feelingid;
             var sentiment;
-            if(data.sentimentDatas.length > 0) {
+            if (data.sentimentDatas.length > 0) {
                 sentiment = data.sentimentDatas[0].sentimentValue;
             } else {
                 sentiment = data.feeling_sentiment_value;
             }
 
-            if(sentiment == "bad") {
+            if (sentiment == "bad") {
                 canvas.draw("canvas-" + data.feelingid, -40, 51);
             } else if (sentiment == "good") {
                 canvas.draw("canvas-" + data.feelingid, 40, 51);

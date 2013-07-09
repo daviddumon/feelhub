@@ -1,4 +1,4 @@
-define(["jquery", "modules/messages"], function ($, messages) {
+define(["jquery", "modules/messages", "modules/login"], function ($, messages, login) {
 
     var trigger_height = 0;
     var doit, document_height;
@@ -8,6 +8,7 @@ define(["jquery", "modules/messages"], function ($, messages) {
         add_responsive_behavior();
         check_dashboard_state();
         messages.init();
+        login.init();
 
         $(".logout").click(function () {
             $.ajax({
@@ -47,6 +48,71 @@ define(["jquery", "modules/messages"], function ($, messages) {
 
         $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
         $(".fixed-panel").show();
+
+        canCloseLogin = false;
+
+        $(".login-button").click(function (event) {
+            if ($("#login").is(":hidden")) {
+                $("#login").show();
+                $("#signup").hide();
+                $("#login input[name=email]").focus();
+                canCloseLogin = true;
+                canCloseSignup = false;
+                event.stopImmediatePropagation();
+            } else {
+                $("#login").hide();
+            }
+        });
+
+        $("#login").hover(function (event) {
+            canCloseLogin = false;
+        }, function (event) {
+            canCloseLogin = true;
+        });
+
+        canCloseSignup = false;
+
+        $(".signup-button").click(function (event) {
+            if ($("#signup").is(":hidden")) {
+                $("#signup").show();
+                $("#login").hide();
+                $("#signup input[name=fullname]").focus();
+                canCloseSignup = true;
+                canCloseLogin = false;
+                event.stopImmediatePropagation();
+            } else {
+                $("#signup").hide();
+            }
+        });
+
+        $("#signup").hover(function (event) {
+            canCloseSignup = false;
+        }, function (event) {
+            canCloseSignup = true;
+        });
+
+        $(document).click(function (event) {
+            if (canCloseLogin) {
+                $("#login").hide();
+                canCloseLogin = false;
+            }
+            if (canCloseSignup) {
+                $("#signup").hide();
+                canCloseSignup = false;
+            }
+        });
+
+        $(document).keydown(function (event) {
+            var code = event.keyCode || event.which;
+            if (code == 27) {
+                if ($("#login").is(":visible")) {
+                    $("#login").hide();
+                }
+                if ($("#signup").is(":visible")) {
+                    $("#signup").hide();
+                }
+            }
+        });
     }
 
     function add_responsive_behavior() {

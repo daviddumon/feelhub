@@ -18,7 +18,8 @@ public class LoginResource extends ServerResource {
     public ModelAndView represent() {
         return ModelAndView.createNew("login.ftl")
                 .with("googleUrl", new WebReferenceBuilder(getContext()).buildUri("/social/google-signup"))
-                .with("facebookUrl", facebookConnector.getUrl()).with("referrer", getReferrer());
+                .with("facebookUrl", facebookConnector.getUrl())
+                .with("referrer", getReferrer());
     }
 
     private String getReferrer() {

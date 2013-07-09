@@ -37,13 +37,13 @@
 
         <#nested/>
 
-        <#-- Keep the loading of less below !-->
+    <#-- Keep the loading of less below, as we need to list the lesscss files before !-->
         <script type="text/javascript" src="${root}/static/js/less-1.3.3.min.js?cache=${buildtime}"></script>
     </#if>
 
 </#macro>
 
-<#macro head_common>
+<#macro js>
     <script type="text/javascript">
             <#if root??>
             var root = "${root}";
@@ -102,7 +102,6 @@
 
 <#macro body>
 <body>
-
 <div id="messages"></div>
 
     <#nested/>
