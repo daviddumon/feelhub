@@ -6,23 +6,24 @@ body {
     top: 0px;
     left: 0px;
     width: 100%;
-    height: 42px;
+    height: 51px;
     overflow: hidden;
     text-align: center;
-    background-color: @blue-steel;
+    background-color: #F5F5F5;
     z-index: 2000;
 
     a {
-      color: @artic-winter;
+      color: @dutch;
       .font_title;
 
       &:hover {
-        color: @white !important;
+        color: rgba(0, 51, 255, 0.8) !important;
       }
     }
 
     #home-link {
-      padding-top: 7px;
+      color: @pepper;
+      padding-top: 12px;
       margin-left: 13%;
       float: left;
       font-size: 31.4px;
@@ -35,7 +36,7 @@ body {
     }
 
     #login-helper {
-      padding-top: 19.4px;
+      padding-top: 31px;
       margin-right: 13%;
       float: right;
       font-size: 12px;
@@ -80,6 +81,14 @@ body {
   }
 
   .popup {
+
+    background-color: #F5F5F5;
+    padding: 31.4px;
+    position: fixed;
+    top: 51px;
+    right: 13%;
+    overflow: none;
+    z-index: 2000;
 
     .holder {
       position: relative;
@@ -193,30 +202,14 @@ body {
   }
 
   #login {
-    position: fixed;
-    background-color: rgba(27, 112, 140, 0.9);
-    top: 42px;
-    right: 13%;
-    overflow: none;
-    z-index: 2000;
     text-align: center;
     display: none;
     .rounded_down();
-    padding: 19.4px;
-    border: 1px solid @blue-steel;
   }
 
   #signup {
-    position: fixed;
-    background-color: rgba(27, 112, 140, 0.9);
-    top: 42px;
-    right: 13%;
-    overflow: none;
-    z-index: 2000;
     text-align: center;
     display: none;
     .rounded_down();
-    padding: 19.4px;
-    border: 1px solid @blue-steel;
   }
 }
