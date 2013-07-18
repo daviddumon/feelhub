@@ -4,7 +4,7 @@ import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.user.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.web.ContextTestFactory;
+import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
 import com.feelhub.web.social.FacebookConnector;
 import com.feelhub.web.tools.*;
@@ -32,7 +32,9 @@ public class FacebookResourceTest {
         facebookConnector = mock(FacebookConnector.class);
         when(facebookConnector.getAccesToken(anyString())).thenReturn(new Token("token", "secret"));
         commandBus = mock(CommandBus.class);
-        facebookResource = new FacebookResource(facebookConnector, authenticationManager, commandBus, new CookieManager(new FeelhubWebProperties()));
+        cookieManager = mock(CookieManager.class);
+        when(cookieManager.cookieBuilder()).thenReturn(new CookieBuilder(new FeelhubWebProperties()));
+        facebookResource = new FacebookResource(facebookConnector, authenticationManager, commandBus, cookieManager);
         final Request request = new Request(Method.GET, "http://test.com?code=toto");
         facebookResource.init(context, request, new Response(request));
     }
@@ -122,6 +124,7 @@ public class FacebookResourceTest {
 
     private FacebookResource facebookResource;
     private CommandBus commandBus;
+    private CookieManager cookieManager;
 
     private class FakeFbUser extends User {
         public String email;

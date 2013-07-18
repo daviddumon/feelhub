@@ -45,5 +45,5 @@ public abstract class OauthResource extends ServerResource {
 
     protected final AuthenticationManager authenticationManager;
     protected final CommandBus bus;
-    private CookieManager cookieManager;
+    private final CookieManager cookieManager;
 }
