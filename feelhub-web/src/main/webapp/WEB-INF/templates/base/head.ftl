@@ -3,7 +3,7 @@
 <!-- Copyright Feelhub 2012 -->
 <html lang="en">
 <head>
-    <link href='//fonts.googleapis.com/css?family=Playball|Droid+Serif|Autour+One|Roboto+Condensed|Lobster' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Playball|Droid+Serif|Autour+One|Roboto|Lobster' rel='stylesheet' type='text/css'>
     <#if topicData??>
         <title>Feelhub.com - ${topicData.name}</title>
         <#if topicData.description?has_content>

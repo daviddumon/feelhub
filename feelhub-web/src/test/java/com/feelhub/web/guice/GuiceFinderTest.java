@@ -4,7 +4,6 @@ import com.feelhub.domain.alchemy.*;
 import com.feelhub.domain.scraper.*;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.repositories.fakeRepositories.FakeSessionProvider;
-import com.feelhub.web.resources.authentification.ActivationResource;
 import com.feelhub.web.update.UpdateResource;
 import com.google.inject.*;
 import org.junit.Test;

@@ -70,7 +70,6 @@ public class FeelhubRouter extends Router {
         attach("/signup", SignupResource.class);
         attach("/sessions", SessionsResource.class);
         attach("/activation/{secret}", ActivationResource.class);
-        attach("/login", LoginResource.class);
         attach("/search", SearchResource.class);
         attach("/sitemap_index_{number}.xml", FeelhubSitemapIndexResource.class);
         attach("/sitemap_{number}.xml", FeelhubSitemapResource.class);

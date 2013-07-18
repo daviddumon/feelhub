@@ -7,22 +7,13 @@
             name: "topic-controller"
         },
         {
-            name: "signup-controller"
-        },
-        {
-            name: "activation-controller"
+            name: "bookmarklet-controller"
         },
         {
             name: "fixed-controller"
         },
         {
             name: "home-controller"
-        },
-        {
-            name: "login-controller"
-        },
-        {
-            name: "myfeelings-controller"
         },
         {
             name: "search-controller"

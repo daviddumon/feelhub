@@ -10,6 +10,7 @@ import com.feelhub.sitemap.application.SitemapsRepository;
 import com.feelhub.web.authentification.UserInfos;
 import com.feelhub.web.filter.*;
 import com.feelhub.web.mail.MailBuilder;
+import com.feelhub.web.social.FacebookConnector;
 import com.feelhub.web.status.FeelhubStatusService;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.feelhub.web.update.UpdateRouter;
@@ -44,8 +45,8 @@ public class FeelhubApplication extends Application {
     @Override
     public synchronized void start() throws Exception {
         feelhubWebProperties = injector.getInstance(FeelhubWebProperties.class);
-        initFreemarkerConfiguration();
         setContextVariables();
+        initFreemarkerConfiguration();
         final MailBuilder mailBuilder = injector.getInstance(MailBuilder.class);
         mailBuilder.setContext(getContext());
         Repositories.initialize(injector.getInstance(Repositories.class));
@@ -70,6 +71,9 @@ public class FeelhubApplication extends Application {
         configuration.setSharedVariable("cookie", feelhubWebProperties.cookie);
         configuration.setSharedVariable("buildtime", feelhubWebProperties.buildtime);
         configuration.setSharedVariable("userInfos", new UserInfos());
+        final FacebookConnector facebookConnector = injector.getInstance(FacebookConnector.class);
+        configuration.setSharedVariable("facebookUrl", facebookConnector.getUrl());
+        configuration.setSharedVariable("googleUrl", new WebReferenceBuilder(getContext()).buildUri("/social/google-signup"));
         getContext().getAttributes().put("org.freemarker.Configuration", configuration);
     }
 

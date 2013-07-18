@@ -47,7 +47,15 @@ public class TopicResource extends ServerResource {
                 .with("topicData", topicData)
                 .with("locales", FeelhubLanguage.availables())
                 .with("relatedDatas", getRelatedDatas())
-                .with("feelingDatas", getInitialFeelingDatas(templateName));
+                .with("feelingDatas", getInitialFeelingDatas(templateName))
+                .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
+    }
+
+    private Language getPreferedLanguage() {
+        if (getRequest().getClientInfo().getAcceptedLanguages().isEmpty()) {
+            return Language.ENGLISH;
+        }
+        return getRequest().getClientInfo().getAcceptedLanguages().get(0).getMetadata();
     }
 
     private String getTemplateName() {

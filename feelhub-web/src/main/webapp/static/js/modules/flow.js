@@ -35,8 +35,8 @@ define(["jquery", "view/flow/list-view"], function ($, list_view) {
     }
 
     function compute_max_box() {
-        spacer = 20;
-        var margin = 20;
+        spacer = 31.4;
+        var margin = 31.4;
         target_width = 584;
         maxBox = Math.ceil((container.innerWidth() - spacer) / target_width);
         box_width = ((container.innerWidth() - spacer) / maxBox) - margin;

@@ -36,6 +36,5 @@ public class FacebookConnector {
         return facebookClient.fetchObject("me", User.class);
     }
 
-
     private final OAuthService service;
 }

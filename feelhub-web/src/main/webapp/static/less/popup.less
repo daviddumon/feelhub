@@ -1,0 +1,176 @@
+/* Copyright Feelhub 2012 */
+body {
+
+  #overlay {
+    display: none;
+    z-index: 5000;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(50, 50, 50, 0.4);
+  }
+
+  .popup {
+    background-color: @grey-6;
+    position: fixed;
+    left: 50%;
+    margin-left: -189.7px;
+    overflow: none;
+    z-index: 10000;
+    text-align: center;
+    display: none;
+    border: 1.7px solid @white;
+
+    .social {
+      width: 215px;
+      padding-left: 82.2px;
+      padding-right: 82.2px;
+      padding-top: 31.4px;
+      padding-bottom: 31.4px;
+      border-bottom: 1.7px solid @white;
+
+      a {
+
+        img {
+          margin-left: 19.4px;
+          margin-right: 19.4px;
+          width: 51px;
+          border: 0px;
+        }
+      }
+    }
+
+    form {
+      width: 215px;
+      padding-left: 82.2px;
+      padding-right: 82.2px;
+      padding-top: 31.4px;
+      padding-bottom: 31.4px;
+
+      .holder {
+        position: relative;
+        text-align: center;
+        min-height: 36px;
+
+        .help_text {
+          .font_text();
+          position: absolute;
+          left: 12px;
+          top: 15px;
+          z-index: 1000;
+          font-size: 12px;
+          color: @grey-1 !important;
+        }
+
+        input[type="text"], input[type="password"] {
+          box-sizing: border-box;
+          .font_text();
+          position: relative;
+          width: 100%;
+          padding: 12px;
+          font-size: 12px;
+          border: none !important;
+        }
+
+        input[type="checkbox"] {
+          float: left;
+          position: relative;
+          top: 7px;
+        }
+
+        label {
+          float: left;
+          color: @grey-5;
+          position: relative;
+          top: 12px;
+        }
+
+        select {
+          position: relative;
+          top: 7px;
+          color: @grey-5;
+        }
+
+        p {
+          color: @grey-5;
+          margin: 19.4px;
+        }
+
+        a {
+          color: @grey-5;
+          .font_title;
+          text-decoration: underline;
+
+          &:hover {
+            color: @grey-1 !important;
+          }
+        }
+      }
+
+      #login_submit, #signup_submit {
+        box-sizing: border-box;
+        clear: both;
+        display: block;
+        width: 215px;
+        padding: 7px;
+        cursor: pointer;
+        color: @white;
+        .font_span;
+        text-decoration: none;
+        font-size: 19.4px;
+        background-color: @smooth-light;
+        background: -webkit-gradient(linear, left top, left bottom, from(@smooth-light), to(@smooth));
+        background: -webkit-linear-gradient(top, @smooth-light, @smooth);
+        background: -moz-linear-gradient(top, @smooth-light, @smooth);
+        background: -ms-linear-gradient(top, @smooth-light, @smooth);
+        background: -o-linear-gradient(top, @smooth-light, @smooth);
+        background-image: -ms-linear-gradient(top, @smooth-light 0%, @smooth 100%);
+
+        &:hover, &:focus {
+          background-color: @smooth;
+          background: -webkit-gradient(linear, left top, left bottom, from(@smooth), to(@smooth-light));
+          background: -webkit-linear-gradient(top, @smooth, @smooth-light);
+          background: -moz-linear-gradient(top, @smooth, @smooth-light);
+          background: -ms-linear-gradient(top, @smooth, @smooth-light);
+          background: -o-linear-gradient(top, @smooth, @smooth-light);
+          background-image: -ms-linear-gradient(top, @smooth 0%, @smooth-light 100%);
+          .insetshadow();
+          color: @white !important;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .popup-bottom {
+      width: 215px;
+      padding-left: 82.2px;
+      padding-right: 82.2px;
+      padding-top: 31.4px;
+      padding-bottom: 31.4px;
+      background-color: @grey-7;
+      color: @grey-5;
+
+      a {
+        color: @grey-5;
+        .font_title;
+        text-decoration: underline;
+
+        &:hover {
+          color: @grey-1 !important;
+        }
+      }
+    }
+  }
+
+  #login {
+
+  }
+
+  #signup {
+  }
+}

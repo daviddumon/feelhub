@@ -6,8 +6,6 @@ import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.session.EmailAlreadyUsed;
 import com.feelhub.domain.user.BadEmail;
 import com.feelhub.web.ContextTestFactory;
-import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.social.FacebookConnector;
 import com.google.common.util.concurrent.Futures;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
@@ -16,7 +14,6 @@ import org.restlet.data.*;
 import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;
-import static org.fest.assertions.MapAssert.*;
 import static org.mockito.Mockito.*;
 
 public class SignupResourceTest {
@@ -27,9 +24,7 @@ public class SignupResourceTest {
     @Before
     public void setUp() throws Exception {
         commandBus = mock(CommandBus.class);
-        final FacebookConnector facebookConnector = mock(FacebookConnector.class);
-        when(facebookConnector.getUrl()).thenReturn("toto");
-        resource = new SignupResource(facebookConnector, commandBus);
+        resource = new SignupResource(commandBus);
         ContextTestFactory.initResource(resource);
     }
 
@@ -93,23 +88,6 @@ public class SignupResourceTest {
         resource.signup(parameters);
 
         assertThat(resource.getStatus()).isEqualTo(Status.CLIENT_ERROR_BAD_REQUEST);
-    }
-
-    @Test
-    public void canPassFavoriteLanguage() {
-        resource.getRequest().getClientInfo().getAcceptedLanguages().add(new Preference<Language>(new Language("fr")));
-
-        final ModelAndView modelAndView = resource.represent();
-
-        assertThat(modelAndView.getData()).includes(entry("preferedLanguage", "fr"));
-
-    }
-
-    @Test
-    public void canPassGoogleLoginUrl() {
-        final ModelAndView modelAndView = resource.represent();
-
-        assertThat(modelAndView.getData()).includes(entry("googleUrl", "https://thedomain//social/google-signup"));
     }
 
     private CommandBus commandBus;

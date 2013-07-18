@@ -36,9 +36,9 @@ define(["jquery"],
         }
 
         function error(jqXHR, textStatus, errorThrown) {
-            console.log("error");
             if (jqXHR.status == 401) {
-                redirect(root + "/login");
+                $("#bookmarklet").hide();
+                $("body").trigger("needlogin");
             }
         }
 

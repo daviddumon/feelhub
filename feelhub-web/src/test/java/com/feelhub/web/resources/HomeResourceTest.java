@@ -7,7 +7,6 @@ import com.feelhub.web.authentification.*;
 import com.feelhub.web.dto.FeelingData;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.ApiFeelingSearch;
-import com.feelhub.web.social.FacebookConnector;
 import com.google.common.collect.Lists;
 import org.junit.*;
 import org.restlet.data.Form;
@@ -25,11 +24,9 @@ public class HomeResourceTest {
     @Before
     public void before() {
         apiFeelingSearch = mock(ApiFeelingSearch.class);
-        facebookConnector = mock(FacebookConnector.class);
-        homeResource = new HomeResource(apiFeelingSearch, facebookConnector);
+        homeResource = new HomeResource(apiFeelingSearch);
         ContextTestFactory.initResource(homeResource);
         CurrentUser.set(new WebUser(TestFactories.users().createActiveUser("test@test.com"), true));
-        when(facebookConnector.getUrl()).thenReturn("url");
     }
 
     @Test
@@ -55,5 +52,4 @@ public class HomeResourceTest {
 
     private HomeResource homeResource;
     private ApiFeelingSearch apiFeelingSearch;
-    private FacebookConnector facebookConnector;
 }

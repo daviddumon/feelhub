@@ -14,6 +14,7 @@ import com.feelhub.web.filter.*;
 import com.feelhub.web.mail.FakeMailSender;
 import com.feelhub.web.search.*;
 import com.feelhub.web.search.fake.*;
+import com.feelhub.web.social.FacebookConnector;
 import com.feelhub.web.tools.FeelhubSitemapModuleLink;
 import com.google.inject.*;
 import com.google.inject.name.Names;
@@ -64,6 +65,13 @@ public class GuiceTestModule extends AbstractModule {
             return new FeelhubSitemapModuleLink();
         }
         return feelhubSitemapModuleLink;
+    }
+
+    @Provides
+    public FacebookConnector getFacebookConnector() {
+        final FacebookConnector facebookConnector = mock(FacebookConnector.class);
+        when(facebookConnector.getUrl()).thenReturn("localhost");
+        return facebookConnector;
     }
 
     public void setFeelhubSitemapModuleLink(final FeelhubSitemapModuleLink feelhubSitemapModuleLink) {

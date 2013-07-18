@@ -11,11 +11,14 @@ require.config({
     }
 });
 
-require(["plugins/domReady!", "jquery", "modules/interface", "modules/flow", "view/flow/feeling-view", "modules/form/newfeeling/new-feeling-form", "modules/canvas"],
+//require(["plugins/domReady!", "jquery", "modules/interface", "modules/flow", "view/flow/feeling-view", "modules/form/newfeeling/new-feeling-form", "modules/canvas"],
+require(["plugins/domReady!", "jquery", "modules/interface", "modules/authentification"],
 
-    function (doc, $, interface, flow, feeling_view, form_new_feeling, canvas) {
+    //function (doc, $, interface, flow, feeling_view, form_new_feeling, canvas) {
+    function (doc, $, interface, authentification) {
         interface.init();
-        form_new_feeling.init();
+        authentification.init();
+        //form_new_feeling.init();
         //flow.init(root + "/api/topic/" + topicData.id + "/feelings", null, feeling_view, null);
-        canvas.draw("canvas-sentiment", topicData.topicSentimentScore, 133);
+        //canvas.draw("canvas-sentiment", topicData.topicSentimentScore, 133);
     });
