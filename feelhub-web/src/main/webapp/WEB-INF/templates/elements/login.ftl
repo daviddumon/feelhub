@@ -1,4 +1,5 @@
 <div id="login" class="popup">
+    <a id="close-button" href="javascript:void(0);">CLOSE</a>
 
     <div class="social">
         <a href="${facebookUrl}" id="facebook_login"><img src="/static/images/social/Facebook.png" alt="facebook login"/></a>

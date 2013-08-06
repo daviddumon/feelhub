@@ -50,6 +50,7 @@ var initial_datas = [
 <div id="overlay"></div>
     <#include 'elements/login.ftl'/>
     <#include 'elements/signup.ftl'/>
+    <#include 'elements/help.ftl'/>
     <#include "elements/header.ftl"/>
 
 <ul id="flow"></ul>

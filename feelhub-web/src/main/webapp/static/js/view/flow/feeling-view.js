@@ -25,11 +25,11 @@ define(["jquery", "plugins/hgn!templates/flow/flow_feeling", "plugins/hgn!templa
             }
 
             if (sentiment == "bad") {
-                canvas.draw("canvas-" + data.feelingid, -40, 51);
+                canvas.youfeel("canvas-" + data.feelingid, -40, 51);
             } else if (sentiment == "good") {
-                canvas.draw("canvas-" + data.feelingid, 40, 51);
+                canvas.youfeel("canvas-" + data.feelingid, 40, 51);
             } else {
-                canvas.draw("canvas-" + data.feelingid, 0, 51);
+                canvas.youfeel("canvas-" + data.feelingid, 0, 51);
             }
         }
 

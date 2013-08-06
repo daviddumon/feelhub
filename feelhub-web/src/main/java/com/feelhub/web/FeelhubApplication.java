@@ -63,8 +63,6 @@ public class FeelhubApplication extends Application {
         final Configuration configuration = new Configuration();
         configuration.setServletContextForTemplateLoading(servletContext(), "WEB-INF/templates");
         configuration.setEncoding(Locale.ROOT, "UTF-8");
-        configuration.addAutoImport("head", "/base/head.ftl");
-        configuration.addAutoImport("flow", "/base/flow.ftl");
         configuration.addAutoImport("base", "/base.ftl");
         configuration.setSharedVariable("dev", feelhubWebProperties.dev);
         configuration.setSharedVariable("root", feelhubWebProperties.domain + servletContext().getContextPath());

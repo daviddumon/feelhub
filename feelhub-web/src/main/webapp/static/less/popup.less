@@ -16,12 +16,39 @@ body {
     background-color: @grey-6;
     position: fixed;
     left: 50%;
-    margin-left: -189.7px;
-    overflow: none;
+    overflow: hidden;
     z-index: 10000;
     text-align: center;
     display: none;
     border: 1.7px solid @white;
+
+    #close-button {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      color: @grey-5;
+      .font_title;
+      text-decoration: underline;
+      display: none;
+
+      &:hover {
+        color: @grey-1 !important;
+      }
+    }
+
+    .popup-title {
+      padding-left: 82.2px;
+      padding-right: 82.2px;
+      padding-top: 31.4px;
+      padding-bottom: 31.4px;
+      background-color: @grey-7;
+      color: @grey-5;
+      font-size: @font-medium;
+    }
+  }
+
+  #login, #signup {
+    margin-left: -189.7px;
 
     .social {
       width: 215px;
@@ -167,10 +194,45 @@ body {
     }
   }
 
-  #login {
+  #help {
+    width: 62%;
+    height: 564px;
+    margin-left: -31%;
 
-  }
+    ul#menu {
+      height: 481.8px;
+      width: 38%;
+      background-color: @grey-7;
 
-  #signup {
+      li {
+
+        a {
+          display: block;
+          width: 100%;
+          color: @grey-5;
+          border: 1.7px solid @grey-6;
+          padding-top: 12px;
+          padding-bottom: 12px;
+        }
+
+        a.selected {
+          border: 1.7px solid @white;
+          color: @grey-1 !important;
+        }
+      }
+    }
+
+    #help-content {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      height: 481.8px;
+      width: 62%;
+
+      div {
+        display: none;
+      }
+
+    }
   }
 }

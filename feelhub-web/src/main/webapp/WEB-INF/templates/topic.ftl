@@ -1,11 +1,11 @@
 <@base.head_production>
-<link rel="stylesheet" href="${root}/static/css/flow.css?cache=${buildtime}"/>
+<link rel="stylesheet" href="${root}/static/css/topic.css?cache=${buildtime}"/>
 <meta name="fragment" content="!">
 <script type="text/javascript" data-main="${root}/static/js/controller-built/topic-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@base.head_production>
 
 <@base.head_development>
-<link rel="stylesheet/less" type="text/css" href="${root}/static/css/home.less?cache=${buildtime}"/>
+<link rel="stylesheet/less" type="text/css" href="${root}/static/css/topic.less?cache=${buildtime}"/>
 <script type="text/javascript" data-main="${root}/static/js/controller/topic-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@base.head_development>
 
@@ -42,43 +42,55 @@ var initial_datas = [
 </@base.js>
 
 <@base.body>
-<#--<header class="bigheader">-->
-<#--<a id="home_link" href="${root}">Feelhub<span>.com</span></a>-->
-
-<#--<form method="get" action="${root}/search" id="search">-->
-<#--<input name="q" type="text" autocomplete="off"/>-->
-<#--</form>-->
-<#--<div id="login_helper">-->
-<#--<#if userInfos.authenticated || !userInfos.anonymous>-->
-<#--<p>Hello ${userInfos.user.fullname} ! - <a href="javascript:void(0);" class="logout">logout</a></p>-->
-<#--</#if>-->
-<#--</div>-->
-
-<#--<div style="position: absolute; width: 80%; height: 348px; top: 133px; left: 10%; overflow: hidden;">-->
-
-<#--<div class="topic topic-large topic-no-cursor" style="position: absolute; top: 0px; left: 0px; width: 564px; height: 348px;">-->
-<#--<img src="${topicData.thumbnail}" class="illustration"/>-->
-<#--<span>${topicData.name}</span>-->
-<#--</div>-->
-
-<#--<div id="youfeel" style="position: absolute; top: 31px; width: 133px; margin-left: 10%;">-->
-<#--<canvas id="canvas-sentiment" width="133" height="133" style=""></canvas>-->
-<#--<span id="youfeel" style="">You Feel</span>-->
-<#--</div>-->
-
-<#--<div id="uris" style="width: 564px; position: absolute; left: 800px;">-->
-<#--<#list topicData.uris as uri>-->
-<#--<img src="${root}/static/images/search-dark.png" class="linkicon"/>-->
-<#--<a href="${uri}" class="uris" rel="nofollow" target="_blank">${uri}</a>-->
-<#--</#list>-->
-<#--</div>-->
-<#--</div>-->
-
-<#--</header>-->
-
 <div id="overlay"></div>
     <#include 'elements/login.ftl'/>
     <#include 'elements/signup.ftl'/>
+    <#include 'elements/help.ftl'/>
     <#include "elements/header.ftl"/>
-<ul id="flow"></ul>
+
+<div id="topic-container">
+
+    <div id="topic-container-left">
+
+        <a href="${topicData.uris[0]}" class="topic topic-large" rel="nofollow" target="_blank">
+            <img src="${topicData.thumbnail}" class="illustration"/>
+            <span>${topicData.name}</span>
+        </a>
+
+        <div id="uris">
+            <#list topicData.uris as uri>
+                <img src="${root}/static/images/search-dark.png" class="linkicon"/>
+                <a href="${uri}" class="uris" rel="nofollow" target="_blank">${uri}</a>
+            </#list>
+        </div>
+
+    </div>
+
+    <div id="topic-flow">
+
+        <div id="topic-flow-top">
+            <div id="youfeel">
+                <div id="youfeel-title">You Feel</div>
+                <canvas id="canvas-youfeel" width="82" height="82"></canvas>
+            </div>
+
+            <div id="theyfeel">
+                <div id="youfeel-title">They Feel</div>
+                <canvas id="canvas-theyfeel" width="82" height="82"></canvas>
+            </div>
+        </div>
+
+        <form id="comment-form" autocomplete="off">
+                <span class="help-text">Add a comment!</span>
+                <textarea name="comment"></textarea>
+                <div id="submit-wrapper">
+                    <input type="submit" value="ok"/>
+                </div>
+        </form>
+
+        <ul></ul>
+    </div>
+
+</div>
+
 </@base.body>

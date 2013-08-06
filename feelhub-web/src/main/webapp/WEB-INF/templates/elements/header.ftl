@@ -5,11 +5,19 @@
 <#--<input name="q" type="text" autocomplete="off"/>-->
 <#--</form>-->
 
-    <div id="login-helper">
+    <div id="actions">
     <#if userInfos.authenticated>
-        <p>Hello ${userInfos.user.fullname} ! <a href="javascript:void(0);" class="logout header-button">logout</a></p>
+        <a id="logout" class="header-button" href="javascript:void(0);">LOGOUT</a>
     <#else>
-        <a id="login-button" class="header-button" href="javascript:void(0);">LOGIN</a><a id="signup-button" class="header-button" href="javascript:void(0);">SIGNUP</a>
+        <a id="login-button" class="header-button" href="javascript:void(0);">LOGIN</a>
+        <a id="signup-button" class="header-button" href="javascript:void(0);">SIGNUP</a>
+    </#if>
+        <a id="help-button" class="header-button" href="javascript:void(0);">HELP</a>
+    </div>
+
+    <div id="header-message">
+    <#if userInfos.authenticated>
+        Hello ${userInfos.user.fullname} !
     </#if>
     </div>
 </header>

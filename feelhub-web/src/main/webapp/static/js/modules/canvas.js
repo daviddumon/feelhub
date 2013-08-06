@@ -2,32 +2,41 @@ define(["jquery"],
 
     function ($) {
 
+        $("body").on("click", "#canvas-youfeel", function (event) {
+            console.log("click youfeel");
+        });
+
         var container;
         var fill_color = "#FFFFFF";
         var base_line, left, right, width;
         var good_color = "#66CC33";
         var neutral_color = "#0033FF";
         var bad_color = "#FF3333";
+        var no_color = "#EDEDED";
         var width, height, eye_left_x, eye_left_y, eye_right_x, eye_right_y, mouth_left_x, mouth_right_x, mouth_y, thickness;
 
-        function draw(container_name, score, size) {
-            width = size;
-            height = size;
-            eye_left_y = size * 0.33;
-            eye_left_x = size * 0.33;
-            eye_right_y = size * 0.33;
-            eye_right_x = size * 0.66;
-            mouth_left_x = size * 0.33;
-            mouth_right_x = size * 0.66;
-            mouth_y = size * 0.66;
-            thickness = size / 15;
-            container = container_name;
-            var canvas = document.getElementById(container);
-            var context = canvas.getContext("2d");
-            context.lineCap = "round";
-            draw_background(context, score);
-            draw_eyes(context);
-            draw_mouth(context, score);
+        function youfeel(container_name, score, size) {
+            if (score) {
+                width = size;
+                height = size;
+                eye_left_y = size * 0.33;
+                eye_left_x = size * 0.33;
+                eye_right_y = size * 0.33;
+                eye_right_x = size * 0.66;
+                mouth_left_x = size * 0.33;
+                mouth_right_x = size * 0.66;
+                mouth_y = size * 0.66;
+                thickness = size / 15;
+                container = container_name;
+                var canvas = document.getElementById(container);
+                var context = canvas.getContext("2d");
+                context.lineCap = "round";
+                draw_background(context, score);
+                draw_eyes(context);
+                draw_mouth(context, score);
+            } else {
+                draw_question_mark(context, size, container_name);
+            }
         }
 
         function draw_background(context, score) {
@@ -62,7 +71,30 @@ define(["jquery"],
             context.stroke();
         }
 
+        function draw_question_mark(context, size, container_name) {
+            container = container_name;
+            var canvas = document.getElementById(container);
+            var context = canvas.getContext("2d");
+            context.lineCap = "round";
+            context.fillStyle = no_color;
+            context.strokeStyle = fill_color;
+            context.lineWidth = size / 15;
+
+            context.fillRect(0, 0, size, size);
+
+            context.beginPath();
+            context.arc(size * 0.5, size * 0.3, size / 5, 1.1 * Math.PI, 0.5 * Math.PI, false);
+            context.lineTo(size * 0.5, size * 0.6);
+            context.stroke();
+
+            context.beginPath();
+            context.fillStyle = fill_color;
+            context.arc(size * 0.5, size * 0.8, size / 12, 0, 2 * Math.PI, false);
+            context.closePath();
+            context.fill();
+        }
+
         return {
-            draw: draw
+            youfeel: youfeel
         }
     });

@@ -36,7 +36,7 @@ define(["jquery", "modules/messages"], function ($, messages) {
             signup();
         });
 
-        $(".logout").click(function () {
+        $("#logout").click(function () {
             $.ajax({
                 url: root + "/sessions",
                 type: "DELETE",

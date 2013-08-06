@@ -65,6 +65,12 @@
                 </#if>
             </#if>
 
+            <#if topicData??>
+            var topicData = ${topicData?string};
+            <#else>
+            var topicData = {};
+            </#if>
+
         var initial_messages = [
             <#if messages??>
                 <#list messages as message>

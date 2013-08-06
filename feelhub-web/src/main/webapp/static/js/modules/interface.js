@@ -1,12 +1,11 @@
 define(["jquery", "modules/messages", "modules/popup"], function ($, messages, popup) {
 
     var trigger_height = 0;
-    var doit, document_height;
+    var doit;
     var move_dashboard;
 
     function init() {
         add_responsive_behavior();
-        check_dashboard_state();
         messages.init();
 
         $("body").on("submit", "form.sentimentform", function () {
@@ -59,21 +58,6 @@ define(["jquery", "modules/messages", "modules/popup"], function ($, messages, p
         function end_of_resize() {
             check_dashboard_state();
             $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
-        }
-    }
-
-    function check_dashboard_state() {
-        if ($(window).width() >= 640) {
-            trigger_height = $("#dashboard").height() + 40 - $(window).height();
-            if (trigger_height > 0) {
-                move_dashboard = true;
-                $("#dashboard").css("position", "absolute");
-                $("#dashboard").css("top", "42px");
-            } else {
-                move_dashboard = false;
-                $("#dashboard").css("position", "fixed");
-                $("#dashboard").css("top", "42px");
-            }
         }
     }
 

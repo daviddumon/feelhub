@@ -13,20 +13,9 @@ body {
     z-index: 2000;
     border-bottom: 1px solid @grey-1;
 
-    .header-button {
-      margin: 12px;
-      padding: 12px;
-      color: @grey-5;
-      .font_title;
-
-      &:hover {
-        color: @grey-1 !important;
-      }
-    }
-
     #home-link {
       padding-top: 9.7px;
-      margin-left: 13%;
+      margin-left: 82.2px;
       float: left;
       font-size: 31.4px;
       .font_logo;
@@ -46,14 +35,28 @@ body {
       }
     }
 
-    #login-helper {
-      padding-top: 19.4px;
-      margin-right: 13%;
-      float: right;
+    .header-button {
+      margin: 19.4px;
+      padding: 12px;
+      color: @grey-5;
+      .font_title;
 
-      p {
-        color: @grey-5;
+      &:hover {
+        color: @grey-1 !important;
       }
+    }
+
+    #header-message {
+      float: right;
+      padding-top: 19.4px;
+      color: @grey-5;
+      margin-right: 82.2px;
+    }
+
+    #actions {
+      float: right;
+      padding-top: 19.4px;
+      margin-right: 82.2px;
     }
 
     #search {
@@ -79,9 +82,5 @@ body {
         }
       }
     }
-  }
-
-  .bigheader {
-    height: 348px !important;
   }
 }
