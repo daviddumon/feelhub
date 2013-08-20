@@ -6,6 +6,7 @@ import com.feelhub.repositories.Repositories;
 import com.google.common.eventbus.*;
 
 public class TopicLastModificationDateUpdater {
+
     public TopicLastModificationDateUpdater() {
         DomainEventBus.INSTANCE.register(this);
     }
@@ -13,7 +14,7 @@ public class TopicLastModificationDateUpdater {
     @Subscribe
     @AllowConcurrentEvents
     public void onFeelingCreated(final FeelingCreatedEvent event) {
-        final Feeling feeling = Repositories.feelings().get(event.feelingId);
+        final Feeling feeling = Repositories.feelings().get(event.getFeeling().getId());
         for (final Sentiment sentiment : feeling.getSentiments()) {
             Repositories.topics().get(sentiment.getTopicId()).setLastModificationDate(sentiment.getCreationDate());
         }

@@ -18,35 +18,35 @@ public class StatisticsFactory {
     }
 
     @Subscribe
-    public void handle(final SentimentAddedEvent event) {
-        sentimentOn(event.getSentiment(), event.date);
+    public void handle(final FeelingCreatedEvent event) {
+        feelingOn(event.getFeeling(), event.date);
     }
 
     @Subscribe
     public void handle(final WorldStatisticsEvent event) {
-        sentimentOn(event.getSentiment(), event.date);
+        feelingOn(event.getFeeling(), event.date);
     }
 
-    private void sentimentOn(final Sentiment sentiment, final DateTime date) {
+    private void feelingOn(final Feeling feeling, final DateTime date) {
         for (final Granularity granularity : Granularity.values()) {
-            dealWith(granularity, sentiment, date);
+            dealWith(granularity, feeling, date);
         }
     }
 
-    private void dealWith(final Granularity granularity, final Sentiment sentiment, final DateTime date) {
-        dealWithTopic(granularity, sentiment, date);
+    private void dealWith(final Granularity granularity, final Feeling feeling, final DateTime date) {
+        dealWithTopic(granularity, feeling, date);
     }
 
-    private void dealWithTopic(final Granularity granularity, final Sentiment sentiment, final DateTime date) {
-        final Statistics stat = getOrCreateStat(granularity, sentiment, date);
-        stat.incrementSentimentCount(sentiment);
+    private void dealWithTopic(final Granularity granularity, final Feeling feeling, final DateTime date) {
+        final Statistics stat = getOrCreateStat(granularity, feeling, date);
+        stat.incrementFeelingCount(feeling);
     }
 
-    private synchronized Statistics getOrCreateStat(final Granularity granularity, final Sentiment sentiment, final DateTime date) {
-        final List<Statistics> statistics = Repositories.statistics().forTopicId(sentiment.getTopicId(), granularity, granularity.intervalFor(date));
+    private synchronized Statistics getOrCreateStat(final Granularity granularity, final Feeling feeling, final DateTime date) {
+        final List<Statistics> statistics = Repositories.statistics().forTopicId(feeling.getTopicId(), granularity, granularity.intervalFor(date));
         final Statistics stat;
         if (statistics.isEmpty()) {
-            stat = new Statistics(sentiment.getTopicId(), granularity, date);
+            stat = new Statistics(feeling.getTopicId(), granularity, date);
             Repositories.statistics().add(stat);
         } else {
             stat = statistics.get(0);

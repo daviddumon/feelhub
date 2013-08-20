@@ -14,10 +14,11 @@ public class WorldListener {
     }
 
     @Subscribe
-    public void handle(final SentimentAddedEvent sentimentAddedEvent) {
+    public void handle(final FeelingCreatedEvent feelingCreatedEvent) {
         final WorldTopic worldTopic = lookUpOrCreateWorld();
-        final Sentiment sentiment = new Sentiment(worldTopic.getId(), sentimentAddedEvent.getSentiment().getSentimentValue());
-        final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(sentiment);
+        final Feeling worldFeeling = new Feeling(null, worldTopic.getId());
+        worldFeeling.setFeelingValue(feelingCreatedEvent.getFeeling().getFeelingValue());
+        final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(worldFeeling);
         DomainEventBus.INSTANCE.post(worldStatisticsEvent);
     }
 

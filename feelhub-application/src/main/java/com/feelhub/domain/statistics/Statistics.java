@@ -18,12 +18,12 @@ public class Statistics extends BaseEntity {
         this.granularity = granularity;
     }
 
-    public void incrementSentimentCount(final Sentiment sentiment) {
-        incrementSentimentCountForSentimentValue(sentiment.getSentimentValue());
+    public void incrementFeelingCount(final Feeling feeling) {
+        incrementSentimentCountForSentimentValue(feeling.getFeelingValue());
     }
 
-    private void incrementSentimentCountForSentimentValue(final SentimentValue sentimentValue) {
-        switch (sentimentValue) {
+    private void incrementSentimentCountForSentimentValue(final FeelingValue feelingValue) {
+        switch (feelingValue) {
             case good:
                 good++;
                 break;

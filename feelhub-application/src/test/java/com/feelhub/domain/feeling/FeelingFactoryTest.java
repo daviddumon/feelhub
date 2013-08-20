@@ -1,6 +1,7 @@
 package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -23,26 +24,26 @@ public class FeelingFactoryTest {
 
     @Test
     public void canCreateAFeeling() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final String text = "hi!";
 
-        final Feeling feeling = feelingFactory.createFeeling(text, user.getId());
+        final Feeling feeling = feelingFactory.createFeeling(user.getId(), realTopic.getId());
 
         assertThat(feeling.getId()).isNotNull();
-        assertThat(feeling.getText()).isEqualTo(text);
         assertThat(feeling.getUserId()).isEqualTo(user.getId());
+        assertThat(feeling.getTopicId()).isEqualTo(realTopic.getCurrentId());
     }
 
     @Test
     public void canPostAnEvent() {
         final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final String text = "hi!";
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
 
-        final Feeling feeling = feelingFactory.createFeeling(text, user.getId());
+        final Feeling feeling = feelingFactory.createFeeling(user.getId(), realTopic.getCurrentId());
 
         final FeelingCreatedEvent lastEvent = events.lastEvent(FeelingCreatedEvent.class);
         assertThat(lastEvent).isNotNull();
-        assertThat(lastEvent.feelingId).isEqualTo(feeling.getId());
+        assertThat(lastEvent.getFeeling().getId()).isEqualTo(feeling.getId());
     }
 
     private FeelingFactory feelingFactory;

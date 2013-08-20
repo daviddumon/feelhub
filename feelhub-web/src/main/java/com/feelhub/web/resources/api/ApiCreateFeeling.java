@@ -39,7 +39,7 @@ public class ApiCreateFeeling {
         builder.user(extractUser());
         builder.text(extractText(jsonObject));
         builder.languageCode(extractLanguageCode(jsonObject));
-        builder.sentiments(extractSentiments(jsonObject));
+        //builder.sentiments(extractSentiments(jsonObject));
         return builder.build();
     }
 

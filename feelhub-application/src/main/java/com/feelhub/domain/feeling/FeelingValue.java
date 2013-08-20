@@ -1,11 +1,10 @@
 package com.feelhub.domain.feeling;
 
+public enum FeelingValue {
 
-//todo delete
-public enum SentimentValue {
     good(1), bad(-1), neutral(0);
 
-    SentimentValue(final int numericValue) {
+    FeelingValue(final int numericValue) {
         this.numericValue = numericValue;
     }
 

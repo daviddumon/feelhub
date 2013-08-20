@@ -5,7 +5,7 @@ import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 
-import java.util.List;
+import java.util.*;
 
 public class FeelingRelationBinder {
 
@@ -14,14 +14,14 @@ public class FeelingRelationBinder {
     }
 
     public void bind(final Feeling feeling) {
-        final List<Topic> topics = loadAllTopics(feeling.getSentiments());
+        final List<Topic> topics = loadAllTopics(feeling.getRelatedTopics());
         createRelations(topics);
     }
 
-    private List<Topic> loadAllTopics(final List<Sentiment> sentiments) {
+    private List<Topic> loadAllTopics(final List<UUID> relatedIds) {
         final List<Topic> topics = Lists.newArrayList();
-        for (final Sentiment sentiment : sentiments) {
-            final Topic topic = Repositories.topics().getCurrentTopic(sentiment.getTopicId());
+        for (final UUID id : relatedIds) {
+            final Topic topic = Repositories.topics().getCurrentTopic(id);
             topics.add(topic);
         }
         return topics;

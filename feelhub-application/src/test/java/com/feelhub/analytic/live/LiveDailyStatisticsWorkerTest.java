@@ -69,7 +69,7 @@ public class LiveDailyStatisticsWorkerTest {
 
     @Test
     public void incrementsFeelingCount() {
-        worker.onFeelingCreated(new FeelingCreatedEvent(UUID.randomUUID(), UUID.randomUUID()));
+        worker.onFeelingCreated(new FeelingCreatedEvent(TestFactories.feelings().newFeeling()));
 
         final StatisticsCounter counter = lastCounter();
         assertThat(counter.hasInc("feelings")).isTrue();

@@ -15,7 +15,7 @@ public class TopicDataFactory {
             builder.description(topic.getDescription(feelhubLanguage));
             builder.subtypes(topic.getSubTypes());
             builder.uris(topic.getUris());
-            builder.topicSentimentScore(topic.getSentimentScore());
+            builder.topicSentimentScore(topic.getFeelingScore());
         }
         return builder.build();
     }

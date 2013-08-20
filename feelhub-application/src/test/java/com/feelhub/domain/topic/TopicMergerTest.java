@@ -90,7 +90,7 @@ public class TopicMergerTest {
     public void mergeStatistics() {
         final RealTopic newRealTopic = TestFactories.topics().newCompleteRealTopic("tag1");
         final RealTopic oldRealTopic = TestFactories.topics().newCompleteRealTopic("tag2");
-        TestFactories.statistics().newStatisticsWithSentiments(oldRealTopic.getId(), Granularity.hour);
+        TestFactories.statistics().newStatisticsWithFeelings(oldRealTopic.getId(), Granularity.hour);
 
         topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
 

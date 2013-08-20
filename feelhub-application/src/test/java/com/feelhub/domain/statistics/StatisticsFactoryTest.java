@@ -1,6 +1,6 @@
 package com.feelhub.domain.statistics;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.topic.world.*;
 import com.feelhub.repositories.Repositories;
@@ -22,6 +22,9 @@ public class StatisticsFactoryTest {
     @Rule
     public SystemTime time = SystemTime.fixed();
 
+    @Rule
+    public WithDomainEvent events = new WithDomainEvent();
+
     @Before
     public void before() {
         statisticsFactory = new StatisticsFactory();
@@ -29,30 +32,30 @@ public class StatisticsFactoryTest {
 
     @Test
     public void canRecordGoodSentiment() {
-        final SentimentAddedEvent event = getGoodSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
 
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        assertThat(getStatisticsRepository().forTopicId(event.getSentiment().getTopicId()).get(0).getGood(), is(1));
+        assertThat(getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId()).get(0).getGood(), is(1));
     }
 
     @Test
     public void canRecordBadSentiment() {
-        final SentimentAddedEvent event = getBadSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getBadFeelingEvent();
 
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        assertThat(getStatisticsRepository().forTopicId(event.getSentiment().getTopicId()).get(0).getBad(), is(1));
+        assertThat(getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId()).get(0).getBad(), is(1));
     }
 
     @Test
     public void canRecordForHour() {
-        final SentimentAddedEvent event = getGoodSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
         time.waitDays(1);
 
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        final List<Statistics> statistics = getStatisticsRepository().forTopicId(event.getSentiment().getTopicId(), Granularity.hour, new Interval(time.getNow().minusDays(2), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId(), Granularity.hour, new Interval(time.getNow().minusDays(2), time.getNow()));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.hour));
         assertThat(statistics.get(0).getGood(), is(1));
@@ -60,45 +63,45 @@ public class StatisticsFactoryTest {
 
     @Test
     public void canRecordForDay() {
-        final SentimentAddedEvent event = getGoodSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
 
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        final List<Statistics> statistics = getStatisticsRepository().forTopicId(event.getSentiment().getTopicId(), Granularity.day, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
+        final List<Statistics> statistics = getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId(), Granularity.day, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.day));
     }
 
     @Test
     public void canRecordForMonth() {
-        final SentimentAddedEvent event = getGoodSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
 
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        final List<Statistics> statistics = getStatisticsRepository().forTopicId(event.getSentiment().getTopicId(), Granularity.month, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
+        final List<Statistics> statistics = getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId(), Granularity.month, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.month));
     }
 
     @Test
     public void canRecordForYear() {
-        final SentimentAddedEvent event = getGoodSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
 
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        final List<Statistics> statistics = getStatisticsRepository().forTopicId(event.getSentiment().getTopicId(), Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
+        final List<Statistics> statistics = getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId(), Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.year));
     }
 
     @Test
     public void canRecord2SentimentsForYear() {
-        final SentimentAddedEvent event = getGoodSentimentEvent();
-        DomainEventBus.INSTANCE.post(event);
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
+        DomainEventBus.INSTANCE.post(feelingEvent);
 
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        final List<Statistics> statistics = getStatisticsRepository().forTopicId(event.getSentiment().getTopicId(),
+        final List<Statistics> statistics = getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId(),
                 Granularity.year, new Interval(time.getNow().minus(1), time.getNow().plus(1)));
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGranularity(), is(Granularity.year));
@@ -107,12 +110,12 @@ public class StatisticsFactoryTest {
     @Test
     public void canRecordSentimentForLastYear() {
         time.set(time.getNow().minusYears(3));
-        final SentimentAddedEvent event = getGoodSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
 
         time.set(time.getNow().plusYears(3));
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        final List<Statistics> statistics = getStatisticsRepository().forTopicId(event.getSentiment().getTopicId(),
+        final List<Statistics> statistics = getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId(),
                 Granularity.year, new Interval(time.getNow().minusYears(4), time.getNow().minusYears(2)));
         assertThat(statistics.size(), is(1));
     }
@@ -120,56 +123,56 @@ public class StatisticsFactoryTest {
     @Test
     public void canRecordSentimentsForLastMonth() {
         time.set(time.getNow().minusMonths(3));
-        final SentimentAddedEvent event = getGoodSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
         time.set(time.getNow().minusMonths(5));
-        statisticsFactory.handle(new SentimentAddedEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
+        statisticsFactory.handle(new FeelingCreatedEvent(feelingEvent.getFeeling()));
 
         time.set(time.getNow().plusMonths(8));
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        final List<Statistics> statistics = getStatisticsRepository().forTopicId(event.getSentiment().getTopicId(), Granularity.month, new Interval(time.getNow().minusMonths(12), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId(), Granularity.month, new Interval(time.getNow().minusMonths(12), time.getNow()));
         assertThat(statistics.size(), is(2));
     }
 
     @Test
     public void canRecordSentimentsForLastDay() {
         time.set(time.getNow().minusDays(3));
-        final SentimentAddedEvent event = getGoodSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
         time.set(time.getNow().minusDays(5));
-        statisticsFactory.handle(new SentimentAddedEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
+        statisticsFactory.handle(new FeelingCreatedEvent(feelingEvent.getFeeling()));
 
         time.set(time.getNow().plusDays(8));
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        final List<Statistics> statistics = getStatisticsRepository().forTopicId(event.getSentiment().getTopicId(), Granularity.day, new Interval(time.getNow().minusDays(12), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId(), Granularity.day, new Interval(time.getNow().minusDays(12), time.getNow()));
         assertThat(statistics.size(), is(2));
     }
 
     @Test
     public void canRecordSentimentsForLastHour() {
         time.set(time.getNow().minusHours(3));
-        final SentimentAddedEvent event = getGoodSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsFactory.handle(new SentimentAddedEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
+        statisticsFactory.handle(new FeelingCreatedEvent(feelingEvent.getFeeling()));
 
         time.set(time.getNow().plusHours(8));
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        final List<Statistics> statistics = getStatisticsRepository().forTopicId(event.getSentiment().getTopicId(), Granularity.hour, new Interval(time.getNow().minusHours(12), time.getNow()));
+        final List<Statistics> statistics = getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId(), Granularity.hour, new Interval(time.getNow().minusHours(12), time.getNow()));
         assertThat(statistics.size(), is(2));
     }
 
     @Test
     public void canFetchStatisticsWithGranularityAllForTopic() {
         time.set(time.getNow().minusHours(3));
-        final SentimentAddedEvent event = getGoodSentimentEvent();
+        final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
         time.set(time.getNow().minusHours(5));
-        statisticsFactory.handle(new SentimentAddedEvent(new Sentiment(event.getSentiment().getTopicId(), SentimentValue.good)));
+        statisticsFactory.handle(new FeelingCreatedEvent(feelingEvent.getFeeling()));
 
         time.set(time.getNow().plusHours(8));
-        statisticsFactory.handle(event);
+        statisticsFactory.handle(feelingEvent);
 
-        final List<Statistics> statistics = getStatisticsRepository().forTopicId(event.getSentiment().getTopicId(), Granularity.all);
+        final List<Statistics> statistics = getStatisticsRepository().forTopicId(feelingEvent.getFeeling().getTopicId(), Granularity.all);
         assertThat(statistics.size(), is(1));
         assertThat(statistics.get(0).getGood(), is(2));
     }
@@ -177,8 +180,7 @@ public class StatisticsFactoryTest {
     @Test
     public void canRecordStatisticsForWorld() {
         final WorldTopic worldTopic = TestFactories.topics().newWorldTopic();
-        final Sentiment sentiment = new Sentiment(worldTopic.getId(), SentimentValue.good);
-        final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(sentiment);
+        final WorldStatisticsEvent worldStatisticsEvent = new WorldStatisticsEvent(TestFactories.feelings().goodFeeling(worldTopic));
 
         statisticsFactory.handle(worldStatisticsEvent);
 
@@ -186,14 +188,16 @@ public class StatisticsFactoryTest {
         assertThat(statisticsList.size(), is(5));
     }
 
-    private SentimentAddedEvent getGoodSentimentEvent() {
-        final SentimentAddedEvent event = new SentimentAddedEvent(TestFactories.sentiments().newGoodSentiment());
-        return event;
+    private FeelingCreatedEvent getGoodFeelingEvent() {
+        final Feeling feeling = TestFactories.feelings().goodFeeling();
+        final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(feeling);
+        return feelingCreatedEvent;
     }
 
-    private SentimentAddedEvent getBadSentimentEvent() {
-        final SentimentAddedEvent event = new SentimentAddedEvent(TestFactories.sentiments().newBadSentiment());
-        return event;
+    private FeelingCreatedEvent getBadFeelingEvent() {
+        final Feeling feeling = TestFactories.feelings().badFeeling();
+        final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(feeling);
+        return feelingCreatedEvent;
     }
 
     private FakeStatisticsRepository getStatisticsRepository() {

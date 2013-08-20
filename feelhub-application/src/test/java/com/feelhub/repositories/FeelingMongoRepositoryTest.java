@@ -7,7 +7,7 @@ import com.feelhub.test.*;
 import com.mongodb.*;
 import org.junit.*;
 
-import java.util.*;
+import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -16,14 +16,15 @@ public class FeelingMongoRepositoryTest extends TestWithMongoRepository {
     @Rule
     public SystemTime time = SystemTime.fixed();
 
+    @Before
+    public void before() {
+        topic = TestFactories.topics().newCompleteRealTopic();
+        user = TestFactories.users().createFakeActiveUser("userforrepo@mail.com");
+    }
+
     @Test
-    public void canPersist() {
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final User activeUser = TestFactories.users().createFakeActiveUser("userforrepo@mail.com");
-        final Feeling feeling = new Feeling(UUID.randomUUID(), "yeah", activeUser.getId());
-        final Sentiment sentiment = TestFactories.sentiments().newSentiment(realTopic, SentimentValue.bad);
-        feeling.addSentiment(sentiment);
-        feeling.setLanguageCode("en");
+    public void canPersistAFeeling() {
+        final Feeling feeling = createAFeeling();
 
         Repositories.feelings().add(feeling);
 
@@ -37,11 +38,13 @@ public class FeelingMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(feelingFound.get("languageCode").toString()).isEqualTo(feeling.getLanguageCode());
         assertThat(feelingFound.get("creationDate")).isEqualTo(feeling.getCreationDate().getMillis());
         assertThat(feelingFound.get("lastModificationDate")).isEqualTo(feeling.getCreationDate().getMillis());
-        assertThat(feelingFound.get("userId")).isEqualTo(activeUser.getId());
+        assertThat(feelingFound.get("userId")).isEqualTo(user.getId());
+        assertThat(feelingFound.get("topicId")).isEqualTo(topic.getId());
+        assertThat(feelingFound.get("feelingValue")).isEqualTo(feeling.getFeelingValue().toString());
     }
 
     @Test
-    public void canGet() {
+    public void canGetAFeeling() {
         final Feeling feeling = TestFactories.feelings().newFeeling();
 
         final Feeling feelingFound = Repositories.feelings().get(feeling.getId());
@@ -50,7 +53,7 @@ public class FeelingMongoRepositoryTest extends TestWithMongoRepository {
     }
 
     @Test
-    public void canGetAll() {
+    public void canGetAllFeelings() {
         final Feeling feeling0 = TestFactories.feelings().newFeeling();
         final Feeling feeling1 = TestFactories.feelings().newFeeling();
 
@@ -62,33 +65,26 @@ public class FeelingMongoRepositoryTest extends TestWithMongoRepository {
     }
 
     @Test
-    public void canPersistMapOfSentiments() {
-        final Feeling feeling = TestFactories.feelings().newFeeling();
-
-        Repositories.feelings().add(feeling);
-
-        final DBCollection feelings = getMongo().getCollection("feeling");
-        final DBObject query = new BasicDBObject();
-        query.put("_id", feeling.getId());
-        final DBObject feelingFound = feelings.findOne(query);
-        assertThat(feelingFound.get("sentiments")).isNotNull();
-    }
-
-    @Test
-    @Ignore("do not work with mongolink")
     public void canGetAllFeelingsForTopic() {
         final RealTopic realTopic1 = TestFactories.topics().newCompleteRealTopic();
         final RealTopic realTopic2 = TestFactories.topics().newCompleteRealTopic();
-        final Feeling feeling1 = TestFactories.feelings().newFeeling();
-        final Feeling feeling2 = TestFactories.feelings().newFeeling();
-        final Feeling feeling3 = TestFactories.feelings().newFeeling();
-        feeling1.addSentiment(new Sentiment(realTopic1.getId(), SentimentValue.good));
-        feeling1.addSentiment(new Sentiment(realTopic2.getId(), SentimentValue.bad));
-        feeling2.addSentiment(new Sentiment(realTopic1.getId(), SentimentValue.good));
-        feeling3.addSentiment(new Sentiment(realTopic2.getId(), SentimentValue.good));
+        final Feeling feeling1 = TestFactories.feelings().newFeeling(realTopic1, "comment 1");
+        final Feeling feeling2 = TestFactories.feelings().newFeeling(realTopic1, "comment 2");
+        final Feeling feeling3 = TestFactories.feelings().newFeeling(realTopic2, "comment 3");
 
         final List<Feeling> feelings = Repositories.feelings().forTopicId(realTopic1.getId());
 
         assertThat(feelings.size()).isEqualTo(2);
     }
+
+    private Feeling createAFeeling() {
+        final Feeling feeling = new Feeling(user.getId(), topic.getId());
+        feeling.setText("This is a comment");
+        feeling.setFeelingValue(FeelingValue.good);
+        feeling.setLanguageCode("en");
+        return feeling;
+    }
+
+    private RealTopic topic;
+    private User user;
 }

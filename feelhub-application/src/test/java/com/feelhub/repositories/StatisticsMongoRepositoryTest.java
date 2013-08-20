@@ -1,6 +1,5 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.statistics.*;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.test.*;
@@ -23,9 +22,9 @@ public class StatisticsMongoRepositoryTest extends TestWithMongoRepository {
         final DateTime date = new DateTime().plusDays(1);
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final Statistics stat = new Statistics(realTopic.getId(), Granularity.day, date);
-        stat.incrementSentimentCount(new Sentiment(realTopic.getId(), SentimentValue.good));
-        stat.incrementSentimentCount(new Sentiment(realTopic.getId(), SentimentValue.bad));
-        stat.incrementSentimentCount(new Sentiment(realTopic.getId(), SentimentValue.neutral));
+        stat.incrementFeelingCount(TestFactories.feelings().goodFeeling(realTopic));
+        stat.incrementFeelingCount(TestFactories.feelings().badFeeling(realTopic));
+        stat.incrementFeelingCount(TestFactories.feelings().neutralFeeling(realTopic));
 
         Repositories.statistics().add(stat);
 
@@ -60,25 +59,25 @@ public class StatisticsMongoRepositoryTest extends TestWithMongoRepository {
     public void canGetByTopicGranularityTopicAndOffset() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final Statistics one = new Statistics(realTopic.getId(), Granularity.hour, new DateTime());
-        one.incrementSentimentCount(new Sentiment(realTopic.getId(), SentimentValue.good));
+        one.incrementFeelingCount(TestFactories.feelings().goodFeeling(realTopic));
         Repositories.statistics().add(one);
         time.waitHours(2);
         final Statistics two = new Statistics(realTopic.getId(), Granularity.hour, new DateTime());
-        two.incrementSentimentCount(new Sentiment(realTopic.getId(), SentimentValue.good));
+        two.incrementFeelingCount(TestFactories.feelings().badFeeling(realTopic));
         Repositories.statistics().add(two);
 
         final List<Statistics> statistics = Repositories.statistics().forTopicId(realTopic.getId(), Granularity.hour, Granularity.hour.intervalFor(one.getDate(), two.getDate()));
 
         assertThat(statistics.size(), is(2));
         assertThat(statistics.get(0).getGood(), is(1));
-        assertThat(statistics.get(1).getGood(), is(1));
+        assertThat(statistics.get(1).getBad(), is(1));
     }
 
     @Test
     public void canGetWithGranularityDay() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final Statistics one = new Statistics(realTopic.getId(), Granularity.day, new DateTime());
-        one.incrementSentimentCount(new Sentiment(realTopic.getId(), SentimentValue.good));
+        one.incrementFeelingCount(TestFactories.feelings().goodFeeling(realTopic));
         Repositories.statistics().add(one);
         time.waitDays(4);
 
@@ -93,7 +92,7 @@ public class StatisticsMongoRepositoryTest extends TestWithMongoRepository {
     public void canGetWithGranularityMonth() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final Statistics one = new Statistics(realTopic.getId(), Granularity.month, new DateTime());
-        one.incrementSentimentCount(new Sentiment(realTopic.getId(), SentimentValue.good));
+        one.incrementFeelingCount(TestFactories.feelings().goodFeeling(realTopic));
         Repositories.statistics().add(one);
         time.waitMonths(4);
 
@@ -108,7 +107,7 @@ public class StatisticsMongoRepositoryTest extends TestWithMongoRepository {
     public void canGetWithGranularityYear() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final Statistics one = new Statistics(realTopic.getId(), Granularity.year, new DateTime());
-        one.incrementSentimentCount(new Sentiment(realTopic.getId(), SentimentValue.good));
+        one.incrementFeelingCount(TestFactories.feelings().goodFeeling(realTopic));
         Repositories.statistics().add(one);
         time.waitYears(4);
 

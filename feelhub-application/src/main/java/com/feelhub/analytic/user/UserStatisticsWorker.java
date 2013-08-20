@@ -39,7 +39,7 @@ public class UserStatisticsWorker {
     @Subscribe
     @AllowConcurrentEvents
     public void onFeelingCreated(final FeelingCreatedEvent event) {
-        executor.execute(counterUpdate(event.userId).inc(getTimedInc(FEELINGS)).inc(FEELINGS));
+        executor.execute(counterUpdate(event.getFeeling().getUserId()).inc(getTimedInc(FEELINGS)).inc(FEELINGS));
     }
 
     @Subscribe

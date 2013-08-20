@@ -18,10 +18,6 @@ public class TestFactories {
         return new FeelingTestFactory();
     }
 
-    public static SentimentTestFactory sentiments() {
-        return new SentimentTestFactory();
-    }
-
     public static StatisticsTestFactory statistics() {
         return new StatisticsTestFactory();
     }

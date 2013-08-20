@@ -12,11 +12,7 @@ public class FeelingManager {
             final List<Feeling> feelingsForOldTopicId = Repositories.feelings().forTopicId(oldTopicId);
             if (!feelingsForOldTopicId.isEmpty()) {
                 for (final Feeling feeling : feelingsForOldTopicId) {
-                    for (final Sentiment sentiment : feeling.getSentiments()) {
-                        if (sentiment.getTopicId().equals(oldTopicId)) {
-                            sentiment.setTopicId(topicPatch.getNewTopicId());
-                        }
-                    }
+                    feeling.setTopicId(topicPatch.getNewTopicId());
                 }
             }
         }

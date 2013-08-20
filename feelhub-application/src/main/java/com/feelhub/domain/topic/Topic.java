@@ -1,7 +1,7 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.repositories.Repositories;
@@ -115,21 +115,12 @@ public abstract class Topic extends BaseEntity {
         this.topicMerger = topicMerger;
     }
 
-    public int getSentimentScore() {
-        return new TopicSentimentScoreCalculator().sentimentScore(getSentiments());
+    public int getFeelingScore() {
+        return new TopicFeelingScoreCalculator().feelingScore(getFeelings());
     }
 
-    private List<Sentiment> getSentiments() {
-        final List<Sentiment> sentiments = Lists.newArrayList();
-        final List<Feeling> feelings = Repositories.feelings().forTopicId(currentId);
-        for (final Feeling feeling : feelings) {
-            for (final Sentiment sentiment : feeling.getSentiments()) {
-                if (sentiment.getTopicId() != null && sentiment.getTopicId().equals(currentId)) {
-                    sentiments.add(sentiment);
-                }
-            }
-        }
-        return sentiments;
+    private List<Feeling> getFeelings() {
+        return Repositories.feelings().forTopicId(currentId);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.*;
@@ -248,35 +247,21 @@ public class TopicTest {
     }
 
     @Test
-    public void hasADefaultSentimentScore() {
+    public void hasADefaultFeelingScore() {
         final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
 
-        assertThat(topic.getSentimentScore()).isEqualTo(0);
+        assertThat(topic.getFeelingScore()).isEqualTo(0);
     }
 
     @Test
-    public void hasASentimentScore() {
+    public void hasAFeelingScore() {
         systemTime.set(new DateTime(10));
         final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
 
         systemTime.set(new DateTime(11));
-        TestFactories.feelings().newFeeling(topic, "aaa", SentimentValue.bad);
+        TestFactories.feelings().badFeeling(topic);
 
-        assertThat(topic.getSentimentScore()).isEqualTo(-100);
-    }
-
-    @Test
-    public void hasASentimentScoreWithSentimentsFromTopicOnly() {
-        systemTime.set(new DateTime(10));
-        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
-        systemTime.set(new DateTime(11));
-        final Feeling feeling = TestFactories.feelings().newFeeling(topic, "aaa", SentimentValue.bad);
-
-        final Sentiment sentiment = TestFactories.sentiments().newSentiment(topic, SentimentValue.good);
-        sentiment.setTopicId(UUID.randomUUID());
-        feeling.addSentiment(sentiment);
-
-        assertThat(topic.getSentimentScore()).isEqualTo(-100);
+        assertThat(topic.getFeelingScore()).isEqualTo(-100);
     }
 
     @Test

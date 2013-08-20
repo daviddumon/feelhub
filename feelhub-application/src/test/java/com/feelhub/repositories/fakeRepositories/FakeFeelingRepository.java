@@ -10,15 +10,13 @@ public class FakeFeelingRepository extends FakeRepository<Feeling> implements Fe
 
     @Override
     public List<Feeling> forTopicId(final UUID topicId) {
+
         return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Feeling>() {
 
             @Override
             public boolean apply(final Feeling input) {
-                final List<Sentiment> sentiments = input.getSentiments();
-                for (final Sentiment sentiment : sentiments) {
-                    if (sentiment.getTopicId().equals(topicId)) {
-                        return true;
-                    }
+                if (input.getTopicId().equals(topicId)) {
+                    return true;
                 }
                 return false;
             }

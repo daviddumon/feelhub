@@ -17,7 +17,6 @@ public class WorldListenerTest {
     @Rule
     public WithDomainEvent bus = new WithDomainEvent();
 
-
     @Before
     public void before() {
         worldListener = new WorldListener();
@@ -41,26 +40,24 @@ public class WorldListenerTest {
     }
 
     @Test
-    public void addPostEventForWorldStatisticsOnSentimentEvent() {
+    public void addPostEventForWorldStatisticsOnFeelingCreatedEvent() {
         final WorldTopic worldTopic = TestFactories.topics().newWorldTopic();
-        final Sentiment sentiment = TestFactories.sentiments().newSentiment();
-        final SentimentAddedEvent sentimentStatisticsEvent = new SentimentAddedEvent(sentiment);
+        final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(TestFactories.feelings().goodFeeling());
 
-        worldListener.handle(sentimentStatisticsEvent);
+        worldListener.handle(feelingCreatedEvent);
 
         final WorldStatisticsEvent worldStatisticsEvent = bus.lastEvent(WorldStatisticsEvent.class);
         assertThat(worldStatisticsEvent).isNotNull();
-        assertThat(worldStatisticsEvent.getSentiment()).isNotNull();
-        assertThat(worldStatisticsEvent.getSentiment().getTopicId()).isEqualTo(worldTopic.getId());
-        assertThat(worldStatisticsEvent.getSentiment().getSentimentValue()).isEqualTo(sentiment.getSentimentValue());
+        assertThat(worldStatisticsEvent.getFeeling()).isNotNull();
+        assertThat(worldStatisticsEvent.getFeeling().getTopicId()).isEqualTo(worldTopic.getCurrentId());
+        assertThat(worldStatisticsEvent.getFeeling().getFeelingValue()).isEqualTo(FeelingValue.good);
     }
 
     @Test
-    public void listenToSentimentAdded() {
-        final Sentiment sentiment = TestFactories.sentiments().newSentiment();
-        final SentimentAddedEvent sentimentStatisticsEvent = new SentimentAddedEvent(sentiment);
+    public void listenToFeelingCreatedEvent() {
+        final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(TestFactories.feelings().goodFeeling());
 
-        DomainEventBus.INSTANCE.post(sentimentStatisticsEvent);
+        DomainEventBus.INSTANCE.post(feelingCreatedEvent);
 
         final WorldTopic worldTopic = Repositories.topics().getWorldTopic();
         assertThat(worldTopic).isNotNull();

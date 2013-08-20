@@ -1,8 +1,8 @@
 package com.feelhub.domain.eventbus;
 
-import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.feeling.FeelingCreatedEvent;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.SystemTime;
+import com.feelhub.test.*;
 import com.google.common.eventbus.Subscribe;
 import org.junit.*;
 
@@ -24,19 +24,19 @@ public class DomainEventBusTest {
     @Test
     public void canUseAsyncEventBus() {
         final SimpleEventListener simpleEventListener = mock(SimpleEventListener.class);
-        final SentimentAddedEvent sentimentAddedEvent = new SentimentAddedEvent(new Sentiment(UUID.randomUUID(), SentimentValue.bad));
+        final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(TestFactories.feelings().newFeeling());
         DomainEventBus.INSTANCE.register(simpleEventListener);
 
-        DomainEventBus.INSTANCE.post(sentimentAddedEvent);
+        DomainEventBus.INSTANCE.post(feelingCreatedEvent);
 
-        verify(simpleEventListener, times(1)).handle(sentimentAddedEvent);
+        verify(simpleEventListener, times(1)).handle(feelingCreatedEvent);
     }
 
     @Test
     public void canSpreadEventToMultipleListeners() {
         final SimpleEventListener listener1 = mock(SimpleEventListener.class);
         final SimpleEventListener listener2 = mock(SimpleEventListener.class);
-        final SentimentAddedEvent feelingCreatedEvent = new SentimentAddedEvent(new Sentiment(UUID.randomUUID(), SentimentValue.bad));
+        final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(TestFactories.feelings().newFeeling());
         DomainEventBus.INSTANCE.register(listener1);
         DomainEventBus.INSTANCE.register(listener2);
 
@@ -49,7 +49,7 @@ public class DomainEventBusTest {
     private class SimpleEventListener {
 
         @Subscribe
-        public void handle(final SentimentAddedEvent sentimentAddedEvent) {
+        public void handle(final FeelingCreatedEvent feelingCreatedEvent) {
 
         }
     }

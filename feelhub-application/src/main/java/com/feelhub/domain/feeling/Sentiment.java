@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 
 import java.util.UUID;
 
+//todo delete
 public class Sentiment {
 
     // Constructor for mapper : do not delete !

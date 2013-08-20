@@ -1,6 +1,6 @@
 package com.feelhub.domain.statistics;
 
-import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.test.TestFactories;
@@ -23,15 +23,15 @@ public class StatisticsTestFactory {
         return statistics;
     }
 
-    public Statistics newStatisticsWithSentiments(final UUID topicid, final Granularity granularity) {
+    public Statistics newStatisticsWithFeelings(final UUID topicid, final Granularity granularity) {
         final Statistics statistics = new Statistics(topicid, granularity, new DateTime());
-        statistics.incrementSentimentCount(new Sentiment(topicid, SentimentValue.good));
-        statistics.incrementSentimentCount(new Sentiment(topicid, SentimentValue.good));
-        statistics.incrementSentimentCount(new Sentiment(topicid, SentimentValue.good));
-        statistics.incrementSentimentCount(new Sentiment(topicid, SentimentValue.bad));
-        statistics.incrementSentimentCount(new Sentiment(topicid, SentimentValue.bad));
-        statistics.incrementSentimentCount(new Sentiment(topicid, SentimentValue.neutral));
-        new Sentiment(topicid, SentimentValue.good);
+        final Topic topic = Repositories.topics().get(topicid);
+        statistics.incrementFeelingCount(TestFactories.feelings().goodFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().goodFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().goodFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().badFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().badFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().neutralFeeling(topic));
         Repositories.statistics().add(statistics);
         return statistics;
     }

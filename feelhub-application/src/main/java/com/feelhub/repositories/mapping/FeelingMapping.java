@@ -13,9 +13,10 @@ public class FeelingMapping extends AggregateMap<Feeling> {
     protected void map() {
         id(element().getId()).natural();
         property(element().getUserId());
+        property(element().getTopicId());
+        property(element().getFeelingValue());
         property(element().getText());
         property(element().getLanguageCode());
-        collection(element().getSentiments());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
     }

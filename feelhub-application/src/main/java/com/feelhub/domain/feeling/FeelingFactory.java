@@ -6,9 +6,9 @@ import java.util.UUID;
 
 public class FeelingFactory {
 
-    public Feeling createFeeling(final String text, final UUID userId) {
-        final Feeling feeling = new Feeling(UUID.randomUUID(), text, userId);
-        DomainEventBus.INSTANCE.post(new FeelingCreatedEvent(feeling.getId(), userId));
+    public Feeling createFeeling(final UUID userId, final UUID topicId) {
+        final Feeling feeling = new Feeling(userId, topicId);
+        DomainEventBus.INSTANCE.post(new FeelingCreatedEvent(feeling));
         return feeling;
     }
 }

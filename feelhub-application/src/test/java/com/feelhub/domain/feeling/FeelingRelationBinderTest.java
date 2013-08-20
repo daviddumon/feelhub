@@ -24,12 +24,9 @@ public class FeelingRelationBinderTest {
     @Test
     public void canCreateRelationsForAFeeling() {
         final Feeling feeling = TestFactories.feelings().newFeelingWithoutSentiments();
-        final Sentiment firstSentiment = TestFactories.sentiments().newSentiment();
-        final Sentiment secondSentiment = TestFactories.sentiments().newSentiment();
-        final Sentiment thirdSentiment = TestFactories.sentiments().newSentiment();
-        feeling.addSentiment(firstSentiment);
-        feeling.addSentiment(secondSentiment);
-        feeling.addSentiment(thirdSentiment);
+        feeling.addRelatedTopic(TestFactories.topics().newCompleteGeoTopic().getCurrentId());
+        feeling.addRelatedTopic(TestFactories.topics().newCompleteGeoTopic().getCurrentId());
+        feeling.addRelatedTopic(TestFactories.topics().newCompleteGeoTopic().getCurrentId());
 
         feelingRelationBinder.bind(feeling);
 
