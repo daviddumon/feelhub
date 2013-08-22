@@ -7,7 +7,6 @@ import org.apache.commons.lang.*;
 
 import java.util.*;
 
-
 public class FeelhubLanguage {
 
     public static FeelhubLanguage fromCountryName(final String language) {

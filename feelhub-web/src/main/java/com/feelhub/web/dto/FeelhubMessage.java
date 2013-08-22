@@ -1,7 +1,5 @@
 package com.feelhub.web.dto;
 
-import com.feelhub.domain.feeling.SentimentValue;
-
 public class FeelhubMessage {
 
     public String getText() {

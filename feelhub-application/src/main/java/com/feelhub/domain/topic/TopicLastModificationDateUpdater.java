@@ -15,8 +15,6 @@ public class TopicLastModificationDateUpdater {
     @AllowConcurrentEvents
     public void onFeelingCreated(final FeelingCreatedEvent event) {
         final Feeling feeling = Repositories.feelings().get(event.getFeeling().getId());
-        for (final Sentiment sentiment : feeling.getSentiments()) {
-            Repositories.topics().get(sentiment.getTopicId()).setLastModificationDate(sentiment.getCreationDate());
-        }
+        Repositories.topics().get(feeling.getTopicId()).setLastModificationDate(feeling.getCreationDate());
     }
 }

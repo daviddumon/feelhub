@@ -1,6 +1,5 @@
 package com.feelhub.web.dto;
 
-import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.UnusableTopicTypes;
 import com.feelhub.domain.topic.real.RealTopic;

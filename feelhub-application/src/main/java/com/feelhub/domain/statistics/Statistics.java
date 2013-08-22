@@ -19,10 +19,10 @@ public class Statistics extends BaseEntity {
     }
 
     public void incrementFeelingCount(final Feeling feeling) {
-        incrementSentimentCountForSentimentValue(feeling.getFeelingValue());
+        incrementFeelingForFeelingValue(feeling.getFeelingValue());
     }
 
-    private void incrementSentimentCountForSentimentValue(final FeelingValue feelingValue) {
+    private void incrementFeelingForFeelingValue(final FeelingValue feelingValue) {
         switch (feelingValue) {
             case good:
                 good++;

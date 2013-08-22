@@ -1,7 +1,7 @@
 package com.feelhub.test;
 
 import com.feelhub.domain.alchemy.*;
-import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.feeling.FeelingTestFactory;
 import com.feelhub.domain.related.RelatedTestFactory;
 import com.feelhub.domain.session.SessionTestFactory;
 import com.feelhub.domain.statistics.StatisticsTestFactory;

@@ -30,8 +30,8 @@ public class ApiFeelingSearchTest {
 
     @Test
     public void canSearchAllFeelingsForAUser() {
-        TestFactories.feelings().newFeeling(user.getId());
-        TestFactories.feelings().newFeeling(user.getId());
+        TestFactories.feelings().feelingWithUser(user.getId());
+        TestFactories.feelings().feelingWithUser(user.getId());
         TestFactories.feelings().newFeeling();
 
         final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(new Form(), user);

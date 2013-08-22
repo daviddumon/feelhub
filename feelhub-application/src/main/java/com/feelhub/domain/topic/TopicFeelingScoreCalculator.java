@@ -15,7 +15,7 @@ public final class TopicFeelingScoreCalculator {
         } else if (feelings.size() == 1) {
             return (int) feelingScore(1d, feelings.get(0).getFeelingValue());
         }
-        return feelingScore(scoresByFeelingValue(feelings, firstFeeling(feelings).getCreationDate(), offsetBetweenSentiments(feelings)));
+        return feelingScore(scoresByFeelingValue(feelings, firstFeeling(feelings).getCreationDate(), offsetBetweenFeelings(feelings)));
     }
 
     private Feeling firstFeeling(final List<Feeling> feelings) {
@@ -31,7 +31,7 @@ public final class TopicFeelingScoreCalculator {
         return ordering.min(feelings);
     }
 
-    private long offsetBetweenSentiments(final List<Feeling> feelings) {
+    private long offsetBetweenFeelings(final List<Feeling> feelings) {
         return lastFeeling(feelings).getCreationDate().getMillis() - firstFeeling(feelings).getCreationDate().getMillis();
     }
 

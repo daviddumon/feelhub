@@ -2,7 +2,7 @@ package com.feelhub.domain.topic;
 
 import com.feelhub.application.TagService;
 import com.feelhub.domain.eventbus.WithDomainEvent;
-import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.related.Related;
 import com.feelhub.domain.statistics.*;
 import com.feelhub.domain.tag.Tag;
@@ -64,9 +64,7 @@ public class TopicMergerTest {
         topicMerger.merge(newRealTopic.getId(), oldRealTopic.getId());
 
         for (final Feeling feeling : Repositories.feelings().getAll()) {
-            for (final Sentiment sentiment : feeling.getSentiments()) {
-                assertThat(sentiment.getTopicId()).isEqualTo(newRealTopic.getId());
-            }
+            assertThat(feeling.getTopicId()).isEqualTo(newRealTopic.getId());
         }
     }
 

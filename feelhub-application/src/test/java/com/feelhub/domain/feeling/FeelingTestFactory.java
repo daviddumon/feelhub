@@ -10,7 +10,6 @@ import com.google.common.collect.Lists;
 
 import java.util.*;
 
-//todo a refacto completement
 public class FeelingTestFactory {
 
     public Feeling newFeeling() {
@@ -35,132 +34,73 @@ public class FeelingTestFactory {
         return result;
     }
 
-    public Feeling newFeeling(final String text, final Sentiment sentiment) {
-        final User activeUser = TestFactories.users().createFakeActiveUser("userforfeeling@mail.com");
-        final Feeling feeling = new Feeling(activeUser.getId(), null);
-        feeling.setText(text);
-        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        Repositories.feelings().add(feeling);
-        return feeling;
-    }
-
     public Feeling newFeeling(final UUID topicId, final String text) {
         final RealTopic realTopic = new RealTopic(topicId, RealTopicType.Automobile);
         return newFeeling(realTopic, text);
     }
 
     public Feeling newFeeling(final RealTopic topic, final String text) {
-        return newFeeling(topic, text, SentimentValue.bad);
-    }
-
-    public Feeling newFeeling(final RealTopic topic, final String text, final SentimentValue sentimentValue) {
         final User activeUser = TestFactories.users().createFakeActiveUser("userforfeeling@mail.com");
         final Feeling feeling = new Feeling(activeUser.getId(), topic.getId());
         feeling.setText(text);
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
+        feeling.setFeelingValue(FeelingValue.good);
         Repositories.feelings().add(feeling);
         return feeling;
     }
 
-    public Feeling newFeelingWithoutSentiments() {
-        final User activeUser = TestFactories.users().createFakeActiveUser("userforfeeling@mail.com");
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final Feeling feeling = new Feeling(activeUser.getId(), realTopic.getCurrentId());
-        feeling.setText("feeling without sentiment");
-        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        Repositories.feelings().add(feeling);
-        return feeling;
-    }
-
-    public Feeling newFeeling(final UUID userId) {
+    public Feeling feelingWithUser(final UUID userId) {
         final User user = Repositories.users().get(userId);
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final Feeling feeling = new Feeling(user.getId(), realTopic.getCurrentId());
         feeling.setText("text");
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        Repositories.feelings().add(feeling);
-        return feeling;
-    }
-
-    public Feeling newEmptyFeeling(final String text) {
-        final User activeUser = TestFactories.users().createFakeActiveUser("userforfeeling@mail.com");
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final Feeling feeling = new Feeling(activeUser.getId(), realTopic.getCurrentId());
-        feeling.setText(text);
-        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
+        feeling.setFeelingValue(FeelingValue.good);
         Repositories.feelings().add(feeling);
         return feeling;
     }
 
     public Feeling goodFeeling() {
-        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final Feeling feeling = new Feeling(user.getId(), realTopic.getCurrentId());
-        feeling.setText("text");
-        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        feeling.setFeelingValue(FeelingValue.good);
-        Repositories.feelings().add(feeling);
-        return feeling;
+        return feelingWithFeelingValue(FeelingValue.good);
     }
 
     public Feeling badFeeling() {
-        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final Feeling feeling = new Feeling(user.getId(), realTopic.getCurrentId());
-        feeling.setText("text");
-        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        feeling.setFeelingValue(FeelingValue.bad);
-        Repositories.feelings().add(feeling);
-        return feeling;
+        return feelingWithFeelingValue(FeelingValue.bad);
     }
 
     public Feeling neutralFeeling() {
-        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        final Feeling feeling = new Feeling(user.getId(), realTopic.getCurrentId());
-        feeling.setText("text");
-        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        feeling.setFeelingValue(FeelingValue.neutral);
-        Repositories.feelings().add(feeling);
-        return feeling;
+        return feelingWithFeelingValue(FeelingValue.neutral);
     }
 
     public Feeling goodFeeling(final Topic topic) {
-        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final Feeling feeling = new Feeling(user.getId(), topic.getCurrentId());
-        feeling.setText("text");
-        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
+        final Feeling feeling = feelingWithTopic(topic);
         feeling.setFeelingValue(FeelingValue.good);
-        Repositories.feelings().add(feeling);
         return feeling;
     }
 
     public Feeling badFeeling(final Topic topic) {
-        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final Feeling feeling = new Feeling(user.getId(), topic.getCurrentId());
-        feeling.setText("text");
-        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
+        final Feeling feeling = feelingWithTopic(topic);
         feeling.setFeelingValue(FeelingValue.bad);
-        Repositories.feelings().add(feeling);
         return feeling;
     }
 
     public Feeling neutralFeeling(final Topic topic) {
+        final Feeling feeling = feelingWithTopic(topic);
+        feeling.setFeelingValue(FeelingValue.neutral);
+        return feeling;
+    }
+
+    public Feeling feelingWithFeelingValue(final FeelingValue feelingValue) {
+        final Feeling feeling = feelingWithTopic(TestFactories.topics().newCompleteRealTopic());
+        feeling.setFeelingValue(feelingValue);
+        return feeling;
+    }
+
+    private Feeling feelingWithTopic(final Topic topic) {
         final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
         final Feeling feeling = new Feeling(user.getId(), topic.getCurrentId());
         feeling.setText("text");
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        feeling.setFeelingValue(FeelingValue.neutral);
-        Repositories.feelings().add(feeling);
-        return feeling;
-    }
-
-    public Feeling feelingWithValue(final FeelingValue feelingValue) {
-        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final Feeling feeling = new Feeling(user.getId(), TestFactories.topics().newCompleteRealTopic().getCurrentId());
-        feeling.setText("text");
-        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        feeling.setFeelingValue(feelingValue);
         Repositories.feelings().add(feeling);
         return feeling;
     }

@@ -31,7 +31,7 @@ public class StatisticsFactoryTest {
     }
 
     @Test
-    public void canRecordGoodSentiment() {
+    public void canRecordGoodFeeling() {
         final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
 
         statisticsFactory.handle(feelingEvent);
@@ -40,7 +40,7 @@ public class StatisticsFactoryTest {
     }
 
     @Test
-    public void canRecordBadSentiment() {
+    public void canRecordBadFeeling() {
         final FeelingCreatedEvent feelingEvent = getBadFeelingEvent();
 
         statisticsFactory.handle(feelingEvent);
@@ -95,7 +95,7 @@ public class StatisticsFactoryTest {
     }
 
     @Test
-    public void canRecord2SentimentsForYear() {
+    public void canRecord2FeelingsForYear() {
         final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
         DomainEventBus.INSTANCE.post(feelingEvent);
 
@@ -108,7 +108,7 @@ public class StatisticsFactoryTest {
     }
 
     @Test
-    public void canRecordSentimentForLastYear() {
+    public void canRecordFeelingForLastYear() {
         time.set(time.getNow().minusYears(3));
         final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
 
@@ -121,7 +121,7 @@ public class StatisticsFactoryTest {
     }
 
     @Test
-    public void canRecordSentimentsForLastMonth() {
+    public void canRecordFeelingsForLastMonth() {
         time.set(time.getNow().minusMonths(3));
         final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
         time.set(time.getNow().minusMonths(5));
@@ -135,7 +135,7 @@ public class StatisticsFactoryTest {
     }
 
     @Test
-    public void canRecordSentimentsForLastDay() {
+    public void canRecordFeelingsForLastDay() {
         time.set(time.getNow().minusDays(3));
         final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
         time.set(time.getNow().minusDays(5));
@@ -149,7 +149,7 @@ public class StatisticsFactoryTest {
     }
 
     @Test
-    public void canRecordSentimentsForLastHour() {
+    public void canRecordFeelingsForLastHour() {
         time.set(time.getNow().minusHours(3));
         final FeelingCreatedEvent feelingEvent = getGoodFeelingEvent();
         time.set(time.getNow().minusHours(5));

@@ -99,7 +99,7 @@ public class FeelingSearchTest extends TestWithMongoRepository {
     @Test
     public void canGetAFeelingForAUser() {
         final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        TestFactories.feelings().newFeeling(user.getId());
+        TestFactories.feelings().feelingWithUser(user.getId());
         TestFactories.feelings().newFeelings(10);
 
         final List<Feeling> feelings = feelingSearch.withUserId(user.getId()).execute();

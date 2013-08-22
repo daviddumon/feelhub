@@ -1,6 +1,5 @@
 package com.feelhub.web.tools;
 
-import com.feelhub.domain.feeling.SentimentValue;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.web.dto.FeelhubMessage;

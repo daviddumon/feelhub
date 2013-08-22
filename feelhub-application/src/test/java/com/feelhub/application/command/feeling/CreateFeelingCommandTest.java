@@ -10,7 +10,7 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
 
-import java.util.*;
+import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;
 

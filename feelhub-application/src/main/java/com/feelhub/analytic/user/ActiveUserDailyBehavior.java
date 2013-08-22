@@ -15,7 +15,6 @@ public class ActiveUserDailyBehavior {
         }
     }
 
-
     public long getTotalActives() {
         return totalActives;
     }
@@ -37,7 +36,6 @@ public class ActiveUserDailyBehavior {
     }
 
     public long postTopic;
-
     public String _id;
     public long totalActives;
     public long totalFeelings;

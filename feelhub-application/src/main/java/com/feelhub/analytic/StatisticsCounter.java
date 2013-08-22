@@ -22,7 +22,6 @@ public class StatisticsCounter {
         return this;
     }
 
-
     public String getCollectionName() {
         return collectionName;
     }

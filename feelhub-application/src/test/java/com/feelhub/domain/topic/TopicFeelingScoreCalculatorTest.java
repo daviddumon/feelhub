@@ -80,6 +80,6 @@ public class TopicFeelingScoreCalculatorTest {
 
     private Feeling newFeelingWithFixedDate(final FeelingValue feelingValue, final long time) {
         systemTime.set(new DateTime(time));
-        return TestFactories.feelings().feelingWithValue(feelingValue);
+        return TestFactories.feelings().feelingWithFeelingValue(feelingValue);
     }
 }

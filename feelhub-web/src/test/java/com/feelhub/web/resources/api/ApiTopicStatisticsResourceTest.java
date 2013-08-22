@@ -84,9 +84,9 @@ public class ApiTopicStatisticsResourceTest {
     public void canFetchSingleHour() throws JSONException, IOException {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         final Statistics statistics = TestFactories.statistics().newStatistics(realTopic.getId(), Granularity.hour);
-        statistics.incrementFeelingCount(new Sentiment(realTopic.getId(), SentimentValue.good));
-        statistics.incrementFeelingCount(new Sentiment(realTopic.getId(), SentimentValue.bad));
-        statistics.incrementFeelingCount(new Sentiment(realTopic.getId(), SentimentValue.bad));
+        statistics.incrementFeelingCount(TestFactories.feelings().goodFeeling(realTopic));
+        statistics.incrementFeelingCount(TestFactories.feelings().badFeeling(realTopic));
+        statistics.incrementFeelingCount(TestFactories.feelings().badFeeling(realTopic));
         final ClientResource resource = restlet.newClientResource("/api/topic/" + realTopic.getId() + "/statistics?start=" + new DateTime().minus(1).getMillis() + "&end=" + new DateTime().plus(1).getMillis() + "&granularity=hour");
         time.waitDays(1);
 

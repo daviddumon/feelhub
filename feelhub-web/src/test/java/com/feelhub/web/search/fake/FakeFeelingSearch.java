@@ -1,6 +1,6 @@
 package com.feelhub.web.search.fake;
 
-import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.repositories.*;
 import com.feelhub.web.search.FeelingSearch;
 import com.google.common.base.Predicate;
@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 
 import java.util.*;
 
+//todo refacto apres changement form
 public class FakeFeelingSearch extends FeelingSearch {
 
     @Inject
@@ -39,11 +40,11 @@ public class FakeFeelingSearch extends FeelingSearch {
 
             @Override
             public boolean apply(final Feeling feeling) {
-                for (final Sentiment sentiment : feeling.getSentiments()) {
-                    if (sentiment.getTopicId().equals(topicId)) {
-                        return true;
-                    }
-                }
+                //for (final Sentiment sentiment : feeling.getSentiments()) {
+                //    if (sentiment.getTopicId().equals(topicId)) {
+                //        return true;
+                //    }
+                //}
                 return false;
             }
         }));

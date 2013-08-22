@@ -6,8 +6,6 @@ import com.feelhub.test.*;
 import com.google.common.eventbus.Subscribe;
 import org.junit.*;
 
-import java.util.UUID;
-
 import static org.mockito.Mockito.*;
 
 public class DomainEventBusTest {

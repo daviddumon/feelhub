@@ -1,11 +1,8 @@
 package com.feelhub.domain.feeling;
 
 import com.feelhub.domain.BaseEntity;
-import com.feelhub.domain.eventbus.DomainEventBus;
 import com.google.common.collect.Lists;
-import org.joda.time.DateTime;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 public class Feeling extends BaseEntity {
@@ -21,24 +18,12 @@ public class Feeling extends BaseEntity {
         this.feelingValue = FeelingValue.neutral;
     }
 
-    //todo delete
-    public void addSentiment(final Sentiment sentiment) {
-        sentiments.add(sentiment);
-        this.setLastModificationDate(new DateTime());
-        //DomainEventBus.INSTANCE.post(new SentimentAddedEvent(sentiment));
-    }
-
     public UUID getId() {
         return id;
     }
 
     public String getText() {
         return text;
-    }
-
-    //todo delete
-    public List<Sentiment> getSentiments() {
-        return sentiments;
     }
 
     public void setLanguageCode(final String languageCode) {
@@ -88,6 +73,4 @@ public class Feeling extends BaseEntity {
     private UUID topicId;
     private FeelingValue feelingValue;
     private final List<UUID> relatedTopics = Lists.newArrayList();
-    //todo delete
-    private final List<Sentiment> sentiments = Lists.newArrayList();
 }
