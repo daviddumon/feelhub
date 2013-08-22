@@ -1,5 +1,7 @@
 package com.feelhub.web.dto;
 
+import com.feelhub.domain.feeling.FeelingValue;
+
 public class FeelhubMessage {
 
     public String getText() {
@@ -40,7 +42,7 @@ public class FeelhubMessage {
 
     public static FeelhubMessage getActivationMessage() {
         final FeelhubMessage feelhubMessage = new FeelhubMessage();
-        feelhubMessage.setFeeling(SentimentValue.good.toString());
+        feelhubMessage.setFeeling(FeelingValue.good.toString());
         feelhubMessage.setText("Your account has been activated!");
         feelhubMessage.setSecondTimer(3);
         return feelhubMessage;
@@ -48,7 +50,7 @@ public class FeelhubMessage {
 
     public static FeelhubMessage getErrorMessage() {
         final FeelhubMessage feelhubMessage = new FeelhubMessage();
-        feelhubMessage.setFeeling(SentimentValue.bad.toString());
+        feelhubMessage.setFeeling(FeelingValue.bad.toString());
         feelhubMessage.setText("There was a disturbance in the Force!");
         feelhubMessage.setSecondTimer(3);
         return feelhubMessage;
@@ -56,7 +58,7 @@ public class FeelhubMessage {
 
     public static FeelhubMessage getWelcomeMessage() {
         final FeelhubMessage feelhubMessage = new FeelhubMessage();
-        feelhubMessage.setFeeling(SentimentValue.good.toString());
+        feelhubMessage.setFeeling(FeelingValue.good.toString());
         feelhubMessage.setSecondTimer(3);
         feelhubMessage.setText("Welcome to Feelhub! We hope you will enjoy it :)");
         return feelhubMessage;
@@ -64,7 +66,7 @@ public class FeelhubMessage {
 
     public static FeelhubMessage getWelcomeBackMessage() {
         final FeelhubMessage feelhubMessage = new FeelhubMessage();
-        feelhubMessage.setFeeling(SentimentValue.good.toString());
+        feelhubMessage.setFeeling(FeelingValue.good.toString());
         feelhubMessage.setSecondTimer(3);
         feelhubMessage.setText("Welcome back!");
         return feelhubMessage;

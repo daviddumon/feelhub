@@ -1,5 +1,6 @@
 package com.feelhub.web.dto;
 
+import com.feelhub.domain.feeling.FeelingValue;
 import com.google.common.collect.Lists;
 
 import java.util.*;
@@ -22,8 +23,18 @@ public class FeelingData {
             return this;
         }
 
+        public Builder topicId(final UUID topicId) {
+            this.topicId = topicId;
+            return this;
+        }
+
         public Builder text(final String text) {
             this.text = text;
+            return this;
+        }
+
+        public Builder feelingValue(final FeelingValue feelingValue) {
+            this.feelingValue = feelingValue;
             return this;
         }
 
@@ -32,28 +43,12 @@ public class FeelingData {
             return this;
         }
 
-        public Builder sentimentDatas(final List<SentimentData> sentimentDatas) {
-            this.sentimentDatas = sentimentDatas;
-            return this;
-        }
-
-        public Builder sentimentDatas(final List<SentimentData> sentimentDatas, final UUID contextId) {
-            for (final SentimentData sentimentData : sentimentDatas) {
-                if (!sentimentData.getId().equals(contextId.toString())) {
-                    this.sentimentDatas.add(sentimentData);
-                } else {
-                    this.feelingSentimentValue = sentimentData.getSentimentValue();
-                }
-            }
-            return this;
-        }
-
         private UUID id;
-        private String text = "";
         private UUID userId;
+        private UUID topicId;
+        private String text = "";
         private String languageCode = "";
-        private List<SentimentData> sentimentDatas = Lists.newArrayList();
-        private SentimentValue feelingSentimentValue = null;
+        private FeelingValue feelingValue;
     }
 
     private FeelingData(final Builder builder) {
@@ -61,8 +56,8 @@ public class FeelingData {
         this.text = Lists.newArrayList(builder.text.split("\r\n"));
         this.languageCode = builder.languageCode;
         this.userId = builder.userId;
-        this.sentimentDatas = builder.sentimentDatas;
-        this.feelingSentimentValue = builder.feelingSentimentValue;
+        this.topicId = builder.topicId;
+        this.feelingValue = builder.feelingValue;
     }
 
     public UUID getId() {
@@ -73,6 +68,14 @@ public class FeelingData {
         return userId;
     }
 
+    public UUID getTopicId() {
+        return topicId;
+    }
+
+    public FeelingValue getFeelingValue() {
+        return feelingValue;
+    }
+
     public List<String> getText() {
         return text;
     }
@@ -81,18 +84,10 @@ public class FeelingData {
         return languageCode;
     }
 
-    public List<SentimentData> getSentimentDatas() {
-        return sentimentDatas;
-    }
-
-    public SentimentValue getFeelingSentimentValue() {
-        return feelingSentimentValue;
-    }
-
     private final UUID id;
     private final UUID userId;
+    private final UUID topicId;
+    private final FeelingValue feelingValue;
     private final List<String> text;
     private final String languageCode;
-    private final List<SentimentData> sentimentDatas;
-    private final SentimentValue feelingSentimentValue;
 }

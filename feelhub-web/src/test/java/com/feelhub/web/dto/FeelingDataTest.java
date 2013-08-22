@@ -3,13 +3,11 @@ package com.feelhub.web.dto;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.*;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.google.common.collect.Lists;
 import org.junit.*;
-
-import java.util.*;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -56,40 +54,24 @@ public class FeelingDataTest {
     }
 
     @Test
-    public void hasTopicDataList() {
-        final List<SentimentData> sentimentDataList = Lists.newArrayList();
-        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
-        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
-        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
+    public void hasATopicId() {
+        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
+        final FeelingData feelingData = new FeelingData.Builder().topicId(topic.getCurrentId()).build();
 
-        final FeelingData feelingData = new FeelingData.Builder().sentimentDatas(sentimentDataList).build();
-
-        assertThat(feelingData.getSentimentDatas()).isEqualTo(sentimentDataList);
+        assertThat(feelingData.getTopicId()).isEqualTo(topic.getCurrentId());
     }
 
     @Test
-    public void canSetTopicDataAndContext() {
-        final List<SentimentData> sentimentDataList = Lists.newArrayList();
-        final UUID contextId = UUID.randomUUID();
-        sentimentDataList.add(new SentimentData.Builder().id(contextId).sentimentValue(SentimentValue.good).build());
-        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
-        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
+    public void hasAFeelingValue() {
+        final FeelingData feelingData = new FeelingData.Builder().feelingValue(FeelingValue.good).build();
 
-        final FeelingData feelingData = new FeelingData.Builder().sentimentDatas(sentimentDataList, contextId).build();
-
-        assertThat(feelingData.getSentimentDatas().size()).isEqualTo(sentimentDataList.size() - 1);
-        assertThat(feelingData.getFeelingSentimentValue()).isEqualTo(SentimentValue.good);
+        assertThat(feelingData.getFeelingValue()).isEqualTo(FeelingValue.good);
     }
 
     @Test
-    public void feelingSentimentValueDefaultToNull() {
-        final List<SentimentData> sentimentDataList = Lists.newArrayList();
-        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
-        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
-        sentimentDataList.add(new SentimentData.Builder().id(UUID.randomUUID()).build());
+    public void feelingValueDefaultToNull() {
+        final FeelingData feelingData = new FeelingData.Builder().build();
 
-        final FeelingData feelingData = new FeelingData.Builder().sentimentDatas(sentimentDataList).build();
-
-        assertThat(feelingData.getFeelingSentimentValue()).isNull();
+        assertThat(feelingData.getFeelingValue()).isNull();
     }
 }

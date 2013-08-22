@@ -40,7 +40,7 @@ public class FeelingSearch implements Search<Feeling> {
 
     @Override
     public FeelingSearch withTopicId(final UUID topicId) {
-        criteria.add(Restrictions.equals("sentiments.topicId", topicId));
+        criteria.add(Restrictions.equals("topicId", topicId));
         return this;
     }
 

@@ -2,6 +2,7 @@ package com.feelhub.web.resources.api;
 
 import com.feelhub.application.command.*;
 import com.feelhub.application.command.feeling.CreateFeelingCommand;
+import com.feelhub.domain.feeling.FeelingValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -88,7 +89,7 @@ public class ApiCreateFeelingTest {
     }
 
     private JSONObject getGoodJsonWithANoneSentiment() throws JSONException {
-        return getGoodJson(getJsonArray("none", SentimentValue.bad.toString()));
+        return getGoodJson(getJsonArray("none", FeelingValue.bad.toString()));
     }
 
     private JSONObject getGoodJson(final JSONArray topics) throws JSONException {
@@ -100,7 +101,7 @@ public class ApiCreateFeelingTest {
     }
 
     private JSONArray getJsonArray() throws JSONException {
-        return getJsonArray(SentimentValue.bad.toString(), SentimentValue.bad.toString());
+        return getJsonArray(FeelingValue.bad.toString(), FeelingValue.bad.toString());
     }
 
     private JSONArray getJsonArray(final String firstSentimentValue, final String secondSentimentValue) throws JSONException {

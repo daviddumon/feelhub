@@ -5,6 +5,7 @@ import com.feelhub.repositories.Repositories;
 import com.google.common.base.Optional;
 
 public class FeelhubAuthenticator implements Authenticator {
+
     @Override
     public User authenticate(final AuthRequest authRequest) {
         final User user = getUser(authRequest.getUserId());

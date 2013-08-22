@@ -1,5 +1,6 @@
 package com.feelhub.web.tools;
 
+import com.feelhub.domain.feeling.FeelingValue;
 import com.feelhub.domain.session.Session;
 import com.feelhub.domain.user.User;
 import com.feelhub.web.dto.FeelhubMessage;
@@ -97,7 +98,7 @@ public class CookieBuilderTest {
     @Test
     public void canCreateMessageCookie() {
         final FeelhubMessage feelhubMessage = new FeelhubMessage();
-        feelhubMessage.setFeeling(SentimentValue.good.toString());
+        feelhubMessage.setFeeling(FeelingValue.good.toString());
         feelhubMessage.setSecondTimer(3);
         feelhubMessage.setText("This is good!");
         final CookieSetting cookie = new CookieBuilder(new FeelhubWebProperties()).messageCookie(feelhubMessage);

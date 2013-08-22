@@ -9,7 +9,6 @@ import com.google.inject.Inject;
 
 import java.util.*;
 
-//todo refacto apres changement form
 public class FakeFeelingSearch extends FeelingSearch {
 
     @Inject
@@ -40,11 +39,9 @@ public class FakeFeelingSearch extends FeelingSearch {
 
             @Override
             public boolean apply(final Feeling feeling) {
-                //for (final Sentiment sentiment : feeling.getSentiments()) {
-                //    if (sentiment.getTopicId().equals(topicId)) {
-                //        return true;
-                //    }
-                //}
+                if (feeling.getTopicId().equals(topicId)) {
+                    return true;
+                }
                 return false;
             }
         }));

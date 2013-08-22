@@ -4,7 +4,7 @@ import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.user.*;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.web.*;
+import com.feelhub.web.ContextTestFactory;
 import com.feelhub.web.authentification.*;
 import com.feelhub.web.social.FacebookConnector;
 import com.feelhub.web.tools.*;
