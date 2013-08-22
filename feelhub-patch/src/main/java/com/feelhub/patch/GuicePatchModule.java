@@ -8,13 +8,9 @@ import com.feelhub.domain.translation.Translator;
 import com.feelhub.repositories.*;
 import com.feelhub.tools.*;
 import com.google.inject.*;
-import com.google.inject.name.Names;
 import com.mongodb.DB;
 import org.jongo.Jongo;
 import org.mongolink.Settings;
-
-import java.io.IOException;
-import java.util.Properties;
 
 public class GuicePatchModule extends AbstractModule {
 

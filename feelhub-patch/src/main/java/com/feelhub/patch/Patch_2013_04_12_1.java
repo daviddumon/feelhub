@@ -1,11 +1,7 @@
 package com.feelhub.patch;
 
-import com.feelhub.domain.cloudinary.*;
-import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopic;
-import com.feelhub.repositories.*;
-
-import java.util.List;
+import com.feelhub.repositories.SessionProvider;
 
 public class Patch_2013_04_12_1 extends Patch {
 
