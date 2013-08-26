@@ -48,16 +48,30 @@ var initial_datas = [
     <#include 'elements/help.ftl'/>
     <#include "elements/header.ftl"/>
 
-<div id="topic-container">
+<div id="topic-container" class="group">
 
-    <div id="topic-container-left">
+    <div class="topic-column">
 
-        <a href="${topicData.uris[0]}" class="topic topic-large" rel="nofollow" target="_blank">
-            <img src="${topicData.thumbnail}" class="illustration"/>
-            <span>${topicData.name}</span>
+        <div id="feelings-panel" class="topic-element">
+            <div id="youfeel">
+                <div id="youfeel-title">You Feel</div>
+                <canvas id="canvas-youfeel"></canvas>
+            </div>
+
+            <div id="theyfeel">
+                <div id="youfeel-title">They Feel</div>
+                <canvas id="canvas-theyfeel"></canvas>
+            </div>
+        </div>
+
+        <a id="current-topic" href="${topicData.uris[0]}" class="topic-element" rel="nofollow" target="_blank">
+            <div class="wrapper">
+                <img src="${topicData.thumbnail}" class="illustration"/>
+                <span>${topicData.name}</span>
+            </div>
         </a>
 
-        <div id="uris">
+        <div id="uris" class="topic-element">
             <#list topicData.uris as uri>
                 <img src="${root}/static/images/search-dark.png" class="linkicon"/>
                 <a href="${uri}" class="uris" rel="nofollow" target="_blank">${uri}</a>
@@ -66,29 +80,20 @@ var initial_datas = [
 
     </div>
 
-    <div id="topic-flow">
+    <div class="topic-column">
 
-        <div id="topic-flow-top">
-            <div id="youfeel">
-                <div id="youfeel-title">You Feel</div>
-                <canvas id="canvas-youfeel" width="82" height="82"></canvas>
-            </div>
+        <div class="topic-element">
+            <form id="comment-form" autocomplete="off">
+                <span class="help-text">How do you feel about that ?</span>
+                <textarea name="comment"></textarea>
+                <input type="submit" value="good"/>
+                <input type="submit" value="neutral"/>
+                <input type="submit" value="bad"/>
+            </form>
 
-            <div id="theyfeel">
-                <div id="youfeel-title">They Feel</div>
-                <canvas id="canvas-theyfeel" width="82" height="82"></canvas>
-            </div>
+            <ul></ul>
         </div>
 
-        <form id="comment-form" autocomplete="off">
-                <span class="help-text">Add a comment!</span>
-                <textarea name="comment"></textarea>
-                <div id="submit-wrapper">
-                    <input type="submit" value="ok"/>
-                </div>
-        </form>
-
-        <ul></ul>
     </div>
 
 </div>

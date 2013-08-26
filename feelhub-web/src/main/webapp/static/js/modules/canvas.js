@@ -2,8 +2,10 @@ define(["jquery"],
 
     function ($) {
 
-        $("body").on("click", "#canvas-youfeel", function (event) {
-            console.log("click youfeel");
+        $("html").on("clearanddraw", "canvas", function () {
+            var context = this.getContext("2d");
+            context.clearRect(0, 0, this.width, this.height);
+            youfeel($(this).attr("id"), $(this).attr("score"));
         });
 
         var container;
@@ -15,27 +17,29 @@ define(["jquery"],
         var no_color = "#EDEDED";
         var width, height, eye_left_x, eye_left_y, eye_right_x, eye_right_y, mouth_left_x, mouth_right_x, mouth_y, thickness;
 
-        function youfeel(container_name, score, size) {
+        function youfeel(container_name, score) {
+            width = $("#" + container_name).width();
+            height = $("#" + container_name).height();
+            $("#" + container_name).attr("score", score);
             if (score) {
-                width = size;
-                height = size;
-                eye_left_y = size * 0.33;
-                eye_left_x = size * 0.33;
-                eye_right_y = size * 0.33;
-                eye_right_x = size * 0.66;
-                mouth_left_x = size * 0.33;
-                mouth_right_x = size * 0.66;
-                mouth_y = size * 0.66;
-                thickness = size / 15;
-                container = container_name;
-                var canvas = document.getElementById(container);
+                eye_left_y = width * 0.33;
+                eye_left_x = width * 0.33;
+                eye_right_y = width * 0.33;
+                eye_right_x = width * 0.66;
+                mouth_left_x = width * 0.33;
+                mouth_right_x = width * 0.66;
+                mouth_y = width * 0.66;
+                thickness = width / 15;
+                var canvas = document.getElementById(container_name);
+                canvas.width = width;
+                canvas.height = height;
                 var context = canvas.getContext("2d");
                 context.lineCap = "round";
                 draw_background(context, score);
                 draw_eyes(context);
                 draw_mouth(context, score);
             } else {
-                draw_question_mark(context, size, container_name);
+                draw_question_mark(context, width, container_name);
             }
         }
 
@@ -74,6 +78,8 @@ define(["jquery"],
         function draw_question_mark(context, size, container_name) {
             container = container_name;
             var canvas = document.getElementById(container);
+            canvas.width = size;
+            canvas.height = size;
             var context = canvas.getContext("2d");
             context.lineCap = "round";
             context.fillStyle = no_color;

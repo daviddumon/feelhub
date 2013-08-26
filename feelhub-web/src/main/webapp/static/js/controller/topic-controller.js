@@ -21,6 +21,6 @@ require(["plugins/domReady!", "jquery", "modules/interface", "modules/authentifi
         //form_new_feeling.init();
         //flow.init(root + "/api/topic/" + topicData.id + "/feelings", null, feeling_view, null);
         //canvas.youfeel("canvas-sentiment", topicData.topicSentimentScore, 82);
-        canvas.youfeel("canvas-youfeel", null, 82);
-        canvas.youfeel("canvas-theyfeel", -80, 82);
+        canvas.youfeel("canvas-youfeel", null);
+        canvas.youfeel("canvas-theyfeel", -80);
     });

@@ -41,6 +41,7 @@ define(["jquery", "modules/messages", "modules/popup"], function ($, messages, p
     }
 
     function add_responsive_behavior() {
+
         $(window).on("resize", function () {
             clearTimeout(doit);
             doit = setTimeout(function () {
@@ -56,7 +57,9 @@ define(["jquery", "modules/messages", "modules/popup"], function ($, messages, p
         });
 
         function end_of_resize() {
-            check_dashboard_state();
+            $("canvas").each(function(index, canvas) {
+                $(canvas).trigger("clearanddraw");
+            })
             $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
         }
     }

@@ -2,12 +2,180 @@
 @import "../less/variables";
 @import "../less/colors";
 @import "../less/reset";
-@import "../less/topic";
 @import "../less/sentiment";
 @import "../less/common";
 @import "../less/header";
 @import "../less/popup";
-@import "../less/dashboard";
 @import "../less/messages";
-//@import "../less/command";
-//@import "../less/flow_layout";
+
+body {
+
+  #topic-container {
+    clear: both;
+    padding: 0px;
+    margin: 0px auto;
+    margin-top: 82.2px !important;
+    max-width: 1200px;
+
+    .topic-column {
+      float: left;
+
+      .topic-element {
+        background-color: @grey-6;
+        width: 564px;
+        padding: 12px;
+        margin: 12px 6px;
+        .rounded();
+      }
+
+      #feelings-panel {
+        text-align: center;
+
+        #youfeel, #theyfeel {
+          display: inline-block;
+          width: 133px;
+          padding: 12px;
+          margin: 12px;
+
+          div {
+            font-size: 19.4px;
+            .font_slogan();
+            width: 133px;
+            padding: 7px;
+            box-sizing: border-box;
+            color: @smooth;
+          }
+
+          canvas {
+            width: 133px;
+            height: 133px;
+          }
+        }
+      }
+
+      #current-topic {
+        display: block;
+        position: relative;
+
+        .wrapper {
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+          height: 100%;
+
+          img.illustration {
+            vertical-align: top;
+          }
+
+          span {
+            position: absolute;
+            display: block;
+            width: 100%;
+            bottom: 0px;
+            left: 0px;
+            background: @grey-4;
+            background: rgba(0, 0, 0, .5);
+            color: @white;
+            overflow: hidden;
+            .font_span();
+            text-align: center;
+            font-size: 19.4px;
+            min-height: 31.4px;
+            max-height: 133px;
+            line-height: 1.7;
+          }
+        }
+      }
+
+      #uris {
+
+        img {
+        }
+
+        a {
+          color: @grey-5;
+          .font_title;
+
+          &:hover {
+            color: @grey-1 !important;
+          }
+        }
+      }
+
+      #comment-form {
+        position: relative;
+        width: 100%;
+
+        span {
+          .font_text();
+          position: absolute;
+          left: 108px;
+          top: 14px;
+          z-index: 1000;
+          font-size: 12px;
+          color: @grey-1 !important;
+        }
+
+        textarea {
+          display: block;
+          width: 348px;
+          padding: 12px;
+          margin: 0px auto;
+          border: 1.7px solid @grey-7;
+          border-bottom: none;
+          resize: none;
+          outline: none;
+        }
+
+        #submit-wrapper {
+          width: 372px;
+          background-color: @grey-7;
+          margin: 0px auto;
+          border: 1.7px solid @grey-7;
+          border-top: none;
+
+          input {
+            background-color: @grey-1;
+          }
+        }
+      }
+    }
+
+    @media all and (max-width: 1200px) {
+
+      .topic-column {
+        float: none !important;
+        width: 600px !important;
+        margin: 0px auto !important;
+      }
+    }
+
+    @media all and (max-width: 600px) {
+
+      .topic-column {
+        width: 90% !important;
+      }
+
+      .topic-element {
+        width: 90% !important;
+      }
+
+      img.illustration {
+        width: 100% !important;
+      }
+
+      #youfeel, #theyfeel {
+        width: 82px !important;
+
+        div {
+          width: 82px !important;
+        }
+
+        canvas {
+          width: 82px !important;
+          height: 82px !important;
+        }
+      }
+    }
+  }
+}
