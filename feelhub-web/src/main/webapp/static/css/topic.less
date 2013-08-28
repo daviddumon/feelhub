@@ -29,27 +29,11 @@ body {
       }
 
       #feelings-panel {
-        text-align: center;
 
-        #youfeel, #theyfeel {
-          display: inline-block;
+        canvas {
+
           width: 133px;
-          padding: 12px;
-          margin: 12px;
-
-          div {
-            font-size: 19.4px;
-            .font_slogan();
-            width: 133px;
-            padding: 7px;
-            box-sizing: border-box;
-            color: @smooth;
-          }
-
-          canvas {
-            width: 133px;
-            height: 133px;
-          }
+          height: 133px;
         }
       }
 
@@ -84,6 +68,17 @@ body {
             max-height: 133px;
             line-height: 1.7;
           }
+
+          canvas {
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            width: 133px;
+            margin-left: 12px;
+            margin-right: 12px;
+            width: 133px;
+            height: 133px;
+          }
         }
       }
 
@@ -102,21 +97,23 @@ body {
         }
       }
 
-      #comment-form {
+      #feeling-form {
         position: relative;
         width: 100%;
+        text-align: center;
 
         span {
           .font_text();
           position: absolute;
-          left: 108px;
+          left: 120px;
           top: 14px;
-          z-index: 1000;
           font-size: 12px;
-          color: @grey-1 !important;
+          color: @grey-2 !important;
         }
 
         textarea {
+          vertical-align: top;
+          box-sizing: border-box;
           display: block;
           width: 348px;
           padding: 12px;
@@ -127,15 +124,15 @@ body {
           outline: none;
         }
 
-        #submit-wrapper {
-          width: 372px;
-          background-color: @grey-7;
-          margin: 0px auto;
-          border: 1.7px solid @grey-7;
-          border-top: none;
+        canvas {
+          display: inline-block;
+          width: 82px;
+          height: 82px;
+          margin: 12px;
+          cursor: pointer;
 
-          input {
-            background-color: @grey-1;
+          &:hover {
+
           }
         }
       }
@@ -174,6 +171,13 @@ body {
         canvas {
           width: 82px !important;
           height: 82px !important;
+        }
+      }
+
+      #feeling-form {
+
+        textarea {
+          width: 215px !important;
         }
       }
     }

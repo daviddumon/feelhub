@@ -1,9 +1,11 @@
 package com.feelhub.web.resources.api;
 
+import com.feelhub.application.TopicService;
 import com.feelhub.application.command.*;
 import com.feelhub.application.command.feeling.CreateFeelingCommand;
 import com.feelhub.domain.feeling.FeelingValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
@@ -38,13 +40,16 @@ public class ApiCreateFeelingTest {
         final User fakeActiveUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
         CurrentUser.set(new WebUser(fakeActiveUser, true));
         commandBus = mock(CommandBus.class);
-        apiCreateFeeling = new ApiCreateFeeling(commandBus);
+        topicService = mock(TopicService.class);
+        apiCreateFeeling = new ApiCreateFeeling(commandBus, topicService);
+        topic = TestFactories.topics().newCompleteRealTopic();
+        when(topicService.lookUpCurrent(any(UUID.class))).thenReturn(topic);
     }
 
     @Test
     public void postAFeelingRequestEvent() throws AuthenticationException, JSONException {
         when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
-        final JSONObject jsonObject = getGoodJson();
+        final JSONObject jsonObject = getJson(FeelingValue.good);
 
         apiCreateFeeling.add(jsonObject);
 
@@ -55,72 +60,49 @@ public class ApiCreateFeelingTest {
         assertThat(createFeelingCommand.text).isEqualTo(jsonObject.getString("text"));
         assertThat(createFeelingCommand.language).isEqualTo(FeelhubLanguage.fromCode(jsonObject.getString("languageCode")));
         assertThat(createFeelingCommand.userId).isEqualTo(CurrentUser.get().getUser().getId());
-    }
-
-    @Test
-    @Ignore("A refacto completement avec le changement de form")
-    public void noneSentimentsAreFiltered() throws JSONException, AuthenticationException {
-        when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
-        final JSONObject jsonObject = getGoodJsonWithANoneSentiment();
-
-        apiCreateFeeling.add(jsonObject);
-
-        final ArgumentCaptor<CreateFeelingCommand> captor = ArgumentCaptor.forClass(CreateFeelingCommand.class);
-        verify(commandBus, atLeastOnce()).execute(captor.capture());
-        final CreateFeelingCommand createFeelingCommand = captor.getValue();
+        assertThat(createFeelingCommand.topicId).isEqualTo(topic.getCurrentId());
+        assertThat(createFeelingCommand.feelingValue).isEqualTo(FeelingValue.valueOf(jsonObject.getString("feelingValue")));
     }
 
     @Test
     public void throwApiErrorOnMissingLanguage() throws AuthenticationException, JSONException {
         exception.expect(FeelhubApiException.class);
 
-        apiCreateFeeling.add(new JSONObject("{text: \"test\"}"));
+        apiCreateFeeling.add(new JSONObject("{text:\"my feeling\", topicId:" + topic.getCurrentId() + ",feelingValue: \"good\" }"));
     }
 
     @Test
     public void throwApiErrorOnMissingText() throws AuthenticationException, JSONException {
         exception.expect(FeelhubApiException.class);
 
-        apiCreateFeeling.add(new JSONObject("{languageCode: \"fr\"}"));
+        apiCreateFeeling.add(new JSONObject("{languageCode:\"en\", topicId:" + topic.getCurrentId() + ",feelingValue: \"good\" }"));
     }
 
-    private JSONObject getGoodJson() throws JSONException {
-        return getGoodJson(getJsonArray());
+    @Test
+    public void throwApiErrorOnMissingTopic() throws AuthenticationException, JSONException {
+        exception.expect(FeelhubApiException.class);
+
+        apiCreateFeeling.add(new JSONObject("{languageCode:\"en\", text: \"my feeling\",feelingValue: \"good\" }"));
     }
 
-    private JSONObject getGoodJsonWithANoneSentiment() throws JSONException {
-        return getGoodJson(getJsonArray("none", FeelingValue.bad.toString()));
+    @Test
+    public void throwApiErrorOnMissingFeelingValue() throws AuthenticationException, JSONException {
+        exception.expect(FeelhubApiException.class);
+
+        apiCreateFeeling.add(new JSONObject("{languageCode:\"en\", text: \"my feeling\",topicId:" + topic.getCurrentId() + "}"));
     }
 
-    private JSONObject getGoodJson(final JSONArray topics) throws JSONException {
+    private JSONObject getJson(final FeelingValue feelingValue) throws JSONException {
         final JSONObject jsonObject = new JSONObject();
         jsonObject.put("languageCode", FeelhubLanguage.fromCode("fr").getCode());
         jsonObject.put("text", "my feeling");
-        jsonObject.put("topics", topics);
+        jsonObject.put("topicId", topic.getCurrentId());
+        jsonObject.put("feelingValue", feelingValue.toString());
         return jsonObject;
-    }
-
-    private JSONArray getJsonArray() throws JSONException {
-        return getJsonArray(FeelingValue.bad.toString(), FeelingValue.bad.toString());
-    }
-
-    private JSONArray getJsonArray(final String firstSentimentValue, final String secondSentimentValue) throws JSONException {
-        final JSONArray data = new JSONArray();
-        final JSONObject first = new JSONObject();
-        first.put("id", UUID.randomUUID().toString());
-        first.put("name", "noname");
-        first.put("type", "notype");
-        first.put("sentiment", firstSentimentValue);
-        final JSONObject second = new JSONObject();
-        second.put("id", "new");
-        second.put("name", "name");
-        second.put("type", "other");
-        second.put("sentiment", secondSentimentValue);
-        data.put(first);
-        data.put(second);
-        return data;
     }
 
     private ApiCreateFeeling apiCreateFeeling;
     private CommandBus commandBus;
+    private TopicService topicService;
+    private RealTopic topic;
 }

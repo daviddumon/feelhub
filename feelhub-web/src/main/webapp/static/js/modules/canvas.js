@@ -21,7 +21,7 @@ define(["jquery"],
             width = $("#" + container_name).width();
             height = $("#" + container_name).height();
             $("#" + container_name).attr("score", score);
-            if (score) {
+            if (score != null) {
                 eye_left_y = width * 0.33;
                 eye_left_x = width * 0.33;
                 eye_right_y = width * 0.33;
@@ -82,8 +82,10 @@ define(["jquery"],
             canvas.height = size;
             var context = canvas.getContext("2d");
             context.lineCap = "round";
-            context.fillStyle = no_color;
-            context.strokeStyle = fill_color;
+            //context.fillStyle = no_color;
+            context.fillStyle = fill_color;
+            //context.strokeStyle = fill_color;
+            context.strokeStyle = no_color;
             context.lineWidth = size / 15;
 
             context.fillRect(0, 0, size, size);
@@ -94,13 +96,59 @@ define(["jquery"],
             context.stroke();
 
             context.beginPath();
-            context.fillStyle = fill_color;
+            //context.fillStyle = fill_color;
+            context.fillStyle = no_color;
             context.arc(size * 0.5, size * 0.8, size / 12, 0, 2 * Math.PI, false);
             context.closePath();
             context.fill();
         }
 
+        function pie(feelings) {
+            var canvas = document.getElementById("pie");
+            canvas.width = $("#pie").width();
+            canvas.height = $("#pie").height();
+            var context = canvas.getContext("2d");
+            centerX = canvas.width / 2;
+            centerY = canvas.height / 2;
+            context.lineCap = "round";
+            context.lineWidth = 5;
+
+            context.fillStyle = good_color;
+            context.strokeStyle = "F5F5F5";
+            context.beginPath();
+            context.moveTo(centerX, centerY);
+            context.arc(centerX, centerY, (canvas.width / 2) - 10, 0, 0.5 * Math.PI, false);
+            context.lineTo(centerX, centerY);
+            context.stroke();
+            context.fill();
+
+            context.fillStyle = neutral_color;
+            context.strokeStyle = "F5F5F5";
+            context.beginPath();
+            context.moveTo(centerX, centerY);
+            context.arc(centerX, centerY, (canvas.width / 2) - 10, 0.5 * Math.PI, 1.5 * Math.PI, false);
+            context.lineTo(centerX, centerY);
+            context.stroke();
+            context.fill();
+
+            context.fillStyle = bad_color;
+            context.strokeStyle = "F5F5F5";
+            context.beginPath();
+            context.moveTo(centerX, centerY);
+            context.arc(centerX, centerY, (canvas.width / 2) - 10, 1.5 * Math.PI, 2 * Math.PI, false);
+            context.lineTo(centerX, centerY);
+            context.stroke();
+            context.fill();
+
+            context.fillStyle = "F5F5F5";
+            context.beginPath();
+            context.moveTo(centerX, centerY);
+            context.arc(centerX, centerY, canvas.width / 12, 0, 2 * Math.PI, false);
+            context.fill();
+        }
+
         return {
-            youfeel: youfeel
+            youfeel: youfeel,
+            pie: pie
         }
     });

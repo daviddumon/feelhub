@@ -1,8 +1,11 @@
 package com.feelhub.web.resources.api;
 
+import com.feelhub.application.TopicService;
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.feeling.CreateFeelingCommand;
+import com.feelhub.domain.feeling.FeelingValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.user.User;
 import com.feelhub.web.authentification.CurrentUser;
 import com.google.common.util.concurrent.*;
@@ -13,12 +16,12 @@ import org.restlet.ext.json.JsonRepresentation;
 
 import java.util.UUID;
 
-//todo a refacto completement avec le changement de form
 public class ApiCreateFeeling {
 
     @Inject
-    public ApiCreateFeeling(final CommandBus commandBus) {
+    public ApiCreateFeeling(final CommandBus commandBus, final TopicService topicService) {
         this.commandBus = commandBus;
+        this.topicService = topicService;
     }
 
     public JsonRepresentation add(final JSONObject jsonObject) throws JSONException, AuthenticationException {
@@ -32,7 +35,17 @@ public class ApiCreateFeeling {
         builder.user(extractUser());
         builder.text(extractText(jsonObject));
         builder.languageCode(extractLanguageCode(jsonObject));
+        builder.topic(extractTopic(jsonObject));
+        builder.feelingValue(extractFeelingValue(jsonObject));
         return builder.build();
+    }
+
+    private FeelingValue extractFeelingValue(final JSONObject jsonObject) {
+        try {
+            return FeelingValue.valueOf(jsonObject.getString("feelingValue"));
+        } catch (JSONException e) {
+            throw new FeelhubApiException();
+        }
     }
 
     private User extractUser() {
@@ -49,61 +62,19 @@ public class ApiCreateFeeling {
 
     private FeelhubLanguage extractLanguageCode(final JSONObject jsonObject) {
         try {
-            language = FeelhubLanguage.fromCode(jsonObject.getString("languageCode"));
-            return language;
+            return FeelhubLanguage.fromCode(jsonObject.getString("languageCode"));
         } catch (JSONException e) {
             throw new FeelhubApiException();
         }
     }
 
-    //private List<Sentiment> extractSentiments(final JSONObject jsonObject) {
-    //    final String data;
-    //    try {
-    //        data = jsonObject.getString("topics");
-    //        final ObjectMapper objectMapper = new ObjectMapper();
-    //        final TypeFactory typeFactory = TypeFactory.defaultInstance();
-    //        final List<SentimentMapper> sentimentMappers = objectMapper.readValue(data, typeFactory.constructCollectionType(List.class, SentimentMapper.class));
-    //        return getSentiments(sentimentMappers);
-    //    } catch (Exception e) {
-    //        throw new FeelhubApiException();
-    //    }
-    //}
-
-    //private List<Sentiment> getSentiments(final List<SentimentMapper> sentimentMappers) {
-    //    final List<Sentiment> sentiments = Lists.newArrayList();
-    //    for (final SentimentMapper sentimentMapper : sentimentMappers) {
-    //        if (usableSentiment(sentimentMapper)) {
-    //            if (newTopic(sentimentMapper)) {
-    //                createTopicAndAddSentiment(sentiments, sentimentMapper, getCreateTopicCommand(sentimentMapper));
-    //            } else {
-    //                sentiments.add(new Sentiment(UUID.fromString(sentimentMapper.id), SentimentValue.valueOf(sentimentMapper.sentiment)));
-    //            }
-    //        }
-    //    }
-    //    return sentiments;
-    //}
-
-    //private boolean usableSentiment(final SentimentMapper sentimentMapper) {
-    //    return !sentimentMapper.sentiment.equalsIgnoreCase("none");
-    //}
-
-    //private boolean newTopic(final SentimentMapper sentimentMapper) {
-    //    return sentimentMapper.id.equalsIgnoreCase("new");
-    //}
-
-    //private Command<UUID> getCreateTopicCommand(final SentimentMapper sentimentMapper) {
-    //    if (TopicIdentifier.isHttpTopic(sentimentMapper.name)) {
-    //        return new CreateHttpTopicCommand(sentimentMapper.name, CurrentUser.get().getUser().getId());
-    //    }
-    //    return new CreateRealTopicCommand(language, sentimentMapper.name, RealTopicType.Other, CurrentUser.get().getUser().getId());
-    //}
-
-    //private void createTopicAndAddSentiment(final List<Sentiment> sentiments, final SentimentMapper sentimentMapper, final Command<UUID> command) {
-    //    final ListenableFuture<UUID> result = commandBus.execute(command);
-    //    final UUID topicId = Futures.getUnchecked(result);
-    //    final Sentiment sentiment = new Sentiment(topicId, SentimentValue.valueOf(sentimentMapper.sentiment));
-    //    sentiments.add(sentiment);
-    //}
+    private Topic extractTopic(final JSONObject jsonObject) {
+        try {
+            return topicService.lookUpCurrent(UUID.fromString(jsonObject.getString("topicId")));
+        } catch (JSONException e) {
+            throw new FeelhubApiException();
+        }
+    }
 
     private JSONObject getJsonResponse(final UUID feelingId) throws JSONException {
         final JSONObject jsonObject = new JSONObject();
@@ -111,6 +82,6 @@ public class ApiCreateFeeling {
         return jsonObject;
     }
 
-    private FeelhubLanguage language;
     private final CommandBus commandBus;
+    private final TopicService topicService;
 }

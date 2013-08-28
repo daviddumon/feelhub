@@ -52,24 +52,16 @@ var initial_datas = [
 
     <div class="topic-column">
 
-        <div id="feelings-panel" class="topic-element">
-            <div id="youfeel">
-                <div id="youfeel-title">You Feel</div>
-                <canvas id="canvas-youfeel"></canvas>
-            </div>
-
-            <div id="theyfeel">
-                <div id="youfeel-title">They Feel</div>
-                <canvas id="canvas-theyfeel"></canvas>
-            </div>
-        </div>
-
         <a id="current-topic" href="${topicData.uris[0]}" class="topic-element" rel="nofollow" target="_blank">
             <div class="wrapper">
                 <img src="${topicData.thumbnail}" class="illustration"/>
                 <span>${topicData.name}</span>
             </div>
         </a>
+
+        <div id="feelings-panel" class="topic-element">
+            <canvas id="pie"></canvas>
+        </div>
 
         <div id="uris" class="topic-element">
             <#list topicData.uris as uri>
@@ -83,12 +75,13 @@ var initial_datas = [
     <div class="topic-column">
 
         <div class="topic-element">
-            <form id="comment-form" autocomplete="off">
-                <span class="help-text">How do you feel about that ?</span>
+
+            <form id="feeling-form" autocomplete="off">
                 <textarea name="comment"></textarea>
-                <input type="submit" value="good"/>
-                <input type="submit" value="neutral"/>
-                <input type="submit" value="bad"/>
+                <span class="help-text">How do you feel about that ?</span>
+                <canvas id="feeling-value-good" feeling-value="good"></canvas>
+                <canvas id="feeling-value-neutral" feeling-value="neutral"></canvas>
+                <canvas id="feeling-value-bad" feeling-value="bad"></canvas>
             </form>
 
             <ul></ul>

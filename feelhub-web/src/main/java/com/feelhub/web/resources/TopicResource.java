@@ -47,7 +47,7 @@ public class TopicResource extends ServerResource {
                 .with("topicData", topicData)
                 .with("locales", FeelhubLanguage.availables())
                 .with("relatedDatas", getRelatedDatas())
-                .with("feelingDatas", getInitialFeelingDatas(templateName))
+                //.with("feelingDatas", getInitialFeelingDatas(templateName))
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
     }
 
