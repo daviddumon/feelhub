@@ -12,8 +12,8 @@ import com.feelhub.web.dto.*;
 import com.feelhub.web.guice.DummySessionProvider;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.ApiFeelingSearch;
-import com.feelhub.web.search.RelatedSearch;
-import com.feelhub.web.search.fake.FakeRelatedSearch;
+import com.feelhub.web.search.*;
+import com.feelhub.web.search.fake.*;
 import com.google.common.collect.Lists;
 import com.google.inject.*;
 import org.junit.*;
@@ -47,6 +47,7 @@ public class TopicResourceTest {
                 bind(SessionProvider.class).to(DummySessionProvider.class);
                 bind(ApiFeelingSearch.class).toInstance(apiFeelingSearch);
                 bind(RelatedSearch.class).to(FakeRelatedSearch.class);
+                bind(StatisticsSearch.class).to(FakeStatisticsSearch.class);
             }
         });
         topicResource = injector.getInstance(TopicResource.class);

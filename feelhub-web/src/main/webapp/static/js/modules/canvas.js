@@ -2,10 +2,16 @@ define(["jquery"],
 
     function ($) {
 
-        $("html").on("clearanddraw", "canvas", function () {
+        $("html").on("clearanddraw", ".feeling-canvas", function () {
             var context = this.getContext("2d");
             context.clearRect(0, 0, this.width, this.height);
             youfeel($(this).attr("id"), $(this).attr("score"));
+        });
+
+        $("html").on("clearanddraw", ".pie-canvas", function () {
+            var context = this.getContext("2d");
+            context.clearRect(0, 0, this.width, this.height);
+            pie();
         });
 
         var container;
@@ -82,10 +88,10 @@ define(["jquery"],
             canvas.height = size;
             var context = canvas.getContext("2d");
             context.lineCap = "round";
-            //context.fillStyle = no_color;
-            context.fillStyle = fill_color;
-            //context.strokeStyle = fill_color;
-            context.strokeStyle = no_color;
+            context.fillStyle = no_color;
+            //context.fillStyle = fill_color;
+            context.strokeStyle = fill_color;
+            //context.strokeStyle = no_color;
             context.lineWidth = size / 15;
 
             context.fillRect(0, 0, size, size);
@@ -96,14 +102,14 @@ define(["jquery"],
             context.stroke();
 
             context.beginPath();
-            //context.fillStyle = fill_color;
-            context.fillStyle = no_color;
+            context.fillStyle = fill_color;
+            //context.fillStyle = no_color;
             context.arc(size * 0.5, size * 0.8, size / 12, 0, 2 * Math.PI, false);
             context.closePath();
             context.fill();
         }
 
-        function pie(feelings) {
+        function pie() {
             var canvas = document.getElementById("pie");
             canvas.width = $("#pie").width();
             canvas.height = $("#pie").height();
@@ -113,38 +119,63 @@ define(["jquery"],
             context.lineCap = "round";
             context.lineWidth = 5;
 
-            context.fillStyle = good_color;
-            context.strokeStyle = "F5F5F5";
-            context.beginPath();
-            context.moveTo(centerX, centerY);
-            context.arc(centerX, centerY, (canvas.width / 2) - 10, 0, 0.5 * Math.PI, false);
-            context.lineTo(centerX, centerY);
-            context.stroke();
-            context.fill();
+            var statisticsTotal = statistics.good + statistics.neutral + statistics.bad;
+            if (statisticsTotal > 1) {
+                var totalAngle = 2 * Math.PI;
+                var goodAngle = {
+                    start: 0 * totalAngle,
+                    end: (statistics.good / statisticsTotal) * totalAngle
+                };
+                var neutralAngle = {
+                    start: goodAngle.end,
+                    end: goodAngle.end + (statistics.neutral / statisticsTotal) * totalAngle
+                };
+                var badAngle = {
+                    start: neutralAngle.end,
+                    end: totalAngle
+                };
 
-            context.fillStyle = neutral_color;
-            context.strokeStyle = "F5F5F5";
-            context.beginPath();
-            context.moveTo(centerX, centerY);
-            context.arc(centerX, centerY, (canvas.width / 2) - 10, 0.5 * Math.PI, 1.5 * Math.PI, false);
-            context.lineTo(centerX, centerY);
-            context.stroke();
-            context.fill();
+                context.fillStyle = good_color;
+                context.strokeStyle = "F5F5F5";
+                context.beginPath();
+                context.moveTo(centerX, centerY);
+                context.arc(centerX, centerY, (canvas.width / 2) - 10, goodAngle.start, goodAngle.end, false);
+                context.lineTo(centerX, centerY);
+                context.stroke();
+                context.fill();
 
-            context.fillStyle = bad_color;
-            context.strokeStyle = "F5F5F5";
-            context.beginPath();
-            context.moveTo(centerX, centerY);
-            context.arc(centerX, centerY, (canvas.width / 2) - 10, 1.5 * Math.PI, 2 * Math.PI, false);
-            context.lineTo(centerX, centerY);
-            context.stroke();
-            context.fill();
+                context.fillStyle = neutral_color;
+                context.strokeStyle = "F5F5F5";
+                context.beginPath();
+                context.moveTo(centerX, centerY);
+                context.arc(centerX, centerY, (canvas.width / 2) - 10, neutralAngle.start, neutralAngle.end, false);
+                context.lineTo(centerX, centerY);
+                context.stroke();
+                context.fill();
 
-            context.fillStyle = "F5F5F5";
-            context.beginPath();
-            context.moveTo(centerX, centerY);
-            context.arc(centerX, centerY, canvas.width / 10, 0, 2 * Math.PI, false);
-            context.fill();
+                context.fillStyle = bad_color;
+                context.strokeStyle = "F5F5F5";
+                context.beginPath();
+                context.moveTo(centerX, centerY);
+                context.arc(centerX, centerY, (canvas.width / 2) - 10, badAngle.start, badAngle.end, false);
+                context.lineTo(centerX, centerY);
+                context.stroke();
+                context.fill();
+
+                context.fillStyle = "F5F5F5";
+                context.beginPath();
+                context.moveTo(centerX, centerY);
+                context.arc(centerX, centerY, canvas.width / 10, 0, 2 * Math.PI, false);
+                context.fill();
+            } else {
+                context.fillStyle = "F5F5F5";
+                context.strokeStyle = "FFFFFF";
+                context.beginPath();
+                context.moveTo(centerX, centerY);
+                context.arc(centerX, centerY, (canvas.width / 2) - 10, 0, 2 * Math.PI, false);
+                context.stroke();
+                context.fill();
+            }
         }
 
         return {

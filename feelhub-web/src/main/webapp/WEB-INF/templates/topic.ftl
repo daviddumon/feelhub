@@ -31,7 +31,21 @@ var initial_datas = [
         }${feelingData_has_next?string(",", "")}
         </#list>
     </#if>
-]
+];
+
+    <#if statistics??>
+    var statistics = {
+    good: ${statistics[0].good},
+    neutral: ${statistics[0].neutral},
+    bad: ${statistics[0].bad}
+    };
+    <#else>
+    var statistics = {
+    good: 0,
+    neutral: 0,
+    bad: 0
+    };
+    </#if>
 </@base.js>
 
 <@base.body>
@@ -66,13 +80,16 @@ var initial_datas = [
         <form id="feeling-form" autocomplete="off" class="topic-element">
             <textarea name="comment"></textarea>
             <span class="help-text">How do you feel about that ?</span>
-            <canvas id="feeling-value-good" feeling-value="good"></canvas>
-            <canvas id="feeling-value-neutral" feeling-value="neutral"></canvas>
-            <canvas id="feeling-value-bad" feeling-value="bad"></canvas>
+            <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>
+            <canvas id="feeling-value-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
+            <canvas id="feeling-value-bad" feeling-value="bad" class="feeling-canvas"></canvas>
         </form>
 
         <div id="feelings-panel" class="topic-element">
-            <canvas id="pie"></canvas>
+            <div id="analytics">
+                <span id="counter">${statistics[0].good + statistics[0].neutral + statistics[0].bad} feelings</span>
+                <canvas id="pie" class="pie-canvas">no feelings</canvas>
+            </div>
             <ul id="feelings"></ul>
         </div>
 

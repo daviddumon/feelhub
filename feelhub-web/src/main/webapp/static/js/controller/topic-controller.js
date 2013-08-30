@@ -18,7 +18,7 @@ require(["plugins/domReady!", "jquery", "modules/interface", "modules/authentifi
         authentification.init();
         form.init();
         flow.init();
-        canvas.pie([]);
+        canvas.pie();
         canvas.youfeel("feeling-value-good", 60);
         canvas.youfeel("feeling-value-neutral", 0);
         canvas.youfeel("feeling-value-bad", -60);
