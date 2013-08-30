@@ -11,30 +11,23 @@
 
 <@base.js>
 var initial_datas = [
+
     <#if feelingDatas??>
         <#list feelingDatas as feelingData>
         {
-        "feelingid": "${feelingData.id}",
-        "text": [
+        "feelingid":"${feelingData.id}",
+        "userId":"${feelingData.userId}",
+        "topicId":"${feelingData.topicId}",
+        "text":
+        [
             <#list feelingData.text as text>
             "${text?j_string}"
             ${text_has_next?string(",", "")}
             </#list>
         ],
-        "languageCode": "${feelingData.languageCode}",
-        "userId": "${feelingData.userId}",
-            <#if feelingData.feelingSentimentValue?has_content>"feeling_sentiment_value": "${feelingData.feelingSentimentValue}",</#if>
-        "sentimentDatas": [
-            <#list feelingData.sentimentDatas as sentimentData>
-            {
-                <#if sentimentData.id?has_content>"id": "${sentimentData.id}",</#if>
-            "sentimentValue": "${sentimentData.sentimentValue}",
-            "name": "${sentimentData.name?j_string}",
-            "thumbnail": "${sentimentData.thumbnail?j_string}",
-            "type": "${sentimentData.type}"
-            }${sentimentData_has_next?string(",", "")}
-            </#list>
-        ]
+        "languageCode":"${feelingData.languageCode}",
+        "creationDate":"${feelingData.creationDate}",
+            <#if feelingData.feelingValue?has_content>"feelingValue":"${feelingData.feelingValue}",</#if>
         }${feelingData_has_next?string(",", "")}
         </#list>
     </#if>
@@ -59,10 +52,6 @@ var initial_datas = [
             </div>
         </a>
 
-        <div id="feelings-panel" class="topic-element">
-            <canvas id="pie"></canvas>
-        </div>
-
         <div id="uris" class="topic-element">
             <#list topicData.uris as uri>
                 <img src="${root}/static/images/search-dark.png" class="linkicon"/>
@@ -74,17 +63,17 @@ var initial_datas = [
 
     <div class="topic-column">
 
-        <div class="topic-element">
+        <form id="feeling-form" autocomplete="off" class="topic-element">
+            <textarea name="comment"></textarea>
+            <span class="help-text">How do you feel about that ?</span>
+            <canvas id="feeling-value-good" feeling-value="good"></canvas>
+            <canvas id="feeling-value-neutral" feeling-value="neutral"></canvas>
+            <canvas id="feeling-value-bad" feeling-value="bad"></canvas>
+        </form>
 
-            <form id="feeling-form" autocomplete="off">
-                <textarea name="comment"></textarea>
-                <span class="help-text">How do you feel about that ?</span>
-                <canvas id="feeling-value-good" feeling-value="good"></canvas>
-                <canvas id="feeling-value-neutral" feeling-value="neutral"></canvas>
-                <canvas id="feeling-value-bad" feeling-value="bad"></canvas>
-            </form>
-
-            <ul></ul>
+        <div id="feelings-panel" class="topic-element">
+            <canvas id="pie"></canvas>
+            <ul id="feelings"></ul>
         </div>
 
     </div>

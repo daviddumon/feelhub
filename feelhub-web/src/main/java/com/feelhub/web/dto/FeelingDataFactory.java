@@ -23,6 +23,7 @@ public class FeelingDataFactory {
         builder.text(feeling.getText());
         builder.languageCode(feeling.getLanguageCode());
         builder.feelingValue(feeling.getFeelingValue());
+        builder.creationDate(feeling.getCreationDate());
         return builder.build();
     }
 }

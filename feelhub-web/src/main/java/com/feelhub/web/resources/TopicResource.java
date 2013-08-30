@@ -47,7 +47,7 @@ public class TopicResource extends ServerResource {
                 .with("topicData", topicData)
                 .with("locales", FeelhubLanguage.availables())
                 .with("relatedDatas", getRelatedDatas())
-                //.with("feelingDatas", getInitialFeelingDatas(templateName))
+                .with("feelingDatas", getInitialFeelingDatas(templateName))
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
     }
 
@@ -102,7 +102,7 @@ public class TopicResource extends ServerResource {
         final Form parameters = new Form();
         parameters.add("skip", "0");
         if (templateName.equalsIgnoreCase("topic.ftl")) {
-            parameters.add("limit", "20");
+            parameters.add("limit", "50");
         }
         return apiFeelingSearch.doSearch(topic, parameters);
     }

@@ -143,7 +143,7 @@ define(["jquery"],
             context.fillStyle = "F5F5F5";
             context.beginPath();
             context.moveTo(centerX, centerY);
-            context.arc(centerX, centerY, canvas.width / 12, 0, 2 * Math.PI, false);
+            context.arc(centerX, centerY, canvas.width / 10, 0, 2 * Math.PI, false);
             context.fill();
         }
 

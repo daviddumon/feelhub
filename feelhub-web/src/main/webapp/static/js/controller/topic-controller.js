@@ -11,13 +11,13 @@ require.config({
     }
 });
 
-require(["plugins/domReady!", "jquery", "modules/interface", "modules/authentification", "modules/canvas", "modules/form/feeling"],
+require(["plugins/domReady!", "jquery", "modules/interface", "modules/authentification", "modules/canvas", "modules/form/feeling", "modules/flow-feelings"],
 
-    function (doc, $, interface, authentification, canvas, form) {
+    function (doc, $, interface, authentification, canvas, form, flow) {
         interface.init();
         authentification.init();
         form.init();
-        //flow.init(root + "/api/topic/" + topicData.id + "/feelings", null, feeling_view, null);
+        flow.init();
         canvas.pie([]);
         canvas.youfeel("feeling-value-good", 60);
         canvas.youfeel("feeling-value-neutral", 0);

@@ -242,6 +242,11 @@
             <artifactId>restfb</artifactId>
             <version>1.6.11</version>
         </dependency>
+        <dependency>
+           <groupId>org.ocpsoft.prettytime</groupId>
+           <artifactId>prettytime</artifactId>
+           <version>3.0.2.Final</version>
+        </dependency>
 
         <dependency>
             <groupId>com.feelhub</groupId>

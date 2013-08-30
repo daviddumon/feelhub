@@ -6,8 +6,10 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.TestFactories;
+import com.feelhub.test.*;
+import org.joda.time.DateTime;
 import org.junit.*;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import static org.fest.assertions.Assertions.*;
 
@@ -18,6 +20,9 @@ public class FeelingDataTest {
 
     @Rule
     public WithDomainEvent withDomainEvent = new WithDomainEvent();
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Test
     public void hasFeelingId() {
@@ -69,9 +74,26 @@ public class FeelingDataTest {
     }
 
     @Test
+    public void hasCreationDate() {
+        final FeelingData feelingData = new FeelingData.Builder().creationDate(time.getNow()).build();
+
+        assertThat(feelingData.getCreationDate()).isNotNull();
+    }
+
+    @Test
     public void feelingValueDefaultToNull() {
         final FeelingData feelingData = new FeelingData.Builder().build();
 
         assertThat(feelingData.getFeelingValue()).isNull();
+    }
+
+    @Test
+    public void canGetCorrectDate() {
+        final DateTime creationDate = time.getNow();
+        time.waitDays(4);
+
+        final FeelingData feelingData = new FeelingData.Builder().creationDate(creationDate).build();
+
+        assertThat(feelingData.getCreationDate()).isEqualTo(new PrettyTime().format(creationDate.toDate()));
     }
 }

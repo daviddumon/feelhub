@@ -2,6 +2,8 @@
 <#list feelingDatas as feelingData>
 {
 "feelingid":"${feelingData.id}",
+"userId":"${feelingData.userId}",
+"topicId":"${feelingData.topicId}",
 "text":
 [
     <#list feelingData.text as text>
@@ -10,8 +12,8 @@
     </#list>
 ],
 "languageCode":"${feelingData.languageCode}",
-"userId":"${feelingData.userId}",
-    <#if feelingData.feelingSentimentValue?has_content>"feeling_sentiment_value":"${feelingData.feelingSentimentValue}",</#if>
+"creationDate":"${feelingData.creationDate}",
+    <#if feelingData.feelingValue?has_content>"feelingValue":"${feelingData.feelingValue}"</#if>
 }${feelingData_has_next?string(",", "")}
 </#list>
 ]

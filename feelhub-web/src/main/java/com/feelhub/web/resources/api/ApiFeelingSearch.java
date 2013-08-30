@@ -21,6 +21,7 @@ public class ApiFeelingSearch {
 
     public List<FeelingData> doSearch(final Topic topic, final Form query) {
         feelingSearch.withTopicId(topic.getId());
+        feelingSearch.ignoreEmptyFeelings();
         final List<Feeling> feelings = doSearchWithQueryParameters(query);
         return feelingDataFactory.feelingDatas(feelings);
     }

@@ -2,6 +2,8 @@ package com.feelhub.web.dto;
 
 import com.feelhub.domain.feeling.FeelingValue;
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.*;
 
@@ -43,25 +45,42 @@ public class FeelingData {
             return this;
         }
 
+        public Builder creationDate(final DateTime creationDate) {
+            this.creationDate = creationDate;
+            return this;
+        }
+
         private UUID id;
+
         private UUID userId;
         private UUID topicId;
         private String text = "";
         private String languageCode = "";
         private FeelingValue feelingValue;
+        private DateTime creationDate = new DateTime();
     }
 
     private FeelingData(final Builder builder) {
         this.id = builder.id;
-        this.text = Lists.newArrayList(builder.text.split("\r\n"));
+        this.text = Lists.newArrayList(builder.text.split("\n"));
         this.languageCode = builder.languageCode;
         this.userId = builder.userId;
         this.topicId = builder.topicId;
         this.feelingValue = builder.feelingValue;
+        this.creationDate = getIntervalFrom(builder.creationDate);
+    }
+
+    private String getIntervalFrom(final DateTime creationDate) {
+        final PrettyTime prettyTime = new PrettyTime();
+        return prettyTime.format(creationDate.toDate());
     }
 
     public UUID getId() {
         return id;
+    }
+
+    public String getCreationDate() {
+        return this.creationDate;
     }
 
     public UUID getUserId() {
@@ -90,4 +109,5 @@ public class FeelingData {
     private final FeelingValue feelingValue;
     private final List<String> text;
     private final String languageCode;
+    private final String creationDate;
 }

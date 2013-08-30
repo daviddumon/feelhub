@@ -1,4 +1,4 @@
-define(["jquery"], function ($) {
+define(["jquery", "modules/messages"], function ($, messages) {
 
     var container = "#feeling-form";
 
@@ -7,7 +7,7 @@ define(["jquery"], function ($) {
     }
 
     function setBehavior() {
-        $(container + " textarea").keyup(function () {
+        $(container + " textarea").focus(function () {
             $(this).parent().find(".help-text").hide();
         });
 
@@ -50,12 +50,15 @@ define(["jquery"], function ($) {
 
     function success() {
         setTimeout(function () {
+            messages.store_message("good", "Your feeling has been posted!", 1);
             document.location.reload(true);
         }, 1000);
     }
 
-    function error() {
-        console.log("error");
+    function error(jqXHR) {
+        if (jqXHR.status == 401) {
+
+        }
     }
 
     return {

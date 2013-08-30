@@ -29,6 +29,9 @@ public class ApiFeelingsResource extends ServerResource {
         } catch (JSONException e) {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
             return new JsonRepresentation(new JSONObject());
+        } catch (AuthenticationException e) {
+            setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
+            return new JsonRepresentation(new JSONObject());
         }
     }
 
