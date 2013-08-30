@@ -90,8 +90,6 @@ public class FeelingDataTest {
     @Test
     public void canGetCorrectDate() {
         final DateTime creationDate = time.getNow();
-        time.waitDays(4);
-
         final FeelingData feelingData = new FeelingData.Builder().creationDate(creationDate).build();
 
         assertThat(feelingData.getCreationDate()).isEqualTo(new PrettyTime().format(creationDate.toDate()));

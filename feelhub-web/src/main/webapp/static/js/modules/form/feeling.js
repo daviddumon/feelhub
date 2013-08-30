@@ -57,7 +57,7 @@ define(["jquery", "modules/messages"], function ($, messages) {
 
     function error(jqXHR) {
         if (jqXHR.status == 401) {
-
+            $("#login-button").click();
         }
     }
 
