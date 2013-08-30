@@ -120,47 +120,56 @@ define(["jquery"],
             context.lineWidth = 5;
 
             var statisticsTotal = statistics.good + statistics.neutral + statistics.bad;
-            if (statisticsTotal > 1) {
+            if (statisticsTotal > 0) {
                 var totalAngle = 2 * Math.PI;
+
                 var goodAngle = {
                     start: 0 * totalAngle,
                     end: (statistics.good / statisticsTotal) * totalAngle
                 };
+
                 var neutralAngle = {
                     start: goodAngle.end,
                     end: goodAngle.end + (statistics.neutral / statisticsTotal) * totalAngle
                 };
+
                 var badAngle = {
                     start: neutralAngle.end,
                     end: totalAngle
                 };
 
-                context.fillStyle = good_color;
-                context.strokeStyle = "F5F5F5";
-                context.beginPath();
-                context.moveTo(centerX, centerY);
-                context.arc(centerX, centerY, (canvas.width / 2) - 10, goodAngle.start, goodAngle.end, false);
-                context.lineTo(centerX, centerY);
-                context.stroke();
-                context.fill();
+                if (goodAngle.start != goodAngle.end) {
+                    context.fillStyle = good_color;
+                    context.strokeStyle = "F5F5F5";
+                    context.beginPath();
+                    context.moveTo(centerX, centerY);
+                    context.arc(centerX, centerY, (canvas.width / 2) - 10, goodAngle.start, goodAngle.end, false);
+                    context.lineTo(centerX, centerY);
+                    context.stroke();
+                    context.fill();
+                }
 
-                context.fillStyle = neutral_color;
-                context.strokeStyle = "F5F5F5";
-                context.beginPath();
-                context.moveTo(centerX, centerY);
-                context.arc(centerX, centerY, (canvas.width / 2) - 10, neutralAngle.start, neutralAngle.end, false);
-                context.lineTo(centerX, centerY);
-                context.stroke();
-                context.fill();
+                if (neutralAngle.start != neutralAngle.end) {
+                    context.fillStyle = neutral_color;
+                    context.strokeStyle = "F5F5F5";
+                    context.beginPath();
+                    context.moveTo(centerX, centerY);
+                    context.arc(centerX, centerY, (canvas.width / 2) - 10, neutralAngle.start, neutralAngle.end, false);
+                    context.lineTo(centerX, centerY);
+                    context.stroke();
+                    context.fill();
+                }
 
-                context.fillStyle = bad_color;
-                context.strokeStyle = "F5F5F5";
-                context.beginPath();
-                context.moveTo(centerX, centerY);
-                context.arc(centerX, centerY, (canvas.width / 2) - 10, badAngle.start, badAngle.end, false);
-                context.lineTo(centerX, centerY);
-                context.stroke();
-                context.fill();
+                if (badAngle.start != badAngle.end) {
+                    context.fillStyle = bad_color;
+                    context.strokeStyle = "F5F5F5";
+                    context.beginPath();
+                    context.moveTo(centerX, centerY);
+                    context.arc(centerX, centerY, (canvas.width / 2) - 10, badAngle.start, badAngle.end, false);
+                    context.lineTo(centerX, centerY);
+                    context.stroke();
+                    context.fill();
+                }
 
                 context.fillStyle = "F5F5F5";
                 context.beginPath();

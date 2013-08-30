@@ -33,7 +33,7 @@ var initial_datas = [
     </#if>
 ];
 
-    <#if statistics??>
+    <#if statistics?? && (statistics?size > 0)>
     var statistics = {
     good: ${statistics[0].good},
     neutral: ${statistics[0].neutral},
@@ -87,7 +87,11 @@ var initial_datas = [
 
         <div id="feelings-panel" class="topic-element">
             <div id="analytics">
-                <span id="counter">${statistics[0].good + statistics[0].neutral + statistics[0].bad} feelings</span>
+                <#if statistics?? && (statistics?size > 0)>
+                    <span id="counter">${statistics[0].good + statistics[0].neutral + statistics[0].bad} feelings</span>
+                <#else>
+                    <span id="counter">0 feelings</span>
+                </#if>
                 <canvas id="pie" class="pie-canvas">no feelings</canvas>
             </div>
             <ul id="feelings"></ul>
