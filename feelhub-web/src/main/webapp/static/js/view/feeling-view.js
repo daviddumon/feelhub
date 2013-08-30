@@ -9,15 +9,7 @@ define(["jquery", "plugins/hgn!templates/feelings/feeling", "modules/canvas"],
         function render_feeling(data, container) {
             var element = template(data);
             $(container).append(element);
-
-            var feelingValue = data.feelingValue;
-            if (feelingValue == "bad") {
-                canvas.youfeel("canvas-" + data.feelingid, -40);
-            } else if (feelingValue == "good") {
-                canvas.youfeel("canvas-" + data.feelingid, 40);
-            } else {
-                canvas.youfeel("canvas-" + data.feelingid, 0);
-            }
+            canvas.feeling(data.feelingValue, "canvas-" + data.feelingid);
         }
 
         return {

@@ -19,7 +19,7 @@ require(["plugins/domReady!", "jquery", "modules/interface", "modules/authentifi
         form.init();
         flow.init();
         canvas.pie();
-        canvas.youfeel("feeling-value-good", 60);
-        canvas.youfeel("feeling-value-neutral", 0);
-        canvas.youfeel("feeling-value-bad", -60);
+        canvas.feeling("good", "feeling-value-good");
+        canvas.feeling("neutral", "feeling-value-neutral");
+        canvas.feeling("bad", "feeling-value-bad");
     });
