@@ -22,14 +22,14 @@ public class FakeFeelingSearch extends FeelingSearch {
     }
 
     @Override
-    public FeelingSearch withSkip(final int skip) {
-        feelings = Lists.newArrayList(Iterables.skip(feelings, skip));
+    public FeelingSearch withSkip(final int skipValue) {
+        feelings = Lists.newArrayList(Iterables.skip(feelings, skipValue));
         return this;
     }
 
     @Override
-    public FeelingSearch withLimit(final int limit) {
-        feelings = Lists.newArrayList(Iterables.limit(feelings, limit));
+    public FeelingSearch withLimit(final int limitValue) {
+        feelings = Lists.newArrayList(Iterables.limit(feelings, limitValue));
         return this;
     }
 

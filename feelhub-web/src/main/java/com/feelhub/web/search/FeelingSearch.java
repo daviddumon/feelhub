@@ -21,14 +21,14 @@ public class FeelingSearch implements Search<Feeling> {
     }
 
     @Override
-    public FeelingSearch withSkip(final int skip) {
-        criteria.skip(skip);
+    public FeelingSearch withSkip(final int skipValue) {
+        criteria.skip(skipValue);
         return this;
     }
 
     @Override
-    public FeelingSearch withLimit(final int limit) {
-        criteria.limit(limit);
+    public FeelingSearch withLimit(final int limitValue) {
+        criteria.limit(limitValue);
         return this;
     }
 

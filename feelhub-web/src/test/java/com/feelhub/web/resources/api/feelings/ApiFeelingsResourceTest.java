@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.api;
+package com.feelhub.web.resources.api.feelings;
 
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;

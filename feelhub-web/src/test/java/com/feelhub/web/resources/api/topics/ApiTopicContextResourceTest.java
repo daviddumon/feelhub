@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.api;
+package com.feelhub.web.resources.api.topics;
 
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.test.TestFactories;

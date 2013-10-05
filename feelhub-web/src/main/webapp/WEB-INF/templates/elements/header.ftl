@@ -21,3 +21,13 @@
     </#if>
     </div>
 </header>
+<#--<div id="filters">-->
+    <#--popular-->
+    <#--most liked-->
+    <#--history-->
+    <#--in the air-->
+    <#--facebook-->
+    <#--twitter-->
+    <#--around me-->
+    <#--<div id="filters-button">FILTERS</div>-->
+<#--</div>-->

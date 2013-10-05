@@ -149,14 +149,14 @@ public abstract class Topic extends BaseEntity {
         thumbnails.add(thumbnail);
     }
 
+    protected UUID id;
+    protected UUID currentId;
     private final Map<String, String> descriptions = Maps.newHashMap();
     private final List<String> subTypes = Lists.newArrayList();
     private final List<Uri> uris = Lists.newArrayList();
-    protected UUID id;
-    protected UUID currentId;
     protected Map<String, String> names = Maps.newHashMap();
+    private String thumbnail = "";
+    private final List<Thumbnail> thumbnails = Lists.newArrayList();
     private UUID userId;
     private TopicMerger topicMerger = new TopicMerger();
-    private String thumbnail = "";
-    private List<Thumbnail> thumbnails = Lists.newArrayList();
 }

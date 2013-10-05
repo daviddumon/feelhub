@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.api;
+package com.feelhub.web.resources.api.topics;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.eventbus.WithDomainEvent;
@@ -9,6 +9,7 @@ import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
 import com.feelhub.web.dto.FeelingData;
 import com.feelhub.web.representation.ModelAndView;
+import com.feelhub.web.resources.api.feelings.ApiFeelingSearch;
 import com.google.common.collect.Lists;
 import com.google.inject.*;
 import org.json.JSONException;

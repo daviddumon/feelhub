@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.api;
+package com.feelhub.web.resources.api.feelings;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.application.command.*;
@@ -11,6 +11,7 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.WebApplicationTester;
 import com.feelhub.web.authentification.*;
+import com.feelhub.web.resources.api.FeelhubApiException;
 import com.google.common.util.concurrent.Futures;
 import org.apache.http.auth.AuthenticationException;
 import org.json.*;

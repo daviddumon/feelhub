@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.api;
+package com.feelhub.web.resources.api.feelings;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.application.command.CommandBus;
@@ -8,6 +8,7 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.user.User;
 import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.resources.api.FeelhubApiException;
 import com.google.common.util.concurrent.*;
 import com.google.inject.Inject;
 import org.apache.http.auth.AuthenticationException;

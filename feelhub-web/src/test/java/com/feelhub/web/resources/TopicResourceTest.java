@@ -11,7 +11,7 @@ import com.feelhub.web.authentification.*;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.guice.DummySessionProvider;
 import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.resources.api.ApiFeelingSearch;
+import com.feelhub.web.resources.api.feelings.ApiFeelingSearch;
 import com.feelhub.web.search.*;
 import com.feelhub.web.search.fake.*;
 import com.google.common.collect.Lists;

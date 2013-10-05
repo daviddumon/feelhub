@@ -1,9 +1,10 @@
-package com.feelhub.web.resources.api;
+package com.feelhub.web.resources.api.feelings;
 
 import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.user.User;
 import com.feelhub.web.dto.*;
+import com.feelhub.web.resources.api.FeelhubApiException;
 import com.feelhub.web.search.FeelingSearch;
 import com.google.inject.Inject;
 import org.mongolink.domain.criteria.Order;

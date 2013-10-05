@@ -8,9 +8,9 @@ public interface Search<T> {
 
     List<T> execute();
 
-    Search<T> withSkip(int skip);
+    Search<T> withSkip(int skipValue);
 
-    Search<T> withLimit(int limit);
+    Search<T> withLimit(int limitValue);
 
     Search<T> withSort(String sortField, Order sortOrder);
 

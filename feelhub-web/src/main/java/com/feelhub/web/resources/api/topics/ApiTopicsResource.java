@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.api;
+package com.feelhub.web.resources.api.topics;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.application.command.CommandBus;
@@ -9,6 +9,7 @@ import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
+import com.feelhub.web.resources.api.FeelhubApiException;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.*;
 import com.google.inject.Inject;

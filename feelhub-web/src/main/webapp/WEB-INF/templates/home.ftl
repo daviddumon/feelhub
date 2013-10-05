@@ -9,11 +9,6 @@
 </@base.head_development>
 
 <@base.js>
-    <#if topicData??>
-    var topicData = ${topicData?string};
-    <#else>
-    var topicData = {};
-    </#if>
 
 var initial_datas = [
     <#if feelingDatas??>

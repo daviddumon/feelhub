@@ -22,14 +22,14 @@ public class FakeRelatedSearch extends RelatedSearch {
     }
 
     @Override
-    public RelatedSearch withSkip(final int skip) {
-        relatedList = Lists.newArrayList(Iterables.skip(relatedList, skip));
+    public RelatedSearch withSkip(final int skipValue) {
+        relatedList = Lists.newArrayList(Iterables.skip(relatedList, skipValue));
         return this;
     }
 
     @Override
-    public RelatedSearch withLimit(final int limit) {
-        relatedList = Lists.newArrayList(Iterables.limit(relatedList, limit));
+    public RelatedSearch withLimit(final int limitValue) {
+        relatedList = Lists.newArrayList(Iterables.limit(relatedList, limitValue));
         return this;
     }
 

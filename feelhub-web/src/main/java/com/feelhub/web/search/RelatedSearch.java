@@ -20,14 +20,14 @@ public class RelatedSearch implements Search<Related> {
     }
 
     @Override
-    public RelatedSearch withSkip(final int skip) {
-        criteria.skip(skip);
+    public RelatedSearch withSkip(final int skipValue) {
+        criteria.skip(skipValue);
         return this;
     }
 
     @Override
-    public RelatedSearch withLimit(final int limit) {
-        criteria.limit(limit);
+    public RelatedSearch withLimit(final int limitValue) {
+        criteria.limit(limitValue);
         return this;
     }
 

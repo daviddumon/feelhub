@@ -1,9 +1,10 @@
-package com.feelhub.web.resources.api;
+package com.feelhub.web.resources.api.topics;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.statistics.*;
 import com.feelhub.domain.topic.*;
 import com.feelhub.web.representation.ModelAndView;
+import com.feelhub.web.resources.api.FeelhubApiException;
 import com.feelhub.web.search.StatisticsSearch;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;

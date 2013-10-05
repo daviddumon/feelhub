@@ -1,8 +1,9 @@
-package com.feelhub.web.resources.api;
+package com.feelhub.web.resources.api.feelings;
 
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.FeelingData;
 import com.feelhub.web.representation.ModelAndView;
+import com.feelhub.web.resources.api.FeelhubApiException;
 import com.google.inject.Inject;
 import org.apache.http.auth.AuthenticationException;
 import org.json.*;

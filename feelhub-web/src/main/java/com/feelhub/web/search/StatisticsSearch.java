@@ -21,12 +21,12 @@ public class StatisticsSearch implements Search<Statistics> {
     }
 
     @Override
-    public StatisticsSearch withSkip(final int skip) {
+    public StatisticsSearch withSkip(final int skipValue) {
         return null;
     }
 
     @Override
-    public StatisticsSearch withLimit(final int limit) {
+    public StatisticsSearch withLimit(final int limitValue) {
         return null;
     }
 

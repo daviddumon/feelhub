@@ -85,7 +85,7 @@ body {
           .font_text();
           position: absolute;
           left: 132px;
-          top: 26px;
+          top: 38px;
           font-size: 12px;
           color: @grey-2 !important;
         }
@@ -96,7 +96,7 @@ body {
           display: block;
           width: 348px;
           padding: 12px;
-          margin: 0px auto;
+          margin: 12px auto;
           border: 1.7px solid @grey-7;
           border-bottom: none;
           resize: none;
@@ -116,51 +116,90 @@ body {
         }
       }
 
-      #feelings-panel {
+      #analytics {
 
-        #analytics {
-          margin: 19px;
-
-          #pie {
-            width: 133px;
-            height: 133px;
-          }
-
-          #counter {
-            display: block;
-            .font_logo;
-            font-size: 31.4px;
-            color: @grey-4;
-            vertical-align: top;
-          }
+        #pie {
+          width: 133px;
+          height: 133px;
         }
 
-        ul#feelings {
+        #counter {
+          display: block;
+          .font_logo;
+          font-size: 31.4px;
+          color: @grey-4;
+          vertical-align: top;
+        }
+      }
 
-          .feeling {
-            clear: both;
-            border-top: 1px solid @white;
+      ul#feelings {
+        padding-top: 0px;
 
-            canvas {
-              float: left;
-              margin: 12px;
-              width: 51px;
-              height: 51px;
+        .feeling {
+          clear: both;
+          border-top: 1px solid @white;
+
+          canvas {
+            float: left;
+            margin: 12px;
+            width: 51px;
+            height: 51px;
+          }
+
+          .date {
+            color: @grey-2;
+            margin: 12px;
+            .font_span;
+          }
+
+          .text {
+            .font_text;
+            padding-left: 62px;
+            color: @grey-5;
+            margin: 12px;
+          }
+
+          &:first-child {
+            border: 1px solid transparent !important;
+          }
+        }
+      }
+
+      #related {
+
+        .wrapper {
+          display: inline-block;
+          position: relative;
+          overflow: hidden;
+
+          img {
+            width: 133px;
+          }
+
+          span {
+            position: absolute;
+            display: none;
+            width: 100%;
+            bottom: 0px;
+            left: 0px;
+            background: @grey-4;
+            background: rgba(0, 0, 0, .5);
+            color: @white;
+            overflow: hidden;
+            .font_span();
+            text-align: center;
+            font-size: 12px;
+            min-height: 19.4px;
+            max-height: 51px;
+            line-height: 1.7;
+
+          }
+
+          &:hover {
+
+            span {
+              display: block !important;
             }
-
-            .date {
-              color: @grey-2;
-              margin: 12px;
-              .font_span;
-            }
-
-            .text {
-              .font_text;
-              padding-left: 62px;
-              color: @grey-5;
-              margin: 12px;
-            }
-
           }
         }
       }
@@ -172,6 +211,10 @@ body {
         float: none !important;
         width: 600px !important;
         margin: 0px auto !important;
+      }
+
+      #related {
+        display: none !important;
       }
     }
 
@@ -205,20 +248,24 @@ body {
         }
       }
 
-      #feelings-panel {
+      #analytics {
+        #pie {
+          width: 82px !important;
+          height: 82px !important;
+        }
+      }
 
-        #analytics {
-          #pie {
-            width: 82px !important;
-            height: 82px !important;
-          }
+      ul#feelings {
+
+        canvas {
+          width: 31px !important;
+          height: 31px !important;
         }
 
-        ul#feelings {
+        .feeling {
 
-          canvas {
-            width: 31px !important;
-            height: 31px !important;
+          .text {
+            padding-left: 43px !important;
           }
         }
       }

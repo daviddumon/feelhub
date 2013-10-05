@@ -57,47 +57,68 @@ var initial_datas = [
 
 <div id="topic-container" class="group">
 
-    <div class="topic-column">
+<div class="topic-column">
 
-        <a id="current-topic" href="${topicData.uris[0]}" class="topic-element" rel="nofollow" target="_blank">
-            <div class="wrapper">
-                <img src="${topicData.thumbnail}" class="illustration"/>
-                <span>${topicData.name}</span>
-            </div>
-        </a>
+    <#if topicData.uris?? && (topicData.uris?size > 0)>
+    <a id="current-topic" href="${topicData.uris[0]}" class="topic-element" rel="nofollow" target="_blank">
+    <#else>
+    <div id="current-topic" class="topic-element">
+    </#if>
+    <div class="wrapper">
+        <img src="${topicData.thumbnail}" class="illustration"/>
+        <span>${topicData.name}</span>
+    </div>
+    <#if topicData.uris?? && (topicData.uris?size > 0)>
+    </a>
+    <#else>
+    </div>
+    </#if>
 
+    <div id="analytics" class="topic-element">
+        <#if statistics?? && (statistics?size > 0)>
+            <span id="counter">${statistics[0].good + statistics[0].neutral + statistics[0].bad} feelings</span>
+        <#else>
+            <span id="counter">0 feelings</span>
+        </#if>
+        <canvas id="pie" class="pie-canvas">no feelings</canvas>
+    </div>
+
+    <#if topicData.uris?? && (topicData.uris?size > 0)>
         <div id="uris" class="topic-element">
             <#list topicData.uris as uri>
                 <img src="${root}/static/images/search-dark.png" class="linkicon"/>
                 <a href="${uri}" class="uris" rel="nofollow" target="_blank">${uri}</a>
             </#list>
         </div>
+    </#if>
 
+    <div id="related" class="topic-element">
+        <#list relatedDatas as related>
+            <a href="${root}/topic/${related.id}">
+                <div class="wrapper">
+                    <img src="${related.thumbnail}" class="illustration"/>
+                    <span>${related.name}</span>
+                </div>
+            </a>
+        </#list>
     </div>
 
-    <div class="topic-column">
+</div>
 
-        <form id="feeling-form" autocomplete="off" class="topic-element">
-            <textarea name="comment"></textarea>
-            <span class="help-text">How do you feel about that ?</span>
-            <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>
-            <canvas id="feeling-value-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
-            <canvas id="feeling-value-bad" feeling-value="bad" class="feeling-canvas"></canvas>
-        </form>
+<div class="topic-column">
 
-        <div id="feelings-panel" class="topic-element">
-            <div id="analytics">
-                <#if statistics?? && (statistics?size > 0)>
-                    <span id="counter">${statistics[0].good + statistics[0].neutral + statistics[0].bad} feelings</span>
-                <#else>
-                    <span id="counter">0 feelings</span>
-                </#if>
-                <canvas id="pie" class="pie-canvas">no feelings</canvas>
-            </div>
-            <ul id="feelings"></ul>
-        </div>
+    <form id="feeling-form" autocomplete="off" class="topic-element">
+        <textarea name="comment"></textarea>
+        <span class="help-text">How do you feel about that ?</span>
+        <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>
+        <canvas id="feeling-value-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
+        <canvas id="feeling-value-bad" feeling-value="bad" class="feeling-canvas"></canvas>
+    </form>
 
-    </div>
+    <#if feelingDatas?? && (feelingDatas?size > 0)>
+        <ul id="feelings" class="topic-element"></ul>
+    </#if>
+</div>
 
 </div>
 

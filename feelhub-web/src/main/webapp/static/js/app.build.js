@@ -14,9 +14,6 @@
         },
         {
             name: "home-controller"
-        },
-        {
-            name: "search-controller"
         }
     ],
     paths: {

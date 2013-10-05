@@ -12,12 +12,10 @@ require.config(
     }
 );
 
-require(["plugins/domReady!", "modules/interface", "modules/authentification", "modules/flow", "view/flow/feeling-view"],
+require(["plugins/domReady!", "modules/interface", "modules/authentification", "modules/flow-topics"],
 
     function (doc, interface, authentification, flow, view) {
         interface.init();
         authentification.init();
-
-        var list_feeling_api_end_point = root + "/api/feelings";
-        flow.init(list_feeling_api_end_point, null, view, null);
+        flow.init();
     });
