@@ -65,6 +65,21 @@ public class TopicData {
             return this;
         }
 
+        public Builder goodFeelingCount(final int goodFeelingCount) {
+            this.goodFeelingCount = goodFeelingCount;
+            return this;
+        }
+
+        public Builder neutralFeelingCount(final int neutralFeelingCount) {
+            this.neutralFeelingCount = neutralFeelingCount;
+            return this;
+        }
+
+        public Builder badFeelingCount(final int badFeelingCount) {
+            this.badFeelingCount = badFeelingCount;
+            return this;
+        }
+
         private String id = "";
         private String thumbnail = "";
         private String name = "";
@@ -73,6 +88,9 @@ public class TopicData {
         private final List<String> uris = Lists.newArrayList();
         private String description = "";
         private int topicSentimentScore;
+        private int goodFeelingCount;
+        private int neutralFeelingCount;
+        private int badFeelingCount;
     }
 
     private TopicData(final Builder builder) {
@@ -84,6 +102,9 @@ public class TopicData {
         this.description = builder.description;
         this.topicSentimentScore = builder.topicSentimentScore;
         this.thumbnail = builder.thumbnail;
+        this.goodFeelingCount = builder.goodFeelingCount;
+        this.neutralFeelingCount = builder.neutralFeelingCount;
+        this.badFeelingCount = builder.badFeelingCount;
     }
 
     public String getId() {
@@ -123,6 +144,21 @@ public class TopicData {
         return new JSONObject(this).toString();
     }
 
+    public int getGoodFeelingCount() {
+        return goodFeelingCount;
+    }
+
+    public int getNeutralFeelingCount() {
+        return neutralFeelingCount;
+    }
+
+    public int getBadFeelingCount() {
+        return badFeelingCount;
+    }
+
+    private final int goodFeelingCount;
+    private final int badFeelingCount;
+    private final int neutralFeelingCount;
     private final String id;
     private final String thumbnail;
     private final String name;

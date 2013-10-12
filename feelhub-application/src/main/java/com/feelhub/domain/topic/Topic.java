@@ -149,6 +149,32 @@ public abstract class Topic extends BaseEntity {
         thumbnails.add(thumbnail);
     }
 
+    public int getGoodFeelingCount() {
+        return goodFeelingCount;
+    }
+
+    public int getBadFeelingCount() {
+        return badFeelingCount;
+    }
+
+    public int getNeutralFeelingCount() {
+        return neutralFeelingCount;
+    }
+
+    public void increasesFeelingCount(final Feeling feeling) {
+        switch (feeling.getFeelingValue()) {
+            case good:
+                this.goodFeelingCount++;
+                break;
+            case bad:
+                this.badFeelingCount++;
+                break;
+            case neutral:
+                this.neutralFeelingCount++;
+                break;
+        }
+    }
+
     protected UUID id;
     protected UUID currentId;
     private final Map<String, String> descriptions = Maps.newHashMap();
@@ -159,4 +185,7 @@ public abstract class Topic extends BaseEntity {
     private final List<Thumbnail> thumbnails = Lists.newArrayList();
     private UUID userId;
     private TopicMerger topicMerger = new TopicMerger();
+    private int goodFeelingCount;
+    private int badFeelingCount;
+    private int neutralFeelingCount;
 }

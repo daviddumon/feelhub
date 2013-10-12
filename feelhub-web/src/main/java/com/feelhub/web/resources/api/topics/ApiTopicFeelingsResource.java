@@ -2,10 +2,10 @@ package com.feelhub.web.resources.api.topics;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.topic.*;
+import com.feelhub.web.api.ApiFeelingSearch;
 import com.feelhub.web.dto.FeelingData;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.FeelhubApiException;
-import com.feelhub.web.resources.api.feelings.ApiFeelingSearch;
 import com.google.inject.Inject;
 import org.restlet.data.*;
 import org.restlet.resource.*;

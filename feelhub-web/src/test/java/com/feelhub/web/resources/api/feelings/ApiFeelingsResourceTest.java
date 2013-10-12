@@ -4,6 +4,7 @@ import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.web.*;
+import com.feelhub.web.api.*;
 import com.feelhub.web.authentification.*;
 import com.google.inject.*;
 import org.apache.http.auth.AuthenticationException;

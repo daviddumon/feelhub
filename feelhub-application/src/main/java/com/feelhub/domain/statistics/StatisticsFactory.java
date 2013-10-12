@@ -2,6 +2,7 @@ package com.feelhub.domain.statistics;
 
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.*;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.world.WorldStatisticsEvent;
 import com.feelhub.repositories.Repositories;
 import com.google.common.eventbus.Subscribe;
@@ -40,6 +41,10 @@ public class StatisticsFactory {
     private void dealWithTopic(final Granularity granularity, final Feeling feeling, final DateTime date) {
         final Statistics stat = getOrCreateStat(granularity, feeling, date);
         stat.incrementFeelingCount(feeling);
+        if (granularity.equals(Granularity.all)) {
+            final Topic topic = Repositories.topics().getCurrentTopic(feeling.getTopicId());
+            topic.increasesFeelingCount(feeling);
+        }
     }
 
     private synchronized Statistics getOrCreateStat(final Granularity granularity, final Feeling feeling, final DateTime date) {

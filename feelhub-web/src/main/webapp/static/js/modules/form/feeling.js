@@ -29,7 +29,6 @@ define(["jquery", "modules/messages"], function ($, messages) {
     }
 
     function submit(feelingValue) {
-
         var data = JSON.stringify({
             "text": $(container + " textarea").val(),
             "feelingValue": feelingValue,
@@ -39,7 +38,7 @@ define(["jquery", "modules/messages"], function ($, messages) {
         $.ajax({
             type: "POST",
             url: root + "/api/feelings",
-            contentType: 'application/json',
+            contentType: 'application/json; charset=UTF-8',
             data: data,
             processData: false,
             dataType: 'json',

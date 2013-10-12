@@ -32,20 +32,6 @@ var initial_datas = [
         </#list>
     </#if>
 ];
-
-    <#if statistics?? && (statistics?size > 0)>
-    var statistics = {
-    good: ${statistics[0].good},
-    neutral: ${statistics[0].neutral},
-    bad: ${statistics[0].bad}
-    };
-    <#else>
-    var statistics = {
-    good: 0,
-    neutral: 0,
-    bad: 0
-    };
-    </#if>
 </@base.js>
 
 <@base.body>
@@ -75,11 +61,7 @@ var initial_datas = [
     </#if>
 
     <div id="analytics" class="topic-element">
-        <#if statistics?? && (statistics?size > 0)>
-            <span id="counter">${statistics[0].good + statistics[0].neutral + statistics[0].bad} feelings</span>
-        <#else>
-            <span id="counter">0 feelings</span>
-        </#if>
+        <span id="counter">${topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount} feelings</span>
         <canvas id="pie" class="pie-canvas">no feelings</canvas>
     </div>
 

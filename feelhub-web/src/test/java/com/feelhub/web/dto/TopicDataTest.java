@@ -142,4 +142,55 @@ public class TopicDataTest {
         assertThat(topicData.getTopicSentimentScore()).isEqualTo(10);
     }
 
+    @Test
+    public void hasAGoodFeelingCount() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        realTopic.increasesFeelingCount(TestFactories.feelings().goodFeeling());
+
+        final TopicData topicData = new TopicData.Builder().goodFeelingCount(realTopic.getGoodFeelingCount()).build();
+
+        assertThat(topicData.getGoodFeelingCount()).isEqualTo(realTopic.getGoodFeelingCount());
+    }
+
+    @Test
+    public void goodFeelingCountHasDefaultValue() {
+        final TopicData topicData = new TopicData.Builder().build();
+
+        assertThat(topicData.getGoodFeelingCount()).isEqualTo(0);
+    }
+
+    @Test
+    public void hasANeutralFeelingCount() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        realTopic.increasesFeelingCount(TestFactories.feelings().neutralFeeling());
+
+        final TopicData topicData = new TopicData.Builder().neutralFeelingCount(realTopic.getNeutralFeelingCount()).build();
+
+        assertThat(topicData.getNeutralFeelingCount()).isEqualTo(realTopic.getNeutralFeelingCount());
+    }
+
+    @Test
+    public void neutralFeelingCountHasDefaultValue() {
+        final TopicData topicData = new TopicData.Builder().build();
+
+        assertThat(topicData.getNeutralFeelingCount()).isEqualTo(0);
+    }
+
+    @Test
+    public void hasABadFeelingCount() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        realTopic.increasesFeelingCount(TestFactories.feelings().badFeeling());
+
+        final TopicData topicData = new TopicData.Builder().badFeelingCount(realTopic.getBadFeelingCount()).build();
+
+        assertThat(topicData.getBadFeelingCount()).isEqualTo(realTopic.getBadFeelingCount());
+    }
+
+    @Test
+    public void badFeelingCountHasDefaultValue() {
+        final TopicData topicData = new TopicData.Builder().build();
+
+        assertThat(topicData.getBadFeelingCount()).isEqualTo(0);
+    }
+
 }

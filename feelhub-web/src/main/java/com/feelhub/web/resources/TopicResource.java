@@ -2,16 +2,15 @@ package com.feelhub.web.resources;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.domain.related.Related;
-import com.feelhub.domain.statistics.Granularity;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.web.WebReferenceBuilder;
+import com.feelhub.web.api.ApiFeelingSearch;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.FeelhubApiException;
-import com.feelhub.web.resources.api.feelings.ApiFeelingSearch;
-import com.feelhub.web.search.*;
+import com.feelhub.web.search.RelatedSearch;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import org.mongolink.domain.criteria.Order;
@@ -23,12 +22,11 @@ import java.util.*;
 public class TopicResource extends ServerResource {
 
     @Inject
-    public TopicResource(final TopicService topicService, final TopicDataFactory topicDataFactory, final ApiFeelingSearch apiFeelingSearch, final RelatedSearch relatedSearch, final StatisticsSearch statisticsSearch) {
+    public TopicResource(final TopicService topicService, final TopicDataFactory topicDataFactory, final ApiFeelingSearch apiFeelingSearch, final RelatedSearch relatedSearch) {
         this.topicService = topicService;
         this.topicDataFactory = topicDataFactory;
         this.apiFeelingSearch = apiFeelingSearch;
         this.relatedSearch = relatedSearch;
-        this.statisticsSearch = statisticsSearch;
     }
 
     @Get
@@ -51,8 +49,7 @@ public class TopicResource extends ServerResource {
                 .with("locales", FeelhubLanguage.availables())
                 .with("relatedDatas", getRelatedDatas())
                 .with("feelingDatas", getInitialFeelingDatas(templateName))
-                .with("preferedLanguage", getPreferedLanguage().getPrimaryTag())
-                .with("statistics", statisticsSearch.withTopicId(topic.getCurrentId()).withGranularity(Granularity.all).execute());
+                .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
     }
 
     private Language getPreferedLanguage() {
@@ -115,6 +112,5 @@ public class TopicResource extends ServerResource {
     private final TopicDataFactory topicDataFactory;
     private final ApiFeelingSearch apiFeelingSearch;
     private final RelatedSearch relatedSearch;
-    private StatisticsSearch statisticsSearch;
     private Topic topic;
 }

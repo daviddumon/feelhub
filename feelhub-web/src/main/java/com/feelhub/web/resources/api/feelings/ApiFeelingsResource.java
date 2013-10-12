@@ -1,5 +1,6 @@
 package com.feelhub.web.resources.api.feelings;
 
+import com.feelhub.web.api.*;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.FeelingData;
 import com.feelhub.web.representation.ModelAndView;

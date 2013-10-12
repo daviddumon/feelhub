@@ -27,22 +27,22 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
     @Test
     public void canPersistATopic() {
         final UUID id = UUID.randomUUID();
-        final FakeTopic fakeTopic = new FakeTopic(id);
-        fakeTopic.setThumbnail("tb");
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+        topic.setThumbnail("tb");
         final Thumbnail thumbnail = new Thumbnail();
         thumbnail.setOrigin("origin");
         thumbnail.setCloudinary("cloudinary");
-        fakeTopic.addThumbnail(thumbnail);
+        topic.addThumbnail(thumbnail);
 
-        repo.add(fakeTopic);
+        repo.add(topic);
 
         final DBObject topicFound = getTopic(id);
         assertThat(topicFound).isNotNull();
         assertThat(topicFound.get("_id")).isEqualTo(id);
         assertThat(topicFound.get("currentId")).isEqualTo(id);
-        assertThat(topicFound.get("creationDate")).isEqualTo(fakeTopic.getCreationDate().getMillis());
-        assertThat(topicFound.get("lastModificationDate")).isEqualTo(fakeTopic.getLastModificationDate().getMillis());
-        assertThat(topicFound.get("thumbnail")).isEqualTo(fakeTopic.getThumbnail());
+        assertThat(topicFound.get("creationDate")).isEqualTo(topic.getCreationDate().getMillis());
+        assertThat(topicFound.get("lastModificationDate")).isEqualTo(topic.getLastModificationDate().getMillis());
+        assertThat(topicFound.get("thumbnail")).isEqualTo(topic.getThumbnail());
         assertThat(((List<Thumbnail>) topicFound.get("thumbnails")).size()).isEqualTo(1);
     }
 
@@ -227,6 +227,26 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(currentRealTopic).isEqualTo(realTopic3);
     }
 
+    @Test
+    public void canPersistFeelingCounts() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+        topic.increasesFeelingCount(TestFactories.feelings().badFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().neutralFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().neutralFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().goodFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().goodFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().goodFeeling());
+
+        repo.add(topic);
+
+        final DBObject topicFound = getTopic(id);
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.get("goodFeelingCount")).isEqualTo(3);
+        assertThat(topicFound.get("neutralFeelingCount")).isEqualTo(2);
+        assertThat(topicFound.get("badFeelingCount")).isEqualTo(1);
+    }
+
     private DBObject getTopic(final UUID id) {
         final DBCollection collection = getMongo().getCollection("topic");
         final DBObject query = new BasicDBObject();
@@ -236,8 +256,8 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
 
     private TopicRepository repo;
 
-    class FakeTopic extends Topic {
-        FakeTopic(final UUID id) {
+    class FakeTopicImplementation extends Topic {
+        FakeTopicImplementation(final UUID id) {
             super(id);
         }
 

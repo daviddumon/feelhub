@@ -1,4 +1,4 @@
-package com.feelhub.web.resources.api.feelings;
+package com.feelhub.web.api;
 
 import com.feelhub.application.TopicService;
 import com.feelhub.application.command.*;

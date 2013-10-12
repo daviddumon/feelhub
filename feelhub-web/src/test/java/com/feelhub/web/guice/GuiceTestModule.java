@@ -32,7 +32,6 @@ public class GuiceTestModule extends AbstractModule {
         Names.bindProperties(binder(), properties());
         bind(SessionProvider.class).to(DummySessionProvider.class);
         bind(FeelingSearch.class).to(FakeFeelingSearch.class);
-        bind(StatisticsSearch.class).to(FakeStatisticsSearch.class);
         bind(RelatedSearch.class).to(FakeRelatedSearch.class);
         bind(UriResolver.class).to(FakeUriResolver.class);
         bind(Scraper.class).to(FakeScraper.class);

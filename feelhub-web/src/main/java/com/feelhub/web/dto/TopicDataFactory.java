@@ -16,13 +16,10 @@ public class TopicDataFactory {
             builder.subtypes(topic.getSubTypes());
             builder.uris(topic.getUris());
             builder.topicSentimentScore(topic.getFeelingScore());
+            builder.goodFeelingCount(topic.getGoodFeelingCount());
+            builder.badFeelingCount(topic.getBadFeelingCount());
+            builder.neutralFeelingCount(topic.getNeutralFeelingCount());
         }
-        return builder.build();
-    }
-
-    public TopicData topicData(final String name) {
-        final TopicData.Builder builder = new TopicData.Builder();
-        builder.name(name);
         return builder.build();
     }
 

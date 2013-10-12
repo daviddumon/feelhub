@@ -92,18 +92,18 @@ define(["jquery"],
             context.lineCap = "round";
             context.lineWidth = 5;
 
-            var statisticsTotal = statistics.good + statistics.neutral + statistics.bad;
+            var statisticsTotal = topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount;
             if (statisticsTotal > 0) {
                 var totalAngle = 2 * Math.PI;
 
                 var goodAngle = {
                     start: 0 * totalAngle,
-                    end: (statistics.good / statisticsTotal) * totalAngle
+                    end: (topicData.goodFeelingCount / statisticsTotal) * totalAngle
                 };
 
                 var neutralAngle = {
                     start: goodAngle.end,
-                    end: goodAngle.end + (statistics.neutral / statisticsTotal) * totalAngle
+                    end: goodAngle.end + (topicData.neutralFeelingCount / statisticsTotal) * totalAngle
                 };
 
                 var badAngle = {

@@ -1,6 +1,7 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.*;
@@ -33,21 +34,21 @@ public class TopicTest {
     public void hasAnId() {
         final UUID id = UUID.randomUUID();
 
-        final FakeTopic fakeTopic = new FakeTopic(id);
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
 
-        assertThat(fakeTopic.getId()).isNotNull();
-        assertThat(fakeTopic.getId()).isEqualTo(id);
+        assertThat(topic.getId()).isNotNull();
+        assertThat(topic.getId()).isEqualTo(id);
     }
 
     @Test
     public void hasACurrentId() {
         final UUID id = UUID.randomUUID();
 
-        final FakeTopic fakeTopic = new FakeTopic(id);
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
 
-        assertThat(fakeTopic.getCurrentId()).isNotNull();
-        assertThat(fakeTopic.getId()).isEqualTo(id);
-        assertThat(fakeTopic.getId()).isEqualTo(fakeTopic.getCurrentId());
+        assertThat(topic.getCurrentId()).isNotNull();
+        assertThat(topic.getId()).isEqualTo(id);
+        assertThat(topic.getId()).isEqualTo(topic.getCurrentId());
     }
 
     @Test
@@ -89,161 +90,161 @@ public class TopicTest {
     @Test
     public void hasAUser() {
         final User fakeActiveUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
 
-        fakeTopic.setUserId(fakeActiveUser.getId());
+        topic.setUserId(fakeActiveUser.getId());
 
-        assertThat(fakeTopic.getUserId()).isEqualTo(fakeActiveUser.getId());
+        assertThat(topic.getUserId()).isEqualTo(fakeActiveUser.getId());
     }
 
     @Test
     public void canAddAName() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final String name = "Name-reference";
         final FeelhubLanguage language = FeelhubLanguage.reference();
 
-        fakeTopic.addName(language, name);
+        topic.addName(language, name);
 
-        assertThat(fakeTopic.getName(language)).isEqualTo(name);
+        assertThat(topic.getName(language)).isEqualTo(name);
     }
 
     @Test
     public void canReturnEmptyName() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
 
-        assertThat(fakeTopic.getName(FeelhubLanguage.REFERENCE)).isEmpty();
+        assertThat(topic.getName(FeelhubLanguage.REFERENCE)).isEmpty();
     }
 
     @Test
     public void canReturnReferenceNameIfExists() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final String name = "Name-reference";
-        fakeTopic.addName(FeelhubLanguage.reference(), name);
+        topic.addName(FeelhubLanguage.reference(), name);
 
-        final String frName = fakeTopic.getName(FeelhubLanguage.fromCode("fr"));
+        final String frName = topic.getName(FeelhubLanguage.fromCode("fr"));
 
         assertThat(frName).isEqualTo(name);
     }
 
     @Test
     public void canReturnNoneNameIfExists() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final String name = "Name-none";
-        fakeTopic.addName(FeelhubLanguage.none(), name);
+        topic.addName(FeelhubLanguage.none(), name);
 
-        final String frName = fakeTopic.getName(FeelhubLanguage.fromCode("fr"));
+        final String frName = topic.getName(FeelhubLanguage.fromCode("fr"));
 
         assertThat(frName).isEqualTo(name);
     }
 
     @Test
     public void returnAnyNamesFinally() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final String name = "Name-fr";
-        fakeTopic.addName(FeelhubLanguage.fromCode("fr"), name);
+        topic.addName(FeelhubLanguage.fromCode("fr"), name);
 
-        final String anyName = fakeTopic.getName(FeelhubLanguage.reference());
+        final String anyName = topic.getName(FeelhubLanguage.reference());
 
         assertThat(anyName).isEqualTo(name);
     }
 
     @Test
     public void correctlyFormatNames() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final String name = "nAMe-refeRence";
         final FeelhubLanguage language = FeelhubLanguage.reference();
 
-        fakeTopic.addName(language, name);
+        topic.addName(language, name);
 
-        assertThat(fakeTopic.getName(language)).isEqualTo("Name-reference");
+        assertThat(topic.getName(language)).isEqualTo("Name-reference");
     }
 
     @Test
     public void canAddADescription() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final String description = "My description";
         final FeelhubLanguage language = FeelhubLanguage.reference();
 
-        fakeTopic.addDescription(language, description);
+        topic.addDescription(language, description);
 
-        assertThat(fakeTopic.getDescription(language)).isEqualTo(description);
+        assertThat(topic.getDescription(language)).isEqualTo(description);
     }
 
     @Test
     public void canReturnEmptyDescription() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
 
-        assertThat(fakeTopic.getDescription(FeelhubLanguage.reference())).isEmpty();
+        assertThat(topic.getDescription(FeelhubLanguage.reference())).isEmpty();
     }
 
     @Test
     public void returnReferenceDescriptionIfExists() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final String description = "My description";
-        fakeTopic.addDescription(FeelhubLanguage.reference(), description);
+        topic.addDescription(FeelhubLanguage.reference(), description);
 
-        final String frDescription = fakeTopic.getDescription(FeelhubLanguage.fromCode("fr"));
+        final String frDescription = topic.getDescription(FeelhubLanguage.fromCode("fr"));
 
         assertThat(frDescription).isEqualTo(description);
     }
 
     @Test
     public void returnNoneDescriptionIfExists() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final String description = "My description";
-        fakeTopic.addDescription(FeelhubLanguage.none(), description);
+        topic.addDescription(FeelhubLanguage.none(), description);
 
-        final String frDescription = fakeTopic.getDescription(FeelhubLanguage.fromCode("fr"));
+        final String frDescription = topic.getDescription(FeelhubLanguage.fromCode("fr"));
 
         assertThat(frDescription).isEqualTo(description);
     }
 
     @Test
     public void hasSubTypes() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
 
-        assertThat(fakeTopic.getSubTypes()).isNotNull();
-        assertThat(fakeTopic.getSubTypes().size()).isZero();
+        assertThat(topic.getSubTypes()).isNotNull();
+        assertThat(topic.getSubTypes().size()).isZero();
     }
 
     @Test
     public void canAddASubType() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final String subtype = "subtype";
 
-        fakeTopic.addSubType(subtype);
+        topic.addSubType(subtype);
 
-        assertThat(fakeTopic.getSubTypes().size()).isEqualTo(1);
-        assertThat(fakeTopic.getSubTypes().get(0)).isEqualTo(subtype);
+        assertThat(topic.getSubTypes().size()).isEqualTo(1);
+        assertThat(topic.getSubTypes().get(0)).isEqualTo(subtype);
     }
 
     @Test
     public void hasUris() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
 
-        assertThat(fakeTopic.getUris()).isNotNull();
-        assertThat(fakeTopic.getUris().size()).isZero();
+        assertThat(topic.getUris()).isNotNull();
+        assertThat(topic.getUris().size()).isZero();
     }
 
     @Test
     public void canAddUri() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final Uri uri = new Uri("http://www.url.com");
 
-        fakeTopic.addUri(uri);
+        topic.addUri(uri);
 
-        assertThat(fakeTopic.getUris().size()).isEqualTo(1);
-        assertThat(fakeTopic.getUris().get(0)).isEqualTo(uri);
+        assertThat(topic.getUris().size()).isEqualTo(1);
+        assertThat(topic.getUris().get(0)).isEqualTo(uri);
     }
 
     @Test
     public void canSetThumbnail() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
         final String thumbnail = "link";
 
-        fakeTopic.setThumbnail(thumbnail);
+        topic.setThumbnail(thumbnail);
 
-        assertThat(fakeTopic.getThumbnail()).isEqualTo(thumbnail);
+        assertThat(topic.getThumbnail()).isEqualTo(thumbnail);
     }
 
     @Test
@@ -266,25 +267,58 @@ public class TopicTest {
 
     @Test
     public void keepThumbnailsCollection() {
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
 
-        assertThat(fakeTopic.getThumbnails()).isNotNull();
-        assertThat(fakeTopic.getThumbnails()).isEmpty();
+        assertThat(topic.getThumbnails()).isNotNull();
+        assertThat(topic.getThumbnails()).isEmpty();
     }
 
     @Test
     public void canAddAThumbnail() {
         final Thumbnail thumbnail = new Thumbnail();
-        final FakeTopic fakeTopic = new FakeTopic(UUID.randomUUID());
+        final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
 
-        fakeTopic.addThumbnail(thumbnail);
+        topic.addThumbnail(thumbnail);
 
-        assertThat(fakeTopic.getThumbnails().size()).isEqualTo(1);
+        assertThat(topic.getThumbnails().size()).isEqualTo(1);
     }
 
-    class FakeTopic extends Topic {
+    @Test
+    public void aTopicCanIncreaseGoodFeelingCount() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+        final Feeling feeling = TestFactories.feelings().goodFeeling(topic);
 
-        public FakeTopic(final UUID id) {
+        topic.increasesFeelingCount(feeling);
+
+        assertThat(topic.getGoodFeelingCount()).isEqualTo(1);
+    }
+
+    @Test
+    public void aTopicCanIncreaseBadFeelingCount() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+        final Feeling feeling = TestFactories.feelings().badFeeling(topic);
+
+        topic.increasesFeelingCount(feeling);
+
+        assertThat(topic.getBadFeelingCount()).isEqualTo(1);
+    }
+
+    @Test
+    public void aTopicCanIncreaseNeutralFeelingCount() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+        final Feeling feeling = TestFactories.feelings().neutralFeeling(topic);
+
+        topic.increasesFeelingCount(feeling);
+
+        assertThat(topic.getNeutralFeelingCount()).isEqualTo(1);
+    }
+
+    class FakeTopicImplementation extends Topic {
+
+        public FakeTopicImplementation(final UUID id) {
             super(id);
         }
 
