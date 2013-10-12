@@ -248,24 +248,6 @@ public class TopicTest {
     }
 
     @Test
-    public void hasADefaultFeelingScore() {
-        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
-
-        assertThat(topic.getFeelingScore()).isEqualTo(0);
-    }
-
-    @Test
-    public void hasAFeelingScore() {
-        systemTime.set(new DateTime(10));
-        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
-
-        systemTime.set(new DateTime(11));
-        TestFactories.feelings().badFeeling(topic);
-
-        assertThat(topic.getFeelingScore()).isEqualTo(-100);
-    }
-
-    @Test
     public void keepThumbnailsCollection() {
         final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
 

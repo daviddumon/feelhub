@@ -1,4 +1,4 @@
-define(["jquery", "plugins/hgn!templates/messages/message"], function ($, template) {
+define(["jquery", "plugins/hgn!templates/message"], function ($, template) {
 
     var container = "#messages";
 

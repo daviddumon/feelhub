@@ -60,11 +60,6 @@ public class TopicData {
             return this;
         }
 
-        public Builder topicSentimentScore(final int topicSentimentScore) {
-            this.topicSentimentScore = topicSentimentScore;
-            return this;
-        }
-
         public Builder goodFeelingCount(final int goodFeelingCount) {
             this.goodFeelingCount = goodFeelingCount;
             return this;
@@ -87,7 +82,6 @@ public class TopicData {
         private List<String> subTypes = Lists.newArrayList();
         private final List<String> uris = Lists.newArrayList();
         private String description = "";
-        private int topicSentimentScore;
         private int goodFeelingCount;
         private int neutralFeelingCount;
         private int badFeelingCount;
@@ -100,7 +94,6 @@ public class TopicData {
         this.subTypes = builder.subTypes;
         this.uris = builder.uris;
         this.description = builder.description;
-        this.topicSentimentScore = builder.topicSentimentScore;
         this.thumbnail = builder.thumbnail;
         this.goodFeelingCount = builder.goodFeelingCount;
         this.neutralFeelingCount = builder.neutralFeelingCount;
@@ -129,10 +122,6 @@ public class TopicData {
 
     public String getDescription() {
         return description;
-    }
-
-    public int getTopicSentimentScore() {
-        return topicSentimentScore;
     }
 
     public String getThumbnail() {
@@ -166,5 +155,4 @@ public class TopicData {
     private final List<String> subTypes;
     private final List<String> uris;
     private final String description;
-    private final int topicSentimentScore;
 }

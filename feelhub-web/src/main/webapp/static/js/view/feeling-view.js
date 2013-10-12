@@ -1,4 +1,4 @@
-define(["jquery", "plugins/hgn!templates/feelings/feeling", "modules/canvas"],
+define(["jquery", "plugins/hgn!templates/feeling", "modules/canvas"],
 
     function ($, template, canvas) {
 

@@ -136,13 +136,6 @@ public class TopicDataTest {
     }
 
     @Test
-    public void hasATopicSentimentScore() {
-        final TopicData topicData = new TopicData.Builder().topicSentimentScore(10).build();
-
-        assertThat(topicData.getTopicSentimentScore()).isEqualTo(10);
-    }
-
-    @Test
     public void hasAGoodFeelingCount() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         realTopic.increasesFeelingCount(TestFactories.feelings().goodFeeling());

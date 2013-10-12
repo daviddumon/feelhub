@@ -1,4 +1,4 @@
-define(["jquery", "view/messages/messages-view"], function ($, view) {
+define(["jquery", "view/messages-view"], function ($, view) {
 
     var message_index = 0;
     var container = "#messages";

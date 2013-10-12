@@ -115,10 +115,6 @@ public abstract class Topic extends BaseEntity {
         this.topicMerger = topicMerger;
     }
 
-    public int getFeelingScore() {
-        return new TopicFeelingScoreCalculator().feelingScore(getFeelings());
-    }
-
     private List<Feeling> getFeelings() {
         return Repositories.feelings().forTopicId(currentId);
     }
