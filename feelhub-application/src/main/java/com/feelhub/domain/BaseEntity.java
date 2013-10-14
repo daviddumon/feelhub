@@ -39,6 +39,10 @@ public abstract class BaseEntity implements Entity {
         this.lastModificationDate = lastModificationDate;
     }
 
+    public void setCreationDate(final DateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
     protected DateTime creationDate;
     protected DateTime lastModificationDate;
 }
