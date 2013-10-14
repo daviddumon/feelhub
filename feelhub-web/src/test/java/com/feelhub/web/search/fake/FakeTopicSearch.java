@@ -1,8 +1,10 @@
 package com.feelhub.web.search.fake;
 
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.repositories.SessionProvider;
+import com.feelhub.repositories.*;
 import com.feelhub.web.search.*;
+import com.google.common.base.Predicate;
+import com.google.common.collect.*;
 import com.google.inject.Inject;
 import org.mongolink.domain.criteria.Order;
 
@@ -17,26 +19,40 @@ public class FakeTopicSearch extends TopicSearch {
 
     @Override
     public List<Topic> execute() {
-        return super.execute();
+        return topics;
     }
 
     @Override
     public Search<Topic> withSkip(final int skipValue) {
-        return super.withSkip(skipValue);
+        topics = Lists.newArrayList(Iterables.skip(topics, skipValue));
+        return this;
     }
 
     @Override
     public Search<Topic> withLimit(final int limitValue) {
-        return super.withLimit(limitValue);
+        topics = Lists.newArrayList(Iterables.limit(topics, limitValue));
+        return this;
     }
 
     @Override
     public Search<Topic> withSort(final String sortField, final Order sortOrder) {
-        return super.withSort(sortField, sortOrder);
+        return this;
     }
 
     @Override
     public Search<Topic> withTopicId(final UUID topicId) {
-        return super.withTopicId(topicId);
+        topics = Lists.newArrayList(Iterables.filter(topics, new Predicate<Topic>() {
+
+            @Override
+            public boolean apply(final Topic topic) {
+                if (topic.getCurrentId().equals(topicId)) {
+                    return true;
+                }
+                return false;
+            }
+        }));
+        return this;
     }
+
+    List<Topic> topics = Repositories.topics().getAll();
 }

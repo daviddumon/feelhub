@@ -126,5 +126,15 @@ public class TopicSearchTest extends TestWithMongoRepository {
         assertThat(topicList.get(1)).isEqualTo(topicB);
     }
 
+    @Test
+    public void ignoreWorldTopic() {
+        TestFactories.topics().newWorldTopic();
+        final RealTopic topic = TestFactories.topics().newCompleteRealTopic();
+
+        final List<Topic> topics = topicSearch.execute();
+
+        assertThat(topics.size()).isEqualTo(1);
+    }
+
     private TopicSearch topicSearch;
 }

@@ -11,7 +11,7 @@ define(["jquery"],
         $("html").on("clearanddraw", ".pie-canvas", function () {
             var context = this.getContext("2d");
             context.clearRect(0, 0, this.width, this.height);
-            pie();
+            pie(this.id);
         });
 
         var good_color = "#66CC33";
@@ -68,7 +68,7 @@ define(["jquery"],
                 if (feelingValue == "good") {
                     curve = width / 6;
                 } else if (feelingValue == "bad") {
-                    curve = -width /6;
+                    curve = -width / 6;
                 }
 
                 context.strokeStyle = fill_color;
@@ -82,28 +82,30 @@ define(["jquery"],
             }
         }
 
-        function pie() {
-            var canvas = document.getElementById("pie");
-            canvas.width = $("#pie").width();
-            canvas.height = $("#pie").height();
+        function pie(selector) {
+            var canvas = document.getElementById(selector);
+            canvas.width = $("#" + selector).width();
+            canvas.height = $("#" + selector).height();
             var context = canvas.getContext("2d");
             centerX = canvas.width / 2;
             centerY = canvas.height / 2;
             context.lineCap = "round";
             context.lineWidth = 5;
-
-            var statisticsTotal = topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount;
-            if (statisticsTotal > 0) {
+            var good = $("#" + selector).data("good");
+            var neutral = $("#" + selector).data("neutral");
+            var bad = $("#" + selector).data("bad");
+            var total = good + neutral + bad;
+            if (total > 0) {
                 var totalAngle = 2 * Math.PI;
 
                 var goodAngle = {
                     start: 0 * totalAngle,
-                    end: (topicData.goodFeelingCount / statisticsTotal) * totalAngle
+                    end: (good / total) * totalAngle
                 };
 
                 var neutralAngle = {
                     start: goodAngle.end,
-                    end: goodAngle.end + (topicData.neutralFeelingCount / statisticsTotal) * totalAngle
+                    end: goodAngle.end + (neutral / total) * totalAngle
                 };
 
                 var badAngle = {
@@ -150,12 +152,18 @@ define(["jquery"],
                 context.arc(centerX, centerY, canvas.width / 10, 0, 2 * Math.PI, false);
                 context.fill();
             } else {
-                context.fillStyle = "F5F5F5";
+                context.fillStyle = "FFFFFF";
                 context.strokeStyle = "FFFFFF";
                 context.beginPath();
                 context.moveTo(centerX, centerY);
                 context.arc(centerX, centerY, (canvas.width / 2) - 10, 0, 2 * Math.PI, false);
                 context.stroke();
+                context.fill();
+
+                context.fillStyle = "F5F5F5";
+                context.beginPath();
+                context.moveTo(centerX, centerY);
+                context.arc(centerX, centerY, canvas.width / 10, 0, 2 * Math.PI, false);
                 context.fill();
             }
         }

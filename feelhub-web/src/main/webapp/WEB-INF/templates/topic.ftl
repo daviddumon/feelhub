@@ -62,7 +62,7 @@ var initial_datas = [
 
         <div id="analytics" class="topic-element">
             <span id="counter">${topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount} feelings</span>
-            <canvas id="pie" class="pie-canvas">no feelings</canvas>
+            <canvas id="pie" class="pie-canvas" data-good="${topicData.goodFeelingCount}" data-neutral="${topicData.neutralFeelingCount}" data-bad="${topicData.badFeelingCount}">no feelings</canvas>
         </div>
 
         <#if topicData.uris?? && (topicData.uris?size > 0)>

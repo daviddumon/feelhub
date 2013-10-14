@@ -4,8 +4,8 @@ define(["jquery", "view/topic-view"], function ($, view) {
     var skip, limit, hasData, notLoading;
 
     function init() {
-        skip = -10;
-        limit = 30;
+        skip = 0;
+        limit = 50;
         hasData = true;
         notLoading = true;
         render_initial_datas();
@@ -27,7 +27,7 @@ define(["jquery", "view/topic-view"], function ($, view) {
         if (need_data() && hasData && notLoading) {
             notLoading = false;
             skip += limit;
-            //load_data();
+            load_data();
         }
 
         function load_data() {

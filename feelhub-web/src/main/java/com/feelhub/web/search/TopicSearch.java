@@ -14,6 +14,7 @@ public class TopicSearch implements Search<Topic> {
     @Inject
     public TopicSearch(final SessionProvider provider) {
         criteria = provider.get().createCriteria(Topic.class);
+        criteria.add(Restrictions.notEquals("__discriminator", "WorldTopic"));
     }
 
     @Override

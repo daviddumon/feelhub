@@ -24,9 +24,9 @@ public class HomeResource extends ServerResource {
     @Get
     public ModelAndView represent() {
         final TopicDataFactory topicDataFactory = new TopicDataFactory();
-        final List<Topic> topics = topicSearch.withSort("lastModificationDate", Order.DESCENDING).execute();
-        List<TopicData> topicDatas = Lists.newArrayList();
-        for (Topic topic : topics) {
+        final List<Topic> topics = topicSearch.withSort("lastModificationDate", Order.DESCENDING).withSkip(0).withLimit(50).execute();
+        final List<TopicData> topicDatas = Lists.newArrayList();
+        for (final Topic topic : topics) {
             topicDatas.add(topicDataFactory.topicData(topic, CurrentUser.get().getLanguage()));
         }
         return ModelAndView.createNew("home.ftl")
@@ -42,5 +42,5 @@ public class HomeResource extends ServerResource {
         return getRequest().getClientInfo().getAcceptedLanguages().get(0).getMetadata();
     }
 
-    private TopicSearch topicSearch;
+    private final TopicSearch topicSearch;
 }

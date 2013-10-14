@@ -8,11 +8,74 @@
 @import "../less/popup";
 @import "../less/messages";
 
-//@import "../less/topic";
-//@import "../less/dashboard";
-//@import "../less/command";
-//@import "../less/flow_layout";
-
 body {
 
+  #flow {
+    width: 1224px;
+    margin: 63.8px auto;
+
+    .flow-element {
+      float: left;
+      padding: 12px;
+      margin: 12px;
+      background-color: @grey-6;
+      .rounded();
+
+      .small-analytics {
+        float: left;
+        width: 134px;
+
+        #counter {
+          display: block;
+          .font_logo;
+          font-size: 19.4px;
+          color: @grey-4;
+          vertical-align: top;
+          text-align: center;
+        }
+
+        canvas {
+          width: 82px;
+          height: 82px;
+          margin-left: 26px;
+        }
+      }
+
+      .topic-element {
+        float: right;
+        display: block;
+        position: relative;
+
+        .wrapper {
+          position: relative;
+          overflow: hidden;
+
+          img.illustration {
+            vertical-align: top;
+            width: 430px;
+            height: 266px;
+          }
+
+          span {
+            position: absolute;
+            display: block;
+            width: 100%;
+            bottom: 0px;
+            left: 0px;
+            background: @grey-4;
+            background: rgba(0, 0, 0, .5);
+            color: @white;
+            overflow: hidden;
+            .font_span();
+            text-align: center;
+            font-size: 19.4px;
+            min-height: 31.4px;
+            max-height: 133px;
+            line-height: 1.7;
+          }
+        }
+      }
+    }
+
+  }
 }
