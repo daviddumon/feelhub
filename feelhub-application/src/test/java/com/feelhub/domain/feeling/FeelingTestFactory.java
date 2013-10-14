@@ -75,18 +75,24 @@ public class FeelingTestFactory {
     public Feeling goodFeeling(final Topic topic) {
         final Feeling feeling = feelingWithTopic(topic);
         feeling.setFeelingValue(FeelingValue.good);
+        topic.increasesFeelingCount(feeling);
+        topic.setLastModificationDate(feeling.getCreationDate());
         return feeling;
     }
 
     public Feeling badFeeling(final Topic topic) {
         final Feeling feeling = feelingWithTopic(topic);
         feeling.setFeelingValue(FeelingValue.bad);
+        topic.increasesFeelingCount(feeling);
+        topic.setLastModificationDate(feeling.getCreationDate());
         return feeling;
     }
 
     public Feeling neutralFeeling(final Topic topic) {
         final Feeling feeling = feelingWithTopic(topic);
         feeling.setFeelingValue(FeelingValue.neutral);
+        topic.increasesFeelingCount(feeling);
+        topic.setLastModificationDate(feeling.getCreationDate());
         return feeling;
     }
 

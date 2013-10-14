@@ -1,36 +1,23 @@
 package com.feelhub.web.resources;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.domain.topic.Topic;
-import com.feelhub.web.authentification.CurrentUser;
-import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.search.TopicSearch;
-import com.google.common.collect.Lists;
+import com.feelhub.web.resources.api.topics.ApiTopicsLastFeelingsResource;
 import com.google.inject.Inject;
-import org.mongolink.domain.criteria.Order;
 import org.restlet.data.Language;
 import org.restlet.resource.*;
-
-import java.util.List;
 
 public class HomeResource extends ServerResource {
 
     @Inject
-    public HomeResource(final TopicSearch topicSearch) {
-        this.topicSearch = topicSearch;
+    public HomeResource(final ApiTopicsLastFeelingsResource apiTopicsLastFeelingsResource) {
+        this.apiTopicsLastFeelingsResource = apiTopicsLastFeelingsResource;
     }
 
     @Get
     public ModelAndView represent() {
-        final TopicDataFactory topicDataFactory = new TopicDataFactory();
-        final List<Topic> topics = topicSearch.withSort("lastModificationDate", Order.DESCENDING).withSkip(0).withLimit(50).execute();
-        final List<TopicData> topicDatas = Lists.newArrayList();
-        for (final Topic topic : topics) {
-            topicDatas.add(topicDataFactory.topicData(topic, CurrentUser.get().getLanguage()));
-        }
         return ModelAndView.createNew("home.ftl")
-                .with("topicDatas", topicDatas)
+                .with("topicDatas", apiTopicsLastFeelingsResource.getTopicDatas(0, 50))
                 .with("locales", FeelhubLanguage.availables())
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
     }
@@ -42,5 +29,5 @@ public class HomeResource extends ServerResource {
         return getRequest().getClientInfo().getAcceptedLanguages().get(0).getMetadata();
     }
 
-    private final TopicSearch topicSearch;
+    private final ApiTopicsLastFeelingsResource apiTopicsLastFeelingsResource;
 }

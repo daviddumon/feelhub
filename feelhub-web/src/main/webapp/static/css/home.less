@@ -35,14 +35,13 @@ body {
         }
 
         canvas {
-          width: 82px;
-          height: 82px;
-          margin-left: 26px;
+          width: 133px;
+          height: 133px;
         }
       }
 
       .topic-element {
-        float: right;
+        float: left;
         display: block;
         position: relative;
 
@@ -76,6 +75,24 @@ body {
         }
       }
     }
-
   }
+
+  @media all and (min-width: 1836px) {
+
+    #flow {
+      width: 1836px !important;
+    }
+  }
+
+  @media all and (max-width: 1224px) {
+
+    #flow {
+      width: 612px !important;
+
+
+    }
+  }
+
+
+
 }

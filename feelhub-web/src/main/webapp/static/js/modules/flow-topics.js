@@ -32,13 +32,7 @@ define(["jquery", "view/topic-view"], function ($, view) {
 
         function load_data() {
             var parameters = [];
-            var uri = root + "/api/topics?";
-            parameters.push({"value": "skip=" + skip});
-            parameters.push({"value": "limit=" + limit});
-            $.each(parameters, function (index, parameter) {
-                uri += parameter.value + "&";
-            });
-            uri = uri.substr(0, uri.length - 1);
+            var uri = root + "/api/topics/lastfeelings?&skip=" + skip + "&limit=" + limit;
 
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {
@@ -63,7 +57,7 @@ define(["jquery", "view/topic-view"], function ($, view) {
         }
 
         function need_data() {
-            var docHeight = container.height();
+            var docHeight = $(document).height();
             var scrollTop = $(window).scrollTop();
             var trigger = $(window).height() * 3;
             return (docHeight - scrollTop) < trigger;

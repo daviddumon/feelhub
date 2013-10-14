@@ -1,7 +1,9 @@
 package com.feelhub.web.dto;
 
+import com.feelhub.domain.Entity;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.uri.Uri;
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import org.json.JSONObject;
 
@@ -143,6 +145,18 @@ public class TopicData {
 
     public int getBadFeelingCount() {
         return badFeelingCount;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || !getClass().isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        final Entity entity = (Entity) obj;
+        return Objects.equal(entity.getId(), this.getId());
     }
 
     private final int goodFeelingCount;

@@ -5,14 +5,20 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
+import com.feelhub.web.dto.TopicData;
 import com.feelhub.web.guice.DummySessionProvider;
 import com.feelhub.web.representation.ModelAndView;
+import com.feelhub.web.resources.api.topics.ApiTopicsLastFeelingsResource;
 import com.feelhub.web.search.TopicSearch;
 import com.feelhub.web.search.fake.FakeTopicSearch;
+import com.google.common.collect.Lists;
 import com.google.inject.*;
 import org.junit.*;
 
+import java.util.List;
+
 import static org.fest.assertions.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class HomeResourceTest {
 
@@ -24,11 +30,13 @@ public class HomeResourceTest {
 
     @Before
     public void before() {
+        apiTopicsLastFeelingsResource = mock(ApiTopicsLastFeelingsResource.class);
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
                 bind(SessionProvider.class).to(DummySessionProvider.class);
                 bind(TopicSearch.class).to(FakeTopicSearch.class);
+                bind(ApiTopicsLastFeelingsResource.class).toInstance(apiTopicsLastFeelingsResource);
             }
         });
         homeResource = injector.getInstance(HomeResource.class);
@@ -45,17 +53,18 @@ public class HomeResourceTest {
 
     @Test
     public void hasTopicsInData() {
-        //final List<FeelingData> initialDatas = Lists.newArrayList();
-        //initialDatas.add(new FeelingData.Builder().build());
-        //initialDatas.add(new FeelingData.Builder().build());
-        //when(apiFeelingSearch.doSearch(any(Form.class))).thenReturn(initialDatas);
+        final List<TopicData> initialDatas = Lists.newArrayList();
+        initialDatas.add(new TopicData.Builder().build());
+        initialDatas.add(new TopicData.Builder().build());
+        when(apiTopicsLastFeelingsResource.getTopicDatas(anyInt(), anyInt())).thenReturn(initialDatas);
 
         final ModelAndView modelAndView = homeResource.represent();
 
         assertThat(modelAndView.getData("topicDatas")).isNotNull();
-        //final List<FeelingData> result = modelAndView.getData("feelingDatas");
-        //assertThat(result.size()).isEqualTo(2);
+        final List<TopicData> result = modelAndView.getData("topicDatas");
+        assertThat(result.size()).isEqualTo(2);
     }
 
     private HomeResource homeResource;
+    private ApiTopicsLastFeelingsResource apiTopicsLastFeelingsResource;
 }

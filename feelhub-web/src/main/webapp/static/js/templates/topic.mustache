@@ -1,12 +1,12 @@
 <li id="{{id}}" class="flow-element">
-    <div class="small-analytics">
-        <span id="counter">{{totalFeelingCount}} feelings</span>
-        <canvas id="pie-{{id}}" class="pie-canvas" data-good="{{goodFeelingCount}}" data-neutral="{{neutralFeelingCount}}" data-bad="{{badFeelingCount}}"></canvas>
-    </div>
     <a href="{{root}}/topic/{{id}}" class="topic-element">
         <div class="wrapper">
             <img src="{{thumbnail}}" class="illustration"/>
             <span>{{name}}</span>
         </div>
     </a>
+    <div class="small-analytics">
+        <canvas id="pie-{{id}}" class="pie-canvas" data-good="{{goodFeelingCount}}" data-neutral="{{neutralFeelingCount}}" data-bad="{{badFeelingCount}}"></canvas>
+        <span id="counter">{{totalFeelingCount}} feelings</span>
+    </div>
 </li>
