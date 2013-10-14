@@ -5,9 +5,10 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.repositories.Repositories;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 
-import java.util.UUID;
+import java.util.*;
 
 public class TopicService {
 
@@ -49,6 +50,25 @@ public class TopicService {
         return topic;
     }
 
+    public List<Topic> getTopics(final String value, final FeelhubLanguage language) {
+        final List<Topic> topics = Lists.newArrayList();
+        try {
+            final Tag tag = tagService.lookUp(value);
+            addTopicsForLanguage(language, topics, tag);
+            addTopicsForLanguage(FeelhubLanguage.none(), topics, tag);
+        } catch (TagNotFoundException e) {
+        }
+        return topics;
+    }
+
+    private void addTopicsForLanguage(final FeelhubLanguage language, final List<Topic> topics, final Tag tag) {
+        for (final UUID id : tag.getTopicsIdFor(language)) {
+            try {
+                topics.add(lookUpCurrent(id));
+            } catch (TopicNotFound e) {
+            }
+        }
+    }
 
     private final TagService tagService;
 }

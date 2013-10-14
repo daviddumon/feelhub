@@ -1,25 +1,57 @@
 package com.feelhub.web.resources.api.topics;
 
+import com.feelhub.application.TopicService;
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.topic.*;
-import com.feelhub.domain.topic.TopicIdentifier;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.dto.*;
+import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.FeelhubApiException;
+import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.*;
 import com.google.inject.Inject;
 import org.apache.http.auth.AuthenticationException;
 import org.restlet.data.*;
 import org.restlet.resource.*;
 
-import java.util.UUID;
+import java.util.*;
 
 public class ApiTopicsResource extends ServerResource {
 
     @Inject
-    public ApiTopicsResource(final CommandBus bus) {
+    public ApiTopicsResource(final TopicService topicService, final TopicDataFactory topicDataFactory, final CommandBus bus) {
+        this.topicService = topicService;
+        this.topicDataFactory = topicDataFactory;
         this.bus = bus;
+    }
+
+    @Get
+    public ModelAndView getTopics() {
+        List<TopicData> topicDatas = Lists.newArrayList();
+        final String query = getQueryValue();
+        final List<Topic> topics = topicService.getTopics(query, CurrentUser.get().getLanguage());
+        setStatus(Status.SUCCESS_OK);
+        topicDatas = getTopicDatas(topics);
+        return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", topicDatas);
+    }
+
+    private List<TopicData> getTopicDatas(final List<Topic> topics) {
+        final List<TopicData> results = Lists.newArrayList();
+        for (final Topic topic : topics) {
+            results.add(topicDataFactory.simpleTopicData(topic, CurrentUser.get().getLanguage()));
+        }
+        return results;
+    }
+
+    public String getQueryValue() {
+        if (getQuery().getQueryString().contains("q")) {
+            return getQuery().getFirstValue("q").toString();
+        } else {
+            throw new FeelhubApiException();
+        }
     }
 
     @Post
@@ -78,4 +110,6 @@ public class ApiTopicsResource extends ServerResource {
     }
 
     private final CommandBus bus;
+    private final TopicService topicService;
+    private final TopicDataFactory topicDataFactory;
 }
