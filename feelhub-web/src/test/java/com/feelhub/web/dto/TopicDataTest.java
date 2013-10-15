@@ -186,4 +186,14 @@ public class TopicDataTest {
         assertThat(topicData.getBadFeelingCount()).isEqualTo(0);
     }
 
+    @Test
+    public void hasFeelings() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        realTopic.increasesFeelingCount(TestFactories.feelings().badFeeling());
+
+        final TopicData topicData = new TopicData.Builder().hasFeelings(realTopic.getHasFeelings()).build();
+
+        assertThat(topicData.getHasFeelings()).isEqualTo(realTopic.getHasFeelings());
+    }
+
 }

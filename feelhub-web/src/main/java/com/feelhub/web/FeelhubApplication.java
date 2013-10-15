@@ -62,7 +62,7 @@ public class FeelhubApplication extends Application {
     private void initFreemarkerConfiguration() throws TemplateModelException {
         final Configuration configuration = new Configuration();
         configuration.setServletContextForTemplateLoading(servletContext(), "WEB-INF/templates");
-        configuration.setEncoding(Locale.ROOT, "UTF-8");
+        configuration.setEncoding(Locale.ROOT, "UTF-16");
         configuration.addAutoImport("base", "/base.ftl");
         configuration.setSharedVariable("dev", feelhubWebProperties.dev);
         configuration.setSharedVariable("root", feelhubWebProperties.domain + servletContext().getContextPath());

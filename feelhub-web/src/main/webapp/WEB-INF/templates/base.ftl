@@ -76,7 +76,7 @@
                 <#list messages as message>
                     {
                         feeling: "${message.feeling}",
-                        text: "${message.text?j_string}",
+                        text: "${message.text?json_string}",
                         timer: "${message.secondTimer}"
                     }${message_has_next?string(",", "")}
                 </#list>

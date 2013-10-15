@@ -1,5 +1,6 @@
 package com.feelhub.domain.topic;
 
+import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.geo.*;
@@ -33,6 +34,21 @@ public class TopicTestFactory {
         realTopic.addSubType("subtype2");
         realTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
         realTopic.setThumbnail("thumbnail");
+        Repositories.topics().add(realTopic);
+        return realTopic;
+    }
+
+    public RealTopic newCompleteRealTopicWithHasFeelings() {
+        final RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Automobile);
+        realTopic.addName(FeelhubLanguage.reference(), "name" + "-reference");
+        realTopic.addName(FeelhubLanguage.fromCode("fr"), "name" + "-fr");
+        realTopic.addDescription(FeelhubLanguage.reference(), "description-reference");
+        realTopic.addDescription(FeelhubLanguage.fromCode("fr"), "description-fr");
+        realTopic.addSubType("subtype1");
+        realTopic.addSubType("subtype2");
+        realTopic.setUserId(TestFactories.users().createFakeActiveUser("mail@mail.com").getId());
+        realTopic.setThumbnail("thumbnail");
+        realTopic.increasesFeelingCount(new Feeling(UUID.randomUUID(), UUID.randomUUID()));
         Repositories.topics().add(realTopic);
         return realTopic;
     }

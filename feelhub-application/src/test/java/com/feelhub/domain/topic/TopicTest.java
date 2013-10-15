@@ -296,6 +296,25 @@ public class TopicTest {
         assertThat(topic.getNeutralFeelingCount()).isEqualTo(1);
     }
 
+    @Test
+    public void increasesFeelingSetHasFeelingToTrue() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+        final Feeling feeling = TestFactories.feelings().neutralFeeling(topic);
+
+        topic.increasesFeelingCount(feeling);
+
+        assertThat(topic.getHasFeelings()).isEqualTo(true);
+    }
+
+    @Test
+    public void defaultHasFeelingsIsFalse() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+
+        assertThat(topic.getHasFeelings()).isEqualTo(false);
+    }
+
     class FakeTopicImplementation extends Topic {
 
         public FakeTopicImplementation(final UUID id) {

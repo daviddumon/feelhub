@@ -77,6 +77,11 @@ public class TopicData {
             return this;
         }
 
+        public Builder hasFeelings(final boolean hasFeelings) {
+            this.hasFeelings = hasFeelings;
+            return this;
+        }
+
         private String id = "";
         private String thumbnail = "";
         private String name = "";
@@ -87,6 +92,7 @@ public class TopicData {
         private int goodFeelingCount;
         private int neutralFeelingCount;
         private int badFeelingCount;
+        private boolean hasFeelings = false;
     }
 
     private TopicData(final Builder builder) {
@@ -100,6 +106,7 @@ public class TopicData {
         this.goodFeelingCount = builder.goodFeelingCount;
         this.neutralFeelingCount = builder.neutralFeelingCount;
         this.badFeelingCount = builder.badFeelingCount;
+        this.hasFeelings = builder.hasFeelings;
     }
 
     public String getId() {
@@ -147,6 +154,10 @@ public class TopicData {
         return badFeelingCount;
     }
 
+    public boolean getHasFeelings() {
+        return hasFeelings;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (obj == this) {
@@ -159,6 +170,7 @@ public class TopicData {
         return Objects.equal(entity.getId(), this.getId());
     }
 
+    private final boolean hasFeelings;
     private final int goodFeelingCount;
     private final int badFeelingCount;
     private final int neutralFeelingCount;

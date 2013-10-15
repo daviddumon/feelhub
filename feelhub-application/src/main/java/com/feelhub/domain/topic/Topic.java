@@ -9,6 +9,7 @@ import com.google.common.base.Objects;
 import com.google.common.collect.*;
 import org.apache.commons.lang.WordUtils;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 
@@ -21,6 +22,7 @@ public abstract class Topic extends BaseEntity {
     public Topic(final UUID id) {
         this.id = id;
         this.currentId = id;
+        this.hasFeelings = false;
     }
 
     public void changeCurrentId(final UUID currentId) {
@@ -169,6 +171,11 @@ public abstract class Topic extends BaseEntity {
                 this.neutralFeelingCount++;
                 break;
         }
+        this.hasFeelings = true;
+    }
+
+    public boolean getHasFeelings() {
+        return hasFeelings;
     }
 
     protected UUID id;
@@ -184,4 +191,5 @@ public abstract class Topic extends BaseEntity {
     private int goodFeelingCount;
     private int badFeelingCount;
     private int neutralFeelingCount;
+    private boolean hasFeelings;
 }

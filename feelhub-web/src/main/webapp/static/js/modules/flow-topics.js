@@ -37,7 +37,7 @@ define(["jquery", "view/topic-view"], function ($, view) {
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {
                     $.each(data, function (index, data) {
-                        view.render(data, row_container + "_" + row_index, box_width);
+                        view.render(data, container);
                     });
 
                     if (data.length != limit) {

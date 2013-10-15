@@ -21,7 +21,7 @@ var initial_datas = [
         "text":
         [
             <#list feelingData.text as text>
-            "${text?j_string}"
+            "${text?json_string}"
             ${text_has_next?string(",", "")}
             </#list>
         ],

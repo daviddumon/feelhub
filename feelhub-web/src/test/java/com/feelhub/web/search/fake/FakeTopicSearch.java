@@ -1,6 +1,5 @@
 package com.feelhub.web.search.fake;
 
-import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.web.search.*;
@@ -9,7 +8,6 @@ import com.google.common.collect.*;
 import com.google.inject.Inject;
 import org.mongolink.domain.criteria.Order;
 
-import java.lang.reflect.Field;
 import java.util.*;
 
 public class FakeTopicSearch extends TopicSearch {
@@ -57,17 +55,12 @@ public class FakeTopicSearch extends TopicSearch {
     }
 
     @Override
-    public Search<Topic> forFeelings(final List<Feeling> feelings) {
-        final List<UUID> currentIds = Lists.newArrayList();
-        for (final Feeling feeling : feelings) {
-            currentIds.add(feeling.getTopicId());
-        }
-
+    public Search<Topic> withFeelings() {
         topics = Lists.newArrayList(Iterables.filter(topics, new Predicate<Topic>() {
 
             @Override
             public boolean apply(final Topic topic) {
-                if (currentIds.contains(topic.getCurrentId())) {
+                if (topic.getHasFeelings()) {
                     return true;
                 }
                 return false;

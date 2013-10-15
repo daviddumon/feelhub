@@ -111,15 +111,12 @@ public class TopicSearchTest extends TestWithMongoRepository {
     }
 
     @Test
-    public void canGetTopicsForFeelings() {
-        final RealTopic topicA = TestFactories.topics().newCompleteRealTopic();
-        final RealTopic topicB = TestFactories.topics().newCompleteRealTopic();
+    public void canGetTopicsWithFeelings() {
+        final RealTopic topicA = TestFactories.topics().newCompleteRealTopicWithHasFeelings();
+        final RealTopic topicB = TestFactories.topics().newCompleteRealTopicWithHasFeelings();
         TestFactories.topics().newCompleteRealTopic();
-        final List<Feeling> feelings = Lists.newArrayList();
-        feelings.add(TestFactories.feelings().goodFeeling(topicA));
-        feelings.add(TestFactories.feelings().goodFeeling(topicB));
 
-        final List<Topic> topicList = topicSearch.forFeelings(feelings).execute();
+        final List<Topic> topicList = topicSearch.withFeelings().execute();
 
         assertThat(topicList.size()).isEqualTo(2);
         assertThat(topicList.get(0)).isEqualTo(topicA);

@@ -1,9 +1,7 @@
 package com.feelhub.web.search;
 
-import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.SessionProvider;
-import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import org.mongolink.domain.criteria.*;
 
@@ -51,12 +49,8 @@ public class TopicSearch implements Search<Topic> {
         return this;
     }
 
-    public Search<Topic> forFeelings(final List<Feeling> feelings) {
-        final List<UUID> currentIds = Lists.newArrayList();
-        for (final Feeling feeling : feelings) {
-            currentIds.add(feeling.getTopicId());
-        }
-        criteria.add(Restrictions.in("currentId", currentIds));
+    public Search<Topic> withFeelings() {
+        criteria.add(Restrictions.equals("hasFeelings", true));
         return this;
     }
 

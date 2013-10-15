@@ -1,5 +1,6 @@
 package com.feelhub.web.resources.api.topics;
 
+import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.SessionProvider;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -46,12 +47,10 @@ public class ApiTopicsLastFeelingsResourceTest {
 
     @Test
     public void returnTopicsFromLastFeelingsInData() {
-        final RealTopic topicA = TestFactories.topics().newCompleteRealTopic();
-        final RealTopic topicB = TestFactories.topics().newCompleteRealTopic();
-        final RealTopic topicC = TestFactories.topics().newCompleteRealTopic();
-        TestFactories.feelings().badFeeling(topicA);
+        final RealTopic topicA = TestFactories.topics().newCompleteRealTopicWithHasFeelings();
         time.waitDays(1);
-        TestFactories.feelings().goodFeeling(topicB);
+        final RealTopic topicB = TestFactories.topics().newCompleteRealTopicWithHasFeelings();
+        TestFactories.topics().newCompleteRealTopic();
 
         final ModelAndView modelAndView = apiTopicsLastFeelingsResource.represent();
 

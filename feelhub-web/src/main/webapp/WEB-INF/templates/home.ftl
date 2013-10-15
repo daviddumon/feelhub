@@ -15,8 +15,8 @@ var initial_datas = [
         <#list topicDatas as data>
         {
             "id":"${data.id}",
-            "thumbnail":"${data.thumbnail?j_string}",
-            "name":"${data.name?j_string}",
+            "thumbnail":"${data.thumbnail?json_string}",
+            "name":"${data.name?json_string}",
             "goodFeelingCount":"${data.goodFeelingCount}",
             "badFeelingCount":"${data.badFeelingCount}",
             "neutralFeelingCount":"${data.neutralFeelingCount}"

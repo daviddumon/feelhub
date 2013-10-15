@@ -25,6 +25,8 @@ public class Patch_2013_10_14_1 extends Patch {
         System.out.println("Patch 2013-10-14-1");
         final StatisticsFactory statisticsFactory = new StatisticsFactory();
         final DB db = sessionProvider.get().getDb();
+        final DBCollection feelingCollection = db.getCollection("feeling");
+        feelingCollection.rename("oldfeeling");
         final DBCollection oldFeelingCollection = db.getCollection("oldfeeling");
         final DBCursor oldFeelings = oldFeelingCollection.find();
 
@@ -47,6 +49,8 @@ public class Patch_2013_10_14_1 extends Patch {
             }
             count++;
         }
+
+        oldFeelingCollection.drop();
     }
 
     @Override

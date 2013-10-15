@@ -44,6 +44,7 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("lastModificationDate")).isEqualTo(topic.getLastModificationDate().getMillis());
         assertThat(topicFound.get("thumbnail")).isEqualTo(topic.getThumbnail());
         assertThat(((List<Thumbnail>) topicFound.get("thumbnails")).size()).isEqualTo(1);
+        assertThat(topicFound.get("hasFeelings")).isEqualTo(false);
     }
 
     @Test
@@ -245,6 +246,7 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("goodFeelingCount")).isEqualTo(3);
         assertThat(topicFound.get("neutralFeelingCount")).isEqualTo(2);
         assertThat(topicFound.get("badFeelingCount")).isEqualTo(1);
+        assertThat(topicFound.get("hasFeelings")).isEqualTo(true);
     }
 
     private DBObject getTopic(final UUID id) {

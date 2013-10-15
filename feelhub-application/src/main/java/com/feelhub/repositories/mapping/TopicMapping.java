@@ -30,6 +30,7 @@ public class TopicMapping extends AggregateMap<Topic> {
         property(element().getGoodFeelingCount());
         property(element().getNeutralFeelingCount());
         property(element().getBadFeelingCount());
+        property(element().getHasFeelings());
 
         subclass(new SubclassMap<RealTopic>(RealTopic.class) {
 

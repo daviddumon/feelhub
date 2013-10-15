@@ -1,14 +1,15 @@
 package com.feelhub.web.resources.api.topics;
 
-import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.search.*;
+import com.feelhub.web.resources.api.FeelhubApiException;
+import com.feelhub.web.search.TopicSearch;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import org.mongolink.domain.criteria.Order;
+import org.restlet.data.Form;
 import org.restlet.resource.*;
 
 import java.util.List;
@@ -16,20 +17,30 @@ import java.util.List;
 public class ApiTopicsLastFeelingsResource extends ServerResource {
 
     @Inject
-    public ApiTopicsLastFeelingsResource(final TopicSearch topicSearch, final FeelingSearch feelingSearch, final TopicDataFactory topicDataFactory) {
+    public ApiTopicsLastFeelingsResource(final TopicSearch topicSearch, final TopicDataFactory topicDataFactory) {
         this.topicSearch = topicSearch;
-        this.feelingSearch = feelingSearch;
         this.topicDataFactory = topicDataFactory;
     }
 
     @Get
     public ModelAndView represent() {
-        return ModelAndView.createNew("api/topics.json.ftl").with("topicDatas", getTopicDatas(0, 50));
+        int limit = 100;
+        int skip = 0;
+        final Form query = getQuery();
+        if (query.getQueryString().contains("limit")) {
+            limit = Integer.parseInt(query.getFirstValue("limit").trim());
+            if (limit > 100) {
+                throw new FeelhubApiException();
+            }
+        }
+        if (query.getQueryString().contains("skip")) {
+            skip = Integer.parseInt(query.getFirstValue("skip").trim());
+        }
+        return ModelAndView.createNew("api/topics.json.ftl").with("topicDatas", getTopicDatas(skip, limit));
     }
 
     public List<TopicData> getTopicDatas(final int skip, final int limit) {
-        final List<Feeling> feelings = feelingSearch.withLimit(50).withSkip(0).withSort("creationDate", Order.DESCENDING).execute();
-        final List<Topic> topics = topicSearch.forFeelings(feelings).withSort("lastModificationDate", Order.DESCENDING).execute();
+        final List<Topic> topics = topicSearch.withFeelings().withSort("lastModificationDate", Order.DESCENDING).withLimit(limit).withSkip(skip).execute();
         final List<TopicData> topicDatas = Lists.newArrayList();
         for (final Topic topic : topics) {
             topicDatas.add(topicDataFactory.topicData(topic, CurrentUser.get().getLanguage()));
@@ -38,6 +49,5 @@ public class ApiTopicsLastFeelingsResource extends ServerResource {
     }
 
     private final TopicSearch topicSearch;
-    private final FeelingSearch feelingSearch;
     private final TopicDataFactory topicDataFactory;
 }

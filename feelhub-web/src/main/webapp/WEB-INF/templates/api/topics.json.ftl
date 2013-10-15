@@ -2,9 +2,12 @@
 <#list topicDatas as topicData>
 {
 "id":"${topicData.id}",
-"name":"${topicData.name?j_string}",
-"thumbnail":"${topicData.thumbnail?j_string}",
-"type":"${topicData.type}"
+"name":"${topicData.name?json_string}",
+"thumbnail":"${topicData.thumbnail?json_string}",
+"type":"${topicData.type}",
+"goodFeelingCount":"${topicData.goodFeelingCount}",
+"neutralFeelingCount":"${topicData.neutralFeelingCount}",
+"badFeelingCount":"${topicData.badFeelingCount}"
 }${topicData_has_next?string(",", "")}
 </#list>
 ]
