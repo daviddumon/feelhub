@@ -154,10 +154,10 @@
                         </executions>
                         <configuration>
                             <configFile>
-                                ${project.basedir}/src/main/webapp/static/js/app.build.js
+                                ${basedir}/src/main/webapp/static/js/app.build.js
                             </configFile>
                             <optimizerFile>
-                                ${project.basedir}/src/main/webapp/static/js/r.js
+                                ${basedir}/src/main/webapp/static/js/r.js
                             </optimizerFile>
                             <filterConfig>
                                 false
