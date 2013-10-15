@@ -3,9 +3,7 @@ define(["jquery"],
     function ($) {
 
         $("html").on("clearanddraw", ".feeling-canvas", function () {
-            var context = this.getContext("2d");
-            context.clearRect(0, 0, this.width, this.height);
-            feeling($(this).attr("feeling-value"), $(this).attr("id"));
+            reDrawFeeling(this);
         });
 
         $("html").on("clearanddraw", ".pie-canvas", function () {
@@ -15,39 +13,22 @@ define(["jquery"],
         });
 
         $("html").on("mouseover", "#feeling-value-good", function () {
-            var spread = 0;
-            var canvas = this;
-            var interval = setInterval(function () {
-                spread += 0.005;
-                var context = canvas.getContext("2d");
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                feeling($(canvas).attr("feeling-value"), $(canvas).attr("id"), spread);
-            }, 20);
-            setTimeout(function () {
-                clearInterval(interval);
-            }, 200);
-            $(canvas).show();
-            $(canvas).next(".canvas-help-text").html("like");
+            animateFeeling(this);
+            $(this).next(".canvas-help-text").html("like");
         });
 
         $("html").on("mouseover", "#feeling-value-neutral", function () {
-            var spread = 0;
-            var canvas = this;
-            var interval = setInterval(function () {
-                spread += 0.005;
-                var context = canvas.getContext("2d");
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                feeling($(canvas).attr("feeling-value"), $(canvas).attr("id"), spread);
-            }, 20);
-            setTimeout(function () {
-                clearInterval(interval);
-            }, 200);
-            $(canvas).next(".canvas-help-text").html("don't care");
+            animateFeeling(this);
+            $(this).next(".canvas-help-text").html("don't care");
         });
 
         $("html").on("mouseover", "#feeling-value-bad", function () {
+            animateFeeling(this);
+            $(this).next(".canvas-help-text").html("dislike");
+        });
+
+        function animateFeeling(canvas) {
             var spread = 0;
-            var canvas = this;
             var interval = setInterval(function () {
                 spread += 0.005;
                 var context = canvas.getContext("2d");
@@ -57,29 +38,28 @@ define(["jquery"],
             setTimeout(function () {
                 clearInterval(interval);
             }, 200);
-            $(canvas).next(".canvas-help-text").html("dislike");
-        });
+        }
 
         $("html").on("mouseout", "#feeling-value-good", function () {
-            var context = this.getContext("2d");
-            context.clearRect(0, 0, this.width, this.height);
-            feeling($(this).attr("feeling-value"), $(this).attr("id"));
+            reDrawFeeling(this);
             $(this).next(".canvas-help-text").html("&nbsp;");
         });
 
         $("html").on("mouseout", "#feeling-value-neutral", function () {
-            var context = this.getContext("2d");
-            context.clearRect(0, 0, this.width, this.height);
-            feeling($(this).attr("feeling-value"), $(this).attr("id"));
+            reDrawFeeling(this);
             $(this).next(".canvas-help-text").html("&nbsp;");
         });
 
         $("html").on("mouseout", "#feeling-value-bad", function () {
-            var context = this.getContext("2d");
-            context.clearRect(0, 0, this.width, this.height);
-            feeling($(this).attr("feeling-value"), $(this).attr("id"));
+            reDrawFeeling(this);
             $(this).next(".canvas-help-text").html("&nbsp;");
         });
+
+        function reDrawFeeling(canvas) {
+            var context = canvas.getContext("2d");
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            feeling($(canvas).attr("feeling-value"), $(canvas).attr("id"));
+        }
 
         var good_color = "#66CC33";
         var neutral_color = "#0033FF";

@@ -4,10 +4,24 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
 
         function render(data, container) {
             data.root = root;
-            data.totalFeelingCount = parseInt(data.goodFeelingCount) + parseInt(data.neutralFeelingCount) + parseInt(data.badFeelingCount);
+            var good = parseInt(data.goodFeelingCount);
+            var bad = parseInt(data.badFeelingCount);
+            var neutral = parseInt(data.neutralFeelingCount);
+
+            data.totalFeelingCount = good + bad + neutral;
+
+            if(good > bad && good > neutral) {
+                data.counterClass = "good";
+            } else if(bad > good && bad > neutral ) {
+                data.counterClass = "bad";
+            } else {
+                data.counterClass = "neutral";
+            }
+
             if (data.thumbnail == "") {
                 data.thumbnail = root + "/static/images/unknown.png";
             }
+
             var element = template(data);
             $(container).append(element);
             canvas.pie("pie-" + data.id, {
