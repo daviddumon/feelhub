@@ -47,11 +47,18 @@ public class FeelhubRouter extends Router {
     }
 
     private void attachWithSecurity(final String path, final Class next) {
+        final Router admingRouter = new Router(getContext()) {
+            @Override
+            public Finder createFinder(final Class<?> targetClass) {
+                return new GuiceFinder(getContext(), targetClass, injector);
+            }
+        };
+        admingRouter.attachDefault(next);
         final MapVerifier verifier = new MapVerifier();
         verifier.getLocalSecrets().put(ADMIN_USER, ADMIN_PASSWORD.toCharArray());
         final ChallengeAuthenticator challengeAuthenticator = new ChallengeAuthenticator(getContext(), ChallengeScheme.HTTP_BASIC, "Secured Area");
         challengeAuthenticator.setVerifier(verifier);
-        challengeAuthenticator.setNext(next);
+        challengeAuthenticator.setNext(admingRouter);
         attach(path, challengeAuthenticator);
     }
 
