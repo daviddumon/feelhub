@@ -154,10 +154,10 @@
                         </executions>
                         <configuration>
                             <configFile>
-                                feelhub-web/src/main/webapp/static/js/app.build.js
+                                src/main/webapp/static/js/app.build.js
                             </configFile>
                             <optimizerFile>
-                                feelhub-web/src/main/webapp/static/js/r.js
+                                src/main/webapp/static/js/r.js
                             </optimizerFile>
                             <filterConfig>
                                 false
