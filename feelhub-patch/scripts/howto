@@ -4,4 +4,4 @@ maven clean package -P production
 scp le jar sur un tomcat
 puis java -jar {patcheur}
 
-scp -i ../../../feelhub-documents/aws/certifications/steambeat.pem -P 22 feelhub-patch-0.0.1-SNAPSHOT-jar-with-dependencies.jar ubuntu@ec2-54-224-31-25.compute-1.amazonaws.com:
+scp -i ../../../feelhub-documents/aws/certifications/feelhub.pem -P 22 feelhub-patch-0.0.1-SNAPSHOT-jar-with-dependencies.jar ubuntu@ec2-107-22-105-164.compute-1.amazonaws.com:
