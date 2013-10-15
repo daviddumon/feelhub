@@ -27,13 +27,13 @@ public class ApiTopicsLastFeelingsResource extends ServerResource {
         int limit = 100;
         int skip = 0;
         final Form query = getQuery();
-        if (query.getQueryString().contains("limit")) {
+        if (query != null && query.getQueryString().contains("limit")) {
             limit = Integer.parseInt(query.getFirstValue("limit").trim());
             if (limit > 100) {
                 throw new FeelhubApiException();
             }
         }
-        if (query.getQueryString().contains("skip")) {
+        if (query != null && query.getQueryString().contains("skip")) {
             skip = Integer.parseInt(query.getFirstValue("skip").trim());
         }
         return ModelAndView.createNew("api/topics.json.ftl").with("topicDatas", getTopicDatas(skip, limit));
