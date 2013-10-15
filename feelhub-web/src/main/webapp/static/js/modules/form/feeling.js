@@ -1,12 +1,9 @@
 define(["jquery", "modules/messages"], function ($, messages) {
 
     var container = "#feeling-form";
+    var submitted = false;
 
     function init() {
-        setBehavior();
-    }
-
-    function setBehavior() {
         $(container + " textarea").focus(function () {
             $(this).parent().find(".help-text").hide();
         });
@@ -24,7 +21,10 @@ define(["jquery", "modules/messages"], function ($, messages) {
         $(container + " canvas").click(function (event) {
             event.stopImmediatePropagation();
             event.preventDefault();
-            submit($(this).attr("feeling-value"));
+            if (!submitted) {
+                submitted = true;
+                submit($(this).attr("feeling-value"));
+            }
         });
     }
 
@@ -57,6 +57,7 @@ define(["jquery", "modules/messages"], function ($, messages) {
     function error(jqXHR) {
         if (jqXHR.status == 401) {
             $("#login-button").click();
+            submitted = false;
         }
     }
 

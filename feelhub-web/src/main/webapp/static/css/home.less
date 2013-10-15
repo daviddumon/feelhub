@@ -91,10 +91,52 @@ body {
     #flow {
       width: 612px !important;
 
-
     }
   }
 
+  @media all and (max-width: 612px) {
 
+    #flow {
+      width: 396px !important;
+
+      .flow-element {
+        padding: 12px !important;
+        margin: 12px !important;
+
+        .small-analytics {
+          width: 82px !important;
+
+          #counter {
+            font-size: 19.4px !important;
+            margin-left: 6px !important;
+          }
+
+          canvas {
+            width: 82px !important;
+            height: 82px !important;
+            margin-left: 6px !important;
+          }
+        }
+
+        .topic-element {
+
+          .wrapper {
+
+            img.illustration {
+              width: 266px !important;
+              height: 164px !important;
+            }
+
+            span {
+              font-size: 19.4px !important;
+              min-height: 31.4px !important;
+              max-height: 133px !important;
+              line-height: 1.7 !important;
+            }
+          }
+        }
+      }
+    }
+  }
 
 }

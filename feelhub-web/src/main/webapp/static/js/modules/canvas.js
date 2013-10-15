@@ -14,6 +14,73 @@ define(["jquery"],
             pie(this.id);
         });
 
+        $("html").on("mouseover", "#feeling-value-good", function () {
+            var spread = 0;
+            var canvas = this;
+            var interval = setInterval(function () {
+                spread += 0.005;
+                var context = canvas.getContext("2d");
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                feeling($(canvas).attr("feeling-value"), $(canvas).attr("id"), spread);
+            }, 20);
+            setTimeout(function () {
+                clearInterval(interval);
+            }, 200);
+            $(canvas).show();
+            $(canvas).next(".canvas-help-text").html("like");
+        });
+
+        $("html").on("mouseover", "#feeling-value-neutral", function () {
+            var spread = 0;
+            var canvas = this;
+            var interval = setInterval(function () {
+                spread += 0.005;
+                var context = canvas.getContext("2d");
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                feeling($(canvas).attr("feeling-value"), $(canvas).attr("id"), spread);
+            }, 20);
+            setTimeout(function () {
+                clearInterval(interval);
+            }, 200);
+            $(canvas).next(".canvas-help-text").html("don't care");
+        });
+
+        $("html").on("mouseover", "#feeling-value-bad", function () {
+            var spread = 0;
+            var canvas = this;
+            var interval = setInterval(function () {
+                spread += 0.005;
+                var context = canvas.getContext("2d");
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                feeling($(canvas).attr("feeling-value"), $(canvas).attr("id"), spread);
+            }, 20);
+            setTimeout(function () {
+                clearInterval(interval);
+            }, 200);
+            $(canvas).next(".canvas-help-text").html("dislike");
+        });
+
+        $("html").on("mouseout", "#feeling-value-good", function () {
+            var context = this.getContext("2d");
+            context.clearRect(0, 0, this.width, this.height);
+            feeling($(this).attr("feeling-value"), $(this).attr("id"));
+            $(this).next(".canvas-help-text").html("&nbsp;");
+        });
+
+        $("html").on("mouseout", "#feeling-value-neutral", function () {
+            var context = this.getContext("2d");
+            context.clearRect(0, 0, this.width, this.height);
+            feeling($(this).attr("feeling-value"), $(this).attr("id"));
+            $(this).next(".canvas-help-text").html("&nbsp;");
+        });
+
+        $("html").on("mouseout", "#feeling-value-bad", function () {
+            var context = this.getContext("2d");
+            context.clearRect(0, 0, this.width, this.height);
+            feeling($(this).attr("feeling-value"), $(this).attr("id"));
+            $(this).next(".canvas-help-text").html("&nbsp;");
+        });
+
         var good_color = "#66CC33";
         var neutral_color = "#0033FF";
         var bad_color = "#FF3333";
@@ -22,7 +89,8 @@ define(["jquery"],
         var base_line, left, right, width;
         var width, height, eye_left_x, eye_left_y, eye_right_x, eye_right_y, mouth_left_x, mouth_right_x, mouth_y, thickness;
 
-        function feeling(feelingValue, selector) {
+        function feeling(feelingValue, selector, spread) {
+            spread = typeof spread !== 'undefined' ? spread : 0;
             width = $("#" + selector).width();
             height = $("#" + selector).height();
             $("#" + selector).attr("feeling-value", feelingValue);
@@ -30,8 +98,8 @@ define(["jquery"],
             eye_left_x = width * 0.33;
             eye_right_y = width * 0.33;
             eye_right_x = width * 0.66;
-            mouth_left_x = width * 0.33;
-            mouth_right_x = width * 0.66;
+            mouth_left_x = width * (0.45 - spread);
+            mouth_right_x = width * (0.55 + spread);
             mouth_y = width * 0.66;
             thickness = width / 15;
             var canvas = document.getElementById(selector);
@@ -66,9 +134,9 @@ define(["jquery"],
             function draw_mouth(context, feelingValue) {
                 var curve = 0;
                 if (feelingValue == "good") {
-                    curve = width / 6;
+                    curve = width / 8;
                 } else if (feelingValue == "bad") {
-                    curve = -width / 6;
+                    curve = -width / 8;
                 }
 
                 context.strokeStyle = fill_color;

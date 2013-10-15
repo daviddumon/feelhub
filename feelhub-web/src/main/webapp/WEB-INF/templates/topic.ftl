@@ -63,9 +63,19 @@ var initial_datas = [
     <form id="feeling-form" autocomplete="off" class="topic-element">
         <textarea name="comment"></textarea>
         <span class="help-text">How do you feel about that ?</span>
-        <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>
-        <canvas id="feeling-value-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
-        <canvas id="feeling-value-bad" feeling-value="bad" class="feeling-canvas"></canvas>
+
+        <div class="canvas-button">
+            <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">&nbsp;</div>
+        </div>
+        <div class="canvas-button">
+            <canvas id="feeling-value-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">&nbsp;</div>
+        </div>
+        <div class="canvas-button">
+            <canvas id="feeling-value-bad" feeling-value="bad" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">&nbsp;</div>
+        </div>
     </form>
 
     <#if topicData.uris?? && (topicData.uris?size > 0)>
@@ -78,6 +88,7 @@ var initial_datas = [
     </#if>
 
     <div id="related" class="topic-element">
+        <span class="block-title">more</span>
         <#list relatedDatas as related>
             <a href="${root}/topic/${related.id}">
                 <div class="wrapper">
@@ -94,7 +105,14 @@ var initial_datas = [
 
     <div id="analytics" class="topic-element">
         <canvas id="pie" class="pie-canvas" data-good="${topicData.goodFeelingCount}" data-neutral="${topicData.neutralFeelingCount}" data-bad="${topicData.badFeelingCount}">no feelings</canvas>
-        <span id="counter">${topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount} feelings</span>
+
+        <#if topicData.goodFeelingCount &gt; topicData.badFeelingCount && topicData.goodFeelingCount &gt; topicData.neutralFeelingCount >
+            <span id="counter" class="good">${topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount} feelings</span>
+        <#elseif topicData.badFeelingCount &gt; topicData.goodFeelingCount && topicData.badFeelingCount &gt; topicData.neutralFeelingCount >
+            <span id="counter" class="bad">${topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount} feelings</span>
+        <#else>
+            <span id="counter" class="neutral">${topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount} feelings</span>
+        </#if>
     </div>
 
     <#if feelingDatas?? && (feelingDatas?size > 0)>
