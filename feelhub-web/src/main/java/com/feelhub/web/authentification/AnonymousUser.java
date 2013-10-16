@@ -22,4 +22,9 @@ public class AnonymousUser extends WebUser {
     public FeelhubLanguage getLanguage() {
         return FeelhubLanguage.reference();
     }
+
+    @Override
+    public boolean welcomePanelShow() {
+        return false;
+    }
 }

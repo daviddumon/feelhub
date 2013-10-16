@@ -20,7 +20,6 @@
 <div id="overlay"></div>
     <#include 'elements/login.ftl'/>
     <#include 'elements/signup.ftl'/>
-    <#include 'elements/help.ftl'/>
 <div id="bookmarklet" class="fixed-panel">
     <p>Please wait</p>
     <img id="loading_gif" src="${root}/static/images/ajax-loader-green.gif" border="0" alt="loading"/>

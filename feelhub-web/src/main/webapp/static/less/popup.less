@@ -21,8 +21,9 @@ body {
     text-align: center;
     display: none;
     border: 1.7px solid @white;
+    .rounded();
 
-    #close-button {
+    .top-close-button {
       position: absolute;
       top: 7px;
       right: 7px;
@@ -44,6 +45,26 @@ body {
       background-color: @grey-7;
       color: @grey-5;
       font-size: @font-medium;
+    }
+
+    .popup-bottom {
+      width: 215px;
+      padding-left: 82.2px;
+      padding-right: 82.2px;
+      padding-top: 31.4px;
+      padding-bottom: 31.4px;
+      background-color: @grey-7;
+      color: @grey-5;
+
+      a {
+        color: @grey-5;
+        .font_title;
+        text-decoration: underline;
+
+        &:hover {
+          color: @grey-1 !important;
+        }
+      }
     }
   }
 
@@ -172,67 +193,234 @@ body {
         }
       }
     }
+  }
+
+  #welcome {
+    width: 912px;
+    height: 564px;
+
+    .welcome-item {
+      display: inline-block;
+      padding: 19.4px;
+      width: 300px;
+      vertical-align: top;
+      box-sizing: border-box;
+
+      .welcome-description {
+        width: 100%;
+        min-height: 82.2px;
+        .font_span;
+        color: @grey-5;
+        font-size: @font-medium;
+        margin-top: 50.8px;
+      }
+
+      .welcome-illustration {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    #welcome-1 {
+
+      .welcome-illustration {
+        margin-top: 50.8px;
+
+        .canvas-button {
+          display: inline-block;
+          margin: 12px;
+
+          canvas {
+            width: 50.8px;
+            height: 50.8px;
+          }
+
+          .canvas-help-welcome {
+            .font_title;
+            font-size: 11px;
+            padding: 4px;
+          }
+        }
+      }
+    }
+
+    #welcome-2 {
+      .welcome-illustration {
+        margin-top: 31.4px;
+
+        .wrapper {
+          position: relative;
+          overflow: hidden;
+          width: 215px;
+          margin: 0px auto;
+
+          img.illustration {
+            vertical-align: top;
+            width: 215px;
+            height: 133px;
+          }
+
+          span {
+            position: absolute;
+            display: block;
+            width: 100%;
+            bottom: 0px;
+            left: 0px;
+            background: @grey-4;
+            background: rgba(0, 0, 0, .5);
+            color: @white;
+            overflow: hidden;
+            .font_span();
+            text-align: center;
+            font-size: 12px;
+            min-height: 19.4px;
+            max-height: 31.4px;
+            line-height: 1;
+          }
+        }
+      }
+    }
+
+    #welcome-3 {
+      .welcome-illustration {
+        margin-top: 31.4px;
+
+        canvas {
+          width: 133px;
+          height: 133px;
+        }
+      }
+    }
 
     .popup-bottom {
-      width: 215px;
-      padding-left: 82.2px;
-      padding-right: 82.2px;
+      position: absolute;
+      bottom: 0px;
+      width: 912px;
+      padding: 0px;
       padding-top: 31.4px;
       padding-bottom: 31.4px;
-      background-color: @grey-7;
-      color: @grey-5;
+    }
+  }
 
-      a {
-        color: @grey-5;
-        .font_title;
-        text-decoration: underline;
+  @media all and (max-width: 912px) {
+    #welcome {
+      width: 564px;
+      height: 348px;
 
-        &:hover {
-          color: @grey-1 !important;
+      .popup-title {
+        padding-left: 82.2px;
+        padding-right: 82.2px;
+        padding-top: 19.4px;
+        padding-bottom: 19.4px;
+      }
+
+      .welcome-item {
+        padding: 12px;
+        width: 186px;
+
+        .welcome-description {
+          min-height: 90px;
+          font-size: @font-medium;
+          margin-top: 19.4px;
         }
+
+        .welcome-illustration {
+          margin-top: 19.4px;
+        }
+      }
+
+      #welcome-1 {
+
+        .welcome-illustration {
+
+          .canvas-button {
+            margin: 0px;
+
+            canvas {
+              width: 31.4px;
+              height: 31.4px;
+            }
+
+            .canvas-help-welcome {
+              .font_title;
+              font-size: 11px;
+              padding: 4px;
+            }
+          }
+        }
+      }
+
+      #welcome-2 {
+        .welcome-illustration {
+
+          .wrapper {
+            width: 133px;
+
+            img.illustration {
+              width: 133px;
+              height: 82.2px;
+            }
+
+            span {
+              font-size: 12px;
+              min-height: 19.4px;
+              max-height: 31.4px;
+              line-height: 1;
+            }
+          }
+        }
+      }
+
+      #welcome-3 {
+        .welcome-illustration {
+          canvas {
+            width: 82.2px;
+            height: 82.2px;
+          }
+        }
+      }
+
+      .popup-bottom {
+        width: 564px;
+        padding-top: 19.4px;
+        padding-bottom: 19.4px;
       }
     }
   }
 
-  #help {
-    width: 62%;
-    height: 564px;
-    margin-left: -31%;
+  @media all and (max-width: 564px) {
+    #welcome {
+      width: 348px;
+      height: auto;
 
-    ul#menu {
-      height: 481.8px;
-      width: 38%;
-      background-color: @grey-7;
+      .welcome-item {
+        display: block;
+        width: 348px;
+        margin: 12px auto;
+        border-bottom: 1px solid @grey-1;
 
-      li {
-
-        a {
-          display: block;
-          width: 100%;
-          color: @grey-5;
-          border: 1.7px solid @grey-6;
-          padding-top: 12px;
-          padding-bottom: 12px;
+        .welcome-description {
+          min-height: inherit;
+          font-size: @font-medium;
+          margin: 0px;
+          padding: 0px;
         }
 
-        a.selected {
-          border: 1.7px solid @white;
-          color: @grey-1 !important;
+        .welcome-illustration {
+          margin-top: 19.4px !important;
+        }
+
+      }
+
+      #welcome-3 {
+        .welcome-illustration {
+          margin-bottom: 50.8px;
         }
       }
-    }
 
-    #help-content {
-      position: absolute;
-      bottom: 0px;
-      right: 0px;
-      height: 481.8px;
-      width: 62%;
-
-      div {
-        display: none;
+      .popup-bottom {
+        width: 348px;
       }
-
     }
   }
 }

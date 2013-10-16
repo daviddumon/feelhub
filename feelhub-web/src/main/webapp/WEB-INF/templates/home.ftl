@@ -14,12 +14,12 @@ var initial_datas = [
     <#if topicDatas??>
         <#list topicDatas as data>
         {
-            "id":"${data.id}",
-            "thumbnail":"${data.thumbnail?json_string}",
-            "name":"${data.name?json_string}",
-            "goodFeelingCount":"${data.goodFeelingCount}",
-            "badFeelingCount":"${data.badFeelingCount}",
-            "neutralFeelingCount":"${data.neutralFeelingCount}"
+        "id":"${data.id}",
+        "thumbnail":"${data.thumbnail?json_string}",
+        "name":"${data.name?json_string}",
+        "goodFeelingCount":"${data.goodFeelingCount}",
+        "badFeelingCount":"${data.badFeelingCount}",
+        "neutralFeelingCount":"${data.neutralFeelingCount}"
         }${data_has_next?string(",", "")}
         </#list>
     </#if>
@@ -30,7 +30,13 @@ var initial_datas = [
 <div id="overlay"></div>
     <#include 'elements/login.ftl'/>
     <#include 'elements/signup.ftl'/>
-    <#include 'elements/help.ftl'/>
+
+    <#if userInfos.authenticated>
+        <#if welcomePanelShow??>
+            <#include 'elements/welcome.ftl'/>
+        </#if>
+    </#if>
+
     <#include "elements/header.ftl"/>
 
 <ul id="flow"></ul>

@@ -145,4 +145,11 @@ public class UserTest {
         assertThat(event).isNotNull();
         assertThat(event.user).isEqualTo(user);
     }
+
+    @Test
+    public void newUserNeedToSeeWelcomePanel() {
+        final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "FR_fr");
+
+        assertThat(user.getWelcomePanelShow()).isTrue();
+    }
 }

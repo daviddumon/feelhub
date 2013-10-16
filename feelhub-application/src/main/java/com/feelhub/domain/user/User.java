@@ -106,6 +106,14 @@ public class User extends BaseEntity {
         return Collections.unmodifiableList(socialAuths);
     }
 
+    public boolean getWelcomePanelShow() {
+        return welcomePanelShow;
+    }
+
+    public void setWelcomePanelShow(final boolean welcomePanelShow) {
+        this.welcomePanelShow = welcomePanelShow;
+    }
+
     private final List<SocialAuth> socialAuths = Lists.newArrayList();
     protected String password;
     private String email;
@@ -113,4 +121,5 @@ public class User extends BaseEntity {
     private String languageCode;
     private boolean active = false;
     private final UUID id;
+    private boolean welcomePanelShow = true;
 }

@@ -12,7 +12,6 @@
         <a id="login-button" class="header-button" href="javascript:void(0);">LOGIN</a>
         <a id="signup-button" class="header-button" href="javascript:void(0);">SIGNUP</a>
     </#if>
-        <a id="help-button" class="header-button" href="javascript:void(0);">HELP</a>
     </div>
 
     <div id="header-message">

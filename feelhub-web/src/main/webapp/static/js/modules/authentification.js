@@ -74,7 +74,7 @@ define(["jquery", "modules/messages"], function ($, messages) {
         if (check_signup_form()) {
             $.post(root + "/signup?", $("#signup form").serialize(),function (data, status, jqXHR) {
                 $.post(root + "/sessions?", $("#signup form").serialize(), function (data, status, jqXHR) {
-                    messages.store_message("good", "Welcome to Feelhub!", 5);
+                    messages.store_message("good", "Welcome to Feelhub! We hope you will enjoy it :)", 3);
                     document.location.reload(true);
                 });
             }).error(function (jqXHR) {

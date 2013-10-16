@@ -17,6 +17,7 @@ public class UserMapping extends AggregateMap<User> {
         property(element().getFullname());
         property(element().getLanguageCode());
         property(element().getActive());
+        property(element().getWelcomePanelShow());
         property(element().getCreationDate());
         property(element().getLastModificationDate());
         collection(element().getSocialAuths());
