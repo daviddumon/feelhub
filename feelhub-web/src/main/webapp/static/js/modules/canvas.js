@@ -105,8 +105,8 @@ define(["jquery"],
             function draw_eyes(context) {
                 context.fillStyle = fill_color;
                 context.beginPath();
-                context.arc(eye_left_x, eye_left_y, thickness, 0, 2 * Math.PI, false);
-                context.arc(eye_right_x, eye_right_y, thickness, 0, 2 * Math.PI, false);
+                context.arc(eye_left_x, eye_left_y, thickness + (20 * spread), 0, 2 * Math.PI, false);
+                context.arc(eye_right_x, eye_right_y, thickness + (20 * spread), 0, 2 * Math.PI, false);
                 context.closePath();
                 context.fill();
             }

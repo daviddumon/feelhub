@@ -37,6 +37,12 @@ var initial_datas = [
         </#if>
     </#if>
 
+    <#if userInfos.authenticated>
+        <#if buttonShow??>
+            <#--<#include 'elements/button.ftl'/>-->
+        </#if>
+    </#if>
+
     <#include "elements/header.ftl"/>
 
 <ul id="flow"></ul>

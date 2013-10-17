@@ -27,4 +27,9 @@ public class AnonymousUser extends WebUser {
     public boolean welcomePanelShow() {
         return false;
     }
+
+    @Override
+    public boolean buttonShow() {
+        return false;
+    }
 }

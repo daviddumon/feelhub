@@ -21,10 +21,14 @@ public class HomeResource extends ServerResource {
                 .with("topicDatas", apiTopicsLastFeelingsResource.getTopicDatas(0, 50))
                 .with("locales", FeelhubLanguage.availables())
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
+
         if (CurrentUser.get().welcomePanelShow()) {
             modelAndView.with("welcomePanelShow", true);
             CurrentUser.get().getUser().setWelcomePanelShow(false);
+        } else if (CurrentUser.get().buttonShow()) {
+            modelAndView.with("buttonShow", true);
         }
+
         return modelAndView;
     }
 

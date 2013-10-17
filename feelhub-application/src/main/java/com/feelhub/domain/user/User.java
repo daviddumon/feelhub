@@ -114,6 +114,14 @@ public class User extends BaseEntity {
         this.welcomePanelShow = welcomePanelShow;
     }
 
+    public boolean getButtonShow() {
+        return buttonShow;
+    }
+
+    public void setButtonShow(final boolean buttonShow) {
+        this.buttonShow = buttonShow;
+    }
+
     private final List<SocialAuth> socialAuths = Lists.newArrayList();
     protected String password;
     private String email;
@@ -122,4 +130,5 @@ public class User extends BaseEntity {
     private boolean active = false;
     private final UUID id;
     private boolean welcomePanelShow = true;
+    private boolean buttonShow = true;
 }

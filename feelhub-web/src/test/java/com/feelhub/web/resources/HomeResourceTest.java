@@ -65,6 +65,29 @@ public class HomeResourceTest {
         assertThat(result.size()).isEqualTo(2);
     }
 
+    @Test
+    public void hasWelcomePanelShowInDataForTheFirstView() {
+        final ModelAndView modelAndView = homeResource.represent();
+
+        assertThat(modelAndView.getData("welcomePanelShow")).isNotNull();
+    }
+
+    @Test
+    public void canSetWelcomeShowToFalseAfterFirstView() {
+        homeResource.represent();
+
+        assertThat(CurrentUser.get().getUser().getWelcomePanelShow()).isFalse();
+    }
+
+    @Test
+    public void canSetInstalledButtonInDataIfWelcomePanelHasBeenShown() {
+        CurrentUser.get().getUser().setWelcomePanelShow(false);
+
+        final ModelAndView modelAndView = homeResource.represent();
+
+        assertThat(modelAndView.getData("buttonShow")).isNotNull();
+    }
+
     private HomeResource homeResource;
     private ApiTopicsLastFeelingsResource apiTopicsLastFeelingsResource;
 }

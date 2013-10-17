@@ -42,6 +42,10 @@ public class WebUser {
         return user.getWelcomePanelShow();
     }
 
+    public boolean buttonShow() {
+        return user.getButtonShow();
+    }
+
     private final boolean authenticated;
 
     private final User user;
