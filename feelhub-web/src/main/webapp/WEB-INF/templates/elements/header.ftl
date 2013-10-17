@@ -19,14 +19,28 @@
         Hello ${userInfos.user.fullname} !
     </#if>
     </div>
+
+<#if dev>
+    <a href="javascript: (function () {
+        var jsCode = document.createElement('script');
+        jsCode.setAttribute('src', '${root}/static/js/bookmarklet/bookmarklet-dev.js');
+        document.body.appendChild(jsCode);
+     }());" id="bookmarklet" style="color: #F5F5F5;">button</a>
+<#else>
+    <a href="javascript: (function () {
+            var jsCode = document.createElement('script');
+            jsCode.setAttribute('src', '${root}/static/js/bookmarklet/bookmarklet-prod.js');
+            document.body.appendChild(jsCode);
+     }());" id="bookmarklet" style="color: #F5F5F5;">button</a>
+</#if>
 </header>
 <#--<div id="filters">-->
-    <#--popular-->
-    <#--most liked-->
-    <#--history-->
-    <#--in the air-->
-    <#--facebook-->
-    <#--twitter-->
-    <#--around me-->
-    <#--<div id="filters-button">FILTERS</div>-->
+<#--popular-->
+<#--most liked-->
+<#--history-->
+<#--in the air-->
+<#--facebook-->
+<#--twitter-->
+<#--around me-->
+<#--<div id="filters-button">FILTERS</div>-->
 <#--</div>-->
