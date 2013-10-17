@@ -319,8 +319,12 @@ body {
 
     #step-1 {
 
+      .popup-title {
+        margin-bottom: 12px;
+      }
+
       p {
-        padding: 19.4px;
+        padding: 12px;
         font-size: 19.4px;
         color: @grey-5;
       }
@@ -330,26 +334,44 @@ body {
 
       #step-2-chrome {
 
-        div {
-          vertical-align: top;
-          //display: inline-block;
-          width: 262px;
-          height: 30%;
-          margin: 19.4px;
+        .horizontal-block {
 
-          p {
-            width: 262px;
-            display: inline-block;
-            font-size: 19.4px;
-          }
+          height: 133px;
+          margin-top: 50.8px;
 
           img {
+            vertical-align: bottom;
             display: inline-block;
             width: 262px;
-            //margin-top: 31.4px;
-            //margin-bottom: 31.4px;
+            margin: 19.4px;
+          }
+
+          p {
+            vertical-align: top;
+            display: inline-block;
+            width: 262px;
+            font-size: 19.4px;
+            margin: 19.4px;
+            line-height: 1.4em;
           }
         }
+      }
+    }
+
+    #step-3 {
+
+      #bookmarklet {
+        display: block;
+        width: 215px;
+        padding: 31.4px;
+        background-color: red;
+        font-size: 31.4px;
+      }
+
+      p {
+        padding: 12px;
+        font-size: 19.4px;
+        color: @grey-5;
       }
     }
 
