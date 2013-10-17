@@ -1,4 +1,4 @@
-define(["jquery", "modules/welcome"], function ($, welcome) {
+define(["jquery", "modules/welcome", "modules/bookmarkletinstall"], function ($, welcome, bookmarkletinstall) {
 
     var overlay_container = "#overlay";
     var signup_button = "#signup-button";
@@ -7,12 +7,18 @@ define(["jquery", "modules/welcome"], function ($, welcome) {
     var login_popup = "#login";
     var signup_popup = "#signup";
     var welcome_popup = "#welcome";
+    var bookmarkletinstall_popup = "#bookmarkletinstall";
     var popups = ".popup";
     var canClose = true;
 
-    if($("#welcome").length > 0) {
+    if ($(welcome_popup).length > 0) {
         welcome.init();
         show_popup(welcome_popup);
+    }
+
+    if ($(bookmarkletinstall_popup).length > 0) {
+        bookmarkletinstall.init();
+        show_popup(bookmarkletinstall_popup);
     }
 
     $("body").on("click", close_button, function (event) {

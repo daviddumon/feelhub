@@ -305,6 +305,75 @@ body {
     }
   }
 
+  #bookmarkletinstall {
+    width: 912px;
+    height: 564px;
+
+    .bookmarkletinstall-part {
+      display: none;
+
+      .popup-title {
+        margin-bottom: 31.4px;
+      }
+    }
+
+    #step-1 {
+
+      p {
+        padding: 19.4px;
+        font-size: 19.4px;
+        color: @grey-5;
+      }
+    }
+
+    #step-2 {
+
+      #step-2-chrome {
+
+        div {
+          vertical-align: top;
+          //display: inline-block;
+          width: 262px;
+          height: 30%;
+          margin: 19.4px;
+
+          p {
+            width: 262px;
+            display: inline-block;
+            font-size: 19.4px;
+          }
+
+          img {
+            display: inline-block;
+            width: 262px;
+            //margin-top: 31.4px;
+            //margin-bottom: 31.4px;
+          }
+        }
+      }
+    }
+
+    .popup-bottom {
+      position: absolute;
+      bottom: 0px;
+      width: 912px;
+      padding: 0px;
+      padding-top: 31.4px;
+      padding-bottom: 31.4px;
+
+      .next-button, .close-button {
+        position: absolute;
+        right: 348px;
+      }
+
+      .previous-button {
+        position: absolute;
+        left: 348px;
+      }
+    }
+
+  }
+
   @media all and (max-width: 912px) {
     #welcome {
       width: 564px;
@@ -423,6 +492,7 @@ body {
 
       .popup-bottom {
         width: 348px;
+
       }
     }
   }
