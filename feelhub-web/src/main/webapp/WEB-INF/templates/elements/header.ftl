@@ -25,13 +25,13 @@
         var jsCode = document.createElement('script');
         jsCode.setAttribute('src', '${root}/static/js/bookmarklet/bookmarklet-dev.js');
         document.body.appendChild(jsCode);
-     }());" id="bookmarklet" style="color: #F5F5F5;">button</a>
+     }());" id="bookmarklet" style="color: #F5F5F5;">Feelhub</a>
 <#else>
     <a href="javascript: (function () {
             var jsCode = document.createElement('script');
             jsCode.setAttribute('src', '${root}/static/js/bookmarklet/bookmarklet-prod.js');
             document.body.appendChild(jsCode);
-     }());" id="bookmarklet" style="color: #F5F5F5;">button</a>
+     }());" id="bookmarklet" style="color: #F5F5F5;">Feelhub</a>
 </#if>
 </header>
 <#--<div id="filters">-->
