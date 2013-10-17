@@ -10,6 +10,14 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
 
             data.totalFeelingCount = good + bad + neutral;
 
+            if (data.totalFeelingCount == 0) {
+                data.totalFeelingText = "No feeling";
+            } else if (data.totalFeelingCount == 1) {
+                data.totalFeelingText = "1 feeling";
+            } else {
+                data.totalFeelingText = data.totalFeelingCount + " feelings";
+            }
+
             if(good > bad && good > neutral) {
                 data.counterClass = "good";
             } else if(bad > good && bad > neutral ) {

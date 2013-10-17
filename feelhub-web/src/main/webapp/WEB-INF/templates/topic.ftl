@@ -105,12 +105,13 @@ var initial_datas = [
     <div id="analytics" class="topic-element">
         <canvas id="pie" class="pie-canvas" data-good="${topicData.goodFeelingCount}" data-neutral="${topicData.neutralFeelingCount}" data-bad="${topicData.badFeelingCount}">no feelings</canvas>
 
+        <#assign feelingsCount=topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount>
         <#if topicData.goodFeelingCount &gt; topicData.badFeelingCount && topicData.goodFeelingCount &gt; topicData.neutralFeelingCount >
-            <span id="counter" class="good">${topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount} feelings</span>
+            <span id="counter" class="good"><@feelingsCountText feelingsCount/></span>
         <#elseif topicData.badFeelingCount &gt; topicData.goodFeelingCount && topicData.badFeelingCount &gt; topicData.neutralFeelingCount >
-            <span id="counter" class="bad">${topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount} feelings</span>
+            <span id="counter" class="bad"><@feelingsCountText feelingsCount/></span>
         <#else>
-            <span id="counter" class="neutral">${topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount} feelings</span>
+            <span id="counter" class="neutral"><@feelingsCountText feelingsCount/></span>
         </#if>
     </div>
 
@@ -120,5 +121,7 @@ var initial_datas = [
 </div>
 
 </div>
-
+<#macro feelingsCountText count>
+    <#if count == 0>No feelings<#elseif count == 1>1 feeling<#else>${count} feelings</#if>
+</#macro>
 </@base.body>
