@@ -107,11 +107,11 @@ var initial_datas = [
 
         <#assign feelingsCount=topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount>
         <#if topicData.goodFeelingCount &gt; topicData.badFeelingCount && topicData.goodFeelingCount &gt; topicData.neutralFeelingCount >
-            <span id="counter" class="good"><@feelingsCountText feelingsCount/></span>
+            <@feelingsCounter feelingsCount "good"/>
         <#elseif topicData.badFeelingCount &gt; topicData.goodFeelingCount && topicData.badFeelingCount &gt; topicData.neutralFeelingCount >
-            <span id="counter" class="bad"><@feelingsCountText feelingsCount/></span>
+            <@feelingsCounter feelingsCount "bad"/>
         <#else>
-            <span id="counter" class="neutral"><@feelingsCountText feelingsCount/></span>
+            <@feelingsCounter feelingsCount "neutral"/>
         </#if>
     </div>
 
@@ -121,7 +121,7 @@ var initial_datas = [
 </div>
 
 </div>
-<#macro feelingsCountText count>
-    <#if count == 0>No feelings<#elseif count == 1>1 feeling<#else>${count} feelings</#if>
+<#macro feelingsCounter count class>
+    <span id="counter" class="${class}"><#if count == 0>No feelings<#elseif count == 1>1 feeling<#else>${count} feelings</#if><span>
 </#macro>
 </@base.body>
