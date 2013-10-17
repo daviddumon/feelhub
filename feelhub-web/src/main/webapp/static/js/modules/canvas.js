@@ -163,7 +163,7 @@ define(["jquery"],
 
                 if (goodAngle.start != goodAngle.end) {
                     context.fillStyle = good_color;
-                    context.strokeStyle = "F5F5F5";
+                    context.strokeStyle = "rgb(245,245,245)";
                     context.beginPath();
                     context.moveTo(centerX, centerY);
                     context.arc(centerX, centerY, (canvas.width / 2) - 10, goodAngle.start, goodAngle.end, false);
@@ -174,7 +174,7 @@ define(["jquery"],
 
                 if (neutralAngle.start != neutralAngle.end) {
                     context.fillStyle = neutral_color;
-                    context.strokeStyle = "F5F5F5";
+                    context.strokeStyle = "rgb(245,245,245)";
                     context.beginPath();
                     context.moveTo(centerX, centerY);
                     context.arc(centerX, centerY, (canvas.width / 2) - 10, neutralAngle.start, neutralAngle.end, false);
@@ -185,7 +185,7 @@ define(["jquery"],
 
                 if (badAngle.start != badAngle.end) {
                     context.fillStyle = bad_color;
-                    context.strokeStyle = "F5F5F5";
+                    context.strokeStyle = "rgb(245,245,245)";
                     context.beginPath();
                     context.moveTo(centerX, centerY);
                     context.arc(centerX, centerY, (canvas.width / 2) - 10, badAngle.start, badAngle.end, false);
@@ -194,21 +194,21 @@ define(["jquery"],
                     context.fill();
                 }
 
-                context.fillStyle = "F5F5F5";
+                context.fillStyle = "rgb(245,245,245)";
                 context.beginPath();
                 context.moveTo(centerX, centerY);
                 context.arc(centerX, centerY, canvas.width / 10, 0, 2 * Math.PI, false);
                 context.fill();
             } else {
-                context.fillStyle = "FFFFFF";
-                context.strokeStyle = "FFFFFF";
+                context.fillStyle = "rgb(255,255,255)";
+                context.strokeStyle = "rgb(255,255,255)";
                 context.beginPath();
                 context.moveTo(centerX, centerY);
                 context.arc(centerX, centerY, (canvas.width / 2) - 10, 0, 2 * Math.PI, false);
                 context.stroke();
                 context.fill();
 
-                context.fillStyle = "F5F5F5";
+                context.fillStyle = "rgb(245,245,245)";
                 context.beginPath();
                 context.moveTo(centerX, centerY);
                 context.arc(centerX, centerY, canvas.width / 10, 0, 2 * Math.PI, false);
