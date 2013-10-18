@@ -308,6 +308,7 @@ body {
   #bookmarkletinstall {
     width: 912px;
     height: 564px;
+    overflow: visible;
 
     .bookmarkletinstall-part {
       display: none;
@@ -315,24 +316,84 @@ body {
       .popup-title {
         margin-bottom: 31.4px;
       }
+
+      .bottom-wrapper {
+        width: 100%;
+        position: absolute;
+        bottom: 0px;
+        padding: 19.4px;
+      }
+    }
+
+    .bookmark-help-button {
+      font-size: 12px;
+      text-decoration: none;
+      color: #66BBFF;
+      margin: 31.4px;
+      border-bottom: 1px dashed #66BBFF;
     }
 
     #step-1 {
+      position: relative;
 
-      .popup-title {
-        margin-bottom: 12px;
+      img {
+        position: absolute;
+        left: 82.2px;
+        top: -100px;
+        width: 50.8px;
+
       }
 
-      p {
-        padding: 12px;
-        font-size: 19.4px;
-        color: @grey-5;
+      #top-wrapper {
+        margin: 31.4px;
+
+        #bookmarklet {
+          float: left;
+          display: block;
+          width: 215px;
+          padding: 31.4px;
+          font-size: 19.4px;
+          color: @white;
+          background-color: #66BBFF;
+          .rounded();
+          border: 1px solid @white;
+          opacity: 1;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+
+        p {
+          font-size: 19.4px;
+          color: @grey-5;
+          padding-top: 19.4px;
+          padding-bottom: 19.4px;
+        }
+      }
+
+      iframe {
+        margin: 50.8px auto;
       }
     }
 
     #step-2 {
 
-      #step-2-chrome {
+      p {
+        font-size: 19.4px;
+        color: @grey-5;
+        line-height: 1.2em;
+        margin-top: 19.4px;
+      }
+
+      iframe {
+        margin: 31.4px;
+      }
+    }
+
+    #step-3 {
+
+      #step-3-chrome {
 
         .horizontal-block {
 
@@ -357,63 +418,6 @@ body {
         }
       }
     }
-
-    #step-3 {
-
-      .popup-title {
-        margin-bottom: 12px;
-      }
-
-      p {
-        font-size: 31.4px;
-        color: @grey-5;
-        margin-bottom: 12px;
-      }
-
-      #bookmarklet {
-        display: block;
-        width: 215px;
-        padding: 19.4px;
-        font-size: 19.4px;
-        color: @white;
-        background-color: @neutral;
-        .rounded();
-        margin: 0px auto;
-        margin-bottom: 19.4px;
-      }
-
-    }
-
-    #step-4 {
-
-      p {
-        display: block;
-        font-size: 19.4px;
-        margin: 31.4px;
-        line-height: 1.4em;
-        color: @grey-5;
-      }
-    }
-
-    .popup-bottom {
-      position: absolute;
-      bottom: 0px;
-      width: 912px;
-      padding: 0px;
-      padding-top: 31.4px;
-      padding-bottom: 31.4px;
-
-      .next-button, .close-button {
-        position: absolute;
-        right: 348px;
-      }
-
-      .previous-button {
-        position: absolute;
-        left: 348px;
-      }
-    }
-
   }
 
   @media all and (max-width: 912px) {

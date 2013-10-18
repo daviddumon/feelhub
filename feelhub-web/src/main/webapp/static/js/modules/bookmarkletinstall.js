@@ -6,30 +6,28 @@ define(["jquery"],
         var name = "#bookmarkletinstall";
         var step = 1;
 
-        $("body").on("click", ".previous-button", function () {
+        $("body").on("click", "#bookmark-help-button-1", function () {
             $("#step-" + step).toggle();
-            step--;
+            step = 1;
             $("#step-" + step).toggle();
         });
 
-        $("body").on("click", ".next-button", function () {
+        $("body").on("click", "#bookmark-help-button-2", function () {
             $("#step-" + step).toggle();
-            step++;
+            step = 2;
             $("#step-" + step).toggle();
-            if(step == 3) {
-                playStep3Video();
-            }
         });
 
-        function playStep3Video() {
-
-        }
+        $("body").on("click", "#bookmark-help-button-3", function () {
+            $("#step-" + step).toggle();
+            step = 3;
+            $("#step-" + step).toggle();
+        });
 
         function init() {
             $(name).css("left", $(window).width() / 2 - $(name).width() / 2);
             add_responsive_behavior();
             $("#step-" + step).toggle();
-            $("#video-psZ8bIC1Lpc").trigger("playVideo");
         }
 
         function add_responsive_behavior() {
@@ -49,7 +47,7 @@ define(["jquery"],
             });
 
             function end_of_resize() {
-                $(name).css("top", $(window).height() / 2 - $(name).height() / 2);
+                $(name).css("top", "82px");
                 $(name).css("left", $(window).width() / 2 - $(name).width() / 2);
             }
         }

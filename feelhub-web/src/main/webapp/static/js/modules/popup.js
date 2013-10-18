@@ -19,6 +19,7 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall"], function ($,
     if ($(bookmarkletinstall_popup).length > 0) {
         bookmarkletinstall.init();
         show_popup(bookmarkletinstall_popup);
+        $(bookmarkletinstall_popup).css("top", "82px");
     }
 
     $("body").on("click", close_button, function (event) {
