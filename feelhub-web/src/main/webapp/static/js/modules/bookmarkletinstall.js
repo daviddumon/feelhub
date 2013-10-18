@@ -16,12 +16,20 @@ define(["jquery"],
             $("#step-" + step).toggle();
             step++;
             $("#step-" + step).toggle();
+            if(step == 3) {
+                playStep3Video();
+            }
         });
+
+        function playStep3Video() {
+
+        }
 
         function init() {
             $(name).css("left", $(window).width() / 2 - $(name).width() / 2);
             add_responsive_behavior();
             $("#step-" + step).toggle();
+            $("#video-psZ8bIC1Lpc").trigger("playVideo");
         }
 
         function add_responsive_behavior() {
