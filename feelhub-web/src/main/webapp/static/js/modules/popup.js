@@ -78,7 +78,7 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall"], function ($,
 
     function close_popup() {
         $(overlay_container).hide();
-        $(popups).each(function () {
+        $(popups).each(function (index, popup) {
             if ($(this).is(":visible")) {
                 $(this).hide();
             }

@@ -318,10 +318,12 @@ body {
       }
 
       .bottom-wrapper {
-        width: 100%;
         position: absolute;
         bottom: 0px;
-        padding: 19.4px;
+        padding-top: 31.4px;
+        padding-bottom: 31.4px;
+        width: 912px;
+        background-color: @grey-7;
       }
     }
 
@@ -333,7 +335,7 @@ body {
       border-bottom: 1px dashed #66BBFF;
     }
 
-    #step-1 {
+    #step-1-chrome, #step-1-firefox {
       position: relative;
 
       img {
@@ -341,7 +343,6 @@ body {
         left: 82.2px;
         top: -100px;
         width: 50.8px;
-
       }
 
       #top-wrapper {
@@ -377,7 +378,7 @@ body {
       }
     }
 
-    #step-2 {
+    #step-2-chrome, #step-2-firefox {
 
       p {
         font-size: 19.4px;
@@ -391,30 +392,33 @@ body {
       }
     }
 
-    #step-3 {
+    #step-3-chrome, #step-3-firefox {
 
-      #step-3-chrome {
+      .horizontal-block {
 
-        .horizontal-block {
+        height: 133px;
+        margin-top: 50.8px;
 
-          height: 133px;
-          margin-top: 50.8px;
+        img {
+          vertical-align: bottom;
+          display: inline-block;
+          width: 262px;
+          margin: 19.4px;
+        }
 
-          img {
-            vertical-align: bottom;
-            display: inline-block;
-            width: 262px;
-            margin: 19.4px;
-          }
+        #step-2-firefox-img-1 {
+          width: 41px;
+          padding-left: 110.5px;
+          padding-right: 110.5px;
+        }
 
-          p {
-            vertical-align: top;
-            display: inline-block;
-            width: 262px;
-            font-size: 19.4px;
-            margin: 19.4px;
-            line-height: 1.4em;
-          }
+        p {
+          vertical-align: top;
+          display: inline-block;
+          width: 262px;
+          font-size: 19.4px;
+          margin: 19.4px;
+          line-height: 1.4em;
         }
       }
     }
