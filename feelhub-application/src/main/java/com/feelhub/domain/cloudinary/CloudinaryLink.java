@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.*;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.*;
 import org.json.simple.JSONValue;
 
 import java.io.*;
@@ -42,6 +43,8 @@ public class CloudinaryLink {
 
     private String getResponseData(final Map<String, String> params) throws IOException {
         final HttpClient client = new DefaultHttpClient();
+        client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 30 * 1000);
+        client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 30 * 1000);
         final HttpPost postMethod = new HttpPost(cloudinaryApiUrl());
         setEntityForRequest(params, postMethod);
         final HttpResponse response = client.execute(postMethod);
