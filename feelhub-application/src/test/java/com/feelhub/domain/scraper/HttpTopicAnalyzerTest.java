@@ -10,8 +10,6 @@ import com.feelhub.test.*;
 import com.google.inject.*;
 import org.junit.*;
 
-import java.util.List;
-
 import static org.fest.assertions.Assertions.*;
 
 public class HttpTopicAnalyzerTest {
@@ -99,26 +97,25 @@ public class HttpTopicAnalyzerTest {
     }
 
     @Test
-    public void returnMedias() {
+    public void canSetIllustrationForImage() {
         final String uri = internet.uri("scraper");
-        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Image);
         httpTopic.addUri(new Uri(uri));
 
-        final List<String> medias = httpTopicAnalyzer.analyze(httpTopic.getId());
+        httpTopicAnalyzer.analyze(httpTopic.getId());
 
-        assertThat(medias.size()).isEqualTo(11);
+        assertThat(httpTopic.getThumbnail()).isEqualTo("thumbnail");
     }
 
     @Test
-    public void scrapOnlyWebsites() {
+    public void canSetIllustrationForData() {
         final String uri = internet.uri("scraper");
-        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Data);
         httpTopic.addUri(new Uri(uri));
-        httpTopic.setType(HttpTopicType.Image);
 
-        final List<String> medias = httpTopicAnalyzer.analyze(httpTopic.getId());
+        httpTopicAnalyzer.analyze(httpTopic.getId());
 
-        assertThat(medias.size()).isEqualTo(0);
+        assertThat(httpTopic.getThumbnail()).isEqualTo("thumbnail");
     }
 
     private HttpTopicAnalyzer httpTopicAnalyzer;

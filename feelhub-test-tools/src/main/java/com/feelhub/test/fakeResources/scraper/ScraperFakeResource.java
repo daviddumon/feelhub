@@ -33,11 +33,11 @@ public class ScraperFakeResource extends ServerResource {
                 "<meta property='og:image:height' content = '270' >" +
                 "<meta property='og:image:width' content = '540' >" +
                 "<meta property='og:image:type' content = 'image/jpeg' >" +
-                "<meta property='og:image' content = 'http://s2.lemde.fr/image/2013/01/25/540x270/1822690_3_806d_des-manifestants-vendredi-place-tahrir_16eb8d24bab5c145155fe476c1f0ce46.jpg' >" +
+                "<meta property='og:image' content = 's2.lemde.fr/image/2013/01/25/540x270/1822690_3_806d_des-manifestants-vendredi-place-tahrir_16eb8d24bab5c145155fe476c1f0ce46.jpg' >" +
                 "<meta property='og:image:height' content = '270' >" +
                 "<meta property='og:image:width' content = '540' >" +
                 "<meta property='og:image:type' content = 'image/jpeg' >" +
-                "<meta property='og:image' content = 'http://s1.lemde.fr/image/2013/01/25/540x270/1822689_3_8a6a_un-jeune-manifestant-vendredi-place-tahrir_463393f7fa4747ea1908e251224820e7.jpg' >" +
+                "<meta property='og:image' content = '/image/2013/01/25/540x270/1822689_3_8a6a_un-jeune-manifestant-vendredi-place-tahrir_463393f7fa4747ea1908e251224820e7.jpg' >" +
                 "<meta property='og:image:height' content = '270' >" +
                 "<meta property='og:image:width' content = '540' >" +
                 "<meta property='og:image:type' content = 'image/jpeg' >" +

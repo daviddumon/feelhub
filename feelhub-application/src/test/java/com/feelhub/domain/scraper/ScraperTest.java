@@ -2,6 +2,7 @@ package com.feelhub.domain.scraper;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.HttpTopicType;
+import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.test.FakeInternet;
 import com.google.inject.*;
 import org.junit.*;
@@ -84,6 +85,24 @@ public class ScraperTest {
         final ScrapedInformation scrapedInformation = scraper.scrap(uri);
 
         assertThat(scrapedInformation.getImages().size()).isEqualTo(5);
+    }
+
+    @Test
+    public void canBuildImagesFromRelativeUris() {
+        final String uri = internet.uri("scraper");
+
+        final ScrapedInformation scrapedInformation = scraper.scrap(uri);
+
+        assertThat(scrapedInformation.getImages().get(4)).isEqualTo(new Uri(uri).getCorrectProtocol() + new Uri(uri).getDomain() + "/image/2013/01/25/540x270/1822689_3_8a6a_un-jeune-manifestant-vendredi-place-tahrir_463393f7fa4747ea1908e251224820e7.jpg");
+    }
+
+    @Test
+    public void forceProtocol() {
+        final String uri = internet.uri("scraper");
+
+        final ScrapedInformation scrapedInformation = scraper.scrap(uri);
+
+        assertThat(new Uri(scrapedInformation.getImages().get(3)).hasProtocol()).isTrue();
     }
 
     @Test

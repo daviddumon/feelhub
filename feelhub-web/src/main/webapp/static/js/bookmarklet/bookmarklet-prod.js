@@ -5,9 +5,7 @@
         }
         if (document.location.href != 'about:blank') {
             var url = 'https://www.feelhub.com/bookmarklet?q=' + encodeURIComponent(document.location.href);
-            if (!window.open(url)) {
-                location.href = url;
-            }
+            location.href = url;
         }
     }
     catch (e) {

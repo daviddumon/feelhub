@@ -5,6 +5,7 @@
         }
         if (document.location.href != 'about:blank') {
             var url = 'http://localtest.me:8080/bookmarklet?q=' + encodeURIComponent(document.location.href);
+
             if (!window.open(url)) {
                 location.href = url;
             }

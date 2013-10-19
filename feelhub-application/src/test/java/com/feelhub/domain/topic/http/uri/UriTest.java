@@ -40,7 +40,7 @@ public class UriTest {
 
         final Uri uri = new Uri(value);
 
-        assertThat(uri.getProtocol()).isEqualTo("http://");
+        assertThat(uri.getCorrectProtocol()).isEqualTo("http://");
     }
 
     @Test
@@ -49,7 +49,7 @@ public class UriTest {
 
         final Uri uri = new Uri(value);
 
-        assertThat(uri.getProtocol()).isEqualTo("https://");
+        assertThat(uri.getCorrectProtocol()).isEqualTo("https://");
     }
 
     @Test
@@ -94,7 +94,7 @@ public class UriTest {
 
         final Uri uri = new Uri(value);
 
-        assertThat(uri.getProtocol()).isEqualTo("http://");
+        assertThat(uri.getCorrectProtocol()).isEqualTo("http://");
     }
 
     @Test

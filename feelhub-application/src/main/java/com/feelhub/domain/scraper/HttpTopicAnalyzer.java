@@ -5,13 +5,12 @@ import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.topic.Thumbnail;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.repositories.Repositories;
-import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
 import org.slf4j.*;
 
-import java.util.*;
+import java.util.UUID;
 
 public class HttpTopicAnalyzer {
 
@@ -31,16 +30,19 @@ public class HttpTopicAnalyzer {
         analyze(event.topicId);
     }
 
-    public List<String> analyze(final UUID topicId) {
+    public void analyze(final UUID topicId) {
         final HttpTopic httpTopic = Repositories.topics().getHttpTopic(topicId);
         LOGGER.debug("Analysing topic : {}", httpTopic);
         if (HttpTopicType.Website.equals(httpTopic.getType())) {
-            return scrap(httpTopic);
+            scrap(httpTopic);
+        } else if (HttpTopicType.Data.equals(httpTopic.getType()) || HttpTopicType.Image.equals(httpTopic.getType())) {
+            final Thumbnail thumbnail = getThumbnail(getCanonical(httpTopic));
+            httpTopic.addThumbnail(thumbnail);
+            httpTopic.setThumbnail(thumbnail.getCloudinary());
         }
-        return Lists.newArrayList();
     }
 
-    private List<String> scrap(final HttpTopic httpTopic) {
+    private void scrap(final HttpTopic httpTopic) {
         final ScrapedInformation scrapedInformation = scraper.scrap(getCanonical(httpTopic));
         httpTopic.addDescription(scrapedInformation.getLanguage(), scrapedInformation.getDescription());
         setName(httpTopic, scrapedInformation);
@@ -55,7 +57,6 @@ public class HttpTopicAnalyzer {
             httpTopic.addThumbnail(thumbnail);
             httpTopic.setThumbnail(thumbnail.getCloudinary());
         }
-        return getMedias(scrapedInformation);
     }
 
     private void setName(final HttpTopic httpTopic, final ScrapedInformation scrapedInformation) {
@@ -72,14 +73,6 @@ public class HttpTopicAnalyzer {
         thumbnail.setOrigin(origin);
         thumbnail.setCloudinary(cloudinaryImage);
         return thumbnail;
-    }
-
-    private List<String> getMedias(final ScrapedInformation scrapedInformation) {
-        final List<String> medias = Lists.newArrayList();
-        medias.addAll(scrapedInformation.getImages());
-        medias.addAll(scrapedInformation.getAudios());
-        medias.addAll(scrapedInformation.getImages());
-        return medias;
     }
 
     private String getCanonical(final HttpTopic httpTopic) {

@@ -1,6 +1,7 @@
 package com.feelhub.domain.scraper;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
+import com.feelhub.domain.topic.http.uri.Uri;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -16,7 +17,7 @@ public class Scraper {
         scrapDescription(document, scrapedInformation);
         scrapPersons(document, scrapedInformation);
         scrapName(document, scrapedInformation);
-        scrapImages(document, scrapedInformation);
+        scrapImages(document, scrapedInformation, uri);
         scrapVideos(document, scrapedInformation);
         scrapAudios(document, scrapedInformation);
         return scrapedInformation;
@@ -62,11 +63,18 @@ public class Scraper {
         scrapedInformation.addName(10, jsoupTagExtractor.parse(document, "h3"));
     }
 
-    private void scrapImages(final Document document, final ScrapedInformation scrapedInformation) {
+    private void scrapImages(final Document document, final ScrapedInformation scrapedInformation, final String uriToScrap) {
         final List<String> images = jsoupGroupAttributExtractor.parse(document, "meta[property=og:image]", "content");
         for (final String image : images) {
             if (!image.isEmpty()) {
-                scrapedInformation.addImage(image);
+                final Uri uri = new Uri(image);
+                if (uri.getDomain().isEmpty()) {
+                    final String rootProtocol = new Uri(uriToScrap).getCorrectProtocol();
+                    final String rootDomain = new Uri(uriToScrap).getDomain();
+                    scrapedInformation.addImage(rootProtocol + rootDomain + uri.getDomainAndAddressOnly());
+                } else {
+                    scrapedInformation.addImage(uri.getCorrectProtocol() + uri.getDomainAndAddressOnly());
+                }
             }
         }
     }

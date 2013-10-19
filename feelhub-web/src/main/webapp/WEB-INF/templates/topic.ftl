@@ -50,7 +50,12 @@ var initial_datas = [
     <div id="current-topic" class="topic-element">
     </#if>
     <div class="wrapper">
-        <img src="${topicData.thumbnail}" class="illustration"/>
+        <#if topicData.thumbnail?has_content>
+            <img src="${topicData.thumbnail}" class="illustration"/>
+        <#else>
+            <img src="${root}/static/images/unknown.png" class="illustration"/>
+        </#if>
+
         <span>${topicData.name}</span>
     </div>
     <#if topicData.uris?? && (topicData.uris?size > 0)>

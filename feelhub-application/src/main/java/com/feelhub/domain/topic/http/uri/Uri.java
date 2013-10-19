@@ -35,7 +35,7 @@ public class Uri {
 
     public String getValue() {
         final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getProtocol());
+        stringBuilder.append(getCorrectProtocol());
         stringBuilder.append(getDomain());
         stringBuilder.append(getAddress());
         stringBuilder.append(getQuery());
@@ -83,6 +83,13 @@ public class Uri {
         return stringBuilder.toString();
     }
 
+    public String getDomainAndAddressOnly() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getDomain());
+        stringBuilder.append(getAddress());
+        return stringBuilder.toString();
+    }
+
     protected String getValueWithEndingSlash() {
         return getValue() + "/";
     }
@@ -91,7 +98,7 @@ public class Uri {
         return getValueWithoutProtocol() + "/";
     }
 
-    protected String getProtocol() {
+    public String getCorrectProtocol() {
         final String protocol = extractFromPattern(PROTOCOL_PATTERN).toLowerCase(Locale.US);
         if (!protocol.isEmpty()) {
             return protocol;
@@ -100,7 +107,11 @@ public class Uri {
         }
     }
 
-    protected String getDomain() {
+    public boolean hasProtocol() {
+        return !extractFromPattern(PROTOCOL_PATTERN).toLowerCase(Locale.US).isEmpty();
+    }
+
+    public String getDomain() {
         return extractFromPattern(DOMAIN_PATTERN).toLowerCase(Locale.US);
     }
 

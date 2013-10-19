@@ -22,7 +22,7 @@ public class Cloudinary {
 
     @Subscribe
     @AllowConcurrentEvents
-    public void onMediaCreatedEvent(final ThumbnailCreatedEvent thumbnailCreatedEvent) {
+    public void onThumbnailCreatedEvent(final ThumbnailCreatedEvent thumbnailCreatedEvent) {
         final Topic topic = Repositories.topics().getCurrentTopic(thumbnailCreatedEvent.getTopicId());
         final Thumbnail thumbnail = thumbnailCreatedEvent.getThumbnail();
         final String cloudinaryImage = getCloudinaryImage(thumbnail.getOrigin());
@@ -46,7 +46,7 @@ public class Cloudinary {
     public String getCloudinaryImageForWebsite(final String source) {
         final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
-        params.put("transformation", "w_564,h_348,c_scale,q_75");
+        params.put("transformation", "w_564,h_348,c_fill,g_face,q_75");
         params.put("file", source);
         try {
             return cloudinaryLink.getIllustration(params);

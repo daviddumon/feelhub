@@ -10,7 +10,7 @@
                     var jsCode = document.createElement('script');
                     jsCode.setAttribute('src', '${root}/static/js/bookmarklet/bookmarklet-dev.js');
                     document.body.appendChild(jsCode);
-                 }());" id="bookmarklet">Feelhub</a>
+                 }());" id="bookmarklet">Feelhub dev</a>
         <#else>
             <a href="javascript: (function () {
                         var jsCode = document.createElement('script');
