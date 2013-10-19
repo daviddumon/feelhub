@@ -15,7 +15,6 @@ require(["plugins/domReady!", "jquery", "modules/interface", "modules/canvas", "
 
     function (doc, $, interface, canvas, form, flow) {
         interface.init();
-        authentification.init();
         form.init();
         flow.init();
         canvas.pie("pie");
