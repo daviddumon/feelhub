@@ -157,8 +157,8 @@ public class UserTest {
     public void newUserNeedsToInstallTheButton() {
         final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "FR_fr");
 
-        assertThat(user.getButtonShow()).isTrue();
-        user.setButtonShow(false);
-        assertThat(user.getButtonShow()).isFalse();
+        assertThat(user.getBookmarkletShow()).isTrue();
+        user.setBookmarkletShow(false);
+        assertThat(user.getBookmarkletShow()).isFalse();
     }
 }

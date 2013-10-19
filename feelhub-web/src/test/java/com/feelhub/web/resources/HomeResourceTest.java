@@ -80,12 +80,12 @@ public class HomeResourceTest {
     }
 
     @Test
-    public void canSetInstalledButtonInDataIfWelcomePanelHasBeenShown() {
+    public void canSetInstalledBookmarkletInDataIfWelcomePanelHasBeenShown() {
         CurrentUser.get().getUser().setWelcomePanelShow(false);
 
         final ModelAndView modelAndView = homeResource.represent();
 
-        assertThat(modelAndView.getData("buttonShow")).isNotNull();
+        assertThat(modelAndView.getData("bookmarkletShow")).isNotNull();
     }
 
     private HomeResource homeResource;

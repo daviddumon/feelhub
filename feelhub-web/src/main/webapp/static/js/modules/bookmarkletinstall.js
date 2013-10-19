@@ -52,7 +52,14 @@ define(["jquery"],
             addGoodPlayer();
             $(name).css("left", $(window).width() / 2 - $(name).width() / 2);
             add_responsive_behavior();
-            $("#step-" + step + "." + current_navigator).toggle();
+
+            //if ($(window).width() > 912) {
+                $("#step-" + step + "." + current_navigator).toggle();
+                //$.post(root + "/api/user/bookmarkletshow", "bookmarkletShow=false");
+            //} else {
+            //$("#overlay").hide();
+            //    $(name).hide();
+            //}
         }
 
         function addGoodPlayer() {
@@ -68,7 +75,6 @@ define(["jquery"],
 
             }
         }
-
 
         function add_responsive_behavior() {
 
@@ -87,6 +93,9 @@ define(["jquery"],
             });
 
             function end_of_resize() {
+                if ($(window).width() < 912) {
+                    $(name).hide();
+                }
                 $(name).css("top", "82px");
                 $(name).css("left", $(window).width() / 2 - $(name).width() / 2);
             }

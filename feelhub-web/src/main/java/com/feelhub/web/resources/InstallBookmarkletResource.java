@@ -1,17 +1,16 @@
 package com.feelhub.web.resources;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
-import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.topics.ApiTopicsLastFeelingsResource;
 import com.google.inject.Inject;
 import org.restlet.data.Language;
 import org.restlet.resource.*;
 
-public class HomeResource extends ServerResource {
+public class InstallBookmarkletResource extends ServerResource {
 
     @Inject
-    public HomeResource(final ApiTopicsLastFeelingsResource apiTopicsLastFeelingsResource) {
+    public InstallBookmarkletResource(final ApiTopicsLastFeelingsResource apiTopicsLastFeelingsResource) {
         this.apiTopicsLastFeelingsResource = apiTopicsLastFeelingsResource;
     }
 
@@ -22,13 +21,7 @@ public class HomeResource extends ServerResource {
                 .with("locales", FeelhubLanguage.availables())
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
 
-        if (CurrentUser.get().welcomePanelShow()) {
-            modelAndView.with("welcomePanelShow", true);
-            CurrentUser.get().getUser().setWelcomePanelShow(false);
-        } else if (CurrentUser.get().bookmarkletShow()) {
-            modelAndView.with("bookmarkletShow", true);
-        }
-
+        modelAndView.with("bookmarkletShow", true);
         return modelAndView;
     }
 

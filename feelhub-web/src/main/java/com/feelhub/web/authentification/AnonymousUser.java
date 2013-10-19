@@ -29,7 +29,7 @@ public class AnonymousUser extends WebUser {
     }
 
     @Override
-    public boolean buttonShow() {
+    public boolean bookmarkletShow() {
         return false;
     }
 }

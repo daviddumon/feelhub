@@ -38,8 +38,8 @@ var initial_datas = [
     </#if>
 
     <#if userInfos.authenticated>
-        <#if buttonShow??>
-            <#include 'elements/bookmarkletinstall.ftl'/>
+        <#if bookmarkletShow??>
+            <#--<#include 'elements/bookmarkletinstall.ftl'/>-->
         </#if>
     </#if>
 

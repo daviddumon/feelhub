@@ -49,7 +49,7 @@ public class UserMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(token.get("network")).isEqualTo("FACEBOOK");
         assertThat(token.get("id")).isEqualTo("id");
         assertThat(userFound.get("welcomePanelShow")).isEqualTo(true);
-        assertThat(userFound.get("buttonShow")).isEqualTo(true);
+        assertThat(userFound.get("bookmarkletShow")).isEqualTo(true);
     }
 
     @Test
