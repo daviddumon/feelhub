@@ -1,7 +1,7 @@
 <div id="bookmarkletinstall" class="popup">
     <a class="top-close-button close-button" href="javascript:void(0);">CLOSE</a>
 
-    <div id="step-1" class="bookmarkletinstall-part chrome firefox safari">
+    <div id="step-1" class="bookmarkletinstall-part chrome firefox safari opera">
         <img src="/static/images/bookmarkletinstall/bookmarklet_arrow.png"/>
 
         <div id="top-wrapper">
@@ -26,7 +26,7 @@
 
     </div>
 
-    <div id="step-2" class="bookmarkletinstall-part chrome firefox safari">
+    <div id="step-2" class="bookmarkletinstall-part chrome firefox safari opera">
         <p>A bookmarklet is a button in your bookmarks bar.</p>
 
         <p>It's very simple to use, just click the bookmarklet while you're reading a webpage, and you're on Feelhub!</p>
@@ -88,15 +88,40 @@
 
     <div id="step-3" class="bookmarkletinstall-part safari">
         <div class="popup-title">
-            Activate the Google Chrome Bookmarks bar
+            Activate the Safari Bookmarks bar
         </div>
 
         <div class="horizontal-block">
-            <img id="step-2-firefox-img-1" src="/static/images/bookmarkletinstall/safari-1.jpg"/>
-            <img id="step-2-firefox-img-2" src="/static/images/bookmarkletinstall/safari-2.jpg"/>
+            <img id="step-2-safari-img-1" src="/static/images/bookmarkletinstall/safari-1.jpg"/>
+            <img id="step-2-safari-img-2" src="/static/images/bookmarkletinstall/safari-2.jpg"/>
         </div>
 
         <div class="horizontal-block">
+            <p>Open the view menu.</p>
+
+            <p>Select the menu's item "Show Bookmarks Bar"</p>
+        </div>
+
+        <div class="bottom-wrapper">
+            <a id="bookmark-help-button-1" class="bookmark-help-button" href="javascript:void(0);">Ok, get the bookmarklet</a>
+            <a id="bookmark-help-button-2" class="bookmark-help-button" href="javascript:void(0);">What is a bookmarklet</a>
+        </div>
+    </div>
+
+    <div id="step-3" class="bookmarkletinstall-part opera">
+        <div class="popup-title">
+            Activate the Opera Bookmarks bar
+        </div>
+
+        <div class="horizontal-block">
+            <img id="step-2-opera-img-1" src="/static/images/bookmarkletinstall/opera-1.jpg"/>
+            <img id="step-2-opera-img-2" src="/static/images/bookmarkletinstall/opera-2.jpg"/>
+            <img id="step-2-opera-img-3" src="/static/images/bookmarkletinstall/opera-3.jpg"/>
+        </div>
+
+        <div class="horizontal-block">
+            <p>Open the view menu.</p>
+
             <p>Open the view menu.</p>
 
             <p>Select the menu's item "Show Bookmarks Bar"</p>
