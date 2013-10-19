@@ -1,7 +1,7 @@
 <div id="bookmarkletinstall" class="popup">
     <a class="top-close-button close-button" href="javascript:void(0);">CLOSE</a>
 
-    <div id="step-1" class="bookmarkletinstall-part chrome firefox safari opera">
+    <div id="step-1" class="bookmarkletinstall-part chrome firefox safari opera ie">
         <img src="/static/images/bookmarkletinstall/bookmarklet_arrow.png"/>
 
         <div id="top-wrapper">
@@ -26,7 +26,7 @@
 
     </div>
 
-    <div id="step-2" class="bookmarkletinstall-part chrome firefox safari opera">
+    <div id="step-2" class="bookmarkletinstall-part chrome firefox safari opera ie">
         <p>A bookmarklet is a button in your bookmarks bar.</p>
 
         <p>It's very simple to use, just click the bookmarklet while you're reading a webpage, and you're on Feelhub!</p>
@@ -75,7 +75,7 @@
         </div>
 
         <div class="horizontal-block">
-            <p>Open the bookmarks menu located next to the address bar.</p>
+            <p>Open the bookmarks menu located next to the address bar</p>
 
             <p>Select the menu's item "View Bookmarks Toolbar"</p>
         </div>
@@ -97,7 +97,7 @@
         </div>
 
         <div class="horizontal-block">
-            <p>Open the view menu.</p>
+            <p>Open the view menu</p>
 
             <p>Select the menu's item "Show Bookmarks Bar"</p>
         </div>
@@ -120,11 +120,36 @@
         </div>
 
         <div class="horizontal-block">
-            <p>Open the view menu.</p>
+            <p>Open the view menu</p>
 
-            <p>Open the view menu.</p>
+            <p>Select the menu item "Toolbars"</p>
 
-            <p>Select the menu's item "Show Bookmarks Bar"</p>
+            <p>Select the menu's item "Bookmarks Bar"</p>
+        </div>
+
+        <div class="bottom-wrapper">
+            <a id="bookmark-help-button-1" class="bookmark-help-button" href="javascript:void(0);">Ok, get the bookmarklet</a>
+            <a id="bookmark-help-button-2" class="bookmark-help-button" href="javascript:void(0);">What is a bookmarklet</a>
+        </div>
+    </div>
+
+    <div id="step-3" class="bookmarkletinstall-part ie">
+        <div class="popup-title">
+            Activate the Internet Explorer Bookmarks bar
+        </div>
+
+        <div class="horizontal-block">
+            <img id="step-2-ie-img-1" src="/static/images/bookmarkletinstall/ie-1.jpg"/>
+            <img id="step-2-ie-img-2" src="/static/images/bookmarkletinstall/ie-2.jpg"/>
+            <img id="step-2-ie-img-3" src="/static/images/bookmarkletinstall/ie-3.jpg"/>
+        </div>
+
+        <div class="horizontal-block">
+            <p>Press the "alt" key to show the internet explorer menu bar, and select the "view" menu</p>
+
+            <p>Select the menu's item "Toolbars", and click the option "Favorites bar"</p>
+
+            <p>Internet explorer then draw a warning : click the yes button to add the bookmarklet to the bar</p>
         </div>
 
         <div class="bottom-wrapper">
