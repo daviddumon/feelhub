@@ -141,7 +141,6 @@
         <div class="horizontal-block">
             <img id="step-2-ie-img-1" src="/static/images/bookmarkletinstall/ie-1.jpg"/>
             <img id="step-2-ie-img-2" src="/static/images/bookmarkletinstall/ie-2.jpg"/>
-            <img id="step-2-ie-img-3" src="/static/images/bookmarkletinstall/ie-3.jpg"/>
         </div>
 
         <div class="horizontal-block">
@@ -149,7 +148,6 @@
 
             <p>Select the menu's item "Toolbars", and click the option "Favorites bar"</p>
 
-            <p>Internet explorer then draw a warning : click the yes button to add the bookmarklet to the bar</p>
         </div>
 
         <div class="bottom-wrapper">

@@ -26,8 +26,7 @@ public class HomeResource extends ServerResource {
             modelAndView.with("welcomePanelShow", true);
             CurrentUser.get().getUser().setWelcomePanelShow(false);
         } else if (CurrentUser.get().bookmarkletShow()) {
-            //modelAndView.with("bookmarkletShow", true);
-            modelAndView.with("bookmarkletShow", false);
+            modelAndView.with("bookmarkletShow", true);
         }
 
         return modelAndView;

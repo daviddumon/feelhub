@@ -72,7 +72,7 @@ define(["jquery"],
             } else if (navigator.userAgent.match(/opera/i)) {
                 $("#step-" + step + "." + current_navigator).append("<iframe width='600' height='330' src='//www.youtube.com/embed/RCM-7ct_Oc4?rel=0&autoplay=1&loop=1&playlist=RCM-7ct_Oc4' frameborder='0' allowfullscreen></iframe>");
             } else {
-
+                $("#step-" + step + "." + current_navigator).append("<iframe width='600' height='330' src='//www.youtube.com/embed/031qerbZ0vU?rel=0&autoplay=1&loop=1&playlist=031qerbZ0vU' frameborder='0' allowfullscreen></iframe>");
             }
         }
 
