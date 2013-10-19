@@ -126,7 +126,7 @@ var initial_datas = [
 </div>
 
 </div>
-<#macro feelingsCounter count class>
+    <#macro feelingsCounter count class>
     <span id="counter" class="${class}"><#if count == 0>No feelings<#elseif count == 1>1 feeling<#else>${count} feelings</#if><span>
-</#macro>
+    </#macro>
 </@base.body>

@@ -22,6 +22,6 @@ public class RobotsTxtToStringConverterTest {
 
         final String robots = new RobotsTxtToStringConverter(indexes).toString();
 
-        assertThat(robots).isEqualTo("User-agent: *\n" + "Disallow: /social/facebook\nDisallow: /topics\n" + "Sitemap: toto:8080/sitemap_index_00123.xml\n" + "Sitemap: toto:8080/sitemap_index_00145.xml\n");
+        assertThat(robots).isEqualTo("User-agent: *\n" + "Disallow: /social/facebook\n" + "Sitemap: toto:8080/sitemap_index_00123.xml\n" + "Sitemap: toto:8080/sitemap_index_00145.xml\n");
     }
 }

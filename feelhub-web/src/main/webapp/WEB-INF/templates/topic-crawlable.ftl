@@ -1,100 +1,141 @@
-<@flow.jsprod>
-</@flow.jsprod>
+<@base.head_production>
+<link rel="stylesheet" href="${root}/static/css/topic.css?cache=${buildtime}"/>
+</@base.head_production>
 
-<@flow.jsdev>
-</@flow.jsdev>
+<@base.head_development>
+<link rel="stylesheet/less" type="text/css" href="${root}/static/css/topic.less?cache=${buildtime}"/>
+</@base.head_development>
 
-<@flow.js>
-</@flow.js>
+<@base.js>
+var initial_datas = [
 
-<@flow.dashboard>
-<header>
-    <a id="home_link" href="${root}">Feelhub<span>.com</span></a>
-
-    <form method="get" action="${root}/search" id="search">
-        <input name="q" type="text" autocomplete="off"/>
-    </form>
-    <div id="login_helper">
-    <#if userInfos.authenticated || !userInfos.anonymous>
-        <p>Hello ${userInfos.user.fullname} ! - <a href="javascript:void(0);" class="logout">logout</a></p>
-    </#if>
-    </div>
-</header>
-<div id="dashboard">
-    <ul>
-        <li id="dashboard-name" class="li-border">
-            <div class="topic topic-large topic-center topic-no-cursor"><img src="${topicData.thumbnail}" class="illustration"/><span>${topicData.name}</span></div>
-        </li>
-        <li id="dashboard-sentiment">
-            <div class="holder">
-                <canvas id="canvas-youfeel" width="120" height="120">
-                    <img class="smiley good" src="${root}/static/images/smiley_good_white.png"/>
-                </canvas>
-            </div>
-        </li>
-        <div class="li-title">informations</div>
-        <li id="dashboard-info">
-            <div class="holder"><span class="name">Name : ${topicData.name}</span></div>
-            <div class="holder"><span class="type">Category : ${topicData.type}</span></div>
-            <div class="holder"><span class="description">${topicData.description}</span></div>
-            <div class="holder">
-                <#list topicData.uris as uri>
-                    <img src="${root}/static/images/search-dark.png" class="linkicon"/>
-                    <a href="${uri}" class="uris" rel="nofollow" target="_blank">${uri}</a>
-                </#list>
-            </div>
-            <div class="holder">
-                <#list topicData.subTypes as subtype>
-                    <span class="subtypes">${subtype}</span>
-                </#list>
-            </div>
-        </li>
-        <div class="li-title">related topics</div>
-        <li id="dashboard-related">
-            <#if relatedDatas?has_content>
-                <div class="holder">
-                    <div class="related">
-                        <#list relatedDatas as related>
-                            <a href="${root}/topic/${related.id}" class="topic topic-small topic-inline topic-spacer"><img src="${related.thumbnail}" class="illustration"/><span>${related.name}</span></a>
-                        </#list>
-                    </div>
-                </div>
-            </#if>
-        </li>
-    </ul>
-</div>
-</@flow.dashboard>
-
-<@flow.command classes="with-dashboard">
-    <#include "newfeeling.ftl"/>
-</@flow.command>
-
-<@flow.feelings>
-<div class='flow_list' id='flow_list_0'>
     <#if feelingDatas??>
         <#list feelingDatas as feelingData>
-            <li class="flow-element feeling" id="${feelingData.id}">
-                <#if feelingData.feelingSentimentValue?has_content>
-                    <img src="${root}/static/images/smiley_${feelingData.feelingSentimentValue}_white_14.png" class="img_${feelingData.feelingSentimentValue} feeling_sentiment_illustration"/>
-                <#else>
-                    <div class="feeling_spacer"></div>
-                </#if>
-                <#list feelingData.text as text>
-                    <p>${text?j_string}&nbsp;</p>
-                </#list>
-                <div class="feeling_related" style="">
-                    <#list feelingData.sentimentDatas as sentimentData>
-                        <#if sentimentData.id?has_content>
-                            <a href="${root}/topic/${sentimentData.id}" class="topic topic-float topic-spacer topic-with-sentiment topic-large">
-                                <img src="${root}/static/images/smiley_${sentimentData.sentimentValue}_white_14.png" class="img_${sentimentData.sentimentValue} topic-sentiment"/>
-                                <img src="${sentimentData.thumbnail?j_string}" class="illustration"/>
-                                <span class="${sentimentData.sentimentValue} name">${sentimentData.name?j_string}</span>
-                            </a>
-                        </#if>
-                    </#list>
-                </div>
-            </li>
+        {
+        "feelingid":"${feelingData.id}",
+        "userId":"${feelingData.userId}",
+        "topicId":"${feelingData.topicId}",
+        "text":
+        [
+            <#list feelingData.text as text>
+            "${text?json_string}"
+            ${text_has_next?string(",", "")}
+            </#list>
+        ],
+        "languageCode":"${feelingData.languageCode}",
+        "creationDate":"${feelingData.creationDate}",
+            <#if feelingData.feelingValue?has_content>"feelingValue":"${feelingData.feelingValue}",</#if>
+        }${feelingData_has_next?string(",", "")}
         </#list>
     </#if>
+];
+</@base.js>
+
+<@base.body>
+<div id="overlay"></div>
+    <#include 'elements/login.ftl'/>
+    <#include 'elements/signup.ftl'/>
+    <#include "elements/header.ftl"/>
+
+<div id="topic-container" class="group">
+
+<div class="topic-column">
+
+    <#if topicData.uris?? && (topicData.uris?size > 0)>
+    <a id="current-topic" href="${topicData.uris[0]}" class="topic-element" rel="nofollow" target="_blank">
+    <#else>
+    <div id="current-topic" class="topic-element">
+    </#if>
+    <div class="wrapper">
+        <#if topicData.thumbnail?has_content>
+            <img src="${topicData.thumbnail}" class="illustration"/>
+        <#else>
+            <img src="${root}/static/images/unknown.png" class="illustration"/>
+        </#if>
+
+        <span>${topicData.name}</span>
+    </div>
+    <#if topicData.uris?? && (topicData.uris?size > 0)>
+    </a>
+    <#else>
+    </div>
+    </#if>
+
+    <form id="feeling-form" autocomplete="off" class="topic-element">
+        <textarea name="comment"></textarea>
+        <span class="help-text">How do you feel about that ?</span>
+
+        <div class="canvas-button">
+            <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">&nbsp;</div>
+        </div>
+        <div class="canvas-button">
+            <canvas id="feeling-value-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">&nbsp;</div>
+        </div>
+        <div class="canvas-button">
+            <canvas id="feeling-value-bad" feeling-value="bad" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">&nbsp;</div>
+        </div>
+    </form>
+
+    <#if topicData.uris?? && (topicData.uris?size > 0)>
+        <div id="uris" class="topic-element">
+            <#list topicData.uris as uri>
+                <img src="${root}/static/images/search-dark.png" class="linkicon"/>
+                <a href="${uri}" class="uris" rel="nofollow" target="_blank">${uri}</a>
+            </#list>
+        </div>
+    </#if>
+
+    <div id="related" class="topic-element">
+        <span class="block-title">more</span>
+        <#list relatedDatas as related>
+            <a href="${root}/topic/${related.id}">
+                <div class="wrapper">
+                    <img src="${related.thumbnail}" class="illustration"/>
+                    <span>${related.name}</span>
+                </div>
+            </a>
+        </#list>
+    </div>
+
 </div>
-</@flow.feelings>
+
+<div class="topic-column">
+
+    <div id="analytics" class="topic-element">
+        <canvas id="pie" class="pie-canvas" data-good="${topicData.goodFeelingCount}" data-neutral="${topicData.neutralFeelingCount}" data-bad="${topicData.badFeelingCount}">no feelings</canvas>
+
+        <#assign feelingsCount=topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount>
+        <#if topicData.goodFeelingCount &gt; topicData.badFeelingCount && topicData.goodFeelingCount &gt; topicData.neutralFeelingCount >
+            <@feelingsCounter feelingsCount "good"/>
+        <#elseif topicData.badFeelingCount &gt; topicData.goodFeelingCount && topicData.badFeelingCount &gt; topicData.neutralFeelingCount >
+            <@feelingsCounter feelingsCount "bad"/>
+        <#else>
+            <@feelingsCounter feelingsCount "neutral"/>
+        </#if>
+    </div>
+
+    <#if feelingDatas?? && (feelingDatas?size > 0)>
+        <ul id="feelings" class="topic-element">
+            <#list feelingDatas as feelingData>
+                <div class="feeling" id="${feelingData.id}">
+                    <div>
+                        <canvas id="canvas-${feelingData.id}" class="feeling-canvas"></canvas>
+                    </div>
+                    <p class="date">${feelingData.creationDate}</p>
+                    <#list feelingData.text as text>
+                        <p class="text">${text?json_string}</p>
+                    </#list>
+                </div>
+            </#list>
+        </ul>
+    </#if>
+</div>
+
+</div>
+    <#macro feelingsCounter count class>
+    <span id="counter" class="${class}"><#if count == 0>No feelings<#elseif count == 1>1 feeling<#else>${count} feelings</#if><span>
+    </#macro>
+</@base.body>
