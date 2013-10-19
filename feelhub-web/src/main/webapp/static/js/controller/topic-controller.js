@@ -11,9 +11,9 @@ require.config({
     }
 });
 
-require(["plugins/domReady!", "jquery", "modules/interface", "modules/authentification", "modules/canvas", "modules/form/feeling", "modules/flow-feelings"],
+require(["plugins/domReady!", "jquery", "modules/interface", "modules/canvas", "modules/form/feeling", "modules/flow-feelings"],
 
-    function (doc, $, interface, authentification, canvas, form, flow) {
+    function (doc, $, interface, canvas, form, flow) {
         interface.init();
         authentification.init();
         form.init();

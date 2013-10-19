@@ -1,4 +1,4 @@
-define(["jquery", "modules/welcome", "modules/bookmarkletinstall"], function ($, welcome, bookmarkletinstall) {
+define(["jquery", "modules/welcome", "modules/bookmarkletinstall", "modules/authentification"], function ($, welcome, bookmarkletinstall, authentification) {
 
     var overlay_container = "#overlay";
     var signup_button = "#signup-button";
@@ -10,17 +10,6 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall"], function ($,
     var bookmarkletinstall_popup = "#bookmarkletinstall";
     var popups = ".popup";
     var canClose = true;
-
-    if ($(welcome_popup).length > 0) {
-        welcome.init();
-        show_popup(welcome_popup);
-    }
-
-    if ($(bookmarkletinstall_popup).length > 0) {
-        bookmarkletinstall.init();
-        show_popup(bookmarkletinstall_popup);
-        $(bookmarkletinstall_popup).css("top", "82px");
-    }
 
     $("body").on("click", close_button, function (event) {
         if (canClose) {
@@ -60,6 +49,25 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall"], function ($,
         }
     });
 
+    function init() {
+        authentification.init();
+
+        if ($(welcome_popup).length > 0) {
+            welcome.init();
+            show_popup(welcome_popup);
+        }
+
+        if ($(bookmarkletinstall_popup).length > 0) {
+            bookmarkletinstall.init();
+
+            // vilain hack => la structure des popups est a revoir pour tenir compte de l'affichage special welcome and bookmarklet
+            if ($(bookmarkletinstall_popup).length > 0) {
+                show_popup(bookmarkletinstall_popup);
+                $(bookmarkletinstall_popup).css("top", "82px");
+            }
+        }
+    }
+
     function show_popup(name) {
         close_popup();
         show_overlay();
@@ -83,5 +91,9 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall"], function ($,
                 $(this).hide();
             }
         });
+    }
+
+    return {
+        init: init
     }
 });

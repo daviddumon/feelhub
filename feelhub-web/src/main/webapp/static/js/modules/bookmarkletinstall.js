@@ -38,28 +38,26 @@ define(["jquery"],
         });
 
         function init() {
-            if (navigator.userAgent.match(/chrome/i)) {
-                current_navigator = "chrome";
-            } else if (navigator.userAgent.match(/firefox/i)) {
-                current_navigator = "firefox";
-            } else if (navigator.userAgent.match(/safari/i)) {
-                current_navigator = "safari";
-            } else if (navigator.userAgent.match(/opera/i)) {
-                current_navigator = "opera";
-            } else {
-                current_navigator = "ie";
-            }
-            addGoodPlayer();
-            $(name).css("left", $(window).width() / 2 - $(name).width() / 2);
-            add_responsive_behavior();
-
-            //if ($(window).width() > 912) {
+            if ($(window).width() > 912) {
+                if (navigator.userAgent.match(/chrome/i)) {
+                    current_navigator = "chrome";
+                } else if (navigator.userAgent.match(/firefox/i)) {
+                    current_navigator = "firefox";
+                } else if (navigator.userAgent.match(/safari/i)) {
+                    current_navigator = "safari";
+                } else if (navigator.userAgent.match(/opera/i)) {
+                    current_navigator = "opera";
+                } else {
+                    current_navigator = "ie";
+                }
+                addGoodPlayer();
+                $(name).css("left", $(window).width() / 2 - $(name).width() / 2);
+                add_responsive_behavior();
                 $("#step-" + step + "." + current_navigator).toggle();
-                //$.post(root + "/api/user/bookmarkletshow", "bookmarkletShow=false");
-            //} else {
-            //$("#overlay").hide();
-            //    $(name).hide();
-            //}
+                $.post(root + "/api/user/bookmarkletshow", "bookmarkletShow=false");
+            } else {
+                $(name).remove();
+            }
         }
 
         function addGoodPlayer() {
@@ -93,9 +91,6 @@ define(["jquery"],
             });
 
             function end_of_resize() {
-                if ($(window).width() < 912) {
-                    $(name).hide();
-                }
                 $(name).css("top", "82px");
                 $(name).css("left", $(window).width() / 2 - $(name).width() / 2);
             }

@@ -12,10 +12,9 @@ require.config(
     }
 );
 
-require(["plugins/domReady!", "modules/interface", "modules/authentification", "modules/flow-topics"],
+require(["plugins/domReady!", "modules/interface", "modules/flow-topics"],
 
-    function (doc, interface, authentification, flow, view) {
+    function (doc, interface, flow) {
         interface.init();
-        authentification.init();
         flow.init();
     });

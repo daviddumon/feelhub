@@ -12,10 +12,9 @@ require.config(
     }
 );
 
-require(["plugins/domReady!", "modules/interface", "modules/bookmarklet", "modules/authentification"],
+require(["plugins/domReady!", "modules/interface", "modules/bookmarklet"],
 
-    function (doc, interface, bookmarklet, authentification) {
+    function (doc, interface, bookmarklet) {
         interface.init();
-        authentification.init();
         bookmarklet.search_topic_for();
     });

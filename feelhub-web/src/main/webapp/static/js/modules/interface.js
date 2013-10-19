@@ -5,6 +5,7 @@ define(["jquery", "modules/messages", "modules/popup"], function ($, messages, p
     function init() {
         add_responsive_behavior();
         messages.init();
+        popup.init();
         $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
         $(".fixed-panel").show();
     }
