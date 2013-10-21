@@ -20,6 +20,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, target-densitydpi=device-dpi">
+    <meta name="msvalidate.01" content="1505AA65E054C297AF3500A1B6E571CF" />
 
     <#if !dev>
         <!--[if lt IE 9]>

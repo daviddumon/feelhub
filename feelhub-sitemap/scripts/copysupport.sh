@@ -1,2 +1,2 @@
 #!/bin/sh
-scp -P 22 -i ../../../feelhub-documents/aws/certifications/feelhub.pem ../target/feelhub-sitemap-0.0.1-SNAPSHOT-jar-with-dependencies.jar ubuntu@ec2-54-235-59-50.compute-1.amazonaws.com:~/sitemaps
+scp -P 22 -i ../../../feelhub-documents/aws/certifications/feelhub.pem ../target/feelhub-sitemap-0.0.1-SNAPSHOT-jar-with-dependencies.jar ubuntu@ec2-107-22-105-164.compute-1.amazonaws.com:~/sitemaps
