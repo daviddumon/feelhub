@@ -10,8 +10,8 @@ public class TagMapping extends AggregateMap<Tag> {
     }
 
     @Override
-    protected void map() {
-        id(element().getId()).natural();
-        collection(element().getTopicIds());
+    public void map() {
+        id().onProperty(element().getId()).natural();
+        collection().onProperty(element().getTopicIds());
     }
 }

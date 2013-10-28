@@ -10,8 +10,8 @@ public class ThumbnailMapping extends ComponentMap<Thumbnail> {
     }
 
     @Override
-    protected void map() {
-        property(element().getOrigin());
-        property(element().getCloudinary());
+    public void map() {
+        property().onProperty(element().getOrigin());
+        property().onProperty(element().getCloudinary());
     }
 }

@@ -10,11 +10,11 @@ public class SessionMapping extends AggregateMap<Session> {
     }
 
     @Override
-    protected void map() {
-        id(element().getToken()).natural();
-        property(element().getUserId());
-        property(element().getExpirationDate());
-        property(element().getCreationDate());
-        property(element().getLastModificationDate());
+    public void map() {
+        id().onProperty(element().getToken()).natural();
+        property().onProperty(element().getUserId());
+        property().onProperty(element().getExpirationDate());
+        property().onProperty(element().getCreationDate());
+        property().onProperty(element().getLastModificationDate());
     }
 }

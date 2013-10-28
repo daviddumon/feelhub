@@ -10,10 +10,10 @@ public class AlchemyAnalysisMapping extends AggregateMap<AlchemyAnalysis> {
     }
 
     @Override
-    protected void map() {
-        id(element().getId()).natural();
-        property(element().getTopicId());
-        property(element().getValue());
-        property(element().getLanguageCode());
+    public void map() {
+        id().onProperty(element().getId()).natural();
+        property().onProperty(element().getTopicId());
+        property().onProperty(element().getValue());
+        property().onProperty(element().getLanguageCode());
     }
 }

@@ -15,53 +15,53 @@ public class TopicMapping extends AggregateMap<Topic> {
     }
 
     @Override
-    protected void map() {
-        id(element().getId()).natural();
-        property(element().getCurrentId());
-        property(element().getCreationDate());
-        property(element().getLastModificationDate());
-        property(element().getUserId());
+    public void map() {
+        id().onProperty(element().getId()).natural();
+        property().onProperty(element().getCurrentId());
+        property().onProperty(element().getCreationDate());
+        property().onProperty(element().getLastModificationDate());
+        property().onProperty(element().getUserId());
         map(element().getNames());
         map(element().getDescriptions());
-        collection(element().getSubTypes());
-        collection(element().getUris());
-        property(element().getThumbnail());
-        collection(element().getThumbnails());
-        property(element().getGoodFeelingCount());
-        property(element().getNeutralFeelingCount());
-        property(element().getBadFeelingCount());
-        property(element().getHasFeelings());
+        collection().onProperty(element().getSubTypes());
+        collection().onProperty(element().getUris());
+        property().onProperty(element().getThumbnail());
+        collection().onProperty(element().getThumbnails());
+        property().onProperty(element().getGoodFeelingCount());
+        property().onProperty(element().getNeutralFeelingCount());
+        property().onProperty(element().getBadFeelingCount());
+        property().onProperty(element().getHasFeelings());
 
         subclass(new SubclassMap<RealTopic>(RealTopic.class) {
 
             @Override
-            protected void map() {
-                property(element().getTypeValue());
+            public void map() {
+                property().onProperty(element().getTypeValue());
             }
         });
 
         subclass(new SubclassMap<HttpTopic>(HttpTopic.class) {
 
             @Override
-            protected void map() {
-                property(element().getTypeValue());
-                property(element().getMediaTypeValue());
-                property(element().getOpenGraphType());
+            public void map() {
+                property().onProperty(element().getTypeValue());
+                property().onProperty(element().getMediaTypeValue());
+                property().onProperty(element().getOpenGraphType());
             }
         });
 
         subclass(new SubclassMap<GeoTopic>(GeoTopic.class) {
 
             @Override
-            protected void map() {
-                property(element().getTypeValue());
+            public void map() {
+                property().onProperty(element().getTypeValue());
             }
         });
 
         subclass(new SubclassMap<WorldTopic>(WorldTopic.class) {
 
             @Override
-            protected void map() {
+            public void map() {
 
             }
         });
@@ -69,7 +69,7 @@ public class TopicMapping extends AggregateMap<Topic> {
         subclass(new SubclassMap<FtpTopic>(FtpTopic.class) {
 
             @Override
-            protected void map() {
+            public void map() {
 
             }
         });

@@ -10,8 +10,8 @@ public class TagItemMapping extends ComponentMap<TagItem> {
     }
 
     @Override
-    protected void map() {
-        property(element().getId());
-        property(element().getLanguageCode());
+    public void map() {
+        property().onProperty(element().getId());
+        property().onProperty(element().getLanguageCode());
     }
 }

@@ -10,8 +10,8 @@ public class ActivationMapping extends AggregateMap<Activation> {
     }
 
     @Override
-    protected void map() {
-        id(element().getId()).natural();
-        property(element().getUserId());
+    public void map() {
+        id().onProperty(element().getId()).natural();
+        property().onProperty(element().getUserId());
     }
 }

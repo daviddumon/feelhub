@@ -10,7 +10,7 @@ public class UriMapping extends ComponentMap<Uri> {
     }
 
     @Override
-    protected void map() {
-        property(element().getValue());
+    public void map() {
+        property().onProperty(element().getValue());
     }
 }

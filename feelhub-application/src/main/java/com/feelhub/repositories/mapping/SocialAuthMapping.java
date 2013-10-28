@@ -11,9 +11,9 @@ public class SocialAuthMapping extends ComponentMap<SocialAuth> {
     }
 
     @Override
-    protected void map() {
-        property(element().getToken());
-        property(element().getNetwork());
-        property(element().getId());
+    public void map() {
+        property().onProperty(element().getToken());
+        property().onProperty(element().getNetwork());
+        property().onProperty(element().getId());
     }
 }

@@ -10,13 +10,13 @@ public class StatisticsMapping extends AggregateMap<Statistics> {
     }
 
     @Override
-    protected void map() {
-        id(element().getId()).natural();
-        property(element().getDate());
-        property(element().getTopicId());
-        property(element().getGranularity());
-        property(element().getBad());
-        property(element().getGood());
-        property(element().getNeutral());
+    public void map() {
+        id().onProperty(element().getId()).natural();
+        property().onProperty(element().getDate());
+        property().onProperty(element().getTopicId());
+        property().onProperty(element().getGranularity());
+        property().onProperty(element().getBad());
+        property().onProperty(element().getGood());
+        property().onProperty(element().getNeutral());
     }
 }

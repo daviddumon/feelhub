@@ -10,12 +10,12 @@ public class AdminStatisticMapping extends AggregateMap<AdminStatistic> {
     }
 
     @Override
-    protected void map() {
-        id(element().getId()).natural();
-        property(element().getCreationDate());
-        property(element().getLastModificationDate());
-        property(element().getMonth());
-        property(element().getCount());
-        property(element().getApi());
+    public void map() {
+        id().onProperty(element().getId()).natural();
+        property().onProperty(element().getCreationDate());
+        property().onProperty(element().getLastModificationDate());
+        property().onProperty(element().getMonth());
+        property().onProperty(element().getCount());
+        property().onProperty(element().getApi());
     }
 }

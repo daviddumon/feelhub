@@ -10,12 +10,12 @@ public class RelatedMapping extends AggregateMap<Related> {
     }
 
     @Override
-    protected void map() {
-        id(element().getId()).natural();
-        property(element().getFromId());
-        property(element().getToId());
-        property(element().getWeight());
-        property(element().getCreationDate());
-        property(element().getLastModificationDate());
+    public void map() {
+        id().onProperty(element().getId()).natural();
+        property().onProperty(element().getFromId());
+        property().onProperty(element().getToId());
+        property().onProperty(element().getWeight());
+        property().onProperty(element().getCreationDate());
+        property().onProperty(element().getLastModificationDate());
     }
 }

@@ -19,7 +19,7 @@
     <properties>
         <restlet.version>2.0.15</restlet.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mongolink.version>0.0.15</mongolink.version>
+        <mongolink.version>1.0.0</mongolink.version>
         <buildtime>${maven.build.timestamp}</buildtime>
         <status>ok</status>
         <bingApiKey>d52YJ4iOZ0JO6lqb76xGrwVWpDO5Cyrul/DNWmfN44s=</bingApiKey>
