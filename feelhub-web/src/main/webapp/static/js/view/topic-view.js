@@ -31,7 +31,9 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
             }
 
             var element = template(data);
+
             $(container).append(element);
+
             canvas.pie("pie-" + data.id, {
                 "good": data.goodFeelingCount,
                 "neutral": data.neutralFeelingCount,
