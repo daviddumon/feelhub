@@ -14,17 +14,17 @@ define(["jquery"],
 
         $("html").on("mouseover", "#feeling-value-good", function () {
             animateFeeling(this);
-            $(this).next(".canvas-help-text").html("like");
+            $(this).next(".canvas-help-text").html("I like");
         });
 
         $("html").on("mouseover", "#feeling-value-neutral", function () {
             animateFeeling(this);
-            $(this).next(".canvas-help-text").html("don't care");
+            $(this).next(".canvas-help-text").html("I don't care");
         });
 
         $("html").on("mouseover", "#feeling-value-bad", function () {
             animateFeeling(this);
-            $(this).next(".canvas-help-text").html("dislike");
+            $(this).next(".canvas-help-text").html("I dislike");
         });
 
         function animateFeeling(canvas) {

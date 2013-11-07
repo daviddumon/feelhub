@@ -9,7 +9,7 @@ import com.feelhub.repositories.Repositories;
 
 import java.util.*;
 
-public class CreateFeelingCommand implements Command<UUID> {
+public class CreateFeelingCommand implements Command<Feeling> {
 
     private CreateFeelingCommand(final Builder builder) {
         this.text = builder.text;
@@ -20,10 +20,10 @@ public class CreateFeelingCommand implements Command<UUID> {
     }
 
     @Override
-    public UUID execute() {
+    public Feeling execute() {
         final Feeling feeling = buildFeeling();
         Repositories.feelings().add(feeling);
-        return feeling.getId();
+        return feeling;
     }
 
     private Feeling buildFeeling() {

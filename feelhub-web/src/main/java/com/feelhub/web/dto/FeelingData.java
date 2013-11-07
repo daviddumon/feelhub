@@ -3,6 +3,7 @@ package com.feelhub.web.dto;
 import com.feelhub.domain.feeling.FeelingValue;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
+import org.json.*;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.*;
@@ -112,6 +113,23 @@ public class FeelingData {
 
     public int getForce() {
         return force;
+    }
+
+    public JSONObject getAsJson() {
+        final JSONObject responseObject = new JSONObject();
+        try {
+            responseObject.put("feelingId", this.id);
+            responseObject.put("userId", this.userId);
+            responseObject.put("topicId", this.topicId);
+            responseObject.put("text", this.text);
+            responseObject.put("languageCode", this.languageCode);
+            responseObject.put("force", this.force);
+            responseObject.put("creationDate", this.creationDate);
+            responseObject.put("feelingValue", this.feelingValue);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return responseObject;
     }
 
     private final UUID id;

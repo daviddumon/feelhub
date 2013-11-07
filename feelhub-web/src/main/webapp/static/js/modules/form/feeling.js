@@ -1,4 +1,4 @@
-define(["jquery", "modules/messages"], function ($, messages) {
+define(["jquery", "modules/messages", "view/feeling-view"], function ($, messages, feeling_view) {
 
     var container = "#feeling-form";
     var submitted = false;
@@ -47,15 +47,17 @@ define(["jquery", "modules/messages"], function ($, messages) {
         });
     }
 
-    function success() {
-        setTimeout(function () {
-            messages.store_message("good", "Your feeling has been posted!", 1);
-            document.location.reload(true);
-        }, 1000);
+    function success(data, textStatus, xhr) {
+        $(container + " textarea").val("");
+        $(".help-text").show();
+        feeling_view.prepend(data, "#feelings");
+        messages.draw_message("good", "Your feeling has been posted!", 1);
+        submitted = false;
     }
 
     function error(jqXHR) {
         if (jqXHR.status == 401) {
+            messages.draw_message("bad", "Please log in", 1);
             $("#login-button").click();
             submitted = false;
         }

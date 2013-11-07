@@ -11,6 +11,7 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import com.feelhub.web.WebApplicationTester;
 import com.feelhub.web.authentification.*;
+import com.feelhub.web.dto.FeelingDataFactory;
 import com.feelhub.web.resources.api.FeelhubApiException;
 import com.google.common.util.concurrent.Futures;
 import org.apache.http.auth.AuthenticationException;
@@ -42,14 +43,14 @@ public class ApiCreateFeelingTest {
         CurrentUser.set(new WebUser(fakeActiveUser, true));
         commandBus = mock(CommandBus.class);
         topicService = mock(TopicService.class);
-        apiCreateFeeling = new ApiCreateFeeling(commandBus, topicService);
+        apiCreateFeeling = new ApiCreateFeeling(commandBus, topicService, new FeelingDataFactory());
         topic = TestFactories.topics().newCompleteRealTopic();
         when(topicService.lookUpCurrent(any(UUID.class))).thenReturn(topic);
     }
 
     @Test
     public void postAFeelingRequestEvent() throws AuthenticationException, JSONException {
-        when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
+        when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateCheckedFuture(TestFactories.feelings().goodFeeling()));
         final JSONObject jsonObject = getJson(FeelingValue.good);
 
         apiCreateFeeling.add(jsonObject);

@@ -10,8 +10,6 @@ import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.*;
 
-import java.util.UUID;
-
 import static org.fest.assertions.Assertions.*;
 
 public class CreateFeelingCommandTest {
@@ -26,12 +24,11 @@ public class CreateFeelingCommandTest {
     public void canAddFeeling() {
         final CreateFeelingCommand command = createCommand();
 
-        final UUID feelingId = command.execute();
+        final Feeling feeling = command.execute();
 
         assertThat(Repositories.feelings().getAll().size()).isEqualTo(1);
-        final Feeling feeling = Repositories.feelings().get(feelingId);
         assertThat(feeling).isNotNull();
-        assertThat(feeling.getId()).isEqualTo(feelingId);
+        assertThat(feeling.getId()).isNotNull();
         assertThat(feeling.getText()).isEqualTo(command.text);
         assertThat(feeling.getUserId()).isEqualTo(command.userId);
         assertThat(feeling.getTopicId()).isEqualTo(command.topicId);
@@ -44,10 +41,8 @@ public class CreateFeelingCommandTest {
         final CreateFeelingCommand command = createCommand();
 
         command.execute();
-        final UUID feelingId = command.execute();
+        final Feeling feeling = command.execute();
 
-        final Feeling feeling = Repositories.feelings().get(feelingId);
-        assertThat(feeling).isNotNull();
         assertThat(feeling.getForce()).isEqualTo(2);
     }
 

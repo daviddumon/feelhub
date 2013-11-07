@@ -15,7 +15,7 @@ public class FeelingDataFactory {
         return feelingDatas;
     }
 
-    private FeelingData feelingData(final Feeling feeling) {
+    public FeelingData feelingData(final Feeling feeling) {
         final FeelingData.Builder builder = new FeelingData.Builder();
         builder.id(feeling.getId());
         builder.userId(feeling.getUserId());

@@ -2,6 +2,14 @@ define(["jquery", "plugins/hgn!templates/feeling", "modules/canvas"],
 
     function ($, template, canvas) {
 
+        $("body").on("DOMNodeInserted", "#feelings", function (event) {
+            var last_feeling = event.target;
+            canvas.feeling($(last_feeling).data("value"), "canvas-" + $(last_feeling).attr("id"));
+            if($(last_feeling).is(":hidden")) {
+                $(last_feeling).slideDown(600);
+            }
+        });
+
         var texts_for_feelings = {
             good: [
                 "likes this",
@@ -31,19 +39,28 @@ define(["jquery", "plugins/hgn!templates/feeling", "modules/canvas"],
         }
 
         function render_feeling(data, container) {
+            var element = getElement(data);
+            $(container).append(element);
+        }
 
+        function prepend(data, container) {
+            data.class = "fake";
+            var element = getElement(data);
+            $(container).prepend(element);
+        }
+
+        function getElement(data) {
             if (data.text[0] == "") {
                 var text_values = texts_for_feelings[data.feelingValue];
                 var index = parseInt(data.force) < text_values.length ? parseInt(data.force - 1) : text_values.length - 1;
                 data.notext = "1 person " + text_values[index];
             }
 
-            var element = template(data);
-            $(container).append(element);
-            canvas.feeling(data.feelingValue, "canvas-" + data.feelingid);
+            return template(data);
         }
 
         return {
-            render: render
+            render: render,
+            prepend: prepend
         }
     });
