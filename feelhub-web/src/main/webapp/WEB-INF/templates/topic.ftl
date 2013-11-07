@@ -121,9 +121,7 @@ var initial_datas = [
         </div>
     </form>
 
-    <#if feelingDatas?? && (feelingDatas?size > 0)>
-        <ul id="feelings" class="topic-element"></ul>
-    </#if>
+    <ul id="feelings" class="topic-element"></ul>
 </div>
 
 </div>
