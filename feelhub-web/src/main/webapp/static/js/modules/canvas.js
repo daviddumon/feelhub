@@ -7,8 +7,6 @@ define(["jquery"],
         });
 
         $("html").on("clearanddraw", ".pie-canvas", function () {
-            var context = this.getContext("2d");
-            context.clearRect(0, 0, this.width, this.height);
             pie(this.id);
         });
 
@@ -135,6 +133,7 @@ define(["jquery"],
             canvas.width = $("#" + selector).width();
             canvas.height = $("#" + selector).height();
             var context = canvas.getContext("2d");
+            context.clearRect(0, 0, this.width, this.height);
             centerX = canvas.width / 2;
             centerY = canvas.height / 2;
             context.lineCap = "round";
