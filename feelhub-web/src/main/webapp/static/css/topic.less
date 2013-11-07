@@ -63,6 +63,7 @@ body {
       }
 
       #uris {
+        overflow: hidden;
 
         img {
         }
@@ -163,11 +164,18 @@ body {
             .font_span;
           }
 
-          .text {
+          p {
             .font_text;
-            padding-left: 62px;
-            color: @grey-5;
             margin: 12px;
+          }
+
+          .text {
+            color: @grey-5;
+          }
+
+          .notext {
+            color: @grey-2;
+            font-style: italic;
           }
 
           &:first-child {

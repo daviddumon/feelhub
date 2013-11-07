@@ -12,6 +12,7 @@
     </#list>
 ],
 "languageCode":"${feelingData.languageCode}",
+"force":"${feelingData.force}",
 "creationDate":"${feelingData.creationDate}",
     <#if feelingData.feelingValue?has_content>"feelingValue":"${feelingData.feelingValue}"</#if>
 }${feelingData_has_next?string(",", "")}

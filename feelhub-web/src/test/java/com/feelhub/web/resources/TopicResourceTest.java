@@ -145,7 +145,7 @@ public class TopicResourceTest {
 
         final ModelAndView modelAndView = topicResource.getTopic();
 
-        verify(apiFeelingSearch).doSearch(any(Topic.class), any(Form.class));
+        verify(apiFeelingSearch).doSearchForATopic(any(Topic.class), any(Form.class));
     }
 
     @Test
@@ -163,7 +163,7 @@ public class TopicResourceTest {
         final List<FeelingData> initialDatas = Lists.newArrayList();
         initialDatas.add(new FeelingData.Builder().build());
         initialDatas.add(new FeelingData.Builder().build());
-        when(apiFeelingSearch.doSearch(any(Topic.class), any(Form.class))).thenReturn(initialDatas);
+        when(apiFeelingSearch.doSearchForATopic(any(Topic.class), any(Form.class))).thenReturn(initialDatas);
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
 

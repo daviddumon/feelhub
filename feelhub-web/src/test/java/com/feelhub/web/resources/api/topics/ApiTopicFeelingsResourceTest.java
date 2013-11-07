@@ -95,7 +95,7 @@ public class ApiTopicFeelingsResourceTest {
     public void returnFeelingDatas() throws IOException, JSONException {
         final List<FeelingData> feelingDatas = Lists.newArrayList();
         feelingDatas.add(new FeelingData.Builder().build());
-        when(apiFeelingSearch.doSearch(any(Topic.class), any(Form.class))).thenReturn(feelingDatas);
+        when(apiFeelingSearch.doSearchForATopic(any(Topic.class), any(Form.class))).thenReturn(feelingDatas);
         when(topicService.lookUpCurrent(any(UUID.class))).thenReturn(TestFactories.topics().newCompleteRealTopic());
         apiTopicFeelingsResource.setResponse(new Response(new Request()));
         ContextTestFactory.initResource(apiTopicFeelingsResource);

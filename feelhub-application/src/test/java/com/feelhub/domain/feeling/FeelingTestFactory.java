@@ -60,6 +60,15 @@ public class FeelingTestFactory {
         return feeling;
     }
 
+    public Feeling feelingWithAnUserATopicAndAFeelingValue(final User user, final Topic topic, final FeelingValue feelingValue) {
+        final Feeling feeling = new Feeling(user.getId(), topic.getCurrentId());
+        feeling.setText("text");
+        feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
+        feeling.setFeelingValue(feelingValue);
+        Repositories.feelings().add(feeling);
+        return feeling;
+    }
+
     public Feeling goodFeeling() {
         return feelingWithFeelingValue(FeelingValue.good);
     }

@@ -105,7 +105,7 @@ public class TopicResource extends ServerResource {
         if (templateName.equalsIgnoreCase("topic.ftl")) {
             parameters.add("limit", "50");
         }
-        return apiFeelingSearch.doSearch(topic, parameters);
+        return apiFeelingSearch.doSearchForATopic(topic, parameters);
     }
 
     private final TopicService topicService;

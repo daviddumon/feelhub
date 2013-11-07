@@ -83,6 +83,22 @@ public class FeelingTest {
         assertThat(feeling.getRelatedTopics().size()).isEqualTo(1);
     }
 
+    @Test
+    public void aFeelingHasAForce() {
+        final Feeling feeling = createAFeeling();
+
+        assertThat(feeling.getForce()).isEqualTo(1);
+    }
+
+    @Test
+    public void canSetForce() {
+        final Feeling feeling = createAFeeling();
+
+        feeling.setForce(2);
+
+        assertThat(feeling.getForce()).isEqualTo(2);
+    }
+
     private Feeling createAFeeling() {
         return new Feeling(user.getId(), realTopic.getId());
     }

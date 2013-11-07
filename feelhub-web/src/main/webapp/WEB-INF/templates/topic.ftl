@@ -26,6 +26,7 @@ var initial_datas = [
             </#list>
         ],
         "languageCode":"${feelingData.languageCode}",
+        "force":"${feelingData.force}",
         "creationDate":"${feelingData.creationDate}",
             <#if feelingData.feelingValue?has_content>"feelingValue":"${feelingData.feelingValue}",</#if>
         }${feelingData_has_next?string(",", "")}
@@ -64,23 +65,18 @@ var initial_datas = [
     </div>
     </#if>
 
-    <form id="feeling-form" autocomplete="off" class="topic-element">
-        <textarea name="comment"></textarea>
-        <span class="help-text">How do you feel about that ?</span>
+    <div id="analytics" class="topic-element">
+        <canvas id="pie" class="pie-canvas" data-good="${topicData.goodFeelingCount}" data-neutral="${topicData.neutralFeelingCount}" data-bad="${topicData.badFeelingCount}">no feelings</canvas>
 
-        <div class="canvas-button">
-            <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>
-            <div class="canvas-help-text">&nbsp;</div>
-        </div>
-        <div class="canvas-button">
-            <canvas id="feeling-value-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
-            <div class="canvas-help-text">&nbsp;</div>
-        </div>
-        <div class="canvas-button">
-            <canvas id="feeling-value-bad" feeling-value="bad" class="feeling-canvas"></canvas>
-            <div class="canvas-help-text">&nbsp;</div>
-        </div>
-    </form>
+        <#assign feelingsCount=topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount>
+        <#if topicData.goodFeelingCount &gt; topicData.badFeelingCount && topicData.goodFeelingCount &gt; topicData.neutralFeelingCount >
+            <@feelingsCounter feelingsCount "good"/>
+        <#elseif topicData.badFeelingCount &gt; topicData.goodFeelingCount && topicData.badFeelingCount &gt; topicData.neutralFeelingCount >
+            <@feelingsCounter feelingsCount "bad"/>
+        <#else>
+            <@feelingsCounter feelingsCount "neutral"/>
+        </#if>
+    </div>
 
     <#if topicData.uris?? && (topicData.uris?size > 0)>
         <div id="uris" class="topic-element">
@@ -107,18 +103,23 @@ var initial_datas = [
 
 <div class="topic-column">
 
-    <div id="analytics" class="topic-element">
-        <canvas id="pie" class="pie-canvas" data-good="${topicData.goodFeelingCount}" data-neutral="${topicData.neutralFeelingCount}" data-bad="${topicData.badFeelingCount}">no feelings</canvas>
+    <form id="feeling-form" autocomplete="off" class="topic-element">
+        <textarea name="comment"></textarea>
+        <span class="help-text">How do you feel about that ?</span>
 
-        <#assign feelingsCount=topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount>
-        <#if topicData.goodFeelingCount &gt; topicData.badFeelingCount && topicData.goodFeelingCount &gt; topicData.neutralFeelingCount >
-            <@feelingsCounter feelingsCount "good"/>
-        <#elseif topicData.badFeelingCount &gt; topicData.goodFeelingCount && topicData.badFeelingCount &gt; topicData.neutralFeelingCount >
-            <@feelingsCounter feelingsCount "bad"/>
-        <#else>
-            <@feelingsCounter feelingsCount "neutral"/>
-        </#if>
-    </div>
+        <div class="canvas-button">
+            <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">&nbsp;</div>
+        </div>
+        <div class="canvas-button">
+            <canvas id="feeling-value-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">&nbsp;</div>
+        </div>
+        <div class="canvas-button">
+            <canvas id="feeling-value-bad" feeling-value="bad" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">&nbsp;</div>
+        </div>
+    </form>
 
     <#if feelingDatas?? && (feelingDatas?size > 0)>
         <ul id="feelings" class="topic-element"></ul>

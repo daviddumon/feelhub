@@ -39,6 +39,18 @@ public class CreateFeelingCommandTest {
         assertThat(feeling.getLanguageCode()).isEqualTo(command.language.getCode());
     }
 
+    @Test
+    public void canComputeForce() {
+        final CreateFeelingCommand command = createCommand();
+
+        command.execute();
+        final UUID feelingId = command.execute();
+
+        final Feeling feeling = Repositories.feelings().get(feelingId);
+        assertThat(feeling).isNotNull();
+        assertThat(feeling.getForce()).isEqualTo(2);
+    }
+
     private CreateFeelingCommand createCommand() {
         final User user = TestFactories.users().createFakeActiveUser("feeling@mail.com");
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();

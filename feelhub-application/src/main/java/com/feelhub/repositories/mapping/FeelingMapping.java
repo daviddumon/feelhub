@@ -17,6 +17,7 @@ public class FeelingMapping extends AggregateMap<Feeling> {
         property().onProperty(element().getFeelingValue());
         property().onProperty(element().getText());
         property().onProperty(element().getLanguageCode());
+        property().onProperty(element().getForce());
         property().onProperty(element().getCreationDate());
         property().onProperty(element().getLastModificationDate());
     }

@@ -3,6 +3,7 @@ package com.feelhub.domain.feeling;
 import com.feelhub.domain.BaseEntity;
 import com.google.common.collect.Lists;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class Feeling extends BaseEntity {
@@ -66,6 +67,14 @@ public class Feeling extends BaseEntity {
         return this.relatedTopics;
     }
 
+    public int getForce() {
+        return force;
+    }
+
+    public void setForce(final int force) {
+        this.force = force;
+    }
+
     private UUID id;
     private String text;
     private String languageCode;
@@ -73,4 +82,5 @@ public class Feeling extends BaseEntity {
     private UUID topicId;
     private FeelingValue feelingValue;
     private final List<UUID> relatedTopics = Lists.newArrayList();
+    private int force = 1;
 }

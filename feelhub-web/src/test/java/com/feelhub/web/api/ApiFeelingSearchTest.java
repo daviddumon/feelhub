@@ -34,7 +34,7 @@ public class ApiFeelingSearchTest {
         TestFactories.feelings().feelingWithUser(user.getId());
         TestFactories.feelings().newFeeling();
 
-        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(new Form(), user);
+        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearchForAnUser(new Form(), user);
 
         assertThat(feelingDatas.size()).isEqualTo(2);
     }
@@ -47,7 +47,7 @@ public class ApiFeelingSearchTest {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         TestFactories.feelings().newFeeling(realTopic.getId(), "text");
 
-        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(realTopic, parameters);
+        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearchForATopic(realTopic, parameters);
 
         assertThat(feelingDatas.size()).isEqualTo(1);
     }
@@ -59,7 +59,7 @@ public class ApiFeelingSearchTest {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         TestFactories.feelings().newFeelings(realTopic.getId(), 150);
 
-        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(realTopic, parameters);
+        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearchForATopic(realTopic, parameters);
 
         assertThat(feelingDatas.size()).isEqualTo(100);
     }
@@ -71,7 +71,7 @@ public class ApiFeelingSearchTest {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
         TestFactories.feelings().newFeelings(realTopic.getId(), 100);
 
-        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(realTopic, parameters);
+        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearchForATopic(realTopic, parameters);
 
         assertThat(feelingDatas.get(0).getText().toString()).isEqualTo("[i0]");
     }
@@ -86,7 +86,7 @@ public class ApiFeelingSearchTest {
         TestFactories.feelings().newFeeling(realTopic.getId(), "text");
         TestFactories.feelings().newFeeling(realTopic.getId(), "text");
 
-        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(realTopic, parameters);
+        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearchForATopic(realTopic, parameters);
 
         assertThat(feelingDatas.size()).isEqualTo(3);
     }
@@ -100,7 +100,7 @@ public class ApiFeelingSearchTest {
         TestFactories.feelings().newFeeling(realTopic.getId(), "text");
         TestFactories.feelings().newFeeling(realTopic.getId(), "text");
 
-        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(realTopic, parameters);
+        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearchForATopic(realTopic, parameters);
 
         assertThat(feelingDatas.size()).isEqualTo(2);
     }
@@ -112,7 +112,7 @@ public class ApiFeelingSearchTest {
         TestFactories.feelings().newFeelings(realTopic.getId(), 10);
         TestFactories.feelings().newFeelings(10);
 
-        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(realTopic, new Form());
+        final List<FeelingData> feelingDatas = apiFeelingSearch.doSearchForATopic(realTopic, new Form());
 
         assertThat(feelingDatas.size()).isEqualTo(10);
     }

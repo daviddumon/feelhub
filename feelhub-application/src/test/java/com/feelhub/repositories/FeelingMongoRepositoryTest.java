@@ -41,6 +41,7 @@ public class FeelingMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(feelingFound.get("userId")).isEqualTo(user.getId());
         assertThat(feelingFound.get("topicId")).isEqualTo(topic.getId());
         assertThat(feelingFound.get("feelingValue")).isEqualTo(feeling.getFeelingValue().toString());
+        assertThat(feelingFound.get("force")).isEqualTo(feeling.getForce());
     }
 
     @Test
@@ -75,6 +76,22 @@ public class FeelingMongoRepositoryTest extends TestWithMongoRepository {
         final List<Feeling> feelings = Repositories.feelings().forTopicId(realTopic1.getId());
 
         assertThat(feelings.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void canGetAllFeelingsForATopicAnUserAndAFeelingValue() {
+        final RealTopic realTopicA = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic realTopicB = TestFactories.topics().newCompleteRealTopic();
+        final User userA = TestFactories.users().createFakeActiveUser("mail@mail.com");
+        final User userB = TestFactories.users().createFakeActiveUser("mail2@mail.com");
+        final Feeling feeling1 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userA, realTopicA, FeelingValue.bad);
+        final Feeling feeling2 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userA, realTopicA, FeelingValue.good);
+        final Feeling feeling3 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userB, realTopicA, FeelingValue.bad);
+        final Feeling feeling4 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userA, realTopicB, FeelingValue.bad);
+
+        final List<Feeling> feelings = Repositories.feelings().forTopicIdUserIdAndFeelingValue(realTopicA.getId(), userA.getId(), FeelingValue.bad);
+
+        assertThat(feelings.size()).isEqualTo(1);
     }
 
     private Feeling createAFeeling() {

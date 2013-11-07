@@ -23,7 +23,7 @@ public class ApiTopicFeelingsResource extends ServerResource {
     @Get
     public ModelAndView getFeelings() {
         try {
-            final List<FeelingData> feelingDatas = apiFeelingSearch.doSearch(extractTopic(), getQuery());
+            final List<FeelingData> feelingDatas = apiFeelingSearch.doSearchForATopic(extractTopic(), getQuery());
             return ModelAndView.createNew("api/feelings.json.ftl", MediaType.APPLICATION_JSON).with("feelingDatas", feelingDatas);
         } catch (TopicNotFound e) {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);

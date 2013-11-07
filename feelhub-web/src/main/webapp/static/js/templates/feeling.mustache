@@ -3,7 +3,12 @@
 <canvas id="canvas-{{feelingid}}" class="feeling-canvas"></canvas>
 </div>
 <p class="date">{{creationDate}}</p>
+{{#notext}}
+<p class="notext">{{notext}}</p>
+{{/notext}}
+{{^notext}}
 {{#text}}
 <p class="text">{{.}}</p>
 {{/text}}
+{{/notext}}
 </div>

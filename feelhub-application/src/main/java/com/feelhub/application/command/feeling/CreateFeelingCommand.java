@@ -7,7 +7,7 @@ import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.Repositories;
 
-import java.util.UUID;
+import java.util.*;
 
 public class CreateFeelingCommand implements Command<UUID> {
 
@@ -31,6 +31,8 @@ public class CreateFeelingCommand implements Command<UUID> {
         feeling.setFeelingValue(feelingValue);
         feeling.setText(text);
         feeling.setLanguageCode(language.getCode());
+        final List<Feeling> feelings = Repositories.feelings().forTopicIdUserIdAndFeelingValue(topicId, userId, feelingValue);
+        feeling.setForce(feelings.size() + 1);
         return feeling;
     }
 

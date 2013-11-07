@@ -88,6 +88,20 @@ public class FeelingDataTest {
     }
 
     @Test
+    public void hasAForce() {
+        final FeelingData feelingData = new FeelingData.Builder().force(3).build();
+
+        assertThat(feelingData.getForce()).isEqualTo(3);
+    }
+
+    @Test
+    public void forceDefaultValueIsOne() {
+        final FeelingData feelingData = new FeelingData.Builder().build();
+
+        assertThat(feelingData.getForce()).isEqualTo(1);
+    }
+
+    @Test
     @Ignore("impossible de passer sur la CI parce que l'execution est trop lente, et pas possible de fake l'appel system date")
     public void canGetCorrectDate() {
         final DateTime creationDate = time.getNow();

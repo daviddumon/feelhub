@@ -20,14 +20,13 @@ public class ApiFeelingSearch {
         this.feelingDataFactory = feelingDataFactory;
     }
 
-    public List<FeelingData> doSearch(final Topic topic, final Form query) {
+    public List<FeelingData> doSearchForATopic(final Topic topic, final Form query) {
         feelingSearch.withTopicId(topic.getId());
-        feelingSearch.ignoreEmptyFeelings();
         final List<Feeling> feelings = doSearchWithQueryParameters(query);
         return feelingDataFactory.feelingDatas(feelings);
     }
 
-    public List<FeelingData> doSearch(final Form query, final User user) {
+    public List<FeelingData> doSearchForAnUser(final Form query, final User user) {
         feelingSearch.withUserId(user.getId());
         return doSearch(query);
     }

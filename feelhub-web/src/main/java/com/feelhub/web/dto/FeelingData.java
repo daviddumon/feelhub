@@ -50,6 +50,11 @@ public class FeelingData {
             return this;
         }
 
+        public Builder force(final int force) {
+            this.force = force;
+            return this;
+        }
+
         private UUID id;
 
         private UUID userId;
@@ -58,6 +63,7 @@ public class FeelingData {
         private String languageCode = "";
         private FeelingValue feelingValue;
         private DateTime creationDate = new DateTime();
+        private int force = 1;
     }
 
     private FeelingData(final Builder builder) {
@@ -68,6 +74,7 @@ public class FeelingData {
         this.topicId = builder.topicId;
         this.feelingValue = builder.feelingValue;
         this.creationDate = getIntervalFrom(builder.creationDate);
+        this.force = builder.force;
     }
 
     private String getIntervalFrom(final DateTime creationDate) {
@@ -103,6 +110,10 @@ public class FeelingData {
         return languageCode;
     }
 
+    public int getForce() {
+        return force;
+    }
+
     private final UUID id;
     private final UUID userId;
     private final UUID topicId;
@@ -110,4 +121,5 @@ public class FeelingData {
     private final List<String> text;
     private final String languageCode;
     private final String creationDate;
+    private final int force;
 }
