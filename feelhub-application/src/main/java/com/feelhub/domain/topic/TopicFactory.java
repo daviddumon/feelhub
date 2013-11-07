@@ -29,13 +29,13 @@ public class TopicFactory {
         final HttpTopic httpTopic = new HttpTopic(UUID.randomUUID());
         httpTopic.setUserId(userId);
         fillHttpTopicDatas(resolverResult, httpTopic);
+        DomainEventBus.INSTANCE.post(new HttpTopicCreatedEvent(httpTopic.getId(), resolverResult));
         return httpTopic;
     }
 
     private void fillHttpTopicDatas(final ResolverResult resolverResult, final HttpTopic httpTopic) {
         httpTopic.setMediaType(resolverResult.getMediaType());
         httpTopic.addUri(getCanonical(resolverResult));
-        DomainEventBus.INSTANCE.post(new HttpTopicCreatedEvent(httpTopic.getId(), resolverResult));
     }
 
     private Uri getCanonical(final ResolverResult resolverResult) {

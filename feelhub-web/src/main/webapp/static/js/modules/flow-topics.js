@@ -15,9 +15,9 @@ define(["jquery", "view/topic-view"], function ($, view) {
     }
 
     function render_initial_datas() {
-        $.each(initial_datas, function (index, data) {
-            view.render(data, container);
-        });
+        var time = new Date();
+        view.render_multiple(initial_datas, container);
+        console.log(new Date() - time);
         if (initial_datas.length != limit) {
             hasData = false;
         }
@@ -36,9 +36,7 @@ define(["jquery", "view/topic-view"], function ($, view) {
 
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {
-                    $.each(data, function (index, data) {
-                        view.render(data, container);
-                    });
+                    view.render_multiple(data, container);
 
                     if (data.length != limit) {
                         hasData = false;
