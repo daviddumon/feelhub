@@ -15,7 +15,7 @@ var initial_datas = [
     <#if feelingDatas??>
         <#list feelingDatas as feelingData>
         {
-        "feelingid":"${feelingData.id}",
+        "feelingId":"${feelingData.id}",
         "userId":"${feelingData.userId}",
         "topicId":"${feelingData.topicId}",
         "text":

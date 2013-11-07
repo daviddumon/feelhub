@@ -21,6 +21,8 @@ define(["jquery", "modules/messages", "view/feeling-view"], function ($, message
         $(container + " canvas").click(function (event) {
             event.stopImmediatePropagation();
             event.preventDefault();
+            $(this).css("opacity", 0);
+            $(this).animate({opacity: 1}, 1000);
             if (!submitted) {
                 submitted = true;
                 submit($(this).attr("feeling-value"));
