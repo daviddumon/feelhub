@@ -6,7 +6,9 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.test.*;
 import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
+import com.feelhub.web.guice.GuiceTestModule;
 import com.feelhub.web.tools.CookieManager;
+import com.google.inject.*;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import org.restlet.data.*;
@@ -29,7 +31,14 @@ public class SessionsResourceTest {
     @Before
     public void avant() {
         authenticationManager = mock(AuthenticationManager.class);
-        resource = new SessionsResource(authenticationManager);
+        final Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(AuthenticationManager.class).toInstance(authenticationManager);
+            }
+        });
+        //resource = new SessionsResource(authenticationManager);
+        resource = injector.getInstance(SessionsResource.class);
         ContextTestFactory.initResource(resource);
     }
 
