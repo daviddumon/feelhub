@@ -31,14 +31,20 @@ public class TopicResource extends ServerResource {
 
     @Get
     public ModelAndView getTopic() {
-        topic = topicService.lookUp(extractUriValueFromUri());
-        if (checkCurrent(topic)) {
-            final TopicData topicData = topicDataFactory.topicData(topic, CurrentUser.get().getLanguage());
-            return getGoodTemplate(topicData);
-        } else {
-            setStatus(Status.REDIRECTION_PERMANENT);
-            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + topic.getCurrentId()));
-            return ModelAndView.empty();
+        try {
+            topic = topicService.lookUp(extractUriValueFromUri());
+            if (checkCurrent(topic)) {
+                final TopicData topicData = topicDataFactory.topicData(topic, CurrentUser.get().getLanguage());
+                return getGoodTemplate(topicData);
+            } else {
+                setStatus(Status.REDIRECTION_PERMANENT);
+                setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/topic/" + topic.getCurrentId()));
+                return ModelAndView.empty();
+            }
+        } catch (TopicNotFound e) {
+            setStatus(Status.CLIENT_ERROR_GONE);
+            setLocationRef(new WebReferenceBuilder(getContext()).buildUri("/"));
+            return ModelAndView.createNew("error.ftl");
         }
     }
 
