@@ -17,6 +17,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+@Ignore
 public class SessionsResourceTest {
 
     @Rule
@@ -37,7 +38,6 @@ public class SessionsResourceTest {
                 bind(AuthenticationManager.class).toInstance(authenticationManager);
             }
         });
-        //resource = new SessionsResource(authenticationManager);
         resource = injector.getInstance(SessionsResource.class);
         ContextTestFactory.initResource(resource);
     }
