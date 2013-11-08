@@ -1,6 +1,7 @@
 package com.feelhub.sitemap.application;
 
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.sitemap.test.TestWithMongo;
 import com.feelhub.test.TestFactories;
 import org.junit.Test;
@@ -19,6 +20,25 @@ public class TopicsProviderTest extends TestWithMongo {
         TestFactories.topics().newCompleteRealTopic();
         TestFactories.topics().newCompleteRealTopic();
         TestFactories.topics().newCompleteRealTopic();
+        session.stop();
+
+        final List<Topic> topics = new TopicsProvider().topics(newSession());
+
+        assertThat(topics).hasSize(0);
+    }
+
+    @Test
+    public void onlyIndexesTopicsWithOneFeeling() {
+        final MongoSession session = newSession();
+        session.start();
+        final RealTopic topicA = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic topicB = TestFactories.topics().newCompleteRealTopic();
+        final RealTopic topicC = TestFactories.topics().newCompleteRealTopic();
+        TestFactories.topics().newCompleteRealTopic();
+        TestFactories.topics().newCompleteRealTopic();
+        topicA.increasesFeelingCount(TestFactories.feelings().badFeeling());
+        topicB.increasesFeelingCount(TestFactories.feelings().goodFeeling());
+        topicC.increasesFeelingCount(TestFactories.feelings().neutralFeeling());
         session.stop();
 
         final List<Topic> topics = new TopicsProvider().topics(newSession());
