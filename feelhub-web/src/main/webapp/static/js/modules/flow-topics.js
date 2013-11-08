@@ -15,9 +15,7 @@ define(["jquery", "view/topic-view"], function ($, view) {
     }
 
     function render_initial_datas() {
-        var time = new Date();
         view.render_multiple(initial_datas, container);
-        console.log(new Date() - time);
         if (initial_datas.length != limit) {
             hasData = false;
         }
