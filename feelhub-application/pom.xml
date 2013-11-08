@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>feelhub-application</artifactId>
     <packaging>jar</packaging>
-    <name>Feelhub-application</name>
+    <name>feelhub-application</name>
 
     <build>
         <plugins>
