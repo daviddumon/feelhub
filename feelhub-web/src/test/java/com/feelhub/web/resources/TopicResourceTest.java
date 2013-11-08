@@ -95,11 +95,12 @@ public class TopicResourceTest {
     }
 
     @Test
-    public void canThrowTopicNotFound() {
-        exception.expect(TopicNotFound.class);
+    public void onTopicNotFoundSetErrorCodeToGone() {
         topicResource.getRequest().getAttributes().put("topicId", UUID.randomUUID());
 
         topicResource.getTopic();
+
+        assertThat(topicResource.getStatus()).isEqualTo(Status.CLIENT_ERROR_GONE);
     }
 
     @Test
