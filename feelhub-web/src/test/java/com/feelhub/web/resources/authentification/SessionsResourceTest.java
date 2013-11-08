@@ -17,7 +17,6 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-@Ignore
 public class SessionsResourceTest {
 
     @Rule
@@ -31,14 +30,9 @@ public class SessionsResourceTest {
 
     @Before
     public void avant() {
+        final Injector injector = Guice.createInjector(new GuiceTestModule());
         authenticationManager = mock(AuthenticationManager.class);
-        final Injector injector = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-                bind(AuthenticationManager.class).toInstance(authenticationManager);
-            }
-        });
-        resource = injector.getInstance(SessionsResource.class);
+        resource = new SessionsResource(authenticationManager);
         ContextTestFactory.initResource(resource);
     }
 

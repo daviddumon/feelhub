@@ -41,7 +41,7 @@ var initial_datas = [
     <#include 'elements/signup.ftl'/>
     <#include "elements/header.ftl"/>
 
-<div id="topic-container" class="group">
+<div id="topic-container">
 
 <div class="topic-column">
 
@@ -87,6 +87,7 @@ var initial_datas = [
         </div>
     </#if>
 
+    <#if relatedDatas?? && (relatedDatas?size > 0)>
     <div id="related" class="topic-element">
         <span class="block-title">more</span>
         <#list relatedDatas as related>
@@ -98,14 +99,14 @@ var initial_datas = [
             </a>
         </#list>
     </div>
+    </#if>
 
 </div>
 
 <div class="topic-column">
 
     <form id="feeling-form" autocomplete="off" class="topic-element">
-        <textarea name="comment"></textarea>
-        <span class="help-text">How do you feel about that ?</span>
+        <textarea name="comment" placeholder="How do you feel about that ?"></textarea>
 
         <div class="canvas-button">
             <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>

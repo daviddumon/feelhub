@@ -11,18 +11,16 @@
 body {
 
   #topic-container {
-    clear: both;
     padding: 0px;
     margin: 0px auto;
-    margin-top: 82.2px !important;
-    max-width: 1200px;
+    margin-top: 82.2px;
+    max-width: 600px;
 
     .topic-column {
-      float: left;
+      margin: 0px auto !important;
 
       .topic-element {
         background-color: @grey-6;
-        width: 564px;
         padding: 12px;
         margin: 12px 6px;
         .rounded();
@@ -40,6 +38,7 @@ body {
 
           img.illustration {
             vertical-align: top;
+            width: 100%;
           }
 
           span {
@@ -59,6 +58,24 @@ body {
             max-height: 133px;
             line-height: 1.7;
           }
+        }
+      }
+
+      #analytics {
+
+        #pie {
+          margin-left: 31.4px;
+          width: 82px;
+          height: 82px;
+        }
+
+        #counter {
+          display: block;
+          .font_logo;
+          font-size: 31.4px;
+          vertical-align: top;
+          width: 200.8px;
+          text-align: center;
         }
       }
 
@@ -82,11 +99,26 @@ body {
         position: relative;
         text-align: center;
 
-        .help-text {
+        ::-webkit-input-placeholder {
           .font_text();
-          position: absolute;
-          left: 132px;
-          top: 38px;
+          font-size: 12px;
+          color: @grey-2 !important;
+        }
+
+        :-moz-placeholder {
+          .font_text();
+          font-size: 12px;
+          color: @grey-2 !important;
+        }
+
+        ::-moz-placeholder {
+          .font_text();
+          font-size: 12px;
+          color: @grey-2 !important;
+        }
+
+        :-ms-input-placeholder {
+          .font_text();
           font-size: 12px;
           color: @grey-2 !important;
         }
@@ -96,7 +128,7 @@ body {
           box-sizing: border-box;
           -moz-box-sizing: border-box;
           display: block;
-          width: 348px;
+          width: 215px;
           padding: 12px;
           margin: 12px auto;
           border: 1.7px solid @grey-7;
@@ -110,8 +142,8 @@ body {
           display: inline-block;
 
           canvas {
-            width: 82px;
-            height: 82px;
+            width: 51px;
+            height: 51px;
             margin: 12px;
             cursor: pointer;
 
@@ -127,24 +159,6 @@ body {
         }
       }
 
-      #analytics {
-
-        #pie {
-          margin-left: 31.4px;
-          width: 133px;
-          height: 133px;
-        }
-
-        #counter {
-          display: block;
-          .font_logo;
-          font-size: 31.4px;
-          vertical-align: top;
-          width: 200.8px;
-          text-align: center;
-        }
-      }
-
       ul#feelings {
         padding-top: 0px;
 
@@ -155,8 +169,8 @@ body {
           canvas {
             float: left;
             margin: 12px;
-            width: 51px;
-            height: 51px;
+            width: 31px;
+            height: 31px;
           }
 
           .date {
@@ -172,6 +186,7 @@ body {
 
           .text {
             color: @grey-5;
+            padding-left: 43px;
           }
 
           .notext {
@@ -190,6 +205,7 @@ body {
       }
 
       #related {
+        display: none;
 
         span.block-title {
           display: block;
@@ -239,68 +255,48 @@ body {
       }
     }
 
-    @media all and (max-width: 1200px) {
+    @media all and (min-width: 768px) {
+
+      max-width: 1200px !important;
+      width: 100% !important;
+      background-color: blue !important;
 
       .topic-column {
-        float: none !important;
-        width: 600px !important;
-        margin: 0px auto !important;
+        float: left !important;
+        width: 50% !important;
+        max-width: 600px;
       }
 
       #related {
-        display: none !important;
+        display: block !important;
       }
     }
 
-    @media all and (max-width: 600px) {
-
-      .topic-column {
-        width: 90% !important;
-      }
-
-      .topic-element {
-        width: 90% !important;
-      }
-
-      img.illustration {
-        width: 100% !important;
-      }
-
+    @media all and (min-width: 1200px) {
       #feeling-form {
 
         textarea {
-          width: 215px !important;
-        }
-
-        span {
-          display: none !important;
+          width: 348px !important;
         }
 
         canvas {
-          width: 51px !important;
-          height: 51px !important;
+          width: 82px !important;
+          height: 82px !important;
         }
       }
 
       #analytics {
         #pie {
-          width: 82px !important;
-          height: 82px !important;
+          width: 133px !important;
+          height: 133px !important;
         }
       }
 
       ul#feelings {
 
         canvas {
-          width: 31px !important;
-          height: 31px !important;
-        }
-
-        .feeling {
-
-          .text {
-            padding-left: 43px !important;
-          }
+          width: 51px !important;
+          height: 51px !important;
         }
       }
     }
