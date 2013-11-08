@@ -4,19 +4,6 @@ define(["jquery", "modules/messages", "view/feeling-view", "modules/canvas"], fu
     var submitted = false;
 
     function init() {
-        $(container + " textarea").focus(function () {
-            $(this).parent().find(".help-text").hide();
-        });
-
-        $(container + " textarea").focusout(function () {
-            if ($(this).val() == "") {
-                $(this).parent().find(".help-text").show();
-            }
-        });
-
-        $(".help-text").click(function () {
-            $(container + " textarea").focus();
-        });
 
         $(container + " canvas").click(function (event) {
             event.stopImmediatePropagation();
@@ -51,7 +38,6 @@ define(["jquery", "modules/messages", "view/feeling-view", "modules/canvas"], fu
 
     function success(data, textStatus, xhr) {
         $(container + " textarea").val("");
-        $(".help-text").show();
         feeling_view.prepend(data, "#feelings");
         messages.draw_message("good", "Your feeling has been posted!", 1);
         submitted = false;

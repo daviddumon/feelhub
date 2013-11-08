@@ -76,7 +76,7 @@ public class TopicResource extends ServerResource {
     private List<TopicData> getRelatedDatas() {
         relatedSearch.withTopicId(topic.getCurrentId());
         relatedSearch.withSkip(0);
-        relatedSearch.withLimit(12);
+        relatedSearch.withLimit(36);
         return buildTopicDataListFromRelated(relatedSearch.withSort("weight", Order.DESCENDING).execute());
     }
 

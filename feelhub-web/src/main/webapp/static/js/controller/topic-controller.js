@@ -14,11 +14,11 @@ require.config({
 require(["plugins/domReady!", "jquery", "modules/interface", "modules/canvas", "modules/form/feeling", "modules/flow-feelings"],
 
     function (doc, $, interface, canvas, form, flow) {
-        interface.init();
-        form.init();
-        flow.init();
         canvas.pie("pie");
         canvas.feeling("good", "feeling-value-good");
         canvas.feeling("neutral", "feeling-value-neutral");
         canvas.feeling("bad", "feeling-value-bad");
+        interface.init();
+        form.init();
+        flow.init();
     });
