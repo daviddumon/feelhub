@@ -47,6 +47,7 @@ var initial_datas = [
 
     <#if topicData.uris?? && (topicData.uris?size > 0)>
     <a id="current-topic" href="${topicData.uris[0]}" class="topic-element" rel="nofollow" target="_blank">
+    <div id="visit">Click to visit this link</div>
     <#else>
     <div id="current-topic" class="topic-element">
     </#if>
