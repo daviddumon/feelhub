@@ -5,7 +5,7 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
         $("body").on("DOMNodeInserted", "#flow", function (event) {
             var last_inserted_topic = event.target;
 
-            canvas.pie("pie-" + $(last_inserted_topic).data("id"), {
+            canvas.pie("pie-" + $(last_inserted_topic).attr("id"), {
                 "good": $(last_inserted_topic).data("goodFeelingCount"),
                 "neutral": $(last_inserted_topic).data("neutralFeelingCount"),
                 "bad": $(last_inserted_topic).data("badFeelingCount")

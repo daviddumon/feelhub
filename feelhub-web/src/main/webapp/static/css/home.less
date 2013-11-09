@@ -11,69 +11,106 @@
 body {
 
   #flow {
-    width: 1224px;
     margin: 82.2px auto;
+    max-width: 612px;
 
-    .flow-element {
-      float: left;
+    li.flow-element {
+      height: auto;
       padding: 12px;
-      margin: 12px;
-      background-color: @grey-6;
-      .rounded();
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      max-width: 612px;
 
-      .small-analytics {
-        float: left;
-        width: 134px;
+      a {
+        display: block;
+        padding: 12px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        .rounded();
+        background-color: @grey-6;
+        overflow: auto;
 
-        #counter {
+        .topic-element {
+          width: 80%;
+          float: left;
           display: block;
-          .font_logo;
-          font-size: 19.4px;
-          vertical-align: top;
-          text-align: center;
-          margin-left: 6px;
+          position: relative;
+
+          .wrapper {
+            position: relative;
+            overflow: hidden;
+
+            img.illustration {
+              vertical-align: top;
+              width: 100%;
+            }
+
+            span {
+              position: absolute;
+              display: block;
+              width: 100%;
+              bottom: 0px;
+              left: 0px;
+              background: @grey-4;
+              background: rgba(0, 0, 0, .5);
+              color: @white;
+              overflow: hidden;
+              .font_span();
+              text-align: center;
+              font-size: 19.4px;
+              min-height: 31.4px;
+              max-height: 133px;
+              line-height: 1.7;
+            }
+          }
         }
 
-        canvas {
-          width: 133px;
-          height: 133px;
-          margin-left: 6px;
+        .small-analytics {
+          float: left;
+          width: 18%;
+          max-width: 20%;
+          overflow: hide;
+          padding-left: 2%;
+
+          #counter {
+            display: block;
+            .font_logo;
+            font-size: 19.4px;
+            vertical-align: top;
+            text-align: center;
+          }
+
+          canvas {
+            width: 100%;
+          }
         }
       }
+    }
+  }
 
-      .topic-element {
-        float: left;
-        display: block;
-        position: relative;
+  @media all and (min-width: 792px) {
 
-        .wrapper {
-          position: relative;
-          overflow: hidden;
+    #flow {
+      max-width: 1224px !important;
 
-          img.illustration {
-            vertical-align: top;
-            width: 430px;
-            height: 266px;
-          }
+      li.flow-element {
+        float: left !important;
+        width: 50% !important;
 
-          span {
-            position: absolute;
-            display: block;
-            width: 100%;
-            bottom: 0px;
-            left: 0px;
-            background: @grey-4;
-            background: rgba(0, 0, 0, .5);
-            color: @white;
-            overflow: hidden;
-            .font_span();
-            text-align: center;
-            font-size: 19.4px;
-            min-height: 31.4px;
-            max-height: 133px;
-            line-height: 1.7;
-          }
+        a {
+          width: 100% !important;
         }
+      }
+    }
+  }
+
+  @media all and (min-width: 1224px) {
+
+    #flow {
+      max-width: 1836px !important;
+
+      li.flow-element {
+        width: 33% !important;
       }
     }
   }
@@ -81,61 +118,11 @@ body {
   @media all and (min-width: 1836px) {
 
     #flow {
-      width: 1836px !important;
-    }
-  }
+      max-width: 2448px !important;
 
-  @media all and (max-width: 1224px) {
-
-    #flow {
-      width: 612px !important;
-
-    }
-  }
-
-  @media all and (max-width: 612px) {
-
-    #flow {
-      width: 396px !important;
-
-      .flow-element {
-        padding: 12px !important;
-        margin: 12px !important;
-
-        .small-analytics {
-          width: 82px !important;
-
-          #counter {
-            font-size: 19.4px !important;
-            margin-left: 6px !important;
-          }
-
-          canvas {
-            width: 82px !important;
-            height: 82px !important;
-            margin-left: 6px !important;
-          }
-        }
-
-        .topic-element {
-
-          .wrapper {
-
-            img.illustration {
-              width: 266px !important;
-              height: 164px !important;
-            }
-
-            span {
-              font-size: 19.4px !important;
-              min-height: 31.4px !important;
-              max-height: 133px !important;
-              line-height: 1.7 !important;
-            }
-          }
-        }
+      li.flow-element {
+        width: 25% !important;
       }
     }
   }
-
 }

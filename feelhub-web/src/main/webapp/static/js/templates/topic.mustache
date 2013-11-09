@@ -1,14 +1,14 @@
-<a href="{{root}}/topic/{{id}}" class="topic-element" data-id="{{id}}" data-good="{{goodFeelingCount}}" data-bad="{{badFeelingCount}}" data-neutral="{{neutralFeelingCount}}">
-<li id="{{id}}" class="flow-element">
-    <div class="topic-element">
-        <div class="wrapper">
-            <img src="{{thumbnail}}" class="illustration"/>
-            <span>{{name}}</span>
+<li id="{{id}}" class="flow-element" data-good="{{goodFeelingCount}}" data-bad="{{badFeelingCount}}" data-neutral="{{neutralFeelingCount}}">
+    <a href="{{root}}/topic/{{id}}">
+        <div class="topic-element">
+            <div class="wrapper">
+                <img src="{{thumbnail}}" class="illustration"/>
+                <span>{{name}}</span>
+            </div>
         </div>
-    </div>
-    <div class="small-analytics">
-        <canvas id="pie-{{id}}" class="pie-canvas" data-good="{{goodFeelingCount}}" data-neutral="{{neutralFeelingCount}}" data-bad="{{badFeelingCount}}"></canvas>
-        <span id="counter" class="{{counterClass}}">{{totalFeelingText}}</span>
-    </div>
+        <div class="small-analytics">
+            <canvas id="pie-{{id}}" class="pie-canvas" data-good="{{goodFeelingCount}}" data-neutral="{{neutralFeelingCount}}" data-bad="{{badFeelingCount}}"></canvas>
+            <span id="counter" class="{{counterClass}}">{{totalFeelingText}}</span>
+        </div>
+    </a>
 </li>
-</a>

@@ -131,7 +131,8 @@ define(["jquery"],
         function pie(selector) {
             var canvas = document.getElementById(selector);
             canvas.width = $("#" + selector).width();
-            canvas.height = $("#" + selector).height();
+            //canvas.height = $("#" + selector).height();
+            canvas.height = $("#" + selector).width();
             var context = canvas.getContext("2d");
             context.clearRect(0, 0, this.width, this.height);
             centerX = canvas.width / 2;
