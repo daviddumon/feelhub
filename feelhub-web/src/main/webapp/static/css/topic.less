@@ -53,10 +53,10 @@ body {
             overflow: hidden;
             .font_span();
             text-align: center;
-            font-size: 19.4px;
-            min-height: 31.4px;
-            max-height: 133px;
-            line-height: 1.7;
+            font-size: @font-2;
+            min-height: 19.4px;
+            max-height: 38%;
+            line-height: 1.6875;
           }
         }
       }
@@ -252,6 +252,28 @@ body {
               display: block !important;
             }
           }
+        }
+      }
+    }
+
+    @media all and (min-width: 529px) and (max-width: 768px) {
+
+      #current-topic {
+
+        span {
+          font-size: @font-3 !important;
+          min-height: 31.4px !important;
+        }
+      }
+    }
+
+    @media all and (min-width: 1034px) {
+
+      #current-topic {
+
+        span {
+          font-size: @font-3 !important;
+          min-height: 31.4px !important;
         }
       }
     }

@@ -8,18 +8,15 @@
 
     <form>
         <div class="holder">
-            <span class="help_text">Full name</span>
-            <input name="fullname" value="" type="text" autofocus autocomplete="off" maxlength="100"/>
+            <input name="fullname" value="" type="text" autofocus autocomplete="off" maxlength="100" placeholder="Full name"/>
         </div>
 
         <div class="holder">
-            <span class="help_text">Email</span>
-            <input name="email" value="" type="text" autocomplete="off" maxlength="100"/>
+            <input name="email" value="" type="text" autocomplete="off" maxlength="100" placeholder="Email"/>
         </div>
 
         <div class="holder">
-            <span class="help_text">Password</span>
-            <input name="password" value="" type="password" autocomplete="off" maxlength="100"/>
+            <input name="password" value="" type="password" autocomplete="off" maxlength="100" placeholder="Password"/>
         </div>
 
         <div class="holder">

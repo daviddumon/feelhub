@@ -2,12 +2,7 @@ define(["jquery", "modules/messages"], function ($, messages) {
 
     function init() {
 
-        $(".help_text").click(function () {
-            $(this).parent().find("input").focus();
-        });
-
         $("input").keypress(function (event) {
-            $(this).parent().find(".help_text").hide();
             var code = event.keyCode || event.which;
             if (code == 13) {
                 if ($("#signup").is(":visible")) {
@@ -15,12 +10,6 @@ define(["jquery", "modules/messages"], function ($, messages) {
                 } else if ($("#login").is(":visible")) {
                     login();
                 }
-            }
-        });
-
-        $("input").focusout(function () {
-            if ($(this).val() == "") {
-                $(this).parent().find(".help_text").show();
             }
         });
 

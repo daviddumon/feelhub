@@ -2,7 +2,7 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
 
     function ($, template, canvas) {
 
-        $("body").on("DOMNodeInserted", "#flow", function (event) {
+        $("body").on("DOMNodeInserted", "#flow li", function (event) {
             var last_inserted_topic = event.target;
 
             canvas.pie("pie-" + $(last_inserted_topic).attr("id"), {

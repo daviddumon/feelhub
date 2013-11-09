@@ -14,14 +14,12 @@
             <p>Please enter your password, or <a href="javascript:void(0);" class="logout-popup">change user</a> !</p>
             <input name="email" value="${userInfos.email}" type="text" autocomplete="off" maxlength="100" style="display: none"/>
         <#else>
-            <span class="help_text">Email</span>
-            <input name="email" value="" type="text" autocomplete="off" maxlength="100"/>
+            <input name="email" value="" type="text" autocomplete="off" maxlength="100" placeholder="Email"/>
         </#if>
         </div>
 
         <div class="holder">
-            <span class="help_text">Password</span>
-            <input name="password" value="" type="password" autocomplete="off" maxlength="100"/>
+            <input name="password" value="" type="password" autocomplete="off" maxlength="100" placeholder="Password"/>
         </div>
 
         <div class="holder">

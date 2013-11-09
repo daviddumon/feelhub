@@ -57,10 +57,10 @@ body {
               overflow: hidden;
               .font_span();
               text-align: center;
-              font-size: 19.4px;
-              min-height: 31.4px;
-              max-height: 133px;
-              line-height: 1.7;
+              font-size: @font-2;
+              min-height: 19.4px;
+              max-height: 38%;
+              line-height: 1.6875;
             }
           }
         }
@@ -75,7 +75,7 @@ body {
           #counter {
             display: block;
             .font_logo;
-            font-size: 19.4px;
+            font-size: @font-2;
             vertical-align: top;
             text-align: center;
           }
@@ -83,6 +83,98 @@ body {
           canvas {
             width: 100%;
           }
+        }
+      }
+    }
+  }
+
+  @media all and (min-width: 529px) and (max-width: 792px) {
+    a {
+
+      .topic-element {
+
+        .wrapper {
+
+          span {
+            font-size: @font-3 !important;
+            min-height: 31.4px !important;
+          }
+        }
+      }
+
+      .small-analytics {
+
+        #counter {
+          font-size: @font-3 !important;
+        }
+      }
+    }
+  }
+
+  @media all and (min-width: 1058px) and (max-width: 1224px) {
+    a {
+
+      .topic-element {
+
+        .wrapper {
+
+          span {
+            font-size: @font-3 !important;
+            min-height: 31.4px !important;
+          }
+        }
+      }
+
+      .small-analytics {
+
+        #counter {
+          font-size: @font-3 !important;
+        }
+      }
+    }
+  }
+
+  @media all and (min-width: 1623px) and (max-width: 1836px) {
+    a {
+
+      .topic-element {
+
+        .wrapper {
+
+          span {
+            font-size: @font-3 !important;
+            min-height: 31.4px !important;
+          }
+        }
+      }
+
+      .small-analytics {
+
+        #counter {
+          font-size: @font-3 !important;
+        }
+      }
+    }
+  }
+
+  @media all and (min-width: 2368px) {
+    a {
+
+      .topic-element {
+
+        .wrapper {
+
+          span {
+            font-size: @font-3 !important;
+            min-height: 31.4px !important;
+          }
+        }
+      }
+
+      .small-analytics {
+
+        #counter {
+          font-size: @font-3 !important;
         }
       }
     }
