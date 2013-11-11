@@ -8,7 +8,8 @@ require.config({
         "templates": "../templates",
         "hogan": "../plugins/hogan",
         "text": "../plugins/text"
-    }
+    },
+    waitSeconds: 0
 });
 
 require(["plugins/domReady!", "jquery", "modules/interface", "modules/canvas", "modules/form/feeling", "modules/flow-feelings"],

@@ -29,5 +29,6 @@
     stubModules: ['text', 'hgn'],
     pragmasOnSave: {
         excludeHogan: true
-    }
+    },
+    waitSeconds: 0
 })
