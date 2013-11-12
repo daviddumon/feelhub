@@ -8,9 +8,6 @@ define(["jquery", "view/feeling-view"], function ($, view) {
         limit = 50;
         hasData = true;
         notLoading = true;
-        if(initial_datas.length == 0) {
-            $("#nofeelings").slideDown(800);
-        }
         render_initial_datas();
         $(window).scroll(function () {
             draw_data();

@@ -18,17 +18,6 @@ body {
 
     #nofeelings {
       display: none;
-      margin-bottom: 31.4px;
-      width: 100%;
-      background-color: @neutral;
-      color: @white;
-      font-size: @font-4;
-      padding: @font-3;
-      box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      text-align: center;
-      .rounded();
-      clear: both;
     }
 
     .topic-column {
@@ -143,10 +132,6 @@ body {
       #feeling-form {
         position: relative;
         text-align: center;
-        //padding-top: 133px;
-
-
-
 
         ::-webkit-input-placeholder {
           .font_text();
@@ -308,7 +293,7 @@ body {
 
   @media all and (min-width: 529px) and (max-width: 768px) {
 
-    #topic-container {
+    #topic-container.feelings {
       #current-topic {
 
         span {
@@ -320,7 +305,8 @@ body {
   }
 
   @media all and (min-width: 1034px) {
-    #topic-container {
+
+    #topic-container.feelings {
       #current-topic {
 
         span {
@@ -332,7 +318,8 @@ body {
   }
 
   @media all and (min-width: 768px) {
-    #topic-container {
+
+    #topic-container.feelings {
       max-width: 1200px !important;
       width: 100% !important;
 
@@ -349,7 +336,9 @@ body {
   }
 
   @media all and (min-width: 1200px) {
-    #topic-container {
+
+    #topic-container.feelings {
+
       #feeling-form {
 
         textarea {
@@ -381,6 +370,51 @@ body {
         canvas {
           width: 51px !important;
           height: 51px !important;
+        }
+      }
+    }
+  }
+
+  #topic-container.nofeelings {
+
+    #nofeelings {
+      display: block;
+      margin-bottom: 12px;
+      width: 100%;
+      background-color: @neutral;
+      color: @white;
+      font-size: @font-3;
+      padding: @font-3;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      text-align: center;
+      .rounded();
+      clear: both;
+    }
+
+    .topic-column {
+
+      #analytics {
+        display: none;
+      }
+
+      ul#feelings {
+        display: none;
+      }
+
+      #related {
+        display: none;
+      }
+
+      #feeling-form {
+
+        textarea {
+          width: 348px !important;
+        }
+
+        canvas {
+          width: 82px !important;
+          height: 82px !important;
         }
       }
     }

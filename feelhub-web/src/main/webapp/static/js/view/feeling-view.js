@@ -35,8 +35,11 @@ define(["jquery", "plugins/hgn!templates/feeling", "modules/canvas"],
         };
 
         function render(data, container, prepend) {
-            if($("#nofeelings").is(":visible")) {
-                $("#nofeelings").slideUp(800);
+            if($("#topic-container").hasClass("nofeelings")) {
+                $("#nofeelings").slideUp(800, function() {
+                    $("#topic-container").removeClass("nofeelings");
+                    $("#topic-container").addClass("feelings");
+                });
             }
 
             var element = getElement(data);

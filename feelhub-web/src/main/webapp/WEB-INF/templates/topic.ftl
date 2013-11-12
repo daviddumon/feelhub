@@ -41,8 +41,12 @@ var initial_datas = [
     <#include 'elements/signup.ftl'/>
     <#include "elements/header.ftl"/>
 
-<div id="topic-container">
-<div id="nofeelings">There are no feelings yet, be the first !</div>
+<#if feelingDatas?? && (feelingDatas?size > 0)>
+<div id="topic-container" class="feelings">
+<#else>
+<div id="topic-container" class="nofeelings">
+</#if>
+    <div id="nofeelings">There are no feelings yet, be the first !</div>
 <div class="topic-column">
 
     <#if topicData.uris?? && (topicData.uris?size > 0)>
