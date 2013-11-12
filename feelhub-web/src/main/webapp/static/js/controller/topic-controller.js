@@ -12,9 +12,9 @@ require.config({
     waitSeconds: 0
 });
 
-require(["plugins/domReady!", "jquery", "modules/interface", "modules/canvas", "modules/form/feeling", "modules/flow-feelings"],
+require(["plugins/domReady!", "jquery", "modules/interface", "modules/canvas", "modules/form/feeling", "modules/flow-feelings", "modules/polling"],
 
-    function (doc, $, interface, canvas, form, flow) {
+    function (doc, $, interface, canvas, form, flow, polling) {
         canvas.pie("pie");
         canvas.feeling("good", "feeling-value-good");
         canvas.feeling("neutral", "feeling-value-neutral");
@@ -22,4 +22,5 @@ require(["plugins/domReady!", "jquery", "modules/interface", "modules/canvas", "
         interface.init();
         form.init();
         flow.init();
+        polling.start();
     });

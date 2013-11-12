@@ -59,7 +59,8 @@ var initial_datas = [
         <#if topicData.thumbnail?has_content>
             <img src="${topicData.thumbnail}" class="illustration"/>
         <#else>
-            <img src="${root}/static/images/unknown.png" class="illustration"/>
+            <img src="${root}/static/images/fake-illustration.png" class="illustration"/>
+            <img src="${root}/static/images/ajax-loader.gif" class="loading"/>
         </#if>
 
         <span>${topicData.name}</span>
