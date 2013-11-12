@@ -42,12 +42,12 @@ var initial_datas = [
     <#include "elements/header.ftl"/>
 
 <div id="topic-container">
-
+<div id="nofeelings">There are no feelings yet, be the first !</div>
 <div class="topic-column">
 
     <#if topicData.uris?? && (topicData.uris?size > 0)>
     <a id="current-topic" href="${topicData.uris[0]}" class="topic-element" rel="nofollow" target="_blank">
-    <div id="visit">Click to visit this link</div>
+        <div id="visit">Click to visit this link</div>
     <#else>
     <div id="current-topic" class="topic-element">
     </#if>
@@ -89,21 +89,21 @@ var initial_datas = [
     </#if>
 
     <#if relatedDatas?? && (relatedDatas?size > 0)>
-    <div id="related" class="topic-element">
-        <span class="block-title">more</span>
-        <#list relatedDatas as related>
-            <a href="${root}/topic/${related.id}">
-                <div class="wrapper">
-                    <#if related.thumbnail?has_content>
-                        <img src="${related.thumbnail}" class="illustration"/>
-                    <#else>
-                        <img src="${root}/static/images/unknown.png" class="illustration"/>
-                    </#if>
-                    <span>${related.name}</span>
-                </div>
-            </a>
-        </#list>
-    </div>
+        <div id="related" class="topic-element">
+            <span class="block-title">more</span>
+            <#list relatedDatas as related>
+                <a href="${root}/topic/${related.id}">
+                    <div class="wrapper">
+                        <#if related.thumbnail?has_content>
+                            <img src="${related.thumbnail}" class="illustration"/>
+                        <#else>
+                            <img src="${root}/static/images/unknown.png" class="illustration"/>
+                        </#if>
+                        <span>${related.name}</span>
+                    </div>
+                </a>
+            </#list>
+        </div>
     </#if>
 
 </div>

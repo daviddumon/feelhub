@@ -38,7 +38,7 @@ define(["jquery", "modules/messages", "view/feeling-view", "modules/canvas"], fu
 
     function success(data, textStatus, xhr) {
         $(container + " textarea").val("");
-        feeling_view.prepend(data, "#feelings");
+        feeling_view.render(data, "#feelings", true);
         messages.draw_message("good", "Your feeling has been posted!", 1);
         submitted = false;
 

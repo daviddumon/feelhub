@@ -16,6 +16,21 @@ body {
     margin-top: 82.2px;
     max-width: 600px;
 
+    #nofeelings {
+      display: none;
+      margin-bottom: 31.4px;
+      width: 100%;
+      background-color: @neutral;
+      color: @white;
+      font-size: @font-4;
+      padding: @font-3;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      text-align: center;
+      .rounded();
+      clear: both;
+    }
+
     .topic-column {
       margin: 0px auto !important;
 
@@ -128,6 +143,10 @@ body {
       #feeling-form {
         position: relative;
         text-align: center;
+        //padding-top: 133px;
+
+
+
 
         ::-webkit-input-placeholder {
           .font_text();
@@ -285,9 +304,11 @@ body {
         }
       }
     }
+  }
 
-    @media all and (min-width: 529px) and (max-width: 768px) {
+  @media all and (min-width: 529px) and (max-width: 768px) {
 
+    #topic-container {
       #current-topic {
 
         span {
@@ -296,9 +317,10 @@ body {
         }
       }
     }
+  }
 
-    @media all and (min-width: 1034px) {
-
+  @media all and (min-width: 1034px) {
+    #topic-container {
       #current-topic {
 
         span {
@@ -307,12 +329,12 @@ body {
         }
       }
     }
+  }
 
-    @media all and (min-width: 768px) {
-
+  @media all and (min-width: 768px) {
+    #topic-container {
       max-width: 1200px !important;
       width: 100% !important;
-      background-color: blue !important;
 
       .topic-column {
         float: left !important;
@@ -324,9 +346,10 @@ body {
         display: block !important;
       }
     }
+  }
 
-    @media all and (min-width: 1200px) {
-
+  @media all and (min-width: 1200px) {
+    #topic-container {
       #feeling-form {
 
         textarea {

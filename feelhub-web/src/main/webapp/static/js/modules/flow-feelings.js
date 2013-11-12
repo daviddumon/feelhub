@@ -8,6 +8,9 @@ define(["jquery", "view/feeling-view"], function ($, view) {
         limit = 50;
         hasData = true;
         notLoading = true;
+        if(initial_datas.length == 0) {
+            $("#nofeelings").slideDown(800);
+        }
         render_initial_datas();
         $(window).scroll(function () {
             draw_data();
@@ -16,7 +19,7 @@ define(["jquery", "view/feeling-view"], function ($, view) {
 
     function render_initial_datas() {
         $.each(initial_datas, function (index, data) {
-            view.render(data, container);
+            view.render(data, container, false);
         });
         if (initial_datas.length != limit) {
             hasData = false;
@@ -36,7 +39,7 @@ define(["jquery", "view/feeling-view"], function ($, view) {
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {
                     $.each(data, function (index, data) {
-                        view.render(data, container);
+                        view.render(data, container, false);
                     });
 
                     if (data.length != limit) {
