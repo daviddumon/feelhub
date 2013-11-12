@@ -1,7 +1,8 @@
 package com.feelhub.domain.alchemy;
 
 import com.feelhub.application.TopicService;
-import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.feeling.FirstFeelingCreatedEvent;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.real.RealTopic;
@@ -25,10 +26,9 @@ public class AlchemyAnalyzer {
     }
 
     @Subscribe
-    @Synchronize
     @AllowConcurrentEvents
-    public void onHttpTopicCreated(final HttpTopicCreatedEvent event) {
-        analyze(Repositories.topics().getHttpTopic(event.topicId));
+    public void onFirstFeelingCreated(final FirstFeelingCreatedEvent event) {
+        analyze(Repositories.topics().getHttpTopic(event.getFeeling().getTopicId()));
     }
 
     void analyze(final HttpTopic httpTopic) {

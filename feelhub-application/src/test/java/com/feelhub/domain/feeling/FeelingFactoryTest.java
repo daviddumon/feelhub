@@ -41,9 +41,33 @@ public class FeelingFactoryTest {
 
         final Feeling feeling = feelingFactory.createFeeling(user.getId(), realTopic.getCurrentId());
 
-        final FeelingCreatedEvent lastEvent = events.lastEvent(FeelingCreatedEvent.class);
-        assertThat(lastEvent).isNotNull();
-        assertThat(lastEvent.getFeeling().getId()).isEqualTo(feeling.getId());
+        final FeelingCreatedEvent feelingEvent = events.lastEvent(FeelingCreatedEvent.class);
+        assertThat(feelingEvent).isNotNull();
+        assertThat(feelingEvent.getFeeling().getId()).isEqualTo(feeling.getId());
+    }
+
+    @Test
+    public void canPostFirstFeelingEvent() {
+        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+
+        final Feeling feeling = feelingFactory.createFeeling(user.getId(), realTopic.getCurrentId());
+
+        final FirstFeelingCreatedEvent firstFeelingEvent = events.lastEvent(FirstFeelingCreatedEvent.class);
+        assertThat(firstFeelingEvent).isNotNull();
+        assertThat(firstFeelingEvent.getFeeling().getId()).isEqualTo(feeling.getId());
+    }
+
+    @Test
+    public void onlyPostFirstFeelingEventForFirstFeeling() {
+        final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        realTopic.increasesFeelingCount(TestFactories.feelings().goodFeeling(realTopic));
+
+        final Feeling feeling = feelingFactory.createFeeling(user.getId(), realTopic.getCurrentId());
+
+        final FirstFeelingCreatedEvent firstFeelingEvent = events.lastEvent(FirstFeelingCreatedEvent.class);
+        assertThat(firstFeelingEvent).isNull();
     }
 
     private FeelingFactory feelingFactory;
