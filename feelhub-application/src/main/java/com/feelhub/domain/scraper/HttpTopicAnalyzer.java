@@ -1,8 +1,7 @@
 package com.feelhub.domain.scraper;
 
-import com.feelhub.domain.cloudinary.Cloudinary;
 import com.feelhub.domain.eventbus.*;
-import com.feelhub.domain.topic.Thumbnail;
+import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.eventbus.*;
@@ -15,9 +14,8 @@ import java.util.UUID;
 public class HttpTopicAnalyzer {
 
     @Inject
-    public HttpTopicAnalyzer(final Scraper scraper, final Cloudinary cloudinary) {
+    public HttpTopicAnalyzer(final Scraper scraper) {
         this.scraper = scraper;
-        this.cloudinary = cloudinary;
         DomainEventBus.INSTANCE.register(this);
         rateLimiter = RateLimiter.create(1.0);
     }
@@ -36,9 +34,7 @@ public class HttpTopicAnalyzer {
         if (HttpTopicType.Website.equals(httpTopic.getType())) {
             scrap(httpTopic);
         } else if (HttpTopicType.Data.equals(httpTopic.getType()) || HttpTopicType.Image.equals(httpTopic.getType())) {
-            final Thumbnail thumbnail = getThumbnail(getCanonical(httpTopic));
-            httpTopic.addThumbnail(thumbnail);
-            httpTopic.setThumbnail(thumbnail.getCloudinary());
+            createThumbnail(httpTopic, getCanonical(httpTopic));
         }
     }
 
@@ -49,13 +45,9 @@ public class HttpTopicAnalyzer {
         httpTopic.setType(scrapedInformation.getType());
         httpTopic.setOpenGraphType(scrapedInformation.getOpenGraphType());
         if (!scrapedInformation.getImages().isEmpty()) {
-            final Thumbnail thumbnail = getThumbnail(scrapedInformation.getImages().get(0));
-            httpTopic.addThumbnail(thumbnail);
-            httpTopic.setThumbnail(thumbnail.getCloudinary());
+            createThumbnail(httpTopic, scrapedInformation.getImages().get(0));
         } else {
-            final Thumbnail thumbnail = getThumbnail("http://ec2-107-22-105-164.compute-1.amazonaws.com:3000/?url=" + getCanonical(httpTopic) + "&clipRect={%22top%22:0,%22left%22:0,%22width%22:1692,%22height%22:1044}");
-            httpTopic.addThumbnail(thumbnail);
-            httpTopic.setThumbnail(thumbnail.getCloudinary());
+            createThumbnail(httpTopic, "http://ec2-107-22-105-164.compute-1.amazonaws.com:3000/?url=" + getCanonical(httpTopic) + "&clipRect={%22top%22:0,%22left%22:0,%22width%22:1692,%22height%22:1044}");
         }
     }
 
@@ -67,12 +59,17 @@ public class HttpTopicAnalyzer {
         }
     }
 
-    private Thumbnail getThumbnail(final String origin) {
+    private void createThumbnail(final Topic topic, final String origin) {
         final Thumbnail thumbnail = new Thumbnail();
-        final String cloudinaryImage = cloudinary.getCloudinaryImageForWebsite(origin);
         thumbnail.setOrigin(origin);
-        thumbnail.setCloudinary(cloudinaryImage);
-        return thumbnail;
+        postThumbnailCreatedEvent(topic, thumbnail);
+    }
+
+    private void postThumbnailCreatedEvent(final Topic topic, final Thumbnail thumbnail) {
+        final ThumbnailCreatedEvent event = new ThumbnailCreatedEvent();
+        event.setTopicId(topic.getCurrentId());
+        event.setThumbnail(thumbnail);
+        DomainEventBus.INSTANCE.post(event);
     }
 
     private String getCanonical(final HttpTopic httpTopic) {
@@ -84,7 +81,6 @@ public class HttpTopicAnalyzer {
     }
 
     private final Scraper scraper;
-    private final Cloudinary cloudinary;
     private final RateLimiter rateLimiter;
     private final Logger LOGGER = LoggerFactory.getLogger(HttpTopicAnalyzer.class);
 }

@@ -9,7 +9,6 @@ import com.google.common.eventbus.*;
 
 public class HttpTopicIndexer {
 
-
     public HttpTopicIndexer() {
         DomainEventBus.INSTANCE.register(this);
     }

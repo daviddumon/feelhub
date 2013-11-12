@@ -33,7 +33,7 @@ public class BingSearch {
         final List<String> illustrations = bingLink.getIllustrations(query);
         final Thumbnail thumbnail = findThumbnail(illustrations);
         if (thumbnail != null) {
-            postThumnailCreatedEvent(topic, thumbnail);
+            postThumbnailCreatedEvent(topic, thumbnail);
         }
     }
 
@@ -54,7 +54,7 @@ public class BingSearch {
         return null;
     }
 
-    private void postThumnailCreatedEvent(final Topic topic, final Thumbnail thumbnail) {
+    private void postThumbnailCreatedEvent(final Topic topic, final Thumbnail thumbnail) {
         final ThumbnailCreatedEvent event = new ThumbnailCreatedEvent();
         event.setTopicId(topic.getCurrentId());
         event.setThumbnail(thumbnail);

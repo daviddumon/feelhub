@@ -1,6 +1,6 @@
 package com.feelhub.domain.cloudinary;
 
-import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Maps;
@@ -32,18 +32,6 @@ public class Cloudinary {
     }
 
     public String getCloudinaryImage(final String source) {
-        final Map<String, String> params = Maps.newHashMap();
-        params.put("format", "jpg");
-        params.put("transformation", "w_564,h_348,c_fill,g_face,q_75");
-        params.put("file", source);
-        try {
-            return cloudinaryLink.getIllustration(params);
-        } catch (IOException e) {
-            throw new CloudinaryException();
-        }
-    }
-
-    public String getCloudinaryImageForWebsite(final String source) {
         final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
         params.put("transformation", "w_564,h_348,c_fill,g_face,q_75");

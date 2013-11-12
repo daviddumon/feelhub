@@ -94,7 +94,11 @@ var initial_datas = [
         <#list relatedDatas as related>
             <a href="${root}/topic/${related.id}">
                 <div class="wrapper">
-                    <img src="${related.thumbnail}" class="illustration"/>
+                    <#if related.thumbnail?has_content>
+                        <img src="${related.thumbnail}" class="illustration"/>
+                    <#else>
+                        <img src="${root}/static/images/unknown.png" class="illustration"/>
+                    </#if>
                     <span>${related.name}</span>
                 </div>
             </a>
