@@ -1,0 +1,11 @@
+<a href="{{root}}/topic/{{id}}">
+    <div class="wrapper">
+        {{#thumbnail}}
+            <img src="{{thumbnail}}" class="illustration"/>
+        {{/thumbnail}}
+        {{^thumbnail}}
+            <img src="{{root}}/static/images/unknown.png" class="illustration"/>
+        {{/thumbnail}}
+        <span>{{name}}</span>
+    </div>
+</a>

@@ -59,9 +59,9 @@ define(["jquery"],
             feeling($(canvas).attr("feeling-value"), $(canvas).attr("id"));
         }
 
-        var good_color = "#66CC33";
-        var neutral_color = "#0033FF";
-        var bad_color = "#FF3333";
+        var good_color = "#2ECC71";
+        var neutral_color = "#F1C40F";
+        var bad_color = "#E74C3C";
         var fill_color = "#FFFFFF";
         var no_color = "#EDEDED";
         var base_line, left, right, width;

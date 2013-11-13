@@ -6,7 +6,7 @@ import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
-import com.feelhub.test.TestFactories;
+import com.feelhub.test.*;
 import com.google.common.collect.Lists;
 import org.junit.*;
 
@@ -18,6 +18,9 @@ public class TopicDataTest {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
+
+    @Rule
+    public SystemTime time = SystemTime.fixed();
 
     @Test
     public void hasId() {
@@ -196,4 +199,21 @@ public class TopicDataTest {
         assertThat(topicData.getHasFeelings()).isEqualTo(realTopic.getHasFeelings());
     }
 
+    @Test
+    public void hasCreationDate() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+
+        final TopicData topicData = new TopicData.Builder().creationDate(realTopic.getCreationDate()).build();
+
+        assertThat(topicData.getCreationDate()).isEqualTo(realTopic.getCreationDate().getMillis());
+    }
+
+    @Test
+    public void hasLastModificationDate() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+
+        final TopicData topicData = new TopicData.Builder().lastModificatioNDate(realTopic.getLastModificationDate()).build();
+
+        assertThat(topicData.getLastModificationDate()).isEqualTo(realTopic.getLastModificationDate().getMillis());
+    }
 }

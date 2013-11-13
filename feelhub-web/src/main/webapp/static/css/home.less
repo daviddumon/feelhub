@@ -29,6 +29,19 @@ body {
         .rounded();
         background-color: @grey-6;
         overflow: auto;
+        position: relative;
+
+        .new {
+          position: absolute;
+          top: -1px;
+          left: -1px;
+          width: 48px;
+          height: 48px;
+          background-image: url('/static/images/feelhub.png');
+          background-repeat: no-repeat;
+          background-position: -164px 0px;
+          z-index: 500;
+        }
 
         .topic-element {
           width: 80%;
@@ -71,6 +84,39 @@ body {
           max-width: 20%;
           overflow: hide;
           padding-left: 2%;
+          text-align: center;
+
+          .popularity {
+            width: 51px;
+            height: 51px;
+            background-image: url('/static/images/feelhub.png');
+            background-repeat: no-repeat;
+            margin: 20px auto;
+          }
+
+          .popularity-1 {
+            background-position: 0px -93px;
+          }
+
+          .popularity-2 {
+            background-position: -51px -93px;
+          }
+
+          .popularity-3 {
+            background-position: -102px -93px;
+          }
+
+          .popularity-4 {
+            background-position: -153px -93px;
+          }
+
+          .popularity-5 {
+            background-position: -204px -93px;
+          }
+
+          canvas {
+            width: 100%;
+          }
 
           #counter {
             display: block;
@@ -78,10 +124,6 @@ body {
             font-size: @font-2;
             vertical-align: top;
             text-align: center;
-          }
-
-          canvas {
-            width: 100%;
           }
         }
       }

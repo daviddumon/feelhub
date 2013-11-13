@@ -1,5 +1,6 @@
 <li id="{{id}}" class="flow-element" data-good="{{goodFeelingCount}}" data-bad="{{badFeelingCount}}" data-neutral="{{neutralFeelingCount}}">
     <a href="{{root}}/topic/{{id}}">
+        <div class="new"></div>
         <div class="topic-element">
             <div class="wrapper">
                 <img src="{{thumbnail}}" class="illustration"/>
@@ -7,6 +8,7 @@
             </div>
         </div>
         <div class="small-analytics">
+            <div class="popularity popularity-{{popularity}}"></div>
             <canvas id="pie-{{id}}" class="pie-canvas" data-good="{{goodFeelingCount}}" data-neutral="{{neutralFeelingCount}}" data-bad="{{badFeelingCount}}"></canvas>
             <span id="counter" class="{{counterClass}}">{{totalFeelingText}}</span>
         </div>

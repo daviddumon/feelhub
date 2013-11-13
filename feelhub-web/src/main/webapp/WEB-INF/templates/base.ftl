@@ -13,7 +13,7 @@
             <meta name="description" content="${topicData.name}"/>
         </#if>
     <#else>
-        <title>Feelhub.com - Share your feelings with the world!</title>
+        <title>Feelhub.com - Feel the world</title>
         <meta name="description" content="Share your feelings with the world!"/>
     </#if>
 

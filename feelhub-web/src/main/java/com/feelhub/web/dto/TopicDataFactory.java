@@ -18,6 +18,8 @@ public class TopicDataFactory {
             builder.goodFeelingCount(topic.getGoodFeelingCount());
             builder.badFeelingCount(topic.getBadFeelingCount());
             builder.neutralFeelingCount(topic.getNeutralFeelingCount());
+            builder.creationDate(topic.getCreationDate());
+            builder.lastModificatioNDate(topic.getLastModificationDate());
         }
         return builder.build();
     }

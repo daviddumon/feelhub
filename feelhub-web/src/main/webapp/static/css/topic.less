@@ -379,7 +379,7 @@ body {
 
     #nofeelings {
       display: block;
-      margin-bottom: 12px;
+      margin-bottom: 31.4px;
       width: 100%;
       background-color: @neutral;
       color: @white;
@@ -414,22 +414,39 @@ body {
       }
 
       ul#feelings {
-        display: none;
+        padding: 0px;
+
+        &:last-child {
+          padding-bottom: 12px;
+        }
       }
 
       #related {
         display: none;
       }
 
-      #feeling-form {
+      #uris {
+        display: none;
+      }
+    }
+  }
 
-        textarea {
-          width: 348px !important;
-        }
+  @media all and (min-width: 529px) {
 
-        canvas {
-          width: 82px !important;
-          height: 82px !important;
+    #topic-container.nofeelings {
+
+      .topic-column {
+
+        #feeling-form {
+
+          textarea {
+            width: 348px !important;
+          }
+
+          canvas {
+            width: 82px !important;
+            height: 82px !important;
+          }
         }
       }
     }

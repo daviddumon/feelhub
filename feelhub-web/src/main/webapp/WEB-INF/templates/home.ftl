@@ -19,7 +19,8 @@ var initial_datas = [
         "name":"${data.name?json_string}",
         "goodFeelingCount":"${data.goodFeelingCount}",
         "badFeelingCount":"${data.badFeelingCount}",
-        "neutralFeelingCount":"${data.neutralFeelingCount}"
+        "neutralFeelingCount":"${data.neutralFeelingCount}",
+        "popularity":"${data.popularity}"
         }${data_has_next?string(",", "")}
         </#list>
     </#if>

@@ -5,6 +5,7 @@ import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.uri.Uri;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 
 import java.util.*;
@@ -82,6 +83,16 @@ public class TopicData {
             return this;
         }
 
+        public Builder creationDate(final DateTime creationDate) {
+            this.creationDate = creationDate.getMillis();
+            return this;
+        }
+
+        public Builder lastModificatioNDate(final DateTime lastModificationDate) {
+            this.lastModificationDate = lastModificationDate.getMillis();
+            return this;
+        }
+
         private String id = "";
         private String thumbnail = "";
         private String name = "";
@@ -93,6 +104,8 @@ public class TopicData {
         private int neutralFeelingCount;
         private int badFeelingCount;
         private boolean hasFeelings = false;
+        private long creationDate;
+        private long lastModificationDate;
     }
 
     private TopicData(final Builder builder) {
@@ -107,6 +120,8 @@ public class TopicData {
         this.neutralFeelingCount = builder.neutralFeelingCount;
         this.badFeelingCount = builder.badFeelingCount;
         this.hasFeelings = builder.hasFeelings;
+        this.creationDate = builder.creationDate;
+        this.lastModificationDate = builder.lastModificationDate;
     }
 
     public String getId() {
@@ -158,6 +173,18 @@ public class TopicData {
         return hasFeelings;
     }
 
+    public long getCreationDate() {
+        return creationDate;
+    }
+
+    public long getLastModificationDate() {
+        return lastModificationDate;
+    }
+
+    public int getPopularity() {
+        return popularity;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (obj == this) {
@@ -181,4 +208,7 @@ public class TopicData {
     private final List<String> subTypes;
     private final List<String> uris;
     private final String description;
+    private final long creationDate;
+    private final long lastModificationDate;
+    private final int popularity = new Random().nextInt(5) + 1;
 }

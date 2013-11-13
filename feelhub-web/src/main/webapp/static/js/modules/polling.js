@@ -19,10 +19,10 @@ define(["jquery"], function ($) {
             time: 1000,
             uri: root + "/api/topic/" + topicData.id + "/related",
             stop: 128000,
-            end: function () {
+            end: function (response) {
 
             },
-            success: function() {
+            success: function(response) {
 
             }
         }
@@ -35,16 +35,25 @@ define(["jquery"], function ($) {
             if (polling_data.thumbnail.needed) {
                 poll(polling_data.thumbnail);
             }
+
+            //if(polling_data.related.needed) {
+            //    poll(polling_data.related);
+            //}
         }
     }
 
     function checkNeededData() {
+        console.log(topicData.creationDate);
+        console.log(new Date());
+        console.log(new Date() - topicData.creationDate);
 
         if ($("#current-topic img.loading").length > 0) {
             polling_data.thumbnail.needed = true;
         }
 
-
+        if($("#related").length == 0) {
+            polling_data.related.needed = true;
+        }
     }
 
     function poll(data) {

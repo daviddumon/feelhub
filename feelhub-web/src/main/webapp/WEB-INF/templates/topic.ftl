@@ -95,9 +95,9 @@ var initial_datas = [
 
     <#if relatedDatas?? && (relatedDatas?size > 0)>
         <div id="related" class="topic-element">
-            <span class="block-title">more</span>
+            <span class="block-title">most related</span>
             <#list relatedDatas as related>
-                <a href="${root}/topic/${related.id}">
+                <a href="${root}/topic/${related.id}" id="${related.id}">
                     <div class="wrapper">
                         <#if related.thumbnail?has_content>
                             <img src="${related.thumbnail}" class="illustration"/>

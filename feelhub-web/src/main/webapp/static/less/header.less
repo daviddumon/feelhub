@@ -14,24 +14,18 @@ body {
     border-bottom: 1px solid @grey-1;
 
     #home-link {
-      padding-top: 9.7px;
-      margin-left: 82.2px;
-      float: left;
-      font-size: 31.4px;
-      .font_logo;
-      color: @smooth-light;
-
-      span {
-        font-size: 19.4px;
-        font-weight: normal !important;
-
-        &:hover {
-          color: @smooth !important;
-        }
-      }
+      height: 31px;
+      width: 140px;
+      position: fixed;
+      left: 30px;
+      top: 10px;
+      background: url('/static/images/feelhub.png');
+      background-repeat: no-repeat;
+      background-position: 0px 0px;
 
       &:hover {
-        color: @smooth !important;
+        background: url('/static/images/feelhub.png');
+        background-position: 0px -31px;
       }
     }
 

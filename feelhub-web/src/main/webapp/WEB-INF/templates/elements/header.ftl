@@ -1,9 +1,6 @@
 <header>
-    <a id="home-link" href="${root}">Feelhub<span>.com</span></a>
-
-<#--<form method="get" action="${root}/search" id="search">-->
-<#--<input name="q" type="text" autocomplete="off"/>-->
-<#--</form>-->
+    <a href="${root}" id="home-link"></a>
+    <#--<img src="${root}/static/images/logo.png"/>-->
 
     <div id="actions">
     <#if userInfos.authenticated>
@@ -20,13 +17,3 @@
     </#if>
     </div>
 </header>
-<#--<div id="filters">-->
-<#--popular-->
-<#--most liked-->
-<#--history-->
-<#--in the air-->
-<#--facebook-->
-<#--twitter-->
-<#--around me-->
-<#--<div id="filters-button">FILTERS</div>-->
-<#--</div>-->
