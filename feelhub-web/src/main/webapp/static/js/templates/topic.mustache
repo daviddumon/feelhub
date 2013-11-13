@@ -1,6 +1,8 @@
 <li id="{{id}}" class="flow-element" data-good="{{goodFeelingCount}}" data-bad="{{badFeelingCount}}" data-neutral="{{neutralFeelingCount}}">
     <a href="{{root}}/topic/{{id}}">
-        <div class="new"></div>
+        {{#new}}
+            <div class="new"></div>
+        {{/new}}
         <div class="topic-element">
             <div class="wrapper">
                 <img src="{{thumbnail}}" class="illustration"/>

@@ -31,6 +31,8 @@ public class TopicDataFactory {
             builder.name(topic.getName(feelhubLanguage));
             builder.type(topic.getType());
             builder.thumbnail(topic.getThumbnail());
+            builder.creationDate(topic.getCreationDate());
+            builder.lastModificatioNDate(topic.getLastModificationDate());
         }
         return builder.build();
     }

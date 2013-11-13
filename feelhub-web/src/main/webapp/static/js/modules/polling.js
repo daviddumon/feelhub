@@ -43,9 +43,9 @@ define(["jquery"], function ($) {
     }
 
     function checkNeededData() {
-        console.log(topicData.creationDate);
-        console.log(new Date());
-        console.log(new Date() - topicData.creationDate);
+        //console.log(topicData.creationDate);
+        //console.log(new Date());
+        //console.log(new Date() - topicData.creationDate);
 
         if ($("#current-topic img.loading").length > 0) {
             polling_data.thumbnail.needed = true;

@@ -17,10 +17,12 @@ var initial_datas = [
         "id":"${data.id}",
         "thumbnail":"${data.thumbnail?json_string}",
         "name":"${data.name?json_string}",
-        "goodFeelingCount":"${data.goodFeelingCount}",
-        "badFeelingCount":"${data.badFeelingCount}",
-        "neutralFeelingCount":"${data.neutralFeelingCount}",
-        "popularity":"${data.popularity}"
+        "goodFeelingCount":${data.goodFeelingCount?c},
+        "badFeelingCount":${data.badFeelingCount?c},
+        "neutralFeelingCount":${data.neutralFeelingCount?c},
+        "creationDate":${data.creationDate?c},
+        "lastModificationDate":${data.lastModificationDate?c},
+        "popularity":${data.popularity?c}
         }${data_has_next?string(",", "")}
         </#list>
     </#if>
