@@ -23,13 +23,15 @@
             <label for="language-select">language : </label>
             <select name="language" id="language-select">
                 <option value=""></option>
-            <#list locales as locale>
-                <#if locale.code == preferedLanguage>
-                    <option selected="true" value="${locale.code}">${locale.localizedName}</option>
-                <#else>
-                    <option value="${locale.code}">${locale.localizedName}</option>
-                </#if>
-            </#list>
+            <#if locales??>
+                <#list locales as locale>
+                    <#if locale.code == preferedLanguage>
+                        <option selected="true" value="${locale.code}">${locale.localizedName}</option>
+                    <#else>
+                        <option value="${locale.code}">${locale.localizedName}</option>
+                    </#if>
+                </#list>
+            </#if>
             </select>
         </div>
 
