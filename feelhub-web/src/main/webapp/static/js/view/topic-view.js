@@ -2,7 +2,7 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
 
     function ($, template, canvas) {
 
-        var max_ms_to_be_new = 3600000;
+        varmax_ms_to_be_new = 21600000;
 
         $("body").on("DOMNodeInserted", "#flow li", function (event) {
             var last_inserted_topic = event.target;
