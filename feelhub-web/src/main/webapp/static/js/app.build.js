@@ -7,6 +7,9 @@
             name: "topic-controller"
         },
         {
+            name: "topic-crawlable-controller"
+        },
+        {
             name: "bookmarklet-controller"
         },
         {
