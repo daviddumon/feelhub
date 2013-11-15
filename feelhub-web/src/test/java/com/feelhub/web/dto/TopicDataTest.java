@@ -216,4 +216,24 @@ public class TopicDataTest {
 
         assertThat(topicData.getLastModificationDate()).isEqualTo(realTopic.getLastModificationDate().getMillis());
     }
+
+    @Test
+    public void hasViewCount() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        realTopic.incrementViewCount();
+
+        final TopicData topicData = new TopicData.Builder().viewCount(realTopic.getViewCount()).build();
+
+        assertThat(topicData.getViewCount()).isEqualTo(realTopic.getViewCount());
+    }
+
+    @Test
+    public void hasPopularity() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        realTopic.incrementViewCount();
+
+        final TopicData topicData = new TopicData.Builder().popularity(realTopic.getPopularity()).build();
+
+        assertThat(topicData.getPopularity()).isEqualTo(realTopic.getPopularity());
+    }
 }

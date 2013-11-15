@@ -68,7 +68,6 @@ public class UserStatisticsWorker {
         return new DateTime().toString("y.M.d") + "." + key;
     }
 
-
     public static final String REAL_TOPICS = "realTopics";
     public static final String HTTP_TOPICS = "httpTopics";
     public static final String FEELINGS = "feelings";

@@ -249,6 +249,19 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("hasFeelings")).isEqualTo(true);
     }
 
+    @Test
+    public void canPersistViewCount() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+        topic.incrementViewCount();
+
+        repo.add(topic);
+
+        final DBObject topicFound = getTopic(id);
+        assertThat(topicFound).isNotNull();
+        assertThat(topicFound.get("viewCount")).isEqualTo(1);
+    }
+
     private DBObject getTopic(final UUID id) {
         final DBCollection collection = getMongo().getCollection("topic");
         final DBObject query = new BasicDBObject();

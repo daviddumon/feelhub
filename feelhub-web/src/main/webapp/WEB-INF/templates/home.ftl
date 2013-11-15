@@ -20,9 +20,10 @@ var initial_datas = [
         "happyFeelingCount":${data.happyFeelingCount?c},
         "sadFeelingCount":${data.sadFeelingCount?c},
         "boredFeelingCount":${data.boredFeelingCount?c},
+        "viewCount":${data.viewCount?c},
+        "popularity":${data.popularity?c},
         "creationDate":${data.creationDate?c},
-        "lastModificationDate":${data.lastModificationDate?c},
-        "popularity":${data.popularity?c}
+        "lastModificationDate":${data.lastModificationDate?c}
         }${data_has_next?string(",", "")}
         </#list>
     </#if>

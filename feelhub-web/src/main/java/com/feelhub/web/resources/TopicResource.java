@@ -34,6 +34,7 @@ public class TopicResource extends ServerResource {
         try {
             topic = topicService.lookUp(extractUriValueFromUri());
             if (checkCurrent(topic)) {
+                topic.incrementViewCount();
                 final TopicData topicData = topicDataFactory.topicData(topic, CurrentUser.get().getLanguage());
                 return getGoodTemplate(topicData);
             } else {

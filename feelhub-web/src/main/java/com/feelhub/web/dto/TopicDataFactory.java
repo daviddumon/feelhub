@@ -18,6 +18,8 @@ public class TopicDataFactory {
             builder.happyFeelingCount(topic.getHappyFeelingCount());
             builder.sadFeelingCount(topic.getSadFeelingCount());
             builder.boredFeelingCount(topic.getBoredFeelingCount());
+            builder.viewCount(topic.getViewCount());
+            builder.popularity(topic.getPopularity());
             builder.creationDate(topic.getCreationDate());
             builder.lastModificatioNDate(topic.getLastModificationDate());
         }

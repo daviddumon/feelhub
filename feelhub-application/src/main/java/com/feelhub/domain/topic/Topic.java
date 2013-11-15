@@ -9,6 +9,7 @@ import com.google.common.base.Objects;
 import com.google.common.collect.*;
 import org.apache.commons.lang.WordUtils;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 
@@ -177,6 +178,31 @@ public abstract class Topic extends BaseEntity {
         return hasFeelings;
     }
 
+    public void incrementViewCount() {
+        viewCount++;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public int getPopularity() {
+        final int popularityCount = viewCount + sadFeelingCount + boredFeelingCount + happyFeelingCount;
+        final int popularity;
+        if (popularityCount < 10) {
+            popularity = 1;
+        } else if (popularityCount < 20) {
+            popularity = 2;
+        } else if (popularityCount < 50) {
+            popularity = 3;
+        } else if (popularityCount < 100) {
+            popularity = 4;
+        } else {
+            popularity = 5;
+        }
+        return popularity;
+    }
+
     protected UUID id;
     protected UUID currentId;
     private final Map<String, String> descriptions = Maps.newHashMap();
@@ -191,4 +217,5 @@ public abstract class Topic extends BaseEntity {
     private int sadFeelingCount;
     private int boredFeelingCount;
     private boolean hasFeelings;
+    private int viewCount;
 }

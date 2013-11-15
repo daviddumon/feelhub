@@ -93,6 +93,16 @@ public class TopicData {
             return this;
         }
 
+        public Builder viewCount(final int viewCount) {
+            this.viewCount = viewCount;
+            return this;
+        }
+
+        public Builder popularity(final int popularity) {
+            this.popularity = popularity;
+            return this;
+        }
+
         private String id = "";
         private String thumbnail = "";
         private String name = "";
@@ -106,6 +116,8 @@ public class TopicData {
         private boolean hasFeelings = false;
         private long creationDate;
         private long lastModificationDate;
+        private int viewCount = 0;
+        private int popularity = 0;
     }
 
     private TopicData(final Builder builder) {
@@ -122,6 +134,8 @@ public class TopicData {
         this.hasFeelings = builder.hasFeelings;
         this.creationDate = builder.creationDate;
         this.lastModificationDate = builder.lastModificationDate;
+        this.viewCount = builder.viewCount;
+        this.popularity = builder.popularity;
     }
 
     public String getId() {
@@ -185,6 +199,10 @@ public class TopicData {
         return popularity;
     }
 
+    public int getViewCount() {
+        return viewCount;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (obj == this) {
@@ -210,5 +228,6 @@ public class TopicData {
     private final String description;
     private final long creationDate;
     private final long lastModificationDate;
-    private final int popularity = new Random().nextInt(5) + 1;
+    private final int viewCount;
+    private final int popularity;
 }

@@ -3,7 +3,7 @@
 <!-- Copyright Feelhub 2012 -->
 <html lang="en">
 <head>
-    <link href='//fonts.googleapis.com/css?family=Playball|Droid+Serif|Autour+One|Roboto+Condensed|Lobster' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Droid+Serif|Autour+One|Roboto+Condensed|Lobster' rel='stylesheet' type='text/css'>
 
     <#if topicData??>
         <title>Feelhub.com - ${topicData.name}</title>
@@ -38,7 +38,7 @@
         <#nested/>
 
     <#-- Keep the loading of less below, as we need to list the lesscss files before !-->
-        <script type="text/javascript" src="${root}/static/js/less-1.3.3.min.js?cache=${buildtime}"></script>
+        <script type="text/javascript" src="${root}/static/js/less-1.4.2.min.js?cache=${buildtime}"></script>
     </#if>
 
 </#macro>

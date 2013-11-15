@@ -31,6 +31,7 @@ public class TopicMapping extends AggregateMap<Topic> {
         property().onProperty(element().getBoredFeelingCount());
         property().onProperty(element().getSadFeelingCount());
         property().onProperty(element().getHasFeelings());
+        property().onProperty(element().getViewCount());
 
         subclass(new SubclassMap<RealTopic>(RealTopic.class) {
 

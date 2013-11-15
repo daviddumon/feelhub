@@ -1,6 +1,6 @@
 package com.feelhub.web.resources;
 
-import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.SessionProvider;
@@ -182,6 +182,16 @@ public class TopicResourceTest {
         final ModelAndView modelAndView = topicResource.getTopic();
 
         assertThat(modelAndView.getTemplate()).isEqualTo("topic.ftl");
+    }
+
+    @Test
+    public void incrementViewCount() {
+        final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        topicResource.getRequest().getAttributes().put("topicId", realTopic.getId());
+
+        final ModelAndView modelAndView = topicResource.getTopic();
+
+        assertThat(realTopic.getViewCount()).isEqualTo(1);
     }
 
     private TopicResource topicResource;

@@ -315,6 +315,104 @@ public class TopicTest {
         assertThat(topic.getHasFeelings()).isEqualTo(false);
     }
 
+    @Test
+    public void canIncrementViewCount() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+        topic.incrementViewCount();
+
+        assertThat(topic.getViewCount()).isEqualTo(1);
+    }
+
+    @Test
+    public void topicHasAPopularity() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+
+        assertThat(topic.getPopularity()).isEqualTo(1);
+    }
+
+    @Test
+    public void incrementViewCountIncrementPopularity() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+
+        topic.incrementViewCount();
+
+        assertThat(topic.getPopularity()).isEqualTo(1);
+    }
+
+    @Test
+    public void incrementFeelingCountIncrementPopularity() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+        final Feeling feeling = TestFactories.feelings().boredFeeling(topic);
+
+        topic.increasesFeelingCount(feeling);
+
+        assertThat(topic.getPopularity()).isEqualTo(1);
+    }
+
+    @Test
+    public void popularityIs1Under10() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+
+        for (int i = 0; i < 8; i++) {
+            topic.incrementViewCount();
+        }
+
+        assertThat(topic.getPopularity()).isEqualTo(1);
+    }
+
+    @Test
+    public void popularityIs2Under20() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+
+        for (int i = 0; i < 18; i++) {
+            topic.incrementViewCount();
+        }
+
+        assertThat(topic.getPopularity()).isEqualTo(2);
+    }
+
+    @Test
+    public void popularityIs3Under50() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+
+        for (int i = 0; i < 48; i++) {
+            topic.incrementViewCount();
+        }
+
+        assertThat(topic.getPopularity()).isEqualTo(3);
+    }
+
+    @Test
+    public void popularityIs4Under100() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+
+        for (int i = 0; i < 98; i++) {
+            topic.incrementViewCount();
+        }
+
+        assertThat(topic.getPopularity()).isEqualTo(4);
+    }
+
+    @Test
+    public void popularityIs5Over100() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+
+        for (int i = 0; i < 148; i++) {
+            topic.incrementViewCount();
+        }
+
+        assertThat(topic.getPopularity()).isEqualTo(5);
+    }
+
     class FakeTopicImplementation extends Topic {
 
         public FakeTopicImplementation(final UUID id) {
