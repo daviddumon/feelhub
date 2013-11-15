@@ -2,7 +2,7 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
 
     function ($, template, canvas) {
 
-        varmax_ms_to_be_new = 21600000;
+        var six_hours_in_ms = 21600000;
 
         $("body").on("DOMNodeInserted", "#flow li", function (event) {
             var last_inserted_topic = event.target;
@@ -58,7 +58,7 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
                 data.thumbnail = root + "/static/images/unknown.png";
             }
 
-            if ((new Date() - data.creationDate) <= max_ms_to_be_new) {
+            if ((new Date() - data.creationDate) <= six_hours_in_ms) {
                 data.new = true;
             }
 
