@@ -8,9 +8,9 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
             var last_inserted_topic = event.target;
 
             canvas.pie("pie-" + $(last_inserted_topic).attr("id"), {
-                "good": $(last_inserted_topic).data("goodFeelingCount"),
-                "neutral": $(last_inserted_topic).data("neutralFeelingCount"),
-                "bad": $(last_inserted_topic).data("badFeelingCount")
+                "happy": $(last_inserted_topic).data("happyFeelingCount"),
+                "bored": $(last_inserted_topic).data("boredFeelingCount"),
+                "sad": $(last_inserted_topic).data("sadFeelingCount")
             });
         });
 
@@ -32,11 +32,11 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
 
         function getElement(data) {
             data.root = root;
-            var good = parseInt(data.goodFeelingCount);
-            var bad = parseInt(data.badFeelingCount);
-            var neutral = parseInt(data.neutralFeelingCount);
+            var happy = parseInt(data.happyFeelingCount);
+            var sad = parseInt(data.sadFeelingCount);
+            var bored = parseInt(data.boredFeelingCount);
 
-            data.totalFeelingCount = good + bad + neutral;
+            data.totalFeelingCount = happy + sad + bored;
 
             if (data.totalFeelingCount == 0) {
                 data.totalFeelingText = "No feeling";
@@ -46,12 +46,12 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
                 data.totalFeelingText = data.totalFeelingCount + " feelings";
             }
 
-            if (good > bad && good > neutral) {
-                data.counterClass = "good";
-            } else if (bad > good && bad > neutral) {
-                data.counterClass = "bad";
+            if (happy > sad && happy > bored) {
+                data.counterClass = "happy";
+            } else if (sad > happy && sad > bored) {
+                data.counterClass = "sad";
             } else {
-                data.counterClass = "neutral";
+                data.counterClass = "bored";
             }
 
             if (data.thumbnail == "") {

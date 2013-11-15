@@ -8,8 +8,8 @@ public class FeelingValueTest {
 
     @Test
     public void hasANumericValue() {
-        assertThat(FeelingValue.neutral.numericValue()).isEqualTo(0);
-        assertThat(FeelingValue.good.numericValue()).isEqualTo(1);
-        assertThat(FeelingValue.bad.numericValue()).isEqualTo(-1);
+        assertThat(FeelingValue.bored.numericValue()).isEqualTo(0);
+        assertThat(FeelingValue.happy.numericValue()).isEqualTo(1);
+        assertThat(FeelingValue.sad.numericValue()).isEqualTo(-1);
     }
 }

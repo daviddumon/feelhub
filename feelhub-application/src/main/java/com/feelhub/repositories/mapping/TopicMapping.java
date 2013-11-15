@@ -27,9 +27,9 @@ public class TopicMapping extends AggregateMap<Topic> {
         collection().onProperty(element().getUris());
         property().onProperty(element().getThumbnail());
         collection().onProperty(element().getThumbnails());
-        property().onProperty(element().getGoodFeelingCount());
-        property().onProperty(element().getNeutralFeelingCount());
-        property().onProperty(element().getBadFeelingCount());
+        property().onProperty(element().getHappyFeelingCount());
+        property().onProperty(element().getBoredFeelingCount());
+        property().onProperty(element().getSadFeelingCount());
         property().onProperty(element().getHasFeelings());
 
         subclass(new SubclassMap<RealTopic>(RealTopic.class) {

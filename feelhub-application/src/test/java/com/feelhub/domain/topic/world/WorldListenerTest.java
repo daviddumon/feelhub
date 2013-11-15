@@ -42,7 +42,7 @@ public class WorldListenerTest {
     @Test
     public void addPostEventForWorldStatisticsOnFeelingCreatedEvent() {
         final WorldTopic worldTopic = TestFactories.topics().newWorldTopic();
-        final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(TestFactories.feelings().goodFeeling());
+        final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(TestFactories.feelings().happyFeeling());
 
         worldListener.handle(feelingCreatedEvent);
 
@@ -50,12 +50,12 @@ public class WorldListenerTest {
         assertThat(worldStatisticsEvent).isNotNull();
         assertThat(worldStatisticsEvent.getFeeling()).isNotNull();
         assertThat(worldStatisticsEvent.getFeeling().getTopicId()).isEqualTo(worldTopic.getCurrentId());
-        assertThat(worldStatisticsEvent.getFeeling().getFeelingValue()).isEqualTo(FeelingValue.good);
+        assertThat(worldStatisticsEvent.getFeeling().getFeelingValue()).isEqualTo(FeelingValue.happy);
     }
 
     @Test
     public void listenToFeelingCreatedEvent() {
-        final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(TestFactories.feelings().goodFeeling());
+        final FeelingCreatedEvent feelingCreatedEvent = new FeelingCreatedEvent(TestFactories.feelings().happyFeeling());
 
         DomainEventBus.INSTANCE.post(feelingCreatedEvent);
 

@@ -8,7 +8,7 @@ define(["modules/parser/sentiment-detector"], function (detector) {
 
             var sentiment = detector.get_sentiment(token, text);
 
-            expect(sentiment).toBe("good");
+            expect(sentiment).toBe("happy");
         });
 
         it("can detect sad smiley", function () {
@@ -17,7 +17,7 @@ define(["modules/parser/sentiment-detector"], function (detector) {
 
             var sentiment = detector.get_sentiment(token, text);
 
-            expect(sentiment).toBe("bad");
+            expect(sentiment).toBe("sad");
         });
 
         it("can return sentiment none if no smileys", function () {
@@ -35,7 +35,7 @@ define(["modules/parser/sentiment-detector"], function (detector) {
 
             var sentiment = detector.get_sentiment(token, text, 5);
 
-            expect(sentiment).toBe("bad");
+            expect(sentiment).toBe("sad");
         });
 
         it("can detect plus sign", function () {
@@ -44,7 +44,7 @@ define(["modules/parser/sentiment-detector"], function (detector) {
 
             var sentiment = detector.get_sentiment(token, text);
 
-            expect(sentiment).toBe("good");
+            expect(sentiment).toBe("happy");
         });
 
         it("can detect minus sign", function () {
@@ -53,7 +53,7 @@ define(["modules/parser/sentiment-detector"], function (detector) {
 
             var sentiment = detector.get_sentiment(token, text);
 
-            expect(sentiment).toBe("bad");
+            expect(sentiment).toBe("sad");
         });
 
         it("can detect equal sign", function () {
@@ -62,16 +62,16 @@ define(["modules/parser/sentiment-detector"], function (detector) {
 
             var sentiment = detector.get_sentiment(token, text);
 
-            expect(sentiment).toBe("neutral");
+            expect(sentiment).toBe("bored");
         });
 
-        it("can detect neutral smiley", function () {
+        it("can detect bored smiley", function () {
             var token = "apple";
             var text = "i don't care about apple :|";
 
             var sentiment = detector.get_sentiment(token, text);
 
-            expect(sentiment).toBe("neutral");
+            expect(sentiment).toBe("bored");
         });
     });
 });

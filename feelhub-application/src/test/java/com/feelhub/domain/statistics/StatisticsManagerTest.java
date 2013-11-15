@@ -45,24 +45,24 @@ public class StatisticsManagerTest {
         assertThat(Repositories.statistics().getAll().size(), is(4));
         final List<Statistics> all = Repositories.statistics().forTopicId(realTopic1.getId(), Granularity.all);
         assertThat(all.size(), is(1));
-        assertThat(all.get(0).getGood(), is(3));
-        assertThat(all.get(0).getBad(), is(2));
-        assertThat(all.get(0).getNeutral(), is(1));
+        assertThat(all.get(0).getHappy(), is(3));
+        assertThat(all.get(0).getSad(), is(2));
+        assertThat(all.get(0).getBored(), is(1));
         final List<Statistics> day = Repositories.statistics().forTopicId(realTopic1.getId(), Granularity.day);
         assertThat(day.size(), is(1));
-        assertThat(day.get(0).getGood(), is(3));
-        assertThat(day.get(0).getBad(), is(2));
-        assertThat(day.get(0).getNeutral(), is(1));
+        assertThat(day.get(0).getHappy(), is(3));
+        assertThat(day.get(0).getSad(), is(2));
+        assertThat(day.get(0).getBored(), is(1));
         final List<Statistics> hour = Repositories.statistics().forTopicId(realTopic1.getId(), Granularity.hour);
         assertThat(hour.size(), is(1));
-        assertThat(hour.get(0).getGood(), is(6));
-        assertThat(hour.get(0).getBad(), is(4));
-        assertThat(hour.get(0).getNeutral(), is(2));
+        assertThat(hour.get(0).getHappy(), is(6));
+        assertThat(hour.get(0).getSad(), is(4));
+        assertThat(hour.get(0).getBored(), is(2));
         final List<Statistics> month = Repositories.statistics().forTopicId(realTopic1.getId(), Granularity.month);
         assertThat(month.size(), is(1));
-        assertThat(month.get(0).getGood(), is(3));
-        assertThat(month.get(0).getBad(), is(2));
-        assertThat(month.get(0).getNeutral(), is(1));
+        assertThat(month.get(0).getHappy(), is(3));
+        assertThat(month.get(0).getSad(), is(2));
+        assertThat(month.get(0).getBored(), is(1));
     }
 
     private StatisticsManager statisticsManager;

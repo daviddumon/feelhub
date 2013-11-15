@@ -17,9 +17,9 @@ var initial_datas = [
         "id":"${data.id}",
         "thumbnail":"${data.thumbnail?json_string}",
         "name":"${data.name?json_string}",
-        "goodFeelingCount":${data.goodFeelingCount?c},
-        "badFeelingCount":${data.badFeelingCount?c},
-        "neutralFeelingCount":${data.neutralFeelingCount?c},
+        "happyFeelingCount":${data.happyFeelingCount?c},
+        "sadFeelingCount":${data.sadFeelingCount?c},
+        "boredFeelingCount":${data.boredFeelingCount?c},
         "creationDate":${data.creationDate?c},
         "lastModificationDate":${data.lastModificationDate?c},
         "popularity":${data.popularity?c}

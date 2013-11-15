@@ -42,16 +42,16 @@ public class FeelingTest {
     public void hasAFeelingValueOfNeutralOnCreation() {
         final Feeling feeling = createAFeeling();
 
-        assertThat(feeling.getFeelingValue()).isEqualTo(FeelingValue.neutral);
+        assertThat(feeling.getFeelingValue()).isEqualTo(FeelingValue.bored);
     }
 
     @Test
     public void canSetAFeelingValue() {
         final Feeling feeling = createAFeeling();
 
-        feeling.setFeelingValue(FeelingValue.good);
+        feeling.setFeelingValue(FeelingValue.happy);
 
-        assertThat(feeling.getFeelingValue()).isEqualTo(FeelingValue.good);
+        assertThat(feeling.getFeelingValue()).isEqualTo(FeelingValue.happy);
     }
 
     @Test

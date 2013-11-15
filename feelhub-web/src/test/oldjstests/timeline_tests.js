@@ -174,7 +174,7 @@ TimeLineTests.prototype = {
         var block = timeline.computeBlockFor(fakeData.stats[0], testDate.interval("hour"));
 
         assertNotUndefined(block.signLabel);
-        assertSame("neutral", block.signLabel.text);
+        assertSame("bored", block.signLabel.text);
     },
 
     testCanComputeTimeLabelForBlock: function () {
@@ -351,27 +351,27 @@ function getNomarlizeFor(val) {
 };
 
 function checkNeutralBlocksOK(stat, block) {
-    assertNotUndefined(block.coords["neutral"]);
-    assertNotUndefined(block.coords["neutral"].top);
-    assertEquals(timeline.displayHeight - 30 - timeline.stroke - timeline.spacer * 2 - stat.feelings[2][1] - stat.feelings[1][1] - stat.feelings[0][1], block.coords["neutral"].top);
-    assertNotUndefined(block.coords["neutral"].bottom);
-    assertEquals(timeline.displayHeight - 30 - timeline.stroke - timeline.spacer * 2 - stat.feelings[2][1] - stat.feelings[1][1], block.coords["neutral"].bottom);
+    assertNotUndefined(block.coords["bored"]);
+    assertNotUndefined(block.coords["bored"].top);
+    assertEquals(timeline.displayHeight - 30 - timeline.stroke - timeline.spacer * 2 - stat.feelings[2][1] - stat.feelings[1][1] - stat.feelings[0][1], block.coords["bored"].top);
+    assertNotUndefined(block.coords["bored"].bottom);
+    assertEquals(timeline.displayHeight - 30 - timeline.stroke - timeline.spacer * 2 - stat.feelings[2][1] - stat.feelings[1][1], block.coords["bored"].bottom);
 };
 
 function checkBadBlocksOK(stat, block) {
-    assertNotUndefined(block.coords["bad"]);
-    assertNotUndefined(block.coords["bad"].top);
-    assertEquals(timeline.displayHeight - 30 - timeline.stroke - timeline.spacer - stat.feelings[2][1] - stat.feelings[1][1], block.coords["bad"].top);
-    assertNotUndefined(block.coords["bad"].bottom);
-    assertEquals(timeline.displayHeight - 30 - timeline.stroke - timeline.spacer - stat.feelings[2][1], block.coords["bad"].bottom);
+    assertNotUndefined(block.coords["sad"]);
+    assertNotUndefined(block.coords["sad"].top);
+    assertEquals(timeline.displayHeight - 30 - timeline.stroke - timeline.spacer - stat.feelings[2][1] - stat.feelings[1][1], block.coords["sad"].top);
+    assertNotUndefined(block.coords["sad"].bottom);
+    assertEquals(timeline.displayHeight - 30 - timeline.stroke - timeline.spacer - stat.feelings[2][1], block.coords["sad"].bottom);
 };
 
 function checkGoodBlocksOK(stat, block) {
-    assertNotUndefined(block.coords["good"]);
-    assertNotUndefined(block.coords["good"].top);
-    assertEquals(timeline.displayHeight - 30 - timeline.stroke - stat.feelings[2][1], block.coords["good"].top);
-    assertNotUndefined(block.coords["good"].bottom);
-    assertEquals(timeline.displayHeight - 30 - timeline.stroke, block.coords["good"].bottom);
+    assertNotUndefined(block.coords["happy"]);
+    assertNotUndefined(block.coords["happy"].top);
+    assertEquals(timeline.displayHeight - 30 - timeline.stroke - stat.feelings[2][1], block.coords["happy"].top);
+    assertNotUndefined(block.coords["happy"].bottom);
+    assertEquals(timeline.displayHeight - 30 - timeline.stroke, block.coords["happy"].bottom);
 };
 
 var fakeData;

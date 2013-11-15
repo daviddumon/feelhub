@@ -20,7 +20,7 @@ define(["jquery", "modules/bookmarklet"],
                 expect($.ajax).toHaveBeenCalled();
             });
 
-            it("calls the good api end point", function () {
+            it("calls the happy api end point", function () {
                 var ajax_data;
                 spyOn($, "ajax").andCallFake(function (data) {
                     ajax_data = data;
@@ -31,7 +31,7 @@ define(["jquery", "modules/bookmarklet"],
                 expect(ajax_data.url).toEqual(root + "/api/topics?q=" + uri);
             });
 
-            it("calls ajax with good type", function () {
+            it("calls ajax with happy type", function () {
                 var ajax_data;
                 spyOn($, "ajax").andCallFake(function (data) {
                     ajax_data = data;

@@ -25889,7 +25889,7 @@ define('build', function (require) {
 
                 //Reset build internals first in case this is part
                 //of a long-running server process that could have
-                //exceptioned out in a bad state. It is only defined
+                //exceptioned out in a sad state. It is only defined
                 //after the first call though.
                 if (requirejs._buildReset) {
                     requirejs._buildReset();

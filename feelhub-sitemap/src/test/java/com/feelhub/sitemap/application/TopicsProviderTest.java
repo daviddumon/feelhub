@@ -36,9 +36,9 @@ public class TopicsProviderTest extends TestWithMongo {
         final RealTopic topicC = TestFactories.topics().newCompleteRealTopic();
         TestFactories.topics().newCompleteRealTopic();
         TestFactories.topics().newCompleteRealTopic();
-        topicA.increasesFeelingCount(TestFactories.feelings().badFeeling());
-        topicB.increasesFeelingCount(TestFactories.feelings().goodFeeling());
-        topicC.increasesFeelingCount(TestFactories.feelings().neutralFeeling());
+        topicA.increasesFeelingCount(TestFactories.feelings().sadFeeling());
+        topicB.increasesFeelingCount(TestFactories.feelings().happyFeeling());
+        topicC.increasesFeelingCount(TestFactories.feelings().boredFeeling());
         session.stop();
 
         final List<Topic> topics = new TopicsProvider().topics(newSession());

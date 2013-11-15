@@ -5,9 +5,9 @@
 "name":"${topicData.name?json_string}",
 "thumbnail":"${topicData.thumbnail?json_string}",
 "type":"${topicData.type}",
-"goodFeelingCount":"${topicData.goodFeelingCount}",
-"neutralFeelingCount":"${topicData.neutralFeelingCount}",
-"badFeelingCount":"${topicData.badFeelingCount}",
+"happyFeelingCount":"${topicData.happyFeelingCount}",
+"boredFeelingCount":"${topicData.boredFeelingCount}",
+"sadFeelingCount":"${topicData.sadFeelingCount}",
 "creationDate":"${topicData.creationDate}",
 "lastModificationDate":"${topicData.lastModificationDate}",
 "popularity":"${topicData.popularity}"

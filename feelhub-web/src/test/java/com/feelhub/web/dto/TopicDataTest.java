@@ -139,60 +139,60 @@ public class TopicDataTest {
     }
 
     @Test
-    public void hasAGoodFeelingCount() {
+    public void hasAnHapptFeelingCount() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        realTopic.increasesFeelingCount(TestFactories.feelings().goodFeeling());
+        realTopic.increasesFeelingCount(TestFactories.feelings().happyFeeling());
 
-        final TopicData topicData = new TopicData.Builder().goodFeelingCount(realTopic.getGoodFeelingCount()).build();
+        final TopicData topicData = new TopicData.Builder().happyFeelingCount(realTopic.getHappyFeelingCount()).build();
 
-        assertThat(topicData.getGoodFeelingCount()).isEqualTo(realTopic.getGoodFeelingCount());
+        assertThat(topicData.getHappyFeelingCount()).isEqualTo(realTopic.getHappyFeelingCount());
     }
 
     @Test
-    public void goodFeelingCountHasDefaultValue() {
+    public void happyFeelingCountHasDefaultValue() {
         final TopicData topicData = new TopicData.Builder().build();
 
-        assertThat(topicData.getGoodFeelingCount()).isEqualTo(0);
+        assertThat(topicData.getHappyFeelingCount()).isEqualTo(0);
     }
 
     @Test
-    public void hasANeutralFeelingCount() {
+    public void hasABoredFeelingCount() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        realTopic.increasesFeelingCount(TestFactories.feelings().neutralFeeling());
+        realTopic.increasesFeelingCount(TestFactories.feelings().boredFeeling());
 
-        final TopicData topicData = new TopicData.Builder().neutralFeelingCount(realTopic.getNeutralFeelingCount()).build();
+        final TopicData topicData = new TopicData.Builder().boredFeelingCount(realTopic.getBoredFeelingCount()).build();
 
-        assertThat(topicData.getNeutralFeelingCount()).isEqualTo(realTopic.getNeutralFeelingCount());
+        assertThat(topicData.getBoredFeelingCount()).isEqualTo(realTopic.getBoredFeelingCount());
     }
 
     @Test
-    public void neutralFeelingCountHasDefaultValue() {
+    public void boredFeelingCountHasDefaultValue() {
         final TopicData topicData = new TopicData.Builder().build();
 
-        assertThat(topicData.getNeutralFeelingCount()).isEqualTo(0);
+        assertThat(topicData.getBoredFeelingCount()).isEqualTo(0);
     }
 
     @Test
-    public void hasABadFeelingCount() {
+    public void hasASadFeelingCount() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        realTopic.increasesFeelingCount(TestFactories.feelings().badFeeling());
+        realTopic.increasesFeelingCount(TestFactories.feelings().sadFeeling());
 
-        final TopicData topicData = new TopicData.Builder().badFeelingCount(realTopic.getBadFeelingCount()).build();
+        final TopicData topicData = new TopicData.Builder().sadFeelingCount(realTopic.getSadFeelingCount()).build();
 
-        assertThat(topicData.getBadFeelingCount()).isEqualTo(realTopic.getBadFeelingCount());
+        assertThat(topicData.getSadFeelingCount()).isEqualTo(realTopic.getSadFeelingCount());
     }
 
     @Test
-    public void badFeelingCountHasDefaultValue() {
+    public void sadFeelingCountHasDefaultValue() {
         final TopicData topicData = new TopicData.Builder().build();
 
-        assertThat(topicData.getBadFeelingCount()).isEqualTo(0);
+        assertThat(topicData.getSadFeelingCount()).isEqualTo(0);
     }
 
     @Test
     public void hasFeelings() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        realTopic.increasesFeelingCount(TestFactories.feelings().badFeeling());
+        realTopic.increasesFeelingCount(TestFactories.feelings().sadFeeling());
 
         final TopicData topicData = new TopicData.Builder().hasFeelings(realTopic.getHasFeelings()).build();
 

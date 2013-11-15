@@ -99,7 +99,7 @@ define(["modules/parser/context-parser"], function (parser) {
             expect(result[0].thumbnail).toEqual("thumb");
         });
 
-        it("has good sentiment", function () {
+        it("has happy sentiment", function () {
             var text = "i'm in the context yeah :)";
             var context = [
                 {"value": "yeah", "thumbnail": "thumb"}
@@ -107,7 +107,7 @@ define(["modules/parser/context-parser"], function (parser) {
 
             var result = parser.analyze(text, context);
 
-            expect(result[0].sentiment).toEqual("good");
+            expect(result[0].sentiment).toEqual("happy");
         });
     });
 });

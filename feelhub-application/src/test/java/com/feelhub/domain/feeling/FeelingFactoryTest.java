@@ -62,7 +62,7 @@ public class FeelingFactoryTest {
     public void onlyPostFirstFeelingEventForFirstFeeling() {
         final User user = TestFactories.users().createFakeActiveUser("mail@mail.com");
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
-        realTopic.increasesFeelingCount(TestFactories.feelings().goodFeeling(realTopic));
+        realTopic.increasesFeelingCount(TestFactories.feelings().happyFeeling(realTopic));
 
         final Feeling feeling = feelingFactory.createFeeling(user.getId(), realTopic.getCurrentId());
 

@@ -37,7 +37,7 @@ public class ScrapedInformationTest {
     public void ignoreEmptyDescription() {
         final String goodDescription = "my description";
 
-        scrapedInformation.addDescription(0, "bad description");
+        scrapedInformation.addDescription(0, "sad description");
         scrapedInformation.addDescription(10, goodDescription);
         scrapedInformation.addDescription(20, "");
 
@@ -62,9 +62,9 @@ public class ScrapedInformationTest {
     public void canGetTheBestName() {
         final String goodName = "my name";
 
-        scrapedInformation.addName(0, "bad name");
+        scrapedInformation.addName(0, "sad name");
         scrapedInformation.addName(10, goodName);
-        scrapedInformation.addName(5, "another bad name");
+        scrapedInformation.addName(5, "another sad name");
 
         assertThat(scrapedInformation.getName()).isEqualTo(goodName);
     }
@@ -73,7 +73,7 @@ public class ScrapedInformationTest {
     public void ignoreEmptyName() {
         final String goodName = "my name";
 
-        scrapedInformation.addName(0, "bad name");
+        scrapedInformation.addName(0, "sad name");
         scrapedInformation.addName(10, goodName);
         scrapedInformation.addName(20, "");
 

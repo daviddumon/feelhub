@@ -21,6 +21,4 @@ require(["plugins/domReady!", "jquery", "modules/interface", "modules/canvas", "
         canvas.feeling("sad", "feeling-value-sad");
         interface.init();
         form.init();
-        flow.init();
-        polling.start();
     });

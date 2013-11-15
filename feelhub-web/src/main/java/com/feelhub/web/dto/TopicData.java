@@ -63,18 +63,18 @@ public class TopicData {
             return this;
         }
 
-        public Builder goodFeelingCount(final int goodFeelingCount) {
-            this.goodFeelingCount = goodFeelingCount;
+        public Builder happyFeelingCount(final int happyFeelingCount) {
+            this.happyFeelingCount = happyFeelingCount;
             return this;
         }
 
-        public Builder neutralFeelingCount(final int neutralFeelingCount) {
-            this.neutralFeelingCount = neutralFeelingCount;
+        public Builder boredFeelingCount(final int boredFeelingCount) {
+            this.boredFeelingCount = boredFeelingCount;
             return this;
         }
 
-        public Builder badFeelingCount(final int badFeelingCount) {
-            this.badFeelingCount = badFeelingCount;
+        public Builder sadFeelingCount(final int sadFeelingCount) {
+            this.sadFeelingCount = sadFeelingCount;
             return this;
         }
 
@@ -100,9 +100,9 @@ public class TopicData {
         private List<String> subTypes = Lists.newArrayList();
         private final List<String> uris = Lists.newArrayList();
         private String description = "";
-        private int goodFeelingCount;
-        private int neutralFeelingCount;
-        private int badFeelingCount;
+        private int happyFeelingCount;
+        private int boredFeelingCount;
+        private int sadFeelingCount;
         private boolean hasFeelings = false;
         private long creationDate;
         private long lastModificationDate;
@@ -116,9 +116,9 @@ public class TopicData {
         this.uris = builder.uris;
         this.description = builder.description;
         this.thumbnail = builder.thumbnail;
-        this.goodFeelingCount = builder.goodFeelingCount;
-        this.neutralFeelingCount = builder.neutralFeelingCount;
-        this.badFeelingCount = builder.badFeelingCount;
+        this.happyFeelingCount = builder.happyFeelingCount;
+        this.boredFeelingCount = builder.boredFeelingCount;
+        this.sadFeelingCount = builder.sadFeelingCount;
         this.hasFeelings = builder.hasFeelings;
         this.creationDate = builder.creationDate;
         this.lastModificationDate = builder.lastModificationDate;
@@ -157,16 +157,16 @@ public class TopicData {
         return new JSONObject(this).toString();
     }
 
-    public int getGoodFeelingCount() {
-        return goodFeelingCount;
+    public int getHappyFeelingCount() {
+        return happyFeelingCount;
     }
 
-    public int getNeutralFeelingCount() {
-        return neutralFeelingCount;
+    public int getBoredFeelingCount() {
+        return boredFeelingCount;
     }
 
-    public int getBadFeelingCount() {
-        return badFeelingCount;
+    public int getSadFeelingCount() {
+        return sadFeelingCount;
     }
 
     public boolean getHasFeelings() {
@@ -198,9 +198,9 @@ public class TopicData {
     }
 
     private final boolean hasFeelings;
-    private final int goodFeelingCount;
-    private final int badFeelingCount;
-    private final int neutralFeelingCount;
+    private final int happyFeelingCount;
+    private final int sadFeelingCount;
+    private final int boredFeelingCount;
     private final String id;
     private final String thumbnail;
     private final String name;

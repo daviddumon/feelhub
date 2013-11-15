@@ -98,7 +98,7 @@ public class CookieBuilderTest {
     @Test
     public void canCreateMessageCookie() {
         final FeelhubMessage feelhubMessage = new FeelhubMessage();
-        feelhubMessage.setFeeling(FeelingValue.good.toString());
+        feelhubMessage.setFeeling(FeelingValue.happy.toString());
         feelhubMessage.setSecondTimer(3);
         feelhubMessage.setText("This is good!");
         final CookieSetting cookie = new CookieBuilder(new FeelhubWebProperties()).messageCookie(feelhubMessage);

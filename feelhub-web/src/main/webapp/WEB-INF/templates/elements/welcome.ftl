@@ -13,17 +13,17 @@
         <div class="welcome-illustration">
 
             <div class="canvas-button">
-                <canvas id="welcome-feeling-good" feeling-value="good" class="feeling-canvas"></canvas>
+                <canvas id="welcome-feeling-happy" feeling-value="happy" class="feeling-canvas"></canvas>
                 <div class="canvas-welcome-text">like</div>
             </div>
 
             <div class="canvas-button">
-                <canvas id="welcome-feeling-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
+                <canvas id="welcome-feeling-bored" feeling-value="bored" class="feeling-canvas"></canvas>
                 <div class="canvas-welcome-text">don't care</div>
             </div>
 
             <div class="canvas-button">
-                <canvas id="welcome-feeling-bad" feeling-value="bad" class="feeling-canvas"></canvas>
+                <canvas id="welcome-feeling-sad" feeling-value="sad" class="feeling-canvas"></canvas>
                 <div class="canvas-welcome-text">dislike</div>
             </div>
 
@@ -51,7 +51,7 @@
         </div>
 
         <div class="welcome-illustration">
-            <canvas id="help-pie" class="pie-canvas" data-good="1" data-neutral="1" data-bad="1"></canvas>
+            <canvas id="help-pie" class="pie-canvas" data-happy="1" data-bored="1" data-sad="1"></canvas>
         </div>
     </div>
 

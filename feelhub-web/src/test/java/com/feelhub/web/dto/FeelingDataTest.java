@@ -68,9 +68,9 @@ public class FeelingDataTest {
 
     @Test
     public void hasAFeelingValue() {
-        final FeelingData feelingData = new FeelingData.Builder().feelingValue(FeelingValue.good).build();
+        final FeelingData feelingData = new FeelingData.Builder().feelingValue(FeelingValue.happy).build();
 
-        assertThat(feelingData.getFeelingValue()).isEqualTo(FeelingValue.good);
+        assertThat(feelingData.getFeelingValue()).isEqualTo(FeelingValue.happy);
     }
 
     @Test

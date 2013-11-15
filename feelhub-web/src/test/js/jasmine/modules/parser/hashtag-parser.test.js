@@ -71,12 +71,12 @@ define(["modules/parser/hashtag-parser"], function (parser) {
             expect(result[0].sentiment).toBe("none");
         });
 
-        it("set parse good sentiment", function () {
+        it("set parse happy sentiment", function () {
             var text = "i like #marie :)";
 
             var result = parser.analyze(text);
 
-            expect(result[0].sentiment).toBe("good");
+            expect(result[0].sentiment).toBe("happy");
         });
     });
 });

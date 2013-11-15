@@ -11,26 +11,26 @@ define(["jquery", "plugins/hgn!templates/feeling", "modules/canvas"],
         });
 
         var texts_for_feelings = {
-            good: [
-                "likes this",
-                "very likes this !",
-                "very likes this !",
-                "very likes this !",
-                "thinks this is pure awesomeness !"
+            happy: [
+                "is happy about this",
+                "is very happy about this!",
+                "is very happy about this!",
+                "is very happy about this!",
+                "thinks this is pure awesomeness and brings joy to the world!"
             ],
-            neutral: [
-                "doesn't care about this",
+            bored: [
+                "is bored by this",
                 "doesn't see the point of this",
                 "doesn't see the point of this",
                 "doesn't see the point of this",
                 "does not give a shit about this !"
             ],
-            bad: [
-                "dislikes this",
-                "really dislikes this !",
-                "really dislikes this !",
-                "really dislikes this !",
-                "is very angry about this !"
+            sad: [
+                "is sad about this",
+                "is very sad about this!",
+                "is very sad about this!",
+                "is very sad about this!",
+                "is very sad about this!",
             ]
         };
 

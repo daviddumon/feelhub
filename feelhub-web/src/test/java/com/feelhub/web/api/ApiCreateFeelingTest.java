@@ -50,8 +50,8 @@ public class ApiCreateFeelingTest {
 
     @Test
     public void postAFeelingRequestEvent() throws AuthenticationException, JSONException {
-        when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateCheckedFuture(TestFactories.feelings().goodFeeling()));
-        final JSONObject jsonObject = getJson(FeelingValue.good);
+        when(commandBus.execute(any(Command.class))).thenReturn(Futures.immediateCheckedFuture(TestFactories.feelings().happyFeeling()));
+        final JSONObject jsonObject = getJson(FeelingValue.happy);
 
         apiCreateFeeling.add(jsonObject);
 
@@ -70,21 +70,21 @@ public class ApiCreateFeelingTest {
     public void throwApiErrorOnMissingLanguage() throws AuthenticationException, JSONException {
         exception.expect(FeelhubApiException.class);
 
-        apiCreateFeeling.add(new JSONObject("{text:\"my feeling\", topicId:" + topic.getCurrentId() + ",feelingValue: \"good\" }"));
+        apiCreateFeeling.add(new JSONObject("{text:\"my feeling\", topicId:" + topic.getCurrentId() + ",feelingValue: \"happy\" }"));
     }
 
     @Test
     public void throwApiErrorOnMissingText() throws AuthenticationException, JSONException {
         exception.expect(FeelhubApiException.class);
 
-        apiCreateFeeling.add(new JSONObject("{languageCode:\"en\", topicId:" + topic.getCurrentId() + ",feelingValue: \"good\" }"));
+        apiCreateFeeling.add(new JSONObject("{languageCode:\"en\", topicId:" + topic.getCurrentId() + ",feelingValue: \"happy\" }"));
     }
 
     @Test
     public void throwApiErrorOnMissingTopic() throws AuthenticationException, JSONException {
         exception.expect(FeelhubApiException.class);
 
-        apiCreateFeeling.add(new JSONObject("{languageCode:\"en\", text: \"my feeling\",feelingValue: \"good\" }"));
+        apiCreateFeeling.add(new JSONObject("{languageCode:\"en\", text: \"my feeling\",feelingValue: \"happy\" }"));
     }
 
     @Test

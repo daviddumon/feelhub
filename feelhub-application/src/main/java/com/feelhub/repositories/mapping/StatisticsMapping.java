@@ -15,8 +15,8 @@ public class StatisticsMapping extends AggregateMap<Statistics> {
         property().onProperty(element().getDate());
         property().onProperty(element().getTopicId());
         property().onProperty(element().getGranularity());
-        property().onProperty(element().getBad());
-        property().onProperty(element().getGood());
-        property().onProperty(element().getNeutral());
+        property().onProperty(element().getSad());
+        property().onProperty(element().getHappy());
+        property().onProperty(element().getBored());
     }
 }

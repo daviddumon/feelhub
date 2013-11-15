@@ -24,9 +24,9 @@ public class StatisticsManager {
                     oldStat.setTopicId(newTopicId);
                 } else {
                     final Statistics goodStat = goodStatList.get(0);
-                    goodStat.addGood(oldStat.getGood());
-                    goodStat.addBad(oldStat.getBad());
-                    goodStat.addNeutral(oldStat.getNeutral());
+                    goodStat.addHappy(oldStat.getHappy());
+                    goodStat.addSad(oldStat.getSad());
+                    goodStat.addBored(oldStat.getBored());
                     Repositories.statistics().delete(oldStat);
                 }
             }

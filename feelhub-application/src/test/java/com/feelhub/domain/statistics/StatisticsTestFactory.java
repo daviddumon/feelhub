@@ -26,12 +26,12 @@ public class StatisticsTestFactory {
     public Statistics newStatisticsWithFeelings(final UUID topicid, final Granularity granularity) {
         final Statistics statistics = new Statistics(topicid, granularity, new DateTime());
         final Topic topic = Repositories.topics().get(topicid);
-        statistics.incrementFeelingCount(TestFactories.feelings().goodFeeling(topic));
-        statistics.incrementFeelingCount(TestFactories.feelings().goodFeeling(topic));
-        statistics.incrementFeelingCount(TestFactories.feelings().goodFeeling(topic));
-        statistics.incrementFeelingCount(TestFactories.feelings().badFeeling(topic));
-        statistics.incrementFeelingCount(TestFactories.feelings().badFeeling(topic));
-        statistics.incrementFeelingCount(TestFactories.feelings().neutralFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().happyFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().happyFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().happyFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().sadFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().sadFeeling(topic));
+        statistics.incrementFeelingCount(TestFactories.feelings().boredFeeling(topic));
         Repositories.statistics().add(statistics);
         return statistics;
     }

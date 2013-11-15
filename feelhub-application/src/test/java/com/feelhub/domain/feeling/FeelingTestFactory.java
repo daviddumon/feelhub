@@ -44,7 +44,7 @@ public class FeelingTestFactory {
         final Feeling feeling = new Feeling(activeUser.getId(), topic.getId());
         feeling.setText(text);
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        feeling.setFeelingValue(FeelingValue.good);
+        feeling.setFeelingValue(FeelingValue.happy);
         Repositories.feelings().add(feeling);
         return feeling;
     }
@@ -55,7 +55,7 @@ public class FeelingTestFactory {
         final Feeling feeling = new Feeling(user.getId(), realTopic.getCurrentId());
         feeling.setText("text");
         feeling.setLanguageCode(FeelhubLanguage.reference().getCode());
-        feeling.setFeelingValue(FeelingValue.good);
+        feeling.setFeelingValue(FeelingValue.happy);
         Repositories.feelings().add(feeling);
         return feeling;
     }
@@ -69,33 +69,33 @@ public class FeelingTestFactory {
         return feeling;
     }
 
-    public Feeling goodFeeling() {
-        return feelingWithFeelingValue(FeelingValue.good);
+    public Feeling happyFeeling() {
+        return feelingWithFeelingValue(FeelingValue.happy);
     }
 
-    public Feeling badFeeling() {
-        return feelingWithFeelingValue(FeelingValue.bad);
+    public Feeling sadFeeling() {
+        return feelingWithFeelingValue(FeelingValue.sad);
     }
 
-    public Feeling neutralFeeling() {
-        return feelingWithFeelingValue(FeelingValue.neutral);
+    public Feeling boredFeeling() {
+        return feelingWithFeelingValue(FeelingValue.bored);
     }
 
-    public Feeling goodFeeling(final Topic topic) {
+    public Feeling happyFeeling(final Topic topic) {
         final Feeling feeling = feelingWithTopic(topic);
-        feeling.setFeelingValue(FeelingValue.good);
+        feeling.setFeelingValue(FeelingValue.happy);
         return feeling;
     }
 
-    public Feeling badFeeling(final Topic topic) {
+    public Feeling sadFeeling(final Topic topic) {
         final Feeling feeling = feelingWithTopic(topic);
-        feeling.setFeelingValue(FeelingValue.bad);
+        feeling.setFeelingValue(FeelingValue.sad);
         return feeling;
     }
 
-    public Feeling neutralFeeling(final Topic topic) {
+    public Feeling boredFeeling(final Topic topic) {
         final Feeling feeling = feelingWithTopic(topic);
-        feeling.setFeelingValue(FeelingValue.neutral);
+        feeling.setFeelingValue(FeelingValue.bored);
         return feeling;
     }
 

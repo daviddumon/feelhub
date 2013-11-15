@@ -69,7 +69,7 @@ define(["modules/parser/uri-parser"], function (parser) {
 
             var result = parser.analyze(text);
 
-            expect(result[0].sentiment).toBe("good");
+            expect(result[0].sentiment).toBe("happy");
         });
     });
 });

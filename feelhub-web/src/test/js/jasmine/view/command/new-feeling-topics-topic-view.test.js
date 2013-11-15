@@ -4,7 +4,7 @@ define(["jquery","view/command/new-feeling-topics-topic-view"], function ($, vie
 
         var data = {
             "name": "name1",
-            "sentiment": "good",
+            "sentiment": "happy",
             "id": "myid",
             "thumbnail": "thumb"
         };

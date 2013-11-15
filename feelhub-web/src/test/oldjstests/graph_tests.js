@@ -62,27 +62,27 @@ GraphTests.prototype = {
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
-        assertSame(buildFakePath("good", 10), graph.path("good", 0, 0));
-        assertSame(buildFakePath("bad", 10), graph.path("bad", 0, 0));
-        assertSame(buildFakePath("neutral", 10), graph.path("neutral", 0, 0));
+        assertSame(buildFakePath("happy", 10), graph.path("happy", 0, 0));
+        assertSame(buildFakePath("sad", 10), graph.path("sad", 0, 0));
+        assertSame(buildFakePath("bored", 10), graph.path("bored", 0, 0));
     },
 
     testCanBuildTopStrokePaths: function () {
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
-        assertSame(buildFakeTopStroke("good", 10), graph.top("good", 0, 0));
-        assertSame(buildFakeTopStroke("bad", 10), graph.top("bad", 0, 0));
-        assertSame(buildFakeTopStroke("neutral", 10), graph.top("neutral", 0, 0));
+        assertSame(buildFakeTopStroke("happy", 10), graph.top("happy", 0, 0));
+        assertSame(buildFakeTopStroke("sad", 10), graph.top("sad", 0, 0));
+        assertSame(buildFakeTopStroke("bored", 10), graph.top("bored", 0, 0));
     },
 
     testCanBuildBottomStrokePaths: function () {
         var graph = new Graph(start, end, 10, 5, 200);
         graph.setBlocks(blocks);
 
-        assertSame(buildFakeBottomStroke("good", 10), graph.bottom("good", 0, 0));
-        assertSame(buildFakeBottomStroke("bad", 10), graph.bottom("bad", 0, 0));
-        assertSame(buildFakeBottomStroke("neutral", 10), graph.bottom("neutral", 0, 0));
+        assertSame(buildFakeBottomStroke("happy", 10), graph.bottom("happy", 0, 0));
+        assertSame(buildFakeBottomStroke("sad", 10), graph.bottom("sad", 0, 0));
+        assertSame(buildFakeBottomStroke("bored", 10), graph.bottom("bored", 0, 0));
     },
 
     testCanDrawAGraph: function () {

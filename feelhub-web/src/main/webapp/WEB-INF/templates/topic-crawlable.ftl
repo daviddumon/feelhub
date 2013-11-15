@@ -1,9 +1,11 @@
 <@base.head_production>
 <link rel="stylesheet" href="${root}/static/css/topic.css?cache=${buildtime}"/>
+<script type="text/javascript" data-main="${root}/static/js/controller-built/topic-crawlable-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@base.head_production>
 
 <@base.head_development>
 <link rel="stylesheet/less" type="text/css" href="${root}/static/css/topic.less?cache=${buildtime}"/>
+<script type="text/javascript" data-main="${root}/static/js/controller/topic-crawlable-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@base.head_development>
 
 <@base.js>
@@ -37,7 +39,12 @@ var initial_datas = [
     <#include 'elements/signup.ftl'/>
     <#include "elements/header.ftl"/>
 
-<div id="topic-container" class="group">
+    <#if feelingDatas?? && (feelingDatas?size > 0)>
+    <div id="topic-container" class="feelings">
+    <#else>
+    <div id="topic-container" class="nofeelings">
+    </#if>
+    <div id="nofeelings">There are no feelings yet, be the first !</div>
 
 <div class="topic-column">
 
@@ -62,20 +69,19 @@ var initial_datas = [
     </#if>
 
     <form id="feeling-form" autocomplete="off" class="topic-element">
-        <textarea name="comment"></textarea>
-        <span class="help-text">How do you feel about that ?</span>
+        <textarea name="comment" placeholder="How do you feel about that ?"></textarea>
 
         <div class="canvas-button">
-            <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>
-            <div class="canvas-help-text">&nbsp;</div>
+            <canvas id="feeling-value-happy" feeling-value="happy" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">happy</div>
         </div>
         <div class="canvas-button">
-            <canvas id="feeling-value-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
-            <div class="canvas-help-text">&nbsp;</div>
+            <canvas id="feeling-value-bored" feeling-value="bored" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">bored</div>
         </div>
         <div class="canvas-button">
-            <canvas id="feeling-value-bad" feeling-value="bad" class="feeling-canvas"></canvas>
-            <div class="canvas-help-text">&nbsp;</div>
+            <canvas id="feeling-value-sad" feeling-value="sad" class="feeling-canvas"></canvas>
+            <div class="canvas-help-text">sad</div>
         </div>
     </form>
 
@@ -89,7 +95,7 @@ var initial_datas = [
     </#if>
 
     <div id="related" class="topic-element">
-        <span class="block-title">more</span>
+        <span class="block-title">most related</span>
         <#list relatedDatas as related>
             <a href="${root}/topic/${related.id}">
                 <div class="wrapper">
@@ -102,37 +108,37 @@ var initial_datas = [
 
 </div>
 
-<div class="topic-column">
+    <div class="topic-column">
 
-    <div id="analytics" class="topic-element">
-        <canvas id="pie" class="pie-canvas" data-good="${topicData.goodFeelingCount}" data-neutral="${topicData.neutralFeelingCount}" data-bad="${topicData.badFeelingCount}">no feelings</canvas>
+        <div id="analytics" class="topic-element">
+            <canvas id="pie" class="pie-canvas" data-happy="${topicData.happyFeelingCount}" data-bored="${topicData.boredFeelingCount}" data-sad="${topicData.sadFeelingCount}">no feelings</canvas>
 
-        <#assign feelingsCount=topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount>
-        <#if topicData.goodFeelingCount &gt; topicData.badFeelingCount && topicData.goodFeelingCount &gt; topicData.neutralFeelingCount >
-            <@feelingsCounter feelingsCount "good"/>
-        <#elseif topicData.badFeelingCount &gt; topicData.goodFeelingCount && topicData.badFeelingCount &gt; topicData.neutralFeelingCount >
-            <@feelingsCounter feelingsCount "bad"/>
-        <#else>
-            <@feelingsCounter feelingsCount "neutral"/>
+            <#assign feelingsCount=topicData.happyFeelingCount + topicData.boredFeelingCount + topicData.sadFeelingCount>
+            <#if topicData.happyFeelingCount &gt; topicData.sadFeelingCount && topicData.happyFeelingCount &gt; topicData.boredFeelingCount >
+                <@feelingsCounter feelingsCount "happy"/>
+            <#elseif topicData.sadFeelingCount &gt; topicData.happyFeelingCount && topicData.sadFeelingCount &gt; topicData.boredFeelingCount >
+                <@feelingsCounter feelingsCount "sad"/>
+            <#else>
+                <@feelingsCounter feelingsCount "bored"/>
+            </#if>
+        </div>
+
+        <#if feelingDatas?? && (feelingDatas?size > 0)>
+            <ul id="feelings" class="topic-element">
+                <#list feelingDatas as feelingData>
+                    <div class="feeling" id="${feelingData.id}">
+                        <div>
+                            <canvas id="canvas-${feelingData.id}" class="feeling-canvas"></canvas>
+                        </div>
+                        <p class="date">${feelingData.creationDate}</p>
+                        <#list feelingData.text as text>
+                            <p class="text">${text?json_string}</p>
+                        </#list>
+                    </div>
+                </#list>
+            </ul>
         </#if>
     </div>
-
-    <#if feelingDatas?? && (feelingDatas?size > 0)>
-        <ul id="feelings" class="topic-element">
-            <#list feelingDatas as feelingData>
-                <div class="feeling" id="${feelingData.id}">
-                    <div>
-                        <canvas id="canvas-${feelingData.id}" class="feeling-canvas"></canvas>
-                    </div>
-                    <p class="date">${feelingData.creationDate}</p>
-                    <#list feelingData.text as text>
-                        <p class="text">${text?json_string}</p>
-                    </#list>
-                </div>
-            </#list>
-        </ul>
-    </#if>
-</div>
 
 </div>
     <#macro feelingsCounter count class>

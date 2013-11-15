@@ -84,12 +84,12 @@ public class FeelingMongoRepositoryTest extends TestWithMongoRepository {
         final RealTopic realTopicB = TestFactories.topics().newCompleteRealTopic();
         final User userA = TestFactories.users().createFakeActiveUser("mail@mail.com");
         final User userB = TestFactories.users().createFakeActiveUser("mail2@mail.com");
-        final Feeling feeling1 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userA, realTopicA, FeelingValue.bad);
-        final Feeling feeling2 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userA, realTopicA, FeelingValue.good);
-        final Feeling feeling3 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userB, realTopicA, FeelingValue.bad);
-        final Feeling feeling4 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userA, realTopicB, FeelingValue.bad);
+        final Feeling feeling1 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userA, realTopicA, FeelingValue.sad);
+        final Feeling feeling2 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userA, realTopicA, FeelingValue.happy);
+        final Feeling feeling3 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userB, realTopicA, FeelingValue.sad);
+        final Feeling feeling4 = TestFactories.feelings().feelingWithAnUserATopicAndAFeelingValue(userA, realTopicB, FeelingValue.sad);
 
-        final List<Feeling> feelings = Repositories.feelings().forTopicIdUserIdAndFeelingValue(realTopicA.getId(), userA.getId(), FeelingValue.bad);
+        final List<Feeling> feelings = Repositories.feelings().forTopicIdUserIdAndFeelingValue(realTopicA.getId(), userA.getId(), FeelingValue.sad);
 
         assertThat(feelings.size()).isEqualTo(1);
     }
@@ -97,7 +97,7 @@ public class FeelingMongoRepositoryTest extends TestWithMongoRepository {
     private Feeling createAFeeling() {
         final Feeling feeling = new Feeling(user.getId(), topic.getId());
         feeling.setText("This is a comment");
-        feeling.setFeelingValue(FeelingValue.good);
+        feeling.setFeelingValue(FeelingValue.happy);
         feeling.setLanguageCode("en");
         return feeling;
     }

@@ -15,9 +15,9 @@ public class TopicDataFactory {
             builder.description(topic.getDescription(feelhubLanguage));
             builder.subtypes(topic.getSubTypes());
             builder.uris(topic.getUris());
-            builder.goodFeelingCount(topic.getGoodFeelingCount());
-            builder.badFeelingCount(topic.getBadFeelingCount());
-            builder.neutralFeelingCount(topic.getNeutralFeelingCount());
+            builder.happyFeelingCount(topic.getHappyFeelingCount());
+            builder.sadFeelingCount(topic.getSadFeelingCount());
+            builder.boredFeelingCount(topic.getBoredFeelingCount());
             builder.creationDate(topic.getCreationDate());
             builder.lastModificatioNDate(topic.getLastModificationDate());
         }

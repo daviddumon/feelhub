@@ -8,9 +8,9 @@ define(["jquery", "modules/canvas"],
         function init() {
             $(name).css("left", $(window).width() / 2 - $(name).width() / 2);
             add_responsive_behavior();
-            canvas.feeling("good", "welcome-feeling-good");
-            canvas.feeling("neutral", "welcome-feeling-neutral");
-            canvas.feeling("bad", "welcome-feeling-bad");
+            canvas.feeling("happy", "welcome-feeling-happy");
+            canvas.feeling("bored", "welcome-feeling-bored");
+            canvas.feeling("sad", "welcome-feeling-sad");
             canvas.pie("help-pie");
         }
 

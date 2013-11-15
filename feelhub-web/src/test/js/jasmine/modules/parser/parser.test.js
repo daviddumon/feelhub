@@ -172,7 +172,7 @@ define(["modules/parser/parser"], function (parser) {
             var result = parser.analyze(text);
 
             expect(result[0].name).toEqual("www.feelhub.com");
-            expect(result[0].sentiment).toEqual("good");
+            expect(result[0].sentiment).toEqual("happy");
         });
     });
 });

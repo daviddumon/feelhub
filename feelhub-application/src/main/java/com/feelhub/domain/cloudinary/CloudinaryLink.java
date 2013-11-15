@@ -9,7 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.*;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.*;
+import org.apache.http.params.CoreConnectionPNames;
 import org.json.simple.JSONValue;
 
 import java.io.*;

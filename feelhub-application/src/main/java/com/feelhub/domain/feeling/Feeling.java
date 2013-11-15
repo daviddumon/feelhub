@@ -3,7 +3,6 @@ package com.feelhub.domain.feeling;
 import com.feelhub.domain.BaseEntity;
 import com.google.common.collect.Lists;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 public class Feeling extends BaseEntity {
@@ -16,7 +15,7 @@ public class Feeling extends BaseEntity {
         this.id = UUID.randomUUID();
         this.userId = userId;
         this.topicId = topicId;
-        this.feelingValue = FeelingValue.neutral;
+        this.feelingValue = FeelingValue.bored;
     }
 
     public UUID getId() {

@@ -39,22 +39,22 @@ define(["jquery", "modules/messages", "view/feeling-view", "modules/canvas"], fu
     function success(data, textStatus, xhr) {
         $(container + " textarea").val("");
         feeling_view.render(data, "#feelings", true);
-        messages.draw_message("good", "Your feeling has been posted!", 1);
+        messages.draw_message("happy", "Your feeling has been posted!", 1);
         submitted = false;
 
-        var good = parseInt($("#pie").data("good"));
-        var bad = parseInt($("#pie").data("bad"));
-        var neutral = parseInt($("#pie").data("neutral"));
+        var happy = parseInt($("#pie").data("happy"));
+        var sad = parseInt($("#pie").data("sad"));
+        var bored = parseInt($("#pie").data("bored"));
 
-        if(data.feelingValue == "good") {
-            $("#pie").data("good", ++good);
-        } else if (data.feelingValue == "bad") {
-            $("#pie").data("bad", ++bad);
+        if(data.feelingValue == "happy") {
+            $("#pie").data("happy", ++happy);
+        } else if (data.feelingValue == "sad") {
+            $("#pie").data("sad", ++sad);
         } else {
-            $("#pie").data("neutral", ++neutral);
+            $("#pie").data("bored", ++bored);
         }
 
-        var total = good + bad + neutral;
+        var total = happy + sad + bored;
 
         if(total == 1) {
             $("#counter").text(total + " feeling");
@@ -67,7 +67,7 @@ define(["jquery", "modules/messages", "view/feeling-view", "modules/canvas"], fu
 
     function error(jqXHR) {
         if (jqXHR.status == 401) {
-            messages.draw_message("bad", "Please log in", 1);
+            messages.draw_message("sad", "Please log in", 1);
             $("#login-button").click();
             submitted = false;
         }

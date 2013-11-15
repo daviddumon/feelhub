@@ -264,43 +264,43 @@ public class TopicTest {
     }
 
     @Test
-    public void aTopicCanIncreaseGoodFeelingCount() {
+    public void aTopicCanIncreaseHappyFeelingCount() {
         final UUID id = UUID.randomUUID();
         final FakeTopicImplementation topic = new FakeTopicImplementation(id);
-        final Feeling feeling = TestFactories.feelings().goodFeeling(topic);
+        final Feeling feeling = TestFactories.feelings().happyFeeling(topic);
 
         topic.increasesFeelingCount(feeling);
 
-        assertThat(topic.getGoodFeelingCount()).isEqualTo(1);
+        assertThat(topic.getHappyFeelingCount()).isEqualTo(1);
     }
 
     @Test
-    public void aTopicCanIncreaseBadFeelingCount() {
+    public void aTopicCanIncreaseSadFeelingCount() {
         final UUID id = UUID.randomUUID();
         final FakeTopicImplementation topic = new FakeTopicImplementation(id);
-        final Feeling feeling = TestFactories.feelings().badFeeling(topic);
+        final Feeling feeling = TestFactories.feelings().sadFeeling(topic);
 
         topic.increasesFeelingCount(feeling);
 
-        assertThat(topic.getBadFeelingCount()).isEqualTo(1);
+        assertThat(topic.getSadFeelingCount()).isEqualTo(1);
     }
 
     @Test
-    public void aTopicCanIncreaseNeutralFeelingCount() {
+    public void aTopicCanIncreaseBoredFeelingCount() {
         final UUID id = UUID.randomUUID();
         final FakeTopicImplementation topic = new FakeTopicImplementation(id);
-        final Feeling feeling = TestFactories.feelings().neutralFeeling(topic);
+        final Feeling feeling = TestFactories.feelings().boredFeeling(topic);
 
         topic.increasesFeelingCount(feeling);
 
-        assertThat(topic.getNeutralFeelingCount()).isEqualTo(1);
+        assertThat(topic.getBoredFeelingCount()).isEqualTo(1);
     }
 
     @Test
     public void increasesFeelingSetHasFeelingToTrue() {
         final UUID id = UUID.randomUUID();
         final FakeTopicImplementation topic = new FakeTopicImplementation(id);
-        final Feeling feeling = TestFactories.feelings().neutralFeeling(topic);
+        final Feeling feeling = TestFactories.feelings().boredFeeling(topic);
 
         topic.increasesFeelingCount(feeling);
 

@@ -9,7 +9,6 @@ import com.google.common.base.Objects;
 import com.google.common.collect.*;
 import org.apache.commons.lang.WordUtils;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 
@@ -147,28 +146,28 @@ public abstract class Topic extends BaseEntity {
         thumbnails.add(thumbnail);
     }
 
-    public int getGoodFeelingCount() {
-        return goodFeelingCount;
+    public int getHappyFeelingCount() {
+        return happyFeelingCount;
     }
 
-    public int getBadFeelingCount() {
-        return badFeelingCount;
+    public int getSadFeelingCount() {
+        return sadFeelingCount;
     }
 
-    public int getNeutralFeelingCount() {
-        return neutralFeelingCount;
+    public int getBoredFeelingCount() {
+        return boredFeelingCount;
     }
 
     public void increasesFeelingCount(final Feeling feeling) {
         switch (feeling.getFeelingValue()) {
-            case good:
-                this.goodFeelingCount++;
+            case happy:
+                this.happyFeelingCount++;
                 break;
-            case bad:
-                this.badFeelingCount++;
+            case sad:
+                this.sadFeelingCount++;
                 break;
-            case neutral:
-                this.neutralFeelingCount++;
+            case bored:
+                this.boredFeelingCount++;
                 break;
         }
         this.hasFeelings = true;
@@ -188,8 +187,8 @@ public abstract class Topic extends BaseEntity {
     private final List<Thumbnail> thumbnails = Lists.newArrayList();
     private UUID userId;
     private TopicMerger topicMerger = new TopicMerger();
-    private int goodFeelingCount;
-    private int badFeelingCount;
-    private int neutralFeelingCount;
+    private int happyFeelingCount;
+    private int sadFeelingCount;
+    private int boredFeelingCount;
     private boolean hasFeelings;
 }

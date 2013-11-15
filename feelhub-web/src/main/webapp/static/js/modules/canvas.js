@@ -10,19 +10,19 @@ define(["jquery"],
             pie(this.id);
         });
 
-        $("html").on("mouseover", "#feeling-value-good", function () {
+        $("html").on("mouseover", "#feeling-value-happy", function () {
             animateFeeling(this);
-            $(this).next(".canvas-help-text").html("I like");
+            $(this).next(".canvas-help-text").html("Happy");
         });
 
-        $("html").on("mouseover", "#feeling-value-neutral", function () {
+        $("html").on("mouseover", "#feeling-value-bored", function () {
             animateFeeling(this);
-            $(this).next(".canvas-help-text").html("I don't care");
+            $(this).next(".canvas-help-text").html("Bored");
         });
 
-        $("html").on("mouseover", "#feeling-value-bad", function () {
+        $("html").on("mouseover", "#feeling-value-sad", function () {
             animateFeeling(this);
-            $(this).next(".canvas-help-text").html("I dislike");
+            $(this).next(".canvas-help-text").html("Sad");
         });
 
         function animateFeeling(canvas) {
@@ -38,17 +38,17 @@ define(["jquery"],
             }, 200);
         }
 
-        $("html").on("mouseout", "#feeling-value-good", function () {
+        $("html").on("mouseout", "#feeling-value-happy", function () {
             reDrawFeeling(this);
             $(this).next(".canvas-help-text").html("&nbsp;");
         });
 
-        $("html").on("mouseout", "#feeling-value-neutral", function () {
+        $("html").on("mouseout", "#feeling-value-bored", function () {
             reDrawFeeling(this);
             $(this).next(".canvas-help-text").html("&nbsp;");
         });
 
-        $("html").on("mouseout", "#feeling-value-bad", function () {
+        $("html").on("mouseout", "#feeling-value-sad", function () {
             reDrawFeeling(this);
             $(this).next(".canvas-help-text").html("&nbsp;");
         });
@@ -59,9 +59,9 @@ define(["jquery"],
             feeling($(canvas).attr("feeling-value"), $(canvas).attr("id"));
         }
 
-        var good_color = "#2ECC71";
-        var neutral_color = "#F1C40F";
-        var bad_color = "#E74C3C";
+        var happy_color = "#2ECC71";
+        var bored_color = "#F1C40F";
+        var sad_color = "#E74C3C";
         var fill_color = "#FFFFFF";
         var no_color = "#EDEDED";
         var base_line, left, right, width;
@@ -90,12 +90,12 @@ define(["jquery"],
             draw_mouth(context, feelingValue);
 
             function draw_background(context, feelingValue) {
-                if (feelingValue == "good") {
-                    context.fillStyle = good_color;
-                } else if (feelingValue == "bad") {
-                    context.fillStyle = bad_color;
+                if (feelingValue == "happy") {
+                    context.fillStyle = happy_color;
+                } else if (feelingValue == "sad") {
+                    context.fillStyle = sad_color;
                 } else {
-                    context.fillStyle = neutral_color;
+                    context.fillStyle = bored_color;
                 }
                 context.fillRect(0, 0, width, height);
             }
@@ -111,9 +111,9 @@ define(["jquery"],
 
             function draw_mouth(context, feelingValue) {
                 var curve = 0;
-                if (feelingValue == "good") {
+                if (feelingValue == "happy") {
                     curve = width / 8;
-                } else if (feelingValue == "bad") {
+                } else if (feelingValue == "sad") {
                     curve = -width / 8;
                 }
 
@@ -138,56 +138,56 @@ define(["jquery"],
             centerY = canvas.height / 2;
             context.lineCap = "round";
             context.lineWidth = 5;
-            var good = $("#" + selector).data("good");
-            var neutral = $("#" + selector).data("neutral");
-            var bad = $("#" + selector).data("bad");
-            var total = good + neutral + bad;
+            var happy = $("#" + selector).data("happy");
+            var bored = $("#" + selector).data("bored");
+            var sad = $("#" + selector).data("sad");
+            var total = happy + bored + sad;
             if (total > 0) {
                 var totalAngle = 2 * Math.PI;
 
-                var goodAngle = {
+                var happyAngle = {
                     start: 0 * totalAngle,
-                    end: (good / total) * totalAngle
+                    end: (happy / total) * totalAngle
                 };
 
-                var neutralAngle = {
-                    start: goodAngle.end,
-                    end: goodAngle.end + (neutral / total) * totalAngle
+                var boredAngle = {
+                    start: happyAngle.end,
+                    end: happyAngle.end + (bored / total) * totalAngle
                 };
 
-                var badAngle = {
-                    start: neutralAngle.end,
+                var sadAngle = {
+                    start: boredAngle.end,
                     end: totalAngle
                 };
 
-                if (goodAngle.start != goodAngle.end) {
-                    context.fillStyle = good_color;
+                if (happyAngle.start != happyAngle.end) {
+                    context.fillStyle = happy_color;
                     context.strokeStyle = "rgb(245,245,245)";
                     context.beginPath();
                     context.moveTo(centerX, centerY);
-                    context.arc(centerX, centerY, (canvas.width / 2) - 10, goodAngle.start, goodAngle.end, false);
+                    context.arc(centerX, centerY, (canvas.width / 2) - 10, happyAngle.start, happyAngle.end, false);
                     context.lineTo(centerX, centerY);
                     context.stroke();
                     context.fill();
                 }
 
-                if (neutralAngle.start != neutralAngle.end) {
-                    context.fillStyle = neutral_color;
+                if (boredAngle.start != boredAngle.end) {
+                    context.fillStyle = bored_color;
                     context.strokeStyle = "rgb(245,245,245)";
                     context.beginPath();
                     context.moveTo(centerX, centerY);
-                    context.arc(centerX, centerY, (canvas.width / 2) - 10, neutralAngle.start, neutralAngle.end, false);
+                    context.arc(centerX, centerY, (canvas.width / 2) - 10, boredAngle.start, boredAngle.end, false);
                     context.lineTo(centerX, centerY);
                     context.stroke();
                     context.fill();
                 }
 
-                if (badAngle.start != badAngle.end) {
-                    context.fillStyle = bad_color;
+                if (sadAngle.start != sadAngle.end) {
+                    context.fillStyle = sad_color;
                     context.strokeStyle = "rgb(245,245,245)";
                     context.beginPath();
                     context.moveTo(centerX, centerY);
-                    context.arc(centerX, centerY, (canvas.width / 2) - 10, badAngle.start, badAngle.end, false);
+                    context.arc(centerX, centerY, (canvas.width / 2) - 10, sadAngle.start, sadAngle.end, false);
                     context.lineTo(centerX, centerY);
                     context.stroke();
                     context.fill();

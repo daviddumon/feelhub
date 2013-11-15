@@ -54,7 +54,7 @@ public class CreateFeelingCommandTest {
         builder.topic(realTopic);
         builder.languageCode(FeelhubLanguage.reference());
         builder.text("C'est cool :)");
-        builder.feelingValue(FeelingValue.good);
+        builder.feelingValue(FeelingValue.happy);
         return builder.build();
     }
 }

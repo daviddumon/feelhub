@@ -232,20 +232,20 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
     public void canPersistFeelingCounts() {
         final UUID id = UUID.randomUUID();
         final FakeTopicImplementation topic = new FakeTopicImplementation(id);
-        topic.increasesFeelingCount(TestFactories.feelings().badFeeling());
-        topic.increasesFeelingCount(TestFactories.feelings().neutralFeeling());
-        topic.increasesFeelingCount(TestFactories.feelings().neutralFeeling());
-        topic.increasesFeelingCount(TestFactories.feelings().goodFeeling());
-        topic.increasesFeelingCount(TestFactories.feelings().goodFeeling());
-        topic.increasesFeelingCount(TestFactories.feelings().goodFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().sadFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().boredFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().boredFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().happyFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().happyFeeling());
+        topic.increasesFeelingCount(TestFactories.feelings().happyFeeling());
 
         repo.add(topic);
 
         final DBObject topicFound = getTopic(id);
         assertThat(topicFound).isNotNull();
-        assertThat(topicFound.get("goodFeelingCount")).isEqualTo(3);
-        assertThat(topicFound.get("neutralFeelingCount")).isEqualTo(2);
-        assertThat(topicFound.get("badFeelingCount")).isEqualTo(1);
+        assertThat(topicFound.get("happyFeelingCount")).isEqualTo(3);
+        assertThat(topicFound.get("boredFeelingCount")).isEqualTo(2);
+        assertThat(topicFound.get("sadFeelingCount")).isEqualTo(1);
         assertThat(topicFound.get("hasFeelings")).isEqualTo(true);
     }
 

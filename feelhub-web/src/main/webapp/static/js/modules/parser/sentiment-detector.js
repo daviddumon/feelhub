@@ -1,8 +1,8 @@
 define(["jquery"], function ($) {
 
-    var good_tokens = /:\)|\+/g;
-    var bad_tokens = /:\(|-/g;
-    var neutral_tokens = /:\||=/g;
+    var happy_tokens = /:\)|\+/g;
+    var sad_tokens = /:\(|-/g;
+    var bored_tokens = /:\||=/g;
 
     function get_sentiment(token, text, radius) {
         radius = radius || 0;
@@ -22,26 +22,26 @@ define(["jquery"], function ($) {
     }
 
     function extract_sentiment(text) {
-        var good = 0, bad = 0, neutral = 0;
-        for (var i = 0; i < (text.match(good_tokens) || []).length; i++) {
-            good++;
+        var happy = 0, sad = 0, bored = 0;
+        for (var i = 0; i < (text.match(happy_tokens) || []).length; i++) {
+            happy++;
         }
-        for (var i = 0; i < (text.match(bad_tokens) || []).length; i++) {
-            bad++;
+        for (var i = 0; i < (text.match(sad_tokens) || []).length; i++) {
+            sad++;
         }
-        for (var i = 0; i < (text.match(neutral_tokens) || []).length; i++) {
-            neutral++;
+        for (var i = 0; i < (text.match(bored_tokens) || []).length; i++) {
+            bored++;
         }
-        return sentiment_for(good, bad, neutral);
+        return sentiment_for(happy, sad, bored);
     }
 
-    function sentiment_for(good, bad, neutral) {
-        if (good > bad && good > neutral) {
-            return "good";
-        } else if (bad > good && bad > neutral) {
-            return "bad";
-        } else if (neutral > good && neutral > bad) {
-            return "neutral";
+    function sentiment_for(happy, sad, bored) {
+        if (happy > sad && happy > bored) {
+            return "happy";
+        } else if (sad > happy && sad > bored) {
+            return "sad";
+        } else if (bored > happy && bored > sad) {
+            return "bored";
         } else {
             return "none";
         }

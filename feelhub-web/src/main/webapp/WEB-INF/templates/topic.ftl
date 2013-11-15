@@ -41,11 +41,11 @@ var initial_datas = [
     <#include 'elements/signup.ftl'/>
     <#include "elements/header.ftl"/>
 
-<#if feelingDatas?? && (feelingDatas?size > 0)>
-<div id="topic-container" class="feelings">
-<#else>
-<div id="topic-container" class="nofeelings">
-</#if>
+    <#if feelingDatas?? && (feelingDatas?size > 0)>
+    <div id="topic-container" class="feelings">
+    <#else>
+    <div id="topic-container" class="nofeelings">
+    </#if>
     <div id="nofeelings">There are no feelings yet, be the first !</div>
 <div class="topic-column">
 
@@ -72,15 +72,15 @@ var initial_datas = [
     </#if>
 
     <div id="analytics" class="topic-element">
-        <canvas id="pie" class="pie-canvas" data-good="${topicData.goodFeelingCount}" data-neutral="${topicData.neutralFeelingCount}" data-bad="${topicData.badFeelingCount}">no feelings</canvas>
+        <canvas id="pie" class="pie-canvas" data-happy="${topicData.happyFeelingCount}" data-bored="${topicData.boredFeelingCount}" data-sad="${topicData.sadFeelingCount}">no feelings</canvas>
 
-        <#assign feelingsCount=topicData.goodFeelingCount + topicData.neutralFeelingCount + topicData.badFeelingCount>
-        <#if topicData.goodFeelingCount &gt; topicData.badFeelingCount && topicData.goodFeelingCount &gt; topicData.neutralFeelingCount >
-            <@feelingsCounter feelingsCount "good"/>
-        <#elseif topicData.badFeelingCount &gt; topicData.goodFeelingCount && topicData.badFeelingCount &gt; topicData.neutralFeelingCount >
-            <@feelingsCounter feelingsCount "bad"/>
+        <#assign feelingsCount=topicData.happyFeelingCount + topicData.boredFeelingCount + topicData.sadFeelingCount>
+        <#if topicData.happyFeelingCount &gt; topicData.sadFeelingCount && topicData.happyFeelingCount &gt; topicData.boredFeelingCount >
+            <@feelingsCounter feelingsCount "happy"/>
+        <#elseif topicData.sadFeelingCount &gt; topicData.happyFeelingCount && topicData.sadFeelingCount &gt; topicData.boredFeelingCount >
+            <@feelingsCounter feelingsCount "sad"/>
         <#else>
-            <@feelingsCounter feelingsCount "neutral"/>
+            <@feelingsCounter feelingsCount "bored"/>
         </#if>
     </div>
 
@@ -113,27 +113,27 @@ var initial_datas = [
 
 </div>
 
-<div class="topic-column">
+    <div class="topic-column">
 
-    <form id="feeling-form" autocomplete="off" class="topic-element">
-        <textarea name="comment" placeholder="How do you feel about that ?"></textarea>
+        <form id="feeling-form" autocomplete="off" class="topic-element">
+            <textarea name="comment" placeholder="How do you feel about that ?"></textarea>
 
-        <div class="canvas-button">
-            <canvas id="feeling-value-good" feeling-value="good" class="feeling-canvas"></canvas>
-            <div class="canvas-help-text">&nbsp;</div>
-        </div>
-        <div class="canvas-button">
-            <canvas id="feeling-value-neutral" feeling-value="neutral" class="feeling-canvas"></canvas>
-            <div class="canvas-help-text">&nbsp;</div>
-        </div>
-        <div class="canvas-button">
-            <canvas id="feeling-value-bad" feeling-value="bad" class="feeling-canvas"></canvas>
-            <div class="canvas-help-text">&nbsp;</div>
-        </div>
-    </form>
+            <div class="canvas-button">
+                <canvas id="feeling-value-happy" feeling-value="happy" class="feeling-canvas"></canvas>
+                <div class="canvas-help-text">&nbsp;</div>
+            </div>
+            <div class="canvas-button">
+                <canvas id="feeling-value-bored" feeling-value="bored" class="feeling-canvas"></canvas>
+                <div class="canvas-help-text">&nbsp;</div>
+            </div>
+            <div class="canvas-button">
+                <canvas id="feeling-value-sad" feeling-value="sad" class="feeling-canvas"></canvas>
+                <div class="canvas-help-text">&nbsp;</div>
+            </div>
+        </form>
 
-    <ul id="feelings" class="topic-element"></ul>
-</div>
+        <ul id="feelings" class="topic-element"></ul>
+    </div>
 
 </div>
     <#macro feelingsCounter count class>

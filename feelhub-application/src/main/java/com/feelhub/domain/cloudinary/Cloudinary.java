@@ -1,6 +1,6 @@
 package com.feelhub.domain.cloudinary;
 
-import com.feelhub.domain.eventbus.*;
+import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.topic.*;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Maps;
