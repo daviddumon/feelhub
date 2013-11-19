@@ -41,6 +41,7 @@ public class HttpTopicAnalyzer {
     private void scrap(final HttpTopic httpTopic) {
         final ScrapedInformation scrapedInformation = scraper.scrap(getCanonical(httpTopic));
         httpTopic.addDescription(scrapedInformation.getLanguage(), scrapedInformation.getDescription());
+        httpTopic.setLanguageCode(scrapedInformation.getLanguage().getCode());
         setName(httpTopic, scrapedInformation);
         httpTopic.setType(scrapedInformation.getType());
         httpTopic.setOpenGraphType(scrapedInformation.getOpenGraphType());

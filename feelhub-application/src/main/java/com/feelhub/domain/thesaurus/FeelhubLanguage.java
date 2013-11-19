@@ -15,7 +15,7 @@ public class FeelhubLanguage {
 
     public static FeelhubLanguage fromCode(final String code) {
         try {
-            return new FeelhubLanguage(LocaleUtils.toLocale(code).getLanguage());
+            return new FeelhubLanguage(LocaleUtils.toLocale(code.replaceAll("-", "_")).getLanguage());
         } catch (Exception e) {
             return FeelhubLanguage.none();
         }

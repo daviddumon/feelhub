@@ -121,5 +121,16 @@ public class HttpTopicAnalyzerTest {
         assertThat(thumbnailCreatedEvent.getThumbnail().getOrigin()).isEqualTo("http://localhost:6162/scraper");
     }
 
+    @Test
+    public void canSetReferenceLanguageFromScraping() {
+        final String uri = internet.uri("scraper");
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        httpTopic.addUri(new Uri(uri));
+
+        httpTopicAnalyzer.analyze(httpTopic.getId());
+
+        assertThat(httpTopic.getLanguageCode()).isEqualTo("fr");
+    }
+
     private HttpTopicAnalyzer httpTopicAnalyzer;
 }

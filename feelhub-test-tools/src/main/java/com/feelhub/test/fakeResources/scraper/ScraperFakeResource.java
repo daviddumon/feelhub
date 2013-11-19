@@ -7,7 +7,7 @@ public class ScraperFakeResource extends ServerResource {
 
     @Get
     public Representation represent() {
-        final String html = "<html lang='fr'>" +
+        final String html = "<html lang='fr-FR'>" +
                 "<head>" +
                 "<meta name='description' content='description meta'/>" +
                 "<meta name='subject' content='subject meta'/>" +

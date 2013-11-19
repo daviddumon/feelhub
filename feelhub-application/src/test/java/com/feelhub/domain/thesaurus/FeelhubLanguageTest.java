@@ -119,4 +119,20 @@ public class FeelhubLanguageTest {
         assertThat(FeelhubLanguage.fromCode("en").getLocalizedName()).isEqualTo("English");
         assertThat(FeelhubLanguage.fromCode("ar").getLocalizedName()).isEqualTo("العربية");
     }
+
+    @Test
+    public void canGetLanguageFromIsoCodeWithUnderscore() {
+        final FeelhubLanguage french = FeelhubLanguage.fromCode("fr_FR");
+
+        assertThat(french.getName()).isEqualTo("French");
+        assertThat(french.getCode()).isEqualTo("fr");
+    }
+
+    @Test
+    public void canGetLanguageFromIsoCodeWithHyphen() {
+        final FeelhubLanguage french = FeelhubLanguage.fromCode("fr-FR");
+
+        assertThat(french.getName()).isEqualTo("French");
+        assertThat(french.getCode()).isEqualTo("fr");
+    }
 }
