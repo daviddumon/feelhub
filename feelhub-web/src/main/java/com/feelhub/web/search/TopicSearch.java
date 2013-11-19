@@ -1,7 +1,9 @@
 package com.feelhub.web.search;
 
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.SessionProvider;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import org.mongolink.domain.criteria.*;
 
@@ -21,36 +23,45 @@ public class TopicSearch implements Search<Topic> {
     }
 
     @Override
-    public Search<Topic> withSkip(final int skipValue) {
+    public TopicSearch withSkip(final int skipValue) {
         criteria.skip(skipValue);
         return this;
     }
 
     @Override
-    public Search<Topic> withLimit(final int limitValue) {
+    public TopicSearch withLimit(final int limitValue) {
         criteria.limit(limitValue);
         return this;
     }
 
     @Override
-    public Search<Topic> withSort(final String sortField, final Order sortOrder) {
+    public TopicSearch withSort(final String sortField, final Order sortOrder) {
         criteria.sort(sortField, sortOrder);
         return this;
     }
 
     @Override
-    public Search<Topic> withTopicId(final UUID topicId) {
+    public TopicSearch withTopicId(final UUID topicId) {
         criteria.add(Restrictions.equals("_id", topicId));
         return this;
     }
 
-    public Search<Topic> withCurrentId(final UUID currentId) {
+    public TopicSearch withCurrentId(final UUID currentId) {
         criteria.add(Restrictions.equals("currentId", currentId));
         return this;
     }
 
-    public Search<Topic> withFeelings() {
+    public TopicSearch withFeelings() {
         criteria.add(Restrictions.equals("hasFeelings", true));
+        return this;
+    }
+
+    public TopicSearch withLanguages(final List<FeelhubLanguage> languages) {
+        final List<String> codes = Lists.newArrayList();
+        for (final FeelhubLanguage language : languages) {
+            codes.add(language.getCode());
+        }
+        criteria.add(Restrictions.in("languageCode", codes));
         return this;
     }
 

@@ -1,5 +1,6 @@
 package com.feelhub.web.search.fake;
 
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.web.search.*;
@@ -23,24 +24,24 @@ public class FakeTopicSearch extends TopicSearch {
     }
 
     @Override
-    public Search<Topic> withSkip(final int skipValue) {
+    public FakeTopicSearch withSkip(final int skipValue) {
         topics = Lists.newArrayList(Iterables.skip(topics, skipValue));
         return this;
     }
 
     @Override
-    public Search<Topic> withLimit(final int limitValue) {
+    public FakeTopicSearch withLimit(final int limitValue) {
         topics = Lists.newArrayList(Iterables.limit(topics, limitValue));
         return this;
     }
 
     @Override
-    public Search<Topic> withSort(final String sortField, final Order sortOrder) {
+    public FakeTopicSearch withSort(final String sortField, final Order sortOrder) {
         return this;
     }
 
     @Override
-    public Search<Topic> withTopicId(final UUID topicId) {
+    public FakeTopicSearch withTopicId(final UUID topicId) {
         topics = Lists.newArrayList(Iterables.filter(topics, new Predicate<Topic>() {
 
             @Override
@@ -55,7 +56,7 @@ public class FakeTopicSearch extends TopicSearch {
     }
 
     @Override
-    public Search<Topic> withFeelings() {
+    public FakeTopicSearch withFeelings() {
         topics = Lists.newArrayList(Iterables.filter(topics, new Predicate<Topic>() {
 
             @Override
@@ -66,6 +67,11 @@ public class FakeTopicSearch extends TopicSearch {
                 return false;
             }
         }));
+        return this;
+    }
+
+    @Override
+    public FakeTopicSearch withLanguages(final List<FeelhubLanguage> languages) {
         return this;
     }
 

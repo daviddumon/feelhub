@@ -1,7 +1,8 @@
 package com.feelhub.web.search;
 
-import com.feelhub.domain.feeling.Feeling;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.TestWithMongoRepository;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
@@ -131,6 +132,26 @@ public class TopicSearchTest extends TestWithMongoRepository {
         final List<Topic> topics = topicSearch.execute();
 
         assertThat(topics.size()).isEqualTo(1);
+    }
+
+    @Test
+    @Ignore("Mongolink ne supporte pas le FakeCriteria in")
+    public void canGetTopicsWithLanguageList() {
+        final HttpTopic httpTopicA = TestFactories.topics().newCompleteHttpTopic();
+        final HttpTopic httpTopicB = TestFactories.topics().newCompleteHttpTopic();
+        final HttpTopic httpTopicC = TestFactories.topics().newCompleteHttpTopic();
+        final HttpTopic httpTopicD = TestFactories.topics().newCompleteHttpTopic();
+        httpTopicA.setLanguageCode(FeelhubLanguage.none().getCode());
+        httpTopicB.setLanguageCode(FeelhubLanguage.fromCode("es").getCode());
+        httpTopicC.setLanguageCode(FeelhubLanguage.fromCode("fr").getCode());
+        httpTopicD.setLanguageCode(FeelhubLanguage.reference().getCode());
+
+        final List<Topic> topics = topicSearch.withLanguages(Lists.newArrayList(FeelhubLanguage.none(), FeelhubLanguage.reference(), FeelhubLanguage.fromCode("fr"))).execute();
+
+        assertThat(topics.size()).isEqualTo(3);
+        assertThat(topics).contains(httpTopicA);
+        assertThat(topics).contains(httpTopicB);
+        assertThat(topics).contains(httpTopicD);
     }
 
     private TopicSearch topicSearch;

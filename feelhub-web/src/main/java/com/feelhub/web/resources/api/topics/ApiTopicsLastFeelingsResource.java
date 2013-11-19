@@ -1,5 +1,6 @@
 package com.feelhub.web.resources.api.topics;
 
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.*;
@@ -40,7 +41,21 @@ public class ApiTopicsLastFeelingsResource extends ServerResource {
     }
 
     public List<TopicData> getTopicDatas(final int skip, final int limit) {
-        final List<Topic> topics = topicSearch.withFeelings().withSort("lastModificationDate", Order.DESCENDING).withLimit(limit).withSkip(skip).execute();
+        final List<FeelhubLanguage> languages = Lists.newArrayList();
+        languages.add(FeelhubLanguage.reference());
+        languages.add(FeelhubLanguage.none());
+        if (!CurrentUser.get().getLanguage().isReference() && !CurrentUser.get().getLanguage().isNone()) {
+            languages.add(CurrentUser.get().getLanguage());
+        }
+
+        final List<Topic> topics = topicSearch
+                .withFeelings()
+                .withSort("lastModificationDate", Order.DESCENDING)
+                .withLimit(limit)
+                .withSkip(skip)
+                .withLanguages(languages)
+                .execute();
+
         final List<TopicData> topicDatas = Lists.newArrayList();
         for (final Topic topic : topics) {
             topicDatas.add(topicDataFactory.topicData(topic, CurrentUser.get().getLanguage()));
