@@ -1,5 +1,6 @@
 package com.feelhub.domain.alchemy;
 
+import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.http.uri.Uri;
@@ -20,6 +21,9 @@ public class NamedEntityProviderTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+    @Rule
+    public WithDomainEvent bus = new WithDomainEvent();
 
     @Before
     public void before() {
@@ -55,6 +59,15 @@ public class NamedEntityProviderTest {
         topic.getUris().set(0, new Uri("http://www.error.com"));
 
         namedEntityProvider.entitiesFor(topic);
+    }
+
+    @Test
+    public void setHttpTopicReferenceLanguage() {
+        final HttpTopic topic = TestFactories.topics().newCompleteHttpTopic();
+
+        namedEntityProvider.entitiesFor(topic);
+
+        assertThat(topic.getLanguageCode()).isEqualTo(FeelhubLanguage.fromCountryName("english").getCode());
     }
 
     private NamedEntityProvider namedEntityProvider;

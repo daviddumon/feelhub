@@ -23,6 +23,7 @@ public class NamedEntityProvider {
             final InputStream stream = alchemyLink.get(topic.getUris().get(0));
             final AlchemyJsonResults results = unmarshall(stream);
             createAlchemyAnalysis(topic, results);
+            topic.setLanguageCode(FeelhubLanguage.fromCountryName(results.language).getCode());
             return getResults(results);
         } catch (Exception e) {
             e.printStackTrace();
