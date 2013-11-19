@@ -9,7 +9,6 @@ import com.google.common.base.Objects;
 import com.google.common.collect.*;
 import org.apache.commons.lang.WordUtils;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 
@@ -203,6 +202,14 @@ public abstract class Topic extends BaseEntity {
         return popularity;
     }
 
+    public String getLanguageCode() {
+        return languageCode;
+    }
+
+    public void setLanguageCode(final String languageCode) {
+        this.languageCode = languageCode;
+    }
+
     protected UUID id;
     protected UUID currentId;
     private final Map<String, String> descriptions = Maps.newHashMap();
@@ -218,4 +225,5 @@ public abstract class Topic extends BaseEntity {
     private int boredFeelingCount;
     private boolean hasFeelings;
     private int viewCount;
+    private String languageCode = FeelhubLanguage.none().getCode();
 }

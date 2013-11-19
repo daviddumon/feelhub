@@ -413,6 +413,24 @@ public class TopicTest {
         assertThat(topic.getPopularity()).isEqualTo(5);
     }
 
+    @Test
+    public void aTopicHasAReferenceLanguage() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+
+        assertThat(topic.getLanguageCode()).isEqualTo(FeelhubLanguage.none().getCode());
+    }
+
+    @Test
+    public void canSetTheReferenceLanguage() {
+        final UUID id = UUID.randomUUID();
+        final FakeTopicImplementation topic = new FakeTopicImplementation(id);
+
+        topic.setLanguageCode(FeelhubLanguage.reference().getCode());
+
+        assertThat(topic.getLanguageCode()).isEqualTo(FeelhubLanguage.reference().getCode());
+    }
+
     class FakeTopicImplementation extends Topic {
 
         public FakeTopicImplementation(final UUID id) {

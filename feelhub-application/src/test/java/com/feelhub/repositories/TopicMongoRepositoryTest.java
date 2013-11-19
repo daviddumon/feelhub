@@ -1,5 +1,6 @@
 package com.feelhub.repositories;
 
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.ftp.FtpTopic;
 import com.feelhub.domain.topic.geo.GeoTopic;
@@ -45,6 +46,7 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("thumbnail")).isEqualTo(topic.getThumbnail());
         assertThat(((List<Thumbnail>) topicFound.get("thumbnails")).size()).isEqualTo(1);
         assertThat(topicFound.get("hasFeelings")).isEqualTo(false);
+        assertThat(topicFound.get("languageCode")).isEqualTo(FeelhubLanguage.none().getCode());
     }
 
     @Test
