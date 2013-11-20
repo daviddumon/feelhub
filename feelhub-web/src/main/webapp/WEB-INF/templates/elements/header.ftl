@@ -11,6 +11,7 @@
     <div id="user">
         <p>${userInfos.user.fullname}</p>
         <ul>
+            <li><a class="header-button" href="${root}/getbookmarklet">bookmarklet</a></li>
             <li><a id="logout" class="header-button" href="javascript:void(0);">LOG OUT</a></li>
         </ul>
     </div>
