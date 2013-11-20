@@ -30,7 +30,7 @@ define(["jquery", "view/topic-view"], function ($, view) {
 
         function load_data() {
             var parameters = [];
-            var uri = root + "/api/topics/lastfeelings?&skip=" + skip + "&limit=" + limit;
+            var uri = root + "/api/topics/" + flow_uri_end_point + "?&skip=" + skip + "&limit=" + limit;
 
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {

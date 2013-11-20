@@ -8,6 +8,9 @@ define(["jquery", "modules/messages", "modules/popup"], function ($, messages, p
         popup.init();
         $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
         $(".fixed-panel").show();
+        $("body").on("click", "#user", function () {
+            $(this).toggleClass("show");
+        });
     }
 
     function add_responsive_behavior() {

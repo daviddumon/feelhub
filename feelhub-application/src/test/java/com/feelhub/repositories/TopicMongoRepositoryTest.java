@@ -262,6 +262,7 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         final DBObject topicFound = getTopic(id);
         assertThat(topicFound).isNotNull();
         assertThat(topicFound.get("viewCount")).isEqualTo(1);
+        assertThat(topicFound.get("popularityCount")).isEqualTo(1);
     }
 
     private DBObject getTopic(final UUID id) {

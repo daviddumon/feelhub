@@ -161,16 +161,17 @@ public abstract class Topic extends BaseEntity {
     public void increasesFeelingCount(final Feeling feeling) {
         switch (feeling.getFeelingValue()) {
             case happy:
-                this.happyFeelingCount++;
+                happyFeelingCount++;
                 break;
             case sad:
-                this.sadFeelingCount++;
+                sadFeelingCount++;
                 break;
             case bored:
-                this.boredFeelingCount++;
+                boredFeelingCount++;
                 break;
         }
-        this.hasFeelings = true;
+        hasFeelings = true;
+        popularityCount++;
     }
 
     public boolean getHasFeelings() {
@@ -179,6 +180,7 @@ public abstract class Topic extends BaseEntity {
 
     public void incrementViewCount() {
         viewCount++;
+        popularityCount++;
     }
 
     public int getViewCount() {
@@ -186,7 +188,6 @@ public abstract class Topic extends BaseEntity {
     }
 
     public int getPopularity() {
-        final int popularityCount = viewCount + sadFeelingCount + boredFeelingCount + happyFeelingCount;
         final int popularity;
         if (popularityCount < 10) {
             popularity = 1;
@@ -210,6 +211,10 @@ public abstract class Topic extends BaseEntity {
         this.languageCode = languageCode;
     }
 
+    public int getPopularityCount() {
+        return popularityCount;
+    }
+
     protected UUID id;
     protected UUID currentId;
     private final Map<String, String> descriptions = Maps.newHashMap();
@@ -226,4 +231,5 @@ public abstract class Topic extends BaseEntity {
     private boolean hasFeelings;
     private int viewCount;
     private String languageCode = FeelhubLanguage.none().getCode();
+    private int popularityCount;
 }

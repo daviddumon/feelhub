@@ -8,7 +8,7 @@ import com.feelhub.web.authentification.*;
 import com.feelhub.web.dto.TopicData;
 import com.feelhub.web.guice.DummySessionProvider;
 import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.resources.api.topics.ApiTopicsLastFeelingsResource;
+import com.feelhub.web.resources.api.topics.ApiTopicsLiveResource;
 import com.feelhub.web.search.TopicSearch;
 import com.feelhub.web.search.fake.FakeTopicSearch;
 import com.google.common.collect.Lists;
@@ -30,13 +30,13 @@ public class HomeResourceTest {
 
     @Before
     public void before() {
-        apiTopicsLastFeelingsResource = mock(ApiTopicsLastFeelingsResource.class);
+        apiTopicsLiveResource = mock(ApiTopicsLiveResource.class);
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
                 bind(SessionProvider.class).to(DummySessionProvider.class);
                 bind(TopicSearch.class).to(FakeTopicSearch.class);
-                bind(ApiTopicsLastFeelingsResource.class).toInstance(apiTopicsLastFeelingsResource);
+                bind(ApiTopicsLiveResource.class).toInstance(apiTopicsLiveResource);
             }
         });
         homeResource = injector.getInstance(HomeResource.class);
@@ -56,7 +56,7 @@ public class HomeResourceTest {
         final List<TopicData> initialDatas = Lists.newArrayList();
         initialDatas.add(new TopicData.Builder().build());
         initialDatas.add(new TopicData.Builder().build());
-        when(apiTopicsLastFeelingsResource.getTopicDatas(anyInt(), anyInt())).thenReturn(initialDatas);
+        when(apiTopicsLiveResource.getTopicDatas(anyInt(), anyInt())).thenReturn(initialDatas);
 
         final ModelAndView modelAndView = homeResource.represent();
 
@@ -89,5 +89,5 @@ public class HomeResourceTest {
     }
 
     private HomeResource homeResource;
-    private ApiTopicsLastFeelingsResource apiTopicsLastFeelingsResource;
+    private ApiTopicsLiveResource apiTopicsLiveResource;
 }

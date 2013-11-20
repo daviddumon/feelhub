@@ -3,22 +3,22 @@ package com.feelhub.web.resources;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.resources.api.topics.ApiTopicsLiveResource;
+import com.feelhub.web.resources.api.topics.ApiTopicsNewResource;
 import com.google.inject.Inject;
 import org.restlet.data.Language;
 import org.restlet.resource.*;
 
-public class HomeResource extends ServerResource {
+public class NewResource extends ServerResource {
 
     @Inject
-    public HomeResource(final ApiTopicsLiveResource apiTopicsLiveResource) {
-        this.apiTopicsLiveResource = apiTopicsLiveResource;
+    public NewResource(final ApiTopicsNewResource apiTopicsNewResource) {
+        this.apiTopicsNewResource = apiTopicsNewResource;
     }
 
     @Get
     public ModelAndView represent() {
-        final ModelAndView modelAndView = ModelAndView.createNew("home.ftl")
-                .with("topicDatas", apiTopicsLiveResource.getTopicDatas(0, 50))
+        final ModelAndView modelAndView = ModelAndView.createNew("new.ftl")
+                .with("topicDatas", apiTopicsNewResource.getTopicDatas(0, 50))
                 .with("locales", FeelhubLanguage.availables())
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
 
@@ -39,5 +39,6 @@ public class HomeResource extends ServerResource {
         return getRequest().getClientInfo().getAcceptedLanguages().get(0).getMetadata();
     }
 
-    private final ApiTopicsLiveResource apiTopicsLiveResource;
+
+    private final ApiTopicsNewResource apiTopicsNewResource;
 }

@@ -1,19 +1,23 @@
 <header>
     <a href="${root}" id="home-link"></a>
-    <#--<img src="${root}/static/images/logo.png"/>-->
 
-    <div id="actions">
-    <#if userInfos.authenticated>
-        <a id="logout" class="header-button" href="javascript:void(0);">LOGOUT</a>
-    <#else>
-        <a id="login-button" class="header-button" href="javascript:void(0);">LOGIN</a>
-        <a id="signup-button" class="header-button" href="javascript:void(0);">SIGNUP</a>
-    </#if>
+    <div id="menu">
+        <a href="${root}/live" class="header-link<#if tab?? && tab = 'live'> selected</#if>">live</a>
+        <a href="${root}/popular" class="header-link<#if tab?? && tab = 'popular'> selected</#if>">popular</a>
+        <a href="${root}/new" class="header-link<#if tab?? && tab = 'new'> selected</#if>">new</a>
     </div>
 
-    <div id="header-message">
-    <#if userInfos.authenticated>
-        Hello ${userInfos.user.fullname} !
-    </#if>
+<#if userInfos.authenticated>
+    <div id="user">
+        <p>${userInfos.user.fullname}</p>
+        <ul>
+            <li><a id="logout" class="header-button" href="javascript:void(0);">LOG OUT</a></li>
+        </ul>
     </div>
+<#else>
+    <div id="login-panel">
+        <a id="login-button" href="javascript:void(0);">login</a>
+        <a id="signup-button" href="javascript:void(0);">signup</a>
+    </div>
+</#if>
 </header>

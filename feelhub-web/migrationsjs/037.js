@@ -1,0 +1,1 @@
+db.topic.update({}, {$unset: {badFeelingCount: "", goodFeelingCount: "", neutralFeelingCount: ""}}, false, true);

@@ -29,7 +29,7 @@ var initial_datas = [
     </#if>
 ]
 
-var flow_uri_end_point = "live";
+var flow_uri_end_point = "popular";
 </@base.js>
 
 <@base.body>
@@ -49,7 +49,7 @@ var flow_uri_end_point = "live";
         </#if>
     </#if>
 
-    <#assign tab = "live">
+    <#assign tab = "popular">
     <#include "elements/header.ftl"/>
 
 <ul id="flow"></ul>

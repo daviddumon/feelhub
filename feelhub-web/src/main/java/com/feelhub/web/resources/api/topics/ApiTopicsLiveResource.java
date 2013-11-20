@@ -15,10 +15,10 @@ import org.restlet.resource.*;
 
 import java.util.List;
 
-public class ApiTopicsLastFeelingsResource extends ServerResource {
+public class ApiTopicsLiveResource extends ServerResource {
 
     @Inject
-    public ApiTopicsLastFeelingsResource(final TopicSearch topicSearch, final TopicDataFactory topicDataFactory) {
+    public ApiTopicsLiveResource(final TopicSearch topicSearch, final TopicDataFactory topicDataFactory) {
         this.topicSearch = topicSearch;
         this.topicDataFactory = topicDataFactory;
     }

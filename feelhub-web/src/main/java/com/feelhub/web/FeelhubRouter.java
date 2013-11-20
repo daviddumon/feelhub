@@ -63,7 +63,9 @@ public class FeelhubRouter extends Router {
     }
 
     private void attachApiResources() {
-        attach("/api/topics/lastfeelings", ApiTopicsLastFeelingsResource.class);
+        attach("/api/topics/live", ApiTopicsLiveResource.class);
+        attach("/api/topics/new", ApiTopicsNewResource.class);
+        attach("/api/topics/popular", ApiTopicsPopularResource.class);
         attach("/api/topics", ApiTopicsResource.class);
         attach("/api/topic/{topicId}/related", ApiTopicRelatedResource.class);
         attach("/api/topic/{topicId}/feelings", ApiTopicFeelingsResource.class);
@@ -87,6 +89,9 @@ public class FeelhubRouter extends Router {
         attach("/social/google", GoogleResource.class);
         attach("/getbookmarklet", InstallBookmarkletResource.class);
         attach("/bookmarklet", BookmarkletResource.class);
+        attach("/live", HomeResource.class);
+        attach("/new", NewResource.class);
+        attach("/popular", PopularResource.class);
         attach("/", HomeResource.class);
     }
 
