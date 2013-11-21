@@ -22,10 +22,7 @@ public class NewResource extends ServerResource {
                 .with("locales", FeelhubLanguage.availables())
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
 
-        if (CurrentUser.get().welcomePanelShow()) {
-            modelAndView.with("welcomePanelShow", true);
-            CurrentUser.get().getUser().setWelcomePanelShow(false);
-        } else if (CurrentUser.get().bookmarkletShow()) {
+        if (CurrentUser.get().bookmarkletShow()) {
             modelAndView.with("bookmarkletShow", true);
         }
 

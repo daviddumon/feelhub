@@ -24,11 +24,6 @@ public class AnonymousUser extends WebUser {
     }
 
     @Override
-    public boolean welcomePanelShow() {
-        return false;
-    }
-
-    @Override
     public boolean bookmarkletShow() {
         return false;
     }

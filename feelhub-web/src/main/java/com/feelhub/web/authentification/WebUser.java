@@ -38,10 +38,6 @@ public class WebUser {
         return user.getEmail();
     }
 
-    public boolean welcomePanelShow() {
-        return user.getWelcomePanelShow();
-    }
-
     public boolean bookmarkletShow() {
         return user.getBookmarkletShow();
     }

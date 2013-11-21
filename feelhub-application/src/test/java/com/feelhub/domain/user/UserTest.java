@@ -147,13 +147,6 @@ public class UserTest {
     }
 
     @Test
-    public void newUserNeedsToSeeWelcomePanel() {
-        final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "FR_fr");
-
-        assertThat(user.getWelcomePanelShow()).isTrue();
-    }
-
-    @Test
     public void newUserNeedsToInstallTheButton() {
         final User user = new UserFactory().createUser("email@email.com", "test", "Jb Dusse", "FR_fr");
 

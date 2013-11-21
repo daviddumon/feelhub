@@ -38,12 +38,6 @@ var flow_uri_end_point = "new";
     <#include 'elements/signup.ftl'/>
 
     <#if userInfos.authenticated>
-        <#if welcomePanelShow??>
-            <#include 'elements/welcome.ftl'/>
-        </#if>
-    </#if>
-
-    <#if userInfos.authenticated>
         <#if bookmarkletShow??>
             <#include 'elements/bookmarkletinstall.ftl'/>
         </#if>

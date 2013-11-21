@@ -2,7 +2,7 @@
     <a class="top-close-button close-button" href="javascript:void(0);">CLOSE</a>
 
     <div class="popup-title">
-        Welcome to Feelhub ${userInfos.user.fullname} !
+        <#--Welcome to Feelhub ${userInfos.user.fullname} !-->
     </div>
 
     <div id="welcome-1" class="welcome-item">

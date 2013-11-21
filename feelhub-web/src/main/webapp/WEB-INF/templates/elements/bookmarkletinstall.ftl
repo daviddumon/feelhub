@@ -20,7 +20,7 @@
         </#if>
 
             <p>Drag this bookmarklet to your bookmarks bar</p>
-            <a id="bookmark-help-button-2" class="bookmark-help-button" href="javascript:void(0);">What is a bookmarklet</a>
+            <a id="bookmark-help-button-2" class="bookmark-help-button" href="javascript:void(0);">What is a bookmarklet ?</a>
             <a id="bookmark-help-button-3" class="bookmark-help-button" href="javascript:void(0);">I don't see my bookmarks bar</a>
         </div>
 
