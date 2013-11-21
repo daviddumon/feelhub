@@ -17,6 +17,20 @@ public class NewResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
+        if (CurrentUser.get().isAnonymous()) {
+            return getWelcome();
+        } else {
+            return getNew();
+        }
+    }
+
+    private ModelAndView getWelcome() {
+        return ModelAndView.createNew("welcome.ftl")
+                .with("locales", FeelhubLanguage.availables())
+                .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
+    }
+
+    private ModelAndView getNew() {
         final ModelAndView modelAndView = ModelAndView.createNew("new.ftl")
                 .with("topicDatas", apiTopicsNewResource.getTopicDatas(0, 50))
                 .with("locales", FeelhubLanguage.availables())

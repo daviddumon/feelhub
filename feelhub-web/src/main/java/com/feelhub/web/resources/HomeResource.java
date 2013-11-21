@@ -17,6 +17,20 @@ public class HomeResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
+        if (CurrentUser.get().isAnonymous()) {
+            return getWelcome();
+        } else {
+            return getHome();
+        }
+    }
+
+    private ModelAndView getWelcome() {
+        return ModelAndView.createNew("welcome.ftl")
+                .with("locales", FeelhubLanguage.availables())
+                .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
+    }
+
+    private ModelAndView getHome() {
         final ModelAndView modelAndView = ModelAndView.createNew("home.ftl")
                 .with("topicDatas", apiTopicsLiveResource.getTopicDatas(0, 50))
                 .with("locales", FeelhubLanguage.availables())

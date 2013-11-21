@@ -17,6 +17,20 @@ public class PopularResource extends ServerResource {
 
     @Get
     public ModelAndView represent() {
+        if (CurrentUser.get().isAnonymous()) {
+            return getWelcome();
+        } else {
+            return getPopular();
+        }
+    }
+
+    private ModelAndView getWelcome() {
+        return ModelAndView.createNew("welcome.ftl")
+                .with("locales", FeelhubLanguage.availables())
+                .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
+    }
+
+    private ModelAndView getPopular() {
         final ModelAndView modelAndView = ModelAndView.createNew("popular.ftl")
                 .with("topicDatas", apiTopicsPopularResource.getTopicDatas(0, 50))
                 .with("locales", FeelhubLanguage.availables())

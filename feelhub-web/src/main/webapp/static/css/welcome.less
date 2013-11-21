@@ -1,0 +1,88 @@
+/* Copyright Feelhub 2012 */
+@import "../less/variables";
+@import "../less/colors";
+@import "../less/reset";
+@import "../less/sentiment";
+@import "../less/messages";
+@import "../less/popup";
+
+body {
+  background-color: @midnightblue;
+  text-align: center;
+
+  #left {
+    position: absolute;
+    top: 50%;
+    margin-top: -80px;
+    left: 33%;
+    width: 348px;
+    vertical-align: middle;
+    margin-left: -174px;
+
+    #logo {
+      width: 100%;
+      margin-bottom: 50.8px;
+    }
+
+    #catch {
+      font-size: @font-3;
+      .font_text();
+      color: @smooth;
+    }
+  }
+
+  #right {
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    margin-top: -243px;
+    left: 66%;
+    margin-left: -190px;
+    width: 381px;
+
+    #signup {
+      position: inherit !important;
+      left: auto !important;
+      margin-left: 0px !important;
+      top: auto !important;
+    }
+
+    #login {
+      position: inherit !important;
+      left: auto !important;
+      margin-left: 0px !important;
+      top: auto !important;
+    }
+  }
+
+  @media all and (max-width: 1400px) {
+
+    #left {
+      left: 27% !important;
+    }
+
+    #right {
+      left: 72% !important;
+    }
+  }
+
+  @media all and (max-width: 900px) {
+    #left {
+      position: relative !important;
+      left: 0px !important;
+      top: 0px !important;
+      margin-top: 0px !important;
+      margin-left: 0px !important;
+      margin: 82px auto !important;
+    }
+
+    #right {
+      position: relative !important;
+      left: 0px !important;
+      top: 0px !important;
+      margin-top: 0px !important;
+      margin-left: 0px !important;
+      margin: 82px auto !important;
+    }
+  }
+}

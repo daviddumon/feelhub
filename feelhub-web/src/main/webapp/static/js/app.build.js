@@ -16,6 +16,9 @@
             name: "fixed-controller"
         },
         {
+            name: "welcome-controller"
+        },
+        {
             name: "home-controller"
         }
     ],
