@@ -66,23 +66,7 @@ public class HomeResourceTest {
     }
 
     @Test
-    public void hasWelcomePanelShowInDataForTheFirstView() {
-        final ModelAndView modelAndView = homeResource.represent();
-
-        assertThat(modelAndView.getData("welcomePanelShow")).isNotNull();
-    }
-
-    @Test
-    public void canSetWelcomeShowToFalseAfterFirstView() {
-        homeResource.represent();
-
-        assertThat(CurrentUser.get().getUser().getWelcomePanelShow()).isFalse();
-    }
-
-    @Test
-    public void canSetInstalledBookmarkletInDataIfWelcomePanelHasBeenShown() {
-        CurrentUser.get().getUser().setWelcomePanelShow(false);
-
+    public void canSetBookmarkletShow() {
         final ModelAndView modelAndView = homeResource.represent();
 
         assertThat(modelAndView.getData("bookmarkletShow")).isNotNull();
