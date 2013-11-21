@@ -19,13 +19,11 @@
 
         drawLive();
 
-
-
         function drawLive() {
             var dailyStats = [
-                ['Day', 'New Users', 'Logins', 'Http Topics', 'Real Topics', 'Cumulated'],
+                ['Day', 'New Users'],
                 <#list datas as data>
-                    ['${data.date?date}',  ${data.signups}, ${data.logins}, ${data.httpTopics}, ${data.realTopics}, ${data.topics}]<#if data_has_next>,</#if>
+                    ['${data.date?date}',  ${data.signups}]<#if data_has_next>,</#if>
                 </#list>
             ];
 

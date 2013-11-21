@@ -9,7 +9,7 @@ public class ActiveUserDailyBehavior {
 
     public Date getDate() {
         try {
-            return new SimpleDateFormat("yyyyMd").parse(_id);
+            return new SimpleDateFormat("yyyyMMdd").parse(_id);
         } catch (ParseException e) {
             return new Date();
         }

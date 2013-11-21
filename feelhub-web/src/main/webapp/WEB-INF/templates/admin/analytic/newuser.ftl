@@ -13,7 +13,7 @@
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
+    google.load("visualization", "1", {packages: ["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart() {
 
@@ -32,7 +32,7 @@
             var options = {
                 title: 'New user daily behavior',
                 hAxis: {title: 'Day', titleTextStyle: {color: 'red'}},
-                vAxis: {minValue:0, maxValue:100}
+                vAxis: {minValue: 0, maxValue: 100}
             };
             var chart = new google.visualization.AreaChart(document.getElementById('dailybehavior'));
             chart.draw(data, options);
