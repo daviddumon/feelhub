@@ -1,3 +1,6 @@
+load('lib/underscore.js');
+load('lib/moment.js');
+
 var workingDate = moment();
 var bucket = workingDate.format("YYYY.M.D");
 var idStat = workingDate.format("YYYYMD");
