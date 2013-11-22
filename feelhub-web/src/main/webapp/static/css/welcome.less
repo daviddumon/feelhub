@@ -6,41 +6,45 @@
 @import "../less/messages";
 @import "../less/popup";
 
-body {
+body, html {
   background-color: @midnightblue;
   text-align: center;
+  height: 100%;
 
   #left {
-    position: absolute;
-    top: 0px;
-    margin-top: 50.8px;
-    left: 33%;
-    width: 564px;
-    vertical-align: middle;
-    margin-left: -282px;
 
     #logo {
+      margin-top: 50.8px;
       width: 348px;
       margin-bottom: 50.8px;
     }
 
     p {
-      font-size: @font-2;
-      .font_text();
-      color: @smooth;
-      margin: @font-3;
+      display: none;
+      color: #BDC3C7;
       .font_logo();
+    }
+
+    img#show {
+      display: none;
+      position: absolute;
+      bottom: 0px;
+      left: 31%;
     }
   }
 
-  #right {
-    vertical-align: middle;
+  .arrow-right {
+    display: none;
     position: absolute;
-    top: 0px;
-    margin-top: 50.8px;
-    left: 66%;
-    margin-left: -190px;
-    width: 381px;
+    left: 62%;
+    width: 0;
+    height: 0;
+  }
+
+  #right {
+    position: relative !important;
+    width: 381px !important;
+    margin: 0px auto !important;
 
     #signup {
       position: inherit !important;
@@ -57,42 +61,95 @@ body {
     }
   }
 
-  img#show {
-    position: absolute;
-    bottom: 0px;
-    left: 50%;
-    margin-left: -456px;
-    width: 912px;
+  @media all and (min-width: 1200px) {
+
+    body, html {
+      background-color: @smooth !important;
+
+      #left {
+        background-color: @midnightblue;
+        width: 62%;
+        border-right: 1px solid @white;
+        min-height: 100%;
+
+        p {
+          display: block !important;
+          font-size: @font-2;
+          margin: @font-2;
+        }
+
+        img#show {
+          display: block !important;
+          margin-left: -282px;
+          width: 564px;
+        }
+      }
+
+      .arrow-right {
+        display: block !important;
+        top: 50%;
+        margin-top: -30px;
+        border-top: 30px solid transparent;
+        border-bottom: 30px solid transparent;
+        border-left: 15px solid @white;
+      }
+
+      #right {
+        position: absolute !important;
+        top: 50% !important;
+        margin-top: -243px !important;
+        left: 81% !important;
+        margin-left: -190px !important;
+
+        #signup {
+          position: inherit !important;
+          left: auto !important;
+          margin-left: 0px !important;
+          top: auto !important;
+        }
+
+        #login {
+          position: inherit !important;
+          left: auto !important;
+          margin-left: 0px !important;
+          top: auto !important;
+        }
+      }
+    }
   }
 
-  @media all and (max-width: 1400px) {
+  @media all and (min-width: 1500px) {
 
-    #left {
-      left: 27% !important;
-    }
+    body, html {
 
-    #right {
-      left: 72% !important;
-    }
-  }
+      #left {
 
-  @media all and (max-width: 900px) {
-    #left {
-      position: relative !important;
-      left: 0px !important;
-      top: 0px !important;
-      margin-top: 0px !important;
-      margin-left: 0px !important;
-      margin: 82px auto !important;
-    }
+        p {
+          font-size: @font-3 !important;
+          margin: @font-3 !important;
+        }
 
-    #right {
-      position: relative !important;
-      left: 0px !important;
-      top: 0px !important;
-      margin-top: 0px !important;
-      margin-left: 0px !important;
-      margin: 82px auto !important;
+        img#show {
+          margin-left: -456px !important;
+          width: 912px !important;
+        }
+      }
+
+      .arrow-right {
+        margin-top: -60px !important;
+        border-top: 60px solid transparent !important;
+        border-bottom: 60px solid transparent !important;
+        border-left: 30px solid @white !important;
+      }
+
+      #right {
+
+        #signup {
+        }
+
+        #login {
+        }
+      }
     }
   }
 }
