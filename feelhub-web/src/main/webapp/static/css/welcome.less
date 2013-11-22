@@ -12,30 +12,32 @@ body {
 
   #left {
     position: absolute;
-    top: 50%;
-    margin-top: -80px;
+    top: 0px;
+    margin-top: 50.8px;
     left: 33%;
-    width: 348px;
+    width: 564px;
     vertical-align: middle;
-    margin-left: -174px;
+    margin-left: -282px;
 
     #logo {
-      width: 100%;
+      width: 348px;
       margin-bottom: 50.8px;
     }
 
-    #catch {
-      font-size: @font-3;
+    p {
+      font-size: @font-2;
       .font_text();
       color: @smooth;
+      margin: @font-3;
+      .font_logo();
     }
   }
 
   #right {
     vertical-align: middle;
     position: absolute;
-    top: 50%;
-    margin-top: -243px;
+    top: 0px;
+    margin-top: 50.8px;
     left: 66%;
     margin-left: -190px;
     width: 381px;
@@ -53,6 +55,14 @@ body {
       margin-left: 0px !important;
       top: auto !important;
     }
+  }
+
+  img#show {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    margin-left: -456px;
+    width: 912px;
   }
 
   @media all and (max-width: 1400px) {
