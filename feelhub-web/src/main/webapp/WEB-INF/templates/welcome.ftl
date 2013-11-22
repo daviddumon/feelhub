@@ -16,12 +16,10 @@
 
 <div id="left">
     <img id="logo" src="${root}/static/images/logo.png"/>
-    <#--<span id="catch">Feel the world</span>-->
-    <#--<hr>-->
     <p>We let you share your feelings about anything on the web</p>
     <p>You can use our bookmarklet to create new topics from any webpage</p>
     <p>Or just login and discover what makes people feels and reacts</p>
-    <p>It's free, and will always be!</p>
+    <p>It's free, and always will be!</p>
 </div>
 <div id="right">
 

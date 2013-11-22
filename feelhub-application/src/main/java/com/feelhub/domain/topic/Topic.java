@@ -189,13 +189,13 @@ public abstract class Topic extends BaseEntity {
 
     public int getPopularity() {
         final int popularity;
-        if (popularityCount < 10) {
+        if (popularityCount < 5) {
             popularity = 1;
-        } else if (popularityCount < 20) {
+        } else if (popularityCount < 10) {
             popularity = 2;
-        } else if (popularityCount < 50) {
+        } else if (popularityCount < 20) {
             popularity = 3;
-        } else if (popularityCount < 100) {
+        } else if (popularityCount < 50) {
             popularity = 4;
         } else {
             popularity = 5;
