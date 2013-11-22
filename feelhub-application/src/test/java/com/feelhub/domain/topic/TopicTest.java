@@ -354,11 +354,11 @@ public class TopicTest {
     }
 
     @Test
-    public void popularityIs1Under10() {
+    public void popularityIs1Under5() {
         final UUID id = UUID.randomUUID();
         final FakeTopicImplementation topic = new FakeTopicImplementation(id);
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 3; i++) {
             topic.incrementViewCount();
         }
 
@@ -366,11 +366,11 @@ public class TopicTest {
     }
 
     @Test
-    public void popularityIs2Under20() {
+    public void popularityIs2Under10() {
         final UUID id = UUID.randomUUID();
         final FakeTopicImplementation topic = new FakeTopicImplementation(id);
 
-        for (int i = 0; i < 18; i++) {
+        for (int i = 0; i < 8; i++) {
             topic.incrementViewCount();
         }
 
@@ -378,11 +378,11 @@ public class TopicTest {
     }
 
     @Test
-    public void popularityIs3Under50() {
+    public void popularityIs3Under20() {
         final UUID id = UUID.randomUUID();
         final FakeTopicImplementation topic = new FakeTopicImplementation(id);
 
-        for (int i = 0; i < 48; i++) {
+        for (int i = 0; i < 18; i++) {
             topic.incrementViewCount();
         }
 
@@ -390,11 +390,11 @@ public class TopicTest {
     }
 
     @Test
-    public void popularityIs4Under100() {
+    public void popularityIs4Under50() {
         final UUID id = UUID.randomUUID();
         final FakeTopicImplementation topic = new FakeTopicImplementation(id);
 
-        for (int i = 0; i < 98; i++) {
+        for (int i = 0; i < 48; i++) {
             topic.incrementViewCount();
         }
 
