@@ -1,5 +1,5 @@
 <header>
-    <a href="${root}" id="home-link"></a>
+    <a href="${root}" id="home-link"><span>beta</span></a>
 
     <div id="menu">
         <a href="${root}/live" class="header-link<#if tab?? && tab = 'live'> selected</#if>">live</a>
