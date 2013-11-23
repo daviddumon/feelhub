@@ -18,7 +18,7 @@
     <img id="logo" src="${root}/static/images/logo.png"/>
     <p>Share your feelings about anything on the web.</p>
     <p>You can use our bookmarklet to create new topics from any webpage.</p>
-    <p>Signup now and discover what makes people feels and reacts.</p>
+    <p>Signup now and discover what makes people feel and react.</p>
     <p>It's free, and always will be!</p>
     <img id="show" src="${root}/static/images/show.png"/>
 </div>
