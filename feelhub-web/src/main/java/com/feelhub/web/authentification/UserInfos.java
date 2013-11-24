@@ -5,26 +5,34 @@ import com.feelhub.domain.user.User;
 public class UserInfos {
 
     public User getUser() {
-        return CurrentUser.get().getUser();
+        return currentUser().getUser();
     }
 
     public boolean isAnonymous() {
-        return CurrentUser.get().isAnonymous();
+        return currentUser().isAnonymous();
     }
 
     public boolean isAuthenticated() {
-        return CurrentUser.get().isAuthenticated();
+        return currentUser().isAuthenticated();
     }
 
     public String getEmail() {
-        return CurrentUser.get().getEmail();
+        return currentUser().getEmail();
+    }
+
+    public String getHashedEmail() {
+        return currentUser().getHashedEmail();
     }
 
     public String getFullname() {
-        return CurrentUser.get().getFullname();
+        return currentUser().getFullname();
     }
 
     public String getLanguageCode() {
-        return CurrentUser.get().getLanguage().getCode();
+        return currentUser().getLanguage().getCode();
+    }
+
+    private WebUser currentUser() {
+        return CurrentUser.get();
     }
 }

@@ -71,14 +71,25 @@ body {
 
     #user {
       float: right;
-      padding-top: 19.4px;
       color: @grey-5;
       margin-right: 31.4px;
-      height: 31.4px;
-      cursor: pointer;
+      height: 50.8px;
 
-      p {
-        text-decoration: underline;
+      a {
+        height: 100%;
+        display: block;
+        text-decoration: none;
+        color: @grey-5;
+        padding-top: 10px;
+
+        img {
+          border-radius: 100%;
+          border: 2px solid @white;
+          vertical-align: middle;
+        }
+        span {
+          text-decoration: underline;
+        }
       }
 
       ul {

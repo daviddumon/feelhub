@@ -2,6 +2,7 @@ package com.feelhub.web.authentification;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.user.User;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class WebUser {
 
@@ -42,8 +43,11 @@ public class WebUser {
         return user.getBookmarkletShow();
     }
 
+    public String getHashedEmail() {
+        return DigestUtils.md5Hex(user.getEmail());
+    }
+
     private final boolean authenticated;
 
     private final User user;
-
 }

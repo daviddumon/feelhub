@@ -10,6 +10,7 @@ define(["jquery", "modules/messages", "modules/popup"], function ($, messages, p
         $(".fixed-panel").show();
         $("body").on("click", "#user", function () {
             $(this).toggleClass("show");
+            return false;
         });
     }
 
