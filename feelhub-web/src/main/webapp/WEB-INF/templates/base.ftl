@@ -1,10 +1,10 @@
 <#macro head_production>
 <!DOCTYPE html>
-<!-- Copyright Feelhub 2012 -->
+<!-- Copyright Feelhub 2012-2013 -->
 <html lang="en">
 <head>
     <link href='//fonts.googleapis.com/css?family=Droid+Serif|Autour+One|Roboto+Condensed|Lobster' rel='stylesheet' type='text/css'>
-
+    <link rel="icon" type="image/png" href="${root}/static/images/favicon.png" />
     <#if topicData??>
         <title>Feelhub.com - ${topicData.name}</title>
         <#if topicData.description?has_content>
