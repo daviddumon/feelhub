@@ -23,10 +23,12 @@ require(["plugins/domReady!", "modules/authentification", "modules/messages"],
         $("body").on("click", "#login-button", function () {
             $("#signup").hide();
             $("#login").show();
+            $("#email").focus();
         });
 
         $("body").on("click", "#signup-button", function () {
             $("#login").hide();
             $("#signup").show();
+            $("#fullname").focus();
         });
     });

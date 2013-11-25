@@ -8,7 +8,7 @@
 
     <form>
         <div class="holder">
-            <input name="fullname" value="" type="text" autofocus autocomplete="off" maxlength="100" placeholder="Name"/>
+            <input id="fullname" name="fullname" value="" type="text" autofocus autocomplete="off" maxlength="100" placeholder="Name"/>
         </div>
 
         <div class="holder">

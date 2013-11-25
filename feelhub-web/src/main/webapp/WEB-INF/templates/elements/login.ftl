@@ -12,9 +12,9 @@
             <p>Hello ${userInfos.fullname} !</p>
 
             <p>Please enter your password, or <a href="javascript:void(0);" class="logout-popup">change user</a> !</p>
-            <input name="email" value="${userInfos.email}" type="text" autocomplete="off" maxlength="100" style="display: none"/>
+            <input id="email" name="email" value="${userInfos.email}" type="text" autocomplete="off" maxlength="100" style="display: none"/>
         <#else>
-            <input name="email" value="" type="text" autocomplete="off" maxlength="100" placeholder="Email"/>
+            <input id="email" name="email" value="" type="text" autocomplete="off" maxlength="100" placeholder="Email"/>
         </#if>
         </div>
 
