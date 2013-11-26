@@ -11,7 +11,7 @@
     <div id="user">
         <a href="">
             <img src="//www.gravatar.com/avatar/${userInfos.hashedEmail}?s=31&d=mm" alt="user's avatar" class="img-circle"/>
-            <span>${userInfos.user.fullname}</span>
+            <p>${userInfos.user.fullname}</p>
         </a>
         <ul>
             <li><a class="header-button" href="${root}/getbookmarklet">bookmarklet</a></li>
