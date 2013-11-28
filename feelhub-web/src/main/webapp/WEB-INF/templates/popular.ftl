@@ -1,14 +1,4 @@
-<@base.head_production>
-<link rel="stylesheet" href="${root}/static/css/home.css?cache=${buildtime}"/>
-<script type="text/javascript" data-main="${root}/static/js/controller-built/home-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@base.head_production>
-
-<@base.head_development>
-<link rel="stylesheet/less" type="text/css" href="${root}/static/css/home.less?cache=${buildtime}"/>
-<script type="text/javascript" data-main="${root}/static/js/controller/home-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
-</@base.head_development>
-
-<@base.js>
+<@base.head_begin>
 
 var initial_datas = [
     <#if topicDatas??>
@@ -30,7 +20,20 @@ var initial_datas = [
 ]
 
 var flow_uri_end_point = "popular";
-</@base.js>
+</@base.head_begin>
+
+<@base.head_production>
+<link rel="stylesheet" href="${root}/static/css/home.css?cache=${buildtime}"/>
+<script type="text/javascript" data-main="${root}/static/js/controller-built/home-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
+</@base.head_production>
+
+<@base.head_development>
+<link rel="stylesheet/less" type="text/css" href="${root}/static/css/home.less?cache=${buildtime}"/>
+<script type="text/javascript" data-main="${root}/static/js/controller/home-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
+</@base.head_development>
+
+<@base.head_end>
+</@base.head_end>
 
 <@base.body>
 <div id="overlay"></div>

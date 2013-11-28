@@ -1,10 +1,10 @@
-<#macro head_production>
+<#macro head_begin>
 <!DOCTYPE html>
 <!-- Copyright Feelhub 2012-2013 -->
 <html lang="en">
 <head>
     <link href='//fonts.googleapis.com/css?family=Droid+Serif|Autour+One|Roboto+Condensed|Lobster' rel='stylesheet' type='text/css'>
-    <link rel="icon" type="image/png" href="${root}/static/images/favicon.png" />
+    <link rel="icon" type="image/png" href="${root}/static/images/favicon.png"/>
     <#if topicData??>
         <title>Feelhub.com - ${topicData.name}</title>
         <#if topicData.description?has_content>
@@ -21,29 +21,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, target-densitydpi=device-dpi">
 
-    <#if !dev>
-        <!--[if lt IE 9]>
-        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js?cache=${buildtime}"></script>
-        <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?cache=${buildtime}"></script>
-        <![endif]-->
-        <#nested/>
-    </#if>
 
-</#macro>
-
-<#macro head_development>
-
-    <#if dev>
-
-        <#nested/>
-
-    <#-- Keep the loading of less below, as we need to list the lesscss files before !-->
-        <script type="text/javascript" src="${root}/static/js/less-1.4.2.min.js?cache=${buildtime}"></script>
-    </#if>
-
-</#macro>
-
-<#macro js>
     <script type="text/javascript">
             <#if root??>
             var root = "${root}";
@@ -86,7 +64,33 @@
             <#nested/>
 
     </script>
+</#macro>
 
+<#macro head_development>
+
+    <#if dev>
+
+        <#nested/>
+
+    <#-- Keep the loading of less below, as we need to list the lesscss files before !-->
+        <script type="text/javascript" src="${root}/static/js/less-1.4.2.min.js?cache=${buildtime}"></script>
+    </#if>
+
+</#macro>
+
+<#macro head_production>
+
+    <#if !dev>
+        <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js?cache=${buildtime}"></script>
+        <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js?cache=${buildtime}"></script>
+        <![endif]-->
+        <#nested/>
+    </#if>
+
+</#macro>
+
+<#macro head_end>
     <#if !dev>
         <script type="text/javascript">
             var _gaq = _gaq || [];
@@ -103,6 +107,8 @@
             })();
         </script>
     </#if>
+
+    <#nested/>
 </head>
 </#macro>
 

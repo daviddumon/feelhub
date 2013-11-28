@@ -1,3 +1,6 @@
+<@base.head_begin>
+</@base.head_begin>
+
 <@base.head_production>
 <link rel="stylesheet" href="${root}/static/css/fixed.css?cache=${buildtime}"/>
 <script type="text/javascript" data-main="${root}/static/js/controller-built/fixed-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
@@ -8,8 +11,8 @@
 <script type="text/javascript" data-main="${root}/static/js/controller/fixed-controller" src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@base.head_development>
 
-<@base.js>
-</@base.js>
+<@base.head_end>
+</@base.head_end>
 
 <@base.body>
 <div id="error" class="fixed-panel">
