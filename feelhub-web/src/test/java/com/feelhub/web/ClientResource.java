@@ -37,6 +37,12 @@ public class ClientResource extends UniformResource {
         return handle();
     }
 
+    public Representation put(final Object entity) {
+        initHandling(Method.PUT);
+        getRequest().setEntity(getRepresentation(entity));
+        return handle();
+    }
+
     public Representation delete(final CookieSeries cookies) {
         initHandling(Method.DELETE);
         if (cookies != null) {

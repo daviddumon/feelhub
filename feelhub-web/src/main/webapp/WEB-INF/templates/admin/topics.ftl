@@ -19,9 +19,30 @@
             <td>${topic.type}</td>
             <td>${topic.creationDate?number_to_date}</td>
             <td><a href="${root}/topic/${topic.id}">${root}/topic/${topic.id}</a></td>
-            <td>&nbsp;</td>
+            <td>
+                <button type="submit" class="btn try-thumbnail" data-topicid="${topic.id}">Try to find a thumbnail</button>
+            </td>
         </tr>
     </#list>
     </tbody>
 </table>
+<script type="text/javascript">
+    $(function() {
+        $(".try-thumbnail").click(function(e) {
+            var button = $(e.target);
+            button.attr("disabled", "disabled");
+            $.ajax({
+                url: "${root}/admin/topics/" + button.attr("data-topicid") + "/thumbnail",
+                type: 'PUT',
+                success: function() {
+                    button.closest("tr").remove();
+                },
+                error: function() {
+                    button.removeAttr("disabled");
+                }
+            });
+            return false;
+        });
+    });
+</script>
 </@layout.adminLayout>

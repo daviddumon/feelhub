@@ -30,12 +30,10 @@ public class ApiTopicsResource extends ServerResource {
 
     @Get
     public ModelAndView getTopics() {
-        List<TopicData> topicDatas = Lists.newArrayList();
         final String query = getQueryValue();
         final List<Topic> topics = topicService.getTopics(query, CurrentUser.get().getLanguage());
         setStatus(Status.SUCCESS_OK);
-        topicDatas = getTopicDatas(topics);
-        return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", topicDatas);
+        return ModelAndView.createNew("api/topics.json.ftl", MediaType.APPLICATION_JSON).with("topicDatas", getTopicDatas(topics));
     }
 
     private List<TopicData> getTopicDatas(final List<Topic> topics) {
