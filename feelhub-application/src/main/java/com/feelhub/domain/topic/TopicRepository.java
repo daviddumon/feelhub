@@ -7,6 +7,7 @@ import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.topic.world.WorldTopic;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface TopicRepository extends Repository<Topic> {
@@ -22,4 +23,6 @@ public interface TopicRepository extends Repository<Topic> {
     WorldTopic getWorldTopic();
 
     Topic getCurrentTopic(final UUID id);
+
+    List<Topic> findWithoutThumbnail();
 }

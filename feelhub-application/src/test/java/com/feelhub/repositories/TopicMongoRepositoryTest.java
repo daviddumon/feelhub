@@ -265,6 +265,19 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         assertThat(topicFound.get("popularityCount")).isEqualTo(1);
     }
 
+    @Test
+    public void canGetTopicsWithoutThumbnails() {
+        TestFactories.topics().newCompleteHttpTopic();
+        Topic topicWithoutThumbnail = TestFactories.topics().newCompleteRealTopic();
+        topicWithoutThumbnail.setThumbnail("");
+        mongolink.cleanSession();
+
+        List<Topic> result = repo.findWithoutThumbnail();
+
+        assertThat(result).hasSize(1);
+        assertThat(result).contains(topicWithoutThumbnail);
+    }
+
     private DBObject getTopic(final UUID id) {
         final DBCollection collection = getMongo().getCollection("topic");
         final DBObject query = new BasicDBObject();

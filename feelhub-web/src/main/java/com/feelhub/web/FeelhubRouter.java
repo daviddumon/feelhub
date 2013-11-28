@@ -42,6 +42,7 @@ public class FeelhubRouter extends Router {
         attachWithSecurity("/admin/analytic/dailybehavior", ActiveUserDailyBehaviorResource.class);
         attachWithSecurity("/admin/ftl/{name}", AdminFreemarkerResource.class);
         attachWithSecurity("/admin/events", AdminEventsResource.class);
+        attachWithSecurity("/admin/topics", AdminTopicsResource.class);
         attachWithSecurity("/admin/statistics", AdminStatisticsResource.class);
         attachWithSecurity("/admin", AdminResource.class);
     }

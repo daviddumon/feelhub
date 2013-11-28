@@ -14,12 +14,14 @@
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </a>
                     <a class="brand" href="/admin">Feelhub.com - Administration</a>
                     <div class="nav-collapse">
                         <ul class="nav">
                             <li><a href="${root}/admin/analytic/live">Analytic</a></li>
                             <li><a href="${root}/admin/statistics">Statistics</a></li>
+                            <li><a href="${root}/admin/topics">Topics</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>

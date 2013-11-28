@@ -8,7 +8,9 @@ import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.topic.world.WorldTopic;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 
+import java.util.List;
 import java.util.UUID;
 
 public class FakeTopicRepository extends FakeRepository<Topic> implements TopicRepository {
@@ -77,5 +79,15 @@ public class FakeTopicRepository extends FakeRepository<Topic> implements TopicR
             }
         }
         return topic;
+    }
+
+    @Override
+    public List<Topic> findWithoutThumbnail() {
+        return Lists.newArrayList(Iterables.filter(getAll(), new Predicate<Topic>() {
+            @Override
+            public boolean apply(Topic input) {
+                return input.getThumbnail() == null;
+            }
+        }));
     }
 }

@@ -6,9 +6,11 @@ import com.feelhub.domain.topic.geo.GeoTopic;
 import com.feelhub.domain.topic.http.HttpTopic;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.domain.topic.world.WorldTopic;
+import com.google.common.collect.Lists;
 import org.mongolink.MongoSession;
 import org.mongolink.domain.criteria.*;
 
+import java.util.List;
 import java.util.UUID;
 
 public class TopicMongoRepository extends BaseMongoRepository<Topic> implements TopicRepository {
@@ -19,14 +21,14 @@ public class TopicMongoRepository extends BaseMongoRepository<Topic> implements 
 
     @Override
     public WorldTopic getWorldTopic() {
-        final Criteria criteria = getSession().createCriteria(Topic.class);
+        final Criteria criteria = criteria();
         criteria.add(Restrictions.equals("__discriminator", "WorldTopic"));
         return (WorldTopic) extractOne(criteria);
     }
 
     @Override
     public GeoTopic getGeoTopic(final UUID id) {
-        final Criteria criteria = getSession().createCriteria(Topic.class);
+        final Criteria criteria = criteria();
         criteria.add(Restrictions.equals("__discriminator", "GeoTopic"));
         criteria.add(Restrictions.equals("_id", id));
         return (GeoTopic) extractOne(criteria);
@@ -34,7 +36,7 @@ public class TopicMongoRepository extends BaseMongoRepository<Topic> implements 
 
     @Override
     public HttpTopic getHttpTopic(final UUID id) {
-        final Criteria criteria = getSession().createCriteria(Topic.class);
+        final Criteria criteria = criteria();
         criteria.add(Restrictions.equals("__discriminator", "HttpTopic"));
         criteria.add(Restrictions.equals("_id", id));
         return (HttpTopic) extractOne(criteria);
@@ -42,7 +44,7 @@ public class TopicMongoRepository extends BaseMongoRepository<Topic> implements 
 
     @Override
     public RealTopic getRealTopic(final UUID id) {
-        final Criteria criteria = getSession().createCriteria(Topic.class);
+        final Criteria criteria = criteria();
         criteria.add(Restrictions.equals("__discriminator", "RealTopic"));
         criteria.add(Restrictions.equals("_id", id));
         return (RealTopic) extractOne(criteria);
@@ -50,7 +52,7 @@ public class TopicMongoRepository extends BaseMongoRepository<Topic> implements 
 
     @Override
     public FtpTopic getFtpTopic(final UUID id) {
-        final Criteria criteria = getSession().createCriteria(Topic.class);
+        final Criteria criteria = criteria();
         criteria.add(Restrictions.equals("__discriminator", "FtpTopic"));
         criteria.add(Restrictions.equals("_id", id));
         return (FtpTopic) extractOne(criteria);
@@ -65,5 +67,16 @@ public class TopicMongoRepository extends BaseMongoRepository<Topic> implements 
             }
         }
         return topic;
+    }
+
+    @Override
+    public List<Topic> findWithoutThumbnail() {
+        Criteria criteria = criteria();
+        criteria.add(Restrictions.equals("thumbnail", ""));
+        return criteria.list();
+    }
+
+    private Criteria criteria() {
+        return getSession().createCriteria(Topic.class);
     }
 }
