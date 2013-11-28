@@ -3,10 +3,11 @@ package com.feelhub.application.command.topic;
 import com.feelhub.application.command.Command;
 import com.feelhub.domain.eventbus.DomainEvent;
 import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.http.HttpTopicThumbnailUpdateNeededEvent;
+import com.feelhub.domain.topic.http.HttpTopicThumbnailUpdateRequestedEvent;
 import com.feelhub.domain.topic.http.HttpTopicType;
-import com.feelhub.domain.topic.http.RealTopicThumbnailUpdateNeededEvent;
+import com.feelhub.domain.topic.real.RealTopicThumbnailUpdateRequestedEvent;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 
@@ -25,13 +26,11 @@ public class UpdateThumbnailTopicCommand implements Command<Void> {
     }
 
     private DomainEvent getEvent(Topic topic) {
-        DomainEvent event;
+        FeelhubLanguage feelhubLanguage = FeelhubLanguage.fromCode(topic.getLanguageCode());
         if (isHttpTopic(topic)) {
-            event = new HttpTopicThumbnailUpdateNeededEvent(topic.getId());
-        } else {
-            event = new RealTopicThumbnailUpdateNeededEvent(topic.getId());
+            return new HttpTopicThumbnailUpdateRequestedEvent(topic.getId(), feelhubLanguage);
         }
-        return event;
+        return new RealTopicThumbnailUpdateRequestedEvent(topic.getId(), feelhubLanguage);
     }
 
     private boolean isHttpTopic(Topic topic) {

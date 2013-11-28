@@ -1,9 +1,10 @@
 package com.feelhub.application.command.topic;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.http.HttpTopicThumbnailUpdateNeededEvent;
-import com.feelhub.domain.topic.http.RealTopicThumbnailUpdateNeededEvent;
+import com.feelhub.domain.topic.http.HttpTopicThumbnailUpdateRequestedEvent;
+import com.feelhub.domain.topic.real.RealTopicThumbnailUpdateRequestedEvent;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.Rule;
@@ -25,9 +26,10 @@ public class UpdateThumbnailTopicCommandTest {
 
         new UpdateThumbnailTopicCommand(topic.getId()).execute();
 
-        HttpTopicThumbnailUpdateNeededEvent event = events.lastEvent(HttpTopicThumbnailUpdateNeededEvent.class);
+        HttpTopicThumbnailUpdateRequestedEvent event = events.lastEvent(HttpTopicThumbnailUpdateRequestedEvent.class);
         assertThat(event).isNotNull();
         assertThat(event.topicId).isEqualTo(topic.getId());
+        assertThat(event.feelhubLanguage).isEqualTo(FeelhubLanguage.fromCode(topic.getLanguageCode()));
     }
 
     @Test
@@ -36,8 +38,9 @@ public class UpdateThumbnailTopicCommandTest {
 
         new UpdateThumbnailTopicCommand(topic.getId()).execute();
 
-        RealTopicThumbnailUpdateNeededEvent event = events.lastEvent(RealTopicThumbnailUpdateNeededEvent.class);
+        RealTopicThumbnailUpdateRequestedEvent event = events.lastEvent(RealTopicThumbnailUpdateRequestedEvent.class);
         assertThat(event).isNotNull();
         assertThat(event.topicId).isEqualTo(topic.getId());
+        assertThat(event.feelhubLanguage).isEqualTo(FeelhubLanguage.fromCode(topic.getLanguageCode()));
     }
 }

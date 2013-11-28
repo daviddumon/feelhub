@@ -2,7 +2,9 @@ package com.feelhub.domain.bing;
 
 import com.feelhub.domain.cloudinary.CloudinaryException;
 import com.feelhub.domain.eventbus.DomainEventBus;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
+import com.feelhub.domain.topic.real.RealTopicThumbnailUpdateRequestedEvent;
 import com.feelhub.domain.topic.http.uri.*;
 import com.feelhub.domain.topic.real.*;
 import com.feelhub.repositories.Repositories;
@@ -11,6 +13,7 @@ import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
 
 import java.util.List;
+import java.util.UUID;
 
 public class BingSearch {
 
@@ -24,9 +27,19 @@ public class BingSearch {
     @Subscribe
     @AllowConcurrentEvents
     public void onRealTopicCreated(final RealTopicCreatedEvent event) {
+        doBingSearch(event.topicId, event.feelhubLanguage);
+    }
+
+    @Subscribe
+    @AllowConcurrentEvents
+    public void onRealTopicThumbnailUpdateRequested(final RealTopicThumbnailUpdateRequestedEvent event) {
+        doBingSearch(event.topicId, event.feelhubLanguage);
+    }
+
+    private void doBingSearch(UUID topicId, FeelhubLanguage feelhubLanguage) {
         rateLimiter.acquire();
-        final RealTopic realTopic = Repositories.topics().getRealTopic(event.topicId);
-        doBingSearch(realTopic, realTopic.getName(event.feelhubLanguage));
+        final RealTopic realTopic = Repositories.topics().getRealTopic(topicId);
+        doBingSearch(realTopic, realTopic.getName(feelhubLanguage));
     }
 
     public void doBingSearch(final Topic topic, final String query) {

@@ -1,6 +1,7 @@
 package com.feelhub.domain.bing;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
+import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.ThumbnailCreatedEvent;
 import com.feelhub.domain.topic.http.uri.FakeUriResolver;
 import com.feelhub.domain.topic.real.*;
@@ -41,6 +42,18 @@ public class BingSearchTest {
         assertThat(thumbnailCreatedEvent).isNotNull();
         assertThat(thumbnailCreatedEvent.getTopicId()).isEqualTo(realTopic.getCurrentId());
         assertThat(thumbnailCreatedEvent.getThumbnail().getOrigin()).isEqualTo("http://querylink");
+    }
+
+    @Test
+    public void postThumbnailCreatedEventOnThumbnailUpdateRequested() {
+        final RealTopic realTopic = new RealTopic(UUID.randomUUID(), RealTopicType.Automobile);
+        Repositories.topics().add(realTopic);
+
+        bingSearch.onRealTopicThumbnailUpdateRequested(new RealTopicThumbnailUpdateRequestedEvent(realTopic.getId(), FeelhubLanguage.fromCode(realTopic.getLanguageCode())));
+
+        final ThumbnailCreatedEvent thumbnailCreatedEvent = bus.lastEvent(ThumbnailCreatedEvent.class);
+        assertThat(thumbnailCreatedEvent).isNotNull();
+        assertThat(thumbnailCreatedEvent.getTopicId()).isEqualTo(realTopic.getCurrentId());
     }
 
     private BingSearch bingSearch;
