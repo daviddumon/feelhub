@@ -35,6 +35,7 @@ body {
         position: relative;
 
         .wrapper {
+          text-align: center;
           position: relative;
           overflow: hidden;
           width: 100%;
@@ -43,6 +44,14 @@ body {
           img.illustration {
             vertical-align: top;
             width: 100%;
+          }
+
+          img.loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -64px;
+            margin-left: -64px;
           }
 
           span {
@@ -393,21 +402,6 @@ body {
     }
 
     .topic-column {
-
-      #current-topic {
-
-        .wrapper {
-          text-align: center;
-
-          img.loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -64px;
-            margin-left: -64px;
-          }
-        }
-      }
 
       #analytics {
         display: none;
