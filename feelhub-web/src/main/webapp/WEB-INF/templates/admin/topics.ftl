@@ -1,7 +1,7 @@
 <#import "layout.ftl" as layout/>
 <@layout.adminLayout>
 <h1>Topics</h1>
-<h2>Without thumbnail</h2>
+<h2>Without thumbnail (${topics?size})</h2>
 <table class="table table-striped">
     <thead>
         <tr>
