@@ -28,6 +28,14 @@ public class HttpTopicAnalyzer {
         analyze(event.topicId);
     }
 
+    @Subscribe
+    @Synchronize
+    @AllowConcurrentEvents
+    public void onHttpTopicThumbnailUpdateRequested(final HttpTopicThumbnailUpdateRequestedEvent event) {
+        rateLimiter.acquire();
+        updateThumbnail(Repositories.topics().getHttpTopic(event.topicId));
+    }
+
     public void analyze(final UUID topicId) {
         final HttpTopic httpTopic = Repositories.topics().getHttpTopic(topicId);
         LOGGER.debug("Analysing topic : {}", httpTopic);
@@ -45,11 +53,7 @@ public class HttpTopicAnalyzer {
         setName(httpTopic, scrapedInformation);
         httpTopic.setType(scrapedInformation.getType());
         httpTopic.setOpenGraphType(scrapedInformation.getOpenGraphType());
-        if (!scrapedInformation.getImages().isEmpty()) {
-            createThumbnail(httpTopic, scrapedInformation.getImages().get(0));
-        } else {
-            createThumbnail(httpTopic, "http://ec2-107-22-105-164.compute-1.amazonaws.com:3000/?url=" + getCanonical(httpTopic) + "&clipRect={%22top%22:0,%22left%22:0,%22width%22:1692,%22height%22:1044}");
-        }
+        createThumbnail(httpTopic, scrapedInformation);
     }
 
     private void setName(final HttpTopic httpTopic, final ScrapedInformation scrapedInformation) {
@@ -57,6 +61,22 @@ public class HttpTopicAnalyzer {
             httpTopic.addName(scrapedInformation.getLanguage(), getCanonical(httpTopic));
         } else {
             httpTopic.addName(scrapedInformation.getLanguage(), scrapedInformation.getName());
+        }
+    }
+
+    private void updateThumbnail(HttpTopic topic) {
+        if (HttpTopicType.Website.equals(topic.getType())) {
+            createThumbnail(topic, scraper.scrap(getCanonical(topic)));
+        } else if (HttpTopicType.Data.equals(topic.getType()) || HttpTopicType.Image.equals(topic.getType())) {
+            createThumbnail(topic, getCanonical(topic));
+        }
+    }
+
+    private void createThumbnail(HttpTopic httpTopic, ScrapedInformation scrapedInformation) {
+        if (!scrapedInformation.getImages().isEmpty()) {
+            createThumbnail(httpTopic, scrapedInformation.getImages().get(0));
+        } else {
+            createThumbnail(httpTopic, "http://ec2-107-22-105-164.compute-1.amazonaws.com:3000/?url=" + getCanonical(httpTopic) + "&clipRect={%22top%22:0,%22left%22:0,%22width%22:1692,%22height%22:1044}");
         }
     }
 

@@ -8,6 +8,7 @@ import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicThumbnailUpdateRequestedEvent;
 import com.feelhub.domain.topic.http.HttpTopicType;
 import com.feelhub.domain.topic.real.RealTopicThumbnailUpdateRequestedEvent;
+import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.repositories.Repositories;
 import com.google.common.collect.Lists;
 
@@ -21,7 +22,10 @@ public class UpdateThumbnailTopicCommand implements Command<Void> {
 
     @Override
     public Void execute() {
-        DomainEventBus.INSTANCE.post(getEvent(lookUpTopic()));
+        DomainEvent event = getEvent(Repositories.topics().get(topicId));
+        if (event != null) {
+            DomainEventBus.INSTANCE.post(event);
+        }
         return null;
     }
 
@@ -29,16 +33,18 @@ public class UpdateThumbnailTopicCommand implements Command<Void> {
         FeelhubLanguage feelhubLanguage = FeelhubLanguage.fromCode(topic.getLanguageCode());
         if (isHttpTopic(topic)) {
             return new HttpTopicThumbnailUpdateRequestedEvent(topic.getId(), feelhubLanguage);
+        } else if (isRealTopic(topic)) {
+            return new RealTopicThumbnailUpdateRequestedEvent(topic.getId(), feelhubLanguage);
         }
-        return new RealTopicThumbnailUpdateRequestedEvent(topic.getId(), feelhubLanguage);
+        return null;
     }
 
     private boolean isHttpTopic(Topic topic) {
         return Lists.newArrayList(HttpTopicType.values()).contains(topic.getType());
     }
 
-    private Topic lookUpTopic() {
-        return Repositories.topics().get(topicId);
+    private boolean isRealTopic(Topic topic) {
+        return Lists.newArrayList(RealTopicType.values()).contains(topic.getType());
     }
 
     public UUID topicId;

@@ -57,6 +57,22 @@ public class AdminTopicsResourceTest {
         assertThat(topics.get(0).getId()).isEqualTo(topicWithoutThumbnail.getId().toString());
     }
 
+    @Test
+    public void hasOnlyHttpAndRealTopicsWithoutThumbnail() {
+        HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
+        httpTopic.setThumbnail(null);
+        RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        realTopic.setThumbnail(null);
+        Topic topicWithoutThumbnail = TestFactories.topics().newWorldTopic();
+        topicWithoutThumbnail.setThumbnail(null);
+
+        final ModelAndView modelAndView = new AdminTopicsResource(new TopicDataFactory()).represent();
+
+        assertThat(modelAndView.getData("topics")).isNotNull();
+        final List<TopicData> topics = modelAndView.getData("topics");
+        assertThat(topics).hasSize(2);
+    }
+
     private ChallengeResponse challengeResponse() {
         return new ChallengeResponse(ChallengeScheme.HTTP_BASIC, FeelhubRouter.ADMIN_USER,
                 FeelhubRouter.ADMIN_PASSWORD);

@@ -2,11 +2,14 @@ package com.feelhub.web.resources.admin;
 
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
+import com.feelhub.domain.topic.http.HttpTopic;
+import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.feelhub.web.dto.TopicData;
 import com.feelhub.web.dto.TopicDataFactory;
 import com.feelhub.web.representation.ModelAndView;
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -28,10 +31,19 @@ public class AdminTopicsResource extends ServerResource {
     }
 
     private List<TopicData> getTopicsDatas() {
-        return Lists.newArrayList(Iterables.transform(Repositories.topics().findWithoutThumbnail(),new Function<Topic, TopicData>() {
+        return Lists.newArrayList(Iterables.transform(getTopics(), new Function<Topic, TopicData>() {
             @Override
             public TopicData apply(Topic input) {
                 return topicDataFactory.simpleTopicData(input, FeelhubLanguage.REFERENCE);
+            }
+        }));
+    }
+
+    private List<Topic> getTopics() {
+        return Lists.newArrayList(Iterables.filter(Repositories.topics().findWithoutThumbnail(), new Predicate<Topic>() {
+            @Override
+            public boolean apply(Topic topic) {
+                return topic instanceof HttpTopic || topic instanceof RealTopic;
             }
         }));
     }

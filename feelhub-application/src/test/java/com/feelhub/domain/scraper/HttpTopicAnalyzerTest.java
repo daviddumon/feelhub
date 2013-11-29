@@ -132,5 +132,31 @@ public class HttpTopicAnalyzerTest {
         assertThat(httpTopic.getLanguageCode()).isEqualTo("fr");
     }
 
+    @Test
+    public void canPostThumbnailEventOnThumbnailUpdateRequest() {
+        final String uri = internet.uri("scraper");
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Website);
+        httpTopic.addUri(new Uri(uri));
+
+        httpTopicAnalyzer.onHttpTopicThumbnailUpdateRequested(new HttpTopicThumbnailUpdateRequestedEvent(httpTopic.getId(), FeelhubLanguage.fromCode(httpTopic.getLanguageCode())));
+
+        final ThumbnailCreatedEvent thumbnailCreatedEvent = bus.lastEvent(ThumbnailCreatedEvent.class);
+        assertThat(thumbnailCreatedEvent).isNotNull();
+        assertThat(thumbnailCreatedEvent.getThumbnail().getOrigin()).isEqualTo("http://s1.lemde.fr/image/2013/01/25/540x270/1822831_3_dfb7_un-manifestant-lance-un-cocktail-molotov-contre_ed5d9c3af6a609128210a9cab7111290.jpg");
+    }
+
+    @Test
+    public void canPostThumbnailEventForDataOnThumbnailUpdateRequest() {
+        final String uri = internet.uri("scraper");
+        final HttpTopic httpTopic = TestFactories.topics().newSimpleHttpTopic(HttpTopicType.Data);
+        httpTopic.addUri(new Uri(uri));
+
+        httpTopicAnalyzer.onHttpTopicThumbnailUpdateRequested(new HttpTopicThumbnailUpdateRequestedEvent(httpTopic.getId(), FeelhubLanguage.fromCode(httpTopic.getLanguageCode())));
+
+        final ThumbnailCreatedEvent thumbnailCreatedEvent = bus.lastEvent(ThumbnailCreatedEvent.class);
+        assertThat(thumbnailCreatedEvent).isNotNull();
+        assertThat(thumbnailCreatedEvent.getThumbnail().getOrigin()).isEqualTo("http://localhost:6162/scraper");
+    }
+
     private HttpTopicAnalyzer httpTopicAnalyzer;
 }

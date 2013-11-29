@@ -5,6 +5,7 @@ import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.http.HttpTopicThumbnailUpdateRequestedEvent;
 import com.feelhub.domain.topic.real.RealTopicThumbnailUpdateRequestedEvent;
+import com.feelhub.domain.topic.world.WorldTopic;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
 import org.junit.Rule;
@@ -42,5 +43,15 @@ public class UpdateThumbnailTopicCommandTest {
         assertThat(event).isNotNull();
         assertThat(event.topicId).isEqualTo(topic.getId());
         assertThat(event.feelhubLanguage).isEqualTo(FeelhubLanguage.fromCode(topic.getLanguageCode()));
+    }
+
+    @Test
+    public void voidDoNothingOnWorldTopic() {
+        Topic topic = TestFactories.topics().newWorldTopic();
+
+        new UpdateThumbnailTopicCommand(topic.getId()).execute();
+
+        RealTopicThumbnailUpdateRequestedEvent event = events.lastEvent(RealTopicThumbnailUpdateRequestedEvent.class);
+        assertThat(event).isNull();
     }
 }
