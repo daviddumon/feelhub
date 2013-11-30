@@ -1,8 +1,15 @@
 <#import "layout.ftl" as layout/>
 <@layout.adminLayout>
 <h1>Topics</h1>
+<h2>Update one thumbnail</h2>
+<div class="form-inline update-from-topicid actions">
+    <label for="topicId">Id du topic :</label>
+    <input id="topicId" type="text">
+    <button type="button" class="btn update-thumbnail-from-topicid">Update thumbnail</button>
+</div>
+<hr />
 <button type="button" class="btn pull-right" id="update-all-thumbnails">Update all (one by one)</button>
-<h2>Without thumbnail (${topics?size})</h2>
+<h2>Topics without thumbnail (${topics?size})</h2>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -30,7 +37,13 @@
 <script type="text/javascript">
     $(function() {
         $(".update-thumbnail").click(function(e) {
-            updateThumbnail($(e.target));
+            var button = $(e.target);
+            updateThumbnail(button, button.attr("data-topicid"));
+            return false;
+        });
+
+        $(".update-thumbnail-from-topicid").click(function(e) {
+            updateThumbnail($(e.target), $("#topicId").val());
             return false;
         });
 
@@ -40,8 +53,8 @@
         });
     });
 
-    function updateThumbnail(button) {
-        update(button, function() {
+    function updateThumbnail(button, topicId) {
+        update(button, topicId, function() {
                 onSuccess(button);
             },
             function() {
@@ -50,10 +63,10 @@
         );
     }
 
-    function update(button, callbackOk, callbackErreur) {
+    function update(button, topicId, callbackOk, callbackErreur) {
         button.attr("disabled", "disabled");
         $.ajax({
-            url: "${root}/admin/topics/" + button.attr("data-topicid") + "/thumbnail",
+            url: "${root}/admin/topics/" + topicId + "/thumbnail",
             type: 'PUT',
             success: function() {
                 callbackOk();
@@ -67,7 +80,7 @@
     function updateAllThumbnails(index) {
         var button = $(".actions:eq(" + index + ")").find("button");
         if (button.length > 0) {
-            update(button, function() {
+            update(button, button.attr("data-topicid"), function() {
                 onSuccess(button);
                 updateAllThumbnails(index + 1);
             }, function() {
@@ -86,9 +99,9 @@
     }
 
     function removeButtonWithText(button, text) {
-        var td = button.closest("td");
+        var element = button.closest(".actions");
         button.remove();
-        td.text(text);
+        element.text(text);
     }
 
 </script>
