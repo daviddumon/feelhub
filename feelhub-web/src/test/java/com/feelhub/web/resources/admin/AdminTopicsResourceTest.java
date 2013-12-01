@@ -22,6 +22,7 @@ import org.restlet.data.ChallengeScheme;
 import org.restlet.data.Status;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -71,6 +72,22 @@ public class AdminTopicsResourceTest {
         assertThat(modelAndView.getData("topics")).isNotNull();
         final List<TopicData> topics = modelAndView.getData("topics");
         assertThat(topics).hasSize(2);
+    }
+
+    @Test
+    public void hasOnlyTopicWithCurrentIdEqualsId() {
+        RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
+        RealTopic otherRealTopic = TestFactories.topics().newCompleteRealTopic();
+        otherRealTopic.changeCurrentId(realTopic.getId());
+        realTopic.setThumbnail(null);
+        otherRealTopic.setThumbnail(null);
+
+        final ModelAndView modelAndView = new AdminTopicsResource(new TopicDataFactory()).represent();
+
+        assertThat(modelAndView.getData("topics")).isNotNull();
+        final List<TopicData> topics = modelAndView.getData("topics");
+        assertThat(topics).hasSize(1);
+        assertThat(topics.get(0).getId()).isEqualTo(realTopic.getId().toString());
     }
 
     private ChallengeResponse challengeResponse() {
