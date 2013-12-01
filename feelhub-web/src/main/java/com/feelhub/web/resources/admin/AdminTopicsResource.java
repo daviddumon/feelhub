@@ -43,7 +43,7 @@ public class AdminTopicsResource extends ServerResource {
         return Lists.newArrayList(Iterables.filter(Repositories.topics().findWithoutThumbnail(), new Predicate<Topic>() {
             @Override
             public boolean apply(Topic topic) {
-                return topic instanceof HttpTopic || topic instanceof RealTopic && topic.getId().equals(topic.getCurrentId());
+                return (topic instanceof HttpTopic || topic instanceof RealTopic) && topic.getId().equals(topic.getCurrentId());
             }
         }));
     }
