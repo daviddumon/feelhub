@@ -13,6 +13,7 @@ import org.apache.http.params.CoreConnectionPNames;
 import org.json.simple.JSONValue;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.security.*;
 import java.util.*;
 
@@ -55,7 +56,7 @@ public class CloudinaryLink {
         final MultipartEntity multipart = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
         for (final Map.Entry<String, String> param : params.entrySet()) {
             if (StringUtils.isNotBlank(param.getValue())) {
-                multipart.addPart(param.getKey(), new StringBody(param.getValue()));
+                multipart.addPart(param.getKey(), new StringBody(param.getValue(), Charset.forName("UTF-8")));
             }
         }
         postMethod.setEntity(multipart);
