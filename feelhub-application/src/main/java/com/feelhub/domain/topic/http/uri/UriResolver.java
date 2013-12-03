@@ -29,7 +29,7 @@ public class UriResolver {
 
     private String doFollow(final Uri uri, final Client client, final ResolverResult resolverResult) {
         String currentUri = uri.getValue();
-        Response response = null;
+        Response response;
         do {
             final Request request = Requests.create(Method.HEAD, currentUri);
             response = client.handle(request);

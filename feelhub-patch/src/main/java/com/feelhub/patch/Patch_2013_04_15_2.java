@@ -64,7 +64,7 @@ public class Patch_2013_04_15_2 extends Patch {
             topic.addThumbnail(thumbnail);
             topic.setThumbnail(cloudinaryImage);
         } catch (IOException e) {
-            throw new CloudinaryException();
+            throw new CloudinaryException(e);
         }
     }
 
