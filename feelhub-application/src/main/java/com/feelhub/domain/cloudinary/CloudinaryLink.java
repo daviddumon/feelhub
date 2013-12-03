@@ -107,11 +107,11 @@ public class CloudinaryLink {
 
     private String extractIllustrationFromJsonResponse(final String responseData) {
         try {
-            final Map<String, String> result = (Map<String, String>) JSONValue.parseWithException(responseData);
+            final Map<String, Object> result = (Map<String, Object>) JSONValue.parseWithException(responseData);
             if (result.containsKey("error")) {
-                throw new CloudinaryException("Error with cloudinary " + result.get("error"));
+                throw new CloudinaryException("Error with cloudinary " + result.get("error").toString());
             }
-            return result.get("secure_url");
+            return result.get("secure_url").toString();
         } catch (ParseException e) {
             LOGGER.error(responseData);
             throw new CloudinaryException(responseData, e);
