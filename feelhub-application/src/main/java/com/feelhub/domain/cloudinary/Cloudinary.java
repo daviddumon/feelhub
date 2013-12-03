@@ -17,12 +17,13 @@ public class Cloudinary {
     public Cloudinary(final CloudinaryLink cloudinaryLink) {
         this.cloudinaryLink = cloudinaryLink;
         DomainEventBus.INSTANCE.register(this);
-        final RateLimiter rateLimiter = RateLimiter.create(5.0);
+        rateLimiter = RateLimiter.create(5.0);
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void onThumbnailCreatedEvent(final ThumbnailCreatedEvent thumbnailCreatedEvent) {
+        rateLimiter.acquire();
         final Topic topic = Repositories.topics().getCurrentTopic(thumbnailCreatedEvent.getTopicId());
         final Thumbnail thumbnail = thumbnailCreatedEvent.getThumbnail();
         final String cloudinaryImage = getCloudinaryImage(thumbnail.getOrigin());
@@ -39,9 +40,10 @@ public class Cloudinary {
         try {
             return cloudinaryLink.getIllustration(params);
         } catch (IOException e) {
-            throw new CloudinaryException();
+            throw new CloudinaryException(e);
         }
     }
 
     private final CloudinaryLink cloudinaryLink;
+    final RateLimiter rateLimiter;
 }

@@ -6,16 +6,27 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.*;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.security.*;
-import java.util.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class CloudinaryLink {
 
@@ -98,17 +109,18 @@ public class CloudinaryLink {
         try {
             final Map<String, String> result = (Map<String, String>) JSONValue.parseWithException(responseData);
             if (result.containsKey("error")) {
-                throw new CloudinaryException();
+                throw new CloudinaryException("Error with cloudinary " + result.get("error"));
             }
             return result.get("secure_url");
-        } catch (Exception e) {
-            System.out.println(responseData);
-            throw new CloudinaryException();
+        } catch (ParseException e) {
+            LOGGER.error(responseData);
+            throw new CloudinaryException(responseData, e);
         }
     }
 
     private final String apiKey;
     private final String apiSecret;
     private final String cloudinaryName;
+    private static final Logger LOGGER = LoggerFactory.getLogger(CloudinaryLink.class);
 }
 

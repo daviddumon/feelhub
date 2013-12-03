@@ -13,4 +13,9 @@ public class DomainException extends RuntimeException {
     public DomainException(final Exception e) {
         super(e);
     }
+
+    public DomainException(final String message, final Exception e) {
+        super(message, e);
+    }
+
 }
