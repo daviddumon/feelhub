@@ -2,6 +2,14 @@ package com.feelhub.domain.topic;
 
 public class Thumbnail {
 
+    protected Thumbnail() {
+
+    }
+
+    public Thumbnail(String origin) {
+        this.origin = origin;
+    }
+
     public String getOrigin() {
         return origin;
     }

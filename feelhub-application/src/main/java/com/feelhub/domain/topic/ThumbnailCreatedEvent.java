@@ -1,7 +1,10 @@
 package com.feelhub.domain.topic;
 
 import com.feelhub.domain.eventbus.DomainEvent;
+import com.google.common.collect.Lists;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class ThumbnailCreatedEvent extends DomainEvent {
@@ -19,14 +22,14 @@ public class ThumbnailCreatedEvent extends DomainEvent {
         this.topicId = topicId;
     }
 
-    public Thumbnail getThumbnail() {
-        return thumbnail;
+    public List<Thumbnail> getThumbnails() {
+        return thumbnails;
     }
 
-    public void setThumbnail(final Thumbnail thumbnail) {
-        this.thumbnail = thumbnail;
+    public void addThumbnails(final Thumbnail... thumbnails) {
+        this.thumbnails.addAll(Arrays.asList(thumbnails));
     }
 
     private UUID topicId;
-    private Thumbnail thumbnail;
+    private List<Thumbnail> thumbnails = Lists.newArrayList();
 }

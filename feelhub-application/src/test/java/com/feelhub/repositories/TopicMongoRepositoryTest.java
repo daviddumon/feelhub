@@ -30,8 +30,7 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
         final UUID id = UUID.randomUUID();
         final FakeTopicImplementation topic = new FakeTopicImplementation(id);
         topic.setThumbnail("tb");
-        final Thumbnail thumbnail = new Thumbnail();
-        thumbnail.setOrigin("origin");
+        final Thumbnail thumbnail = new Thumbnail("origin");
         thumbnail.setCloudinary("cloudinary");
         topic.addThumbnail(thumbnail);
 

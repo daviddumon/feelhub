@@ -37,7 +37,7 @@ public class Patch_2013_04_12_1 extends Patch {
         //try {
         //    httpTopic.setIllustration("http://ec2-107-22-105-164.compute-1.amazonaws.com:3000/?url=" + httpTopic.getUris().get(0).toString() + "&clipRect={%22top%22:0,%22left%22:0,%22width%22:1024,%22height%22:600}");
         //    final String thumbnail = cloudinary.getCloudinaryImage(httpTopic.getIllustration());
-        //    httpTopic.setThumbnail(thumbnail);
+        //    httpTopic.addThumbnails(thumbnail);
         //    System.out.println(httpTopic.getCurrentId() + " : " + thumbnail);
         //} catch (Exception e) {
         //    System.out.println("Cloudinary error for source " + httpTopic.getIllustration());

@@ -11,6 +11,7 @@ import com.google.inject.*;
 import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class HttpTopicAnalyzerTest {
 
@@ -92,7 +93,7 @@ public class HttpTopicAnalyzerTest {
 
         final ThumbnailCreatedEvent thumbnailCreatedEvent = bus.lastEvent(ThumbnailCreatedEvent.class);
         assertThat(thumbnailCreatedEvent).isNotNull();
-        assertThat(thumbnailCreatedEvent.getThumbnail().getOrigin()).isEqualTo("http://s1.lemde.fr/image/2013/01/25/540x270/1822831_3_dfb7_un-manifestant-lance-un-cocktail-molotov-contre_ed5d9c3af6a609128210a9cab7111290.jpg");
+        assertThat(thumbnailCreatedEvent.getThumbnails().get(0).getOrigin()).isEqualTo("http://s1.lemde.fr/image/2013/01/25/540x270/1822831_3_dfb7_un-manifestant-lance-un-cocktail-molotov-contre_ed5d9c3af6a609128210a9cab7111290.jpg");
     }
 
     @Test
@@ -105,7 +106,7 @@ public class HttpTopicAnalyzerTest {
 
         final ThumbnailCreatedEvent thumbnailCreatedEvent = bus.lastEvent(ThumbnailCreatedEvent.class);
         assertThat(thumbnailCreatedEvent).isNotNull();
-        assertThat(thumbnailCreatedEvent.getThumbnail().getOrigin()).isEqualTo("http://localhost:6162/scraper");
+        assertThat(thumbnailCreatedEvent.getThumbnails().get(0).getOrigin()).isEqualTo("http://localhost:6162/scraper");
     }
 
     @Test
@@ -118,7 +119,7 @@ public class HttpTopicAnalyzerTest {
 
         final ThumbnailCreatedEvent thumbnailCreatedEvent = bus.lastEvent(ThumbnailCreatedEvent.class);
         assertThat(thumbnailCreatedEvent).isNotNull();
-        assertThat(thumbnailCreatedEvent.getThumbnail().getOrigin()).isEqualTo("http://localhost:6162/scraper");
+        assertThat(thumbnailCreatedEvent.getThumbnails().get(0).getOrigin()).isEqualTo("http://localhost:6162/scraper");
     }
 
     @Test
@@ -142,7 +143,9 @@ public class HttpTopicAnalyzerTest {
 
         final ThumbnailCreatedEvent thumbnailCreatedEvent = bus.lastEvent(ThumbnailCreatedEvent.class);
         assertThat(thumbnailCreatedEvent).isNotNull();
-        assertThat(thumbnailCreatedEvent.getThumbnail().getOrigin()).isEqualTo("http://s1.lemde.fr/image/2013/01/25/540x270/1822831_3_dfb7_un-manifestant-lance-un-cocktail-molotov-contre_ed5d9c3af6a609128210a9cab7111290.jpg");
+        assertThat(thumbnailCreatedEvent.getThumbnails()).hasSize(6);
+        assertThat(thumbnailCreatedEvent.getThumbnails().get(0).getOrigin()).isEqualTo("http://s1.lemde.fr/image/2013/01/25/540x270/1822831_3_dfb7_un-manifestant-lance-un-cocktail-molotov-contre_ed5d9c3af6a609128210a9cab7111290.jpg");
+        assertThat(thumbnailCreatedEvent.getThumbnails().get(5).getOrigin()).isEqualTo("http://ec2-107-22-105-164.compute-1.amazonaws.com:3000/?url=http://localhost:6162/scraper&clipRect={%22top%22:0,%22left%22:0,%22width%22:1692,%22height%22:1044}");
     }
 
     @Test
@@ -155,7 +158,8 @@ public class HttpTopicAnalyzerTest {
 
         final ThumbnailCreatedEvent thumbnailCreatedEvent = bus.lastEvent(ThumbnailCreatedEvent.class);
         assertThat(thumbnailCreatedEvent).isNotNull();
-        assertThat(thumbnailCreatedEvent.getThumbnail().getOrigin()).isEqualTo("http://localhost:6162/scraper");
+        assertThat(thumbnailCreatedEvent.getThumbnails()).hasSize(1);
+        assertThat(thumbnailCreatedEvent.getThumbnails().get(0).getOrigin()).isEqualTo("http://localhost:6162/scraper");
     }
 
     private HttpTopicAnalyzer httpTopicAnalyzer;

@@ -255,7 +255,7 @@ public class TopicTest {
 
     @Test
     public void canAddAThumbnail() {
-        final Thumbnail thumbnail = new Thumbnail();
+        final Thumbnail thumbnail = new Thumbnail("");
         final FakeTopicImplementation topic = new FakeTopicImplementation(UUID.randomUUID());
 
         topic.addThumbnail(thumbnail);

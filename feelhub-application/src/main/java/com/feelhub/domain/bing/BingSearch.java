@@ -56,9 +56,7 @@ public class BingSearch {
             final String illustration = illustrations.get(i++);
             try {
                 final ResolverResult resolverResult = uriResolver.resolve(new Uri(illustration));
-                final Thumbnail thumbnail = new Thumbnail();
-                thumbnail.setOrigin(getCanonical(resolverResult).toString());
-                return thumbnail;
+                return new Thumbnail(getCanonical(resolverResult).toString());
             } catch (UriException e) {
             } catch (TopicException e) {
             } catch (CloudinaryException e) {
@@ -70,7 +68,7 @@ public class BingSearch {
     private void postThumbnailCreatedEvent(final Topic topic, final Thumbnail thumbnail) {
         final ThumbnailCreatedEvent event = new ThumbnailCreatedEvent();
         event.setTopicId(topic.getCurrentId());
-        event.setThumbnail(thumbnail);
+        event.addThumbnails(thumbnail);
         DomainEventBus.INSTANCE.post(event);
     }
 

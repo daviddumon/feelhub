@@ -41,7 +41,8 @@ public class BingSearchTest {
         final ThumbnailCreatedEvent thumbnailCreatedEvent = bus.lastEvent(ThumbnailCreatedEvent.class);
         assertThat(thumbnailCreatedEvent).isNotNull();
         assertThat(thumbnailCreatedEvent.getTopicId()).isEqualTo(realTopic.getCurrentId());
-        assertThat(thumbnailCreatedEvent.getThumbnail().getOrigin()).isEqualTo("http://querylink");
+        assertThat(thumbnailCreatedEvent.getThumbnails()).hasSize(1);
+        assertThat(thumbnailCreatedEvent.getThumbnails().get(0).getOrigin()).isEqualTo("http://querylink");
     }
 
     @Test

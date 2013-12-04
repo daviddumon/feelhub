@@ -55,7 +55,7 @@ public class Patch_2013_04_11_1 extends Patch {
         //try {
         //    thumbnail = cloudinary.getCloudinaryImage(illustration);
         //    final Topic currentTopic = Repositories.topics().getCurrentTopic(topicId);
-        //    currentTopic.setThumbnail(thumbnail);
+        //    currentTopic.addThumbnails(thumbnail);
         //    System.out.println(currentTopic.getCurrentId() + " : " + thumbnail + " (topic)");
         //    setThumbnailForMediaLinked(currentTopic, thumbnail);
         //} catch (Exception e) {
@@ -68,7 +68,7 @@ public class Patch_2013_04_11_1 extends Patch {
         //for (Media media : medias) {
         //    if (!media.getFromId().equals(currentTopic.getCurrentId())) {
         //        final Topic fromId = Repositories.topics().getCurrentTopic(media.getFromId());
-        //        fromId.setThumbnail(thumbnail);
+        //        fromId.addThumbnails(thumbnail);
         //        System.out.println(fromId.getCurrentId() + " : " + thumbnail + " (media)");
         //    }
         //}

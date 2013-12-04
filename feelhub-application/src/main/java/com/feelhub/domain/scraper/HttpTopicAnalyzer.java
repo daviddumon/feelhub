@@ -4,14 +4,18 @@ import com.feelhub.domain.eventbus.*;
 import com.feelhub.domain.topic.*;
 import com.feelhub.domain.topic.http.*;
 import com.feelhub.repositories.Repositories;
+import com.google.common.collect.Lists;
 import com.google.common.eventbus.*;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
 import org.slf4j.*;
 
+import java.util.List;
 import java.util.UUID;
 
 public class HttpTopicAnalyzer {
+
+    public static final String SCREENSHOT_SERVICE_URL = "http://ec2-107-22-105-164.compute-1.amazonaws.com:3000";
 
     @Inject
     public HttpTopicAnalyzer(final Scraper scraper) {
@@ -53,7 +57,7 @@ public class HttpTopicAnalyzer {
         setName(httpTopic, scrapedInformation);
         httpTopic.setType(scrapedInformation.getType());
         httpTopic.setOpenGraphType(scrapedInformation.getOpenGraphType());
-        createThumbnail(httpTopic, scrapedInformation);
+        createThumbnailFromScrapedInformations(httpTopic, scrapedInformation.getImages());
     }
 
     private void setName(final HttpTopic httpTopic, final ScrapedInformation scrapedInformation) {
@@ -66,30 +70,35 @@ public class HttpTopicAnalyzer {
 
     private void updateThumbnail(HttpTopic topic) {
         if (HttpTopicType.Website.equals(topic.getType())) {
-            createThumbnail(topic, scraper.scrap(getCanonical(topic)));
+            createThumbnailFromScrapedInformations(topic, scraper.scrap(getCanonical(topic)).getImages());
         } else if (HttpTopicType.Data.equals(topic.getType()) || HttpTopicType.Image.equals(topic.getType())) {
             createThumbnail(topic, getCanonical(topic));
         }
     }
 
-    private void createThumbnail(HttpTopic httpTopic, ScrapedInformation scrapedInformation) {
-        if (!scrapedInformation.getImages().isEmpty()) {
-            createThumbnail(httpTopic, scrapedInformation.getImages().get(0));
-        } else {
-            createThumbnail(httpTopic, "http://ec2-107-22-105-164.compute-1.amazonaws.com:3000/?url=" + getCanonical(httpTopic) + "&clipRect={%22top%22:0,%22left%22:0,%22width%22:1692,%22height%22:1044}");
+    private void createThumbnailFromScrapedInformations(HttpTopic httpTopic, List<String> images) {
+        List<String> origins = Lists.newArrayList(images);
+        origins.add(getScreenshotUrl(httpTopic));
+        createThumbnail(httpTopic, origins.toArray(new String[origins.size()]));
+    }
+
+    private String getScreenshotUrl(HttpTopic httpTopic) {
+        return SCREENSHOT_SERVICE_URL + "/?url=" + getCanonical(httpTopic) + "&clipRect={%22top%22:0,%22left%22:0,%22width%22:1692,%22height%22:1044}";
+    }
+
+    private void createThumbnail(final Topic topic, final String... origins) {
+        List<Thumbnail> thumbnails = Lists.newArrayList();
+        for (String origin : origins) {
+            Thumbnail thumbnail = new Thumbnail(origin);
+            thumbnails.add(thumbnail);
         }
+        postThumbnailCreatedEvent(topic, thumbnails.toArray(new Thumbnail[thumbnails.size()]));
     }
 
-    private void createThumbnail(final Topic topic, final String origin) {
-        final Thumbnail thumbnail = new Thumbnail();
-        thumbnail.setOrigin(origin);
-        postThumbnailCreatedEvent(topic, thumbnail);
-    }
-
-    private void postThumbnailCreatedEvent(final Topic topic, final Thumbnail thumbnail) {
+    private void postThumbnailCreatedEvent(final Topic topic, final Thumbnail... thumbnails) {
         final ThumbnailCreatedEvent event = new ThumbnailCreatedEvent();
         event.setTopicId(topic.getCurrentId());
-        event.setThumbnail(thumbnail);
+        event.addThumbnails(thumbnails);
         DomainEventBus.INSTANCE.post(event);
     }
 

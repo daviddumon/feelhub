@@ -75,9 +75,7 @@ public class Patch_2013_04_15_2 extends Patch {
             try {
                 final UriResolver uriResolver = new UriResolver();
                 final ResolverResult resolverResult = uriResolver.resolve(new Uri(illustration));
-                final Thumbnail thumbnail = new Thumbnail();
-                thumbnail.setOrigin(getCanonical(resolverResult).toString());
-                return thumbnail;
+                return new Thumbnail(getCanonical(resolverResult).toString());
             } catch (UriException e) {
             } catch (TopicException e) {
             } catch (CloudinaryException e) {
