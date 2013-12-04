@@ -1,28 +1,41 @@
 package com.feelhub.web.resources.api.topics;
 
-import com.feelhub.application.TopicService;
-import com.feelhub.application.command.*;
-import com.feelhub.application.command.topic.*;
+import com.feelhub.application.command.Command;
+import com.feelhub.application.command.CommandBus;
+import com.feelhub.application.command.topic.SearchOrCreateTopicCommand;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.topic.Topic;
-import com.feelhub.domain.topic.real.*;
+import com.feelhub.domain.topic.real.RealTopic;
+import com.feelhub.domain.topic.real.RealTopicType;
 import com.feelhub.domain.user.User;
 import com.feelhub.repositories.fakeRepositories.WithFakeRepositories;
 import com.feelhub.test.TestFactories;
-import com.feelhub.web.*;
-import com.feelhub.web.authentification.*;
-import com.feelhub.web.dto.*;
+import com.feelhub.web.ContextTestFactory;
+import com.feelhub.web.WebReferenceBuilder;
+import com.feelhub.web.authentification.AnonymousUser;
+import com.feelhub.web.authentification.CurrentUser;
+import com.feelhub.web.authentification.WebUser;
+import com.feelhub.web.dto.TopicData;
+import com.feelhub.web.dto.TopicDataFactory;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.FeelhubApiException;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Futures;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentCaptor;
-import org.restlet.*;
-import org.restlet.data.*;
+import org.restlet.Context;
+import org.restlet.Request;
+import org.restlet.Response;
+import org.restlet.data.Form;
+import org.restlet.data.Method;
+import org.restlet.data.Status;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -39,9 +52,9 @@ public class ApiTopicsResourceTest {
     public void before() {
         user = TestFactories.users().createFakeUser("mail@mail.com", "full name");
         CurrentUser.set(new WebUser(user, true));
-        topicService = mock(TopicService.class);
+        topicSearch = mock(TopicSearch.class);
         commandBus = mock(CommandBus.class);
-        apiTopicsResource = new ApiTopicsResource(topicService, mock(TopicDataFactory.class), commandBus);
+        apiTopicsResource = new ApiTopicsResource(topicSearch, mock(TopicDataFactory.class), commandBus);
         apiTopicsResource.setResponse(new Response(new Request()));
         ContextTestFactory.initResource(apiTopicsResource);
     }
@@ -79,7 +92,7 @@ public class ApiTopicsResourceTest {
         final List<Topic> topics = Lists.newArrayList();
         topics.add(topic1);
         topics.add(topic2);
-        when(topicService.getTopics(tag.getId(), CurrentUser.get().getLanguage())).thenReturn(topics);
+        when(topicSearch.findTopics(tag.getId(), CurrentUser.get().getLanguage())).thenReturn(topics);
         final Request request = new Request(Method.GET, "http://test.com?q=" + tag.getId());
         apiTopicsResource.init(Context.getCurrent(), request, new Response(request));
 
@@ -115,13 +128,11 @@ public class ApiTopicsResourceTest {
 
         apiTopicsResource.createTopic(getGoodFormWithRealTopic());
 
-        final ArgumentCaptor<CreateRealTopicCommand> captor = ArgumentCaptor.forClass(CreateRealTopicCommand.class);
+        final ArgumentCaptor<SearchOrCreateTopicCommand> captor = ArgumentCaptor.forClass(SearchOrCreateTopicCommand.class);
         verify(commandBus).execute(captor.capture());
-        final CreateRealTopicCommand command = captor.getValue();
-        assertThat(command.name).isEqualTo("name");
-        assertThat(command.userID).isEqualTo(user.getId());
-        assertThat(command.feelhubLanguage).isEqualTo(user.getLanguage());
-        assertThat(command.type).isEqualTo(RealTopicType.Automobile);
+        final SearchOrCreateTopicCommand command = captor.getValue();
+        assertThat(command.value).isEqualTo("name");
+        assertThat(command.userId).isEqualTo(user.getId());
         assertThat(apiTopicsResource.getStatus()).isEqualTo(Status.SUCCESS_CREATED);
     }
 
@@ -137,7 +148,7 @@ public class ApiTopicsResourceTest {
 
     @Test
     public void canCreateHttpTopicWithCorrectUser() {
-        when(commandBus.execute(any(CreateHttpTopicCommand.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
+        when(commandBus.execute(any(SearchOrCreateTopicCommand.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
 
         apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
 
@@ -185,7 +196,7 @@ public class ApiTopicsResourceTest {
     @Test
     public void setLocationRefToNewHttpTopic() {
         final UUID id = UUID.randomUUID();
-        when(commandBus.execute(any(CreateHttpTopicCommand.class))).thenReturn(Futures.immediateCheckedFuture(id));
+        when(commandBus.execute(any(SearchOrCreateTopicCommand.class))).thenReturn(Futures.immediateCheckedFuture(id));
 
 
         apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
@@ -195,13 +206,13 @@ public class ApiTopicsResourceTest {
 
     @Test
     public void canCreateHttpTopic() {
-        when(commandBus.execute(any(CreateHttpTopicCommand.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
+        when(commandBus.execute(any(SearchOrCreateTopicCommand.class))).thenReturn(Futures.immediateCheckedFuture(UUID.randomUUID()));
 
         apiTopicsResource.createTopic(getGoodFormWithHttpTopic());
 
-        final ArgumentCaptor<CreateHttpTopicCommand> captor = ArgumentCaptor.forClass(CreateHttpTopicCommand.class);
+        final ArgumentCaptor<SearchOrCreateTopicCommand> captor = ArgumentCaptor.forClass(SearchOrCreateTopicCommand.class);
         verify(commandBus).execute(captor.capture());
-        final CreateHttpTopicCommand value = captor.getValue();
+        final SearchOrCreateTopicCommand value = captor.getValue();
         assertThat(value.userId).isEqualTo(user.getId());
         assertThat(value.value).isEqualTo("http://www.google.fr");
     }
@@ -209,7 +220,6 @@ public class ApiTopicsResourceTest {
     private Form getGoodFormWithRealTopic() {
         final Form form = new Form();
         form.add("name", "name");
-        form.add("type", RealTopicType.Automobile.toString());
         return form;
     }
 
@@ -222,5 +232,5 @@ public class ApiTopicsResourceTest {
     private ApiTopicsResource apiTopicsResource;
     private User user;
     private CommandBus commandBus;
-    private TopicService topicService;
+    private TopicSearch topicSearch;
 }

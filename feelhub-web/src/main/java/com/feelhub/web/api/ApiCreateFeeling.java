@@ -1,6 +1,6 @@
 package com.feelhub.web.api;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.feeling.CreateFeelingCommand;
 import com.feelhub.domain.feeling.*;
@@ -21,9 +21,9 @@ import java.util.UUID;
 public class ApiCreateFeeling {
 
     @Inject
-    public ApiCreateFeeling(final CommandBus commandBus, final TopicService topicService, final FeelingDataFactory feelingDataFactory) {
+    public ApiCreateFeeling(final CommandBus commandBus, final TopicSearch topicSearch, final FeelingDataFactory feelingDataFactory) {
         this.commandBus = commandBus;
-        this.topicService = topicService;
+        this.topicSearch = topicSearch;
         this.feelingDataFactory = feelingDataFactory;
     }
 
@@ -73,7 +73,7 @@ public class ApiCreateFeeling {
 
     private Topic extractTopic(final JSONObject jsonObject) {
         try {
-            return topicService.lookUpCurrent(UUID.fromString(jsonObject.getString("topicId")));
+            return topicSearch.lookUpCurrent(UUID.fromString(jsonObject.getString("topicId")));
         } catch (JSONException e) {
             throw new FeelhubApiException();
         }
@@ -94,6 +94,6 @@ public class ApiCreateFeeling {
     }
 
     private final CommandBus commandBus;
-    private final TopicService topicService;
+    private final TopicSearch topicSearch;
     private FeelingDataFactory feelingDataFactory;
 }

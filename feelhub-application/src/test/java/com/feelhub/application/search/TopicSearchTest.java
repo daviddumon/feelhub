@@ -1,4 +1,4 @@
-package com.feelhub.application;
+package com.feelhub.application.search;
 
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.tag.Tag;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 
-public class TopicServiceTest {
+public class TopicSearchTest {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -35,7 +35,7 @@ public class TopicServiceTest {
             protected void configure() {
             }
         });
-        topicService = injector.getInstance(TopicService.class);
+        topicSearch = injector.getInstance(TopicSearch.class);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TopicServiceTest {
         Repositories.topics().add(httpTopic);
         Repositories.topics().add(currentTopic);
 
-        final Topic topic = topicService.lookUpCurrent(httpTopic.getId());
+        final Topic topic = topicSearch.lookUpCurrent(httpTopic.getId());
 
         assertThat(topic).isEqualTo(currentTopic);
     }
@@ -60,7 +60,7 @@ public class TopicServiceTest {
         tag.addTopic(TestFactories.topics().newCompleteRealTopic(), FeelhubLanguage.none());
         tag.addTopic(TestFactories.topics().newCompleteRealTopic(), FeelhubLanguage.none());
 
-        final List<Topic> topics = topicService.getTopics(value, FeelhubLanguage.reference());
+        final List<Topic> topics = topicSearch.findTopics(value, FeelhubLanguage.reference());
 
         assertThat(topics.size()).isEqualTo(3);
     }
@@ -72,11 +72,11 @@ public class TopicServiceTest {
         new TopicIndexer(httpTopic).index("value", FeelhubLanguage.REFERENCE);
         httpTopic.setUserId(user.getId());
 
-        final List<Topic> topics = topicService.getTopics("value", FeelhubLanguage.fromCode("fr"));
+        final List<Topic> topics = topicSearch.findTopics("value", FeelhubLanguage.fromCode("fr"));
 
         assertThat(topics.size()).isEqualTo(1);
     }
 
 
-    private TopicService topicService;
+    private TopicSearch topicSearch;
 }

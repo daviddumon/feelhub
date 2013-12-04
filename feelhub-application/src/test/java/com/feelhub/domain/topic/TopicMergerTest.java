@@ -1,6 +1,5 @@
 package com.feelhub.domain.topic;
 
-import com.feelhub.application.TagService;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.related.Related;
@@ -28,12 +27,7 @@ public class TopicMergerTest {
 
     @Before
     public void before() {
-        final Injector injector = Guice.createInjector(new AbstractModule() {
-            @Override
-            protected void configure() {
-                bind(TagService.class).asEagerSingleton();
-            }
-        });
+        final Injector injector = Guice.createInjector();
         topicMerger = injector.getInstance(TopicMerger.class);
     }
 

@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.api.topics;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.topic.*;
 import com.feelhub.web.authentification.CurrentUser;
@@ -17,8 +17,8 @@ import java.util.*;
 public class ApiTopicContextResource extends ServerResource {
 
     @Inject
-    public ApiTopicContextResource(final TopicService topicService, final TopicContext topicContext) {
-        this.topicService = topicService;
+    public ApiTopicContextResource(final TopicSearch topicSearch, final TopicContext topicContext) {
+        this.topicSearch = topicSearch;
         this.topicContext = topicContext;
     }
 
@@ -39,7 +39,7 @@ public class ApiTopicContextResource extends ServerResource {
 
     private Topic getTopic() {
         final String topicId = getRequestAttributes().get("topicId").toString().trim();
-        return topicService.lookUpCurrent(UUID.fromString(topicId));
+        return topicSearch.lookUpCurrent(UUID.fromString(topicId));
     }
 
     private List<ContextData> getContextData(final Map<Tag, Topic> values) {
@@ -58,6 +58,6 @@ public class ApiTopicContextResource extends ServerResource {
         return results;
     }
 
-    private final TopicService topicService;
+    private final TopicSearch topicSearch;
     private final TopicContext topicContext;
 }

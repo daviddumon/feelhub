@@ -21,7 +21,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, target-densitydpi=device-dpi">
 
-
     <script type="text/javascript">
             <#if root??>
             var root = "${root}";
@@ -73,7 +72,7 @@
         <#nested/>
 
     <#-- Keep the loading of less below, as we need to list the lesscss files before !-->
-        <script type="text/javascript" src="${root}/static/js/less-1.4.2.min.js?cache=${buildtime}"></script>
+        <script type="text/javascript" src="${root}/static/js/less-1.3.3.min.js?cache=${buildtime}"></script>
     </#if>
 
 </#macro>

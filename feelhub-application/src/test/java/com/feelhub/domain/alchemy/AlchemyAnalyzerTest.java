@@ -1,6 +1,6 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.application.*;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.related.RelatedBuilder;
 import com.feelhub.domain.tag.Tag;
@@ -30,7 +30,7 @@ public class AlchemyAnalyzerTest {
     @Before
     public void setUp() throws Exception {
         entityProvider = mock(NamedEntityProvider.class);
-        alchemyAnalyzer = new AlchemyAnalyzer(entityProvider, new AlchemyRelationBinder(new RelatedBuilder()), new TopicService(new TagService()));
+        alchemyAnalyzer = new AlchemyAnalyzer(entityProvider, new AlchemyRelationBinder(new RelatedBuilder()), new TopicSearch());
     }
 
     @Test

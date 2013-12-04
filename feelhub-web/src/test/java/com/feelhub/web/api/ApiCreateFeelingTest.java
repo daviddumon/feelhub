@@ -1,6 +1,6 @@
 package com.feelhub.web.api;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.application.command.*;
 import com.feelhub.application.command.feeling.CreateFeelingCommand;
 import com.feelhub.domain.feeling.FeelingValue;
@@ -42,10 +42,10 @@ public class ApiCreateFeelingTest {
         final User fakeActiveUser = TestFactories.users().createFakeActiveUser("mail@mail.com");
         CurrentUser.set(new WebUser(fakeActiveUser, true));
         commandBus = mock(CommandBus.class);
-        topicService = mock(TopicService.class);
-        apiCreateFeeling = new ApiCreateFeeling(commandBus, topicService, new FeelingDataFactory());
+        topicSearch = mock(TopicSearch.class);
+        apiCreateFeeling = new ApiCreateFeeling(commandBus, topicSearch, new FeelingDataFactory());
         topic = TestFactories.topics().newCompleteRealTopic();
-        when(topicService.lookUpCurrent(any(UUID.class))).thenReturn(topic);
+        when(topicSearch.lookUpCurrent(any(UUID.class))).thenReturn(topic);
     }
 
     @Test
@@ -105,6 +105,6 @@ public class ApiCreateFeelingTest {
 
     private ApiCreateFeeling apiCreateFeeling;
     private CommandBus commandBus;
-    private TopicService topicService;
+    private TopicSearch topicSearch;
     private RealTopic topic;
 }

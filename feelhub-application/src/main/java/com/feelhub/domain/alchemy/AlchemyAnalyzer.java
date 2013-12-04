@@ -1,6 +1,6 @@
 package com.feelhub.domain.alchemy;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.eventbus.DomainEventBus;
 import com.feelhub.domain.feeling.FirstFeelingCreatedEvent;
 import com.feelhub.domain.topic.*;
@@ -8,6 +8,7 @@ import com.feelhub.domain.topic.http.*;
 import com.feelhub.domain.topic.real.RealTopic;
 import com.feelhub.repositories.Repositories;
 import com.google.common.base.Optional;
+import com.google.common.base.Supplier;
 import com.google.common.collect.*;
 import com.google.common.eventbus.*;
 import com.google.inject.Inject;
@@ -18,10 +19,10 @@ import java.util.*;
 public class AlchemyAnalyzer {
 
     @Inject
-    public AlchemyAnalyzer(final NamedEntityProvider namedEntityProvider, final AlchemyRelationBinder alchemyRelationBinder, final TopicService topicService) {
+    public AlchemyAnalyzer(final NamedEntityProvider namedEntityProvider, final AlchemyRelationBinder alchemyRelationBinder, final TopicSearch topicSearch) {
         this.namedEntityProvider = namedEntityProvider;
         this.alchemyRelationBinder = alchemyRelationBinder;
-        this.topicService = topicService;
+        this.topicSearch = topicSearch;
         DomainEventBus.INSTANCE.register(this);
     }
 
@@ -94,11 +95,17 @@ public class AlchemyAnalyzer {
     }
 
     private RealTopic lookUpOrCreateTopic(final NamedEntity namedEntity, final UUID userId) {
-        final RealTopic realTopic = (RealTopic) topicService.lookUpTopic(namedEntity.tags.get(0), namedEntity.type, namedEntity.feelhubLanguage);
-        if (realTopic == null) {
-            return createTopic(namedEntity, userId);
-        }
-        return realTopic;
+        final Optional<Topic> realTopic = topicSearch.lookUpTopic(namedEntity.tags.get(0), namedEntity.type, namedEntity.feelhubLanguage);
+        return (RealTopic) realTopic.or(newTopic(namedEntity, userId));
+    }
+
+    private Supplier<Topic> newTopic(final NamedEntity namedEntity, final UUID userId) {
+        return new Supplier<Topic>() {
+            @Override
+            public Topic get() {
+                return createTopic(namedEntity, userId);
+            }
+        };
     }
 
     private RealTopic createTopic(final NamedEntity namedEntity, final UUID userId) {
@@ -121,6 +128,6 @@ public class AlchemyAnalyzer {
 
     private final AlchemyRelationBinder alchemyRelationBinder;
     private final NamedEntityProvider namedEntityProvider;
-    private final TopicService topicService;
+    private final TopicSearch topicSearch;
     private static final Logger LOGGER = LoggerFactory.getLogger(AlchemyAnalyzer.class);
 }

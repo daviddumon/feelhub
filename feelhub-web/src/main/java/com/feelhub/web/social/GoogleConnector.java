@@ -1,28 +1,32 @@
 package com.feelhub.web.social;
 
 import com.feelhub.tools.Clients;
-import com.feelhub.web.WebReferenceBuilder;
 import com.feelhub.web.tools.FeelhubWebProperties;
-import com.google.common.util.concurrent.*;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-import org.restlet.*;
+import org.restlet.Client;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.data.Method;
 import org.scribe.builder.ServiceBuilder;
-import org.scribe.model.*;
+import org.scribe.model.Token;
+import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 import javax.inject.Singleton;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 
 @Singleton
 public class GoogleConnector {
 
     @Inject
     public GoogleConnector(final FeelhubWebProperties properties) {
-        final String callback = new WebReferenceBuilder(Context.getCurrent()).buildUri("/social/google");
+        final String callback = properties.domain + "/social/google";
         service = new ServiceBuilder().provider(GoogleApi.class).apiKey(properties.googleAppId).apiSecret(properties.googleAppSecret).callback(callback)
                 .scope("https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile").build();
     }

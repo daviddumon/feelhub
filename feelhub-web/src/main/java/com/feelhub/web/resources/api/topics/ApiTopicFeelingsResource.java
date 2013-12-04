@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.api.topics;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.topic.*;
 import com.feelhub.web.api.ApiFeelingSearch;
 import com.feelhub.web.dto.FeelingData;
@@ -15,8 +15,8 @@ import java.util.*;
 public class ApiTopicFeelingsResource extends ServerResource {
 
     @Inject
-    public ApiTopicFeelingsResource(final TopicService topicService, final ApiFeelingSearch apiFeelingSearch) {
-        this.topicService = topicService;
+    public ApiTopicFeelingsResource(final TopicSearch topicSearch, final ApiFeelingSearch apiFeelingSearch) {
+        this.topicSearch = topicSearch;
         this.apiFeelingSearch = apiFeelingSearch;
     }
 
@@ -36,9 +36,9 @@ public class ApiTopicFeelingsResource extends ServerResource {
 
     private Topic extractTopic() {
         final String topicId = getRequestAttributes().get("topicId").toString().trim();
-        return topicService.lookUpCurrent(UUID.fromString(topicId));
+        return topicSearch.lookUpCurrent(UUID.fromString(topicId));
     }
 
     private final ApiFeelingSearch apiFeelingSearch;
-    private final TopicService topicService;
+    private final TopicSearch topicSearch;
 }

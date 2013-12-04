@@ -7,15 +7,23 @@ require.config(
             "plugins": "../plugins",
             "templates": "../templates",
             "hogan": "../plugins/hogan",
-            "text": "../plugins/text"
+            "text": "../plugins/text",
+            "reveal":"../plugins/reveal",
+            "bootstrap":"../plugins/bootstrap"
+        },
+        shim: {
+          'bootstrap': {
+              deps:['jquery']
+          }
         },
         waitSeconds: 0
     }
 );
 
-require(["plugins/domReady!", "modules/interface", "modules/flow-topics"],
+require(["plugins/domReady!", "modules/interface", "modules/flow-topics", "modules/add-topic", "bootstrap"],
 
-    function (doc, interface, flow) {
+    function (doc, interface, flow, addTopic) {
         interface.init();
         flow.init();
+        addTopic.init();
     });

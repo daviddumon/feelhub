@@ -1,6 +1,5 @@
 package com.feelhub.web.resources.admin;
 
-import com.feelhub.application.TopicService;
 import com.feelhub.application.command.CommandBus;
 import com.feelhub.application.command.topic.UpdateThumbnailTopicCommand;
 import com.google.inject.Inject;

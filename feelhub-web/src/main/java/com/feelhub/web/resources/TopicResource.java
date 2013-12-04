@@ -1,6 +1,6 @@
 package com.feelhub.web.resources;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.related.Related;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
@@ -22,8 +22,8 @@ import java.util.*;
 public class TopicResource extends ServerResource {
 
     @Inject
-    public TopicResource(final TopicService topicService, final TopicDataFactory topicDataFactory, final ApiFeelingSearch apiFeelingSearch, final RelatedSearch relatedSearch) {
-        this.topicService = topicService;
+    public TopicResource(final TopicSearch topicSearch, final TopicDataFactory topicDataFactory, final ApiFeelingSearch apiFeelingSearch, final RelatedSearch relatedSearch) {
+        this.topicSearch = topicSearch;
         this.topicDataFactory = topicDataFactory;
         this.apiFeelingSearch = apiFeelingSearch;
         this.relatedSearch = relatedSearch;
@@ -32,7 +32,7 @@ public class TopicResource extends ServerResource {
     @Get
     public ModelAndView getTopic() {
         try {
-            topic = topicService.lookUp(extractUriValueFromUri());
+            topic = topicSearch.get(extractUriValueFromUri());
             if (checkCurrent(topic)) {
                 topic.incrementViewCount();
                 final TopicData topicData = topicDataFactory.topicData(topic, CurrentUser.get().getLanguage());
@@ -91,7 +91,7 @@ public class TopicResource extends ServerResource {
 
     private TopicData getTopicData(final UUID id) {
         try {
-            final Topic topic = topicService.lookUpCurrent(id);
+            final Topic topic = topicSearch.lookUpCurrent(id);
             return topicDataFactory.simpleTopicData(topic, CurrentUser.get().getLanguage());
         } catch (TopicNotFound e) {
             throw new FeelhubApiException();
@@ -115,7 +115,7 @@ public class TopicResource extends ServerResource {
         return apiFeelingSearch.doSearchForATopic(topic, parameters);
     }
 
-    private final TopicService topicService;
+    private final TopicSearch topicSearch;
     private final TopicDataFactory topicDataFactory;
     private final ApiFeelingSearch apiFeelingSearch;
     private final RelatedSearch relatedSearch;

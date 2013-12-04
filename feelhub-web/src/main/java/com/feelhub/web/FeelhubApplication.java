@@ -8,22 +8,30 @@ import com.feelhub.repositories.Repositories;
 import com.feelhub.sitemap.amazon.S3SitemapsRepository;
 import com.feelhub.sitemap.application.SitemapsRepository;
 import com.feelhub.web.authentification.UserInfos;
-import com.feelhub.web.filter.*;
+import com.feelhub.web.filter.IdentityFilter;
+import com.feelhub.web.filter.OpenSessionInViewFilter;
 import com.feelhub.web.mail.MailBuilder;
 import com.feelhub.web.social.FacebookConnector;
 import com.feelhub.web.status.FeelhubStatusService;
 import com.feelhub.web.tools.FeelhubWebProperties;
 import com.feelhub.web.update.UpdateRouter;
-import com.google.inject.*;
-import freemarker.template.*;
-import org.restlet.*;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.google.inject.Stage;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateModelException;
+import org.restlet.Application;
+import org.restlet.Context;
+import org.restlet.Restlet;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import javax.servlet.ServletContext;
 import java.util.Locale;
-import java.util.logging.*;
+import java.util.logging.Handler;
+import java.util.logging.LogManager;
 
 public class FeelhubApplication extends Application {
 
@@ -38,7 +46,7 @@ public class FeelhubApplication extends Application {
         SLF4JBridgeHandler.install();
     }
 
-    public void initializeGuice(final Module module) {
+    public final void initializeGuice(final Module module) {
         injector = Guice.createInjector(Stage.PRODUCTION, module, new DomainWorkersModule(), new AnalyticWorkersModule());
     }
 

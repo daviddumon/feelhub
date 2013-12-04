@@ -1,8 +1,8 @@
 package com.feelhub.web.social;
 
-import com.feelhub.web.ContextTestFactory;
 import com.feelhub.web.tools.FeelhubWebProperties;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Test;
 import org.restlet.Context;
 
 import static org.fest.assertions.Assertions.*;
@@ -16,7 +16,6 @@ public class FacebookConnectorTest {
 
     @Test
     public void canGenerateAuthUri() {
-        Context.setCurrent(ContextTestFactory.buildContext());
         final FeelhubWebProperties properties = new FeelhubWebProperties();
         properties.facebookAppId = "appId";
         properties.facebookAppSecret = "appSecret";
@@ -25,6 +24,6 @@ public class FacebookConnectorTest {
 
         final String url = connector.getUrl();
 
-        assertThat(url).isEqualTo("https://www.facebook.com/dialog/oauth?client_id=appId&redirect_uri=https%3A%2F%2Fthedomain%2F%2Fsocial%2Ffacebook&scope=email,publish_actions");
+        assertThat(url).isEqualTo("https://www.facebook.com/dialog/oauth?client_id=appId&redirect_uri=https%3A%2F%2Fthedomain%2Fsocial%2Ffacebook&scope=email,publish_actions");
     }
 }

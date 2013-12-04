@@ -1,6 +1,6 @@
 package com.feelhub.domain.topic;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.related.Related;
 import com.feelhub.domain.tag.Tag;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
@@ -14,8 +14,8 @@ import java.util.*;
 public class TopicContext {
 
     @Inject
-    public TopicContext(final TopicService topicService) {
-        this.topicService = topicService;
+    public TopicContext(final TopicSearch topicSearch) {
+        this.topicSearch = topicSearch;
     }
 
     public Map<Tag, Topic> extractFor(final UUID topicId, final FeelhubLanguage language) {
@@ -23,7 +23,7 @@ public class TopicContext {
         final List<Related> relatedList = Repositories.related().forTopicId(topicId);
         for (final Related related : relatedList) {
             try {
-                final RealTopic topic = (RealTopic) topicService.lookUpCurrent(related.getToId());
+                final RealTopic topic = (RealTopic) topicSearch.lookUpCurrent(related.getToId());
                 final List<Tag> tags = Repositories.tags().forTopicId(related.getToId());
                 for (final Tag tag : tags) {
                     if (isTagIndexingTopicInGoodLanguage(language, topic, tag)) {
@@ -50,5 +50,5 @@ public class TopicContext {
         return false;
     }
 
-    private final TopicService topicService;
+    private final TopicSearch topicSearch;
 }

@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.api.topics;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.topic.*;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.dto.TopicDataFactory;
@@ -15,8 +15,8 @@ import java.util.UUID;
 public class ApiTopicResource extends ServerResource {
 
     @Inject
-    public ApiTopicResource(final TopicService topicService, final TopicDataFactory topicDataFactory) {
-        this.topicService = topicService;
+    public ApiTopicResource(final TopicSearch topicSearch, final TopicDataFactory topicDataFactory) {
+        this.topicSearch = topicSearch;
         this.topicDataFactory = topicDataFactory;
     }
 
@@ -24,7 +24,7 @@ public class ApiTopicResource extends ServerResource {
     public ModelAndView getTopic() {
         try {
             final String topicId = getRequestAttributes().get("topicId").toString().trim();
-            final Topic topic = topicService.lookUpCurrent(UUID.fromString(topicId));
+            final Topic topic = topicSearch.lookUpCurrent(UUID.fromString(topicId));
             return ModelAndView.createNew("api/topic.json.ftl", MediaType.APPLICATION_JSON).with("topicData", topicDataFactory.topicData(topic, CurrentUser.get().getLanguage()));
         } catch (TopicNotFound e) {
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
@@ -35,6 +35,6 @@ public class ApiTopicResource extends ServerResource {
         }
     }
 
-    private TopicService topicService;
+    private TopicSearch topicSearch;
     private TopicDataFactory topicDataFactory;
 }

@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.api.topics;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.related.Related;
 import com.feelhub.domain.topic.*;
 import com.feelhub.web.authentification.CurrentUser;
@@ -19,9 +19,9 @@ import java.util.*;
 public class ApiTopicRelatedResource extends ServerResource {
 
     @Inject
-    public ApiTopicRelatedResource(final RelatedSearch relatedSearch, final TopicService topicService, final TopicDataFactory topicDataFactory) {
+    public ApiTopicRelatedResource(final RelatedSearch relatedSearch, final TopicSearch topicSearch, final TopicDataFactory topicDataFactory) {
         this.relatedSearch = relatedSearch;
-        this.topicService = topicService;
+        this.topicSearch = topicSearch;
         this.topicDataFactory = topicDataFactory;
     }
 
@@ -44,7 +44,7 @@ public class ApiTopicRelatedResource extends ServerResource {
 
     private Topic getTopic() {
         final String topicId = getRequestAttributes().get("topicId").toString().trim();
-        return topicService.lookUpCurrent(UUID.fromString(topicId));
+        return topicSearch.lookUpCurrent(UUID.fromString(topicId));
     }
 
     private void doSearchWithQueryParameters() {
@@ -81,13 +81,13 @@ public class ApiTopicRelatedResource extends ServerResource {
     }
 
     private void addTopicData(final Related related) {
-        final Topic topic = topicService.lookUpCurrent(related.getToId());
+        final Topic topic = topicSearch.lookUpCurrent(related.getToId());
         final TopicData topicData = topicDataFactory.simpleTopicData(topic, CurrentUser.get().getLanguage());
         topicDataList.add(topicData);
     }
 
     private final RelatedSearch relatedSearch;
-    private final TopicService topicService;
+    private final TopicSearch topicSearch;
     private final TopicDataFactory topicDataFactory;
     private List<Related> relateds = Lists.newArrayList();
     private final List<TopicData> topicDataList = Lists.newArrayList();

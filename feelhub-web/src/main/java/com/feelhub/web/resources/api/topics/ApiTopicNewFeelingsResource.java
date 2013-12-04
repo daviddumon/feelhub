@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.api.topics;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.feeling.Feeling;
 import com.feelhub.domain.topic.*;
 import com.feelhub.web.dto.*;
@@ -18,10 +18,10 @@ import java.util.*;
 public class ApiTopicNewFeelingsResource extends ServerResource {
 
     @Inject
-    public ApiTopicNewFeelingsResource(final FeelingDataFactory feelingDataFactory, final FeelingSearch feelingSearch, final TopicService topicService) {
+    public ApiTopicNewFeelingsResource(final FeelingDataFactory feelingDataFactory, final FeelingSearch feelingSearch, final TopicSearch topicSearch) {
         this.feelingDataFactory = feelingDataFactory;
         this.feelingSearch = feelingSearch;
-        this.topicService = topicService;
+        this.topicSearch = topicSearch;
     }
 
     @Get
@@ -66,7 +66,7 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
 
     private void setUpSearchForTopicId() {
         final String topicId = getRequestAttributes().get("topicId").toString().trim();
-        realTopic = topicService.lookUpCurrent(UUID.fromString(topicId));
+        realTopic = topicSearch.lookUpCurrent(UUID.fromString(topicId));
         feelingSearch.withTopicId(realTopic.getId());
     }
 
@@ -76,7 +76,7 @@ public class ApiTopicNewFeelingsResource extends ServerResource {
 
     private final FeelingDataFactory feelingDataFactory;
     private final FeelingSearch feelingSearch;
-    private final TopicService topicService;
+    private final TopicSearch topicSearch;
     private UUID lastFeelingId;
     private Topic realTopic;
 }

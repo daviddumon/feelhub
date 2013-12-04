@@ -1,6 +1,6 @@
 package com.feelhub.web.resources.api.topics;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.eventbus.WithDomainEvent;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.domain.topic.real.RealTopic;
@@ -40,12 +40,12 @@ public class ApiTopicFeelingsResourceTest {
 
     @Before
     public void before() {
-        topicService = mock(TopicService.class);
+        topicSearch = mock(TopicSearch.class);
         apiFeelingSearch = mock(ApiFeelingSearch.class);
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
-                bind(TopicService.class).toInstance(topicService);
+                bind(TopicSearch.class).toInstance(topicSearch);
                 bind(ApiFeelingSearch.class).toInstance(apiFeelingSearch);
             }
         });
@@ -96,7 +96,7 @@ public class ApiTopicFeelingsResourceTest {
         final List<FeelingData> feelingDatas = Lists.newArrayList();
         feelingDatas.add(new FeelingData.Builder().build());
         when(apiFeelingSearch.doSearchForATopic(any(Topic.class), any(Form.class))).thenReturn(feelingDatas);
-        when(topicService.lookUpCurrent(any(UUID.class))).thenReturn(TestFactories.topics().newCompleteRealTopic());
+        when(topicSearch.lookUpCurrent(any(UUID.class))).thenReturn(TestFactories.topics().newCompleteRealTopic());
         apiTopicFeelingsResource.setResponse(new Response(new Request()));
         ContextTestFactory.initResource(apiTopicFeelingsResource);
         final HashMap<String, Object> attributes = new HashMap<String, Object>();
@@ -109,6 +109,6 @@ public class ApiTopicFeelingsResourceTest {
     }
 
     private ApiTopicFeelingsResource apiTopicFeelingsResource;
-    private TopicService topicService;
+    private TopicSearch topicSearch;
     private ApiFeelingSearch apiFeelingSearch;
 }

@@ -1,13 +1,13 @@
 package com.feelhub.domain.translation;
 
-import com.feelhub.application.TopicService;
+import com.feelhub.application.search.TopicSearch;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.google.inject.Inject;
 
 public class FakeTranslator extends Translator {
 
     @Inject
-    public FakeTranslator(final TopicService topicService) {
+    public FakeTranslator(final TopicSearch topicSearch) {
         super();
     }
 
