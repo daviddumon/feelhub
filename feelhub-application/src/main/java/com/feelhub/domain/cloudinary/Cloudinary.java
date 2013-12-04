@@ -7,6 +7,8 @@ import com.google.common.collect.Maps;
 import com.google.common.eventbus.*;
 import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Inject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,6 +49,7 @@ public class Cloudinary {
     }
 
     public String getCloudinaryImage(final Thumbnail source) {
+	LOGGER.info("Cloudinary service : try to load : " + source.getOrigin());
         final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
         params.put("transformation", "w_564,h_348,c_fill,g_face,q_75");
@@ -60,4 +63,5 @@ public class Cloudinary {
 
     private final CloudinaryLink cloudinaryLink;
     final RateLimiter rateLimiter;
+    private static final Logger LOGGER = LoggerFactory.getLogger(Cloudinary.class);
 }
