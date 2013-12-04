@@ -46,7 +46,7 @@ public class Cloudinary {
         return null;
     }
 
-    private String getCloudinaryImage(final Thumbnail source) {
+    public String getCloudinaryImage(final Thumbnail source) {
         final Map<String, String> params = Maps.newHashMap();
         params.put("format", "jpg");
         params.put("transformation", "w_564,h_348,c_fill,g_face,q_75");

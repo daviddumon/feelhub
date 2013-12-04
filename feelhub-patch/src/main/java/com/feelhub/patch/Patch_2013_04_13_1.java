@@ -1,6 +1,7 @@
 package com.feelhub.patch;
 
 import com.feelhub.domain.cloudinary.*;
+import com.feelhub.domain.topic.Thumbnail;
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.repositories.*;
 import com.feelhub.tools.MongoLinkAwareExecutor;
@@ -53,7 +54,7 @@ public class Patch_2013_04_13_1 extends Patch {
         final Cloudinary cloudinary = new Cloudinary(new CloudinaryLink());
         final String thumbnail;
         try {
-            thumbnail = cloudinary.getCloudinaryImage(illustration);
+            thumbnail = cloudinary.getCloudinaryImage(new Thumbnail(illustration));
             final Topic currentTopic = Repositories.topics().getCurrentTopic(topicId);
             currentTopic.setThumbnail(thumbnail);
             currentTopic.getThumbnails().get(0).setCloudinary(thumbnail);
