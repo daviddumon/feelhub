@@ -1,11 +1,18 @@
 package com.feelhub.repositories;
 
-import com.feelhub.domain.tag.*;
+import com.feelhub.domain.tag.Tag;
+import com.feelhub.domain.tag.TagRepository;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.real.RealTopic;
-import com.feelhub.test.*;
-import com.mongodb.*;
-import org.junit.*;
+import com.feelhub.test.SystemTime;
+import com.feelhub.test.TestFactories;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -23,7 +30,8 @@ public class TagMongoRepositoryTest extends TestWithMongoRepository {
 
     @Test
     public void canPersistATag() {
-        final Tag tag = TestFactories.tags().newTag();
+        final Tag tag = new Tag("value");
+        tag.addTopic(TestFactories.topics().newCompleteHttpTopic(), FeelhubLanguage.none());
 
         repository.add(tag);
 

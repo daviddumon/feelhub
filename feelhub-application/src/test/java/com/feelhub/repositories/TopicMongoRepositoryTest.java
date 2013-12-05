@@ -65,7 +65,6 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
     public void canPersistARealTopic() {
         final RealTopic realTopic = TestFactories.topics().newCompleteRealTopic();
 
-        repo.add(realTopic);
 
         final DBObject topicFound = getTopic(realTopic.getId());
         assertThat(topicFound).isNotNull();
@@ -82,7 +81,6 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
     public void canPersistAnHttpTopic() {
         final HttpTopic httpTopic = TestFactories.topics().newCompleteHttpTopic();
 
-        repo.add(httpTopic);
 
         final DBObject topicFound = getTopic(httpTopic.getId());
         assertThat(topicFound).isNotNull();
@@ -101,7 +99,6 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
     public void canPersistAnFtpTopic() {
         final FtpTopic ftpTopic = TestFactories.topics().newSimpleFtpTopic();
 
-        repo.add(ftpTopic);
 
         final DBObject topicFound = getTopic(ftpTopic.getId());
         assertThat(topicFound).isNotNull();
@@ -117,7 +114,6 @@ public class TopicMongoRepositoryTest extends TestWithMongoRepository {
     public void canPersistAGeoTopic() {
         final GeoTopic geoTopic = TestFactories.topics().newCompleteGeoTopic();
 
-        repo.add(geoTopic);
 
         final DBObject topicFound = getTopic(geoTopic.getId());
         assertThat(topicFound).isNotNull();

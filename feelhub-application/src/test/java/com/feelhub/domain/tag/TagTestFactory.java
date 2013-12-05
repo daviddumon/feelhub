@@ -11,7 +11,7 @@ import java.util.UUID;
 public class TagTestFactory {
 
     public Tag newTag() {
-        return newTag("value");
+        return newTag(UUID.randomUUID().toString());
     }
 
     public Tag newTag(final String value) {

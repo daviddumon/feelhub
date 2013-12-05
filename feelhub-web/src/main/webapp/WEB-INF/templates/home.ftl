@@ -54,21 +54,21 @@ var flow_uri_end_point = "live";
     <#include "elements/header.ftl"/>
 
 <ul id="flow">
-<#--<li class="flow-element">
-    <div id="add-topic">
-        <h2>Add a topic</h2>
+    <li class="flow-element">
+        <div id="add-topic">
+            <h2>Add a topic</h2>
 
-        <input type="text" class="form-control" placeholder="Topic name or url"/>
+            <input type="text" class="form-control" placeholder="Topic name or url"/>
 
-        <div class="buttons">
-            <button type="button" class="btn btn-success btn-lg" id="create-http-topic">
-                <i class="glyphicon glyphicon-globe"></i>
-            </button>
-            <button type="button" class="btn btn-success btn-lg" id="create-real-topic">
-                <i class="glyphicon glyphicon-comment"></i>
-            </button>
+            <div class="buttons">
+                <button type="button" class="btn btn-success btn-lg" id="create-http-topic">
+                    <i class="glyphicon glyphicon-globe"></i>
+                </button>
+                <button type="button" class="btn btn-success btn-lg" id="create-real-topic">
+                    <i class="glyphicon glyphicon-comment"></i>
+                </button>
+            </div>
         </div>
-    </div>
-    </li>-->
+    </li>
 </ul>
 </@base.body>
