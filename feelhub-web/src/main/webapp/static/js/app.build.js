@@ -29,7 +29,8 @@
         plugins: "../plugins",
         templates: "../templates",
         hogan: "../plugins/hogan",
-        text: "../plugins/text"
+        text: "../plugins/text",
+        bootstrap:"../plugins/bootstrap"
     },
     preserveLicenseComments: false,
     stubModules: ['text', 'hgn'],
