@@ -49,7 +49,7 @@
             <properties>
                 <dbAddresses>127.0.0.1:27017</dbAddresses>
                 <dbName>feelhub</dbName>
-                <alchemyApiKey>e9bbb7fe647375f4b1d634f74d203283e6749230</alchemyApiKey>
+                <alchemyApiKey>db9abc8b6cfe6f2fb44b4b25db5b6ca402cc4957</alchemyApiKey>
                 <cloudinaryName>feelhubtest</cloudinaryName>
                 <cloudinaryApiKey>153974518959552</cloudinaryApiKey>
                 <cloudinaryApiSecret>cx_W-kI6ZL4eVEa9KtF5Mz9Ebjc</cloudinaryApiSecret>
@@ -74,6 +74,7 @@
                 <google.appId>443870691929-dckpivd0313p7943df3bipl3rcp5jbd4.apps.googleusercontent.com</google.appId>
             </properties>
         </profile>
+
         <profile>
             <id>update</id>
             <properties>

@@ -31,6 +31,11 @@
         hogan: "../plugins/hogan",
         text: "../plugins/text"
     },
+    shim : {
+        bootstrap:{
+            deps : ['jquery']
+        }
+    },
     preserveLicenseComments: false,
     stubModules: ['text', 'hgn'],
     pragmasOnSave: {

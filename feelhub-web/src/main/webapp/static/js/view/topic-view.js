@@ -4,7 +4,7 @@ define(["jquery", "plugins/hgn!templates/topic", "modules/canvas"],
 
         var six_hours_in_ms = 21600000;
 
-        $("body").on("DOMNodeInserted", "#flow li", function (event) {
+        $("body").on("DOMNodeInserted", "#flow li:not(.add-topic)", function (event) {
             var last_inserted_topic = event.target;
 
             canvas.pie("pie-" + $(last_inserted_topic).attr("id"), {
