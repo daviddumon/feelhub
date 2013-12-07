@@ -17,7 +17,7 @@
     </appender>
     <logger name="org.mongolink" level="ERROR"/>
     <logger name="org.restlet" level="ERROR"/>
-
+    <logger name="org.restlet.Component.LogService" level="ERROR" />
     <root level="ERROR">
 	<appender-ref ref="STDOUT"/>
 	<appender-ref ref="GELF"/>
