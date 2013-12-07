@@ -156,7 +156,7 @@ var flow_uri_end_point = "live";
     </div>
 </div>
 
-<#--<ul id="flow">-->
+<ul id="flow">
 <#--<li class="flow-element">-->
 <#--<div id="add-topic">-->
 <#--<h2>Add a topic</h2>-->
@@ -173,5 +173,5 @@ var flow_uri_end_point = "live";
 <#--</div>-->
 <#--</div>-->
 <#--</li>-->
-<#--</ul>-->
+</ul>
 </@base.body>

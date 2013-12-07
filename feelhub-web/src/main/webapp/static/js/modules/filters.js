@@ -23,6 +23,8 @@ define(["jquery"],
                     $(this).find("li").first().toggleClass("selected");
                 }
 
+                $(this).css("display", "inline-block");
+
                 function selectLi(lis, value) {
                     $(lis).each(function (index, li) {
                         if ($(this).text() == value) {
