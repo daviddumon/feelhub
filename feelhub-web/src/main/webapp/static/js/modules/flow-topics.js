@@ -3,38 +3,38 @@ define(["jquery", "view/topic-view"], function ($, view) {
     var container = $("#flow");
     var skip, limit, hasData, notLoading, oldHeight;
 
+    $(window).scroll(function () {
+        draw_data();
+    });
+
+    $("#flow").on("flow-reset", function () {
+        $("#flow").empty();
+        init();
+    });
+
     function init() {
-        oldHeight = $(document).height();
+        oldHeight = 0;
         skip = 0;
         limit = 50;
         hasData = true;
         notLoading = true;
-        render_initial_datas();
-        $(window).scroll(function () {
-            draw_data();
-        });
-    }
-
-    function render_initial_datas() {
-        view.render_multiple(initial_datas, container);
-        if (initial_datas.length != limit) {
-            hasData = false;
-        }
+        draw_data();
     }
 
     function draw_data() {
         if (need_data() && hasData && notLoading) {
             notLoading = false;
-            skip += limit;
             load_data();
         }
 
         function load_data() {
+            oldHeight = $(document).height();
             var parameters = [];
             var uri = root + "/api/topics/" + flow_uri_end_point + "?&skip=" + skip + "&limit=" + limit;
 
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {
+                    skip += limit;
                     view.render_multiple(data, container);
 
                     if (data.length != limit) {

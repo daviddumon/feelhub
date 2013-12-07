@@ -33,7 +33,6 @@ public class HomeResource extends ServerResource {
 
     private ModelAndView getHome() {
         final ModelAndView modelAndView = ModelAndView.createNew("home.ftl")
-                .with("topicDatas", apiTopicsLiveResource.getTopicDatas(0, 50))
                 .with("locales", FeelhubLanguage.availables())
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag())
                 .with("feelingValues", FeelingValue.values());

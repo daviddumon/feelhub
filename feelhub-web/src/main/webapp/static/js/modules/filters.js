@@ -50,7 +50,7 @@ define(["jquery"],
                 $(this).parent().removeClass("open");
                 $(this).parent().parent().find(".current-value").html($(this).text());
                 storeFilter($(this).parent().parent(), $(this).text());
-                // flow reset ici
+                $("#flow").trigger("flow-reset");
             });
 
             $("#filters li.select-multiple ").click(function () {
@@ -67,7 +67,7 @@ define(["jquery"],
                 }
                 $(this).parent().parent().find(".current-value").html(currentValue);
                 storeFilter($(this).parent().parent(), currentValue);
-                //Flow reset ici
+                $("#flow").trigger("flow-reset");
             });
         }
 

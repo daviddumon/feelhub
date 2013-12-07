@@ -1,24 +1,4 @@
 <@base.head_begin>
-
-var initial_datas = [
-    <#if topicDatas??>
-        <#list topicDatas as data>
-        {
-        "id":"${data.id}",
-        "thumbnail":"${data.thumbnail?json_string}",
-        "name":"${data.name?json_string}",
-        "happyFeelingCount":${data.happyFeelingCount?c},
-        "sadFeelingCount":${data.sadFeelingCount?c},
-        "boredFeelingCount":${data.boredFeelingCount?c},
-        "viewCount":${data.viewCount?c},
-        "popularity":${data.popularity?c},
-        "creationDate":${data.creationDate?c},
-        "lastModificationDate":${data.lastModificationDate?c}
-        }${data_has_next?string(",", "")}
-        </#list>
-    </#if>
-]
-
 var flow_uri_end_point = "live";
 </@base.head_begin>
 
