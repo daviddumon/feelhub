@@ -1,44 +1,47 @@
-define(["jquery", "modules/messages", "modules/popup"], function ($, messages, popup) {
+define(["jquery", "modules/messages", "modules/popup", "modules/filters"],
 
-    var doit;
+    function ($, messages, popup, filters) {
 
-    function init() {
-        add_responsive_behavior();
-        messages.init();
-        popup.init();
-        $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
-        $(".fixed-panel").show();
-        $("body").on("click", "#user", function () {
-            $(this).toggleClass("show");
-            return false;
-        });
-    }
+        var doit;
 
-    function add_responsive_behavior() {
-
-        $(window).on("resize", function () {
-            clearTimeout(doit);
-            doit = setTimeout(function () {
-                end_of_resize();
-            }, 200);
-        });
-
-        $(window).on("orientationchange", function () {
-            clearTimeout(doit);
-            doit = setTimeout(function () {
-                end_of_resize();
-            }, 200);
-        });
-
-        function end_of_resize() {
-            $("canvas").each(function (index, canvas) {
-                $(canvas).trigger("clearanddraw");
-            })
+        function init() {
+            add_responsive_behavior();
+            messages.init();
+            popup.init();
+            filters.init();
             $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
+            $(".fixed-panel").show();
+            $("body").on("click", "#user", function () {
+                $(this).toggleClass("show");
+                return false;
+            });
         }
-    }
 
-    return {
-        init: init
-    };
-});
+        function add_responsive_behavior() {
+
+            $(window).on("resize", function () {
+                clearTimeout(doit);
+                doit = setTimeout(function () {
+                    end_of_resize();
+                }, 200);
+            });
+
+            $(window).on("orientationchange", function () {
+                clearTimeout(doit);
+                doit = setTimeout(function () {
+                    end_of_resize();
+                }, 200);
+            });
+
+            function end_of_resize() {
+                $("canvas").each(function (index, canvas) {
+                    $(canvas).trigger("clearanddraw");
+                })
+                $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
+            }
+        }
+
+        return {
+            init: init
+        };
+    });

@@ -1,5 +1,6 @@
 package com.feelhub.web.resources;
 
+import com.feelhub.domain.feeling.FeelingValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.representation.ModelAndView;
@@ -34,7 +35,8 @@ public class HomeResource extends ServerResource {
         final ModelAndView modelAndView = ModelAndView.createNew("home.ftl")
                 .with("topicDatas", apiTopicsLiveResource.getTopicDatas(0, 50))
                 .with("locales", FeelhubLanguage.availables())
-                .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
+                .with("preferedLanguage", getPreferedLanguage().getPrimaryTag())
+                .with("feelingValues", FeelingValue.values());
 
         if (CurrentUser.get().bookmarkletShow()) {
             modelAndView.with("bookmarkletShow", true);

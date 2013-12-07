@@ -1,9 +1,10 @@
 define(["jquery", "view/topic-view"], function ($, view) {
 
     var container = $("#flow");
-    var skip, limit, hasData, notLoading;
+    var skip, limit, hasData, notLoading, oldHeight;
 
     function init() {
+        oldHeight = $(document).height();
         skip = 0;
         limit = 50;
         hasData = true;
@@ -53,6 +54,9 @@ define(["jquery", "view/topic-view"], function ($, view) {
         }
 
         function need_data() {
+            if ($(document).height() == oldHeight) {
+                return false;
+            }
             var docHeight = $(document).height();
             var scrollTop = $(window).scrollTop();
             var trigger = $(window).height() * 3;

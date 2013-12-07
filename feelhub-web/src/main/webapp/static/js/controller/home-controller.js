@@ -8,13 +8,13 @@ require.config(
             "templates": "../templates",
             "hogan": "../plugins/hogan",
             "text": "../plugins/text",
-            "reveal":"../plugins/reveal",
-            "bootstrap":"../plugins/bootstrap"
+            "reveal": "../plugins/reveal",
+            "bootstrap": "../plugins/bootstrap"
         },
         shim: {
-          'bootstrap': {
-              deps:['jquery']
-          }
+            'bootstrap': {
+                deps: ['jquery']
+            }
         },
         waitSeconds: 0
     }

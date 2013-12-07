@@ -8,9 +8,8 @@ body {
     width: 100%;
     height: 50.8px;
     text-align: center;
-    background-color: @grey-6;
+    background-color: @white;
     z-index: 2000;
-    border-bottom: 1px solid @white;
 
     #home-link {
       float: left;
@@ -25,6 +24,7 @@ body {
       &:hover {
         background: url('/static/images/feelhub.png');
         background-position: 0px -32px;
+        text-decoration: none !important;
       }
 
       span {
@@ -34,37 +34,6 @@ body {
         left: 51px;
         .font_title();
         font-size: @font-1;
-      }
-    }
-
-    #menu {
-      float: left;
-      margin-left: 50.8px;
-
-      .header-link {
-        display: inline-block;
-        height: 19.4px;
-        width: 133px;
-        margin-top: 19.4px;
-        padding-top: 12px;
-        color: @grey-5;
-        .rounded_up();
-        background-color: @grey-7;
-        margin-left: 7px;
-        margin-right: 7px;
-        .font_title();
-
-        &:hover {
-          color: @white;
-        }
-      }
-
-      .selected {
-        background-color: @white !important;
-
-        &:hover {
-          color: @grey-5 !important;
-        }
       }
     }
 
@@ -96,8 +65,10 @@ body {
         display: none;
         position: fixed;
         top: 50.8px;
+        z-index: 100000;
 
         li {
+          z-index: 100000;
           padding: 12px;
           background-color: @grey-6;
 
@@ -152,11 +123,6 @@ body {
   }
 
   @media all and (max-width: 1100px) {
-    #menu {
-      .header-link {
-        width: 82px !important;
-      }
-    }
 
     #login-panel {
       a {
@@ -173,10 +139,6 @@ body {
         top: -4px !important;
         left: 82px !important;
       }
-    }
-
-    #menu {
-      margin-left: 12px !important;
     }
 
     #login-panel {
@@ -200,16 +162,6 @@ body {
       margin-left: 10px !important;
     }
 
-    #menu {
-      margin-left: 10px !important;
-
-      .header-link {
-        width: 50.8px !important;
-        margin-left: 1px !important;
-        margin-right: 1px !important;
-      }
-    }
-
     #login-panel {
       margin-right: 10px !important;
 
@@ -224,16 +176,6 @@ body {
   @media all and (max-width: 600px) {
     #home-link {
       margin-left: 5px !important;
-    }
-
-    #menu {
-      margin-left: 5px !important;
-
-      .header-link {
-        width: 50.8px !important;
-        margin-left: 0px !important;
-        margin-right: 0px !important;
-      }
     }
 
     #login-panel {
