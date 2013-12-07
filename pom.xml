@@ -193,6 +193,11 @@
             <version>1.0.9</version>
         </dependency>
         <dependency>
+            <groupId>me.moocar</groupId>
+            <artifactId>logback-gelf</artifactId>
+            <version>0.9.6p2</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
             <version>3.0</version>
