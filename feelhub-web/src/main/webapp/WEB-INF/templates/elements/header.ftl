@@ -60,13 +60,13 @@
             </ul>
         </div>
         <div id="filter-from-people" class="filter select-unique">
-            <div class="top-filter disabled">
+            <div class="top-filter">
                 <div class="current-value"></div>
                 <span class="down_arrow"></span>
             </div>
             <ul>
-		<li class="select-unique">All topics</li>
-		<li class="select-unique">My topics</li>
+		<li class="select-unique">From everyone</li>
+		<li class="select-unique">From me</li>
             </ul>
         </div>
         <div id="filter-languages" class="filter">

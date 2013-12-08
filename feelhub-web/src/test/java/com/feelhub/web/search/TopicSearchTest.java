@@ -135,6 +135,17 @@ public class TopicSearchTest extends TestWithMongoRepository {
     }
 
     @Test
+    public void canGetTopicsFromUserId() {
+        TestFactories.topics().newCompleteRealTopic();
+        final Topic topic = TestFactories.topics().newCompleteRealTopic();
+
+        final List<Topic> topicList = topicSearch.withUserId(topic.getUserId()).execute();
+
+        assertThat(topicList.size()).isEqualTo(1);
+        assertThat(topicList).contains(topic);
+    }
+
+    @Test
     @Ignore("Mongolink ne supporte pas le FakeCriteria in")
     public void canGetTopicsWithLanguageList() {
         final HttpTopic httpTopicA = TestFactories.topics().newCompleteHttpTopic();

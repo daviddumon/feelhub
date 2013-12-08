@@ -65,5 +65,10 @@ public class TopicSearch implements Search<Topic> {
         return this;
     }
 
+    public TopicSearch withUserId(UUID userId) {
+        criteria.add(Restrictions.equals("userId", userId));
+        return this;
+    }
+
     private final Criteria criteria;
 }
