@@ -3,7 +3,6 @@ define(["jquery"],
     function ($) {
 
         function init() {
-
             $(".filter").each(function (index, filter) {
                 var currentValueElement = $(this).find(".current-value")[0];
                 var currentValue = readFilter(filter);
@@ -50,7 +49,7 @@ define(["jquery"],
                 $(this).parent().removeClass("open");
                 $(this).parent().parent().find(".current-value").html($(this).text());
                 storeFilter($(this).parent().parent(), $(this).text());
-                $("#flow").trigger("flow-reset");
+                reset();
             });
 
             $("#filters li.select-multiple ").click(function () {
@@ -67,7 +66,7 @@ define(["jquery"],
                 }
                 $(this).parent().parent().find(".current-value").html(currentValue);
                 storeFilter($(this).parent().parent(), currentValue);
-                $("#flow").trigger("flow-reset");
+                reset();
             });
         }
 
@@ -88,12 +87,11 @@ define(["jquery"],
         }
 
         function reset() {
-
+            $("#flow").trigger("flow-reset");
         }
 
         return {
             init: init,
-            getFilter: getFilterById,
-            reset: reset
+            getFilter: getFilterById
         }
     });

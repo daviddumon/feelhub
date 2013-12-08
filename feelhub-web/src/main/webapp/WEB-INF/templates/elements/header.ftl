@@ -4,8 +4,17 @@
         <span id="add">add</span>
     </div>
 
+    <form id="add-topic-form">
+
+    </form>
+
     <div id="top-bar">
         <a href="${root}" id="home-link"><span>beta</span></a>
+
+        <form method="get" action="${root}/search" id="search">
+            <input id="seach-query" name="q" type="text" autocomplete="off"/>
+            <input id="search-submit" type="submit" value="search"/>
+        </form>
 
     <#if userInfos.authenticated>
         <div id="user">

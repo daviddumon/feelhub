@@ -20,11 +20,11 @@ body {
       text-align: center;
       color: @white;
       cursor: pointer;
+      .font_title;
 
       #symbol {
-        padding-top: 19.4px;
-        font-size: @font-4;
-        font-weight: bold;
+        padding-top: 7px;
+        font-size: @font-5;
       }
 
       #add {
@@ -33,11 +33,24 @@ body {
       }
     }
 
+    #add-topic-form {
+      display: none;
+      position: fixed;
+      top: 133px;
+      left: 19.4px;
+      width: 348px;
+      height: 215px;
+      background-color: @white;
+      border: 5px solid @smooth-light;
+      .rounded();
+    }
+
     #top-bar {
       float: left;
       background-color: @white;
       height: 50.8px;
       width: 100%;
+      overflow: hidden;
 
       #home-link {
         float: left;
@@ -62,6 +75,31 @@ body {
           left: 51px;
           .font_title();
           font-size: @font-1;
+        }
+      }
+
+      #search {
+        float: left;
+
+        #seach-query {
+          padding: 7px;
+          padding-left: 31.4px;
+          width: 215px;
+          margin-top: 9.7px;
+          background: url("/static/images/search-dark.png") left 7px top 7px no-repeat;
+          border: 2px solid @grey-6;
+          outline: none;
+          .rounded_left();
+        }
+
+        #search-submit {
+          position: relative;
+          left: -2px;
+          height: 26px;
+          border: none;
+          color: @white;
+          background-color: @smooth-light;
+          .rounded_right();
         }
       }
 
@@ -158,7 +196,7 @@ body {
       outline-width: 0px;
       white-space: nowrap;
       overflow: visible;
-      padding-left: 133px;
+      padding-left: 106.6px;
 
       #filters-overlay {
         display: none;

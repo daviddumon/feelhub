@@ -1,6 +1,7 @@
 package com.feelhub.web.resources;
 
 import com.feelhub.application.search.TopicSearch;
+import com.feelhub.domain.feeling.FeelingValue;
 import com.feelhub.domain.related.Related;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.domain.topic.*;
@@ -56,6 +57,7 @@ public class TopicResource extends ServerResource {
                 .with("locales", FeelhubLanguage.availables())
                 .with("relatedDatas", getRelatedDatas())
                 .with("feelingDatas", getInitialFeelingDatas(templateName))
+                .with("feelingValues", FeelingValue.values())
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
     }
 
