@@ -54,7 +54,7 @@
                 <span class="down_arrow"></span>
             </div>
             <ul>
-                <li class="select-unique">New feelings</li>
+		<li class="select-unique">Hot topics</li>
                 <li class="select-unique">Popular topics</li>
                 <li class="select-unique">New topics</li>
             </ul>
@@ -65,8 +65,8 @@
                 <span class="down_arrow"></span>
             </div>
             <ul>
-                <li class="select-unique">From everyone</li>
-                <li class="select-unique">From me</li>
+		<li class="select-unique">All topics</li>
+		<li class="select-unique">My topics</li>
             </ul>
         </div>
         <div id="filter-languages" class="filter">
