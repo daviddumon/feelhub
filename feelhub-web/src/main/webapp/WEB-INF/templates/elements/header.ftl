@@ -4,10 +4,6 @@
         <span id="add">add</span>
     </div>
 
-    <form id="add-topic-form">
-
-    </form>
-
     <div id="top-bar">
         <a href="${root}" id="home-link"><span>beta</span></a>
 

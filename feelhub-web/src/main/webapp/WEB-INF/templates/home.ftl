@@ -1,14 +1,12 @@
 <@base.head_begin/>
 
 <@base.head_production>
-<link href="${root}/static/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="${root}/static/css/home.css?cache=${buildtime}"/>
 <script type="text/javascript" data-main="${root}/static/js/controller-built/home-controller"
         src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@base.head_production>
 
 <@base.head_development>
-<link href="${root}/static/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet/less" type="text/css" href="${root}/static/css/home.less?cache=${buildtime}"/>
 <script type="text/javascript" data-main="${root}/static/js/controller/home-controller"
         src="${root}/static/js/require.js?cache=${buildtime}"></script>
@@ -21,6 +19,7 @@
 <div id="overlay"></div>
     <#include 'elements/login.ftl'/>
     <#include 'elements/signup.ftl'/>
+    <#include 'elements/add.ftl'/>
 
     <#if userInfos.authenticated>
         <#if bookmarkletShow??>
@@ -31,7 +30,7 @@
     <#include "elements/header.ftl"/>
 
 <ul id="flow">
-    <#--<li class="flow-element">-->
+<#--<li class="flow-element">-->
         <#--<div id="add-topic">-->
             <#--<h2>Add a topic</h2>-->
         <#--&lt;#&ndash;&ndash;&gt;-->

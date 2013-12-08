@@ -21,6 +21,12 @@ body {
       color: @white;
       cursor: pointer;
       .font_title;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
 
       #symbol {
         padding-top: 7px;
@@ -31,18 +37,6 @@ body {
         display: block;
         font-size: @font-2;
       }
-    }
-
-    #add-topic-form {
-      display: none;
-      position: fixed;
-      top: 133px;
-      left: 19.4px;
-      width: 348px;
-      height: 215px;
-      background-color: @white;
-      border: 5px solid @smooth-light;
-      .rounded();
     }
 
     #top-bar {

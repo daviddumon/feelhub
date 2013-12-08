@@ -4,9 +4,11 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall", "modules/auth
     var signup_button = "#signup-button";
     var login_button = "#login-button";
     var close_button = ".close-button";
+    var add_button = "#add-topic";
     var login_popup = "#login";
     var signup_popup = "#signup";
     var welcome_popup = "#welcome";
+    var add_popup = "#add";
     var bookmarkletinstall_popup = "#bookmarkletinstall";
     var popups = ".popup";
     var canClose = true;
@@ -36,6 +38,10 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall", "modules/auth
     $("body").on("click", signup_button, function (event) {
         show_popup(signup_popup);
         $("#signup input[name=fullname]").focus();
+    });
+
+    $("body").on("click", add_button, function (event) {
+        show_popup(add_popup);
     });
 
     $(document).keydown(function (event) {

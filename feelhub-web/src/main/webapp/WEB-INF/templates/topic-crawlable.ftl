@@ -40,6 +40,7 @@ var initial_datas = [
 <div id="overlay"></div>
     <#include 'elements/login.ftl'/>
     <#include 'elements/signup.ftl'/>
+    <#include 'elements/add.ftl'/>
     <#include "elements/header.ftl"/>
 
     <#if feelingDatas?? && (feelingDatas?size > 0)>
