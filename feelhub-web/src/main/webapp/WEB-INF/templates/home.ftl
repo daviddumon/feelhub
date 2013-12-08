@@ -35,19 +35,19 @@ var flow_uri_end_point = "live";
 
 <div id="filters">
     <div id="filters-overlay"></div>
-    <#--<div id="choose-filter">-->
-        <#--<span>choose filter</span>-->
-        <#--<ul>-->
-            <#--<li>order</li>-->
-            <#--<li>from</li>-->
-            <#--<li>languages</li>-->
-            <#--<li>visibility</li>-->
-            <#--<li>tags</li>-->
-            <#--<li>sources</li>-->
-            <#--<li>feelings</li>-->
-            <#--<li>safety</li>-->
-        <#--</ul>-->
-    <#--</div>-->
+<#--<div id="choose-filter">-->
+<#--<span>choose filter</span>-->
+<#--<ul>-->
+<#--<li>order</li>-->
+<#--<li>from</li>-->
+<#--<li>languages</li>-->
+<#--<li>visibility</li>-->
+<#--<li>tags</li>-->
+<#--<li>sources</li>-->
+<#--<li>feelings</li>-->
+<#--<li>safety</li>-->
+<#--</ul>-->
+<#--</div>-->
     <div id="filter-order" class="filter select-unique">
         <div class="top-filter">
             <div class="current-value"></div>
@@ -137,21 +137,21 @@ var flow_uri_end_point = "live";
 </div>
 
 <ul id="flow">
-<#--<li class="flow-element">-->
-<#--<div id="add-topic">-->
-<#--<h2>Add a topic</h2>-->
-<#--&lt;#&ndash;&ndash;&gt;-->
-<#--<input type="text" class="form-control" placeholder="Topic name or url"/>-->
-<#--&lt;#&ndash;&ndash;&gt;-->
-<#--<div class="buttons">-->
-<#--<button type="button" class="btn btn-success btn-lg" id="create-http-topic">-->
-<#--<i class="glyphicon glyphicon-globe"></i>-->
-<#--</button>-->
-<#--<button type="button" class="btn btn-success btn-lg" id="create-real-topic">-->
-<#--<i class="glyphicon glyphicon-comment"></i>-->
-<#--</button>-->
-<#--</div>-->
-<#--</div>-->
-<#--</li>-->
+    <li class="flow-element">
+        <div id="add-topic">
+            <h2>Add a topic</h2>
+        <#---->
+            <input type="text" class="form-control" placeholder="Topic name or url"/>
+        <#---->
+            <div class="buttons">
+                <button type="button" class="btn btn-success btn-lg" id="create-http-topic">
+                    <i class="glyphicon glyphicon-globe"></i>
+                </button>
+                <button type="button" class="btn btn-success btn-lg" id="create-real-topic">
+                    <i class="glyphicon glyphicon-comment"></i>
+                </button>
+            </div>
+        </div>
+    </li>
 </ul>
 </@base.body>
