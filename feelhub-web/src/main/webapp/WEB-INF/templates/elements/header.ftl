@@ -1,7 +1,7 @@
 <header>
     <div id="add-topic">
         <div id="symbol">+</div>
-        <span id="add">add</span>
+        <span id="add">ADD</span>
     </div>
 
     <div id="top-bar">

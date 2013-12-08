@@ -1,5 +1,6 @@
 package com.feelhub.web.resources;
 
+import com.feelhub.domain.feeling.FeelingValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.resources.api.topics.ApiTopicsSearchResource;
@@ -17,7 +18,7 @@ public class InstallBookmarkletResource extends ServerResource {
     @Get
     public ModelAndView represent() {
         final ModelAndView modelAndView = ModelAndView.createNew("home.ftl")
-                .with("topicDatas", apiTopicsLiveResource.getTopicDatas(null, 0, 50))
+                .with("feelingValues", FeelingValue.values())
                 .with("locales", FeelhubLanguage.availables())
                 .with("preferedLanguage", getPreferedLanguage().getPrimaryTag());
 
