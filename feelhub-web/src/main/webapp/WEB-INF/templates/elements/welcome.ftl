@@ -52,5 +52,7 @@
 
     <div class="popup-bottom">
         <a class="signup-button" href="javascript:void(0);">SIGNUP</a>
+        <span>or</span>
+        <a class="close-button" href="javascript:void(0);">DISCOVER</a>
     </div>
 </div>
