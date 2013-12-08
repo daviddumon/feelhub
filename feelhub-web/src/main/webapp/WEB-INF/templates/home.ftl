@@ -1,6 +1,4 @@
-<@base.head_begin>
-var flow_uri_end_point = "live";
-</@base.head_begin>
+<@base.head_begin/>
 
 <@base.head_production>
 <link href="${root}/static/css/bootstrap.min.css" rel="stylesheet">

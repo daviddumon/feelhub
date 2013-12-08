@@ -4,17 +4,10 @@ import com.feelhub.domain.feeling.FeelingValue;
 import com.feelhub.domain.thesaurus.FeelhubLanguage;
 import com.feelhub.web.authentification.CurrentUser;
 import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.resources.api.topics.ApiTopicsLiveResource;
-import com.google.inject.Inject;
 import org.restlet.data.Language;
 import org.restlet.resource.*;
 
 public class HomeResource extends ServerResource {
-
-    @Inject
-    public HomeResource(final ApiTopicsLiveResource apiTopicsLiveResource) {
-        this.apiTopicsLiveResource = apiTopicsLiveResource;
-    }
 
     @Get
     public ModelAndView represent() {
@@ -50,6 +43,4 @@ public class HomeResource extends ServerResource {
         }
         return getRequest().getClientInfo().getAcceptedLanguages().get(0).getMetadata();
     }
-
-    private final ApiTopicsLiveResource apiTopicsLiveResource;
 }

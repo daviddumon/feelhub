@@ -1,4 +1,4 @@
-define(["jquery", "view/topic-view"], function ($, view) {
+define(["jquery", "view/topic-view", "modules/filters"], function ($, view, filters) {
 
     var container = $("#flow");
     var skip, limit, hasData, notLoading, oldHeight;
@@ -30,7 +30,7 @@ define(["jquery", "view/topic-view"], function ($, view) {
         function load_data() {
             oldHeight = $(document).height();
             var parameters = [];
-            var uri = root + "/api/topics/" + flow_uri_end_point + "?&skip=" + skip + "&limit=" + limit;
+            var uri = root + "/api/topics/search?order=" + filters.getFilter("filter-order") + "&skip=" + skip + "&limit=" + limit;
 
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {

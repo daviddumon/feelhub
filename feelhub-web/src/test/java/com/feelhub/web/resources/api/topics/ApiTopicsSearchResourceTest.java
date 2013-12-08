@@ -18,7 +18,7 @@ import java.util.List;
 
 import static org.fest.assertions.Assertions.*;
 
-public class ApiTopicsLiveResourceTest {
+public class ApiTopicsSearchResourceTest {
 
     @Rule
     public WithFakeRepositories repositories = new WithFakeRepositories();
@@ -39,8 +39,8 @@ public class ApiTopicsLiveResourceTest {
                 bind(FeelingSearch.class).to(FakeFeelingSearch.class);
             }
         });
-        apiTopicsLiveResource = injector.getInstance(ApiTopicsLiveResource.class);
-        ContextTestFactory.initResource(apiTopicsLiveResource);
+        apiTopicsSearchResource = injector.getInstance(ApiTopicsSearchResource.class);
+        ContextTestFactory.initResource(apiTopicsSearchResource);
         CurrentUser.set(new WebUser(TestFactories.users().createActiveUser("test@test.com"), true));
     }
 
@@ -51,7 +51,7 @@ public class ApiTopicsLiveResourceTest {
         final RealTopic topicB = TestFactories.topics().newCompleteRealTopicWithHasFeelings();
         TestFactories.topics().newCompleteRealTopic();
 
-        final ModelAndView modelAndView = apiTopicsLiveResource.represent();
+        final ModelAndView modelAndView = apiTopicsSearchResource.represent();
 
         assertThat(modelAndView.getTemplate()).isEqualTo("api/topics.json.ftl");
         final List<TopicData> topicDatas = (List<TopicData>) modelAndView.getData("topicDatas");
@@ -60,5 +60,5 @@ public class ApiTopicsLiveResourceTest {
         assertThat(topicDatas.get(1).getId()).isEqualTo(topicB.getId().toString());
     }
 
-    private ApiTopicsLiveResource apiTopicsLiveResource;
+    private ApiTopicsSearchResource apiTopicsSearchResource;
 }

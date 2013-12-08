@@ -7,7 +7,7 @@ import com.feelhub.web.*;
 import com.feelhub.web.authentification.*;
 import com.feelhub.web.guice.DummySessionProvider;
 import com.feelhub.web.representation.ModelAndView;
-import com.feelhub.web.resources.api.topics.ApiTopicsLiveResource;
+import com.feelhub.web.resources.api.topics.ApiTopicsSearchResource;
 import com.feelhub.web.search.TopicSearch;
 import com.feelhub.web.search.fake.FakeTopicSearch;
 import com.google.inject.*;
@@ -26,13 +26,13 @@ public class HomeResourceTest {
 
     @Before
     public void before() {
-        apiTopicsLiveResource = mock(ApiTopicsLiveResource.class);
+        apiTopicsLiveResource = mock(ApiTopicsSearchResource.class);
         final Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
             protected void configure() {
                 bind(SessionProvider.class).to(DummySessionProvider.class);
                 bind(TopicSearch.class).to(FakeTopicSearch.class);
-                bind(ApiTopicsLiveResource.class).toInstance(apiTopicsLiveResource);
+                bind(ApiTopicsSearchResource.class).toInstance(apiTopicsLiveResource);
             }
         });
         homeResource = injector.getInstance(HomeResource.class);
@@ -55,5 +55,5 @@ public class HomeResourceTest {
     }
 
     private HomeResource homeResource;
-    private ApiTopicsLiveResource apiTopicsLiveResource;
+    private ApiTopicsSearchResource apiTopicsLiveResource;
 }

@@ -72,7 +72,11 @@ define(["jquery"],
         }
 
         function readFilter(filter) {
-            var item = localStorage.getItem(filter.id);
+            return getFilterById(filter.id);
+        }
+
+        function getFilterById(filterName) {
+            var item = localStorage.getItem(filterName);
             if (item != null) {
                 return JSON.parse(item);
             }
@@ -89,6 +93,7 @@ define(["jquery"],
 
         return {
             init: init,
+            getFilter: getFilterById,
             reset: reset
         }
     });
