@@ -20,10 +20,10 @@ define(["jquery", "modules/messages", "modules/popup", "modules/filters"],
 
             if (authentificated == false) {
                 var welcomePage = sessionStorage.getItem("welcomePage");
-                //if (welcomePage == null) {
+                if (welcomePage == null) {
                     $("body").trigger("show-welcome");
-                    //sessionStorage.setItem("welcomePage", true);
-                //}
+                    sessionStorage.setItem("welcomePage", true);
+                }
             }
         }
 
