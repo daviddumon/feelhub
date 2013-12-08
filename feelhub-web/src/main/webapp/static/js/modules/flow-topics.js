@@ -15,7 +15,7 @@ define(["jquery", "view/topic-view", "modules/filters"], function ($, view, filt
     function init() {
         oldHeight = 0;
         skip = 0;
-        limit = 50;
+        limit = 20;
         hasData = true;
         notLoading = true;
         draw_data();
