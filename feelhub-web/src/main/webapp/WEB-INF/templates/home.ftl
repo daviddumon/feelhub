@@ -20,6 +20,7 @@
     <#include 'elements/login.ftl'/>
     <#include 'elements/signup.ftl'/>
     <#include 'elements/add.ftl'/>
+    <#include 'elements/welcome.ftl'/>
 
     <#if userInfos.authenticated>
         <#if bookmarkletShow??>

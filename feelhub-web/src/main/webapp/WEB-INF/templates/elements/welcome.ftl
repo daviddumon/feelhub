@@ -2,29 +2,29 @@
     <a class="top-close-button close-button" href="javascript:void(0);">CLOSE</a>
 
     <div class="popup-title">
-        <#--Welcome to Feelhub ${userInfos.user.fullname} !-->
+        Welcome to Feelhub
     </div>
 
     <div id="welcome-1" class="welcome-item">
         <div class="welcome-description">
-            Feelhub lets you express your feelings to anything.
+            Share your feelings about anything on the web
         </div>
 
         <div class="welcome-illustration">
 
             <div class="canvas-button">
                 <canvas id="welcome-feeling-happy" feeling-value="happy" class="feeling-canvas"></canvas>
-                <div class="canvas-welcome-text">like</div>
+                <div class="canvas-welcome-text">Happy</div>
             </div>
 
             <div class="canvas-button">
                 <canvas id="welcome-feeling-bored" feeling-value="bored" class="feeling-canvas"></canvas>
-                <div class="canvas-welcome-text">don't care</div>
+                <div class="canvas-welcome-text">Bored</div>
             </div>
 
             <div class="canvas-button">
                 <canvas id="welcome-feeling-sad" feeling-value="sad" class="feeling-canvas"></canvas>
-                <div class="canvas-welcome-text">dislike</div>
+                <div class="canvas-welcome-text">Sad</div>
             </div>
 
         </div>
@@ -32,22 +32,17 @@
 
     <div id="welcome-2" class="welcome-item">
         <div class="welcome-description">
-            You can discover topics of interest and add your feeling to them.
+            Signup now and discover what makes people feel and react
         </div>
 
         <div class="welcome-illustration">
-            <div class="wrapper">
-            <#if topicDatas??>
-                <img src="${topicDatas[0].thumbnail?json_string}" class="illustration"/>
-                <span>${topicDatas[0].name?json_string}</span>
-            </#if>
-            </div>
+            <img src="/static/images/show-small.png" class="illustration"/>
         </div>
     </div>
 
     <div id="welcome-3" class="welcome-item">
         <div class="welcome-description">
-            Check analytics for things you like or dislike, and react to feelings of other users.
+            It's free, and always will be!
         </div>
 
         <div class="welcome-illustration">
@@ -56,6 +51,6 @@
     </div>
 
     <div class="popup-bottom">
-        <a class="close-button" href="javascript:void(0);">OK</a>
+        <a class="signup-button" href="javascript:void(0);">SIGNUP</a>
     </div>
 </div>

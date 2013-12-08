@@ -26,8 +26,8 @@
         </div>
     <#else>
         <div id="login-panel">
-            <a id="login-button" href="javascript:void(0);">login</a>
-            <a id="signup-button" href="javascript:void(0);">signup</a>
+            <a class="login-button" href="javascript:void(0);">login</a>
+            <a class="signup-button" href="javascript:void(0);">signup</a>
         </div>
     </#if>
 

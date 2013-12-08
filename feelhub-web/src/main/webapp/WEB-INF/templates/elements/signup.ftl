@@ -41,7 +41,7 @@
     </form>
 
     <div class="popup-bottom">
-        Already have an account ? <a id="login-button" href="javascript:void(0);">LOGIN</a>
+        Already have an account ? <a class="login-button" href="javascript:void(0);">LOGIN</a>
     </div>
 
 </div>

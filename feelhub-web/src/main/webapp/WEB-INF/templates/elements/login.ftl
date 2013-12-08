@@ -32,7 +32,7 @@
     </form>
 
     <div class="popup-bottom">
-        Don't have an account ? <a id="signup-button" href="javascript:void(0);">SIGNUP</a>
+        Don't have an account ? <a class="signup-button" href="javascript:void(0);">SIGNUP</a>
     </div>
 
 </div>

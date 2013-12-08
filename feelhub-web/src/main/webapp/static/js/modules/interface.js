@@ -9,12 +9,22 @@ define(["jquery", "modules/messages", "modules/popup", "modules/filters"],
             messages.init();
             popup.init();
             filters.init();
+
             $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
             $(".fixed-panel").show();
+
             $("body").on("click", "#user", function () {
                 $(this).toggleClass("show");
                 return false;
             });
+
+            if (authentificated == false) {
+                var welcomePage = sessionStorage.getItem("welcomePage");
+                //if (welcomePage == null) {
+                    $("body").trigger("show-welcome");
+                    //sessionStorage.setItem("welcomePage", true);
+                //}
+            }
         }
 
         function add_responsive_behavior() {

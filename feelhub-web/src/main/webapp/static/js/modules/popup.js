@@ -1,8 +1,8 @@
 define(["jquery", "modules/welcome", "modules/bookmarkletinstall", "modules/authentification"], function ($, welcome, bookmarkletinstall, authentification) {
 
     var overlay_container = "#overlay";
-    var signup_button = "#signup-button";
-    var login_button = "#login-button";
+    var signup_button = ".signup-button";
+    var login_button = ".login-button";
     var close_button = ".close-button";
     var add_button = "#add-topic";
     var login_popup = "#login";
@@ -44,6 +44,11 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall", "modules/auth
         show_popup(add_popup);
     });
 
+    $("body").on("show-welcome", function (event) {
+        welcome.init();
+        show_popup(welcome_popup);
+    });
+
     $(document).keydown(function (event) {
         var code = event.keyCode || event.which;
         if (code == 27) {
@@ -57,11 +62,6 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall", "modules/auth
 
     function init() {
         authentification.init();
-
-        if ($(welcome_popup).length > 0) {
-            welcome.init();
-            show_popup(welcome_popup);
-        }
 
         if ($(bookmarkletinstall_popup).length > 0) {
             bookmarkletinstall.init();
