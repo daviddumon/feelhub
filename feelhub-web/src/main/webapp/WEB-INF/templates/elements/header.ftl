@@ -60,7 +60,7 @@
             </ul>
         </div>
         <div id="filter-from-people" class="filter select-unique">
-            <div class="top-filter">
+            <div class="top-filter disabled">
                 <div class="current-value"></div>
                 <span class="down_arrow"></span>
             </div>
@@ -70,7 +70,7 @@
             </ul>
         </div>
         <div id="filter-languages" class="filter">
-            <div class="top-filter">
+            <div class="top-filter disabled">
                 <div class="current-value"></div>
                 <span class="down_arrow"></span>
             </div>
@@ -84,7 +84,7 @@
             </ul>
         </div>
         <div id="filter-visibility" class="filter" role="button">
-            <div class="top-filter">
+            <div class="top-filter disabled">
                 <div class="current-value"></div>
                 <span class="down_arrow"></span>
             </div>
@@ -95,7 +95,7 @@
             </ul>
         </div>
         <div id="filter-tags" class="filter select-multiple">
-            <div class="top-filter">
+            <div class="top-filter disabled">
                 <div class="current-value"></div>
                 <span class="down_arrow"></span>
             </div>
@@ -104,7 +104,7 @@
             </ul>
         </div>
         <div id="filter-sources" class="filter select-unique">
-            <div class="top-filter">
+            <div class="top-filter disabled">
                 <div class="current-value"></div>
                 <span class="down_arrow"></span>
             </div>
@@ -113,7 +113,7 @@
             </ul>
         </div>
         <div id="filter-feelings" class="filter select-unique">
-            <div class="top-filter">
+            <div class="top-filter disabled">
                 <div class="current-value"></div>
                 <span class="down_arrow"></span>
             </div>
@@ -125,7 +125,7 @@
             </ul>
         </div>
         <div id="filter-safety" class="filter select-unique">
-            <div class="top-filter">
+            <div class="top-filter disabled">
                 <div class="current-value"></div>
                 <span class="down_arrow"></span>
             </div>

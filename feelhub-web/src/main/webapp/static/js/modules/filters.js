@@ -33,7 +33,7 @@ define(["jquery"],
                 }
             });
 
-            $(".top-filter").on("click", function () {
+            $(".top-filter:not('.disabled')").on("click", function () {
                 $(this).parent().children("ul").toggleClass("open");
                 $("#filters-overlay").addClass("open");
             });

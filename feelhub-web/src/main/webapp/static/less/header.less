@@ -266,6 +266,25 @@ body {
               border-top: 6px solid #444;
             }
           }
+
+          &.disabled {
+            cursor: default;
+            color: @grey-2;
+
+            .down_arrow {
+              border-top: 5px solid @grey-2;
+            }
+
+            &:hover {
+              div {
+                color: @grey-2;
+              }
+
+              .down_arrow {
+                border-top: 5px solid @grey-2;
+              }
+            }
+          }
         }
 
         ul {
