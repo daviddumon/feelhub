@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class HttpTopicAnalyzer {
 
-    public static final String SCREENSHOT_SERVICE_URL = "http://ec2-107-22-105-164.compute-1.amazonaws.com:3000";
+    public static final String SCREENSHOT_SERVICE_URL = "http://saas.feelhub.com";
 
     @Inject
     public HttpTopicAnalyzer(final Scraper scraper) {
