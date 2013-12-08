@@ -1,15 +1,18 @@
 define(["jquery", "modules/welcome", "modules/bookmarkletinstall", "modules/authentification"], function ($, welcome, bookmarkletinstall, authentification) {
 
     var overlay_container = "#overlay";
+
     var signup_button = ".signup-button";
     var login_button = ".login-button";
     var close_button = ".close-button";
-    var add_button = "#add-topic";
+    var add_button = ".add-topic-button";
+
     var login_popup = "#login";
     var signup_popup = "#signup";
     var welcome_popup = "#welcome";
-    var add_popup = "#add";
+    var add_popup = "#add-topic";
     var bookmarkletinstall_popup = "#bookmarkletinstall";
+
     var popups = ".popup";
     var canClose = true;
 
@@ -41,7 +44,7 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall", "modules/auth
     });
 
     $("body").on("click", add_button, function (event) {
-        show_popup(add_popup);
+        //show_popup(add_popup);
     });
 
     $("body").on("show-welcome", function (event) {

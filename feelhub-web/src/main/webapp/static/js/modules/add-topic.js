@@ -2,7 +2,6 @@ define(["jquery"], function ($) {
 
     var addTopic = "#add-topic";
 
-
     function init() {
         $(addTopic).find("button").on("click", create);
     }

@@ -1,5 +1,5 @@
 <header>
-    <div id="add-topic">
+    <div class="add-topic-button">
         <div id="symbol">+</div>
         <span id="add">ADD</span>
     </div>
