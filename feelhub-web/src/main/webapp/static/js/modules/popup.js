@@ -45,6 +45,7 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall", "modules/auth
 
     $("body").on("click", add_button, function (event) {
         show_popup(add_popup);
+        $("#add-topic-value").focus();
     });
 
     $("body").on("show-welcome", function (event) {
