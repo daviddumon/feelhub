@@ -54,7 +54,7 @@ public class ApiTopicsSearchResourceTest {
         final ModelAndView modelAndView = apiTopicsSearchResource.represent();
 
         assertThat(modelAndView.getTemplate()).isEqualTo("api/topics.json.ftl");
-        final List<TopicData> topicDatas = (List<TopicData>) modelAndView.getData("topicDatas");
+        final List<TopicData> topicDatas = modelAndView.getData("topicDatas");
         assertThat(topicDatas.size()).isEqualTo(2);
         assertThat(topicDatas.get(0).getId()).isEqualTo(topicA.getId().toString());
         assertThat(topicDatas.get(1).getId()).isEqualTo(topicB.getId().toString());

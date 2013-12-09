@@ -48,42 +48,9 @@ public class ApiTopicsSearchResource extends ServerResource {
         return ModelAndView.createNew("api/topics.json.ftl").with("topicDatas", datas);
     }
 
-    private UUID getUserId() {
-        WebUser webUser = CurrentUser.get();
-        if (!webUser.isAuthenticated()) {
-            return null;
-        }
-        return webUser.getUser().getId();
-    }
-
-    private String getQueryValue(Form query, String name) {
-        if (query != null) {
-            return query.getFirstValue(name, "");
-        }
-        return "";
-    }
-
     private List<TopicData> getTopicDatas(UUID userId, String order, String fromPeople, final int skip, final int limit) {
         final List<Topic> topics = getTopicsSearch(userId, order, fromPeople, skip, limit, getLanguages()).execute();
         return getTopicDatas(topics);
-    }
-
-    private List<FeelhubLanguage> getLanguages() {
-        final List<FeelhubLanguage> languages = Lists.newArrayList();
-        languages.add(FeelhubLanguage.reference());
-        languages.add(FeelhubLanguage.none());
-        if (!CurrentUser.get().getLanguage().isReference() && !CurrentUser.get().getLanguage().isNone()) {
-            languages.add(CurrentUser.get().getLanguage());
-        }
-        return languages;
-    }
-
-    private List<TopicData> getTopicDatas(List<Topic> topics) {
-        final List<TopicData> topicDatas = Lists.newArrayList();
-        for (final Topic topic : topics) {
-            topicDatas.add(topicDataFactory.topicData(topic, CurrentUser.get().getLanguage()));
-        }
-        return topicDatas;
     }
 
     private TopicSearch getTopicsSearch(UUID userId, String order, String fromPeople, int skip, int limit, List<FeelhubLanguage> languages) {
@@ -97,6 +64,39 @@ public class ApiTopicsSearchResource extends ServerResource {
                 .withLimit(limit)
                 .withSkip(skip)
                 .withLanguages(languages);
+    }
+
+    private List<TopicData> getTopicDatas(List<Topic> topics) {
+        final List<TopicData> topicDatas = Lists.newArrayList();
+        for (final Topic topic : topics) {
+            topicDatas.add(topicDataFactory.topicData(topic, CurrentUser.get().getLanguage()));
+        }
+        return topicDatas;
+    }
+
+    private List<FeelhubLanguage> getLanguages() {
+        final List<FeelhubLanguage> languages = Lists.newArrayList();
+        languages.add(FeelhubLanguage.reference());
+        languages.add(FeelhubLanguage.none());
+        if (!CurrentUser.get().getLanguage().isReference() && !CurrentUser.get().getLanguage().isNone()) {
+            languages.add(CurrentUser.get().getLanguage());
+        }
+        return languages;
+    }
+
+    private String getQueryValue(Form query, String name) {
+        if (query != null) {
+            return query.getFirstValue(name, "");
+        }
+        return "";
+    }
+
+    private UUID getUserId() {
+        WebUser webUser = CurrentUser.get();
+        if (!webUser.isAuthenticated()) {
+            return null;
+        }
+        return webUser.getUser().getId();
     }
 
     private final TopicSearch topicSearch;
