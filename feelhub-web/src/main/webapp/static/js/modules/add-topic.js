@@ -3,18 +3,23 @@ define(["jquery"], function ($) {
     var addTopic = "#add-topic";
 
     function init() {
-        $(addTopic).find("button").on("click", create);
+        $("#add-topic-submit").on("click", create);
     }
 
     function create(e) {
-        console.log("test");
-        $.ajax({
-            url: root + "/api/topics",
-            type: "POST",
-            data: {"name": value()},
-            success:create_succes,
-            error:error
-        });
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var anything = value();
+
+        if (anything != "") {
+            $.ajax({
+                url: root + "/api/topics",
+                type: "POST",
+                data: {"name": anything},
+                success: create_succes,
+                error: error
+            });
+        }
         return false
     }
 

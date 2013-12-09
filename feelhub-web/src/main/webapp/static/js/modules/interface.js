@@ -1,6 +1,6 @@
-define(["jquery", "modules/messages", "modules/popup", "modules/filters"],
+define(["jquery", "modules/messages", "modules/popup", "modules/filters", "modules/add-topic"],
 
-    function ($, messages, popup, filters) {
+    function ($, messages, popup, filters, addtopic) {
 
         var doit;
 
@@ -9,6 +9,7 @@ define(["jquery", "modules/messages", "modules/popup", "modules/filters"],
             messages.init();
             popup.init();
             filters.init();
+            addtopic.init();
 
             $(".fixed-panel").css("top", $(window).height() / 2 - $(".fixed-panel").height() / 2);
             $(".fixed-panel").show();

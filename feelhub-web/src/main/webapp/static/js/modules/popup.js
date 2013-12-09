@@ -44,7 +44,7 @@ define(["jquery", "modules/welcome", "modules/bookmarkletinstall", "modules/auth
     });
 
     $("body").on("click", add_button, function (event) {
-        //show_popup(add_popup);
+        show_popup(add_popup);
     });
 
     $("body").on("show-welcome", function (event) {
