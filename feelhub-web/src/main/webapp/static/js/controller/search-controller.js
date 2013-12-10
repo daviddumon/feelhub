@@ -24,6 +24,4 @@ require(["jquery", "plugins/domReady!", "modules/interface", "view/topic-view"],
                 view.render_multiple(data, container);
             }
         });
-
-
     });

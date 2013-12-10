@@ -23,7 +23,7 @@ var query = "${query}";
 <#include 'elements/login.ftl'/>
 <#include 'elements/signup.ftl'/>
 <#include 'elements/add.ftl'/>
-<#--<#include 'elements/header.ftl'/>-->
+<#include 'elements/header.ftl'/>
 <ul id="flow">
 </ul>
 </@base.body>

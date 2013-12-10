@@ -2,14 +2,12 @@ package com.feelhub.web.resources.api.topics;
 
 import com.feelhub.domain.topic.Topic;
 import com.feelhub.web.authentification.CurrentUser;
-import com.feelhub.web.dto.TopicData;
-import com.feelhub.web.dto.TopicDataFactory;
+import com.feelhub.web.dto.*;
 import com.feelhub.web.representation.ModelAndView;
 import com.feelhub.web.search.TopicFullTextSearch;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import org.restlet.resource.Get;
-import org.restlet.resource.ServerResource;
+import org.restlet.resource.*;
 
 import java.util.List;
 
