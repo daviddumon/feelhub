@@ -1,0 +1,254 @@
+
+body {
+
+  #flow {
+    margin: 94px auto;
+    max-width: 612px;
+
+    li.flow-element {
+      text-align: center;
+      height: auto;
+      padding: 12px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      max-width: 612px;
+
+      a {
+        display: block;
+        padding: 12px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        .rounded();
+        background-color: @white;
+        overflow: auto;
+        position: relative;
+
+        .new {
+          position: absolute;
+          top: -1px;
+          left: -1px;
+          width: 48px;
+          height: 48px;
+          background-image: url('/static/images/feelhub.png');
+          background-repeat: no-repeat;
+          background-position: -164px 0px;
+          z-index: 500;
+        }
+
+        .topic-element {
+          width: 80%;
+          float: left;
+          display: block;
+          position: relative;
+
+          .wrapper {
+            position: relative;
+            overflow: hidden;
+
+            img.illustration {
+              vertical-align: top;
+              width: 100%;
+            }
+
+            span {
+              position: absolute;
+              display: block;
+              width: 100%;
+              bottom: 0px;
+              left: 0px;
+              background: @grey-4;
+              background: rgba(0, 0, 0, .5);
+              color: @white;
+              overflow: hidden;
+              .font_span();
+              text-align: center;
+              font-size: @font-2;
+              min-height: 19.4px;
+              max-height: 38%;
+              line-height: 1.6875;
+            }
+          }
+        }
+
+        .small-analytics {
+          float: left;
+          width: 18%;
+          max-width: 20%;
+          overflow: hide;
+          padding-left: 2%;
+          text-align: center;
+
+          .popularity {
+            width: 51px;
+            height: 51px;
+            background-image: url('/static/images/feelhub.png');
+            background-repeat: no-repeat;
+            margin: 20px auto;
+          }
+
+          .popularity-1 {
+            background-position: 0px -96px;
+          }
+
+          .popularity-2 {
+            background-position: -52px -96px;
+          }
+
+          .popularity-3 {
+            background-position: -104px -96px;
+          }
+
+          .popularity-4 {
+            background-position: -156px -96px;
+          }
+
+          .popularity-5 {
+            background-position: -208px -96px;
+          }
+
+          canvas {
+            width: 100%;
+          }
+
+          #counter {
+            display: block;
+            .font_logo;
+            font-size: @font-2;
+            vertical-align: top;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+  @media all and (min-width: 529px) and (max-width: 792px) {
+    a {
+
+      .topic-element {
+
+        .wrapper {
+
+          span {
+            font-size: @font-3 !important;
+            min-height: 31.4px !important;
+          }
+        }
+      }
+
+      .small-analytics {
+
+        #counter {
+          font-size: @font-3 !important;
+        }
+      }
+    }
+  }
+
+  @media all and (min-width: 1058px) and (max-width: 1224px) {
+    a {
+
+      .topic-element {
+
+        .wrapper {
+
+          span {
+            font-size: @font-3 !important;
+            min-height: 31.4px !important;
+          }
+        }
+      }
+
+      .small-analytics {
+
+        #counter {
+          font-size: @font-3 !important;
+        }
+      }
+    }
+  }
+
+  @media all and (min-width: 1623px) and (max-width: 1836px) {
+    a {
+
+      .topic-element {
+
+        .wrapper {
+
+          span {
+            font-size: @font-3 !important;
+            min-height: 31.4px !important;
+          }
+        }
+      }
+
+      .small-analytics {
+
+        #counter {
+          font-size: @font-3 !important;
+        }
+      }
+    }
+  }
+
+  @media all and (min-width: 2368px) {
+    a {
+
+      .topic-element {
+
+        .wrapper {
+
+          span {
+            font-size: @font-3 !important;
+            min-height: 31.4px !important;
+          }
+        }
+      }
+
+      .small-analytics {
+
+        #counter {
+          font-size: @font-3 !important;
+        }
+      }
+    }
+  }
+
+  @media all and (min-width: 792px) {
+
+    #flow {
+      max-width: 1224px !important;
+
+      li.flow-element {
+        float: left !important;
+        width: 50% !important;
+
+        a {
+          width: 100% !important;
+        }
+      }
+    }
+  }
+
+  @media all and (min-width: 1224px) {
+
+    #flow {
+      max-width: 1836px !important;
+
+      li.flow-element {
+        width: 33% !important;
+      }
+    }
+  }
+
+  @media all and (min-width: 1836px) {
+
+    #flow {
+      max-width: 2448px !important;
+
+      li.flow-element {
+        width: 25% !important;
+      }
+    }
+  }
+}

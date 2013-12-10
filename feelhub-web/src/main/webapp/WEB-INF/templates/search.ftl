@@ -10,7 +10,7 @@ var query = "${query}";
 </@base.head_production>
 
 <@base.head_development>
-<link rel="stylesheet/less" type="text/css" href="${root}/static/css/home.less?cache=${buildtime}"/>
+<link rel="stylesheet/less" type="text/css" href="${root}/static/css/search.less?cache=${buildtime}"/>
 <script type="text/javascript" data-main="${root}/static/js/controller/search-controller"
         src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@base.head_development>
