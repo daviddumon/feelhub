@@ -4,7 +4,7 @@ var query = "${query}";
 </@base.head_begin>
 
 <@base.head_production>
-<link rel="stylesheet" href="${root}/static/css/home.css?cache=${buildtime}"/>
+<link rel="stylesheet" href="${root}/static/css/search.css?cache=${buildtime}"/>
 <script type="text/javascript" data-main="${root}/static/js/controller-built/search-controller"
         src="${root}/static/js/require.js?cache=${buildtime}"></script>
 </@base.head_production>
