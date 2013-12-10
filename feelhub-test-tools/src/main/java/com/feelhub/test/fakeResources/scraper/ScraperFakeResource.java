@@ -1,5 +1,6 @@
 package com.feelhub.test.fakeResources.scraper;
 
+import org.restlet.data.MediaType;
 import org.restlet.representation.*;
 import org.restlet.resource.*;
 
@@ -55,6 +56,6 @@ public class ScraperFakeResource extends ServerResource {
                 "<h3>name h3</h3>" +
                 "</body>" +
                 "</html>";
-        return new StringRepresentation(html);
+        return new StringRepresentation(html, MediaType.TEXT_HTML);
     }
 }

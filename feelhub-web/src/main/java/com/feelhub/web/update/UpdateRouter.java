@@ -4,6 +4,7 @@ import com.feelhub.web.guice.GuiceFinder;
 import com.google.inject.Injector;
 import org.restlet.Context;
 import org.restlet.resource.Finder;
+import org.restlet.resource.ServerResource;
 import org.restlet.routing.Router;
 
 public class UpdateRouter extends Router {
@@ -16,7 +17,7 @@ public class UpdateRouter extends Router {
     }
 
     @Override
-    public Finder createFinder(final Class<?> targetClass) {
+    public Finder createFinder(final Class<? extends ServerResource> targetClass) {
         return new GuiceFinder(getContext(), targetClass, injector);
     }
 

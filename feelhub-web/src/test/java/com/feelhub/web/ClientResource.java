@@ -1,13 +1,17 @@
 package com.feelhub.web;
 
-import org.restlet.*;
-import org.restlet.data.*;
+import org.restlet.Request;
+import org.restlet.Response;
+import org.restlet.Restlet;
+import org.restlet.data.ChallengeResponse;
+import org.restlet.data.Method;
+import org.restlet.data.Reference;
 import org.restlet.engine.util.CookieSeries;
 import org.restlet.representation.Representation;
-import org.restlet.resource.UniformResource;
+import org.restlet.resource.Resource;
 import org.restlet.service.ConverterService;
 
-public class ClientResource extends UniformResource {
+public class ClientResource extends Resource {
 
     public ClientResource(final String uri, final Restlet application) {
         this.reference = new Reference(uri);
@@ -65,6 +69,11 @@ public class ClientResource extends UniformResource {
     }
 
     @Override
+    public String getAttribute(String s) {
+        return "";
+    }
+
+    @Override
     public Representation handle() {
         final Request request = getRequest();
         if (withSecurity()) {
@@ -72,6 +81,11 @@ public class ClientResource extends UniformResource {
         }
         application.handle(request, getResponse());
         return getResponse().getEntity();
+    }
+
+    @Override
+    public void setAttribute(String s, Object o) {
+
     }
 
     private boolean withSecurity() {

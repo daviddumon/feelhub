@@ -51,7 +51,7 @@ public class FeelhubRouter extends Router {
     private void attachWithSecurity(final String path, final Class next) {
         final Router admingRouter = new Router(getContext()) {
             @Override
-            public Finder createFinder(final Class<?> targetClass) {
+            public Finder createFinder(final Class<? extends ServerResource> targetClass) {
                 return new GuiceFinder(getContext(), targetClass, injector);
             }
         };
@@ -90,12 +90,13 @@ public class FeelhubRouter extends Router {
         attach("/social/google", GoogleResource.class);
         attach("/getbookmarklet", InstallBookmarkletResource.class);
         attach("/bookmarklet", BookmarkletResource.class);
+        attach("/search", SearchResource.class);
         attach("/", HomeResource.class);
     }
 
     @Override
-    public Finder createFinder(final Class<?> targetClass) {
-        return new GuiceFinder(getContext(), targetClass, injector);
+    public Finder createFinder(Class<? extends ServerResource> resourceClass) {
+        return new GuiceFinder(getContext(), resourceClass, injector);
     }
 
     private void attachEncodedValue(final String pathTemplate, final Class<? extends ServerResource> targetClass) {

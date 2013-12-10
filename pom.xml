@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <restlet.version>2.0.15</restlet.version>
+        <restlet.version>2.1.6</restlet.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mongolink.version>1.0.1</mongolink.version>
         <buildtime>${maven.build.timestamp}</buildtime>
@@ -158,6 +158,11 @@
             <dependency>
                 <groupId>org.restlet.jee</groupId>
                 <artifactId>org.restlet.ext.json</artifactId>
+                <version>${restlet.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.restlet.jse</groupId>
+                <artifactId>org.restlet.ext.simple</artifactId>
                 <version>${restlet.version}</version>
             </dependency>
             <dependency>

@@ -27,13 +27,13 @@ define(["jquery", "view/topic-view", "modules/filters"], function ($, view, filt
             load_data();
         }
 
-	function filters_query() {
-	    return "&order=" + filters.getFilter("filter-order") + "&from-people=" + filters.getFilter("filter-from-people")
-	}
+        function filters_query() {
+            return "&order=" + filters.getFilter("filter-order") + "&from-people=" + filters.getFilter("filter-from-people")
+        }
 
         function load_data() {
             oldHeight = $(document).height();
-	    var uri = root + "/api/topics/search?"+ "skip=" + skip + "&limit=" + limit + filters_query();
+            var uri = root + "/api/topics/search?" + "skip=" + skip + "&limit=" + limit + filters_query();
             $.getJSON(uri, function (data) {
                 if (data.length > 0) {
                     skip += limit;

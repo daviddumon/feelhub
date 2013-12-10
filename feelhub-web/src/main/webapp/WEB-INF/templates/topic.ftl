@@ -40,7 +40,7 @@ var initial_datas = [
 </@base.head_end>
 
 <@base.body>
-<div id="overlay"></div>
+    <div id="overlay"></div>
     <#include 'elements/login.ftl'/>
     <#include 'elements/signup.ftl'/>
     <#include 'elements/add.ftl'/>
