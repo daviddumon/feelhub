@@ -1,6 +1,7 @@
 package com.feelhub.domain.thesaurus;
 
 import com.google.common.base.*;
+import com.google.common.base.Objects;
 import com.google.common.collect.*;
 import com.memetix.mst.language.Language;
 import org.apache.commons.lang.*;
