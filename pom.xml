@@ -42,6 +42,7 @@
                 <facebook.appId>160446520766643</facebook.appId>
                 <google.appSecret>XjTZO_1lbTGpJkH90Fx_Q3im</google.appSecret>
                 <google.appId>443870691929.apps.googleusercontent.com</google.appId>
+                <graylog2server>127.0.0.1</graylog2server>
             </properties>
         </profile>
         <profile>
@@ -57,6 +58,7 @@
                 <facebook.appId>160446520766643</facebook.appId>
                 <google.appSecret>XjTZO_1lbTGpJkH90Fx_Q3im</google.appSecret>
                 <google.appId>443870691929.apps.googleusercontent.com</google.appId>
+                <graylog2server>127.0.0.1</graylog2server>
             </properties>
         </profile>
         <profile>
@@ -72,6 +74,7 @@
                 <facebook.appId>114190192104578</facebook.appId>
                 <google.appSecret>6-WX8ZwU8LQmxy0HJKHb766q</google.appSecret>
                 <google.appId>443870691929-dckpivd0313p7943df3bipl3rcp5jbd4.apps.googleusercontent.com</google.appId>
+                <graylog2server>37.187.82.17</graylog2server>
             </properties>
         </profile>
 

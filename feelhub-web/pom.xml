@@ -29,7 +29,6 @@
 				<cookiepermanenttime>7200</cookiepermanenttime>
 				<sessionbasetime>600</sessionbasetime>
 				<sessionpermanenttime>7200</sessionpermanenttime>
-				<graylog2server>127.0.0.1</graylog2server>
 			</properties>
 		</profile>
 		<profile>
@@ -58,7 +57,6 @@
 				<cookiepermanenttime>157680000</cookiepermanenttime>
 				<sessionbasetime>86400</sessionbasetime>
 				<sessionpermanenttime>157680000</sessionpermanenttime>
-				<graylog2server>37.187.82.17</graylog2server>
 			</properties>
 		</profile>
 		<profile>
