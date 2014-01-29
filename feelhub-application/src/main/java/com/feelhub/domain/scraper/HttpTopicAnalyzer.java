@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class HttpTopicAnalyzer {
 
-    public static final String SCREENSHOT_SERVICE_URL = "http://saas.feelhub.com";
+    public static final String SCREENSHOT_SERVICE_URL = "http://feelhub-saas.herokuapp.com/";
 
     @Inject
     public HttpTopicAnalyzer(final Scraper scraper) {

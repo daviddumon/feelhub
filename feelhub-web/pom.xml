@@ -22,7 +22,6 @@
 			<properties>
 				<dev>true</dev>
 				<domain>http://localtest.me:8080</domain>
-				<sitemapBuilder>http://localhost:8081/feelhub-sitemap</sitemapBuilder>
 				<cookie>.localtest.me</cookie>
 				<secureMode>false</secureMode>
 				<cookiebasetime>-1</cookiebasetime>
@@ -36,8 +35,7 @@
 			<properties>
 				<dev>false</dev>
 				<domain>http://test.feelhub.net</domain>
-				<sitemapBuilder>http://test.feelhub.net/sitemaps</sitemapBuilder>
-				<cookie>http://test.feelhub.net/sitemaps</cookie>
+				<cookie>.feelhub.net</cookie>
 				<secureMode>false</secureMode>
 				<cookiebasetime>-1</cookiebasetime>
 				<cookiepermanenttime>157680000</cookiepermanenttime>
@@ -50,7 +48,6 @@
 			<properties>
 				<dev>false</dev>
 				<domain>https://www.feelhub.com</domain>
-				<sitemapBuilder>http://23.21.113.241</sitemapBuilder>
 				<cookie>.feelhub.com</cookie>
 				<secureMode>true</secureMode>
 				<cookiebasetime>-1</cookiebasetime>
