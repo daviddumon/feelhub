@@ -57,7 +57,7 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>web-test-deploy</id>
+			<id>web-aws-deploy</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -74,7 +74,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<executable>${basedir}/scripts/web-test-deploy.sh</executable>
+							<executable>${basedir}/scripts/web-aws-deploy.sh</executable>
 							<arguments>
 								<argument>${maven.build.timestamp}</argument>
 							</arguments>
