@@ -64,7 +64,7 @@
         <profile>
             <id>production</id>
             <properties>
-                <dbAddresses>94.23.1.69:27017</dbAddresses>
+                <dbAddresses>127.0.0.1:27017</dbAddresses>
                 <dbName>feelhub</dbName>
                 <alchemyApiKey>e9bbb7fe647375f4b1d634f74d203283e6749230</alchemyApiKey>
                 <cloudinaryName>feelhub</cloudinaryName>
